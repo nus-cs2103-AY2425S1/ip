@@ -10,22 +10,27 @@ import java.util.ArrayList;
  */
 public class Ui {
 
+    // Constructor
+    public Ui() {
+        System.out.println("Ui object created.");
+    }
+
     /**
      * Prints a line separator to the console.
      */
-    private static void printLine() {
-        System.out.println("---------------------------------------------");
+    private String printLine() {
+        return "---------------------------------------------";
     }
 
     /**
      * Displays the welcome message when the application starts.
      */
-    public static void welcomeMessage() {
+    public String welcomeMessage() {
         // Greeting the users
-        printLine();
-        System.out.println("Nuffle > Good day! I'm Nuffle.");
-        System.out.println("Nuffle > What can I do for you today?");
-        printLine();
+        return printLine() +
+                "Nuffle > Good day! I'm Nuffle.\n" +
+                "Nuffle > What can I do for you today?\n" +
+                printLine();
     }
 
     /**
@@ -33,20 +38,20 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public static void markTaskMessage(Task task) {
-        printLine();
-        System.out.println("Nice! I have marked this task as done!");
-        System.out.println(" " + task);
-        printLine();
+    public String markTaskMessage(Task task) {
+        return printLine() +
+                "Nice! I have marked this task as done!\n" +
+                " " + task + "\n" +
+                printLine();
     }
 
     /**
      * Displays an error message if there was an issue with marking a task.
      */
-    public static void markTaskError() {
-        printLine();
-        System.out.println("Opps! There appears to be an index error!");
-        printLine();
+    public String markTaskError() {
+        return printLine() +
+                "Opps! There appears to be an index error!\n" +
+                printLine();
     }
 
     /**
@@ -54,20 +59,20 @@ public class Ui {
      *
      * @param task The task that has been marked as not done.
      */
-    public static void unmarkTaskMessage(Task task) {
-        printLine();
-        System.out.println("OK! I have marked this task as not done yet.");
-        System.out.println(" " + task);
-        printLine();
+    public String unmarkTaskMessage(Task task) {
+        return printLine() +
+                "OK! I have marked this task as not done yet.\n" +
+                " " + task + "\n" +
+                printLine();
     }
 
     /**
      * Displays an error message if there was an issue with unmarking a task.
      */
-    public static void unmarkTaskError() {
-        printLine();
-        System.out.println("Opps! There appears to be an index error!");
-        printLine();
+    public String unmarkTaskError() {
+        return printLine() +
+                "Opps! There appears to be an index error!\n" +
+                printLine();
     }
 
     /**
@@ -76,12 +81,12 @@ public class Ui {
      * @param task The task that was added.
      * @param listSize The current size of the task list.
      */
-    public static void addTaskMessage(Task task, int listSize) {
-        printLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + listSize + " tasks in the list.");
-        printLine();
+    public String addTaskMessage(Task task, int listSize) {
+        return printLine() +
+                " Got it. I've added this task:\n" +
+                "   " + task + "\n" +
+                " Now you have " + listSize + " tasks in the list.\n" +
+                printLine();
     }
 
     /**
@@ -90,30 +95,30 @@ public class Ui {
      * @param task The task that was removed.
      * @param listSize The current size of the task list after removal.
      */
-    public static void deleteTaskMessage(Task task, int listSize) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + listSize + " tasks in the list.");
-        printLine();
+    public String deleteTaskMessage(Task task, int listSize) {
+        return printLine() +
+                "Noted. I've removed this task:\n" +
+                "   " + task + "\n" +
+                "Now you have " + listSize + " tasks in the list.\n" +
+                printLine();
     }
 
     /**
      * Displays an error message if there was an issue with deleting a task.
      */
-    public static void deleteTaskError() {
-        printLine();
-        System.out.println("Hmmm... The index provided seems to be out of range. Please try again.");
-        printLine();
+    public String deleteTaskError() {
+        return printLine() +
+                "Hmmm... The index provided seems to be out of range. Please try again.\n" +
+                printLine();
     }
 
     /**
      * Displays the goodbye message when the application exits.
      */
-    public static void byeMessage() {
-        printLine();
-        System.out.println("Nuffle > Bye. Hope to see you again soon!");
-        printLine();
+    public String byeMessage() {
+        return printLine() +
+                "Nuffle > Bye. Hope to see you again soon!\n" +
+                printLine();
     }
 
     /**
@@ -121,21 +126,23 @@ public class Ui {
      *
      * @param e The exception that was caught.
      */
-    public static void exceptionErrorMessage(NuffleException e) {
-        printLine();
-        System.out.println("Nuffle caught an error > " + e.getMessage());
-        printLine();
+    public String exceptionErrorMessage(NuffleException e) {
+        return printLine() +
+                "Nuffle caught an error > " + e.getMessage() + "\n" +
+                printLine();
     }
 
-    public static void displayFoundTasks(ArrayList<Task> inputList) {
+    public String displayFoundTasks(ArrayList<Task> inputList) {
+        StringBuilder message = new StringBuilder();
         if (inputList.isEmpty()) {
-            System.out.println("Opps! Seems like there is no matching tasks.");
+            message.append("Opps! Seems like there are no matching tasks.\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            message.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < inputList.size(); i++) {
-                System.out.println((i + 1) + ". " + inputList.get(i));
+                message.append((i + 1)).append(". ").append(inputList.get(i)).append("\n");
             }
         }
+        return message.toString();
     }
 
 }

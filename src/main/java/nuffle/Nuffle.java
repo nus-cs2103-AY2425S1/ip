@@ -16,10 +16,13 @@ public class Nuffle {
 
     private TaskList inputList;
 
+    private Ui ui;
+
     public Nuffle(String filePath) {
         try {
             this.storage = new Storage(filePath);
             this.inputList = new TaskList(this.storage.load());
+            this.ui = new Ui();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -28,16 +31,19 @@ public class Nuffle {
     /**
      * This method will print out all the task that is stored in the inputList
      */
-    private void outputList() {
+    private String outputList() {
+        StringBuilder output = new StringBuilder();
+
         // If there is no user input in the list
         if (inputList.getInputList().isEmpty()) {
-            System.out.println("List is empty. No input added.");
+            output.append("List is empty. No input added.");
         } else {
-            // Iterate over the list to print out all the user inputs
+            // Iterate over the list to construct the output string with all user inputs
             for (int index = 0; index < inputList.getSize(); index++) {
-                System.out.println("" + (index + 1) + ". " + inputList.getTask(index));
+                output.append(index + 1).append(". ").append(inputList.getTask(index)).append("\n");
             }
         }
+        return output.toString();
     }
 
     /**
@@ -45,17 +51,18 @@ public class Nuffle {
      *
      * @param index the index of the task to mark
      */
-    private void markTask(int index) {
-
+    private String markTask(int index) {
+        String response;
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
             Task currTask = inputList.getTask(index);
             currTask.markAsDone();
-            Ui.markTaskMessage(currTask);
+            response = ui.markTaskMessage(currTask);
         } else {
             // print as error message
-            Ui.markTaskError();
+            response = ui.markTaskError();
         }
+        return response;
     }
 
 
@@ -64,17 +71,18 @@ public class Nuffle {
      *
      * @param index the index of the task to unmark
      */
-    private void unMarkTask(int index) {
-
+    private String unMarkTask(int index) {
+        String response;
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
             Task currTask = inputList.getTask(index);
             currTask.markNotDone();
-            Ui.unmarkTaskMessage(currTask);
+            response = ui.unmarkTaskMessage(currTask);
         } else {
             // print as error message
-            Ui.unmarkTaskError();
+            response = ui.unmarkTaskError();
         }
+        return response;
     }
 
     /**
@@ -82,9 +90,9 @@ public class Nuffle {
      *
      * @param task which is Task object
      */
-    private void addTaskToList(Task task) {
+    private String addTaskToList(Task task) {
         inputList.addTask(task);
-        Ui.addTaskMessage(task, inputList.getSize());
+        return ui.addTaskMessage(task, inputList.getSize());
     }
 
     /**
@@ -92,91 +100,85 @@ public class Nuffle {
      *
      * @param index which is the index of the task to be removed
      */
-    private void deleteTask(int index) {
-
-
+    private String deleteTask(int index) {
         // first, check if the provided index is valid or not
         if (index >= 0 && index < inputList.getSize()) {
             Task remove = inputList.deleteTask(index);
-            Ui.deleteTaskMessage(remove, inputList.getSize());
+            return ui.deleteTaskMessage(remove, inputList.getSize());
         } else {
             // if the index is not in range, then print an error message
-            Ui.deleteTaskError();
+            return ui.deleteTaskError();
         }
     }
 
-    public void run() throws IOException {
-        // This will be starting point of the application
-        Ui.welcomeMessage();
+    public String greetUser() {
+        return ui.welcomeMessage();
+    }
 
-        //Variable to store user inputs
-        String userInput;
+    public String getResponse(String input) throws IOException {
+        return responseHandler(input);
+    }
 
-        // Create a scanner for user input
-        Scanner user_s = new Scanner(System.in);
+    public String responseHandler(String userInput) throws IOException {
+        String response = null;
 
-        // Read the user input until the command "bye" is provided by the user
-        while (true) {
-            // Get the user input from the scanner
-            userInput = user_s.nextLine();
-            try {
-                // Check if the user input provided is "bye", has to be lowercase
-                if (userInput.equals("bye")) {
-                    // Program will exit
-                    Ui.byeMessage();
-                    break;
-                } else if (userInput.equals("list")) {
-                    // Program will list all the tasks that was input by the user
-                    System.out.println("Here are the tasks in your list: ");
-                    outputList();
-                } else if (userInput.startsWith("mark")) {
-                    // Program will mark the specified task based on the index provided
+        try {
+            // Check if the user input provided is "bye", has to be lowercase
+            if (userInput.equals("bye")) {
+                // Program will exit
+                response = ui.byeMessage();
+            } else if (userInput.equals("list")) {
+                // Program will list all the tasks that was input by the user
+                System.out.println("Here are the tasks in your list: ");
+                response = outputList();
+            } else if (userInput.startsWith("mark")) {
+                // Program will mark the specified task based on the index provided
 
-                    int index = Integer.parseInt(userInput.substring(5)) - 1;
-                    markTask(index);
-                } else if (userInput.startsWith("unmark")) {
-                    // Program will unmark the specified task based on the index provided
+                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                response = markTask(index);
+            } else if (userInput.startsWith("unmark")) {
+                // Program will unmark the specified task based on the index provided
 
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    unMarkTask(index);
-                } else if (userInput.startsWith("delete")) {
-                    // Program will delete the specified task based on the index provided
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                response = unMarkTask(index);
+            } else if (userInput.startsWith("delete")) {
+                // Program will delete the specified task based on the index provided
 
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    deleteTask(index);
-                } else if (userInput.startsWith("todo")) {
-                    Task newTask = Parser.parseTodoCommand(userInput);
-                    if (newTask != null) {
-                        addTaskToList(newTask);
-                    }
-                } else if (userInput.startsWith("deadline")) {
-                    // Program will add a deadline task to the list
-                    Task newTask = Parser.parseDeadlineCommand(userInput);
-                    if (newTask != null) {
-                        addTaskToList(newTask);
-                    }
-                } else if (userInput.startsWith("event")) {
-                    // Program will add an event task to the list
-                    Task newTask = Parser.parseEventCommand(userInput);
-                    if (newTask != null) {
-                        addTaskToList(newTask);
-                    }
-                } else if (userInput.startsWith("find")) {
-                    // get the description and parse as argument to the find function
-                    ArrayList<Task> foundTasks = Parser.parseFindCommand(userInput, inputList);
-                    Ui.displayFoundTasks(foundTasks);
-                } else {
-                    throw NuffleException.unknown();
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                response = deleteTask(index);
+            } else if (userInput.startsWith("todo")) {
+                Task newTask = Parser.parseTodoCommand(userInput);
+                if (newTask != null) {
+                    response = addTaskToList(newTask);
                 }
-            } catch (NuffleException e) {
-                Ui.exceptionErrorMessage(e);
+            } else if (userInput.startsWith("deadline")) {
+                // Program will add a deadline task to the list
+                Task newTask = Parser.parseDeadlineCommand(userInput);
+                if (newTask != null) {
+                    response = addTaskToList(newTask);
+                }
+            } else if (userInput.startsWith("event")) {
+                // Program will add an event task to the list
+                Task newTask = Parser.parseEventCommand(userInput);
+                if (newTask != null) {
+                    response = addTaskToList(newTask);
+                }
+            } else if (userInput.startsWith("find")) {
+                // get the description and parse as argument to the find function
+                ArrayList<Task> foundTasks = Parser.parseFindCommand(userInput, inputList);
+                response = ui.displayFoundTasks(foundTasks);
+            } else {
+                throw NuffleException.unknown();
             }
+        } catch (NuffleException e) {
+            System.out.println("hi");
+            response = ui.exceptionErrorMessage(e);
         }
-        storage.save(inputList.getInputList());
-        user_s.close();
 
+        storage.save(inputList.getInputList());
+        return response;
     }
-    public static void main(String[] args) throws IOException {
-        new Nuffle("./data/Nuffle.txt").run();
+    public static void main(String[] args) {
+        new Nuffle("./data/Nuffle.txt");
     }
 }
