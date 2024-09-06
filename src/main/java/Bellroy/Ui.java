@@ -41,7 +41,8 @@ public class Ui {
      * @param task to be added to the list
      * @param size number of tasks after adding this task
      */
-    public void taskAddedMessage(Task task, int size) {
+
+    public void printTaskAddedMessage(Task task, int size) {
         System.out.printf("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "     %s\n" +
@@ -65,18 +66,17 @@ public class Ui {
      * prints out message to show that the task is marked as done
      * @param task to mark as done
      */
-    public void markedDone(Task task) {
+    public void markDone(Task task) {
         System.out.println("    ____________________________________________________________\n" +
                 "     Nice! I've marked this task as done:\n" +
                 "     " + task.toString() + "\n" +
                 "    ____________________________________________________________\n");
     }
-
     /**
      *  prints out message to show that the task is marked as undone
      * @param task to mark as undone
      */
-    public void markedUndone(Task task) {
+    public void markUndone(Task task) {
         System.out.println("    ____________________________________________________________\n" +
                 "     OK, I've marked this task as not done yet:\n" +
                 "     " + task.toString() + "\n" +
@@ -88,7 +88,7 @@ public class Ui {
      * @param task to be deleted
      * @param size number of tasks remaining after deletion
      */
-    public void taskDeleted(Task task, int size) {
+    public void printTaskDeleted(Task task, int size) {
         System.out.printf("    ____________________________________________________________\n" +
                 "     Got it. I've removed this task:\n" +
                 "       " + task + "\n" +
