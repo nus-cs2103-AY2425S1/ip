@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
 import mortalreminder.io.Parser;
 import mortalreminder.tasks.Task;
 

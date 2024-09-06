@@ -27,7 +27,8 @@ public class MortalReminderWindow extends AnchorPane {
     private MortalReminder mortalReminder;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Darius.png"));
-    private Image mortalReminderImage = new Image(this.getClass().getResourceAsStream("/images/MortalReminder.png"));
+    private Image mortalReminderImage = new Image(this.getClass()
+            .getResourceAsStream("/images/MortalReminder.png"));
 
     @FXML
     public void initialize() {

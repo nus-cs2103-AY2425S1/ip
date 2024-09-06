@@ -1,9 +1,9 @@
 package mortalreminder.tasks;
 
-import mortalreminder.errorhandling.MortalReminderException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import mortalreminder.errorhandling.MortalReminderException;
 
 // Class and constructor JavaDocs was autocompleted using ChatGPT with minor edits
 

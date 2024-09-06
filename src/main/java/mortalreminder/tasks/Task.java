@@ -1,9 +1,9 @@
 package mortalreminder.tasks;
 
+import java.util.Objects;
+
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
-
-import java.util.Objects;
 
 // solution is adapted from the Course Level 3 extension
 // class and constructor Javadocs were autocompleted using ChatGPT

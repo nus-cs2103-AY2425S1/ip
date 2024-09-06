@@ -30,6 +30,12 @@ public class MortalReminder {
         return FormattedPrinting.welcome();
     }
 
+    /**
+     * Initialises the execution of a command and returns the feedback message from the processor.
+     *
+     * @param command command created using the parser.
+     * @return the string response from the chatbot after command has been executed.
+     */
     public String executeCommand(Command command) {
         try {
             return processor.handleCommand(command, taskList);

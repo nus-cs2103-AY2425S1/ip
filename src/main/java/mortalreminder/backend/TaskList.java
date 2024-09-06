@@ -1,10 +1,8 @@
 package mortalreminder.backend;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import mortalreminder.MortalReminder;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Task;
