@@ -1,8 +1,8 @@
 package seedu.ui;
 
-import seedu.task.Task;
-
 import java.util.ArrayList;
+
+import seedu.task.Task;
 
 /**
  * The {@code Ui} class handles all interactions with the user. It provides methods to display
@@ -39,7 +39,7 @@ public class Formatter {
      * @param t The task that was marked as done.
      */
     public String markTaskUi(Task t) {
-        return "Nice! I've marked this task as done:\n" +  t.toString();
+        return "Nice! I've marked this task as done:\n" + t.toString();
     }
 
     /**
@@ -58,7 +58,7 @@ public class Formatter {
      * @param size The current size of the task list after removing the task.
      */
     public String deleteTaskUi(Task t, int size) {
-        return "Noted. I've removed this task: \n" +  t.toString() + "\nNow you have " + size + " tasks in the list.";
+        return "Noted. I've removed this task: \n" + t.toString() + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**

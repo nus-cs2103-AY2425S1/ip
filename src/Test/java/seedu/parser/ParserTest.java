@@ -1,4 +1,4 @@
-package parser;
+package seedu.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.parser.Parser;
 import seedu.task.TaskList;
+import seedu.parser.Parser;
 
 
 public class ParserTest {
