@@ -15,7 +15,7 @@ public class ExitCommand implements Command {
      * @param ui    The user interface to print the farewell message.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
-        ui.printExit();
+    public String run(TaskList tasks, Ui ui) {
+        return ui.printExit();
     }
 }

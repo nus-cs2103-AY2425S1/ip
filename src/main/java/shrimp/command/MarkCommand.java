@@ -32,16 +32,17 @@ public class MarkCommand implements Command {
      * @param ui    The user interface to print the result of the command.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
+    public String run(TaskList tasks, Ui ui) {
+        String output;
         Task task;
         if (toMark) {
             task = tasks.getTask(index).markAsDone();
-            ui.printMark(task);
+            output = ui.printMark(task);
         } else {
             task = tasks.getTask(index).markAsNotDone();
-            ui.printUnmark(task);
+            output = ui.printUnmark(task);
         }
         tasks.replaceTask(index, task);
-
+        return output;
     }
 }

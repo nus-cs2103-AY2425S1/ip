@@ -15,9 +15,10 @@ public class ClearCommand implements Command {
      * @param ui    The user interface to interact with the user.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
+    public String run(TaskList tasks, Ui ui) {
         for (int i = tasks.getCount() - 1; tasks.getCount() != 0; i--) {
             tasks.deleteTask(i);
         }
+        return "Dayo~ All tasks has been cleared!";
     }
 }
