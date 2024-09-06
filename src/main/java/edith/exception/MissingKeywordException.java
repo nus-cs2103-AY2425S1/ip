@@ -5,8 +5,8 @@ package edith.exception;
  */
 public class MissingKeywordException extends Exception {
     public MissingKeywordException() {
-        super(" oops! you are missing a keyword. to search tasks based on keyword, please use this format: find XXX." +
-                "for example:\n\n" +
-                "      find book");
+        super("oops! you are missing a keyword. to search tasks based on keyword, please use this format: find XXX."
+                + "for example:\n\n"
+                + "      find book");
     }
 }
