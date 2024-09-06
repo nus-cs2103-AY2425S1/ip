@@ -1,10 +1,11 @@
 package nether.task;
 
-import nether.NetherException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import nether.NetherException;
+
 
 /**
  * Represents an event task that includes a description, a start date/time, and an end date/time.

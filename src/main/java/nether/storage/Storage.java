@@ -1,17 +1,18 @@
 package nether.storage;
 
-import nether.NetherException;
-import nether.task.DeadlineTask;
-import nether.task.EventTask;
-import nether.task.Task;
-import nether.task.TodoTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import nether.NetherException;
+import nether.task.DeadlineTask;
+import nether.task.EventTask;
+import nether.task.Task;
+import nether.task.TodoTask;
+
 
 /**
  * Handles the storage of tasks to and from a file.

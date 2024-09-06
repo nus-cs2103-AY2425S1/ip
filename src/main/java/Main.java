@@ -20,6 +20,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinWidth(400);
+            stage.setMinHeight(600);
+            stage.setMaxHeight(600);
+            stage.setMaxWidth(400);
             fxmlLoader.<MainWindow>getController().setNether(nether); // inject the Nether instance
             stage.show();
         } catch (IOException e) {

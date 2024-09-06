@@ -1,11 +1,17 @@
 package nether.parser;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import nether.NetherException;
-import nether.command.*;
+import nether.command.AddCommand;
+import nether.command.Command;
+import nether.command.MarkDoneCommand;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ParserTest {

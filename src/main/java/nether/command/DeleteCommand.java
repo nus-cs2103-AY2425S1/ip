@@ -8,8 +8,8 @@ import nether.task.TaskList;
 
 /**
  * Represents a command to delete a task from the task list.
- *
- * The {@code DeleteCommand} class handles the deletion of a specified task from the task list based on the provided task index.
+ * The {@code DeleteCommand} class handles the deletion of a specified task from the task list based on the provided
+ * task index.
  *
  */
 public class DeleteCommand extends Command {
@@ -26,7 +26,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the delete command by removing the specified task from the task list.
-     *
      * This method checks if the provided task index is valid, performs the deletion, updates the task list,
      * notifies the user, and saves the updated task list to storage.
      *
