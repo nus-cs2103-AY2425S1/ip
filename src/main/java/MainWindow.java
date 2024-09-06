@@ -5,11 +5,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import colby.Colby;
 
 /**
  * Controller for the main GUI.
  */
-;
+import java.io.IOException;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -21,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Colby colby;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -32,8 +33,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setColby(Colby c) {
+        colby = c;
     }
 
     /**
@@ -41,9 +42,9 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = colby.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

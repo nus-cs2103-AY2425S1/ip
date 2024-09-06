@@ -16,14 +16,12 @@ public class Deadline extends Task {
         this.end = end;
     }
 
-<<<<<<< HEAD
-=======
+
     /**
      * Returns a string depiction of the task with the type shown as "[D]", followed by whether the
      * task is marked as done or not, the description of the task, and the deadline
      * @return string of the deadline task with its details
      */
->>>>>>> branch-A-JavaDoc
     @Override
     public String toString() {
         String formattedEnd = formattedEnd = changeDateTime(end);

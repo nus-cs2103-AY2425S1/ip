@@ -1,5 +1,5 @@
 public class Duke {
-    public static void main(String[] args) {
+    public void main(String[] args) {
         System.out.println("Hello!");
     }
 
@@ -7,6 +7,6 @@ public class Duke {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return input;
     }
 }

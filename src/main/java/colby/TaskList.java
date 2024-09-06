@@ -94,14 +94,14 @@ public class TaskList {
      * Prints out the list of tasks with words matching the keyword
      * @param keyword word that the method will print tasks which include the word based on
      */
-    public void printMatchingTasks(String keyword) {
+    public String printMatchingTasks(String keyword) {
         List<Task> matchingTasks = findTasks(keyword);
-
-        System.out.println("Here are the tasks matching you search:");
-
+        String results = "";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            results = results + (i + 1) + ". " + matchingTasks.get(i) + "\n";
         }
-    }
 
+        return "Here are the tasks matching you search: \n" + results;
+    }
 }
+
