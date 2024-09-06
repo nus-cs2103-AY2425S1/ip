@@ -6,13 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
-<<<<<<< Updated upstream
- * 
-=======
- * Class to handle storage of tasks list on local device.
->>>>>>> Stashed changes
- */
 public class Storage {
     /** Relative file path to store tasks list*/
     private String filePath;
