@@ -1,30 +1,34 @@
 package taskalyn;
 
+import java.util.Objects;
+
 /**
  * Starts the Taskalyn application.
  */
 public class Taskalyn {
+    private Ui ui;
+    private Database database;
+    private TaskManager taskManager;
+    private Parser parser;
+
+    public Taskalyn() {
+        this.ui = new Ui();
+        this.database = new Database();
+        this.taskManager = new TaskManager(database, ui);
+        this.parser = new Parser(ui, taskManager);
+    }
 
     /**
-     * Starts the Taskalyn application by initialising other classes.
+     * Returns a response from Taskalyn for a given user input.
      *
-     * @param args Command-line arguments (unused)
+     * @param input User input.
+     * @return Response from Taskalyn.
      */
-    public static void main(String[] args) {
-
-        // Initialising
-        Ui ui = new Ui();
-        Database database = new Database();
-        TaskManager taskManager = new TaskManager(database, ui);
-        Parser parser = new Parser(ui, taskManager);
-        ui.printWelcome();
-
-        while (true) {
-            boolean continueRunning = parser.parse(taskManager);
-            if (!continueRunning) {
-                break;
-            }
+    public String getResponse(String input) {
+        if (Objects.equals(input.trim(), "bye")) {
+            return ui.showByeMessage();
+        } else {
+            return parser.parse(taskManager, input);
         }
-        ui.close();
     }
 }

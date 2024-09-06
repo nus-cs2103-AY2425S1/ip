@@ -1,12 +1,17 @@
 package taskalyn;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
 import java.util.List;
 
 import jdk.jfr.Event;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterAll;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +24,8 @@ public class TaskManagerTest {
     private List<Task> tasks;
     private Ui ui;
     private static MockDatabase database;
+    private ByteArrayOutputStream outputStream;
+    private PrintStream originalOut;
 
     /**
      * Sets up ui, database, and taskmanager before each test.
@@ -27,12 +34,21 @@ public class TaskManagerTest {
      */
     @BeforeEach
     public void setUpBeforeTests() throws IOException {
+        System.setIn(new ByteArrayInputStream("".getBytes()));
+        outputStream = new ByteArrayOutputStream();
+        originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
         this.ui = new Ui();
         database = new MockDatabase();
         taskManager = new TaskManager(database, ui);
-        for (int i = 0; i < database.getDatabaseSize(); i++) {
-            taskManager.deleteTask(i + 1);
+        while (taskManager.getTaskSize() > 0) {
+            taskManager.deleteTask(1);
         }
+    }
+
+    @AfterEach
+    public void tearDownAfterTests() throws IOException {
+        System.setOut(originalOut);
     }
 
     /**
@@ -73,15 +89,16 @@ public class TaskManagerTest {
         taskManager.addTask(t1);
         taskManager.addTask(t2);
         taskManager.addTask(t3);
+        assertEquals(3, taskManager.getTaskSize());
         taskManager.deleteTask(2);
         assertEquals(2, taskManager.getTaskSize());
     }
 
     /**
-     * Verifies that the listing of tasks is followed as per project guidelines.
+     * Verifies that various adding and listing task operations are followed as expected.
      */
     @Test
-    public void listTasks_tasksListed_correctOutput() {
+    public void addAndListTasks_producesExpectedOutput() {
         TodoTask t1 = new TodoTask("eat chicken", false);
         DeadlineTask t2 = new DeadlineTask("finish homework", "2024-08-05 2359", false);
         EventTask t3 = new EventTask("party", "tmr 2pm", "tmr 4pm", false);
@@ -89,15 +106,28 @@ public class TaskManagerTest {
         taskManager.addTask(t2);
         taskManager.addTask(t3);
         taskManager.markTaskAsComplete(2);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(outputStream);
-        PrintStream old = System.out;
-        System.setOut(ps);
         taskManager.listTasks();
-        System.out.flush();
-        System.setOut(old);
         String expectedOutput =
                 ("    ____________________________________________________________\r\n" +
+                "    Got it, I've added this task to your list!\r\n" +
+                "      [T][ ] eat chicken\r\n" +
+                "    Wah bro... 1 task already!\r\n" +
+                "    ____________________________________________________________\r\n\r\n" +
+                "    ____________________________________________________________\r\n" +
+                "    Got it, I've added this task to your list!\r\n" +
+                "      [D][ ] finish homework (by: 05 08 2024, 11:59 PM)\r\n" +
+                "    Wah bro... 2 tasks already!\r\n" +
+                "    ____________________________________________________________\r\n\r\n" +
+                "    ____________________________________________________________\r\n" +
+                "    Got it, I've added this task to your list!\r\n" +
+                "      [E][ ] party (from: tmr 2pm to: tmr 4pm)\r\n" +
+                "    Wah bro... 3 tasks already!\r\n" +
+                "    ____________________________________________________________\r\n\r\n" +
+                "    ____________________________________________________________\r\n" +
+                "    Nice, I've marked this task as complete:\r\n" +
+                "       [D][X] finish homework (by: 05 08 2024, 11:59 PM)\r\n" +
+                "    ____________________________________________________________\r\n\r\n" +
+                "    ____________________________________________________________\r\n" +
                 "    Here are the tasks in your list:\r\n" +
                 "    1.[T][ ] eat chicken\r\n" +
                 "    2.[D][X] finish homework (by: 05 08 2024, 11:59 PM)\r\n" +
@@ -110,12 +140,5 @@ public class TaskManagerTest {
         String normalizedExpectedOutput = expectedOutput.trim().replaceAll("\\s+$", "")
                 .replaceAll("\\r\\n", "\n");
         assertEquals(normalizedExpectedOutput, actualOutput);
-    }
-
-    @AfterAll
-    public static void cleanUp() throws IOException {
-        for (int i = 0; i < database.getDatabaseSize(); i++) {
-            taskManager.deleteTask(i + 1);
-        }
     }
 }

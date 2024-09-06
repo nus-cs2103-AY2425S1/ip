@@ -1,5 +1,6 @@
 package taskalyn;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.PrintStream;
@@ -10,9 +11,15 @@ import java.io.ByteArrayOutputStream;
  * Verifies that the Parser properly handles user inputs.
  */
 public class ParserTest {
+    private Taskalyn taskalyn;
+
+    @BeforeEach
+    public void setUp() {
+        taskalyn = new Taskalyn();
+    }
 
     /**
-     * Verifies that the Parser properly handles the bye command.
+     * Verifies that the Parser properly handles the bye command (Unused for GUI).
      */
     @Test
     public void parse_byeCommand_exitsGracefully() {
@@ -24,7 +31,8 @@ public class ParserTest {
         Database database = new Database();
         TaskManager taskManager = new TaskManager(database, ui);
         Parser parser = new Parser(ui, taskManager);
-        parser.parse(taskManager);
+        // Empty string used since unit test previously did not require 2nd argument.
+        parser.parse(taskManager, "");
         String output = out.toString();
         // Solution inspired by: https://stackoverflow.com/questions/41674408/java-test-system-output-including-new-lines-with-assertequals
         String expectedOutput = ("    ____________________________________________________________\n" +
@@ -34,5 +42,14 @@ public class ParserTest {
         assertEquals(expectedOutput.trim(), output.trim());
         System.setOut(null);
         System.setIn(null);
+    }
+
+    /**
+     * Verifies that the GUI returns the bye message correctly.
+     */
+    @Test
+    public void parse_byeCommandInGUI_returnsByeMessage() {
+        String response = taskalyn.getResponse("bye");
+        assertEquals("Bye! Hope to see you again soon!", response);
     }
 }

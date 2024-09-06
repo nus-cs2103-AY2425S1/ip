@@ -2,3 +2,6 @@ T | 0 | eat chicken rice
 D | 0 | homework | 2024-08-05 2359
 E | 0 | party | tmr 2pm | tmr 4pm
 T | 0 | eat cake
+T | 0 | eat more
+T | 0 | go home
+T | 0 | talk to samuel

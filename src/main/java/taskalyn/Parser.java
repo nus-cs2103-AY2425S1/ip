@@ -10,7 +10,7 @@ public class Parser {
     /**
      * Constructs the Parser object with ui and taskmanager.
      *
-     * @param ui          Ui object to manage user interaction.
+     * @param ui Ui object to manage user interaction.
      * @param taskManager TaskManager object to manage tasks.
      */
     public Parser(Ui ui, TaskManager taskManager) {
@@ -24,27 +24,23 @@ public class Parser {
      * @param taskManager TaskManager object to manage tasks.
      * @return {@code true} to allow inputs, {@code false} to stop parsing.
      */
-    public boolean parse(TaskManager taskManager) {
+    public String parse(TaskManager taskManager, String input) {
         while (true) {
-            String input = ui.readCommand();
             String[] items = input.split(" ", 2);
             String command = items[0];
 
             try {
                 switch (command) {
                 case "bye":
-                    ui.printLines("Bye. Hope to see you again soon!");
-                    return false;
+                    return ui.showByeMessage();
                 case "list":
-                    taskManager.listTasks();
-                    break;
+                    return taskManager.listTasks();
                 case "find":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... find command must have just 2 arguments: the command, and the keyword.");
                     } else {
-                        taskManager.searchTasksByKeyword(items[1]);
+                        return taskManager.searchTasksByKeyword(items[1]);
                     }
-                    break;
                 case "delete":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... delete command must have just 2 arguments: the " +
@@ -53,7 +49,7 @@ public class Parser {
                     try {
                         Integer i = Integer.parseInt(items[1]);
                         if (i > 0 && i < taskManager.getTaskSize() + 1) {
-                            taskManager.deleteTask(i);
+                            return taskManager.deleteTask(i);
                         } else {
                             throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                         }
@@ -65,7 +61,6 @@ public class Parser {
                         throw new CommandFormatException("Aw... delete command must have just 2 arguments: the " +
                                 "command, and the task number.");
                     }
-                    break;
                 case "mark":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... mark command must have just 2 arguments: the command," +
@@ -74,7 +69,7 @@ public class Parser {
                     try {
                         Integer i = Integer.parseInt(items[1]);
                         if (i > 0 && i <= taskManager.getTaskSize() + 1) {
-                            taskManager.markTaskAsComplete(i);
+                            return taskManager.markTaskAsComplete(i);
                         } else {
                             throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                         }
@@ -83,7 +78,6 @@ public class Parser {
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                     }
-                    break;
                 case "unmark":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... unmark command must have 2 arguments: the command and" +
@@ -92,7 +86,7 @@ public class Parser {
                     try {
                         Integer i = Integer.parseInt(items[1]);
                         if (i > 0 && i <= taskManager.getTaskSize() + 1) {
-                            taskManager.markTaskAsIncomplete(i);
+                            return taskManager.markTaskAsIncomplete(i);
                         } else {
                             throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                         }
@@ -101,19 +95,20 @@ public class Parser {
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                     }
-                    break;
                 case "todo":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the " +
                                 "task at hand!");
                     }
+                    if (items[1].equals("")) {
+                        throw new CommandFormatException("Aw... task description cannot be empty!");
+                    }
                     try {
-                        taskManager.addTask(new TodoTask(items[1], false));
+                        return taskManager.addTask(new TodoTask(items[1], false));
                     } catch (Exception e) {
                         throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the " +
                                 "task at hand!");
                     }
-                    break;
                 case "deadline":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... your deadline command is incomplete. Try this: " +
@@ -125,7 +120,7 @@ public class Parser {
                             if (deadlineString.length == 2) {
                                 String datePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
                                 if (deadlineString[1].matches(datePattern)) {
-                                    taskManager.addTask(new DeadlineTask(deadlineString[0], deadlineString[1], false));
+                                    return taskManager.addTask(new DeadlineTask(deadlineString[0], deadlineString[1], false));
                                 } else {
                                     throw new CommandFormatException("Aw... the date format must be yyyy-MM-dd HHmm");
                                 }
@@ -141,7 +136,6 @@ public class Parser {
                         throw new CommandFormatException("Aw... your deadline command is incorrect. Try this: " +
                                 "deadline {task} /by {yyyy-MM-dd HHmm}");
                     }
-                    break;
                 case "event":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw your event command is incomplete. Try this: event " +
@@ -157,7 +151,7 @@ public class Parser {
                                     if (dates.length == 2) {
                                         String fromDate = dates[0];
                                         String toDate = dates[1];
-                                        taskManager.addTask(new EventTask(taskString, fromDate, toDate, false));
+                                        return taskManager.addTask(new EventTask(taskString, fromDate, toDate, false));
                                     } else {
                                         throw new CommandFormatException("Aw... you might be missing a from or to " +
                                                 "date!");
@@ -176,15 +170,12 @@ public class Parser {
                         throw new CommandFormatException("Aw... your event command might be incorrect. Try this: " +
                                 "event {event} /from {from} /to {to}");
                     }
-                    break;
                 default:
-                    ui.printLines("Sorry bro, no clue what you're saying!");
-                    break;
+                    return "Sorry bro, no clue what you're saying!";
                 }
             } catch (NoSuchTaskException | CommandFormatException e) {
-                ui.printLines(e.getMessage());
+                return e.getMessage();
             }
-            return true;
         }
     }
 }
