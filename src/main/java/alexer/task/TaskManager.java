@@ -8,27 +8,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class represents the task manager which handles
+ * all actions and operations related to tasks.
+ *
+ * @author sayomaki
+ */
 public class TaskManager {
     private final List<Task> taskList;
 
+    /** The save file location for tasks **/
     public static final String SAVE_FILE = "./data/tasks.txt";
 
+    /**
+     * Creates a new task manager
+     */
     public TaskManager() {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Returns the number of tasks in the task list
+     *
+     * @return the count of number of tasks
+     */
     public int getTaskCount() {
         return taskList.size();
     }
 
+    /**
+     * Obtains a specific task by the index of the task in the list.
+     * Does not handle invalid indexes (yet)
+     *
+     * @param index the index of the task in the list, starting from 0
+     * @return the task if found
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
+    /**
+     * Removes a task by its index from the task list.
+     * Does not handle invalid index yet.
+     *
+     * @param index The index of the task to be removed
+     * @return the task if removed
+     */
     public Task removeTask(int index) {
         return taskList.remove(index);
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to be added
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
@@ -64,7 +98,8 @@ public class TaskManager {
     }
 
     /**
-     * Loads tasks from the task save file
+     * Loads tasks from the task save file.
+     *
      * @return boolean whether tasks loaded successfully
      */
     public boolean loadTasks() {
@@ -108,7 +143,8 @@ public class TaskManager {
     }
 
     /**
-     * Saves all the tasks to the hard disk in a file
+     * Saves all the tasks to the hard disk in a file.
+     * 
      * @return Whether the save is successful
      */
     public boolean saveTasks() {
