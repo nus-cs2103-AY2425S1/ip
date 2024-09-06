@@ -3,21 +3,8 @@ package elliot;
 import utility.Storage;
 import utility.TaskList;
 import utility.Ui;
-import task.Task;
-import task.TodoTask;
-import task.DeadlineTask;
-import task.EventTask;
+import utility.Strip;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.io.File;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.lang.ClassNotFoundException;
-import java.time.format.DateTimeParseException;
 import exception.ElliotException;
 import command.Command;
 import command.CommandType;
@@ -43,7 +30,8 @@ public class Elliot {
         while (isRunning) {
             System.out.print("> ");
             String userInput = scanner.nextLine().strip();
-            String[] commandString = stripStrArray(userInput.toLowerCase().split(" ", 2));
+            String[] commandString = Strip.stripStringArray(userInput
+                    .toLowerCase().split(" ", 2));
             Ui.say("");
             try {
                 CommandType commandType = CommandType.parseStringToCommand(commandString[0]);
@@ -57,12 +45,6 @@ public class Elliot {
                 continue;
             }
         }
-    }
-
-    private String[] stripStrArray(String[] strArray) {
-        return Arrays.stream(strArray)
-                .map(String::strip)
-                .toArray(String[]::new);
     }
 
 }
