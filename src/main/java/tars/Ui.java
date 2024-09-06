@@ -23,7 +23,7 @@ public class Ui {
      * Prints message to be displayed to user when exiting Tars chatbot
      * This command is executed after the "bye" input, which is handled in Tars application
      */
-    public void bye() {
-        System.out.println(LINE + "\n" + "    Bye. Hope to see you again soon!" + "\n" + LINE);
+    public String bye() {
+        return LINE + "\n" + "    Bye. Hope to see you again soon!" + "\n" + LINE;
     }
 }
