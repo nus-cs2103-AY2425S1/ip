@@ -1,4 +1,4 @@
-package LittleMissHelpful;
+package test.java.LittleMissHelpful;
 
 import LittleMissHelpful.TaskList;
 import LittleMissHelpful.Exception.InvalidTaskFormatException;

@@ -1,7 +1,8 @@
 package LittleMissHelpful.Task;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
 import java.time.LocalDateTime;
+
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
 
 public class Task {
     protected String description;

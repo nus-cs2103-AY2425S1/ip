@@ -2,8 +2,19 @@ package LittleMissHelpful;
 
 import java.io.IOException;
 
-import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.*;
+import LittleMissHelpful.Command.AddDeadlineCommand;
+import LittleMissHelpful.Command.AddEventCommand;
+import LittleMissHelpful.Command.AddTodoCommand;
 import LittleMissHelpful.Command.Command;
+import LittleMissHelpful.Command.DeleteTaskCommand;
+import LittleMissHelpful.Command.ExitCommand;
+import LittleMissHelpful.Command.ListCommand;
+import LittleMissHelpful.Command.MarkTaskCommand;
+import LittleMissHelpful.Command.UnmarkTaskCommand;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
+import LittleMissHelpful.Task.*;
 
 public class LittleMissHelpful {
     private Storage storage;
@@ -22,14 +33,19 @@ public class LittleMissHelpful {
     }
 
     public void run() {
+        /**
+         * Runs the simulation of LittleMissHelpful
+         */
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
+
             } catch (InvalidCommandException e) {
                 ui.showError(e.getMessage());
             } catch (IOException e) {
