@@ -47,6 +47,7 @@ public class TaskList {
         }
 
         Task removed = tasks.remove(task);
+        assert removed.equals(tasks.get(task));
         storage.saveTasks(tasks);
 
         return "Noted, I've removed this task:\n"
@@ -60,6 +61,10 @@ public class TaskList {
      * @return List of tasks
      */
     public String list() {
+        if (tasks.isEmpty()) {
+            return "You do not have any task at the moment.";
+        }
+
         String list = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -83,6 +88,7 @@ public class TaskList {
         }
 
         Task taskToMark = tasks.get(task);
+        assert taskToMark != null;
         taskToMark.markAsDone();
         storage.saveTasks(tasks);
 
@@ -103,6 +109,7 @@ public class TaskList {
         }
 
         Task taskToUnmark = tasks.get(task);
+        assert taskToUnmark != null;
         taskToUnmark.unmark();
         storage.saveTasks(tasks);
 
@@ -117,6 +124,7 @@ public class TaskList {
      * @return List of tasks matching query.
      */
     public String find(String query) {
+        assert !query.isEmpty();
         String matched = "";
         String queryUpperCase = query.toUpperCase();
 

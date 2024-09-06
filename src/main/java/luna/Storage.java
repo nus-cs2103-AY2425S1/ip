@@ -47,6 +47,7 @@ public class Storage {
                 String[] taskInputs = task.split("\\|");
                 String taskType = taskInputs[0];
                 int taskStatus = Integer.parseInt(taskInputs[1]);
+                assert (taskStatus == 0 || taskStatus == 1);
 
                 switch (taskType) {
                 case "T":
