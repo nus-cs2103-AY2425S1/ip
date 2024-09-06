@@ -8,18 +8,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-<<<<<<< HEAD
-/**
- * Handles the storage of tasks in a file. Responsible for loading tasks from the file and saving tasks to the file.
- */
-=======
 import elara.task.DeadlineTask;
 import elara.task.EventTask;
 import elara.task.Task;
 import elara.task.TaskList;
 import elara.task.ToDoTask;
 
->>>>>>> branch-A-CodingStandard
+/**
+ * Handles the storage of tasks in a file. Responsible for loading tasks from the file and saving tasks to the file.
+ */
 public class Storage {
     private final String filePath;
 

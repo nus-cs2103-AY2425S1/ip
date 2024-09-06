@@ -31,6 +31,7 @@ public class UnmarkCommand implements Command {
             if (i < 0 || i >= taskList.getTasks().size()) {
                 throw new InvalidInputException("Task index out of bounds!");
             }
+
             taskList.unmarkTask(i);
             ui.showUnmarkedTaskMessage(taskList.getTask(i));
             storage.write(taskList);

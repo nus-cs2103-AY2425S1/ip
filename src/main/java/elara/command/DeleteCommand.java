@@ -27,18 +27,11 @@ public class DeleteCommand implements Command {
         }
 
         try {
-<<<<<<< HEAD
-            Integer i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
-            if (i < 0 || i >= taskList.getTasks().size() || i == null) {
-                throw new InvalidInputException("Task index out of bounds!");
-            }
-=======
             int i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
             if (i < 0 || i >= taskList.getTasks().size()) {
                 throw new InvalidInputException("Task index out of bounds!");
             }
 
->>>>>>> branch-A-CodingStandard
             ui.showRemoveTaskMessage(taskList.getTask(i));
             taskList.deleteTask(i);
             ui.showNumOfTasksMessage(taskList);
@@ -46,9 +39,5 @@ public class DeleteCommand implements Command {
         } catch (NumberFormatException e) {
             throw new InvalidInputException("Task index must be a number!");
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> branch-A-CodingStandard
     }
 }

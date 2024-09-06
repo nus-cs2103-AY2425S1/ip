@@ -16,16 +16,9 @@ import elara.task.ToDoException;
 import elara.task.ToDoTask;
 import elara.ui.Ui;
 
-<<<<<<< HEAD
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a command that adds a task to the task list that can be executed in the Elara chatbot.
  */
-=======
->>>>>>> branch-A-CodingStandard
 public class AddCommand implements Command {
     private final String commandType;
     private final String details;
@@ -63,7 +56,8 @@ public class AddCommand implements Command {
                     String description = deadlineArgs[0];
                     String deadlineString = deadlineArgs[1];
                     try {
-                        LocalDateTime deadline = LocalDateTime.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineString,
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                         newTask = new DeadlineTask(description, deadline, false);
                     } catch (DateTimeParseException e) {
                         throw new DeadlineException();
@@ -86,8 +80,10 @@ public class AddCommand implements Command {
                         String endString = timeArgs[1].trim();
 
                         try {
-                            LocalDateTime start = LocalDateTime.parse(startString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                            LocalDateTime end = LocalDateTime.parse(endString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                            LocalDateTime start = LocalDateTime.parse(startString,
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                            LocalDateTime end = LocalDateTime.parse(endString,
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                             newTask = new EventTask(description, start, end, false);
                         } catch (DateTimeParseException e) {
                             throw new InvalidInputException("Invalid date format for event. Use: yyyy-MM-dd HHmm.");
