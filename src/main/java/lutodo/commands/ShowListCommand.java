@@ -28,6 +28,25 @@ public class ShowListCommand extends Command{
     }
 
     /**
+     * Shows the task list to the user.
+     *
+     * @param tasks The TaskList object that is to be shown.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public String executeAndRespond(TaskList tasks, Storage storage) {
+        if (tasks.isEmpty()) {
+            return "You don't have any task now :)";
+        }
+        String response = "Here are the tasks in your list:";
+        for (int i = 1; i <= tasks.size(); i++) {
+            response = response + "\n" + i + "." + tasks.get(i - 1);
+        }
+        response = response + "\n" + "Tips: Tasks marked as [X] are already completed :)";
+        return response;
+    }
+
+    /**
      * Returns false since this type of command is not exit command.
      *
      * @return whether this is an exit command.

@@ -33,6 +33,18 @@ public class UnknownCommand extends Command{
     }
 
     /**
+     * Shows to the user that the command cannot be understood.
+     *
+     * @param tasks   The TaskList the method interacts with.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public String executeAndRespond(TaskList tasks, Storage storage) {
+        return "Sorry to say that I don't know what does \"" + commandMessage + "\" means. "
+                + "Anyway, have a good day :)";
+    }
+
+    /**
      * Returns false since this type of command is not exit command.
      *
      * @return whether this is an exit command.

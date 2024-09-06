@@ -42,6 +42,27 @@ public class MarkCommand extends Command{
     }
 
     /**
+     * Marks the certain task as done / not done.
+     *
+     * @param tasks   The TaskList the method interacts with.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public String executeAndRespond(TaskList tasks, Storage storage) {
+        if (isDone) {
+            tasks.get(index).markAsDone();
+            storage.save(tasks);
+            return "Nice! I've marked this task as done:\n"
+                    + tasks.get(index);
+        } else {
+            tasks.get(index).markAsNotDone();
+            storage.save(tasks);
+            return "OK, I've marked this task as not done yet:\n"
+                    + tasks.get(index);
+        }
+    }
+
+    /**
      * Returns false since this type of command is not exit command.
      *
      * @return whether this is an exit command.
