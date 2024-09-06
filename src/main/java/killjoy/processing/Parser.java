@@ -1,13 +1,14 @@
 package killjoy.processing;
 
-import killjoy.task.Task;
-import killjoy.main.UserInterface;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.time.format.DateTimeParseException;
+import killjoy.main.UserInterface;
+import killjoy.task.Task;
+
+
 
 /**
  * Represents the Parser class of the KillJoy application.
@@ -16,6 +17,11 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private static UserInterface ui;
 
+    /**
+     * Constructor for the Parser class.
+     *
+     * @param ui The UserInterface object.
+     */
     public Parser(UserInterface ui) {
         this.ui = ui;
     }

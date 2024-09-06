@@ -6,6 +6,11 @@ package killjoy.task;
  */
 public class Todo extends Task {
 
+    /**
+     * Constructor for the Todo class.
+     *
+     * @param description The description of the task.
+     */
     public Todo(String description) {
         super(description, TaskType.TODO);
     }

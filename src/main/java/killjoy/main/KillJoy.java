@@ -1,15 +1,15 @@
 package killjoy.main;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import killjoy.processing.ProcessTasks;
+import killjoy.processing.Storage;
 import killjoy.task.Deadline;
 import killjoy.task.Event;
 import killjoy.task.Task;
 import killjoy.task.Todo;
-import killjoy.processing.ProcessTasks;
-import killjoy.processing.Storage;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the main class of the KillJoy application.
@@ -22,10 +22,13 @@ public class KillJoy {
     private ArrayList<Task> taskList;
     private int taskCount = 0;
 
+    /**
+     * Constructor for the KillJoy class.
+     */
     public KillJoy() {
         this.ui = new UserInterface(this);
         this.processTasks = new ProcessTasks(this, ui);
-        this.saveAndLoad = new Storage(this, processTasks);
+        this.saveAndLoad = new Storage(processTasks);
         this.taskList = new ArrayList<>();
     }
 
@@ -116,7 +119,7 @@ public class KillJoy {
                 saveAndLoad.saveTasks(this.taskList);
                 System.out.println(ui.getExitString());
                 break;
-            } else if (inputAsList[0].equals("list")){
+            } else if (inputAsList[0].equals("list")) {
                 ui.printTaskList();
             } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")
                     || inputAsList[0].equals("delete")) {

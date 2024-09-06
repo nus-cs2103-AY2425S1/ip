@@ -1,11 +1,11 @@
 package killjoy.processing;
 
-import killjoy.main.KillJoy;
-import killjoy.task.Task;
-import killjoy.main.UserInterface;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import killjoy.main.KillJoy;
+import killjoy.main.UserInterface;
+import killjoy.task.Task;
 
 /**
  * Represents the ProcessTasks class of the KillJoy application.
@@ -16,6 +16,12 @@ public class ProcessTasks {
     private UserInterface ui;
     private Parser parser = new Parser(ui);
 
+    /**
+     * Constructor for the ProcessTasks class.
+     *
+     * @param kj The KillJoy object.
+     * @param ui The UserInterface object.
+     */
     public ProcessTasks(KillJoy kj, UserInterface ui) {
         this.kj = kj;
         this.ui = ui;
@@ -68,7 +74,7 @@ public class ProcessTasks {
             }
             kj.addTask(description, byDateTime);
             break;
-            }
+        }
         case EVENT: {
             String description = Parser.getDescriptionFromInput(input);
             String from = Parser.getFromTimeString(input);
@@ -83,6 +89,8 @@ public class ProcessTasks {
             kj.addTask(description, fromDateTime, toDateTime);
             break;
         }
+        default:
+            break;
         }
 
         ui.displayAddedTaskMessage();
@@ -122,7 +130,7 @@ public class ProcessTasks {
         } else if (inputCommand.equals("delete")) {
             kj.removeTask(taskIndex);
             ui.printLine();
-            System.out.println("    " + ui.getDeleteString() + "\n        " + task );
+            System.out.println("    " + ui.getDeleteString() + "\n        " + task);
             if (kj.getTaskCount() == 1) {
                 System.out.println("    Now you have " + kj.getTaskCount() + " task in the list.");
             } else {
@@ -162,6 +170,8 @@ public class ProcessTasks {
             changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
             break;
         }
+        default:
+            break;
         }
     }
 
@@ -205,5 +215,4 @@ public class ProcessTasks {
             task.changeStatus();
         }
     }
-
 }

@@ -7,10 +7,12 @@ import java.time.format.DateTimeFormatter;
  * Contains methods to create and manage tasks.
  */
 public class Task {
+    protected static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
     protected String description;
     protected boolean isDone;
     protected TaskType taskType = null;
-    protected static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
+
 
     /**
      * Represents the type of task.
@@ -21,6 +23,12 @@ public class Task {
         EVENT
     }
 
+    /**
+     * Constructor for the Task class.
+     *
+     * @param description The description of the task.
+     * @param taskType    The type of task.
+     */
     public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
