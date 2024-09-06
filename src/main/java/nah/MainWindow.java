@@ -20,9 +20,10 @@ import nah.Nah;
  */
 public class MainWindow extends AnchorPane {
     private final Image userImage =
-            new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+
+            new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image nahImage =
-            new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+            new Image(this.getClass().getResourceAsStream("/images/nah.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
             " Hello from Nah. How can I help you?", nahImage);
     @FXML

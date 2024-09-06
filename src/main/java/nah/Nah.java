@@ -14,7 +14,7 @@ import nah.ui.UI;
  */
 public class Nah {
     private static final String hardDisk =
-            Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
+            Paths.get("src", "main", "Resources", "filePath", "Nah.txt").toString();
     private Storage storage;
     private UI ui;
     private TaskList tasks;

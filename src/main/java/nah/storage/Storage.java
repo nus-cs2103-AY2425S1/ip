@@ -16,7 +16,7 @@ import nah.exceptions.NahException;
  */
 public class Storage {
     private static final String hardDisk =
-            Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
+            Paths.get("src", "main", "resources", "filePath", "Nah.txt").toString();
     private String filePath;
     public Storage() {
         this.filePath = hardDisk;
