@@ -3,10 +3,8 @@ package bill;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
 import java.util.Scanner;
 
 /**
@@ -93,16 +91,16 @@ public class Ui {
 
     public void handleEvent(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
                 throws BillException, IOException {
-       try {
-           String[] trimmedUserCommand = parser.handleEventParser(userCommand);
-           String eventDescription = trimmedUserCommand[0];
-           String eventFrom = trimmedUserCommand[1];
-           String eventTo = trimmedUserCommand[2];
-           tasks.addTask(new Event(eventDescription, eventFrom, eventTo), userList, storage);
-       } catch (ArrayIndexOutOfBoundsException ex) {
-           throw new BillException("Please ensure to follow the format:"
-                    + " event <task> /from <date1> /to <date2>, where <> suggest user input");
-       }
+        try {
+            String[] trimmedUserCommand = parser.handleEventParser(userCommand);
+            String eventDescription = trimmedUserCommand[0];
+            String eventFrom = trimmedUserCommand[1];
+            String eventTo = trimmedUserCommand[2];
+            tasks.addTask(new Event(eventDescription, eventFrom, eventTo), userList, storage);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new BillException("Please ensure to follow the format:"
+                     + " event <task> /from <date1> /to <date2>, where <> suggest user input");
+        }
     }
 
     private void handleDelete(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage)

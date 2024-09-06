@@ -6,15 +6,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 
 /**
- * The Storage class stores the relevant file and directories paths, and loads and writes to the persistent data of tasks.
+ * The Storage class stores the relevant file and directories paths, and loads
+ * and writes to the persistent data of tasks.
  */
 public class Storage {
     private Path pathStorageDirectory;
@@ -23,7 +22,7 @@ public class Storage {
     /**
      * Initializes Storage, reading and writing from persistent data to save and update list of task state.
      */
-    public Storage () {
+    public Storage() {
         // set directory for output, and output file,
         // in this case <>\Desktop\CS2103T_IP\data, where <> is the autodetected home directory
         String home = System.getProperty("user.home");
@@ -49,7 +48,8 @@ public class Storage {
     /**
      * Loads bill.txt tasks into a mutable userlist.
      *
-     * @param ui User Interface access to leverage in built methods to handle parsing of tasks from bill.txt to mutable userlist.
+     * @param ui User Interface access to leverage in built methods to handle parsing of tasks
+     *          from bill.txt to mutable userlist.
      * @param userList Current accessible state of mutable list
      * @param tasks All helper methods associated with userList, such as getters.
      * @throws IOException If there is an error reading from the bill.txt file.
@@ -57,7 +57,7 @@ public class Storage {
      */
     public void loadStorage(Ui ui, ArrayList<Task> userList, TaskList tasks) throws IOException, BillException {
         boolean directoryExists = Files.exists(pathStorageDirectory);
-        boolean fileExists  = Files.exists(pathStorageFile);
+        boolean fileExists = Files.exists(pathStorageFile);
 
         // if directory doesn't exist
         if (!directoryExists) {
