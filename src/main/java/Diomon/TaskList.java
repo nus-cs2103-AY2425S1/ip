@@ -24,8 +24,14 @@ public class TaskList {
         this.tasks.remove(i);
     }
 
-    public void sort() {
-
+    public TaskList fuzzyFind(String input) {
+        TaskList temp = new TaskList();
+        for (Task i : tasks) {
+            if (i.toString().contains(input)) {
+                temp.add(i);
+            }
+        }
+        return temp;
     }
     public Task get(int i) {
         return this.tasks.get(i);
