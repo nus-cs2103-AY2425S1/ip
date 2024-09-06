@@ -57,4 +57,11 @@ public class Lutchat {
         Lutchat lutchat = new Lutchat(filePath);
         lutchat.run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Lutchat heard: " + input;
+    }
 }
