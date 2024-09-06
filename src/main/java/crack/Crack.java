@@ -1,12 +1,26 @@
 package crack;
+
 import java.io.IOException;
 
+/**
+ * The Crack class serves as the main entry point for the application.
+ * It initializes the user interface (Ui), task storage (Storage), 
+ * and task management (TaskList). It also contains the main loop that 
+ * processes user commands.
+ */
 public class Crack {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Crack instance, initializing the Ui, Storage, 
+     * and TaskList. Attempts to load tasks from the file specified 
+     * by the filePath. If loading fails, an empty task list is initialized.
+     *
+     * @param filePath the path to the file where tasks are stored.
+     */
     public Crack(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +32,11 @@ public class Crack {
         }
     }
 
+    /**
+     * Starts the main loop of the application. It repeatedly reads user input, 
+     * parses commands, and performs actions based on the input. The loop continues 
+     * until the user enters the "bye" command, at which point the application exits.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -107,7 +126,11 @@ public class Crack {
         }
     }
 
-    // Main method to initialize Crack and run the application
+    /**
+     * The main method that initializes the Crack application and starts its execution.
+     *
+     * @param args command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Crack("./data/crack.txt").run();  // Passes file path to the constructor
     }
