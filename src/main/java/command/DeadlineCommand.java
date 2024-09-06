@@ -10,10 +10,17 @@ import utility.TaskList;
 import utility.Ui;
 import utility.CustomDateTimeFormatter;
 
+/**
+ * {@link Command} to add {@link DeadlineTask} to the {@link TaskList}.
+ */
 public class DeadlineCommand extends Command {
     private final String taskDescription;
     private final LocalDateTime deadlineDateTime;
 
+    /**
+     * Creates a {@link DeadlineCommand} object without any information on
+     * the details of the {@link Task}.
+     */
     public DeadlineCommand() {
         super();
         this.taskDescription = "";
@@ -25,6 +32,14 @@ public class DeadlineCommand extends Command {
         this.deadlineDateTime = deadlineDateTime;
     } 
 
+    /**
+     * Parses the input string accordingly into each respective attributes.
+     * Requires Date and Time in the correct form for {@code by}.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link DeadlineCommand} with the correctly parsed argument.
+     * @throws ElliotException If command arguments are invalid or incomplete.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
         String[] splittedArguments = Strip
@@ -47,6 +62,14 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Adds {@link DeadlineTask} to the {@link TaskList} and prints a success message.
+     *
+     * @param taskList the {@link TaskList} to which the {@link DeadlineTask} will be added
+     * to.
+     * @param storage  not used in this command.
+     * @return modified {@link TaskList} with the added {@link DeadlineTask}.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         taskList = taskList.addTask(new DeadlineTask(taskDescription, deadlineDateTime));

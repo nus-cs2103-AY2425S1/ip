@@ -4,9 +4,15 @@ import task.Task;
 import java.util.List;
 import java.io.Serializable;
 
+/**
+ * This class serves as a central management object to manage all {@link Tasks}.
+ */
 public class TaskList implements Serializable {
     private final ImList<Task> imTaskList;
 
+    /**
+     * Creates a {@link TaskList} with an empty {@link ImList} of {@link Task}.
+     */
     public TaskList() {
         imTaskList = new ImList<Task>();
     }
@@ -15,14 +21,29 @@ public class TaskList implements Serializable {
         this.imTaskList = imTaskList;
     }
 
+    /**
+     * Adds {@link Task} to the {@link TaskList}.
+     *
+     * @param task {@link Task} to be added.
+     */
     public TaskList addTask(Task task) {
         return new TaskList(imTaskList.add(task));
     }
 
+    /**
+     * Deletes {@link Task} from {@link TaskList}.
+     *
+     * @param taskIndex the index of the task which is to be deleted.
+     */
     public TaskList deleteTask(int taskIndex) {
         return new TaskList(imTaskList.remove(taskIndex));
     }
 
+    /**
+     * Marks a {@link Task} from the {@link TaskList} as done.
+     *
+     * @param taskIndex the index of the task which is to be marked as done.
+     */
     public TaskList markTaskAsDone(int taskIndex) {
         return isValidIndex(taskIndex)
             ? new TaskList(imTaskList.set(
@@ -30,6 +51,11 @@ public class TaskList implements Serializable {
             : this;
     }
 
+    /**
+     * Changes a {@link Task} from the {@link TaskList} as not done.
+     *
+     * @param taskIndex the index of the task which is to be changed to not done.
+     */
     public TaskList markTaskAsUndone(int taskIndex) {
         return isValidIndex(taskIndex)
             ? new TaskList(imTaskList.set(
@@ -37,20 +63,33 @@ public class TaskList implements Serializable {
             : this;
     }
 
+    /**
+     * Returns the specific {@link Task} by index in the List
+     */
     public Task get(int taskIndex) {
         return taskIndex < imTaskList.size() && taskIndex >= 0
             ? imTaskList.get(taskIndex)
             : new Task("");
     }
 
+    /**
+     * Returns the number of {@link Task} on the List.
+     */
     public int size() {
         return imTaskList.size();
     }
 
+    /**
+     * Returns if the index provided is a valid index of the List of Tasks.
+     */
     public boolean isValidIndex(int taskIndex) {
         return taskIndex < imTaskList.size() && taskIndex >= 0;
     }
 
+    /**
+     * Returns a string representaton of the entire {@link TaskList} which includes every
+     * {@link Task}. Returns a different string if empty.
+     */
     @Override
     public String toString() {
         String outputString;

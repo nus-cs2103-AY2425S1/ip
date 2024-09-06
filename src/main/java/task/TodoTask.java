@@ -1,7 +1,13 @@
 package task;
 
+/**
+ * A Todo Task is a more specific implementation of {@link Task}.
+ */
 public class TodoTask extends Task {
 
+    /**
+     * {@inherit}
+     */
     public TodoTask(String taskDescription) {
         super(taskDescription);
     }
@@ -10,6 +16,9 @@ public class TodoTask extends Task {
         super(isDone, taskDescription);
     }
 
+    /**
+     * {@inherit}
+     */
     @Override
     public Task markAsDone() {
         return super.isDone
@@ -17,6 +26,9 @@ public class TodoTask extends Task {
             : new TodoTask(true, super.taskDescription);
     }
 
+    /**
+     * {@inherit}
+     */
     @Override 
     public Task markAsUndone() {
         return super.isDone
@@ -24,6 +36,11 @@ public class TodoTask extends Task {
             : this;
     }
 
+    /**
+     * {@inherit}
+     * Additionally, {@code "[T]"} is prepended to the string representation to
+     * indicate this is a Todo Task.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
