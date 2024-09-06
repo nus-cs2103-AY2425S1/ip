@@ -4,23 +4,22 @@ import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import gui.ChatterboxResponses;
 import parser.Parser;
 import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-import ui.UI;
 
 /**
  * main class that encapsulates all chatbot functionality
  */
-public class Chatterbox {
-    private final UI ui;
+public class ChatterboxGui {
+    private final ChatterboxResponses guiResponses;
     private final Parser parser;
     private final Storage storage;
 
@@ -30,8 +29,8 @@ public class Chatterbox {
      * initiates Chatterbox with a prior history filepath
      * @param filepath contains the history of tasks
      */
-    public Chatterbox(String filepath) {
-        this.ui = new UI();
+    public ChatterboxGui(String filepath) {
+        this.guiResponses = new ChatterboxResponses();
         this.parser = new Parser();
         this.storage = new Storage(filepath);
         ArrayList<Task> loaded = new ArrayList<>();
@@ -43,21 +42,22 @@ public class Chatterbox {
 
 
         this.tasks = new TaskList(loaded);
-        ui.greeting();
+
 
     }
 
     /**
      * Initiates Chatterbox with no prior history
      */
-    public Chatterbox() {
-        this.ui = new UI();
+    public ChatterboxGui() {
+        this.guiResponses = new ChatterboxResponses();
+
         this.parser = new Parser();
         this.storage = new Storage();
 
 
         this.tasks = new TaskList(new ArrayList<Task>());
-        ui.greeting();
+
     }
 
 
@@ -191,116 +191,108 @@ public class Chatterbox {
 
     }
 
-
     /**
-     * Runs the Chatterbox program
+     * Process input
+     * @param input userinput from gui
+     * @return Chatterbox response to the input
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
+    public String processInput(String input) {
+
+
 
         try {
-            while (true) {
-                try {
-                    String response = scanner.nextLine();
-                    Parser.ValidCommand command = parser.parseCommand(response);
-
-                    int index;
-                    switch (command) {
-
-                    case BYE:
-                        return;
-
-                    case LIST:
-                        ui.displayList(tasks.getTasks());
-                        break;
-
-                    case MARK:
-                        response = response.trim();
-                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
-                        ui.markMsg(tasks.markTask(index));
-
-                        break;
-
-                    case UNMARK:
-                        response = response.trim();
-                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
-                        ui.unmarkMsg(tasks.unmarkTask(index));
-                        break;
-
-                    case TODO:
-
-                        tasks.addTodo(parser.parseTodo(response.trim()));
-                        ui.addTaskMsg("Todo", tasks.size());
-                        break;
-
-                    case DEADLINE:
-                        String[] parsed = parser.parseDeadline(response);
+            Parser.ValidCommand command = parser.parseCommand(input);
+            System.out.println(command);
 
 
-                        LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
+            int index;
+            switch (command) {
+
+            case BYE:
+                return null;
+
+            case LIST:
+
+                return guiResponses.displayList(tasks.getTasks());
+
+            case MARK:
+                input = input.trim();
+                index = parser.extractNum(input) - 1; // -1 as the display  start from 1
+                return guiResponses.markMsg(tasks.markTask(index));
 
 
-                        if (deadlineDate == null) {
+            case UNMARK:
+                input = input.trim();
+                index = parser.extractNum(input) - 1; // -1 as the display  start from 1
+                return guiResponses.unmarkMsg(tasks.unmarkTask(index));
 
-                            tasks.addDeadline(parsed[0], parsed[1]);
 
-                        } else {
-                            //add back by for string
+            case TODO:
 
-                            tasks.addDeadline(parsed[0], deadlineDate);
-                        }
 
-                        ui.addTaskMsg("Deadline", tasks.size());
+                tasks.addTodo(parser.parseTodo(input.trim()));
+                return guiResponses.addTaskMsg("Todo", tasks.size());
 
-                        break;
+            case DEADLINE:
+                String[] parsed = parser.parseDeadline(input);
 
-                    case EVENT:
-                        String[] eventParsed = parser.parseEvent(response);
 
-                        LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
-                        LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
+                LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
 
-                        if (startDate == null || endDate == null) {
 
-                            tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
+                if (deadlineDate == null) {
 
-                        } else {
-                            tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
-                        }
-                        ui.addTaskMsg("Event", tasks.size());
-                        break;
+                    tasks.addDeadline(parsed[0], parsed[1]);
 
-                    case DELETE:
-                        response = response.trim();
-                        int delIndex = parser.extractNum(response) - 1;
-                        ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
-                        break;
+                } else {
+                    //add back by for string
 
-                    case FIND:
-                        String keywords = parser.parseFind(response).trim();
-
-                        ArrayList<Task> matching = tasks.findTasks(keywords);
-                        ui.displaySearch(matching);
-                        break;
-
-                    case INVALID:
-                        ChatterboxExceptions.checkMessage(response);
-                        break;
-                    default:
-                        ChatterboxExceptions.checkMessage(response);
-                        break;
-
-                    }
-                    storage.saveHistory(tasks.getTasks());
-                } catch (ChatterboxExceptions.ChatterBoxError e) {
-                    System.out.println("An error has occurred " + e.getMessage());
+                    tasks.addDeadline(parsed[0], deadlineDate);
                 }
+
+                return guiResponses.addTaskMsg("Deadline", tasks.size());
+
+
+            case EVENT:
+                String[] eventParsed = parser.parseEvent(input);
+
+                LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
+                LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
+
+                if (startDate == null || endDate == null) {
+
+                    tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
+
+                } else {
+                    tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
+                }
+                return guiResponses.addTaskMsg("Event", tasks.size());
+
+            case DELETE:
+                input = input.trim();
+                int delIndex = parser.extractNum(input) - 1;
+                return guiResponses.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+
+            case FIND:
+                String keywords = parser.parseFind(input).trim();
+
+                ArrayList<Task> matches = tasks.findTasks(keywords);
+                return guiResponses.getSearchList(matches);
+
+
+            default:
+                ChatterboxExceptions.checkMessage(input);
+
+                break;
+
             }
-        } finally {
-            ui.goodBye();
-            scanner.close();
+            storage.saveHistory(tasks.getTasks());
+        } catch (ChatterboxExceptions.ChatterBoxError e) {
+            return ("Sorry there was an error: " + e.getMessage());
         }
+        return "Error occurring !!";
     }
+
 
     /**
      * Dummy echo testing
@@ -308,6 +300,14 @@ public class Chatterbox {
      */
     public String getResponse(String input) {
         return "haha: " + input;
+    }
+
+    /**
+     * Gets the greeting string
+     * @return greeting String
+     */
+    public String getGreeting() {
+        return guiResponses.greeting();
     }
     public static void main(String[] args) {
 

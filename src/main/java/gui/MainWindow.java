@@ -1,7 +1,8 @@
 package gui;
 
-import chatterbox.Chatterbox;
+import chatterbox.ChatterboxGui;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -21,10 +22,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Chatterbox chatter;
+    private ChatterboxGui chatter;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user_image.png"));
+    private Image chatterImage = new Image(this.getClass().getResourceAsStream("/images/Chatterbox_image.jpg"));
 
     @FXML
     public void initialize() {
@@ -32,7 +33,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setChatterbox(Chatterbox c) {
+    public void setChatterbox(ChatterboxGui c) {
         chatter = c;
     }
 
@@ -40,19 +41,21 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    //    @FXML
-    //    private void handleUserInput() {
-    //        String input = userInput.getText();
-    //        String response = chatter.getResponse(input);
-    //        dialogContainer.getChildren().addAll(
-    //                DialogBox.getUserDialog(input, userImage),
-    //                DialogBox.getDukeDialog(response, dukeImage)
-    //        );
-    //        userInput.clear();
-    //    }
-
     @FXML
     private void handleUserInput() {
+        String input = userInput.getText();
+        String response = chatter.processInput(input);
+        if (response == null) {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
+        }
 
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, chatterImage)
+        );
+        userInput.clear();
     }
+
+
 }

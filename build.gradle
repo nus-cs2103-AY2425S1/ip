@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("chatterbox.Chatterbox")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
