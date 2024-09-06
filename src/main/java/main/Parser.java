@@ -72,7 +72,6 @@ public class Parser {
                 if (!toString[0].equals("to")) {
                     throw new IncorrectCommandUseException("Please include the /to command.");
                 }
-
                 LocalDateTime from = LocalDateTime.parse(fromString[1], inputFormatter);
                 LocalDateTime to = LocalDateTime.parse(toString[1], inputFormatter);
                 String[] eventString = string[0].split(" ", 2); //"event" and "XX"

@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class Storage {
     File file;
-    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
 
     public Storage(String filePath) {
         this.file = new File(filePath);
