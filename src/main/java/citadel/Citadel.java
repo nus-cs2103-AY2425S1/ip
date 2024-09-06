@@ -4,7 +4,14 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import citadel.Task.TaskList;
-import citadel.commands.*;
+import citadel.commands.Commands;
+import citadel.commands.DeleteTask;
+import citadel.commands.FindTask;
+import citadel.commands.HandleDeadline;
+import citadel.commands.HandleEvent;
+import citadel.commands.HandleTodo;
+import citadel.commands.MarkTask;
+import citadel.commands.UnmarkTask;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
 import citadel.ui.TextUI;
@@ -70,7 +77,7 @@ public class Citadel {
      * @param input The user's input command as a string.
      * @throws CitadelException If there is an error processing the input.
      */
-    public static String handleInput(String input) throws CitadelException {
+    public static String processCommand(String input) throws CitadelException {
         assert input != null : "Input string cannot be null";
         assert !input.isEmpty() : "Input string cannot be empty";
 
