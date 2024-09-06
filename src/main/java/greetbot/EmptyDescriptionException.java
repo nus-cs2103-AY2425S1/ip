@@ -4,7 +4,6 @@ package greetbot;
  * A exception class that is thrown when a command has empty description.
  */
 public class EmptyDescriptionException extends Exception {
-    
     final private String MESSAGE;
 
     public EmptyDescriptionException(String message) {

@@ -2,7 +2,8 @@ package greetbot;
 
 import java.time.format.DateTimeParseException;
 
-//the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
+//the design of the class is referring to
+// https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
 
 /**
  * A class which functions as main control unit of the chatbot.
@@ -22,7 +23,8 @@ public class GreetBot {
         storage.saveData(tasks);
     }
 
-    // run and getResponse method is adapted from https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java
+    // run and getResponse method is adapted from
+    // https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java
 
     /**
      * Runs the chatbot.
@@ -50,7 +52,7 @@ public class GreetBot {
      * @throws RandomInputException exception when non-command input passes in through keyboard.
      * @throws EmptyDescriptionException exception when nothing follows the command.
      */
-    public String getResponse(String input) throws RandomInputException, EmptyDescriptionException{
+    public String getResponse(String input) throws RandomInputException, EmptyDescriptionException {
         String[] segment = Parser.parseCommand(input);
         String keyword = segment[0];
         if (keyword.equals("BYE")) {
@@ -89,7 +91,7 @@ public class GreetBot {
                 throw new EmptyDescriptionException("OOPS!!! The description of find cannot be empty.");
             }
             return this.findTask(Parser.parseFind(segment[1]));
-        } else if (keyword.isEmpty()){
+        } else if (keyword.isEmpty()) {
             return "";
         } else {
             throw new RandomInputException("何のことを言っているのか分かりません");
@@ -151,11 +153,10 @@ public class GreetBot {
         try {
             return this.getResponse(input);
         } catch (RandomInputException e) {
-            return(e.getMessage());
+            return (e.getMessage());
         } catch (EmptyDescriptionException e) {
-            return(e.getMessage());
+            return (e.getMessage());
         }
-        
     }
 
     private String findTask(String description) {

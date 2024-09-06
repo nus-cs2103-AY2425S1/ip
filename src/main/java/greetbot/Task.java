@@ -8,16 +8,20 @@ import java.util.ArrayList;
  * A abstract class that represents the tasks.
  */
 abstract class Task {
+    protected boolean isDone;
     protected String description;
     private final DateTimeFormatter RUNNINGFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final DateTimeFormatter DATABASEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    protected boolean isDone;
 
+    private Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
     /**
      * A abstract method that transfers task list to equivalent lines in database.
      * @return A string which will be written back to database.
      */
-    abstract public String transferToDatabaseString();
+    public abstract String transferToDatabaseString();
 
     /**
      * Transfers tasks in database to task list used during program execution.
@@ -42,23 +46,19 @@ abstract class Task {
             list.add(new Event(parse[0], parse[1], parse[2]));
         }
     }
-
-    private Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
     public void mark() {
         this.isDone = true;
     }
 
-    public void unmark(){
+    public void unmark() {
         this.isDone = false;
 
     }
 
 
-    private int databaseMark() {return this.isDone ? 1 : 0;}
+    private int databaseMark() {
+        return this.isDone ? 1 : 0;
+    }
     public String getDescription() {
         return this.description;
     }
