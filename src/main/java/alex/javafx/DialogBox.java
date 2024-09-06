@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -42,7 +41,8 @@ public class DialogBox extends HBox {
 
     private void setCircularProfilePicture() {
         // Create a Circle with radius half of ImageView's height
-        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2,
+                displayPicture.getFitWidth() / 2);
 
         // Apply the circle to the ImageView clip property
         displayPicture.setClip(clip);

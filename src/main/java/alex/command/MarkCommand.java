@@ -1,20 +1,26 @@
 package alex.command;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-import java.io.IOException;
-
-import alex.TaskList;
-import alex.Ui;
-import alex.Storage;
 import alex.AlexException;
+import alex.Storage;
+import alex.Ui;
+import alex.task.TaskList;
 
 /**
  * Represents the command by user to mark or unmark a Task.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private Scanner lineScanner;
     private String mark;
+
+    /**
+     * Constructs a MarkCommand instance.
+     *
+     * @param lineScanner Scanner object used to read user input.
+     * @param response Indicates whether the command is to mark or unmark a task.
+     */
     public MarkCommand(Scanner lineScanner, String response) {
         this.lineScanner = lineScanner;
         this.mark = response;
@@ -23,13 +29,14 @@ public class MarkCommand extends Command{
     /**
      * {@inheritDoc}
      *
-     * Marks or unmarks a Task, save changes to file and inform user.
+     * Marks or unmarks a Task, saves changes to file, and informs user.
      *
-     * @param tasks Tasklist that holds the list of Tasks.
+     * @param tasks TaskList that holds the list of Tasks.
      * @param ui Ui object that displays messages to user based on action taken by chatbot.
      * @param storage Storage object that saves changes to file.
-     * @throws AlexException If user enters wrong input, such as not providing a number or providing a
-     * number that is too big or too small.
+     * @return A message indicating the result of the mark/unmark operation.
+     * @throws AlexException If user provides incorrect input, such as not providing a number or providing
+     *                       a number that is too big or too small.
      * @throws IOException If there are issues saving changes to file.
      */
     @Override
@@ -41,12 +48,12 @@ public class MarkCommand extends Command{
         String taskNumberStr = lineScanner.next();
         int taskNumber;
 
-        //handles exception where user write too much
+        // Handles case where user provides extra input
         if (lineScanner.hasNext()) {
             throw new AlexException("Wait! Please only provide a number after 'mark' or 'unmark'!");
         }
 
-        //handles case where user doesn't provide a number or not an integer
+        // Handles case where user doesn't provide a number or provides an invalid integer
         try {
             taskNumber = Integer.valueOf(taskNumberStr);
         } catch (NumberFormatException e) {
@@ -80,3 +87,4 @@ public class MarkCommand extends Command{
         return "ChangeMarkCommand";
     }
 }
+

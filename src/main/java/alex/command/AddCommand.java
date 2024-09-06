@@ -1,17 +1,16 @@
 package alex.command;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.IOException;
-
+import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
-import alex.task.Task;
-import alex.TaskList;
-import alex.Ui;
-import alex.Storage;
 import alex.AlexException;
+import alex.Storage;
+import alex.Ui;
+import alex.task.Task;
+import alex.task.TaskList;
+
 import alex.Parser;
 
 /**
@@ -50,15 +49,15 @@ public class AddCommand extends Command {
             try {
                 task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
             } catch (DateTimeParseException e) {
-                throw new AlexException("Oh no! Please provide the deadline in yyyy-mm-dd HHMM format\n" +
-                        "e.g. 2024-05-19 1800");
+                throw new AlexException("Oh no! Please provide the deadline in yyyy-mm-dd HHMM format\n"
+                        + "e.g. 2024-05-19 1800");
             }
         } else if (this.response.equals("event")) {
             try {
                 task = Parser.makeEventTask(lineScanner, arrOfStr, false);
             } catch (DateTimeParseException e) {
-                throw new AlexException("Oh no! Please provide the start and end date and time in yyyy-mm-dd\n" +
-                        "HHMM format e.g. 2024-05-19 1800");
+                throw new AlexException("Oh no! Please provide the start and end date and time in yyyy-mm-dd\n"
+                        + "HHMM format e.g. 2024-05-19 1800");
             }
 
         }

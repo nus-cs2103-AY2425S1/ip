@@ -1,35 +1,40 @@
 package alex;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import alex.task.Task;
 
 /**
- * Deals with loading tasks from file and saving tasks to file.
+ * Handles loading tasks from a file and saving tasks to a file.
  */
 public class Storage {
     private String filePath;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored or retrieved.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Loads tasks from file
+     * Loads tasks from the file specified by the file path.
      *
-     * @return ArrayList of tasks read from the file
-     * @throws FileNotFoundException If no file exists on the file path given.
-     * @throws AlexException If there is an issue when converting text in the file to a Task object,
-     * likely due to incorrect formatting of text in the file.
+     * @return An ArrayList of tasks read from the file.
+     * @throws FileNotFoundException If the file specified by the file path does not exist.
+     * @throws AlexException If there is an issue converting text in the file into a Task object,
+     *                       likely due to incorrect formatting in the file.
      */
     public ArrayList<Task> load() throws FileNotFoundException, AlexException {
-        File f = new File(this.filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        File f = new File(this.filePath); // Create a File object for the given file path
+        Scanner s = new Scanner(f); // Create a Scanner using the File as the source
         ArrayList<Task> list = new ArrayList<>();
 
         while (s.hasNext()) {
@@ -61,10 +66,10 @@ public class Storage {
     }
 
     /**
-     * Saves Tasks to file
+     * Saves tasks to the file specified by the file path.
      *
-     * @param list ArrayList of Tasks to be written to file to save them.
-     * @throws IOException If there are issues when trying to write text to file.
+     * @param list An ArrayList of Tasks to be written to the file.
+     * @throws IOException If there are issues writing text to the file.
      */
     public void save(ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -75,3 +80,4 @@ public class Storage {
         fw.close();
     }
 }
+

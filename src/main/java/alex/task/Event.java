@@ -1,4 +1,5 @@
 package alex.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,9 +8,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     private LocalDateTime start;
-
     private LocalDateTime end;
-    public Event (String taskName, boolean isCompleted, LocalDateTime start, LocalDateTime end) {
+
+    /**
+     * Constructs an Event Task with the specified details.
+     *
+     * @param taskName The name or description of the task.
+     * @param isCompleted A boolean indicating whether the task is completed.
+     * @param start The start date and time of the event as a LocalDateTime object.
+     * @param end The end date and time of the event as a LocalDateTime object.
+     */
+    public Event(String taskName, boolean isCompleted, LocalDateTime start, LocalDateTime end) {
         super(taskName, isCompleted);
         this.start = start;
         this.end = end;
@@ -18,8 +27,10 @@ public class Event extends Task {
     /**
      * {@inheritDoc}
      *
-     * Returns the String representation of the Task to be displayed to user
-     * that includes its completion status, description as well as start and end dates.
+     * Returns the String representation of the Task to be displayed to the user
+     * that includes its completion status, description, start date, and end date.
+     *
+     * @return A String representation of the Event Task.
      */
     @Override
     public String toString() {
@@ -28,9 +39,17 @@ public class Event extends Task {
                 + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + ")";
     }
 
+    /**
+     * Returns a String representation of the Event Task suitable for storage.
+     * The format includes the task details, start date, and end date in "yyyy-MM-dd HHmm" format.
+     *
+     * @return A String representation of the Event Task for storage.
+     */
     @Override
     public String toStorageString() {
-        return "[E]" + super.toString() + " /from " + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+        return "[E]" + super.toString() + " /from "
+                + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
                 + " /to " + this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
+

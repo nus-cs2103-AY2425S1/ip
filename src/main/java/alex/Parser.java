@@ -1,40 +1,39 @@
 package alex;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import alex.command.AddCommand;
+import alex.command.Command;
+import alex.command.DeleteCommand;
+import alex.command.ExitCommand;
 import alex.command.FindCommand;
+import alex.command.ListCommand;
+import alex.command.MarkCommand;
 import alex.task.Deadline;
 import alex.task.Event;
 import alex.task.Task;
 import alex.task.Todo;
-import alex.command.Command;
-import alex.command.AddCommand;
-import alex.command.DeleteCommand;
-import alex.command.ExitCommand;
-import alex.command.ListCommand;
-import alex.command.MarkCommand;
 
 /**
- * Represents the class that helps to make sense of user inputs
+ * Helps to parse user inputs and convert them into appropriate commands and tasks.
  */
 public class Parser {
     /**
-     * Returns a Command class after interpreting user's input that matches user's command.
-     * Throws an Exception if user did not input a valid command.
+     * Parses the user input and returns the corresponding Command object.
+     * Throws an exception if the input is invalid.
      *
-     * @param fullCommand User input.
-     * @return Command class.
-     * @throws AlexException If invalid input is given by user.
+     * @param fullCommand User input command string.
+     * @return Command object corresponding to the user input.
+     * @throws AlexException If the input does not match any valid command.
      */
     public static Command parse(String fullCommand) throws AlexException {
         Scanner lineScanner = new Scanner(fullCommand);
 
-        //Obtain the first word of user input
+        // Obtain the first word of user input
         String response = lineScanner.next();
 
         switch (response) {
@@ -42,11 +41,14 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
-        case "mark", "unmark":
+        case "mark":
+        case "unmark":
             return new MarkCommand(lineScanner, response);
         case "delete":
             return new DeleteCommand(lineScanner);
-        case "todo", "deadline", "event":
+        case "todo":
+        case "deadline":
+        case "event":
             return new AddCommand(lineScanner, response);
         case "find":
             return new FindCommand(lineScanner);
@@ -57,11 +59,11 @@ public class Parser {
     }
 
     /**
-     * Converts a date and time string into a LocalDateTime Object.
+     * Converts a date and time string into a LocalDateTime object.
      *
-     * @param deadline Date and time string of format "yyyy-MM-dd HHmm"
-     * @return LocatDateTime object
-     * @throws DateTimeParseException If date and time string not of "yyyy-MM-dd HHmm" format
+     * @param deadline Date and time string in the format "yyyy-MM-dd HHmm".
+     * @return LocalDateTime object corresponding to the provided date and time string.
+     * @throws DateTimeParseException If the date and time string is not in the correct format.
      */
     public static LocalDateTime convertDateTime(String deadline) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -69,13 +71,13 @@ public class Parser {
     }
 
     /**
-     * Creates a Todo Task based on user description of the task.
+     * Creates a Todo task based on user description.
      *
-     * @param lineScanner Scanner object based on the line of text user entered.
-     * @param arrOfStr ArrayList of Strings to store words entered by user.
-     * @param isDone Boolean value representing whether the task is marked as done.
-     * @return Todo Task object.
-     * @throws AlexException If task description is empty.
+     * @param lineScanner Scanner object based on the line of text entered by the user.
+     * @param arrOfStr ArrayList of strings to store words entered by the user.
+     * @param isDone Boolean value indicating whether the task is marked as done.
+     * @return A Todo Task object.
+     * @throws AlexException If the task description is empty.
      */
     public static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
@@ -90,16 +92,16 @@ public class Parser {
     }
 
     /**
-     * Creates Deadline Task based on user description of the deadline and a provided deadline.
+     * Creates a Deadline task based on user description and provided deadline.
      *
-     * @param lineScanner Scanner object based on the line entered by user.
-     * @param arrOfStr ArrayList of Strings to store words entered by user.
-     * @param isDone Boolean valule representing whether the task is marked as done.
-     * @return Deadline Task
-     * @throws AlexException If no description or no deadline is provided.
+     * @param lineScanner Scanner object based on the line entered by the user.
+     * @param arrOfStr ArrayList of strings to store words entered by the user.
+     * @param isDone Boolean value indicating whether the task is marked as done.
+     * @return A Deadline Task object.
+     * @throws AlexException If no description or deadline is provided, or if provided information is incorrect.
      */
     public static Task makeDeadlineTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
-            throws AlexException  {
+            throws AlexException {
         String description = "";
         String deadline = "";
         boolean hasProvidedDeadline = false;
@@ -121,7 +123,7 @@ public class Parser {
             throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a " +
                     "deadline date by writing '/by' followed by the deadline!");
         }
-        if (description.isEmpty() ) {
+        if (description.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide " +
                     "a task!");
         }
@@ -129,17 +131,16 @@ public class Parser {
     }
 
     /**
-     * Creates an Event Task based on user description of the event as well as its start and end times.
+     * Creates an Event task based on user description, start time, and end time.
      *
-     * @param lineScanner Scanner object based on the line entered by user.
-     * @param arrOfStr ArrayList of strings to store words entered by user.
-     * @param isDone Boolean value representing whether the task is completed.
-     * @return Event Task
-     * @throws AlexException If no description, no start or no end time is provided or if end time is
-     * provided before start time.
+     * @param lineScanner Scanner object based on the line entered by the user.
+     * @param arrOfStr ArrayList of strings to store words entered by the user.
+     * @param isDone Boolean value indicating whether the task is completed.
+     * @return An Event Task object.
+     * @throws AlexException If no description, start time, or end time is provided, or if end time is before start time.
      */
     public static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
-            throws AlexException  {
+            throws AlexException {
         String description = "";
         String start = "";
         boolean isStart = false;
@@ -188,3 +189,4 @@ public class Parser {
                 convertDateTime(String.join(" ", arrOfStr)));
     }
 }
+
