@@ -29,6 +29,7 @@ public class AddCommand implements Command {
      * Executes the command to add the task to the list by
      * processing the command details into a <code>Task</code>,
      * then adding it to the TaskList.
+     *
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.

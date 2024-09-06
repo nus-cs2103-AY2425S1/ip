@@ -45,6 +45,7 @@ class FileStorage {
                 new Ui().showLoadingError();
             }
         }
+        assert this.file.exists();
     }
 
     /**
