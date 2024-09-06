@@ -38,5 +38,9 @@ public class YapMeister {
         new YapMeister("data/tasks.txt").run();
     }
 
+    public String getResponse(String input) {
+        return ui.getResponse(input);
+    }
+
 
 }
