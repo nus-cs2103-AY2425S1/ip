@@ -2,6 +2,8 @@ package yap.task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import yap.storage.Storage;
 import yap.storage.BadDataFormatException;
 
@@ -56,6 +58,13 @@ public class TaskList {
         for (int input = 0; input < tasks.size(); ++input) {
             System.out.println((input + 1) + ". " + tasks.get(input).toString());
         }
+    }
+
+    public void listMatchingDescriptionTasks(String description) {
+        tasks.stream()
+                .filter(task -> task.matchesTaskDescription(description))
+                .toList()
+                .forEach(task -> System.out.println(task.toString()));
     }
 
     private void saveCurrentTaskState() {

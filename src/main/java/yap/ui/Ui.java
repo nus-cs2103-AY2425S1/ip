@@ -91,6 +91,14 @@ public class Ui {
             System.out.println(separator);
             return 1;
         }
+
+        if (userInput.startsWith("find")) {
+            System.out.println("Test");
+            taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
+            System.out.println(separator);
+            return 1;
+        }
+
         throw new InputException();
     }
 }

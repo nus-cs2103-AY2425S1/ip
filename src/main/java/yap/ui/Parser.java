@@ -48,4 +48,8 @@ public class Parser {
         }
         return new Deadline(description, deadline);
     }
+
+    public static String getStringFromFindCommand(String findCommand) {
+        return findCommand.replace("find ", "").trim();
+    }
 }

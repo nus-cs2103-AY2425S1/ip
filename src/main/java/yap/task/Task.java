@@ -81,6 +81,10 @@ public class Task {
         return String.format("%d | %s", completion, this.description);
     }
 
+    public boolean matchesTaskDescription(String searchDescription) {
+        return description.toLowerCase().contains(searchDescription.toLowerCase());
+    }
+
     @Override
     public String toString() {
         String completion;
