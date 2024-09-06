@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,10 +12,16 @@ public class Naega {
         System.out.println("____________________________________________________________");
 
         // Initialize a list to store user tasks
+        Storage storage = new Storage("./data/duke.txt");
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
+        try {
+            tasks = storage.load();
+        } catch (IOException | NaegaException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
         // Main loop
         while (true) {
             userInput = scanner.nextLine();
@@ -54,7 +61,13 @@ public class Naega {
         }
 
         scanner.close();
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
     }
+
 
     private static void handleList(ArrayList<Task> tasks) {
         System.out.println("____________________________________________________________");
