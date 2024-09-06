@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
-        trackList.addToList(task);
+    public String execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
+        return trackList.addToList(task);
     }
 }

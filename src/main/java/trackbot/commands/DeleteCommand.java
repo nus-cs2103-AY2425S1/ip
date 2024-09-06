@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
         return taskIndex;
     }
     @Override
-    public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
-        trackList.deleteFromList(taskIndex);
+    public String execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
+        return trackList.deleteFromList(taskIndex);
     }
 }

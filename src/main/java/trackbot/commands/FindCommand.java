@@ -18,8 +18,8 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
     @Override
-    public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
+    public String execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
         List<Task> listTasks = trackList.findTasks(keyword);
-        trackList.showFoundTasks(listTasks);
+        return trackList.showFoundTasks(listTasks);
     }
 }
