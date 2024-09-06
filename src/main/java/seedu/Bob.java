@@ -6,7 +6,6 @@ import seedu.storage.Storage;
 import seedu.task.TaskList;
 import seedu.ui.Formatter;
 
-
 /**
  * Bob program keeps track of the users ToDos, Events, Deadlines.
  * Remembers past tasks.
