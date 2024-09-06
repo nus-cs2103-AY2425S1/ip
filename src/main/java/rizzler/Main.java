@@ -12,8 +12,9 @@ import java.io.IOException;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
+    private static final String saveDataFilePath = "data/saveData.txt";
 
-    private Rizzler rizzler = new Rizzler("data/saveData.txt");
+    private Rizzler rizzler = new Rizzler(saveDataFilePath);
 
     @Override
     public void start(Stage stage) {
