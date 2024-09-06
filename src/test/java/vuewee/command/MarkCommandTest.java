@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
+import vuewee.ui.TaskListCli;
 
 public class MarkCommandTest {
     @Test
@@ -18,7 +18,7 @@ public class MarkCommandTest {
         taskList.add(new TodoTask("task1"));
         taskList.add(new TodoTask("task2"));
         taskList.add(new TodoTask("task3"));
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         MarkCommand markCommand = new MarkCommand();
         UnmarkCommand unmarkCommand = new UnmarkCommand();
@@ -56,5 +56,6 @@ public class MarkCommandTest {
         unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 3"));
         assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
+        taskListUI.close();
     }
 }

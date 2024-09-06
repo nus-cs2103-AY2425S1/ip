@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
+import vuewee.ui.TaskListCli;
 
 public class FindCommandTest {
     @Test
@@ -17,7 +17,7 @@ public class FindCommandTest {
         taskList.add(new TodoTask("task1"));
         taskList.add(new TodoTask("task2"));
         taskList.add(new TodoTask("task3"));
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         FindCommand command = new FindCommand();
 
@@ -26,5 +26,7 @@ public class FindCommandTest {
 
         // Can only test successful execution
         command.execute(taskListUI, taskList, new CommandParser("find task2"));
+
+        taskListUI.close();
     }
 }

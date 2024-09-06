@@ -1,15 +1,21 @@
 package vuewee;
 
-import java.util.Scanner;
+import vuewee.ui.TaskListCli;
+import vuewee.ui.TaskListGui;
+import vuewee.ui.TaskListUi;
 
 /**
  * The Vuewee class contains the main method to run the Vuewee application.
  */
 public class Vuewee {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskListUI ui = new TaskListUI(scanner);
+        TaskListUi ui;
+        if (args.length >= 1 && args[0].equals("--cli")) {
+            ui = TaskListCli.getScannerInstance();
+        } else {
+            ui = TaskListGui.getInstance();
+        }
         ui.run();
-        scanner.close();
+        ui.close();
     }
 }

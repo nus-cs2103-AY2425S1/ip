@@ -1,8 +1,8 @@
 package vuewee.command;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
+import vuewee.ui.TaskListUi;
 
 /**
  * The ListCommand class represents a command to list all tasks. It extends the
@@ -16,7 +16,7 @@ class ListCommand extends Command {
      * @param taskList the TaskList object containing the tasks
      * @param parser   the CommandParser object used to parse commands
      */
-    public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
+    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
         ui.displayTasks();
     }
 }

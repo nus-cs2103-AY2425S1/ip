@@ -11,7 +11,7 @@ import vuewee.task.TaskList;
  * The TasksStorage class represents a storage for tasks. Only once instance of
  * TasksStorage is created, and it reads and writes tasks to a file.
  */
-class TasksStorage {
+public class TasksStorage {
     private static final Path DATA_DIRECTORY = Paths.get("data");
     private static final Path TASKS_FILE_PATH = Paths.get(DATA_DIRECTORY.toString(), "tasks.txt");
     private static TasksStorage instance;
@@ -39,6 +39,11 @@ class TasksStorage {
         return instance;
     }
 
+    /**
+     * Reads tasks from the file.
+     *
+     * @return a TaskList object containing the tasks
+     */
     public TaskList readTasks() {
         try {
             String tasksStore = Files.readString(TASKS_FILE_PATH);
@@ -49,6 +54,11 @@ class TasksStorage {
         }
     }
 
+    /**
+     * Writes tasks to the file.
+     *
+     * @param list the TaskList object containing the tasks to be written
+     */
     public void storeTasks(TaskList list) {
         try {
             Files.writeString(TASKS_FILE_PATH, list.serialize());

@@ -1,11 +1,11 @@
 package vuewee.command;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
 import vuewee.task.EventTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
+import vuewee.ui.TaskListUi;
 
 /**
  * Represents a command that adds an event task to the task list which has a
@@ -20,7 +20,7 @@ class EventCommand extends Command {
      * @param taskList The task list to add the event task to.
      * @param parser   The command parser for parsing command options.
      */
-    public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
+    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
         CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
                 TaskLocalDate::parse);
         CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",
