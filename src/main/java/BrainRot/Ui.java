@@ -1,7 +1,5 @@
 package BrainRot;
 
-import BrainRot.TaskList;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -13,6 +11,8 @@ import java.util.Scanner;
  * operations, allowing the rest of the application to focus on core logic.
  */
 public class Ui {
+
+
 
     private static final String LINE = "____________________________________________________________\n";
 
@@ -58,13 +58,13 @@ public class Ui {
     }
 
     /** Shows the welcome message to the user. */
-    public void showWelcomeMessage() {
-        showToUser(LINE + GREETING + LINE);
+    public String showWelcomeMessage() {
+        return showToUser(LINE + GREETING + LINE);
     }
 
     /** Shows the exit message to the user. */
-    public void showExit() {
-        showToUser(GOODBYE + LINE);
+    public String showExit() {
+        return showToUser(GOODBYE + LINE);
     }
 
     /** Shows the loading error message if the database fails to load. */
@@ -78,8 +78,8 @@ public class Ui {
     }
 
     /** Shows the command error message if the user enters an unrecognized command. */
-    public void showCommandError() {
-        showToUser(LINE + COMMANDERROR + LINE);
+    public String showCommandError() {
+        return showToUser(LINE + COMMANDERROR + LINE);
     }
 
     /**
@@ -87,8 +87,9 @@ public class Ui {
      *
      * @param taskDetails The details of the task that was marked as done.
      */
-    public void showMarkMsg(String taskDetails) {
-        showToUser("Nice! I've marked this task as done:\n  " + taskDetails + LS);
+    public String showMarkMsg(String taskDetails) {
+        System.out.println("Nice! I've marked this task as done:\n  " + taskDetails + LS);
+        return showToUser("Nice! I've marked this task as done:\n  " + taskDetails + LS);
     }
 
     /**
@@ -96,8 +97,8 @@ public class Ui {
      *
      * @param taskDetails The details of the task that was unmarked.
      */
-    public void showUnMarkMsg(String taskDetails) {
-        showToUser("OK, I've marked this task as not done yet:\n  " + taskDetails + LS);
+    public String showUnMarkMsg(String taskDetails) {
+        return showToUser("OK, I've marked this task as not done yet:\n  " + taskDetails + LS);
     }
 
     /**
@@ -105,8 +106,8 @@ public class Ui {
      *
      * @param taskDetails The details of the task that was deleted.
      */
-    public void showDeleteMsg(String taskDetails) {
-        showToUser("Noted. I've removed this task:\n  " + taskDetails + LS);
+    public String showDeleteMsg(String taskDetails) {
+        return showToUser("Noted. I've removed this task:\n  " + taskDetails + LS);
     }
 
 
@@ -115,8 +116,8 @@ public class Ui {
      *
      * @param taskDetails The details of the task that was added.
      */
-    public void showAddTaskMsg(String taskDetails) {
-        showToUser("Got it. I've added this task:\n  " + taskDetails + LS);
+    public String showAddTaskMsg(String taskDetails) {
+        return showToUser("Got it. I've added this task:\n  " + taskDetails + LS);
     }
 
     /**
@@ -127,7 +128,7 @@ public class Ui {
      */
 
     public String getUserCommand() {
-        out.print("Enter command: ");
+//        out.print("Enter command: ");
         String fullInputLine = in.nextLine();
 
         // Silently consume all ignored lines
@@ -144,16 +145,16 @@ public class Ui {
      *
      * @param matchingTasks The TaskList containing tasks that match the search criteria.
      */
-    public void showFind(TaskList matchingTasks) {
+    public String showFind(TaskList matchingTasks) {
         if (matchingTasks.size() == 0) {
-            showToUser(LINE + "No matching tasks found." + LS + LINE);
+            return showToUser(LINE + "No matching tasks found." + LS + LINE);
         } else {
             StringBuilder sb = new StringBuilder(LINE + "Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 sb.append((i + 1)).append(". ").append(matchingTasks.getTask(i).toString()).append(LS);
             }
             sb.append(LINE);
-            showToUser(sb.toString());
+            return showToUser(sb.toString());
         }
     }
 
@@ -174,23 +175,26 @@ public class Ui {
      *
      * @param messages The messages to be displayed to the user.
      */
-    public void showToUser(String... messages) {
+    public String showToUser(String... messages) {
+        StringBuilder sb = new StringBuilder();
         for (String message : messages) {
-            out.println(message.replace("\n", LS));
+            sb.append(message.replace("\n", LS)); // Append the formatted message
         }
+        return sb.toString(); // Return the final concatenated string
     }
+
 
     /**
      * Displays the list of tasks to the user.
      *
      * @param tasks The BrainRot.TaskList containing tasks to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
         StringBuilder sb = new StringBuilder(LINE + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.getTask(i).toString()).append(LS);
         }
         sb.append(LINE);
-        showToUser(sb.toString());
+        return showToUser(sb.toString());
     }
 }

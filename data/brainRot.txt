@@ -1,2 +1,4 @@
 [T][ ]/borrow books
-[T][ ]/read books
+[T][ ]/sell books
+[T][ ]/sell books
+[T][ ]/create books

@@ -36,44 +36,28 @@ public class BrainRot {
      * Starts the main loop to process user commands.
      * This method continually reads user input and performs the appropriate actions.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        while (true) {
-            String userInput = ui.getUserCommand();
-            String[] parsedInput = Parser.parse(userInput);
-            String action = parsedInput[0];
-            String details = parsedInput[1];
+    public String run(String userInput) {
 
-            try {
-                switch (action) {
-                    case "list":
-                        ui.showTaskList(tasks);
-                        break;
-                    case "bye":
-                        ui.showExit();
-                        return;
-                    case "find":
-                        findTask(details);
-                        break;
-                    case "mark":
-                        markTask(details);
-                        break;
-                    case "unmark":
-                        unmarkTask(details);
-                        break;
-                    case "delete":
-                        deleteTask(details);
-                        break;
-                    case "add":
-                        addTask(details);
-                        break;
-                    default:
-                        throw new UnknownCommandException("Unknown command");
-                }
+        String[] parsedInput = Parser.parse(userInput);
+        String action = parsedInput[0];
+        String details = parsedInput[1];
+        System.out.println(action);
+        System.out.println(details);
 
-            } catch (UnknownCommandException | UnknownActivityException | IOException e) {
-                ui.showCommandError();
-            }
+        try {
+            return switch (action) {
+                case "list" -> ui.showTaskList(tasks);
+                case "bye" -> ui.showExit();
+                case "find" -> findTask(details);
+                case "mark" -> markTask(details);
+                case "unmark" -> unmarkTask(details);
+                case "delete" -> deleteTask(details);
+                case "add" -> addTask(details);
+                default -> throw new UnknownCommandException("Unknown command");
+            };
+
+        } catch (UnknownCommandException | UnknownActivityException | IOException e) {
+            return ui.showCommandError();
         }
     }
 
@@ -83,11 +67,11 @@ public class BrainRot {
      * @param details The index of the task to be marked.
      * @throws IOException If an I/O error occurs during task saving.
      */
-    private void markTask(String details) throws IOException {
+    private String markTask(String details) throws IOException {
         int markIndex = Integer.parseInt(details) - 1;
         tasks.getTask(markIndex).mark();
         storage.save(tasks.getTasks());
-        ui.showMarkMsg(tasks.getTask(markIndex).toString());
+        return ui.showMarkMsg(tasks.getTask(markIndex).toString());
     }
 
     /**
@@ -96,11 +80,11 @@ public class BrainRot {
      * @param details The index of the task to be unmarked.
      * @throws IOException If an I/O error occurs during task saving.
      */
-    private void unmarkTask(String details) throws IOException {
+    private String unmarkTask(String details) throws IOException {
         int unmarkIndex = Integer.parseInt(details) - 1;
         tasks.getTask(unmarkIndex).unmark();
         storage.save(tasks.getTasks());
-        ui.showUnMarkMsg(tasks.getTask(unmarkIndex).toString());
+        return ui.showUnMarkMsg(tasks.getTask(unmarkIndex).toString());
     }
 
     /**
@@ -110,7 +94,7 @@ public class BrainRot {
      * @param details The search term used to match against task descriptions.
      * @throws IOException If an I/O error occurs during the task searching process.
      */
-    private void findTask(String details) throws IOException {
+    private String findTask(String details) throws IOException {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task unchecked = tasks.getTask(i);
@@ -118,7 +102,7 @@ public class BrainRot {
                 matchingTasks.addTask(unchecked);
             }
         }
-        ui.showFind(matchingTasks);
+        return ui.showFind(matchingTasks);
     }
 
     /**
@@ -127,12 +111,12 @@ public class BrainRot {
      * @param details The index of the task to be deleted.
      * @throws IOException If an I/O error occurs during task saving.
      */
-    private void deleteTask(String details) throws IOException {
+    private String deleteTask(String details) throws IOException {
         int deleteIndex = Integer.parseInt(details) - 1;
         String taskDetails = tasks.getTask(deleteIndex).toString();
         tasks.removeTask(deleteIndex);
         storage.save(tasks.getTasks());
-        ui.showDeleteMsg(taskDetails);
+        return ui.showDeleteMsg(taskDetails);
     }
 
     /**
@@ -143,7 +127,7 @@ public class BrainRot {
      * @throws UnknownActivityException If the task description is invalid.
      * @throws IOException If an I/O error occurs during task saving.
      */
-    private void addTask(String details) throws UnknownCommandException, UnknownActivityException, IOException {
+    private String addTask(String details) throws UnknownCommandException, UnknownActivityException, IOException {
         Task newTask;
         if (details.startsWith("todo")) {
             newTask = new ToDo(details.substring(5).trim());
@@ -158,6 +142,6 @@ public class BrainRot {
         }
         tasks.addTask(newTask);
         storage.save(tasks.getTasks());
-        ui.showAddTaskMsg(newTask.toString());
+        return ui.showAddTaskMsg(newTask.toString());
     }
 }
