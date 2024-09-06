@@ -20,6 +20,7 @@ public class Gale {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private boolean isRunning;
 
     /**
      * Creates a new Gale instance with the default file path to store the output.
@@ -27,13 +28,14 @@ public class Gale {
      */
     public Gale() {
         this.ui = new Ui();
-        this.storage = new Storage("src/main/java/data/galeTasks.txt");
+        this.storage = new Storage("src/main/java/gale/data/galeTasks.txt");
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
             ui.showLoadingError();
             this.taskList = new TaskList();
         }
+        this.isRunning = true;
     }
 
     /**
@@ -52,6 +54,7 @@ public class Gale {
             ui.showLoadingError();
             this.taskList = new TaskList();
         }
+        this.isRunning = true;
     }
 
     /**
@@ -67,7 +70,7 @@ public class Gale {
      * Saves the current list of tasks to storage.
      * <p>This method is called after each operation that modifies a task in the tasklist.</p>
      */
-    protected void saveTasks() {
+    public void saveTasks() {
         try {
             storage.saveTasks(taskList.getTaskList());
         } catch (IOException e) {
@@ -82,56 +85,70 @@ public class Gale {
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        while (isRunning) {
             String input;
-            try {
-                input = scanner.nextLine().trim();
-                if (input.equalsIgnoreCase("bye")) {
-                    ui.exit();
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    ui.displayTaskList(taskList);
-                } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                    handleTaskMarking(input);
-                } else if (input.startsWith("delete")) {
-                    deleteTask(input);
-                } else if (input.startsWith("find")) {
-                    findTasks(input);
-                } else {
-                    Task task = Parser.parseTask(input);
-                    taskList.addTask(task);
-                    ui.printAddedTask(task, taskList.size());
-                }
-                saveTasks();
-            } catch (GaleException e) {
-                ui.showException(e.getMessage());
+            input = scanner.nextLine().trim();
+            String response = getResponse(input);
+            System.out.println(response);
+            if (!isRunning) {
+                break;
             }
+            saveTasks();
         }
         scanner.close();
     }
 
+    public String getResponse(String input) {
+        try {
+            if (input.equalsIgnoreCase("bye")) {
+                this.isRunning = false;
+                return ui.exit();
+            } else if (input.equalsIgnoreCase("list")) {
+                return ui.displayTaskList(taskList);
+            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                return handleTaskMarking(input);
+            } else if (input.startsWith("delete")) {
+                return deleteTask(input);
+            } else if (input.startsWith("find")) {
+                return findTasks(input);
+            } else {
+                Task task = Parser.parseTask(input);
+                taskList.addTask(task);
+                return ui.showAddedTask(task, taskList.size());
+            }
+        } catch (GaleException e) {
+            return ui.showException(e.getMessage());
+        }
+    }
+
     /**
-     * Deletes a task from the tasklist, given the task number, and prints out the deleted task.
+     * Deletes a task from the tasklist, given the task number, and returns the deleted task as a String.
      * @param input user input in the form of 'delete (task number)'
+     * @return the deleted task
      * @throws GaleException if the task number is not provided
      */
-    public void deleteTask(String input) throws GaleException {
+    public String deleteTask(String input) throws GaleException {
         String[] strA = input.split(" ");
         if (strA.length != 2) {
             throw new GaleException("Your task number got lost in the wind. Please use 'delete [task number]'");
         }
         int index = Integer.parseInt(strA[1]) - 1;
+        if (index < 0 || index >= taskList.size()) {
+            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
+        }
         Task task = taskList.getTask(index);
         taskList.deleteTask(index);
-        ui.showDeletedTask(task, taskList.size());
+        return ui.showDeletedTask(task, taskList.size());
     }
 
     /**
      * Marks or un-marks a task as done, given the task number.
+     * Returns the marked or un-marked task as a String.
      * @param input user input in the form of 'mark (task number)' or 'unmark (task number)'
+     * @return the marked or un-marked task
      * @throws GaleException if the task number is not provided or if the task is already in the requested state
      */
-    public void handleTaskMarking(String input) throws GaleException {
+    public String handleTaskMarking(String input) throws GaleException {
         String[] strA = input.split(" ");
         int index = Integer.parseInt(strA[1]) - 1;
         boolean isDone = strA[0].equals("mark");
@@ -141,7 +158,7 @@ public class Gale {
                 throw new GaleException("Oops! This task is already marked as " + (isDone ? "done." : "not done."));
             } else {
                 taskList.markTask(index, isDone);
-                ui.showMarkedTask(task, isDone);
+                return ui.showMarkedTask(task, isDone);
             }
         } else {
             throw new GaleException("Oops! That task number is lost in the wind. Try again?");
@@ -150,16 +167,26 @@ public class Gale {
 
     /**
      * Finds tasks that contain the keyword in their description.
+     * Returns the list of found tasks as a String
      * @param input the user input in the form of 'find (keyword)'
+     * @return the list of found tasks
      * @throws GaleException if the keyword is missing
      */
-    public void findTasks(String input) throws GaleException {
+    public String findTasks(String input) throws GaleException {
         String[] strA = input.split(" ", 2);
         if (strA.length < 2 || strA[1].trim().isEmpty()) {
             throw new GaleException("Oops! Your keyword is lost in the wind. Please use 'find [keyword]'.");
         }
         String keyword = strA[1].trim();
         ArrayList<Task> foundTasks = taskList.findTasks(keyword);
-        ui.showFoundTasks(foundTasks, keyword);
+        return ui.showFoundTasks(foundTasks, keyword);
+    }
+
+    /**
+     * Returns the TaskList attribute of Gale.
+     * @return the TaskList attribute of Gale
+     */
+    public TaskList getTaskList() {
+        return this.taskList;
     }
 }
