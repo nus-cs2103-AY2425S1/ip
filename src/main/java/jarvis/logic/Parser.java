@@ -103,6 +103,7 @@ public class Parser {
                 }
             }
         }
+        parse(input, tasklist);
         return result.toString();
     }
 }

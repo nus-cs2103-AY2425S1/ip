@@ -1,6 +1,3 @@
-[T] [X] ii
-[T] [ ] ii
-
 [T] [ ] ii
 
 [T] [ ] ii
@@ -20,6 +17,14 @@
 [D] [ ] return book by: 2/12/201
 
 [T] [ ] ii
+
+[T] [ ] i
+
+[T] [ ] ii
+
+[T] [ ] buy something
+
+[T] [ ] i
 
 [T] [ ] i
 

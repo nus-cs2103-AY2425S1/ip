@@ -48,7 +48,6 @@ public class Jarvis {
     }
 
     public String getResponse(String input) {
-        this.parser.parse(input, tasklist);
         return this.parser.parseDialog(input, tasklist);
     }
 

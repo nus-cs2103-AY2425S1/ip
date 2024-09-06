@@ -93,7 +93,7 @@ public class TaskList {
 
     // Generates the message for the unmark dialog
     public String unmarkDialog(int i) {
-        if(i < 0 || i >= this.getNumTasks()){
+        if(i - 1 < 0 || i > this.getNumTasks()){
             return "index error!";
         }
         return String.format("Nice! I've marked this task as not done:\n" +
