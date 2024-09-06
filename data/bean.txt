@@ -1,5 +1,4 @@
-T | 1 | read
-T | 1 | asdasda
-D | 0 | asdasd | 2019-10-10 1900
-T | 0 | asda
-T | 0 | 123
+T | 1 | 1
+T | 0 | asa
+D | 0 | asdas | 2019-10-10 1800
+T | 0 | 1

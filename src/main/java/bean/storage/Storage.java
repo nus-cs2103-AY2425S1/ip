@@ -53,24 +53,30 @@ public class Storage {
                 String description = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        TodoTask todo = new TodoTask(description);
-                        if (isDone) todo.completeTask();
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        DeadlineTask deadline = new DeadlineTask(description, by);
-                        if (isDone) deadline.completeTask();
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        EventTask event = new EventTask(description, from, to);
-                        if (isDone) event.completeTask();
-                        tasks.add(event);
-                        break;
+                case "T":
+                    TodoTask todo = new TodoTask(description);
+                    if (isDone) {
+                        todo.completeTask();
+                    }
+                    tasks.add(todo);
+                    break;
+                case "D":
+                    String by = parts[3];
+                    DeadlineTask deadline = new DeadlineTask(description, by);
+                    if (isDone) {
+                        deadline.completeTask();
+                    }
+                    tasks.add(deadline);
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    EventTask event = new EventTask(description, from, to);
+                    if (isDone) {
+                        event.completeTask();
+                    }
+                    tasks.add(event);
+                    break;
                 }
             }
             fileScanner.close();
