@@ -18,7 +18,7 @@ import java.io.IOException;
 public class Storage {
     private KillJoy kj;
     private ProcessTasks processTasks;
-
+    
     public Storage(KillJoy kj, ProcessTasks processTasks) {
         this.kj = kj;
         this.processTasks = processTasks;

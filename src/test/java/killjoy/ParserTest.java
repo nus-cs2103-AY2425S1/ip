@@ -37,21 +37,21 @@ public class ParserTest {
     @Test
     public void testGetDescription_todoTask() {
         String input = "todo read book /by 2024-08-31";
-        String result = Parser.getDescription(input);
+        String result = Parser.getDescriptionFromInput(input);
         assertEquals("read book ", result);
     }
 
     @Test
     public void testGetBy_validDate() {
         String input = "deadline submit assignment /by 2024-08-31 15:00";
-        String result = Parser.getBy(input);
+        String result = Parser.getByTimeString(input);
         assertEquals("2024-08-31 15:00", result);
     }
 
     @Test
     public void testParseDateTime_validDateWithTime() {
         String dateTime = "2024-08-31 15:00";
-        LocalDateTime result = Parser.parseDateTime(dateTime);
+        LocalDateTime result = Parser.parseStringToLocalDateTime(dateTime);
         assertNotNull(result);
         assertEquals(LocalDateTime.of(2024, 8, 31, 15, 0), result);
     }
@@ -59,7 +59,7 @@ public class ParserTest {
     @Test
     public void testParseDateTime_validDateWithoutTime() {
         String dateTime = "2024-08-31";
-        LocalDateTime result = Parser.parseDateTime(dateTime);
+        LocalDateTime result = Parser.parseStringToLocalDateTime(dateTime);
         assertNotNull(result);
         assertEquals(LocalDateTime.of(2024, 8, 31, 0, 0), result);
     }
@@ -67,7 +67,7 @@ public class ParserTest {
     @Test
     public void testParseDateTime_invalidDate() {
         String dateTime = "invalid-date";
-        LocalDateTime result = Parser.parseDateTime(dateTime);
+        LocalDateTime result = Parser.parseStringToLocalDateTime(dateTime);
         assertNull(result);
     }
 }
