@@ -26,7 +26,7 @@ Follow these steps to get Lolo up and running on your local machine:
 Open a terminal and clone the repository using the following command:
 
 ```bash
-git clone https://github.com/your-username/lolo-chatbot.git
+git clone https://github.com/chenle228/ip.git
 ```
 Replace your-username with your GitHub username.
 
@@ -118,4 +118,5 @@ To exit Lolo, use the command:
 bye
 ```
 This will close the application.
+
 Have fun trying out Lolo! 🙌
