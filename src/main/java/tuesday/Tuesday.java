@@ -51,6 +51,13 @@ public class Tuesday {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Tuesday heard: " + input;
+    }
+
     public static void main(String[] args) {
         new Tuesday("src/main/data/tuesday.txt").run();
     }
