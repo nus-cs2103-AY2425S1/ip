@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Initialises the storage, given a task list.
      *
-     * @param taskList
+     * @param taskList List of tasks
      */
     public Storage(TaskList taskList) {
         try {
