@@ -8,8 +8,9 @@ import java.util.Scanner;
  * presented to the user.
  */
 public class Ui {
+
     private static final String DIVIDER = "____________________________________________________________\n";
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a Ui object and initializes the scanner for reading user input.
@@ -44,7 +45,7 @@ public class Ui {
 
     /**
      * Reads and returns the user's command input.
-     * 
+     *
      * @return the user's input as a trimmed string.
      */
     public String readCommand() {
@@ -54,7 +55,7 @@ public class Ui {
 
     /**
      * Displays an error message in a formatted output.
-     * 
+     *
      * @param message the error message to display.
      */
     public void showError(String message) {
@@ -63,7 +64,7 @@ public class Ui {
 
     /**
      * Displays a general message to the user.
-     * 
+     *
      * @param message the message to display.
      */
     public void showMessage(String message) {
@@ -72,7 +73,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that a task has been added to the task list.
-     * 
+     *
      * @param task the task that was added.
      * @param size the new size of the task list.
      */
