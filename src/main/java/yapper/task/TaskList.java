@@ -42,5 +42,16 @@ public class TaskList {
             }
         }
         return matchingTasks;
+        
+    }
+    public String listTasks() {
+        if (tasks.isEmpty()) {
+            return "You have no tasks in the list.";
+        }
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append("\n").append(i + 1).append(". ").append(tasks.get(i));
+        }
+        return result.toString();
     }
 }

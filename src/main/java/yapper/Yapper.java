@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -80,6 +80,9 @@ public class Yapper {
                     isExit = true;
                     ui.printGoodbye();
                     break;
+                case FIND:
+                    handleFind(fullCommand);
+                    break;
                 default:
                     throw new UnknownCommandException();
                 }
@@ -93,7 +96,7 @@ public class Yapper {
         }
     }
 
-    private void handleMark(String fullCommand) throws YapperException {
+    private String handleMark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("mark");
@@ -104,10 +107,10 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
-        ui.printTaskMarked(task);
+        return "Nice! I've marked this task as done:\n  " + task;
     }
-
-    private void handleUnmark(String fullCommand) throws YapperException {
+    
+    private String handleUnmark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("unmark");
@@ -118,20 +121,22 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
-        ui.printTaskUnmarked(task);
+        return "OK, I've marked this task as not done yet:\n  " + task;
     }
+    
 
-    private void handleTodo(String fullCommand) throws YapperException {
+    private String handleTodo(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("todo");
         }
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
-        ui.printTaskAdded(task, tasks.getSize());
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
+    
 
-    private void handleDeadline(String fullCommand) throws YapperException {
+    private String handleDeadline(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /by ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("deadline");
@@ -139,10 +144,11 @@ public class Yapper {
         String description = parts[0].substring(9).trim();
         Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
-        ui.printTaskAdded(task, tasks.getSize());
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
+    
 
-    private void handleEvent(String fullCommand) throws YapperException {
+    private String handleEvent(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /from ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("event");
@@ -154,10 +160,11 @@ public class Yapper {
         String description = parts[0].substring(6).trim();
         Task task = new Event(description, times[0], times[1]);
         tasks.addTask(task);
-        ui.printTaskAdded(task, tasks.getSize());
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
+    
 
-    private void handleDelete(String fullCommand) throws YapperException {
+    private String handleDelete(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("delete");
@@ -168,23 +175,76 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
-        ui.printTaskRemoved(task, tasks.getSize());
+        return "Noted. I've removed this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
+    
 
-    private void handleFind(String fullCommand) throws YapperException {
+    private String handleFind(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("find");
         }
         String keyword = parts[1];
         List<Task> matchingTasks = tasks.findTasks(keyword);
-        
+    
         if (matchingTasks.isEmpty()) {
-            ui.showNoMatchingTasksMessage();
+            return "I couldn't find any tasks matching the keyword '" + keyword + "'.";
         } else {
-            ui.showMatchingTasks(matchingTasks);
+            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                result.append("\n").append(i + 1).append(". ").append(matchingTasks.get(i));
+            }
+            return result.toString();
         }
     }
+    
+        /**
+     * Handles user input and returns the response from Bopes.
+     * 
+     * @param input The user input.
+     * @return The response from Bopes.
+     */
+    public String getResponse(String input) {
+        try {
+            return parse(input, tasks, storage);
+        } catch (YapperException e) {
+            return e.getMessage();
+        }
+    }
+
+    private String parse(String fullCommand, TaskList tasks, Storage storage) throws YapperException {
+        String[] parts = fullCommand.split(" ", 2);  
+        String command = parts[0].toLowerCase();    
+        
+        try {
+            switch (command) {
+                case "list":
+                    return tasks.listTasks(); 
+                case "mark":
+                    return handleMark(fullCommand);  // Remove 'tasks' from the argument list
+                case "unmark":
+                    return handleUnmark(fullCommand);  // Remove 'tasks'
+                case "todo":
+                    return handleTodo(fullCommand);  // Remove 'tasks'
+                case "deadline":
+                    return handleDeadline(fullCommand);  // Remove 'tasks'
+                case "event":
+                    return handleEvent(fullCommand);  // Remove 'tasks'
+                case "delete":
+                    return handleDelete(fullCommand);  // Remove 'tasks'
+                case "find":
+                    return handleFind(fullCommand);  // Remove 'tasks'
+                case "bye":
+                    storage.save(tasks.getTasks());  // Save the current tasks and exit
+                    return "Bye! Hope to see you again soon!";
+                default:
+                    throw new UnknownCommandException();
+            }
+        } catch (IOException e) {
+            throw new YapperException("Sorry boss, there was an error saving your data.");
+        }
+    }
+
     public static void main(String[] args) {
         new Yapper("data/tasks.txt").run();
     }
