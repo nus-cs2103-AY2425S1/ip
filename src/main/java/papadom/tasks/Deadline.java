@@ -21,6 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert !description.isEmpty() : "Description cannot be empty";
         this.localDateTime = by;
         this.hasTime = true;
     }
@@ -33,6 +34,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate by) {
         super(description);
+        assert !description.isEmpty() : "Description cannot be empty";
         this.localDate = by;
         this.hasTime = false;
     }

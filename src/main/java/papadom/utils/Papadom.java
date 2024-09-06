@@ -24,6 +24,7 @@ public class Papadom {
          * @return The CommandType enum corresponding to the command.
          */
         public static CommandType fromString(String command) {
+            assert command != null && !command.isEmpty() : "Command cannot be null or empty";
             return switch (command.toLowerCase()) {
                 case "list" -> LIST;
                 case "bye" -> BYE;
