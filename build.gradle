@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+
 }
 
 repositories {
@@ -47,8 +48,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "lutchat"
     archiveClassifier = null
+    mainClassName = 'Launcher'
+    archiveFileName = 'lutchat.jar'
 }
 
 run{
