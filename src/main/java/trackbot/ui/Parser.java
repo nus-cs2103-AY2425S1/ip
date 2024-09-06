@@ -7,7 +7,16 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 import trackbot.TrackBotException;
-import trackbot.commands.*;
+import trackbot.commands.AddCommand;
+import trackbot.commands.Command;
+import trackbot.commands.DeleteCommand;
+import trackbot.commands.ExitCommand;
+import trackbot.commands.FindCommand;
+import trackbot.commands.InvalidCommand;
+import trackbot.commands.ListCommand;
+import trackbot.commands.MarkCommand;
+import trackbot.commands.UnknownCommand;
+import trackbot.commands.UnmarkCommand;
 import trackbot.task.Deadline;
 import trackbot.task.Event;
 import trackbot.task.Task;
@@ -148,7 +157,7 @@ public class Parser {
     }
 
     /**
-     * Validates and reformats a date/time string into a consistent format.
+     * Validates and reformat a date/time string into a consistent format.
      *
      * @param time The raw date/time string.
      * @return The reformatted date/time string.
