@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.io.IOException;
-
 import duke.BobException;
 import duke.Storage;
 import duke.TaskList;
@@ -36,12 +34,8 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
-        try {
-            storage.add(this.task);
-            tasks.add(this.task);
-            ui.add(this.task, tasks.size());
-        } catch (IOException e) {
-            throw new BobException("Sorry, something went wrong when updating your storage.");
-        }
+        storage.add(this.task);
+        tasks.add(this.task);
+        ui.add(this.task, tasks.size());
     }
 }

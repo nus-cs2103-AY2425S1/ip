@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.io.IOException;
-
 import duke.BobException;
 import duke.Storage;
 import duke.TaskList;
@@ -44,12 +42,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
-        try {
-            storage.mark(this.itemNum, this.isCompleted);
-            Task task = tasks.mark(this.itemNum, this.isCompleted);
-            ui.mark(task, this.isCompleted);
-        } catch (IOException e) {
-            throw new BobException("Sorry, something went wrong when updating your storage.");
-        }
+        storage.mark(this.itemNum, this.isCompleted);
+        Task task = tasks.mark(this.itemNum, this.isCompleted);
+        ui.mark(task, this.isCompleted);
     }
 }

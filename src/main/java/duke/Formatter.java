@@ -5,5 +5,5 @@ package duke;
  */
 @FunctionalInterface
 public interface Formatter {
-    public String format(String message);
+    String format(String message);
 }

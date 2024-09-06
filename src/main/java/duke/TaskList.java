@@ -26,7 +26,9 @@ public class TaskList {
      * @param tasks The tasks to populate the list with.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = (ArrayList<Task>) tasks.clone();
+        @SuppressWarnings("unchecked")
+        ArrayList<Task> tasksClone = (ArrayList<Task>) tasks.clone();
+        this.tasks = tasksClone;
     }
 
     /**
