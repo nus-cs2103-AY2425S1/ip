@@ -30,7 +30,7 @@ public class ListBot {
 
         String initialise = """
                 -----------------------------------------------
-                Initialising ListBot Bot...
+                Initialising List Bot...
                 Special commands:
                 'LIST' -> Show full list
                 'FIND abc' -> Filters tasks with abc
