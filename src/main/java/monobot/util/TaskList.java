@@ -1,8 +1,10 @@
 package monobot.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import monobot.exception.MonoBotException;
 import monobot.task.Task;
 
 /**
@@ -104,13 +106,22 @@ public class TaskList {
     /**
      * Filters tasks based on keyword.
      *
-     * @param filter keyword to filter tasks.
+     * @param filters keywords to filter tasks.
      * @return List of tasks containing the keyword.
      */
-    public TaskList filterTasks(String filter) {
+    public TaskList filterTasks(String... filters) throws MonoBotException {
+        if (filters == null || filters.length == 0) {
+            throw new MonoBotException("At least one search keyword must be provided!");
+        }
+
         ArrayList<Task> filteredTasks = tasks.stream()
-                .filter(task -> task.toString().toLowerCase().contains(filter.toLowerCase()))
+                .filter(task -> {
+                    String taskString = task.toString().toLowerCase();
+                    return Arrays.stream(filters)
+                            .anyMatch(filter -> taskString.contains(filter.toLowerCase()));
+                })
                 .collect(Collectors.toCollection(ArrayList::new));
+
         return new TaskList(filteredTasks);
     }
 }

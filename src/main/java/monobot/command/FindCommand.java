@@ -9,20 +9,21 @@ import monobot.util.Ui;
  * Represents find command to filter the list of tasks.
  */
 public class FindCommand extends Command {
-    private final String search;
+    private final String[] searchKeywords;
 
     /**
-     * Constructs a FindCommand with the specified string.
+     * Constructs a FindCommand with the specified search keywords.
      *
-     * @param search keyword to filter the list of tasks.
+     * @param searchKeywords the keywords to filter the list of tasks.
      */
-    public FindCommand(String search) {
+    public FindCommand(String... searchKeywords) {
         super(CommandType.FIND);
-        this.search = search;
+        this.searchKeywords = searchKeywords;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MonoBotException {
-        ui.printMatchingTasks(tasks.filterTasks(search));
+        ui.printMatchingTasks(tasks.filterTasks(searchKeywords));
     }
 }
+
