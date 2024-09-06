@@ -9,7 +9,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList results = new TaskList();
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -19,10 +19,10 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.show(results.size() == 0
+        return results.size() == 0
                 ? "You have no matching tasks!"
                 : String.format("Here are the matching tasks in your list:\n" +
-                "%s", results));
+                "%s", results);
     }
 
 }

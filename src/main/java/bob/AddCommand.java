@@ -10,17 +10,17 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
             tasks.add(task);
             storage.save(tasks);
-            ui.show(
+            return (
                     String.format("Here's the added task:\n" +
                             "\t%s\n" +
                             "Now you have %s tasks in the list.", task, tasks.size())
             );
         } catch (IOException e) {
-            ui.show("I can't remember that for some reason T T");
+            return "I can't remember that for some reason T T";
         }
     }
 }

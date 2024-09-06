@@ -15,16 +15,16 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
             Task task = tasks.getTask(taskIndex);
             task.unmark();
             storage.save(tasks);
-            ui.show(String.format("Oh well, this task has been marked undone:\n\t%s", task));
+            return String.format("Oh well, this task has been marked undone:\n\t%s", task);
         } catch (IndexOutOfBoundsException e) {
-            ui.show("There's no such task!");
+            return "There's no such task!";
         } catch (IOException e) {
-            ui.show("I can't remember that for some reason T T");
+            return "I can't remember that for some reason T T";
         }
     }
 }
