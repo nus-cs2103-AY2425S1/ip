@@ -6,6 +6,11 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/*
+ * Represents the storage of the program.
+ * Storage deals with loading and saving tasks to a file.
+ * The file path is specified by the user.
+ */
 public class Storage {
     private String filePath;
 

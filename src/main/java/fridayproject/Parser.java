@@ -4,11 +4,22 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/*
+ * Represents a parser that parses the user input and executes the corresponding command.
+ * A parser has a task list, storage and ui.
+ */
 public class Parser {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
+    /*
+     * Constructor for a parser.
+     * @param taskList The task list of the parser.
+     * @param storage The storage of the parser.
+     * @param ui The ui of the parser.
+     * Example: Parser parser = new Parser(taskList, storage, ui);
+     */
     public Parser(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
         this.storage = storage;
