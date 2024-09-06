@@ -46,8 +46,10 @@ public class Storage implements IStorage {
      * </p>
      *
      * @param fileName the name of the file to store task data.
+     * @throws AssertionError if the fileName provided is empty and assertions are enabled.
      */
     public Storage(String fileName) {
+        assert !fileName.isEmpty() : "File name must not be empty";
         String filePath = String.format("%s/%s", directoryPath, fileName);
         this.file = new File(filePath);
     }
