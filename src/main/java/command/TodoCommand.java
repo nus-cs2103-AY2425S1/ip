@@ -6,17 +6,32 @@ import utility.TaskList;
 import task.TodoTask;
 import exception.ElliotException;
 
+/**
+ * Creates and adds {@link TodoTask} to the {@link TaskList}.
+ */
 public class TodoCommand extends Command {
     private final String taskDescription;
 
+    /**
+     * Creates a {@link TodoCommand} object without any information on
+     * the details of the {@link Task}.
+     */
     public TodoCommand() {
         this.taskDescription = "";
     }
 
-    public TodoCommand(String taskDescription) {
+    private TodoCommand(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
+    /**
+     * Parses the input string accordingly into each respective attributes.
+     * Requires task description.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link TodoCommand} with the correctly parsed argument.
+     * @throws ElliotException If command arguments are invalid or incomplete.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
         if (unparsedArguments == "") {
@@ -26,6 +41,14 @@ public class TodoCommand extends Command {
         return new TodoCommand(unparsedArguments.strip());
     }
 
+    /**
+     * Adds {@link TodoTask} to the {@link TaskList} and prints a success message.
+     *
+     * @param taskList the {@link TaskList} to which the {@link TodoTask} will be added
+     * to.
+     * @param storage  not used in this command.
+     * @return modified {@link TaskList} with the added {@link TodoTask}.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         taskList = taskList.addTask(new TodoTask(taskDescription));

@@ -4,12 +4,30 @@ import utility.TaskList;
 import utility.Storage;
 import exception.ElliotException;
 
+/**
+ * Abstract class as a boilerplate for all user commands.
+ */
 public abstract class Command {
 
     protected Command() {}
 
+    /**
+     * Abstract method for classes to implement how arguments are to be parsed.
+     *
+     * @param unparsedArguments string representing the unparsed form of the command
+     * argument.
+     * @return A new {@link Command} with the properly parsed arguments.
+     */
     public abstract Command parseArguments(String unparsedArguments) throws ElliotException;
 
+    /**
+     * Abstract method for classes to implement the actions this command will perform.
+     *
+     * @param taskList the {@link TaskList} at current stage.
+     * @param storage the {@link storage} file of which the save file is stored in.
+     * @return {@link TaskList} which may or may not have undergone modification within
+     * function.
+     */
     public abstract TaskList runCommand(TaskList taskList, Storage storage) throws ElliotException;
 
 }

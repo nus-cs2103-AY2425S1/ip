@@ -5,9 +5,16 @@ import utility.TaskList;
 import utility.ImList;
 import utility.Ui;
 
+/**
+ * Changes the {@link Task} fomr the {@link TaskList} back to not done.
+ */
 public class UnmarkCommand extends Command {
     private final ImList<Integer> listToUnmark;
 
+    /**
+     * Creates a {@link UnmarkCommand} object without any information on
+     * the details of the {@link Task}.
+     */
     public UnmarkCommand() {
         super();
         this.listToUnmark = new ImList<Integer>();
@@ -18,6 +25,13 @@ public class UnmarkCommand extends Command {
         this.listToUnmark = listToUnmark;
     }
 
+    /**
+     * Parses the input string accordingly into each respective attributes.
+     * Requires at least one valid task index.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link UnmarkCommand} with the correctly parsed argument.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) {
         ImList<Integer> splittedArguments = new ImList<Integer>();
@@ -31,6 +45,14 @@ public class UnmarkCommand extends Command {
         return new UnmarkCommand(splittedArguments);
     }
 
+    /**
+     * Changes the {@link Task} from the {@link TaskList} as not done and prints a succes message.
+     *
+     * @param taskList the {@link TaskList} of which the {@link Task} will be changed to not
+     * done.
+     * @param storage  not used in this command.
+     * @return modified {@link TaskList} with the correct {@link Task} changed as not done.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         if (listToUnmark.size() == 0) {

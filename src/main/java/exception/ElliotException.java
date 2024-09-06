@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Servers as a custom exception for internal use
+ */
 public class ElliotException extends Exception {
 
     public ElliotException() {

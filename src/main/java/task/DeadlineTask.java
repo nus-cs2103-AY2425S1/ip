@@ -4,9 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import utility.CustomDateTimeFormatter;
 
+/**
+ * The deadline task is a specific implementation of {@link Task} with one additional date
+ * time attribute to denote deadline for the task.
+ */
 public class DeadlineTask extends Task {
     private final LocalDateTime deadlineDateTime;
 
+    /**
+     * {@inherit}
+     */
     public DeadlineTask(String taskDescription, LocalDateTime deadlineDateTime) {
         super(taskDescription);
         this.deadlineDateTime = deadlineDateTime;
@@ -17,6 +24,9 @@ public class DeadlineTask extends Task {
         this.deadlineDateTime = deadlineDateTime;
     }
 
+    /**
+     * {@inherit}
+     */
     @Override
     public Task markAsDone() {
         return super.isDone
@@ -24,6 +34,9 @@ public class DeadlineTask extends Task {
             : new DeadlineTask(true, super.taskDescription, this.deadlineDateTime);
     }
 
+    /**
+     * {@inherit}
+     */
     @Override
     public Task markAsUndone() {
         return super.isDone
@@ -31,6 +44,12 @@ public class DeadlineTask extends Task {
             : this;
     }
 
+    /**
+     * {@inherit}
+     * Additionally, {@code "[D]"} is prepended to the string representation to
+     * indicate this is a task with a deadline. The date and time of the deadline is
+     * appended to the string representation also.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadlineDateTime

@@ -10,11 +10,18 @@ import utility.TaskList;
 import utility.Ui;
 import utility.CustomDateTimeFormatter;
 
+/**
+ * {@link EventCommand} adds {@link EventTask} to the {@link TaskList}.
+ */
 public class EventCommand extends Command {
     private final String taskDescription;
     private final LocalDateTime fromDateTime;
     private final LocalDateTime toDateTime;
 
+    /**
+     * Creates a {@link EventCommand} object without any information on the details 
+     * of the {@link Task}.
+     */
     public EventCommand() {
         super();
         this.taskDescription = "";
@@ -29,6 +36,14 @@ public class EventCommand extends Command {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Parses the input string accordingly into each respective attributes.
+     * Requires Date and Time in the correct form for both {@code from} and {@code to}.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link EventCommand} with the correctly parsed argument.
+     * @throws ElliotException If command arguments are invalid or incomplete.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
         String[] firstSplit = Strip
@@ -73,6 +88,13 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Adds {@link EventTask} to the {@link TaskList}.
+     *
+     * @param taskList {@link TaskList} of which the {@link EventTask} will be added to.
+     * @param storage not used in this command.
+     * @return modified {@link TaskList} with the added {@link EventTask}.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         taskList = taskList.addTask(new EventTask(taskDescription, fromDateTime, toDateTime));

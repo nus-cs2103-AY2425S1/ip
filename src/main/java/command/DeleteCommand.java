@@ -5,9 +5,16 @@ import utility.TaskList;
 import utility.ImList;
 import utility.Ui;
 
+/**
+ * {@link Command} that deletes {@link Task} from {@link TaskList}.
+ */
 public class DeleteCommand extends Command {
     private final ImList<Integer> listToDelete;
 
+    /**
+     * Creates a {@link DeleteCommand} object without and information on which tasks to
+     * delete.
+     */
     public DeleteCommand() {
         super();
         this.listToDelete = new ImList<Integer>();
@@ -18,6 +25,13 @@ public class DeleteCommand extends Command {
         this.listToDelete = listToDelete;
     }
 
+    /**
+     * Parses the input string accordingly into each respective attributes.
+     * Requires at least one valid task index.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link DeleteCommand} with the correctly parsed argument.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) {
         ImList<Integer> splittedArguments = new ImList<Integer>();
@@ -31,6 +45,13 @@ public class DeleteCommand extends Command {
         return new DeleteCommand(splittedArguments);
     }
 
+    /**
+     * Delets {@link Task} from input {@link TaskList} via index.
+     *
+     * @param taskList {@link TaskList} of which the {@link Task} are removed.
+     * @param storage not used in this command.
+     * @return modified {@link TaskList} with all the deleted {@link Task}.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         if (listToDelete.size() == 0) {
