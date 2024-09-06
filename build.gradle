@@ -1,1 +1,17 @@
-plugins
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+application {
+    mainClass.set("lemon.Lemon")
+}
