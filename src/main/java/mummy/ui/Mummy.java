@@ -15,7 +15,7 @@ import mummy.utility.Storage;
 public class Mummy {
     private static final String LOGO = "Mummy";
 
-    private static final String IO_Path = "./data/mummy.txt";
+    private static final String IO_PATH = "./data/mummy.txt";
 
     private Storage storage;
 
@@ -24,7 +24,7 @@ public class Mummy {
     private Command currentCommand;
 
     public Mummy() {
-        this.storage = new Storage(IO_Path);
+        this.storage = new Storage(IO_PATH);
 
         try {
             this.taskList = new TaskList(this.storage.load());
@@ -55,10 +55,6 @@ public class Mummy {
     }
 
     public boolean hasExitCommand() {
-        if (this.currentCommand == null) {
-            return false;
-        }
-
-        return this.currentCommand.isExit();
+        return this.currentCommand != null && this.currentCommand.isExit();
     }
 }

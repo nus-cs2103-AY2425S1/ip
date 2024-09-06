@@ -87,5 +87,10 @@ public class CommandTest {
         public boolean isExit() {
             return false;
         }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.UNKNOWN;
+        }
     }
 }

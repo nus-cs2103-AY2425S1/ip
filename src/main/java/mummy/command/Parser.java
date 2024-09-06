@@ -1,4 +1,4 @@
-package mummy.utility;
+package mummy.command;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
