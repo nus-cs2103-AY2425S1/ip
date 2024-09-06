@@ -1,15 +1,35 @@
 package secondmind;
 
+/**
+ * Represents an event task with a start and end time.
+ * This class extends the {@link Task} class to include details
+ * about the event's start and end times.
+ */
 public class EventTask extends Task {
     private String eventStart;
     private String eventEnd;
 
+    /**
+     * Constructs a new {@code EventTask} with the specified task description,
+     * start time, and end time.
+     *
+     * @param task       The description of the event task.
+     * @param eventStart The start time of the event.
+     * @param eventEnd   The end time of the event.
+     */
     public EventTask(String task, String eventStart, String eventEnd) {
         super(task);
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
     }
 
+    /**
+     * Returns a string representation of the event task formatted for storage.
+     * The format includes the task type, completion status, task description,
+     * event start time, and event end time.
+     *
+     * @return The string representation of the event task for storage.
+     */
     @Override
     public String getStorageRepresentation() {
         if (!this.isdone) {
@@ -19,6 +39,13 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the event task.
+     * The format includes the task type, completion status, task description,
+     * event start time, and event end time.
+     *
+     * @return The string representation of the event task.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[E]");
