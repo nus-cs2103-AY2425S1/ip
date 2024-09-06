@@ -1,5 +1,6 @@
 package reo;
 
+/** Parses a given user input */
 public class Parser {
     enum Command {
         BYE,
@@ -18,6 +19,14 @@ public class Parser {
     private Command command;
     private TaskList tasks;
     private Storage storage;
+
+    /**
+     * Constructor for the Parser class.
+     *
+     * @param input The raw user input from the UI.
+     * @param tasks The list of tasks in the user's list at the time of the input.
+     * @param storage The storage object for writing to memory.
+     */
     public Parser(String input, TaskList tasks, Storage storage) {
         assert input != null : "Input string should not be null";
         assert tasks != null : "TaskList should not be null";
@@ -44,29 +53,29 @@ public class Parser {
      */
     public String parse() {
         switch (command) {
-            case LIST:
-                return handleList();
-            case TODO:
-                return handleTodo();
-            case MARK:
-                return handleMark();
-            case UNMARK:
-                return handleUnmark();
-            case DEADLINE:
-                return handleDeadline();
-            case EVENT:
-                return handleEvent();
-            case DELETE:
-                return handleDelete();
-            case FIND:
-                return handleFind();
-            case BYE:
-                return handleBye();
-            case UNKNOWN:
-                return handleUnknown();
-            default:
-                return handleUnknown();
-            }
+        case LIST:
+            return handleList();
+        case TODO:
+            return handleTodo();
+        case MARK:
+            return handleMark();
+        case UNMARK:
+            return handleUnmark();
+        case DEADLINE:
+            return handleDeadline();
+        case EVENT:
+            return handleEvent();
+        case DELETE:
+            return handleDelete();
+        case FIND:
+            return handleFind();
+        case BYE:
+            return handleBye();
+        case UNKNOWN:
+            return handleUnknown();
+        default:
+            return handleUnknown();
+        }
     }
 
     /**
@@ -93,8 +102,7 @@ public class Parser {
             Todo toPush = new Todo(parts[1], false);
             tasks.addTodo(toPush);
             storage.writeFile(toPush);
-            return TODO_CONFIRMATION + toPush.toString() + "\n"
-                    + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+            return TODO_CONFIRMATION + toPush.toString() + "\n";
         } catch (ArrayIndexOutOfBoundsException e) {
             return TODO_ERROR;
         }
@@ -111,7 +119,7 @@ public class Parser {
         final String MARK_ERROR = "Please enter a valid task number.\n";
         try {
             tasks.markTask(Integer.valueOf(words[1]) - 1);
-            storage.editLine(Integer.parseInt(words[1]), "mark");
+            storage.markLine(Integer.parseInt(words[1]));
             Task toMark = tasks.get(Integer.parseInt(words[1]) - 1);
             return MARK_CONFIRMATION + toMark.toString() + "\n";
         } catch (IndexOutOfBoundsException e) {
@@ -130,7 +138,7 @@ public class Parser {
         final String UNMARK_ERROR = "Please enter a valid task number.\n";
         try {
             tasks.unmarkTask(Integer.valueOf(words[1]) - 1);
-            storage.editLine(Integer.valueOf(words[1]), "unmark");
+            storage.unmarkLine(Integer.valueOf(words[1]));
             Task toUnmark = tasks.get(Integer.valueOf(words[1]) - 1);
             return UNMARK_CONFIRMATION + toUnmark.toString() + "\n";
         } catch (IndexOutOfBoundsException e) {
@@ -147,6 +155,7 @@ public class Parser {
     public String handleDeadline() {
         final String DEADLINE_CONFIRMATION = "I've added this deadline:\n";
         final String DEADLINE_ERROR = "Please enter a valid task name and deadline.\n";
+        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
             String[] parts = input.split("/by", 2);
             String[] firstPart = parts[0].split(" ", 2);
@@ -158,7 +167,7 @@ public class Parser {
             tasks.addDeadline(deadlineToPush);
             storage.writeFile(deadlineToPush);
             return DEADLINE_CONFIRMATION + deadlineToPush.toString() + "\n"
-                    + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                    + TASKS_LEFT_CONFIRMATION;
         } catch (ArrayIndexOutOfBoundsException e) {
             return DEADLINE_ERROR;
         }
@@ -173,6 +182,7 @@ public class Parser {
     public String handleEvent() {
         final String EVENT_CONFIRMATION = "I've added this event:\n";
         final String EVENT_ERROR = "Please enter a valid task name and to & from dates.\n";
+        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
             String[] parts = input.split("/from", 2);
             String[] firstPart = parts[0].split(" ", 2);
@@ -185,8 +195,8 @@ public class Parser {
             Event eventToPush = new Event(name, false, to, from);
             tasks.addEvent(eventToPush);
             storage.writeFile(eventToPush);
-            return  EVENT_CONFIRMATION + eventToPush.toString() + "\n"
-                    + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+            return EVENT_CONFIRMATION + eventToPush.toString() + "\n"
+                    + TASKS_LEFT_CONFIRMATION;
         } catch (ArrayIndexOutOfBoundsException e) {
             return EVENT_ERROR;
         }
@@ -201,14 +211,14 @@ public class Parser {
     public String handleDelete() {
         final String DELETE_CONFIRMATION = "I've deleted this task:\n";
         final String DELETE_ERROR = "Please enter a valid task number.\n";
+        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
             int index = Integer.valueOf(words[1]) - 1;
-            // reo.Task toRemove = tasks.get(index);
+            Task toDelete = tasks.get(index);
             tasks.deleteTask(index);
             storage.removeLine(index + 1);
-            Task toDelete = tasks.get(index);
             return DELETE_CONFIRMATION + toDelete.toString() + "\n"
-                    + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                    + TASKS_LEFT_CONFIRMATION;
         } catch (IndexOutOfBoundsException e) {
             return DELETE_ERROR;
         }
@@ -225,7 +235,7 @@ public class Parser {
         try {
             String keyword = words[1];
             TaskList filtered = new TaskList(tasks.filter(keyword));
-            return "Here are the matching tasks in your list:\n" + filtered.toString() + "\n";
+            return FIND_CONFIRMATION + filtered.toString() + "\n";
         } catch (IndexOutOfBoundsException e) {
             return FIND_ERROR;
         }
@@ -237,16 +247,18 @@ public class Parser {
      * @return The goodbye message.
      */
     public String handleBye() {
-        return "Bye!";
+        final String BYE_MESSAGE = "Bye!";
+        return BYE_MESSAGE;
     }
 
     /**
      * Gets the correct UI for unknown commands.
      *
-     * @return The error message.
+     * @return The error message for unknown commands.
      */
     public String handleUnknown() {
-        return "ERROR: Please enter a valid command.\n";
+        final String COMMAND_ERROR = "ERROR: Please enter a valid command.\n";
+        return COMMAND_ERROR;
     }
 
 }

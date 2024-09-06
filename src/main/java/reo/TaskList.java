@@ -129,10 +129,6 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-<<<<<<< HEAD
-=======
-
->>>>>>> master
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
             res += listIndex + ". " + tasks.get(i).toString() + "\n";

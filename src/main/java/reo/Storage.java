@@ -38,21 +38,19 @@ public class Storage {
     public ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File dir = new File("./data");
+            final String DIRECTORY_PATH = "./data";
+            File dir = new File(DIRECTORY_PATH);
             if (!dir.exists()) {
                 dir.mkdir();
-                System.out.println("Created new directory to store data.");
             }
             File f = new File(filePath);
             if (f.createNewFile()) {
-                System.out.println("Created new file to store list.");
                 return tasks;
             }
 
             try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
                 lines.forEach(line -> {
                     String[] split = line.split("\\|");
-                    assert split.length >= 3 : "Invalid file format";
 
                     switch (split[0].trim()) {
                         case "T":
@@ -117,8 +115,9 @@ public class Storage {
     public void removeLine(int lineNumber) {
         assert lineNumber > 0 : "Line number must be greater than 0";
         try {
+            final String TEMPORARY_FILE_PATH = "./data/temp.txt";
             File f = new File(filePath);
-            File temp = new File("./data/temp.txt");
+            File temp = new File(TEMPORARY_FILE_PATH);
             FileWriter tw = new FileWriter(temp, false);
             Scanner s = new Scanner(f);
             int lineCount = 1;
@@ -142,15 +141,13 @@ public class Storage {
     }
 
     /**
-     * Edits the specified line i to change the recorded completion status.
+     * Edits the specified line i to change the recorded completion status
+     * to true.
      *
      * @param lineNumber The line number (1-indexed) to be edited.
-     * @param cmd The action to be performed on the completion status.
      */
-    public void editLine(int lineNumber, String cmd) {
+    public void markLine(int lineNumber) {
         assert lineNumber > 0 : "Line number must be greater than 0"; // Ensure valid line number
-        assert cmd != null : "Command cannot be null";
-        assert cmd.equals("mark") || cmd.equals("unmark") : "Command must be 'mark' or 'unmark'";
         try {
             File f = new File(filePath);
             File temp = new File("./data/temp.txt");
@@ -164,11 +161,46 @@ public class Storage {
                     tw.write(line + System.lineSeparator());
                 } else {
                     String[] split = line.split("\\|");
-                    if (cmd == "mark") {
-                        split[1] = " 1 ";
-                    } else {
-                        split[1] = " 0 ";
-                    }
+                    split[1] = " 1 ";
+
+                    String newLine = String.join("|", split);
+                    tw.write(newLine + System.lineSeparator());
+                }
+                lineCount ++;
+            }
+            tw.close();
+            s.close();
+
+            Files.move(temp.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("IO Exception!");
+        }
+    }
+
+    /**
+     * Edits the specified line i to change the recorded completion status
+     * to false.
+     *
+     * @param lineNumber The line number (1-indexed) to be edited.
+     */
+    public void unmarkLine(int lineNumber) {
+        assert lineNumber > 0 : "Line number must be greater than 0"; // Ensure valid line number
+        try {
+            File f = new File(filePath);
+            File temp = new File("./data/temp.txt");
+            FileWriter tw = new FileWriter(temp, false);
+            Scanner s = new Scanner(f);
+            int lineCount = 1;
+
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                if (lineNumber != lineCount) {
+                    tw.write(line + System.lineSeparator());
+                } else {
+                    String[] split = line.split("\\|");
+                    split[1] = " 0 ";
 
                     String newLine = String.join("|", split);
                     tw.write(newLine + System.lineSeparator());
