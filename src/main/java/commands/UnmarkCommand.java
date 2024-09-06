@@ -28,10 +28,10 @@ public class UnmarkCommand extends Command {
      * - Print updated task
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTaskAt(taskIndex);
         task.markUndone();
         storage.writeToTextStorage(tasks);
-        ui.printGenericMessage("Ok, I've marked this task as not done yet:\n  " + task);
+        return "Ok, I've marked this task as not done yet:\n  " + task;
     }
 }

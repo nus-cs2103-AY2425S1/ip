@@ -9,17 +9,16 @@ import ui.Ui;
  */
 public class ExitCommand extends Command {
 
-    public ExitCommand() {
-        super(true);
-    }
+    public ExitCommand() {}
 
     /**
      * Execution actions:
-     * - Print a goodbye message :)
+     * - Says goodbye :)
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printByeMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        System.exit(0);
+        return "";
     }
 
     @Override

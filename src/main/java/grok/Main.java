@@ -7,9 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.Ui;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Grok using FXML.
  */
 public class Main extends Application {
 
@@ -18,11 +19,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Ui.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGrok(grok);  // inject the Duke instance
+            fxmlLoader.<Ui>getController().setGrok(grok);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
