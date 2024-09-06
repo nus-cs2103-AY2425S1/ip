@@ -33,7 +33,7 @@ public class Parser {
                     return "it's empty... what do u want me to list? :(";
                 }
             case "bye":
-                return "It's finally over... *yawn*\nI'm heading to bed\nExiting the program...";
+                return "It's finally over... *yawn*\nI'm heading to bed";
             case "mark":
                 int i;
                 try {
@@ -69,7 +69,7 @@ public class Parser {
                 if (!text.isEmpty()) {
                     storage.todo(text);
                     return "Added " + '\"' + text + "\"" + " as a new task I guess"
-                            + String.format("you have %s tasks now", storage.size());
+                            + String.format(" you have %s tasks now", storage.size());
                 } else {
                     return "bruh? type something to add I'm not adding a blank...";
                 }
@@ -80,7 +80,7 @@ public class Parser {
                         if (text.contains("/from") && text.contains("/to")) {
                             storage.event(text);
                             return "Wow " + '\"' + text + "\"" + " is an event in your life huh?"
-                            + String.format("you have %s tasks now", storage.size());
+                            + String.format(" you have %s tasks now", storage.size());
 
                         }
                         return "The description of an event must include '/from' and '/to' :/";
@@ -99,7 +99,7 @@ public class Parser {
                             storage.deadline(text);
                             return "lol " + '\"' + text + "\"" + " is a new deadline, "
                                     + "better finish it quick..."
-                                    + String.format("you have %s tasks now", storage.size());
+                                    + String.format(" you have %s tasks now", storage.size());
 
                         }
                         return "The description of a deadline must include '/by' :/";

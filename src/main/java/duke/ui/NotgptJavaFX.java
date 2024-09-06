@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class TextBotApp extends Application {
+public class NotgptJavaFX extends Application {
 
     private Parser parser = new Parser();
     private VBox chatBox;
@@ -21,8 +21,8 @@ public class TextBotApp extends Application {
     private Button sendButton;
     private Image userAvatar;
     private Image botAvatar;
-    private final int FONT_SIZE_INPUT = 25;
-    private final int FONT_SIZE = 16;
+    private static final int FONT_SIZE_INPUT = 25;
+    private static final int FONT_SIZE = 16;
 
     @Override
     public void start(Stage primaryStage) {

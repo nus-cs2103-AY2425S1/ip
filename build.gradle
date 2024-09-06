@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.ui.TextBotApp")
+    mainClass.set("duke.ui.NotgptJavaFX")
 }
 
 shadowJar {

@@ -10,7 +10,7 @@ import java.util.Scanner;
  * for interacting with the user. It prints a logo and a greeting message, then passes control
  * to a parser that processes user input.
  */
-public class Notgpt {
+public class Notgpt{
     /**
      * Prints a line divider to the console.
      * <p>
