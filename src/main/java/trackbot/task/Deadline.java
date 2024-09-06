@@ -6,7 +6,7 @@ import trackbot.ui.Parser;
  * Deadline task with deadline.
  */
 public class Deadline extends Task {
-    private String by;
+    private String dateby;
 
     /**
      * Constructs a Deadline task with the specified description and deadline date and/or time.
@@ -16,20 +16,20 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
-        this.by = Parser.checkDateFormat(by);
+        this.dateby = by;
+        this.dateby = Parser.checkDateFormat(by);
     }
 
     public String getBy() {
-        return by;
+        return dateby;
     }
     @Override
     public String toStorageFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + desc + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + desc + " | " + dateby;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + dateby + ")";
     }
 }

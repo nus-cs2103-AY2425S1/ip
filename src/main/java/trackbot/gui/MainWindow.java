@@ -1,4 +1,7 @@
 package trackbot.gui;
+
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import trackbot.TrackBot;
 
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -25,8 +27,10 @@ public class MainWindow extends AnchorPane {
 
     private TrackBot trackBot;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/beluga.jpg")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/sadcat.jpeg")));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/beluga.jpg")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/sadcat.jpeg")));
 
     @FXML
     public void initialize() {
