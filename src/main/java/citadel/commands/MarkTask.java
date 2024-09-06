@@ -36,6 +36,7 @@ public class MarkTask extends Command {
     public String run() throws CitadelException {
         try {
             String[] words = input.split(" ");
+            // Find task based on input given
             int index = Integer.parseInt(words[1]);
             tasks.get(index - 1).markAsDone();
             return TextUI.printMark(tasks, index);

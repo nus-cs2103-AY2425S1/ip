@@ -38,12 +38,14 @@ public class HandleDeadline extends Command {
      */
     @Override
     public String run() throws CitadelException {
-        Task t;
+        // Process input command
         String[] words = input.split(" /by ");
 
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
         }
+
+        // Split into different words
         String task = words[0].substring(9).trim();
         String deadline = words[1].trim();
 
@@ -51,9 +53,10 @@ public class HandleDeadline extends Command {
             throw new CitadelTaskNoInput();
         }
 
+        //Create Task
         LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline,
                                                               DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        t = new Deadline(task, deadlineFormatted);
+        Task t = new Deadline(task, deadlineFormatted);
         this.tasks.add(t);
         return TextUI.printTask(t, tasks);
     }

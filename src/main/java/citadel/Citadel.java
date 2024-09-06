@@ -4,14 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import citadel.Task.TaskList;
-import citadel.commands.Commands;
-import citadel.commands.DeleteTask;
-import citadel.commands.FindTask;
-import citadel.commands.HandleDeadline;
-import citadel.commands.HandleEvent;
-import citadel.commands.HandleTodo;
-import citadel.commands.MarkTask;
-import citadel.commands.UnmarkTask;
+import citadel.commands.*;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
 import citadel.ui.TextUI;
@@ -55,10 +48,13 @@ public class Citadel {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input The user's input command as a string.
+     * @return The response generated based on the input.
      */
     public String getResponse(String input) {
         try {
-            return handleInput(input);
+            return processCommand(input);
         } catch (CitadelException e) {
             return ui.printCitadelException(e);
         } catch (DateTimeParseException e) {
@@ -84,70 +80,67 @@ public class Citadel {
         switch (command) {
         case BYE:
             return ui.printGoodbye();
-
         case LIST:
             return ui.printTasks(items);
-
         case MARK:
             return new MarkTask(input, items).run();
-
         case UNMARK:
             return new UnmarkTask(input, items).run();
-
         case DELETE:
             return new DeleteTask(input, items).run();
-
         case DEADLINE:
             return new HandleDeadline(input, items).run();
-
         case EVENT:
             return new HandleEvent(input, items).run();
-
         case TODO:
             return new HandleTodo(input, items).run();
-
         case FIND:
             return new FindTask(input, items).run();
-
         default:
             throw new CitadelInvalidCommandException();
         }
-
     }
 
     /**
-     * The main method that starts the Citadel application.
-     * <p>
-     * This method initializes the application, loads existing tasks, and enters a loop
-     * to process user commands until the user exits the application.
-     * </p>
+     * Starts the Citadel application by initializing, loading tasks, and processing user commands.
      *
-     * @param args Command-line arguments (not used in this application).
      * @throws IOException If an I/O error occurs during task storage operations.
      */
     public static void main(String[] args) throws IOException {
-        ui.printStart();
-        loadDatabase();  // Load tasks from storage
+        initializeApp();
+        loadDatabase();
         ui.printTasks(items);
+        runApp();
+        saveDatabase();
+    }
 
+    /**
+     * Initializes the application and prints the start message.
+     */
+    private static void initializeApp() {
+        ui.printStart();
+    }
+
+    /**
+     * Runs the main application loop, processing user commands until the user exits.
+     */
+    private static void runApp() {
         while (true) {
             try {
                 String input = ui.nextLine();
-                handleInput(input);
+                processCommand(input);
 
-                if (Parser.parseCommand(input).equals(Commands.BYE)) {
+                // Check if the user entered the BYE command to exit
+                if (Parser.parseCommand(input) == Commands.BYE) {
                     break;
                 }
             } catch (CitadelException e) {
-                ui.printCitadelException(e);
+                ui.printCitadelException(e);  // Handle Citadel-specific exceptions
             } catch (DateTimeParseException e) {
-                ui.printDateTimeParseException();
+                ui.printDateTimeParseException();  // Handle date parsing errors
             } catch (Exception e) {
-                ui.printException(e);
+                ui.printException(e);  // Handle any other general exceptions
             }
         }
-
-        ui.printGoodbye();
-        saveDatabase();  // Save tasks to storage before exiting
     }
 }

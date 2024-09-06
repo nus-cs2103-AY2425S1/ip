@@ -34,12 +34,13 @@ public class HandleTodo extends Command {
      */
     @Override
     public String run() throws CitadelTaskNoInput {
-        Task t;
+        // Process input command
         String todo = input.substring(5).trim();
         if (todo.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
-        t = new ToDo(todo);
+        //Create Task
+        Task t = new ToDo(todo);
         tasks.add(t);
         return TextUI.printTask(t, tasks);
     }
