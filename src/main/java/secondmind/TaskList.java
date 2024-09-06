@@ -124,6 +124,12 @@ public class TaskList {
         return filteredTaskList;
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber The number of the task to mark as done.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
