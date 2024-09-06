@@ -20,11 +20,16 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task should not be null";
         this.task = task;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         tasks.addTask(task);
         try {
             storage.save(tasks.getTasks());

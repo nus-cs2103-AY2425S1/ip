@@ -1,4 +1,0 @@
-E | 1 | project meeting | 2019-12-02 1800 | 2019-12-02 2000
-E | 1 | project meeting | 2024-03-14 1800 | 2024-03-24 2000
-T | 0 | read book
-D | 1 | return book | 2004-03-14 1800

@@ -20,11 +20,16 @@ public class MarkCommand extends Command {
      * @param index The index of the task in the task list to be marked as done.
      */
     public MarkCommand(int index) {
+        assert index >= 0 : "Task index should be non-negative";
         this.index = index;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = tasks.markTaskAsDone(index);
         if (task != null) {
             try {
