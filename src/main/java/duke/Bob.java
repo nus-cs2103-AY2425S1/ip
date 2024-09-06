@@ -19,6 +19,9 @@ public class Bob {
      */
     private static final boolean isGui = true;
 
+    private static final String storagePath = "./data/storage.txt";
+    private static final String archivePath = "./data/archive.txt";
+
     /**
      * The maximum capacity of the input and output message queues.
      */
@@ -30,14 +33,18 @@ public class Bob {
 
     private Storage storage;
 
+    private Archive archive;
+
     /**
      * Constructor for a Bob application.
-     * @param path The path of the file for persistent storage.
      */
-    public Bob(String path, BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
+    public Bob(BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
         this.ui = new Ui(inputQueue, outputQueue);
-        this.storage = new Storage(path);
+        this.storage = new Storage(storagePath);
+        this.archive = new Archive(archivePath);
         try {
+            this.archive.init();
+
             ArrayList<Task> tasks = this.storage.load();
             assert tasks != null;
             this.tasks = new TaskList(tasks);
@@ -58,7 +65,7 @@ public class Bob {
                 String input = ui.read();
                 Command command = Parser.parseInput(input);
                 assert command != null;
-                command.execute(this.tasks, this.ui, this.storage);
+                command.execute(this.tasks, this.ui, this.storage, this.archive);
                 isExit = command.isExit();
             } catch (BobException e) {
                 ui.write(e.toString());
@@ -75,7 +82,7 @@ public class Bob {
     public static void main(String[] args) {
         BlockingQueue<String> inputQueue = new ArrayBlockingQueue<>(queueCapacity);
         BlockingQueue<String> outputQueue = new ArrayBlockingQueue<>(queueCapacity);
-        Bob bob = new Bob("./data/bob.txt", inputQueue, outputQueue);
+        Bob bob = new Bob(inputQueue, outputQueue);
 
         if (isGui) {
             Main.connect(inputQueue, outputQueue);
