@@ -53,6 +53,7 @@ public class FindCommand extends Command {
         ui.showLine();
         System.out.println(displayList(result));
         ui.showLine();
+        ui.setOutput(displayList(result));
     }
 
     /**

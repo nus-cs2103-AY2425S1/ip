@@ -9,6 +9,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    private String output;
+
     /**
      * Displays a welcome message to the user.
      * This message is shown when the bot is first started.
@@ -18,6 +20,7 @@ public class Ui {
         showLine();
         System.out.println(greeting);
         showLine();
+        this.output = greeting;
     }
 
     /**
@@ -29,6 +32,8 @@ public class Ui {
         showLine();
         System.out.println(farewell);
         showLine();
+
+        this.output = farewell;
     }
 
     /**
@@ -50,6 +55,8 @@ public class Ui {
         showLine();
         System.out.println(errorMessage);
         showLine();
+
+        this.output = errorMessage;
     }
 
     /**
@@ -61,6 +68,12 @@ public class Ui {
      */
     public String readCommand(Scanner scanner) {
         return scanner.nextLine();
+    }
+    public String getOutput() {
+        return output;
+    }
+    public void setOutput(String message) {
+        this.output = message;
     }
 
 }

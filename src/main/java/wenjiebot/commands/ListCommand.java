@@ -36,6 +36,7 @@ public class ListCommand extends Command {
         ui.showLine();
         System.out.println(displayList(storage.load()));
         ui.showLine();
+        ui.setOutput(displayList(storage.load()));
     }
 
     /**

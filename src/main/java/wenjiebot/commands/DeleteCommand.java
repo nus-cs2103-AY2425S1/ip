@@ -61,5 +61,9 @@ public class DeleteCommand extends Command {
                         + taskToRemove + "\n"
                         + "Now you have " + taskList.size() + " tasks in the list.");
         ui.showLine();
+
+        ui.setOutput("Noted. I've removed this task:\n"
+                + taskToRemove + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.");
     }
 }

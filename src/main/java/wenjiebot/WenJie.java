@@ -60,4 +60,18 @@ public class WenJie {
         String filePath = "./src/main/java/data/wenjie.txt";
         new WenJie(filePath).run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        ui.showWelcome();
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
+        return ui.getOutput();
+    }
 }

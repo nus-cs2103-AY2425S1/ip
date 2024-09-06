@@ -56,5 +56,7 @@ public class UnmarkCommand extends Command {
         ui.showLine();
         System.out.println("OK, I've marked this task as not done yet:\n" + taskList.get(taskNo));
         ui.showLine();
+
+        ui.setOutput("OK, I've marked this task as not done yet:\n" + taskList.get(taskNo));
     }
 }
