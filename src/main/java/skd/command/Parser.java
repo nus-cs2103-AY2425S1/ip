@@ -118,12 +118,12 @@ public class Parser {
      * @param input The input command from user.
      * @param tasks List of tasks.
      */
-    public static void parseMark(String input, List<Task> tasks) {
+    public static String parseMark(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
         }
-        tasks.get(index).markAsDone();
+        return tasks.get(index).stringMarkAsDone();
     }
 
     /**
@@ -132,12 +132,12 @@ public class Parser {
      * @param input The Input command from user.
      * @param tasks List of tasks.
      */
-    public static void parseUnmark(String input, List<Task> tasks) {
+    public static String parseUnmark(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
         }
-        tasks.get(index).unmark();
+        return tasks.get(index).stringUnmark();
     }
 
     /**
@@ -146,12 +146,12 @@ public class Parser {
      * @param input The input command from user.
      * @param tasks List of tasks.
      */
-    public static void parseDelete(String input, List<Task> tasks) {
+    public static String parseDelete(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
         }
         Task removedTask = tasks.remove(index);
-        removedTask.printTaskRemovedMessage(tasks.size());
+        return removedTask.stringPrintTaskRemovedMessage(tasks.size());
     }
 }

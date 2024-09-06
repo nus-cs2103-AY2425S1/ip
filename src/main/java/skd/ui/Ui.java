@@ -13,7 +13,7 @@ import task.Task;
  * prompting for input, and displaying error or success messages.
  */
 public class Ui {
-    private static final String LINE = "    ____________________________________________________________";
+    private static final String LINE = "    _______________________________________";
     private Scanner scanner;
 
     /**
@@ -31,6 +31,16 @@ public class Ui {
     }
 
     /**
+     * Returns a line separator as a string.
+     *
+     * @return A string representing a line separator.
+     */
+    public String stringShowLine() {
+        return LINE;
+    }
+
+
+    /**
      * Displays welcome message when the chatbot starts.
      */
     public void showWelcome() {
@@ -38,6 +48,16 @@ public class Ui {
         System.out.println("     Hello! I'm skd.SKD");
         System.out.println("     What can I do for you?");
         showLine();
+    }
+
+    /**
+     * Returns a welcome message when the chatbot starts.
+     *
+     * @return The welcome message as a string.
+     */
+    public String stringShowWelcome() {
+        String s = stringShowLine() + "\n     Hello! I'm skd.SKD\n     What can I do for you?\n" + stringShowLine();
+        return s;
     }
 
     /**
@@ -59,6 +79,17 @@ public class Ui {
     }
 
     /**
+     * Returns the bye message when the chatbot exits.
+     *
+     * @return The bye message as a string.
+     */
+    public String stringShowByeMessage() {
+        String s = stringShowLine() + "\n     Bye. Hope to see you again soon!\n"
+                + stringShowLine();
+        return s;
+    }
+
+    /**
      * Displays current list of tasks.
      *
      * @param tasks The list of tasks to display.
@@ -70,6 +101,22 @@ public class Ui {
             System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
         showLine();
+    }
+
+    /**
+     * Returns the current list of tasks as a string.
+     *
+     * @param tasks The list of tasks to display.
+     * @return A string representing the list of tasks.
+     */
+    public String stringShowTaskList(List<Task> tasks) {
+        StringBuilder taskList = new StringBuilder();
+        taskList.append(stringShowLine()).append("\n     Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            taskList.append("     ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        }
+        taskList.append(stringShowLine());
+        return taskList.toString();
     }
 
     /**
@@ -85,6 +132,17 @@ public class Ui {
     }
 
     /**
+     * Returns a message showing that a task has been added.
+     *
+     * @param task The task that was added.
+     * @param taskCount Current number of tasks.
+     * @return A string representing the added task message.
+     */
+    public String stringShowAddedTask(Task task, int taskCount) {
+        return stringShowLine() + "\n" + task.stringPrintTaskAddedMessage(taskCount) + "\n" + stringShowLine();
+    }
+
+    /**
      * Displays error message.
      *
      * @param message Error message to display.
@@ -93,6 +151,16 @@ public class Ui {
         showLine();
         System.out.println("     " + message);
         showLine();
+    }
+
+    /**
+     * Returns an error message.
+     *
+     * @param message Error message to display.
+     * @return A string representing the error message.
+     */
+    public String stringShowError(String message) {
+        return stringShowLine() + "\n     " + message + "\n" + stringShowLine();
     }
 
     /**
@@ -114,5 +182,28 @@ public class Ui {
             System.out.println("     No matching tasks found.");
         }
         showLine();
+    }
+
+    /**
+     * Returns tasks that match the given keyword as a string.
+     *
+     * @param tasks List of tasks to search.
+     * @param keyword Keyword to search for in task descriptions.
+     * @return A string representing the tasks found.
+     */
+    public String stringShowFoundTasks(List<Task> tasks, String keyword) {
+        StringBuilder foundTasks = new StringBuilder();
+        foundTasks.append(stringShowLine()).append("\n     Here are the matching tasks in your list:\n");
+        int count = 1;
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.append("     ").append(count++).append(".").append(task).append("\n");
+            }
+        }
+        if (count == 1) {
+            foundTasks.append("     No matching tasks found.\n");
+        }
+        foundTasks.append(stringShowLine());
+        return foundTasks.toString();
     }
 }

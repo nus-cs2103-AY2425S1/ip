@@ -96,6 +96,65 @@ public class SkD {
     }
 
     /**
+     * Gets the response based on the input provided by the user.
+     *
+     * @param input The user's input command.
+     * @return The response as a string.
+     */
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            CommandType commandType = Parser.parseCommand(input);
+
+            switch (commandType) {
+            case BYE:
+                response = ui.stringShowByeMessage();
+                break;
+            case LIST:
+                response = ui.stringShowTaskList(tasks);
+                break;
+            case MARK:
+                Parser.parseMark(input, tasks);
+                storage.save(tasks);
+                int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                response = tasks.get(markIndex).stringMarkAsDone();
+                break;
+            case UNMARK:
+                Parser.parseUnmark(input, tasks);
+                storage.save(tasks);
+                int unmarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                response = tasks.get(unmarkIndex).stringUnmark();
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                Task newTask = Parser.parseAddCommand(input, commandType);
+                tasks.add(newTask);
+                storage.save(tasks);
+                response = newTask.stringPrintTaskAddedMessage(tasks.size());
+                break;
+            case DELETE:
+                int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task taskToDelete = tasks.get(deleteIndex);
+                Parser.parseDelete(input, tasks);
+                storage.save(tasks);
+                response = taskToDelete.stringPrintTaskRemovedMessage(tasks.size());
+                break;
+            case FIND:
+                String keyword = input.substring(5).trim();
+                response = ui.stringShowFoundTasks(tasks, keyword);
+                break;
+            default:
+                throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (IllegalArgumentException e) {
+            response = ui.stringShowError(e.getMessage());
+        }
+        return response;
+    }
+
+
+    /**
      * The main method, start of the SKD chatbot.
      *
      * @param args Command-line arguments.
