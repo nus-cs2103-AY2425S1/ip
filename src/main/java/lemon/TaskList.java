@@ -1,13 +1,12 @@
 package lemon;
-
-import lemon.exception.DescriptionException;
-import lemon.task.Task;
-
-import java.util.ArrayList;
 /**
  * Represents the list of tasks stored
  * @author He Yiheng
  */
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
+
+import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
     private int numTasks = 0;
@@ -34,29 +33,31 @@ public class TaskList {
         return true;
     }
 
-    public Task deleteTask(int index) {
-        Task t = list.remove(index - 1);
+    /**
+     * Remove a task from the arraylist
+     * @param i index of the task within the list
+     * @return task that is removed
+     */
+    public Task deleteTask(int i) {
+        Task t = list.remove(i - 1);
         numTasks--;
 
         return t;
     }
 
-    public TaskList findTasks(String text) throws DescriptionException {
-        TaskList matchingTasks = new TaskList();
-        for (Task task : list) {
-            String description = task.getDescription();
-            if (description.contains(text)) {
-                matchingTasks.addNewTask(task);
-            }
-        }
-
-        return matchingTasks;
-    }
-
+    /**
+     * Returns the total number of tasks
+     * @return number of tasks
+     */
     public int size() {
         return numTasks;
     }
 
+    /**
+     * Returns the task within the list given its index
+     * @param i index of the task within the list
+     * @return task with the corresponding index
+     */
     public Task get(int i) {
         return list.get(i);
     }

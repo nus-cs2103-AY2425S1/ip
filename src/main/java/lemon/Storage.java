@@ -28,6 +28,12 @@ public class Storage {
         this.FILE_PATH = filePath;
     }
 
+    /**
+     * Loads the tasks from a txt file into the TaskList that is passed into
+     * Creates the directory and file if it does not exist
+     * @param tasks TaskList that will have the tasks loaded into from the file
+     * @return true if all tasks within the file is loaded successfully
+     */
     public boolean loadTasks(TaskList tasks) {
         try {
             File f = new File(FILE_PATH);
@@ -66,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all the tasks in the provided TaskList into the txt file
+     * @param tasks TaskList the files is being saved from
+     * @return true if all tasks within the TaskList is saved successfully
+     */
     public boolean saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);

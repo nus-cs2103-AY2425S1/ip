@@ -1,5 +1,8 @@
 package lemon;
 
+/**
+ * Represents the enum as a parser
+ */
 public class Parser {
     public enum Commands {
         BYE,
@@ -9,7 +12,6 @@ public class Parser {
         TODO,
         EVENT,
         DEADLINE,
-        DELETE,
-        FIND
+        DELETE
     }
 }
