@@ -1,7 +1,10 @@
 package Diomon;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static Task loadTask(String data) {
@@ -23,42 +26,40 @@ public class Parser {
     }
 
     public static Task parseStoredTodo(String[] dataArr) {
-        if (dataArr.length == 3) {
-            if (dataArr[1].equals(Task.COMPLETEICON)){
-                return new Todo(true, dataArr[2]);
-            }
-            return new Todo(false, dataArr[2]);
+        if (checkStoredStatus(dataArr[1])) {
+            throw new RuntimeException("CompletionStatus seem to be wrong");
         }
-        throw new RuntimeException("Error loading task, data given is wrong");
+        if (dataArr.length == 3) {
+            return new Todo(dataArr[1].equals(Task.COMPLETEICON), dataArr[2]);
+        }
+        throw new RuntimeException("Error loading todo task, data stored is wrong");
     }
     public static Task parseStoredDeadline(String[] dataArr) {
-        try {
-            if (dataArr.length == 4) {
-                if (dataArr[1].equals(Task.COMPLETEICON)){
-                    return new Deadline(true, dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
-                }
-                return new Deadline(false, dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
-            }
-            throw new RuntimeException("Error loading task, data given is wrong");
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Fk");
+        if (checkStoredStatus(dataArr[1])) {
+            throw new RuntimeException("CompletionStatus seem to be wrong");
         }
-
+        if (dataArr.length == 4) {
+            return new Deadline(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
+        } else {
+            throw new RuntimeException("Error loading deadline task, data stored is wrong");
+        }
     }
 
     public static Task parseStoredEvent(String[] dataArr) {
+        if (checkStoredStatus(dataArr[1])) {
+            throw new RuntimeException("CompletionStatus seem to be wrong");
+        }
         if (dataArr.length == 5) {
-            if (dataArr[1].equals(Task.COMPLETEICON)){
-                return new Event(true,
-                        dataArr[2],
-                        LocalDate.parse(dataArr[3], DATEFORMATTER),
-                        LocalDate.parse(dataArr[4], DATEFORMATTER));
-            }
-            return new Event(false,
+            return new Event(dataArr[1].equals(Task.COMPLETEICON),
                     dataArr[2],
                     LocalDate.parse(dataArr[3], DATEFORMATTER),
                     LocalDate.parse(dataArr[4], DATEFORMATTER));
+        } else {
+            throw new RuntimeException("Error loading event task, data stored is wrong");
         }
-        throw new RuntimeException("Error loading task, data given is wrong");
+    }
+
+    public static boolean checkStoredStatus(String status) {
+        return !(status.equals(Task.COMPLETEICON) || status.equals(Task.INCOMPLETEICON));
     }
 }

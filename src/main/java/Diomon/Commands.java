@@ -30,49 +30,45 @@ public class Commands {
     }
 
     public void runCommand(Types t, String input, TaskList taskList) {
-        try {
-            if (input == null) {
-                switch (t) {
-                    case LIST:
-                        list(taskList);
-                        break;
-                    case BYE:
-                        bye();
-                        break;
-                    case HELP:
-                        help();
-                        break;
-                    default:
-                        System.out.println("Missing argument/ Function not implemented");
-                        break;
-                }
-            } else {
-                switch (t) {
-                    case TODO:
-                        todo(taskList, input);
-                        break;
-                    case DEADLINE:
-                        deadline(taskList, input);
-                        break;
-                    case EVENT:
-                        event(taskList, input);
-                        break;
-                    case MARK:
-                        mark(taskList, input);
-                        break;
-                    case UNMARK:
-                        unmark(taskList, input);
-                        break;
-                    case DELETE:
-                        delete(taskList, input);
-                        break;
-                    default:
-                        throw new RuntimeException();
+
+        if (input == null) {
+            switch (t) {
+            case LIST:
+                list(taskList);
+                return;
+            case BYE:
+                bye();
+                return;
+            case HELP:
+                help();
+                return;
+            default:
+                throw new RuntimeException("Missing argument/ Function not implemented");
+            }
+        } else {
+            switch (t) {
+            case TODO:
+                todo(taskList, input);
+                return;
+            case DEADLINE:
+                deadline(taskList, input);
+                return;
+            case EVENT:
+                event(taskList, input);
+                return;
+            case MARK:
+                mark(taskList, input);
+                return;
+            case UNMARK:
+                unmark(taskList, input);
+                return;
+            case DELETE:
+                delete(taskList, input);
+                return;
+            default:
+                throw new RuntimeException("Unknown argument/ Function not implemented yet");
                 }
             }
-        } catch (RuntimeException e) {
-            System.out.println("Command not correctly implemented yet");
-        }
     }
 
     public void run(String input, TaskList taskList) {

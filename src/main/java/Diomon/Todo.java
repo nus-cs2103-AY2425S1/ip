@@ -18,4 +18,11 @@ public class Todo extends Task{
     public String toStorageString(){
         return String.format("%s|%s|%s", TYPEICON, getStatusIcon(),this.description);
     }
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Todo temp) {
+            return temp.completed == completed && temp.description.equals(description);
+        }
+        return false;
+    }
 }

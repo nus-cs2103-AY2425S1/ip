@@ -27,4 +27,12 @@ public class Deadline extends Task{
     public String toStorageString(){
         return String.format("%s|%s|%s|%s", getTypeIcon(), getStatusIcon(),description, deadline.format(Parser.DATEFORMATTER));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Deadline temp) {
+            return temp.deadline.equals(deadline) && temp.completed == completed && temp.description.equals(description);
+        }
+        return false;
+    }
 }

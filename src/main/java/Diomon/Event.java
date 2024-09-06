@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Event extends Task{
     public static final String TYPEICON = "E";
-    private LocalDate from;
-    private LocalDate to;
+    LocalDate from;
+    LocalDate to;
     public Event(String task, LocalDate from, LocalDate to) {
         super(task);
         this.from = from;
@@ -29,5 +29,13 @@ public class Event extends Task{
     @Override
     public String toStorageString(){
         return String.format("%s|%s|%s|%s|%s", getTypeIcon(), getStatusIcon(),this.description, this.from.format(Parser.DATEFORMATTER), this.to.format(Parser.DATEFORMATTER));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Event temp) {
+            return temp.from.equals(from) && temp.to.equals(to) && temp.completed == completed && temp.description.equals(description);
+        }
+        return false;
     }
 }

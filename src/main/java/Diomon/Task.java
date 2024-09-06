@@ -5,8 +5,9 @@ import java.time.LocalDate;
 public class Task {
     String description;
     public static final String COMPLETEICON = "X";
+    public static final String INCOMPLETEICON = " ";
     public static final String TYPEICON = " ";
-    private boolean completed;
+    boolean completed;
     public enum TaskType {
         TODO,
         EVENT,
@@ -63,7 +64,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return this.completed ? COMPLETEICON : " ";
+        return this.completed ? COMPLETEICON : INCOMPLETEICON;
     }
     public String getTypeIcon() {
         return TYPEICON;
@@ -76,5 +77,13 @@ public class Task {
 
     public String toStorageString(){
         return String.format("%s|%s|%s", TYPEICON, getStatusIcon(),this.description);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Task temp) {
+            return temp.completed == completed && temp.description.equals(description);
+        }
+        return false;
     }
 }
