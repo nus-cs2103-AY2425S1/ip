@@ -18,12 +18,12 @@ import java.util.Arrays;
 
 public class TaskStorageImpl implements TaskStorage<Command> {
 
-    private static final Path FILE_PATH = Paths.get("./data/tasks.txt");
-
+    private final Path FILE_PATH;
     private final ArrayList<Task> tasks;
 
-    public TaskStorageImpl() {
+    public TaskStorageImpl(String filePathStr) {
         tasks = new ArrayList<>();
+        FILE_PATH = Paths.get(filePathStr);
     }
 
     public TaskStorageResult<Command> getTasks() {
@@ -105,8 +105,9 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         if (index < 0 || index >= tasks.size()) {
             return handleIllegalIndex(index);
         }
+        Task task = tasks.get(index);
         tasks.remove(index);
-        return handleDeleteSuccess(index);
+        return handleDeleteSuccess(task);
     }
 
     @Override
@@ -125,8 +126,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         // if the file does exist, write to it
         // else if file does not exist, create file and write to it
         try {
-            Files.createDirectories(Paths.get("data/"));
-            File myObj = new File("data/atlas.txt");
+            Files.createDirectories(FILE_PATH.getParent());
+            File myObj = FILE_PATH.toFile();
             if (myObj.createNewFile()) {
                 // System.out.println("File created: " + myObj.getName());
             } else {
@@ -149,7 +150,7 @@ public class TaskStorageImpl implements TaskStorage<Command> {
 
     public TaskStorageResult<Command> loadTasks() {
         try {
-            File myObj = new File("data/atlas.txt");
+            File myObj = FILE_PATH.toFile();
             if (myObj.createNewFile()) {
 //                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -210,9 +211,9 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return new TaskStorageResultImpl(s);
     }
 
-    private TaskStorageResult<Command> handleDeleteSuccess(int index) {
+    private TaskStorageResult<Command> handleDeleteSuccess(Task task) {
         String s = "Noted. I've removed this task:" +
-                "  " + tasks.get(index) +
+                "  " + task +
                 "\nNow you have " + tasks.size() + " task(s) in the list";
         return new TaskStorageResultImpl(s);
     }
