@@ -1,7 +1,8 @@
 package babblebot.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
 
@@ -17,7 +18,7 @@ class TaskListTest {
         Task task = new Task("Test task");
         taskList.addTask(task);
         assertEquals(1, taskList.size());
-        assertEquals(task, taskList.get(0));  // Verify the task is added correctly
+        assertEquals(task, taskList.get(0)); // Verify the task is added correctly
     }
 
     @Test

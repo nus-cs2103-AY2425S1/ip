@@ -2,7 +2,6 @@ package babblebot.task;
 
 import java.util.ArrayList;
 
-
 /**
  * The TaskList class manages a list of Task objects.
  * It provides methods to add, remove, and retrieve tasks, as well as access the size of the list.

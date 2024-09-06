@@ -1,13 +1,17 @@
 package babblebot.storage;
-import babblebot.task.Deadline;
-import babblebot.task.Task;
-import babblebot.task.TaskList;
-import babblebot.task.Todo;
-import babblebot.task.Event;
+
+// Standard Java packages
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+// Project-specific packages
+import babblebot.task.Deadline;
+import babblebot.task.Event;
+import babblebot.task.Task;
+import babblebot.task.TaskList;
+import babblebot.task.Todo;
 
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.
