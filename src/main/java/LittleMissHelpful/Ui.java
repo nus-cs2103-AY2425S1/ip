@@ -64,6 +64,9 @@ public class Ui {
     }
 
     public void showSearchResults(ArrayList<Task> tasks) {
+        /**
+         * Prints search results list
+         */
         System.out.println(LINE_BREAK);
         if (tasks.size() == 0) {
             System.out.println("Aiyo, got no matching tasks leh...");
