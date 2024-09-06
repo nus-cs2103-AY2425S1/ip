@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Main class for the SecondMind application that manages tasks.
+ * It initializes the required components and controls the main program flow.
+ */
 public class SecondMind {
     private static final String logo = "SecondMind";
     private static final String DATA_FILE_PATH = "./SecondMind.txt";
@@ -13,6 +17,9 @@ public class SecondMind {
     private Parser parser;
     private UI ui;
 
+    /**
+     * Main method that serves as the entry point for the application.
+     */
     public SecondMind() {
         this.ui = new UI();
         this.storage = new Storage(DATA_FILE_PATH);
