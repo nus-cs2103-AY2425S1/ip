@@ -1,9 +1,10 @@
 package stan.commands;
 
+import stan.Storage;
 import stan.TaskList;
 import stan.ui.Ui;
-import stan.Storage;
-import javafx.application.Platform;
+
+
 /**
  * Represents a command to exit the application.
  */

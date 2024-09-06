@@ -1,9 +1,11 @@
 package stan.ui;
 
-import stan.TaskList;
-import stan.tasks.Task;
 import java.util.List;
 import java.util.Scanner;
+
+import stan.TaskList;
+import stan.tasks.Task;
+
 
 /**
  * The Ui class handles interactions with the user.
@@ -51,8 +53,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task:\n" + "   " + task + "\n" +
-                "Now you have " + taskCount + " tasks in the list.";
+        return "Got it. I've added this task:\n" + "   " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -63,8 +65,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskDeleted(Task task, int taskCount) {
-        return "Noted. I've removed this task:\n" + "   " + task + "\n" +
-                "Now you have " + taskCount + " tasks in the list.";
+        return "Noted. I've removed this task:\n" + "   " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -75,8 +77,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskMarked(Task task, int taskCount) {
-        return "Nice! I've marked this task as done:\n" + "   " + task + "\n" +
-                "You now have " + taskCount + " tasks in the list.";
+        return "Nice! I've marked this task as done:\n" + "   " + task + "\n"
+                + "You now have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -87,8 +89,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskUnmarked(Task task, int taskCount) {
-        return "OK, I've marked this task as not done yet:\n" + "   " + task + "\n" +
-                "You now have " + taskCount + " tasks in the list.";
+        return "OK, I've marked this task as not done yet:\n" + "   " + task + "\n"
+                + "You now have " + taskCount + " tasks in the list.";
     }
 
     /**

@@ -1,17 +1,34 @@
 package stan;
-import stan.tasks.Task;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
+import stan.tasks.Task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+/**
+ * Unit tests for the TaskList class.
+ * This class tests various operations on the TaskList, such as adding, retrieving tasks, and verifying list size.
+ */
 class TaskListTest {
+
     private TaskList taskList;
 
+    /**
+     * Sets up a new TaskList before each test.
+     * This method is executed before every individual test case.
+     */
     @BeforeEach
     void setUp() {
         taskList = new TaskList();
     }
 
+    /**
+     * Tests the behavior of adding a task to the TaskList.
+     * Ensures that the task is correctly added and the size of the list increases.
+     */
     @Test
     void testAddTask() {
         Task task = new MockTask("Test Task");
@@ -20,6 +37,10 @@ class TaskListTest {
         assertEquals(task, taskList.get(0));
     }
 
+    /**
+     * Tests the behavior of removing a task from the TaskList.
+     * Ensures that the correct task is removed and the size of the list decreases.
+     */
     @Test
     void testRemoveTask() {
         Task task1 = new MockTask("Task 1");
@@ -32,6 +53,10 @@ class TaskListTest {
         assertEquals(task2, taskList.get(0));
     }
 
+    /**
+     * Tests the behavior of retrieving a task from the TaskList.
+     * Ensures that the correct task is retrieved by its index.
+     */
     @Test
     void testGetTask() {
         Task task = new MockTask("Test Task");
@@ -39,6 +64,10 @@ class TaskListTest {
         assertEquals(task, taskList.get(0));
     }
 
+    /**
+     * Tests the behavior of checking the size of the TaskList.
+     * Ensures that the size reflects the number of tasks correctly.
+     */
     @Test
     void testSize() {
         assertEquals(0, taskList.size());
@@ -46,6 +75,10 @@ class TaskListTest {
         assertEquals(1, taskList.size());
     }
 
+    /**
+     * Tests the behavior of removing a task with an invalid index from the TaskList.
+     * Ensures that an IndexOutOfBoundsException is thrown and the size of the list remains unchanged.
+     */
     @Test
     void testRemoveTaskInvalidIndex() {
         taskList.add(new MockTask("Task 1"));

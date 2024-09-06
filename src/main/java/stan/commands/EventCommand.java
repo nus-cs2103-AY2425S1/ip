@@ -1,13 +1,13 @@
 package stan.commands;
 
-import stan.TaskList;
-import stan.ui.Ui;
 import stan.Storage;
-import stan.tasks.Task;
-import stan.tasks.Event;
-import stan.exceptions.StanMissingArgumentException;
+import stan.TaskList;
 import stan.exceptions.StanInvalidArgumentException;
 import stan.exceptions.StanInvalidDateTimeFormatException;
+import stan.exceptions.StanMissingArgumentException;
+import stan.tasks.Event;
+import stan.tasks.Task;
+import stan.ui.Ui;
 
 /**
  * Represents a command to add an event task.
@@ -30,7 +30,9 @@ public class EventCommand extends Command {
         }
 
         if (!words[1].contains("/from") || !words[1].contains("/to")) {
-            throw new StanInvalidArgumentException("The event description is present but the '/from' or '/to' clause is missing. Please add the '/from' clause followed by the start time and the '/to' clause followed by the end time.");
+            throw new StanInvalidArgumentException("The event description is present but the '/from' or '/to' "
+                    + "clause is missing. Please add the '/from' clause followed by the start time and "
+                    + "the '/to' clause followed by the end time.");
         }
 
         String[] parts = words[1].split(" /from ", 2);
