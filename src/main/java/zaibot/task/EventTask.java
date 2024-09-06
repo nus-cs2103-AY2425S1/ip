@@ -8,14 +8,15 @@ import java.time.format.DateTimeFormatter;
  * It has a from and to DateTime attribute to signify the /from and /to.
  */
 public class EventTask extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Creates an Event Task, given a name, a start and end datetime.
-     * @param name A string representing the name
+     *
+     * @param name  A string representing the name
      * @param start A LocalDateTime representing the start of the event
-     * @param end A LocalDateTime representing the end of the event.
+     * @param end   A LocalDateTime representing the end of the event.
      */
     public EventTask(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
@@ -34,5 +35,17 @@ public class EventTask extends Task {
         DateTimeFormatter formatter = getFormatter();
         return String.format("[E]%s (from: %s to: %s)",
                 super.toString(), start.format(formatter), end.format(formatter));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof EventTask otherEvent) {
+            boolean isSameAsSuper = super.equals(other);
+            return (isSameAsSuper
+                    && start.equals(otherEvent.start)
+                    && end.equals(otherEvent.start));
+        } else {
+            return false;
+        }
     }
 }

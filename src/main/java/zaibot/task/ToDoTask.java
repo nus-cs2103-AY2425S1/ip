@@ -18,4 +18,9 @@ public class ToDoTask extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other);
+    }
 }

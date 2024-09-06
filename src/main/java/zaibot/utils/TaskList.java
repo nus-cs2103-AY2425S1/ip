@@ -3,6 +3,7 @@ package zaibot.utils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
 /**
@@ -37,9 +38,15 @@ public class TaskList {
      * @return A filtered task list
      */
     public TaskList filterTasks(String input) {
-        return new TaskList(this.tasks.stream()
+        return new TaskList(tasks.stream()
                 .filter(task -> task.containsInput(input))
                 .collect(Collectors.toCollection(ArrayList::new)));
+    }
+
+
+    private boolean ifTaskExists(Task newTask) {
+        return tasks.stream()
+                .anyMatch(task -> task.equals(newTask));
     }
 
     /**
@@ -47,7 +54,10 @@ public class TaskList {
      *
      * @param task Task to be added
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws ZaibotException {
+        if (ifTaskExists(task)) {
+            throw new ZaibotException("Task already exists.");
+        }
         tasks.add(task);
     }
 

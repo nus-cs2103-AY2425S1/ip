@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import zaibot.exception.ZaibotException;
 import zaibot.task.ToDoTask;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
@@ -21,8 +22,13 @@ public class TaskFindCommandTest {
 
     @Test
     public void execute_noTasksMatch() {
-        tasks.addTask(new ToDoTask("one"));
-        tasks.addTask(new ToDoTask("two"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+            tasks.addTask(new ToDoTask("two"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+
         HashMap<String, String> options = new HashMap<>();
         options.put("name", "three");
 
@@ -59,8 +65,13 @@ public class TaskFindCommandTest {
 
     @Test
     public void execute_oneTaskMatch() {
-        tasks.addTask(new ToDoTask("one"));
-        tasks.addTask(new ToDoTask("two"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+            tasks.addTask(new ToDoTask("two"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+
         HashMap<String, String> options = new HashMap<>();
         options.put("name", "one");
 
@@ -82,8 +93,12 @@ public class TaskFindCommandTest {
 
     @Test
     public void execute_multipleTaskMatch() {
-        tasks.addTask(new ToDoTask("one"));
-        tasks.addTask(new ToDoTask("one more"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+            tasks.addTask(new ToDoTask("one more"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
         HashMap<String, String> options = new HashMap<>();
         options.put("name", "one");
 

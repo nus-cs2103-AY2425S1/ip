@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import zaibot.exception.ZaibotException;
 import zaibot.task.ToDoTask;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
@@ -33,7 +34,11 @@ public class TaskListingCommandTest {
 
     @Test
     public void execute_oneTask() {
-        tasks.addTask(new ToDoTask("one"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
         TaskListingCommand command = new TaskListingCommand();
         String expected = "1. [T][ ] one";
         String outputMessage;
@@ -47,9 +52,14 @@ public class TaskListingCommandTest {
 
     @Test
     public void execute_multipleTasks() {
-        tasks.addTask(new ToDoTask("one"));
-        tasks.addTask(new ToDoTask("two"));
-        tasks.addTask(new ToDoTask("three"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+            tasks.addTask(new ToDoTask("two"));
+            tasks.addTask(new ToDoTask("three"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+
         TaskListingCommand command = new TaskListingCommand();
         String expected = """
                 1. [T][ ] one
