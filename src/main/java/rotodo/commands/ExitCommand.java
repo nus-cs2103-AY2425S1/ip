@@ -2,8 +2,8 @@ package rotodo.commands;
 
 import java.io.IOException;
 
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**

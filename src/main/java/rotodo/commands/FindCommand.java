@@ -1,7 +1,7 @@
 package rotodo.commands;
 
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -14,6 +14,12 @@ import rotodo.tasklist.TaskList;
 public class FindCommand extends Command {
     private String keyword;
 
+    /**
+     * Initialise FindCommand to be executed. Accepts
+     * a keyword to be used to find tasks.
+     * 
+     * @param keyword
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

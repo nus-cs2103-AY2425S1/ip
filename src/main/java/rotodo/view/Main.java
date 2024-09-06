@@ -13,9 +13,8 @@ import rotodo.RoTodo;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
-    private RoTodo roTodo = new RoTodo();
     private static String userName = "User";
+    private RoTodo roTodo = new RoTodo();
 
     public static void setUserName(String name) {
         userName = name;
@@ -28,7 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setRoTodo(roTodo);  // inject the RoTodo instance
+            fxmlLoader.<MainWindow>getController().setRoTodo(roTodo); // inject the RoTodo instance
             fxmlLoader.<MainWindow>getController().onStart(userName);
             stage.show();
         } catch (IOException e) {

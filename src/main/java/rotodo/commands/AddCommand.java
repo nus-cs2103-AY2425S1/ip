@@ -6,8 +6,8 @@ import java.time.format.DateTimeParseException;
 
 import rotodo.exception.IncompleteInputException;
 import rotodo.exception.InvalidInputException;
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -28,8 +28,8 @@ public class AddCommand extends Command {
     private TaskType type;
     private String value;
     private LocalDateTime from;
-    private LocalDateTime byto;
-    private boolean status;
+    private LocalDateTime byOrTo;
+    private boolean isDone;
 
     /**
      * Initialise AddCommand to be executed. Accepts
@@ -52,30 +52,30 @@ public class AddCommand extends Command {
             case DEADLINE:
                 if (value.length < 2) {
                     throw new IncompleteInputException(
-                        "RoTodo can't read your mind, otherwise "
-                        + "RoTodo's creator would be rich!\n"
-                        + "  RoTodo needs a task description and deadline");
+                            "RoTodo can't read your mind, otherwise "
+                            + "RoTodo's creator would be rich!\n"
+                            + "  RoTodo needs a task description and deadline");
                 }
                 this.value = value[0];
-                this.byto = LocalDateTime.parse(value[1], formatter);
+                this.byOrTo = LocalDateTime.parse(value[1], formatter);
                 break;
 
             case EVENT:
                 if (value.length < 3) {
                     throw new IncompleteInputException(
-                        "RoTodo can't read your mind, otherwise "
-                        + "RoTodo's creator would be rich!\n"
-                        + "  RoTodo needs a task description, from and to date/time");
+                            "RoTodo can't read your mind, otherwise "
+                            + "RoTodo's creator would be rich!\n"
+                            + "  RoTodo needs a task description, from and to date/time");
                 }
                 this.value = value[0];
                 LocalDateTime t1 = LocalDateTime.parse(value[1], formatter);
                 LocalDateTime t2 = LocalDateTime.parse(value[2], formatter);
                 if (t1.isBefore(t2)) {
                     this.from = t1;
-                    this.byto = t2;
+                    this.byOrTo = t2;
                 } else {
                     this.from = t2;
-                    this.byto = t1;
+                    this.byOrTo = t1;
                 }
                 break;
 
@@ -84,32 +84,32 @@ public class AddCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             throw new InvalidInputException(
-                        "Whaaaatt? RoTodo has no idea what date that is\n"
-                        + "RoTodo needs valid date/time in the form:\n"
-                        + "  dd/MM/yyyy HHmm");
+                    "Whaaaatt? RoTodo has no idea what date that is\n"
+                    + "RoTodo needs valid date/time in the form:\n"
+                    + "  dd/MM/yyyy HHmm");
         }
     }
 
     /** Set Status of Task to be added */
     public void setStatus(boolean status) {
-        this.status = status;
+        this.isDone = status;
     }
 
     @Override
     public void execute(TaskList tl, Gui ui, Storage st) {
         String msg = "";
-        tl.setNextStatus(status);
+        tl.setNextStatus(isDone);
         switch (this.type) {
         case TODO:
             msg = tl.addTask(value);
             break;
 
         case DEADLINE:
-            msg = tl.addTask(value, byto);
+            msg = tl.addTask(value, byOrTo);
             break;
 
         case EVENT:
-            msg = tl.addTask(value, from, byto);
+            msg = tl.addTask(value, from, byOrTo);
             break;
 
         default:

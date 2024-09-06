@@ -31,8 +31,8 @@ public class TaskListTest {
         LocalDateTime date1 = LocalDateTime.parse("01/01/2001 0102", formatter);
         LocalDateTime date2 = LocalDateTime.parse("02/02/2003 0203", formatter);
         String expected = "1.[T][ ] Todo task\n"
-            + "2.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
-            + "3.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
+                + "2.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
+                + "3.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
 
         // Act
         tasklist.addTask("Todo task");
@@ -95,10 +95,10 @@ public class TaskListTest {
         tasklist.addTask("doggy task");
         tasklist.addTask("ending CAT");
         String expected = "RoTodo worked hard, here's the list of matching task:\n"
-                        + "1.[T][ ] CAT starting\n"
-                        + "2.[T][ ] in the CAT middle\n"
-                        + "3.[T][ ] ending CAT\n"
-                        + "4.[T][ ] conCATenating tasks";
+                + "1.[T][ ] CAT starting\n"
+                + "2.[T][ ] in the CAT middle\n"
+                + "3.[T][ ] ending CAT\n"
+                + "4.[T][ ] conCATenating tasks";
 
         // Act
         String actual = tasklist.findString("cat");

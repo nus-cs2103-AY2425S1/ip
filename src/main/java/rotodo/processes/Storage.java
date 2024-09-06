@@ -55,10 +55,10 @@ public class Storage {
                 String[] token = x.split(" \\| ", 3);
                 AddCommand.TaskType type = token[0].equals("T") ? AddCommand.TaskType.TODO
                     : token[0].equals("D") ? AddCommand.TaskType.DEADLINE : AddCommand.TaskType.EVENT;
-                boolean status = token[1].equals("1");
+                boolean isDone = token[1].equals("1");
                 try {
                     AddCommand add = new AddCommand(type, token[2].split(" \\| "));
-                    add.setStatus(status);
+                    add.setStatus(isDone);
                     add.execute(tl, null, null);
                 } catch (InvalidInputException e) {
                     // do nothing

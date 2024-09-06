@@ -38,6 +38,11 @@ public class MainWindow extends AnchorPane {
         roTodo = r;
     }
 
+    /**
+     * Display RoTodo's banner on start.
+     *
+     * @param name of user
+     */
     public void onStart(String name) {
         this.userName = name;
         dialogContainer.getChildren().add(
@@ -49,9 +54,12 @@ public class MainWindow extends AnchorPane {
         userName = name;
     }
 
+    /**
+     * Wait before closing application on exit.
+     */
     public void onExit() {
-        (new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -59,7 +67,7 @@ public class MainWindow extends AnchorPane {
                 }
                 Platform.exit();
             }
-        }).start();
+        }.start();
     }
 
     /**

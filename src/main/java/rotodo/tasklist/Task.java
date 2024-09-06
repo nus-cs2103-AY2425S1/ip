@@ -9,7 +9,7 @@ package rotodo.tasklist;
  */
 public abstract class Task {
     private String value;
-    private boolean done = false;
+    private boolean isDone = false;
 
     /**
      * Initialse Task description and status.
@@ -19,7 +19,7 @@ public abstract class Task {
      */
     public Task(String value, boolean status) {
         this.value = value;
-        this.done = status;
+        this.isDone = status;
     }
 
     /**
@@ -29,7 +29,7 @@ public abstract class Task {
      * @return task current state
      */
     public String markAsDone() {
-        done = true;
+        isDone = true;
         return "RoTodo is happy for you! Task done:\n  " + this.toString();
     }
 
@@ -40,7 +40,7 @@ public abstract class Task {
      * @return task current state
      */
     public String unmarkAsDone() {
-        done = false;
+        isDone = false;
         return "Did something happen? RoTodo is confused... Task undone:\n  " + this.toString();
     }
 
@@ -64,10 +64,10 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + value;
+        return "[" + (isDone ? "X" : " ") + "] " + value;
     }
 
     public String saveString() {
-        return (done ? "1" : "0") + " | " + value;
+        return (isDone ? "1" : "0") + " | " + value;
     }
 }

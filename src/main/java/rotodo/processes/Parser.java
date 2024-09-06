@@ -70,76 +70,76 @@ public class Parser {
                 return new DeleteCommand(idx - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
-                    + "number RoTodo knows (and RoTodo know much numbers, "
-                    + "like 1s and 0s)", token[1]));
+                        + "number RoTodo knows (and RoTodo know much numbers, "
+                        + "like 1s and 0s)", token[1]));
             }
 
         case MARK:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo need task number");
+                        "RoTodo need task number");
             }
             try {
                 int idx = Integer.parseInt(token[1].split(" ")[0]);
                 return new MarkCommand(idx - 1, true);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
-                    + "number RoTodo knows (and RoTodo know much numbers, "
-                    + "like 1s and 0s)", token[1]));
+                        + "number RoTodo knows (and RoTodo know much numbers, "
+                        + "like 1s and 0s)", token[1]));
             }
 
         case UNMARK:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo need task number");
+                        "RoTodo need task number");
             }
             try {
                 int idx = Integer.parseInt(token[1].split(" ")[0]);
                 return new MarkCommand(idx - 1, false);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
-                    + "number RoTodo knows (and RoTodo know much numbers, "
-                    + "like 1s and 0s)", token[1]));
+                        + "number RoTodo knows (and RoTodo know much numbers, "
+                        + "like 1s and 0s)", token[1]));
             }
 
         case TODO:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read your mind, otherwise "
-                    + "RoTodo's creator would be rich!\n"
-                    + "  RoTodo needs a task description");
+                        "RoTodo can't read your mind, otherwise "
+                        + "RoTodo's creator would be rich!\n"
+                        + "  RoTodo needs a task description");
             }
             return new AddCommand(AddCommand.TaskType.TODO, token[1]);
 
         case DEADLINE:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read your mind, otherwise "
-                    + "RoTodo's creator would be rich!\n"
-                    + "  RoTodo needs a task description and deadline");
+                        "RoTodo can't read your mind, otherwise "
+                        + "RoTodo's creator would be rich!\n"
+                        + "  RoTodo needs a task description and deadline");
             }
             token = token[1].split(" /by ", 2);
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read your mind, otherwise "
-                    + "RoTodo's creator would be rich!\n"
-                    + "  RoTodo needs a task description and deadline");
+                        "RoTodo can't read your mind, otherwise "
+                        + "RoTodo's creator would be rich!\n"
+                        + "  RoTodo needs a task description and deadline");
             }
             return new AddCommand(AddCommand.TaskType.DEADLINE, token[0], token[1]);
 
         case EVENT:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read your mind, otherwise "
-                    + "RoTodo's creator would be rich!\n"
-                    + "  RoTodo needs a task description, from and to date/time");
+                        "RoTodo can't read your mind, otherwise "
+                        + "RoTodo's creator would be rich!\n"
+                        + "  RoTodo needs a task description, from and to date/time");
             }
             token = token[1].split(" /from | /to ", 3);
             if (token.length < 3) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read your mind, otherwise "
-                    + "RoTodo's creator would be rich!\n"
-                    + "  RoTodo needs a task description, from and to date/time");
+                        "RoTodo can't read your mind, otherwise "
+                        + "RoTodo's creator would be rich!\n"
+                        + "  RoTodo needs a task description, from and to date/time");
             }
             return new AddCommand(AddCommand.TaskType.EVENT, token[0], token[1], token[2]);
 
@@ -148,7 +148,7 @@ public class Parser {
 
         default:
             throw new InvalidInputException(
-                "Reep Roop... RoTodo Read No Understand?");
+                    "Reep Roop... RoTodo Read No Understand?");
         }
     }
 }

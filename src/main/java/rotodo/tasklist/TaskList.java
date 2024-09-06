@@ -16,86 +16,86 @@ import rotodo.exception.InvalidInputException;
  * @version CS2103T AY24/25 Semester 1
  */
 public class TaskList {
-    private boolean nextStatus;
+    private boolean nextIsDoneStatus;
 
     /**
      * List of tasks.
      */
-    private List<Task> list;
+    private List<Task> tasks;
 
     /**
      * Initialise tasklist
      */
     public TaskList() {
-        list = new ArrayList<>();
-        nextStatus = false;
+        tasks = new ArrayList<>();
+        nextIsDoneStatus = false;
     }
 
     /**
-     * Mark the i'th Task as 'done'.
+     * Marks the i'th Task as 'done'.
      *
      * @param i task index
      * @return i'th task state
      */
     public String markDone(int i) throws InvalidInputException {
-        if (i >= list.size() || i < 0) {
+        if (i >= tasks.size() || i < 0) {
             throw new InvalidInputException("Task number doesn't exist\u001B[0m\n"
-                + "type 'list' to view tasklist");
+                    + "type 'list' to view tasklist");
         }
-        Task done = list.get(i);
+        Task done = tasks.get(i);
         return done.markAsDone();
     }
 
     /**
-     * Unmark the i'th Task as 'done'.
+     * Unmarks the i'th Task as 'done'.
      *
      * @param i task index
      * @return i'th task state
      */
     public String unmarkDone(int i) throws InvalidInputException {
-        if (i >= list.size() || i < 0) {
+        if (i >= tasks.size() || i < 0) {
             throw new InvalidInputException("Task number doesn't exist\u001B[0m\n"
-                + "type 'list' to view tasklist");
+                    + "type 'list' to view tasklist");
         }
-        Task done = list.get(i);
+        Task done = tasks.get(i);
         return done.unmarkAsDone();
     }
 
     public void setNextStatus(boolean status) {
-        nextStatus = status;
+        nextIsDoneStatus = status;
     }
 
     /**
-     * Add new Todo task to tasklist
+     * Adds new Todo task to tasklist
      *
      * @param value description of task
      * @return status to be printed by Ui
      */
     public String addTask(String value) {
-        Task toAdd = new Todo(value, nextStatus);
-        nextStatus = false;
-        list.add(toAdd);
+        Task toAdd = new Todo(value, nextIsDoneStatus);
+        nextIsDoneStatus = false;
+        tasks.add(toAdd);
         return "Good good! RoTodo is happy to add:\n  " + toAdd
-            + "\nNow you have " + list.size() + " tasks in the list.";
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Add new Deadline task to tasklist
+     * Adds new Deadline task to tasklist
      *
      * @param value description of task
      * @param by datetime
      * @return
      */
     public String addTask(String value, LocalDateTime by) {
-        Task toAdd = new Deadline(value, by, nextStatus);
-        nextStatus = false;
-        list.add(toAdd);
+        Task toAdd = new Deadline(value, by, nextIsDoneStatus);
+        nextIsDoneStatus = false;
+        tasks.add(toAdd);
         return "Good good! RoTodo is happy to add:\n  " + toAdd
-            + "\nNow you have " + list.size() + " tasks in the list.";
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Add new Event task to tasklist.
+     * Adds new Event task to tasklist.
      *
      * @param value description of task
      * @param from datetime
@@ -103,11 +103,11 @@ public class TaskList {
      * @return status to be printed by Ui
      */
     public String addTask(String value, LocalDateTime from, LocalDateTime to) {
-        Task toAdd = new Event(value, from, to, nextStatus);
-        nextStatus = false;
-        list.add(toAdd);
+        Task toAdd = new Event(value, from, to, nextIsDoneStatus);
+        nextIsDoneStatus = false;
+        tasks.add(toAdd);
         return " Good good! RoTodo is happy to add:\n  " + toAdd
-            + "\n Now you have " + list.size() + " tasks in the list.";
+                + "\n Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -118,17 +118,17 @@ public class TaskList {
      * @throws InvalidInputException
      */
     public String deleteTask(int i) throws InvalidInputException {
-        if (i >= list.size() || i < 0) {
+        if (i >= tasks.size() || i < 0) {
             throw new InvalidInputException("Task number doesn't exist\u001B[0m\n"
-                + "type 'list' to view tasklist");
+                    + "type 'list' to view tasklist");
         }
-        Task removed = list.remove(i);
+        Task removed = tasks.remove(i);
         return "Deleting task? That's cheating... but whatever... removed:\n  " + removed
-            + "\nNow you have " + list.size() + " tasks in the list.";
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Find task using keyword.
+     * Finds task using keyword.
      *
      * @param keyword
      * @return output list of tasks found
@@ -137,7 +137,7 @@ public class TaskList {
         String output = "RoTodo worked hard, here's the list of matching task:\n";
         String output2 = "";
         int count = 1;
-        for (Task t : list) {
+        for (Task t : tasks) {
             if (t.matchDescription(keyword, true)) {
                 output += count + "." + t.toString() + "\n";
                 count++;
@@ -149,7 +149,7 @@ public class TaskList {
             return "Rotodo worked hard, but unable to find matching tasks...";
         }
         output2 = String.format(output2,
-            (Object[]) IntStream.range(count, list.size() + 1).mapToObj(x -> x).toArray());
+            (Object[]) IntStream.range(count, tasks.size() + 1).mapToObj(x -> x).toArray());
         return (output + output2).stripTrailing();
     }
 
@@ -162,7 +162,7 @@ public class TaskList {
      */
     public String saveList() throws IOException {
         String output = "";
-        for (Task t : list) {
+        for (Task t : tasks) {
             output += t.saveString() + "\n";
         }
         return output.strip();
@@ -176,8 +176,8 @@ public class TaskList {
     @Override
     public String toString() {
         String output = "";
-        for (int i = 0; i < list.size(); i++) {
-            output += "" + (i + 1) + "." + list.get(i) + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            output += "" + (i + 1) + "." + tasks.get(i) + "\n";
         }
         if (output == "") {
             output = "Nothing here. Go find more task to do!";

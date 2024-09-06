@@ -1,8 +1,8 @@
 package rotodo.commands;
 
 import rotodo.exception.InvalidInputException;
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -14,7 +14,7 @@ import rotodo.tasklist.TaskList;
  */
 public class MarkCommand extends Command {
     private int idx;
-    private boolean asStatus;
+    private boolean asDone;
 
     /**
      * Initialise MarkCommand to be executed. Accepts
@@ -23,15 +23,15 @@ public class MarkCommand extends Command {
      * @param i task index
      * @param as status
      */
-    public MarkCommand(int i, boolean as) {
+    public MarkCommand(int i, boolean asDone) {
         idx = i;
-        asStatus = as;
+        this.asDone = asDone;
     }
 
     @Override
     public void execute(TaskList tl, Gui ui, Storage st) {
         try {
-            if (asStatus) {
+            if (asDone) {
                 ui.addMessage(tl.markDone(idx));
             } else {
                 ui.addMessage(tl.unmarkDone(idx));

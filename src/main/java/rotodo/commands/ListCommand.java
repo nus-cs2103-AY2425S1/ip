@@ -1,7 +1,7 @@
 package rotodo.commands;
 
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**

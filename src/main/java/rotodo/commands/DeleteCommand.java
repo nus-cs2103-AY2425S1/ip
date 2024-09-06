@@ -1,8 +1,8 @@
 package rotodo.commands;
 
 import rotodo.exception.InvalidInputException;
-import rotodo.processes.Storage;
 import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -15,6 +15,12 @@ import rotodo.tasklist.TaskList;
 public class DeleteCommand extends Command {
     private int idx;
 
+    /**
+     * Initialise DeleteCommand to be executed. Accepts
+     * a task index to delete.
+     *
+     * @param i
+     */
     public DeleteCommand(int i) {
         idx = i;
     }

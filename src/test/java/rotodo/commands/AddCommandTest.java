@@ -18,8 +18,8 @@ public class AddCommandTest {
         AddCommand addDeadline;
         AddCommand addEvent;
         String expected = "1.[T][ ] Todo task\n"
-            + "2.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
-            + "3.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
+                + "2.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
+                + "3.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
 
         // Act
         try {
@@ -54,10 +54,10 @@ public class AddCommandTest {
     public void initialise_wrongDateTimeFormat_throwsInvalidInputException() {
         // Arrange
         String expected = "\u001B[31mRoTodo.Error: Invalid Input\n"
-            + "  Whaaaatt? RoTodo has no idea what date that is\n"
-            + "RoTodo needs valid date/time in the form:\n"
-            + "  dd/MM/yyyy HHmm" + "\u001B[0m\n"
-            + "type 'help' to see guide";
+                + "  Whaaaatt? RoTodo has no idea what date that is\n"
+                + "RoTodo needs valid date/time in the form:\n"
+                + "  dd/MM/yyyy HHmm" + "\u001B[0m\n"
+                + "type 'help' to see guide";
 
         // Act
         InvalidInputException exception = assertThrows(InvalidInputException.class, () ->
@@ -73,10 +73,10 @@ public class AddCommandTest {
     public void initialise_insufficientInputParams_throwsIncompleteInputException() {
         // Arrange
         String expected = "\u001B[31mRoTodo.Error: Invalid Input\n"
-            + "  RoTodo can't read your mind, otherwise "
-            + "RoTodo's creator would be rich!\n"
-            + "  RoTodo needs a task description, from and to date/time"
-            + "\u001B[0m\n" + "type 'help' to see guide";
+                + "  RoTodo can't read your mind, otherwise "
+                + "RoTodo's creator would be rich!\n"
+                + "  RoTodo needs a task description, from and to date/time"
+                + "\u001B[0m\n" + "type 'help' to see guide";
 
         // Act
         InvalidInputException exception = assertThrows(InvalidInputException.class, () ->

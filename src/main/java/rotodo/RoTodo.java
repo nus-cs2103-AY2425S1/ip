@@ -1,12 +1,11 @@
 package rotodo;
 
 import javafx.application.Application;
-
 import rotodo.commands.Command;
 import rotodo.exception.InvalidInputException;
+import rotodo.processes.Gui;
 import rotodo.processes.Parser;
 import rotodo.processes.Storage;
-import rotodo.processes.Gui;
 import rotodo.tasklist.TaskList;
 import rotodo.view.Main;
 
