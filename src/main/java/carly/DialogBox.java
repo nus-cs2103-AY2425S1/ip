@@ -1,4 +1,4 @@
-package carly.ui;
+package carly;
 
 import java.io.IOException;
 import java.util.Collections;

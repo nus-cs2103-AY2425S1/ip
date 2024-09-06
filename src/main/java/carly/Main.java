@@ -1,8 +1,7 @@
-package carly.ui;
+package carly;
 
 import java.io.IOException;
 
-import carly.Carly;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,7 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/resources/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
 
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

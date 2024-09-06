@@ -1,6 +1,5 @@
-package carly.ui;
+package carly;
 
-import carly.Carly;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,7 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Carly carly;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/resources/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML

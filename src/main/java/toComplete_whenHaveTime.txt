@@ -24,3 +24,17 @@ gradle tools:
 
 shortcut:
 - double click on code -> softwrap
+
+checkstyle {
+    toolVersion = '10.2'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+    id 'checkstyle'
+
+
+
+        <module name="AbbreviationAsWordInName">
+            <property name="ignoreFinal" value="false"/>
+            <property name="allowedAbbreviationLength" value="1"/>
+            <property name="allowedAbbreviations" value="TWO_INDENT,ONE_INDENT"/>
+        </module>

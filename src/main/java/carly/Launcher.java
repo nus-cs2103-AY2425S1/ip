@@ -1,4 +1,4 @@
-package carly.ui;
+package carly;
 
 import javafx.application.Application;
 
@@ -10,3 +10,4 @@ public class Launcher {
         Application.launch(Main.class, args);
     }
 }
+
