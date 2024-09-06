@@ -41,15 +41,16 @@ public final class ListCommand extends Command {
      * @throws InvalidListEnquiry If the user input does not match "list".
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidListEnquiry {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidListEnquiry {
         if (!userInput.trim().equals("list")) {
             throw new InvalidListEnquiry();
         } else {
-            ui.showTasksMessage();
+            String message = ui.showTasksMessage();
             int totalNumberOfTasks = tasks.getSize();
             for (int i = 0; i < totalNumberOfTasks; i++) {
-                System.out.println((i + 1) + "." + tasks.getTask(i).toString());
+                message += "\n" + (i + 1) + "." + tasks.getTask(i).toString();
             }
+            return message;
         }
     }
 

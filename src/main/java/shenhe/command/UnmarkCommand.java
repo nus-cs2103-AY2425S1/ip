@@ -4,6 +4,7 @@ import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
 import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.exception.InvalidTaskNumberException;
 
 /**
  * Represents a command to unmark a task as not done in the task list.
@@ -44,17 +45,19 @@ public final class UnmarkCommand extends Command {
      * @throws EmptyTaskDescriptionException If the user input does not contain a valid task number.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (userInput.trim().length() == 6) {
             throw new EmptyTaskDescriptionException();
         } else {
             int taskNumber = Integer.parseInt(userInput.substring(6).trim());
             if (taskNumber >= 1 && taskNumber <= tasks.getSize()) {
-                ui.showUnmarkMessage();
+                String unmarkMessage = ui.showUnmarkMessage();
                 tasks.getTask(taskNumber - 1).markAsUndone();
-                System.out.println(tasks.getTask(taskNumber - 1).toString());
+                String taskMessage = tasks.getTask(taskNumber - 1).toString();
                 storage.saveTasks(tasks);
+                return unmarkMessage + "\n" + taskMessage;
             }
+            throw new InvalidTaskNumberException();
         }
     }
 

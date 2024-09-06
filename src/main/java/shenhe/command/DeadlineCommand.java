@@ -44,7 +44,7 @@ public final class DeadlineCommand extends Command {
      * @throws EmptyTaskDescriptionException If the user input does not contain a valid task description.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
         if (userInput.trim().length() == 8) {
             throw new EmptyTaskDescriptionException();
         }
@@ -60,10 +60,11 @@ public final class DeadlineCommand extends Command {
         LocalDateTime dateTime = DateParser.parse(by);
         tasks.addTask(new Deadline(task, false, dateTime));
         int totalNumberOfTasks = tasks.getSize();
-        ui.showAddTaskMessage();
-        System.out.println(tasks.getTask(totalNumberOfTasks - 1).toString());
-        System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+        String addTaskMessage = ui.showAddTaskMessage();
+        String taskMessage = tasks.getTask(totalNumberOfTasks - 1).toString();
+        String message = "Now you have " + totalNumberOfTasks + " tasks in the list.";
         storage.saveTasks(tasks);
+        return addTaskMessage + "\n" + taskMessage + "\n" + message;
     }
 
     /**
