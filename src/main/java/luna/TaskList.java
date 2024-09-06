@@ -58,6 +58,10 @@ public class TaskList {
      * Prints the current list of tasks.
      */
     public String list() {
+        if (tasks.isEmpty()) {
+            return "You do not have any task at the moment.";
+        }
+
         String list = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < tasks.size(); i++) {
