@@ -1,3 +1,6 @@
-T / 0 / project
+T / 1 / project
 T / 0 / homework
 T / 0 / cs2103t
+T / 0 / play ukulele
+D / 0 / lab / Sep 05 2024
+E / 0 / lesson /  today /  tomorrow
