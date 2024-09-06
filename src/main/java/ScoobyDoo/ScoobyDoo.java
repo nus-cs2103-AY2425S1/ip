@@ -6,11 +6,8 @@ import task.Task;
 import task.Todo;
 import task.Deadline;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The ScoobyDoo class represents the main application for managing tasks.
@@ -34,6 +31,12 @@ public class ScoobyDoo {
     public ScoobyDoo(String FilePath) {
         storage = new Storage(FilePath);
         ui = new UI();
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.printErrorMessage("cannot parse data from file");
+            taskList = new TaskList();
+        }
     }
 
     /**
@@ -41,7 +44,7 @@ public class ScoobyDoo {
      * This method handles user input, processes commands, and manages tasks until the user exits.
      * It also loads existing tasks from storage at startup and saves tasks before exiting.
      */
-    public void run () {
+    public String getResponse (String input) {
         // Method implementation
         // 1. Print welcome message
         // 2. Load existing tasks from storage
@@ -51,112 +54,85 @@ public class ScoobyDoo {
         //    - Handle exceptions and print appropriate messages
         // 4. Save tasks and exit when user inputs "bye"
 
-        ui.printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
-        try {
-            taskList = new TaskList(storage.load());
-        } catch (IOException e) {
-            ui.printErrorMessage("cannot parse data from file");
-            taskList = new TaskList();
-        }
-        //loop
-        String input;
-        Scanner scanIn = new Scanner(System.in);
-        while (true) {
-            input = scanIn.nextLine();
+        //ui.printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
             if (input.equals("bye")) {
-                ui.printByeMessage();
+
                 storage.writeFile(taskList.toFileFormatString());
-                break;
+                return ui.printByeMessage();
             }
 
             if (input.equals("list")) {
-                ui.printTaskListMessage(taskList.printList());
-                continue;
+                return ui.printTaskListMessage(taskList.printList());
             }
 
             if (Todo.matchTodo(input)) {
                 try {
                     String description = Parser.getTodoDescription(input);
-                    ui.printFormattedResponse(taskList.addTask(new Todo(description)));
+                    return ui.printFormattedResponse(taskList.addTask(new Todo(description)));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (Deadline.matchDeadline(input)) {
                 try {
                     String desription = Parser.getDeadlineDescription(input);
                     LocalDateTime byDate = Parser.getDeadlineDate(input);
-                    ui.printFormattedResponse(taskList.addTask(new Deadline(desription, byDate)));
+                    return ui.printFormattedResponse(taskList.addTask(new Deadline(desription, byDate)));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (Event.matchEvent(input)) {
                 try {
                     String description = Parser.getEventDescription(input);
                     LocalDateTime[] fromToDate = Parser.getEventFromAndToDate(input);
-                    ui.printFormattedResponse(taskList.addTask(new Event(description, fromToDate[0], fromToDate[1])));
+                    return ui.printFormattedResponse(taskList.addTask(new Event(description, fromToDate[0], fromToDate[1])));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (input.startsWith("mark")) {
                 try {
                     int num = Task.matchesMark(input);
-                    ui.printFormattedResponse(taskList.markTask(num));
+                    return ui.printFormattedResponse(taskList.markTask(num));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (input.startsWith("unmark")) {
                 try {
                     int num = Task.matchesUnmark(input);
-                    ui.printFormattedResponse(taskList.unMarkTask(num));
+                    return ui.printFormattedResponse(taskList.unMarkTask(num));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (input.startsWith("delete")) {
                 try {
                     int i = TaskList.getDeleteNumber(input);
-                    ui.printFormattedResponse(taskList.deleteTask(i));
+                    return ui.printFormattedResponse(taskList.deleteTask(i));
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
-                continue;
             }
 
             if (input.startsWith("find")) {
                 try {
                     String targetWord = Parser.getFindTargetWord(input);
-                    ui.printFindMessage(taskList.find(targetWord).printList());
+                    return ui.printFindMessage(taskList.find(targetWord).printList());
                 } catch (InputFormatException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
             }
 
             else {
-                ui.printFormattedResponse("The available inputs are\n deadline\n event\n todo\n mark\n unmark\n list\n delete\n bye");
+                return ui.printNoInputMatchedMessage();
             }
-        }
-        scanIn.close();
-    }
-
-
-
-
-    public static void main(String[] args) {
-        new ScoobyDoo("data/tasks.txt").run();
     }
 }
 
