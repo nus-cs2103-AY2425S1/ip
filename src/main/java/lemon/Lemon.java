@@ -1,6 +1,7 @@
 package lemon;
 /**
- *
+ * Lemon chatbot that can be used to track tasks given to it
+ * @author He Yiheng
  */
 
 import lemon.exception.DescriptionException;
@@ -42,9 +43,9 @@ public class Lemon {
         tasks = new TaskList();
         isInitialised = s.loadTasks(tasks);
     }
-
+    /*
     public Lemon(String newFileLocation){
-        /*try {
+        try {
             filePath = newFileLocation;
             f = new File(filePath);
             f.getParentFile().mkdirs();
@@ -64,9 +65,12 @@ public class Lemon {
             isInitialised = false;
             System.out.print(" Im sowwy... Something went wrong, QwQ. Unable to create/find file.\n" +
                     " I dont think i can do this anymore");
-        }*/
-    }
+        }
+    }*/
 
+    /**
+     * Execute lemon once initialization is done
+     */
     public void runLemon() {
         if (!isInitialised) {
             System.out.print(" Ouhiiee, my head hurrrtt, i dont think im initialized properly ;-;\n" +

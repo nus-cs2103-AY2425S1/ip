@@ -1,5 +1,4 @@
 package lemon;
-
 /**
  * Represents the user interface class for displaying information
  * @author He Yiheng
@@ -49,6 +48,7 @@ public class Ui {
 
     /**
      * Prints the message for lists
+     * @param listStr string that contains all the tasks
      */
     public void printListMsg(String listStr) {
         System.out.println(LIST_MSG);
@@ -71,6 +71,8 @@ public class Ui {
 
     /**
      * Prints the message after adding a task
+     * @param addedTask string of the task to be added
+     * @param numTasks total number of task after adding
      */
     public void printAddTaskMsg(String addedTask, int numTasks) {
         System.out.println(ADD_TASK_MSG);
@@ -80,6 +82,8 @@ public class Ui {
 
     /**
      * Prints the message after deleting a task
+     * @param deletedTask string of the task that is deleted
+     * @param numTasks total number of task after delete
      */
     public void printDeleteTaskMsg(String deletedTask, int numTasks) {
         System.out.println(DELETE_TASK_MSG);

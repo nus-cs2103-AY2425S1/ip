@@ -1,4 +1,8 @@
 package lemon;
+/**
+ * Handle loading and saving of the list of tasks from a txt file
+ * @author He Yiheng
+ */
 
 import lemon.exception.DescriptionException;
 import lemon.task.Deadline;
@@ -18,6 +22,12 @@ public class Storage {
     File f;
     Scanner fileScanner;
 
+    /**
+     * Loads the tasks from a txt file into the TaskList that is passed into
+     * Creates the directory and file if it does not exist
+     * @param tasks TaskList that will have the tasks loaded into from the file
+     * @return true if all tasks within the file is loaded successfully
+     */
     public boolean loadTasks(TaskList tasks) {
         try {
             f = new File(filePath);
@@ -56,6 +66,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all the tasks in the provided TaskList into the txt file
+     * @param tasks TaskList the files is being saved from
+     * @return true if all tasks within the TaskList is saved successfully
+     */
     public boolean saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);

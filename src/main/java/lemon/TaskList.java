@@ -1,13 +1,12 @@
 package lemon;
-
-import lemon.exception.DescriptionException;
-import lemon.task.Task;
-
-import java.util.ArrayList;
 /**
  * Represents the list of tasks stored
  * @author He Yiheng
  */
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
+
+import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
     private int numTasks = 0;
@@ -17,6 +16,11 @@ public class TaskList {
         int numTasks = 0;
     }
 
+    /**
+     * Add a new task to arraylist
+     * @param t task that is added into the list
+     * @throws DescriptionException Exception when the description of the task is empty
+     */
     public void addNewTask(Task t) throws DescriptionException {
         if (t.getDescription().isEmpty() || t.getDescription().equals(" "))
             throw new DescriptionException(" OOPS!!! The description of a " + t.getType() + " cannot be empty");
@@ -25,17 +29,31 @@ public class TaskList {
         numTasks++;
     }
 
-    public Task deleteTask(int index) {
-        Task t = list.remove(index - 1);
+    /**
+     * Remove a task from the arraylist
+     * @param i index of the task within the list
+     * @return task that is removed
+     */
+    public Task deleteTask(int i) {
+        Task t = list.remove(i - 1);
         numTasks--;
 
         return t;
     }
 
+    /**
+     * Returns the total number of tasks
+     * @return number of tasks
+     */
     public int size() {
         return numTasks;
     }
 
+    /**
+     * Returns the task within the list given its index
+     * @param i index of the task within the list
+     * @return task with the corresponding index
+     */
     public Task get(int i) {
         return list.get(i);
     }
