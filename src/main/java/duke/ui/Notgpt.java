@@ -14,7 +14,7 @@ public class Notgpt {
     /**
      * Prints a line divider to the console.
      * <p>
-     * This method is used to create a visual separation between different sections
+     * This method is used to create a visual line separation between different sections
      * of the console output.
      * </p>
      */
