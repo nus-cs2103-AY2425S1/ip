@@ -40,21 +40,25 @@ public class Storage {
         }
         String taskType = line.substring(1, 4);
         String desc;
-        switch (taskType) {
-        case ("001"):
-            // Todo
-            return new Todo(line.substring(4, line.length()), taskIsCompleted);
-        case ("002"):
-            // Event
-            desc = line.substring(4, line.indexOf("/from/"));
-            String from = line.substring(line.indexOf("/from/") + 6, line.indexOf("/to/"));
-            String to = line.substring(line.indexOf("/to/") + 4, line.length());
-            return new Event(desc, from, to, taskIsCompleted);
-        case ("003"):
-            // Deadline
-            desc = line.substring(4, line.indexOf("/by/"));
-            String by = line.substring(line.indexOf("/by/") + 4, line.length());
-            return new Deadline(desc, by, taskIsCompleted);
+        try {
+            switch (taskType) {
+            case ("001"):
+                // Todo
+                return new Todo(line.substring(4, line.length()), taskIsCompleted);
+            case ("002"):
+                // Event
+                desc = line.substring(4, line.indexOf("/from/"));
+                String from = line.substring(line.indexOf("/from/") + 6, line.indexOf("/to/"));
+                String to = line.substring(line.indexOf("/to/") + 4, line.length());
+                return new Event(desc, from, to, taskIsCompleted);
+            case ("003"):
+                // Deadline
+                desc = line.substring(4, line.indexOf("/by/"));
+                String by = line.substring(line.indexOf("/by/") + 4, line.length());
+                return new Deadline(desc, by, taskIsCompleted);
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new RuntimeException();
         }
         return null;
     }
@@ -89,7 +93,9 @@ public class Storage {
                 try {
                     result.add(readFileToTask(s.nextLine()));
                 } catch (EmptyDescriptionException | ImproperFileTypeException e) {
-                    e.printStackTrace();
+                    System.out.println("You can find the file at " + path.toString());
+                    throw new FileNotFoundException("You can find the file at " + path.toString()
+                            + "\n Consider deleting or rectifying the file.");
                 }
             }
         }
@@ -100,7 +106,7 @@ public class Storage {
     /**
      * Loads file based on path Storage was initialised with. Creates new one if not available.
      */
-    public ArrayList<Task> load() throws ShnoopException {
+    public ArrayList<Task> load() throws ShnoopException, FileNotFoundException {
         boolean directoryExists = java.nio.file.Files.exists(path);
 
         if (!directoryExists) {
@@ -124,12 +130,9 @@ public class Storage {
             }
         }
 
-        try {
-            ArrayList<Task> result = loadFileContents(path.toString() + "/shnoopstorage.txt");
-            return result;
-        } catch (FileNotFoundException e) {
-            throw new ShnoopException("The file was simply unfounded, not founded.");
-        }
+
+        ArrayList<Task> result = loadFileContents(path.toString() + "/shnoopstorage.txt");
+        return result;
     }
 
     /**
@@ -138,6 +141,20 @@ public class Storage {
      * @param tasks TaskList comprising tasks.
      * @throws IOException If something went wrong when trying to write into the file.
      */
+    public void save(TaskList tasks, Task task) throws IOException {
+        clearFile();
+        for (int i = 0; i < tasks.size() - 1; i ++) {
+            try {
+                writeToFile(tasks.get(i).toUString() + "\n");
+            } catch (IOException e) {
+                System.out.println("Something went wrong when trying to writeToFile: " + e.getMessage());
+            } catch (NullPointerException eNull) {
+                throw new RuntimeException("The file seems to be corrupted in some way.");
+            }
+        }
+        writeToFile(task.toUString() + "\n");
+    }
+
     public void save(TaskList tasks) throws IOException {
         clearFile();
         for (int i = 0; i < tasks.size(); i ++) {

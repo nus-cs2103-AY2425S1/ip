@@ -1,10 +1,10 @@
 public class Todo extends Task {
     public Todo (String description) {
-        super(description);
+        super(description.substring(5, description.length()));
     }
 
     public Todo (String description, boolean done) {
-        super(description);
+        super(description.substring(5, description.length()));
         if (done) {
             this.markTask();
         }

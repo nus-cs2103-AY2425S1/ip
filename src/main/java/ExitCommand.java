@@ -12,6 +12,12 @@ public class ExitCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.goodbye();
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong when trying to writeToFile: " + e.getMessage());
+        } finally {
+            ui.goodbye();
+        }
     }
 }

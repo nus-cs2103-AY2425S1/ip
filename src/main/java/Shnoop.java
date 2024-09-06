@@ -21,6 +21,9 @@ public class Shnoop {
         } catch (ShnoopException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (FileNotFoundException efile) {
+            ui.showError(efile.getMessage());
+            throw new RuntimeException();
         }
     }
 
@@ -30,6 +33,7 @@ public class Shnoop {
         // with minor modifications
         ui.showWelcome();
         boolean isExit = false;
+        ui.showLine();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -40,6 +44,8 @@ public class Shnoop {
                 ui.showError(e.getMessage());
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
+            } catch (IncompleteEventOrDeadlineException e) {
+                ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
@@ -56,21 +62,6 @@ public class Shnoop {
         // @@author Steve Hills
 
         Shnoop shnoop = new Shnoop(path);
-
-        try () {
-            String input;
-            // Load data up
-
-                try {
-                    String result = shnoop.parseInput(input);
-                } catch (UndefinedTaskException | IncompleteEventOrDeadlineException | EmptyDescriptionException |
-                         UnmarkableArrayException | IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        } catch (IndexOutOfBoundsException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        shnoop.run();
     }
 }

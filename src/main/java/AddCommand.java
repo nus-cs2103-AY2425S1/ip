@@ -2,15 +2,15 @@ import java.io.IOException;
 
 public class AddCommand extends Command {
     private String taskDescription;
-    private Parser.TaskTypes taskType = Parser.TaskTypes.UNDEFINED;
+    private Parser.Commands taskType = Parser.Commands.UNDEFINED;
 
-    public AddCommand(String taskDescription, Parser.TaskTypes taskType) {
+    public AddCommand(String taskDescription, Parser.Commands taskType) {
         this.taskDescription = taskDescription;
         this.taskType = taskType;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, IncompleteEventOrDeadlineException {
         Task task = null;
         switch (taskType) {
         case TODO:
@@ -25,6 +25,6 @@ public class AddCommand extends Command {
         }
         tasks.add(task);
         ui.addTask(task, tasks.size());
-        storage.save(tasks);
+        storage.save(tasks, task);
     }
 }

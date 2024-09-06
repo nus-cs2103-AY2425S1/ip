@@ -80,6 +80,7 @@ public class Task {
     public String parseDate(String string) {
         // YYYY-MM-DD
         if (string.length() != 10) {
+            System.out.println("Well this happened BUG TESTING OUTPUT: " + string.length() + " for " + string);
             return string;
         }
 

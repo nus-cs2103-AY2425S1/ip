@@ -17,18 +17,15 @@ public class Event extends Task {
         }
     }
 
-    public Event (String str) {
+    public Event (String str) throws IncompleteEventOrDeadlineException {
         if (!str.contains("/from ") || !str.contains("/to ")) {
-            try {
-                throw new IncompleteEventOrDeadlineException();
-            } catch (IncompleteEventOrDeadlineException e) {
-                throw new RuntimeException(e);
-            }
+            throw new IncompleteEventOrDeadlineException();
         } else {
             try {
-                String desc = str.substring(0, str.toLowerCase().indexOf("/from "));
+                String desc = str.substring(6, str.toLowerCase().indexOf("/from "));
                 description = desc;
-                from = parseDate(str.substring(str.toLowerCase().indexOf("/from ") + 6, str.toLowerCase().indexOf("/to ")));
+                from = parseDate(str.substring(str.toLowerCase().indexOf("/from ") + 6,
+                        str.toLowerCase().indexOf("/to ") - 1)) + " ";
                 to = parseDate(str.substring(str.toLowerCase().indexOf("/to ") + 4, str.length()));
                 if (from.isEmpty() || to.isEmpty() || desc.isEmpty()) {
                     throw new IncompleteEventOrDeadlineException();

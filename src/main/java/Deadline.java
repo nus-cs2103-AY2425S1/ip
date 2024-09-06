@@ -18,15 +18,11 @@ public class Deadline extends Task {
      *
      * @param str Un-separated String
      */
-    public Deadline (String str) {
+    public Deadline (String str) throws IncompleteEventOrDeadlineException {
         if (!str.contains("/by ")) {
-            try {
-                throw new IncompleteEventOrDeadlineException();
-            } catch (IncompleteEventOrDeadlineException e) {
-                throw new RuntimeException(e);
-            }
+            throw new IncompleteEventOrDeadlineException();
         } else {
-            String desc = (str.substring(0, str.toLowerCase().indexOf("/by ")));
+            String desc = (str.substring(9, str.toLowerCase().indexOf("/by ")));
             try {
                 this.description = desc;
                 this.by = parseDate(str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
