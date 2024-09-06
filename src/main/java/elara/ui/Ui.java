@@ -1,14 +1,14 @@
 package elara.ui;
 
+import java.util.Scanner;
+
 import elara.task.InvalidInputException;
 import elara.task.Task;
 import elara.task.TaskList;
 
-import java.util.Scanner;
-
 public class Ui {
     private static final String LINE = "____________________________________________________________";
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);

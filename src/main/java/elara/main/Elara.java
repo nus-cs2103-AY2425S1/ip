@@ -2,21 +2,17 @@ package elara.main;
 
 import elara.command.Command;
 import elara.command.ExitCommand;
-
 import elara.parser.Parser;
-
 import elara.storage.Storage;
-
 import elara.task.InvalidInputException;
 import elara.task.TaskList;
-
 import elara.ui.Ui;
 
 public class Elara {
 
-    private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
 
     public Elara(String filePath) {
         ui = new Ui();

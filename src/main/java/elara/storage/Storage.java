@@ -1,11 +1,5 @@
 package elara.storage;
 
-import elara.task.DeadlineTask;
-import elara.task.EventTask;
-import elara.task.Task;
-import elara.task.TaskList;
-import elara.task.ToDoTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,17 +8,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import elara.task.DeadlineTask;
+import elara.task.EventTask;
+import elara.task.Task;
+import elara.task.TaskList;
+import elara.task.ToDoTask;
+
 public class Storage {
-    private final String FILE_PATH;
+    private final String filePath;
 
     public Storage(String filePath) {
-        FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     public ArrayList<Task> load() {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
-        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // yyyy-MM-dd'T'HH:mm format
 
         if (!file.exists()) {
             return tasks;
@@ -45,7 +44,7 @@ public class Storage {
     }
 
     public void write(TaskList tasks) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }

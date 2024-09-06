@@ -7,7 +7,6 @@ import elara.command.ExitCommand;
 import elara.command.ListCommand;
 import elara.command.MarkCommand;
 import elara.command.UnmarkCommand;;
-
 import elara.task.InvalidInputException;
 
 public class Parser {
