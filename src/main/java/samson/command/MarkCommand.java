@@ -32,14 +32,13 @@ public class MarkCommand extends Command {
      * @throws IOException If an I/O error occurs while saving the tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (index < 0 || index >= taskList.size()) {
-            ui.showTaskNumInvalid();
-            return;
+            return ui.showTaskNumInvalid();
         }
         taskList.markTask(index);
-        ui.showTaskMarked(taskList.get(index));
         storage.saveTasksToFile(taskList.getTasks());
+        return ui.showTaskMarked(taskList.get(index));
     }
 
     /**

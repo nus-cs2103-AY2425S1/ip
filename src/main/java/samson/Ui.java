@@ -23,21 +23,20 @@ public class Ui {
 
     /**
      * Displays the welcome message when the chatbot starts.
+     *
+     * @return The welcome message as a String.
      */
-    public void welcomeMessage() {
-        showLine();
-        System.out.println(" Hello! I'm Samson");
-        System.out.println(" What can I do for you?");
-        showLine();
+    public static String welcomeMessage() {
+        return " Hello! I'm Samson\n" + " What can I do for you?\n";
     }
 
     /**
      * Displays the goodbye message when the chatbot ends.
+     *
+     * @return The goodbye message as a String.
      */
-    public void goodbyeMessage() {
-        showLine();
-        System.out.println(" Bye. Hope to see you again soon!");
-        // System.out.println("____________________________________________________________");
+    public String goodbyeMessage() {
+        return " Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -50,119 +49,125 @@ public class Ui {
     }
 
     /**
-     * Displays a horizontal line, used to separate different sections of the output.
+     * Returns a horizontal line, used to separate different sections of the output.
+     *
+     * @return A line separator as a String.
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public static String showLine() {
+        return "____________________________________________________________\n";
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to be displayed.
+     * @return The error message as a String.
      */
-    public void showError(String message) {
-        showLine();
-        System.out.println(" OOPS!!! " + message);
+    public String showError(String message) {
+        return " OOPS!!! " + message + "\n";
     }
 
     /**
-     * Displays an error message when there is a failure in loading tasks from the file.
+     * Returns an error message when there is a failure in loading tasks from the file.
+     *
+     * @return The loading error message as a String.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
+    public String showLoadingError() {
+        return "Error loading tasks from file.\n";
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param taskList The list of tasks to be displayed.
+     * @return The list of tasks as a String.
      */
-    public void showTaskList(TaskList taskList) {
-        showLine();
-        System.out.println("Here are the tasks in your list: ");
+    public String showTaskList(TaskList taskList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(showLine());
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + taskList.get(i));
+            sb.append(" " + (i + 1) + ". " + taskList.get(i) + "\n");
         }
-        showLine();
+        sb.append(showLine());
+        return sb.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been added to the list.
+     * Returns a message indicating that a task has been added to the list.
      *
      * @param task The task that was added.
      * @param taskList The updated list of tasks.
+     * @return The task added message as a String.
      */
-    public void showTaskAdded(Task task, TaskList taskList) {
-        showLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-        showLine();
+    public String showTaskAdded(Task task, TaskList taskList) {
+        return " Got it. I've added this task:\n" +
+                "   " + task + "\n" +
+                " Now you have " + taskList.size() + " tasks in the list.\n";
     }
 
     /**
-     * Displays a message indicating that a task has been deleted from the list.
+     * Returns a message indicating that a task has been deleted from the list.
      *
      * @param task The task that was deleted.
      * @param taskList The updated list of tasks.
+     * @return The task deleted message as a String.
      */
-    public void showTaskDeleted(Task task, TaskList taskList) {
-        showLine();
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-        showLine();
+    public String showTaskDeleted(Task task, TaskList taskList) {
+        return " Noted. I've removed this task:\n" +
+                "   " + task + "\n" +
+                " Now you have " + taskList.size() + " tasks in the list.\n";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The task marked message as a String.
      */
-    public void showTaskMarked(Task task) {
-        showLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        showLine();
+    public String showTaskMarked(Task task) {
+        return " Nice! I've marked this task as done:\n" +
+                "   " + task + "\n";
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked as not done.
+     * Returns a message indicating that a task has been unmarked as not done.
      *
      * @param task The task that was unmarked.
+     * @return The task unmarked message as a String.
      */
-    public void showTaskUnmarked(Task task) {
-        showLine();
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        showLine();
+    public String showTaskUnmarked(Task task) {
+        return " OK, I've marked this task as not done yet:\n" +
+                "   " + task + "\n";
     }
 
     /**
-     * Displays an error message when the task number provided by the user is invalid.
+     * Returns an error message when the task number provided by the user is invalid.
+     *
+     * @return The invalid task number message as a String.
      */
-    public void showTaskNumInvalid() {
-        showLine();
-        System.out.println(" Task number out of range.");
-        showLine();
+    public String showTaskNumInvalid() {
+        return " Task number out of range.\n";
     }
 
     /**
-     * Displays the results of a find operation.
+     * Returns the results of a find operation.
      *
      * @param matchingTasks The list of tasks that match the search keyword.
+     * @return The find results as a String.
      */
-    public void showFindResults(List<Task> matchingTasks) {
-        showLine();
+    public String showFindResults(List<Task> matchingTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(showLine());
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            sb.append("No matching tasks found.\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
+                sb.append((i + 1) + "." + matchingTasks.get(i) + "\n");
             }
         }
-        showLine();
+        sb.append(showLine());
+        return sb.toString();
     }
 }

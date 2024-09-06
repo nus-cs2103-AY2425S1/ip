@@ -71,4 +71,19 @@ public class Samson {
     public static void main(String[] args) {
         new Samson("data/samson.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String res = c.execute(tasks, ui, storage);
+            return res;
+        } catch (SamException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
