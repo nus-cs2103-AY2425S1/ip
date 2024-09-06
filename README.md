@@ -1,24 +1,36 @@
-# Duke project template
+# PandaBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "_Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort._" – Paul J. Meyer [(source)](https://dansilvestre.com/productivity-quotes/)
 
-## Setting up in Intellij
+Prerequisites: [JDK 17 (Azul)](https://se-education.org/guides/tutorials/javaInstallationMac.html)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+PandaBot frees your mind from remembering tasks and lets you focus on what truly matters. It's:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- **text-based**
+- **easy to use**
+- **FAST** 🚀
+
+### Getting Started
+
+1. Download the PandaBot.jar file from [here](https://github.com/adipanda2002/ip/releases).
+2. Place the file into an appropriate directory on your device
+3. Navigate to the directory from your CLI
+4. Run the `PandaBot.jar` file: `java -jar PandaBot.jar`
+5. Start managing your tasks like a pro 😉
+
+And guess what? It's **FREE**!
+
+### Features:
+
+- [x] Managing tasks, deadlines, and events
+- [x] Finding tasks by keywords
+- [ ] Reminders (coming soon)
+
+### Code Example
+
+Here is the `main` method of the PandaBot that runs the program:
+
+```java
+public static void main(String[] args) {
+    new PandaBot("./data/PandaBot.txt").run();
+}
