@@ -10,6 +10,11 @@ public class Task {
         this.markDone = marked;
     }
 
+    public String toFile() {
+        String mark = this.markDone ? "1" : "0";
+        return mark + "/" + taskName;
+    }
+
     @Override
     public String toString() {
         String mark = this.markDone ? "X" : " ";
