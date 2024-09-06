@@ -1,11 +1,11 @@
 package tayoo;
 
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class Storage {
      */
     public void updateTxt(int taskNumber, boolean isCompleted) throws UpdateTxtException {
         List<String> lines = new ArrayList<>();
-        try{
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
             String line;
 
@@ -69,7 +69,7 @@ public class Storage {
         parts[1] = Boolean.toString(isCompleted);
         lines.set(taskNumber, String.join(" | ", parts));
 
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
             for (String updatedLine : lines) {
                 writer.write(updatedLine);
@@ -82,10 +82,10 @@ public class Storage {
     }
 
     /**
-     * Reads from the existing tasklist.txt file and returns a List<Task> which can be passed into the
+     * Reads from the existing tasklist.txt file and returns a {@code List<Task>} which can be passed into the
      * {@code Tasklist} constructor. The method accesses the tasklist.txt, iterates through each line of the file, calls
-     * {@code Parser.ParseTask()} on the line, which returns a Task object, then adds this to the List<Task> to be
-     * returned. If there is an error during parsing, a null is returned.
+     * {@code Parser.ParseTask()} on the line, which returns a Task object, then adds this to the {@code List<Task>} to
+     * be returned. If there is an error during parsing, a null is returned.
      *
      * @return List<Task> which represents all the tasks found in the tasklist.txt file. Returns {@code null} if there
      * were no tasks found in the tasklist.txt file.
@@ -123,7 +123,7 @@ public class Storage {
      */
     public void deleteTxt(int taskNumber) throws DeleteTxtException {
         List<String> lines = new ArrayList<>();
-        try{
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
             String line;
 
@@ -138,7 +138,7 @@ public class Storage {
         }
 
         lines.remove(taskNumber);
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
             for (String updatedLine : lines) {
                 writer.write(updatedLine);
@@ -160,7 +160,7 @@ public class Storage {
      */
     public void addToTxt(Task taskToAdd) throws AddTxtException {
         List<String> lines = new ArrayList<>();
-        try{
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
             String line;
 
@@ -175,7 +175,7 @@ public class Storage {
         }
 
         lines.add(taskToAdd.toTxt());
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
             for (String updatedLine : lines) {
                 writer.write(updatedLine);

@@ -3,7 +3,7 @@ package tayoo.tasks;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private TemporalAccessor deadline;
     private String deadlineStr;
 

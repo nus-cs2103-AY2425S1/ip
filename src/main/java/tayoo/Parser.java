@@ -2,9 +2,9 @@ package tayoo;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -12,7 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import tayoo.command.*;
+import tayoo.command.AddTaskCommand;
+import tayoo.command.Command;
+import tayoo.command.DeleteAllCommand;
+import tayoo.command.DeleteTaskCommand;
+import tayoo.command.ExitCommand;
+import tayoo.command.FindCommand;
+import tayoo.command.ListCommand;
+import tayoo.command.MarkTaskCommand;
 import tayoo.exception.ParserException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
@@ -37,13 +44,13 @@ public class Parser {
      * being added to the if-else chain.
      *
      * @param command The user's input in a String format. The command should start with a substring representing the
-     *                type of command,
+     * type of command,
      * @return An object that is a subclass of the Command class.
      * @throws ParserException if there is an error when parsing a command, either because the command is not supported,
      * or the format of the command is wrong
      */
     public static Command parseCommand(String command) throws ParserException {
-            String input = command.toUpperCase();
+        String input = command.toUpperCase();
 
         if (Arrays.asList(exitCodes).contains(input)) {
             return new ExitCommand();
@@ -58,7 +65,7 @@ public class Parser {
         } else if (input.startsWith("UNMARK ")) {
             int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
             return new MarkTaskCommand(taskNumber, false);
-        } else if (input.startsWith("TODO")){
+        } else if (input.startsWith("TODO")) {
             try {
                 return new AddTaskCommand(new ToDo(command.substring(5).trim()));
             } catch (IndexOutOfBoundsException e) {
@@ -86,8 +93,8 @@ public class Parser {
                 }
 
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("You've made a fatal error! Report it to the developer or" +
-                        " face eternal DOOM!!");
+                throw new ParserException("You've made a fatal error! Report it to the developer or"
+                        + " face eternal DOOM!!");
             }
         } else if (input.startsWith("EVENT")) {
             try {
@@ -223,7 +230,7 @@ public class Parser {
                 .appendOptional(DateTimeFormatter.ofPattern("HHmm"))
                 .toFormatter();
 
-        try{
+        try {
             return LocalDateTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
             try {

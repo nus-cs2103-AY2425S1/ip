@@ -1,11 +1,14 @@
 package tayoo.command;
 
-import tayoo.exception.TayooException;
 import tayoo.Storage;
 import tayoo.Tasklist;
 import tayoo.Ui;
+import tayoo.exception.TayooException;
 import tayoo.tasks.Task;
 
+/**
+ * The AddTaskCommand class contains all commands to be executed when adding a task to the tasklist
+ */
 public class AddTaskCommand extends Command {
 
     private final Task taskToAdd;

@@ -14,7 +14,7 @@ public class Tayoo {
     private static final String NAME = "tayoo";
     private Ui ui;
     private Storage storage;
-    public Tasklist tasks;
+    private Tasklist tasks;
 
     /**
      * Constructs a new Tayoo instance by initializing a new Ui, Storage and Tasklist object.
@@ -63,7 +63,7 @@ public class Tayoo {
             } catch (TayooException e) {
                 ui.printError(e.getMessage());
             }
-         }
+        }
     }
 
     public static void main(String[] args) {

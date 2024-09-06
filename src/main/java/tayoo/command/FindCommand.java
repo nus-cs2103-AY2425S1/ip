@@ -5,7 +5,7 @@ import tayoo.Tasklist;
 import tayoo.Ui;
 import tayoo.exception.TayooException;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private final String toSearch;
 
