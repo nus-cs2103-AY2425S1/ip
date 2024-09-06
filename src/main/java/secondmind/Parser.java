@@ -1,8 +1,21 @@
 package secondmind;
 
+/**
+ * Processes user input and parses it into executable commands.
+ */
 public class Parser {
+    /**
+     * Constructor for the Parser class.
+     */
     public Parser() {}
 
+    /**
+     * Processes the user's input string and returns the corresponding command and arguments.
+     *
+     * @param input The input string from the user.
+     * @return A string array representing the command and its arguments.
+     * @throws NumberFormatException If the input contains an invalid number format.
+     */
     public String[] processInput(String input) throws NumberFormatException {
         String[] newInput = input.split(" ");
         String[] ignoreInstruction = new String[] {"ignore"};
