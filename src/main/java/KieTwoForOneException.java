@@ -1,7 +1,7 @@
 public class KieTwoForOneException extends Exception {
 
-    public KieTwoForOneException() {
-        super();
+    public KieTwoForOneException(String message) {
+        super(message);
     }
 
 }
