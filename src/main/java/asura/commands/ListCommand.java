@@ -18,10 +18,11 @@ public class ListCommand extends Command {
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) {
         output.append("Here are the tasks in your list:\n");
         output.append(tasklist.toString());
-        ui.printString(output.toString());
+        //ui.printString(output.toString());
+        return output.toString();
     }
 
     /**

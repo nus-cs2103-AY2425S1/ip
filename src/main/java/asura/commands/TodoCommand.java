@@ -27,12 +27,13 @@ public class TodoCommand extends Command {
      * @param storage The storage object to save/load tasks.
      * @throws AsuraException If saving user tasks fails.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
         Todo newTodo = new Todo(description);
         tasklist.addTask(newTodo);
         storage.save(tasklist.getTaskList());
         output.append("Got it. I've added this todo:\n").append(newTodo).append("\n").append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
-        ui.printString(output.toString());
+        //ui.printString(output.toString());
+        return output.toString();
     }
 
     /**

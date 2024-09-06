@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage object to save/load tasks.
      * @throws AsuraException If there is an error during the execution.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws AsuraException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws AsuraException;
 
     /**
      * Checks whether the command is for the program to terminate.

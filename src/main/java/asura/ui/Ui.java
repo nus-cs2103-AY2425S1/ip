@@ -30,7 +30,7 @@ public class Ui extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Asura asura = new Asura();
+    private Asura asura = new Asura("data/asura.txt");
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/avatar1.png"));
     private Image asuraImage = new Image(this.getClass().getResourceAsStream("/images/avatar2.png"));
@@ -63,7 +63,7 @@ public class Ui extends Application {
 
         //Formatting the window to look as expected
 
-        stage.setTitle("Duke");
+        stage.setTitle("Asura");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -147,10 +147,10 @@ public class Ui extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = asura.getResponse(userInput.getText());
+        String asuraText = asura.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, asuraImage)
+                DialogBox.getDukeDialog(asuraText, asuraImage)
         );
         userInput.clear();
     }

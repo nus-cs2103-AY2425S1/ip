@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
      * @param storage The storage object to save/load tasks.
      * @throws AsuraException If saving user tasks fails.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
         String dateStr = String.join(" ", dateArray);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
@@ -44,7 +44,8 @@ public class DeadlineCommand extends Command {
         storage.save(tasklist.getTaskList());
         output.append("Got it. I've added this deadline:\n").append(newDeadline).append("\n").append("Now you have ")
                 .append(tasklist.size()).append(" tasks in your list.\n");
-        ui.printString(output.toString());
+        return output.toString();
+        // ui.printString(output.toString());
     }
 
     /**

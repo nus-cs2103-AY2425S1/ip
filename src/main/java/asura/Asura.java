@@ -27,12 +27,10 @@ public class Asura {
      * @param filepath The file path that the user wants to save their task data at.
      */
     public Asura(String filepath) {
-        ui = new Ui();
         try {
             storage = new Storage(filepath);
             tasks = new TaskList(storage.load());
         } catch (AsuraException e) {
-            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -41,7 +39,13 @@ public class Asura {
      * Generates a response for the user's chat message
      */
     public String getResponse(String input) {
-        return "Asura heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            return response;
+        } catch (AsuraException e) {
+            return e.getMessage();
+        }
     }
 
     /**
