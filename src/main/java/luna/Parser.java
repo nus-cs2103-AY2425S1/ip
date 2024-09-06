@@ -148,7 +148,8 @@ public class Parser {
             return new TodoCommand(todo);
 
         case DEADLINE:
-            if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
+            if (commands.length == 1 || commands[1].trim().isEmpty()
+                    || commands[1].trim().indexOf("/") == 0) {
                 throw new LunaException("Enter description for deadline\n" +
                         "e.g. deadline return book /by 12/12/2024 12:00");
             }

@@ -31,11 +31,9 @@ public class Luna {
      * Runs the chatbot until exit command is entered
      */
     public String run(String input) {
-
         try {
             Command command = Parser.parse(input);
             return command.execute(tasks, storage);
-
         } catch (LunaException e) {
             return e.getMessage();
         }

@@ -1,11 +1,8 @@
 package luna.command;
 
-import java.util.ArrayList;
-
 import luna.LunaException;
 import luna.Storage;
 import luna.TaskList;
-import luna.task.Task;
 
 /**
  * Represents a command to mark task as completed.

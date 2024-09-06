@@ -1,11 +1,8 @@
 package luna.command;
 
-import java.util.ArrayList;
-
 import luna.Storage;
 import luna.TaskList;
 import luna.task.Deadline;
-import luna.task.Task;
 
 /**
  * Represents a command to add task with deadline to list of tasks.

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import luna.Storage;
 import luna.TaskList;
-import luna.task.Task;
 
 /**
  * Represents a command to find tasks from current list of tasks.
