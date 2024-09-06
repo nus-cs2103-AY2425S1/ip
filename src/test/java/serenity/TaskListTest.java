@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+import serenity.task.Deadline;
+import serenity.task.Task;
+import serenity.task.TaskList;
+import serenity.task.Todo;
 
 public class TaskListTest {
 

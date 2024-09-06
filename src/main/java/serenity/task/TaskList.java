@@ -1,6 +1,11 @@
-package serenity;
+package serenity.task;
 
 import java.util.ArrayList;
+
+import serenity.SerenityException;
+
+
+
 
 /**
  * Represents a list of tasks, where tasks can be added, deleted
