@@ -11,103 +11,102 @@ public class TaskList {
     }
 
     /**
-     * Prints the tasks in the list.
+     * returns the tasks in the list.
      */
-    public void displayList() {
+    public String displayList() {
+        String output = "";
         for (int i = 0; i < size; i++) {
-            System.out.println(String.valueOf(i+1) + ". " + listItems[i]);
+            output += String.valueOf(i+1) + ". " + listItems[i] + "\n";
         }
+        return output;
     }
 
-    public void displayFoundList(String keyword) {
+    public String displayFoundList(String keyword) {
+        String output = "";
         int j = 0;
         for (int i = 0; i < size; i++) {
             if (listItems[i].find(keyword)) {
-                System.out.println(String.valueOf(j + 1) + ". " + listItems[i]);
+                output += String.valueOf(j + 1) + ". " + listItems[i] + "\n";
                 j++;
             }
         }
+        return output;
     }
 
     /**
      * Informs the user that the item has been added and increases the size of the list.
      */
-    private void addTaskProcessing() {
-        System.out.println("Got it! I've added this task: ");
-        System.out.println(listItems[size]);
+    private String addTaskProcessing() {
+        String output = "Got it! I've added this task: \n" + listItems[size];
         size++;
+        return output;
     }
 
     /**
      * Adds a ToDo task to the list.
      * @param item the format of the task
      */
-    public void addToDo(String item) {
+    public String addToDo(String item) {
         listItems[size] = new ToDo(item);
-        addTaskProcessing();
+        return addTaskProcessing();
     }
 
     /**
      * Adds an Event task to the list.
      * @param item the format of the task
      */
-    public void addEvent(String item) {
+    public String addEvent(String item) {
         listItems[size] = new Event(item);
-        addTaskProcessing();
+        return addTaskProcessing();
     }
 
     /**
      * Adds a Deadline task to the list.
      * @param item the format of the task
      */
-    public void addDeadline(String item) {
+    public String addDeadline(String item) {
         listItems[size] = new Deadline(item);
-        addTaskProcessing();
+        return addTaskProcessing();
     }
 
     /**
      * Marks a task in the list as completed.
      * @param index the index to mark
      */
-    public void markItem(int index) {
+    public String markItem(int index) {
         if (index >= size) {
-            System.out.println("OOPS!! please enter a valid number");
-            return;
+            return "OOPS!! please enter a valid number";
         }
         listItems[index].markCompleted();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(listItems[index]);
+        return "Nice! I've marked this task as done:\n" + listItems[index];
     }
 
     /**
      * Marks a task in the list as uncompleted.
      * @param index the index to unmark
      */
-    public void unmarkItem(int index) {
+    public String unmarkItem(int index) {
         if (index >= size) {
-            System.out.println("OOPS!! please enter a valid number");
-            return;
+            return "OOPS!! please enter a valid number";
         }
         listItems[index].markUncompleted();
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(listItems[index]);
+        return "Ok, I've marked this task as not done yet:\n" + listItems[index];
     }
 
     /**
      * Deletes a task from the list.
      * @param index the index to delete
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         if (index >= size) {
-            System.out.println("OOPS!! please enter a valid number");
-            return;
+            return "OOPS!! please enter a valid number";
         }
-        System.out.println("Ok, I will remove the task:");
-        System.out.println(listItems[index]);
+        String output = "Ok, I will remove the task:\n" + listItems[index];
         for (int i = index; i < size - 1; i++) {
             listItems[i] = listItems[i + 1];
         }
         size--;
+        return output;
     }
 
     /**

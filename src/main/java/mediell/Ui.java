@@ -11,61 +11,51 @@ public class Ui {
         this.tasks = tasks;
     }
 
-    private static void printLine() {
-        System.out.println("-------------------------------------------");
+    public String printGreeting() {
+        return "Hello! I'm Mediell!\nWhat can I do for you? :)";
     }
 
-    public void printGreeting() {
-        printLine();
-        System.out.println("Hello! I'm Mediell!");
-        System.out.println("What can I do for you? :)");
-        printLine();
+    public String printFarewell() {
+        return "Bye. Hope to see you again soon! :(";
     }
 
-    public void printFarewell() {
-        System.out.println("Bye. Hope to see you again soon! :(");
-        printLine();
-    }
-
-    public boolean main(String message) {
+    public String main(String message) {
         try {
             if (Objects.equals(message, "bye")) {
-                return false;
+                return "";
             } else if (Objects.equals(message, "list")) {
-                tasks.displayList();
+                return tasks.displayList();
             } else if (message.startsWith("mark")) {
                 int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                tasks.markItem(index);
+                return tasks.markItem(index);
             } else if (message.startsWith("unmark")) {
                 int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                tasks.unmarkItem(index);
+                return tasks.unmarkItem(index);
             } else if (message.startsWith("delete")) {
                 int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                tasks.deleteTask(index);
+                return tasks.deleteTask(index);
             } else if (message.startsWith("todo")) {
                 String task = message.split(" ", 2)[1];
-                tasks.addToDo(task);
+                return tasks.addToDo(task);
             } else if (message.startsWith("event")) {
                 String task = message.split(" ", 2)[1];
-                tasks.addEvent(task);
+                return tasks.addEvent(task);
             } else if (message.startsWith("deadline")) {
                 String task = message.split(" ", 2)[1];
-                tasks.addDeadline(task);
+                return tasks.addDeadline(task);
             } else if (message.startsWith("find")) {
                 String keyword = message.split(" ", 2)[1];
-                tasks.displayFoundList(keyword);
+                return tasks.displayFoundList(keyword);
             } else {
-                System.out.println("Sorry :( I'm confused at what I have to do");
+                return "Sorry :( I'm confused at what I have to do";
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             // if out of range likely because not enough inputs
-            System.out.println("OOPS!! Not enough inputs were provided");
+            return "OOPS!! Not enough inputs were provided";
         } catch (DateTimeParseException e) {
             // if you can't pass date time means incorrect date format
-            System.out.println("OOPS!! Incorrect date time format provided use YYYY-MM-DD");
+            return "OOPS!! Incorrect date time format provided use YYYY-MM-DD";
         }
-        printLine();
-        return true;
     }
 
     public TaskList getTasks() {
