@@ -32,6 +32,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String toDatabaseFormat() {
-        return "T | " + (this.isCompleted() ? "1" : "0") + " | " + this.getTaskItem();
+        return "T | " + (this.isCompleted() ? "1" : "0") + " | " + this.getTaskDescription();
     }
 }
