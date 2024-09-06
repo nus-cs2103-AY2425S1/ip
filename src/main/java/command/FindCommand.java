@@ -29,8 +29,8 @@ public class FindCommand extends Command {
      * @throws LightException If an error occurs while finding tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
         TaskList foundTasks = tasks.findTasks(keyword);
-        ui.showMessage(TaskList.arrayToNumberedString(foundTasks));
+        return ui.beautifyMessage(TaskList.arrayToNumberedString(foundTasks));
     }
 }

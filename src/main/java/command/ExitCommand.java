@@ -24,7 +24,7 @@ public class ExitCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage(" Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.beautifyMessage(" Bye. Hope to see you again soon!");
     }
 }

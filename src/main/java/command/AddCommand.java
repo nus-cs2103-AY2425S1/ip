@@ -29,11 +29,13 @@ public class AddCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        storage.write(TaskList.arrayToNumberedString(tasks));
-        ui.showMessage("Got it. I've added this task:\n" +
+        String stringOfTask = TaskList.arrayToNumberedString(tasks);
+        storage.write(stringOfTask);
+        ui.beautifyMessage("Got it. I've added this task:\n" +
                 task +
                 "\nNow you have " + tasks.size() + " tasks in the list.");
+        return ui.beautifyMessage(stringOfTask);
     }
 }

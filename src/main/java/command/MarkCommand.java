@@ -33,17 +33,17 @@ public class MarkCommand extends Command {
      * @throws LightException if an error occurs during execution
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
-
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+        String reply;
         if (isMark) {
             tasks.get(taskNumber).markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskNumber));
+            reply = ui.beautifyMessage("Nice! I've marked this task as done:\n" + tasks.get(taskNumber));
 
         } else {
             tasks.get(taskNumber).markAsUndone();
-            System.out.println("Nice! I've marked this task as undone:\n" + tasks.get(taskNumber));
+            reply = ui.beautifyMessage("Nice! I've marked this task as undone:\n" + tasks.get(taskNumber));
         }
         storage.write(TaskList.arrayToNumberedString(tasks));
-
+        return reply;
     }
 }

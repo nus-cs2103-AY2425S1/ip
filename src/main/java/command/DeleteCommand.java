@@ -31,9 +31,11 @@ public class DeleteCommand extends Command{
      * @throws LightException if an error occurs during execution
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
-        ui.showMessage("Noted. I've removed this task:\n" + tasks.get(taskNumber) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+        String reply = ui.beautifyMessage("Noted. I've removed this task:\n" + tasks.get(taskNumber) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
         tasks.remove(taskNumber);
-        storage.write(TaskList.arrayToNumberedString(tasks));
+        String stringOfTask = TaskList.arrayToNumberedString(tasks);
+        storage.write(stringOfTask);
+        return reply;
     }
 }

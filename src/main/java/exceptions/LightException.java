@@ -2,7 +2,7 @@ package exceptions;
 
 
 /**
- * Represents an exception specific to the Light application.
+ * Represents an exception specific to the components.Light application.
  */
 public class LightException extends Exception {
     private String message;
