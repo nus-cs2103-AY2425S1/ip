@@ -29,7 +29,7 @@ public class OnCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

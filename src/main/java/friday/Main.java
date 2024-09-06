@@ -2,6 +2,7 @@ package friday;
 
 import java.io.IOException;
 
+import friday.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -43,7 +43,7 @@ public class Friday {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                isExit = c.shouldExit();
             } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
@@ -68,12 +68,12 @@ public class Friday {
      */
     public String getResponse(String input) {
         try {
-            if (input == "") {
+            if (input.equals("hi")) {
                 return ui.greet();
             } else {
                 Command c = Parser.parse(input);
                 String response = c.execute(tasks, ui, storage);
-                if (c.isExit()) {
+                if (c.shouldExit()) {
                     return response + "\nEXIT";
                 }
                 return response;

@@ -1,5 +1,6 @@
-package friday;
+package friday.ui;
 
+import friday.Friday;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Friday friday;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/IU.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tonystark.jpg"));
     private Image fridayImage = new Image(this.getClass().getResourceAsStream("/images/Friday.png"));
 
     /**
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setFriday(Friday f) {
         friday = f;
-        dialogContainer.getChildren().add(DialogBox.getFridayDialog(friday.getResponse(""), fridayImage));
+        dialogContainer.getChildren().add(DialogBox.getFridayDialog(friday.getResponse("hi"), fridayImage));
     }
 
     /**

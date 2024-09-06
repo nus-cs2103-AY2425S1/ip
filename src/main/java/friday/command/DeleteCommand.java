@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

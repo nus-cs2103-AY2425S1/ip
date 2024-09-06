@@ -1,4 +1,4 @@
-package friday;
+package friday.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import friday.task.Task;
-import friday.util.Storage;
 
 /**
  * Tests the functionality of the Storage class.
@@ -46,7 +45,7 @@ public class StorageTest {
      * @throws IOException If an error occurs while loading from the file.
      */
     @Test
-    public void testLoad() throws IOException {
+    public void load_success() throws IOException {
         ArrayList<Task> tasks = storage.load();
         assertEquals(3, tasks.size());
         assertEquals("Task 1", tasks.get(0).getDescription());
