@@ -1,12 +1,12 @@
 package commands;
 
-import skibidi.Ui;
+import java.io.IOException;
+
 import skibidi.Command;
+import skibidi.SkibidiException;
+import skibidi.Ui;
 import storage.Task;
 import storage.TaskStorage;
-import skibidi.SkibidiException;
-
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task.
@@ -41,8 +41,8 @@ public class DeleteCommand extends Command {
         try {
             Task task = storage.getTask(index);
             storage.deleteTask(index);
-            ui.printMessage("Noted. I've removed this task:\n  " + task +
-                    "\nNow you have " + storage.getTaskCount() + " tasks in the list.");
+            ui.printMessage("Noted. I've removed this task:\n  " + task
+                    + "\nNow you have " + storage.getTaskCount() + " tasks in the list.");
         } catch (SkibidiException | IOException e) {
             ui.printMessage(e.getMessage());
         }

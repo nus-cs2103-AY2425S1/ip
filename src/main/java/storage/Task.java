@@ -49,12 +49,10 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
-    
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
     /**
      * Returns the task in the file format.
      *

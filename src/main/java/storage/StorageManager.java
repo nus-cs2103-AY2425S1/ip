@@ -1,6 +1,12 @@
 package storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,17 +98,17 @@ public class StorageManager {
         String description = parts[2];
 
         switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                String by = parts[3];
-                return new Deadline(description, by, isDone);
-            case "E":
-                String from = parts[3];
-                String to = parts[4];
-                return new Event(description, from, to, isDone);
-            default:
-                throw new IllegalArgumentException("Invalid task type in file.");
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            String by = parts[3];
+            return new Deadline(description, by, isDone);
+        case "E":
+            String from = parts[3];
+            String to = parts[4];
+            return new Event(description, from, to, isDone);
+        default:
+            throw new IllegalArgumentException("Invalid task type in file.");
         }
     }
 }

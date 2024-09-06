@@ -1,17 +1,17 @@
 package storage;
 
-import skibidi.SkibidiException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import skibidi.SkibidiException;
 
 /**
  * Manages the storage of tasks in a list.
  */
 public class TaskStorage {
-    private List<Task> tasks;
     private static final int MAX_TASKS = 100;
+    private List<Task> tasks;
     private final StorageManager storageManager;
 
     /**
@@ -100,6 +100,11 @@ public class TaskStorage {
         return tasks.get(index);
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     * @param keyword The keyword to search for.
+     * @return The list of tasks that contain the keyword.
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {

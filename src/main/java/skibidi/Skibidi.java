@@ -1,9 +1,9 @@
 package skibidi;
 
-import storage.TaskStorage;
-
 import java.io.IOException;
 import java.util.Scanner;
+
+import storage.TaskStorage;
 
 /**
  * Represents the main class of the Skibidi program.

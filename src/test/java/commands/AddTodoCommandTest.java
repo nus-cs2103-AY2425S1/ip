@@ -1,19 +1,20 @@
 package commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import skibidi.SkibidiException;
-import skibidi.Ui;
-import storage.TaskStorage;
-import java.io.IOException;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AddTodoCommandTest{
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import skibidi.SkibidiException;
+import skibidi.Ui;
+import storage.TaskStorage;
+
+public class AddTodoCommandTest {
     private Ui ui;
     private TaskStorage storage;
     private ByteArrayOutputStream outputStream;
@@ -30,9 +31,9 @@ public class AddTodoCommandTest{
     public void testExecuteWithValidInput() throws SkibidiException {
         AddTodoCommand command = new AddTodoCommand("todo submit report");
         command.execute(ui, storage);
-        assertEquals("Erm...\n" +
-                "SKIBIDI: Got it. I've added this task:\n" +
-                "  [T][ ] submit report", outputStream.toString().trim());
+        assertEquals("Erm...\n"
+                + "SKIBIDI: Got it. I've added this task:\n"
+                + "  [T][ ] submit report", outputStream.toString().trim());
     }
 
     @Test

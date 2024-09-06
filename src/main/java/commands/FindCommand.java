@@ -1,12 +1,15 @@
 package commands;
 
-import skibidi.Command;
-import skibidi.Ui;
-import storage.TaskStorage;
-import storage.Task;
-
 import java.util.List;
 
+import skibidi.Command;
+import skibidi.Ui;
+import storage.Task;
+import storage.TaskStorage;
+
+/**
+ * Represents a command to find tasks by keyword.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
