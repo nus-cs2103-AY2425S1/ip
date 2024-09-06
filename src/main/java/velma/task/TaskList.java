@@ -26,11 +26,13 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list.
-     * @param task
+     * Adds a task/multiple tasks to the list.
+     * @param newTasks
      */
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTask(Task... newTasks) {
+        for (Task task : newTasks) {
+            tasks.add(task);
+        }
     }
 
     /**
