@@ -53,7 +53,7 @@ public class Parser {
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             return message;
-        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) { // task of type deadline to be added
+        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) { // task of type deadline
             if (input.length() < 10) { // no deadline task given
                 throw new MichaelException("Enter a valid task with a deadline.");
             }
@@ -107,7 +107,7 @@ public class Parser {
             if (input.length() < 6) { // no string given to find
                 throw new MichaelException("Enter valid string to find matching tasks.");
             }
-            
+
             String keyword = input.substring(5);
             TaskList matchingTasks = new TaskList();
 
@@ -126,8 +126,8 @@ public class Parser {
             }
             return list.substring(0, list.length() - 1); // substring to remove last line break
         } else { // invalid command
-            throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
-                    "todo, deadline, event, mark, unmark, list, delete, bye, find");
+            throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: "
+                    + "todo, deadline, event, mark, unmark, list, delete, bye, find");
         }
     }
 }
