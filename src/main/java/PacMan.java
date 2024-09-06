@@ -55,8 +55,8 @@ public class PacMan {
     private static void addDeadline(String task) {
         String[] splitter = task.split("/", 2);
         String taskName = splitter[0];
-        String from = splitter[1].split(" ", 2)[1];
-        addList(new Deadline(taskName, from));
+        String by = splitter[1].split(" ", 2)[1];
+        addList(new Deadline(taskName, by));
     }
 
     private static void addEvent(String task) {
@@ -64,6 +64,7 @@ public class PacMan {
         String taskName = splitter[0];
         String from = splitter[1].split(" ", 2)[1];
         String to = splitter[2].split(" ", 2)[1];
+        from = from.substring(0, from.length() - 1);
         addList(new Event(taskName, from, to));
     }
 
