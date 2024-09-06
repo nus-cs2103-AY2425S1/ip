@@ -2,6 +2,7 @@ package donk;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 import donk.task.Deadline;
 import donk.task.Event;
@@ -53,11 +54,11 @@ public class Parser {
      * @throws Exception If the command is not recognized or if there are issues processing the command.
      */
 
-    public static void parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
+    public static String parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
         String[] inputArray = fullCommand.split("\\s+");
         String command = inputArray[0];
         if (fullCommand.isBlank()) {
-            return;
+            throw new Exception("That's empty mate");
         } else if (fullCommand.equals("bye")) {
             String filePath = "./save.txt";
             File file = new File(filePath);
@@ -72,24 +73,23 @@ public class Parser {
                 } catch (IOException e) {
                     System.out.println("An error occurred while creating the file: " + e.getMessage());
                     e.printStackTrace();
-                    return;
+                    throw new Exception("An error occurred while creating the file: \" + e.getMessage()");
                 }
             }
             storage.writeToFile("./save.txt", tasks);
-            ui.bye();
-            return;
+            return ui.bye();
         } else if (fullCommand.equals("list")) {
-            ui.listTasks(tasks);
+            return ui.listTasks(tasks);
         } else if (inputArray[0].equals("mark") && inputArray[1].matches("\\d+")) {
             int index = Integer.parseInt(inputArray[1]) - 1;
             Task temp = tasks.getTask(index);
             temp.markDone();
-            ui.markedDone(temp);
+            return "Yo I've marked this thingy as done\n" + temp.toString();
         } else if (inputArray[0].equals("unmark") && inputArray[1].matches("\\d+")) {
             int index = Integer.parseInt(inputArray[1]) - 1;
             Task temp = tasks.getTask(index);
             temp.unmarkDone();
-            ui.unmarkedDone(temp);
+            return "Aights now it's unmarked again\n" + temp.toString();
         } else if (command.equals("delete")) {
             if (inputArray.length < 2) {
                 throw new IllegalArgumentException("Please provide the index of the task to delete");
@@ -99,14 +99,14 @@ public class Parser {
             }
             int index = Integer.parseInt(inputArray[1]) - 1;
             tasks.remove(index);
-            ui.delete(tasks.getTask(index), tasks.size());
+            return "Alright bro I deleted that for you\ndeleted: " + tasks.getTask(index).toString()
+                    + "You now have" + tasks.size() + " tasks";
         } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
 
             Task t;
             if (inputArray[0].equals("todo")) {
                 if (inputArray.length < 2 || fullCommand.length() < 5) {
-                    ui.invalidFormat(TaskType.TODO);
-                    return;
+                    return ui.invalidFormat(TaskType.TODO);
                 }
                 t = new ToDo(fullCommand.substring(5));
 
@@ -114,8 +114,7 @@ public class Parser {
             } else if (inputArray[0].equals("deadline")) {
                 String[] split = fullCommand.split("/by");
                 if (split.length < 2) {
-                    ui.invalidFormat(TaskType.DEADLINE);
-                    return;
+                    return ui.invalidFormat(TaskType.DEADLINE);
                 }
                 String bef = split[0].substring(9);
                 String aft = split[1];
@@ -125,13 +124,11 @@ public class Parser {
             } else {
                 String[] split1 = fullCommand.split("/start");
                 if (split1.length < 2) {
-                    ui.invalidFormat(TaskType.EVENT);
-                    return;
+                    return ui.invalidFormat(TaskType.EVENT);
                 }
                 String[] split2 = split1[1].split("/end");
                 if (split1.length < 2 || split2.length < 2) {
-                    ui.invalidFormat(TaskType.EVENT);
-                    return;
+                    return ui.invalidFormat(TaskType.EVENT);
                 }
                 String start = split2[0];
                 String end = split2[1];
@@ -140,13 +137,13 @@ public class Parser {
                 tasks.add(t);
 
             }
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + t.toString());
-            System.out.println("    You now have " + tasks.size() + " tasks");
+            return "Got it. I've added this task:"
+                    + "\n" + t.toString()
+                    + "You now have " + tasks.size() + " tasks";
         } else if (command.equals("find")) {
             String searchTerm = fullCommand.substring(5);
             TaskList results = tasks.find(searchTerm);
-            ui.listTasks(results);
+            return ui.listTasks(results);
         } else {
             throw new Exception("Ehhh not sure what this is man");
         }

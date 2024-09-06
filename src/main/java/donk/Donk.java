@@ -40,7 +40,7 @@ public class Donk {
      * an error message is displayed to the user.
      */
     public void run() {
-        ui.greet();
+        //ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             try {
@@ -64,6 +64,20 @@ public class Donk {
      */
     public static void main(String[] args) {
         new Donk("./save.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input, this.tasks, this.storage, this.ui);
+        } catch (TodoException e) {
+            System.out.println("    " + e.getMessage());
+            return e.getMessage();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
 
