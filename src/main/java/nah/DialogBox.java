@@ -9,10 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -26,6 +28,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private HBox freeSpace;
 
     private DialogBox(String text, Image img) {
         try {
@@ -38,21 +42,31 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
 
-        // customize border
-        Circle border = new Circle(50, 50, 45);
-        border.setStroke(Color.LIGHTBLUE);
-        border.setStrokeWidth(10);
-        displayPicture.setClip(border);
+        Image avatar = getAvatarShape(img);
 
-        /* customize effect
+        // customize effect
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5);
-        dropShadow.setOffsetX(3);
-        dropShadow.setOffsetY(3);
+        dropShadow.setOffsetX(5);
+        dropShadow.setOffsetY(5);
         dropShadow.setColor(Color.GRAY);
         displayPicture.setEffect(dropShadow);
-        */
-        displayPicture.setImage(img);
+
+        displayPicture.setImage(avatar);
+
+
+    }
+
+    public WritableImage getAvatarShape(Image image) {
+        ImageView imageView = new ImageView(image);
+        Circle clip = new Circle(95, 95, 95);
+        imageView.setClip(clip);
+        imageView.setImage(image);
+        // snapshot the rounded image.
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+
+        return imageView.snapshot(parameters, null);
     }
 
     /**
