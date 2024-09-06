@@ -28,12 +28,13 @@ public class Ui {
      * Prints a greeting and introduction message to the user.
      * </p>
      */
-    public void showWelcome() {
-        System.out.println("""
+    public String showWelcome() {
+        String welcome = """
                 Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is
                 naive. I got used to living in the mountains alongside the birds and beasts a long time ago.
-                You, are not the only traveller, but the most interesting one.""");
-        System.out.println("What do you want today?");
+                You, are not the only traveller, but the most interesting one.
+                What do you want today?""";
+        return welcome;
     }
 
     /**
@@ -42,8 +43,9 @@ public class Ui {
      * Prints a line of underscores to separate different sections of the user interface.
      * </p>
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        String line = "____________________________________________________________";
+        return line;
     }
 
     /**
@@ -52,8 +54,9 @@ public class Ui {
      * Prints a farewell message to the user when they exit the application.
      * </p>
      */
-    public void showGoodbye() {
-        System.out.println("Bye traveller. Hope to see you soon.");
+    public String showGoodbye() {
+        String goodbye = "Bye traveller. Hope to see you soon.";
+        return goodbye;
     }
 
     /**
@@ -62,8 +65,9 @@ public class Ui {
      * Prints a message to the user confirming that a task has been marked as completed.
      * </p>
      */
-    public void showMarkMessage() {
-        System.out.println("Nice! I've marked this task as done:");
+    public String showMarkMessage() {
+        String markMessage = "Nice! I've marked this task as done:";
+        return markMessage;
     }
 
     /**
@@ -72,8 +76,9 @@ public class Ui {
      * Prints a message to the user confirming that a task has been marked as not completed.
      * </p>
      */
-    public void showUnmarkMessage() {
-        System.out.println("OK, I've marked this task as not done yet:");
+    public String showUnmarkMessage() {
+        String unmarkMessage = "OK, I've marked this task as not done yet:";
+        return unmarkMessage;
     }
 
     /**
@@ -82,8 +87,9 @@ public class Ui {
      * Prints a message to the user confirming that a task has been successfully added to the list.
      * </p>
      */
-    public void showAddTaskMessage() {
-        System.out.println("Got it. I've added this task:");
+    public String showAddTaskMessage() {
+        String addTaskMessage = "Got it. I've added this task:";
+        return addTaskMessage;
     }
 
     /**
@@ -92,8 +98,9 @@ public class Ui {
      * Prints a message to the user confirming that a task has been removed from the list.
      * </p>
      */
-    public void showDeleteMessage() {
-        System.out.println("Noted. I've removed this task:");
+    public String showDeleteMessage() {
+        String deleteMessage = "Noted. I've removed this task:";
+        return deleteMessage;
     }
 
     /**
@@ -102,8 +109,9 @@ public class Ui {
      * Prints a message to the user showing all the tasks currently in the list.
      * </p>
      */
-    public void showTasksMessage() {
-        System.out.println("Here are the tasks in your list:");
+    public String showTasksMessage() {
+        String tasksMessage = "Here are the tasks in your list:";
+        return tasksMessage;
     }
 
     /**
@@ -111,8 +119,9 @@ public class Ui {
      * This method is typically called when a search or filter operation is performed, and matching tasks
      * are about to be listed.
      */
-    public void showMatchingMessage() {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showMatchingMessage() {
+        String matchingMessage = "Here are the matching tasks in your list:";
+        return matchingMessage;
     }
 
 
@@ -136,8 +145,8 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
@@ -146,7 +155,7 @@ public class Ui {
      * Prints a message to the user indicating that there was an error loading tasks from the file.
      * </p>
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
+    public String showLoadingError() {
+        return "Error loading tasks from file.";
     }
 }

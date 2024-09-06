@@ -41,12 +41,13 @@ public final class FindCommand extends Command {
      * @param storage The storage instance used for saving tasks. This parameter is not used in this method.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showMatchingMessage();
+        String message = ui.showMatchingMessage();
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+            message += "\n" + (i + 1) + ". " + matchingTasks.get(i).toString();
         }
+        return message;
     }
 
     /**

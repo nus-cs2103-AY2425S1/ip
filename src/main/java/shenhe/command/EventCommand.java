@@ -39,7 +39,7 @@ public final class EventCommand extends Command {
      * @throws EmptyTaskDescriptionException If the user input does not contain a valid event description.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
         if (userInput.trim().length() == 5) {
             throw new EmptyTaskDescriptionException();
         }
@@ -55,10 +55,11 @@ public final class EventCommand extends Command {
         String to = parts[2].substring(2).trim();
         tasks.addTask(new Event(task, false, from, to));
         int totalNumberOfTasks = tasks.getSize();
-        ui.showAddTaskMessage();
-        System.out.println(tasks.getTask(totalNumberOfTasks - 1).toString());
-        System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+        String addTaskMessage = ui.showAddTaskMessage();
+        String taskMessage = tasks.getTask(totalNumberOfTasks - 1).toString();
+        String message = "Now you have " + totalNumberOfTasks + " tasks in the list.";
         storage.saveTasks(tasks);
+        return addTaskMessage + "\n" + taskMessage + "\n" + message;
     }
 
     /**
