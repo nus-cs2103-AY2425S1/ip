@@ -15,6 +15,7 @@ public class Deadline extends Task {
     private static final String INVALID_DATE_MESSAGE = "Invalid date format. Please use the format: yyyy-MM-dd HHmm.";
     private static final String NAME_OPTION = "/name";
     private static final String BY_OPTION = "/by";
+    private static final String EDIT_FORMAT_ISSUE = "Invalid edit option for deadline. Use /name or /date.";
     private LocalDateTime dueDate;
 
     /**
@@ -86,7 +87,7 @@ public class Deadline extends Task {
             changeDate(newValue);
             break;
         default:
-            throw new TarsException("Invalid edit option for deadline. Use /name or /date.");
+            throw new TarsException(EDIT_FORMAT_ISSUE);
         }
     }
 

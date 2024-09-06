@@ -10,6 +10,7 @@ package tars;
  */
 public class Task {
     private static final String NAME_OPTION = "/name";
+    private static final String EDIT_ISSUE = "Invalid edit option for Todo. Only name can be edited.";
     private String name;
     private boolean isDone;
 
@@ -36,7 +37,7 @@ public class Task {
         if (NAME_OPTION.equals(option)) {
             setName(newValue);
         } else {
-            throw new TarsException("Invalid edit option for Todo. Only name can be edited.");
+            throw new TarsException(EDIT_ISSUE);
         }
     }
 

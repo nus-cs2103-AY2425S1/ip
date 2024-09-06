@@ -15,6 +15,7 @@ public class Event extends Task {
     private static final String NAME_OPTION = "/name";
     private static final String FROM_OPTION = "/from";
     private static final String TO_OPTION = "/to";
+    private static final String EDIT_ISSUE = "Invalid edit option for event. Use /name, /from, or /to.";
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -81,7 +82,7 @@ public class Event extends Task {
             setTo(newValue);
             break;
         default:
-            throw new TarsException("Invalid edit option for event. Use /name, /from, or /to.");
+            throw new TarsException(EDIT_ISSUE);
         }
     }
 }
