@@ -30,7 +30,23 @@ public class Knight2103 {
      */
     public String getResponse(String input) {
         // string parsing functionality
-        return "Knight2103: " + input;
+        String welcomeMessage = ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                this.ui.showLine();
+                Command c = Parser.parse(input).orElseThrow(() -> new MissingCommand());
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (MissingCommand e) {
+                System.out.println(e);
+            } catch (InstructionInvalid e) {
+                System.out.println("Instruction wrong format.");
+            }
+        }
+
+
+        return "Knight2103: " + input + ui.showWelcome();
     }
 
     public void run() {

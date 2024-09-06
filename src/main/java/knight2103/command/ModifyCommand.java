@@ -22,30 +22,32 @@ public class ModifyCommand extends Command {
      * out of range of the length of the list of tasks.
      * @throws NumberFormatException If the predicate part of command is not an Integer.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task taskAffected;
+            String stringToReturn;
             int taskIndex = Integer.parseInt(this.predicate) - 1;
             if (this.verb == CommandVerb.MARK) {
                 taskAffected = tasks.mark(taskIndex);
-                ui.showMark(taskAffected);
+                stringToReturn = ui.showMark(taskAffected);
             } else if (this.verb == CommandVerb.UNMARK) {
                 taskAffected = tasks.unmark(taskIndex);
-                ui.showUnmark(taskAffected);
-            } else { // CommandVerb.DELETE)
+                stringToReturn = ui.showUnmark(taskAffected);
+            } else { // CommandVerb.DELETE
                 taskAffected = tasks.delete(taskIndex);
-                ui.showDelete(taskAffected, tasks);
+                stringToReturn = ui.showDelete(taskAffected, tasks);
             }
             storage.save(tasks);
+            return stringToReturn;
         } catch (NumberFormatException e) {
-            System.out.println("Please state the task number in INTEGER. Definitely not the task name");
+            return "Please state the task number in INTEGER. Definitely not the task name";
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("There's an issue in the instruction format. " + "Please check that it is " +
-                    "<knight2103.command.CommandVerb> <Integer> format");
+            return "There's an issue in the instruction format. " + "Please check that it is " +
+                    "<knight2103.command.CommandVerb> <Integer> format";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-            System.out.println("There aren't so many tasks. Please check if the task number is correct. "
-                    + "To see all tasks, type list");
+            return e.getMessage()
+                    + "There aren't so many tasks. Please check if the task number is correct. "
+                    + "To see all tasks, type list";
         }
     }
 

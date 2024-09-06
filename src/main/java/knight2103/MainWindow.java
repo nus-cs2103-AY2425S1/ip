@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(
             this.getClass().getResourceAsStream("/images/Koobit_Jaguar.png"));
-    private Image dukeImage = new Image(
+    private Image knight2103Image = new Image(
             this.getClass().getResourceAsStream("/images/Koobit_Water_Droplet.png"));
 
     @FXML
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = knight2103.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, knight2103Image)
         );
         userInput.clear();
     }
