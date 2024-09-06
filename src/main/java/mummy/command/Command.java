@@ -7,6 +7,7 @@ import mummy.task.Task;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
 import mummy.ui.Ui;
+import mummy.utility.Parser;
 import mummy.utility.Storage;
 
 /**
@@ -33,20 +34,15 @@ public abstract class Command {
     }
 
     /**
-     * Constructs a new Command object without arguments.
-     */
-    public Command() {
-        this.arguments = new HashMap<>();
-    }
-
-    /**
-     * Creates a Command object based on the given arguments.
+     * Creates a Command object based on the given full command string.
      *
-     * @param arguments a HashMap containing the command and its arguments
-     * @return a Command object based on the given command type
-     * @throws MummyException if the command type is unknown
+     * @param fullCommand the full command string
+     * @return a Command object corresponding to the given command string
+     * @throws MummyException if an error occurs during parsing or if the command is unknown
      */
-    public static Command of(HashMap<String, String> arguments) throws MummyException {
+    public static Command of(String fullCommand) throws MummyException {
+        HashMap<String, String> arguments = Parser.parse(fullCommand);
+
         CommandType commandType;
 
         try {
@@ -60,9 +56,9 @@ public abstract class Command {
 
         switch (commandType) {
         case BYE:
-            return new ByeCommand();
+            return new ByeCommand(arguments);
         case LIST:
-            return new ListCommand();
+            return new ListCommand(arguments);
         case MARK:
             return new MarkCommand(arguments);
         case UNMARK:
@@ -93,7 +89,7 @@ public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException;
 
     /**
-     * Returns a boolean value indicating whether or not the command is an exit command.
+     * Returns a boolean value indicating whether the command is an exit command.
      *
      * @return true if the command is an exit command, false otherwise.
      */

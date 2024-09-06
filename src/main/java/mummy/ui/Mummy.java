@@ -49,7 +49,7 @@ public class Mummy {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command command = Command.of(Parser.parse(fullCommand));
+                Command command = Command.of(fullCommand);
                 command.execute(this.taskList, this.ui, this.storage);
                 isExit = command.isExit();
             } catch (MummyException exception) {

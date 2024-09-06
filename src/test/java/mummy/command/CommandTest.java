@@ -1,14 +1,13 @@
 package mummy.command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,16 +26,14 @@ public class CommandTest {
     @BeforeEach
     public void setup() {
         this.taskList = new TaskList();
-        this.ui = new Ui("");
+        this.ui = new Ui("Test");
         this.storage = new Storage("data/test.txt");
     }
 
     @Test
-    public void getArgumentsShouldReturnArguments() {
-        HashMap<String, String> arguments = new HashMap<>();
-        arguments.put("command", "bye");
-        Command command = new StubCommand(arguments);
-        assertEquals(arguments.get("command"), command.getArgument("command"));
+    public void getArgumentsShouldReturnArguments() throws MummyException {
+        Command command = Command.of("bye");
+        assertEquals("bye", command.getArgument("command"));
     }
 
     @Test
@@ -49,32 +46,28 @@ public class CommandTest {
 
     @Test
     public void ofWithValidCommandTypeShouldReturnCorrectCommand() throws MummyException {
-        HashMap<String, String> arguments = new HashMap<>();
-        arguments.put("command", "bye");
-        Command command = Command.of(arguments);
+        Command command = Command.of("bye");
         assertInstanceOf(ByeCommand.class, command);
     }
 
     @Test
     public void ofWithUnknownCommandTypeShouldThrowMummyException() {
-        HashMap<String, String> arguments = new HashMap<>();
-        arguments.put("command", "skdhdjshfjgh");
         try {
-            Command.of(arguments);
+            Command.of("skdhdjshfjgh");
         } catch (MummyException e) {
             assertEquals("I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
 
     @Test
-    public void isExitWithExitCommandShouldReturnTrue() {
-        Command command = new ByeCommand();
+    public void isExitWithExitCommandShouldReturnTrue() throws MummyException {
+        Command command = Command.of("bye");
         assertTrue(command.isExit());
     }
 
     @Test
     public void isExitWithNonExitCommandShouldReturnFalse() {
-        Command command = new ListCommand();
+        Command command = new StubCommand();
         assertFalse(command.isExit());
     }
 
@@ -84,7 +77,9 @@ public class CommandTest {
             super(arguments);
         }
 
-        public StubCommand() {}
+        public StubCommand() {
+            super(new HashMap<>());
+        }
 
         @Override
         public void execute(TaskList taskList, Ui ui, Storage storage) {
