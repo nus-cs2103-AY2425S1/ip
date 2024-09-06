@@ -12,6 +12,7 @@ import rapgod.ui.ListBot;
 
 public class RapGod {
 
+    //move to javaFX controller
     public static Scanner scanner = new Scanner(System.in);
     public static final ArrayList<String> RUDE_WORDS = new ArrayList<>(Arrays.asList(
             "damn", "hell", "shit", "fuck",
