@@ -1,4 +1,4 @@
-package Asta.ui;
+package asta.ui;
 
 /**
  * The Ui class handles interactions with the user.

@@ -1,7 +1,6 @@
-package Asta.task;
+package asta.task;
 
-import Asta.AstaException;
-import Asta.ui.Ui;
+import asta.AstaException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

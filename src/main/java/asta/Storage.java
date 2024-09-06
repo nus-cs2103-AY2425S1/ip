@@ -1,9 +1,4 @@
-package Asta;
-
-import Asta.task.Deadline;
-import Asta.task.Event;
-import Asta.task.Task;
-import Asta.task.ToDo;
+package asta;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,9 +10,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import asta.task.Deadline;
+import asta.task.Event;
+import asta.task.Task;
+import asta.task.ToDo;
+
 /**
- * The Storage class handles the reading and writing of task data to a file.
- * It provides methods to load tasks from a file at startup and save tasks to a file during runtime.
+ * The Storage class handles the reading and writing of task data to a file. It provides methods to load tasks from a
+ * file at startup and save tasks to a file during runtime.
  */
 
 public class Storage {
@@ -34,11 +34,12 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the specified file. If the file does not exist, throws an exception.
-     * It reads each line of the file, interprets the task data, and populates the task list.
+     * Loads tasks from the specified file. If the file does not exist, throws an exception. It reads each line of the
+     * file, interprets the task data, and populates the task list.
      *
      * @return A list of tasks loaded from the file.
-     * @throws AstaException If the file does not exist, the task format is invalid, or there is an error reading the file.
+     * @throws AstaException If the file does not exist, the task format is invalid, or there is an error reading the
+     *                       file.
      */
     public ArrayList<Task> load() throws AstaException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -86,8 +87,7 @@ public class Storage {
     }
 
     /**
-     * Saves the given list of tasks to the specified file.
-     * It writes each task's data to a line in the file.
+     * Saves the given list of tasks to the specified file. It writes each task's data to a line in the file.
      *
      * @param tasks The list of tasks to save.
      * @throws AstaException If there is an error writing to the file.

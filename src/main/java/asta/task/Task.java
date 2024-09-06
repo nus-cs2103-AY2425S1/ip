@@ -1,4 +1,4 @@
-package Asta.task;
+package asta.task;
 
 /**
  * Represents a task with a description and a completion status.

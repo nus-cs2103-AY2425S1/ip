@@ -1,8 +1,8 @@
-package Asta.command;
+package asta.command;
 
 /**
- * The Command enum represents the different types of commands that the Asta application can recognize and execute.
- * Each enum constant corresponds to a specific user command.
+ * The Command enum represents the different types of commands that the Asta application can recognize and execute. Each
+ * enum constant corresponds to a specific user command.
  */
 public enum Command {
 
@@ -48,6 +48,5 @@ public enum Command {
     /**
      * Command to exit the application.
      */
-    BYE,
-    UNKNOWN
+    BYE, UNKNOWN
 }

@@ -1,4 +1,4 @@
-package Asta.task;
+package asta.task;
 
 /**
  * Represents a simple task with a description but no specific deadline or time period.

@@ -1,16 +1,16 @@
-package Asta;
-
-import Asta.command.Command;
-import Asta.command.Parser;
-import Asta.task.Task;
-import Asta.task.TaskList;
-import Asta.ui.Main;
-import Asta.ui.Ui;
-import javafx.application.Application;
+package asta;
 
 import java.util.ArrayList;
 
-public class Asta {
+import asta.command.Command;
+import asta.command.Parser;
+import asta.task.Task;
+import asta.task.TaskList;
+import asta.ui.Main;
+import asta.ui.Ui;
+import javafx.application.Application;
+
+public class Asta  {
     private static final String FILE_PATH = "./data/asta.txt";
     private final Storage storage;
     private final Ui ui;

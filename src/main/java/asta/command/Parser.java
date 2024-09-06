@@ -1,15 +1,14 @@
-package Asta.command;
+package asta.command;
 
 /**
- * The Parser class is responsible for interpreting user input and converting it into specific commands
- * that the application can execute. It serves as a bridge between raw user input and command execution.
+ * The Parser class is responsible for interpreting user input and converting it into specific commands that the
+ * application can execute. It serves as a bridge between raw user input and command execution.
  */
 public class Parser {
 
     /**
-     * Parses the user input and returns the corresponding command.
-     * The method checks the input against known commands and returns a Command enum representing the type of command
-     * to execute.
+     * Parses the user input and returns the corresponding command. The method checks the input against known commands
+     * and returns a Command enum representing the type of command to execute.
      *
      * @param input The raw input string from the user.
      * @return A Command enum representing the type of command parsed from the input.

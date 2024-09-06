@@ -1,4 +1,4 @@
-package Asta;
+package asta;
 
 /**
  * AstaException is a custom exception class used to handle errors specific to the Asta application.

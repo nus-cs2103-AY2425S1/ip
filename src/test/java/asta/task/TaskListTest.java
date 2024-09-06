@@ -1,6 +1,6 @@
-package Asta.task;
+package asta.task;
 
-import Asta.AstaException;
+import asta.AstaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
