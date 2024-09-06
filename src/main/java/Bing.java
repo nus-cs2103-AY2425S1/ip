@@ -10,8 +10,9 @@ public class Bing {
         Scanner scanner = new Scanner(System.in);
         String input;
         ArrayList<Task> tasks = new ArrayList<Task>();
+
         while (true) {
-            input = scanner.nextLine();
+            input = scanner.nextLine().trim();
             if (input.equals("Bye") || input.equals("bye")) {
                 System.out.println("______________________________\n"
                         + "Bye. Have a good day.\n"
@@ -25,65 +26,100 @@ public class Bing {
                 }
                 System.out.println("______________________________\n");
             } else if (input.startsWith("mark")) {
-                int x = Integer.parseInt(input.substring(5));
-                if (x>0 && x<=tasks.size()) {
-                    tasks.get(x-1).setToDone();
+                try {
+                    int x = Integer.parseInt(input.substring(5).trim());
+                    if (x > 0 && x<=tasks.size()) {
+                        tasks.get(x - 1).setToDone();
+                        System.out.println("______________________________\n");
+                        System.out.println("This task is marked as done :");
+                        System.out.println(tasks.get(x-1).toString());
+                        System.out.println("______________________________\n");
+                    } else {
+                        System.out.println("Invalid Input.\n");
+                    }
+                } catch (NumberFormatException e) {
                     System.out.println("______________________________\n");
-                    System.out.println("This task is marked as done :");
-                    System.out.println(tasks.get(x-1).toString());
+                    System.out.println("Invalid Format");
                     System.out.println("______________________________\n");
-                } else {
-                    System.out.println("Invalid Input.\n");
                 }
 
             } else if (input.startsWith("unmark")) {
-                int x = Integer.parseInt(input.substring(7));
-                if (x>0 && x<=tasks.size()) {
-                    tasks.get(x-1).setToUndone();
+                try {
+                    int x = Integer.parseInt(input.substring(7));
+                    if (x>0 && x<=tasks.size()) {
+                        tasks.get(x-1).setToUndone();
+                        System.out.println("______________________________\n");
+                        System.out.println("This task is marked as undone :");
+                        System.out.println(tasks.get(x-1).toString());
+                        System.out.println("______________________________\n");
+                    } else {
+                        System.out.println("Invalid Input.\n");
+                    }
+                } catch (NumberFormatException e) {
                     System.out.println("______________________________\n");
-                    System.out.println("This task is marked as undone :");
-                    System.out.println(tasks.get(x-1).toString());
+                    System.out.println("Invalid Format");
                     System.out.println("______________________________\n");
-                } else {
-                    System.out.println("Invalid Input.\n");
                 }
 
+
             } else if (input.startsWith("todo")) {
-                Task temp = new ToDo(input.substring(5));
-                tasks.add(temp);
-                System.out.println("______________________________\n"
-                        + "Added the task:\n"
-                        + temp.toString() + "\n"
-                        + "Total tasks - " + tasks.size() + "\n"
-                        + "______________________________\n");
+                String temp = input.substring(4).trim();
+                if (temp.isEmpty()) {
+                    System.out.println("Invalid Input.\n");
+                } else {
+                    Task temp2 = new ToDo(temp);
+                    tasks.add(temp2);
+                    System.out.println("______________________________\n"
+                            + "Added the task:\n"
+                            + temp.toString() + "\n"
+                            + "Total tasks - " + tasks.size() + "\n"
+                            + "______________________________\n");
+                }
 
             } else if (input.startsWith("deadline ")) {
-                String[] segments = input.substring(9).split(" /by ");
-                Task temp = new Deadline(segments[0],segments[1]);
-                tasks.add(temp);
-                System.out.println("______________________________\n"
-                        + "Added the task:\n"
-                        + temp.toString() + "\n"
-                        + "Total tasks - " + tasks.size() + "\n"
-                        + "______________________________\n");
+                try {
+                    String[] segments = input.substring(9).split(" /by ");
+                    if (segments.length < 2 || segments[0].trim().isEmpty() || segments[1].trim().isEmpty()) {
+                        System.out.println("Invalid Input.\n");
+                    } else {
+                        Task temp = new Deadline(segments[0],segments[1]);
+                        tasks.add(temp);
+                        System.out.println("______________________________\n"
+                                + "Added the task:\n"
+                                + temp.toString() + "\n"
+                                + "Total tasks - " + tasks.size() + "\n"
+                                + "______________________________\n");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("______________________________\n");
+                    System.out.println("Invalid Format");
+                    System.out.println("______________________________\n");
+                }
+
+
             } else if (input.startsWith("event ")) {
-                String[] segments = input.substring(6).split(" /from ");
-                String[] segments2 = segments[1].split(" /to ");
-                Task temp = new Event(segments[0],segments2[0],segments2[1]);
-                tasks.add(temp);
-                System.out.println("______________________________\n"
-                        + "Added the task:\n"
-                        + temp.toString() + "\n"
-                        + "Total tasks - " + tasks.size() + "\n"
-                        + "______________________________\n");
+                try {
+                    String[] segments = input.substring(6).split(" /from ");
+                    if (segments.length<2) {
+                        System.out.println("Invalid Input.\n");
+                    } else {
+                        String[] segments2 = segments[1].split(" /to ");
+                        Task temp = new Event(segments[0],segments2[0],segments2[1]);
+                        tasks.add(temp);
+                        System.out.println("______________________________\n"
+                                + "Added the task:\n"
+                                + temp.toString() + "\n"
+                                + "Total tasks - " + tasks.size() + "\n"
+                                + "______________________________\n");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("______________________________\n");
+                    System.out.println("Invalid Format");
+                    System.out.println("______________________________\n");
+                }
 
             } else {
                 System.out.println("Invalid Input.\n");
-                //Task temp = new Task(input);
-                //tasks.add(temp);
-                //System.out.println("______________________________\n"
-                //       + "Added: "+ input + "\n"
-                //       + "______________________________\n");
             }
         }
     }
