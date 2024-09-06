@@ -21,7 +21,6 @@ import sumode.util.SumoTaskList;
  */
 public class SumoDE extends Application {
 
-    private Storage storage = null;
     private SumoTaskList tasks;
     private Ui ui;
 
@@ -30,12 +29,11 @@ public class SumoDE extends Application {
      * @param filePath FilePath to save data.
      */
     public SumoDE(String filePath, Ui ui) {
-        //handle Ui
         this.ui = ui;
+        Storage storage = null;
 
-        // handle Storage
         try {
-            this.storage = new Storage(filePath);
+            storage = new Storage(filePath);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
@@ -43,7 +41,7 @@ public class SumoDE extends Application {
         }
 
         try {
-            this.tasks = new SumoTaskList(this.storage, this.ui);
+            this.tasks = new SumoTaskList(storage, this.ui);
         } catch (IOException e) {
             //unlikely will happen since we already successfully initialise storage
             ui.warnUnknownSaveError();
