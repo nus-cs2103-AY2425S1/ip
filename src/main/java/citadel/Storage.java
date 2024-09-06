@@ -59,10 +59,14 @@ public class Storage {
         TaskList tasks = new TaskList();
         try {
             Scanner scanner = new Scanner(new File(filePath));
+            // Converts all string rows in the database into tasks and stores them
+            // into the output TaskList
             while (scanner.hasNextLine()) {
+                // Checks the current line in the file
                 String line = scanner.nextLine();
                 String taskType = line.substring(1, 2);
                 String taskString = line.substring(7);
+                // Process each tasks differently according to their types
                 if (taskType.equals("T")) {
                     tasks.add(createTodo(taskString));
                 } else if (taskType.equals("D")) {
@@ -91,6 +95,8 @@ public class Storage {
     public void saveData(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(this.filePath, false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        // Iterates through the taskList and saves the tasks row by row
+        // into the storage file
         for (int i = 0; i < tasks.size(); i++) {
             bufferedWriter.write(tasks.get(i).toString());
             bufferedWriter.newLine();
@@ -138,7 +144,7 @@ public class Storage {
      * @throws CitadelException If the input string is invalid or incomplete.
      */
     private static Task createEvent(String input) throws CitadelException {
-        Task t;
+        // Process the current event line in the ouput
         String[] words = input.split(" \\(from: ");
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
@@ -153,11 +159,14 @@ public class Storage {
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
+
+        // Convert the time to dateTime object
         LocalDateTime fromFormatted = LocalDateTime.parse(from,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         LocalDateTime toFormatted = LocalDateTime.parse(to,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        t = new Event(task, fromFormatted, toFormatted);
+        // Create new Event object
+        Task t = new Event(task, fromFormatted, toFormatted);
         return t;
     }
 
@@ -172,12 +181,13 @@ public class Storage {
      * @throws CitadelException If the input string is invalid or incomplete.
      */
     private static Task createTodo(String input) throws CitadelException {
-        Task t;
+        // Proccess current line
         String todo = input.trim();
         if (todo.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
-        t = new ToDo(todo);
+        //Create new ToDo object
+        Task t = new ToDo(todo);
         return t;
     }
 }

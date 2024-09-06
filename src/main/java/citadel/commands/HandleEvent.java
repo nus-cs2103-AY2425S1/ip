@@ -40,7 +40,7 @@ public class HandleEvent extends Command {
      */
     @Override
     public String run() throws CitadelException {
-        Task t;
+        // Process the current line
         String[] words = this.input.split(" /from ");
 
         if (words.length < 2) {
@@ -61,6 +61,7 @@ public class HandleEvent extends Command {
             throw new CitadelTaskNoInput();
         }
 
+        // Create event StartTime and EndTime in DateTime objects
         LocalDateTime fromFormatted = LocalDateTime
                 .parse(from,
                         DateTimeFormatter
@@ -74,7 +75,7 @@ public class HandleEvent extends Command {
             System.out.println("The start time must be before the end time!");
             return "The start time must be before the end time!";
         } else {
-            t = new Event(task, fromFormatted, toFormatted);
+            Task t = new Event(task, fromFormatted, toFormatted);
             this.tasks.add(t);
             return TextUI.printTask(t, tasks);
         }

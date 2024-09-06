@@ -35,6 +35,7 @@ public class DeleteTask extends Command {
     @Override
     public String run() throws CitadelException {
         try {
+            // process current line
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
             Task t = tasks.remove(index - 1);

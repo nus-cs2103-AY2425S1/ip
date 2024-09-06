@@ -81,6 +81,7 @@ public class TaskList {
      */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
+        // Finds any matching tasks in the TaskList and adds to the output TaskList
         for (Task task : taskList) {
             if (task.printTask().contains(keyword)) {
                 matchingTasks.add(task);
