@@ -1,17 +1,16 @@
 package nimbus.ui;
 
-import nimbus.exception.WrongDateTimeFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import nimbus.exception.WrongDateTimeFormatException;
+
 /**
  * This class handles the formatting of dates amd times
  */
-
 public class DateTime {
-    LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
     /**
      * Creates DateTime object that changes the userInput into the desired output string
@@ -20,7 +19,6 @@ public class DateTime {
      * @param dateTime the date time user has provided
      * @throws WrongDateTimeFormatException if the userInput is in the wrong form
      */
-
     public DateTime(String dateTime) throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
@@ -37,8 +35,7 @@ public class DateTime {
      * @param endTime end time of event task
      * @throws WrongDateTimeFormatException if the userInput is in the wrong form
      */
-
-    public DateTime(String startTime, String endTime) throws WrongDateTimeFormatException{
+    public DateTime(String startTime, String endTime) throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
             LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
@@ -60,7 +57,6 @@ public class DateTime {
      *
      * @return LocalDateTime
      */
-
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -70,7 +66,6 @@ public class DateTime {
      *
      * @return String in storage format
      */
-
     public String toStorageFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return dateTime.format(formatter);

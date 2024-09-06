@@ -3,8 +3,7 @@ package nimbus.task;
 /**
  * Tasks that do not have a deadline
  */
-
-public class TodoTask extends Task{
+public class TodoTask extends Task {
     private String taskName;
 
     /**
@@ -12,7 +11,6 @@ public class TodoTask extends Task{
      *
      * @param taskName
      */
-
     public TodoTask(String taskName) {
         super(taskName);
         this.taskName = taskName;
@@ -24,7 +22,6 @@ public class TodoTask extends Task{
      * @param taskName
      * @param isCompleted
      */
-
     public TodoTask(String taskName, boolean isCompleted) {
         super(taskName, isCompleted);
         this.taskName = taskName;

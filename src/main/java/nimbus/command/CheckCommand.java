@@ -1,5 +1,10 @@
 package nimbus.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import nimbus.exception.WrongDateTimeFormatException;
 import nimbus.task.DeadlineTask;
 import nimbus.task.EventTask;
@@ -7,17 +12,11 @@ import nimbus.task.Task;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 /**
  * CheckCommand class is a subclass of Command
  * It is able to check for tasks due on a particular day
  */
-
-
 public class CheckCommand extends Command {
     private String userInput;
     private ArrayList<Task> tasks;
@@ -29,11 +28,10 @@ public class CheckCommand extends Command {
      * @param userInput user input is the date user wants to see which tasks is due on that day
      * @param taskList taskList object that is passed in
      */
-
     public CheckCommand(String userInput, TaskList taskList) {
-            super(userInput, taskList);
-            this.userInput = userInput;
-            this.tasks = taskList.getTaskList();
+        super(userInput, taskList);
+        this.userInput = userInput;
+        this.tasks = taskList.getTaskList();
     }
 
     /**
@@ -41,7 +39,6 @@ public class CheckCommand extends Command {
      *
      * @throws WrongDateTimeFormatException
      */
-
     @Override
     public void execute() throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -69,7 +66,7 @@ public class CheckCommand extends Command {
                 }
             }
             System.out.println(output + "These tasks are due on "
-                    + selectedDate.toString() + Ui.horizontalLine);
+                    + selectedDate.toString() + Ui.HORIZONTAL_LINE);
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeFormatException();
         }

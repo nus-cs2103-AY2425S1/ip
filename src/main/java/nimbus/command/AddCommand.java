@@ -1,5 +1,6 @@
 package nimbus.command;
 
+import java.util.ArrayList;
 
 import nimbus.exception.MissingDeadlineException;
 import nimbus.exception.MissingDescriptionException;
@@ -13,18 +14,15 @@ import nimbus.task.TodoTask;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
 
-import java.util.ArrayList;
-
 /**
  * AddCommand class is a subclass of Command
  * It is able to create tasks and add them into the task list
  */
-
 public class AddCommand extends Command {
 
-    private ArrayList<Task> tasks;
-    private TaskList taskList;
-    public String taskDescription;
+    private final ArrayList<Task> tasks;
+    private final TaskList taskList;
+    private final String taskDescription;
 
     /**
      * Creates an AddCommand Object where taskInput is the task description
@@ -32,7 +30,6 @@ public class AddCommand extends Command {
      * @param userInput user input
      * @param taskList taskList object that is passed in
      */
-
     public AddCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
         this.taskDescription = userInput;
@@ -50,26 +47,31 @@ public class AddCommand extends Command {
      * @throws MissingStartEndTimeException if there is either missing start or end time for events
      * @throws WrongDateTimeFormatException if dateTime format is wrong in userInput
      */
-
     @Override
     public void execute() {
         try {
-            if (!taskDescription.startsWith("todo") &&
-                    !taskDescription.startsWith("deadline") &&
-                    !taskDescription.startsWith("event")) {
+            if (!taskDescription.startsWith("todo")
+                    && !taskDescription.startsWith("deadline")
+                    && !taskDescription.startsWith("event")) {
                 throw new WrongInputException();
             }
             // here handle the different task types
             if (taskDescription.startsWith("todo")) {
                 String temp = taskDescription.substring(4).trim();
-                if (temp.isEmpty()) { throw new MissingDescriptionException("todo"); }
+                if (temp.isEmpty()) {
+                    throw new MissingDescriptionException("todo");
+                }
 
                 String taskName = taskDescription.substring(5);
                 taskList.add(new TodoTask(taskName));
             } else if (taskDescription.startsWith("deadline")) {
                 String temp = taskDescription.substring(8).trim();
-                if (temp.isEmpty()) { throw new MissingDescriptionException("deadline"); }
-                if (!temp.contains("/by")) { throw new MissingDeadlineException(); }
+                if (temp.isEmpty()) {
+                    throw new MissingDescriptionException("deadline");
+                }
+                if (!temp.contains("/by")) {
+                    throw new MissingDeadlineException();
+                }
 
 
                 int byIndex = taskDescription.indexOf("/by");
@@ -79,9 +81,15 @@ public class AddCommand extends Command {
                 taskList.add(new DeadlineTask(taskName, deadline));
             } else if (taskDescription.startsWith("event")) {
                 String temp = taskDescription.substring(5).trim();
-                if (temp.isEmpty()) { throw new MissingDescriptionException("event"); }
-                if (!temp.contains("/from")) { throw new MissingStartEndTimeException("/from"); }
-                if (!temp.contains("/to")) { throw new MissingStartEndTimeException("/to"); }
+                if (temp.isEmpty()) {
+                    throw new MissingDescriptionException("event");
+                }
+                if (!temp.contains("/from")) {
+                    throw new MissingStartEndTimeException("/from");
+                }
+                if (!temp.contains("/to")) {
+                    throw new MissingStartEndTimeException("/to");
+                }
 
                 int fromIndex = taskDescription.indexOf("/from");
                 int toIndex = taskDescription.indexOf("/to");
@@ -94,8 +102,9 @@ public class AddCommand extends Command {
                 System.out.println("Please use keywords: todo, deadline or event");
                 return;
             }
-            System.out.println("Nimbus.Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString() +
-                    "\n" + "Nimbus.Nimbus says you have " + tasks.size() + " tasks in your list!" + Ui.horizontalLine);
+            System.out.println("Nimbus.Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString()
+                    + "\n" + "Nimbus.Nimbus says you have " + tasks.size() + " tasks in your list!"
+                    + Ui.HORIZONTAL_LINE);
         } catch (WrongInputException e) {
             System.out.println(e.toString());
         } catch (MissingDescriptionException u) {

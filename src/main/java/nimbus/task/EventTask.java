@@ -6,7 +6,6 @@ import nimbus.ui.DateTime;
 /**
  * Tasks that has a start and end time
  */
-
 public class EventTask extends Task {
     private final String taskName;
     private final DateTime startTime;
@@ -22,7 +21,6 @@ public class EventTask extends Task {
      * @param endTime
      * @throws WrongDateTimeFormatException if date time format for start and end times are wrong
      */
-
     public EventTask(String taskName, String startTime, String endTime)
             throws WrongDateTimeFormatException {
         super(taskName);
@@ -40,7 +38,6 @@ public class EventTask extends Task {
      * @param endTime
      * @throws WrongDateTimeFormatException if date time format for start and end times are wrong
      */
-
     public EventTask(String taskName, boolean isCompleted, String startTime, String endTime)
             throws WrongDateTimeFormatException {
         super(taskName, isCompleted);
@@ -53,7 +50,6 @@ public class EventTask extends Task {
      * gets event start date
      * @return DateTime value of startTime
      */
-
     public DateTime getEventDate() {
         return startTime;
     }

@@ -1,19 +1,19 @@
 package nimbus.command;
 
+import java.util.ArrayList;
+
 import nimbus.task.Task;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * DeleteCommand deletes particular task entries requested by user
  */
 
-public class DeleteCommand  extends Command {
-    private String userInput;
-    private ArrayList<Task> tasks;
-    private TaskList taskList;
+public class DeleteCommand extends Command {
+    private final String userInput;
+    private final ArrayList<Task> tasks;
+    private final TaskList taskList;
 
     /**
      * Creates a DeleteCommand Object
@@ -49,8 +49,8 @@ public class DeleteCommand  extends Command {
             String temp = tasks.get(index).toString();
             Task task = tasks.get(index);
             taskList.delete(task);
-            System.out.println("Nimbus.Nimbus has removed the task! \n" +
-                    "    " + temp + "\n" + "You have " + tasks.size() + " tasks left!" + Ui.horizontalLine);
+            System.out.println("Nimbus.Nimbus has removed the task! \n"
+                    + "    " + temp + "\n" + "You have " + tasks.size() + " tasks left!" + Ui.HORIZONTAL_LINE);
         }
     }
 }

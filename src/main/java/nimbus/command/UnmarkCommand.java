@@ -1,18 +1,17 @@
 package nimbus.command;
 
+import java.util.ArrayList;
+
 import nimbus.task.Task;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
 
-import java.util.ArrayList;
-
 /**
  * UnmarkCommand marks tasks as done when provided with an index
  */
-
 public class UnmarkCommand extends Command {
-    private String userInput;
-    private ArrayList<Task> tasks;
+    private final String userInput;
+    private final ArrayList<Task> tasks;
 
     /**
      * Creates a UnmarkCommand Object
@@ -21,7 +20,6 @@ public class UnmarkCommand extends Command {
      * @param userInput
      * @param taskList
      */
-
     public UnmarkCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
         this.userInput = userInput;
@@ -32,7 +30,6 @@ public class UnmarkCommand extends Command {
      * checks if index given in the userInput is valid
      * marks task as incomplete if task is completed
      */
-
     @Override
     public void execute() {
         int x = Integer.parseInt(userInput.substring(7).trim());
@@ -44,8 +41,8 @@ public class UnmarkCommand extends Command {
             System.out.println("Already Unmarked");
         } else if (index < tasks.size()) {
             tasks.get(index).setIncomplete();
-            System.out.println("Nimbus.Nimbus shall mark this as not done:\n" +
-                    "    " + tasks.get(index).toString() + Ui.horizontalLine);
+            System.out.println("Nimbus.Nimbus shall mark this as not done:\n"
+                    + "    " + tasks.get(index).toString() + Ui.HORIZONTAL_LINE);
         }
     }
 }

@@ -1,16 +1,15 @@
 package nimbus;
 
+import java.io.IOException;
+
 import nimbus.exception.WrongDateTimeFormatException;
 import nimbus.ui.Storage;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Main class that starts the project
  */
-
 public class Nimbus {
     private Storage storage;
     private Ui ui;
@@ -21,7 +20,6 @@ public class Nimbus {
      *
      * @param filepath where the file is supposed to be at
      */
-
     public Nimbus(String filepath) {
         this.storage = new Storage(filepath);
         storage.createFile();
@@ -35,7 +33,6 @@ public class Nimbus {
      * @throws WrongDateTimeFormatException if wrong format for date and time
      * @throws IOException if file is not found
      */
-
     private void run() throws WrongDateTimeFormatException, IOException {
         Ui.showWelcome();
         ui.run();
@@ -48,7 +45,6 @@ public class Nimbus {
      * @throws IOException if file is not found
      * @throws WrongDateTimeFormatException if wrong format for date and time
      */
-
     public static void main(String[] args)
             throws IOException, WrongDateTimeFormatException {
         new Nimbus("nimbus.txt").run();

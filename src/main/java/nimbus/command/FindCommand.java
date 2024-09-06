@@ -1,16 +1,14 @@
 package nimbus.command;
 
-import nimbus.exception.WrongDateTimeFormatException;
+import java.util.ArrayList;
+
 import nimbus.task.Task;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
 
-import java.util.ArrayList;
-
 /**
  * This commands finds the task by searching for a keyword in the task description
  */
-
 public class FindCommand extends Command {
     private String userInput;
     private ArrayList<Task> tasks;
@@ -22,7 +20,6 @@ public class FindCommand extends Command {
      * @param userInput the keyword the user provides
      * @param taskList task list to search in
      */
-
     public FindCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
         this.userInput = userInput;
@@ -33,12 +30,11 @@ public class FindCommand extends Command {
      * Iterates through the arraylist to find tasks with the keyword
      * Prints out the tasks with the keyword
      */
-
     @Override
     public void execute() {
         if (userInput.length() < 6) {
-            System.out.println("Please enter what you want to find" +
-                    "\n" + "For example: find tutorial");
+            System.out.println("Please enter what you want to find"
+                    + "\n" + "For example: find tutorial");
             return;
         }
 
@@ -51,6 +47,6 @@ public class FindCommand extends Command {
                 counter++;
             }
         }
-        System.out.println(output + "Here are your results :3" + Ui.horizontalLine);
+        System.out.println(output + "Here are your results :3" + Ui.HORIZONTAL_LINE);
     }
 }

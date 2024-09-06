@@ -5,7 +5,6 @@ import nimbus.ui.Ui;
 /**
  * Exception for missing description for any tasks
  */
-
 public class MissingDescriptionException extends Exception {
 
     /**
@@ -14,10 +13,9 @@ public class MissingDescriptionException extends Exception {
      *
      * @param taskName
      */
-
     public MissingDescriptionException(String taskName) {
-        super("Oh noo, you cant leave the description of " + taskName +
-                " empty!!" + Ui.horizontalLine);
+        super("Oh noo, you cant leave the description of " + taskName
+                + " empty!!" + Ui.HORIZONTAL_LINE);
     }
 
     @Override

@@ -6,7 +6,6 @@ import nimbus.ui.DateTime;
 /**
  * Tasks that has a deadline
  */
-
 public class DeadlineTask extends Task {
     private String taskName;
     private DateTime deadline;
@@ -18,7 +17,6 @@ public class DeadlineTask extends Task {
      * @param deadline
      * @throws WrongDateTimeFormatException
      */
-
     public DeadlineTask(String taskName, String deadline) throws WrongDateTimeFormatException {
         super(taskName);
         this.taskName = taskName;
@@ -32,7 +30,6 @@ public class DeadlineTask extends Task {
      * @param deadline
      * @throws WrongDateTimeFormatException
      */
-
     public DeadlineTask(String taskName, boolean isCompleted, String deadline) throws WrongDateTimeFormatException {
         super(taskName, isCompleted);
         this.taskName = taskName;
@@ -44,7 +41,6 @@ public class DeadlineTask extends Task {
      *
      * @return a DateTime object that is the deadline of the task
      */
-
     public DateTime getDeadline() {
         return deadline;
     }

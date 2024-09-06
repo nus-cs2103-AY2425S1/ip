@@ -1,12 +1,5 @@
 package nimbus.ui;
 
-import nimbus.Nimbus;
-import nimbus.exception.WrongDateTimeFormatException;
-import nimbus.task.DeadlineTask;
-import nimbus.task.EventTask;
-import nimbus.task.Task;
-import nimbus.task.TodoTask;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,26 +7,30 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import nimbus.Nimbus;
+import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.task.DeadlineTask;
+import nimbus.task.EventTask;
+import nimbus.task.Task;
+import nimbus.task.TodoTask;
+
 /**
  * Handles the writing and retrieving of data from text file
  */
-
+@SuppressWarnings("checkstyle:Regexp")
 public class Storage {
     private static String filepath;
-    private final Logger logger = Logger.getLogger(Nimbus.class.getName());
     private static final Logger staticLogger = Logger.getLogger(Nimbus.class.getName());
-
+    private final Logger logger = Logger.getLogger(Nimbus.class.getName());
     /**
      * Creates a storage object with filepath provided
      *
      * @param filepath where the file should be stored
      */
-
     public Storage(String filepath) {
         this.filepath = filepath;
     }
@@ -41,7 +38,6 @@ public class Storage {
     /**
      * Creates the file if file is not present
      */
-
     public void createFile() {
         try {
             File file = new File(filepath);
@@ -58,7 +54,6 @@ public class Storage {
      *
      * @param taskList target tasklist where tasks are loaded into
      */
-
     public void loadFile(TaskList taskList) {
         try {
             File savedFile = new File(filepath);
@@ -87,10 +82,10 @@ public class Storage {
                             TodoTask todoTask;
                             todoTask = new TodoTask(description, isCompleted);
                             taskList.add(todoTask);
-//                            logger.log(Level.INFO,"Todo nimbus.task.Task is added");
+                            // logger.log(Level.INFO,"Todo nimbus.task.Task is added");
                         } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for nimbus.task.TodoTask");
+                            logger.log(Level.WARNING, "Corrupted Line: " + line
+                                    + " Line wrong format for nimbus.task.TodoTask");
                         }
                         break;
                     case "D":
@@ -100,10 +95,10 @@ public class Storage {
                             DeadlineTask deadlineTask = new DeadlineTask(description,
                                     isCompleted, deadline);
                             taskList.add(deadlineTask);
-//                            logger.log(Level.INFO,"Deadline nimbus.task.Task is added");
+                            // logger.log(Level.INFO,"Deadline nimbus.task.Task is added");
                         } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for nimbus.task.DeadlineTask");
+                            logger.log(Level.WARNING, "Corrupted Line: " + line
+                                    + " Line wrong format for nimbus.task.DeadlineTask");
                         }
                         break;
                     case "E":
@@ -123,10 +118,10 @@ public class Storage {
                             EventTask eventTask = new EventTask(description, isCompleted,
                                     startTime, endTime);
                             taskList.add(eventTask);
-//                            logger.log(Level.INFO,"Event nimbus.task.Task is added");
+                            // logger.log(Level.INFO,"Event nimbus.task.Task is added");
                         } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for nimbus.task.EventTask");
+                            logger.log(Level.WARNING, "Corrupted Line: " + line
+                                    + " Line wrong format for nimbus.task.EventTask");
                         }
                         break;
                     default:
@@ -150,7 +145,6 @@ public class Storage {
      * @param taskArrayList arraylist containing tasks in tasklist object
      * @throws IOException if file is not found
      */
-
     public static void updateFile(ArrayList<Task> taskArrayList) throws IOException {
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(filepath))) {
             for (Task task : taskArrayList) {

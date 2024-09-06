@@ -1,30 +1,27 @@
 package nimbus.ui;
 
+import java.util.ArrayList;
+
 import nimbus.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * This class store the arraylist of tasks
  */
-
 public class TaskList {
-    private ArrayList<Task> taskList;
     private static String horizontalLine = "\n-------------------------------------------------";
-
+    private ArrayList<Task> taskList;
     /**
      * Creates a TaskList object with a new arraylist of size 100
      */
-
     public TaskList() {
         this.taskList = new ArrayList<>(100);
     }
 
     /**
      * gets the arraylist of tasks
-     * @return ArrayList<Task> arraylist of tasks
+     * @return arraylist of tasks
      */
-
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
@@ -33,7 +30,6 @@ public class TaskList {
      * adds task into arraylist of tasks
      * @param task task that is supposed to be added
      */
-
     public void add(Task task) {
         this.taskList.add(task);
     }
@@ -42,7 +38,6 @@ public class TaskList {
      * deletes task from arraylist of tasks
      * @param task task that is supposed to be deleted
      */
-
     public void delete(Task task) {
         this.taskList.remove(task);
     }

@@ -6,8 +6,7 @@ import nimbus.ui.TaskList;
 /**
  * An abstract class for different commands to inherit from
  */
-
-abstract public class Command {
+public abstract class Command {
     private String userInput;
     private TaskList taskList;
 
@@ -18,7 +17,6 @@ abstract public class Command {
      * @param userInput
      * @param taskList
      */
-
     public Command(String userInput, TaskList taskList) {
         this.userInput = userInput;
         this.taskList = taskList;
