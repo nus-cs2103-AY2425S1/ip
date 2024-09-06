@@ -53,7 +53,7 @@ public class Parser {
         case INVALID:
             return new InvalidCommand();
         case FIND:
-            return new FindCommand(getSearch(input));
+            return new FindCommand(getSearchKeywords(input));
         default:
             throw new IllegalArgumentException();
         }
@@ -133,12 +133,12 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
-    private static String getSearch(String input) throws MonoBotException {
+    private static String[] getSearchKeywords(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
-            throw new MonoBotException("Please specify which task to process");
+            throw new MonoBotException("Please specify one or more keywords to search for.");
         }
-        return parts[1];
+        return parts[1].trim().split("\\s+");
     }
 
     /**
