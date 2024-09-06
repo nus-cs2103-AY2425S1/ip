@@ -35,7 +35,7 @@ class Storage {
      * @param tasks
      * @param keyword
      */
-    public static void findTasks(List<Task> tasks, String keyword) {
+    public static String findTasks(List<Task> tasks, String keyword) {
         String out = "Here are the matching tasks in your list: \n";
         int count = 0;
         for (int i = 0; i < tasks.size(); i++) {
@@ -50,6 +50,6 @@ class Storage {
             out = "There are no matching tasks in your list.";
         }
 
-        Ui.dialogue(out);
+        return out;
     }
 }

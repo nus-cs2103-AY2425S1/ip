@@ -36,12 +36,12 @@ class Parser {
      *
      * @param tasks
      */
-    public static void processListCommand(List<Task> tasks) {
+    public static String processListCommand(List<Task> tasks) {
         String out = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
             out += (i + 1) + ". " + tasks.get(i) + "\n";
         }
-        Ui.dialogue(out);
+        return out;
     }
 
     /**
@@ -52,7 +52,7 @@ class Parser {
      * @throws BobException
      * @throws IOException
      */
-    public static void processTaskModificationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
+    public static String processTaskModificationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
         String[] words = userInput.split(" ");
         int index = Integer.parseInt(words[1]) - 1;
 
@@ -62,15 +62,17 @@ class Parser {
 
         if (userInput.startsWith("mark")) {
             tasks.get(index).markAsDone();
-            Ui.dialogue("Nice! I've marked this task as done: \n" + tasks.get(index));
+            return "Nice! I've marked this task as done: \n" + tasks.get(index);
         } else if (userInput.startsWith("unmark")) {
             tasks.get(index).unmarkAsDone();
-            Ui.dialogue("OK, I've marked this task as not done yet: \n" + tasks.get(index));
+            return "OK, I've marked this task as not done yet: \n" + tasks.get(index);
         } else if (userInput.startsWith("delete")) {
             Task removed = tasks.remove(index);
-            Ui.dialogue("Noted. I've removed this task: \n" + removed + "\nNow you have " + tasks.size() + " tasks in the list.");
+            return "Noted. I've removed this task: \n" + removed + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
         Storage.saveTasks(tasks);
+
+        return "Invalid command.";
     }
 
     /**
@@ -82,7 +84,7 @@ class Parser {
      * @throws BobException
      * @throws IOException
      */
-    public static void processTaskCreationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
+    public static String processTaskCreationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
         Task newTask = null;
         if (userInput.startsWith("todo")) {
             String description = userInput.substring(5).trim();
@@ -112,14 +114,13 @@ class Parser {
             newTask = new Event(parts[0].trim(), from, to);
         } else if (userInput.startsWith("find")) {
             String keyword = userInput.substring(5).trim();
-            Storage.findTasks(tasks, keyword);
-            return;
+            return Storage.findTasks(tasks, keyword);
         } else {
             throw new BobException("I'm sorry, but I don't know what that means :(");
         }
 
         tasks.add(newTask);
-        Ui.dialogue("Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() + " tasks in the list.");
         Storage.saveTasks(tasks);
+        return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }

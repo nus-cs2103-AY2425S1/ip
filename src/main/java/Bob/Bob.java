@@ -1,18 +1,37 @@
 package bob;
 
-import bob.task.Task;
-
-import java.util.ArrayList; 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import bob.task.Task;
+
 public class Bob {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+    private List<Task> tasks = new ArrayList<>();
 
-        Ui.runDialogue(scanner, tasks);
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String userInput) {
+
+        try {
+            if (userInput.equalsIgnoreCase("bye")) {
+                return "Bye. Hope to see you again soon!";
+            } else if (userInput.equalsIgnoreCase("list")) {
+                return Parser.processListCommand(tasks);
+            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
+                return Parser.processTaskModificationCommands(userInput, tasks);
+            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                return Parser.processTaskCreationCommands(userInput, tasks);
+            } else {
+                throw new BobException("I'm sorry, but I don't know what that means :(");
+            }
+        } catch (BobException | IOException e) {
+            return e.getMessage();
+        }
     }
 
 }
