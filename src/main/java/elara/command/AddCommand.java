@@ -26,7 +26,9 @@ public class AddCommand implements Command {
     public AddCommand(String commandType, String fullInput) {
         this.commandType = commandType;
         this.fullInput = fullInput;
-        this.details = (fullInput.split(" ", 2).length > 1) ?  fullInput.split(" ", 2)[1] : null;
+        this.details = (fullInput.split(" ", 2).length > 1) ?
+                fullInput.split(" ", 2)[1].toLowerCase() :
+                null;
     }
 
     @Override

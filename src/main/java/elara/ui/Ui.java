@@ -4,6 +4,7 @@ import elara.task.InvalidInputException;
 import elara.task.Task;
 import elara.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -73,5 +74,18 @@ public class Ui {
 
     public void closeScanner() {
         scanner.close();
+    }
+
+    public void showFindTasksMessage(ArrayList<Task> taskList) {
+        System.out.println(LINE);
+        if (taskList.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
+            }
+        }
+        System.out.println(LINE);
     }
 }

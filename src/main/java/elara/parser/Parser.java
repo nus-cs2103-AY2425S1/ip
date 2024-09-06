@@ -1,12 +1,7 @@
 package elara.parser;
 
-import elara.command.Command;
-import elara.command.AddCommand;
-import elara.command.DeleteCommand;
-import elara.command.ExitCommand;
-import elara.command.ListCommand;
-import elara.command.MarkCommand;
-import elara.command.UnmarkCommand;;
+import elara.command.*;
+;
 
 import elara.task.InvalidInputException;
 
@@ -19,6 +14,7 @@ public class Parser {
         String command = getCommandType(input);
         return switch (command) {
             case "bye" -> new ExitCommand();
+            case "find" -> new FindCommand(input);
             case "list" -> new ListCommand();
             case "mark" -> new MarkCommand(input);
             case "unmark" -> new UnmarkCommand(input);
