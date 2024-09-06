@@ -19,8 +19,6 @@ public class Torne {
     private final TaskHandler taskHandler;
     private final Storage storage;
     private final Parser parser;
-    private static final String[] NO_ARGS = new String[0];
-    private static final String[] DEFAULT_ARG = {""};
 
     public Torne() {
         output = new ChatOutput();
