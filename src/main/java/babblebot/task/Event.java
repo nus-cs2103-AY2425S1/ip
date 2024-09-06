@@ -35,11 +35,11 @@ public class Event extends Task {
     public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (getStatusIcon().equals("X")) {
-            return "E" + " | " + "1" + " | " + this.description + " | " +
-                    this.from.format(formatter) + " to " + this.to.format(formatter);
+            return "E" + " | " + "1" + " | " + this.description + " | "
+                    + this.from.format(formatter) + " to " + this.to.format(formatter);
         } else {
-            return "E" + " | " + "0" + " | " + this.description + " | " +
-                    this.from.format(formatter) + " to " + this.to.format(formatter);
+            return "E" + " | " + "0" + " | " + this.description + " | "
+                    + this.from.format(formatter) + " to " + this.to.format(formatter);
         }
     }
 
@@ -51,7 +51,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return "[E]" +  super.toString() + " (from: " + this.from.format(formatter) +
-                " to: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(formatter)
+                + " to: " + this.to.format(formatter) + ")";
     }
 }

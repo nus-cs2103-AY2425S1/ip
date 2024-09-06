@@ -1,17 +1,19 @@
 package babblebot.ui;
-import babblebot.task.Task;
-import babblebot.task.TaskList;
+
+// Standard Java packages
 import java.util.Scanner;
 
+// Project-specific packages
+import babblebot.task.Task;
+import babblebot.task.TaskList;
+
 /**
- *
  * The Ui class handles all interactions with the user.
  * It provides methods to display messages, read user input, and show the current task list.
  */
 public class Ui {
+    private static final String SEPARATOR = "------------------------------------------------------------------";
     private Scanner sc;
-    private String SEPARATOR = "------------------------------------------------------------------";
-
     /**
      * Constructs a new Ui instance, initializing the Scanner.
      */
@@ -86,7 +88,7 @@ public class Ui {
     /**
      * Displays a generic I/O error message.
      */
-    public void showIOError() {
+    public void showIoError() {
         System.out.println(SEPARATOR);
         System.out.println("OOPS!!! Something went wrong");
         System.out.println(SEPARATOR);
@@ -138,9 +140,9 @@ public class Ui {
      */
     public void showBabbleBotError() {
         System.out.println(SEPARATOR);
-        System.out.println("Whoopsie daisy! Looks like I got all tangled up in my words there!\n" +
-                "Let's try that again in a way that might make a bit more sense.\n" +
-                "What do you need help with?");
+        System.out.println("Whoopsie daisy! Looks like I got all tangled up in my words there!\n"
+                            + "Let's try that again in a way that might make a bit more sense.\n"
+                            + "What do you need help with?");
         System.out.println(SEPARATOR);
     }
 }

@@ -27,7 +27,6 @@ public class Parser {
     public static String parseKeyword(String userInput) {
         return userInput.split("find ")[1];
     }
-    
 
     /**
      * Parses the user input to extract the content of a todo task.

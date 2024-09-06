@@ -1,5 +1,7 @@
 package babblebot;
 
+import java.io.IOException;
+
 import babblebot.exception.BabbleBotException;
 import babblebot.parser.Parser;
 import babblebot.storage.Storage;
@@ -8,7 +10,7 @@ import babblebot.task.Event;
 import babblebot.task.TaskList;
 import babblebot.task.Todo;
 import babblebot.ui.Ui;
-import java.io.IOException;
+
 
 /**
  * The BabbleBot class represents the main application that manages tasks.
@@ -34,7 +36,7 @@ public class BabbleBot {
         try {
             storedTasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showIOError();
+            ui.showIoError();
             storedTasks = new TaskList();
         }
     }
@@ -45,7 +47,7 @@ public class BabbleBot {
         try {
             storage.save(storedTasks);
         } catch (IOException e) {
-            ui.showIOError();
+            ui.showIoError();
         }
     }
     /**
@@ -89,7 +91,7 @@ public class BabbleBot {
                         ui.showTaskAdded(storedTasks);
                         saveTasksToFile();
                     } catch (IndexOutOfBoundsException e) {
-                        ui.showIOError();
+                        ui.showIoError();
                     }
                     break;
 
@@ -100,7 +102,7 @@ public class BabbleBot {
                         ui.showTaskAdded(storedTasks);
                         saveTasksToFile();
                     } catch (IndexOutOfBoundsException e) {
-                        ui.showIOError();
+                        ui.showIoError();
                     }
                     break;
 
@@ -110,7 +112,7 @@ public class BabbleBot {
                         ui.showRemoveMessage(storedTasks, index);
                         saveTasksToFile();
                     } catch (IndexOutOfBoundsException e) {
-                        ui.showIOError();
+                        ui.showIoError();
                     }
                     break;
 
@@ -132,7 +134,7 @@ public class BabbleBot {
                         ui.showUnmarkMessage(storedTasks, unmarkIndex);
                         saveTasksToFile();
                     } catch (IndexOutOfBoundsException e) {
-                        ui.showIOError();
+                        ui.showIoError();
                     }
                     break;
 
@@ -142,7 +144,7 @@ public class BabbleBot {
                         TaskList matchingTasks = new TaskList(storedTasks.getMatchingTasks(keyword));
                         ui.showTaskList(matchingTasks);
                     } catch (IndexOutOfBoundsException e) {
-                        ui.showIOError();
+                        ui.showIoError();
                     }
                     break;
 
@@ -164,3 +166,5 @@ public class BabbleBot {
         new BabbleBot(TASK_LIST_PATH).run();
     }
 }
+
+
