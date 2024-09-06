@@ -19,11 +19,21 @@ public class Parser {
      * @return The corresponding ActionType enum value, or ActionType.retry
      *      if the input does not match any ActionType.
      */
-    static Bobby.ActionType getActionType(String input) {
+    public static Bobby.ActionType getActionType(String input) {
         try {
-            return Bobby.ActionType.valueOf(input);
+            String[] stringArr = input.split(" ", 2);
+            return Bobby.ActionType.valueOf(stringArr[0]);
         } catch (Exception e) {
-            return Bobby.ActionType.retry;
+            return Bobby.ActionType.valueOf("retry");
+        }
+    }
+
+    public static String getDesc(String input) {
+        try {
+            String[] stringArr = input.split(" ", 2);
+            return stringArr[1];
+        } catch (Exception e) {
+            return null;
         }
     }
 }

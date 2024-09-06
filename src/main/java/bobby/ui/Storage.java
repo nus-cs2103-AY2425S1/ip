@@ -15,7 +15,7 @@ public class Storage {
     /**
      * File path to store task data
      */
-    private static String filePath = null;
+    private static String filePath = "/Users/zhiyi/Desktop/CS2103T/Chatbot/src/main/task.txt";
 
     /**
      * Arraylist to keep track of what to store to disck
@@ -31,6 +31,9 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         this.listForDisk = new ArrayList<>(100);
+    }
+    public static String getFilePath() {
+        return filePath;
     }
 
     /**
@@ -60,7 +63,7 @@ public class Storage {
      * @return An ArrayList containing the tasks loaded from the file.
      * @throws Exception If an I/O error occurs while reading from the file.
      */
-    public static ArrayList<Task> loadFile() throws Exception {
+    public static ArrayList<Task> loadFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
@@ -71,8 +74,13 @@ public class Storage {
                     taskList.add(task);
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Your code is buggy");
         }
-        FileWriter fw = new FileWriter(filePath, false);
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+        } catch (Exception e) {
+            System.out.println("Your code is super buggy");
+        }
         return taskList;
     }
 }

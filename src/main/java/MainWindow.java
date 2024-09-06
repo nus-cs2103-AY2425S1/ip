@@ -1,4 +1,7 @@
 import bobby.ui.Bobby;
+import bobby.ui.Parser;
+import bobby.ui.Storage;
+import bobby.ui.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -20,31 +23,38 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Bobby bobby;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Storage storage;
+    private TaskList taskList;
+    private Parser parser;
+    private static Image userImage = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
+    private static Image bobbyImage = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Bobby.getStartMsg(), bobbyImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Bobby instance */
     public void setBobby(Bobby b) {
         bobby = b;
+        storage = new Storage(Storage.getFilePath());
+        taskList = new TaskList(Storage.loadFile());
+        parser = new Parser();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other
+     * containing Bobby's reply and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws Exception {
         String input = userInput.getText();
-        String response = bobby.getResponse(input);
+        String response = Bobby.check_action(Parser.getActionType(input), Parser.getDesc(input));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, bobbyImage)
         );
         userInput.clear();
     }

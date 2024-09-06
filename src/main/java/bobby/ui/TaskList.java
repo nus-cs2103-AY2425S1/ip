@@ -54,17 +54,19 @@ public class TaskList {
      *
      * @param idx The index of the task to delete (1-based index).
      */
-    public static void deleteTask(int idx) {
+    public static String deleteTask(int idx) {
+        String response;
         if (idx >= 0 && idx <= taskList.size()) {
             Task deletedtask = taskList.remove(idx - 1);
-            System.out.println("Noted. I've removed this task:\n"
+            response = "Noted. I've removed this task:\n"
                     + deletedtask.toString() + "\nNow you have "
-                    + taskList.size() + " tasks in the list.\n");
+                    + taskList.size() + " tasks in the list.\n";
         } else {
-            System.out.println("I can't find this task,"
+            response = "I can't find this task,"
                     + " please check which task you want to"
-                    + " delete by keying in list!");
+                    + " delete by keying in list!";
         }
+        return response;
     }
 
     /**
@@ -84,12 +86,12 @@ public class TaskList {
      * Prints all tasks in the list, each on a new line.
      * User-friendly mode.
      */
-    public static void print_list() {
-        System.out.println("Here are the tasks in your list:");
+    public static String print_list() {
+        String response = "Here are the tasks in your list:\n";
         for (int x = 0; x < taskList.size(); x++) {
-            System.out.println(x + 1 + "." + taskList.get(x).toString());
+            response = response + (x + 1) + "." + taskList.get(x).toString() + "\n";
         }
-        System.out.println();
+        return response;
     }
 
     /**
@@ -97,7 +99,8 @@ public class TaskList {
      *
      * @param keyword The substring to search for in task descriptions.
      */
-    public static void findTask(String keyword) {
+    public static String findTask(String keyword) {
+        String response;
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.toString().contains(keyword)) {
@@ -106,13 +109,14 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            response = "No matching tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            response = "Here are the matching tasks in your list:\n";
             for (int x = 0; x < matchingTasks.size(); x++) {
-                System.out.println(x + 1 + "." + matchingTasks.get(x).toString());
+                response = response + (x + 1) + "." + matchingTasks.get(x).toString() + "\n";
             }
         }
+        return response;
     }
 
 }

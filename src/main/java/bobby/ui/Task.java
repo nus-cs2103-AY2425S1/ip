@@ -52,29 +52,32 @@ public abstract class Task {
      * Marks the task as done. If the task is already done, a message indicating
      * that it is already completed is displayed.
      */
-    public void markAsDone() {
+    public String markAsDone() {
+        String response;
         if (!this.isDone) {
             this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
+            response = "Nice! I've marked this task as done:\n"
+                    + "[" + this.getStatusIcon() + "] " + this.description + "\n";
         } else {
-            System.out.println("This tasked has been already been completed!\n");
+            response = "This tasked has been already been completed!\n";
         }
-
+        return response;
     }
 
     /**
      * Marks the task as not done. If the task is already not done,
      * a message indicating that it is not marked yet is displayed.
      */
-    public void unMark() {
+    public String unMark() {
+        String response;
         if (this.isDone) {
             this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
+            response = "OK, I've marked this task as not done yet:\n"
+                    + "[" + this.getStatusIcon() + "] " + this.description + "\n";
         } else {
-            System.out.println("This tasked has not been marked yet!!\n");
+            response = "This tasked has not been marked yet!!\n";
         }
+        return response;
     }
 
     @Override
