@@ -1,10 +1,7 @@
 package elara.command;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import elara.storage.Storage;
+
 import elara.task.DeadlineException;
 import elara.task.DeadlineTask;
 import elara.task.EventException;
@@ -14,24 +11,24 @@ import elara.task.Task;
 import elara.task.TaskList;
 import elara.task.ToDoException;
 import elara.task.ToDoTask;
+
 import elara.ui.Ui;
 
-/**
- * Represents a command that adds a task to the task list that can be executed in the Elara chatbot.
- */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class AddCommand implements Command {
     private final String commandType;
+    private final String fullInput;
     private final String details;
 
-    /**
-     * Constructs an instance of the AddCommand class
-     *
-     * @param commandType String representing the type of task to be added to the task list.
-     * @param fullInput The full string inputted by the user.
-     */
     public AddCommand(String commandType, String fullInput) {
         this.commandType = commandType;
-        this.details = (fullInput.split(" ", 2).length > 1) ?  fullInput.split(" ", 2)[1] : null;
+        this.fullInput = fullInput;
+        this.details = (fullInput.split(" ", 2).length > 1) ?
+                fullInput.split(" ", 2)[1].toLowerCase() :
+                null;
     }
 
     @Override
@@ -56,8 +53,7 @@ public class AddCommand implements Command {
                     String description = deadlineArgs[0];
                     String deadlineString = deadlineArgs[1];
                     try {
-                        LocalDateTime deadline = LocalDateTime.parse(deadlineString,
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                         newTask = new DeadlineTask(description, deadline, false);
                     } catch (DateTimeParseException e) {
                         throw new DeadlineException();
@@ -80,10 +76,8 @@ public class AddCommand implements Command {
                         String endString = timeArgs[1].trim();
 
                         try {
-                            LocalDateTime start = LocalDateTime.parse(startString,
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                            LocalDateTime end = LocalDateTime.parse(endString,
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                            LocalDateTime start = LocalDateTime.parse(startString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                            LocalDateTime end = LocalDateTime.parse(endString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                             newTask = new EventTask(description, start, end, false);
                         } catch (DateTimeParseException e) {
                             throw new InvalidInputException("Invalid date format for event. Use: yyyy-MM-dd HHmm.");
