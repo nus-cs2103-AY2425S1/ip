@@ -7,7 +7,8 @@ import drbrown.utils.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
- * Inherits from the Command class.
+ * This command removes a task at a specified index from the TaskList and provides
+ * feedback to the user through the UI.
  */
 public class DeleteCommand extends Command {
 
@@ -16,31 +17,30 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand with the specified index of the task to be deleted.
      *
-     * @param itemIndex The index of the task to delete in the task list.
+     * @param itemIndex The zero-based index of the task to delete in the task list.
      */
     public DeleteCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
     /**
-     * Executes the DeleteCommand, removing a task from the provided TaskList at the specified index.
-     * If successful, displays confirmation and the remaining task count using the Ui object.
-     * If the index is invalid, throws a DrBrownException with an appropriate error message.
+     * Executes the DeleteCommand by removing a task from the provided TaskList at the specified index.
+     * If successful, it displays a confirmation message for the deleted task and the updated task count.
+     * If the index is invalid (out of bounds), it throws a DrBrownException with an appropriate error message.
      *
      * @param tasks   The TaskList containing all tasks.
-     * @param ui      The Ui object for user interactions.
+     * @param ui      The Ui object to handle user interactions and display messages.
      * @param storage The Storage object for saving/loading tasks (not used in this command).
+     * @return A string message confirming the deletion of the task and showing the updated task count.
      * @throws DrBrownException If the index is out of bounds of the task list.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
-            tasks.removeItem(itemIndex, ui);
-            ui.showEnd();
-            ui.showCount(tasks);
+            return tasks.removeItem(itemIndex, ui) + "\n" + ui.showCount(tasks);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That’s not how you calculate time "
-                    + "travel – you're off by a few gigawatts!");
+            throw new DrBrownException("You got the count wrong! That's not how you calculate time "
+                    + "travel - you're off by a few gigawatts!");
         }
     }
 

@@ -29,6 +29,8 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the event task in the format suitable for file storage.
+     * The format includes the type of task (Event), its completion status, description,
+     * start date/time, and end date/time, separated by vertical bars.
      *
      * @return A string formatted for file storage representing the event task.
      */
@@ -41,16 +43,19 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the event task in the format suitable for UI display.
+     * This method provides a user-friendly message to describe the scheduled event.
      *
      * @return A user-friendly string that describes the scheduled event.
      */
     @Override
     public String toUiString() {
-        return "The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n";
+        return "The appropriate question is: 'When the hell are they?' Your event is now set in time!\n";
     }
 
     /**
-     * Returns the string representation of the event task.
+     * Returns the string representation of the event task for console or text display.
+     * This format includes the type of task (Event), its completion status, description,
+     * start date/time, and end date/time.
      *
      * @return A string representation of the event task with its status,
      *     description, start date/time, and end date/time.

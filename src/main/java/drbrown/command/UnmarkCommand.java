@@ -7,7 +7,8 @@ import drbrown.utils.Ui;
 
 /**
  * Represents a command to unmark a task as incomplete in the task list.
- * Inherits from the Command class.
+ * This command sets the status of a task at a specified index in the TaskList to "incomplete"
+ * and provides feedback to the user.
  */
 public class UnmarkCommand extends Command {
 
@@ -16,7 +17,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an UnmarkCommand with the specified index of the task to be marked as incomplete.
      *
-     * @param itemIndex The index of the task to unmark as incomplete.
+     * @param itemIndex The zero-based index of the task to unmark as incomplete in the task list.
      */
     public UnmarkCommand(int itemIndex) {
         this.itemIndex = itemIndex;
@@ -24,19 +25,21 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the UnmarkCommand by setting the status of the task at the specified index to incomplete.
-     * It displays the unmarked task and handles exceptions if the index is out of bounds.
+     * If the operation is successful, it displays the unmarked task using the Ui object.
+     * If the index is invalid (out of bounds), it throws a DrBrownException with an appropriate error message.
      *
      * @param tasks   The TaskList containing the current tasks.
      * @param ui      The Ui object to display messages to the user.
      * @param storage The Storage object for saving changes to the file (not used in this command).
+     * @return A string message confirming the task has been marked as incomplete.
      * @throws DrBrownException If the task index is invalid (out of bounds).
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
-            tasks.unmarkTask(itemIndex, ui);
+            return tasks.unmarkTask(itemIndex, ui);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That’s not how you "
+            throw new DrBrownException("You got the count wrong! That's not how you "
                     + "calculate time travel – you're off by a few gigawatts!");
         }
     }

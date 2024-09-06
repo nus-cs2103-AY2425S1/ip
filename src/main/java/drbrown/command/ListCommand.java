@@ -7,7 +7,7 @@ import drbrown.utils.Ui;
 
 /**
  * Represents a command to list all tasks in the task list.
- * Inherits from the Command class.
+ * This command displays all tasks currently stored in the TaskList to the user.
  */
 public class ListCommand extends Command {
 
@@ -18,15 +18,16 @@ public class ListCommand extends Command {
      * @param tasks   The TaskList containing the current tasks.
      * @param ui      The Ui object to display messages to the user.
      * @param storage The Storage object for saving and loading tasks (not used in this command).
+     * @return A string message containing the list of all tasks or an appropriate message if the list is empty.
      * @throws DrBrownException If the task list is empty.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         if (tasks.getCount() == 0) {
             throw new DrBrownException("Wait a minute, Doc! There's nothing here! "
                     + "We can't go anywhere until you add something to the list!");
         }
-        tasks.listOut(ui);
+        return tasks.listOut(ui);
     }
 
     /**
