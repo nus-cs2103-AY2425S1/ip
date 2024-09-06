@@ -56,6 +56,8 @@ public class TaskList {
 
     /**
      * Prints the current list of tasks.
+     *
+     * @return List of tasks
      */
     public String list() {
         String list = "Here are the tasks in your list:\n";
