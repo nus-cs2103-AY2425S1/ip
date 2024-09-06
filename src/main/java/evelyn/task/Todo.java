@@ -9,7 +9,7 @@ public class Todo extends Task {
      * @param description Description of the Todo
      * @param isMarked Status of the Todo
      */
-    public Todo (String description, boolean isMarked) {
+    public Todo(String description, boolean isMarked) {
         super(description, isMarked);
     }
     @Override

@@ -1,19 +1,19 @@
 package evelyn.command.ui.textbased;
 
-import evelyn.command.Parser;
-import evelyn.exception.InvalidInputException;
-import evelyn.exception.NoInputException;
-
 import java.time.DateTimeException;
 import java.util.Objects;
 import java.util.Scanner;
+
+import evelyn.command.Parser;
+import evelyn.exception.InvalidInputException;
+import evelyn.exception.NoInputException;
 
 /**
  * Houses all the logic for Evelyn's UI
  */
 
 public class TextBasedUi {
-    public static String horizontalLine = "-----------------------------------------";
+    private static String horizontalLine = "-----------------------------------------";
     private boolean isChatting;
     private String text = null;
     private Parser parser;
@@ -40,7 +40,8 @@ public class TextBasedUi {
         System.out.println("\n");
         System.out.println("todo [task description]");
         System.out.println("deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]");
-        System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
+        System.out.println("event [task description] /from "
+                + "[date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
         System.out.println("list (Lists out all the current tasks)");
         System.out.println("mark [index] (Marks the tasks at the specified index)");
         System.out.println("unmark [index] (Unmarks the tasks at the specified index)");
@@ -50,7 +51,7 @@ public class TextBasedUi {
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
 
-        while(this.isChatting) {
+        while (this.isChatting) {
             text = scanner.nextLine();
 
             try {
@@ -68,7 +69,8 @@ public class TextBasedUi {
                 System.out.println("You did not use the keywords properly!");
                 System.out.println("todo [task description]");
                 System.out.println("deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]");
-                System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
+                System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to"
+                        + " [date in YYYY-MM-DD] [Optional: time]");
                 System.out.println("list (Lists out all the current tasks)");
                 System.out.println("mark [index] (Marks the tasks at the specified index)");
                 System.out.println("unmark [index] (Unmarks the tasks at the specified index)");
@@ -92,12 +94,4 @@ public class TextBasedUi {
             }
         }
     }
-
-//    public void startChatting() {
-//        this.isChatting = true;
-//    }
-//
-//    public void stopChatting() {
-//        this.isChatting = false;
-//    }
 }

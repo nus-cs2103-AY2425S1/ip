@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents an Event task.
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate startDate;
     private String startTime = null;
     private LocalDate endDate;
@@ -40,8 +40,8 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate +
-                (this.startTime == null ? "": " " + this.startTime) +
-                " to: " + this.endDate + (this.endTime == null ? "" : " " + this.endTime) + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate
+                + (this.startTime == null ? "" : " " + this.startTime)
+                + " to: " + this.endDate + (this.endTime == null ? "" : " " + this.endTime) + ")";
     }
 }

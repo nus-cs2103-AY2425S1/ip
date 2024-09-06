@@ -12,7 +12,7 @@ public class Task {
      * @param desctiption Description of a Task.
      * @param isMarked Status of a Task.
      */
-    public Task (String desctiption, boolean isMarked) {
+    public Task(String desctiption, boolean isMarked) {
         this.description = desctiption;
         this.isMarked = isMarked;
     }
@@ -24,7 +24,7 @@ public class Task {
         this.isMarked = true;
         String str = "Nice! I've marked this task as done:\n";
         str = str + "    " + this.toString() + "\n";
-        return  str;
+        return str;
     };
 
     /**
@@ -43,8 +43,8 @@ public class Task {
      */
     @Override
     public String toString() {
-        return isMarked ? "[X] " + this.description :
-                "[ ] " + this.description;
+        return isMarked ? "[X] " + this.description
+                : "[ ] " + this.description;
     }
 
 }

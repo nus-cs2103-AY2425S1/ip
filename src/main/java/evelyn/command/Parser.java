@@ -1,26 +1,30 @@
 package evelyn.command;
 
-import evelyn.command.ui.textbased.TextBasedUi;
+import java.time.DateTimeException;
+import java.util.Objects;
+
 import evelyn.exception.InvalidInputException;
 import evelyn.exception.NoInputException;
 import evelyn.task.Deadline;
 import evelyn.task.Event;
 import evelyn.task.Todo;
 
-import java.time.DateTimeException;
-import java.util.Objects;
-
 /**
  * Houses all the logic for parsing words that have been inputted
  */
 public class Parser {
     private TaskList lst;
-    private String horizontalLine;
     public Parser(TaskList taskList) {
         this.lst = taskList;
-        this.horizontalLine = TextBasedUi.horizontalLine;
     }
 
+    /**
+     * Method parses the input string to determine what command is required.
+     * @param text The input text
+     * @return The response text
+     * @throws NoInputException Thrown when no input has been detected after a keyword
+     * @throws DateTimeException Thrown when the wrong date format has been keyed in
+     */
     public String parse(String text) throws NoInputException, DateTimeException {
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             this.lst.saveTasks();
@@ -30,7 +34,7 @@ public class Parser {
             return lst.removeTask(index);
         } else if (Objects.equals(text, "list")) {
             return lst.listTask();
-        }  else if (text.startsWith("mark")) {
+        } else if (text.startsWith("mark")) {
             int index = Integer.parseInt(text.substring(5)) - 1;
             return lst.markTask(index);
         } else if (text.startsWith("unmark")) {
@@ -64,7 +68,7 @@ public class Parser {
                 throw new InvalidInputException("invalid input for event");
             }
             String input = text.substring(6);
-            String[] partA = input.split(" /from " );
+            String[] partA = input.split(" /from ");
             String description = partA[0];
             String[] partB = partA[1].split(" /to ");
             String start = partB[0];

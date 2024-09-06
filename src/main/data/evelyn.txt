@@ -1,2 +1,3 @@
 [T][X] test1
 [T][ ] o
+[T][ ] test 2

@@ -1,15 +1,13 @@
 package evelyn.command;
 
-import evelyn.command.ui.textbased.TextBasedUi;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import evelyn.task.Deadline;
 import evelyn.task.Event;
 import evelyn.task.Task;
 import evelyn.task.Todo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-
-import java.util.ArrayList;
 
 /**
  * Houses all the logic for a Tasklist in the chatbot.
@@ -62,7 +60,7 @@ public class TaskList {
         str = str + "   " + task.toString() + "\n";
         str = str + ((this.listSize() > 1) ? "Now you have " + this.listSize() + " tasks in this list"
                 : "Now you have " + this.listSize() + " task in this list");
-       return str;
+        return str;
     }
 
     /**
@@ -151,11 +149,11 @@ public class TaskList {
         }
 
         if (foundSomething) {
-           return str;
+            return str;
         } else {
-           str = "It seems like there is no task that matches your specified keyword."
+            str = "It seems like there is no task that matches your specified keyword."
                    + " Try checking your spelling";
-           return str;
+            return str;
         }
     }
 
@@ -207,5 +205,4 @@ public class TaskList {
             throw new IOException();
         }
     }
-
 }

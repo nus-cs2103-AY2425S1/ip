@@ -1,19 +1,19 @@
 package evelyn.command.ui.gui;
 
-import evelyn.Evelyn;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
+
+import evelyn.Evelyn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Gui extends Application{
+/**
+ * Contains all the logic for the GUI for Evelyn.
+ */
+public class Gui extends Application {
     private static final String DEFAULT_FILE_PATH = "src/main/data/evelyn.txt";
     private String filePath;
     private Scene scene;
@@ -22,6 +22,10 @@ public class Gui extends Application{
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Constructor for the GUI.
+     * @param filePath the designated filepath for the data and stored information.
+     */
     public Gui(String filePath) {
         this.filePath = filePath;
     }
@@ -39,7 +43,7 @@ public class Gui extends Application{
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setEvelyn(evelyn);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setEvelyn(evelyn); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             System.err.println("Error starting application: " + e);

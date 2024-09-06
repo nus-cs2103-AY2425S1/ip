@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents a Deadline task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate date = null;
     private String time = null;
 
@@ -27,7 +27,7 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date.toString() +
-                (time == null? "" : " "+time) + ")";
+        return "[D]" + super.toString() + " (by: " + date.toString()
+                + (time == null ? "" : " " + time) + ")";
     }
 }

@@ -1,11 +1,11 @@
 package evelyn.command;
 
-import evelyn.task.Task;
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import evelyn.task.Task;
 
 /**
  * Houses all logic for storing and retrieving data from Evelyn.
@@ -55,7 +55,7 @@ public class Storage {
      * If file does not exist, this function creates a new file.
      * @throws IOException Exception thrown if there is a difficulty creating file.
      */
-    public void createNewDataFile() throws IOException{
+    public void createNewDataFile() throws IOException {
         this.file.createNewFile();
     }
 
@@ -64,7 +64,7 @@ public class Storage {
      * @return Returns FileReader object of the file.
      * @throws IOException Throws exception if there is difficulty reading file.
      */
-    public FileReader getFileReader() throws IOException{
+    public FileReader getFileReader() throws IOException {
         return new FileReader(dataPathFile);
     }
 }
