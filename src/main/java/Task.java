@@ -6,9 +6,13 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws EmptyDescriptionException {
+    public Task(String description){
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException();
+            try {
+                throw new EmptyDescriptionException();
+            } catch (EmptyDescriptionException e) {
+                System.out.println("This task ain't it pal.");
+            }
         }
         this.description = description;
         isDone = false;
@@ -76,6 +80,7 @@ public class Task {
     public String parseDate(String string) {
         // YYYY-MM-DD
         if (string.length() != 10) {
+            System.out.println("Well this happened BUG TESTING OUTPUT: " + string.length() + " for " + string);
             return string;
         }
 

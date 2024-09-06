@@ -2,13 +2,13 @@ public class Event extends Task {
     private String from;
     private String to;
 
-    public Event (String description, String from, String to) throws EmptyDescriptionException {
+    public Event (String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event (String description, String from, String to, boolean done) throws EmptyDescriptionException {
+    public Event (String description, String from, String to, boolean done) {
         super(description);
         this.from = from;
         this.to = to;
@@ -17,19 +17,21 @@ public class Event extends Task {
         }
     }
 
-    public Event (String str) throws IncompleteEventOrDeadlineException, EmptyDescriptionException {
+    public Event (String str) throws IncompleteEventOrDeadlineException {
         if (!str.contains("/from ") || !str.contains("/to ")) {
             throw new IncompleteEventOrDeadlineException();
         } else {
-            String desc = str.substring(0, str.toLowerCase().indexOf("/from "));
-            if (desc.isEmpty()) {
-                throw new EmptyDescriptionException();
-            }
-            description = desc;
-            from = parseDate(str.substring(str.toLowerCase().indexOf("/from ") + 6, str.toLowerCase().indexOf("/to ")));
-            to = parseDate(str.substring(str.toLowerCase().indexOf("/to ") + 4, str.length()));
-            if (from.isEmpty() || to.isEmpty()) {
-                throw new IncompleteEventOrDeadlineException();
+            try {
+                String desc = str.substring(6, str.toLowerCase().indexOf("/from "));
+                description = desc;
+                from = parseDate(str.substring(str.toLowerCase().indexOf("/from ") + 6,
+                        str.toLowerCase().indexOf("/to ") - 1)) + " ";
+                to = parseDate(str.substring(str.toLowerCase().indexOf("/to ") + 4, str.length()));
+                if (from.isEmpty() || to.isEmpty() || desc.isEmpty()) {
+                    throw new IncompleteEventOrDeadlineException();
+                }
+            } catch (IncompleteEventOrDeadlineException e) {
+                System.out.println("Stop slacking off"); //TODO PUT PROPER WORD HERE
             }
         }
     }
