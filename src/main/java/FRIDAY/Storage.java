@@ -1,9 +1,16 @@
 package FRIDAY;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * represents the database stored on the computer's hard drive
+ */
 public class Storage {
     private String filePath;
 
@@ -27,10 +34,9 @@ public class Storage {
                 populateProgramMemory(data, tasks);
             }
             fileScanner.close();
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             this.createDatabase();
-        }
-        finally {
+        } finally {
             return tasks;
         }
     }
@@ -57,26 +63,26 @@ public class Storage {
         int status = Integer.parseInt(taskElements[1].trim());
         String taskDesc = taskElements[2].trim();
         switch(taskType) {
-            case("T") :
-                Task toDo = new ToDo(taskDesc, status);
-                storage.add(toDo);
-                break;
-            case("E") :
-                String duration = taskElements[3].trim();
-                System.out.println(duration);
-                String[] startEnd = duration.split("from |to ");
-                String start = startEnd[1].trim();
-                String end = startEnd[2].trim();
-                Task event = new Event(taskDesc, start, end, status);
-                storage.add(event);
-                break;
-            case("D") :
-                String taskDeadline = taskElements[3];
-                Task deadline = new Deadline(taskDesc, taskDeadline, status);
-                storage.add(deadline);
-                break;
-            default:
-                throw new FRIDAYException("Encountered unrecognizable task type");
+        case("T"):
+            Task toDo = new ToDo(taskDesc, status);
+            storage.add(toDo);
+            break;
+        case("E"):
+            String duration = taskElements[3].trim();
+            System.out.println(duration);
+            String[] startEnd = duration.split("from |to ");
+            String start = startEnd[1].trim();
+            String end = startEnd[2].trim();
+            Task event = new Event(taskDesc, start, end, status);
+            storage.add(event);
+            break;
+        case("D"):
+            String taskDeadline = taskElements[3];
+            Task deadline = new Deadline(taskDesc, taskDeadline, status);
+            storage.add(deadline);
+            break;
+        default:
+            throw new FRIDAYException("Encountered unrecognizable task type");
         }
     }
 
@@ -88,14 +94,14 @@ public class Storage {
         try {
             File file = new File(filePath);
             File parentDir = file.getParentFile();
-            if(parentDir != null && !parentDir.exists()) {
+            if (parentDir != null && !parentDir.exists()) {
                 parentDir.mkdirs();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             taskList.forEach((task) -> {
                 try {
                     writer.write(task.storageDisplay() + "\n");
-                } catch (IOException e){
+                } catch (IOException e) {
                     System.out.println("Error writing to file");
                 }
             });

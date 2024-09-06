@@ -41,7 +41,7 @@ public class TaskList {
      * @return String representation of the list of tasks
      */
     public String displayTasks() {
-        if(taskList.isEmpty()) {
+        if (taskList.isEmpty()) {
             return "You currently have no tasks in your list";
         }
         StringBuilder sb = new StringBuilder();
@@ -80,16 +80,17 @@ public class TaskList {
     }
 
     /**
-     * This method searches the tasklist and returns an ArrayList of Tasks that have descriptions which contain the keyword
+     * This method searches the tasklist and returns an ArrayList of Tasks
+     * that have descriptions which contain the keyword
      * @param keyword the keyword that the user tries to search for
      * @return ArrayList of tasks that have descriptions containing the keyword
      */
     public ArrayList<Task> search(String keyword) {
         ArrayList<Task> list = new ArrayList<>();
         taskList.forEach((task) -> {
-          if(task.containsKeyword(keyword)) {
-              list.add(task);
-          }
+            if (task.containsKeyword(keyword)) {
+                list.add(task);
+            }
         });
         return list;
     }

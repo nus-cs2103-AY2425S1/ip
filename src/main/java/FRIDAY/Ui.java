@@ -3,6 +3,9 @@ package FRIDAY;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * User interface of the app
+ */
 public class Ui {
     private static final String GREETING_MESSAGE = "Hello! I'm FRIDAY\nWhat can I do for you?\n";
     private static final String FAREWELL_MESSAGE = "Bye. Hope to see you again soon!\n";
@@ -21,12 +24,24 @@ public class Ui {
         System.out.println(DIVIDER + FAREWELL_MESSAGE + DIVIDER);
     }
 
+    /**
+     * Prints out message upon adding of task to the task list
+     * @param task Task object
+     * @param numTasks  number of tasks in list
+     */
     public void printAdd(Task task, int numTasks) {
-        System.out.println(DIVIDER + "Got it. I've added this taskL:\n" + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
+        System.out.println(DIVIDER + "Got it. I've added this taskL:\n"
+                + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
     }
 
+    /**
+     * Prints out message on deletion of task from task list
+     * @param task Task object
+     * @param numTasks size of task list
+     */
     public void printRemove(Task task, int numTasks) {
-        System.out.println(DIVIDER + "Noted. I've removed this taskL:\n" + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
+        System.out.println(DIVIDER + "Noted. I've removed this taskL:\n"
+                + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
     }
 
     public void printCheck() {
@@ -48,6 +63,10 @@ public class Ui {
         System.out.println(input);
     }
 
+    /**
+     * method displays the list of tasks in a specific format
+     * @param searchResults array list of tasks
+     */
     public void displaySearchResults(ArrayList<Task> searchResults) {
         StringBuilder output = new StringBuilder(DIVIDER + "Here are the matching tasks from your list\n:");
         searchResults.forEach((task) -> {

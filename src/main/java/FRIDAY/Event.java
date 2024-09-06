@@ -8,7 +8,8 @@ package FRIDAY;
  * </p>
  */
 public class Event extends Task {
-    private String start, end;
+    private String start;
+    private String end;
 
     /**
      * Constructor for task of type Event
@@ -34,6 +35,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +  "(" + start + " to " + end + ")";
+        return "[E]" + super.toString() + "(" + start + " to " + end + ")";
     }
 }

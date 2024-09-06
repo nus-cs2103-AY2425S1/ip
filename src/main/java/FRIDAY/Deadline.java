@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * it allows for the storage and display of a deadline date
  * </p>
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate taskDeadline;
 
     /**
@@ -36,7 +36,8 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         //print it out in MM-DD-YYYY format
-        return "[D]" + super.toString() + "(" + taskDeadline.getMonth() + " " + taskDeadline.getDayOfMonth() + " " + taskDeadline.getYear() + ")";
+        return "[D]" + super.toString() + "(" + taskDeadline.getMonth() + " "
+                + taskDeadline.getDayOfMonth() + " " + taskDeadline.getYear() + ")";
     }
 
     public LocalDate getTaskDeadline() {

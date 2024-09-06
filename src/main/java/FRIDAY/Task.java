@@ -1,9 +1,17 @@
 package FRIDAY;
 
+/**
+ * Represents a task
+ */
 public class Task {
     private boolean isComplete;
     private String taskDescription;
 
+    /**
+     * constructor for Task object
+     * @param description task description
+     * @param type completion status of task
+     */
     public Task(String description, int type) {
         this.isComplete = type > 0;
         this.taskDescription = description;
@@ -28,6 +36,10 @@ public class Task {
         return str;
     }
 
+    /**
+     * Stores the task in a specific String format
+     * @return String of task details in a specific format
+     */
     public String storageDisplay() {
         String type = isComplete ? "1" : "0";
         return " | " + type + " | " + this.taskDescription;

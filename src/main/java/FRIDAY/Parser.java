@@ -22,7 +22,8 @@ public class Parser {
     }
 
     /**
-     * This method takes in a String representing user input and returns the details of the task that is meant to be created
+     * This method takes in a String representing user input and returns the
+     * details of the task that is meant to be created
      * @param input String representing user input
      * @return a String consisting of all relevant task details
      */
@@ -31,6 +32,11 @@ public class Parser {
         return String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
     }
 
+    /**
+     * this method returns a deadline task
+     * @param taskDetails description of the deadline task, deadline date
+     * @return deadline task
+     */
     public static Task parseDeadline(String taskDetails) {
         String[] deadlineDetails = taskDetails.split("/");
         String deadlineDescription = deadlineDetails[0].strip();
@@ -38,6 +44,11 @@ public class Parser {
         return new Deadline(deadlineDescription, deadlineDeadline, 0);
     }
 
+    /**
+     * creates an Event task
+     * @param taskDetails decsription, start and end times of the task
+     * @return Event task
+     */
     public static Task parseEvent(String taskDetails) {
         String[] eventDetails = taskDetails.split("/from");
         String[] startEnd = eventDetails[1].split("to");
