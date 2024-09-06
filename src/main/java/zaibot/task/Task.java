@@ -7,11 +7,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHSS");
-    private String name;
+    private final String name;
     private boolean isDone;
 
     /**
      * Creates a task, given the name
+     *
      * @param name A string representing the name
      */
     public Task(String name) {
@@ -65,6 +66,15 @@ public class Task {
         return String.format("[%s] %s",
                 isDone ? "X" : " ",
                 name);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Task otherTask) {
+            return name.equals(otherTask.name);
+        } else {
+            return false;
+        }
     }
 
 }

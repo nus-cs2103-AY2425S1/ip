@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 import zaibot.task.ToDoTask;
 import zaibot.utils.Storage;
@@ -22,7 +23,12 @@ public class TaskUpdateCommandTest {
 
     @Test
     public void execute_mark_success() {
-        tasks.addTask(new ToDoTask("one"));
+        try {
+            tasks.addTask(new ToDoTask("one"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+
         HashMap<String, String> optionMap = new HashMap<>();
 
         optionMap.put("number", "1");
@@ -50,7 +56,11 @@ public class TaskUpdateCommandTest {
     public void execute_unmark_success() {
         Task task = new ToDoTask("one");
         task.setDone(true);
-        tasks.addTask(task);
+        try {
+            tasks.addTask(task);
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
 
         HashMap<String, String> optionMap = new HashMap<>();
 
@@ -78,7 +88,11 @@ public class TaskUpdateCommandTest {
     @Test
     public void execute_delete_success() {
         Task task = new ToDoTask("one");
-        tasks.addTask(task);
+        try {
+            tasks.addTask(task);
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
 
         HashMap<String, String> optionMap = new HashMap<>();
 

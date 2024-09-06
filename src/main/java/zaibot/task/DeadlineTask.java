@@ -9,11 +9,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTask extends Task {
 
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Creates a DeadlineTask from the name, and a given deadline
-     * @param name A string representing the name of the event
+     *
+     * @param name     A string representing the name of the event
      * @param deadline A LocalDateTime object representing the datetime of the event
      */
     public DeadlineTask(String name, LocalDateTime deadline) {
@@ -31,5 +32,16 @@ public class DeadlineTask extends Task {
     public String toString() {
         DateTimeFormatter formatter = getFormatter();
         return String.format("[D]%s (by: %s)", super.toString(), deadline.format(formatter));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof DeadlineTask otherEvent) {
+            boolean isSameAsSuper = super.equals(other);
+            return (isSameAsSuper
+                    && deadline.equals(otherEvent.deadline));
+        } else {
+            return false;
+        }
     }
 }
