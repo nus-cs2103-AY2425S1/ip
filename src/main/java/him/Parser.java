@@ -2,6 +2,7 @@ package him;
 
 import command.Command;
 import command.AddCommand;
+import command.ExitCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -66,6 +67,7 @@ public class Parser {
             String keyword = parseFind(args);
             yield new FindCommand(keyword);
         }
+        case "bye" -> new ExitCommand();
         default -> new UnknownCommand(command);
         };
         //@formatter:on
