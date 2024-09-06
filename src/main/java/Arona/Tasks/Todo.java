@@ -1,13 +1,13 @@
-package Arona;
+package Arona.Tasks;
 
-public class Todos extends Task {
+public class Todo extends Task {
     protected String by;
 
     /**
      * Constructor for the to do class which encapsulates a task with irrelevant/any start and end date
      * @param  description  the name of the task
      * */
-    public Todos(String description) {
+    public Todo(String description) {
         super(description);
     }
 
@@ -17,6 +17,6 @@ public class Todos extends Task {
 
     @Override
     public String toString() {
-        return super.toString();
+        return getStatusIcon() + getCategory() + " " + getDescription();
     }
 }

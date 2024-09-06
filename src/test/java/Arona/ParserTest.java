@@ -14,18 +14,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ParserTest {
     // Set up dummy main class
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
+    private Parser parser;
 
     public void DummyArona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (Exception e) {
             ui.showException(e);
-            tasks = new TaskList(new ArrayList<>());
+            taskList = new TaskList();
         }
+        parser = new Parser(taskList, ui);
     }
 
     @Test
@@ -34,15 +36,15 @@ public class ParserTest {
 
         // Delete task zero
         try {
-            Parser.parse("delete ABC", storage, tasks, ui);
+            parser.parse("delete ABC");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a positive number.", e.getMessage());
+            assertEquals("Error! Please input a number.", e.getMessage());
         }
 
         // Delete a task that doesn't exist
         try {
-            Parser.parse("delete 100", storage, tasks, ui);
+            parser.parse("delete 100");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Error! This task does not exist!", e.getMessage());
@@ -55,15 +57,15 @@ public class ParserTest {
 
         // Delete task zero
         try {
-            Parser.parse("mark ABC", storage, tasks, ui);
+            parser.parse("mark ABC");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a positive number.", e.getMessage());
+            assertEquals("Error! Please input a number.", e.getMessage());
         }
 
         // Delete a task that doesn't exist
         try {
-            Parser.parse("unmark 100", storage, tasks, ui);
+            parser.parse("unmark 100");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Error! This task does not exist!", e.getMessage());
@@ -76,15 +78,15 @@ public class ParserTest {
 
         // No description
         try {
-            Parser.parse("deadline   ", storage, tasks, ui);
+            parser.parse("deadline   ");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a task description.", e.getMessage());
+            assertEquals("Error! Please input description and by date.", e.getMessage());
         }
 
         // No by date
         try {
-            Parser.parse("deadline /by", storage, tasks, ui);
+            parser.parse("deadline /by");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Error! Please input description and by date.", e.getMessage());
@@ -92,7 +94,7 @@ public class ParserTest {
 
         // Wrong date format
         try {
-            Parser.parse("deadline homework /by ????-??-??", storage, tasks, ui);
+            parser.parse("deadline homework /by ????-??-??");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Please input your date in yyyy-mm-dd format.", e.getMessage());
@@ -105,15 +107,15 @@ public class ParserTest {
 
         // No description
         try {
-            Parser.parse("event   ", storage, tasks, ui);
+            parser.parse("event   ");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a task description.", e.getMessage());
+            assertEquals("Error! Please input description, from date, and to date.", e.getMessage());
         }
 
         // No from and to date
         try {
-            Parser.parse("event party /from /to", storage, tasks, ui);
+            parser.parse("event party /from /to");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Error! Please input description, from date, and to date.", e.getMessage());
@@ -121,7 +123,7 @@ public class ParserTest {
 
         // Wrong date format
         try {
-            Parser.parse("event party /from ????-??-?? /to ????-??-??", storage, tasks, ui);
+            parser.parse("event party /from ????-??-?? /to ????-??-??");
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Please input your date in yyyy-mm-dd format.", e.getMessage());

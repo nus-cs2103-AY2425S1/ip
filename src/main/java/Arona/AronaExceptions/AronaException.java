@@ -1,4 +1,5 @@
-package Arona;
+package Arona.AronaExceptions;
+
 public class AronaException extends Exception {
     /**
      * Constructor for the exceptions class of Arona, encapsulates all possible user errors that are non-fatal and can
