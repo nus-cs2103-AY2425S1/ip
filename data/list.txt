@@ -1,5 +1,8 @@
 E | play | 17-08-1909 1200hrs | 17-08-1909 2359hrs | 0
 D | playy | 19-09-2050 1900hrs | 1
-T | unplayyy | 1
-T | sleepppp | 0
-T | playyyy | 0
+T | unplayyy | 0
+T | sleepppp | 1
+T | playyyy | 1
+T | play | 0
+T | study | 0
+T | watch lecturess | 0

@@ -25,12 +25,12 @@ public class TaskList {
      *
      * @param number The number of the task to mark as done.
      */
-    public void markTask(int number) {
+    public String markTask(int number) {
         listOfTasks.get(number - 1).setDone();
         String done = "Nice! I've marked this task as done:\n"
                 + "  ";
         done += listOfTasks.get(number - 1).toString();
-        Ui.displayForm(done);
+        return done;
     }
 
     /**
@@ -38,23 +38,23 @@ public class TaskList {
      *
      * @param number The number of the task to mark as not done.
      */
-    public void unmarkTask(int number) {
+    public String unmarkTask(int number) {
         listOfTasks.get(number - 1).setNotDone();
         String done = "OK, I've marked this task as not done yet:\n"
                 + "  ";
         done += listOfTasks.get(number - 1).toString();
-        Ui.displayForm(done);
+        return done;
     }
 
     /**
      * Displays the list of all tasks.
      */
-    public void displayList() {
+    public String displayList() {
         String list = "Here are the tasks in your list:";
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             list += "\n" + i + ". " + listOfTasks.get(i - 1);
         }
-        Ui.displayForm(list);
+        return list;
     }
 
     /**
@@ -62,24 +62,23 @@ public class TaskList {
      *
      * @param number The number of the task to delete.
      */
-    public void delete(int number) {
+    public String delete(int number) {
         Task temp = listOfTasks.get(number - 1);
         listOfTasks.remove(number - 1);
         String done = "Noted. I've removed this task:\n"
                 + "  " + temp
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
-        Ui.displayForm(done);
+        return done;
     }
 
     /**
      * Displays the last added task.
      */
-    public void displayLastAdded() {
-        Ui.displayForm(
-                "Got it. I've added this task:\n    "
-                        + listOfTasks.get(listOfTasks.size() - 1)
-                        + "\n"
-                        + "Now you have " + listOfTasks.size() + " in the list.");
+    public String displayLastAdded() {
+        return "Got it. I've added this task:\n    "
+                + listOfTasks.get(listOfTasks.size() - 1)
+                + "\n"
+                + "Now you have " + listOfTasks.size() + " in the list.";
     }
 
     /**
@@ -87,7 +86,7 @@ public class TaskList {
      *
      * @param word the word to search for in the task descriptions
      */
-    public void filterListByWord(String word) {
+    public String filterListByWord(String word) {
         String list = "Here are the matching tasks in your list:";
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
@@ -97,14 +96,14 @@ public class TaskList {
                 n++;
             }
         }
-        Ui.displayForm(list);
+        return list;
     }
     /**
      * Filters and displays tasks by the specified date.
      *
      * @param date The date to filter tasks by.
      */
-    public void filterListByDate(String date) {
+    public String filterListByDate(String date) {
         String list = "Here are the tasks in your list that you have to do on " + date + ":\n";
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
@@ -121,7 +120,7 @@ public class TaskList {
                 }
             }
         }
-        Ui.displayForm(list);
+        return list;
     }
 
     /**
@@ -130,9 +129,9 @@ public class TaskList {
      * @param task The task to be added.
      * @throws StobberiException If an error occurs while adding the task.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         listOfTasks.add(task);
-        displayLastAdded();
+        return displayLastAdded();
     }
 
     /**

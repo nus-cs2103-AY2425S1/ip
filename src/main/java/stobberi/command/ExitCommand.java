@@ -1,5 +1,7 @@
 package stobberi.command;
 
+import stobberi.components.Ui;
+
 /**
  * Represents a command that terminates the application.
  * This command sets the exit flag to true, indicating that the application should exit.
@@ -18,7 +20,8 @@ public class ExitCommand extends Command {
      * This indicates that the application should terminate.
      */
     @Override
-    public void execute() {
+    public String execute() {
         setExitTrue();
+        return Ui.sayGoodbye();
     }
 }

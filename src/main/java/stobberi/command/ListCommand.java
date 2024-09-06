@@ -24,7 +24,7 @@ public class ListCommand extends Command {
      * Executes the command by displaying all tasks in the {@link TaskList}.
      */
     @Override
-    public void execute() {
-        taskList.displayList();
+    public String execute() {
+        return taskList.displayList();
     }
 }

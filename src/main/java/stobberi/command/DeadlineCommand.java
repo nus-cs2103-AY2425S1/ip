@@ -42,16 +42,18 @@ public class DeadlineCommand extends Command {
      *                            or if the date/time format is incorrect.
      */
     @Override
-    public void execute() throws StobberiException {
+    public String execute() throws StobberiException {
+        String output;
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
         String[] parts = descriptions.split(" /by ");
         try {
-            taskList.addTask(new Deadline(parts[0], parts[1]));
+            output = taskList.addTask(new Deadline(parts[0], parts[1]));
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException(
                     "Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }
+        return output;
     }
 }

@@ -37,10 +37,10 @@ public class TodoCommand extends Command {
      * @throws StobberiException if the task description is empty.
      */
     @Override
-    public void execute() throws StobberiException {
+    public String execute() throws StobberiException {
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
-        taskList.addTask(new Todo(descriptions));
+        return taskList.addTask(new Todo(descriptions));
     }
 }

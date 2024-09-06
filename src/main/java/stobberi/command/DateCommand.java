@@ -38,13 +38,15 @@ public class DateCommand extends Command {
      * @throws StobberiException if an error occurs during command execution or if the date format is invalid.
      */
     @Override
-    public void execute() throws StobberiException {
+    public String execute() throws StobberiException {
+        String output;
         try {
-            taskList.filterListByDate(date);
+            output = taskList.filterListByDate(date);
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException(
                     "Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n"
                     + e.getMessage());
         }
+        return output;
     }
 }

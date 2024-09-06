@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
      * Executes the command by marking the specified task as completed in the {@link TaskList}.
      */
     @Override
-    public void execute() {
-        taskList.markTask(taskNumber);
+    public String execute() {
+        return taskList.markTask(taskNumber);
     }
 }

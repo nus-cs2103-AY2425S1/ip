@@ -43,7 +43,7 @@ public class EventCommand extends Command {
      *                            or if the date/time format is incorrect.
      */
     @Override
-    public void execute() throws StobberiException {
+    public String execute() throws StobberiException {
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
@@ -51,11 +51,13 @@ public class EventCommand extends Command {
         String[] eventParts = descriptions.split(" /from ");
         String[] secondParts = eventParts[1].split(" /to ");
 
+        String output;
         try {
-            taskList.addTask(new Event(eventParts[0], secondParts[0], secondParts[1]));
+            output = taskList.addTask(new Event(eventParts[0], secondParts[0], secondParts[1]));
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException(
                     "Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }
+        return output;
     }
 }
