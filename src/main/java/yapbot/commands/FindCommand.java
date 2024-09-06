@@ -3,7 +3,6 @@ package yapbot.commands;
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class FindCommand extends Command {
 
@@ -28,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
         String matchingTasks = tasks.getMatchingTasks(query);
         String successMessage = "Querying Database for \"" + query + "\"...Success\nMatching Tasks:\n";
 
@@ -37,16 +36,11 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks == null) {
-            ui.printOutput(successMessage + "  No Matching Tasks found.");
+            return successMessage + "  No Matching Tasks found.";
         } else {
-            ui.printOutput(successMessage + matchingTasks);
+            return successMessage + matchingTasks;
         }
 
-        return true;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

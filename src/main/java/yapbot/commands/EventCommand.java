@@ -5,7 +5,6 @@ import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class EventCommand extends Command {
 
@@ -33,7 +32,7 @@ public class EventCommand extends Command {
      * @throws YapBotException If task details do not contain start and end times/dates.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
         boolean containsFrom = taskDetails.contains("/from");
         boolean containsTo = taskDetails.contains("/to");
 
@@ -43,7 +42,7 @@ public class EventCommand extends Command {
         }
 
         if (!containsFrom) {
-            throw new YapBotException("Error, start time not detected.\nSupply start time using \"/from\" (eg. "
+            throw new YapBotException("Error, start time not deteced.\nSupply start time using \"/from\" (eg. "
                     + "/from Monday 1pm).");
         }
 
@@ -73,13 +72,8 @@ public class EventCommand extends Command {
 
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
-        ui.printOutput(successMessage);
 
-        return true;
+        return successMessage;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
