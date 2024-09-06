@@ -45,6 +45,18 @@ public class TaskList {
         return t;
     }
 
+    public TaskList findTasks(String text) throws DescriptionException {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : list) {
+            String description = task.getDescription();
+            if (description.contains(text)) {
+                matchingTasks.addNewTask(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     /**
      * Returns the total number of tasks
      * @return number of tasks

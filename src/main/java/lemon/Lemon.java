@@ -143,6 +143,19 @@ public class Lemon {
                         ui.printDeleteTaskMsg(t.toString(), tasks.size());
                         break;
                     }
+                    case FIND: {
+                        String next = systemScanner.nextLine();
+                        if (next.isEmpty() || next.equals(" ")) {
+                            throw new InvalidFormatException(" Please specify what you need me to find ^-^");
+                        }
+
+                        TaskList matchingTasks = tasks.findTasks(next);
+                        if (matchingTasks.size() > 0) {
+                            ui.printMatchingTaskMsg(matchingTasks.toString());
+                        } else {
+                            ui.printNoMatchingMsg();
+                        }
+                    }
                 }
             } catch (InvalidCommandException | DescriptionException e) {
                 System.out.println(e.getMessage());
