@@ -29,6 +29,11 @@ public class Parser {
         return input.trim();
     }
 
+    /**
+     * Returns parsed result for input about event
+     * @param input arguments for event keyword
+     * @return parsed strings for event keyword
+     */
     public static String[] parseEvent(String input) {
         String[] args = input.trim().split("/");
 
@@ -38,6 +43,11 @@ public class Parser {
         return args;
     }
 
+    /**
+     * Returns parsed result for input about event
+     * @param input arguments for deadline keyword
+     * @return parsed strings for event keyword
+     */
     public static String[] parseDeadline(String input) {
         String[] args = input.trim().split("/");
         args[0] = args[0].trim();

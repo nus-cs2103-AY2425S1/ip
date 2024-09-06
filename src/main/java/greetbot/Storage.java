@@ -19,7 +19,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    //Solution for load and readEntry is adapted from https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Storage.java
+    //Solution for load and readEntry is adapted from
+    // https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Storage.java
 
     /**
      * Returns a task array which represents the current material in the database.
@@ -33,7 +34,7 @@ public class Storage {
         try {
             dir.mkdir();
             if (!Files.exists(dataPath)) {
-                 database.createNewFile();
+                database.createNewFile();
             } else {
                 Scanner fileReader = new Scanner(database);
                 while (fileReader.hasNextLine()) {
@@ -45,14 +46,15 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (EmptyDescriptionException | RandomInputException e) {
-
+            int doSomething = 0;
         }
 
 
         return taskList.toArray(new Task[0]);
     }
 
-    private void readEntry(String entry, ArrayList<Task> taskList) throws EmptyDescriptionException, RandomInputException {
+    private void readEntry(String entry, ArrayList<Task> taskList) throws
+            EmptyDescriptionException, RandomInputException {
         String[] fields = entry.split("\\|");
         char typeOfTask = fields[0].charAt(0);
         if (typeOfTask == 'T') {
