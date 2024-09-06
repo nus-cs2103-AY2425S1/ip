@@ -46,8 +46,6 @@ public class TaskListCli extends TaskListUi {
 
     /**
      * Creates a new TaskListUI object with the specified scanner.
-     *
-     * @param scanner Input scanner for reading user input
      */
     public static TaskListCli getScannerInstance() {
         if (instance == null) {

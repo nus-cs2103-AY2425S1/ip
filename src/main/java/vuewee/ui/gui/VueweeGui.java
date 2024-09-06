@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import vuewee.ui.TaskListGui;
 
 /**
@@ -15,7 +14,7 @@ import vuewee.ui.TaskListGui;
  * methods to send messages to the user and to handle user input.
  */
 public class VueweeGui extends Application {
-    public static TaskListGui taskListGui;
+    private static TaskListGui taskListGui;
     private static MainWindow window;
 
     public VueweeGui() {
@@ -27,6 +26,10 @@ public class VueweeGui extends Application {
 
     public static void sendMessage(String message) {
         VueweeGui.window.sendBotMessage(message);
+    }
+
+    public static void processUserInput(String userInput) {
+        VueweeGui.taskListGui.processInput(userInput);
     }
 
     @Override

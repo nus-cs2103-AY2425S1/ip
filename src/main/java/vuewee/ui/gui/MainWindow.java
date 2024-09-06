@@ -42,6 +42,6 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         this.dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
         userInput.clear();
-        VueweeGui.taskListGui.processInput(userText);
+        VueweeGui.processUserInput(userText);
     }
 }

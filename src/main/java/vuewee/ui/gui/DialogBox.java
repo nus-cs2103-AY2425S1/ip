@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a dialog box to indicate a message from the user or Vuewee.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
