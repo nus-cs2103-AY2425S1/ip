@@ -38,6 +38,13 @@ public class Elon {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Elon heard: " + input;
+    }
+
+    /**
      * The main method to run the Elon application.
      * Initializes the Storage and Elon objects and starts the application.
      *
