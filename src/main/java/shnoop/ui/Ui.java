@@ -1,3 +1,7 @@
+package shnoop.ui;
+
+import shnoop.tasks.*;
+
 import java.util.Scanner;
 
 public class Ui {

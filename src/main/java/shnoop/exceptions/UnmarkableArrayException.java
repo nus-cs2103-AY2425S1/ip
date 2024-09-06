@@ -1,3 +1,4 @@
+package shnoop.exceptions;
 public class UnmarkableArrayException extends Exception {
 
     public UnmarkableArrayException(String message) {

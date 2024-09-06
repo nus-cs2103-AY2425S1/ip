@@ -1,3 +1,4 @@
+package shnoop.exceptions;
 public class ImproperFileTypeException extends Exception {
 
     public ImproperFileTypeException(String message) {

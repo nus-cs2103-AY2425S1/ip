@@ -1,3 +1,12 @@
+package shnoop;
+
+import shnoop.command.*;
+import shnoop.exceptions.*;
+import shnoop.storage.Storage;
+import shnoop.tasks.*;
+import shnoop.ui.*;
+
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
