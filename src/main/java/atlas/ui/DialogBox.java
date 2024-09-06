@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -35,6 +36,10 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        // @@author KennethTeo2002
+        // Got the idea to clip image using a circle from his code
+        Circle circle = new Circle(50, 50, 40);
+        displayPicture.setClip(circle);
         displayPicture.setImage(img);
     }
 
@@ -42,6 +47,7 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
+        dialog.getStyleClass().add("reply-label");
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
