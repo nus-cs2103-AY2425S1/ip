@@ -3,7 +3,7 @@ package froggy;
 /**
  * Represents a task with only a description.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor that takes in a description for task.

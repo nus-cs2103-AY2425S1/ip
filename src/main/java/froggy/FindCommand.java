@@ -3,7 +3,7 @@ package froggy;
 /**
  * Find a task by searching for keyword in task description.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private String input;
 

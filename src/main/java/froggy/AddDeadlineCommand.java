@@ -12,7 +12,7 @@ public class AddDeadlineCommand extends Command {
      *
      * @param input raw input
      */
-    public AddDeadlineCommand(String input){
+    public AddDeadlineCommand(String input) {
         this.input = input;
     }
 

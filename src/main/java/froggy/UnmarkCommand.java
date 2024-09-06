@@ -3,7 +3,7 @@ package froggy;
 /**
  * Marks a task as undone based on index.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
 
     private String input;
 

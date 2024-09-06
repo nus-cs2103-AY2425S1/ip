@@ -3,7 +3,7 @@ package froggy;
 /**
  * Marks a task as done based on index.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     private String input;
 

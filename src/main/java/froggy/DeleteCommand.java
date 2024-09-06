@@ -3,7 +3,7 @@ package froggy;
 /**
  * Deletes a task from task list based on index.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private String input;
 

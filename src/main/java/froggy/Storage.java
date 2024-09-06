@@ -48,6 +48,8 @@ public class Storage {
                             newEvent.setStatus(isDone);
                             taskList.add(newEvent);
                             break;
+                        default:
+                            System.out.println("File error");
                         }
                     }
                 }

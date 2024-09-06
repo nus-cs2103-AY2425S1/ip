@@ -12,7 +12,7 @@ public class AddTodoCommand extends Command {
      *
      * @param input raw input.
      */
-    public AddTodoCommand(String input){
+    public AddTodoCommand(String input) {
         this.input = input;
     }
 
