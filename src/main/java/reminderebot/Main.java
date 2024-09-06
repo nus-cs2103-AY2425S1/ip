@@ -95,8 +95,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String dukeText = reminderebot.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, dukeImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getReminderebotDialog(dukeText, dukeImage)
         );
         userInput.clear();
     }
