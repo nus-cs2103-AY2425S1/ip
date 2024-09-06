@@ -16,10 +16,11 @@ public class Ui {
     /**
      * Outputs the chatbot welcome message
      */
-    public void showWelcome() {
-        System.out.println("----------------------------------");
-        System.out.println("Hello! I'm Azir");
-        System.out.println("What can I do for you?");
+    public static String showWelcome() {
+        String response = "";
+        response += "Hello! I'm Azir\n";
+        response += "What can I do for you?";
+        return response;
     }
 
     /**
@@ -43,15 +44,16 @@ public class Ui {
     /**
      * Outputs message for list and find command
      */
-    public void showCommandEndMessage(String command) {
+    public String showCommandEndMessage(String command) {
         switch (command) {
         case "list":
-            System.out.println("Here are the tasks in your list:");
-            break;
+            return "Here are the tasks in your list:\n";
 
         case "find":
-            System.out.println("Here are the matching tasks in your list:");
-            break;
+            return "Here are the matching tasks in your list:\n";
+
+        default:
+            return "";
         }
     }
 
@@ -61,37 +63,41 @@ public class Ui {
      * @param command User input
      * @param task Corresponding task for command
      */
-    public void showCommandEndMessage(String command, String task) {
+    public String showCommandEndMessage(String command, String task) {
+        String botOutput = "";
         switch (command) {
         case "mark":
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task);
-            break;
+            botOutput += "Nice! I've marked this task as done:\n";
+            botOutput += task + "\n";
+            return botOutput;
 
         case "unmark":
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(task);
-            break;
+            botOutput += "OK, I've marked this task as not done yet:\n";
+            botOutput += task + "\n";
+            return botOutput;
 
         case "delete":
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task);
-            break;
+            botOutput += "Noted. I've removed this task:\n";
+            botOutput += task + "\n";
+            return botOutput;
 
         case "todo":
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            break;
+            botOutput += "Got it. I've added this task:\n";
+            botOutput += task + "\n";
+            return botOutput;
 
         case "deadline":
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            break;
+            botOutput += "Got it. I've added this task:\n";
+            botOutput += task + "\n";
+            return botOutput;
 
         case "event":
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            break;
+            botOutput += "Got it. I've added this task:\n";
+            botOutput += task + "\n";
+            return botOutput;
+
+        default:
+            return "";
         }
     }
 
@@ -100,8 +106,8 @@ public class Ui {
      *
      * @param size Size of task list
      */
-    public void showTaskNumber(int size) {
-        System.out.printf("Now you have %d %s in the list\n", size, size == 1 ? "task" : "tasks");
+    public String showTaskNumber(int size) {
+        return String.format("Now you have %d %s in the list\n", size, size == 1 ? "task" : "tasks");
     }
 
     /**
@@ -109,7 +115,7 @@ public class Ui {
      *
      * @param message The error message
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 }
