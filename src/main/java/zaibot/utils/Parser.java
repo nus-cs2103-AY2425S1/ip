@@ -35,10 +35,10 @@ public class Parser {
             default:
                 throw new ZaibotException("Are you missing arguments? Invalid command.");
             }
-
         }
 
         String commandName = command.substring(0, command.indexOf(' '));
+        assert !commandName.isEmpty();
 
         switch (commandName) {
         case "mark":
