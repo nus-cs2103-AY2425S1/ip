@@ -50,18 +50,6 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Toggles dark mode for the main pane.
-     */
-    @FXML
-    private void toggleDarkMode() {
-        isDarkMode = !isDarkMode;
-        mainPane.getStyleClass().removeIf(style -> style.equals("dark-mode"));
-        if (isDarkMode) {
-            mainPane.getStyleClass().add("dark-mode");
-        }
-    }
-
-    /**
      * Sets the Duke instance.
      *
      * @param d The Duke instance to be used
