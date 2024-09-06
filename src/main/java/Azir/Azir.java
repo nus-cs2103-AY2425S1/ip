@@ -40,7 +40,7 @@ public class Azir {
     }
 
     /**
-     * Runs the Azir chat bot
+     * Runs the Azir chatbot
      *
      * @throws IOException If there are errors with the file
      */
