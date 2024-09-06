@@ -4,12 +4,12 @@ import maga.task.TaskList;
 import maga.task.TaskManager;
 
 /**
- * The {@code Maga} class represents the main application for a task management bot.
- * It handles the initialization, execution, and shutdown processes of the bot.
- * This class manages the lifecycle of key components such as the {@code TaskManager},
- * {@code TaskList}, and {@code Ui}.
- */
- public class Maga {
+* The {@code Maga} class represents the main application for a task management bot.
+* It handles the initialization, execution, and shutdown processes of the bot.
+* This class manages the lifecycle of key components such as the {@code TaskManager},
+* {@code TaskList}, and {@code Ui}.
+*/
+public class Maga {
     private Ui ui;
     private TaskList taskList;
     private TaskManager taskManager;

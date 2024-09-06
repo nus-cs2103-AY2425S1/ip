@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * The specific type of task is determined by subclasses.
  */
 public abstract class Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected String description;
     protected boolean isDone;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Constructs a {@code Task} with the given description.
@@ -75,8 +75,7 @@ public abstract class Task {
      * Only called when parsing string representation of tasks from the Maga data file by {@code TaskManager}.
      *
      * @param taskString The string representation of the task.
-     * @return A {@code Task} object created from the string, or a default {@code TodoTask}
-     * if the string cannot be parsed.
+     * @return A {@code Task} object created from the string, or a default {@code TodoTask} if string cannot be parsed.
      */
     public static Task fromString(String taskString) {
         String[] parts = taskString.split(" \\| ");

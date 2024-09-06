@@ -1,10 +1,11 @@
 package maga;
 
-import maga.task.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import maga.task.TaskList;
+
 
 /**
  * The {@code Controller} class is responsible for handling user input, delegating commands to the {@code TaskList},
@@ -120,8 +121,8 @@ public class Controller {
         } catch (NumberFormatException e) {
             return "You can only delete a maga.task number! No one calls amendments by their names!!";
         } catch (InvalidCommandException e) {
-            return "HEY! SLEEPY JOE and CROOKED KAMALA " +
-                    "might be demented but you're not! Specify a command!";
+            return "HEY! SLEEPY JOE and CROOKED KAMALA "
+                    + "might be demented but you're not! Specify a command!";
         }
     }
 }

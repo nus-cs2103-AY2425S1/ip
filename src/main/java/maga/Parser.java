@@ -11,14 +11,14 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     /**
      * Constructs a new {@code Parser} instance.
      * This constructor initializes the parser with a default date formatter.
      */
     public Parser() {
     }
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private Command<Integer> listTasks() {
         return new Command<>("list", null);
@@ -57,7 +57,7 @@ public class Parser {
         String[] descriptionArray = description.split("/");
         LocalDate[] date = new LocalDate[1];
         try {
-            date[0] = LocalDate.parse(descriptionArray[1], formatter);
+            date[0] = LocalDate.parse(descriptionArray[1], FORMATTER);
         } catch (DateTimeParseException e) {
             throw e;
         }
@@ -67,10 +67,11 @@ public class Parser {
     private Command<LocalDate[]> addDeadlineTask(String input) throws DateTimeParseException {
         String description = input.substring(9).trim();
         String[] descriptionArray = description.split("/");
-        LocalDate fromDate, toDate;
+        LocalDate fromDate;
+        LocalDate toDate;
         try {
-            fromDate = LocalDate.parse(descriptionArray[1], formatter);
-            toDate = LocalDate.parse(descriptionArray[2], formatter);
+            fromDate = LocalDate.parse(descriptionArray[1], FORMATTER);
+            toDate = LocalDate.parse(descriptionArray[2], FORMATTER);
         } catch (DateTimeParseException e) {
             throw e;
         }
@@ -95,15 +96,15 @@ public class Parser {
         String command = input.split(" ")[0];
 
         return switch (command) {
-            case "list" -> listTasks();
-            case "mark" -> markTask(input);
-            case "unmark" -> unmarkTask(input);
-            case "delete" -> deleteTask(input);
-            case "find" -> findTask(input);
-            case "todo" -> addTodoTask(input);
-            case "event" -> addEventTask(input);
-            case "deadline" -> addDeadlineTask(input);
-            default -> throw new InvalidCommandException();
+        case "list" -> listTasks();
+        case "mark" -> markTask(input);
+        case "unmark" -> unmarkTask(input);
+        case "delete" -> deleteTask(input);
+        case "find" -> findTask(input);
+        case "todo" -> addTodoTask(input);
+        case "event" -> addEventTask(input);
+        case "deadline" -> addDeadlineTask(input);
+        default -> throw new InvalidCommandException();
         };
     }
 }

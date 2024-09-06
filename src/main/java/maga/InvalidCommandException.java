@@ -5,9 +5,9 @@ package maga;
  * command is input by the user. This exception is used in the {@code Parser} class
  * to handle unsupported commands.
  */
-public class InvalidCommandException extends Exception{
+public class InvalidCommandException extends Exception {
 
-    public InvalidCommandException(){
+    public InvalidCommandException() {
         super();
     }
 }

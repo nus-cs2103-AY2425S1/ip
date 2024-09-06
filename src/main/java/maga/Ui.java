@@ -1,8 +1,8 @@
 package maga;
 
-import maga.task.TaskList;
-
 import java.util.Scanner;
+
+import maga.task.TaskList;
 
 /**
  * The {@code Ui} class represents the user interface for interacting with the Maga bot.
@@ -31,8 +31,8 @@ public class Ui {
                 + " | |  | || (_| || (_| || (_| || \n"
                 + " |_|  |_| \\__,_| \\__, | \\__,_|  \n"
                 + "                  |___/                           \n";
-        System.out.println("Hello from\n" + logo +"\nI am THE best chatbot from the one and only" +
-                " US of A trust me everyone says I'm the best. How can I help you serve the American people?" );
+        System.out.println("Hello from\n" + logo + "\nI am THE best chatbot from the one and only"
+                + " US of A trust me everyone says I'm the best. How can I help you serve the American people?");
     }
 
     /**

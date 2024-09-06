@@ -1,10 +1,11 @@
 package maga.task;
 
-import maga.Command;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import maga.Command;
+
 
 /**
  * The {@code TaskList} class manages a list of tasks.
@@ -66,8 +67,8 @@ public class TaskList {
         try {
             Task tempTask = taskList.get(taskNumber);
             taskList.remove(taskNumber);
-            return "I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
-                    tempTask.getDescription() + "\nYou have " + taskList.size() + " task(s) now!\n";
+            return "I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon()
+                    + tempTask.getDescription() + "\nYou have " + taskList.size() + " task(s) now!\n";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             return "Invalid task specified!";
         }
@@ -83,11 +84,11 @@ public class TaskList {
         try {
             Task temp = taskList.get(taskNumber);
             temp.markAsDone();
-            return "Ya boi Donald took the LIBERTY to mark this done:\n" +
-                    temp.getTaskType() + temp.getStatusIcon() + temp.getDescription() + "\n";
+            return "Ya boi Donald took the LIBERTY to mark this done:\n"
+                    + temp.getTaskType() + temp.getStatusIcon() + temp.getDescription() + "\n";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            return "You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. " +
-                    "Some of the kindest and most lovely souls I've met";
+            return "You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. "
+                    + "Some of the kindest and most lovely souls I've met";
         }
     }
 
@@ -101,11 +102,11 @@ public class TaskList {
         try {
             Task temp = taskList.get(taskNumber);;
             temp.markAsUndone();
-            return "Here's the task promised but not completed, just like the DEMS\n" +
-                    temp.getStatusIcon() + temp.getDescription() + "\n";
+            return "Here's the task promised but not completed, just like the DEMS\n"
+                    + temp.getStatusIcon() + temp.getDescription() + "\n";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            return "Stop trying to unmark tasks like ILLEGAL ALIENS after" +
-                    " I'm president: NOT HERE!";
+            return "Stop trying to unmark tasks like ILLEGAL ALIENS after"
+                    + " I'm president: NOT HERE!";
         }
     }
 
@@ -165,7 +166,8 @@ public class TaskList {
         try {
             taskList.add(task);
             return "Another maga.task for the American people added:\n" + task.getTaskType()
-                    + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskList.size() + " task(s) now!\n";
+                    + task.getStatusIcon() + task.getDescription() + "\nYou have "
+                    + taskList.size() + " task(s) now!\n";
         } catch (IndexOutOfBoundsException e) {
             return "Tasklist is full!";
         }

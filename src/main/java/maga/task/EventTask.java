@@ -34,8 +34,8 @@ public class EventTask extends Task {
 
     /**
      * Returns a string representation of the event task.
-     * The format is: "E | <status> | <description> | <date>" where
-     * <status> is 1 if done, 0 otherwise, <description> is the task's description, and <date> is the task's date.
+     * The format is: "E | status | description | date" where
+     * status is 1 if done, 0 otherwise, description is the task's description, and date is the task's date.
      *
      * @return A string representation of the event task.
      */

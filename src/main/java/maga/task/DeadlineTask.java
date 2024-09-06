@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task with a start and end date.
  * A deadline task has a description, a completion status, and a date range.
  */
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     protected LocalDate startDate;
     protected LocalDate endDate;
 
@@ -21,7 +21,8 @@ public class DeadlineTask extends Task{
      * @param endDate     The end date of the deadline.
      * @throws DateTimeParseException If the provided date strings cannot be parsed into {@code LocalDate}.
      */
-    public DeadlineTask(boolean isDone, String description, LocalDate startDate, LocalDate endDate) throws DateTimeParseException {
+    public DeadlineTask(boolean isDone, String description, LocalDate startDate, LocalDate endDate)
+            throws DateTimeParseException {
         super(description);
         this.isDone = isDone;
         this.startDate = startDate;
@@ -67,7 +68,7 @@ public class DeadlineTask extends Task{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
         String formattedFrom = startDate.format(formatter);
         String formattedTo = endDate.format(formatter);
-        return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " from " + formattedFrom +
-                " to " + formattedTo;
+        return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " from " + formattedFrom
+                + " to " + formattedTo;
     }
 }
