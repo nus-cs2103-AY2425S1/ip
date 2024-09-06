@@ -38,11 +38,11 @@ public class MarkCommand extends Command {
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 throw new InvalidMarkArgument();
             }
-            Task taskToMark = tasks.getTask(taskIndex);  // Get the task to be marked
-            tasks.markTask(taskIndex);  // Mark the task as completed
-            ui.showTaskMarked(taskToMark);  // Show the user that the task was marked
+            Task taskToMark = tasks.getTask(taskIndex); // Get the task to be marked
+            tasks.markTask(taskIndex); // Mark the task as completed
+            ui.showTaskMarked(taskToMark); // Show the user that the task was marked
 
-            storage.save(tasks.getTasks());  // Save the updated task list to the file
+            storage.save(tasks.getTasks()); // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
