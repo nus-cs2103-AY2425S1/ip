@@ -57,6 +57,16 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    public TaskList fuzzyFind(String input) {
+        TaskList temp = new TaskList();
+        for (Task i : tasks) {
+            if (i.toString().contains(input)){
+                temp.add(i);
+            }
+        }
+        return temp;
+    }
+    
     /**
      * Marks the task at the specified index as completed.
      *

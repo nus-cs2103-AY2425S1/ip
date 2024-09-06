@@ -18,6 +18,7 @@ public class Commands {
         BYE,
         HELP,
         DELETE,
+        FIND,
     }
 
     /**
@@ -93,6 +94,8 @@ public class Commands {
                 break;
             case DELETE:
                 runDelete(taskList, input);
+            case FIND:
+                runFind(taskList, input);
                 break;
             default:
                 throw new RuntimeException("Unknown argument/ Function not implemented yet");
@@ -249,6 +252,15 @@ public class Commands {
             System.out.println("Param given for marking a task is wrong, please try again");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Index out of bound, please try again");
+        }
+    }
+
+    public void runFind(TaskList taskList, String input) {
+        try {
+            System.out.println("Here is the search result:");
+            System.out.println(taskList.fuzzyFind(input));
+        } catch (RuntimeException e) {
+            System.out.println("Something went wrong with the search");
         }
     }
 }
