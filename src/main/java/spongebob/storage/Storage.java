@@ -144,13 +144,4 @@ public class Storage {
             System.out.println("Error");
         }
     }
-
-    /**
-     *  Checks if data from the text file is loaded.
-     *
-     * @return True if tasklist is loaded, else false
-     */
-    public boolean isEmpty() {
-        return this.data == null;
-    }
 }
