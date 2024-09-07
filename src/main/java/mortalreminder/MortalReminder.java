@@ -1,9 +1,11 @@
 package mortalreminder;
 
+import mortalreminder.backend.CommandAlternativesStorage;
 import mortalreminder.backend.Processor;
 import mortalreminder.backend.TaskListStorage;
 import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.Command;
+import mortalreminder.commands.CommandAlternatives;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 
@@ -16,6 +18,8 @@ public class MortalReminder {
 
     private TaskList taskList = new TaskList();
 
+    private CommandAlternatives commandAlternatives;
+
     /**
      * This method loads all tasks from storage and greets the user.
      *
@@ -23,7 +27,9 @@ public class MortalReminder {
      */
     public String welcome() {
         try {
+            TaskListStorage.initialise();
             this.taskList = TaskListStorage.loadTaskListFromFile();
+            this.commandAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
         } catch (MortalReminderException e) {
             return e.getMessage();
         }

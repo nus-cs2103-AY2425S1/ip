@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import mortalreminder.commands.CommandAlternatives;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
@@ -41,21 +42,21 @@ public class CommandAlternativesStorage {
      * @return Hashmap of all saved commands
      * @throws MortalReminderException if the file is corrupted and cannot be created
      */
-    public static HashMap<String, CommandType> loadCommandsFromFile() throws MortalReminderException {
+    public static CommandAlternatives loadCommandsFromFile() throws MortalReminderException {
         try {
             File f = new File(STORAGE_ALTERNATIVE_COMMAND_PATH);
-            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() && f.exists();
+            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() || f.exists();
             Scanner s = new Scanner(f);
-            HashMap<String, CommandType> commandAlternatives = new HashMap<>();
+            HashMap<String, CommandType> stringCommandTypeHashMap = new HashMap<>();
             while (s.hasNextLine()) {
                 String input = s.nextLine();
                 String[] inputSplit = input.split(" ");
                 String commandString = inputSplit[0];
                 CommandType commandType = CommandType.valueOf(inputSplit[1].toUpperCase());
-                commandAlternatives.put(commandString, commandType);
+                stringCommandTypeHashMap.put(commandString, commandType);
             }
             s.close();
-            return commandAlternatives;
+            return new CommandAlternatives(stringCommandTypeHashMap);
         } catch (RuntimeException | IOException e) {
             throw new MortalReminderException("Corrupted storage file!");
         }

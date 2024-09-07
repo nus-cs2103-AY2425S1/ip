@@ -1,7 +1,6 @@
 package mortalreminder.io;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 import mortalreminder.backend.CommandAlternativesStorage;
 import mortalreminder.commands.Command;
@@ -47,8 +46,7 @@ public class Parser {
      * Parses a user input into a {@link CommandType}.
      */
     public static CommandType parseCommandWord(String commandWord) throws MortalReminderException {
-        HashMap<String, CommandType> currentMappedCommands = CommandAlternativesStorage.loadCommandsFromFile();
-        CommandAlternatives allMappedCommands = new CommandAlternatives(currentMappedCommands);
+        CommandAlternatives allMappedCommands = CommandAlternativesStorage.loadCommandsFromFile();
         if (allMappedCommands.getCommandType(commandWord) != null) {
             return allMappedCommands.getCommandType(commandWord);
         }

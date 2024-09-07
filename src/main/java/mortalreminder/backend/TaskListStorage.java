@@ -23,6 +23,20 @@ public class TaskListStorage {
     protected static final String STORAGE_LIST_FILE_PATH = "src/main/resources/data/listStorage.txt";
 
     /**
+     * Initialises the storage on first start of the App.
+     */
+    public static void initialise() throws MortalReminderException {
+        try {
+            File f = new File(STORAGE_LIST_FILE_PATH);
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+            f.exists();
+        } catch (IOException e) {
+            throw new MortalReminderException("File Creation Problem!");
+        }
+    }
+
+    /**
      * Appends a task to the storage file.
      * <p>
      * This method opens the storage file in append mode and writes the task in its file format
@@ -93,7 +107,7 @@ public class TaskListStorage {
     public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {
             File f = new File(STORAGE_LIST_FILE_PATH);
-            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() && f.exists();
+            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() || f.exists();
             Scanner s = new Scanner(f);
             TaskList taskList = new TaskList();
             while (s.hasNextLine()) {

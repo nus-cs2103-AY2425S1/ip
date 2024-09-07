@@ -1,7 +1,6 @@
 package mortalreminder.backend;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 import mortalreminder.backend.tasklistmanager.TaskCreator;
 import mortalreminder.backend.tasklistmanager.TaskEditor;
@@ -64,8 +63,7 @@ public class Processor {
         case UPCOMING_TASKS:
             return TaskRetriever.getUpcomingTasks(taskList);
         case ADD_COMMAND_ALTERNATIVE:
-            HashMap<String, CommandType> currentMappedAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
-            CommandAlternatives commandAlternatives = new CommandAlternatives(currentMappedAlternatives);
+            CommandAlternatives commandAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
             return commandAlternatives.addCommandAlternative(commandDetails);
         case CLEAR_ALTERNATIVES:
             return CommandAlternativesStorage.clearAlternativesFile();
