@@ -29,6 +29,7 @@ public class TaskList {
      * @param task the task to be added
      */
     public String addTask(Task task) {
+        assert task != null : "Task should not be null";
         this.taskList.add(task);
         String[] texts = {
             "Task has been added:",
@@ -58,6 +59,7 @@ public class TaskList {
      * @return the size of the task list
      */
     public int getSize() {
+        assert this.taskList != null : "Task list should not be null";
         return this.taskList.size();
     }
 
@@ -68,6 +70,7 @@ public class TaskList {
      * @return the task at the specified index
      */
     public Task getTask(int index) {
+        assert this.taskList != null : "Task list should not be null";
         return this.taskList.get(index);
     }
 
@@ -75,6 +78,7 @@ public class TaskList {
      * Lists all tasks currently in the task list, displaying their index and description.
      */
     public String listTasks() {
+        assert this.taskList != null : "Task list should not be null";
         StringBuilder sb = new StringBuilder();
         sb.append(Ui.showLine());
         String header = String.format("You currently have %d %s\n", getSize(), pluralise());
@@ -92,6 +96,7 @@ public class TaskList {
      * @param taskNumber the number of the task to be deleted
      */
     public String deleteTask(String taskNumber) {
+        assert taskNumber != null : "Task number should not be null";;
         Task task = null;
         try {
             int taskIndex = Integer.parseInt(taskNumber);
@@ -118,6 +123,7 @@ public class TaskList {
      * @param taskNumber  the number of the task to be marked or unmarked
      */
     public String markTask(String command, String taskNumber) {
+        assert taskNumber != null : "Task number should not be null";;
         Task task = null;
         try {
             int taskIndex = Integer.parseInt(taskNumber);
@@ -166,9 +172,8 @@ public class TaskList {
      * Each task is written on a new line.
      */
     public void writeToFile() {
-        if (filePath.isEmpty()) {
-            return;
-        }
+        assert filePath != null : "The path to the file should not be null";
+        assert !filePath.isEmpty() : "The path to the file should not be an empty string";
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task t : this.taskList) {
                 fileWriter.write(t.getDesc() + System.lineSeparator());
