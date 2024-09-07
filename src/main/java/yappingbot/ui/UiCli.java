@@ -7,7 +7,7 @@ import yappingbot.exceptions.YappingBotIoException;
  * User-interface class for mainly outputting different texts and decorating them to represent
  * the bot talking.
  */
-public class UiCli extends Ui {
+public class UiCli implements Ui {
     private static final String PREFIX = "|  ";
     private static final String PREFIX_EMPTY = "|";
 
