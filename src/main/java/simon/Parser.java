@@ -11,10 +11,12 @@ import java.util.function.Function;
  * This class is responsible for interpreting different command formats.
  */
 public class Parser {
-    private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     private static final Map<String, Function<String, Command>> commandMap = new HashMap<>();
+
 
     static {
         commandMap.put("list", input -> new ListCommand());
