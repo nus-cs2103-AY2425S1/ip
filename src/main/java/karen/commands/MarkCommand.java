@@ -16,11 +16,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         taskList.markTask(this.index);
         Task t = taskList.getTask(this.index);
-        ui.showMarkMessage(t);
         Storage.saveToFile(taskList);
+        return ui.showMarkMessage(t);
     }
 
     @Override

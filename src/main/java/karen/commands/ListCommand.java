@@ -9,8 +9,8 @@ import karen.util.Ui;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
-        ui.displayTaskList(taskList);
+    public String execute(TaskList taskList, Ui ui) {
+        return ui.displayTaskList(taskList);
     }
 
     @Override

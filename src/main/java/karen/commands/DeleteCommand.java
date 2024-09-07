@@ -16,11 +16,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         Task t = taskList.getTask(this.index);
         taskList.deleteTask(this.index);
-        ui.showDeleteMessage(t);
         Storage.saveToFile(taskList);
+        return ui.showDeleteMessage(t);
     }
 
     @Override
