@@ -1,6 +1,6 @@
 package noosy.parser;
 
-import noosy.command.*;
+import noosy.commands.*;
 import noosy.exception.NoosyException;
 import noosy.task.Deadline;
 import noosy.task.Event;
@@ -107,8 +107,8 @@ public class Parser {
                 }
 
             default:
-                throw new NoosyException("Beep Boop. Noosy is confused. \n" +
-                        "Noosy only understands: \n" +
+                throw new NoosyException("Beep Boop. noosy.Noosy is confused. \n" +
+                        "noosy.Noosy only understands: \n" +
                         "list – listing your tasks \n" +
                         "mark – mark a task as complete \n" +
                         "unmark – unmark a task \n" +

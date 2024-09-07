@@ -1,6 +1,6 @@
-# Noosy
+# noosy.Noosy
 
-This is a project for CS2103T. It's named Noosy because I wanted my chatbot to sound nosy... Given below are instructions on how to use it.
+This is a project for CS2103T. It's named noosy.Noosy because I wanted my chatbot to sound nosy... Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
