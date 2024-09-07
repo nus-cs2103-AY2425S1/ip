@@ -41,7 +41,7 @@ public class UnMarkCommand extends Command {
         Task task = tasks.get(index);
         task.markAsNotDone();
         saveTasks(tasks, storage);
-        return "OK, I've marked this task as not done yet:\n" + task;
+        return printMarkMessage(task);
     }
 
     /**
@@ -52,5 +52,15 @@ public class UnMarkCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Prints a message confirming that the task has been unmarked.
+     *
+     * @param task The task that was unmarked.
+     * @return A string message confirming the task has been unmarked as incomplete.
+     */
+    private String printMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 }

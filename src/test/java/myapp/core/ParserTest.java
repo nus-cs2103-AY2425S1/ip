@@ -1,12 +1,19 @@
 package myapp.core;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import myapp.command.Command;
 import myapp.command.ListCommand;
 import myapp.command.MarkCommand;
 import myapp.command.ToDoCommand;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
+
 
 public class ParserTest {
 
