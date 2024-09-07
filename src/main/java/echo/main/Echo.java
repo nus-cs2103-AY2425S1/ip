@@ -93,7 +93,7 @@ public class Echo {
      * @return string of message after adding the ToDos object
      */
     public String handleToDoCommand(String taskDescription) {
-        String description = parser.parseToDos(taskDescription);
+        String[] description = parser.parseToDo(taskDescription);
         ToDo toDoTask = new ToDo(description);
         taskList.addTask(toDoTask);
         return ui.printAddTaskMessage(toDoTask, taskList);
@@ -107,10 +107,8 @@ public class Echo {
      * @return string of message after adding the Deadlines object
      */
     public String handleDeadlineCommand(String taskDescription) {
-        String[] deadlineArray = parser.parseDeadlines(taskDescription);
-        String deadlineDescription = deadlineArray[0];
-        String deadlineDate = deadlineArray[1];
-        Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
+        String[] deadlineArray = parser.parseDeadline(taskDescription);
+        Deadline deadlineTask = new Deadline(deadlineArray);
         taskList.addTask(deadlineTask);
         return ui.printAddTaskMessage(deadlineTask, taskList);
     }
@@ -123,11 +121,8 @@ public class Echo {
      * @return string of message after adding the Events object
      */
     public String handleEventCommand(String taskDescription) {
-        String[] eventArray = parser.parseEvents(taskDescription);
-        String eventDescription = eventArray[0];
-        String eventStartTime = eventArray[1];
-        String eventEndTime = eventArray[2];
-        Event eventTask = new Event(eventDescription, eventStartTime, eventEndTime);
+        String[] eventArray = parser.parseEvent(taskDescription);
+        Event eventTask = new Event(eventArray);
         taskList.addTask(eventTask);
         return ui.printAddTaskMessage(eventTask, taskList);
     }

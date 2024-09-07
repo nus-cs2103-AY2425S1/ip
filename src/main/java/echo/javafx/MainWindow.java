@@ -1,13 +1,16 @@
 package echo.javafx;
 
+import echo.main.Echo;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import echo.main.Echo;
 import javafx.stage.Stage;
 
 /**
@@ -35,7 +38,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Echo instance and creates a Echo dialogBox to greet users*/
     public void setEcho(Echo echo) {
         this.echo = echo;
-        DialogBox echoBox = DialogBox.getEchoDialog(echo.greetUser(), echoImage);
+        DialogBox echoBox = DialogBox.getEchoDialog(echo.initialise(), echoImage);
         dialogContainer.getChildren().addAll(echoBox);
     }
 
@@ -49,8 +52,8 @@ public class MainWindow extends AnchorPane {
         String echoText = echo.executeInput(userText);
 
         if (userText.equals("bye")) {
-            ImageView sleepyEcho = new ImageView(this.getClass().
-                    getResource("/images/sleepyEcho.png").toString());
+            ImageView sleepyEcho = new ImageView(this.getClass()
+                    .getResource("/images/sleepyEcho.png").toString());
             sleepyEcho.setFitWidth(200);
             sleepyEcho.setFitHeight(200);
             sleepyEcho.setPreserveRatio(true);

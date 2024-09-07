@@ -13,7 +13,8 @@ public class TaskListTest {
     @Test
     public void testGetTaskAndDelete() {
         TaskList taskList = new TaskList();
-        ToDo expected = new ToDo("test");
+        String[] toDoArray = { "test" };
+        ToDo expected = new ToDo(toDoArray);
         taskList.addTask(expected);
         Task actual = taskList.getTaskAndDelete("1");
         assertEquals(expected, actual);
@@ -24,7 +25,8 @@ public class TaskListTest {
     public void testGetTaskAndDelete_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
-            ToDo expected = new ToDo("test");
+            String[] toDoArray = { "test" };
+            ToDo expected = new ToDo(toDoArray);
             taskList.addTask(expected);
             Task actual = taskList.getTaskAndDelete("2");
             fail();
@@ -37,7 +39,8 @@ public class TaskListTest {
     @Test
     public void testGetTask() {
         TaskList taskList = new TaskList();
-        ToDo expected = new ToDo("test");
+        String[] toDoArray = { "test" };
+        ToDo expected = new ToDo(toDoArray);
         taskList.addTask(expected);
         Task actual = taskList.getTask(0);
         assertEquals(expected, actual);

@@ -60,7 +60,7 @@ public class TaskList {
     public Task getTask(int index) {
         int largestIndex = sizeOfTaskList() - 1;
         if (index > largestIndex) {
-            throw new EchoException("There is not enough task. "
+            throw new EchoException("There are not enough task. "
                     + "\nPlease add more task or change another index.");
         }
         return taskList.get(index);
@@ -77,7 +77,7 @@ public class TaskList {
         int largestIndex = sizeOfTaskList() - 1;
 
         if (index > largestIndex) {
-            throw new EchoException("There is not enough task. "
+            throw new EchoException("There are not enough task. "
                     + "\nPlease add more task or change another index.");
         }
 
@@ -102,7 +102,7 @@ public class TaskList {
     public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> resultArray = new ArrayList<>();
         for (Task task : taskList) {
-            if (task.isMatch(keyword)){
+            if (task.isMatch(keyword)) {
                 resultArray.add(task);
             }
         }

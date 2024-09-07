@@ -10,10 +10,10 @@ public class ToDo extends Task {
     /**
      * Constructor for ToDos object
      *
-     * @param description description of the ToDos task
+     * @param toDoArray array of string with the format [description]
      */
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String[] toDoArray) {
+        super(toDoArray);
     }
 
     @Override

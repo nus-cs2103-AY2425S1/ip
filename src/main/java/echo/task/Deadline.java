@@ -14,13 +14,12 @@ public class Deadline extends Task {
     /**
      * Constructor for Deadlines object
      *
-     * @param description description of the deadline task
-     * @param deadline deadline of the task
+     * @param deadlineArray array of string with the format [description, deadline]
      * @throws DateTimeParseException if the format of the deadline is not the same as INPUT_FORMATTER
      */
-    public Deadline(String description, String deadline) throws DateTimeParseException {
-        super(description);
-        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
+    public Deadline(String[] deadlineArray) throws DateTimeParseException {
+        super(deadlineArray);
+        this.deadline = LocalDateTime.parse(deadlineArray[1], INPUT_FORMATTER);
     }
 
     @Override

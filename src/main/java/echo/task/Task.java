@@ -23,10 +23,10 @@ public abstract class Task {
     /**
      * Constructor for Task
      *
-     * @param description what the task is about
+     * @param taskArray array of string which contains the description of the task
      */
-    public Task(String description) {
-        this.description = description;
+    public Task(String[] taskArray) {
+        this.description = taskArray[0];
         this.isCompleted = false;
     }
 

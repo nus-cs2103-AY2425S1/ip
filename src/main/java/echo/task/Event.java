@@ -15,15 +15,14 @@ public class Event extends Task {
     /**
      * Constructor for Events object
      *
-     * @param description description of event task
-     * @param start start time of the event
-     * @param end end time of the event
+     * @param eventArray array of string with the format
+     *                   [description of event task, start time of the event, end time of the event]
      * @throws DateTimeParseException if the format provided is not the same as INPUT_FORMATTER
      */
-    public Event(String description, String start, String end) throws DateTimeParseException {
-        super(description);
-        this.startDate = LocalDateTime.parse(start, INPUT_FORMATTER);
-        this.endDate = LocalDateTime.parse(end, INPUT_FORMATTER);
+    public Event(String[] eventArray) throws DateTimeParseException {
+        super(eventArray);
+        this.startDate = LocalDateTime.parse(eventArray[1], INPUT_FORMATTER);
+        this.endDate = LocalDateTime.parse(eventArray[2], INPUT_FORMATTER);
     }
 
     @Override
