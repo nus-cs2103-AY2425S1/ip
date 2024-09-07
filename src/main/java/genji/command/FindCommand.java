@@ -9,6 +9,7 @@ import genji.Storage;
  */
 public class FindCommand extends Command {
     private String taskDescription;
+    private String response;
 
     /**
      * Constructor of find command
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        ui.find(list.findTask(taskDescription));
+        response = ui.find(list.findTask(taskDescription));
     }
 
     /**
@@ -36,5 +37,14 @@ public class FindCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

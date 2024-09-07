@@ -11,6 +11,7 @@ import genji.Storage;
  */
 public class DeleteCommand extends Command {
     private int index;
+    private String response;
 
     /**
      * Constructor of deleting command
@@ -29,15 +30,15 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
         if (list.size() == 0) {
-            System.out.println("No task on list, cannot delete");
+            response = "No task on list, cannot delete";
         } else {
             try {
                 Task temp = list.get(index);
                 list.delete(index);
-                ui.delete(temp, list);
+                response = ui.delete(temp, list);
                 s.saveList(list);
             } catch (IndexOutOfBoundsException i) {
-                ui.showError(new GenjiException(
+                response = ui.showError(new GenjiException(
                         "Please input a integer smaller than the number of tasks").getMessage());
             }
         }
@@ -50,5 +51,14 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

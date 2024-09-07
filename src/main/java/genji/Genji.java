@@ -23,11 +23,25 @@ public class Genji {
     }
 
     /**
+     * Respond to user's command
+     * @param input User's input
+     * @return the related responses
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+            return c.getResponse();
+        } catch (GenjiException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    /**
      * Runs the program with a welcome message
      * Receives user's commands and executes
      */
     public void run() {
-        ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {

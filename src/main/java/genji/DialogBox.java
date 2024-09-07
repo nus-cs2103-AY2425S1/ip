@@ -24,6 +24,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor of DialogBox
+     * @param text Content
+     * @param img Icon
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -33,7 +38,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -48,11 +52,23 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Forms user dialog
+     * @param text Content
+     * @param img Icon
+     * @return DialogBox to be displayed
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Forms Genji dialog
+     * @param text Content
+     * @param img Icon
+     * @return DialogBox to be displayed
+     */
+    public static DialogBox getGenjiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -22,4 +22,10 @@ public abstract class Command {
      * @return Exit or not
      */
     public abstract boolean isExit();
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    public abstract String getResponse();
 }

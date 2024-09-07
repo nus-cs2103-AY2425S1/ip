@@ -38,7 +38,8 @@ public class Parser {
             }
         } else if (command.startsWith("mark")) {
             if (command.length() < 6) {
-                throw new GenjiException("No descriptions detected, try again");
+                throw new GenjiException("No descriptions detected " +
+                        "or did not enter space, try again");
             } else {
                 try {
                     int index = Integer.parseInt(command.substring(5)) - 1;
@@ -49,7 +50,8 @@ public class Parser {
             }
         } else if (command.startsWith("unmark")) {
             if (command.length() < 8) {
-                throw new GenjiException("No descriptions detected, try again");
+                throw new GenjiException("No descriptions detected " +
+                        "or did not enter space, try again");
             } else {
                 try {
                     int index = Integer.parseInt(command.substring(7)) - 1;
@@ -60,7 +62,8 @@ public class Parser {
             }
         } else if (command.startsWith("todo")) {
             if (command.length() < 6) {
-                throw new GenjiException("No descriptions detected, try again");
+                throw new GenjiException("No descriptions detected " +
+                        "or did not enter space, try again");
             } else {
                 ToDo td = new ToDo(command.substring(5));
                 return new AddCommand(td);
@@ -99,7 +102,8 @@ public class Parser {
             }
         } else if (command.startsWith("delete")) {
             if (command.length() < 8) {
-                throw new GenjiException("No descriptions detected, try again");
+                throw new GenjiException("No descriptions detected " +
+                        "or did not enter space, try again");
             } else {
                 try {
                     int index = Integer.parseInt(command.substring(7)) - 1;
@@ -127,7 +131,7 @@ public class Parser {
                 return new FindCommand(taskDescription);
             }
         }
-        throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"\n" +
-                " \"event\", type \"list\" \"date\", or type \"bye\" to end");
+        throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"" +
+                " \"event\", type \"list\" \"date\" \"find\", or type \"bye\" to end");
     }
 }

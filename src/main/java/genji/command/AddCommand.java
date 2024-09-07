@@ -10,6 +10,7 @@ import genji.Storage;
  */
 public class AddCommand extends Command {
     private Task task;
+    private String response;
 
     /**
      * Constructor of adding command
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
         list.add(task);
-        ui.add(task, list);
+        response = ui.add(task, list);
         s.saveList(list);
     }
 
@@ -39,5 +40,14 @@ public class AddCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

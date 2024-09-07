@@ -9,6 +9,7 @@ import genji.Storage;
  */
 public class DateCommand extends Command {
     private String date;
+    private String response;
 
     /**
      * Constructor of date command
@@ -26,7 +27,7 @@ public class DateCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        list.checkDate(date);
+        response = list.checkDate(date);
     }
 
     /**
@@ -36,5 +37,10 @@ public class DateCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getResponse() {
+        return response;
     }
 }
