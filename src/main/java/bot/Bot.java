@@ -14,17 +14,14 @@ import bot.tasks.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Bot {
     private final TaskList tasks;
-    private final Ui ui;
     private final Parser parser;
     private final Storage storage;
 
     public Bot() {
         tasks = new TaskList();
-        ui = new Ui();
         parser = new Parser();
         storage = new Storage();
         try {
@@ -34,72 +31,40 @@ public class Bot {
         }
     }
 
-    public void run() {
-        ui.start();
-
-        // TODO: Abstract scanner into Ui class as well
-        Scanner sc = new Scanner(System.in);
-
-        while (sc.hasNextLine()) {
-            handleInput(sc.nextLine());
-        }
-    }
-
-    private void handleInput(String input) {
+    public String handleInput(String input) {
         Parser.ParsedInput parsedInput;
         try {
             parsedInput = parser.parseInput(input);
         } catch (InvalidCommandException e) {
-            ui.printMessage(e.getMessage());
-            return;
+            return e.getMessage();
         }
 
         Command cmd = parsedInput.getCmd();
         String args = parsedInput.getArgs();
 
         try {
-            switch (cmd) {
-            case LIST:
-                handleList();
-                break;
-            case TODO, DEADLINE, EVENT:
-                handleAddTask(cmd, args);
-                break;
-            case MARK:
-                handleMarkTask(args);
-                break;
-            case UNMARK:
-                handleUnmarkTask(args);
-                break;
-            case DELETE:
-                handleDeleteTask(args);
-                break;
-            case FIND:
-                handleFindTask(args);
-                break;
-            case BYE:
-                ui.exit();
-                System.exit(0);
-                // Fallthrough
-            default:
-                // This should never happen
-                ui.printMessage("Command not found");
-                // Fallthrough
-            }
+            return switch (cmd) {
+                case LIST -> handleList();
+                case TODO, DEADLINE, EVENT -> handleAddTask(cmd, args);
+                case MARK -> handleMarkTask(args);
+                case UNMARK -> handleUnmarkTask(args);
+                case DELETE -> handleDeleteTask(args);
+                case FIND -> handleFindTask(args);
+            };
         } catch (BotException e) {
-            ui.printMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
-    private void handleList() {
-        ui.printMessage("Here are the tasks in your list:\n" + tasks.toString());
+    private String handleList() {
+        return "Here are the tasks in your list:\n" + tasks.toString();
     }
 
-    private void handleFindTask(String args) {
-        ui.printMessage("Here are the tasks in your list:\n" + tasks.search(args));
+    private String handleFindTask(String args) {
+        return "Here are the tasks in your list:\n" + tasks.search(args);
     }
 
-    private void handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
+    private String handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
         Task taskToAdd;
         if (cmd.equals(Command.TODO)) {
             if (args.isEmpty()) {
@@ -121,19 +86,17 @@ public class Bot {
         } catch (IOException e) {
             // Revert add task
             tasks.remove(newTaskIndex);
-            System.out.println("Task failed to be added: " + e.getMessage());
-            return;
+            return "Task failed to be added: " + e.getMessage();
         }
 
-        String response = String.format(
+        return String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
                 tasks.get(newTaskIndex).toString(),
                 tasks.size()
         );
-        ui.printMessage(response);
     }
 
-    private void handleDeleteTask(String args) throws InvalidTaskIdException {
+    private String handleDeleteTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
@@ -146,19 +109,17 @@ public class Bot {
         } catch (IOException e) {
             // Revert delete task
             tasks.add(deletedTask);
-            System.out.println("Task failed to be deleted: " + e.getMessage());
-            return;
+            return "Task failed to be deleted: " + e.getMessage();
         }
 
-        String response = String.format(
+        return String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d task(s) in the list.",
                 deletedTask.toString(),
                 tasks.size()
         );
-        ui.printMessage(response);
     }
 
-    private void handleMarkTask(String args) throws InvalidTaskIdException {
+    private String handleMarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
@@ -176,14 +137,13 @@ public class Bot {
             } else {
                 tasks.unmark(index);
             }
-            System.out.println("Task failed to be mark: " + e.getMessage());
-            return;
+            return "Task failed to be mark: " + e.getMessage();
         }
 
-        ui.printMessage("Nice! I've marked this task as done:\n" + markedTask);
+        return "Nice! I've marked this task as done:\n" + markedTask;
     }
 
-    private void handleUnmarkTask(String args) throws InvalidTaskIdException {
+    private String handleUnmarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
@@ -201,18 +161,13 @@ public class Bot {
             } else {
                 tasks.unmark(index);
             }
-            System.out.println("Task failed to be unmarked: " + e.getMessage());
-            return;
+            return "Task failed to be unmarked: " + e.getMessage();
         }
 
-        ui.printMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+        return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
     }
 
     private int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[0]) - 1;
-    }
-
-    public static void main(String[] args) {
-        new Bot().run();
     }
 }

@@ -1,0 +1,23 @@
+.label {
+    -fx-background-color: primary-color;
+    -fx-text-fill: primary-text-color;
+    -fx-background-radius: 0.75em 0.75em 0 0.75em;
+    -fx-border-radius: 0.75em 0.75em 0 0.75em;
+}
+
+.reply-label {
+    -fx-background-color: secondary-color;
+    -fx-text-fill: secondary-text-color;
+    -fx-background-radius: 0.75em 0.75em 0.75em 0;
+    -fx-border-radius: 0.75em 0.75em 0.75em 0;
+}
+
+#displayPicture {
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+
+    /* Change size of image. */
+    -fx-scale-x: 0.5;
+    -fx-scale-y: 0.5;
+}
+
