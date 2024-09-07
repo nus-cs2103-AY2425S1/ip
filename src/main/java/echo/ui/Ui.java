@@ -11,16 +11,6 @@ import echo.tasklist.TaskList;
  * @author Ernest Lim
  */
 public class Ui {
-
-    /*
-                        ("   |\\---/|\n"
-                       + "   | ,_, |\n"
-                       + "    \\_'_/-..----.\n"
-                       + " ___/ `   ' ,\"\"+ \\  Meow\n"
-                       + "(__...'   __\\    |`.___.';\n"
-                       + "  (_,...'(_,.`__)/'.....+'\n")
-     */
-
     /**
      * Returns a string of greeting message
      *
@@ -28,7 +18,7 @@ public class Ui {
      */
     public String greet() {
         String output = "Meow, I'm Echo\n";
-        output += "What can I do for you?";
+        output += "What can I do for you?\n";
         return output;
     }
 
@@ -93,7 +83,7 @@ public class Ui {
         int numOfTask = taskList.sizeOfTaskList();
         String output = "Got it! I've added this task:\n";
         output += (task.toString() + "\n");
-        output += ("Now you have " + numOfTask + " tasks in the list.");
+        output += ("Now you have " + numOfTask + " tasks in the list.\n");
         return output;
     }
 
@@ -108,7 +98,7 @@ public class Ui {
         int numOfTask = taskList.sizeOfTaskList();
         String output = "Got it!. I've removed this task:";
         output += (task.toString() + "\n");
-        output += ("Now you have " + numOfTask + " tasks in the list.");
+        output += ("Now you have " + numOfTask + " tasks in the list.\n");
         return output;
     }
 
@@ -120,7 +110,7 @@ public class Ui {
      */
     public String printFoundTask(ArrayList<Task> arrayList) {
         if (arrayList.isEmpty()) {
-            return "There are no task found with the keyword";
+            return "There are no task found with the keyword.\n";
         } else {
             String output = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < arrayList.size(); i++) {

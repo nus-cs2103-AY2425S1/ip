@@ -33,7 +33,7 @@ public class Storage {
      * @throws IOException if there is an invalid output or input
      */
     public void saveTaskList(TaskList taskList) throws IOException {
-        FileWriter writer = new FileWriter(this.filePath);
+        FileWriter writer = new FileWriter(filePath);
         for (int i = 0; i < taskList.sizeOfTaskList(); i++) {
             writer.write(taskList.getTask(i).toFancyString() + System.lineSeparator());
         }
@@ -48,7 +48,7 @@ public class Storage {
      * @throws FileNotFoundException if there is no file present in the file path
      */
     public void loadStorage(Parser parser, TaskList taskList) throws FileNotFoundException {
-        File file = new File(this.filePath);
+        File file = new File(filePath);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String taskStored = scanner.nextLine();
