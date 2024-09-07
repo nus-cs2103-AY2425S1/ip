@@ -17,7 +17,7 @@ public class TaskList {
     public static final int MAX_SIZE = 100;
 
     private ArrayList<Task> tasks = new ArrayList<>(MAX_SIZE);
-    private int nextTaskIndex;
+    private int tasksSize;
 
     /**
      * Constructor for the TaskList class.
@@ -26,7 +26,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> initialTask) {
         this.tasks = initialTask;
-        this.nextTaskIndex = initialTask.size();
+        this.tasksSize = initialTask.size();
     }
 
     /**
@@ -38,12 +38,14 @@ public class TaskList {
      * @throws InfinityException If the task list is full.
      */
     public <T extends Task> String addTask(T task) throws InfinityException {
-        if (nextTaskIndex >= MAX_SIZE) {
+        if (tasksSize >= MAX_SIZE) {
             throw new InfinityException(Ui.botSays("I'm sorry, but I can't remember more tasks."));
         }
 
         tasks.add(task);
-        nextTaskIndex++;
+        tasksSize++;
+
+        assert tasks.size() > 0 && tasks.size() <= MAX_SIZE : "Task size should be in range";
 
         return Ui.botSays(String.format("I've added '%s'", task));
     }
@@ -66,12 +68,15 @@ public class TaskList {
 
         taskIndex--;
 
-        if (taskIndex >= nextTaskIndex || taskIndex < 0) {
+        if (taskIndex >= tasksSize || taskIndex < 0) {
             throw new InfinityException(
                     Ui.botSays("Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
         } else {
             try {
                 Task removedTask = tasks.remove(taskIndex);
+                tasksSize--;
+
+                assert tasks.size() >= 0 : "Task size should be at least 0";
 
                 return Ui.botSays(String.format(
                         "I've removed task %d:\n%s", taskIndex + 1, removedTask.toString()));
@@ -96,7 +101,7 @@ public class TaskList {
         try {
             taskIndex = Integer.parseInt(words[1]) - 1;
             tasks.get(taskIndex).markAsDone();
-            if (taskIndex >= nextTaskIndex || taskIndex < 0) {
+            if (taskIndex >= tasksSize || taskIndex < 0) {
                 throw new IndexOutOfBoundsException();
             }
         } catch (NumberFormatException e) {
@@ -105,6 +110,8 @@ public class TaskList {
             throw new InfinityException(
                     Ui.botSays("Hmmm, I can't find that task. Please try again."));
         }
+
+        assert tasks.get(taskIndex).toString().charAt(4) == 'X' : "Task should be marked as X";
 
         return Ui.botSays(String.format(
                 "I've marked task %d as done:\n%s",
@@ -127,7 +134,7 @@ public class TaskList {
      * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return nextTaskIndex == 0;
+        return tasksSize == 0;
     }
 
     /**
