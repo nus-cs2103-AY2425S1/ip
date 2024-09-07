@@ -33,7 +33,7 @@ public class Storage {
                 Files.createDirectory(directoryPath);
                 Files.createFile(dataPath);
             } catch (IOException e) {
-                System.out.println("\tError occurred when creating directory/file.");
+                System.out.println("Error occurred when creating directory/file.");
             }
         }
     }
@@ -85,7 +85,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("\tError occurred when writing to the data file.");
+            System.out.println("Error occurred when writing to the data file.");
         }
     }
 }
