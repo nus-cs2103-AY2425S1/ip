@@ -1,22 +1,32 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
-import dave.task.Deadline;
+
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
+import dave.task.Deadline;
 
+
+
+
+/**
+ * Test class for {@code Deadline}.
+ */
 public class DeadlineTest {
 
     @Test
-    public void testDeadlineCreation_validDateTime() throws InvalidDescriptionException, InvalidDateTimeFormatException {
+    public void testDeadlineCreation_validDateTime()
+            throws InvalidDescriptionException, InvalidDateTimeFormatException {
         Deadline deadline = new Deadline("Submit report /by 2024-08-02 1800");
         LocalDate expectedDate = LocalDate.of(2024, 8, 2);
         LocalTime expectedTime = LocalTime.of(18, 0);
 
-        assertEquals(expectedDate, deadline.dueDate);
-        assertEquals(expectedTime, deadline.dueTime);
+        assertEquals(expectedDate, deadline.getDueDate());
+        assertEquals(expectedTime, deadline.getDueTime());
     }
 
     @Test
@@ -40,9 +50,9 @@ public class DeadlineTest {
         });
     }
 
-
     @Test
-    public void testDeadlineToString() throws InvalidDescriptionException, InvalidDateTimeFormatException {
+    public void testDeadlineToString()
+            throws InvalidDescriptionException, InvalidDateTimeFormatException {
         Deadline deadline = new Deadline("Submit report /by 2024-08-02 1800");
         String expectedString = "[D][ ] Submit report (by: Aug 02 2024 18:00)";
         assertEquals(expectedString, deadline.toString());
@@ -53,7 +63,8 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testDeadlineWrite() throws InvalidDescriptionException, InvalidDateTimeFormatException {
+    public void testDeadlineWrite()
+            throws InvalidDescriptionException, InvalidDateTimeFormatException {
         Deadline deadline = new Deadline("Submit report /by 2024-08-02 1800");
         String expectedOutput = "D | 0 | Submit report | Aug 02 2024 1800\n";
         assertEquals(expectedOutput, deadline.write());

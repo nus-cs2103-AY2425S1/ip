@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
 
@@ -14,10 +15,10 @@ import dave.exceptions.InvalidDescriptionException;
 public class Deadline extends Task {
 
     /** The due date of the task */
-    public LocalDate dueDate;
+    private LocalDate dueDate;
 
     /** The due time of the task */
-    public LocalTime dueTime;
+    private LocalTime dueTime;
 
     /**
      * Constructs a Deadline task with the specified description and due date/time.
@@ -31,7 +32,8 @@ public class Deadline extends Task {
         String[] arguments = description.split("/by ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: <task> /by <date>");
+            throw new InvalidDescriptionException("Oh No! Please provide a deadline task "
+                    + "in the format: <task> /by <date>");
         }
 
         String[] due = arguments[1].trim().split(" ");
@@ -72,6 +74,23 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the due date of the task.
+     *
+     * @return The due date as a {@code LocalDate}.
+     */
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * Returns the due time of the task.
+     *
+     * @return The due time as a {@code LocalTime}.
+     */
+    public LocalTime getDueTime() {
+        return dueTime;
+    }
+    /**
      * Converts the deadline into a string format that is suitable for saving to a file.
      *
      * @return The formatted string representing the deadline task.
@@ -82,7 +101,8 @@ public class Deadline extends Task {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         String formattedDate = dueDate != null ? dueDate.format(dateFormatter) : "unknown date";
         String formattedTime = dueTime != null ? dueTime.format(timeFormatter) : "no specific time";
-        return String.format("D | %d | %s | %s %s\n", this.isDone ? 1 : 0, this.description, formattedDate, formattedTime);
+        return String.format("D | %d | %s | %s %s\n", this.getIsDone() ? 1 : 0,
+                this.getDescription(), formattedDate, formattedTime);
     }
 
     /**

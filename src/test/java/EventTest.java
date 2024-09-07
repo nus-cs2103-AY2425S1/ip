@@ -1,20 +1,23 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
-import dave.task.Event;
+
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
+import dave.task.Event;
 
 
 public class EventTest {
 
     @Test
-    public void testParseDate_validDate() throws InvalidDescriptionException,InvalidDateTimeFormatException {
+    public void testParseDate_validDate() throws InvalidDescriptionException, InvalidDateTimeFormatException {
         Event event = new Event("Meeting /from 2024-08-02 1800 /to 1900");
         LocalDate expectedDate = LocalDate.of(2024, 8, 2);
-        assertEquals(expectedDate, event.fromDate);
+        assertEquals(expectedDate, event.getFromDate());
     }
 
     @Test
@@ -28,7 +31,7 @@ public class EventTest {
     public void testParseTime_validTime() throws InvalidDescriptionException, InvalidDateTimeFormatException {
         Event event = new Event("Meeting /from 2024-08-02 1800 /to 1900");
         LocalTime expectedTime = LocalTime.of(18, 0);
-        assertEquals(expectedTime, event.fromTime);
+        assertEquals(expectedTime, event.getFromTime());
     }
 
     @Test

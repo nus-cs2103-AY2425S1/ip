@@ -1,7 +1,9 @@
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import dave.task.Todo;
 
 public class TodoTest {
@@ -9,15 +11,15 @@ public class TodoTest {
     @Test
     public void testTodoCreation() {
         Todo todo = new Todo("Finish assignment");
-        assertEquals("Finish assignment", todo.description);
-        assertFalse(todo.isDone);
+        assertEquals("Finish assignment", todo.getDescription());
+        assertFalse(todo.getIsDone());
     }
 
     @Test
     public void testMarkAsDone() {
         Todo todo = new Todo("Finish assignment");
         todo.markAsDone();
-        assertTrue(todo.isDone);
+        assertTrue(todo.getIsDone());
     }
 
     @Test

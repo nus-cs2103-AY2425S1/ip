@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
 
@@ -13,13 +14,13 @@ import dave.exceptions.InvalidDescriptionException;
  */
 public class Event extends Task {
     /** The date the event starts */
-    public LocalDate fromDate;
+    private LocalDate fromDate;
 
     /** The time the event starts */
-    public LocalTime fromTime;
+    private LocalTime fromTime;
 
     /** The time the event ends */
-    public LocalTime toTime;
+    private LocalTime toTime;
 
     /**
      * Creates an event task with the specified description, start date/time, and end time.
@@ -33,17 +34,20 @@ public class Event extends Task {
         String[] arguments = description.split("/from ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Oh No! Please provide an event in the format: <task> /from <start> /to <end>");
+            throw new InvalidDescriptionException("Oh No! Please provide an event "
+                    + "in the format: <task> /from <start> /to <end>");
         }
 
         String[] timeParts = arguments[1].split(" /to ");
         if (timeParts.length < 2) {
-            throw new InvalidDescriptionException("Oh No! Please provide a valid time range in the format: from <start date> <start time> /to <end time>");
+            throw new InvalidDescriptionException("Oh No! Please provide a valid time range "
+                    + "in the format: from <start date> <start time> /to <end time>");
         }
 
         String[] fromParts = timeParts[0].trim().split(" ");
         if (fromParts.length < 2) {
-            throw new InvalidDescriptionException("Oh No! Please provide a valid time range in the format: from <start date> <start time> /to <end time>");
+            throw new InvalidDescriptionException("Oh No! Please provide a valid time range "
+                    + "in the format: from <start date> <start time> /to <end time>");
         }
         this.fromDate = parseDate(fromParts[0]);
         this.fromTime = parseTime(fromParts[1]);
@@ -65,6 +69,34 @@ public class Event extends Task {
             throw new InvalidDateTimeFormatException("Invalid date format. Please use yyyy-MM-dd");
         }
     }
+
+    /**
+     * Returns the start date of the event.
+     *
+     * @return The start date as a {@code LocalDate}.
+     */
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start time as a {@code LocalTime}.
+     */
+    public LocalTime getFromTime() {
+        return fromTime;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time as a {@code LocalTime}.
+     */
+    public LocalTime getToTime() {
+        return toTime;
+    }
+
 
     /**
      * Parses the provided time string into a LocalTime.
@@ -94,7 +126,8 @@ public class Event extends Task {
         String fromDateString = fromDate != null ? fromDate.format(dateFormatter) : "unknown date";
         String fromTimeString = fromTime != null ? fromTime.format(timeFormatter) : "no specific time";
         String toTimeString = toTime != null ? toTime.format(timeFormatter) : "no specific time";
-        return String.format("E | %d | %s | %s %s - %s\n", this.isDone ? 1 : 0, this.description, fromDateString, fromTimeString, toTimeString);
+        return String.format("E | %d | %s | %s %s - %s\n", this.getIsDone() ? 1 : 0,
+                this.getDescription(), fromDateString, fromTimeString, toTimeString);
     }
 
     /**
@@ -109,6 +142,7 @@ public class Event extends Task {
         String fromDateString = fromDate != null ? fromDate.format(dateFormatter) : "unknown date";
         String fromTimeString = fromTime != null ? fromTime.format(timeFormatter) : "";
         String toTimeString = toTime != null ? toTime.format(timeFormatter) : "";
-        return "[E]" + super.toString() + " (from: " + fromDateString + " " + fromTimeString + " to: " + toTimeString + ")";
+        return "[E]" + super.toString() + " (from: " + fromDateString + " " + fromTimeString
+                + " to: " + toTimeString + ")";
     }
 }

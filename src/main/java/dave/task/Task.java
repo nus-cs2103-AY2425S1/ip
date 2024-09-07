@@ -8,10 +8,10 @@ package dave.task;
 public abstract class Task {
 
     /** The description of the task */
-    public String description;
+    private String description;
 
     /** The status of whether the task is done or not */
-    public boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the given description. The task is initially marked as not done.
@@ -54,6 +54,23 @@ public abstract class Task {
      */
     public abstract String write();
 
+    /**
+     * Returns the status of the task indicating if it is done or not.
+     *
+     * @return {@code true} if the task is marked as done, {@code false} otherwise.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task as a {@code String}.
+     */
+    public String getDescription() {
+        return this.description;
+    }
     /**
      * Returns the string representation of the task for display purposes.
      *
