@@ -12,7 +12,6 @@ public class UserChatController {
     private Label chatLabel;
 
     public void setText(String message) {
-        System.out.println(message);
         chatLabel.setText(message);
     }
 }

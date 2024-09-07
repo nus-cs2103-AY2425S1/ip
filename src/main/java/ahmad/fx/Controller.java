@@ -44,7 +44,6 @@ public class Controller {
     @FXML
     private void handleUserSend() {
         String inputText = userInput.getText().trim();
-        System.out.println(inputText);
         pushUserMessage(inputText);
         if (processUserMessage(inputText)) {
             exit();
