@@ -5,6 +5,11 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Implements interaction between data file in storage and application
+ * A <code>Storage</code> object corresponds a <code>String</code> filePath,
+ * the directory of the file
+ */
 public class Storage {
     private final String filePath;
 
@@ -17,6 +22,12 @@ public class Storage {
         createDirectory(this.filePath.substring(0, this.filePath.lastIndexOf('/')));
     }
 
+    /**
+     * Load a file from <code>filePath</code> and convert it to <code>ArrayList</code> object
+     * If file is not found, create a file corresponds the <code>filePath</code>
+     *
+     * @return an <code>ArrayList</code> that corresponds to the file in the <code>filePath</code>
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -47,6 +58,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Write a file to <code>filePath</code> based on <code>list</code>
+     *
+     * @param list a <code>String</code> that to be written
+     */
     public void write(String list) {
         try {
             File file = new File(this.filePath);
