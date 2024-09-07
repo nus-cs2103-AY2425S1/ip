@@ -35,7 +35,7 @@ public class SumoDE extends Application {
         try {
             storage = new Storage(filePath);
         } catch (IOException e) {
-            // Note: this will only happen when file don't exist, and we cannot create new file in the path.
+            // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
             ui.warnUnknownSaveError();
         }
@@ -62,7 +62,6 @@ public class SumoDE extends Application {
         boolean canTerminate = false;
         // Splitting command and action
         String[] splitString = Parser.splitCommandAndAction(input);
-        assert (splitString.length == 2);
         String commandString = splitString[0];
         String item = splitString[1];
         Command command;
