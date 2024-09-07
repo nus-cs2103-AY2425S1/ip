@@ -3,9 +3,10 @@ package myapp.core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import myapp.task.Deadline;
 import myapp.task.Event;
@@ -39,42 +40,57 @@ public class Storage {
      *      or if the file contains unknown task types.
      */
     public List<Task> load() throws BingBongException {
-        List<Task> tasks = new ArrayList<>();
-
-        try (Scanner reader = new Scanner(new File(filePath))) {
-            String line;
-            while (reader.hasNext()) {
-                line = reader.nextLine();
-                String[] taskData = line.split(" \\| ");
-                String type = taskData[0];
-                boolean isDone = taskData[1].equals("1");
-                String description = taskData[2];
-                Task task;
-                switch (type) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    String by = taskData[3];
-                    task = new Deadline(description, DateTimeHandler.parse(by));
-                    break;
-                case "E":
-                    String from = taskData[3];
-                    String to = taskData[4];
-                    task = new Event(description, DateTimeHandler.parse(from), DateTimeHandler.parse(to));
-                    break;
-                default:
-                    throw new BingBongException("Unknown task type in file.");
-                }
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasks.add(task);
-            }
+        try {
+            return Files.lines(Paths.get(filePath))
+                    .map(line -> {
+                        try {
+                            return parseTask(line);
+                        } catch (BingBongException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             throw new BingBongException("Error reading from file: " + e.getMessage());
         }
-        return tasks;
+    }
+
+    /**
+     * Parses a line from the file and returns the corresponding {@link Task} object.
+     *
+     * @param line The line read from the file.
+     * @return The corresponding {@link Task} object.
+     * @throws BingBongException If an unknown task type is encountered.
+     */
+    private Task parseTask(String line) throws BingBongException {
+        String[] taskData = line.split(" \\| ");
+        String type = taskData[0];
+        boolean isDone = taskData[1].equals("1");
+        String description = taskData[2];
+
+        Task task;
+        switch (type) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            String by = taskData[3];
+            task = new Deadline(description, DateTimeHandler.parse(by));
+            break;
+        case "E":
+            String from = taskData[3];
+            String to = taskData[4];
+            task = new Event(description, DateTimeHandler.parse(from), DateTimeHandler.parse(to));
+            break;
+        default:
+            throw new BingBongException("Unknown task type in file.");
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**
@@ -95,12 +111,25 @@ public class Storage {
         }
 
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
-            }
+            tasks.stream()
+                    .map(Task::toFileFormat)
+                    .forEach(task -> writeTask(writer, task));
         } catch (IOException e) {
             throw new BingBongException("Error writing to file: " + e.getMessage());
         }
+    }
 
+    /**
+     * Writes a task to the file.
+     *
+     * @param writer The {@link FileWriter} object to write to the file.
+     * @param task The task in file format.
+     */
+    private void writeTask(FileWriter writer, String task) {
+        try {
+            writer.write(task + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing task to file.", e);
+        }
     }
 }
