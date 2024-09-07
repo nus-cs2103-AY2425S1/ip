@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
      * @throws ChatBuddyException If the task index is out of range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         if (index >= tasks.size() || index < 0) {
             throw new ChatBuddyException("Task number out of range.");
         }
@@ -44,5 +44,6 @@ public class MarkCommand extends Command {
         task.markAsDone();
         storage.saveTasks(tasks.getTasks());
         ui.showMarkTask(task);
+        return ui.getOutput();
     }
 }

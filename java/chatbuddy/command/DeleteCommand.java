@@ -37,13 +37,15 @@ public class DeleteCommand extends Command {
      * @throws ChatBuddyException If the task index is out of range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         if (index >= tasks.size() || index < 0) {
             throw new ChatBuddyException("Task number out of range.");
         }
+
         Task removedTask = tasks.getTask(index);
         tasks.removeTask(index);
         storage.saveTasks(tasks.getTasks());
         ui.showDeleteTask(removedTask, tasks.size());
+        return ui.getOutput();
     }
 }

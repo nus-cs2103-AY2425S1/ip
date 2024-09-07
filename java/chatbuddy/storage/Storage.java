@@ -52,12 +52,15 @@ public class Storage {
                         case "T":
                             task = new ToDo(description);
                             break;
+
                         case "D":
                             task = new Deadline(description, parts[3]);
                             break;
+
                         case "E":
                             task = new Event(description, parts[3], parts[4]);
                             break;
+
                         default:
                             throw new ChatBuddyException("Invalid task type in file.");
                     }
@@ -69,6 +72,7 @@ public class Storage {
                     tasks.add(task);
                 }
                 scanner.close();
+
             } else {
                 File directory = new File(file.getParent());
                 if (!directory.exists()) {
@@ -76,6 +80,7 @@ public class Storage {
                 }
                 file.createNewFile();
             }
+
         } catch (IOException e) {
             throw new ChatBuddyException("An error occurred while loading tasks: " + e.getMessage());
         }
