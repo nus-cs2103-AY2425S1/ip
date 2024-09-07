@@ -92,4 +92,15 @@ public class TaskList {
         Task task = tasks.get(idx - 1);
         task.markAsUndone();
     }
+
+    /**
+     * Debug method for printing all tasks in the tasklist
+     * @param msg
+     */
+    private void debugPrint(Object... msg) {
+        for (Object item : msg) {
+            System.out.print(item);
+        }
+        System.out.println();
+    }
 }
