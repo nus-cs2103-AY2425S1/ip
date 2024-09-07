@@ -24,7 +24,7 @@ public class DateParser {
      * @return A {@code LocalDateTime} object representing the parsed date and time, or {@code null} if the input
      *         string does not match the expected format.
      */
-    public static LocalDateTime parse(String dateTimeStr) {
+    public static LocalDateTime parseDateTimeFromUserInput(String dateTimeStr) {
         try {
             return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
@@ -40,7 +40,7 @@ public class DateParser {
      * @return A {@code LocalDateTime} object representing the parsed date and time, or {@code null} if the input
      *         string does not match the expected format.
      */
-    public static LocalDateTime parseFile(String dateTimeStr) {
+    public static LocalDateTime parseDateTimeFromFile(String dateTimeStr) {
         try {
             return LocalDateTime.parse(dateTimeStr, OUTPUT_FORMATTER);
         } catch (DateTimeParseException e) {

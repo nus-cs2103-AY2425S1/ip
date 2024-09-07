@@ -57,7 +57,7 @@ public final class DeadlineCommand extends Command {
 
         // Extract the deadline part (after the first "/")
         String by = parts[1].substring(2).trim();
-        LocalDateTime dateTime = DateParser.parse(by);
+        LocalDateTime dateTime = DateParser.parseDateTimeFromUserInput(by);
         tasks.addTask(new Deadline(task, false, dateTime));
         int totalNumberOfTasks = tasks.getSize();
         String addTaskMessage = ui.showAddTaskMessage();

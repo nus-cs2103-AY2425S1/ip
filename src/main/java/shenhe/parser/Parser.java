@@ -36,7 +36,7 @@ public class Parser {
      * @return A {@code Task} object corresponding to the parsed line,
      *          or {@code null} if parsing fails or the task type is unknown.
      */
-    public static Task parseFile(String line) {
+    public static Task parseCommand(String line) {
         // Check the first character to determine the task type
         if (line.startsWith("T")) {
             // Assume the format is "T | isDone | description"
@@ -48,7 +48,7 @@ public class Parser {
             String[] parts = line.split(" \\| ");
             boolean isDone = parts[1].equals("1");
             try {
-                LocalDateTime by = DateParser.parseFile(parts[3]); // Parse date string
+                LocalDateTime by = DateParser.parseDateTimeFromFile(parts[3]); // Parse date string
                 return new Deadline(parts[2], isDone, by);
             } catch (Exception e) {
                 System.out.println("Invalid date/time format.");
