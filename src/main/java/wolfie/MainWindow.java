@@ -69,6 +69,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         assert input != null : "User input should not be null.";
+        assert !input.trim().isEmpty() : "User input should not be empty.";
+
         System.out.println("User input: " + input); // Debugging statement
         String response = wolfie.getResponse(input);
         System.out.println("Wolfie response: " + response); // Debugging statement

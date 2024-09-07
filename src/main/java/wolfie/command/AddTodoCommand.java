@@ -15,10 +15,25 @@ import wolfie.util.Ui;
 public class AddTodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs an AddTodoCommand object to add a todos task to the task list.
+     *
+     * @param description The description of the todos task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes the add todos command to add a todos task to the task list.
+     *
+     * @param tasks The task list to add the task to.
+     * @param ui The user interface to display messages.
+     * @param storage The storage to save the task list to.
+     * @return The message to show the user.
+     * @throws IOException If there is an error saving the task list.
+     * @throws WolfieException If the description is empty.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         if (description.isEmpty()) {
