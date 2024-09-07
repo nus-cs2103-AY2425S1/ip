@@ -36,19 +36,21 @@ public class TaskList {
 
             Task task;
 
-            if (args[0] == "T") {
+            if (Objects.equals(args[0], "T")) {
                 task = new ToDo(args[2]);
-            } else if (args[0] == "D") {
+            } else if (Objects.equals(args[0], "D")) {
                 task = new Deadline(args[2], LocalDate.parse(args[3]));
-            } else if (args[0] == "E") {
+            } else if (Objects.equals(args[0], "E")) {
                 task = new Event(args[2], args[3], args[4]);
             } else {
+                System.out.println(args[0]);
                 throw new StrugglingException("Save file corrupted");
             }
 
             if (Objects.equals(args[1], "1")) {
                 task.mark();
             } else if (!Objects.equals(args[1], "0")) {
+                System.out.println(args[1]);
                 throw new StrugglingException("Save file corrupted");
             }
 
