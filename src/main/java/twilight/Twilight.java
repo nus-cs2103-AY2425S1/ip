@@ -26,6 +26,21 @@ public class Twilight {
         }
     }
 
+    /**
+     * Returns a message to welcome the user upon start up.
+     */
+    public static String greet() {
+        return "Hello! I am Twilight your personal assistant\nWhat can I do for you?";
+    }
+
+    /**
+     * Returns a message to indicate end of program.
+     */
+    public static String bidFarewell() {
+        return "See you";
+    }
+
+
 //    public static void main(String[] args) {
 //        ui.greet();
 //        boolean isExit = false;
