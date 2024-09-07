@@ -15,7 +15,7 @@ public class Knight2103 {
 
     public Knight2103(String filePath) {
         this.name = "Knight2103";
-        this.ui = new Ui(this.name);
+        this.ui = new Ui();
         storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
