@@ -47,13 +47,18 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list to the console, with each task numbered sequentially.
+     * Returns a formatted String representation of the elements in the list.
+     *
+     * @return A String representing the elements of the list, formatted with their positions.
      */
-    public void list() {
+    public String list() {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
+            result.append(i + 1).append(". ").append(list.get(i)).append("\n");
         }
+        return result.toString();
     }
+
 
     /**
      * Deletes the task at the specified index from the list.
@@ -87,20 +92,25 @@ public class TaskList {
     }
 
     /**
-     * Retrieves and display the tasks which contain the keyword.
+     * Finds tasks in the list whose descriptions contain the specified keyword.
      *
-     * @param keyword The keyword to search for.
+     * @param keyword The keyword to search for within each task's description.
+     * @return A formatted String of tasks whose descriptions contain the keyword,
+     *         or an empty String if no tasks match the search.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         ArrayList<Task> newList = new ArrayList<>();
         for (Task task: list) {
             if (task.description.contains(keyword)) {
                 newList.add(task);
             }
         }
+
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < newList.size(); i++) {
-            System.out.println((i + 1) + "." + newList.get(i));
+            result.append(i + 1).append(". ").append(newList.get(i)).append("\n");
         }
+        return result.toString();
     }
 
     /**
