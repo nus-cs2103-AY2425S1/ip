@@ -41,19 +41,23 @@ public abstract class Task {
     /**
      * Marks the task as done, updating its status and printing a confirmation message.
      */
-    public void mark() {
+    public String mark() {
+        String respond = "";
         this.isDone = true;
-        System.out.println("Marked " + "\"" + description + "\"" + " as done");
-        System.out.println(this.toString());
+        respond += ("Marked " + "\"" + description + "\"" + " as done\n");
+        respond += this.toString() + "\n";
+        return respond;
     }
 
     /**
      * Unmarks the task as not done, updating its status and printing a confirmation message.
      */
-    public void unmark() {
+    public String unmark() {
+        String respond = "";
         this.isDone = false;
-        System.out.println("Marked " + "\"" + description + "\"" + " as not done");
-        System.out.println(this.toString());
+        respond += ("Marked " + "\"" + description + "\"" + " as not done\n");
+        respond += this.toString() + "\n";
+        return respond;
     }
 
     /**

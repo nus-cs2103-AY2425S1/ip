@@ -15,7 +15,6 @@ import socchat.task.Task;
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
-    private Parser parser = new Parser();
 
     /**
      * Constructs a new 'Event' task with the specified description, start time, and end time.
@@ -49,8 +48,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + parser.dateToString(from) + ", to: "
-                + parser.dateToString(to) + ")";
+                + Parser.dateToString(from) + ", to: "
+                + Parser.dateToString(to) + ")";
     }
 
     /**
@@ -62,7 +61,7 @@ public class Event extends Task {
     public String toSave() {
         return "E" + " | " + super.getDoneStatus()
                 + " | " + super.getDescription()
-                + " | " + parser.dateToString(from)
-                + " to " + parser.dateToString(to);
+                + " | " + Parser.dateToString(from)
+                + " to " + Parser.dateToString(to);
     }
 }
