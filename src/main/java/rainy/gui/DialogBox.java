@@ -1,24 +1,23 @@
 package rainy.gui;
 
 import java.io.IOException;
-import java.util.Collections;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 
-
+/**
+ * Represents the DialogBox which appears when user sends a message or the chatbot responds.
+ */
 public class DialogBox extends HBox {
-
     @FXML
     private Label text;
 
@@ -41,17 +40,27 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(75);
     }
 
+    /**
+     * FLips the dialog box and it contents to the other side for the chatbot's response.
+     */
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        this.setAlignment(Pos.TOP_LEFT);
+        text.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
+    /**
+     * Plays the appropriate chatbot response.
+     * @param s  System-generated response.
+     * @param i  Image of the chatbot.
+     * @return   Returns the entire HBox which contains the message and image.
+     */
     public static DialogBox getRainyDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();

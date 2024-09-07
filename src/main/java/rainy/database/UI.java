@@ -29,7 +29,7 @@ public class UI {
      */
     public void noCategoryDeclared() {
         System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) "
-                + "before providing a description of it.");
+            + "before providing a description of it.");
     }
 
     /**
@@ -72,7 +72,7 @@ public class UI {
      */
     public void invalidEventDate() {
         System.out.println("Please provide a proper date in MM/DD/YYYY format, "
-                + "as well as a start time and end time in HH:MM format for your Event!");
+            + "as well as a start time and end time in HH:MM format for your Event!");
     }
 
     /**

@@ -1,5 +1,7 @@
 package rainy.gui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,13 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import rainy.database.Rainy;
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 
-import java.io.IOException;
-
+/**
+ * Sets the main scene for the GUI.
+ */
 public class MainController extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -38,13 +40,22 @@ public class MainController extends AnchorPane {
         this.rainy = r;
     }
 
+    /**
+     * Takes the user command and inputs it into dialogContainer.
+     * @throws InvalidIndexException
+     * @throws InvalidMarkAndUnmarkException
+     * @throws IOException
+     */
     @FXML
     private void handleUserInput() throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
         String scanCommand = userInput.getText();
         rainy.acceptInput(scanCommand);
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(scanCommand, userImage));
-        dialogContainer.getChildren().addAll(DialogBox.getRainyDialog(scanCommand, rainyImage));
         userInput.clear();
-        scrollPane.setVvalue(scrollPane.getVmax());
+        scrollPane.setVvalue(1);
+    }
+
+    public VBox getDialogContainer() {
+        return dialogContainer;
     }
 }
