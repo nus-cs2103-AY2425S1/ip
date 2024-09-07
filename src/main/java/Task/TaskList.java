@@ -1,6 +1,5 @@
 package Task;
 
-
 import CommandLine.Line;
 
 import java.io.*;
@@ -30,9 +29,9 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getTaskTypeAsString()).append(" | ");
         sb.append(task.getStatus().equals("X") ? "1" : "0").append(" | ");
-        sb.append(task.readTask());
+        sb.append(task.getTaskName());
         if (task instanceof Deadline) {
-            sb.append(" | ").append(((Deadline) task).getBy());
+            sb.append(" | ").append(((Deadline) task).getDeadline());
         } else if (task instanceof Event) {
             sb.append(" | ").append(((Event) task).getStart());
             sb.append(" | ").append(((Event) task).getEnd());
@@ -77,7 +76,7 @@ public class TaskList {
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         for (String part : parts) {
-            assert !part.isEmpty();
+            assert !part.isEmpty() : "Error";
         }
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
         boolean isDone = parts[1].equals("1");
@@ -117,7 +116,8 @@ public class TaskList {
     }
 
     /**
-     * Creates a task with given string
+     * Creates a task with given string.
+     *
      * @param s the string containing information about the task type
      * @param taskType the type of task
      * @throws TaskCreationException if error occurs while creating task
@@ -148,7 +148,7 @@ public class TaskList {
                     .append("[")
                     .append(newTask.getTaskTypeAsString())
                     .append("][ ] ")
-                    .append(newTask.readTask())
+                    .append(newTask.getTaskName())
                     .append("\n");
 
             if (this.taskListLength == 1) {
@@ -168,7 +168,8 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the task list
+     * Deletes a task from the task list.
+     *
      * @param idx index displayed on the list to be deleted
      * @return returns how many tasks are left in the task list
      */
@@ -188,7 +189,7 @@ public class TaskList {
                     .append("][")
                     .append(removedTask.getStatus())
                     .append("] ")
-                    .append(removedTask.readTask())
+                    .append(removedTask.getTaskName())
                     .append("\n");
 
             if (taskListLength == 1) {
@@ -203,7 +204,8 @@ public class TaskList {
         return response.toString();
     }
     /**
-     * Marks task at given index as completed
+     * Marks task at given index as completed.
+     *
      * @param s index to be marked as done
      */
     public String markAsDone(String s) {
@@ -214,12 +216,13 @@ public class TaskList {
         }
         Task currentTask = taskList.get(idx);
         currentTask.markAsDone();
-        String response = "Nice! I've marked this task as done:" + "[" + currentTask.getStatus() + "] " + currentTask.readTask();
+        String response = "Nice! I've marked this task as done:" + "[" + currentTask.getStatus() + "] " + currentTask.getTaskName();
         return response;
     }
 
     /**
-     * Marks task at given index as not completed
+     * Marks task at given index as not completed.
+     *
      * @param s index to be marked as undone
      */
     public String markAsUndone(String s) {
@@ -230,13 +233,14 @@ public class TaskList {
         }
         Task currentTask = taskList.get(idx);
         currentTask.markAsUndone();
-        String response = "Ok, I've marked this task as not done:" + "[" + currentTask.getStatus() + "] " + currentTask.readTask();
+        String response = "Ok, I've marked this task as not done:" + "[" + currentTask.getStatus() + "] " + currentTask.getTaskName();
         return response;
     }
 
 
     /**
-     * Prints all tasks in the task list
+     * Prints all tasks in the task list.
+     *
      * @return list of all tasks as a string
      */
     public String list() {
@@ -254,14 +258,15 @@ public class TaskList {
                     .append("] [")
                     .append(currentTask.getStatus())
                     .append("] ")
-                    .append(currentTask.readTask())
+                    .append(currentTask.getTaskName())
                     .append("\n");
         }
         return response.toString();
     }
 
     /**
-     * Prints tasks with matching string in description
+     * Prints tasks with matching string in description.
+     *
      * @param s the keyword
      * @return tasks with matching keyword as a string
      */
@@ -271,7 +276,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder();
 
         for (Task task : taskList) {
-            if (task.readTask().toLowerCase().contains(s.toLowerCase())) {
+            if (task.getTaskName().toLowerCase().contains(s.toLowerCase())) {
                 tasks.add(task);
             }
         }
@@ -291,7 +296,7 @@ public class TaskList {
                     .append("] [")
                     .append(currentTask.getStatus())
                     .append("] ")
-                    .append(currentTask.readTask())
+                    .append(currentTask.getTaskName())
                     .append("\n");
         }
 

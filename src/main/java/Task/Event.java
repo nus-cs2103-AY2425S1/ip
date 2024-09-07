@@ -17,7 +17,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the task type
+     * Returns the task type.
      * @return  the task type as a string
      */
     @Override
@@ -26,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the start time of the event
+     * Returns the start time of the event.
      * @return the start time as a string
      */
     public String getStart() {
@@ -35,7 +35,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the end time of the event
+     * Returns the end time of the event.
      * @return the ending time as a string
      */
     public String getEnd() {
@@ -44,20 +44,21 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a task with given string
+     * Returns a task with given string.
      * @return  the task and its given information as a string
      */
     @Override
-    public String readTask() {
-        return super.readTask() + " (from: " + this.getStart() + " to: " + this.getEnd() + ")";
+    public String getTaskName() {
+        return super.getTaskName() + " (from: " + this.getStart() + " to: " + this.getEnd() + ")";
     }
 
     /**
-     * Creates a task with given string
+     * Creates a task with given string.
+     *
      * @param name the string containing information about the task type
      * @param taskType the type of task
      * @throws TaskCreationException if error occurs while creating task
-     * @return Event
+     * @return Event instance
      */
     public static Event of(String name, TaskType taskType) throws TaskCreationException {
         try {

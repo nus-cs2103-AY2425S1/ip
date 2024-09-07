@@ -11,14 +11,15 @@ public class Parser {
     };
 
     /**
-     * Parses the input supplied by user, adds it to the task list if possible
-     * This method helps to parse inputs, calling the appropriate commands where possible
+     * Parses the input supplied by user, adds it to the task list if possible.
+     * This method helps to parse inputs, calling the appropriate commands where possible.
+     *
      * @param  taskList the current taskList
-     * @param  s the string that was parsed
+     * @param  inputTokens the string that was parsed
      */
-    public static String parse(TaskList taskList, String s) {
+    public static String parse(TaskList taskList, String inputTokens) {
         Line line = new Line();
-        String[] parts = s.split(" ", 2);
+        String[] parts = inputTokens.split(" ", 2);
         String command = parts[0].toLowerCase();
         switch(command) {
         case "bye":
@@ -83,18 +84,7 @@ public class Parser {
     }
 
     /**
-     * Helps print the string supplied in the appropriate format
-     * @param s the string supplied
-     */
-    public static void responseHelper(String s) {
-        Line line = new Line();
-        line.drawLine();
-        System.out.println("    " + s);
-        line.drawLine();
-    }
-
-    /**
-     * Exits the program
+     * Exits the program.
      */
     public static void NotAGPTExit() {
         Line line = new Line();

@@ -24,11 +24,12 @@ public class Deadline extends Task {
     }
 
     /**
-     * Creates a deadline with given string
+     * Creates a deadline with given string.
+     *
      * @param name the string containing information about the task type
      * @param taskType the type of task
      * @throws TaskCreationException if error occurs while creating task
-     * @return Deadline
+     * @return Deadline instance
      */
 //    deadline return book /by 2/12/2019 1800
     public static Deadline of(String name, TaskType taskType) throws TaskCreationException {
@@ -56,21 +57,23 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the deadline formatted as a string
+     * Returns the deadline formatted as a string.
+     *
      * @return the deadline as a string
      */
-    public String getBy() {
+    public String getDeadline() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return this.deadline.format(formatter);
     }
 
     /**
-     * Returns a deadline with given string
+     * Returns a deadline with given string.
+     *
      * @return returns the task and its given information as a string
      */
     @Override
-    public String readTask() {
-        return super.readTask() + " (by: " + this.getBy() + ")";
+    public String getTaskName() {
+        return super.getTaskName() + " (by: " + this.getDeadline() + ")";
     }
 
     public static LocalDateTime formatter(String s) throws DateTimeParseException {
