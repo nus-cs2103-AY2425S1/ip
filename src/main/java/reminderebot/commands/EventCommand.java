@@ -1,14 +1,12 @@
 package reminderebot.commands;
 
-import reminderebot.TaskList;
-import reminderebot.Ui;
-import reminderebot.Storage;
-import reminderebot.ReminderebotException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import reminderebot.task.Task;
-import reminderebot.task.ToDo;
-import reminderebot.task.Deadline;
+
+import reminderebot.ReminderebotException;
+import reminderebot.Storage;
+import reminderebot.TaskList;
+import reminderebot.Ui;
 import reminderebot.task.Event;
 
 /**
@@ -31,10 +29,11 @@ public class EventCommand extends Command {
      * @param tasklist
      * @param ui
      * @param storage
+     * @return String representing Event command
      * @throws ReminderebotException
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
         String[] eventInfo = command.split("/from ");
         String[] eventTiming = eventInfo[1].split("/to ");
         try {
@@ -42,7 +41,7 @@ public class EventCommand extends Command {
             LocalDateTime toTime = LocalDateTime.parse(eventTiming[1].trim(), formatter);
             Event event = new Event(eventInfo[0], fromTime, toTime);
             tasklist.addTask(event);
-            ui.addTask(event, tasklist.length());
+            return ui.addTask(event, tasklist.length());
         } catch (IllegalArgumentException e) {
             // if datetime not in correct format
             throw new ReminderebotException("/from <datetime> and /to <datetime> should be of format dd/MM/yy HHmm");

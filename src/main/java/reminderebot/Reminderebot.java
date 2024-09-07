@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import reminderebot.commands.Command;
 import reminderebot.task.Task;
 
-
-
 /**
  * The Reminderebot class represents the main application that interacts with the user.
  * It handles the core functionality of the chatbot, including task management,
@@ -27,7 +25,7 @@ public class Reminderebot {
     // }
 
     /**
-     * Initialise Reminderebot.
+     * Initialise Reminderebot for GUI.
      */
     public Reminderebot() {
         this.ui = new Ui();
@@ -56,7 +54,7 @@ public class Reminderebot {
     }
 
     /**
-     * Run Reminderebot.
+     * Run Reminderebot for text based.
      */
     public void run() {
         ui.showWelcome();
@@ -80,6 +78,11 @@ public class Reminderebot {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Reminderebot heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasklist, ui, storage);
+        } catch (ReminderebotException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 }

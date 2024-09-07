@@ -1,9 +1,8 @@
 package reminderebot.commands;
 
+import reminderebot.Storage;
 import reminderebot.TaskList;
 import reminderebot.Ui;
-import reminderebot.Storage;
-import reminderebot.ReminderebotException;
 
 /**
  * The ListCommand class represents a command to list all tasks in tasklist.
@@ -19,10 +18,11 @@ public class ListCommand extends Command {
      * @param tasklist
      * @param ui
      * @param storage
+     * @return String representing List command
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.printTasks();
+    public String execute(TaskList tasklist, Ui ui, Storage storage) {
+        return tasklist.printTasks();
     }
 
     /**

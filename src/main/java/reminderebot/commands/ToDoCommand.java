@@ -1,13 +1,10 @@
 package reminderebot.commands;
 
+import reminderebot.ReminderebotException;
+import reminderebot.Storage;
 import reminderebot.TaskList;
 import reminderebot.Ui;
-import reminderebot.Storage;
-import reminderebot.ReminderebotException;
-import reminderebot.task.Task;
 import reminderebot.task.ToDo;
-import reminderebot.task.Deadline;
-import reminderebot.task.Event;
 
 /**
  * The ToDoCommand class represents a command to create a ToDo.
@@ -24,17 +21,18 @@ public class ToDoCommand extends Command {
     }
 
     /**
-     * Create a Todo in tasklist.
+     * Create a ToDo in tasklist.
      * @param tasklist
      * @param ui
      * @param storage
+     * @return String representing ToDo command
      * @throws ReminderebotException
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) {
         ToDo todo = new ToDo(command);
         tasklist.addTask(todo);
-        ui.addTask(todo, tasklist.length());
+        return ui.addTask(todo, tasklist.length());
     }
 
     /**
