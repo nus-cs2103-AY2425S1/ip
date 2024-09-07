@@ -61,8 +61,10 @@ public class AddCommand extends Command {
                 break;
             }
 
+            // add task to tasklist and storage
             taskList.add(newTask);
             storage.add(newTask);
+
             return ui.showTaskAdded(newTask, taskList.size());
 
         } catch (SpongebobException e) {

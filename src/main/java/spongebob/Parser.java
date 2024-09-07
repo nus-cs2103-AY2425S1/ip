@@ -39,29 +39,11 @@ public class Parser {
             this.arguments[i] = " ";
         }
 
+        // search for command
         String[] commands = string.split(" ", 2);
         this.arguments[0] = commands[0].trim();
         if (commands.length > 1) {
             this.arguments[1] = commands[1].trim();
-        }
-
-        commands = arguments[1].split("/by", 2);
-        if (commands.length > 1) {
-            arguments[2] = commands[1].trim();
-            arguments[1] = commands[0].trim();
-
-        } else {
-            commands = arguments[1].split("/from", 3);
-            if (commands.length > 1) {
-                arguments[1] = commands[0].trim();
-                arguments[2] = commands[1].trim();
-
-                commands = arguments[2].split("/to", 2);
-                if (commands.length > 1) {
-                    arguments[3] = commands[1].trim();
-                    arguments[2] = commands[0].trim();
-                }
-            }
         }
 
         switch (this.arguments[0]) {
@@ -71,7 +53,33 @@ public class Parser {
         case "mark": case "unmark":
             return new MarkCommand(arguments);
 
-        case "todo": case "deadline": case "event":
+        case "todo":
+            return new AddCommand(arguments);
+
+        case "deadline":
+            commands = arguments[1].split("/by", 2);
+
+            if (commands.length > 1) {
+                arguments[2] = commands[1].trim();
+                arguments[1] = commands[0].trim();
+            }
+            return new AddCommand(arguments);
+
+        case "event":
+            commands = arguments[1].split("/from", 3);
+
+            if (commands.length > 1) {
+                arguments[1] = commands[0].trim();
+                arguments[2] = commands[1].trim();
+            }
+
+            commands = arguments[2].split("/to", 2);
+
+            if (commands.length > 1) {
+                arguments[3] = commands[1].trim();
+                arguments[2] = commands[0].trim();
+            }
+
             return new AddCommand(arguments);
 
         case "delete":

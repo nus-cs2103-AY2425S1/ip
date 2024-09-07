@@ -10,7 +10,8 @@ public class Todo extends Task {
      */
     public Todo(String description) throws SpongebobException {
         super(description, TaskType.TODO);
-        // check for errors
+
+        // checks if fields are missing
         if (description.equals(" ") || description.isEmpty()) {
             throw new SpongebobException("Barnacles! You can't enter an empty todo!");
         }

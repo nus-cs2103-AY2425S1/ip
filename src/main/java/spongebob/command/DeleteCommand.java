@@ -28,9 +28,15 @@ public class DeleteCommand extends Command {
 
         Task cur;
         try {
-            cur = taskList.getCache().get(Integer.parseInt(arguments[1]) - 1);
-            taskList.delete(Integer.parseInt(arguments[1]) - 1);
+
+            // get index of task to be deleted
+            int index = Integer.parseInt(arguments[1]) - 1;
+
+            // delete task from cache and storage
+            cur = taskList.getCache().get(index);
+            taskList.delete(index);
             storage.delete(cur);
+
             return ui.showTaskDeleted(cur, taskList.size());
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {

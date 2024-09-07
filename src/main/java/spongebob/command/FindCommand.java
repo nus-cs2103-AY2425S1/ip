@@ -7,7 +7,6 @@ import spongebob.storage.TaskList;
 import spongebob.task.Task;
 import spongebob.ui.Ui;
 
-
 /**
  * Command to find keyword in task list
  */
@@ -20,23 +19,27 @@ public class FindCommand extends Command {
     }
 
     /**
-     * executes the command, prints out list of tasks that contains keyword
+     * Executes the command, prints out list of tasks that contains keyword
      * @param taskList  tasklist of Spongebob
      * @param ui    UI Component of Spongebob
      * @param storage   Storage of Spongebob
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+
         assert !storage.isEmpty() : "storage is empty!";
 
         String keyword = arguments[1];
-        StringBuilder builder = new StringBuilder();
+
+        StringBuilder listInStringBuilder = new StringBuilder();
         ListIterator<Task> iter = taskList.find(keyword).listIterator();
+
+        // adds and format tasks in string form to builder.
         while (iter.hasNext()) {
             Task cur = iter.next();
-            builder.append((iter.previousIndex() + 1) + "." + cur + "\n");
+            listInStringBuilder.append((iter.previousIndex() + 1) + "." + cur + "\n");
         }
-        return ui.showFindTask(builder.toString());
+        return ui.showFindTask(listInStringBuilder.toString());
 
     }
 

@@ -49,14 +49,14 @@ public class TaskList {
     @Override
     public String toString() {
         ListIterator<Task> iter = this.cache.listIterator();
-        StringBuilder builder = new StringBuilder();
+        StringBuilder listInStringBuilder = new StringBuilder();
 
         while (iter.hasNext()) {
             Task cur = iter.next();
-            builder.append((iter.previousIndex() + 1) + "." + cur + "\n");
+            listInStringBuilder.append((iter.previousIndex() + 1) + "." + cur + "\n");
         }
 
-        return builder.toString();
+        return listInStringBuilder.toString();
     }
 
     /**

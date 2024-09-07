@@ -27,9 +27,10 @@ public class Event extends Task {
 
         super(description, TaskType.EVENT);
 
-        // check for errors
+        // checks if anything field is missing
         if (description.equals(" ") || startDate.equals(" ") || endDate.equals(" ")
                 || description.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+
             String msg = "";
             if (description.equals(" ") || description.isEmpty()) {
                 msg += " Description,";
