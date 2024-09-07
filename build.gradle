@@ -49,7 +49,12 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'duke.jar'
+
 }
+
+mainClassName = 'calebyyy.Launcher'
+
 
 run{
     standardInput = System.in
