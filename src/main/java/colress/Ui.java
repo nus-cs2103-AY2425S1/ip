@@ -200,6 +200,7 @@ public final class Ui {
             // A typecast is required here because not all command objects have the getTaskType method.
             // The only command that will lead to this method being called is the AddCommand command.
             // Therefore, this is a safe typecast.
+            assert currCommand instanceof AddCommand : "Current Command should be an AddCommand";
             AddCommand c = (AddCommand) currCommand;
             input = parser.getString(input);
             c.initialise(input);
