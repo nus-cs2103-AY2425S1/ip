@@ -98,23 +98,17 @@ public class Storage {
             break;
 
         case 'D':
-            String[] deadlineSegments = description.split("/");
-            int index = 0;
-            for (int i = 0; i < description.length(); i++) {
-                if (description.charAt(i) == '/') {
-                    index = i + 4;
-                    break;
-                }
+            String deadlineDetails = description.split("/")[0];
+            String by = description.split("/by")[1];
 
-            }
-            taskToAdd = new Deadline(deadlineSegments[0], description.substring(index));
+            taskToAdd = new Deadline(deadlineDetails, by);
             break;
 
         case 'E':
-            String[] eventSegments = description.split("/");
-            taskToAdd = new Event(eventSegments[0],
-                    eventSegments[1].substring(6),
-                    eventSegments[2].substring(4));
+            String eventDetails = description.split("/from")[0];
+            String from = description.split("/from")[1].split("/to")[0];
+            String to = description.split("/from")[1].split("/to")[1];
+            taskToAdd = new Event(eventDetails, from, to);
 
             break;
 

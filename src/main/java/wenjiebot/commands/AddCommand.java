@@ -113,12 +113,13 @@ public class AddCommand extends Command {
                 }
                 j++;
                 while (j < parts.length) {
-                    to += parts[j];
+                    to += parts[j] + " ";
                     j++;
                 }
                 break;
             }
         }
+
 
         int endIndex = 0;
         for (int i = 0; i < getInput().length(); i++) {

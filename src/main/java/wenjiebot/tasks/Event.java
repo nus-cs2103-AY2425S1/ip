@@ -1,5 +1,8 @@
 package wenjiebot.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class represents an event task in the wenjiebot application.
  * It extends the Task class and includes additional information for the event,
@@ -10,6 +13,9 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    protected LocalDateTime fromInDateTime;
+    protected LocalDateTime toInDateTime;
+
     /**
      * Constructs an Event with the specified description, start time, and end time.
      *
@@ -19,8 +25,11 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = from.trim();
+        this.to = to.trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        this.fromInDateTime = LocalDateTime.parse(from.trim(), formatter);
+        this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
     }
 
     /**
@@ -31,7 +40,9 @@ public class Event extends Task {
      */
     @Override
     public String toPrettierString() {
-        return "E" + super.toPrettierString() + "/from: " + from + "/to: " + this.to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return "E" + super.toPrettierString() + "/from " + fromInDateTime.format(formatter)
+                + " /to " + toInDateTime.format(formatter);
     }
 
     /**
@@ -42,6 +53,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + " to: " + this.to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm");
+        return "[E]" + super.toString() + "(from: " + fromInDateTime.format(formatter)
+                + " to: " + toInDateTime.format(formatter) + ")";
     }
 }
