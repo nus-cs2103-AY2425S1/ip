@@ -5,21 +5,41 @@ import elysia.tasks.Event;
 import elysia.tasks.TaskList;
 import elysia.tasks.Todo;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Manages reading from and writing to a file for the Elysia application.
+ * Supports creating a file, saving the current task list to a file, and loading tasks from a file.
+ */
 public class FileReaderWriter {
     java.nio.file.Path path;
     TaskList taskList;
 
+    /**
+     * Constructs a FileReaderWriter with a reference to the task list to be managed.
+     * The file used for storing tasks is set to "data.txt" by default.
+     *
+     * @param taskList The TaskList instance that will be saved to and loaded from the file.
+     */
     public FileReaderWriter(TaskList taskList) {
         path = java.nio.file.Paths.get("data.txt");
         this.taskList = taskList;
     }
 
+    /**
+     * Creates a new file if it does not already exist.
+     *
+     * @return A message indicating whether the file was successfully created or if an error occurred.
+     */
     public String createFile() {
         String output = "";
         try {
@@ -33,6 +53,11 @@ public class FileReaderWriter {
         return output;
     }
 
+    /**
+     * Writes the current task list to the file in a format suitable for storage.
+     *
+     * @return A message indicating whether the tasks were successfully saved or if an error occurred.
+     */
     public String writeFile() {
         String output = "";
         try {
@@ -44,6 +69,12 @@ public class FileReaderWriter {
         return output;
     }
 
+    /**
+     * Reads tasks from the file and loads them into the task list.
+     * Supports loading tasks of type ToDo, Deadline, and Event.
+     *
+     * @return A message indicating whether the tasks were successfully loaded or if the file was not found.
+     */
     public String readFile() {
         String output = "";
         File file = new File(path.toString());

@@ -4,9 +4,20 @@ import elysia.ui.Message;
 
 import java.util.Scanner;
 
+/**
+ * The main class for the Elysia application.
+ * This class handles the main program loop, where user input is continuously accepted and processed.
+ * It interacts with the user via the console and manages the flow of the application.
+ */
 public class Elysia {
 
 
+    /**
+     * The main method that starts the Elysia application.
+     * Displays an initial greeting, processes user commands, and handles the application shutdown.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         Message.print("Hi~! I'm Elysia! As you can see, I'm a girl as beautiful as as flower!\n" +
