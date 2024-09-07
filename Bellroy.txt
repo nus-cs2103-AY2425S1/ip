@@ -1,1 +1,2 @@
-[T][ ]  say hello
+[T][ ] say hello
+[T][X]  swim
