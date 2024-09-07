@@ -22,9 +22,7 @@ public class Ui {
      * Displays the basic goodbye message when the
      * program is closed and parts with the user.
      */
-    public void byeMessage() {
-        System.out.println(LINE);
-        System.out.println(byeMessage);
-        System.out.println(LINE);
+    public String byeMessage() {
+        return byeMessage;
     }
 }

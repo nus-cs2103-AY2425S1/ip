@@ -3,7 +3,13 @@ package alex;
 import alex.storage.Storage;
 import alex.tasklist.TaskList;
 import alex.ui.Ui;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -80,6 +86,24 @@ public class Alex {
         }
     }
 
+    public String getResponse(String input) {
+        return "Alex heard: " + input;
+    }
+
+    public Ui getUi() {
+        return ui;
+    }
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
     public static void main(String[] args) {
         Alex alex = new Alex("./data/alex.txt");
 
