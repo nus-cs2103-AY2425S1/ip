@@ -49,6 +49,12 @@ public class TaskList {
      *
      * @param task The {@link Task} that has been added.
      */
+    private String generateAddedTaskSummaryMessage(Task task) {
+        return "Got it. I've added this task:\n" +
+                task.toString() + "\n" +
+                "Now you have " + this.tasks.size() + " tasks in the list.";
+    }
+
     private void printAddedTaskSummary(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -69,6 +75,14 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
+    private String generateDeletedTaskSummaryMessage(Task task) {
+        return "Noted. I've removed this task:" +
+                System.lineSeparator() +
+                task +
+                System.lineSeparator() +
+                String.format("Now you have %s tasks in the list.", this.tasks.size());
+    }
+
 
     /**
      * Marks a task as done based on its index in the list.
@@ -78,8 +92,8 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be marked as done (1-based index).
      */
-    public void markAsDone(int taskIndex) {
-        this.tasks.get(taskIndex - 1).markAsDone();
+    public String markAsDone(int taskIndex) {
+        return this.tasks.get(taskIndex - 1).markAsDone();
     }
 
     /**
@@ -90,8 +104,8 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be unmarked as done (1-based index).
      */
-    public void unmarkAsDone(int taskIndex) {
-        this.tasks.get(taskIndex - 1).unmarkAsDone();
+    public String unmarkAsDone(int taskIndex) {
+        return this.tasks.get(taskIndex - 1).unmarkAsDone();
     }
 
     /**
@@ -102,9 +116,9 @@ public class TaskList {
      *
      * @param task The {@link Task} to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
-        this.printAddedTaskSummary(task);
+        return this.generateAddedTaskSummaryMessage(task);
     }
 
     /**
@@ -115,9 +129,9 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted (1-based index).
      */
-    public void deleteTask(int taskIndex) {
+    public String deleteTask(int taskIndex) {
         Task deletedTask = this.tasks.remove(taskIndex - 1);
-        printDeletedTaskSummary(deletedTask);
+        return this.generateDeletedTaskSummaryMessage(deletedTask);
     }
 
     /**
@@ -144,8 +158,8 @@ public class TaskList {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         // Loop through the tasks and find matching tasks
-        for (Task task: this.tasks) {
-            // Note that this is case sensitive
+        for (Task task : this.tasks) {
+            // Note that this is case-sensitive
             if (task.description.contains(keyword)) {
                 matchingTasks.add(task);
             }

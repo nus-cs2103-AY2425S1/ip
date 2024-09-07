@@ -66,10 +66,9 @@ public abstract class Task {
      * a message indicating that the task has been marked as done.
      * </p>
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this);
+        return String.format("Nice! I've marked this task as done:\n%s", this.toString());
     }
 
     /**
@@ -79,10 +78,9 @@ public abstract class Task {
      * a message indicating that the task has been marked as not done yet.
      * </p>
      */
-    public void unmarkAsDone() {
+    public String unmarkAsDone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this);
+        return String.format("OK, I've marked this task as not done yet:\n%s",this.toString());
     }
 
     /**

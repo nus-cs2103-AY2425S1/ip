@@ -32,7 +32,6 @@ public class UnmarkTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.unmarkAsDone(taskIndex);
-        return "UnmarkTaskCommand";
+        return taskList.unmarkAsDone(taskIndex);
     }
 }
