@@ -16,7 +16,14 @@ public class MarkCommand extends Command {
             + "Example: " + COMMAND_EXAMPLE;
 
     private int index;
+
+    /**
+     * Constructor to create a mark command.
+     *
+     * @param index of the todo list to mark.
+     */
     public MarkCommand(int index) {
+        assert index >= 0 : "index should be >= 0";
         this.index = index - 1;
     }
 
