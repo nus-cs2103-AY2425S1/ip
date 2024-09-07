@@ -10,7 +10,7 @@ import soju.Ui;
 public class UnmarkCommand extends Command {
     private int index;
     public UnmarkCommand(String input) {
-        index = Integer.parseInt(input.split(" ")[1]) - 1;
+        index = Integer.parseInt(input.split(" ")[1]);
     }
 
     @Override

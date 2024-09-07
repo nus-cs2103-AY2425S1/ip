@@ -10,7 +10,7 @@ import soju.Ui;
 public class MarkCommand extends Command {
     private int index;
     public MarkCommand(String input) {
-        index = Integer.parseInt(input.split(" ")[1]) - 1;
+        index = Integer.parseInt(input.split(" ")[1]);
     }
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
