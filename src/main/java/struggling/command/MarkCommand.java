@@ -4,6 +4,9 @@ import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
 
+/**
+ * MarkCommand specifies instruction to mark a task as done.
+ */
 public class MarkCommand extends Command {
 
     private final int index;

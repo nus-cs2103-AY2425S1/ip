@@ -1,10 +1,10 @@
 package struggling;
 
-import struggling.command.Command;
-import struggling.task.Task;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import struggling.command.Command;
+import struggling.task.Task;
 
 /**
  * Struggling class creates a text-based chatbot.
@@ -44,6 +44,9 @@ public class Struggling {
         new Struggling("data/Struggling.txt").run();
     }
 
+    /**
+     * Start the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

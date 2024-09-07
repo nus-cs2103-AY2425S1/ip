@@ -4,6 +4,9 @@ import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
 
+/**
+ * AddCommand specifies the tasks to be deleted.
+ */
 public class DeleteCommand extends Command {
 
     private final int index;

@@ -1,9 +1,9 @@
 package struggling;
 
-import struggling.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import struggling.task.Task;
 
 /**
  * Ui class deals with interactions with the user.
@@ -77,6 +77,12 @@ public class Ui {
         show(ans.toString());
     }
 
+    /**
+     * Display a list of filtered tasks which
+     * descriptions contain a keyword.
+     *
+     * @param arr The filtered list of tasks in string form.
+     */
     public void find(ArrayList<String> arr) {
         StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
         int count = 0;

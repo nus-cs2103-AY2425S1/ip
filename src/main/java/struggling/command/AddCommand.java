@@ -5,6 +5,9 @@ import struggling.TaskList;
 import struggling.Ui;
 import struggling.task.Task;
 
+/**
+ * AddCommand specifies the tasks to be added.
+ */
 public class AddCommand extends Command {
 
     private final Task task;

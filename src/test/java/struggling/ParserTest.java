@@ -1,6 +1,10 @@
 package struggling;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import struggling.command.AddCommand;
 import struggling.command.DeleteCommand;
 import struggling.command.ExitCommand;
@@ -9,8 +13,6 @@ import struggling.command.ListCommand;
 import struggling.command.MarkCommand;
 import struggling.command.UnmarkCommand;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
