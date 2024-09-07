@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setMakima(Makima makima) {
-        makima = makima;
+        this.makima = makima;
     }
 
     /**
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = makima.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getMakimaDialog(response, dukeImage)
         );
         userInput.clear();
     }
