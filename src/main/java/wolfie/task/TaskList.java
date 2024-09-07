@@ -3,6 +3,7 @@ package wolfie.task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks using ArrayList.
@@ -44,15 +45,10 @@ public class TaskList {
      * @return A list of tasks that are on the specified date
      */
     public List<Task> getTasksOnDate(LocalDate date) {
-        List<Task> tasksOnDate = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date)) {
-                tasksOnDate.add(task);
-            } else if (task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
-                    || ((Event) task).getTo().toLocalDate().equals(date))) {
-                tasksOnDate.add(task);
-            }
-        }
-        return tasksOnDate;
+        return tasks.stream()
+                    .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date)
+                            || task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
+                            || ((Event) task).getTo().toLocalDate().equals(date)))
+                    .collect(Collectors.toList());
     }
 }

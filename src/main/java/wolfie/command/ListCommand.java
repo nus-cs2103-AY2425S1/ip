@@ -1,5 +1,10 @@
 package wolfie.command;
 
+import java.io.IOException;
+import java.util.stream.Collectors;
+
+import wolfie.exception.WolfieException;
+import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
@@ -16,7 +21,10 @@ public class ListCommand extends Command {
      * @return A message with all the tasks in the task list
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showTasks(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
+        String taskListString = tasks.getTasks().stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+        return ui.showTaskList(taskListString);
     }
 }
