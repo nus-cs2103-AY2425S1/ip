@@ -7,6 +7,8 @@ import task.TaskList;
 import command.Command;
 import ui.Ui;
 
+import java.time.temporal.TemporalUnit;
+
 /**
  * The main class for the Kuki Shinobu application.
  * <p>
@@ -64,6 +66,10 @@ public class KukiShinobu {
         }
     }
 
+    public KukiShinobu() {
+        this(KukiShinobu.FILE_PATH);
+    }
+
     /**
      * Converts an integer to a boolean.
      *
@@ -101,5 +107,9 @@ public class KukiShinobu {
             }
         }
         ui.showGoodbye();
+    }
+
+    public String getResponse(String input) {
+        return "Kuki Shinobu heard: " + input;
     }
 }
