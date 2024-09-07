@@ -126,7 +126,7 @@ public class Ui {
      */
     public String showTasksOnDate(LocalDate date, Task... tasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append(" Here are the tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+        sb.append("Here are the tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 .append(":\n");
         if (tasks.length == 0) {
             sb.append("   There are no tasks on this date.\n");
@@ -145,7 +145,7 @@ public class Ui {
      */
     public String showMatchingTasks(List<Task> matchingTasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append(" Here are the matching tasks in your list:\n");
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
