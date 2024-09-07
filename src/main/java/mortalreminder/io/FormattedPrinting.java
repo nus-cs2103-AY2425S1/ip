@@ -2,7 +2,7 @@ package mortalreminder.io;
 
 import java.util.ArrayList;
 
-import mortalreminder.backend.TaskList;
+import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
@@ -28,9 +28,8 @@ public class FormattedPrinting {
      * Returns the welcome message to the user upon program startup.
      */
     public static String welcome() {
-        String welcomeMessage = "Hello I'm Mortal Reminder!\n"
+        return "Hello I'm Mortal Reminder!\n"
                 + "What can I do for you?";
-        return getResponse(welcomeMessage);
     }
 
     /**
@@ -46,7 +45,7 @@ public class FormattedPrinting {
         } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
-            return addListItems(taskList, currentList);
+            return listPrintingHelperFunction(taskList, currentList);
         }
     }
 
@@ -63,11 +62,12 @@ public class FormattedPrinting {
         } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the matching tasks in your list:\n");
-            return addListItems(taskList, currentList);
+            return listPrintingHelperFunction(taskList, currentList);
         }
     }
 
-    private static String addListItems(TaskList taskList, StringBuilder currentList) throws MortalReminderException {
+    private static String listPrintingHelperFunction(TaskList taskList, StringBuilder currentList)
+            throws MortalReminderException {
         for (int i = 1; i < taskList.getSize() + 1; i++) {
             currentList.append(i).append(".").append(printTask(taskList.getTask(i - 1)));
             if (i < taskList.getSize()) {

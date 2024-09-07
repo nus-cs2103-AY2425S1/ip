@@ -6,7 +6,7 @@ import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Deadline;
-import mortalreminder.tasks.Events;
+import mortalreminder.tasks.Event;
 import mortalreminder.tasks.Task;
 import mortalreminder.tasks.ToDo;
 
@@ -31,7 +31,6 @@ public class Parser {
      * @return a {@code Command} object corresponding to the parsed input.
      */
     public static Command parseInputFromUser(String input) {
-
         // Trim and split the input into designated parts
         String[] splitInput = input.trim().replaceAll("\\s+", " ").split(" ");
         String commandWord = splitInput[0];
@@ -53,7 +52,7 @@ public class Parser {
             commandType = CommandType.UNKNOWN;
         }
 
-        // Use the initialise method to create and return a Commands object
+        // Use the initialise method to create and return a Command
         return Command.initialise(commandType, splitInput);
     }
 
@@ -64,7 +63,7 @@ public class Parser {
      * <p>
      * This method splits the input string by the "|" delimiter, extracts the task type,
      * completion status, and description, and creates a specific {@code Task} object
-     * (e.g., {@link ToDo}, {@link Deadline}, {@link Events}) based on the task type.
+     * (e.g., {@link ToDo}, {@link Deadline}, {@link Event}) based on the task type.
      *
      * @param input the input string read from a file.
      * @return the corresponding {@code Task} object, or {@code null} if the input is invalid.
@@ -87,7 +86,7 @@ public class Parser {
         case "E":
             String fromTime = parts[3].trim();
             String toTime = parts[4].trim();
-            return new Events(description, fromTime, toTime, isDone);
+            return new Event(description, fromTime, toTime, isDone);
         default:
             throw new MortalReminderException("File might be corrupted! Please use clear_tasks to restart the file.");
         }

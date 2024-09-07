@@ -1,5 +1,7 @@
 package mortalreminder.io;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -26,10 +28,10 @@ public class MortalReminderWindow extends AnchorPane {
 
     private MortalReminder mortalReminder;
 
-    private Image userImage = new Image(this.getClass()
-            .getResourceAsStream("/images/Darius.png"));
-    private Image mortalReminderImage = new Image(this.getClass()
-            .getResourceAsStream("/images/MortalReminder.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/Darius.png")));
+    private final Image mortalReminderImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/MortalReminder.png")));
 
     @FXML
     public void initialize() {
