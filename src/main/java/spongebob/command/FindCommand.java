@@ -27,6 +27,8 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !storage.isEmpty() : "storage is empty!";
+
         String keyword = arguments[1];
         StringBuilder builder = new StringBuilder();
         ListIterator<Task> iter = taskList.find(keyword).listIterator();
