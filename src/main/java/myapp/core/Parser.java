@@ -35,56 +35,87 @@ public class Parser {
         assert input != null : "Input should not be null";
         assert !input.trim().isEmpty() : "Input should not be empty";
         CommandType command = CommandType.fromString(input);
-        assert command != null : "Command should not be null";
-        String description;
 
+        assert command != null : "Command should not be null";
         switch (command) {
         case BYE:
             return new ExitCommand();
         case LIST_ON:
-            String date = input.substring(8).trim();
-            return new ListOnCommand(date);
+            return parseListOnCommand(input);
         case LIST:
             return new ListCommand();
         case FIND:
-            String keyword = input.substring(5).trim();
-            if (keyword.isEmpty()) {
-                throw new BingBongException("Please state the keyword clearly.");
-            }
-            return new FindCommand(keyword);
+            return parseFindCommand(input);
         case MARK:
-            int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            return new MarkCommand(markIndex);
+            return parseMarkCommand(input);
         case UNMARK:
-            int unMarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            return new UnMarkCommand(unMarkIndex);
+            return parseUnmarkCommand(input);
         case DELETE:
-            int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            return new DeleteCommand(deleteIndex);
+            return parseDeleteCommand(input);
         case TODO:
-            description = Parser.parseDescription(input, CommandType.TODO);
-            if (description.isEmpty()) {
-                throw new BingBongException("The description of a todo cannot be empty.");
-            }
-            return new ToDoCommand(description);
+            return parseTodoCommand(input);
         case DEADLINE:
-            description = Parser.parseDescription(input, CommandType.DEADLINE);
-            LocalDateTime byDateTime = Parser.parseDeadlineDateTime(input);
-            if (description.isEmpty()) {
-                throw new BingBongException("The description of a deadline cannot be empty.");
-            }
-            return new DeadlineCommand(description, byDateTime);
+            return parseDeadlineCommand(input);
         case EVENT:
-            description = Parser.parseDescription(input, CommandType.EVENT);
-            LocalDateTime[] dateTimes = Parser.parseEventDateTime(input);
-            if (description.isEmpty()) {
-                throw new BingBongException("The description of an event cannot be empty.");
-            }
-            return new EventCommand(description, dateTimes[0], dateTimes[1]);
+            return parseEventCommand(input);
         case INVALID:
         default:
             throw new BingBongException("Command not recognized. Please try again...");
         }
+    }
+
+    private static Command parseListOnCommand(String input) throws BingBongException {
+        String date = input.substring(8).trim();
+        return new ListOnCommand(date);
+    }
+
+    private static Command parseFindCommand(String input) throws BingBongException {
+        String keyword = input.substring(5).trim();
+        if (keyword.isEmpty()) {
+            throw new BingBongException("Please state the keyword clearly.");
+        }
+        return new FindCommand(keyword);
+    }
+
+    private static Command parseMarkCommand(String input) {
+        int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        return new MarkCommand(markIndex);
+    }
+
+    private static Command parseUnmarkCommand(String input) {
+        int unMarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        return new UnMarkCommand(unMarkIndex);
+    }
+
+    private static Command parseDeleteCommand(String input) {
+        int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        return new DeleteCommand(deleteIndex);
+    }
+
+    private static Command parseTodoCommand(String input) throws BingBongException {
+        String description = parseDescription(input, CommandType.TODO);
+        if (description.isEmpty()) {
+            throw new BingBongException("The description of a todo cannot be empty.");
+        }
+        return new ToDoCommand(description);
+    }
+
+    private static Command parseDeadlineCommand(String input) throws BingBongException {
+        String description = parseDescription(input, CommandType.DEADLINE);
+        LocalDateTime byDateTime = parseDeadlineDateTime(input);
+        if (description.isEmpty()) {
+            throw new BingBongException("The description of a deadline cannot be empty.");
+        }
+        return new DeadlineCommand(description, byDateTime);
+    }
+
+    private static Command parseEventCommand(String input) throws BingBongException {
+        String description = parseDescription(input, CommandType.EVENT);
+        LocalDateTime[] dateTimes = parseEventDateTime(input);
+        if (description.isEmpty()) {
+            throw new BingBongException("The description of an event cannot be empty.");
+        }
+        return new EventCommand(description, dateTimes[0], dateTimes[1]);
     }
 
     /**
@@ -123,8 +154,7 @@ public class Parser {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
             return DateTimeHandler.parse(by);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new BingBongException("The deadline format is incorrect. "
-                    + "Use: deadline <task> /by <time>");
+            throw new BingBongException("The deadline format is incorrect. Use: deadline <task> /by <time>");
         }
     }
 
@@ -136,13 +166,13 @@ public class Parser {
      *      the second element is the end time.
      * @throws BingBongException if the date/time format is incorrect, if the input is malformed,
      *      or if the required parts are missing.
-     */
+     * */
     public static LocalDateTime[] parseEventDateTime(String input) throws BingBongException {
         try {
             String[] parts = input.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
-                throw new BingBongException("The event format is incorrect. Use: event <task> "
-                        + "/from <start time> /to <end time>");
+                throw new BingBongException("The event format is incorrect. "
+                        + "Use: event <task> /from <start time> /to <end time>");
             }
             LocalDateTime fromDateTime = DateTimeHandler.parse(parts[1].trim());
             LocalDateTime toDateTime = DateTimeHandler.parse(parts[2].trim());

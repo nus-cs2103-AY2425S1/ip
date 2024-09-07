@@ -16,10 +16,10 @@ import myapp.task.TaskList;
 public class EventCommand extends AddCommand {
 
     /** The start date and time of the event. */
-    private LocalDateTime from;
+    private LocalDateTime startDateTime;
 
     /** The end date and time of the event. */
-    private LocalDateTime to;
+    private LocalDateTime endDateTime;
 
     /**
      * Constructs an EventCommand with the specified task description, start time, and end time.
@@ -30,8 +30,8 @@ public class EventCommand extends AddCommand {
      */
     public EventCommand(String s, LocalDateTime from, LocalDateTime to) {
         super(s);
-        this.from = from;
-        this.to = to;
+        this.startDateTime = from;
+        this.endDateTime = to;
     }
 
     /**
@@ -44,7 +44,7 @@ public class EventCommand extends AddCommand {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        Task task = new Event(description, from, to);
+        Task task = new Event(description, startDateTime, endDateTime);
         tasks.add(task);
         saveTasks(tasks, storage);
         return printAddMessage(tasks, task);

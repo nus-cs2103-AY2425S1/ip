@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
         Task task = tasks.get(index);
         task.markAsDone();
         saveTasks(tasks, storage);
-        return "Nice! I've marked this task as done:\n" + task;
+        return printMarkMessage(task);
     }
 
     /**
@@ -52,5 +52,15 @@ public class MarkCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Prints a message confirming that the task has been marked as done.
+     *
+     * @param task The task that was marked as done.
+     * @return A string message confirming the task has been marked as done.
+     */
+    private String printMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 }
