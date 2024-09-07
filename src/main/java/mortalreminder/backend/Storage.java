@@ -99,6 +99,8 @@ public class Storage {
             if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
                 throw new MortalReminderException("File cannot be created!");
             }
+
+            // Load all tasks in the storage file into the TaskList at the start of the program.
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 String input = s.nextLine();

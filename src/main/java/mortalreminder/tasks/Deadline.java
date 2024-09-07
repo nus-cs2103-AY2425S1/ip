@@ -14,7 +14,6 @@ import mortalreminder.errorhandling.MortalReminderException;
  * The {@code Deadline} class extends the {@code Task} class and implements the {@code TimedTask} interface.
  */
 public class Deadline extends Task implements TimedTask {
-
     private final LocalDateTime deadline;
 
     /**
@@ -32,7 +31,7 @@ public class Deadline extends Task implements TimedTask {
         checkInitialisationDetails(descriptionString);
         this.description = descriptionString[0].trim();
         this.deadline = getTime(descriptionString[1].trim());
-        this.type = "D";
+        this.type = "D"; // short for Deadline
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits
@@ -98,8 +97,8 @@ public class Deadline extends Task implements TimedTask {
     public void checkInitialisationDetails(String[] descriptionString)
             throws MortalReminderException {
         if (descriptionString.length != 2) {
-            throw new MortalReminderException("Please input the correct number of details for deadlines! " +
-                    "Remember that you need to include '/by' in the command.");
+            throw new MortalReminderException("Please input the correct number of details for deadlines!"
+                    + " Remember that you need to include '/by' in the command.");
         }
         try {
             getTime(descriptionString[1].trim());

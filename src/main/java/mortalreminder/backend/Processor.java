@@ -10,7 +10,7 @@ import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Deadline;
-import mortalreminder.tasks.Events;
+import mortalreminder.tasks.Event;
 import mortalreminder.tasks.Task;
 import mortalreminder.tasks.TimedTask;
 import mortalreminder.tasks.ToDo;
@@ -97,6 +97,7 @@ public class Processor {
             String response = "";
             int index = Integer.parseInt(commandDetails) - 1;
             Task newTask = taskList.getTask(index);
+
             if (newTask != null) {
                 if (commandType == CommandType.MARK) {
                     response = newTask.markDone();
@@ -137,7 +138,7 @@ public class Processor {
         } else if (commandType == CommandType.DEADLINE) {
             newTask = new Deadline(commandDetails);
         } else {
-            newTask = new Events(commandDetails);
+            newTask = new Event(commandDetails);
         }
         return taskList.addTask(newTask);
     }

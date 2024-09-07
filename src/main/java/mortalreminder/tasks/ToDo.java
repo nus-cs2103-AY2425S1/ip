@@ -19,8 +19,8 @@ public class ToDo extends Task {
      */
     public ToDo(String description) throws MortalReminderException {
         super(description);
-        this.type = "T";
         this.description = description;
+        this.type = "T"; // short for todo
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits
