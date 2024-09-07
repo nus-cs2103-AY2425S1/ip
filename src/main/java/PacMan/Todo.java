@@ -5,7 +5,9 @@ public class Todo extends Task {
         super(task);
     }
 
-    public String toFile() { return "T/" + super.toFile(); }
+    public String toFile() {
+        return "T/" + super.toFile();
+    }
 
     @Override
     public String toString() {
