@@ -3,6 +3,7 @@ package mortalreminder.backend.tasklistmanager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
@@ -45,23 +46,28 @@ public class TaskRetriever {
 
     /**
      * Finds and returns the task based on descriptions matching the descriptions passed in.
+     * This method was created using ChatGPT with major edits.
      *
      * @param descriptions string argument(s) we are looking for in all matching tasks.
      * @return String representation of {@link TaskList} of matching tasks.
+     * @throws MortalReminderException if there is no matching tasks to any of the given query terms.
      */
     public static String findTasks(TaskList taskList, String... descriptions) throws MortalReminderException {
-        TaskList similarTasks = new TaskList();
-        for (Task task : taskList.getTaskList()) {
-            for (String description : descriptions) {
-                if (similarTasks.getTaskList().contains(task)) {
-                    continue;
-                }
-                if (!task.getDescription().contains(description.trim())) {
-                    continue;
-                }
-                similarTasks.loadTask(task);
+        ArrayList<Task> similarTasks = taskList.getTaskList().stream()
+                .filter(x -> filterTask(x, descriptions))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (similarTasks.isEmpty()) {
+            throw new MortalReminderException("No similar tasks found!");
+        }
+        return FormattedPrinting.printList(taskList);
+    }
+
+    private static boolean filterTask(Task task, String... descriptions) {
+        for (String description : descriptions) {
+            if (task.getDescription().contains(description)) {
+                return true;
             }
         }
-        return FormattedPrinting.printSimilarTasks(similarTasks);
+        return false;
     }
 }
