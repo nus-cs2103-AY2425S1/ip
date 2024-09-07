@@ -93,8 +93,8 @@ public class MainWindow extends AnchorPane {
             }
         } finally {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getFridayDialog(response, dukeImage)
+                    DialogBox.getUserDialog(userImage, input),
+                    DialogBox.getFridayDialog(dukeImage, response)
             );
             userInput.clear();
         }

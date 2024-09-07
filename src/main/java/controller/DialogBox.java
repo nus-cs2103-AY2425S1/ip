@@ -49,12 +49,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(Image img, String... text) {
+        return new DialogBox(text[0], img);
     }
 
-    public static DialogBox getFridayDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getFridayDialog(Image img, String... text) {
+        var db = new DialogBox(text[0], img);
         db.flip();
         return db;
     }
