@@ -1,9 +1,9 @@
 package command;
 
-import utility.Ui;
 import exception.ElliotException;
+import utility.Ui;
 
-/** 
+/**
  * Enum class to hold every single possible command available to the user.
  */
 public enum CommandType {

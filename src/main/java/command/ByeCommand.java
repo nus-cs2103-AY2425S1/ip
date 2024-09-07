@@ -1,8 +1,8 @@
 package command;
 
-import utility.Ui;
-import utility.TaskList;
 import utility.Storage;
+import utility.TaskList;
+import utility.Ui;
 
 /**
  * {@link Command} to Exits application.
@@ -24,8 +24,7 @@ public class ByeCommand extends Command {
      * Saves task to save file.
      *
      * @param taskList the {@link TaskList} of which to be stored to disk.
-     * @param storage the storage object which the {@link TaskList} will be
-     * saved to.
+     * @param storage the storage object which the {@link TaskList} will be saved to.
      * @return taskList with no modification.
      */
     @Override

@@ -1,14 +1,14 @@
 package utility;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
-import java.io.Serializable;
 
 /**
- * An immutable implementation of the {@code ArrayList} using an 
+ * An immutable implementation of the {@code ArrayList} using an
  * immutable delegation design pattern.
  *
  * @author  cs2030
@@ -31,7 +31,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
      *
      * @param list the list whose elements are to be placed into this list
      * @throws NullPointerException if the specified list is null
-     */    
+     */
     public ImList(List<? extends E> list) {
         this.elems = new ArrayList<E>(list);
     }
@@ -51,7 +51,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
     /**
      * Appends all of the elements in the specified immutable list to
      * the end of this list, in the order that they are returned by the
-     * specified list's Iterator.  
+     * specified list's Iterator.
      *
      * @param list list containing elements to be added to this list
      * @return the list with the all elements of the specified list appended
@@ -64,7 +64,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
     /**
      * Appends all of the elements in the specified (@code List) list to
      * the end of this list, in the order that they are returned by the
-     * specified list's Iterator.  
+     * specified list's Iterator.
      *
      * @param list list containing elements to be added to this list
      * @return the list with the all elements of the specified list appended
@@ -83,7 +83,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
      * elements in the two lists are <i>equal</i>.  (Two elements {@code e1}
      * and {@code e2} are <i>equal</i> if {@code Objects.equals(e1, e2)}.)
      * In other words, two immutable lists are defined to be
-     * equal if they contain the same elements in the same order.  
+     * equal if they contain the same elements in the same order.
      *
      * @param obj the object to be compared for equality with this list
      * @return {@code true} if the specified object is equal to this list
@@ -139,7 +139,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
      * Returns {@code true} if this list contains no elements.
      *
      * @return {@code true} if this list contains no elements
-     */ 
+     */
     public boolean isEmpty() {
         return this.elems.isEmpty();
     }
@@ -240,7 +240,7 @@ public class ImList<E> implements Iterable<E>, Serializable {
     /**
      * Returns a string representation of this list.  The string
      * representation consists of a list of elements in the order they are
-     * returned by its iterator, enclosed in square brackets ({@code "[]"}).  
+     * returned by its iterator, enclosed in square brackets ({@code "[]"}).
      * Adjacent elements are separated by the characters {@code ", "} (comma and space).
      * Elements are converted to strings as by {@link String#valueOf(Object)}.
      *

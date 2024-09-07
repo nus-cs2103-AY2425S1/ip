@@ -1,12 +1,11 @@
 package task;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
  * Provides a single task in a form of an object with properties such as task description and
- * a marker for whether a task is done. Serves as a parent class for all tasks related 
+ * a marker for whether a task is done. Serves as a parent class for all tasks related
  * child classes.
  */
 public class Task implements Serializable {
@@ -63,8 +62,8 @@ public class Task implements Serializable {
      * Returns a string representation of the task. The consists of {@code "[  ]"} filled with
      * either a cross ({@code "X"}) or a whitespace to visually represent a checkbox,
      * followed by task description.
-     * 
-     * @return a string representation of the task. 
+     *
+     * @return a string representation of the task.
      */
     @Override
     public String toString() {

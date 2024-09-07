@@ -1,14 +1,15 @@
 package command;
 
-import exception.ElliotException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import exception.ElliotException;
 import task.EventTask;
+import utility.CustomDateTimeFormatter;
 import utility.Storage;
 import utility.Strip;
 import utility.TaskList;
 import utility.Ui;
-import utility.CustomDateTimeFormatter;
 
 /**
  * {@link EventCommand} adds {@link EventTask} to the {@link TaskList}.
@@ -19,7 +20,7 @@ public class EventCommand extends Command {
     private final LocalDateTime toDateTime;
 
     /**
-     * Creates a {@link EventCommand} object without any information on the details 
+     * Creates a {@link EventCommand} object without any information on the details
      * of the {@link Task}.
      */
     public EventCommand() {

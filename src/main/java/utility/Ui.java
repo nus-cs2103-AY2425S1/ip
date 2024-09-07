@@ -16,7 +16,7 @@ public class Ui {
         System.out.print(line);
     }
 
-    /** 
+    /**
      * Prints input banner to stdout.
      */
     public static void introSay() {

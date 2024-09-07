@@ -1,8 +1,8 @@
 package command;
 
+import utility.ImList;
 import utility.Storage;
 import utility.TaskList;
-import utility.ImList;
 import utility.Ui;
 
 /**
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
             } catch (NumberFormatException e) {
                 Ui.say("unable to convert argument from string to number\n");
             }
-        } 
+        }
         return new DeleteCommand(splittedArguments);
     }
 
@@ -57,7 +57,7 @@ public class DeleteCommand extends Command {
         if (listToDelete.size() == 0) {
             Ui.say("which number task would you like me to delete?\n");
             return taskList;
-        } 
+        }
         for (int i : listToDelete) {
             if (taskList.isValidIndex(i - 1)) {
                 Ui.say("Noted. I've removed this task:\n"

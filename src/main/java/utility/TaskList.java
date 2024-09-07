@@ -1,9 +1,9 @@
 package utility;
 
-import task.Task;
-import java.util.List;
 import java.io.Serializable;
 import java.util.Iterator;
+
+import task.Task;
 
 /**
  * This class serves as a central management object to manage all {@link Task}.

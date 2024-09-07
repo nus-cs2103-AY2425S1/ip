@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -46,4 +47,8 @@ tasks.javadoc{
     source = sourceSets.main.allJava
     options.addStringOption('Xdoclint:-missing')
     destinationDir = file("$buildDir/docs/javadoc")
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }

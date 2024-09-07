@@ -1,7 +1,7 @@
 package task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import utility.CustomDateTimeFormatter;
 
 /**
@@ -35,14 +35,14 @@ public class EventTask extends Task {
     @Override
     public Task markAsDone() {
         return super.isDone
-            ? this 
+            ? this
             : new EventTask(true, super.taskDescription, this.fromDateTime, this.toDateTime);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override 
+    @Override
     public Task markAsUndone() {
         return super.isDone
             ? new EventTask(false, super.taskDescription, this.fromDateTime, this.toDateTime)
@@ -57,8 +57,8 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " 
-            + fromDateTime.format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + " to: " 
+        return "[E]" + super.toString() + " (from: "
+            + fromDateTime.format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + " to: "
             + toDateTime.format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + ")";
     }
 }

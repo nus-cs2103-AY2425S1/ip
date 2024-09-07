@@ -1,8 +1,8 @@
 package command;
 
+import utility.Storage;
 import utility.TaskList;
 import utility.Ui;
-import utility.Storage;
 
 /**
  * Lists the {@link Task} in the {@link TaskList}.
