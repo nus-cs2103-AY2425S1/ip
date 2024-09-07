@@ -1,19 +1,25 @@
 package command;
 
-import utility.ImList;
-import utility.Storage;
-import utility.Ui;
-import utility.TaskList;
-import task.Task;
-import command.Command;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import java.util.Iterator;
-import exception.ElliotException;
 
+import exception.ElliotException;
+import task.Task;
+import utility.ImList;
+import utility.Storage;
+import utility.TaskList;
+import utility.Ui;
+
+/**
+ * Uses regex to {@link Task} with similar description as search term.
+ */
 public class FindCommand extends Command {
     private final Pattern searchTerm;
 
+    /**
+     * Creates a {@link FindCommand} object without any information on the search string.
+     */
     public FindCommand() {
         this.searchTerm = Pattern.compile("");
     }
@@ -22,6 +28,14 @@ public class FindCommand extends Command {
         this.searchTerm = searchTerm;
     }
 
+    /**
+     * Parses the input string accordingly into a regex pattern.
+     * Requires search string.
+     *
+     * @param unparsedArguments complete string of unparsed argument.
+     * @return a new {@link FindCommand} with the correctly parsed argument.
+     * @throws ElliotException If command arguments is invalid regex.
+     */
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
         try {
@@ -35,6 +49,13 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Finds task with description containing search term and prints them out.
+     *
+     * @param taskList the {@link TaskList} to which the {@link Task} will be iterated through.
+     * @param storage  not used in this command.
+     * @return no modification to the {@link TaskList}.
+     */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         ImList<Task> matchedTasks = new ImList<Task>();
@@ -46,7 +67,7 @@ public class FindCommand extends Command {
             }
         }
         if (matchedTasks.size() > 0) {
-            String stringsOfMatchedTasks = "Here are the " + matchedTasks.size() 
+            String stringsOfMatchedTasks = "Here are the " + matchedTasks.size()
                 + " matching tasks in your list:\n";
             iter = matchedTasks.iterator();
             while (iter.hasNext()) {

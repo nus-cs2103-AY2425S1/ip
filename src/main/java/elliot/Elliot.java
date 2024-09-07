@@ -1,13 +1,14 @@
 package elliot;
 
-import utility.Storage;
-import utility.TaskList;
-import utility.Ui;
-import utility.Strip;
 import java.util.Scanner;
-import exception.ElliotException;
+
 import command.Command;
 import command.CommandType;
+import exception.ElliotException;
+import utility.Storage;
+import utility.Strip;
+import utility.TaskList;
+import utility.Ui;
 
 /**
  * The Elliot class is the main driver class and central component for the whole chatbot.
@@ -49,8 +50,8 @@ public class Elliot {
             try {
                 CommandType commandType = CommandType.parseStringToCommand(commandString[0]);
                 Command command = commandType.getCommand();
-                command = command.parseArguments(commandString.length < 2 
-                        ? "" 
+                command = command.parseArguments(commandString.length < 2
+                        ? ""
                         : commandString[1]);
                 taskList = command.runCommand(taskList, storage);
                 isRunning = !(commandType == CommandType.BYE);

@@ -29,7 +29,7 @@ public class TodoTask extends Task {
     /**
      * {@inheritDoc}
      */
-    @Override 
+    @Override
     public Task markAsUndone() {
         return super.isDone
             ? new TodoTask(super.taskDescription)

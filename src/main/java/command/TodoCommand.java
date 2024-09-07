@@ -1,10 +1,10 @@
 package command;
 
-import utility.Ui;
+import exception.ElliotException;
+import task.TodoTask;
 import utility.Storage;
 import utility.TaskList;
-import task.TodoTask;
-import exception.ElliotException;
+import utility.Ui;
 
 /**
  * Creates and adds {@link TodoTask} to the {@link TaskList}.
@@ -44,8 +44,7 @@ public class TodoCommand extends Command {
     /**
      * Adds {@link TodoTask} to the {@link TaskList} and prints a success message.
      *
-     * @param taskList the {@link TaskList} to which the {@link TodoTask} will be added
-     * to.
+     * @param taskList the {@link TaskList} to which the {@link TodoTask} will be added to.
      * @param storage  not used in this command.
      * @return modified {@link TaskList} with the added {@link TodoTask}.
      */

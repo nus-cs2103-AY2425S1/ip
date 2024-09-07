@@ -1,8 +1,8 @@
 package command;
 
+import utility.ImList;
 import utility.Storage;
 import utility.TaskList;
-import utility.ImList;
 import utility.Ui;
 
 /**
@@ -41,15 +41,14 @@ public class UnmarkCommand extends Command {
             } catch (NumberFormatException e) {
                 Ui.say("unable to convert argument from string to number\n");
             }
-        } 
+        }
         return new UnmarkCommand(splittedArguments);
     }
 
     /**
      * Changes the {@link Task} from the {@link TaskList} as not done and prints a succes message.
      *
-     * @param taskList the {@link TaskList} of which the {@link Task} will be changed to not
-     * done.
+     * @param taskList the {@link TaskList} of which the {@link Task} will be changed to not done.
      * @param storage  not used in this command.
      * @return modified {@link TaskList} with the correct {@link Task} changed as not done.
      */
@@ -58,7 +57,7 @@ public class UnmarkCommand extends Command {
         if (listToUnmark.size() == 0) {
             Ui.say("which number task would you like me to mark undone?\n");
             return taskList;
-        } 
+        }
         for (int i : listToUnmark) {
             if (taskList.isValidIndex(i - 1)) {
                 taskList = taskList.markTaskAsUndone(i - 1);

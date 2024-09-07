@@ -1,8 +1,8 @@
 package command;
 
+import utility.ImList;
 import utility.Storage;
 import utility.TaskList;
-import utility.ImList;
 import utility.Ui;
 
 /**
@@ -40,10 +40,10 @@ public class MarkCommand extends Command {
             } catch (NumberFormatException e) {
                 Ui.say("unable to convert argument from string to number\n");
             }
-        } 
+        }
         return new MarkCommand(splittedArguments);
     }
-    
+
     /**
      * Marks the {@link Task} from the {@link TaskList} as done and prints a succes message.
      *
@@ -56,7 +56,7 @@ public class MarkCommand extends Command {
         if (listToMark.size() == 0) {
             Ui.say("which number task would you like me to mark as done?\n");
             return taskList;
-        } 
+        }
         for (int i : listToMark) {
             if (taskList.isValidIndex(i - 1)) {
                 taskList = taskList.markTaskAsDone(i - 1);

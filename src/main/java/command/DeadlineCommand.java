@@ -1,14 +1,15 @@
 package command;
 
-import exception.ElliotException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import exception.ElliotException;
 import task.DeadlineTask;
+import utility.CustomDateTimeFormatter;
 import utility.Storage;
 import utility.Strip;
 import utility.TaskList;
 import utility.Ui;
-import utility.CustomDateTimeFormatter;
 
 /**
  * {@link Command} to add {@link DeadlineTask} to the {@link TaskList}.
@@ -30,7 +31,7 @@ public class DeadlineCommand extends Command {
     private DeadlineCommand(String taskDescription, LocalDateTime deadlineDateTime) {
         this.taskDescription = taskDescription;
         this.deadlineDateTime = deadlineDateTime;
-    } 
+    }
 
     /**
      * Parses the input string accordingly into each respective attributes.
@@ -65,8 +66,7 @@ public class DeadlineCommand extends Command {
     /**
      * Adds {@link DeadlineTask} to the {@link TaskList} and prints a success message.
      *
-     * @param taskList the {@link TaskList} to which the {@link DeadlineTask} will be added
-     * to.
+     * @param taskList the {@link TaskList} to which the {@link DeadlineTask} will be added to.
      * @param storage  not used in this command.
      * @return modified {@link TaskList} with the added {@link DeadlineTask}.
      */
