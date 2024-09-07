@@ -8,7 +8,8 @@ public class Messages {
     public static final String FILE_ERROR = "Unable to write to file!";
     public static final String GREETINGS_MESSAGE = " Hello! I'm COW\n"
             + " What can I do for you?";
-    public static final String ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST = "Error loading file, proceed with empty task list";
+    public static final String ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST =
+            "Error loading file, proceed with empty task list";
     public static final String ADDED_TASK_DEFAULT = "Got it. I've added this task:\n";
     public static final String MARKED_AS_DONE = "Nice! I've marked this task as done:\n  ";
     public static final String UNMARK_AS_DONE = "OK, I've marked this task as not done yet:\n  ";
