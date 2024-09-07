@@ -1,5 +1,6 @@
 package knight2103.files;
 
+import knight2103.Pair;
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
 import knight2103.tasks.Todo;
@@ -57,17 +58,26 @@ public class Storage {
      *
      * @return The ArrayList of task that can be stored in the bot's list of tasks.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, InvalidFileContentsException { // Exception handling in Knight2103.java
+    public Pair<ArrayList<Task>, String> load() throws FileNotFoundException { // Exception handling in Knight2103.java
         ArrayList<Task> tasks = new ArrayList<Task>();
+        String errorMessage = "";
+        int lineInFileCount = 0;
         Scanner scanner = new Scanner(this.taskFile);
         while (scanner.hasNextLine()) {
-            formatLineToTask(scanner.nextLine()).ifPresent(item -> tasks.add(item));
+            lineInFileCount++;
+            Pair<Optional<Task>, String> taskAndErrorMsgPair = formatLineToTask(scanner.nextLine());
+            taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
+            if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {
+                errorMessage += String.format("\nFile line %d - %s",
+                        lineInFileCount, taskAndErrorMsgPair.getSecondItem());
+            }
         }
-        return tasks;
+        return new Pair<ArrayList<Task>, String>(tasks, errorMessage);
     }
 
-    private Optional<Task> formatLineToTask(String lineInFile) {
+    private Pair<Optional<Task>, String> formatLineToTask(String lineInFile) {
         String[] lineArray = lineInFile.split(" \\| ");
+        String errorMessage = "";
         try {
             Task taskToAdd;
             switch (lineArray[0]) {
@@ -76,38 +86,40 @@ public class Storage {
                     throw new InvalidFileContentsException("Number of columns mismatch. There should be 3 for Todo");
                 }
                 taskToAdd = new Todo(lineArray[2]);
-                return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
+                return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray,
+                        taskToAdd)),
+                        errorMessage);
             case "D":
                 if (lineArray.length != 4) {
                     throw new InvalidFileContentsException("Number of columns mismatch. There should be 4 for Deadline");
                 }
                 try {
                     taskToAdd = new Deadline(lineArray[2], lineArray[3]);
-                    return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
+                    return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray, taskToAdd)), errorMessage);
                 } catch (DateTimeParseException e) {
-                    System.out.println("knight2103.tasks.Deadline format is wrong in the file contents."
-                            + " For deadline, it should be yyyy-MM-dd format.");
+                    errorMessage += "\nknight2103.tasks.Deadline format is wrong in the file contents."
+                            + " For deadline, it should be yyyy-MM-dd format.";
                 }
                 break;
             case "E":
                 if (lineArray.length != 5) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. There should be 5 for Events");
+                    throw new InvalidFileContentsException("Number of columns mismatch. Expected 5 for Events");
                 }
                 try {
                     taskToAdd = new Event(lineArray[2], lineArray[3], lineArray[4]);
-                    return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
+                    return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray, taskToAdd)), errorMessage);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Deadline format is wrong in the file contents."
-                            + " For events, it should be yyyy-MM-ddThh:mm format");
+                    errorMessage += "\nDeadline format is wrong in the file contents."
+                            + " For events, it should be yyyy-MM-ddThh:mm format";
                 }
                 break;
             default:
                 throw new InvalidFileContentsException("Only T, E, D accepted but others found");
             }
         } catch (InvalidFileContentsException e) {
-            System.out.println(e);
+            errorMessage += e.getMessage();
         }
-        return Optional.empty();
+        return new Pair<Optional<Task>, String>(Optional.empty(), "Errors found: " + errorMessage);
     }
 
 
@@ -122,6 +134,4 @@ public class Storage {
             throw new InvalidFileContentsException("the value of the 2nd column should only be 0 or 1");
         }
     }
-
-
 }

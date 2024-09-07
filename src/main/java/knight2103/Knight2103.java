@@ -6,8 +6,10 @@ import knight2103.command.Command;
 import knight2103.files.InvalidFileContentsException;
 import knight2103.files.Storage;
 import knight2103.tasks.TaskList;
+import knight2103.tasks.Task;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Knight2103 {
     private String welcomeMessage;
@@ -22,14 +24,14 @@ public class Knight2103 {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
-            this.tasks = new TaskList(storage.load());
+            Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.load();
+            this.tasks = new TaskList(tasksWithErrorMsg.getFirstItem());
+            this.errorMessage = tasksWithErrorMsg.getSecondItem();
         } catch (FileNotFoundException e) { // file be loaded regardless
             this.errorMessage += "\nNote: the Storage File to initialise is not found. "
                     + "Will create new file instead\n. Existing storage file should be"
                     + "named as \"savedTaskList.txt\" in root directory";
             this.tasks = new TaskList();
-        } catch (InvalidFileContentsException e) {
-            this.errorMessage += "\n" + e.getMessage();
         }
     }
 
@@ -49,10 +51,14 @@ public class Knight2103 {
                 Command c = Parser.parse(input);
                 output = c.execute(tasks, ui, storage);
                 return output;
-            } catch (InvalidCommandException e) {
+            } catch (InvalidCommandException e) { // what exceptions comes here?
                 return e.getMessage();
             }
 
             // input to allow chatbot to exit the application?
+            // if exception error, should say unsuccessful addition something like this
+            // javaDoc comments; Formatting; Code quality.
+            // adding assertions
+            // welcome message - state all commands that can be used.
     }
 }
