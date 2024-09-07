@@ -1,5 +1,7 @@
 package wolfie.task;
 
+import java.util.Objects;
+
 /**
  * Represents a task in the task list.
  */
@@ -46,5 +48,21 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + this.getStatus() + "] " + this.description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task task = (Task) o;
+        return isDone == task.isDone && Objects.equals(description, task.description);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, isDone);
     }
 }

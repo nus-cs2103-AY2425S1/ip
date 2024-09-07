@@ -40,8 +40,12 @@ public class AddTodoCommand extends Command {
             throw new WolfieException("The description of a todo cannot be empty.");
         }
         Task task = new Todo(description, false);
-        tasks.add(task);
-        storage.save(tasks);
-        return ui.showTaskAdded(task, tasks.size());
+        boolean isAdded = tasks.add(task);
+        if (isAdded) {
+            storage.save(tasks);
+            return ui.showTaskAdded(task, tasks.size());
+        } else {
+            return "Task already exists in the list. " + task.getDescription();
+        }
     }
 }

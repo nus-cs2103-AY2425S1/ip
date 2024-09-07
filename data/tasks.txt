@@ -1,6 +1,5 @@
 T | 0 | borrow book
 D | 1 | suck | 2023-03-04T18:00:00
-T | 0 | borrow book
 D | 0 | return computer | 2023-02-12T17:00:00
 T | 0 | borrow card
 D | 0 | return card | 2025-02-12T12:00:00

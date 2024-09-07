@@ -18,9 +18,22 @@ public class TaskList {
     public TaskList(List<Task> tasks) {
         this.tasks = tasks; // Initialize with existing tasks if it exists checked in wolfie.Wolfie.java
     }
-
-    public void add(Task task) {
-        tasks.add(task);
+    /**
+     * Adds a task to the list.
+     * If the task already exists in the list, it will not be added.
+     * @param task The task to be added
+     */
+    public boolean add(Task task) {
+        if (!contains(task)) {
+            tasks.add(task);
+            return true;
+        } else {
+            System.out.println("Task already exists in the list." + task.getDescription());
+            return false;
+        }
+    }
+    public boolean contains(Task task) {
+        return tasks.stream().anyMatch(t -> t.equals(task));
     }
 
     public Task remove(int index) {
