@@ -79,6 +79,8 @@ public class Cookie {
         if (markIndex <= 0 || markIndex > taskList.getSize()) {
             throw new CookieException("The task you want to mark does not exist");
         }
+        assert markIndex > 0;
+
         this.taskList.markDone(markIndex);
         return ui.printMarkTask(this.taskList.getTask(markIndex));
     }
@@ -96,6 +98,8 @@ public class Cookie {
         if (unmarkIndex <= 0 || unmarkIndex > taskList.getSize()) {
             throw new CookieException("The task you want to mark does not exist");
         }
+        assert unmarkIndex > 0;
+
         this.taskList.unmarkDone(unmarkIndex);
         return ui.printUnmarkTask(this.taskList.getTask(unmarkIndex));
     }
@@ -139,6 +143,10 @@ public class Cookie {
             throw new CookieException("Events must include a task, a start time and an end time \n"
                     + "[task] /from [start] /to [end]");
         }
+
+        assert !eventDetails[0].isEmpty();
+        assert !eventDetails[1].isEmpty();
+        assert !eventDetails[2].isEmpty();
 
         Event newEventTask = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
         taskList.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]));
