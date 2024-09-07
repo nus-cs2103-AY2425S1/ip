@@ -18,6 +18,16 @@ public class MarkCommand extends Command {
         this.index = Integer.parseInt(arguments) - 1;
     }
 
+    /**
+     * Executes the mark command to mark a task as done.
+     *
+     * @param tasks The task list to mark the task in.
+     * @param ui The user interface to display messages.
+     * @param storage The storage to save the task list to.
+     * @return The message to show the user.
+     * @throws IOException If there is an error saving the task list.
+     * @throws WolfieException If the task number is invalid.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         if (index < 0 || index >= tasks.size()) {

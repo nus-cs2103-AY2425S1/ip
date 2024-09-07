@@ -25,6 +25,16 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the find command to search for tasks containing the keyword.
+     *
+     * @param tasks The task list to search in.
+     * @param ui The user interface to display messages.
+     * @param storage The storage to save the task list to.
+     * @return The message to show the user.
+     * @throws IOException If there is an error saving the task list.
+     * @throws WolfieException If there are no tasks matching the keyword.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         assert tasks != null : "TaskList should not be null.";
