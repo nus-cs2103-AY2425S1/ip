@@ -24,12 +24,9 @@ public class Ui {
 
     /**
      * Displays an exit message and returns it.
-     *
-     * @return The exit message.
      */
-    public String showExit() {
+    public void showExit() {
         System.out.print(printMessage(EXT_MSG));
-        return EXT_MSG;
     }
 
     /**
@@ -50,6 +47,7 @@ public class Ui {
      * @return A string representation of the task list.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "tasks cannot be null";
         StringBuilder str = new StringBuilder();
         System.out.print(HOR_LINE);
         str.append("Here are your tasks: \n");
@@ -93,6 +91,7 @@ public class Ui {
      * @return A message indicating that the task was marked as done.
      */
     public String showTaskMarked(Task task) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("\tNice! I've marked this task as done:\n" + "\t" + task.toString()));
         return "Nice! I've marked this task as done: \n" + task.toString();
     }
@@ -104,6 +103,7 @@ public class Ui {
      * @return A message indicating that the task was marked as not done yet.
      */
     public String showTaskUnmarked(Task task) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("\tOK, I've marked this task as not done yet:\n" + "\t" + task.toString()));
         return "OK, I've marked this task as not done yet: \n" + task.toString();
     }
@@ -116,6 +116,7 @@ public class Ui {
      * @return A message indicating that the task was deleted and the new task count.
      */
     public String showTaskDeleted(Task task, int taskCount) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("Noted. I've removed this task:\n" + "\t" + task.toString())
                 + "\tNow you have " + taskCount + " tasks in the list.");
         return ("Noted. I've removed this task: " + task.toString())
@@ -134,12 +135,9 @@ public class Ui {
 
     /**
      * Displays a loading error message and returns it.
-     *
-     * @return A message indicating that there was an error in loading.
      */
-    public String showLoadingError() {
+    public void showLoadingError() {
         System.out.println("Error in loading");
-        return "Error in loading";
     }
 
     /**
@@ -155,7 +153,7 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            str.append("\n" + (i + 1) + ". " + task.toString());
+            str.append("\n").append(i + 1).append(". ").append(task.toString());
             System.out.println("\t" + (i + 1) + ". " + task.toString());
         }
         System.out.print(HOR_LINE);

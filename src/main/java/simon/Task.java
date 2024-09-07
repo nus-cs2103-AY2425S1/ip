@@ -15,6 +15,7 @@ public class Task {
      * @param number The number associated with the task.
      */
     public Task(String name, int number) {
+        assert name != null : "Name cannot be empty cannot be null";
         this.name = name;
         this.completed = false;
         this.number = number;
@@ -35,17 +36,6 @@ public class Task {
     public Boolean getCompleted() {
         return this.completed;
     }
-    /**
-     * Returns the number associated with the task.
-     *
-     * This method is private and is intended to be used only within the class.
-     *
-     * @return The number associated with the task.
-     */
-    private int getNumber1() {
-        return this.number;
-    }
-
 
     /**
      * Returns the unique identifier of the task.

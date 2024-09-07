@@ -41,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "D | " + (super.getCompleted() ? 1 : 0) + " | " + super.getName1() + " | "
+        return "D | " + (super.getCompleted() ? 1 : 0) + " | " + super.getName() + " | "
                 + deadline.format(SAVE_FORMATTER);
     }
     /**
