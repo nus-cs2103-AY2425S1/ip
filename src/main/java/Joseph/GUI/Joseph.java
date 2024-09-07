@@ -11,13 +11,13 @@ import Joseph.Storage;
  */
 public class Joseph {
     public static void main(String[] args) {
-        final String NAME = "Joseph";
+        final String name = "Joseph";
         UI ui = new UI();
         Parser parser = new Parser();
         Storage storage = new Storage("./data/joseph.txt");
         TaskList taskList = new TaskList(storage.loadTasks());
 
-        ui.printWelcomeMessage(NAME);
+        ui.printWelcomeMessage(name);
 
         while (true) {
             String input = ui.readUserInput();

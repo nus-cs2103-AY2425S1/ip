@@ -1,18 +1,18 @@
 package Joseph;
 
-import Joseph.Tasks.Deadline;
-import Joseph.Tasks.JEvent;
-import Joseph.Tasks.Task;
-import Joseph.Tasks.ToDo;
-
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import Joseph.Tasks.Deadline;
+import Joseph.Tasks.JEvent;
+import Joseph.Tasks.Task;
+import Joseph.Tasks.ToDo;
 
 /**
  * Handles reading and writing tasks in the file ./data/joseph.txt.
@@ -44,8 +44,8 @@ public class Storage {
         } else if (task instanceof JEvent) {
             taskType = "E";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            desc += " /" + ((JEvent) task).getStart().format(formatter) +
-                    " /" + ((JEvent) task).getEnd().format(formatter);
+            desc += " /" + ((JEvent) task).getStart().format(formatter)
+                    + " /" + ((JEvent) task).getEnd().format(formatter);
         }
 
         return taskType + " | " + status + " | " + desc;
@@ -97,29 +97,29 @@ public class Storage {
                 String desc = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        ToDo todo = new ToDo(desc);
-                        if (isDone) {
-                            todo.setDone();
-                        }
-                        list.add(todo);
-                        break;
-                    case "D":
-                        String[] deadlineDesc = desc.split(" /");
-                        Deadline deadline = new Deadline(deadlineDesc[0], deadlineDesc[1]);
-                        if (isDone) {
-                            deadline.setDone();
-                        }
-                        list.add(deadline);
-                        break;
-                    case "E":
-                        String[] eventDesc = desc.split(" /");
-                        JEvent event = new JEvent(eventDesc[0], eventDesc[1], eventDesc[2]);
-                        if (isDone) {
-                            event.setDone();
-                        }
-                        list.add(event);
-                        break;
+                case "T":
+                    ToDo todo = new ToDo(desc);
+                    if (isDone) {
+                        todo.setDone();
+                    }
+                    list.add(todo);
+                    break;
+                case "D":
+                    String[] deadlineDesc = desc.split(" /");
+                    Deadline deadline = new Deadline(deadlineDesc[0], deadlineDesc[1]);
+                    if (isDone) {
+                        deadline.setDone();
+                    }
+                    list.add(deadline);
+                    break;
+                case "E":
+                    String[] eventDesc = desc.split(" /");
+                    JEvent event = new JEvent(eventDesc[0], eventDesc[1], eventDesc[2]);
+                    if (isDone) {
+                        event.setDone();
+                    }
+                    list.add(event);
+                    break;
                 }
             }
         } catch (IOException e) {

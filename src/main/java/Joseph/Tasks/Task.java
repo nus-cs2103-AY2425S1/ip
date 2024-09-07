@@ -1,8 +1,16 @@
 package Joseph.Tasks;
 
+/**
+ * Abstract class that provides the skeleton for the Todo, Deadline and Event classes.
+ */
 public abstract class Task {
     private final String desc;
     private boolean isDone;
+
+    /**
+     * Initialises a new Task object
+     * @param desc The description of the task. Should be passed in as a String.
+     */
     public Task(String desc) {
         this.desc = desc;
         this.isDone = false;

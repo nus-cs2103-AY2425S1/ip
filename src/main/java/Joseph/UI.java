@@ -1,9 +1,9 @@
 package Joseph;
 
-import Joseph.Tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Joseph.Tasks.Task;
 
 /**
  * Handles all interactions with the user.
@@ -19,8 +19,8 @@ public class UI {
      * Prints a line separator.
      */
     public void printLine() {
-        String LINE = "----------------------------------";
-        System.out.println(LINE);
+        final String line = "----------------------------------";
+        System.out.println(line);
     }
 
     /**
@@ -51,7 +51,7 @@ public class UI {
         printLine();
         for (int i = 0; i < list.size(); i++) {
             String done = "[" + list.get(i).getDone() + "] ";
-            System.out.println(i+1 + ". " + done + list.get(i).getDetails());
+            System.out.println(i + 1 + ". " + done + list.get(i).getDetails());
         }
         printLine();
     }
@@ -63,21 +63,21 @@ public class UI {
         printLine();
         System.out.println("help: prints all available commands");
         System.out.println("list: prints the current list");
-        System.out.println("mark X, where X is any number: " +
-                "marks task X on the list as completed");
-        System.out.println("unmark X, where X is any number: " +
-                "unmarks task X on the list as uncompleted.");
-        System.out.println("The below todo, deadline and event commands " +
-                "accepts desc as any string");
-        System.out.println("The below deadline and event commands " +
-                "accepts a due or start and end " +
-                "in the following format: DD/MM/YYYY HHmm");
-        System.out.println("todo desc, " +
-                "adds a todo to the list");
-        System.out.println("deadline desc /due, " +
-                "adds a deadline to the list with its due date");
-        System.out.println("event desc /start /end, " +
-                "adds an event to the list with its start and end");
+        System.out.println("mark X, where X is any number: "
+                + "marks task X on the list as completed");
+        System.out.println("unmark X, where X is any number: "
+                + "unmarks task X on the list as uncompleted.");
+        System.out.println("The below todo, deadline and event commands "
+                + "accepts desc as any string");
+        System.out.println("The below deadline and event commands "
+                + "accepts a due or start and end "
+                + "in the following format: DD/MM/YYYY HHmm");
+        System.out.println("todo desc, "
+                + "adds a todo to the list");
+        System.out.println("deadline desc /due, "
+                + "adds a deadline to the list with its due date");
+        System.out.println("event desc /start /end, "
+                + "adds an event to the list with its start and end");
         System.out.println("bye: closes the chatbot");
         printLine();
     }
@@ -143,7 +143,7 @@ public class UI {
             printLine();
             for (int i = 0; i < tasks.size(); i++) {
                 String done = "[" + tasks.get(i).getDone() + "] ";
-                System.out.println(i+1 + ". " + done + tasks.get(i).getDetails());
+                System.out.println(i + 1 + ". " + done + tasks.get(i).getDetails());
             }
             printLine();
         }
