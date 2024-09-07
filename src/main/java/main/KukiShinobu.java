@@ -115,6 +115,12 @@ public class KukiShinobu {
         return this.isExit;
     }
 
+    public String generateWelcomeMessage() {
+        return "Hey Traveller! I'm Kuki Shinobu, deputy leader of the Arataki Gang."
+                + System.lineSeparator()
+                + "Just let me know if you ever find yourself in a pinch. I can help you out.";
+    }
+
     public String getResponse(String input) {
         //TODO: Update this code to actually query for the response\
         String response;

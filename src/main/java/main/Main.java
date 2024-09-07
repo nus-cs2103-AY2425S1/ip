@@ -28,8 +28,8 @@ public class Main extends Application {
             MainWindow controller = fxmlLoader.getController();
             controller.setKukiShinobu(kukiShinobu);
             controller.setStage(stage);
-
             stage.show();
+            controller.displayWelcomeMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }

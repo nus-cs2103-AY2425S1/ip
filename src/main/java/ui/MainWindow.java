@@ -27,25 +27,34 @@ public class MainWindow extends AnchorPane {
     private KukiShinobu kukiShinobu;
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image kukiShinobuImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/AetherAvatar.png"));
+    private Image kukiShinobuImage =
+            new Image(this.getClass().getResourceAsStream("/images/KukiShinobuAvatar.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the KukiShinobu instance */
+    public void displayWelcomeMessage() {
+        String welcomeMessage = this.kukiShinobu.generateWelcomeMessage();
+        this.dialogContainer.getChildren().add(DialogBox.getKukiShinobuDialog(welcomeMessage, kukiShinobuImage));
+    }
+
+    /**
+     * Injects the KukiShinobu instance
+     */
     public void setKukiShinobu(KukiShinobu d) {
         kukiShinobu = d;
     }
 
 
-    /** Injects the Stage instance */
+    /**
+     * Injects the Stage instance
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
