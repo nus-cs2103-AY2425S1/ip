@@ -71,6 +71,7 @@ public class Parser {
                 commandDetails[0].equals("delete")) && commandDetails.length > 1) {
             // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
             int taskNumber;
+            assert commandDetails.length == 2;
             try {
                 taskNumber = Integer.parseInt(commandDetails[1]);   // commandDetails[1] could be a string
             } catch (NumberFormatException e) {
