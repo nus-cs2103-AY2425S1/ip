@@ -57,13 +57,13 @@ public class Storage {
                 Task tempTask;
                 switch (task[0]) {
                 case "T":
-                    tempTask = new ToDo(new String[]{task[2]});
+                    tempTask = new ToDo(task[2]);
                     break;
                 case "D":
-                    tempTask = new Deadline(new String[]{task[2], task[3]});
+                    tempTask = new Deadline(task[2], task[3]);
                     break;
                 case "E":
-                    tempTask = new Event(new String[]{task[2], task[3], task[4]});
+                    tempTask = new Event(task[2], task[3], task[4]);
                     break;
                 default:
                     throw new HamyoException("Invalid case " + task[0] + ".");
