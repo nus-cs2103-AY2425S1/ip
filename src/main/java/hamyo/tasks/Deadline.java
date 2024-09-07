@@ -13,8 +13,8 @@ import hamyo.misc.HamyoException;
  */
 public class Deadline extends Task {
 
-    private final LocalDate deadlineDate;
-    private final LocalDateTime deadlineDateTime;
+    private LocalDate deadlineDate;
+    private LocalDateTime deadlineDateTime;
 
     /**
      * Constructor for Deadline instance.
@@ -25,6 +25,17 @@ public class Deadline extends Task {
      */
     public Deadline(String... input) throws HamyoException {
         super(input);
+        setDateTime(input);
+    }
+
+    /**
+     * Sets the deadlineDate and deadlineDateTime given user input.
+     *
+     * @param input Derived from user command input. Description and Deadline for the task,
+     *              [Description, Deadline].
+     * @throws HamyoException If user inputs an invalid Date/ Time.
+     */
+    private void setDateTime(String... input) throws HamyoException {
         try {
             LocalDateTime deadlineDateTimeTemp;
             try {

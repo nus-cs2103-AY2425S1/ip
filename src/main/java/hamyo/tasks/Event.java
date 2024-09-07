@@ -14,10 +14,10 @@ import hamyo.misc.HamyoException;
  */
 public class Event extends Task {
 
-    private final LocalDate fromDate;
-    private final LocalDateTime fromDateTime;
-    private final LocalDate toDate;
-    private final LocalDateTime toDateTime;
+    private LocalDate fromDate;
+    private LocalDateTime fromDateTime;
+    private LocalDate toDate;
+    private LocalDateTime toDateTime;
 
     /**
      * Constructor for Event instance.
@@ -28,6 +28,17 @@ public class Event extends Task {
      */
     public Event(String... input) throws HamyoException {
         super(input);
+        setDateTime(input);
+    }
+
+    /**
+     * Sets the fromDate, fromDateTime, toDate and toDateTime given user input.
+     *
+     * @param input Derived from user command input. Description and Event Start and End for the task,
+     *              [Description, Event Start, Event End].
+     * @throws HamyoException If user inputs an invalid Date/ Time.
+     */
+    private void setDateTime(String... input) throws HamyoException {
         try {
             LocalDateTime fromDateTimeTemp;
             LocalDateTime toDateTimeTemp;
