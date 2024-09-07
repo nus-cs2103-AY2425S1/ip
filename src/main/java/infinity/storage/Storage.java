@@ -87,6 +87,7 @@ public class Storage {
                                 combineDescription(words, 4), words[2], words[3]);
                         break;
                     default:
+                        assert false;
                         break;
                     }
 
