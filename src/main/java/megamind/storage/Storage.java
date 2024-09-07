@@ -31,7 +31,8 @@ public class Storage {
         }
 
         // Save the tasks to the file
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/tasks.ser"))) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/tasks.ser"));
             oos.writeObject(tasks);
             System.out.println("Tasks have been saved successfully.");
         } catch (IOException e) {
@@ -44,6 +45,9 @@ public class Storage {
      * If the file doesn't exist, an empty task list is initialized.
      * If loading fails, an empty task list is initialized.
      * If loading is successful, the tasks are loaded into the task list.
+     *
+     * Warning can be suppressed as the only object type that can be saved
+     * is an ArrayList<Task>.
      */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> loadTasks() {

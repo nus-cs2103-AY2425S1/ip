@@ -69,19 +69,20 @@ public class Parser {
             throw new MissingParameterException("Please specify the deadline of the task.");
         }
 
-        String[] words = command.split(" /by ");
-        words[0] = words[0].substring(8);
+        // Trims the start of the command "deadline "
+        command = command.substring(9);
 
-        if (words[0].isEmpty()) {
+        String[] deadline = command.split(" /by ");
+
+        if (deadline[0].isEmpty()) {
             throw new InvalidCommandException("The description of a task cannot be empty.");
         }
 
-        if (words[1].isEmpty()) {
+        if (deadline[1].isEmpty()) {
             throw new InvalidCommandException("The deadline of a task cannot be empty.");
         }
 
-        words[0] = words[0].trim();
-        return words;
+        return deadline;
     }
 
     /**
@@ -97,27 +98,22 @@ public class Parser {
             throw new MissingParameterException("Please specify the start and end time of the event.");
         }
 
-        String[] last = new String[3];
-        String[] words = command.split(" /from ");
-        last[0] = words[0].substring(6);
+        // Trims the start of the command "event "
+        command = command.substring(6);
+        String[] event = command.split(" /from | /to ");
 
-        words = words[1].split(" /to ");
-        last[1] = words[0];
-        last[2] = words[1];
-
-        if (last[0].isEmpty()) {
+        if (event[0].isEmpty()) {
             throw new InvalidCommandException("The description of a task cannot be empty.");
         }
 
-        if (last[1].isEmpty()) {
+        if (event[1].isEmpty()) {
             throw new InvalidCommandException("The start time of an event cannot be empty.");
         }
 
-        if (last[2].isEmpty()) {
+        if (event[2].isEmpty()) {
             throw new InvalidCommandException("The end time of an event cannot be empty.");
         }
 
-        words[0] = words[0].trim();
-        return last;
+        return event;
     }
 }
