@@ -90,7 +90,7 @@ public class TaskList {
         int counter = 1;
         for (int i = 1; i < this.taskList.size() + 1; i++) {
             if (this.taskList.get(i - 1).contains(searchString)) {
-                taskString = taskString + "\n " + counter + "." + this.taskList.get(i - 1);
+                taskString = taskString + "\n " + counter + ". " + this.taskList.get(i - 1);
                 counter++;
             }
         }
@@ -116,7 +116,7 @@ public class TaskList {
     public String toString() {
         String taskString = " Here are the tasks in your list:";
         for (int i = 1; i < this.taskList.size() + 1; i++) {
-            taskString = taskString + "\n " + i + "." + this.taskList.get(i - 1);
+            taskString = taskString + "\n " + i + ". " + this.taskList.get(i - 1);
         }
         return taskString;
     }
