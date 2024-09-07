@@ -72,6 +72,7 @@ public class Storage {
                     recordedTasks.add(new Event(words[2], startTime,
                             endTime, (Integer.parseInt(words[1]) != 0)));
                 }
+                assert (words[0].equals("T") || words[0].equals("D") || words[0].equals("E"));
             }
             return recordedTasks;
         } catch (IOException e) {
