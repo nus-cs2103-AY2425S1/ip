@@ -38,7 +38,7 @@ public class Formatter {
      *
      * @param t The task that was marked as done.
      */
-    public String markTaskUi(Task t) {
+    public String markTaskAsDoneUi(Task t) {
         return "Nice! I've marked this task as done:\n" + t.toString();
     }
 
@@ -47,7 +47,7 @@ public class Formatter {
      *
      * @param t The task that was marked as not done.
      */
-    public String unmarkTaskUi(Task t) {
+    public String unmarkTaskAsDoneUi(Task t) {
         return "OK, I've marked this task as not done yet:\n" + t.toString();
     }
 

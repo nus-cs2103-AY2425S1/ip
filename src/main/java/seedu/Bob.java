@@ -53,9 +53,9 @@ public class Bob {
             case "list":
                 return this.tasks.listTasks();
             case "mark":
-                return this.parser.markTaskParser(message, this.tasks);
+                return this.parser.markTaskAsDoneParser(message, this.tasks);
             case "unmark":
-                return this.parser.unmarkTaskParser(message, this.tasks);
+                return this.parser.unmarkTaskAsDoneParser(message, this.tasks);
             case "delete":
                 return this.parser.deleteTaskParser(message, this.tasks);
             case "todo":

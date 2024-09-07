@@ -13,7 +13,7 @@ public abstract class Task {
     }
 
     /**
-     * Get status icon
+     * Gets status icon
      * @return Status icon as string
      */
     public String getStatusIcon() {

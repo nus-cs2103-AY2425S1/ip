@@ -15,27 +15,27 @@ public class Parser {
      * @param t The {@code TaskList} where the task will be marked as done.
      * @throws BobException If the message format is invalid.
      */
-    public String markTaskParser(String message, TaskList t) throws BobException {
+    public String markTaskAsDoneParser(String message, TaskList t) throws BobException {
         if (!message.matches("^mark \\d+$")) {
             throw new BobException("Invalid format");
         }
         int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
-        return t.markTask(num - 1);
+        return t.markTaskAsDone(num - 1);
     }
 
     /**
      * Parses the input message for unmarking a task and applies the command to the given {@code TaskList}.
      *
      * @param message The input message to be parsed (e.g., "unmark 1").
-     * @param t The {@code TaskList} where the seedu.task will be unmarked.
+     * @param t The {@code TaskList} where the task will be unmarked.
      * @throws BobException If the message format is invalid.
      */
-    public String unmarkTaskParser(String message, TaskList t) throws BobException {
+    public String unmarkTaskAsDoneParser(String message, TaskList t) throws BobException {
         if (!message.matches("^unmark \\d+$")) {
             throw new BobException("Invalid format");
         }
         int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
-        return t.unmarkTask(num - 1);
+        return t.unmarkTaskAsDone(num - 1);
     }
 
     /**
@@ -64,26 +64,26 @@ public class Parser {
         if (!message.matches("^todo .*")) {
             throw new BobException("Invalid format: todo [description]");
         }
-        String x = message.replaceFirst("todo ", "");
-        if (x.isEmpty()) {
+        String content = message.replaceFirst("todo ", "");
+        if (content.isEmpty()) {
             throw new BobException("Invalid format: todo [description]");
         }
-        return t.addToDo(x);
+        return t.addToDo(content);
     }
 
     /**
      * Parses the input message for adding a Deadline task and applies the command to the given {@code TaskList}.
      *
      * @param message The input message to be parsed (e.g., "deadline submit report /by 2024-12-31").
-     * @param t The {@code TaskList} where the Deadline seedu.task will be added.
+     * @param t The {@code TaskList} where the Deadline task will be added.
      * @throws BobException If the message format is invalid or the deadline description or end date is empty.
      */
     public String addDeadlineParser(String message, TaskList t) throws BobException {
         if (!message.matches("^deadline .* \\/by \\d{4}-\\d{2}-\\d{2}$")) {
             throw new BobException("Invalid format: deadline [description] /by [start time]");
         }
-        String x = message.replaceFirst("deadline ", "");
-        String[] parts = x.split(" /by ");
+        String content = message.replaceFirst("deadline ", "");
+        String[] parts = content.split(" /by ");
         if (parts.length != 2) {
             throw new BobException("Invalid format: deadline [description] /by [start time]");
         }
@@ -101,8 +101,8 @@ public class Parser {
         if (!message.matches("^event .* \\/from \\d{4}-\\d{2}-\\d{2} \\/to \\d{4}-\\d{2}-\\d{2}$")) {
             throw new BobException("Invalid format: event [description] /by [start time] /to [end time]");
         }
-        String x = message.replaceFirst("event ", "");
-        String[] parts = x.split(" /from | /to");
+        String content = message.replaceFirst("event ", "");
+        String[] parts = content.split(" /from | /to");
         if (parts.length != 3) {
             throw new BobException("Invalid format: event [description] /by [start time] /to [end time]");
         }

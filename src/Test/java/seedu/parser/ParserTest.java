@@ -13,10 +13,10 @@ import seedu.parser.Parser;
 
 public class ParserTest {
     @Test
-    public void markTaskParser_invalidInput_unexpectedOutcome() throws Exception {
+    public void markTaskAsDoneParser_invalidInput_unexpectedOutcome() throws Exception {
         try {
             Parser p = new Parser();
-            p.markTaskParser("mark blah blaah", new TaskList());
+            p.markTaskAsDoneParser("mark blah blaah", new TaskList());
             fail();
         } catch (Exception e) {
             assertEquals("Invalid format", e.getMessage());

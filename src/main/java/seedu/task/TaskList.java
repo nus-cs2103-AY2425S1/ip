@@ -36,10 +36,10 @@ public class TaskList {
      *
      * @param num The index of the task to be marked as done (0-based index).
      */
-    public String markTask(int num) {
+    public String markTaskAsDone(int num) {
         Task t = this.tasks.get(num);
         t.markAsDone();
-        return this.formatter.markTaskUi(t);
+        return this.formatter.markTaskAsDoneUi(t);
 
     }
 
@@ -48,10 +48,10 @@ public class TaskList {
      *
      * @param num The index of the task to be unmarked as not done (0-based index).
      */
-    public String unmarkTask(int num) {
+    public String unmarkTaskAsDone(int num) {
         Task t = this.tasks.get(num);
         t.markAsNotDone();
-        return this.formatter.unmarkTaskUi(t);
+        return this.formatter.unmarkTaskAsDoneUi(t);
     }
 
     /**
