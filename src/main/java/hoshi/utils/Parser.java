@@ -67,16 +67,14 @@ public class Parser {
         if (input.trim().length() < 5) {
             return ui.displayTaskToMark();
         }
-
+        // get task number from input
         String trimmedInput = input.trim();
-
         char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
         // get only the number from the 2nd half of the splitInput
         int markIndex = Character.getNumericValue(taskNo) - 1;
 
         try {
-
             // if specified index is not out of bounds
             if (markIndex <= taskList.size() - 1) {
 
@@ -89,8 +87,6 @@ public class Parser {
             } else {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
-
-
         } catch (HoshiException e) {
             return ui.displayError(e.getMessage());
         }
@@ -108,26 +104,22 @@ public class Parser {
         if (input.trim().length() < 7) {
             return ui.displayTaskToMark();
         }
-
+        // get task number from input
         String trimmedInput = input.trim();
-
         char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
         // get only the number from the 2nd half of the splitInput
         int markIndex = Character.getNumericValue(taskNo) - 1;
 
         try {
-
             // if specified index is not out of bounds
             if (markIndex <= taskList.size() - 1) {
-
                 // set isDone to false
                 taskList.get(markIndex).setIsDone(false);
 
                 handleSave(ui, taskList);
 
                 return ui.displayTaskUnmarked(taskList.get(markIndex));
-
             } else {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
@@ -261,6 +253,7 @@ public class Parser {
             // Parse datetime and create event to be added
             LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
             LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
+            // Add event to taskList
             return handleAddTask(new Event(desc, dateTimeStart, dateTimeEnd), taskList, ui, desc);
         } catch (DateTimeParseException e) {
             return ui.displayError("Hoshi doesn't understand! Try YYYY-MM-DD format for the event.");

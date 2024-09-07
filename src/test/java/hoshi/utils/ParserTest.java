@@ -236,8 +236,7 @@ public class ParserTest {
         parser.handleAdd(input, taskList, ui);
 
         // assert
-        verify(ui).displayTodoTask();
-        verify(ui).displayError("Hoshi wants you to try specifying the task!");
+        verify(ui).displayError("Hoshi needs a task description!");
 
 
     }
