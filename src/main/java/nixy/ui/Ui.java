@@ -37,7 +37,7 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public static void showList(TaskList tasks) {
-        utilDisplayList(tasks, "Here are the tasks in your list:");
+        displayList(tasks, "Here are the tasks in your list:");
     }
 
     /**
@@ -46,7 +46,7 @@ public class Ui {
      * @param tasks The list of found tasks.
      */
     public static void showMatchingList(TaskList tasks) {
-        utilDisplayList(tasks, "Here are the matching tasks in your list:");
+        displayList(tasks, "Here are the matching tasks in your list:");
     }
 
     /**
@@ -56,7 +56,7 @@ public class Ui {
      * @param tasks The list of tasks to display.
      * @param message The message to display before the list.
      */
-    private static void utilDisplayList(TaskList tasks, String message) {
+    private static void displayList(TaskList tasks, String message) {
         PrintUtility.indentPrint(HORIZONTAL_LINE);
         PrintUtility.indentPrint(message);
         Iterator<Task> tasksIterator = tasks.getTasksIterator();
