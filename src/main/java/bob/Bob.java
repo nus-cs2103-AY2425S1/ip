@@ -19,6 +19,7 @@ public class Bob {
     private static Storage storage;
     private static Ui ui;
     private static String loadStatusMessage;
+    private Command commandType;
 
     /**
      * Constructs a new instance of the Bob application.
@@ -60,6 +61,7 @@ public class Bob {
         try {
             Command command = Parser.parseCommand(userInput);
             String taskDetails = Parser.getTaskDetails(userInput);
+            commandType = command;
 
             switch (command) {
             case BYE:
@@ -101,6 +103,10 @@ public class Bob {
         } catch (BobException e) {
             return ui.showError(e);
         }
+    }
+
+    public Command getCommandType() {
+        return commandType;
     }
 
     /**

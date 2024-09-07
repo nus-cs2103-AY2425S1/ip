@@ -3,6 +3,7 @@ package bob.gui;
 import java.io.IOException;
 import java.util.Collections;
 
+import bob.Bob;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,6 +39,30 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    private void changeDialogStyle(Bob.Command commandType) {
+        switch(commandType) {
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            dialog.getStyleClass().add("add-label");
+            break;
+        case MARK:
+        case UNMARK:
+            // Fallthrough
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case DELETE:
+            dialog.getStyleClass().add("delete-label");
+            break;
+        case UNKNOWN:
+            // Fallthrough
+        default:
+            // Do nothing
+        }
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -46,6 +71,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -55,6 +81,13 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    public static DialogBox getDukeDialog(String text, Image img, Bob.Command commandType) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 }
