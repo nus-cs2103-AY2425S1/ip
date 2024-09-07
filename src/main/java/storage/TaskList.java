@@ -1,6 +1,7 @@
 package storage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import exception.DudeException;
 import task.Task;
@@ -34,9 +35,7 @@ public class TaskList {
      */
     public TaskList(Task ... tasks) {
         this.tasks = new ArrayList<>();
-        for (Task task : tasks) {
-            this.tasks.add(task);
-        }
+        Collections.addAll(this.tasks, tasks);
     }
 
     /**
