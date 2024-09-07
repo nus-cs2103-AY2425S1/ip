@@ -2,6 +2,10 @@ package pacman;
 
 import java.util.ArrayList;
 
+/**
+ * Implements the list of <code>Task</code>. A <code>TaskList</code>
+ * corresponds to a <code>ArrayList</code> that saves the list of task
+ */
 public class TaskList {
     private final ArrayList<Task> list;
 
@@ -10,21 +14,44 @@ public class TaskList {
         this.list.addAll(list);
     }
 
+    /**
+     * Add a task to the list
+     *
+     * @param task Task that to be added
+     */
     public void addTask(Task task) {
         this.list.add(task);
     }
 
+    /**
+     * Change the status of a task
+     *
+     * @param index index of the task in the list
+     * @param status updated status
+     * @return the task that is updated
+     */
     public Task toggleTask(int index, boolean status) {
         this.list.get(index).setMarkDone(status);
         return this.list.get(index);
     }
 
+    /**
+     * Delete a task
+     *
+     * @param index index of the task in the list
+     * @return the task that is deleted
+     */
     public Task deleteTask(int index) {
         Task deletedTask = this.list.get(index);
         this.list.remove(index);
         return deletedTask;
     }
 
+    /**
+     * Return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     *
+     * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     */
     public String toFile() {
         StringBuilder output = new StringBuilder();
         for (int index = 0; index < this.list.size(); index = index + 1) {
@@ -33,6 +60,11 @@ public class TaskList {
         return output.toString();
     }
 
+    /**
+     * Return the size of the list of task
+     *
+     * @return the size of the list of task
+     */
     public int getSize() {
         return list.size();
     }
