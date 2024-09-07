@@ -6,6 +6,7 @@ import seedu.maxine.task.Event;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -83,8 +84,8 @@ public class TaskList implements MaxineList {
             Deadline task = new Deadline(desc.toString(), ddl.toString());
             list.add(task);
         } catch (Exception e) {
-            System.out.println("Please follow this format: deadline " +
-                    "[enter maxine.task] /by [enter deadline]");
+            System.out.println("Please follow this format: deadline "
+                    + "[enter maxine.task] /by [enter deadline]");
         }
     }
 
@@ -114,8 +115,8 @@ public class TaskList implements MaxineList {
             }
 
             if (!hasFrom || !hasTo || arr[1].equals("/from")) {
-                throw new MaxineException("Please follow this format: " +
-                        "event [enter event] /from [start date] /to [end date]");
+                throw new MaxineException("Please follow this format: "
+                        + "event [enter event] /from [start date] /to [end date]");
             }
             boolean isAfterFrom = false;
             boolean isAfterTo = false;
@@ -150,8 +151,17 @@ public class TaskList implements MaxineList {
      * @param key The number that is tagged to the task that os to be deleted
      */
     public void delete(int key) {
-        Task task = list.get(key);
-        list.remove(task);
+        try {
+            Task task = list.get(key);
+            list.remove(task);
+        } catch (Exception e) {
+            if (e instanceof InvocationTargetException) {
+                Throwable cause = e.getCause();
+                System.out.println("Exception caused by: " + cause);
+            } else {
+                System.out.println(e);
+            }
+        }
     }
 
     /**

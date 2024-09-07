@@ -1,5 +1,2 @@
-T / 0 / homework
-T / 0 / cs2103t
-T / 0 / play ukulele
-D / 1 / lab / Sep 05 2024
-D / 0 / garden /  today
+T / 0 / homeowkr
+T / 0 / garden

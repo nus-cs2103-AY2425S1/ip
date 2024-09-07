@@ -59,9 +59,10 @@ public class Parser {
                 return "event added!";
             case ("delete"):
                 int key = Integer.parseInt(answer[1]) - 1;
+                Task task = list.get(key);
                 list.delete(key);
                 storage.refreshStorage(list);
-                return ui.delete(list.get(key));
+                return ui.delete(task);
             case ("find"):
                 return ui.search(input.substring(5));
             default:
