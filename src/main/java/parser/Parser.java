@@ -51,35 +51,66 @@ public class Parser {
 
         switch (commandType) {
         case TODO:
-            String todoDescription = command.substring(4).trim();
-            if (todoDescription.isEmpty()) {
-                throw new JarException("The description of a todo cannot be empty.");
-            }
-            return new ToDo(todoDescription);
+            return parseToDoTask(command);
         case DEADLINE:
-            String[] deadlineParts = command.substring(8).split("/by", 2);
-            if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                throw new JarException("Invalid deadline format. Use: deadline <description> /by <date>");
-            }
-            String deadlineDescription = deadlineParts[0].trim();
-            LocalDateTime deadlineDateTime = parseDateTime(deadlineParts[1].trim());
-            return new DeadLine(deadlineDescription, deadlineDateTime);
+            return parseDeadlineTask(command);
         case EVENT:
-            String[] eventParts = command.substring(5).split("/from", 2);
-            if (eventParts.length < 2 || eventParts[0].trim().isEmpty()) {
-                throw new JarException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
-            }
-            String eventDescription = eventParts[0].trim();
-            String[] timeParts = eventParts[1].split("/to", 2);
-            if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-                throw new JarException("Invalid event time format. Use: event <description> /from <start time> /to <end time>");
-            }
-            String from = timeParts[0].trim();
-            String to = timeParts[1].trim();
-            return new Event(eventDescription, from, to);
+            return parseEventTask(command);
         default:
             throw new JarException("Unknown command: " + command + ". Please enter a valid command.");
         }
+    }
+
+    /**
+     * Parses a TODO task from the given command string.
+     *
+     * @param command The command string to be parsed.
+     * @return The ToDo task created from the command string.
+     * @throws JarException If the todo description is empty.
+     */
+    private Task parseToDoTask(String command) throws JarException {
+        String todoDescription = command.substring(4).trim();
+        if (todoDescription.isEmpty()) {
+            throw new JarException("The description of a todo cannot be empty.");
+        }
+        return new ToDo(todoDescription);
+    }
+
+    /**
+     * Parses a Deadline task from the given command string.
+     *
+     * @param command The command string to be parsed.
+     * @return The Deadline task created from the command string.
+     * @throws JarException If the deadline format is invalid.
+     */
+    private Task parseDeadlineTask(String command) throws JarException {
+        String[] deadlineParts = command.substring(8).split("/by", 2);
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+            throw new JarException("Invalid deadline format. Use: deadline <description> /by <date>");
+        }
+        String deadlineDescription = deadlineParts[0].trim();
+        LocalDateTime deadlineDateTime = parseDateTime(deadlineParts[1].trim());
+        return new DeadLine(deadlineDescription, deadlineDateTime);
+    }
+
+    /**
+     * Parses an Event task from the given command string.
+     *
+     * @param command The command string to be parsed.
+     * @return The Event task created from the command string.
+     * @throws JarException If the event format is invalid.
+     */
+    private Task parseEventTask(String command) throws JarException {
+        String[] eventParts = command.substring(5).split("/from", 2);
+        if (eventParts.length < 2 || eventParts[0].trim().isEmpty()) {
+            throw new JarException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
+        }
+        String eventDescription = eventParts[0].trim();
+        String[] timeParts = eventParts[1].split("/to", 2);
+        if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+            throw new JarException("Invalid event time format. Use: event <description> /from <start time> /to <end time>");
+        }
+        return new Event(eventDescription, timeParts[0].trim(), timeParts[1].trim());
     }
 
     /**
