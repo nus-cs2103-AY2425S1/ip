@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
             // delete task from cache and storage
             cur = taskList.getCache().get(index);
             taskList.delete(index);
-            storage.delete(cur);
+            storage.delete(index);
 
             return ui.showTaskDeleted(cur, taskList.size());
 

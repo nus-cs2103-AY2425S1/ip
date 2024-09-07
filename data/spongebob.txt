@@ -1,5 +1,3 @@
-TODO|true|eat food
-TODO|true|meet friends
-TODO|false|add fish
-DEADLINE|false|assignment 1|10/10/1234
-EVENT|true|school|10/10/1234|11/11/1420
+TODO|true|go to school|
+DEADLINE|false|homework|Math|10/10/1010
+EVENT|false|party|IMPORTANT|10/10/2023|11/10/2023

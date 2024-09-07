@@ -50,7 +50,7 @@ public class Deadline extends Task {
 
         return "[D]"
                 + super.toString()
-                + "(By: " + this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+                + "(By: " + this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")" + super.getTag();
         // convert
     }
 

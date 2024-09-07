@@ -97,5 +97,13 @@ public class Ui {
                 + tasks;
     }
 
+    public String showTaggedTask(Task task) {
+        return "Okay-dokey! I have added a tag to the task! \n\n"
+                + task;
+    }
+
+    public String showTagError() {
+        return "Oh no! I cant tag nothing!!";
+    }
 
 }
