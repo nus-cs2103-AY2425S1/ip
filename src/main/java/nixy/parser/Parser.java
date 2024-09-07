@@ -1,6 +1,7 @@
 package nixy.parse;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import nixy.Command;
 import nixy.exceptions.NixyException;
@@ -82,8 +83,12 @@ public class Parser {
             if (deadlineTokens.length < 2) {
                 throw new NixyException("BLAHH!!! The deadline of a deadline task must be specified.");
             }
-            task = new DeadlineTask(deadlineTokens[0].trim(),
-                LocalDate.parse(deadlineTokens[1].trim()));
+            try {
+                task = new DeadlineTask(deadlineTokens[0].trim(),
+                    LocalDate.parse(deadlineTokens[1].trim()));
+            } catch (DateTimeParseException e) {
+                throw new NixyException("BLAHH!!! The deadline of a deadline task must be a valid date. (e.g. 2024-12-31)");
+            }
             return new Parsed(Command.DEADLINE, task);
         case "event":
             if (tokens.length < 2) {
@@ -99,11 +104,15 @@ public class Parser {
             if (eventTimeTokens.length < 2) {
                 throw new NixyException("BLAHH!!! The end time of an event task must be specified.");
             }
-            task = new EventTask(
-                eventTokens[0].trim(),
-                LocalDate.parse(eventTimeTokens[0].trim()),
-                LocalDate.parse(eventTimeTokens[1].trim())
-            );
+            try {
+                task = new EventTask(
+                    eventTokens[0].trim(),
+                    LocalDate.parse(eventTimeTokens[0].trim()),
+                    LocalDate.parse(eventTimeTokens[1].trim())
+                );
+            } catch (DateTimeParseException e) {
+                throw new NixyException("BLAHH!!! The start and end times of an event task must be valid dates. (e.g. 2024-12-31)");
+            }
             return new Parsed(Command.EVENT, task);
         case "find":
             if (tokens.length < 2) {
