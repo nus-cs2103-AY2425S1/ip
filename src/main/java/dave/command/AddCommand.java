@@ -1,9 +1,10 @@
 package dave.command;
 
 import java.io.IOException;
+
+import dave.storage.Storage;
 import dave.task.Task;
 import dave.task.TaskList;
-import dave.storage.Storage;
 import dave.ui.Ui;
 
 /**
@@ -38,7 +39,7 @@ public class AddCommand extends Command {
             System.out.println("Got it. I've added this task: ");
             System.out.println(task);
             System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-            storage.amendFile(task);  // Ensure amendFile is accessed via the correct instance
+            storage.amendFile(task); // Ensure amendFile is accessed via the correct instance
         } catch (IOException e) {
             ui.showLine();
             System.out.println("An error occurred while saving the task to the file.");

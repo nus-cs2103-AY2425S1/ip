@@ -73,6 +73,15 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Finds tasks that contain the specified keyword in their description.
+     * Iterates through the list of tasks and checks if the task's string representation
+     * contains the given keyword. If a match is found, the task is added to the list of
+     * matching tasks.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return An {@code ArrayList} of tasks that contain the keyword in their description.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -82,4 +91,5 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
 }

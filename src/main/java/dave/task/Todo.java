@@ -7,7 +7,7 @@ package dave.task;
 public class Todo extends Task {
 
     /** Stores the formatted statement for writing to file */
-    public String statement;
+    private String statement;
 
     /**
      * Constructs a Todo task with the specified description.
@@ -24,7 +24,7 @@ public class Todo extends Task {
      * @return The formatted string representing the Todo task.
      */
     public String write() {
-        statement = String.format("T | %d | %s\n", this.isDone ? 1 : 0, this.description);
+        statement = String.format("T | %d | %s\n", this.getIsDone() ? 1 : 0, this.getDescription());
         return statement;
     }
 

@@ -4,10 +4,10 @@ import dave.command.AddCommand;
 import dave.command.Command;
 import dave.command.DeleteCommand;
 import dave.command.ExitCommand;
+import dave.command.FindCommand;
 import dave.command.ListCommand;
 import dave.command.MarkCommand;
 import dave.command.UnmarkCommand;
-import dave.command.FindCommand;
 import dave.exceptions.InvalidCommandException;
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
@@ -44,7 +44,10 @@ public class Parser {
         try {
             taskType = TaskType.valueOf(commandWord);
         } catch (IllegalArgumentException e) {
-            throw new InvalidCommandException("I'm not sure what you mean. Here are the commands I understand: todo, deadline, event, list, mark, unmark, bye");
+            throw new InvalidCommandException(
+                    "I'm not sure what you mean. Here are the commands "
+                            + "I understand: todo, deadline, event, list, mark, unmark, bye"
+            );
         }
 
         try {
