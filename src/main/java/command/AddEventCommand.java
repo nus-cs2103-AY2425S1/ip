@@ -46,8 +46,10 @@ public class AddEventCommand extends Command {
      * @param storage  The Storage instance to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.event);
+        return "AddEventCommand";
+
     }
 
 }

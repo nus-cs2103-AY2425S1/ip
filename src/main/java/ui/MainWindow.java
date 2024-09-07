@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import main.KukiShinobu;
 
 /**
@@ -24,6 +25,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private KukiShinobu kukiShinobu;
+    private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image kukiShinobuImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -33,10 +35,17 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the KukiShinobu instance */
     public void setKukiShinobu(KukiShinobu d) {
         kukiShinobu = d;
     }
+
+
+    /** Injects the Stage instance */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -45,11 +54,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = kukiShinobu.getResponse(input);
+        String response = kukiShinobu.getResponse(input); //need a getExit also btw in case the person exits or something
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKukiShinobuDialog(response, kukiShinobuImage)
         );
         userInput.clear();
+
+        // Checks if KukiShinobu::isExit is true, then exit the program if so
+        if (kukiShinobu.isExit()) {
+            stage.close();
+        }
     }
 }

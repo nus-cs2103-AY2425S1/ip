@@ -26,6 +26,8 @@ public class KukiShinobu {
     // IMPORTANT: Relative Filepath Specified must always be relative to root directory of the entire project
     private static final String FILE_PATH = "./data/database.txt";
 
+    private boolean isExit = false;
+
     /**
      * The entry point of the Kuki Shinobu application.
      * <p>
@@ -109,7 +111,24 @@ public class KukiShinobu {
         ui.showGoodbye();
     }
 
+    public boolean isExit() {
+        return this.isExit;
+    }
+
     public String getResponse(String input) {
-        return "Kuki Shinobu heard: " + input;
+        //TODO: Update this code to actually query for the response\
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            this.isExit = c.isExit();
+            response = c.execute(tasks, ui, storage);
+        } catch (KukiShinobuException e) {
+            response = e.getMessage();
+        } finally {
+            ui.showLine();
+            this.storage.write(this.tasks.getTasks());
+        }
+
+        return response;
     }
 }

@@ -30,7 +30,9 @@ public class DeleteTaskCommand extends Command {
      * @param storage  The storage to save changes made to the task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.deleteTask(taskIndex);
+        return "DeleteTaskCommand";
+
     }
 }

@@ -45,7 +45,8 @@ public class AddDeadlineCommand extends Command {
      * @param storage  The Storage instance to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.deadline);
+        return "AddDeadlineCommand";
     }
 }

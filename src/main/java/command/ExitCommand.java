@@ -20,7 +20,8 @@ public class ExitCommand extends Command {
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return "ExitCommand";
         // Do Nothing
     }
 

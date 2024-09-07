@@ -23,7 +23,12 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKukiShinobu(kukiShinobu);  // inject the Duke instance
+
+            // Get the controller and set the KukiShinobu instance and the Stage reference
+            MainWindow controller = fxmlLoader.getController();
+            controller.setKukiShinobu(kukiShinobu);
+            controller.setStage(stage);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
