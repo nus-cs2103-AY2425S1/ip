@@ -77,14 +77,14 @@ public class Bob {
 
     public String getResponse(String input) {
         try {
-            Command command = Parser.parseCommand(input);
-            command.execute(myTasks);
             Storage.writeData(myTasks, this.filePath);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             System.setOut(ps);
+            Command command = Parser.parseCommand(input);
+            command.execute(myTasks);
             System.out.flush();
-            return "AIHFL";
+            return baos.toString();
         } catch (EmptyArgumentException | MissingArgumentException
                 | InvalidTaskNumberException e) {
             return e.getMessage();

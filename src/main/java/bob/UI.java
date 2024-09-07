@@ -32,7 +32,7 @@ public class UI {
      */
     public static void printGreetings() {
         printLine();
-        System.out.println("Hello! I'm Bob.Bob\n"
+        System.out.println("Hello! I'm Bob\n"
                     + "What can I do for you?");
         printLine();
     }
