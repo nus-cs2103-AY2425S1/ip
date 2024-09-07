@@ -37,18 +37,36 @@ public class Nixy {
         }
     }
 
+    /**
+     * Sets the display method for Nixy to display messages.
+     *
+     * @param display The display method to set.
+     */
     public void setNewDisplay(Consumer<String[]> display) {
         ui.setDisplay(display);
     }
 
+    /**
+     * Sets the onExit method for Nixy to run when the application exits.
+     *
+     * @param onExit The onExit method to set.
+     */
     public void setOnExit(Runnable onExit) {
         this.onExit = onExit;
     }
 
-    public void displayWelcome() {
+    /**
+     * Displays the welcome message to the user.
+     */
+    public void showWelcome() {
         ui.showWelcome();
     }
 
+    /**
+     * Processes user input and executes the corresponding command logic.
+     *
+     * @param userInput The user input to process.
+     */
     public void processInput(String userInput) {
         Parsed p;
         Command c;
@@ -131,9 +149,9 @@ public class Nixy {
      */
     public void run() {
         // Have to use array to store boolean value to be able to modify it in lambda
-        boolean isExit[] = {false};
+        boolean[] isExit = { false };
         onExit = () -> isExit[0] = true;
-        displayWelcome();
+        showWelcome();
         while (!isExit[0]) {
             String userInput = ui.readCliInput();
             processInput(userInput);

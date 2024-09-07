@@ -1,12 +1,11 @@
 import java.io.IOException;
 
+import gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import gui.MainWindow;
 import nixy.Nixy;
 
 /**
@@ -23,7 +22,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setNixy(nixy);  // inject the Nixy instance
+            // inject the Nixy instance
+            fxmlLoader.<MainWindow>getController().setNixy(nixy);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

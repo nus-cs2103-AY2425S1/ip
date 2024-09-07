@@ -2,7 +2,6 @@ package gui;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import nixy.Nixy;
 
 /**
@@ -50,6 +48,7 @@ public class MainWindow extends AnchorPane {
             );
         });
         nixy.setOnExit(() -> Platform.exit());
+        nixy.showWelcome();
     }
 
     /**

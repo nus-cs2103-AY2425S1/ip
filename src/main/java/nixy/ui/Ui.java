@@ -1,9 +1,9 @@
 package nixy.ui;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 import nixy.exceptions.NixyException;
 import nixy.task.Task;
