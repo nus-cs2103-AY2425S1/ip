@@ -2,7 +2,6 @@ package rob;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +23,7 @@ public class Rob {
      */
 
     public Rob(String filePath) {
+        assert filePath != null && !filePath.isEmpty();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -42,6 +42,7 @@ public class Rob {
      * @throws DukeException If no number is found in the input string or if the task number is out of range.
      */
     public int findTaskNum(String input) throws DukeException {
+        assert input != null && !input.isEmpty();
         String regex = "\\d+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -73,79 +74,71 @@ public class Rob {
         parser.checkString();
         String command = parser.getCommand();
 
-        if (Objects.equals(command, "bye")) {
-            return ui.getExit();
-        } else if (Objects.equals(command, "list")) {
-            return ui.showList(tasks);
-        } else if (Objects.equals(command, "mark")) {
-            try {
-                int taskNum = findTaskNum(input);
-                String markedStr = ui.mark(tasks, taskNum);
-                tasks.getTask(taskNum - 1).markAsDone();
+        try {
+            switch (command) {
+            case "bye":
+                return ui.getExit();
+            case "list":
+                return ui.showList(tasks);
+            case "mark":
+                int markTaskNum = findTaskNum(input);
+                assert markTaskNum > 0 && markTaskNum <= tasks.len();
+                String markedStr = ui.mark(tasks, markTaskNum);
+                tasks.getTask(markTaskNum - 1).markAsDone();
                 storage.saveTasks(tasks);
                 return markedStr;
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
-            }
-        } else if (Objects.equals(command, "unmark")) {
-            try {
-                int taskNum = findTaskNum(input);
-                String unmarkedStr = ui.unmark(tasks, taskNum);
-                tasks.getTask(taskNum - 1).unmark();
+            case "unmark":
+                int unmarkTaskNum = findTaskNum(input);
+                assert unmarkTaskNum > 0 && unmarkTaskNum <= tasks.len();
+                String unmarkedStr = ui.unmark(tasks, unmarkTaskNum);
+                tasks.getTask(unmarkTaskNum - 1).unmark();
                 storage.saveTasks(tasks);
                 return unmarkedStr;
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
-            }
-        } else if (Objects.equals(command, "delete")) {
-            try {
-                int taskNum = findTaskNum(input);
-                String delStr = ui.delete(tasks, taskNum);
-                tasks.removeTask(taskNum - 1);
+            case "delete":
+                int deleteTaskNum = findTaskNum(input);
+                assert deleteTaskNum > 0 && deleteTaskNum <= tasks.len();
+                String delStr = ui.delete(tasks, deleteTaskNum);
+                tasks.removeTask(deleteTaskNum - 1);
                 storage.saveTasks(tasks);
                 return delStr;
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
-            }
-        } else if (Objects.equals(command, "find")) {
-            try {
+            case "find":
                 String keyword = parser.getFind();
                 List<Task> filteredList = tasks.searchTasks(keyword);
                 TaskList filteredTasks = new TaskList(filteredList);
                 return ui.showList(filteredTasks);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
-            }
-        } else {
-            try {
-                if (Objects.equals(command, "deadline")) {
-                    String desc = parser.getDesc();
-                    String day = parser.getDay();
-                    tasks.getTasks().add(new Deadline(desc, day));
-                    storage.saveTasks(tasks);
-                } else if (Objects.equals(command, "event")) {
-                    String desc = parser.getDesc();
-                    String from = parser.getFrom();
-                    String to = parser.getTo();
-                    tasks.getTasks().add(new Event(desc, from, to));
-                    storage.saveTasks(tasks);
-                } else if (Objects.equals(command, "todo")) {
-                    String desc = parser.getDesc();
-                    tasks.getTasks().add(new Todo(desc));
-                    storage.saveTasks(tasks);
-                } else {
-                    throw new DukeException("I'm sorry... I don't seem to understand.");
-                }
+            case "deadline":
+            case "event":
+            case "todo":
+                handleAddTask(command, parser);
                 return ui.printText(tasks);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
+            default:
+                throw new DukeException("I'm sorry... I don't seem to understand.");
             }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
         }
+    }
+
+    private void handleAddTask(String command, Parser parser) throws DukeException {
+        String desc = parser.getDesc();
+        switch (command) {
+        case "deadline":
+            String day = parser.getDay();
+            tasks.getTasks().add(new Deadline(desc, day));
+            break;
+        case "event":
+            String from = parser.getFrom();
+            String to = parser.getTo();
+            tasks.getTasks().add(new Event(desc, from, to));
+            break;
+        case "todo":
+            tasks.getTasks().add(new Todo(desc));
+            break;
+        default:
+            throw new DukeException("Unknown task type.");
+        }
+        storage.saveTasks(tasks);
     }
 }
 
