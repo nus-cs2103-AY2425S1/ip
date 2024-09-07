@@ -21,6 +21,8 @@ public class DeleteCommand implements Command {
      * @throws MichaelScottException If index > length of taskList or smaller than 0.
      */
     public DeleteCommand(String args) throws MichaelScottException {
+        assert args != null : "args to delete cannot be null";
+
         try {
             this.taskIndex = Integer.parseInt(args.trim()) - 1;
         } catch (NumberFormatException e) {
@@ -30,6 +32,8 @@ public class DeleteCommand implements Command {
 
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {
+        assert tasks != null : "tasks cannot be null";
+
         Task deletedTask = tasks.getTask(this.taskIndex);
         tasks.removeTask(this.taskIndex);
         return "Noted. I've removed this task:\n" + deletedTask.toString()

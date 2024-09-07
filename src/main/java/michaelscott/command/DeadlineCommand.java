@@ -24,8 +24,9 @@ public class DeadlineCommand implements Command {
      * @throws MichaelScottException If the input format is invalid or the date cannot be parsed.
      */
     public DeadlineCommand(String args) throws MichaelScottException {
-        String[] deadlineParts = args.split(" /by ");
+        assert args != null : "Deadline args cannot be null";
 
+        String[] deadlineParts = args.split(" /by ");
         if (deadlineParts.length != 2) {
             throw new MichaelScottException(
                     "Please provide both the task description and deadline "

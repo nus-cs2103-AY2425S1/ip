@@ -16,6 +16,7 @@ public class CommandParser {
      * @throws MichaelScottException If the command is not recognized or cannot be parsed.
      */
     public Command parse(String fullCommand) throws MichaelScottException {
+        assert fullCommand != null : "command cannot be null";
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
         String args = parts.length > 1 ? parts[1] : "";

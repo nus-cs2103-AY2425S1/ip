@@ -17,20 +17,24 @@ public class FindCommand implements Command {
     /**
      * Constructs a new FindCommand with the given keyword.
      *
-     * @param keyWord The keyword to search for in task descriptions.
+     * @param keyword The keyword to search for in task descriptions.
      * @throws MichaelScottException If the keyword is empty or consists only of whitespace.
      */
-    public FindCommand(String keyWord) throws MichaelScottException {
-        if (keyWord.trim().isEmpty()) {
+    public FindCommand(String keyword) throws MichaelScottException {
+        assert keyword != null : "keyword cannot be null";
+
+        if (keyword.trim().isEmpty()) {
             throw new MichaelScottException(
                     "You need to tell me what to search for! [find <Stuff>]"
             );
         }
-        this.keyWord = keyWord.trim().toLowerCase();
+        this.keyWord = keyword.trim().toLowerCase();
     }
 
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {
+        assert tasks != null : "tasks cannot be null";
+
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
