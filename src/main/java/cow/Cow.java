@@ -21,6 +21,7 @@ public class Cow {
      * @param filePath of the save file.
      */
     public Cow(String filePath) {
+        assert !filePath.isEmpty() : "File path should not be empty";
         this.ui = new Ui();
         this.fs = new FileSaver(filePath);
         try {

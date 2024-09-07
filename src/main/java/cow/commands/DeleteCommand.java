@@ -24,6 +24,7 @@ public class DeleteCommand extends Command {
      * @param index of the todo list to delete starting from 1.
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "index should be >= 0";
         this.index = index - 1;
     }
 

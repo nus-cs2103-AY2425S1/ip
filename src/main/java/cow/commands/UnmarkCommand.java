@@ -15,7 +15,14 @@ public class UnmarkCommand extends Command {
             + "Example: " + COMMAND_EXAMPLE;
 
     private int index;
+
+    /**
+     * Constructor to create an unmark command.
+     *
+     * @param index of the todo list to unmark.
+     */
     public UnmarkCommand(int index) {
+        assert index >= 0 : "index should be >= 0";
         this.index = index - 1;
     }
 
