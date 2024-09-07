@@ -1,4 +1,4 @@
-package Cookie;
+package cookie.parser;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

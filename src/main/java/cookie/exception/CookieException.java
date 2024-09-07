@@ -1,4 +1,4 @@
-package Cookie;
+package cookie.exception;
 public class CookieException extends Exception {
     /**
      * Constructor for CookieException.

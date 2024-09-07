@@ -1,4 +1,10 @@
-package Cookie;
+package cookie;
+
+import cookie.task.Deadline;
+import cookie.task.Event;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.task.ToDo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

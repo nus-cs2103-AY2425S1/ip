@@ -1,4 +1,6 @@
-package Cookie;
+package cookie;
+
+import cookie.task.Event;
 
 import org.junit.jupiter.api.Test;
 

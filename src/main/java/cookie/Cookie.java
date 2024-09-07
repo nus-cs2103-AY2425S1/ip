@@ -1,8 +1,21 @@
-package Cookie;
+package cookie;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import cookie.exception.CookieException;
+import cookie.parser.Parser;
+import cookie.storage.Storage;
+import cookie.task.Deadline;
+import cookie.task.Event;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.task.ToDo;
+import cookie.ui.Ui;
+
+
+
 public class Cookie {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
@@ -39,11 +52,16 @@ public class Cookie {
                     + "(Please enter an integer after \"delete\")");
         }
 
+        assert !string.isEmpty();
+
         int deleteIndex = parser.parseInteger(string);
 
         if (deleteIndex <= 0 || deleteIndex > taskList.getSize()) {
             throw new CookieException("The task you want to delete does not exist");
         }
+
+        assert deleteIndex > 0;
+
         String response = ui.printDeleteTask(this.taskList.getTask(deleteIndex));
         this.taskList.delete(deleteIndex);
         response = response + ui.printNoTasksInList(this.taskList.getTaskArrayList());
@@ -55,6 +73,8 @@ public class Cookie {
             throw new CookieException("Cookie does not know which task to mark.\n "
                     + "(Please enter an integer after \"mark\")");
         }
+        assert !string.isEmpty();
+
         int markIndex = parser.parseInteger(string);
         if (markIndex <= 0 || markIndex > taskList.getSize()) {
             throw new CookieException("The task you want to mark does not exist");
@@ -69,6 +89,8 @@ public class Cookie {
                     + "(Please enter an integer after \"mark\")");
         }
 
+        assert !string.isEmpty();
+
         int unmarkIndex = parser.parseInteger(string);
 
         if (unmarkIndex <= 0 || unmarkIndex > taskList.getSize()) {
@@ -82,6 +104,9 @@ public class Cookie {
         if (string.isEmpty()) {
             throw new CookieException("Please enter a task for you to do.");
         }
+
+        assert !string.isEmpty();
+
         ToDo newTodoTask = new ToDo(string);
         this.taskList.addTask(newTodoTask);
         String response = ui.printLatestTask(newTodoTask);
@@ -95,6 +120,10 @@ public class Cookie {
             throw new CookieException("Deadlines must include a task todo and a due date \n"
                     + "[task] /by [deadline]");
         }
+
+        assert !deadlineDetails[0].isEmpty();
+        assert !deadlineDetails[1].isEmpty();
+
         Deadline newDeadlineTask = new Deadline(deadlineDetails[0], deadlineDetails[1]);
         taskList.addTask(newDeadlineTask);
         String response = ui.printLatestTask(newDeadlineTask);
@@ -104,11 +133,13 @@ public class Cookie {
 
     private String handleEvent(String string) throws CookieException {
         String[] eventDetails = parser.parseEvent(string);
+
         if (eventDetails.length < 2 || eventDetails[0].isEmpty()
                 || eventDetails[1].isEmpty() || eventDetails[2].isEmpty()) {
             throw new CookieException("Events must include a task, a start time and an end time \n"
                     + "[task] /from [start] /to [end]");
         }
+
         Event newEventTask = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
         taskList.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]));
         String response = ui.printLatestTask(newEventTask);

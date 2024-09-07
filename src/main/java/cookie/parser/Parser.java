@@ -1,4 +1,4 @@
-package Cookie;
+package cookie.parser;
 public class Parser {
     /**
      * Returns a command to be executed.

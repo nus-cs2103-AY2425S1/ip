@@ -1,4 +1,4 @@
-package Cookie;
+package cookie.storage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import cookie.exception.CookieException;
+import cookie.task.Deadline;
+import cookie.task.Event;
+import cookie.task.Task;
+import cookie.task.ToDo;
 
 public class Storage {
 

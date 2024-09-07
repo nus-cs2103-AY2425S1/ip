@@ -1,8 +1,9 @@
-package Cookie.gui;
+package cookie.gui;
+
 
 import java.io.IOException;
 
-import Cookie.Cookie;
+import cookie.Cookie;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Cookie");
+        stage.setTitle("cookie");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

@@ -1,4 +1,4 @@
-package Cookie.gui;
+package cookie.gui;
 
 import java.io.IOException;
 
@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
 
 public class DialogBox extends HBox {
     @FXML
