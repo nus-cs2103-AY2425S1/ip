@@ -1,4 +1,4 @@
-package Alvis;
+package alvis.tasks;
 
 public abstract class Task {
     protected String desc;
