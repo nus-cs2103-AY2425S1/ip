@@ -31,7 +31,8 @@ public class Megamind {
      */
     public Megamind() {
         taskList = new List(storage.loadTasks());
-        assert taskList.getTasks() instanceof ArrayList<Task> : "taskList.getTasks() should be an instance of ArrayList<Task>";
+        assert taskList.getTasks() instanceof ArrayList<Task>
+                : "taskList.getTasks() should be an instance of ArrayList<Task>";
     }
 
     /**
