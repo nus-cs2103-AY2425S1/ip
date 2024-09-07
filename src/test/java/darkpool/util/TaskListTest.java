@@ -27,7 +27,7 @@ class TaskListTest {
         Task todo = new Todo("read a book", false);
         taskList.addTask(todo);
         assertEquals(1, taskList.getSize());
-        assertEquals("\twhy am i here\n" + "\t\t1. [T][ ] read a book", taskList.toString());
+        assertEquals( "1. [T][ ] read a book\n", taskList.toString());
     }
 
     @Test
@@ -45,7 +45,7 @@ class TaskListTest {
         taskList.addTask(todo);
         String markedTask = taskList.markTask(0);
         assertEquals("[T][X] read a book", markedTask);
-        assertEquals("\twhy am i here\n" + "\t\t1. [T][X] read a book", taskList.toString());
+        assertEquals("1. [T][X] read a book\n", taskList.toString());
     }
 
     @Test
@@ -54,12 +54,12 @@ class TaskListTest {
         taskList.addTask(todo);
         String unmarkedTask = taskList.unmarkTask(0);
         assertEquals("[T][ ] read a book", unmarkedTask);
-        assertEquals("\twhy am i here\n" + "\t\t1. [T][ ] read a book", taskList.toString());
+        assertEquals("1. [T][ ] read a book\n", taskList.toString());
     }
 
     @Test
     void testToStringEmptyList() {
-        assertEquals("\tbozo you got no tasks", taskList.toString());
+        assertEquals("bozo you got no tasks", taskList.toString());
     }
 
     @Test
@@ -74,11 +74,11 @@ class TaskListTest {
         taskList.addTask(event);
 
         String expectedOutput = """
-                \twhy am i here
-                \t\t1. [T][ ] read a book
-                \t\t2. [D][ ] submit report \
+                1. [T][ ] read a book
+                2. [D][ ] submit report \
                 (by:30-08-2024 18:00)
-                \t\t3. [E][ ] attend meeting (from:30-08-2024 10:00 to:30-08-2024 12:00)""";
+                3. [E][ ] attend meeting (from:30-08-2024 10:00 to:30-08-2024 12:00)
+                """;
 
         assertEquals(expectedOutput, taskList.toString());
     }
@@ -113,7 +113,7 @@ class TaskListTest {
         assertEquals(2, taskListWithTasks.getSize());
 
         String expectedOutput =
-                "\twhy am i here\n\t\t1. [T][ ] read a book\n\t\t2. [D][ ] submit report (by:30-08-2024 18:00)";
+                "1. [T][ ] read a book\n2. [D][ ] submit report (by:30-08-2024 18:00)\n";
         assertEquals(expectedOutput, taskListWithTasks.toString());
     }
 }

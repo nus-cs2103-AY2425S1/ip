@@ -100,21 +100,21 @@ public class TaskList {
      */
     public String search(String searchQuery) throws DarkpoolException {
         if (taskList.isEmpty()) {
-            throw new DarkpoolException("\tbozo you got no tasks");
+            throw new DarkpoolException("bozo you got no tasks");
         } else if (searchQuery.isEmpty()) {
-            throw new DarkpoolException("\tbozo you gotta tell me what to search for");
+            throw new DarkpoolException("bozo you gotta tell me what to search for");
         }
 
-        StringBuilder temp = new StringBuilder("\tfine! here are the matching tasks\n\t\t");
+        StringBuilder temp = new StringBuilder("fine! here are the matching tasks\n");
 
         for (int i = 0; i < this.taskList.size(); i++) {
             if (getTask(i).getDescription().contains(searchQuery)) {
-                temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n\t\t");
+                temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n");
             }
         }
 
-        temp.setLength(temp.length() - 3);
-        if (temp.toString().equals("\tfine! here are the matching tasks")) {
+        temp.setLength(temp.length());
+        if (temp.toString().equals("fine! here are the matching tasks")) {
             throw new DarkpoolException("bozo there are no matching tasks");
         }
         return String.valueOf(temp);
@@ -141,16 +141,16 @@ public class TaskList {
     @Override
     public String toString() {
         if (taskList.isEmpty()) {
-            return "\tbozo you got no tasks";
+            return "bozo you got no tasks";
         }
 
-        StringBuilder temp = new StringBuilder("\twhy am i here\n\t\t");
+        StringBuilder temp = new StringBuilder();
 
         for (int i = 0; i < this.taskList.size(); i++) {
-            temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n\t\t");
+            temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n");
         }
 
-        temp.setLength(temp.length() - 3);
+        temp.setLength(temp.length());
         return String.valueOf(temp);
     }
 

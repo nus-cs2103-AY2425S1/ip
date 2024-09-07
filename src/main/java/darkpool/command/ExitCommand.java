@@ -1,9 +1,9 @@
 package darkpool.command;
 
+import darkpool.gui.Gui;
 import darkpool.util.DarkpoolException;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
-import darkpool.util.Ui;
 
 
 /**
@@ -15,14 +15,15 @@ public class ExitCommand extends Command {
      * Executes the exit command, displaying a goodbye message and saving the task list.
      *
      * @param taskList The task list to save.
-     * @param ui The UI to display the goodbye message.
-     * @param storage The storage to save the task list.
+     * @param gui       The UI to display the goodbye message.
+     * @param storage  The storage to save the task list.
+     * @return
      * @throws DarkpoolException If an error occurs during saving.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DarkpoolException {
-        ui.goodbye();
+    public String execute(TaskList taskList, Gui gui, Storage storage) throws DarkpoolException {
         storage.saveData(taskList);
+        return gui.goodbye();
     }
 
     /**
