@@ -21,6 +21,8 @@ public class TodoCommand implements Command {
      * @throws MichaelScottException If the input format is invalid or the date cannot be parsed.
      */
     public TodoCommand(String args) throws MichaelScottException {
+        assert args != null : "args cannot be null";
+
         this.description = args.trim();
         if (description.isEmpty()) {
             throw new MichaelScottException("The description of a todo cannot be empty. [todo <Task Description>]");
@@ -35,6 +37,8 @@ public class TodoCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        assert tasks != null : "asks cannot be null";
+
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
         return "Got it. I've added this task:\n" + newTask.toString()

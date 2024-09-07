@@ -17,6 +17,8 @@ public class UnmarkCommand implements Command {
      * @throws MichaelScottException If the provided argument cannot be parsed as a valid task number.
      */
     public UnmarkCommand(String args) throws MichaelScottException {
+        assert args != null : "args cannot be null";
+
         try {
             this.taskIndex = Integer.parseInt(args.trim()) - 1;
         } catch (NumberFormatException e) {
@@ -26,6 +28,8 @@ public class UnmarkCommand implements Command {
 
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {
+        assert tasks != null : "tasks cannot be null";
+
         Task task = tasks.getTask(this.taskIndex);
         task.undoTask();
         return "OK, I've marked this task as not done yet: \n" + task.toString();

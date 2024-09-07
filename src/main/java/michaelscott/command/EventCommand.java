@@ -24,6 +24,8 @@ public class EventCommand implements Command {
      * @throws MichaelScottException If the input format is invalid or the dates cannot be parsed.
      */
     public EventCommand(String args) throws MichaelScottException {
+        assert args != null : "args to event cannot be null";
+
         String[] eventParts = args.split(" /from | /to ");
         if (eventParts.length != 3) {
             throw new MichaelScottException(
@@ -45,6 +47,8 @@ public class EventCommand implements Command {
 
     @Override
     public String execute(TaskList tasks) {
+        assert tasks != null : "tasks cannot be null";
+
         Event eventTask = new Event(this.description, this.toDate, this.fromDate);
         tasks.addTask(eventTask);
         return "Got it. I've added this task: \n"

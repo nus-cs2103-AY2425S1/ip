@@ -10,6 +10,8 @@ import michaelscott.utils.MichaelScottException;
 public class ListCommand implements Command {
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {
+        assert tasks != null : "tasks cannot be null";
+
         if (tasks.size() == 0) {
             return "The list is empty.";
         }

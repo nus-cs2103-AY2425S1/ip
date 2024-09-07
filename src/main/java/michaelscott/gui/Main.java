@@ -14,12 +14,13 @@ import michaelscott.MichaelScott;
  */
 public class Main extends Application {
 
-    private MichaelScott michaelScott = new MichaelScott();
+    private final MichaelScott michaelScott = new MichaelScott();
 
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null: "fxmlLoader wasn't loaded properly in Main.java";
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

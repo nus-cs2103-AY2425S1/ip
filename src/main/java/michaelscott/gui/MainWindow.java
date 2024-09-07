@@ -49,7 +49,9 @@ public class MainWindow extends AnchorPane {
         try {
             input = userInput.getText();
             String response = michaelScott.getResponse(input);
+            assert response != null : "response cannot be null";
             String commandType = michaelScott.getCommandType();
+            assert commandType != null : "Command Type cannot be null";
             if (response.equals("Exit-Signal")) {
                 Platform.exit();
             }
@@ -57,14 +59,16 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage, commandType)
             );
-            userInput.clear();
         } catch (MichaelScottException e) {
             String response = e.getMessage();
+            assert response != null : "Error message cannot be null";
             String commandType = "ErrorOccurred";
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage, commandType)
             );
+        } finally {
+            userInput.clear();
         }
     }
 }
