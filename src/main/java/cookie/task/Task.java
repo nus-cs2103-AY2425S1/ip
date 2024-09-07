@@ -4,10 +4,10 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor for Task class.
-     * Cannot be instantiated.
+     * Constructs a new {@code Task} with the specified description.
+     * The task is initially marked as not done.
      *
-     * @param description Description of task.
+     * @param description the description of the task
      */
     public Task(String description) {
         this.description = description;
@@ -15,11 +15,10 @@ public abstract class Task {
     }
 
     /**
-     * Another constructor for Task class.
-     * Cannot be instantiated.
+     * Constructs a new {@code Task} with the specified completion status and description.
      *
-     * @param isDone Whether the task is done or not.
-     * @param description Description of task.
+     * @param isDone a boolean indicating whether the task is completed
+     * @param description the description of the task
      */
     public Task(boolean isDone, String description) {
         this.description = description;
@@ -27,32 +26,32 @@ public abstract class Task {
     }
 
     /**
-     * Gets the status of the task.
+     * Returns the status of the task.
      *
-     * @return "X" if done, "" if not done.
+     * @return "X" if the task is done, "" (an empty string) if the task is not done
      */
     public String getStatus() {
         return isDone ? "X" : "";
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task as completed.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks the task as not done.
+     * Marks the task as not completed.
      */
     public void unmarkDone() {
         this.isDone = false;
     }
 
     /**
-     * Gets the description of the task.
+     * Returns the description of the task.
      *
-     * @return Description of task.
+     * @return the description of the task
      */
     public String getDescription() {
         return this.description;

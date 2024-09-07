@@ -27,7 +27,7 @@ public class Ui {
         return "Hello! I'm Cookie\n"
                 + "How can I help you?\n"
                 + "Here are some commands you can use:\n"
-                + "todo, deadline, event, mark, unmark, delete, list";
+                + "todo, deadline, event, mark, unmark, delete, list and find";
     }
 
     /**
