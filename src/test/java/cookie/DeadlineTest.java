@@ -1,10 +1,14 @@
 package cookie;
 
-import cookie.task.Deadline;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+
+import cookie.task.Deadline;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DeadlineTest {
     @Test
     void testConstructor() {

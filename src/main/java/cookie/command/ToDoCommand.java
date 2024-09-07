@@ -6,10 +6,10 @@ import cookie.task.TaskList;
 import cookie.task.ToDo;
 import cookie.ui.Ui;
 
- /**
+/**
  * Represents a command to create and add a new to-do task to the task list.
  */
- public class ToDoCommand extends Command {
+public class ToDoCommand extends Command {
     private final String description;
 
     /**

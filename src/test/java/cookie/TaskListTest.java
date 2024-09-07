@@ -1,16 +1,19 @@
 package cookie;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import cookie.task.Deadline;
 import cookie.task.Event;
 import cookie.task.Task;
 import cookie.task.TaskList;
 import cookie.task.ToDo;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-
 public class TaskListTest {
     private TaskList taskList;
     private Task todoTask;

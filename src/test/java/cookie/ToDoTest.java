@@ -1,14 +1,14 @@
 package cookie;
 
-import cookie.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import cookie.task.ToDo;
 
 public class ToDoTest {
     @Test
-    public void TestConstructor() {
+    public void testConstructor() {
         ToDo todo = new ToDo("Read book");
         assertEquals("Read book", todo.getDescription());
     }

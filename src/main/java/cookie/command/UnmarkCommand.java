@@ -5,10 +5,10 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
- /**
+/**
  * Represents a command to unmark a task as not completed in the task list.
  */
- public class UnmarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private int index;
 
     /**
