@@ -64,8 +64,8 @@ public class Parser {
     }
 
     public String findKeyword(String command) throws IncorrectTaskInputFormatException {
-        // Split the command by space and store the words in an array
-        String[] words = command.split(" ", 2); // Split into two parts: "find" and the rest of the input
+        // Split into two parts: "find" and the rest of the input
+        String[] words = command.split(" ", 2);
 
         // Check if the command starts with "find" and has a keyword following it
         if (words.length > 1 && words[0].equals("find")) {

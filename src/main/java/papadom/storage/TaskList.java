@@ -47,7 +47,7 @@ public class TaskList {
             if (task == null) {
                 break;
             }
-            finalList += "\n " + (i + 1) + "." + task.toString();
+            finalList += "\n  " + (i + 1) + ". " + task;
         }
         return finalList;
     }

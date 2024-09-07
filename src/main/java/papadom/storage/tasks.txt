@@ -38,3 +38,4 @@
 [E][ ] go train (from: now to: later)
 [T][ ] hello
 [T][ ] hellojind
+[T][ ] borrow

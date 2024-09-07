@@ -27,10 +27,20 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] borrow book
- 2.[D][ ] return book (by: Dec 12 2024)
- 3.[D][ ] return book (by: Dec 12 2024, 12:00 pm)
- 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+  1. [T][ ] borrow book
+  2. [D][ ] return book (by: Dec 12 2024)
+  3. [D][ ] return book (by: Dec 12 2024, 12:00 pm)
+  4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+ Here are the matching tasks in your list:
+  1. [D][ ] return book (by: Dec 12 2024)
+  2. [D][ ] return book (by: Dec 12 2024, 12:00 pm)
+____________________________________________________________
+____________________________________________________________
+ Here are the matching tasks in your list:
+  1. [D][ ] return book (by: Dec 12 2024)
+  2. [D][ ] return book (by: Dec 12 2024, 12:00 pm)
 ____________________________________________________________
 ____________________________________________________________
  Nice! I've marked this task as done:
@@ -38,10 +48,10 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] borrow book
- 2.[D][X] return book (by: Dec 12 2024)
- 3.[D][ ] return book (by: Dec 12 2024, 12:00 pm)
- 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+  1. [T][ ] borrow book
+  2. [D][X] return book (by: Dec 12 2024)
+  3. [D][ ] return book (by: Dec 12 2024, 12:00 pm)
+  4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
  OK, I've marked this task as not done yet:
@@ -49,10 +59,10 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] borrow book
- 2.[D][ ] return book (by: Dec 12 2024)
- 3.[D][ ] return book (by: Dec 12 2024, 12:00 pm)
- 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+  1. [T][ ] borrow book
+  2. [D][ ] return book (by: Dec 12 2024)
+  3. [D][ ] return book (by: Dec 12 2024, 12:00 pm)
+  4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
  Noted. I've removed this task:
@@ -61,9 +71,9 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] borrow book
- 2.[D][ ] return book (by: Dec 12 2024)
- 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+  1. [T][ ] borrow book
+  2. [D][ ] return book (by: Dec 12 2024)
+  3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!
