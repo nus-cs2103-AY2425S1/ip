@@ -39,6 +39,14 @@ public interface Ui {
     public abstract void printError(String e);
 
     /**
+     * Prints a String error, with formatting support.
+     *
+     * @param formattedString String that uses `String.format()` style formatting.
+     * @param o Objects that will be formatted into the format string before printing.
+     */
+    public abstract void printfError(String formattedString, Object ... o);
+
+    /**
      * Prints an error to output.
      *
      * @param e YappingBotException error to be outputted.

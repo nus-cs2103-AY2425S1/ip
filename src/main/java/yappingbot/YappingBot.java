@@ -1,9 +1,8 @@
 package yappingbot;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import yappingbot.commands.Commands;
+import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
@@ -14,7 +13,6 @@ import yappingbot.tasks.tasklist.TaskList;
 import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
-import yappingbot.ui.UiCli;
 
 
 /**
@@ -22,21 +20,20 @@ import yappingbot.ui.UiCli;
  */
 public class YappingBot {
 
+    private final Ui ui;
+    private final Storage storage;
     private TaskList userList;
-    private final String savefilePath;
-    private Storage storage;
-    private Ui ui;
 
     /**
      * Sets the savefilePath that this bot will load from
      * and save to. Saved item includes the task list.
      *
-     * @param savefilePath the relative or absolute filepath
      * @param ui Ui interface that will handle input and output
+     * @param storage Storage interface to save and retrieve savefiles
      */
-    YappingBot(String savefilePath, Ui ui) {
+    YappingBot(Ui ui, Storage storage) {
         this.ui = ui;
-        this.savefilePath = savefilePath;
+        this.storage = storage;
     }
 
     /**
@@ -72,6 +69,7 @@ public class YappingBot {
      */
     private void mainLoop() {
         Parser parser = new Parser();
+        CommandDispatcher commandDispatch = new CommandDispatcher(ui);
         while (ui.hasNextLine()) {
             String userInput = ui.getNextLine().trim();
             String[] userInputSlices = userInput.split(" ");
@@ -84,32 +82,32 @@ public class YappingBot {
                     resetView();
                     break;
                 case LIST:
-                    Commands.printUserList(userList);
+                    commandDispatch.printUserList(userList);
                     break;
                 case MARK:
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
                     break;
                 case UNMARK:
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
+                    commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
                     break;
                 case DELETE:
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.deleteTask(taskListIndexPtr, userList);
+                    commandDispatch.deleteTask(taskListIndexPtr, userList);
                     break;
                 case TODO:
-                    Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.TODO, userList);
                     break;
                 case EVENT:
-                    Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
                     break;
                 case DEADLINE:
-                    Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
                     break;
                 case FIND:
                     String searchString = userInput.substring(userInput.indexOf(" ") + 1);
-                    userList = Commands.findStringInTasks(searchString, userList);
+                    userList = commandDispatch.findStringInTasks(searchString, userList);
                     break;
                 case UNKNOWN:
                 default:
@@ -135,7 +133,6 @@ public class YappingBot {
      * main loop, and exiting.
      */
     void start() {
-        this.storage = new Storage(savefilePath);
         init();
         ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();

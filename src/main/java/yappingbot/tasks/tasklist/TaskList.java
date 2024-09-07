@@ -19,6 +19,7 @@ import yappingbot.ui.Ui;
 public class TaskList implements Iterable<Task> {
     protected ArrayList<Task> tasks;
     protected int size;
+    protected Ui ui;
 
     /**
      * Creates an empty task list.
@@ -45,11 +46,11 @@ public class TaskList implements Iterable<Task> {
             }
         }
         if (!errorLists.isEmpty()) {
-            MultilineStringBuilder msb = new MultilineStringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (Exception e : errorLists) {
-                msb.addLine(e.getMessage());
+                sb.append(e.getMessage());
             }
-            Ui.printError(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, msb));
+            ui.printfError(ReplyTextMessages.LOAD_FILE_ERROR_1s, sb.toString());
         }
         return userList;
     }
