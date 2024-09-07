@@ -12,6 +12,7 @@ public class Eevee {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
+    private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
 
     /**
      * Constructs an instance of Eevee with a specified storage file path.
@@ -29,6 +30,23 @@ public class Eevee {
         } catch (FileNotFoundException e) {
             ui.printMessage("File not found!");
         }
+    }
+
+    public Eevee() {
+        this.ui = new Ui();
+        this.storage = new Storage(DEFAULT_FILE_PATH);
+        this.tasks = new TaskList();
+        this.parser = new Parser();
+
+        try {
+            storage.loadTasks(tasks);
+        } catch (FileNotFoundException e) {
+            ui.printMessage("File not found!");
+        }
+    }
+
+    public String getResponse(String input) {
+        return "Eevee heard: " + input;
     }
 
     /**
