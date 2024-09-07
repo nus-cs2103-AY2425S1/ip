@@ -3,27 +3,29 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
 import exception.BlitzIndexOutOfBoundsException;
 import exception.BlitzNumberFormatException;
+
 import task.Task;
 
 /**
  * Represents a "mark" command in the Blitz application.
  */
 public class CommandMark extends Command {
-    private String param;
+    private String parameter;
 
     /**
      * Constructs a new CommandMark object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
-     * @param param String containing the parameter for this command.
+     * @param parameter String containing the parameter for this command.
      */
-    public CommandMark(String command, String param) {
+    public CommandMark(String command, String parameter) {
         super(command);
-        this.param = param;
+        this.parameter = parameter;
     }
 
     /**
@@ -38,20 +40,17 @@ public class CommandMark extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
-            int ind = Integer.parseInt(this.param) - 1;
+            int index = Integer.parseInt(this.parameter) - 1;
 
             if (list.isEmpty()) {
                 throw new BlitzEmptyTaskListException();
             }
 
-            Task task = list.getTask(ind);
-
+            Task task = list.getTask(index);
             task.setDone(true);
-            String toPrint = "Nice! I've marked this task as done:\n"
-                    + "  [" + task.getType() + "]" + "[X] " + task;
-
             storage.writeAllToFile(list);
-            return toPrint;
+
+            return ui.getStringForTaskMarked(task);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

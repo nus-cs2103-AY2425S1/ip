@@ -13,6 +13,7 @@ import command.CommandList;
 import command.CommandMark;
 import command.CommandTodo;
 import command.CommandUnmark;
+
 import exception.BlitzCommandDoesNotExistException;
 import exception.BlitzException;
 import exception.BlitzInvalidParameterMoreThanOneException;
@@ -20,7 +21,7 @@ import exception.BlitzInvalidParameterRegexException;
 import exception.BlitzNoParameterException;
 
 /**
- * Responsibles for parsing command String and converting it into corresponding Command Object.
+ * Responsibles to parse command String and convert it into corresponding Command Object.
  */
 public class Parser {
     /**
@@ -36,75 +37,72 @@ public class Parser {
         } else if (isRegexMatched("^bye\\s*$", command)) {
             return new CommandBye("bye");
         } else {
-            String[] cont = command.split(" ", 2);
-            String inst = cont[0];
+            String[] commandParts = command.split(" ", 2);
+            String commandName = commandParts[0];
 
-            if (!Instruction.isCommandExist(inst)) {
+            if (!Instruction.isValidCommand(commandName)) {
                 throw new BlitzCommandDoesNotExistException();
             }
 
-            if (cont.length == 1 || cont[1].isBlank()) {
+            if (commandParts.length == 1 || commandParts[1].isBlank()) {
                 throw new BlitzNoParameterException();
             }
 
-            switch (inst) {
+            switch (commandName) {
             case "mark":
-                String[] markParam = cont[1].split(" ");
+                String[] markParameters = commandParts[1].split(" ");
 
-                if (markParam.length > 1) {
+                if (markParameters.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("mark [Integer]");
                 }
 
-                return new CommandMark(command, markParam[0]);
+                return new CommandMark(command, markParameters[0]);
             case "unmark":
-                String[] unmarkParam = cont[1].split(" ");
+                String[] unmarkParameters = commandParts[1].split(" ");
 
-                if (unmarkParam.length > 1) {
+                if (unmarkParameters.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("unmark [Integer]");
                 }
 
-                return new CommandUnmark(command, unmarkParam[0]);
+                return new CommandUnmark(command, unmarkParameters[0]);
             case "todo":
-                return new CommandTodo(command, cont[1]);
+                return new CommandTodo(command, commandParts[1]);
             case "deadline":
                 if (!isRegexMatched(
                         "^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
                                 + " (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
-                        command
-                )) {
+                        command)) {
                     throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
                 }
 
-                String[] deadlineParams = cont[1].split(" /by ");
+                String[] deadlineParameters = commandParts[1].split(" /by ");
 
-                return new CommandDeadline(command, deadlineParams[0], deadlineParams[1]);
+                return new CommandDeadline(command, deadlineParameters[0], deadlineParameters[1]);
             case "event":
                 if (!isRegexMatched(
                         "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
                                 + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]"
                                 + " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
                                 + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
-                        command
-                )) {
+                        command)) {
                     throw new BlitzInvalidParameterRegexException(
-                            "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]"
-                    );
+                            "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
                 }
 
-                String[] param1 = cont[1].split(" /from ");
-                String[] param2 = param1[1].split(" /to ");
+                String[] fromParameters = commandParts[1].split(" /from ");
+                String[] toParameters = fromParameters[1].split(" /to ");
 
-                return new CommandEvent(command, param1[0], param2[0], param2[1]);
+                return new CommandEvent(command, fromParameters[0], toParameters[0], toParameters[1]);
             case "delete":
-                String[] deleteParam = cont[1].split(" ");
+                String[] deleteParameters = commandParts[1].split(" ");
 
-                if (deleteParam.length > 1) {
+                if (deleteParameters.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("Delete [Integer]");
                 }
 
-                return new CommandDelete(command, deleteParam[0]);
+                return new CommandDelete(command, deleteParameters[0]);
             case "find":
-                return new CommandFind(command, cont[1]);
+                return new CommandFind(command, commandParts[1]);
             default:
                 throw new BlitzCommandDoesNotExistException();
             }

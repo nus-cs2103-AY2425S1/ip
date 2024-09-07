@@ -28,7 +28,7 @@ public enum Instruction {
      * @param command Command String to be checked.
      * @return True if the command exists, false otherwise.
      */
-    public static boolean isCommandExist(String command) {
+    public static boolean isValidCommand(String command) {
         return Instruction.contains(command);
     }
 }

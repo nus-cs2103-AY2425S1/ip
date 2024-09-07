@@ -9,12 +9,12 @@ public class Todo extends Task {
     /**
      * Constructs a new Todo object with specified description, type and isDone.
      *
-     * @param desc String description of this Todo object.
+     * @param description String description of this Todo object.
      * @param type Type of this Todo object.
      * @param isDone Boolean indicating the (Todo) task is done or not.
      */
-    public Todo(String desc, String type, boolean isDone) {
-        super(desc, isDone);
+    public Todo(String description, String type, boolean isDone) {
+        super(description, isDone);
         this.type = type;
     }
 
@@ -25,7 +25,7 @@ public class Todo extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "\n";
+        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "\n";
     }
 
     /**
@@ -55,7 +55,10 @@ public class Todo extends Task {
             return false;
         }
 
-        Todo t = (Todo) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && (super.isDone() == t.isDone());
+        Todo todo = (Todo) o;
+
+        return this.type.equals(todo.type)
+                && super.getDescription().equals(todo.getDescription())
+                && (super.isDone() == todo.isDone());
     }
 }

@@ -3,7 +3,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzException;
+
 import task.Deadline;
 import task.Task;
 
@@ -11,7 +13,7 @@ import task.Task;
  * Represents a "deadline" command in the Blitz application.
  */
 public class CommandDeadline extends Command {
-    private String[] params;
+    private String[] parameters;
 
     /**
      * Constructs a new CommandDeadline object with specified command String and parameters as Array of String.
@@ -20,8 +22,8 @@ public class CommandDeadline extends Command {
      */
     public CommandDeadline(String... values) {
         super(values[0]);
-        this.params = new String[values.length - 1];
-        System.arraycopy(values, 1, params, 0, params.length);
+        this.parameters = new String[values.length - 1];
+        System.arraycopy(values, 1, parameters, 0, parameters.length);
     }
 
     /**
@@ -35,10 +37,11 @@ public class CommandDeadline extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task temp = new Deadline(params[0], "D", Task.convertStringToLocalDateTime(params[1]), false);
+        Task taskToAdd = new Deadline(parameters[0], "D", Task.convertStringToLocalDateTime(parameters[1]), false);
 
-        list.addTask(temp);
-        storage.writeOneToFile(temp);
-        return ui.printTaskAdded("D", list.getSize(), temp);
+        list.addTask(taskToAdd);
+        storage.writeOneToFile(taskToAdd);
+
+        return ui.getStringForTaskAdded(list.getSize(), taskToAdd);
     }
 }

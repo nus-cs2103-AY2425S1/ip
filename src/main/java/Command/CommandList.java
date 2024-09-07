@@ -3,9 +3,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
-import task.Task;
 
 /**
  * Represents a "list" command in the Blitz application.
@@ -35,14 +35,6 @@ public class CommandList extends Command {
             throw new BlitzEmptyTaskListException();
         }
 
-        String toPrint = "Here are the tasks in your list:\n";
-
-        for (int i = 0; i < list.getSize(); i++) {
-            Task curr = list.getTask(i);
-            toPrint += "    " + (i + 1) + ".[" + curr.getType() + "]"
-                    + "[" + (curr.isDone() ? "X" : " ") + "] " + curr + "\n";
-        }
-
-        return toPrint;
+        return ui.getStringForAllTasks(list);
     }
 }

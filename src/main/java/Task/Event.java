@@ -14,14 +14,15 @@ public class Event extends Task {
     /**
      * Constructs a new Event object with specified description, type, start date time, end date time, and isDone.
      *
-     * @param desc String description of this Event object.
+     * @param description String description of this Event object.
      * @param type Type of this Event object.
      * @param startDateTime LocalDateTime (indicating task start time) of this Event object.
      * @param endDateTime LocalDateTime (indicating task end time) of this Event object.
      * @param isDone Boolean indicating the (Event) task is done or not.
      */
-    public Event(String desc, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
-        super(desc, isDone);
+    public Event(String description, String type,
+                 LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
+        super(description, isDone);
         this.type = type;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -36,6 +37,7 @@ public class Event extends Task {
      */
     private String convertDatetimeToString(String format, LocalDateTime dt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
         return dt.format(formatter);
     }
 
@@ -46,7 +48,7 @@ public class Event extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "::"
+        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "::"
                 + convertDatetimeToString("yyyy-MM-dd HHmm", this.startDateTime) + "::"
                 + convertDatetimeToString("yyyy-MM-dd HHmm", this.endDateTime) + "\n";
     }
@@ -90,11 +92,12 @@ public class Event extends Task {
             return false;
         }
 
-        Event t = (Event) o;
-        return this.type.equals(t.type)
-                && super.getDesc().equals(t.getDesc())
-                && this.startDateTime.equals(t.startDateTime)
-                && this.endDateTime.equals(t.endDateTime)
-                && (super.isDone() == t.isDone());
+        Event event = (Event) o;
+
+        return this.type.equals(event.type)
+                && super.getDescription().equals(event.getDescription())
+                && this.startDateTime.equals(event.startDateTime)
+                && this.endDateTime.equals(event.endDateTime)
+                && (super.isDone() == event.isDone());
     }
 }

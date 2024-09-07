@@ -13,13 +13,13 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline object with specified description, type, date time and isDone.
      *
-     * @param desc String description of this Deadline object.
+     * @param description String description of this Deadline object.
      * @param type Type of this Deadline object.
      * @param dateTime LocalDateTime (indicating deadline of the task) of this Deadline object.
      * @param isDone Boolean indicating the (Deadline) task is done or not.
      */
-    public Deadline(String desc, String type, LocalDateTime dateTime, boolean isDone) {
-        super(desc, isDone);
+    public Deadline(String description, String type, LocalDateTime dateTime, boolean isDone) {
+        super(description, isDone);
         this.type = type;
         this.dateTime = dateTime;
     }
@@ -32,6 +32,7 @@ public class Deadline extends Task {
      */
     private String convertDatetimeToString(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
         return this.dateTime.format(formatter);
     }
 
@@ -42,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "::"
+        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "::"
                 + convertDatetimeToString("yyyy-MM-dd HHmm") + "\n";
     }
 
@@ -83,9 +84,12 @@ public class Deadline extends Task {
             return false;
         }
 
-        Deadline t = (Deadline) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc())
-                && this.dateTime.equals(t.dateTime) && (super.isDone() == t.isDone());
+        Deadline deadline = (Deadline) o;
+
+        return this.type.equals(deadline.type)
+                && super.getDescription().equals(deadline.getDescription())
+                && this.dateTime.equals(deadline.dateTime)
+                && (super.isDone() == deadline.isDone());
     }
 }
 

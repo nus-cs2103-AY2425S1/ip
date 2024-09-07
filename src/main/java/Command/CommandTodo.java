@@ -3,7 +3,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzException;
+
 import task.Task;
 import task.Todo;
 
@@ -11,17 +13,17 @@ import task.Todo;
  * Represents a "todo" command in the Blitz application.
  */
 public class CommandTodo extends Command {
-    private String param;
+    private String parameter;
 
     /**
      * Constructs a new CommandTodo object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
-     * @param param String containing the parameter for this command.
+     * @param parameter String containing the parameter for this command.
      */
-    public CommandTodo(String command, String param) {
+    public CommandTodo(String command, String parameter) {
         super(command);
-        this.param = param;
+        this.parameter = parameter;
     }
 
     /**
@@ -35,10 +37,11 @@ public class CommandTodo extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task task = new Todo(this.param, "T", false);
+        Task taskToAdd = new Todo(this.parameter, "T", false);
 
-        list.addTask(task);
-        storage.writeOneToFile(task);
-        return ui.printTaskAdded("T", list.getSize(), task);
+        list.addTask(taskToAdd);
+        storage.writeOneToFile(taskToAdd);
+
+        return ui.getStringForTaskAdded(list.getSize(), taskToAdd);
     }
 }

@@ -3,7 +3,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzException;
+
 import task.Event;
 import task.Task;
 
@@ -11,7 +13,7 @@ import task.Task;
  * Represents an "event" command in the Blitz application.
  */
 public class CommandEvent extends Command {
-    private String[] params;
+    private String[] parameters;
 
     /**
      * Constructs a new CommandEvent object with specified command String and parameters as Array of String.
@@ -20,8 +22,8 @@ public class CommandEvent extends Command {
      */
     public CommandEvent(String... values) {
         super(values[0]);
-        this.params = new String[values.length - 1];
-        System.arraycopy(values, 1, params, 0, params.length);
+        this.parameters = new String[values.length - 1];
+        System.arraycopy(values, 1, parameters, 0, parameters.length);
     }
 
     /**
@@ -35,11 +37,12 @@ public class CommandEvent extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task temp = new Event(params[0], "E", Task.convertStringToLocalDateTime(params[1]),
-                Task.convertStringToLocalDateTime(params[2]), false);
+        Task taskToAdd = new Event(parameters[0], "E", Task.convertStringToLocalDateTime(parameters[1]),
+                Task.convertStringToLocalDateTime(parameters[2]), false);
 
-        list.addTask(temp);
-        storage.writeOneToFile(temp);
-        return ui.printTaskAdded("E", list.getSize(), temp);
+        list.addTask(taskToAdd);
+        storage.writeOneToFile(taskToAdd);
+
+        return ui.getStringForTaskAdded(list.getSize(), taskToAdd);
     }
 }

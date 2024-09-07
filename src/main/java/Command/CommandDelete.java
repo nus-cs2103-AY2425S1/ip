@@ -3,27 +3,29 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
 import exception.BlitzIndexOutOfBoundsException;
 import exception.BlitzNumberFormatException;
+
 import task.Task;
 
 /**
  * Represents a "delete" command in the Blitz application.
  */
 public class CommandDelete extends Command {
-    private String param;
+    private String parameter;
 
     /**
      * Constructs a new CommandDelete object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
-     * @param param String containing the parameter for this command.
+     * @param parameter String containing the parameter for this command.
      */
-    public CommandDelete(String command, String param) {
+    public CommandDelete(String command, String parameter) {
         super(command);
-        this.param = param;
+        this.parameter = parameter;
     }
 
     /**
@@ -38,17 +40,16 @@ public class CommandDelete extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
-            int ind = Integer.parseInt(param) - 1;
+            int index = Integer.parseInt(parameter) - 1;
 
             if (list.isEmpty()) {
                 throw new BlitzEmptyTaskListException();
             }
 
-            Task task = list.deleteTask(ind);
+            Task deletedTask = list.deleteTask(index);
             storage.writeAllToFile(list);
 
-            return "Noted. I've removed this task:\n"
-                    + "  [" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task;
+            return ui.getStringForTaskDeleted(deletedTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

@@ -16,7 +16,7 @@ public class UiTest {
         String expected = "Got it. I've added this task:\n"
                 + "  [" + type + "][ ] " + task + "\n"
                 + "Now you have " + size + " tasks in the list.";
-        String response = new Ui().printTaskAdded(type, size, task);
+        String response = new Ui().getStringForTaskAdded(size, task);
         assertEquals(expected, response);
     }
 }
