@@ -34,8 +34,12 @@ public class Nixy {
         }
     }
 
+    public String processInput(String userInput) {
+        return "Not implemented yet";
+    }
+
     /**
-     * Main driver for Nixy
+     * Main driver for Nixy cli
      * Entry point to display welcome message and read user input.
      */
     public void run() {
