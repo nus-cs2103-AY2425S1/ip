@@ -25,6 +25,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        setReferenceFile(filePath);
         initialiseFile();
     }
 
@@ -33,8 +34,7 @@ public class Storage {
      * Creates necessary directories if they do not exist.
      */
     private void initialiseFile() {
-        this.referenceFile = new File(this.filePath);
-
+        assert this.filePath != null : "The path to the file should not be null";
         File directory = this.referenceFile.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
@@ -48,13 +48,13 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Reads the files contents
-        try {
-            readFile();
-        } catch (YapperException e) {
-            Ui.errorCaught(e.getMessage());
-        }
+    }
+    /**
+     * Sets the reference file to be accessed
+     * @param filePath the desired file path for storing data in the form of a string
+     */
+    public void setReferenceFile(String filePath) {
+        this.referenceFile = new File(filePath);
     }
 
     /**
@@ -65,6 +65,7 @@ public class Storage {
      * @throws YapperException if there is an issue with file format or other reading errors
      */
     public ArrayList<Task> readFile() throws YapperException {
+        assert this.referenceFile != null : "File should not be null and should exist";
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(this.referenceFile)) {
             while (fileScanner.hasNextLine()) {
@@ -91,12 +92,12 @@ public class Storage {
                     task = new Event(taskDesc.trim(), timeRange[0].trim(), timeRange[1].trim());
                     break;
                 default:
-                    throw new YapperFileFormatException("yapper.main.Task type not recognised: " + taskType);
+                    throw new YapperFileFormatException("Task type not recognised: " + taskType);
                 }
                 if ("X".equals(taskStatus)) {
                     task.mark();
                 } else if (!taskStatus.isEmpty()) {
-                    throw new YapperFileFormatException("yapper.main.Task status not recognised: " + taskStatus);
+                    throw new YapperFileFormatException("Task status not recognised: " + taskStatus);
                 }
                 taskList.add(task);
             }

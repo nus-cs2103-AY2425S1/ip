@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.function.Function;
 
 import yapper.exceptions.YapperException;
 
@@ -16,10 +18,8 @@ public class Task {
         "HHmm",
         "HH:mm[:ss]"
     };
-
-    @SuppressWarnings("checkstyle:DeclarationOrder")
     private static String[] dateFormats = {
-        "d/M/yyyy", // Date only
+        "d/M/yyyy",
         "d/MM/yyyy",
         "dd/M/yyyy",
         "dd/MM/yyyy",
@@ -39,6 +39,7 @@ public class Task {
      * @throws YapperException if the description is empty
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null";
         if (description.isEmpty()) {
             throw new YapperException("Description cannot be empty");
         }
@@ -66,12 +67,37 @@ public class Task {
      * The method first tries to parse the string as a date and time, then as a time only, and finally as a date only.
      * It returns the formatted date/time or the original string if it cannot be parsed.
      *
-     * @param time the date and/or time string to be formatted
+     * @param time the string to be formatted
      * @return the formatted date/time string, or the original string if parsing fails
      */
     public String formattedDate(String time) {
-        for (String timeFormat : timeFormats) {
-            for (String dateFormat : dateFormats) {
+        assert time != null : "Time should not be null";
+        ArrayList<Function<String, String>> formatters = new ArrayList<>();
+        formatters.add(this::formatStringToDateAndTime);
+        formatters.add(this::formatStringToDate);
+        formatters.add(this::formatStringToTime);
+
+        for (Function<String, String> formatter : formatters) {
+            try {
+                return formatter.apply(time);
+            } catch (YapperException e) {
+                continue;
+            }
+        }
+
+        return time;
+    }
+
+    /**
+     * Formats a string into date/time readable format if it adheres to the given format
+     *
+     * @param time the string to be formatted into date and time format if possible
+     * @return the formatted date and time as a string
+     * @throws YapperException if unable to parse it into date and time format
+     */
+    public String formatStringToDateAndTime(String time) throws YapperException {
+        for (String dateFormat : dateFormats) {
+            for (String timeFormat : timeFormats) {
                 try {
                     String format = new StringBuilder(dateFormat).append(" ").append(timeFormat).toString();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -82,17 +108,17 @@ public class Task {
                 }
             }
         }
+        throw new YapperException("Unable to parse date and time: " + time);
+    }
 
-        for (String timeFormat : timeFormats) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat);
-                LocalTime formattedTime = LocalTime.parse(time, formatter);
-                return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-            } catch (DateTimeParseException e) {
-                continue;
-            }
-        }
-
+    /**
+     * Formats a string into a date if it adheres to the given format
+     *
+     * @param time the string to be formatted into date format if possible
+     * @return the formatted date as a string
+     * @throws YapperException if unable to parse it into date format
+     */
+    public String formatStringToDate(String time) {
         for (String dateFormat : dateFormats) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
@@ -102,7 +128,27 @@ public class Task {
                 continue;
             }
         }
-        return time;
+        throw new YapperException("Unable to parse date: " + time);
+    }
+
+    /**
+     * Formats a string into a time if it adheres to the given format
+     *
+     * @param time the string to be formatted into date format if possible
+     * @return the formatted time as a string
+     * @throws YapperException if unable to parse it into time format
+     */
+    public String formatStringToTime(String time) {
+        for (String timeFormat : timeFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat);
+                LocalTime formattedTime = LocalTime.parse(time, formatter);
+                return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+        throw new YapperException("Unable to parse time: " + time);
     }
 
     /**
