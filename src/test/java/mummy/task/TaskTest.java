@@ -8,21 +8,21 @@ import org.junit.jupiter.api.Test;
 
 public class TaskTest {
     @Test
-    void testTaskConstructor() {
+    void taskConstructor_withStubTask_shouldContainCorrectInfo() {
         Task task = new StubTask("Sample Task");
         assertEquals("Sample Task", task.getDescription());
         assertFalse(task.isDone());
     }
 
     @Test
-    void testTaskConstructorWithStatus() {
+    void taskConstructor_withStatus_shouldContainCorrectInfo() {
         Task task = new StubTask("Sample Task", true);
         assertEquals("Sample Task", task.getDescription());
         assertTrue(task.isDone());
     }
 
     @Test
-    void testSetAsDone() {
+    void setAsDone_shouldSetTaskAsDone() {
         Task task = new StubTask("Sample Task");
         assertFalse(task.isDone());
         task.setAsDone();
@@ -30,7 +30,7 @@ public class TaskTest {
     }
 
     @Test
-    void testSetAsUndone() {
+    void setAsUndone_shouldSetTaskAsUndone() {
         Task task = new StubTask("Sample Task", true);
         assertTrue(task.isDone());
         task.setAsUndone();

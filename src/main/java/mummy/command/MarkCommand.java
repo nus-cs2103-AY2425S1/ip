@@ -5,22 +5,20 @@ import java.util.HashMap;
 import mummy.task.TaskList;
 import mummy.task.TaskListException;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
-import mummy.utility.Parser;
 import mummy.utility.Storage;
 
 /**
  * Represents a command to mark a task as done.
  * Inherits from the Command class.
  */
-public class MarkCommand extends Command {
+public final class MarkCommand extends Command {
 
     public MarkCommand(HashMap<String, String> arguments) {
         super(arguments);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String taskIndexString = this.getArgument("description");
 
         if (taskIndexString == null) {
@@ -34,7 +32,7 @@ public class MarkCommand extends Command {
         try {
             taskList.markTask(taskIndex);
             saveTaskListToStorage(taskList, storage);
-            ui.show("Nice! I've marked this task as done:\n\t" + taskList.get(taskIndex));
+            return "Nice! I've marked this task as done:\n\t" + taskList.get(taskIndex);
         } catch (TaskListException exception) {
             throw new MummyException("Something went wrong when marking task as done: "
                     + exception.getMessage());
@@ -44,5 +42,10 @@ public class MarkCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.MARK;
     }
 }

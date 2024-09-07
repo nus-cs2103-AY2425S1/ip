@@ -115,7 +115,7 @@ public class TaskList {
      *
      * @return The number of tasks in the task list.
      */
-    public int getCount() {
+    public int count() {
         return this.tasks.size();
     }
 
