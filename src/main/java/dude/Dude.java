@@ -48,7 +48,7 @@ public class Dude {
      */
     public void run() {
         this.ui.showGreeting();
-        boolean isExit = false;
+        boolean isExit = false; // Flag to exit the chatbot when "bye" is entered
         while (!isExit) {
             try {
                 String fullCommand = this.ui.readCommand();

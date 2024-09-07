@@ -44,7 +44,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DudeException("An error occured while saving data to your file!");
+            throw new DudeException("An error occurred while saving data to your file!");
         }
     }
 
