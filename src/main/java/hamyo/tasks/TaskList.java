@@ -84,15 +84,15 @@ public class TaskList extends ArrayList<Task> {
             LocalDate date = LocalDate.parse(strDate);
             StringBuilder tasksList = new StringBuilder();
             int counter = 1;
-            for (int i = 0; i < this.size(); i++) {
-                if (this.get(i) instanceof Deadline || this.get(i) instanceof Event) {
-                    if (this.get(i).occursToday(date)) {
-                        if (!tasksList.isEmpty()) {
-                            tasksList.append("\n");
-                        }
-                        tasksList.append(counter++).append(". ").append(this.get(i).toString());
-                    }
+            for (Task task : this) {
+                if (!(task instanceof Deadline) && !(task instanceof Event)) {
+                    continue;
+                } else if (!task.occursToday(date)) {
+                    continue;
+                } else if (!tasksList.isEmpty()) {
+                    tasksList.append("\n");
                 }
+                tasksList.append(counter++).append(". ").append(task.toString());
             }
 
             Ui.printListTasksByDate(tasksList.toString(), date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
@@ -112,12 +112,12 @@ public class TaskList extends ArrayList<Task> {
             StringBuilder tasksList = new StringBuilder();
             int counter = 1;
             for (Task task : this) {
-                if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                    if (!tasksList.isEmpty()) {
-                        tasksList.append("\n");
-                    }
-                    tasksList.append(counter++).append(". ").append(task);
+                if (!task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                    continue;
+                } else if (!tasksList.isEmpty()) {
+                    tasksList.append("\n");
                 }
+                tasksList.append(counter++).append(". ").append(task);
             }
 
             Ui.printListTasksByKeyword(tasksList.toString(), keyword);
