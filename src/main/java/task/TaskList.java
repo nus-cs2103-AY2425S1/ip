@@ -4,6 +4,7 @@ import utility.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Manages the list of tasks, including adding, removing, marking, and unmarking tasks.
@@ -169,19 +170,15 @@ public class TaskList {
      * @param tasks   The list of tasks to search through.
      * @param keyword The keyword to search for in the task descriptions.
      */
-    public String findTaskUI(ArrayList<Task> tasks, String keyword){
-
-        StringBuilder foundTasks = new StringBuilder();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDesc().contains(keyword)) {
-                foundTasks.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-            }
-        }
+    public String findTaskUI(ArrayList<Task> tasks, String keyword) {
+        String foundTasks = tasks.stream()
+                .filter(task -> task.getDesc().contains(keyword))
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task.toString())
+                .collect(Collectors.joining("\n"));
 
         if (foundTasks.isEmpty()) {
             return "No matching tasks found.";
         }
-        return foundTasks.toString();
+        return foundTasks;
     }
 }
