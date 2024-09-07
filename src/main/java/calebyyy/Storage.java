@@ -25,6 +25,7 @@ public class Storage {
      * @param filePath The file path to store the tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         this.filePath = filePath;
 
     }
@@ -35,6 +36,8 @@ public class Storage {
      * @param tasklist The task list to load the tasks into.
      */
     void loadTasks(TaskList tasklist) {
+        assert tasklist != null : "TaskList cannot be null";
+
         File file = new File(filePath);
         if (!file.exists()) {
             return;
@@ -84,6 +87,8 @@ public class Storage {
      * @param taskList The task list to save the tasks from.
      */
     public void saveTasks(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
+
         File file = new File(filePath);
         file.getParentFile().mkdirs();
 
