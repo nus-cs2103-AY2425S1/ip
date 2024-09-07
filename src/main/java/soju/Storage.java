@@ -62,10 +62,10 @@ public class Storage {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                String taskType = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
+                String[] taskDetails = line.split(" \\| ");
+                String taskType = taskDetails[0];
+                boolean isDone = taskDetails[1].equals("1");
+                String description = taskDetails[2];
                 Task newTask = null;
 
                 switch (taskType) {
@@ -75,13 +75,13 @@ public class Storage {
                     break;
                 case "D":
                     // Create a new Deadline task
-                    String doneBy = parts[3];
+                    String doneBy = taskDetails[3];
                     LocalDate localDate = LocalDate.parse(doneBy);
                     newTask = new Deadline(description, localDate);
                     break;
                 case "E":
                     // Create a new Event task
-                    String[] eventTimes = parts[3].split(" - ");
+                    String[] eventTimes = taskDetails[3].split(" - ");
                     String from = eventTimes[0];
                     String to = eventTimes[1];
                     LocalDateTime localFromDate = LocalDateTime.parse(from);
