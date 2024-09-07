@@ -1,0 +1,42 @@
+/* styles.css */
+.root {
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -fx-background-color: #f7f9fc;
+}
+
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.text-area {
+    -fx-font-size: 14px;
+    -fx-background-color: #dadada;
+    -fx-border-color: #6c6c6c;
+    -fx-border-radius: 8px;
+    -fx-padding: 5px;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #f0f0f0; /* Light grey background */
+    -fx-border-color: #dfe6e9;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}

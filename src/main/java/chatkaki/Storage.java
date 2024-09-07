@@ -1,12 +1,17 @@
 package chatkaki;
 
-import chatkaki.tasks.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import chatkaki.tasks.Deadline;
+import chatkaki.tasks.Event;
+import chatkaki.tasks.Task;
+import chatkaki.tasks.TaskList;
+import chatkaki.tasks.TaskType;
+import chatkaki.tasks.Todo;
 
 /**
  * Represents the storage of the task list.
