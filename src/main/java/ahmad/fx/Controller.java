@@ -1,20 +1,16 @@
 package ahmad.fx;
 
 
-import static ahmad.Ahmad.*;
-import static javafx.application.Platform.*;
+import static ahmad.Ahmad.processUserMessage;
+import static javafx.application.Platform.exit;
 
 import java.io.IOException;
 
 import ahmad.Ahmad;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
