@@ -29,6 +29,8 @@ public class Storage {
      * @param filePath the file path where tasks will be loaded from and saved to.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.isEmpty() : "File path should not be empty";
         this.filePath = filePath;
     }
 
@@ -100,6 +102,7 @@ public class Storage {
      * @throws BingBongException if an error occurs while writing to the file or if the directory cannot be created.
      */
     public void save(TaskList tasks) throws BingBongException {
+        assert tasks != null : "TaskList should not be null";
         File file = new File(filePath);
 
         // Ensure the parent directory exists
