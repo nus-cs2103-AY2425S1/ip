@@ -32,12 +32,16 @@ public class MarkCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String s;
+
         if (isDone) {
-            ui.printWrappedString(taskList.markDone(taskNumber));
+            s = taskList.markDone(taskNumber);
         } else {
-            ui.printWrappedString(taskList.markUndone(taskNumber));
+            s = taskList.markUndone(taskNumber);
         }
         storage.save(taskList);
+
+        return s;
     }
 }

@@ -23,8 +23,7 @@ public class FindCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String str = Ui.SEARCH_HEADER + "\n" + taskList.search(this.keyword);
-        ui.printWrappedString(str);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return Ui.SEARCH_HEADER + "\n" + taskList.search(this.keyword);
     }
 }

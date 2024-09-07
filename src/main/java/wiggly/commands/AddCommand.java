@@ -49,27 +49,29 @@ public class AddCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
 
         Task task;
+        String s;
 
         switch (taskType) {
         case TODO:
             task = new ToDo(description);
-            ui.printWrappedString(taskList.addTask(task));
+            s = taskList.addTask(task);
             break;
         case DEADLINE:
             task = new Deadline(description, by);
-            ui.printWrappedString(taskList.addTask(task));
+            s = taskList.addTask(task);
             break;
         case EVENT:
             task = new Event(description, from, to);
-            ui.printWrappedString(taskList.addTask(task));
+            s = taskList.addTask(task);
             break;
         default:
             throw new RuntimeException("Unknown task type");
         }
 
         storage.save(taskList);
+        return s;
     }
 }
