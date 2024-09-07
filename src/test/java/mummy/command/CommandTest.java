@@ -32,7 +32,7 @@ public class CommandTest {
     }
 
     @Test
-    public void getArgumentsShouldReturnArguments() {
+    public void getArguments_shouldReturnArguments() {
         HashMap<String, String> arguments = new HashMap<>();
         arguments.put("command", "bye");
         Command command = new StubCommand(arguments);
@@ -40,7 +40,7 @@ public class CommandTest {
     }
 
     @Test
-    public void saveTaskListToStorageShouldSaveToFile() throws MummyException, IOException {
+    public void saveTaskListToStorage_shouldSaveToFile() throws MummyException, IOException {
         Command command = new StubCommand();
         List<String> fileRecords = taskList.toFileRecords();
         command.saveTaskListToStorage(taskList, storage);
@@ -48,7 +48,7 @@ public class CommandTest {
     }
 
     @Test
-    public void ofWithValidCommandTypeShouldReturnCorrectCommand() throws MummyException {
+    public void of_withValidCommandType_shouldReturnCorrectCommand() throws MummyException {
         HashMap<String, String> arguments = new HashMap<>();
         arguments.put("command", "bye");
         Command command = Command.of(arguments);
@@ -56,7 +56,7 @@ public class CommandTest {
     }
 
     @Test
-    public void ofWithUnknownCommandTypeShouldThrowMummyException() {
+    public void of_withUnknownCommandType_shouldThrowMummyException() {
         HashMap<String, String> arguments = new HashMap<>();
         arguments.put("command", "skdhdjshfjgh");
         try {
@@ -67,13 +67,13 @@ public class CommandTest {
     }
 
     @Test
-    public void isExitWithExitCommandShouldReturnTrue() {
+    public void isExit_withExitCommand_shouldReturnTrue() {
         Command command = new ByeCommand();
         assertTrue(command.isExit());
     }
 
     @Test
-    public void isExitWithNonExitCommandShouldReturnFalse() {
+    public void isExit_withNonExitCommand_shouldReturnFalse() {
         Command command = new ListCommand();
         assertFalse(command.isExit());
     }
