@@ -20,10 +20,10 @@ public class FindCommandTest {
     public void setUp() throws JeffException {
         new File("data/tasks.txt").delete();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(storage.load());
-        new AddCommand("todo borrow book").execute(tasks, storage);
-        new AddCommand("deadline return book /by 2024-08-30 18:00").execute(tasks, storage);
-        new AddCommand("event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00")
+        tasks = new TaskList(storage.loadTaskListFromDatabase());
+        new AddToDoCommand("todo borrow book").execute(tasks, storage);
+        new AddDeadlineCommand("deadline return book /by 2024-08-30 18:00").execute(tasks, storage);
+        new AddEventCommand("event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00")
                 .execute(tasks, storage);
     }
 

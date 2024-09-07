@@ -1,14 +1,12 @@
 package jeff.task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task.
  */
-public class Task {
-    private final String description;
+public abstract class Task {
+    private String description;
     private boolean isDone;
 
     /**
@@ -40,7 +38,7 @@ public class Task {
      * @return The string representation of the task status.
      */
     private String getStatusIcon() {
-        return (this.isDone ? "[X]" : "[  ]");
+        return this.isDone ? "[X]" : "[  ]";
     }
 
     /**
@@ -90,17 +88,6 @@ public class Task {
     }
 
     /**
-     * Returns the string representation of the given date and time. For events and deadlines.
-     *
-     * @param date Given date.
-     * @param format Date format.
-     * @return String representation of the given date and time.
-     */
-    public String getDateString(LocalDateTime date, String format) {
-        return date.format(DateTimeFormatter.ofPattern(format));
-    }
-
-    /**
      * Returns false.
      *
      * @param date Given date.
@@ -116,7 +103,7 @@ public class Task {
      * @param name Given name to check against.
      * @return true if the task description contains the given name and false otherwise.
      */
-    public boolean contains(String name) {
+    public boolean doesDescriptionContain(String name) {
         return this.description.toLowerCase().contains(name.toLowerCase().trim());
     }
 }

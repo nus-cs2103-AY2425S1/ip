@@ -31,17 +31,16 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        // Get the task from the task list
-        Task targetTask = tasks.getTask(this.getInput(), "delete ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "delete ");
+        tasks.deleteTask(targetTask);
+        storage.updateTaskListInDatabase(tasks);
 
-        // Delete the task from the task list
-        tasks.remove(targetTask);
-
-        // Update the storage
-        storage.writeTaskList(tasks);
-
-        // Return the response
-        return Parser.prettyText("Noted. I've removed this task:\n   " + targetTask.toString()
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+        return Parser.addSpaceInFrontOfEachLine(
+                String.format(
+                        "Noted. I've removed this task:\n   %s\nNow you have %d tasks in the list.",
+                        targetTask.toString(),
+                        tasks.size()
+                )
+        );
     }
 }

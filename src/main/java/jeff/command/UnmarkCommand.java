@@ -31,21 +31,16 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        // Get the task from the taskList
-        Task targetTask = tasks.getTask(this.getInput(), "unmark ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "unmark ");
 
-        // Check if the task has been done or not
-        if (targetTask.isDone()) {
-            // Unmark the task
-            targetTask.markAsNotDone();
-
-            // Return the response
-            return Parser.prettyText("OK, I've marked this task as not done yet:\n   " + targetTask.toString());
-
-        } else {
-            // Tell the user that the task is already marked as not done yet
+        if (!targetTask.isDone()) {
             throw new JeffException("This task has already been marked as not done yet!");
-
         }
+
+        targetTask.markAsNotDone();
+
+        return Parser.addSpaceInFrontOfEachLine(
+                "OK, I've marked this task as not done yet:\n   " + targetTask.toString()
+        );
     }
 }

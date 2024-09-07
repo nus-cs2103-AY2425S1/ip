@@ -20,14 +20,14 @@ public class ListCommandTest {
     public void setUp() throws JeffException {
         new File("data/tasks.txt").delete();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(storage.load());
+        tasks = new TaskList(storage.loadTaskListFromDatabase());
     }
 
     @Test
     public void execute_nonEmptyList() throws JeffException {
-        new AddCommand("todo borrow book").execute(tasks, storage);
-        new AddCommand("deadline return book /by 2024-08-30 18:00").execute(tasks, storage);
-        new AddCommand("event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00")
+        new AddToDoCommand("todo borrow book").execute(tasks, storage);
+        new AddDeadlineCommand("deadline return book /by 2024-08-30 18:00").execute(tasks, storage);
+        new AddEventCommand("event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00")
                 .execute(tasks, storage);
 
         String response = new ListCommand("list").execute(tasks, storage);

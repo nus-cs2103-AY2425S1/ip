@@ -20,8 +20,8 @@ public class MarkCommandTest {
     public void setUp() throws JeffException {
         new File("data/tasks.txt").delete();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(storage.load());
-        new AddCommand("todo read book").execute(tasks, storage);
+        tasks = new TaskList(storage.loadTaskListFromDatabase());
+        new AddToDoCommand("todo read book").execute(tasks, storage);
     }
 
     @Test

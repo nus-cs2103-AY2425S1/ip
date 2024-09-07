@@ -77,7 +77,8 @@ public class MainWindow extends AnchorPane {
      */
     private void showWelcomeMessage() {
         dialogContainer.getChildren().add(
-                DialogBox.getJeffDialog(Parser.prettyText("Hello! I'm Jeff.\nWhat can I do for you?"), dukeImage)
+                DialogBox.getJeffDialog(
+                        Parser.addSpaceInFrontOfEachLine("Hello! I'm Jeff.\nWhat can I do for you?"), dukeImage)
         );
     }
 }

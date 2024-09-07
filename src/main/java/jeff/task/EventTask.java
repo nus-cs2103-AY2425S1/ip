@@ -3,12 +3,14 @@ package jeff.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jeff.parser.Parser;
+
 /**
  * Represents an event.
  */
 public class EventTask extends Task {
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructor to create a EventTask object.
@@ -33,8 +35,7 @@ public class EventTask extends Task {
      * @param end End date and time of the event.
      * @param isDone Whether the task is completed or not.
      */
-    public EventTask(
-            String description, LocalDateTime start, LocalDateTime end, boolean isDone) {
+    public EventTask(String description, LocalDateTime start, LocalDateTime end, boolean isDone) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -47,8 +48,12 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getDateString(this.start, "MMM dd yyyy hh:mm a")
-                + " to: " + this.getDateString(this.end, "MMM dd yyyy hh:mm a") + ")";
+        return String.format(
+                "[E]%s (from: %s to: %s)",
+                super.toString(),
+                Parser.toDateTimeString(this.start),
+                Parser.toDateTimeString(this.end)
+        );
     }
 
     /**
@@ -58,8 +63,12 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + this.getDateString(this.start, "yyyy-MM-dd HH:mm")
-                + " | " + this.getDateString(this.end, "yyyy-MM-dd HH:mm");
+        return String.format(
+                "E | %s | %s | %s",
+                super.toFileString(),
+                Parser.toDateTimeString(this.start),
+                Parser.toDateTimeString(this.end)
+        );
     }
 
     /**
@@ -70,6 +79,7 @@ public class EventTask extends Task {
      */
     @Override
     public boolean isOnThisDate(LocalDate date) {
-        return !date.isBefore(this.start.toLocalDate()) && !date.isAfter(this.end.toLocalDate());
+        return !date.isBefore(this.start.toLocalDate())
+                && !date.isAfter(this.end.toLocalDate());
     }
 }

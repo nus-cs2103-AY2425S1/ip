@@ -31,21 +31,16 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        // Get the task from the taskList
-        Task targetTask = tasks.getTask(this.getInput(), "mark ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "mark ");
 
-        // Check if the task has been done or not
         if (targetTask.isDone()) {
-            // Tell the user that the task is already marked as done
             throw new JeffException("This task has already been marked as done!");
-
-        } else {
-            // Mark the task as done
-            targetTask.markAsDone();
-
-            // Return the response
-            return Parser.prettyText("OK, I've marked this task as done:\n   " + targetTask.toString());
-
         }
+
+        targetTask.markAsDone();
+
+        return Parser.addSpaceInFrontOfEachLine(
+                "OK, I've marked this task as done:\n   " + targetTask.toString()
+        );
     }
 }

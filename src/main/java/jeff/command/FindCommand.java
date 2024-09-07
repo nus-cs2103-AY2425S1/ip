@@ -1,11 +1,8 @@
 package jeff.command;
 
-import java.util.List;
-
 import jeff.exception.JeffException;
 import jeff.parser.Parser;
 import jeff.storage.Storage;
-import jeff.task.Task;
 import jeff.task.TaskList;
 
 /**
@@ -23,6 +20,50 @@ public class FindCommand extends Command {
     }
 
     /**
+     * Checks if the description for the find command inputted by the user is empty or not.
+     *
+     * @return true if the user input does not have a description and false otherwise.
+     */
+    private boolean isDescriptionEmpty() {
+        return !this.getInput().matches("find .+");
+    }
+
+    /**
+     * Returns the search text to filter by.
+     *
+     * @return Search text.
+     * @throws JeffException if there is no search text.
+     */
+    private String getSearchText() throws JeffException {
+        String[] taskParts = this.getInput().split(" ", 2);
+        String searchText = taskParts.length > 1 ? taskParts[1] : "";
+
+        if (searchText.isEmpty()) {
+            throw new JeffException("The format is wrong! It should be \"find xx\"!");
+        }
+
+        return searchText;
+    }
+
+    /**
+     * Returns a TaskList filtered by the given search text.
+     *
+     * @param tasks Task list.
+     * @param searchText String to filter by.
+     * @return Filtered task list.
+     * @throws JeffException if there is no task with the given search text in its name.
+     */
+    private TaskList filterBySearchText(TaskList tasks, String searchText) throws JeffException {
+        TaskList filteredTasks = tasks.filterByName(searchText);
+
+        if (filteredTasks.isEmpty()) {
+            throw new JeffException("Sorry, no task contains the phrase " + searchText + ".");
+        }
+
+        return filteredTasks;
+    }
+
+    /**
      * Returns the string representation of the response by the chatbot Jeff when the user searches for tasks by
      * search text by filtering the search text in the task list.
      *
@@ -33,33 +74,12 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        if (this.getInput().matches("find .+")) {
-            // Split the input to get the filter name
-            String[] taskParts = this.getInput().split(" ", 2);
+        String searchText = this.getSearchText();
+        TaskList filteredTasks = this.filterBySearchText(tasks, searchText);
+        String taskListString = filteredTasks.toString();
 
-            String filterName = taskParts.length > 1 ? taskParts[1] : "";
-
-            // Check if the filter name is empty
-            if (filterName.isEmpty()) {
-                throw new JeffException("The format is wrong! It should be \"find xx\"!");
-            }
-
-            // Filter the task list by the filter name
-            List<Task> filteredTasks = tasks.filterByName(filterName);
-
-            // Check if the list is empty
-            if (filteredTasks.isEmpty()) {
-                throw new JeffException("Sorry, no task contains the phrase " + filterName + ".");
-            }
-
-            // Convert the list of tasks to a string
-            String taskListString = Parser.listToString(filteredTasks);
-
-            // Return the filtered list string representation
-            return Parser.prettyText("Here are the matching tasks in your list:\n" + taskListString);
-        } else {
-            throw new JeffException("The format is wrong! It should be \"find xx\"!");
-        }
-
+        return Parser.addSpaceInFrontOfEachLine(
+                "Here are the matching tasks in your list:\n" + taskListString
+        );
     }
 }

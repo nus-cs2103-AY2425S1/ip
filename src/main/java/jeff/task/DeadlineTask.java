@@ -3,11 +3,13 @@ package jeff.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jeff.parser.Parser;
+
 /**
  * Represents a task with a deadline
  */
 public class DeadlineTask extends Task {
-    private final LocalDateTime deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructor for the DeadlineTask Class.
@@ -41,8 +43,11 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: "
-                + this.getDateString(this.deadline, "MMM dd yyyy hh:mm a") + ")";
+        return String.format(
+                "[D]%s (by: %s)",
+                super.toString(),
+                Parser.toDateTimeString(this.deadline)
+        );
     }
 
     /**
@@ -52,8 +57,11 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | "
-                + this.getDateString(this.deadline, "yyyy-MM-dd HH:mm");
+        return String.format(
+                "D | %s | %s",
+                super.toFileString(),
+                Parser.toDateTimeString(this.deadline)
+        );
     }
 
     /**

@@ -28,10 +28,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        // Store the tasks to the data folder
-        storage.writeTaskList(tasks);
-
-        return Parser.prettyText("Bye. Hope to see you again soon!");
+        storage.updateTaskListInDatabase(tasks);
+        return Parser.addSpaceInFrontOfEachLine("Bye. Hope to see you again soon!");
     }
 
     /**

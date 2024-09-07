@@ -8,7 +8,7 @@ import jeff.task.TaskList;
  * An abstract class to put all command types under one class
  */
 public abstract class Command {
-    private final String input;
+    private String input;
 
     /**
      * Constructor for Command Class.

@@ -20,8 +20,8 @@ public class UnmarkCommandTest {
     public void setUp() throws JeffException {
         new File("data/tasks.txt").delete();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(storage.load());
-        new AddCommand("todo borrow book").execute(tasks, storage);
+        tasks = new TaskList(storage.loadTaskListFromDatabase());
+        new AddToDoCommand("todo borrow book").execute(tasks, storage);
         new MarkCommand("mark 1").execute(tasks, storage);
     }
 

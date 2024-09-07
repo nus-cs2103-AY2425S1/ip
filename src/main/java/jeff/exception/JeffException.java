@@ -4,7 +4,7 @@ package jeff.exception;
  * Represents an exception for any errors in this package.
  */
 public class JeffException extends Exception {
-    private final String message;
+    private String message;
 
     /**
      * Constructor that creates a JeffException object with a specific message.
