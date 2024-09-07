@@ -31,7 +31,7 @@ public class TaskList {
         return list.get(taskNumber-1).toString();
     }
 
-    public String size() {
+    public String getSizeAsString() {
         return "" + list.size();
     }
 

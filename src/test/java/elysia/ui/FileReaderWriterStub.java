@@ -7,7 +7,7 @@ public class FileReaderWriterStub extends FileReaderWriter{
     boolean writeFileCalled = false;
 
     public FileReaderWriterStub(TaskList taskList) {
-        super(null);
+        super(null);// TaskList not used in this stub
     }
 
     @Override
