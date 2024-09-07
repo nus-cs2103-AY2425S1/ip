@@ -15,13 +15,6 @@ public abstract class Task {
         this.desc = desc;
     }
 
-    public Boolean isDone() {
-        return this.isDone;
-    }
-    public String getDesc() {
-        return this.desc;
-    }
-
     public void completeTask() {
         this.isDone = true;
     }

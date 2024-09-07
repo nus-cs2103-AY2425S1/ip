@@ -44,25 +44,4 @@ public class MichaelScott {
     public String getCommandType() {
         return commandType;
     }
-
-    /**
-     * Runs the main execution loop of the chatbot.
-     * Handles user input, command execution, and output display.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isRunning = true;
-        while (isRunning) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command cmd = parser.parse(fullCommand);
-                String response = cmd.execute(tasks);
-                ui.showResponse(response);
-                storage.saveTasks(tasks.getTasks());
-                isRunning = !cmd.isExit();
-            } catch (MichaelScottException e) {
-                Ui.showError(e.getMessage());
-            }
-        }
-    }
 }

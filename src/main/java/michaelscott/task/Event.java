@@ -60,7 +60,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + (isDone ? "[X] " : "[ ] ")
-                + desc + " (from: " + this.from.format(FORMATTER) + " to: " + this.to.format(FORMATTER) + ")";
+                + desc + " (from: " + this.from.format(FORMATTER)
+                + " to: " + this.to.format(FORMATTER) + ")";
     }
 
     /**
@@ -71,6 +72,7 @@ public class Event extends Task {
     @Override
     public String toFile() {
         return "E | " + (isDone ? "1" : "0") + " | "
-                + desc + " | " + this.from.format(FORMATTER) + " | " + this.to.format(FORMATTER);
+                + desc + " | " + this.from.format(FORMATTER)
+                + " | " + this.to.format(FORMATTER);
     }
 }
