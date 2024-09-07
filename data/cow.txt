@@ -1,1 +1,9 @@
 T | 0 | test
+D | 0 | return book | 7/9/2019 1800
+D | 0 | return book | 14/9/2019 1800
+D | 0 | return book | 21/9/2019 1800
+D | 0 | return book | 28/9/2019 1800
+D | 0 | return book | 5/10/2019 1800
+D | 0 | return book | 7/9/2019 1400
+D | 0 | return book | 8/9/2019 1400
+D | 0 | return book | 9/9/2019 1400

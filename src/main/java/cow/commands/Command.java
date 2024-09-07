@@ -8,6 +8,8 @@ import cow.todolist.TodoList;
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
 /** An abstract class for all commands. **/
 public abstract class Command {
+    public static final Object MESSAGE_USAGE = "";
+
     /**
      * Checks if the command is a command that terminates the program.
      *
