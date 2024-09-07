@@ -29,13 +29,12 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the unmark command, marking the specified task as incomplete.
-     * It verifies the correctness of the command format and updates the task list and storage accordingly.
      *
      * @param tasks   The list of tasks to be manipulated by the command.
      * @param storage The storage system for saving and loading tasks.
      * @param ui      The user interface for displaying messages to the user.
      * @throws DuckException If an error occurs during the execution of the command,
-     *                       such as an invalid task index or incorrect command format.
+     *     such as an invalid task index or incorrect command format.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {

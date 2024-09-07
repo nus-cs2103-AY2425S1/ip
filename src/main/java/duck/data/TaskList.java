@@ -40,6 +40,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param taskIndex The index of the task to be marked as done.
      * @param isDone A boolean indicating whether the task should be marked as done or incomplete.
+     * @throws DuckException If the task index is out of bounds.
      */
     public void updateTaskStatus(int taskIndex, boolean isDone) throws DuckException {
 
@@ -60,7 +61,8 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index The index of the task to be deleted.
      * @param storage The storage system used to update the task list.
-     * @throws DuckException If an error occurs while interacting with the storage system.
+     * @throws DuckException If the task index is out of bounds or
+     *     an error occurs while interacting with the storage system.
      */
     public void deleteTask(int index, Storage storage) throws DuckException {
         try {

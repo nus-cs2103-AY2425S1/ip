@@ -31,7 +31,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command by deleting the specified task from the task list.
-     * If the message is in the wrong format or if the index is invalid, it throws a DuckException.
      *
      * @param tasks The list of tasks from which the task will be deleted.
      * @param storage The storage system for saving and loading tasks.
