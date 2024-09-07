@@ -3,6 +3,8 @@ package megamind.parser;
 import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
 
+import java.util.Arrays;
+
 /**
  * The `Parser` class is responsible for parsing user commands.
  * It provides methods to extract the action, task index, description, deadline, and event details from the commands.
@@ -33,8 +35,10 @@ public class Parser {
         }
 
         int index;
+
         try {
-            index = Integer.parseInt(words[1]) - 1;
+            index = Integer.parseInt(words[1]);
+            index -= 1;
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format.");
         }
@@ -100,7 +104,12 @@ public class Parser {
 
         // Trims the start of the command "event "
         command = command.substring(6);
-        String[] event = command.split(" /from | /to ");
+        String[] event = command.split("/from|/to");
+        event = Arrays.stream(event).map(String::trim).toArray(String[]::new);
+
+        if (event.length < 3) {
+            throw new InvalidCommandException("Please ensure format is correct");
+        }
 
         if (event[0].isEmpty()) {
             throw new InvalidCommandException("The description of a task cannot be empty.");
@@ -115,5 +124,50 @@ public class Parser {
         }
 
         return event;
+    }
+
+    /**
+     * Parses the description, date, and time of the event from the command.
+     *
+     * @param command The command to be parsed
+     * @return The description, date, and time of the event
+     * @throws MissingParameterException If the keywords "/from" or "/to" are missing
+     * @throws InvalidCommandException If the description, date, and time is missing.
+     */
+    public String[] parseRecur(String command) throws MissingParameterException, InvalidCommandException {
+        if (!command.contains(" /from ") || !command.contains(" /to ")) {
+            throw new MissingParameterException("Please specify the start and end time of the event.");
+        }
+
+        if (!command.contains(" /every ")) {
+            throw new MissingParameterException("Please specify the number of days between each task.");
+        }
+
+        // Trims the start of the command "event "
+        command = command.substring(5);
+        String[] recur = command.split("/from|/to|/every");
+        recur = Arrays.stream(recur).map(String::trim).toArray(String[]::new);
+
+        if (recur.length < 4) {
+            throw new InvalidCommandException("Please ensure format is correct");
+        }
+
+        if (recur[0].isEmpty()) {
+            throw new InvalidCommandException("The description of a task cannot be empty.");
+        }
+
+        if (recur[1].isEmpty()) {
+            throw new InvalidCommandException("The start time of an event cannot be empty.");
+        }
+
+        if (recur[2].isEmpty()) {
+            throw new InvalidCommandException("The end time of an event cannot be empty.");
+        }
+
+        if (recur[3].isEmpty()) {
+            throw new InvalidCommandException("The interval of the recurrence cannot be empty.");
+        }
+
+        return recur;
     }
 }

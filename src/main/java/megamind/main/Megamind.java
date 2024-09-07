@@ -8,11 +8,7 @@ import megamind.exception.MissingParameterException;
 import megamind.exception.TaskNotFoundException;
 import megamind.parser.Parser;
 import megamind.storage.Storage;
-import megamind.task.Deadline;
-import megamind.task.Event;
-import megamind.task.List;
-import megamind.task.Task;
-import megamind.task.Todo;
+import megamind.task.*;
 import megamind.ui.Ui;
 
 /**
@@ -31,7 +27,7 @@ public class Megamind {
      */
     public Megamind() {
         taskList = new List(storage.loadTasks());
-        assert taskList.getTasks() instanceof ArrayList<Task>
+        assert taskList.getTasks() != null
                 : "taskList.getTasks() should be an instance of ArrayList<Task>";
     }
 
@@ -57,6 +53,7 @@ public class Megamind {
             case "event" -> addEvent(command);
             case "delete" -> deleteTask(command);
             case "find" -> findTask(command);
+            case "recur" -> addRecur(command);
             default -> throw new InvalidCommandException("Unknown command. Use "
                                                              + "'help' for a list of "
                                                              + "commands.");
@@ -171,6 +168,18 @@ public class Megamind {
     }
 
     /**
+     * Adds an event task to the list.
+     * If the event start or end time is not specified, print an error message.
+     *
+     * @param command Command entered by the user.
+     */
+    public static String addRecur(String command) throws MissingParameterException, InvalidCommandException {
+        String[] words = parser.parseRecur(command);
+        taskList.add(RecurringTask.create(words[0], words[1], words[2], words[3]));
+        return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+    }
+
+    /**
      * Deletes a task from the list.
      * If the task number is not specified, print an error message.
      *
@@ -181,11 +190,11 @@ public class Megamind {
      */
     public static String deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
-        boolean success = taskList.delete(index);
-        if (!success) {
+        Task t = taskList.delete(index);
+        if (t == null) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
-        return ui.showTaskDeleted(taskList.get(index));
+        return ui.showTaskDeleted(t.toString());
     }
 
     public String greet() {
