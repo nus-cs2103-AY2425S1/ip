@@ -1,5 +1,6 @@
 package wenjiebot.commands;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import wenjiebot.Storage;
@@ -14,8 +15,8 @@ import wenjiebot.tasks.Task;
 import wenjiebot.tasks.ToDo;
 
 /**
- * Represents a command to add a task to the task list.
- * The task can be a ToDo, Deadline, or Event based on the type of event specified.
+ * Represents a command to add a task to the task list. The task can be a ToDo, Deadline, or Event
+ * based on the type of event specified.
  */
 public class AddCommand extends Command {
 
@@ -49,54 +50,41 @@ public class AddCommand extends Command {
      * @param tasks the TaskList that contains all the tasks.
      * @param ui the Ui used for interaction with the user.
      * @param storage the Storage used to store and retrieve tasks.
-     * @throws WenJieException if there is an error during execution, such as invalid input/missing follow-up details.
+     * @throws WenJieException if there is an error during execution, such as invalid input or missing follow-up details.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
         ArrayList<Task> taskList = tasks.getTasks();
 
         switch (typeOfEvent) {
-
         case TODO:
             if (getInput().length() <= 5) {
                 throw new NoFollowUpException();
-
             }
             ToDo todo = new ToDo(getInput().substring(5));
             taskList.add(todo);
             printAcknowledgeMessage(taskList.size(), ui, todo);
             ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, todo));
-
             break;
-
 
         case DEADLINE:
-
             Deadline deadline = getDeadline();
             taskList.add(deadline);
-
             printAcknowledgeMessage(taskList.size(), ui, deadline);
             ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, deadline));
-
             break;
 
-
         case EVENT:
-
             Event event = getEvent();
             taskList.add(event);
-
             printAcknowledgeMessage(taskList.size(), ui, event);
             ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, event));
-
             break;
 
         default:
             System.out.println("No matching types of tasks");
             break;
         }
-
-
     }
 
     /**
@@ -153,11 +141,12 @@ public class AddCommand extends Command {
      *
      * @return the Deadline object created from the user input.
      * @throws NoFollowUpException if the deadline description is missing.
+     * @throws InvalidDateInputException if the input format is invalid.
      */
-    private Deadline getDeadline() throws NoFollowUpException {
+    private Deadline getDeadline() throws NoFollowUpException, InvalidDateInputException {
         String[] parts = getInput().split(" ");
 
-        if (getInput().length() <= 8) {
+        if (getInput().length() <= 9) {
             throw new NoFollowUpException();
         }
 
@@ -198,9 +187,17 @@ public class AddCommand extends Command {
         ui.showLine();
     }
 
+    /**
+     * Generates an acknowledgment message after a task has been added to the list.
+     *
+     * @param taskListSize the size of the task list after adding the new task.
+     * @param ui the Ui used for interaction with the user.
+     * @param task the Task that was added to the list.
+     * @return the acknowledgment message.
+     */
     public String getAcknoledgeMessage(int taskListSize, Ui ui, Task task) {
-        return ("Nya~~ I've added this task:\n"
+        return "Nya~~ I've added this task:\n"
                 + task + "\n"
-                + "Now you have " + taskListSize + " tasks in the list babe.");
+                + "Now you have " + taskListSize + " tasks in the list babe.";
     }
 }

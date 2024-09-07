@@ -8,6 +8,7 @@ import wenjiebot.commands.FindCommand;
 import wenjiebot.commands.ListCommand;
 import wenjiebot.commands.MarkCommand;
 import wenjiebot.commands.UnmarkCommand;
+import wenjiebot.exceptions.NoFollowUpException;
 import wenjiebot.exceptions.UnknownCommandException;
 
 /**
@@ -16,6 +17,10 @@ import wenjiebot.exceptions.UnknownCommandException;
  */
 public class Parser {
 
+    private static String regexToDo = "todo .*";
+    private static String regexDeadline = "deadline .* /by .*";
+    private static String regexEvent = "event .* /.* /.*";
+
     /**
      * Parses the user input and returns the corresponding Command object.
      *
@@ -23,7 +28,7 @@ public class Parser {
      * @return The corresponding Command object based on the user's input.
      * @throws UnknownCommandException If the command is not recognized.
      */
-    public static Command parse(String input) throws UnknownCommandException {
+    public static Command parse(String input) throws UnknownCommandException, NoFollowUpException {
         String[] parts = input.split(" ");
         String action = parts[0].toLowerCase();
 
@@ -54,15 +59,27 @@ public class Parser {
             // Fallthrough
 
         case "todo":
-            return new AddCommand(false, input, AddCommand.TypeOfEvent.TODO);
+            if (input.matches(regexToDo)) {
+                return new AddCommand(false, input, AddCommand.TypeOfEvent.TODO);
+            } else {
+                throw new NoFollowUpException();
+            }
             // Fallthrough
 
         case "event":
-            return new AddCommand(false, input, AddCommand.TypeOfEvent.EVENT);
+            if (input.matches(regexEvent)) {
+                return new AddCommand(false, input, AddCommand.TypeOfEvent.EVENT);
+            } else {
+                throw new NoFollowUpException();
+            }
             // Fallthrough
 
         case "deadline":
-            return new AddCommand(false, input, AddCommand.TypeOfEvent.DEADLINE);
+            if (input.matches(regexDeadline)) {
+                return new AddCommand(false, input, AddCommand.TypeOfEvent.DEADLINE);
+            } else {
+                throw new NoFollowUpException();
+            }
             // Fallthrough
 
         default:
