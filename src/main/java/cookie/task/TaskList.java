@@ -6,52 +6,55 @@ public class TaskList {
     private ArrayList<Task> taskArrayList;
 
     /**
-     * Constructor for TaskList class.
+     * Constructs a new {@code TaskList} with the specified list of tasks.
+     *
+     * @param taskArrayList the initial list of tasks
      */
     public TaskList(ArrayList<Task> taskArrayList) {
         this.taskArrayList = taskArrayList;
     }
 
     /**
-     * Adds a task to the ArrayList.
+     * Adds a task to the list.
      *
-     * @param task Task to be added to the ArrayList.
+     * @param task the {@code Task} to be added to the list
      */
     public void addTask(Task task) {
         taskArrayList.add(task);
     }
 
     /**
-     * Deletes a Task from the ArrayList
+     * Deletes a task from the list based on the specified index.
      *
-     * @param index Index of task to be deleted.
+     * @param index the index of the task to be deleted, 1-based
      */
     public void delete(int index) {
         taskArrayList.remove(index - 1);
     }
 
     /**
-     *  Marks a task a done.
+     * Marks a task as completed based on the specified index. 1.
+     * </p>
      *
-     * @param index Index of task to be marked done.
+     * @param index the index of the task to be marked as done, 1-based
      */
     public void markDone(int index) {
         taskArrayList.get(index - 1).markDone();
     }
 
     /**
-     * Marks a task as not done.
+     * Marks a task as not completed based on the specified index.
      *
-     * @param index Index of task to be marked not done.
+     * @param index the index of the task to be marked as not done, 1-based
      */
     public void unmarkDone(int index) {
         taskArrayList.get(index - 1).unmarkDone();
     }
 
     /**
-     * Prints all the tasks in the ArrayList.
+     * Returns a string representation of all tasks in the list.
      *
-     * @return A String representation of all the task in the list.
+     * @return a string listing all tasks in the list
      */
     public String printTasks() {
         String string = "Here are the tasks in your list:\n";
@@ -64,34 +67,38 @@ public class TaskList {
     }
 
     /**
-     * Gets the ArrayList.
+     * Returns the list of tasks.
+     *
+     * @return the {@code ArrayList} of tasks
      */
     public ArrayList<Task> getTaskArrayList() {
         return this.taskArrayList;
     }
 
     /**
-     * Gets the size of the ArrayList.
+     * Returns the number of tasks in the list.
+     *
+     * @return the number of tasks in the list
      */
     public int getSize() {
         return this.taskArrayList.size();
     }
 
     /**
-     * Gets the task at a given index.
+     * Returns the task at the specified index.
      *
-     * @param index Index of task to be returned.
-     * @return Task at index - 1.
+     * @param index the index of the task to be retrieved, 1-based
+     * @return the {@code Task} at the specified index
      */
     public Task getTask(int index) {
         return this.taskArrayList.get(index - 1);
     }
 
     /**
-     * Finds all task with a description containing the keyword.
+     * Finds all tasks in the list with a description containing the specified keyword.
      *
-     * @param string Keyword to be searched.
-     * @return ArrayList of tasks that has the keyword in the description.
+     * @param string the keyword to search for in the task descriptions
+     * @return an {@code ArrayList} of {@code Task} objects whose descriptions contain the keyword
      */
     public ArrayList<Task> findByKeyword(String string) {
         ArrayList<Task> arrayMatchKeyword = new ArrayList<>();

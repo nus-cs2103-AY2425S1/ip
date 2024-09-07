@@ -2,19 +2,20 @@ package cookie.task;
 public class ToDo extends Task {
 
     /**
-     * Constructor for ToDo class.
+     * Constructs a new {@code ToDo} task with the specified description.
+     * The task is initially marked as not done.
      *
-     * @param description Description of task.
+     * @param description the description of the to-do task
      */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * Another constructor for ToDo class.
+     * Constructs a new {@code ToDo} task with the specified completion status and description.
      *
-     * @param isDone Whether the task is done.
-     * @param description Description of task.
+     * @param isDone a boolean indicating whether the task is completed
+     * @param description the description of the to-do task
      */
     public ToDo(boolean isDone, String description) {
         super(isDone, description);

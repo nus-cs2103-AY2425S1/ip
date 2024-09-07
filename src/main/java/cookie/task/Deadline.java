@@ -9,10 +9,10 @@ public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Constructor for Deadline class.
+     * Constructs a new {@code Deadline} task with the specified description and deadline date.
      *
-     * @param description Description of task.
-     * @param by Deadline date of task.
+     * @param description the description of the task
+     * @param by the deadline date of the task, formatted as a string
      */
     public Deadline(String description, String by) {
         super(description);
@@ -21,11 +21,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Another constructor for Deadline class.
+     * Constructs a new {@code Deadline} task with the specified completion status, description, and deadline date.
      *
-     * @param isDone Whether the task is done or not.
-     * @param description Description of task.
-     * @param by Deadline date of task.
+     * @param isDone a boolean indicating whether the task is completed
+     * @param description the description of the task
+     * @param by the deadline date of the task, formatted as a string
      */
     public Deadline(boolean isDone, String description, String by) {
         super(isDone, description);

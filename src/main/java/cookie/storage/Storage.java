@@ -17,9 +17,10 @@ import cookie.task.ToDo;
 public class Storage {
 
     /**
-     * Returns a File containing the saved tasks.
-     * If the file and/or directory does not exist, the file and/or directory is created.
+     * Returns a {@code File} object representing the file where tasks are saved.
+     * If the file or its parent directory does not exist, they are created.
      *
+     * @return the {@code File} object representing the saved tasks file
      */
     public File fetchFile() {
         File file = new File("./data/cookie.txt");
@@ -44,12 +45,12 @@ public class Storage {
     }
 
     /**
-     * Takes in a file and converts into an ArrayList of Task.
+     * Loads tasks from the specified file and converts them into an {@code ArrayList} of {@code Task}.
      *
-     * @param file File to be loaded.
-     * @return Returns an ArrayList of Task.
-     * @throws FileNotFoundException If file is not found.
-     * @throws CookieException If file contains commands or format that is not implemented.
+     * @param file the {@code File} to be loaded
+     * @return an {@code ArrayList} of {@code Task} objects parsed from the file
+     * @throws FileNotFoundException if the specified file is not found
+     * @throws CookieException if the file contains commands or formats that are not implemented
      */
     public ArrayList<Task> loadFile(File file) throws FileNotFoundException, CookieException {
         Scanner fileScanner = new Scanner(file);
@@ -64,11 +65,11 @@ public class Storage {
     }
 
     /**
-     * Handles the logic of parsing the contents of the file into Task.
+     * Parses a string representing a task from the file and converts it into a {@code Task} object.
      *
-     * @param string String to be parsed.
-     * @return ToDo or Deadline or Event Class.
-     * @throws CookieException If file contains commands or format that is not implemented.
+     * @param string the string to be parsed, representing a task in the file
+     * @return a {@code Task} object, which could be a {@code ToDo}, {@code Deadline}, or {@code Event}
+     * @throws CookieException if the string contains an unknown command or an unsupported format
      */
     public Task parseFileContent(String string) throws CookieException {
         String[] parts = string.split(" \\| ");
@@ -91,10 +92,10 @@ public class Storage {
     }
 
     /**
-     * Handles the logic for saving tasks into a .txt file
+     * Saves the provided list of tasks to a file in a specific format.
      *
-     * @param taskArrayList ArrayList of Task to be saved.
-     * @throws IOException If the file does not exist.
+     * @param taskArrayList the {@code ArrayList} of {@code Task} objects to be saved
+     * @throws IOException if an I/O error occurs while writing to the file
      */
     public void saveFile(ArrayList<Task> taskArrayList) throws IOException {
 
@@ -125,6 +126,4 @@ public class Storage {
             }
         }
     }
-
-
 }

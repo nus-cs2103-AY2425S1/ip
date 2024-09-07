@@ -11,11 +11,11 @@ public class Event extends Task {
     private LocalDate toDeadline;
 
     /**
-     * Constructor for Event class.
+     * Constructs a new {@code Event} task with the specified description, start time, and end time.
      *
-     * @param description Description of task.
-     * @param from Start time of event.
-     * @param to End time of event.
+     * @param description the description of the event
+     * @param from the start time of the event, formatted as a string
+     * @param to the end time of the event, formatted as a string
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -26,12 +26,12 @@ public class Event extends Task {
     }
 
     /**
-     * Another constructor for Event class
+     * Constructs a new {@code Event} task with the specified completion status, description, start time, and end time.
      *
-     * @param isDone Whether the task is done or not.
-     * @param description Description of task.
-     * @param from Start time of event.
-     * @param to End time of event.
+     * @param isDone a boolean indicating whether the task is completed
+     * @param description the description of the event
+     * @param from the start time of the event, formatted as a string
+     * @param to the end time of the event, formatted as a string
      */
     public Event(Boolean isDone, String description, String from, String to) {
         super(isDone, description);
