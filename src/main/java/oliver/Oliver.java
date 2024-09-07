@@ -26,6 +26,9 @@ public class Oliver {
         }
     }
 
+    /**
+     * Runs Oliver.
+     */
     public void run() {
         System.out.println(ui.showWelcome());
         while (this.isRunning) {
@@ -34,13 +37,16 @@ public class Oliver {
         }
     }
 
+    /**
+     * Gets Oliver's response to the user's input.
+     *
+     * @param input the user input provided
+     * @return string representation of Oliver's response
+     */
     public String getResponse(String input) {
         String command = Parser.parseCommand(input);
         if (input.equalsIgnoreCase("bye")) {
-            storage.writeToFile(this.tasks);
-            ui.close();
-            this.isRunning = false;
-            return ui.showBye();
+            return handleExit();
         } else if (input.equalsIgnoreCase("list")) {
             return ui.showList(this.tasks);
         } else if (command.equalsIgnoreCase("mark")) {
@@ -64,6 +70,19 @@ public class Oliver {
 
     public static void main(String[] args) {
         new Oliver(FILEPATH).run();
+    }
+
+    /**
+     * Stores the user data and exits the program.
+     *
+     * @return string representation of Oliver's response
+     */
+    private String handleExit() {
+        assert this.isRunning : "Oliver should still be running";
+        storage.writeToFile(this.tasks);
+        ui.close();
+        this.isRunning = false;
+        return ui.showBye();
     }
 
     /**
@@ -176,7 +195,8 @@ public class Oliver {
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            return "Invalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm";
+            return "Invalid date or time. Please enter the date and time in the following format: " +
+                    "YYYY-MM-DD HHmm";
         }
     }
 
