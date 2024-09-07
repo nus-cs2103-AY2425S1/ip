@@ -10,12 +10,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Bob using FXML.
+ * The main entry point for the Bob chatbot GUI application using JavaFX and FXML.
+ * This class sets up and launches the GUI for interacting with Bob.
  */
 public class Main extends Application {
 
     private Bob bob = new Bob();
 
+    /**
+     * The main entry point for the JavaFX application.
+     * Loads the FXML layout, sets up the scene, and displays the main window.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -23,7 +30,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(bob); // inject the Bob instance
+            fxmlLoader.<MainWindow>getController().setBob(bob); // inject the Bob instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
