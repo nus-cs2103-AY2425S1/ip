@@ -8,7 +8,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.ui.Ui;
 
 /**
  * The `TaskDataBase` class provides methods to load and save tasks to and from a file.
@@ -66,22 +65,17 @@ public class TaskDataBase {
      * Saves a list of tasks to a file.
      *
      * @param tasks The list of tasks to be saved to the file.
-     * @param ui The `Ui` object used to print messages in case of an error.
      */
-    public static void save(List<Task> tasks, Ui ui) {
+    public static void save(List<Task> tasks) throws IOException {
         File file = new File("data/tasklist.txt");
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-            for (Task task : tasks) {
-                writer.write(task.toDataFormat());
-                writer.newLine();
-            }
-
-            writer.close();
-        } catch (IOException e) {
-            ui.printMessage("Oops! There is a issue with file database.");
+        for (Task task : tasks) {
+            writer.write(task.toDataFormat());
+            writer.newLine();
         }
+
+        writer.close();
     }
 
 }

@@ -1,65 +1,34 @@
 package duke.ui;
-import java.util.Scanner;
 
 /**
  * This class represents a reply from the chatbot.
  * It provides methods to print a reply, such as greeting.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String INDENT = "    ";
-    private Scanner scanner;
-    /**
-     * Constructs a `Ui` object to handle output to user.
-     *
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Prints message in response to users' input.
-     */
-    public void printMessage(String message) {
-        System.out.println(INDENT + HORIZONTAL_LINE);
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            System.out.println(INDENT + " " + line);
-        }
-        System.out.println(INDENT + HORIZONTAL_LINE);
-    }
-
     /**
      * Prints greeting message.
      */
-    public void printGreeting() {
-        System.out.println(INDENT + HORIZONTAL_LINE);
-        System.out.println(INDENT + " Hello! I'm Carine");
-        System.out.println(INDENT + " What can I do for you?");
-        System.out.println(INDENT + HORIZONTAL_LINE);
+    public static String printGreeting() {
+        StringBuilder stringBuilder = new StringBuilder("Hello! I'm Carie, your personal task planning assistant\n")
+                .append("What can I do for you? \n\n")
+                .append("List of available commands: list \n")
+                .append("   1. Create a new task without deadline: todo [name] \n")
+                .append("   2. Create a new task with deadline: deadline [name] /by [time] \n")
+                .append("   3. Create a new task with duration: event [name] /from [time] /to [time] \n")
+                .append("       NOTE: time in dd/MM/yyyy HH:mm or dd/MM/yyyy \n")
+                .append("   4. Mark a task as complete: mark [index of task] \n")
+                .append("   5. Mark a task as incomplete: unmark [index of task] \n")
+                .append("   6. Delete a task from the list: delete [index of task] \n")
+                .append("   7. Search for a task: find [name of task] \n");
+        return stringBuilder.toString();
     }
 
     /**
      * Prints goodbye message.
      */
-    public void printGoodbye() {
-        System.out.println(INDENT + HORIZONTAL_LINE);
-        System.out.println(INDENT + " Bye. Hope to see you again soon!");
-        System.out.println(INDENT + HORIZONTAL_LINE);
-    }
+    public static String printGoodbye() {
+        return " Bye. Hope to see you again soon!";
 
-    /**
-     * Reads the next line of user input.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Closes the scanner and stop reading user input.
-     */
-    public void close() {
-        scanner.close();
     }
 
 }
