@@ -1,5 +1,8 @@
 package bob;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 
@@ -69,6 +72,27 @@ public class Bob {
             } finally {
                 UI.printLine();
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            command.execute(myTasks);
+            Storage.writeData(myTasks, this.filePath);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintStream ps = new PrintStream(baos);
+            System.setOut(ps);
+            System.out.flush();
+            return "AIHFL";
+        } catch (EmptyArgumentException | MissingArgumentException
+                | InvalidTaskNumberException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Invalid date/time has been entered. "
+                    + "Please key in with a DD/MM/YYYY format or DD/MM/YYYY HHMM format";
+        } catch (InvalidInputException | InputMismatchException e) {
+            return "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
     }
 }
