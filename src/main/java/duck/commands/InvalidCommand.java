@@ -1,6 +1,7 @@
 package duck.commands;
 
 import duck.data.TaskList;
+import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
 
@@ -31,7 +32,8 @@ public class InvalidCommand extends Command {
      * @param ui The user interface (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
         System.out.println(MESSAGE_INVALID_COMMAND);
     }
 

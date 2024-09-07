@@ -48,6 +48,8 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         Event event = parseEvent(message);
         tasks.addTask(event, storage);
     }

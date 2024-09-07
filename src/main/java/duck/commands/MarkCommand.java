@@ -34,6 +34,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         if (!Utils.isCorrectUpdateFormat(message)) {
             throw new DuckException(ERROR_MESSAGE_MARK_COMMAND);
         }

@@ -33,6 +33,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
         System.out.println(MESSAGE_LIST_COMMAND);
         tasks.printTasks();
     }

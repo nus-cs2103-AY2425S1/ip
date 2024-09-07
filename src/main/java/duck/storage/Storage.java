@@ -62,6 +62,7 @@ public class Storage {
      * @return The file managed by this Storage object.
      */
     public File getFile() {
+
         return file;
     }
 
@@ -82,6 +83,8 @@ public class Storage {
             if (file.createNewFile()) {
                 System.out.println(NEW_FILE_CREATED + file.getPath());
             }
+
+            assert file != null : "File is still null after initializing";
             return file;
         } catch (IOException e) {
             throw new DuckException(ERROR_CREATING_FILE + e.getMessage());
@@ -95,6 +98,8 @@ public class Storage {
      * @throws DuckException If there is an error reading the file or if the file format is incorrect.
      */
     public void loadTasks(TaskList tasks) throws DuckException {
+
+        assert file != null;
         try (Scanner sc = new Scanner(file)) {
             int lineNumber = 0;
             while (sc.hasNextLine()) {
@@ -182,8 +187,12 @@ public class Storage {
      * @throws DuckException If there is an error writing to the file.
      */
     public void writeTasks(TaskList tasks) throws DuckException {
+        assert tasks != null : "Tasks is null!";
+
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
+                assert task != null : "Trying to write null task into tasks";
+
                 fw.write(task.toFileFormat() + System.lineSeparator());
             }
         } catch (IOException e) {

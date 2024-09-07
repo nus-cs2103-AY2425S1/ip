@@ -47,6 +47,8 @@ public class OnCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         LocalDate date = getLocalDate();
 
         // Filter deadlines and events that are due or occur on the specified date

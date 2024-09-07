@@ -50,6 +50,7 @@ public class Duck {
         ui = new Ui();
         tasks = new TaskList();
         startUpMessage = startUpAndLoadStorage(filePath);
+
     }
 
     /**
@@ -57,6 +58,8 @@ public class Duck {
      * until the exit command is given.
      */
     public void run() {
+        assert ui != null;
+
         ui.sayHi();
         boolean isExit = false;
         while (!isExit) {
@@ -71,7 +74,8 @@ public class Duck {
         }
     }
 
-    private String startUpAndLoadStorage(String filePath) {
+    private String startUpAndLoadStorage( String filePath) {
+        assert ui != null;
         return captureOutput(() -> {
             try {
                 ui.showStartUpMessage();
@@ -118,6 +122,7 @@ public class Duck {
         PrintStream originalOut = System.out; // Save the original System.out
         System.setOut(new PrintStream(baos)); // Redirect System.out to the ByteArrayOutputStream
 
+        assert runnable != null : "Command to be executed is Null!";
         runnable.run();
 
         // Ensure all output is flushed

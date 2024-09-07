@@ -1,6 +1,7 @@
 package duck.commands;
 
 import duck.data.TaskList;
+import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
 
@@ -47,7 +48,8 @@ public class HelpCommand extends Command {
      * @param ui      The UI object used to interact with the user.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
         ui.showHelpMessage(MESSAGE_HELP_COMMAND);
     }
 

@@ -38,6 +38,8 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         String keyword = getKeyword();
         TaskList matchingTasks = tasks.findTasks(keyword);
         printFindResult(matchingTasks);

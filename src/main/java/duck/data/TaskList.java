@@ -29,6 +29,9 @@ public class TaskList extends ArrayList<Task> {
      * @throws DuckException If an error occurs while interacting with the storage system.
      */
     public void addTask(Task task, Storage storage) throws DuckException {
+        assert task != null : "Task to be added is null";
+        assert storage != null : "Storage not yet initialized";
+
         this.add(task);
         storage.appendTask(task);
         System.out.println(MESSAGE_ADD_TASK + task);

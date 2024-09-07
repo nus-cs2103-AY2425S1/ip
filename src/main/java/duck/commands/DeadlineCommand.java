@@ -47,6 +47,8 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         Deadline deadline = parseDeadline(message);
         tasks.addTask(deadline, storage);
     }
