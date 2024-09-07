@@ -27,30 +27,27 @@ class Parser {
      * <code>false</code> which means the conversation continues
      */
 
-    public boolean parse(String textInput) throws TaskDescriptionEmptyException {
-        boolean isChatOver = false;
-
+    public String parse(String textInput) throws TaskDescriptionEmptyException {
         if (textInput.equals("bye")) {
-            sayGoodbye();
-            isChatOver = true;
+            return sayGoodbye();
         } else if (textInput.equals(("list"))) {
-            replyWithListOfTextsEntered();
+            return replyWithListOfTextsEntered();
         } else if (textInput.startsWith("mark")) {
             int taskIndex = Integer.parseInt(textInput.substring(5)) - 1;
-            markTaskDone(taskIndex);
+            return markTaskDone(taskIndex);
         } else if (textInput.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
-            unmarkTaskDone(taskIndex);
+            return unmarkTaskDone(taskIndex);
         } else if (textInput.startsWith("delete")) {
             int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
-            deleteTask(taskIndex);
+            return deleteTask(taskIndex);
         } else if (textInput.startsWith("todo")) {
             try {
                 String taskDescription = textInput.substring(5);
                 if (taskDescription.isEmpty()) {
                     throw new TaskDescriptionEmptyException();
                 }
-                addToListAndReply(taskDescription);
+                return addToListAndReply(taskDescription);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -65,7 +62,7 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                addToListAndReply(taskDescription, deadline);
+                return addToListAndReply(taskDescription, deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -82,86 +79,83 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                addToListAndReply(taskDescription, startDate, endDate);
+                return addToListAndReply(taskDescription, startDate, endDate);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
         } else if (textInput.startsWith("find")) {
             String keyword = textInput.substring(5);
-            this.taskList.printMatchingTasks(keyword);
+            System.out.println(keyword);
+            return this.taskList.findMatchingTasks(keyword);
         } else {
-            replyToInvalidInput();
+            return replyToInvalidInput();
         }
-
-        return isChatOver;
     }
 
     /**
      * Prints the goodbye message to the user
      */
-    private void sayGoodbye() {
-        String goodbyeMessage = "Bye. Hope to see you again soon!";
-        System.out.println(goodbyeMessage);
+    private String sayGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    private void addTaskToList(Task task) {
+    private String addTaskToList(Task task) {
         taskList.add(task);
-        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " tasks in the list.");
+        return "Got it. I've added this task:\n" + task + "\nNow you have "
+                + this.getNumTasks() + " tasks in the list.";
     }
 
-    private void addToListAndReply(String textInput) {
+    private String addToListAndReply(String textInput) {
         Task task = new ToDo(textInput);
-        this.addTaskToList(task);
+        return this.addTaskToList(task);
     }
 
-    private void addToListAndReply(String textInput, String deadline) {
+    private String addToListAndReply(String textInput, String deadline) {
         Task task = new Deadline(textInput, deadline);
-        this.addTaskToList(task);
+        return this.addTaskToList(task);
     }
 
-    private void addToListAndReply(String textInput, String startDate, String endDate) {
+    private String addToListAndReply(String textInput, String startDate, String endDate) {
         Task task = new Event(textInput, startDate, endDate);
-        this.addTaskToList(task);
+        return this.addTaskToList(task);
     }
 
-    private void replyWithListOfTextsEntered() {
-        System.out.println("Here are the tasks in your list:");
+    private String replyWithListOfTextsEntered() {
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + this.taskList.get(i));
+            message.append((i + 1) + ". " + this.taskList.get(i) + "\n");
         }
+
+        return message.toString();
     }
 
-    private void markTaskDone(int index) {
+    private String markTaskDone(int index) {
         Task task = this.taskList.get(index);
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
-    private void unmarkTaskDone(int index) {
+    private String unmarkTaskDone(int index) {
         Task task = this.taskList.get(index);
         task.unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
-    private void replyToInvalidInput() {
-        String errorMessage = "Please enter a valid input and try again! Some examples of valid inputs are:\n" +
+    private String replyToInvalidInput() {
+        return "Please enter a valid input and try again! Some examples of valid inputs are:\n" +
                 "todo [description]\ndeadline [description] /by [deadline]\n" +
                 "event [description] /from [start time] /to [end time]";
-        System.out.println(errorMessage);
     }
 
     private int getNumTasks() {
         return this.taskList.size();
     }
 
-    private void deleteTask(int index) {
+    private String deleteTask(int index) {
         Task task = this.taskList.get(index);
         this.taskList.remove(task);
 
-        System.out.println("Noted. I've removed this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " tasks in the list.");
+        return "Noted. I've removed this task:\n" + task + "\nNow you have "
+                + this.getNumTasks() + " tasks in the list.";
     }
 }
