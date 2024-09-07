@@ -42,8 +42,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        String input = userInput.getText();
         try {
-            String input = userInput.getText();
             String response = soju.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
         } catch (SojuException e) {
             System.out.println(e);
             dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
                     DialogBox.getSojuDialog(e.getMessage(), sojuImage)
             );
         } finally {
