@@ -16,6 +16,12 @@ public class Main extends Application {
 
     private Henry henry = new Henry("./data/Henry.txt");
 
+    /**
+     * Starts the GUI application for Henry.
+     *
+     * @param stage The primary stage for this application, onto which the application
+     *              scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {
