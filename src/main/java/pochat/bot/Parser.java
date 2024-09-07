@@ -107,7 +107,7 @@ class Parser {
     private void addTaskToList(Task task) {
         taskList.add(task);
         System.out.println("Got it. I've added this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " pochat.tasks in the list.");
+                + this.getNumTasks() + " tasks in the list.");
     }
 
     private void addToListAndReply(String textInput) {
