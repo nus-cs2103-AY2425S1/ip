@@ -18,8 +18,7 @@ public class ListCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String str = Ui.TASK_HEADER + "\n" + taskList.toString();
-        ui.printWrappedString(str);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return Ui.TASK_HEADER + "\n" + taskList.toString();
     }
 }

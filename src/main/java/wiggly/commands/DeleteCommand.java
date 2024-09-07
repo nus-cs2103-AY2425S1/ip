@@ -28,8 +28,9 @@ public class DeleteCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printWrappedString(taskList.deleteTask(taskNumber));
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String s = taskList.deleteTask(taskNumber);
         storage.save(taskList);
+        return s;
     }
 }

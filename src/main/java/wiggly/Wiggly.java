@@ -13,9 +13,16 @@ import wiggly.util.Ui;
  * Represents the main class of Wiggly
  */
 public class Wiggly {
+    private static final String DEFAULT_FILE_PATH = "./data/Wiggly.txt";
     private final Storage storage;
-    private TaskList taskList;
+    private TaskList tasks;
     private final Ui ui;
+    private String commandType;
+
+    // Overloaded constructor
+    public Wiggly() {
+        this(DEFAULT_FILE_PATH);
+    }
 
     /**
      * Creates a new instance of Wiggly
@@ -26,10 +33,10 @@ public class Wiggly {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.load());
+            tasks = new TaskList(storage.load());
         } catch (WigglyException | FileNotFoundException e) {
             ui.printWrappedString("Cannot load storage from " + filePath);
-            taskList = new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -45,12 +52,26 @@ public class Wiggly {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (WigglyException e) {
                 ui.showError(e.getMessage());
             }
         }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return response;
+        } catch (WigglyException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+    public String getCommandType() {
+        return commandType;
     }
 
     public static void main(String[] args) {
