@@ -1,9 +1,13 @@
 package reo;
 
+import reo.storage.TaskStorage;
+import reo.tasks.TaskList;
+import reo.ui.Ui;
+
 public class Reo {
     private TaskList tasklist;
     private Ui ui;
-    private Storage storage;
+    private TaskStorage storage;
 
     public Reo() {
         TaskList taskList;

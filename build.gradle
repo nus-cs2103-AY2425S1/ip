@@ -46,7 +46,7 @@ test {
 
 application {
     // mainClass.set("seedu.reo.Reo")
-    mainClass.set("reo.Launcher")
+    mainClass.set("reo.ui.Launcher")
 }
 
 shadowJar {

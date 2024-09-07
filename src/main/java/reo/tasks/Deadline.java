@@ -1,4 +1,4 @@
-package reo;
+package reo.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,11 +28,9 @@ public class Deadline extends Task {
      */
     private LocalDate stringToDate(String dateString) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String INVALID_DATE_ERROR = "Invalid date format: ";
         try {
             return LocalDate.parse(dateString, inputFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println(INVALID_DATE_ERROR + dateString);
             return null;
         }
     }
@@ -45,7 +43,7 @@ public class Deadline extends Task {
     public String dateToString() {
         String NO_DEADLINE = "No deadline set";
         if (deadline == null) {
-            return NO_DEADLINE;
+            return null;
         }
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return deadline.format(outputFormatter);

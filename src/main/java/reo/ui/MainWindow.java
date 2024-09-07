@@ -1,4 +1,4 @@
-package reo;
+package reo.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -8,6 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import reo.contacts.ContactList;
+import reo.contacts.ContactParser;
+import reo.storage.ContactStorage;
+import reo.storage.TaskStorage;
+import reo.tasks.TaskList;
+import reo.tasks.TaskParser;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,7 +29,10 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private TaskList tasks;
-    private Storage storage;
+    private TaskStorage taskStorage;
+
+    private ContactList contacts;
+    private ContactStorage contactStorage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -35,10 +45,17 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the required instances */
-    public void setProperties(TaskList tasks, Storage storage) {
+    /** Injects the required instances.
+     *
+     * @param tasks The current tasks in the user's list.
+     * @param taskStorage The storage object for Tasks.
+     *
+     * */
+    public void setProperties(TaskList tasks, TaskStorage taskStorage, ContactList contacts, ContactStorage contactStorage) {
         this.tasks = tasks;
-        this.storage = storage;
+        this.taskStorage = taskStorage;
+        this.contacts = contacts;
+        this.contactStorage = contactStorage;
     }
 
     /**
@@ -48,16 +65,35 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        Parser parser = new Parser(input, tasks, storage);
-        String response = parser.parse();
+        String response = getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getReoDialog(response, dukeImage)
         );
         if (input.equalsIgnoreCase("bye")) {
-            Platform.exit(); // Exit the application
+            Platform.exit();
             return;
         }
         userInput.clear();
+    }
+
+    private String getResponse(String input) {
+        TaskParser taskParser = new TaskParser(input, tasks, taskStorage);
+        ContactParser contactParser = new ContactParser(input, contacts, contactStorage);
+        final String UNKNOWN_COMMAND_ERROR = "ERROR: Unknown command.";
+        String taskResponse = taskParser.parse();
+        String contactResponse = contactParser.parse();
+
+        if (taskResponse == null && contactResponse == null) {
+            return UNKNOWN_COMMAND_ERROR;
+        }
+        if (taskResponse == null) {
+            return contactResponse;
+        }
+        if (contactResponse == null) {
+            return taskResponse;
+        }
+
+        return UNKNOWN_COMMAND_ERROR;
     }
 }

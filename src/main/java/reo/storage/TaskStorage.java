@@ -1,4 +1,9 @@
-package reo;
+package reo.storage;
+
+import reo.tasks.Todo;
+import reo.tasks.Deadline;
+import reo.tasks.Event;
+import reo.tasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +17,9 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 /** Supports the required file operations for reo.Reo. */
-public class Storage {
+public class TaskStorage {
     private String filePath;
-    public Storage(String filePath) {
+    public TaskStorage(String filePath) {
         assert filePath != null : "File path cannot be null";
         assert !filePath.isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
@@ -31,7 +36,7 @@ public class Storage {
 
     /**
      * Reads the saved file, and interprets its contents to create
-     * an ArrayList of reo.Task objects represented by the file contents.
+     * an ArrayList of reo.tasks.Task objects represented by the file contents.
      *
      * @return An ArrayList of Tasks interpreted from the file.
      */

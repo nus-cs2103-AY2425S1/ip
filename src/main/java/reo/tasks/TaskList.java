@@ -1,4 +1,4 @@
-package reo;
+package reo.tasks;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,11 @@ public class TaskList {
      *
      * @param taskNumber The task to be deleted.
      */
-    public void deleteTask(int taskNumber) {
-        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for deletion";
-        tasks.remove(taskNumber);
+    public void deleteTasks(ArrayList<Integer> indexes) {
+        for (int i = indexes.size() - 1; i >= 0; i--) {
+            int index = indexes.get(i);
+            tasks.remove(index);
+        }
     }
 
     /**
@@ -44,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * Adds the specified reo.Todo object to the ArrayList.
+     * Adds the specified reo.tasks.Todo object to the ArrayList.
      *
      * @param t The task to be added.
      */
@@ -54,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Adds the specified reo.Deadline object to the ArrayList.
+     * Adds the specified reo.tasks.Deadline object to the ArrayList.
      *
      * @param d The task to be added.
      */
@@ -64,13 +66,17 @@ public class TaskList {
     }
 
     /**
-     * Adds the specified reo.Event object to the ArrayList.
+     * Adds the specified reo.tasks.Event object to the ArrayList.
      *
      * @param e The task to be added.
      */
     public void addEvent(Event e) {
         assert e != null : "Event task should not be null";
         tasks.add(e);
+    }
+
+    public void add(Task t) {
+        tasks.add(t);
     }
 
     /**
@@ -102,7 +108,6 @@ public class TaskList {
      * @return The Task object at index i.
      */
     public Task get(int taskNumber) {
-        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for getting task";
         return tasks.get(taskNumber);
     }
 
