@@ -21,22 +21,22 @@ public class Ui {
     /**
      * Prints the greeting String.
      */
-    public void printGreeting() {
-        System.out.print(divider + greeting + divider);
+    public String getGreeting() {
+        return divider + greeting + divider;
     }
 
     /**
      * Prints the exit String.
      */
-    public void printExit() {
-        System.out.println(exit);
+    public String getExit() {
+        return exit;
     }
 
     /**
      * Prints the divider String.
      */
-    public void printDivider() {
-        System.out.print(divider);
+    public String getDivider() {
+        return divider;
     }
 
     /**

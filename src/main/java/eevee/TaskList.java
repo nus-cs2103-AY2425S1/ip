@@ -88,12 +88,13 @@ public class TaskList {
     /**
      * Prints out the tasks in the TaskList.
      */
-    public void printTasks() {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks yet! Start adding tasks :)");
-            return;
+           return "No tasks yet! Start adding tasks :)";
         }
-        System.out.println("Here are your tasks:");
-        tasks.forEach((task) -> System.out.println((tasks.indexOf(task) + 1) + ". " + task));
+
+        StringBuilder sb = new StringBuilder("Here are your tasks:\n");
+        tasks.forEach((task) -> sb.append(tasks.indexOf(task) + 1).append(". ").append(task).append("\n"));
+        return sb.toString();
     }
 }

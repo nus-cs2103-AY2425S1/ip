@@ -1,2 +1,3 @@
-E|0|hello|today|tomorrow
-T|1|swim
+T|0|swim
+T|1|say bye
+D|0|try to read|Oct 9 2024
