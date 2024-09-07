@@ -46,7 +46,7 @@ public class Task {
     /**
      * Returns a task with given string.
      *
-     * @return   the task and its given information as a string
+     * @return  the task and its given information as a string
      */
     public String getTaskName() {
         return this.taskName;
@@ -55,7 +55,7 @@ public class Task {
     /**
      * Returns the status of the task.
      *
-     * @return   the status of the task as a string
+     * @return  the status of the task as a string
      */
     public String getStatus(){
         return this.isCompleted ? "X": " ";
