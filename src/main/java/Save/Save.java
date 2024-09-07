@@ -12,6 +12,7 @@ public class Save {
 
     /**
      * Returns the path of the save file
+     *
      * @return     the path of the save file as a string
      */
     public String getPath() {
