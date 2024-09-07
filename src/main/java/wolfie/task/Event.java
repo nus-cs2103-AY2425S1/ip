@@ -2,6 +2,7 @@ package wolfie.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents an event task.
@@ -49,5 +50,23 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: "
                 + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + " to: "
                 + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Event event)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        return Objects.equals(from, event.from) && Objects.equals(to, event.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), from, to);
     }
 }

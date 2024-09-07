@@ -46,8 +46,12 @@ public class AddEventCommand extends Command {
         LocalDateTime from = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         LocalDateTime to = LocalDateTime.parse(parts[2].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         Task task = new Event(description, from, to, false);
-        tasks.add(task);
-        storage.save(tasks);
-        return ui.showTaskAdded(task, tasks.size());
+        boolean isAdded = tasks.add(task);
+        if (isAdded) {
+            storage.save(tasks);
+            return ui.showTaskAdded(task, tasks.size());
+        } else {
+            return "Task already exists in the list. " + task.getDescription();
+        }
     }
 }

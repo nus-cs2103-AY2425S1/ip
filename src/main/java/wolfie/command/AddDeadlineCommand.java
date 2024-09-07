@@ -45,8 +45,12 @@ public class AddDeadlineCommand extends Command {
         String description = parts[0].trim();
         LocalDateTime by = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         Task task = new Deadline(description, by, false);
-        tasks.add(task);
-        storage.save(tasks);
-        return ui.showTaskAdded(task, tasks.size()); // Show the task added message
+        boolean isAdded = tasks.add(task);
+        if (isAdded) {
+            storage.save(tasks);
+            return ui.showTaskAdded(task, tasks.size());
+        } else {
+            return "Task already exists in the list. " + task.getDescription();
+        }
     }
 }
