@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Soju soju;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image sojuImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/fried-chicken.png"));
+    private Image sojuImage = new Image(this.getClass().getResourceAsStream("/images/soju.jpg"));
 
     @FXML
     public void initialize() {
