@@ -71,11 +71,10 @@ application {
 
 shadowJar {
     archiveBaseName.set("DailyTasks")  // Name of the fat JAR
-    archiveClassifier.set('all')       // This appends '-all' to the JAR file name
     mergeServiceFiles()                // Merge service files if there are any
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }
