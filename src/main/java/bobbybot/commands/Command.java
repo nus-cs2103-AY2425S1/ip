@@ -21,16 +21,21 @@ public abstract class Command {
      * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage.
-     * @throws BobbyBotException If an error occurs during execution.
+     * @throws BobbyBotException If an error occurs during the execution of a command.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException;
 
     /**
      * Un-executes the command.
+     *
+     * @param tasks List of tasks.
+     * @param ui User interface.
+     * @param storage Storage.
+     * @throws BobbyBotException If an error occurs during the un-execution of a command.
      */
     public void unExecute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
         if (memento != null) {
-            tasks.copyOver(memento.getState());
+            tasks.copyOver(memento.getTaskList());
             storage.saveTasksToFile(tasks.toArray());
         }
         ui.printUndo();

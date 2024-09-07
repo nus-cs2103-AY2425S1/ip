@@ -4,21 +4,22 @@ import bobbybot.TaskList;
 
 /**
  * Represents a memento for commands.
+ * This is used to store the state of a TaskList before a command is executed.
  */
 public class Memento {
-    private final TaskList state;
+    private final TaskList taskList;
 
     /**
-     * Creates a memento with the given state.
+     * Creates a memento with the given taskList.
      *
-     * @param state The state to save.
+     * @param taskList The taskList to save.
      */
-    public Memento(TaskList state) {
-        this.state = new TaskList();
-        this.state.copyOver(state);
+    public Memento(TaskList taskList) {
+        this.taskList = new TaskList();
+        this.taskList.copyOver(taskList);
     }
 
-    public TaskList getState() {
-        return state;
+    public TaskList getTaskList() {
+        return taskList;
     }
 }
