@@ -34,9 +34,22 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void add(Task task) {
+    public boolean add(Task task) {
         assert task != null : "task cannot be null";
+        if (tasks.stream()
+                .map(Task::toString)
+                .anyMatch(task.toString()::equals)) {
+            return false;
+        }
+        task.markAsDone();
+        if (tasks.stream()
+                .map(Task::toString)
+                .anyMatch(task.toString()::equals)) {
+            return false;
+        }
+        task.markAsNotDone();;
         this.tasks.add(task);
+        return true;
     }
 
     /**
