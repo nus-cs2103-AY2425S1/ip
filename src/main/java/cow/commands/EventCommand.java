@@ -23,6 +23,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates an EventCommand instance.
+     *
      * @param description of the event.
      * @param from Start of Event.
      * @param to End of event.
@@ -35,6 +36,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates an event task and adds to the todo list.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.

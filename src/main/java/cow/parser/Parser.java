@@ -71,14 +71,24 @@ public class Parser {
         case DueCommand.COMMAND_WORD:
             return prepDue(arguments);
         case FindCommand.COMMAND_WORD:
-            if (arguments == null || arguments.isEmpty()) {
-                return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindCommand.MESSAGE_USAGE));
-            }
-            return new FindCommand(arguments);
+            return prepFindCommand(arguments);
         default:
             return new HelpCommand();
         }
+    }
+
+    /**
+     * Prepares find command with arguments.
+     *
+     * @param arguments of task to find.
+     * @return the corresponding command.
+     */
+    private static Command prepFindCommand(String arguments) {
+        if (arguments == null || arguments.isEmpty()) {
+            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+        return new FindCommand(arguments);
     }
 
     /**

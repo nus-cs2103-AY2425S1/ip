@@ -24,10 +24,12 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a DeadlineCommand instance.
+     *
      * @param description of the deadline task.
      * @param by LocalDateTime of the deadline.
      */
     public DeadlineCommand(String description, LocalDateTime by) {
+        // remove any trailing while spaces to prevent saving spaces.
         this.description = description.trim();
         this.by = by;
     }

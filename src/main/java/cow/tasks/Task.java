@@ -9,6 +9,7 @@ public class Task {
 
     /**
      * Creates a new tasks object.
+     *
      * @param description The description of the tasks Object.
      */
     public Task(String description) {
@@ -18,6 +19,7 @@ public class Task {
 
     /**
      * Alternate constructor for loading isDone directly
+     *
      * @param isDone 1 or 0 indicating if task is done
      * @param description The Description of the Tasks.Task
      */
@@ -51,6 +53,7 @@ public class Task {
 
     /**
      * A default date used for filtering out Tasks with deadlines.
+     *
      * @return a LocalDate.
      */
     public LocalDate getDate() {
@@ -59,12 +62,17 @@ public class Task {
 
     /**
      * Check if description contains substring.
+     *
      * @return boolean.
      */
     public boolean getContainsSubString(String subString) {
         return this.description.contains(subString);
     }
 
+    /**
+     * Creates the string to save the data in a .txt file;
+     * @return a string to be written to a file;
+     */
     public String getSaveData() {
         String result = "";
         if (this.isDone) {

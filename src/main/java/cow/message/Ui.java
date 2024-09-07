@@ -1,5 +1,16 @@
 package cow.message;
 
+import static cow.message.Messages.ADDED_TASK_DEFAULT;
+import static cow.message.Messages.ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST;
+import static cow.message.Messages.GOODBYE_MESSAGE;
+import static cow.message.Messages.GREETINGS_MESSAGE;
+import static cow.message.Messages.LINE;
+import static cow.message.Messages.MARKED_AS_DONE;
+import static cow.message.Messages.MATCHING_TASKS_IN_LIST;
+import static cow.message.Messages.TASK_DELETED;
+import static cow.message.Messages.TASK_IN_LIST;
+import static cow.message.Messages.UNMARK_AS_DONE;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -8,6 +19,7 @@ import cow.todolist.TodoList;
 
 /** Class to handle all printing methods. **/
 public class Ui {
+
     private final Scanner scanner = new Scanner(System.in);
     private String text = "";
 
@@ -17,6 +29,7 @@ public class Ui {
 
     /**
      * Prints a string in the dialog box.
+     *
      * @param text The content of the dialog box.
      */
     public void print(String text) {
@@ -24,11 +37,10 @@ public class Ui {
     }
 
     /**
-     * Prints greeting message
+     * Prints greeting message.
      */
     public String printGreetings() {
-        String content = " Hello! I'm COW\n"
-                + " What can I do for you?";
+        String content = GREETINGS_MESSAGE;
         printDialogBox(content);
         return content;
     }
@@ -37,17 +49,17 @@ public class Ui {
      * Prints error loading file.
      */
     public void printLoadingError() {
-        String content = "Error loading file, proceed with empty task list";
-        printDialogBox(content);
+        printDialogBox(ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST);
     }
 
     /**
      * Prints the message after adding a task.
+     *
      * @param task     The task that was added.
      * @param todoList The todoList the task was added to.
      */
     public void printAddedTask(Task task, TodoList todoList) {
-        String content = "Got it. I've added this task:\n"
+        String content = ADDED_TASK_DEFAULT
                 + "  "
                 + task + "\n"
                 + todoList.count();
@@ -56,18 +68,11 @@ public class Ui {
 
     /**
      * Prints the message after marking a task.
+     *
      * @param task The task to be marked.
      */
     public void printMarked(Task task) {
-        String content = "Nice! I've marked this task as done:\n  " + task;
-        printDialogBox(content);
-    }
-
-    /**
-     * Prints the message after detecting corrupted file and skipping the line.
-     */
-    public void printCorruptionDetected() {
-        String content = "Corrupted command detected! Skipping command.";
+        String content = MARKED_AS_DONE + task;
         printDialogBox(content);
     }
 
@@ -75,12 +80,12 @@ public class Ui {
      * Prints the message before exiting the program.
      */
     public void printGoodBye() {
-        String content = "Bye. Hope to see you again soon!";
-        printDialogBox(content);
+        printDialogBox(GOODBYE_MESSAGE);
     }
 
     /**
      * Prints the deadlines due at the date specified.
+     *
      * @param date The specific date to check.
      * @param todoList The list of todos.
      */
@@ -90,20 +95,22 @@ public class Ui {
 
     /**
      * Prints the message after unmarking a task.
+     *
      * @param task The task to be unmarked.
      */
     public void printUnmarked(Task task) {
-        String content = "OK, I've marked this task as not done yet:\n  " + task;
+        String content = UNMARK_AS_DONE + task;
         printDialogBox(content);
     }
 
     /**
      * Prints the message after deleting a task.
+     *
      * @param task The task that was deleted.
      * @param todoList The todoList the task was deleted from.
      */
     public void printDeletedTask(Task task, TodoList todoList) {
-        String content = "Noted. I've removed this task:\n"
+        String content = TASK_DELETED
                 + "  "
                 + task + "\n"
                 + todoList.count();
@@ -112,10 +119,11 @@ public class Ui {
 
     /**
      * Prints the content and dialog box.
+     *
      * @param content The content to be printed in the dialog box.
      */
     private void printDialogBox(String content) {
-        String line = "____________________________________________________________";
+        String line = LINE;
         System.out.println(line
                 + "\n"
                 + content + "-Mooooo"
@@ -132,20 +140,22 @@ public class Ui {
 
     /**
      * Prints todo list in a nice format.
+     *
      * @param list TodoList to print.
      */
     public void printList(TodoList list) {
-        String content = "Here are the tasks in your list:\n"
+        String content = TASK_IN_LIST
                 + list;
         printDialogBox(content);
     }
 
     /**
      * Prints matched todo list in a nice format.
+     *
      * @param list TodoList to print.
      */
     public void printFindTask(TodoList list) {
-        String content = "Here are the matching tasks in your list:\n"
+        String content = MATCHING_TASKS_IN_LIST
                 + list;
         printDialogBox(content);
     }

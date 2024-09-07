@@ -19,9 +19,9 @@ public class DeleteCommand extends Command {
     private final int index;
 
     /**
-     * Constructor to create a delete command.
+     * Delete the item from the todolist based on the index entered.
      *
-     * @param index of the todo list to delete.
+     * @param index of the todo list to delete starting from 1.
      */
     public DeleteCommand(int index) {
         assert index >= 0 : "index should be >= 0";
@@ -30,6 +30,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes task using the index in the todo list.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.
