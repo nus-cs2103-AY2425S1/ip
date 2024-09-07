@@ -17,15 +17,15 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
 There are 3 main commands that you can run:
 
-todo <task>
-deadline <task> /by <time>
-event <task> /from <time> /to <time>
+- todo `<task>`
+- deadline `<task>` /by `<time>`
+- event `<task>` /from `<time>` /to `<time>`
 
 Other commands include:
-mark <number> (to mark task as done)
-unmark <number> (to unmark task)
-list (show current list of tasks)
-delete <number> (to delete the task)
-bye (to say bye and save the tasks into a file in your drive)
+1. mark `<number>` (to mark task as done)
+1. unmark `<number>` (to unmark task)
+1. list (show current list of tasks)
+1. delete `<number>` (to delete the task)
+1. bye (to say bye and save the tasks into a file in your drive)
 
 Hope this GUI helps you in managing your tasks more effectively!
