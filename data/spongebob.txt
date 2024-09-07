@@ -1,6 +1,5 @@
 TODO|true|eat food
-TODO|false|meet friends
-TODO|true|add fish
-TODO|false|go to school
+TODO|true|meet friends
+TODO|false|add fish
 DEADLINE|false|assignment 1|10/10/1234
-EVENT|false|school|10/10/1234|11/11/1420
+EVENT|true|school|10/10/1234|11/11/1420

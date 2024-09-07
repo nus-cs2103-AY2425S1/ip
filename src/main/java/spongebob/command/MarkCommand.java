@@ -28,8 +28,8 @@ public class MarkCommand extends Command {
 
         // checks if there is nothing to mark
         assert !storage.isEmpty() : "storage is empty!";
-        assert arguments[1] == "mark"
-                || arguments[1] == "unmark"
+        assert arguments[0].equals("mark")
+                || arguments[0].equals("unmark")
                     : "Arguments must be mark or unmark!";
 
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {
