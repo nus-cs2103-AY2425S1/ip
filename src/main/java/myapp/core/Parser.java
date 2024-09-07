@@ -32,7 +32,11 @@ public class Parser {
      * @throws BingBongException if the command is not recognized or if the input is malformed.
      */
     public static Command parseCommand(String input) throws BingBongException {
+        assert input != null : "Input should not be null";
+        assert !input.trim().isEmpty() : "Input should not be empty";
         CommandType command = CommandType.fromString(input);
+
+        assert command != null : "Command should not be null";
         switch (command) {
         case BYE:
             return new ExitCommand();
@@ -123,6 +127,9 @@ public class Parser {
      * @throws BingBongException if the command type is invalid or the description cannot be parsed.
      */
     public static String parseDescription(String input, CommandType type) throws BingBongException {
+        assert input != null : "Input should not be null";
+        assert type != null : "Command type should not be null";
+
         switch (type) {
         case TODO:
             return input.substring(5).trim();
