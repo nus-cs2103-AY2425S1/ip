@@ -1,14 +1,10 @@
 package reminderebot.commands;
 
+import reminderebot.ReminderebotException;
+import reminderebot.Storage;
 import reminderebot.TaskList;
 import reminderebot.Ui;
-import reminderebot.Storage;
-import reminderebot.ReminderebotException;
 import reminderebot.task.Task;
-import reminderebot.task.ToDo;
-import reminderebot.task.Deadline;
-import reminderebot.task.Event;
-
 
 /**
  * The DeleteCommand class represents a command to delete a task in tasklist.
@@ -29,16 +25,17 @@ public class DeleteCommand extends Command {
      * @param tasklist
      * @param ui
      * @param storage
+     * @return String representing Delete command
      * @throws ReminderebotException
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
         if (index > tasklist.length() || index < 1) { // index is out of bounds
-            throw new ReminderebotException("Item selected to be deleted is not in list.\n" +
-                    "Syntax: delete <int>");
+            throw new ReminderebotException("Item selected to be deleted is not in list.\n"
+                    + "Syntax: delete <int>");
         }
         Task task = tasklist.deleteTask(index);
-        ui.deleteTask(task, tasklist.length());
+        return ui.deleteTask(task, tasklist.length());
     }
 
     /**

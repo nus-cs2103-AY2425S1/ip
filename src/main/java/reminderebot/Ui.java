@@ -2,6 +2,7 @@ package reminderebot;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import reminderebot.task.Task;
 import reminderebot.task.ToDo;
 import reminderebot.task.Deadline;
@@ -11,16 +12,15 @@ import reminderebot.task.Event;
  * Ui represents the user interface for Reminderebot.
  */
 public class Ui {
-    private Scanner input;
     private static final String name = "Reminderebot";
     private static final String topBuffer = "____________________________________________________________\n";
     private static final String bottomBuffer = "____________________________________________________________";
-    private static final String greetingText = topBuffer +
-            " Hello! I'm [" + name + "]\n" +
-            " What can I do for you?\n" +
-            topBuffer;
+    private static final String greetingText = topBuffer
+            + " Hello! I'm [" + name + "]\n"
+            + " What can I do for you?\n" + topBuffer;
     private static final String goodbyeText =
             " Bye. Hope to see you again soon!";
+    private Scanner input;
 
     /**
      * Instantiate the User Interface.
@@ -30,17 +30,18 @@ public class Ui {
     }
 
     /**
-     * Prints greeting message.
+     * Returns a string representing the welcome message.
      */
-    public void showWelcome() {
-        System.out.println(greetingText);
+    public String showWelcome() {
+        return greetingText;
     }
 
     /**
-     * Prints goodbye message.
+     * Returns a string representing the goodbye message and closes Scanner.
      */
-    public void goodbye() {
-        System.out.println(goodbyeText);
+    public String goodbye() {
+        input.close();
+        return goodbyeText;
     }
 
     /**
@@ -59,58 +60,65 @@ public class Ui {
     }
 
     /**
-     * Prints error messages.
+     * Returns a string representing the error message.
      * @param message
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
-     * Prints mark task as done.
+     * Returns a string representing the marked task.
      * @param task
+     * @return marked task
      */
-    public void markTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+    public String markTask(Task task) {
+        return "Nice! I've marked this task as done:\n";
     }
 
     /**
-     * Prints mark task as undone.
+     * Returns a string representing the unmarked task.
      * @param task
+     * @return unmarked task
      */
-    public void unmarkTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + task);
+    public String unmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
-     * Prints deleted task.
-     * @param task
-     * @param index
-     */
-    public void deleteTask(Task task, int index) {
-        System.out.println("OK, I've removed this task:\n" +
-                task.toString() +
-                "\nNow you have " + index + " tasks in the list.");
-    }
-
-    /**
-     * Prints added task.
+     * Returns a string representing the deleted task.
      * @param task
      * @param index
+     * @return deleted task
      */
-    public void addTask(Task task, int index) {
-        System.out.println("Got it. I've added this task:\n" +
-                task.toString() +
-                "\nNow you have " + index + " tasks in the list."
-        );
+    public String deleteTask(Task task, int index) {
+        return "OK, I've removed this task:\n" + task.toString()
+            + "\nNow you have " + index + " tasks in the list.";
     }
 
-    public void findTask(ArrayList<Task> tasksFound) {
+    /**
+     * Returns a string representing the added task.
+     * @param task
+     * @param index
+     * @return added task
+     */
+    public String addTask(Task task, int index) {
+        return "Got it. I've added this task:\n"
+                + task.toString()
+                + "\nNow you have " + index + " tasks in the list.";
+    }
+
+    /**
+     * Returns a string representing the tasks found.
+     * @param tasksFound
+     * @return tasks found
+     */
+    public String findTask(ArrayList<Task> tasksFound) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:\n");
-        for (int i=0; i<tasksFound.size(); i++) {
-            output.append(i+1).append(".").append(tasksFound.get(i)).append("\n");
+        for (int i = 0; i < tasksFound.size(); i++) {
+            output.append(i + 1).append(".").append(tasksFound.get(i)).append("\n");
         }
-        System.out.println(output);
+        return output.toString();
     }
 }

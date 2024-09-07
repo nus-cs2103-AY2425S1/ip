@@ -1,15 +1,13 @@
 package reminderebot.commands;
 
-import reminderebot.TaskList;
-import reminderebot.Ui;
-import reminderebot.Storage;
-import reminderebot.ReminderebotException;
-import reminderebot.task.Task;
-import reminderebot.task.ToDo;
-import reminderebot.task.Deadline;
-import reminderebot.task.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import reminderebot.ReminderebotException;
+import reminderebot.Storage;
+import reminderebot.TaskList;
+import reminderebot.Ui;
+import reminderebot.task.Deadline;
 
 /**
  * The DeadlineCommand class represents a command to create a Deadline.
@@ -31,16 +29,17 @@ public class DeadlineCommand extends Command {
      * @param tasklist
      * @param ui
      * @param storage
+     * @return String representing Deadline command
      * @throws ReminderebotException
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
         String[] dlInfo = command.split("/by ");
         try {
             LocalDateTime byTime = LocalDateTime.parse(dlInfo[1].trim(), formatter);
             Deadline deadline = new Deadline(dlInfo[0], byTime);
             tasklist.addTask(deadline);
-            ui.addTask(deadline, tasklist.length());
+            return ui.addTask(deadline, tasklist.length());
         } catch (IllegalArgumentException e) {
             // if datetime not in correct format
             throw new ReminderebotException("/by <datetime> should be of format dd/MM/yy HHmm");

@@ -1,34 +1,42 @@
 package reminderebot;
 
+import java.util.ArrayList;
+
 import reminderebot.task.Task;
 import reminderebot.task.ToDo;
 import reminderebot.task.Deadline;
 import reminderebot.task.Event;
-import java.util.ArrayList;
+
+
 
 /**
  * TaskList represents the task manager for Reminderebot.
  */
 public class TaskList {
-    protected ArrayList<Task> tasks = new ArrayList<Task>();
-    static int index = 0;
+    private int index = 0;
+    private ArrayList<Task> tasks = new ArrayList<Task>();
 
+    /**
+     * Instantiate a TaskList
+     * @param tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         index = tasks.size();
     }
 
     /**
-     * Prints all tasks as a tasklist.
+     * Returns all tasks as a string in a tasklist.
+     * @return tasklist
      */
-    public void printTasks() {
+    public String printTasks() {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n");
-        for (int i=0; i<index; i++) {
-            output.append(i+1).append(".").append(tasks.get(i)).append("\n");
+        for (int i = 0; i < index; i++) {
+            output.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
         String taskList = output.toString();
-        System.out.println(taskList);
+        return taskList;
     }
 
     /**
@@ -72,7 +80,7 @@ public class TaskList {
      * @param idx
      */
     public void markTask(int idx) {
-        Task task = tasks.get(idx-1);
+        Task task = tasks.get(idx - 1);
         task.markAsDone();
     }
 
@@ -81,7 +89,7 @@ public class TaskList {
      * @param idx
      */
     public void unmarkTask(int idx) {
-        Task task = tasks.get(idx-1);
+        Task task = tasks.get(idx - 1);
         task.markAsUndone();
     }
 }

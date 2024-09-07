@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("reminderebot.Reminderebot")
+    mainClass.set("reminderebot.Launcher")
 }
 
 shadowJar {
