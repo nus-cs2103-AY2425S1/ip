@@ -51,6 +51,9 @@ public class Jar {
      * If an error occurs during processing, the response will contain an error message.
      */
     public String getResponse(String input) {
+        // Assert that the input command is not null or empty
+        assert input != null && !input.trim().isEmpty() : "Input command cannot be null or empty";
+
         try {
             String output = parser.handleCommand(input, taskList, ui);
             if (output.equalsIgnoreCase("exit")) {

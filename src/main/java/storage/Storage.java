@@ -45,6 +45,10 @@ public class Storage {
     public List<Task> load() throws IOException, JarException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+
+        // Assert that the file path is not null
+        assert filePath != null : "File path should not be null";
+
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
