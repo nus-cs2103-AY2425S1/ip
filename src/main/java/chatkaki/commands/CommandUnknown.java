@@ -30,7 +30,7 @@ public class CommandUnknown extends Command {
                 + "mark <index>" + System.lineSeparator()
                 + "unmark <index>" + System.lineSeparator()
                 + "delete <index>" + System.lineSeparator()
-                + "find <keyword>" + System.lineSeparator()
+                + "find <keyword> [-full] [-desc] [-help]" + System.lineSeparator()
                 + "bye";
     }
 }
