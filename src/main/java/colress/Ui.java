@@ -3,6 +3,7 @@ package colress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Objects;
 
 import colress.command.AddCommand;
@@ -109,13 +110,6 @@ public final class Ui {
     }
 
     /**
-     * Cancels current command and sets UI to receive another command.
-     */
-    public void processCancel() {
-        setStatus(Status.COMMAND);
-    }
-
-    /**
      * If the given TaskList is empty, return an empty list message.
      * Otherwise, set status of the UI to expect a keyword for the user's next input and returns a prompt to the user
      * for a keyword to find in the list of tasks.
@@ -200,6 +194,7 @@ public final class Ui {
             // A typecast is required here because not all command objects have the getTaskType method.
             // The only command that will lead to this method being called is the AddCommand command.
             // Therefore, this is a safe typecast.
+            assert currCommand instanceof AddCommand : "Current Command should be an AddCommand";
             AddCommand c = (AddCommand) currCommand;
             input = parser.getString(input);
             c.initialise(input);
