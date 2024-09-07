@@ -8,6 +8,7 @@ public class Todo extends Task {
 
     /**
      * Alternate constructor for loading isDone directly.
+     *
      * @param isDone 1 or 0 indicating if task is done.
      * @param description The Description of the tasks.
      */
@@ -22,6 +23,7 @@ public class Todo extends Task {
 
     /**
      * A string that matches the format for writing it to file.
+     *
      * @return A string to be written to a txt file.
      */
     @Override

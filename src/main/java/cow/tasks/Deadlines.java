@@ -25,6 +25,7 @@ public class Deadlines extends Task {
 
     /**
      * Alternate constructor for loading isDone directly.
+     *
      * @param isDone 1 or 0 indicating if task is done.
      * @param description The Description of the Deadline.
      * @param by by to state the dateline of the task.
@@ -36,6 +37,7 @@ public class Deadlines extends Task {
 
     /**
      * Parse the date time string from the .txt file.
+     *
      * @param by a date time string.
      * @return a LocalDateTime.
      * @throws MissingParametersException if arguments are invalid.
@@ -58,6 +60,7 @@ public class Deadlines extends Task {
 
     /**
      * Returns the deadlines date.
+     *
      * @return deadline's date.
      */
     public LocalDate getDate() {
@@ -66,6 +69,7 @@ public class Deadlines extends Task {
 
     /**
      * A string that matches the format for writing it to file.
+     *
      * @return A string to be written to a txt file.
      */
     @Override
