@@ -4,7 +4,7 @@ import spongebob.exception.SpongebobException;
 
 public class Todo extends Task {
     /**
-     * constructor for a todo task, checks if deadline to be in correct format
+     * Constructs a todo task after checking if deadline to be in correct format
      * @param description description of task
      * @throws SpongebobException   user input error such as incorrect date format
      */
@@ -22,7 +22,7 @@ public class Todo extends Task {
     }
 
     /**
-     * converts task into a string that can be stored and read later
+     * Converts task into a string that can be stored and read later
      * @return String version of the task
      */
     @Override

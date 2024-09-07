@@ -3,3 +3,6 @@ TODO|false|meet friends
 EVENT|true|test|10/10/2030|10/12/2031
 TODO|true|add fish
 DEADLINE|false|seethe|10/10/2023
+TODO|false|go to school
+DEADLINE|false|test|10/10/1010
+EVENT|false|test again|10/10/1010|10/10/1010

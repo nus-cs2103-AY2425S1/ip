@@ -31,7 +31,7 @@ public class Storage {
     }
 
     /**
-     * Reads the txt file and parse the information into a list of tasks for use
+     * Reads the .txt file and parse the information into a list of tasks for use
      * @return list of tasks loaded from the text file
      * @throws SpongebobException user input error
      */
@@ -96,7 +96,8 @@ public class Storage {
     }
 
     /**
-     * adds task to tasklist
+     * Adds task to tasklist.
+     *
      * @param task A task created by the user
      */
     public void add(Task task) {
@@ -105,7 +106,8 @@ public class Storage {
     }
 
     /**
-     * delete task from tasklist
+     * Deletes task from tasklist.
+     *
      * @param task A task created by the user
      */
     public void delete(Task task) {
@@ -114,7 +116,8 @@ public class Storage {
     }
 
     /**
-     * updates task in tasklist
+     * Updates task in tasklist.
+     *
      * @param index index of task in list
      * @param task A task created by the user
      * @throws IndexOutOfBoundsException occurs when index given is greater than size of tasklist or a negative number
@@ -125,7 +128,7 @@ public class Storage {
     }
 
     /**
-     * saves the contents of the tasklist into the textfile
+     * Saves the contents of the tasklist into the textfile
      */
     private void write() {
         try {

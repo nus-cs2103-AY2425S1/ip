@@ -8,15 +8,16 @@ import spongebob.command.ExitCommand;
 import spongebob.command.FindCommand;
 import spongebob.command.MarkCommand;
 import spongebob.command.UnknownCommand;
+
 /**
- * object to parse user input into commands that can be executed by Spongebob
+ * Object to parse user input into commands that can be executed by Spongebob
  */
 public class Parser {
 
     private String[] arguments;
 
     /**
-     * the command syntax is a array of size 4,
+     * The command syntax is a array of size 4,
      * first string will be the command,
      * second is description,
      * third is from / by date,
@@ -25,9 +26,6 @@ public class Parser {
     public Parser() {
         this.arguments = new String[4];
 
-        for (int i = 0; i < arguments.length; i++) {
-            this.arguments[i] = " ";
-        }
     }
 
     /**
@@ -37,27 +35,31 @@ public class Parser {
      */
     public Command parse(String string) {
 
-        String[] command = string.split(" ", 2);
-        this.arguments[0] = command[0].trim();
-        if (command.length > 1) {
-            this.arguments[1] = command[1].trim();
+        for (int i = 0; i < arguments.length; i++) {
+            this.arguments[i] = " ";
         }
 
-        command = arguments[1].split("/by", 2);
-        if (command.length > 1) {
-            arguments[2] = command[1].trim();
-            arguments[1] = command[0].trim();
+        String[] commands = string.split(" ", 2);
+        this.arguments[0] = commands[0].trim();
+        if (commands.length > 1) {
+            this.arguments[1] = commands[1].trim();
+        }
+
+        commands = arguments[1].split("/by", 2);
+        if (commands.length > 1) {
+            arguments[2] = commands[1].trim();
+            arguments[1] = commands[0].trim();
 
         } else {
-            command = arguments[1].split("/from", 3);
-            if (command.length > 1) {
-                arguments[1] = command[0].trim();
-                arguments[2] = command[1].trim();
+            commands = arguments[1].split("/from", 3);
+            if (commands.length > 1) {
+                arguments[1] = commands[0].trim();
+                arguments[2] = commands[1].trim();
 
-                command = arguments[2].split("/to", 2);
-                if (command.length > 1) {
-                    arguments[3] = command[1].trim();
-                    arguments[2] = command[0].trim();
+                commands = arguments[2].split("/to", 2);
+                if (commands.length > 1) {
+                    arguments[3] = commands[1].trim();
+                    arguments[2] = commands[0].trim();
                 }
             }
         }

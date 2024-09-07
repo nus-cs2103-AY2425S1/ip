@@ -43,7 +43,7 @@ public class TaskList {
     }
 
     /**
-     * for displaying list in index order such as 1.[T][ ] return books
+     * Display list in index order such as 1.[T][ ] return books
      * @return String form of the list of tasks in index order
      */
     @Override
@@ -58,6 +58,13 @@ public class TaskList {
 
         return builder.toString();
     }
+
+    /**
+     * Returns the list of tasks whose description fits the keyword given
+     *
+     * @param keyword A keyword for filtering out tasks
+     * @return List of Tasks that fits the keyword
+     */
 
     public List<Task> find(String keyword) {
         List<Task> res = new ArrayList<>();

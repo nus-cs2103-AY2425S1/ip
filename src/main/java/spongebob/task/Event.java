@@ -12,31 +12,32 @@ import spongebob.exception.SpongebobException;
  */
 public class Event extends Task {
 
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
     /**
-     * constructor for an event task, checks if description, start and end dates to be in correct format
+     * Constructs an instance of Event after checking the format of description, start and end dates.
+     *
      * @param description description of task
-     * @param from  start date
-     * @param to end date
+     * @param startDate  start date (from)
+     * @param endDate end date (to)
      * @throws SpongebobException   user input error such as incorrect date format
      */
-    public Event(String description, String from, String to) throws SpongebobException {
+    public Event(String description, String startDate, String endDate) throws SpongebobException {
 
         super(description, TaskType.EVENT);
 
         // check for errors
-        if (description.equals(" ") || from.equals(" ") || to.equals(" ")
-                || description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (description.equals(" ") || startDate.equals(" ") || endDate.equals(" ")
+                || description.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
             String msg = "";
             if (description.equals(" ") || description.isEmpty()) {
                 msg += " Description,";
             }
-            if (from.equals(" ") || from.isEmpty()) {
+            if (startDate.equals(" ") || startDate.isEmpty()) {
                 msg += " From,";
             }
-            if (to.equals(" ") || to.isEmpty()) {
+            if (endDate.equals(" ") || endDate.isEmpty()) {
                 msg += " To";
             }
 
@@ -45,8 +46,8 @@ public class Event extends Task {
 
         try {
 
-            this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (DateTimeParseException | NullPointerException e) {
             throw new SpongebobException("Barnacles! Please enter date at dd/mm/yyyy!");
         }
@@ -57,24 +58,25 @@ public class Event extends Task {
 
         return "[E]"
                 + super.toString()
-                + "(from: "
-                + this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
-                + " to: "
-                + this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy "))
+                + "(From: "
+                + this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " To: "
+                + this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy "))
                 + ")";
 
     }
 
     /**
-     * converts task into a string that can be stored and read later
+     * Converts task into a string that can be stored and read later
+     *
      * @return String version of the task
      */
     @Override
     public String save() {
 
         return super.save() + "|"
-                + this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|"
-                + this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                + this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|"
+                + this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
     }
 }
