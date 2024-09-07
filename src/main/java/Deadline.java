@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, isDone);

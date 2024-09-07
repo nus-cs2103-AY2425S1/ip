@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    protected  LocalDateTime from;
-    protected LocalDateTime to;
+    private  LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
