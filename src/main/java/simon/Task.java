@@ -7,7 +7,6 @@ public class Task {
     private String name;
     //public Integer number;
     private Boolean completed;
-    private Integer number;
     /**
      * Creates a Task with the specified name and number.
      *
@@ -18,7 +17,6 @@ public class Task {
         assert name != null : "Name cannot be empty cannot be null";
         this.name = name;
         this.completed = false;
-        this.number = number;
     }
     /**
      * Returns the name of the task.
@@ -37,15 +35,7 @@ public class Task {
         return this.completed;
     }
 
-    /**
-     * Returns the unique identifier of the task.
-     *
-     * @return the task number
-     */
-    public int getNumber() {
 
-        return this.number;
-    }
     /**
      * Returns the name or description of the task.
      *

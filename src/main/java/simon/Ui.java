@@ -141,6 +141,14 @@ public class Ui {
     }
 
     /**
+     * Displays a duplicate error message and returns it.
+     */
+    public String showDuplicate() {
+        System.out.println("Duplicate task");
+        return "Duplicate task";
+    }
+
+    /**
      * Displays the search results for tasks and returns a string representation.
      *
      * @param tasks The list of tasks that match the search criteria.

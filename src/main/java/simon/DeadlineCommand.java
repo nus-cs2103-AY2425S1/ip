@@ -35,10 +35,14 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-
         Deadline task = new Deadline(name, taskList.size(), deadline);
-        taskList.add(task);
-        String ret = ui.showTaskAdded(task, taskList.size());
+        boolean success = taskList.add(task);
+        String ret;
+        if (success) {
+            ret = ui.showTaskAdded(task, taskList.size());
+        } else {
+            ret = ui.showDuplicate();
+        }
         storage.saveToFile(taskList.toArr());
         return ret;
 
