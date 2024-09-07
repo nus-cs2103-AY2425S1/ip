@@ -28,6 +28,8 @@ public class Storage {
      * @param filePath the file path where tasks will be loaded from and saved to.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.isEmpty() : "File path should not be empty";
         this.filePath = filePath;
     }
 
@@ -52,13 +54,16 @@ public class Storage {
                 Task task;
                 switch (type) {
                 case "T":
+                    assert taskData.length == 3 : "ToDo task data should have exactly 3 fields";
                     task = new ToDo(description);
                     break;
                 case "D":
+                    assert taskData.length == 4 : "Deadline task data should have exactly 4 fields";
                     String by = taskData[3];
                     task = new Deadline(description, DateTimeHandler.parse(by));
                     break;
                 case "E":
+                    assert taskData.length == 5 : "Event task data should have exactly 5 fields";
                     String from = taskData[3];
                     String to = taskData[4];
                     task = new Event(description, DateTimeHandler.parse(from), DateTimeHandler.parse(to));
@@ -84,6 +89,7 @@ public class Storage {
      * @throws BingBongException if an error occurs while writing to the file or if the directory cannot be created.
      */
     public void save(TaskList tasks) throws BingBongException {
+        assert tasks != null : "TaskList should not be null";
         File file = new File(filePath);
 
         // Ensure the parent directory exists
@@ -96,6 +102,7 @@ public class Storage {
 
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
+                assert task != null : "Task should not be null";
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }
         } catch (IOException e) {
