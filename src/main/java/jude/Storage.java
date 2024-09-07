@@ -22,9 +22,9 @@ import jude.task.Todo;
  * It saves the file by writing the task datas in the save file, so that it can be loaded the next time.
  */
 public class Storage {
-    String filePath;
-    Scanner fileReader;
-    FileWriter writer;
+    private String filePath;
+    private Scanner fileReader;
+    private FileWriter writer;
 
     public Storage(String filePath) {
         this.filePath = filePath;

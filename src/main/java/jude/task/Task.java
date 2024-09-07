@@ -12,12 +12,23 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task (String description) {
+    /**
+     * Takes in the description of the task to initialise Task object with a completion status of undone.
+     * This constructor is used for taking in a user input.
+     * @param description
+     */
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public Task (String description, boolean isDone) {
+    /**
+     * Takes in description and whether the task status is complete to initialise the Task object.
+     * This constructor is used for taking in a save file input.
+     * @param description
+     * @param isDone
+     */
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

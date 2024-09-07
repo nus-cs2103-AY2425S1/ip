@@ -20,7 +20,7 @@ public class Event extends Task {
      * @param description of the Task.
      * @param from represents the starting time, which the format is expected to be of the direct user input.
      * @param to represents the ending time, which the format is expected to be of the direct user input.
-     * @throws JudeException, if the format of the time is not in the expected format.
+     * @throws JudeException if the format of the time is not in the expected format.
      */
     public Event(String description, String from, String to) throws JudeException {
         super(description);
@@ -33,7 +33,7 @@ public class Event extends Task {
      * @param fromDateTime represents the starting time, which the format is expected to be of the save file format.
      * @param toDateTime represents the ending time, which the format is expected to be of the save file format.
      * @param isDone represents that status of the task isDone.
-     * @throws JudeException, if the format of the time is not in the expected format.
+     * @throws JudeException if the format of the time is not in the expected format.
      */
     public Event(String description, String fromDateTime, String toDateTime, boolean isDone) throws JudeException {
         super(description, isDone);

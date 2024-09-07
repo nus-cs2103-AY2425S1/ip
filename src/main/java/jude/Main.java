@@ -1,6 +1,7 @@
 package jude;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,7 +29,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(mainWindow);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setJude(jude);  // inject the Jude instance
+            fxmlLoader.<MainWindow>getController().setJude(jude); // inject the Jude instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

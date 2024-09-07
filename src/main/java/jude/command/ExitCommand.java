@@ -6,7 +6,7 @@ import jude.TaskList;
 import jude.Ui;
 
 /**
- * Represents the class which contains the series of actions to exit the program.
+ * Represents the command which contains the instruction of series of actions to exit the Jude chatbot program.
  */
 public class ExitCommand extends Command {
 
@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
      * @param list
      * @param ui
      * @param storage
-     * @throws JudeException, if any one of the method call fails
+     * @throws JudeException if any one of the method call fails
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
