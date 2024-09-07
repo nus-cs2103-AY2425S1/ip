@@ -5,7 +5,10 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
+/**
+ * Represents an abstract command in the system. This class serves as a base for all
+ * specific command types that perform various operations on the task list.
+ */
 public abstract class Command {
 
     /**

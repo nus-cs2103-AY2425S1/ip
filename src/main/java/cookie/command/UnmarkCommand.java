@@ -4,7 +4,11 @@ import cookie.exception.CookieException;
 import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
-public class UnmarkCommand extends Command {
+
+ /**
+ * Represents a command to unmark a task as not completed in the task list.
+ */
+ public class UnmarkCommand extends Command {
     private int index;
 
     /**

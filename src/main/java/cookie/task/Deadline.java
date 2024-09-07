@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import cookie.parser.DateParser;
 
+/**
+ * Represents a task with a deadline in a to-do list.
+ */
 public class Deadline extends Task {
     private String by;
     private LocalDate deadline;

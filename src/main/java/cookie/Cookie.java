@@ -10,8 +10,9 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
-
+/**
+ * Represents the main application of the Cookie chatbot.
+ */
 public class Cookie {
     private final Ui ui = new Ui();
     private final Storage storage = new Storage();

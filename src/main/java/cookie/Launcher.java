@@ -2,6 +2,7 @@ package cookie;
 
 import cookie.gui.Main;
 import javafx.application.Application;
+
 /**
  * Acts as the entry point for Cookie application
  */

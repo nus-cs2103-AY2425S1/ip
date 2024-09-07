@@ -4,7 +4,10 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-public class ListCommand extends Command {
+ /**
+ * Represents a command to list all tasks in the task list.
+ */
+ public class ListCommand extends Command {
 
     /**
      * Executes the {@code ListCommand} by retrieving all tasks from the {@code TaskList} and

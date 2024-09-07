@@ -5,7 +5,9 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
+/**
+ * Represents a command to delete a task from the task list by its index.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

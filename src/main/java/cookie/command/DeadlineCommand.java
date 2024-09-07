@@ -6,6 +6,9 @@ import cookie.task.Deadline;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
+/**
+ * Represents a command to create and add a new {@code Deadline} task to the task list.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

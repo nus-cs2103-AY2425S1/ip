@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import cookie.parser.DateParser;
 
+/**
+ * Represents an event with a start time and end time in a to-do list.
+ */
 public class Event extends Task {
     private String from;
     private String to;

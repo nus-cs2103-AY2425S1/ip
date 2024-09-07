@@ -5,7 +5,10 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-public class MarkCommand extends Command {
+ /**
+ * Represents a command to mark a task as completed in the task list.
+ */
+ public class MarkCommand extends Command {
     private int index;
 
     /**

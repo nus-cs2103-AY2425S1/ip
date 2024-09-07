@@ -6,6 +6,9 @@ import cookie.task.Event;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
+/**
+ * Represents a command to create and add a new {@code Event} task to the task list.
+ */
 public class EventCommand extends Command {
     private String description;
     private String from;
