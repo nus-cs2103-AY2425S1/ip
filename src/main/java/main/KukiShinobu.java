@@ -24,7 +24,6 @@ public class KukiShinobu {
     // IMPORTANT: Relative Filepath Specified must always be relative to root directory of the entire project
     private static final String FILE_PATH = "./data/database.txt";
 
-
     /**
      * The entry point of the Kuki Shinobu application.
      * <p>
