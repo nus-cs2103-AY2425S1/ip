@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents a command to find tasks that contain a specific keyword.
  */
 public class FindCommand implements Command {
-    private String name;
+    private final String name;
 
     /**
      * Creates a FindCommand with the specified keyword.

@@ -7,7 +7,6 @@ public class ListCommand implements Command {
     /**
      * Constructs a ListCommand. This command does not require any additional parameters.
      */
-    private int index;
     public ListCommand() {
     }
     /**

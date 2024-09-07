@@ -4,9 +4,9 @@ package simon;
  * Implements the Command interface to define the execution behavior for adding Event tasks.
  */
 public class EventCommand implements Command {
-    private String name;
-    private String from;
-    private String to;
+    private final String name;
+    private final String from;
+    private final String to;
 
     /**
      * Constructs an EventCommand with the specified task name, start time, and end time.

@@ -24,12 +24,9 @@ public class Ui {
 
     /**
      * Displays an exit message and returns it.
-     *
-     * @return The exit message.
      */
-    public String showExit() {
+    public void showExit() {
         System.out.print(printMessage(EXT_MSG));
-        return EXT_MSG;
     }
 
     /**
@@ -138,12 +135,9 @@ public class Ui {
 
     /**
      * Displays a loading error message and returns it.
-     *
-     * @return A message indicating that there was an error in loading.
      */
-    public String showLoadingError() {
+    public void showLoadingError() {
         System.out.println("Error in loading");
-        return "Error in loading";
     }
 
     /**
@@ -159,7 +153,7 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            str.append("\n" + (i + 1) + ". " + task.toString());
+            str.append("\n").append(i + 1).append(". ").append(task.toString());
             System.out.println("\t" + (i + 1) + ". " + task.toString());
         }
         System.out.print(HOR_LINE);

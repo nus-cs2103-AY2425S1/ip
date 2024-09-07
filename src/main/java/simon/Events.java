@@ -5,8 +5,8 @@ package simon;
  */
 public class Events extends Task {
 
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
     /**
      * Constructs an Events task with the specified name,
      * task number, start time, and end time.

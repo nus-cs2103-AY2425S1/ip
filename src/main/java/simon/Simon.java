@@ -37,7 +37,6 @@ public class Simon {
      * Exits when the user inputs "bye".
      */
     public void run() {
-        //...
         ui.showWelcome();
         Scanner sc = new Scanner(System.in);
         String input;
@@ -45,14 +44,13 @@ public class Simon {
         while (!(input = sc.nextLine().trim()).equals("bye")) {
             try {
                 if (input.isEmpty()) {
-                    continue;
                 } else {
                     Command command = parser.parse(input);
                     assert command != null;
                     command.execute(tasks, ui, storage);
                 }
             } catch (Error | Exception e) {
-                System.out.print(e.toString());
+                System.out.print(e);
             }
         }
         ui.showExit();
@@ -66,10 +64,6 @@ public class Simon {
     public static void main(String[] args) {
         new Simon("tasks.txt").run();
     }
-    /*public String getResponse(String input) {
-        return "Simon heard1: " + input;
-    }
-    */
     public String getResponse(String input) {
         boolean isExit = false;
         String response = "";
