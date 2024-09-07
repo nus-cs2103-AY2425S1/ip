@@ -53,7 +53,7 @@ public class Parser {
             commandType = CommandType.UNKNOWN;
         }
 
-        // Use the initialise method to create and return a Commands object
+        // Use the initialise method to create and return a Command
         return Command.initialise(commandType, splitInput);
     }
 

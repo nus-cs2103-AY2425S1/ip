@@ -94,19 +94,23 @@ public class Processor {
     public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
         try {
+            // Retrieve the specified task.
             String response = "";
             int index = Integer.parseInt(commandDetails) - 1;
             Task newTask = taskList.getTask(index);
-            if (newTask != null) {
-                if (commandType == CommandType.MARK) {
-                    response = newTask.markDone();
-                    Storage.refreshStorageFile(taskList);
-                } else if (commandType == CommandType.UNMARK) {
-                    response = newTask.markUndone();
-                    Storage.refreshStorageFile(taskList);
-                } else {
-                    response = taskList.deleteTask(newTask);
-                }
+
+            // execute the given command on the task.
+            if (commandType == CommandType.MARK) {
+                response = newTask.markDone();
+                Storage.refreshStorageFile(taskList);
+            } else if (commandType == CommandType.UNMARK) {
+                response = newTask.markUndone();
+                Storage.refreshStorageFile(taskList);
+            } else {
+                assert commandType == CommandType.DELETE;
+                // There should only be the delete command here, if not there is an error in the
+                // handleCommand method
+                response = taskList.deleteTask(newTask);
             }
             return response;
         } catch (NumberFormatException e) {
@@ -137,6 +141,7 @@ public class Processor {
         } else if (commandType == CommandType.DEADLINE) {
             newTask = new Deadline(commandDetails);
         } else {
+            assert commandType == CommandType.EVENT;
             newTask = new Events(commandDetails);
         }
         return taskList.addTask(newTask);
