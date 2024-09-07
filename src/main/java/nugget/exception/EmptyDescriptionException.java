@@ -1,4 +1,4 @@
-package nugget;
+package nugget.exception;
 
 /**
  * Represents an exception that is thrown when a task description is empty.

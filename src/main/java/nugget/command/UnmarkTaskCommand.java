@@ -1,4 +1,11 @@
-package nugget;
+package nugget.command;
+
+import nugget.Storage;
+import nugget.TaskList;
+import nugget.Ui;
+import nugget.command.Command;
+import nugget.exception.InvalidTaskNumberException;
+import nugget.exception.NuggetException;
 
 public class UnmarkTaskCommand implements Command {
     private int index;

@@ -1,4 +1,7 @@
-package nugget;
+package nugget.command;
+
+import nugget.*;
+import nugget.exception.NuggetException;
 
 import java.util.ArrayList;
 

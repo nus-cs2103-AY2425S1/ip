@@ -1,69 +1,68 @@
 package nugget;
 
-import nugget.Task;
+import nugget.gui.Main;
 
 import java.util.ArrayList;
 
 public class Ui {
+    private Main gui;
+
+    public Ui(Main gui) {
+        this.gui = gui;
+    }
 
     public void line() {
-        System.out.println("________________________________________");
+        gui.updateOutput("________________________________________");
     }
+
+    public void showMessage(String message) {
+        gui.updateOutput(message);
+    }
+
     public void printIntro() {
-        System.out.println("________________________________________");
-        System.out.println("Hello! I'm nugget.Nugget");
-        System.out.println("What can I do for you?");
-        System.out.println("________________________________________");
+        gui.updateOutput("Hello! I'm Nugget\n" +
+                "What can I do for you?\n");
     }
 
     public void printEnd() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________________________________");
+        gui.updateOutput("Bye. Hope to see you again soon!");
     }
 
     public void showError(String message) {
-        System.out.println("________________________________________");
-        System.out.println(message);
-        System.out.println("________________________________________");
+        gui.updateOutput("Error: " + message);
     }
 
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println("________________________________________");
+        String output = "Got it. I've added this task:\n" +
+                task + "\n" +
+                "Now you have " + taskCount + " tasks in the list.";
+        gui.updateOutput(output);
     }
 
     public void showTaskRemoved(Task task, int taskCount) {
-        System.out.println("________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println("________________________________________");
+        String output = "Noted. I've removed this task:\n" +
+                task + "\n" +
+                "Now you have " + taskCount + " tasks in the list.";
+        gui.updateOutput(output);
     }
 
     public void showMarkedTask(Task task) {
-        System.out.println("________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        System.out.println("________________________________________");
+        String output = "Nice! I've marked this task as done:\n" +
+                task;
+        gui.updateOutput(output);
     }
 
     public void showUnmarkedTask(Task task) {
-        System.out.println("________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        System.out.println("________________________________________");
+        String output = "OK, I've marked this task as not done yet:\n" +
+                task;
+        gui.updateOutput(output);
     }
 
     public void showFindResults(ArrayList<Task> matchingTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            String formattedMessage = String.format("%d.%s", i + 1, matchingTasks.get(i));
-            System.out.println(formattedMessage);
+            output.append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
-        System.out.println("____________________________________________________________");
+        gui.updateOutput(output.toString().trim());  // Use trim() to remove any trailing newline
     }
 }
