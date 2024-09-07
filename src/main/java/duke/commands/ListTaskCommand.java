@@ -29,6 +29,11 @@ public class ListTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        // Assert that taskList and ui are not null before proceeding
+        assert taskList != null : "Task list must not be null";
+        assert ui != null : "UI object must not be null";
+
+        // Ensure task list is fetched and passed to the UI
         return ui.formatTaskListings(taskList.getTasks(), false);
     }
 }

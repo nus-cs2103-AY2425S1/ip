@@ -36,9 +36,16 @@ public class DailyTasks extends Application {
      */
     @Override
     public void start(Stage stage) {
+        // Assert that the stage is not null
+        assert stage != null : "Stage cannot be null";
+
         stage.setTitle("My JavaFX Application");
+
         // Add an icon to the window
-        stage.getIcons().add(new Image("/images/DaDuke.png"));
+        Image icon = new Image("/images/DaDuke.png");
+        // Assert that the image file exists or is loaded correctly
+        assert icon != null : "Icon image cannot be null or missing";
+        stage.getIcons().add(icon);
 
         this.storage = new Storage();
         this.taskList = new TaskList();
@@ -46,12 +53,21 @@ public class DailyTasks extends Application {
 
         try {
             List<Task> tasks = storage.loadStateFileToTasksList();
+            // Assert that tasks list is initialized properly
+            assert tasks != null : "Tasks list cannot be null after loading";
             this.taskList.setTasks(tasks);
         } catch (IOException e) {
             System.out.println("Cannot initialize task list!");
         }
 
+        // Assert that the necessary components (taskList, storage, ui) are not null
+        assert this.taskList != null : "TaskList cannot be null";
+        assert this.storage != null : "Storage cannot be null";
+        assert this.ui != null : "Ui cannot be null";
+
         MainWindow mainWindow = new MainWindow(stage, this.taskList, this.storage, this.ui);
+        // Assert that the MainWindow is initialized properly
+        assert mainWindow != null : "MainWindow cannot be null after initialization";
     }
 
     /**

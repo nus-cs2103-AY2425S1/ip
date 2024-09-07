@@ -34,6 +34,10 @@ public class InputParser {
      * @throws InvalidInputException if the input format is invalid or cannot be parsed correctly.
      */
     public static Command parseUserInput(String userInput) throws InvalidInputException {
+        // Assert that user input is not null or empty
+        assert userInput != null : "User input must not be null";
+        assert !userInput.trim().isEmpty() : "User input must not be empty";
+
         if (userInput.equals("list")) {
             return new ListTaskCommand();
         } else if (userInput.startsWith("unmark")) {
@@ -69,7 +73,11 @@ public class InputParser {
      */
     public static int parseTaskIndex(String userInput) throws InvalidInputException {
         try {
-            return Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            String[] tokens = userInput.split(" ", 2);
+            assert tokens.length == 2 : "Invalid command format: expected two parts, got " + tokens.length;
+            int taskIndex = Integer.parseInt(tokens[1]) - 1;
+            assert taskIndex >= 0 : "Task index must be non-negative";
+            return taskIndex;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidInputException("Your input is invalid.\n" + e.getMessage());
         }
@@ -89,7 +97,9 @@ public class InputParser {
      */
     private static String parseCommandArgument(String userInput, String errorMessage) throws InvalidInputException {
         try {
-            return userInput.split(" ", 2)[1];
+            String[] tokens = userInput.split(" ", 2);
+            assert tokens.length == 2 : "Invalid command format: expected two parts, got " + tokens.length;
+            return tokens[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidInputException(errorMessage + "\n" + e.getMessage());
         }

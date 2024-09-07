@@ -26,6 +26,8 @@ public class DeleteTaskCommand extends Command {
     public DeleteTaskCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
+        // Assert that taskIndex is not negative other than -1 (invalid index)
+        assert taskIndex >= -1 : "Task index cannot be less than -1";
     }
 
     /**
@@ -42,10 +44,17 @@ public class DeleteTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        // Assert that taskList and ui are not null before proceeding
+        assert taskList != null : "Task list must not be null";
+        assert ui != null : "UI object must not be null";
+
         if (this.taskIndex != -1) {
+            // Assert that the taskIndex is within the range of the task list
+            assert this.taskIndex >= 0 && this.taskIndex < taskList.getTasks().size() : "Task index is out of bounds";
+
             Task task = taskList.deleteTask(this.taskIndex);
             return ui.formatDeleteTask(task, taskList.getTasks().size());
         }
-        throw new InvalidInputException("Please enter a valid task!");
+        throw new InvalidInputException("Please enter a valid task index to delete!");
     }
 }
