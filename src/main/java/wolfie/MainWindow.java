@@ -1,5 +1,6 @@
 package wolfie;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -67,6 +68,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input should not be null.";
         System.out.println("User input: " + input); // Debugging statement
         String response = wolfie.getResponse(input);
         System.out.println("Wolfie response: " + response); // Debugging statement
@@ -75,5 +77,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getWolfieDialog(response, wolfieImage)
         );
         userInput.clear();
+        // Exit the application if the user input is bye
+        if (input.trim().equalsIgnoreCase("bye")) {
+            Platform.exit();
+        }
     }
 }

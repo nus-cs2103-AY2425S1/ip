@@ -15,7 +15,7 @@ import wolfie.util.Ui;
 public class Wolfie {
     private final Storage storage; // Add this line
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a Wolfie object.
@@ -58,6 +58,8 @@ public class Wolfie {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert input != null : "User input should not be null.";
+        assert !input.isBlank() : "User input should not be blank.";
         try {
             Command command = Parser.parse(input);
             return command.execute(tasks, ui, storage);
