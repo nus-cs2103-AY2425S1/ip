@@ -32,8 +32,10 @@ public class YappingBot {
      * and save to. Saved item includes the task list.
      *
      * @param savefilePath the relative or absolute filepath
+     * @param ui Ui interface that will handle input and output
      */
-    YappingBot(String savefilePath) {
+    YappingBot(String savefilePath, Ui ui) {
+        this.ui = ui;
         this.savefilePath = savefilePath;
     }
 
@@ -134,7 +136,6 @@ public class YappingBot {
      */
     void start() {
         this.storage = new Storage(savefilePath);
-        this.ui = new UiCli();
         init();
         ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();

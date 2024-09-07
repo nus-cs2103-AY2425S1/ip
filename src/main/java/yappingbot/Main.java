@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import yappingbot.ui.UiCli;
 
 /**
  * Main class to launch GUI Application.
@@ -36,7 +37,7 @@ public class Main extends Application {
      */
     public static void launchCli(String customSavefilePath, String[] args) {
         Main.savefilePath = customSavefilePath.isEmpty() ? "./savefile" : customSavefilePath;
-        YappingBot yp = new YappingBot(Main.savefilePath);
+        YappingBot yp = new YappingBot(Main.savefilePath, new UiCli());
         yp.start();
     }
 
