@@ -18,7 +18,7 @@ public class Nixy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Runnable onExit;
+    private Runnable onExit = () -> {};
 
     /**
      * Constructor for Nixy.
@@ -49,11 +49,7 @@ public class Nixy {
         ui.showWelcome();
     }
 
-    public String processInput(String userInput) {
-        return "Not implemented yet";
-    }
-
-    public void proccessInput(String userInput) {
+    public void processInput(String userInput) {
         Parsed p;
         Command c;
         try {
@@ -140,7 +136,7 @@ public class Nixy {
         displayWelcome();
         while (!isExit[0]) {
             String userInput = ui.readCliInput();
-            proccessInput(userInput);
+            processInput(userInput);
         }
     }
 
