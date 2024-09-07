@@ -1,18 +1,20 @@
 package nixy.parse;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
+
 import nixy.Command;
 import nixy.exceptions.NixyException;
 import nixy.task.DeadlineTask;
 import nixy.task.EventTask;
 import nixy.task.TodoTask;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserTest {
 
@@ -99,7 +101,8 @@ class ParserTest {
 
     @Test
     void deadlineInvalidDateFormat() {
-        assertThrows(DateTimeParseException.class, () -> Parser.parse("deadline Submit assignment /by 2024-08-01T00:00:00"));
+        assertThrows(DateTimeParseException.class, () -> Parser.parse(
+            "deadline Submit assignment /by 2024-08-01T00:00:00"));
     }
 
     @Test
@@ -115,13 +118,15 @@ class ParserTest {
 
     @Test
     void eventMissingStartTime() {
-        Exception exception = assertThrows(NixyException.class, () -> Parser.parse("event Project meeting /to 2024-12-02"));
+        Exception exception = assertThrows(NixyException.class, () -> Parser.parse(
+            "event Project meeting /to 2024-12-02"));
         assertEquals("BLAHH!!! The start time of an event task must be specified.", exception.getMessage());
     }
 
     @Test
     void eventMissingEndTime() {
-        Exception exception = assertThrows(NixyException.class, () -> Parser.parse("event Project meeting /from 2024-12-01"));
+        Exception exception = assertThrows(NixyException.class, () -> Parser.parse(
+            "event Project meeting /from 2024-12-01"));
         assertEquals("BLAHH!!! The end time of an event task must be specified.", exception.getMessage());
     }
 
