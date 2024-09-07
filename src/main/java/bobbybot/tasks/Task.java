@@ -40,13 +40,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the type of the task.
-     *
-     * @return Type of the task.
-     */
-    public abstract String getTaskType();
-
-    /**
      * Returns a string representation of the task to be saved in the file.
      *
      * @return String representation of the task to be saved in the file.

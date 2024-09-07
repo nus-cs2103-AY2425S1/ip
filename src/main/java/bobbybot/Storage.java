@@ -15,7 +15,7 @@ import bobbybot.tasks.ToDo;
  * Represents the storage of the task list, using a text file.
  */
 public class Storage {
-    private File taskListFile;
+    private final File taskListFile;
 
     /**
      * Constructor for Storage.
@@ -36,7 +36,7 @@ public class Storage {
      * Reads the task list from the file.
      *
      * @return List of tasks read from the file.
-     * @throws Exception If there is an error reading from the file.
+     * @throws Exception If there is any error reading from the file.
      */
     public ArrayList<Task> getTasksFromFile() throws Exception {
         Scanner fileScanner = new Scanner(taskListFile);
@@ -49,13 +49,13 @@ public class Storage {
             String description = taskDetails[2].trim();
             Task newTask;
             switch (taskType) {
-            case "T":
+            case ToDo.TASK_TYPE:
                 newTask = new ToDo(description);
                 break;
-            case "D":
+            case Deadline.TASK_TYPE:
                 newTask = new Deadline(description, taskDetails[3].trim());
                 break;
-            case "E":
+            case Event.TASK_TYPE:
                 newTask = new Event(description, taskDetails[3].trim(), taskDetails[4].trim());
                 break;
             default:
@@ -71,14 +71,18 @@ public class Storage {
      * Saves the tasks to the file.
      *
      * @param tasks List of tasks to be saved to the file.
-     * @throws IOException If there is an error writing to the file.
+     * @throws BobbyBotException If there is an error writing to the file.
      */
-    public void saveTasksToFile(Task[] tasks) throws IOException {
-        FileWriter fileWriter = new FileWriter(taskListFile);
-        for (Task task : tasks) {
-            fileWriter.write(task.getFileString() + "\n");
+    public void saveTasksToFile(Task[] tasks) throws BobbyBotException {
+        try {
+            FileWriter fileWriter = new FileWriter(taskListFile);
+            for (Task task : tasks) {
+                fileWriter.write(task.getFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new BobbyBotException("Error saving to file.");
         }
-        fileWriter.close();
     }
 
 

@@ -12,6 +12,7 @@ import bobbybot.BobbyBotException;
  */
 public class Event extends Task {
 
+    public static final String TASK_TYPE = "E";
     private static final DateTimeFormatter EVENT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final LocalDate start;
     private final LocalDate end;
@@ -39,15 +40,10 @@ public class Event extends Task {
     }
 
     @Override
-    public String getTaskType() {
-        return "E";
-    }
-
-    @Override
     public String toString() {
         return String.format(
                 "[%s]%s (from: %s to: %s)",
-                getTaskType(),
+                TASK_TYPE,
                 super.toString(),
                 start.format(EVENT_DATE_FORMAT),
                 end.format(EVENT_DATE_FORMAT)
@@ -56,6 +52,6 @@ public class Event extends Task {
 
     @Override
     public String getFileString() {
-        return getTaskType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + start + " | " + end;
+        return TASK_TYPE + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + start + " | " + end;
     }
 }

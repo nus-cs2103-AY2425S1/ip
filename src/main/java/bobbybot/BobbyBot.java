@@ -11,6 +11,7 @@ import bobbybot.ui.Ui;
  */
 public class BobbyBot {
     protected static final String NAME = "BobbyBot";
+    protected static final String FILE_PATH = "./data/bobbybot.txt";
     protected TaskList tasks;
     protected final Ui ui;
     protected final Storage storage;
@@ -20,7 +21,7 @@ public class BobbyBot {
      */
     public BobbyBot() {
         ui = new Ui();
-        storage = new Storage("./data/bobbybot.txt");
+        storage = new Storage(FILE_PATH);
         try {
             ArrayList<Task> taskArray = storage.getTasksFromFile();
             tasks = new TaskList(taskArray);
@@ -45,9 +46,6 @@ public class BobbyBot {
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
-            if (command.isExit()) {
-                ui.stop();
-            }
         } catch (BobbyBotException e) {
             ui.printError(e);
         }

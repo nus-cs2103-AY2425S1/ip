@@ -45,11 +45,10 @@ public class CommandEvent extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
         Task event = new Event(description, from, to);
         tasks.addTask(event);
+
         ui.printAddTask(tasks, event);
-        try {
-            storage.saveTasksToFile(tasks.toArray());
-        } catch (IOException e) {
-            throw new BobbyBotException("Error saving to file.");
-        }
+
+        storage.saveTasksToFile(tasks.toArray());
+
     }
 }

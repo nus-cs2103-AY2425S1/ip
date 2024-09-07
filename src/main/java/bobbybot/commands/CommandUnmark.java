@@ -40,12 +40,12 @@ public class CommandUnmark extends Command {
         if (index < 0 || index >= tasks.getSize()) {
             throw new BobbyBotException("Please specify a task number that is in range.");
         }
+
         Task task = tasks.markUndone(index);
+
         ui.printResponse("OK, I've marked this task as not done yet:", "\t" + task);
-        try {
-            storage.saveTasksToFile(tasks.toArray());
-        } catch (IOException e) {
-            throw new BobbyBotException("Error saving to file.");
-        }
+
+        storage.saveTasksToFile(tasks.toArray());
+
     }
 }

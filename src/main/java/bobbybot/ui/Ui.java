@@ -34,7 +34,7 @@ public class Ui {
         this.stage.setTitle(bobbyBot.getName());
         this.stage.setScene(scene);
         mainWindow.setBobbyBot(bobbyBot);
-        printResponse("Hello! I'm " + bobbyBot.getName() + "\nWhat can I do for you?");
+        printResponse("Hello! I'm " + bobbyBot.getName(), "What can I do for you?");
         this.stage.show();
     }
 

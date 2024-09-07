@@ -6,6 +6,8 @@ package bobbybot.tasks;
  */
 public class ToDo extends Task {
 
+    public static final String TASK_TYPE = "T";
+
     /**
      * Constructor for ToDo.
      *
@@ -16,17 +18,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getTaskType() {
-        return "T";
-    }
-
-    @Override
     public String toString() {
-        return String.format("[%s]%s", getTaskType(), super.toString());
+        return String.format("[%s]%s", TASK_TYPE, super.toString());
     }
 
     @Override
     public String getFileString() {
-        return getTaskType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription();
+        return TASK_TYPE + " | " + (isDone() ? "1" : "0") + " | " + getDescription();
     }
 }
