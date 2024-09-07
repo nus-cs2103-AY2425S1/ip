@@ -1,9 +1,6 @@
 package weeny;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import weeny.ui.DialogBox;
+
 import weeny.ui.Ui;
 import weeny.task.Todo;
 import weeny.task.Events;
