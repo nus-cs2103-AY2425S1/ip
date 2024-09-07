@@ -1,8 +1,8 @@
 package nugget;
 
-import nugget.gui.Main;
 import nugget.command.Command;
 import nugget.exception.NuggetException;
+import nugget.gui.Main;
 
 /**
  * The main class for the Nugget application, which handles task management.
@@ -12,7 +12,7 @@ public class Nugget {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
-    private Main gui;  // Reference to the JavaFX GUI
+    private Main gui; // Reference to the JavaFX GUI
 
     /**
      * Constructs a Nugget instance with the specified file path for storage and GUI reference.
@@ -22,7 +22,7 @@ public class Nugget {
      */
     public Nugget(String filePath, Main gui) {
         this.gui = gui;
-        ui = new Ui(gui);  // Pass GUI to UI
+        ui = new Ui(gui); // Pass GUI to UI
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         parser = new Parser(tasks);
