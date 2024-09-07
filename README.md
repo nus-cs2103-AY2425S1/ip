@@ -1,6 +1,6 @@
-# Duke project template
+# Timo project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Timo_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -13,12 +13,19 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+3. After that, locate the `src/main/java/Timo.java` file, right-click it. If the setup is correct, you should see a GUI
+
+There are 3 main commands that you can run:
+
+todo <task>
+deadline <task> /by <time>
+event <task> /from <time> /to <time>
+
+Other commands include:
+mark <number> (to mark task as done)
+unmark <number> (to unmark task)
+list (show current list of tasks)
+delete <number> (to delete the task)
+bye (to say bye and save the tasks into a file in your drive)
+
+Hope this GUI helps you in managing your tasks more effectively!
