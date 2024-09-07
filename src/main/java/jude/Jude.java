@@ -5,16 +5,22 @@ import jude.command.Command;
 /**
  * Represents a jude.Jude, the personal assistant chatbot.
  *
- * This class helps a person to keep track of various things by simulating the chatbot features.    
+ * This class helps a person to keep track of various things by simulating the chatbot features
  */
 public class Jude {
 
-    String name = "jude.Jude";
+    private String name = "jude.Jude";
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
     private Ui ui;
+    private String commandType;
 
+    /**
+     * Takes filePath to initialise the setups for Jude the Chatbot.
+     *
+     * @param filePath
+     */
     public Jude(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -53,7 +59,7 @@ public class Jude {
         }
         ui.endChat();
     }
-    private String commandType;
+
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -64,6 +70,7 @@ public class Jude {
             return "Error: " + e.getMessage();
         }
     }
+
     public String getCommandType() {
         return commandType;
     }

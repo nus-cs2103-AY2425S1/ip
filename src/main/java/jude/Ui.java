@@ -24,6 +24,7 @@ public class Ui {
         System.out.println(message);
     }
 
+    /** Prints the message when chat is initiated. */
     public void startChat() {
         // Initiate the chat
         System.out.println("Hello I'm jude.Jude");

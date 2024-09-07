@@ -6,7 +6,8 @@ import jude.TaskList;
 import jude.Ui;
 
 /**
- * Represents the series of action the program has to execute, which is implemented in the execute method.
+ * Represents the instruction in series of action the program has to execute
+ * which is implemented in the execute method.
  */
 public abstract class Command {
 

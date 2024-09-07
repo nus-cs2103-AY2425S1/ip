@@ -1,9 +1,7 @@
 package jude;
 
-import java.io.IOException;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -11,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Responsible for the main window of the chatbot interface.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -25,10 +26,6 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image judeImage = new Image(this.getClass().getResourceAsStream("/images/jude.png"));
-
-    public MainWindow() {
-
-    }
 
     @FXML
     public void initialize() {

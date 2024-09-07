@@ -6,7 +6,8 @@ import jude.TaskList;
 import jude.Ui;
 
 /**
- * Represents the class which contains the series of actions to delete a Task into the TaskList to be executed.
+ * Represents the command which contains the instructions of series of actions to delete a Task
+ * into the TaskList to be executed.
  */
 public class DeleteCommand extends Command {
     private int index;
@@ -20,7 +21,7 @@ public class DeleteCommand extends Command {
      * @param list that will store the task deleted
      * @param ui displays the message that a task has been deleted
      * @param storage will save the removed version of task data to the save file
-     * @throws JudeException, if any one of the method fails
+     * @throws JudeException if any one of the method fails
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {

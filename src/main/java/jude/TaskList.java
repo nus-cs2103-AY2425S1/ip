@@ -1,8 +1,9 @@
 package jude;
 
-import jude.task.Task;
 import java.util.ArrayList;
 import java.util.List;
+
+import jude.task.Task;
 
 /**
  * Handles storing and managing the Tasks.
@@ -32,11 +33,13 @@ public class TaskList {
         list.remove(index);
     }
 
+    /** Mark the Task by taking in its index. Throws JudeException, if the index is not valid. */
     public void markTask(int index) throws JudeException {
         validateIndex(index);
         list.get(index).markAsDone();
     }
 
+    /** Unmark the Task by taking in its index. Throws JudeException, if the index is not valid. */
     public void unmarkTask(int index) throws JudeException {
         validateIndex(index);
         list.get(index).unmarkAsDone();
@@ -75,6 +78,7 @@ public class TaskList {
         }
     }
 
+    /** Searches a task with the given keyword from the tasklist. */
     public String search(String keyword) {
         String matches = "";
 

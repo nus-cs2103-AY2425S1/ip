@@ -16,11 +16,11 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     *Unmarks the task as done. Save the changes into the save file.
+     * Unmarks the task as done. Save the changes into the save file.
      * @param list
      * @param ui displays the message that a task has been unmarked
      * @param storage will save the unmarked version of task data to the save file
-     * @throws JudeException, if any one of the method call fails
+     * @throws JudeException if any one of the method call fails
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {

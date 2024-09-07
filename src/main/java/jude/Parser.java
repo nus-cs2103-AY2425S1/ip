@@ -20,8 +20,8 @@ import jude.task.Todo;
  */
 public class Parser {
 
-
-    /** Identifies the Command from the user input and returns the identified command.
+    /**
+     * Identifies the Command from the user input and returns the identified command.
      * throws a JudeException if the command is not valid.
      *
      * @param input

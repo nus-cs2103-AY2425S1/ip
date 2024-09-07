@@ -17,7 +17,7 @@ public class Deadline extends Task {
      * Creates the Deadline object.
      * @param description of the Task.
      * @param deadline of which the format is expected to be of the direct user input.
-     * @throws JudeException, if the format of the deadline is not in the expected format.
+     * @throws JudeException if the format of the deadline is not in the expected format.
      */
     public Deadline(String description, String deadline) throws JudeException {
         super(description);
@@ -29,7 +29,7 @@ public class Deadline extends Task {
      * @param description of the Task.
      * @param dateTime of which the format is expected to be of the save file format.
      * @param isDone represents that status of the task isDone.
-     * @throws JudeException, if the format of the deadline is not in the expected format.
+     * @throws JudeException if the format of the deadline is not in the expected format.
      */
     public Deadline(String description, String dateTime, boolean isDone) throws JudeException {
         super(description, isDone);
@@ -39,8 +39,8 @@ public class Deadline extends Task {
     /**
      * Takes in the String representation of the date and time of a particular format.
      * Parses the String representation to LocalDateTime object.
-     * @param deadline, the String, which parsed from the user input, containing information about the deadline.
-     * @throws JudeException, if the format of the input is not valid.
+     * @param deadline the String which parsed from the user input, containing information about the deadline.
+     * @throws JudeException if the format of the input is not valid.
      */
     public void setDateAndTime(String deadline) throws JudeException {
         try {

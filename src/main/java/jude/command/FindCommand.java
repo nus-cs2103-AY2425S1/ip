@@ -4,6 +4,10 @@ import jude.Storage;
 import jude.TaskList;
 import jude.Ui;
 
+/**
+ * Represents the command which contains the instruction of series of actions to find a particular keyword
+ * from the existing Tasklist.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
