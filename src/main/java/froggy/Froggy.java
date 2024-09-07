@@ -28,6 +28,14 @@ public class Froggy {
         ui.close();
     }
 
+    /**
+     * Generates a response for user's chat message
+     */
+    public String getResponse(String input) {
+        Command c = parser.parse(input);
+        return c.executeAndGetOutput(tasks, ui, storage);
+    }
+
     public static void main(String[] args) {
         new Froggy("./data/taskList.txt").run();
     }

@@ -30,15 +30,38 @@ public class MarkCommand extends Command {
                     taskList.printTask(index);
                     ui.showLine();
                 } else {
-                    System.out.println("Error: Invalid index. Please enter an index in range.");
+                    System.out.println("[INFO] Error: Invalid index. Please enter an index in range.");
                     ui.showLine();
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid index after 'mark'.");
+                System.out.println("[INFO] Error: Please enter a valid index after 'mark'.");
                 ui.showLine();
             }
         }
         storage.saveTasks(taskList.getTasks());
+    }
+
+    @Override
+    public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
+        if (input.length() <= 5) {
+            return "[INFO] Error: Please enter the index of the task to be marked.\n" + ui.getLine();
+        } else {
+            try {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                if (index >= 0 && index < taskList.getSize()) {
+                    taskList.setDone(index, true);
+                    storage.saveTasks(taskList.getTasks());
+                    return "Marked the following task as done:\n" + taskList.getTask(index).toString()
+                            + "\n" + ui.getLine();
+                } else {
+                    System.out.println("[INFO] Error: Invalid index. Please enter an index in range.");
+                    ui.showLine();
+                    return "[INFO] Error: Invalid index. Please enter an index in range.\n" + ui.getLine();
+                }
+            } catch (NumberFormatException e) {
+                return "[INFO] Error: Please enter a valid index after 'mark'.\n" + ui.getLine();
+            }
+        }
     }
 
     @Override
