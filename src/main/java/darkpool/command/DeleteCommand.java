@@ -2,7 +2,7 @@ package darkpool.command;
 
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
-import darkpool.util.Ui;
+import darkpool.gui.Gui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -22,14 +22,15 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command, removing the task from the task list and updating the UI.
      *
-     * @param tasks The task list from which the task will be deleted.
-     * @param ui The UI to update.
+     * @param tasks   The task list from which the task will be deleted.
+     * @param gui      The UI to update.
      * @param storage The storage to save the updated task list.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Gui gui, Storage storage) {
         String delString = tasks.deleteTask(index);
-        ui.delete(delString);
+        return gui.delete(delString);
     }
 
 }

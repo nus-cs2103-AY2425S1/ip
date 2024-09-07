@@ -1,9 +1,9 @@
 package darkpool.command;
 
+import darkpool.gui.Gui;
 import darkpool.task.Task;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
-import darkpool.util.Ui;
 
 /**
  * Represents a command to add a task to the task list.
@@ -25,13 +25,14 @@ public class AddCommand extends Command {
      * Executes the add command, adding the task to the task list and updating the UI.
      *
      * @param taskList The task list to add the task to.
-     * @param ui The UI to update.
-     * @param storage The storage to save the task list.
+     * @param gui       The UI to update.
+     * @param storage  The storage to save the task list.
+     * @return
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Gui gui, Storage storage) {
         taskList.addTask(task);
-        ui.add(String.valueOf(task), taskList.getSize());
+        return gui.add(String.valueOf(task), taskList.getSize());
     }
 
 }

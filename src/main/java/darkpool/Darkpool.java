@@ -1,11 +1,11 @@
 package darkpool;
 
 import darkpool.command.Command;
+import darkpool.gui.Gui;
 import darkpool.util.DarkpoolException;
 import darkpool.util.Parser;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
-import darkpool.util.Ui;
 
 
 /**
@@ -16,55 +16,35 @@ public class Darkpool {
 
     private final Storage storage;
     private TaskList taskList;
-    private final Ui ui;
+    private final Gui gui;
 
     /**
      * Constructs a Darkpool object.
-     *
-     * @param filePath The file path to load and store task data.
      */
-    public Darkpool(String filePath) {
-        ui = new Ui();
+    public Darkpool() {
+        gui = new Gui();
+        String filePath = "data/tasks.txt";
         storage = new Storage(filePath);
-
         try {
             taskList = new TaskList(storage.loadData());
         } catch (DarkpoolException e) {
             // Show error message if loading data fails
-            ui.showError(e.getMessage());
+            System.out.println(e.getMessage());
             taskList = new TaskList();
         }
     }
 
-    /**
-     * Runs the main loop of the Darkpool application.
-     * It reads user commands and executes them until the exit command is given.
-     */
-    public void run() {
-        ui.greeting();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.upperLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (DarkpoolException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.lowerLine();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(taskList, gui, storage);
+            if (command.isExit()) {
+                return gui.goodbye();
             }
+            return response;
+        }  catch (DarkpoolException e) {
+            return e.getMessage();
         }
     }
 
-    /**
-     * The main method to start the Darkpool application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Darkpool("data/Darkpool.txt").run();
-    }
 }

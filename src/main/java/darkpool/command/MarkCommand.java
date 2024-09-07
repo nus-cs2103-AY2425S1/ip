@@ -3,7 +3,7 @@ package darkpool.command;
 import darkpool.util.DarkpoolException;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
-import darkpool.util.Ui;
+import darkpool.gui.Gui;
 
 
 /**
@@ -26,17 +26,18 @@ public class MarkCommand extends Command {
      * Executes the mark command, marking the task as completed in the task list and updating the UI.
      *
      * @param taskList The task list containing the task to be marked.
-     * @param ui The UI to update.
-     * @param storage The storage (not used in this command).
+     * @param gui       The UI to update.
+     * @param storage  The storage (not used in this command).
+     * @return
      * @throws DarkpoolException If the task index is out of range.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DarkpoolException {
+    public String execute(TaskList taskList, Gui gui, Storage storage) throws DarkpoolException {
         if (index < 0 || index >= taskList.getSize()) {
-            throw new DarkpoolException("\tdo you know how to count? the task number is out of range");
+            throw new DarkpoolException("do you know how to count? the task number is out of range");
         }
 
-        ui.mark(taskList.markTask(index));
+        return gui.mark(taskList.markTask(index));
     }
 
 }
