@@ -13,6 +13,7 @@ import java.util.Scanner;
 import colress.exception.FileCorruptedException;
 import colress.task.Deadline;
 import colress.task.Event;
+import colress.task.Task;
 import colress.task.ToDo;
 
 /**
@@ -106,10 +107,7 @@ public final class Storage {
      * Facilitates writing tasks from the provided TaskList object to the text file.
      */
     public void writeToTaskFile(TaskList taskList) throws IOException {
-        String result = "";
-        for (int i = 0; i < taskList.getSize(); i++) {
-            result += String.format(taskList.getTask(i).toTextFile() + "\n", i + 1);
-        }
+        String result = taskList.stream().map(Task::toTextFile).reduce("", (res, next) -> res + next);
         initialiseFileWriter();
         writer.write(result);
         writer.close();

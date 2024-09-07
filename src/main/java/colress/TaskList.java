@@ -2,6 +2,7 @@ package colress;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import colress.task.Task;
 
@@ -151,5 +152,9 @@ public final class TaskList {
             return result;
         }
         return "Here is your list:" + result;
+    }
+
+    public Stream<Task> stream() {
+        return tasks.stream();
     }
 }
