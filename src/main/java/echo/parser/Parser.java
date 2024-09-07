@@ -52,6 +52,7 @@ public class Parser {
         }
 
         String[] deadlineArray = taskDescription.split(" /by ");
+        assert deadlineArray.length < 3 : "deadlineArray should only contain task description and deadline";
 
         if (deadlineArray.length == 1) {
             throw new EchoException("Sorry! Please include a deadline for the task.");
@@ -75,6 +76,7 @@ public class Parser {
         }
 
         String[] eventArray = taskDescription.split(" /from | /to ");
+        assert eventArray.length < 4 : "eventArray should only contain task description, start time and end time";
 
         if (eventArray.length < 3) {
             throw new EchoException("Sorry! Please include a start and end time for the event.");
@@ -105,6 +107,13 @@ public class Parser {
      */
     public Task parseInputFromTextFile(String task) throws EchoException {
         String[] textArray = task.split(" \\| ");
+
+        // [type of event, status, task description, start time and end time]
+        assert textArray.length < 5 : "textArray should only have at most 4 elements";
+
+        // [type of event, status, task description]
+        assert textArray.length > 2 : "textArray should have more than 2 elements";
+
         String command = textArray[0].toLowerCase();
         String taskStatus = textArray[1];
         String taskDescription = textArray[2];
