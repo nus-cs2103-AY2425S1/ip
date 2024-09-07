@@ -21,88 +21,92 @@ public class Ui {
 
     /**
      * Prints the welcome message
+     * @return Formatted string
      */
-    public void printWelcome() {
-        showLine();
-        System.out.println("Hello! I'm Genji\nWhat can I do for you?  O.o?");
-        showLine();
+    public static String welcome() {
+        return "Hello! I'm Genji\nWhat can I do for you?  O.o?";
     }
 
     /**
      * Prints goodbye message
+     * @return Formatted string
      */
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints marking the task
      * @param t The task to be printed
+     * @return Formatted string
      */
-    public void mark(Task t) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t);
+    public String mark(Task t) {
+        return "Nice! I've marked this task as done:\n" + t.toString();
     }
 
     /**
      * Prints unmarking the task
      * @param t The task to be printed
+     * @return Formatted string
      */
-    public void unmark(Task t) {
-        System.out.println("OK! I've marked this task as not done yet:");
-        System.out.println(t);
+    public String unmark(Task t) {
+        return "OK! I've marked this task as not done yet:\n" + t.toString();
     }
 
     /**
      * Prints adding the task into the task list
      * @param t Task to be printed
      * @param list Task list to be counted then printed out its size
+     * @return Formatted string
      */
-    public void add(Task t, TaskList list) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(t);
-        System.out.println("Now you have " + list.size() + " tasks in the list");
+    public String add(Task t, TaskList list) {
+        return "Got it. I've added this task:\n" + t.toString() +
+                "\nNow you have " + list.size() + " tasks in the list";
     }
 
     /**
      * Prints deleting the specific task
      * @param t Task to be printed
      * @param list Task list to be counted then printed out its size
-     */
-    public void delete(Task t, TaskList list) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(t);
-        System.out.println("Now you have " + list.size() + " tasks in the list");
+     * @return Formatted string
+     * */
+    public String delete(Task t, TaskList list) {
+        return "Noted. I've removed this task:\n" + t.toString() +
+                "\nNow you have " + list.size() + " tasks in the list";
     }
 
     /**
      * Prints tasks that match the description
      * @param list Task list to be printed
+     * @return Formatted string
      */
-    public void find(TaskList list) {
+    public String find(TaskList list) {
         if (list.size() == 0){
-            System.out.println("No matching tasks in your list");
+            return "No matching tasks in your list";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String result = "";
             for (Task t : list.getList()) {
-                System.out.println(t);
+                result = result + t.toString() +"\n";
             }
+            return "Here are the matching tasks in your list:\n" + result;
         }
     }
 
     /**
      * Prints error message received
      * @param s The error message
+     * @return Formatted string
      */
-    public void showError(String s) {
-        System.out.println(s);
+    public String showError(String s) {
+        return s;
     }
 
     /**
      * Prints a line to separate sentences
+     * @return Formatted string
      */
-    public void showLine() {
-        System.out.println(LINE);
+    public String showLine() {
+        return LINE;
     }
 
     /**

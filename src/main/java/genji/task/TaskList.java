@@ -75,37 +75,43 @@ public class TaskList {
 
     /**
      * Prints every task in the task list
+     * @return Formatted string
      */
-    public void showList() {
+    public String showList() {
         if (taskList.size() == 0) {
-            System.out.println("No task on list");
+            return "No task on list";
         } else {
             int index = 1;
+            String result = "";
             for (Task task : taskList) {
-                System.out.println(String.format("%d. ", index) + task);
+                result = result + String.format("%d. ", index) + task.toString() + "\n";
                 index++;
             }
+            return result;
         }
     }
 
     /**
      * Prints tasks in a specific day
      * @param date The date concerning which tasks to be printed
+     * @return Formatted string
      */
-    public void checkDate(String date) {
+    public String checkDate(String date) {
+        String result = "";
         for (Task t : taskList) {
             if (t instanceof Deadline) {
                 Deadline temp = (Deadline) t;
                 if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
-                    System.out.println(t);
+                    result += t.toString() + "\n";
                 }
             } else if (t instanceof Event) {
                 Event temp = (Event) t;
                 if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
-                    System.out.println(t);
+                    result += t.toString() + "\n";
                 }
             }
         }
+        return result;
     }
 
     /**

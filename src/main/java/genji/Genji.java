@@ -15,12 +15,26 @@ public class Genji {
 
     /**
      * Constructor of Genji
-     * @param filePath place store and load the list
      */
-    public Genji(String filePath) {
+    public Genji() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(FILE_PATH);
         this.taskList = storage.loadList();
+    }
+
+    /**
+     * Respond to user's command
+     * @param input User's input
+     * @return the related responses
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+            return c.getResponse();
+        } catch (GenjiException e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
     /**
@@ -28,7 +42,6 @@ public class Genji {
      * Receives user's commands and executes
      */
     public void run() {
-        ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -50,6 +63,6 @@ public class Genji {
      * @param args user's commands
      */
     public static void main(String[] args) {
-        new Genji(FILE_PATH).run();
+        new Genji().run();
     }
 }

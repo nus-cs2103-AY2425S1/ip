@@ -10,6 +10,7 @@ import genji.Storage;
  */
 public class MarkCommand extends Command {
     int index;
+    private String response;
 
     /**
      * Constructor of marking command
@@ -29,10 +30,10 @@ public class MarkCommand extends Command {
     public void execute(TaskList list, Ui ui, Storage s){
         try {
             list.mark(index);
-            ui.mark(list.get(index));
+            response = ui.mark(list.get(index));
             s.saveList(list);
         } catch (IndexOutOfBoundsException i) {
-            ui.showError(new GenjiException(
+            response = ui.showError(new GenjiException(
                     "Please input a integer smaller than the number of tasks").getMessage());
         }
     }
@@ -44,5 +45,14 @@ public class MarkCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

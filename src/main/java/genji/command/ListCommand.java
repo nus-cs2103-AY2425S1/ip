@@ -8,6 +8,7 @@ import genji.Storage;
  * A class that deals with displaying task list command
  */
 public class ListCommand extends Command {
+    private String response;
 
     /**
      * Calling the showList method in task list class
@@ -17,7 +18,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        list.showList();
+        response = list.showList();
     }
 
     /**
@@ -27,5 +28,14 @@ public class ListCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

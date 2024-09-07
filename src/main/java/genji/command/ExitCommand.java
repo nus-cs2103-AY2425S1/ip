@@ -8,6 +8,7 @@ import genji.Storage;
  * A class that deals with exit command
  */
 public class ExitCommand extends Command {
+    private String response;
 
     /**
      * Calling the bye method in Ui class
@@ -17,7 +18,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        ui.bye();
+        response = ui.bye();
     }
 
     /**
@@ -27,5 +28,14 @@ public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    /**
+     * Get response message for GUI
+     * @return Formatted string
+     */
+    @Override
+    public String getResponse() {
+        return response;
     }
 }
