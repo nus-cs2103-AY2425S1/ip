@@ -2,14 +2,15 @@ package soju.commands;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import soju.SojuException;
 import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 import soju.tasks.Event;
-
-
 
 /**
  * EventCommand handles commands starting with event
@@ -44,10 +45,23 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        Event[] clashingEvents =
+                tasks.getTasks().stream()
+                        .filter(task -> task instanceof Event)
+                        .filter(event -> ((Event) event).isClashing(eventTask))
+                        .toArray(Event[]::new);
         String response = "";
-        response += "Got it. I've added this task:\n";
-        response += "  " + tasks.addTask(eventTask) + "\n";
-        response += "Now you have " + tasks.size() + " tasks in the list.";
+        if (clashingEvents.length != 0) {
+            response += "Error adding " + eventTask + " due to these tasks:\n";
+            response += Arrays.stream(clashingEvents)
+                    .map(task -> (tasks.getTasks().indexOf(task) + 1) + "." + task)
+                    .collect(Collectors.joining("\n"));
+            response += "Aborting...";
+        } else {
+            response += "Got it. I've added this task:\n";
+            response += "  " + tasks.addTask(eventTask) + "\n";
+            response += "Now you have " + tasks.size() + " tasks in the list.";
+        }
         ui.printString(response);
         return response;
     }

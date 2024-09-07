@@ -44,6 +44,23 @@ public class Event extends Task {
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 
+    /**
+     * Detects if there is a clash between this event and another event.
+     * A clash occurs when the time intervals of the two events overlap.
+     *
+     * @param otherEvent The other event to check for a time clash.
+     * @return The other event if there is a clash; {@code null} otherwise.
+     */
+    public boolean isClashing(Event otherEvent) {
+        // Check if the events overlap in time
+        if (this.to.isAfter(otherEvent.from) && this.from.isBefore(otherEvent.to)) {
+            // There is a clash
+            return true;
+        }
+        // No clash
+        return false;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), getFromDate(), getToDate());
