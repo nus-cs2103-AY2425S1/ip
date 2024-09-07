@@ -14,8 +14,8 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
     @FXML
     private VBox dialogContainer;
-
-    private Knight2103 knight2103 = new Knight2103("./savedTaskList.txt");
+    private Knight2103 knight2103 = new Knight2103("./savedTaskList.txt"); // creates instance, will load
+    // file storage already.
 
     @Override
     public void start(Stage stage) {
@@ -26,7 +26,9 @@ public class Main extends Application {
             // rendering
             Scene scene = new Scene(ap); // arguments varies
             stage.setScene(scene); // Setting the stage to show our scene
-            fxmlLoader.<MainWindow>getController().setKnight2103(knight2103);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setKnight2103(knight2103);  // inject the bot instance,
+            // code must come AFTER ap = fxmlLoader.load(), if not error
+            fxmlLoader.<MainWindow>getController().startBotConvo();
             stage.show(); // Render the stage.
 
         } catch (IOException e) {

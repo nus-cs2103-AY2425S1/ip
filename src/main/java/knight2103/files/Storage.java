@@ -28,16 +28,12 @@ public class Storage {
      *
      * @return The ArrayList of task that can be stored in the bot's list of tasks.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws FileNotFoundException { // Exception handling in Knight2103.java
         ArrayList<Task> tasks = new ArrayList<Task>();
-        try {
-            Scanner scanner = new Scanner(this.taskFile);
-            while (scanner.hasNextLine()) {
-                formatLineToTask(scanner.nextLine()).ifPresent(item -> tasks.add(item));
-                System.out.println(tasks);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+        Scanner scanner = new Scanner(this.taskFile);
+        while (scanner.hasNextLine()) {
+            formatLineToTask(scanner.nextLine()).ifPresent(item -> tasks.add(item));
+            System.out.println(tasks);
         }
         return tasks;
     }

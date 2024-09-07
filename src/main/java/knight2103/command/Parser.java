@@ -11,13 +11,13 @@ public class Parser {
      * @param fullCommand The input command given which must be of String type.
      * @return an Optional containing the Command if command is valid or
      * an empty optional if the Command is invalid.
-     * @throws InstructionInvalid If the first word of user input does not match
+     * @throws InvalidCommandException If the first word of user input does not match
      * with expected command verbs.
      * @throws ArrayIndexOutOfBoundsException If the user input does not match
      * the expected basic format which for certain commands, requires some
      * description apart from the first word (command verb).
      */
-    public static Optional<Command> parse(String fullCommand) throws InstructionInvalid {
+    public static Optional<Command> parse(String fullCommand) throws InvalidCommandException {
         String[] commandArray = fullCommand.split(" ", 2);
         try {
             switch (commandArray[0]) {
@@ -40,9 +40,9 @@ public class Parser {
             case "bye":
                 return Optional.of(new ByeCommand());
             default:
-                throw new InstructionInvalid();
+                throw new InvalidCommandException();
             }
-        } catch (InstructionInvalid e) { // HMM
+        } catch (InvalidCommandException e) { // HMM
             System.out.println("Invalid Instruction. Only valid Instructions are "
                     + "list, todo, deadline, event, mark, unmark, delete, find");
             return Optional.empty();

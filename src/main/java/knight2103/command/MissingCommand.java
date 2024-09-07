@@ -6,6 +6,6 @@ public class MissingCommand extends Exception {
     }
 
     public MissingCommand() {
-        this("parsing of command failed");
+        this("parsing of command failed XXX");
     }
 }

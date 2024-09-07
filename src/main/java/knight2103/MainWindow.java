@@ -29,16 +29,21 @@ public class MainWindow extends AnchorPane {
             this.getClass().getResourceAsStream("/images/Koobit_Water_Droplet.png"));
 
     @FXML
-    public void initialize() {
+    public void initialize() { // gets executed when AnchorPane ap = fxmlLoader.load() is executed in Main
+        // this comes after executing code in Knight2103 constructor
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getKnight2103Dialog(
-                "_____________\nHello! I'm Knight2103\nWhat can I do for you?\n_____________",
-                knight2103Image));
     }
 
     /** Injects the Knight2103 instance */
     public void setKnight2103(Knight2103 chatbot) {
         knight2103 = chatbot;
+    }
+
+    /** Allows bot to start talking when GUI is opened*/
+    public void startBotConvo() {
+        dialogContainer.getChildren().addAll(DialogBox.getKnight2103Dialog(
+                knight2103.enableWelcome(),
+                knight2103Image));
     }
 
     /**
