@@ -54,10 +54,11 @@ application {
 shadowJar {
     archiveBaseName = "Jeff"
     archiveClassifier = null
-    mainClassName = 'jeff.Jeff'
+    mainClassName = 'jeff.gui.Launcher'
     archiveFileName = 'Jeff.jar'
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
