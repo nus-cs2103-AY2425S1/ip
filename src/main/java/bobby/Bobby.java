@@ -78,17 +78,15 @@ public class Bobby {
             case LIST:
                 return ui.getTasksList(tasks);
             case MARK:
-                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                Task task = tasks.get(index);
-                task.markTask();
+                String[] markArgs = userInput.split(" ");
+                ArrayList<Task> tasksToMark = tasks.markMultipleTasks(true, markArgs);
                 storage.saveTasks(tasks);
-                return ui.getTaskMarkedMessage(task);
+                return ui.getTaskMarkedMessage(tasksToMark);
             case UNMARK:
-                int i = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                Task taskToUnmark = tasks.get(i);
-                taskToUnmark.unmarkTask();
+                String[] unmarkArgs = userInput.split(" ");
+                ArrayList<Task> tasksToUnmark = tasks.markMultipleTasks(false, unmarkArgs);
                 storage.saveTasks(tasks);
-                return ui.getTaskUnmarkedMessage(taskToUnmark);
+                return ui.getTaskUnmarkedMessage(tasksToUnmark);
             case DELETE:
                 int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task deletedTask = tasks.remove(deleteIndex);

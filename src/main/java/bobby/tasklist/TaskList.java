@@ -3,6 +3,7 @@ package bobby.tasklist;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import bobby.exceptions.InvalidInputException;
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -127,5 +128,36 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Marks or unmarks multiple tasks based on the provided indices.
+     *
+     * @param isMarking a boolean indicating whether to mark (true) or unmark (false) the tasks
+     * @param args a variable number of task indices to be marked or unmarked
+     * @return an ArrayList of tasks that were marked or unmarked
+     * @throws InvalidInputException if the input indices are not valid integers
+     * @throws InvalidTaskNumberException if a task index is out of bounds
+     */
+    public ArrayList<Task> markMultipleTasks(boolean isMarking, String... args)
+            throws InvalidInputException, InvalidTaskNumberException {
+        ArrayList<Task> processedTasks = new ArrayList<>();
+        for (int i = 1; i < args.length; i++) {
+            try {
+                int index = Integer.parseInt(args[i]) - 1;
+                Task task = tasks.get(index);
+                if (isMarking) {
+                    task.markTask();
+                } else {
+                    task.unmarkTask();
+                }
+                processedTasks.add(task); // Collect the processed task
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException();
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidTaskNumberException();
+            }
+        }
+        return processedTasks;
     }
 }

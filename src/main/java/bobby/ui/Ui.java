@@ -92,23 +92,31 @@ public class Ui {
     }
 
     /**
-     * Returns a message indicating that a task has been marked as done.
+     * Returns a message indicating that multiple tasks have been marked as done.
      *
-     * @param task the task that was marked as done
-     * @return the task marked message
+     * @param tasks the tasks that were marked as done
+     * @return the tasks marked message
      */
-    public String getTaskMarkedMessage(Task task) {
-        return "Nice! I've marked this task as done: " + task;
+    public String getTaskMarkedMessage(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder("Nice! I've marked these tasks as done:\n");
+        for (Task task : tasks) {
+            message.append(" - ").append(task).append("\n");
+        }
+        return message.toString();
     }
 
     /**
-     * Returns a message indicating that a task has been marked as not done.
+     * Returns a message indicating that multiple tasks have been marked as not done.
      *
-     * @param task the task that was marked as not done
-     * @return the task unmarked message
+     * @param tasks the tasks that were marked as not done
+     * @return the tasks unmarked message
      */
-    public String getTaskUnmarkedMessage(Task task) {
-        return "OK, I've marked this task as not done yet: " + task;
+    public String getTaskUnmarkedMessage(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder("OK, I've marked these tasks as not done yet:\n");
+        for (Task task : tasks) {
+            message.append(" - ").append(task).append("\n");
+        }
+        return message.toString();
     }
 
     /**
