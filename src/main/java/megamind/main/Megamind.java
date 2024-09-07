@@ -1,6 +1,7 @@
 package megamind.main;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
@@ -10,6 +11,7 @@ import megamind.storage.Storage;
 import megamind.task.Deadline;
 import megamind.task.Event;
 import megamind.task.List;
+import megamind.task.Task;
 import megamind.task.Todo;
 import megamind.ui.Ui;
 
@@ -29,6 +31,7 @@ public class Megamind {
      */
     public Megamind() {
         taskList = new List(storage.loadTasks());
+        assert taskList.getTasks() instanceof ArrayList<Task> : "taskList.getTasks() should be an instance of ArrayList<Task>";
     }
 
     /**
@@ -38,6 +41,7 @@ public class Megamind {
      * @return String Returns the string that corresponds to the result
      */
     public static String handleCommand(String command) {
+        assert command != null && !command.isEmpty() : "Command should not be null or empty";
         try {
             String action = parser.parseCommand(command);
 

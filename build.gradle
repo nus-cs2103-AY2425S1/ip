@@ -52,8 +52,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "cookie"
-    archiveFileName = "cookie.jar"
+    archiveBaseName = "megamind"
+    archiveFileName = "megamind.jar"
     archiveClassifier = null
 }
 

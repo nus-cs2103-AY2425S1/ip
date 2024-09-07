@@ -22,6 +22,8 @@ public class Storage {
      * If the file doesn't exist, it is created.
      */
     public void saveTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
+
         // Create the directory if it doesn't exist
         File dataDir = new File("data");
         if (!dataDir.exists()) {
