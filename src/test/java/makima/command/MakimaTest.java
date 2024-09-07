@@ -8,7 +8,7 @@ public class MakimaTest {
 
     @Test
     public void dummyTest() {
-        assertEquals(2,2);
+        assertEquals(2, 2);
     }
 
 }

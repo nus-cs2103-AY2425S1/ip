@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Helper class to create and read files.
+ */
 public class FileManager {
 
     public static final String DATA_FOLDER = "./data";
@@ -63,7 +66,7 @@ public class FileManager {
             } else {
                 System.out.println("An error occurred while creating a new data file!");
                 return false;
-            };
+            }
         }
         File file = new File(DATA_PATH);
         if (file.exists()) {
@@ -84,7 +87,8 @@ public class FileManager {
 
             while (lineNumber < lines.size()) {
                 String name;
-                LocalDateTime startTime, endTime;
+                LocalDateTime startTime;
+                LocalDateTime endTime;
                 boolean done;
 
                 String line = lines.get(lineNumber);

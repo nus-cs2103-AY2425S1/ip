@@ -1,17 +1,26 @@
 package makima.task;
 
-public class Task {
+/**
+ * Abstract class task
+ */
+public abstract class Task {
 
     private String name = "";
-    private boolean done = false;
+    private boolean isDone = false;
 
     public Task(String name) {
         this.name = name;
     }
 
-    public Task(String name, boolean done) {
+    /**
+     * Instantiates a new task
+     *
+     * @param name
+     * @param isDone
+     */
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public boolean match(String search) {
@@ -19,17 +28,22 @@ public class Task {
     }
 
     public void mark() {
-        done = true;
+        isDone = true;
     }
 
     public void unmark() {
-        done = false;
+        isDone = false;
     }
 
+    /**
+     * Converts all relevant data of the task to a string for printing purposes
+     *
+     * @return string representing the task
+     */
     public String toString() {
         String output = "";
 
-        if (done) {
+        if (isDone) {
             output += "[X]";
         } else {
             output += "[ ]";
@@ -38,8 +52,13 @@ public class Task {
         return output + " " + name;
     }
 
+    /**
+     * Converts all relevant data of the task to a string for saving purposes.
+     *
+     * @return string representing the task
+     */
     public String toFileString() {
-        return String.format("%s\n%s\n", name, done);
+        return String.format("%s\n%s\n", name, isDone);
     }
 
 }

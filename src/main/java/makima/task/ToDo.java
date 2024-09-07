@@ -1,5 +1,8 @@
 package makima.task;
 
+/**
+ * Task with no specified start or end date.
+ */
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);

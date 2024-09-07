@@ -2,18 +2,37 @@ package makima.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Task with a specified start and end date
+ */
 public class Event extends Task {
 
-    private LocalDateTime startTime, endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
+    /**
+     * Instantiates a new event
+     *
+     * @param name
+     * @param startTime
+     * @param endTime
+     */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, boolean done) {
-        super(name, done);
+    /**
+     * Instantiates a new event from a saved file
+     *
+     * @param name
+     * @param startTime
+     * @param endTime
+     * @param isDone
+     */
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isDone) {
+        super(name, isDone);
         this.startTime = startTime;
         this.endTime = endTime;
     }

@@ -2,17 +2,33 @@ package makima.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Task with a specified end date.
+ */
 public class Deadline extends Task {
 
-    public LocalDateTime endTime;
+    private LocalDateTime endTime;
 
+    /**
+     * Instatiates a new deadline.
+     *
+     * @param name
+     * @param endTime
+     */
     public Deadline(String name, LocalDateTime endTime) {
         super(name);
         this.endTime = endTime;
     }
 
-    public Deadline(String name, LocalDateTime endTime, boolean done) {
-        super(name, done);
+    /**
+     * Instantiates a new deadline from a saved file.
+     *
+     * @param name
+     * @param endTime
+     * @param isDone
+     */
+    public Deadline(String name, LocalDateTime endTime, boolean isDone) {
+        super(name, isDone);
         this.endTime = endTime;
     }
 

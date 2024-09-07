@@ -5,6 +5,9 @@ import makima.command.Makima;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Helper class to parse imput from System.In
+ */
 public class Parser {
 
     public static String getInput() {
@@ -23,8 +26,8 @@ public class Parser {
             try {
                 return LocalDateTime.parse(getInput());
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
-                        "replacing the space with a T");
+                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM,"
+                        + "replacing the space with a T");
             }
         }
     }
@@ -39,8 +42,8 @@ public class Parser {
                     System.out.println("The specified date must be after the beginning of the event!");
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
-                        "replacing the space with a T");
+                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM,"
+                        + "replacing the space with a T");
             }
         }
     }

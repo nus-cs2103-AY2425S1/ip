@@ -1,6 +1,7 @@
 package makima.command;
 
-import makima.io.*;
+import makima.io.FileManager;
+import makima.io.Parser;
 import makima.task.Deadline;
 import makima.task.Event;
 import makima.task.Task;
@@ -10,6 +11,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Chatbot interface
+ */
 public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
@@ -18,6 +23,86 @@ public class Makima {
     private boolean editedTasks;
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Initializes a new instance of a chatbot.
+     */
+    public Makima() {
+        greet();
+
+        isRunning = FileManager.loadFile(this);
+
+        while (isRunning) {
+
+            editedTasks = false;
+
+            switch (Parser.getInput()) {
+            case "bye":
+                isRunning = false;
+                break;
+
+            case "list":
+                displayList();
+                System.out.println(LINE_SEPERATOR);
+                break;
+
+            case "mark":
+                displayList();
+                tasks.get(getListIndex("Which item would you like to mark?")).mark();
+                done();
+                break;
+
+            case "unmark":
+                displayList();
+                tasks.get(getListIndex("Which item would you like to mark?")).unmark();
+                done();
+                break;
+
+            case "todo":
+                tasks.add(new ToDo(getInput("What is the task name?")));
+                done();
+                break;
+
+            case "deadline":
+                tasks.add(new Deadline(
+                        getInput("What is the task name?"),
+                        getDate("When is it due?")
+                ));
+                done();
+                break;
+
+            case "event":
+                String name = getInput("What is the task name?");
+                LocalDateTime startTime = getDate("When does it start?");
+                LocalDateTime endTime = getDateAfter(startTime, "When does it end?");
+                tasks.add(new Event(
+                        name, startTime, endTime
+                ));
+                done();
+                break;
+
+            case "delete":
+                tasks.remove(getListIndex("Which item would you like to delete?"));
+                done();
+                break;
+
+
+            case "find":
+                String search = getInput("What tasks are you searching for?");
+                displayListWithTerm(search);
+                break;
+
+            default:
+                System.out.println("Unknown command!");
+                System.out.println(LINE_SEPERATOR);
+            }
+
+            if (editedTasks) {
+                FileManager.saveFile(this);
+            }
+        }
+
+        farewell();
+    }
 
     private void greet() {
         System.out.println("Yahallo! I'm your friendly chatbot, makima.Makima!");
@@ -32,7 +117,7 @@ public class Makima {
 
     private void displayList() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + ":" + tasks.get(i));
+            System.out.println(i + 1 + ":" + tasks.get(i));
         }
     }
 
@@ -62,7 +147,7 @@ public class Makima {
                 if (index < 1 || index > tasks.size()) {
                     System.out.println("Invalid index");
                 } else {
-                    return index-1;
+                    return index - 1;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number!");
@@ -145,7 +230,7 @@ public class Makima {
     private void displayListWithTerm(String search) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).match(search)) {
-                System.out.println(i+1 + ":" + tasks.get(i));
+                System.out.println(i + 1 + ":" + tasks.get(i));
             }
         }
     }
@@ -154,82 +239,6 @@ public class Makima {
         new Makima();
     }
 
-    public Makima() {
-        greet();
 
-        isRunning = FileManager.loadFile(this);
-
-        while (isRunning) {
-
-            editedTasks = false;
-
-            switch (Parser.getInput()) {
-            case "bye":
-                isRunning = false;
-                break;
-
-            case "list":
-                displayList();
-                System.out.println(LINE_SEPERATOR);
-                break;
-
-            case "mark":
-                displayList();
-                tasks.get(getListIndex("Which item would you like to mark?")).mark();
-                done();
-                break;
-
-            case "unmark":
-                displayList();
-                tasks.get(getListIndex("Which item would you like to mark?")).unmark();
-                done();
-                break;
-
-            case "todo":
-                tasks.add(new ToDo(getInput("What is the task name?")));
-                done();
-                break;
-
-            case "deadline":
-                tasks.add(new Deadline(
-                        getInput("What is the task name?"),
-                        getDate("When is it due?")
-                ));
-                done();
-                break;
-
-            case "event":
-                String name = getInput("What is the task name?");
-                LocalDateTime startTime = getDate("When does it start?");
-                LocalDateTime endTime = getDateAfter(startTime, "When does it end?");
-                tasks.add(new Event(
-                        name, startTime, endTime
-                ));
-                done();
-                break;
-
-            case "delete":
-                tasks.remove(getListIndex("Which item would you like to delete?"));
-                done();
-                break;
-
-
-            case "find":
-                String search = getInput("What tasks are you searching for?");
-                displayListWithTerm(search);
-                break;
-
-            default:
-                System.out.println("Unknown command!");
-                System.out.println(LINE_SEPERATOR);
-            }
-
-            if (editedTasks) {
-                FileManager.saveFile(this);
-            }
-        }
-
-        farewell();
-    }
 
 }
