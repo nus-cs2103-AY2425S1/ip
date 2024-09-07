@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * The parent class for all Task types. This holds all the methods to be overridden or implemented by specialised child
+ * classes.
+ */
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -15,6 +19,11 @@ public class Task {
         setDone(false);
     }
 
+    /**
+     * The constructor for the Task class.
+     * @param name The instructions the user wants to store in the Task object.
+     * @param isDone Flag for whether the task has already been done.
+     */
     public Task(String name, boolean isDone) {
         setName(name);
         setDone(isDone);

@@ -1,9 +1,18 @@
 package duke;
 
-public class Event extends Task{
+/**
+ * The class for all user tasks that have a start and end date.
+ */
+public class Event extends Task {
     private String startDate;
     private String endDate;
 
+    /**
+     * The constructor for the Event class.
+     * @param name
+     * @param startDate
+     * @param endDate
+     */
     public Event(String name, String startDate, String endDate) {
         super(name);
         setStartDate(startDate);
