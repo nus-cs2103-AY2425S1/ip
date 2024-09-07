@@ -1,7 +1,7 @@
 # Hoodini User Guide
 
 
-![](/Users/DELL1/Desktop/Screenshot 2024-09-07 at 2.01.34 PM.png)
+![Hoodini](images/Hoodini.png)
 
 Hoodini is a productivity tool that helps you manage your tasks and deadlines. It is a command line application that allows you to add, delete, and mark tasks as done. It also allows you to set deadlines for your tasks.
 
