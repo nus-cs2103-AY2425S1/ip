@@ -1,5 +1,8 @@
 package pacman;
 
+/**
+ * Implements execution of the command that is sent
+ */
 public class Parser {
     private static Ui ui;
     private static TaskList list;
@@ -51,6 +54,18 @@ public class Parser {
         ui.showResult("  " + deletedTask);
         ui.showResult("Now you have " + list.getSize() + " tasks in the list.");
     }
+
+    /**
+     * Execute the command
+     * If the command add, delete, or mark the tasks, <code>execute</code> use <code>list</code>'s method
+     * If the command return an output, <code>execute</code> use <code>ui</code>'s method
+     * If the command ask to exit, return true
+     *
+     * @param command command that to be executed
+     * @param list <code>TaskList</code> object that to be used to update tasks
+     * @param ui <code>Ui</code> object that to be used to output the result
+     * @return return true if the command ask to exit and false otherwise
+     */
     public static boolean execute(String command, TaskList list, Ui ui) {
         Parser.ui = ui;
         Parser.list = list;
