@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.DukeException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.exceptions.NoNumberInputtedException;
 import wenjiebot.exceptions.OutOfBoundsException;
 import wenjiebot.tasks.Task;
@@ -33,11 +33,11 @@ public class UnmarkCommand extends Command {
      * @param tasks the TaskList that contains all the tasks.
      * @param ui the Ui used for interaction with the user.
      * @param storage the Storage used to store and retrieve tasks.
-     * @throws DukeException if there is an error during execution, such as no task number provided or an
+     * @throws WenJieException if there is an error during execution, such as no task number provided or an
      *      out-of-bounds task number.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
         String[] parts = getInput().split(" ");
         ArrayList<Task> taskList = tasks.getTasks();
 

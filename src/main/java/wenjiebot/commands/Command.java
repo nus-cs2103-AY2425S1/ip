@@ -1,6 +1,6 @@
 package wenjiebot.commands;
 
-import wenjiebot.exceptions.DukeException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
@@ -33,9 +33,9 @@ public abstract class Command {
      * @param tasks the TaskList that contains all the tasks.
      * @param ui the Ui used for interaction with the user.
      * @param storage the Storage used to store and retrieve tasks.
-     * @throws DukeException if there is an error during execution.
+     * @throws WenJieException if there is an error during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException;
 
     /**
      * Returns whether this command is an exit command.

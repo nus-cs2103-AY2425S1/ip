@@ -10,10 +10,17 @@ import javafx.stage.Stage;
 import wenjiebot.WenJie;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Duke using FXML. This class serves as the main entry point for the
+ * graphical user interface (GUI) version of the WenJie bot.
  */
 public class Main extends Application {
     private WenJie wenJie = new WenJie("./src/main/java/data/wenjie.txt");
+
+    /**
+     * Starts the JavaFX application and sets up the main window.
+     *
+     * @param stage the primary stage for this application
+     */
     @Override
     public void start(Stage stage) {
         try {
