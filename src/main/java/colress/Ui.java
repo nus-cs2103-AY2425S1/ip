@@ -337,6 +337,7 @@ public final class Ui {
                     return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
                 }
             }
+            Arrays.sort(result);
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
         } catch (NumberFormatException e) {

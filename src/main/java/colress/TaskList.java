@@ -16,12 +16,6 @@ public final class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    public Task getTask(int index) {
-        return tasks.get(index);
-    }
-    public int getSize() {
-        return tasks.size();
-    }
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
