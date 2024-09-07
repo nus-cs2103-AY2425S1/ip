@@ -3,16 +3,16 @@ package tasks;
 import java.util.Objects;
 
 public abstract class Task {
-    private boolean completed;
+    private boolean isComplete;
     private final String description;
 
     public Task(String description) {
-        this.completed = false;
+        this.isComplete = false;
         this.description = description;
     }
 
-    public Task(String description, boolean completed) {
-        this.completed = completed;
+    public Task(String description, boolean isComplete) {
+        this.isComplete = isComplete;
         this.description = description;
     }
 
@@ -20,28 +20,24 @@ public abstract class Task {
         return description;
     }
 
-    public boolean getCompleted() {
-        return completed;
+    public boolean getComplete() {
+        return isComplete;
     }
 
     public void mark() {
-        this.completed = true;
+        this.isComplete = true;
     }
 
     public void unMark() {
-        this.completed = false;
+        this.isComplete = false;
     }
 
-    public String completedStringRepresentation() {
-        if (!completed) {
-            return " ";
-        } else {
-            return "X";
-        }
+    public String getCompletedStringRepresentation() {
+        return !isComplete ? " " : "X";
     }
 
-    public int intComplete() {
-        return completed ? 1 : 0;
+    public int isCompleteAsInteger() {
+        return isComplete ? 1 : 0;
     }
 
     public boolean booleanComplete(int integer) {
@@ -52,7 +48,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", completedStringRepresentation(), this.description);
+        return String.format("[%s] %s", getCompletedStringRepresentation(), this.description);
     }
 
     @Override
@@ -60,11 +56,11 @@ public abstract class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return completed == task.completed && Objects.equals(description, task.description);
+        return isComplete == task.isComplete && Objects.equals(description, task.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(completed, description);
+        return Objects.hash(isComplete, description);
     }
 }

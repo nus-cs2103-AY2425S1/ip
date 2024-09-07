@@ -21,12 +21,22 @@ public class DeadLine extends Task {
 
     @Override
     public String getSaveFormat() {
-        return String.format("D | %d | %s | %s", super.intComplete(), super.getDescription(), byDate);
+        return String.format(
+                "D | %d | %s | %s",
+                super.isCompleteAsInteger(),
+                super.getDescription(),
+                byDate
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", super.completedStringRepresentation(), super.getDescription(), byDate);
+        return String.format(
+                "[D][%s] %s (by: %s)",
+                super.getCompletedStringRepresentation(),
+                super.getDescription(),
+                byDate
+        );
     }
 
     public static DeadLine load(String input) {
@@ -41,7 +51,7 @@ public class DeadLine extends Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o)  return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         DeadLine deadLine = (DeadLine) o;

@@ -11,12 +11,20 @@ public class Todo extends Task {
 
     @Override
     public String getSaveFormat() {
-        return String.format("T | %d | %s", super.intComplete(), super.getDescription());
+        return String.format(
+                "T | %d | %s",
+                super.isCompleteAsInteger(),
+                super.getDescription()
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("[T][%s] %s", completedStringRepresentation(), super.getDescription());
+        return String.format(
+                "[T][%s] %s",
+                getCompletedStringRepresentation(),
+                super.getDescription()
+        );
     }
 
     public static Task load(String input) {

@@ -28,12 +28,24 @@ public class Event extends Task {
 
     @Override
     public String getSaveFormat() {
-        return String.format("E | %d | %s | %s to %s", super.intComplete(), super.getDescription(), from, to);
+        return String.format(
+                "E | %d | %s | %s to %s",
+                super.isCompleteAsInteger(),
+                super.getDescription(),
+                from,
+                to
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", super.completedStringRepresentation(), super.getDescription(), from, to);
+        return String.format(
+                "[E][%s] %s (from: %s to: %s)",
+                super.getCompletedStringRepresentation(),
+                super.getDescription(),
+                from,
+                to
+        );
     }
 
     public static Event load(String input) {

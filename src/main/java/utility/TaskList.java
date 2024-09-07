@@ -10,7 +10,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     /** Returns the size of tasks. */
-    public int getTasksSize() {
+    public int getTaskListSize() {
         return tasks.size();
     }
 
@@ -59,9 +59,10 @@ public class TaskList {
     public ArrayList<Task> findTasks(String description) {
         ArrayList<Task> findings = new ArrayList<>();
         for (Task t: tasks) {
-            if (t.getDescription().contains(description)) {
-                findings.add(t);
+            if (!t.getDescription().contains(description)) {
+                continue;
             }
+            findings.add(t);
         }
         return findings;
     }
