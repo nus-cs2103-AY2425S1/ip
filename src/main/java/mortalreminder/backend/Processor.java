@@ -1,12 +1,14 @@
 package mortalreminder.backend;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import mortalreminder.backend.tasklistmanager.TaskCreator;
 import mortalreminder.backend.tasklistmanager.TaskEditor;
 import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.backend.tasklistmanager.TaskRetriever;
 import mortalreminder.commands.Command;
+import mortalreminder.commands.CommandAlternatives;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
@@ -61,6 +63,12 @@ public class Processor {
             return taskList.clearList();
         case UPCOMING_TASKS:
             return TaskRetriever.getUpcomingTasks(taskList);
+        case ADD_COMMAND_ALTERNATIVE:
+            HashMap<String, CommandType> currentMappedAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
+            CommandAlternatives commandAlternatives = new CommandAlternatives(currentMappedAlternatives);
+            return commandAlternatives.addCommandAlternative(commandDetails);
+        case CLEAR_ALTERNATIVES:
+            return CommandAlternativesStorage.clearAlternativesFile();
         default:
             return feedbackUnrecognisedCommand();
         }
@@ -83,5 +91,4 @@ public class Processor {
         }
         return message.toString();
     }
-
 }

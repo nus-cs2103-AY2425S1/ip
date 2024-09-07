@@ -19,7 +19,7 @@ import mortalreminder.tasks.Task;
  * delete specific tasks, and load tasks from the file. It interacts with the file system
  * and ensures that tasks are stored and retrieved correctly.
  */
-public class Storage {
+public class TaskListStorage {
     protected static final String STORAGE_LIST_FILE_PATH = "src/main/resources/data/listStorage.txt";
 
     /**
@@ -93,9 +93,7 @@ public class Storage {
     public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {
             File f = new File(STORAGE_LIST_FILE_PATH);
-            if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
-                throw new MortalReminderException("File cannot be created!");
-            }
+            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() && f.exists();
             Scanner s = new Scanner(f);
             TaskList taskList = new TaskList();
             while (s.hasNextLine()) {

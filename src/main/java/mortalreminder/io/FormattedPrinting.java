@@ -156,4 +156,16 @@ public class FormattedPrinting {
         }
     }
 
+    /**
+     * Prints a feedback message when a new alternative has been added.
+     */
+    public static String printNewAlternativeAdded(String commandAlternative, CommandType commandType) {
+        return getResponse(commandAlternative.toLowerCase()
+                + " has been added to the command alternatives for "
+                + commandType);
+    }
+
+    public static String alternativesCleared() {
+        return getResponse("The command alternatives have been cleared.");
+    }
 }

@@ -1,0 +1,4 @@
+aca add_command_alternative
+t todo
+d deadline
+l list
