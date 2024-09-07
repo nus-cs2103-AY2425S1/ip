@@ -1,6 +1,3 @@
-package alex;
-
-
 import javafx.application.Application;
 
 public class Launcher {

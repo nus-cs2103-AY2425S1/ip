@@ -3,14 +3,6 @@ package alex;
 import alex.storage.Storage;
 import alex.tasklist.TaskList;
 import alex.ui.Ui;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the chatbot that is able to respond to commands given by the user.
@@ -22,7 +14,6 @@ public class Alex {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    public static final String LINE = Ui.LINE;
 
 
     public Alex(String filePath) {
@@ -38,77 +29,59 @@ public class Alex {
      * Handles all the commands given by the user.
      * If the chatbot does not understand the command, it will ask the user to try again.
      */
-    public void scan() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
+    public String scan(String userInput) {
 
         if (userInput.equalsIgnoreCase("bye")) {
-            ui.byeMessage();
+            return ui.byeMessage();
         }
         else if (userInput.equalsIgnoreCase("list")) {
-            tasks.handleList();
-            scan();
+            return tasks.handleList();
+
         } else if (userInput.startsWith("mark")) {
-            tasks.handleMark(userInput);
+            String tmp = tasks.handleMark(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
+
         } else if (userInput.startsWith("unmark")) {
-            tasks.handleUnmark(userInput);
+            String tmp = tasks.handleUnmark(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
+
         } else if (userInput.startsWith("todo")) {
-            tasks.handleTodo(userInput);
+            String tmp = tasks.handleTodo(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
+
         } else if (userInput.startsWith("deadline")) {
-            tasks.handleDeadline(userInput);
+            String tmp = tasks.handleDeadline(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
         } else if (userInput.startsWith("event")) {
-            tasks.handleEvent(userInput);
+            String tmp = tasks.handleEvent(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
         } else if (userInput.startsWith("delete")) {
-            tasks.handleDelete(userInput);
+            String tmp = tasks.handleDelete(userInput);
             storage.saveTasksToFile(filePath);
-            scan();
+            return tmp;
         } else if (userInput.startsWith("tasks on")) {
-            tasks.handleDate(userInput);
-            scan();
+            return tasks.handleDate(userInput);
+
         } else if (userInput.startsWith("find")) {
-            tasks.handleFind(userInput);
-            scan();
+            return tasks.handleFind(userInput);
+
         } else {
-            System.out.println(LINE);
-            System.out.println("Sorry, I don't understand that command. Did you make a typo?");
-            System.out.println(LINE);
-            scan();
+            return "Sorry, I don't understand that command. Did you make a typo?";
         }
     }
 
     public String getResponse(String input) {
-        return "Alex heard: " + input;
+        return scan(input);
     }
 
-    public Ui getUi() {
-        return ui;
-    }
-    public TaskList getTasks() {
-        return tasks;
-    }
-
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
     public static void main(String[] args) {
         Alex alex = new Alex("./data/alex.txt");
 
         alex.ui.welcomeMessage();
-
-        alex.scan();
     }
 }
