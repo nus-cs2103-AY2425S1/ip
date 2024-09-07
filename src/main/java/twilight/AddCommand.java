@@ -15,7 +15,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String addition = "";
         if (type == 3) {
             addition = tasks.add(new Todo(details));
@@ -26,11 +26,11 @@ public class AddCommand extends Command {
             String[] split = details.split(" /by ");
             addition = tasks.add(new Deadline(split[0], split[1]));
         }
-        System.out.println(addition);
         try {
             storage.saveData(tasks.getTasks());
+            return addition;
         } catch (IOException e) {
-            System.out.println("error saving");
+            return "error saving data after your last input";
         }
     }
 }

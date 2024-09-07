@@ -12,7 +12,13 @@ abstract class Command {
      * @param storage Storage to be updated via tasklist post changes.
      * @throws InvalidInputException when the input is invalid and command cannot be executed.
      */
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {}
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
+        if (isExit()) {
+            return "See you";
+        }
+        return "There is an error";
+    }
+
 
     /**
      * Confirms if the command is an exit command.

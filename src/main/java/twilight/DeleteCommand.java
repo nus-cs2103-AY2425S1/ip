@@ -9,12 +9,13 @@ public class DeleteCommand extends Command {
         this.taskNum = Integer.valueOf(details) - 1;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
-        System.out.println(tasks.delete(taskNum));
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
+        String output = tasks.delete(taskNum);
         try {
             storage.saveData(tasks.getTasks());
+            return output;
         } catch (IOException e) {
-            System.out.println("error saving");
+            return "error saving";
         }
     }
 }
