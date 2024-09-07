@@ -1,4 +1,6 @@
-package elysia.command;
+package elysia.task;
+
+import elysia.exception.EmptyDescriptionException;
 
 /**
  * Represents a basic task.

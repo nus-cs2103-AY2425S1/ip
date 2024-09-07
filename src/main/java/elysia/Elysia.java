@@ -1,12 +1,13 @@
 package elysia;
 
-import elysia.command.Task;
-import elysia.command.TaskList;
+import elysia.command.Command;
+import elysia.dateparser.Parser;
+import elysia.exception.ElysiaException;
 import elysia.storage.Storage;
+import elysia.task.Task;
 import elysia.ui.Ui;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ import java.util.Scanner;
  * Initializes the application.
  */
 public class Elysia {
-    private static ArrayList<Task> arrayLists;
+    private static ArrayList<Task> tasks;
     private static String folderName = "data";
     private static String fileName = "elysia.txt";
     private static String filePath = "./data/elysia.txt";
@@ -23,47 +24,41 @@ public class Elysia {
     /**
      * Runs the program until termination.
      **/
-    public static void main(String[] args) throws IOException {
+    public static void run() throws IOException {
+        boolean hasExited = false;
         Scanner scanner = new Scanner(System.in);
-        arrayLists = new ArrayList<>();
-        Storage storage = new Storage(arrayLists);
+        tasks = new ArrayList<>();
+        Storage storage = new Storage(tasks);
         Storage.createFile(folderName, fileName);
         storage.scanFileContents(filePath);
-        TaskList taskList = new TaskList();
         Ui ui = new Ui();
 
         ui.showWelcomeMessage();
 
 
-        while (true) {
+        while (!hasExited) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                ui.showExitMessage();
-                storage.handleExit(folderName, fileName, filePath);
-                break;
-            } else if (input.equals("list")) {
-                ui.printList(arrayLists);
-            } else if (input.startsWith("mark ")) {
-                taskList.markAsDone(arrayLists, input);
-            } else if (input.startsWith("unmark ")) {
-                taskList.unmarkAsDone(arrayLists, input);
-            } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            Parser parser = new Parser();
 
-                if (input.startsWith("todo")) {
-                    taskList.addToDos(arrayLists, input.substring(4).trim());
-                } else if (input.startsWith("deadline")) {
-                    taskList.addDeadline(arrayLists, input.substring(8).trim());
-                } else {
-                    taskList.addEvent(arrayLists, input.substring(5).trim());
-                }
-
-            } else if (input.startsWith("delete")) {
-                taskList.deleteTask(arrayLists, input);
-            } else if (input.startsWith("find")) {
-                taskList.findTask(arrayLists, input.substring(5).trim());
-            } else {
-                ui.showFailMessage();
+            try {
+                Command command = parser.parseCommand(input);
+                command.execute(tasks, storage);
+                hasExited = command.hasExited;
+            } catch (ElysiaException e) {
+                ui.showFailMessage(e.getMessage());
             }
         }
+
+        try {
+            storage.handleExit(folderName, fileName, filePath);
+        } catch (IOException e) {
+            ui.showFailMessage(e.getMessage());
+        }
+
+        ui.showExitMessage();
+    }
+
+    public static void main(String[] args) throws IOException {
+        run();
     }
 }

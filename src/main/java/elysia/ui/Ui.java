@@ -1,6 +1,6 @@
 package elysia.ui;
 
-import elysia.command.Task;
+import elysia.task.Task;
 
 import java.util.ArrayList;
 
@@ -16,43 +16,55 @@ public class Ui {
             "Goodbye, Mei!";
 
 
+    /**
+     * Prints a horizontal line.
+     */
+    public static void insertLine() {
+        System.out.println(line);
+    }
+
+
     public void showWelcomeMessage() {
-        System.out.println(line);
+        insertLine();
         System.out.println(welcomeMessage);
-        System.out.println(line);
+        insertLine();
     }
 
     /**
      * Displays added message
      * @param task
      */
-    public void handleAddedMessage(ArrayList<Task> arrayLists, Task task) {
-        System.out.println(line);
+    public void showAddedMessage(ArrayList<Task> arrayLists, Task task) {
+        insertLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
-        System.out.println(line);
+        insertLine();
     }
 
     public void showExitMessage() {
-        System.out.println(line);
+        insertLine();
         System.out.println(exitMessage);
-        System.out.println(line);
+        insertLine();
     }
 
-    public void showFailMessage() {
-        System.out.println("Oh my! I'm so sorry,\n" +
-                "but it seems I'm not sure what that means.\n" +
-                "Let's figure it out together, shall we?");
+    public void showFailMessage(String e) {
+        insertLine();
+        System.out.println(e);
+        insertLine();
     }
+
+
 
     public void printList(ArrayList<Task> arrayLists) {
+        insertLine();
         int n = arrayLists.size();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 1; i <= n; i++) {
             Task curr = arrayLists.get(i - 1);
             System.out.println(i + "." + curr.toString());
         }
+        insertLine();
     }
 
     public void showMarkAsDoneMessage(Task task) {
@@ -65,21 +77,13 @@ public class Ui {
         System.out.println(task);
     }
 
-    public void showEmptyDescriptionMessage(String taskType) {
-        System.out.println(line);
-        System.out.println("Oopsie! It looks like the description for this " +
-                taskType +
-                " is missing.\n" +
-                "How about we add a little something to it?");
-        System.out.println(line);
-    }
 
     public void showDeleteTaskMessage(ArrayList<Task> arrayLists, Task task) {
-        System.out.println(line);
+        insertLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
-        System.out.println(line);
+        insertLine();
     }
 
 }

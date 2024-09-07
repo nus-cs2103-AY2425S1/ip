@@ -1,9 +1,9 @@
 package elysia.storage;
 
-import elysia.command.Deadline;
-import elysia.command.Event;
-import elysia.command.Task;
-import elysia.command.ToDos;
+import elysia.task.Deadline;
+import elysia.task.Event;
+import elysia.task.Task;
+import elysia.task.ToDos;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

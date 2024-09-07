@@ -1,5 +1,7 @@
 package elysia.dateparser;
 
+import elysia.exception.InvalidDateFormatException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -75,11 +77,5 @@ public class DateParser {
         }
 
         return map;
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(parseDate("2/12/2019"));
-        System.out.println(LocalTime.parse("07:30"));
     }
 }
