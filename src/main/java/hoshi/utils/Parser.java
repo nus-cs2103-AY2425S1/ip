@@ -188,123 +188,100 @@ public class Parser {
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
     public String handleAdd(String input, TaskList taskList, Ui ui) {
-
         if (input.trim().length() < 4) {
-
             return ui.displayTaskAdd();
         }
 
         String[] splitInput = input.split(" ");
+        String taskType = splitInput[1];
 
-        String taskInput = splitInput[1];
-
-        switch (taskInput) {
-        case "todo" -> {
-
-            ui.displayTodoTask();
-
-            try {
-
-                String desc = splitInput[2];
-
-                if (desc.isEmpty()) {
-                    throw new HoshiException("Hoshi doesn't understand! Please follow the example input"
-                            + "Add todo Feed Parrot \n");
-                }
-
-                Todo newToDo = new Todo(desc);
-                taskList.add(newToDo);
-
-                handleSave(ui, taskList);
-
-                return ui.displayTaskAdded(desc);
-
-
-            } catch (HoshiException e) {
-                return ui.displayError(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                return ui.displayError("Hoshi wants you to try specifying the task!");
+        try {
+            String desc = getDescription(splitInput);
+            switch (taskType) {
+            case "todo":
+                return handleAddTask(new Todo(desc), taskList, ui, desc);
+            case "deadline":
+                return handleAddDeadline(taskList, ui, splitInput, desc);
+            case "event":
+                return handleAddEvent(taskList, ui, splitInput, desc);
+            default:
+                return ui.displayError(INPUT_ERROR_MESSAGE);
             }
-
+        } catch (IndexOutOfBoundsException e) {
+            return ui.displayError("Hoshi wants you to try specifying the task!");
+        } catch (HoshiException e) {
+            return ui.displayError(e.getMessage());
         }
-        case "deadline" -> {
+    }
 
-            ui.displayDeadlineTask();
+    /**
+     * Adds a normal task to the taskList
+     *
+     * @param task     String that represents general user input before add task details are required.
+     * @param taskList TaskList of 3 types of tasks that will be added to in this method.
+     * @param ui       Ui responsible for displaying text to the user
+     * @param desc     Description of the task to be added
+     */
+    private String handleAddTask(Task task, TaskList taskList, Ui ui, String desc) {
+        taskList.add(task);
+        handleSave(ui, taskList);
+        return ui.displayTaskAdded(desc);
+    }
 
-            try {
+    /**
+     * Adds a deadline to the taskList
+     *
+     * @param taskList   TaskList of 3 types of tasks that will be added to in this method.
+     * @param ui         Ui responsible for displaying text to the user
+     * @param splitInput String that represents general user input before add task details are required.
+     * @param desc       Description of the task to be added
+     */
+    private String handleAddDeadline(TaskList taskList, Ui ui, String[] splitInput, String desc) {
+        try {
+            // Parse datetime and create deadline to be added
+            LocalDate dateTime = LocalDate.parse(splitInput[3]);
+            Deadline deadline = new Deadline(desc, dateTime);
+            // Add deadline to taskList
+            return handleAddTask(deadline, taskList, ui, desc);
+        } catch (DateTimeParseException e) {
+            return ui.displayError("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
+        }
+    }
 
-                String desc = splitInput[2];
+    /**
+     * Adds a event to the taskList
+     *
+     * @param taskList   TaskList of 3 types of tasks that will be added to in this method.
+     * @param ui         Ui responsible for displaying text to the user
+     * @param splitInput String that represents general user input before add task details are required.
+     * @param desc       Description of the task to be added
+     */
+    private String handleAddEvent(TaskList taskList, Ui ui, String[] splitInput, String desc) {
+        try {
+            // Parse datetime and create event to be added
+            LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
+            LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
+            return handleAddTask(new Event(desc, dateTimeStart, dateTimeEnd), taskList, ui, desc);
+        } catch (DateTimeParseException e) {
+            return ui.displayError("Hoshi doesn't understand! Try YYYY-MM-DD format for the event.");
+        }
+    }
 
-                if (desc.isEmpty()) {
-                    throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                }
-
-                ui.displayDeadlineDue();
-                // parse endDate
-                LocalDate dateTime = LocalDate.parse(splitInput[3]);
-
-                Deadline newDeadline = new Deadline(desc, dateTime);
-                taskList.add(newDeadline);
-
-                handleSave(ui, taskList);
-
-                ui.displayTaskAdded(input);
-
-            } catch (HoshiException e) {
-                ui.displayError(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                ui.displayError("Hoshi wants you to try specifying the task!");
-            } catch (DateTimeParseException e) {
-                ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
-                        + "Add deadline Assignment1 2021-12-20");
+    /**
+     * Gets the description from the splitInput for use in handleAdd
+     *
+     * @param splitInput list where each element represents a word in the split input
+     */
+    private String getDescription(String[] splitInput) throws HoshiException {
+        try {
+            String desc = splitInput[2];
+            if (desc.isEmpty()) {
+                throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
             }
-
-
+            return desc;
+        } catch (IndexOutOfBoundsException e) {
+            throw new HoshiException("Hoshi needs a task description!");
         }
-        case "event" -> {
-
-            ui.displayEventTask();
-
-            try {
-
-                String desc = splitInput[2];
-
-                if (desc.isEmpty()) {
-                    throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                }
-                // display event start
-                ui.displayEventStart();
-
-                // parse startTime
-                LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
-
-                // display event end
-                ui.displayEventEnd();
-                // parse endTime
-                LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
-
-                Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
-                taskList.add(newEvent);
-
-                handleSave(ui, taskList);
-
-                ui.displayTaskAdded(input);
-
-
-            } catch (HoshiException e) {
-                ui.displayError(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                ui.displayError("Hoshi wants you to try specifying the task!");
-            } catch (DateTimeParseException e) {
-                ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
-                        + "Add deadline Assignment1 2021-12-20 2022-12-20");
-            }
-        }
-        default ->
-                // in event of invalid input
-                ui.displayError(INPUT_ERROR_MESSAGE);
-        }
-        return ui.displayError(INPUT_ERROR_MESSAGE);
     }
 
     /**
