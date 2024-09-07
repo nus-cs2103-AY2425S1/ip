@@ -5,7 +5,7 @@ package myapp.utils;
  * that the BingBong application can recognize and execute.
  */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND, LIST_ON , LIST, BYE, INVALID;
+    TODO, DEADLINE, EVENT, FIXED_DURATION, MARK, UNMARK, DELETE, FIND, LIST_ON , LIST, BYE, INVALID;
 
     /**
      * Determines the CommandType based on the given command string.
@@ -23,6 +23,8 @@ public enum CommandType {
             return DEADLINE;
         } else if (command.startsWith("event")) {
             return EVENT;
+        } else if (command.startsWith("fixed")) {
+            return FIXED_DURATION;
         } else if (command.startsWith("mark")) {
             return MARK;
         } else if (command.startsWith("unmark")) {

@@ -9,6 +9,7 @@ import myapp.command.DeleteCommand;
 import myapp.command.EventCommand;
 import myapp.command.ExitCommand;
 import myapp.command.FindCommand;
+import myapp.command.FixedDurationCommand;
 import myapp.command.ListCommand;
 import myapp.command.ListOnCommand;
 import myapp.command.MarkCommand;
@@ -46,6 +47,8 @@ public class Parser {
             return new ListCommand();
         case FIND:
             return parseFindCommand(input);
+        case FIXED_DURATION:
+            return parseFixedDurationCommand(input);
         case MARK:
             return parseMarkCommand(input);
         case UNMARK:
@@ -75,6 +78,32 @@ public class Parser {
             throw new BingBongException("Please state the keyword clearly.");
         }
         return new FindCommand(keyword);
+    }
+
+    private static Command parseFixedDurationCommand(String input) throws BingBongException {
+        String[] parts = input.substring(6).trim().split("/period");
+        if (parts.length < 2) {
+            throw new BingBongException("Both a description and a duration must be provided.");
+        }
+
+        String description = parts[0].trim();
+        String periodString = parts[1].trim();
+
+        // Ensure description is not empty
+        if (description.isEmpty()) {
+            throw new BingBongException("The description of a fixed duration task cannot be empty.");
+        }
+
+        int hours;
+        try {
+            hours = Integer.parseInt(periodString);
+            if (hours <= 0) {
+                throw new BingBongException("The duration must be a positive number of hours.");
+            }
+        } catch (NumberFormatException e) {
+            throw new BingBongException("The duration must be a valid number of hours.");
+        }
+        return new FixedDurationCommand(description, hours);
     }
 
     private static Command parseMarkCommand(String input) {

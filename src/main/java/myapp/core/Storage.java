@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import myapp.task.Deadline;
 import myapp.task.Event;
+import myapp.task.FixedDuration;
 import myapp.task.Task;
 import myapp.task.TaskList;
 import myapp.task.ToDo;
@@ -17,7 +18,8 @@ import myapp.task.ToDo;
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
  * It provides methods to read tasks from a file into a {@link TaskList} and save tasks
- * from a {@link TaskList} to a file.
+ * from a {@link TaskList} to a file. It supports the task types {@link ToDo}, {@link Deadline},
+ * {@link Event}, and {@link FixedDuration}.
  */
 public class Storage {
     private final String filePath;
@@ -36,7 +38,8 @@ public class Storage {
     /**
      * Loads tasks from the specified file.
      *
-     * @return a list of {@link Task} objects loaded from the file.
+     * @return a list of {@link Task} objects loaded from the file, which can include
+     *         {@link ToDo}, {@link Deadline}, {@link Event}, and {@link FixedDuration} tasks.
      * @throws BingBongException if an error occurs while reading from the file
      *      or if the file contains unknown task types.
      */
@@ -86,7 +89,8 @@ public class Storage {
      * Parses a line from the file and creates a corresponding {@link Task} object.
      *
      * @param line the line from the file representing a task.
-     * @return the {@link Task} object created from the parsed line.
+     * @return the {@link Task} object created from the parsed line, which can be one of
+     *         {@link ToDo}, {@link Deadline}, {@link Event}, or {@link FixedDuration}.
      * @throws BingBongException if the task type is unknown or if the data is invalid.
      */
     private Task parseTask(String line) throws BingBongException {
@@ -106,7 +110,8 @@ public class Storage {
     /**
      * Creates a {@link Task} object based on the type provided in the task data.
      *
-     * @param type the type of task ("T" for {@link ToDo}, "D" for {@link Deadline}, "E" for {@link Event}).
+     * @param type the type of task ("T" for {@link ToDo}, "D" for {@link Deadline},
+     *             "E" for {@link Event}, "F" for {@link FixedDuration}).
      * @param taskData the data for the task being created.
      * @param description the description of the task.
      * @return the created {@link Task} object.
@@ -120,6 +125,8 @@ public class Storage {
             return createDeadlineTask(taskData, description);
         case "E":
             return createEventTask(taskData, description);
+        case "F":
+            return createFixedDurationTask(taskData, description);
         default:
             throw new BingBongException("Unknown task type in file.");
         }
@@ -153,6 +160,19 @@ public class Storage {
     }
 
     /**
+     * Creates a {@link FixedDuration} task from the given task data and description.
+     *
+     * @param taskData the data for the {@link FixedDuration} task.
+     * @param description the description of the {@link FixedDuration} task.
+     * @return the created {@link FixedDuration} object.
+     * @throws BingBongException if there is an error parsing the duration.
+     */
+    private FixedDuration createFixedDurationTask(String[] taskData, String description) throws BingBongException {
+        int hours = Integer.parseInt(taskData[3]);
+        return new FixedDuration(description, hours);
+    }
+
+    /**
      * Writes the tasks in the given {@link TaskList} to the file.
      *
      * @param tasks the {@link TaskList} containing the tasks to be written.
@@ -182,3 +202,4 @@ public class Storage {
         }
     }
 }
+
