@@ -17,9 +17,19 @@ public class Bill {
         tasks = new TaskList();
     }
 
+    /**
+     * Returns strings based on the route chosen by the user which is used in the Gui
+     */
     public String getResponse(String userCommand) {
         // returns a string based on bill's response to user input
         return ui.handleUserCommandsGui(userCommand, storage, tasks);
+    }
+
+    /**
+     * Load bill.txt saved list data into Bill chatbot, in the Gui.
+     */
+    public void loadData() {
+        ui.silenceLoadingData(storage, tasks.getUserList(), tasks);
     }
 
     /**

@@ -1,9 +1,3 @@
-1.[T][ ] crying
-2.[D][ ] cryhard (by: Oct 08 2024)
-3.[D][X] jump (by: Dec 10 2024)
-4.[T][X] fly
-5.[T][X] sad
-6.[T][X] cryhard
-7.[T][ ] juggle
-8.[T][X] crys
-9.[D][ ] winning (by: Jun 10 2024)
+1.[T][X] cry
+2.[D][ ] wow (by: Oct 05 2024)
+3.[E][X] Event swim (from: yay to: nay)
