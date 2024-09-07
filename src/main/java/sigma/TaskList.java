@@ -56,7 +56,7 @@ public class TaskList {
      * Deletes the task that the user specifies
      * @param userInput The task that the user wants to delete
      */
-    public void handleDelete(String userInput) {
+    public String handleDelete(String userInput) {
         Pattern pattern = Pattern.compile("(delete) (\\d+)");
         Matcher matcher = pattern.matcher(userInput);
 
@@ -65,9 +65,10 @@ public class TaskList {
             if (taskNumber >= 0 && taskNumber < items.size()) {
                 Task task = items.get(taskNumber);
                 items.remove(task);
-                System.out.println("task removed:\n" + task.toString() + "\nNow you have " + items.size() + " tasks in the list");
+                return "task removed:\n" + task.toString() + "\nNow you have " + items.size() + " tasks in the list";
             }
         }
+        return "No such task found!";
     }
 
     /**

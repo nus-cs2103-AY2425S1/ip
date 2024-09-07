@@ -17,8 +17,8 @@ public class Ui {
     /**
      * Alerts the user that there is no recognised command
      */
-    public void dontRecognise() {
-        System.out.println( "erm, what the sigma? i don't recognise that command.");
+    public String dontRecognise() {
+        return "erm, what the sigma? i don't recognise that command.";
     }
 
 }

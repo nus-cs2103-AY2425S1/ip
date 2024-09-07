@@ -84,4 +84,33 @@ public class Sigma {
         Sigma sigma = new Sigma("data/sigma.txt");
         sigma.run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+        if (input.equals("list")) {
+            response.append(TaskList.toPrettyList());
+        } else if (input.equals("greet")) {
+            response.append(parser.greet());
+        } else if (input.equals("bye")) {
+            response.append(parser.goodbye());
+        } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+            response.append(parser.handleMarkUnmark(input));
+        } else if (input.startsWith("delete")) {
+            response.append(taskList.handleDelete(input));
+        } else if (input.startsWith("todo")) {
+            response.append(parser.handleTodo(input));
+        } else if (input.startsWith("deadline")) {
+            response.append(parser.handleDeadline(input));
+        } else if (input.startsWith("event")) {
+            response.append(parser.handleEvent(input));
+        } else if (input.startsWith("find")) {
+            response.append(parser.handleFind(input));
+        } else {
+            response.append(ui.dontRecognise());
+        }
+        return response.toString();
+    }
 }

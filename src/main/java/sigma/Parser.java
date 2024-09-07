@@ -37,26 +37,24 @@ public class Parser {
     /**
      * Greets the user goodbye and closes the program
      */
-    public void goodbye() {
+    public String goodbye() {
         try {
             writer.flush();
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("leaving so soon? goodbye!");
         }
+        return "leaving so soon? goodbye!";
     }
 
     /**
      * Adds a To-do task to the TaskList
      * @param userInput The to-do task that the user wants to add
      */
-    public void handleTodo(String userInput) {
+    public String handleTodo(String userInput) {
         String description = userInput.substring(4).trim(); // trims the input away
         if (description.isEmpty()) { // handle empty input
-            System.out.println("todo...todo what? let's try this again");
-            return;
+            return "todo...todo what? let's try this again";
         }
         Task task = new ToDo(description, false);
         TaskList.addToList(task);
@@ -65,14 +63,14 @@ public class Parser {
         } catch (IOException exception) {
             System.err.println("an error occurred writing to file: " + exception.getMessage());
         }
-        System.out.println("added todo task:\n [T][ ] " + description);
+        return "added todo task:\n [T][ ] " + description;
     }
 
     /**
      * Adds a Deadline task to the TaskList
      * @param userInput The Deadline task that the user wants to add
      */
-    public void handleDeadline(String userInput) {
+    public String handleDeadline(String userInput) {
         Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
         Matcher matcher = pattern.matcher(userInput);
         if (matcher.find()) {
@@ -86,9 +84,9 @@ public class Parser {
             } catch (IOException exception) {
                 System.err.println("an error occurred writing to file");
             }
-            System.out.println("added deadline task:\n  [D][ ] " + description + " (by: " + dateBy + ")");
+            return "added deadline task:\n  [D][ ] " + description + " (by: " + dateBy + ")";
         } else {
-            System.out.println("is the deadline in the room with us? let's try again");
+            return "is the deadline in the room with us? let's try again";
         }
     }
 
@@ -96,7 +94,7 @@ public class Parser {
      * Adds an Event task to the TaskList
      * @param userInput The Event task that the user wants to add
      */
-    public void handleEvent(String userInput) {
+    public String handleEvent(String userInput) {
         Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
         Matcher matcher = pattern.matcher(userInput);
         if (matcher.find()) {
@@ -112,10 +110,10 @@ public class Parser {
             } catch (IOException e) {
                 System.err.println("an error occurred writing to file: " + e.getMessage());
             }
-            System.out.println("added event task:\n  [E][ ] " + description
-                    + " (from: " + fromDate + " to: " + toDate + ")");
+            return "added event task:\n  [E][ ] " + description
+                    + " (from: " + fromDate + " to: " + toDate + ")";
         } else {
-            System.out.println("bro really thinks bro can make an empty event and get away with it, lets try again");
+           return "bro really thinks bro can make an empty event and get away with it, lets try again";
         }
     }
 
@@ -123,7 +121,7 @@ public class Parser {
      * Marks a task as done or undone
      * @param userInput The task that the user wants to mark or unmark
      */
-    public void handleMarkUnmark(String userInput) {
+    public String handleMarkUnmark(String userInput) {
         Pattern pattern = Pattern.compile("(mark|unmark) (\\d+)");
         Matcher matcher = pattern.matcher(userInput);
 
@@ -135,13 +133,14 @@ public class Parser {
                 Task task = TaskList.getItems().get(taskNumber);
                 if (action.equals("mark")) {
                     task.setStatus(true);
-                    System.out.println("task marked as done:\n" + task);
+                    return "task marked as done:\n" + task;
                 } else if (action.equals("unmark")) {
                     task.setStatus(false);
-                    System.out.println("task unmarked:\n" + task);
+                    return "task unmarked:\n" + task;
                 }
             }
         }
+        return "No such task found!";
     }
 
     /**
@@ -161,7 +160,7 @@ public class Parser {
      * Returns all tasks containing descriptions that match the given keyword(s)
      * @param userInput The keyword
      */
-    public void handleFind(String userInput) {
+    public String handleFind(String userInput) {
         Pattern pattern = Pattern.compile("(find) (.+)");
         Matcher matcher = pattern.matcher(userInput);
 
@@ -176,13 +175,16 @@ public class Parser {
                 }
             }
             if (!matchingTasks.isEmpty()) {
-                System.out.println("Here are the matching tasks in your list:\n");
+                String begin = "Here are the matching tasks in your list:\n";
+                String matching = "";
+                String end = "No remaining matching tasks found.";
                 for (int i = 0; i < matchingTasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+                    matching = (i + 1) + ". " + matchingTasks.get(i).toString();
                 }
+                return begin + matching + end;
             }
-            System.out.println("No remaining matching tasks found.");
 
         }
+        return "No remaining matching tasks found.";
     }
 }
