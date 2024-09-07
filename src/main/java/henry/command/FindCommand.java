@@ -22,7 +22,7 @@ public class FindCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param ui instance of a Ui class that interacts with the user
+     * @param ui instance of an Ui class that interacts with the user
      * @return list of tasks with the given keyword
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {

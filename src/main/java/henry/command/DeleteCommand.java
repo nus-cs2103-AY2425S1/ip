@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param ui instance of a Ui class that interacts with the user
+     * @param ui instance of an Ui class that interacts with the user
      * @return a string mentioning that task is deleted
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
