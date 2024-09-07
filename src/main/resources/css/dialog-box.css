@@ -1,16 +1,14 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
-    -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-radius: 1em 1em 0 1em;
-    -fx-padding: 6px;
-    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-text-fill: #ff8787;
+    -fx-font-size: 14px;
+    -fx-padding: 20px;  /* Adjust padding as needed */
+    -fx-background-radius: 3em 3em 0 3em;
     -fx-background-insets: 0px 7px 0px 7px;
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
+    -fx-background-radius: 3em 3em 3em 0;
     -fx-border-radius: 1em 1em 1em 0;
 }
 

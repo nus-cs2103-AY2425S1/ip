@@ -50,4 +50,19 @@ public class MainWindow extends AnchorPane {
     public void setWenJie(WenJie wenJie) {
         this.wenJie = wenJie;
     }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String wenJieText = wenJie.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getWenJieDialog(wenJieText, wenJieImage)
+        );
+        userInput.clear();
+    }
 }
