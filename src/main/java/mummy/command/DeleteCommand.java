@@ -13,7 +13,7 @@ import mummy.utility.Storage;
  * Represents a command to delete a task from the task list.
  * Inherits from the Command class.
  */
-public class DeleteCommand extends Command {
+public final class DeleteCommand extends Command {
 
     public DeleteCommand(HashMap<String, String> arguments) {
         super(arguments);

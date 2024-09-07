@@ -10,7 +10,7 @@ import mummy.utility.Storage;
  * When executed, it displays a farewell message to the user.
  * This command is used to terminate the program.
  */
-public class ByeCommand extends Command {
+public final class ByeCommand extends Command {
 
     public ByeCommand(HashMap<String, String> arguments) {
         super(arguments);

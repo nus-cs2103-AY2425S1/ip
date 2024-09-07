@@ -12,7 +12,7 @@ import mummy.utility.Storage;
  * Represents a command to add a deadline task.
  * Inherits from the Command class.
  */
-public class DeadlineCommand extends Command {
+public final class DeadlineCommand extends Command {
 
     public DeadlineCommand(HashMap<String, String> arguments) {
         super(arguments);

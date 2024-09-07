@@ -11,7 +11,7 @@ import mummy.utility.Storage;
  * Represents a command to unmark a task as done.
  * Inherits from the Command class.
  */
-public class UnmarkCommand extends Command {
+public final class UnmarkCommand extends Command {
 
     public UnmarkCommand(HashMap<String, String> arguments) {
         super(arguments);
