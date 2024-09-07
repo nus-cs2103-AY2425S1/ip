@@ -57,7 +57,6 @@ public class TextUI {
         for (int i = 0; i < items.size(); i++) {
             String printString = String.format("%d. %s%n", i + 1, items.get(i).printTask());
             assert printString != null : "Task string representation cannot be null";
-//            System.out.println(printString);
             tasksToString.append(printString);
         }
         return printMessage(tasksToString.toString());
@@ -158,7 +157,7 @@ public class TextUI {
     }
 
     // Helper method to handle printing messages consistently
-    private static String printMessage(String message) {
+    public static String printMessage(String message) {
         System.out.println(message);
         return message;
     }

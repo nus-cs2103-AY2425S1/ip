@@ -1,5 +1,9 @@
 package citadel.Task;
 
+import java.util.ArrayList;
+
+import citadel.ui.TextUI;
+
 /**
  * Represents an abstract task in the Citadel application.
  * This class provides the common structure and behavior for all tasks.
@@ -13,6 +17,8 @@ public abstract class Task {
     /** The status of the task, indicating whether it is done. */
     protected boolean isDone;
 
+    private ArrayList<String> tagList;
+
     /**
      * Constructs a new Task with the specified description.
      * The task is initially not done.
@@ -22,6 +28,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tagList = new ArrayList<String>();
     }
 
     /**
@@ -59,6 +66,50 @@ public abstract class Task {
     public void unMark() {
         assert this.isDone : "Task is already marked as not done";
         this.isDone = false;
+    }
+
+    /**
+     * Adds a String Tag to the list of Tags.
+     */
+    public void addTag(String tag) {
+        this.tagList.add(tag);
+    }
+
+    /**
+     * Removes a String Tag from the list of Tags.
+     *
+     * @param index The index of the tag in the tagList.
+     *
+     * @return the removed String Tag
+     */
+    public String removeTag(int index) {
+        return this.tagList.remove(index);
+    }
+
+    /**
+     * Gets a String Tag from the list of Tags.
+     *
+     *
+     * @return the called String Tag from getTag
+     */
+    public ArrayList<String> getTag() {
+        return this.tagList;
+    }
+
+    /**
+     * Gets a String Tag from the list of Tags.
+     *
+     * @return the called String Tag from getTag
+     */
+    public String printTags() {
+        StringBuilder tasksToString = new StringBuilder();
+        // Generate and accumulate all the Tag strings together into a string
+        for (int i = 0; i < this.tagList.size(); i++) {
+            String printString = String.format("%d. %s%n", i + 1, this.tagList.get(i));
+            assert printString != null : "Tag string representation cannot be null";
+            tasksToString.append(printString);
+        }
+        return TextUI.printMessage(tasksToString.toString());
     }
 
     /**

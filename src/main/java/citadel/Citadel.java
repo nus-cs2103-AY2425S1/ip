@@ -4,14 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import citadel.Task.TaskList;
-import citadel.commands.Commands;
-import citadel.commands.DeleteTask;
-import citadel.commands.FindTask;
-import citadel.commands.HandleDeadline;
-import citadel.commands.HandleEvent;
-import citadel.commands.HandleTodo;
-import citadel.commands.MarkTask;
-import citadel.commands.UnmarkTask;
+import citadel.commands.*;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
 import citadel.ui.TextUI;
@@ -103,6 +96,12 @@ public class Citadel {
             return new HandleTodo(input, items).run();
         case FIND:
             return new FindTask(input, items).run();
+        case ADDTAG:
+            return new AddTag(input, items).run();
+        case REMOVETAG:
+            return new RemoveTag(input, items).run();
+        case GETTAG:
+            return new GetTag(input, items).run();
         default:
             throw new CitadelInvalidCommandException();
         }
