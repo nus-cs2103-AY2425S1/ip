@@ -38,6 +38,7 @@ public class FileStorage extends Storage {
             Files.createDirectories(Paths.get(dirPath));
         } catch (IOException e) {
             // Handle error (can log this if needed)
+            e.printStackTrace();
         }
 
         // Creates file if it does not exist
