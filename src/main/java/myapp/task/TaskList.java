@@ -3,6 +3,7 @@ package myapp.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The TaskList class represents a list of tasks. It provides methods to add, delete, and retrieve tasks,
@@ -84,6 +85,15 @@ public class TaskList implements Iterable<Task> {
      */
     public int size() {
         return taskList.size();
+    }
+
+    /**
+     * Returns a stream of tasks in the list, providing flexibility for task processing.
+     *
+     * @return a {@link Stream} of tasks in this list.
+     */
+    public Stream<Task> stream() {
+        return taskList.stream();
     }
 
     /**

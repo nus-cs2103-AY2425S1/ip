@@ -3,9 +3,10 @@ package myapp.core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import myapp.task.Deadline;
 import myapp.task.Event;
@@ -41,17 +42,19 @@ public class Storage {
      *      or if the file contains unknown task types.
      */
     public List<Task> load() throws BingBongException {
-        List<Task> tasks = new ArrayList<>();
-        try (Scanner reader = new Scanner(new File(filePath))) {
-            while (reader.hasNext()) {
-                String line = reader.nextLine();
-                Task task = parseTask(line);
-                tasks.add(task);
-            }
+        try {
+            return Files.lines(Paths.get(filePath))
+                    .map(line -> {
+                        try {
+                            return parseTask(line);
+                        } catch (BingBongException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             throw new BingBongException("Error reading from file: " + e.getMessage());
         }
-        return tasks;
     }
 
     /**
@@ -160,23 +163,25 @@ public class Storage {
      */
     private void writeTasksToFile(TaskList tasks) throws BingBongException {
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks) {
-                assert task != null : "Task should not be null";
-                writeTask(writer, task);
-            }
+            tasks.stream()
+                    .map(Task::toFileFormat)
+                    .forEach(task -> writeTask(writer, task));
         } catch (IOException e) {
             throw new BingBongException("Error writing to file: " + e.getMessage());
         }
     }
 
     /**
-     * Writes a single {@link Task} to the file.
+     * Writes a task to the file.
      *
-     * @param writer the {@link FileWriter} to write the task to.
-     * @param task the {@link Task} to be written to the file.
-     * @throws IOException if an error occurs during writing.
+     * @param writer The {@link FileWriter} object to write to the file.
+     * @param task The task in file format.
      */
-    private void writeTask(FileWriter writer, Task task) throws IOException {
-        writer.write(task.toFileFormat() + System.lineSeparator());
+    private void writeTask(FileWriter writer, String task) {
+        try {
+            writer.write(task + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing task to file.", e);
+        }
     }
 }
