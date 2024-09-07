@@ -1,16 +1,16 @@
 package lawrence.app;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 import lawrence.command.Command;
 import lawrence.database.TaskFileManager;
 import lawrence.parser.CommandParser;
 import lawrence.task.Task;
 import lawrence.task.TaskList;
 import lawrence.ui.UserInterface;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 /**
  * The Lawrence chatbot that is able to keep track of tasks and their

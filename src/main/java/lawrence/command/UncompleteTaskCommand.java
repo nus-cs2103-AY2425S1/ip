@@ -1,11 +1,11 @@
 package lawrence.command;
 
+import java.io.IOException;
+
 import lawrence.database.TaskFileManager;
 import lawrence.task.Task;
 import lawrence.task.TaskList;
 import lawrence.ui.UserInterface;
-
-import java.io.IOException;
 
 /**
  * Represents the user command to mark existing tasks as incomplete.

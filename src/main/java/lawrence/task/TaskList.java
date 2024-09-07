@@ -7,14 +7,14 @@ import java.util.List;
  * Represents the list of tasks the user has specified to be tracked by the chatbot.
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Default constructor. The number of items in the list will be
      * initialised to 0 by default.
      */
     public TaskList() {
-        list = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class TaskList {
      *              the list with
      */
     public TaskList(Task[] tasks) {
-        list = new ArrayList<>(List.of(tasks));
+        this.tasks = new ArrayList<>(List.of(tasks));
     }
 
     /**
@@ -34,7 +34,7 @@ public class TaskList {
      * @param task the {@link Task} object to be added
      */
     public void addTask(Task task) {
-        list.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -49,16 +49,16 @@ public class TaskList {
      * @throws IllegalStateException if there are no tasks in the list
      */
     public Task deleteTask(int taskNumber) throws IllegalArgumentException, IllegalStateException {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new IllegalStateException("There are no tasks that can be chosen for deletion.");
         }
 
-        if (taskNumber < 1 || taskNumber > list.size()) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new IllegalArgumentException(
-                    String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
+                    String.format("Task does not exist. Number must be within the range 1 to %s.", tasks.size()));
         }
 
-        return list.remove(taskNumber - 1);
+        return tasks.remove(taskNumber - 1);
     }
 
     /**
@@ -73,16 +73,16 @@ public class TaskList {
      * @throws IllegalStateException if there are no tasks in the list
      */
     public Task completeTask(int taskNumber) {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new IllegalStateException("There are no tasks that can be chosen to be marked as complete.");
         }
 
-        if (taskNumber < 1 || taskNumber > list.size()) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new IllegalArgumentException(
-                    String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
+                    String.format("Task does not exist. Number must be within the range 1 to %s.", tasks.size()));
         }
 
-        Task t = list.get(taskNumber - 1);
+        Task t = tasks.get(taskNumber - 1);
         t.setComplete(true);
         return t;
     }
@@ -99,16 +99,16 @@ public class TaskList {
      * @throws IllegalStateException if there are no tasks in the list
      */
     public Task uncompleteTask(int taskNumber) {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new IllegalStateException("There are no tasks that can be chosen to be marked as incomplete.");
         }
 
-        if (taskNumber < 1 || taskNumber > list.size()) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new IllegalArgumentException(
-                    String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
+                    String.format("Task does not exist. Number must be within the range 1 to %s.", tasks.size()));
         }
 
-        Task t = list.get(taskNumber - 1);
+        Task t = tasks.get(taskNumber - 1);
         t.setComplete(false);
         return t;
     }
@@ -120,7 +120,7 @@ public class TaskList {
      * @return a {@link TaskList} containing hits
      */
     public TaskList findTasks(String query) {
-        List<Task> result = list.stream()
+        List<Task> result = tasks.stream()
                 .filter(task -> task.contains(query))
                 .toList();
 
@@ -133,7 +133,7 @@ public class TaskList {
      * @return an array of {@link Task} objects
      */
     public Task[] getTasks() {
-        return list.toArray(new Task[0]);
+        return tasks.toArray(new Task[0]);
     }
 
     /**
@@ -142,7 +142,7 @@ public class TaskList {
      * @return the size of the current list
      */
     public int getSize() {
-        return list.size();
+        return tasks.size();
     }
 
     /**
@@ -152,13 +152,13 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             return "";
         }
 
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            result.append(String.format("%d.%s%n", i + 1, list.get(i)));
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(String.format("%d.%s%n", i + 1, tasks.get(i)));
         }
 
         // exclude the last newline character from getting printed

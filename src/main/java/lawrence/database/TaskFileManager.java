@@ -1,9 +1,5 @@
 package lawrence.database;
 
-import lawrence.parser.InputSource;
-import lawrence.parser.TaskParser;
-import lawrence.task.Task;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,6 +8,10 @@ import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import lawrence.parser.InputSource;
+import lawrence.parser.TaskParser;
+import lawrence.task.Task;
 
 /**
  * Interfaces with a text file to read and write tasks input by the user.

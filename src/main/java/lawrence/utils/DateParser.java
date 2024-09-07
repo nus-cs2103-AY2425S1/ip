@@ -9,8 +9,10 @@ import java.time.format.DateTimeFormatter;
 public class DateParser {
     public static final String FORMAT_STRING_FOR_USER_INPUT = "yyyy-MM-dd HH:mm";
     public static final String FORMAT_STRING_FOR_STORAGE = "dd-MM-yyyy HH:mm";
-    private static final DateTimeFormatter FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(FORMAT_STRING_FOR_USER_INPUT);
-    private static final DateTimeFormatter FORMATTER_FOR_STORAGE = DateTimeFormatter.ofPattern(FORMAT_STRING_FOR_STORAGE);
+    private static final DateTimeFormatter FORMATTER_FOR_USER_INPUT = DateTimeFormatter
+            .ofPattern(FORMAT_STRING_FOR_USER_INPUT);
+    private static final DateTimeFormatter FORMATTER_FOR_STORAGE = DateTimeFormatter
+            .ofPattern(FORMAT_STRING_FOR_STORAGE);
 
     /**
      * Converts user input into a {@link LocalDateTime} object.

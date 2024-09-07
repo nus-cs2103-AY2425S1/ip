@@ -1,8 +1,8 @@
 package lawrence.task;
 
-import lawrence.utils.DateParser;
-
 import java.time.LocalDateTime;
+
+import lawrence.utils.DateParser;
 
 /**
  * Represents a task with a deadline.

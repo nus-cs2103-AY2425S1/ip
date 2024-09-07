@@ -1,10 +1,10 @@
 package lawrence.command;
 
+import java.io.IOException;
+
 import lawrence.database.TaskFileManager;
 import lawrence.task.TaskList;
 import lawrence.ui.UserInterface;
-
-import java.io.IOException;
 
 /**
  * Represents a general command that can be issued by the user.

@@ -4,7 +4,7 @@ package lawrence.task;
  * Represents a real-life task that needs to be completed.
  */
 public abstract class Task {
-    private boolean complete;
+    private boolean isComplete;
     private String description;
 
     /**
@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        complete = false;
+        isComplete = false;
     }
 
     /**
@@ -32,7 +32,7 @@ public abstract class Task {
      */
     public Task(String description, boolean isComplete) {
         this.description = description;
-        complete = isComplete;
+        this.isComplete = isComplete;
     }
 
     /**
@@ -49,10 +49,10 @@ public abstract class Task {
     /**
      * Sets the completion status of the task to the specified value.
      *
-     * @param complete indicates whether the task is complete
+     * @param isComplete indicates whether the task is complete
      */
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public void setComplete(boolean isComplete) {
+        this.isComplete = isComplete;
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class Task {
      * @return a string representation of the object in save format
      */
     public String toSaveFormat() {
-        return String.format("%s | %s", complete ? "1" : "0", description);
+        return String.format("%s | %s", isComplete ? "1" : "0", description);
     }
 
     /**
@@ -72,6 +72,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", complete ? "X" : " ", description);
+        return String.format("[%s] %s", isComplete ? "X" : " ", description);
     }
 }
