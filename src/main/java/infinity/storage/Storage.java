@@ -23,13 +23,22 @@ import infinity.ui.Ui;
 public class Storage {
 
     /** Filepath Directory for Save file */
-    public static final String FILE_DIR_PATH = "../../../../data";
+    private static final String FILE_DIR_PATH = "../../../../data";
     /** Filename for Save file */
-    public static final String FILE_NAME = "save-file.txt";
+    private static final String FILE_NAME = "save-file.txt";
     /** Filepath for Save file */
-    public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
+    private static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
     /** Delimiter for Save file */
-    public static final String DELIMITER = "\0";
+    private static final String DELIMITER = "\0";
+    /** Bot reply for issue encountered. */
+    private static final String BOT_ERROR_IO =
+            "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? ";
+    /** Bot reply for successful save */
+    private static final String BOT_SUCCESSFUL_SAVE = "Save Successful, Woohoo!";
+    /** Marker for Save file if done */
+    public static final String DONE_MARKER = "1";
+    /** Marker for Save file if not done */
+    public static final String UNDONE_MARKER = "0";
 
     /**
      * Combines the description of the remainder of the text, if the text includes the delimiter.
@@ -60,49 +69,40 @@ public class Storage {
     public static ArrayList<Task> readFile() throws InfinityException {
         ArrayList<Task> tasks = new ArrayList<>(TaskList.MAX_SIZE);
 
-        if (doesFileExist()) {
-            try {
-                Scanner file = new Scanner(new File(FILE_PATH));
-                while (file.hasNextLine()) {
-
-                    String currentLine = file.nextLine();
-
-                    String[] words = currentLine.split(DELIMITER);
-                    String taskType = words[0];
-                    boolean isDone = words[1].equals("1");
-                    Task task = null;
-
-                    switch (taskType) {
-                    case "T":
-                        task = new ToDos(isDone,
-                                combineDescription(words, 2));
-                        break;
-                    case "D":
-                        task = new Deadline(isDone,
-                                combineDescription(words, 3), words[2]);
-                        break;
-                    case "E":
-                        task = new Event(isDone,
-                                combineDescription(words, 4), words[2], words[3]);
-                        break;
-                    default:
-                        break;
-                    }
-
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-
-                }
-                file.close();
-            } catch (IOException | InfinityException e) {
-                throw new InfinityException(
-                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? "
-                                + e.getMessage());
-            } catch (NoSuchElementException e) {
-                // Do nothing, likely means end of file
-            }
+        if (!doesFileExist()) {
+            return tasks;
         }
+
+        try {
+            Scanner file = new Scanner(new File(FILE_PATH));
+            while (file.hasNextLine()) {
+                String currentLine = file.nextLine();
+
+                String[] words = currentLine.split(DELIMITER);
+                Task.TaskTypes taskType = Task.TaskTypes.valueOf(words[0]);
+                boolean isDone = words[1].equals(DONE_MARKER);
+
+                switch (taskType) {
+                case T:
+                    tasks.add(new ToDos(isDone, combineDescription(words, 2)));
+                    break;
+                case D:
+                    tasks.add(new Deadline(isDone, combineDescription(words, 3), words[2]));
+                    break;
+                case E:
+                    tasks.add(new Event(isDone, combineDescription(words, 4), words[2], words[3]));
+                    break;
+                default:
+                    break;
+                }
+            }
+            file.close();
+        } catch (IOException | InfinityException e) {
+            throw new InfinityException(BOT_ERROR_IO + e.getMessage());
+        } catch (NoSuchElementException e) {
+            // Do nothing, likely means end of file
+        }
+
         return tasks;
     }
 
@@ -127,18 +127,16 @@ public class Storage {
 
             file.close();
 
-            return Ui.botSays("Save Successful, Woohoo!");
+            return Ui.botSays(BOT_SUCCESSFUL_SAVE);
         } catch (IOException e) {
-            throw new InfinityException(
-                    "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? "
-                    + e.getMessage());
+            throw new InfinityException(BOT_ERROR_IO + e.getMessage());
         }
     }
 
     /**
      * Checks if the file and directory exists.
      *
-     * @return True if exists, false otherwise.
+     * @return True if exists, False otherwise.
      */
     private static boolean doesFileExist() {
         File file = new File(FILE_PATH);

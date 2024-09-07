@@ -13,7 +13,7 @@ public class ToDos extends Task {
      */
     public ToDos(String description) {
         this.setDescription(description);
-        this.setTypeOfTask("T");
+        this.setTypeOfTask(Task.TaskTypes.T);
     }
 
     /**
@@ -26,6 +26,6 @@ public class ToDos extends Task {
     public ToDos(boolean isDone, String description) throws InfinityException {
         this.isDone = isDone;
         this.setDescription(description);
-        this.setTypeOfTask("T");
+        this.setTypeOfTask(Task.TaskTypes.T);
     }
 }

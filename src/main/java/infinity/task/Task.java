@@ -1,5 +1,7 @@
 package infinity.task;
 
+import infinity.storage.Storage;
+
 /**
  * This abstract class are the tasks that the bot will recognise and manage.
  */
@@ -9,7 +11,16 @@ public abstract class Task {
     /** Status of the Task, whether it is marked */
     protected boolean isDone = false;
     /** Type of Task */
-    protected char typeOfTask;
+    protected Task.TaskTypes typeOfTask;
+    public enum TaskTypes {
+        D,
+        E,
+        T
+    }
+    /** Marker for reader if marked */
+    public static final String MARKED_MARKER = "X";
+    /** Marker for reader if not done */
+    public static final String UNMARKED_MARKER = " ";
 
     /**
      * Sets the task as done.
@@ -21,10 +32,10 @@ public abstract class Task {
     /**
      * Sets the type of task
      *
-     * @param typeOfTask The type of task, it will set the first letter to the type.
+     * @param typeOfTask The type of task, it will set the first letter to the type. Can be String or char.
      */
-    protected void setTypeOfTask(String typeOfTask) {
-        this.typeOfTask = typeOfTask.charAt(0);
+    protected void setTypeOfTask(Task.TaskTypes typeOfTask) {
+        this.typeOfTask = typeOfTask;
     }
 
     /**
@@ -54,12 +65,18 @@ public abstract class Task {
      */
     public String saveFileFormat(String delimiter) {
         return String.format("%s%s%s%s%s",
-                Character.toString(typeOfTask), delimiter, isDone ? "1" : "0", delimiter, description);
+                typeOfTask.toString(),
+                delimiter,
+                isDone ? Storage.DONE_MARKER : Storage.UNDONE_MARKER,
+                delimiter,
+                description);
     }
 
     @Override
     public String toString() {
         return String.format("[%s][%s] %s",
-                Character.toString(typeOfTask), this.isDone ? "X" : " ", this.description);
+                typeOfTask.toString(),
+                this.isDone ? MARKED_MARKER : UNMARKED_MARKER,
+                this.description);
     }
 }

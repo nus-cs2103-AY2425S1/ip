@@ -27,6 +27,28 @@ public class Command {
     }
 
     /**
+     * Compares input on whether it is equal to the lowercase of command.
+     *
+     * @param input User input.
+     * @param command Known Command.
+     * @return true if equal, false otherwise.
+     */
+    private static boolean doesInputEqualCommand(String input, KnownCommands command) {
+        return input.equals(command.toString().toLowerCase());
+    }
+
+    /**
+     * Compares input on whether it starts with the lowercase of command.
+     *
+     * @param input User input.
+     * @param command Known Command.
+     * @return true if equal, false otherwise.
+     */
+    private static boolean doesInputStartsWithCommand(String input, KnownCommands command) {
+        return input.startsWith(command.toString().toLowerCase());
+    }
+
+    /**
      * Finds the command to execute given the user input and executes it.
      *
      * @param currentInput User input.
@@ -38,54 +60,48 @@ public class Command {
 
         String botOutput;
 
-        if (currentInput.equals(KnownCommands.BYE.toString().toLowerCase())) {
+        if (doesInputEqualCommand(currentInput, KnownCommands.BYE)) {
 
             botOutput = Ui.endBot();
 
-        } else if (currentInput.equals(KnownCommands.LIST.toString().toLowerCase())) {
+        } else if (doesInputEqualCommand(currentInput, KnownCommands.LIST)) {
 
             botOutput = botTasks.listTasks();
 
-        } else if (currentInput.startsWith(KnownCommands.MARK.toString().toLowerCase())
-                && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.MARK) && currentInput.length() > 5) {
 
             botOutput = botTasks.markTask(currentInput);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.startsWith(KnownCommands.TODO.toString().toLowerCase())
-                && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.TODO) && currentInput.length() > 5) {
 
             botOutput = botTasks.addTask(new ToDos(currentInput.substring(5)));
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.startsWith(KnownCommands.DEADLINE.toString().toLowerCase())
-                && currentInput.length() > 9) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.DEADLINE) && currentInput.length() > 9) {
 
             botOutput = botTasks.addTask(new Deadline(currentInput.substring(9)));
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.startsWith(KnownCommands.EVENT.toString().toLowerCase())
-                && currentInput.length() > 6) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.EVENT) && currentInput.length() > 6) {
 
             botOutput = botTasks.addTask(new Event(currentInput.substring(6)));
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.startsWith(KnownCommands.DELETE.toString().toLowerCase())
-                && currentInput.length() > 7) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.DELETE) && currentInput.length() > 7) {
 
             botOutput = botTasks.deleteTask(currentInput.substring(7));
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.startsWith(KnownCommands.FIND.toString().toLowerCase())
-                && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.FIND) && currentInput.length() > 5) {
 
             botOutput = botTasks.findTasks(currentInput.substring(5));
 
-        } else if (currentInput.startsWith(KnownCommands.SAVE.toString().toLowerCase())) {
+        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.SAVE)) {
 
             botOutput = Storage.saveFile(botTasks.getTasks());
 
-        } else if (currentInput.equals(KnownCommands.HELP.toString().toLowerCase())) {
+        } else if (doesInputEqualCommand(currentInput, KnownCommands.HELP)) {
 
             botOutput = Ui.getCommands();
 

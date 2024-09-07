@@ -11,33 +11,41 @@ public class Ui {
     /** Name of the Bot. */
     public static final String BOT_NAME = "Infinity";
     /** What the bot says when it shutdowns. */
-    public static final String BOT_END_STATEMENT = "Well, if you are leaving, then I must be infinitely too dumb :(";
+    private static final String BOT_END_STATEMENT = "Well, if you are leaving, then I must be infinitely too dumb :(";
+    /** What the bot says when there is an invalid command. */
+    private static final String BOT_INVALID_COMMAND = "Wait a minute, that's not something I recognise...";
     /** Just a breakline. */
     private static final String BREAKLINE = "\n";
     /** String output for help command. */
+    /** Bot reply for not a number */
+    private static final String BOT_EMPTY_TASKLIST =
+            "Task list is empty :(\n";
+    /** Bot reply for not a number */
+    private static final String BOT_SHOW_TASKLIST =
+            "Here's your Tasklist:";
     private static final String COMMAND_STRING = """
-                    fields in <> are to be populated as appropriate
-
-                    • bye
-                        -> Shutdown the bot
-                    • deadline <task> /by <date in "DD/MM/YYYY HHMM">
-                        -> Add a Deadline task
-                    • delete <index of task>
-                        -> Delete a task
-                    • event <task> /from <period> /to <period>
-                        -> Add an Event task
-                    • find <keyword>
-                        -> Finds all tasks and shows them with the keyword given
-                    • help
-                        -> Show all available commands
-                    • list
-                        ->  all tasks
-                    • mark <index of task>
-                        -> Marks a task as done
-                    • save
-                        -> Saves tasklist manually
-                    • todo <task>
-                        -> Add a Todo task""";
+            fields in <> are to be populated as appropriate
+        
+            • bye
+                -> Shutdown the bot
+            • deadline <task> /by <date in "DD/MM/YYYY HHMM">
+                -> Add a Deadline task
+            • delete <index of task>
+                -> Delete a task
+            • event <task> /from <period> /to <period>
+                -> Add an Event task
+            • find <keyword>
+                -> Finds all tasks and shows them with the keyword given
+            • help
+                -> Show all available commands
+            • list
+                ->  all tasks
+            • mark <index of task>
+                -> Marks a task as done
+            • save
+                -> Saves tasklist manually
+            • todo <task>
+                -> Add a Todo task""";
 
     /**
      * Prepends the bot name to the input.
@@ -78,10 +86,12 @@ public class Ui {
      */
     public static String listTasks(TaskList tasks) {
         StringBuilder finalOutput = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            finalOutput.append(botSays("Task list is empty :(\n"));
+            finalOutput.append(botSays(BOT_EMPTY_TASKLIST));
         } else {
-            finalOutput.append(botSays("Here's your Tasklist:"));
+            finalOutput.append(botSays(BOT_SHOW_TASKLIST));
+
             int i = 1;
             for (Task task : tasks.getTasks()) {
                 finalOutput.append(String.format("    %d. %s\n", i, task.toString()));
@@ -108,7 +118,7 @@ public class Ui {
      * @return The message saying that the command was not recognised
      */
     public static String invalidCommand() {
-        return botSays("Wait a minute, that's not something I recognise...");
+        return botSays(BOT_INVALID_COMMAND);
     }
 
     /**

@@ -1,6 +1,7 @@
 package infinity.task;
 
 import infinity.infinityexception.InfinityException;
+import infinity.storage.Storage;
 import infinity.ui.Ui;
 
 /**
@@ -9,6 +10,8 @@ import infinity.ui.Ui;
 public class Event extends Task {
     private final String from;
     private final String to;
+    /** Bot reply for wrong format. */
+    private static final String BOT_WRONG_FORMAT = "oops, I think your format is a little wrong";
 
     /**
      * Constructor for the Event class.
@@ -21,9 +24,9 @@ public class Event extends Task {
             this.setDescription(description.split(" /from ")[0]);
             this.from = description.split(" /from ")[1].split(" /to ")[0];
             this.to = description.split(" /to ")[1];
-            this.setTypeOfTask("E");
+            this.setTypeOfTask(Task.TaskTypes.E);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InfinityException(Ui.botSays("oops, I think your format is a little wrong"));
+            throw new InfinityException(Ui.botSays(BOT_WRONG_FORMAT));
         }
     }
 
@@ -41,7 +44,7 @@ public class Event extends Task {
         this.setDescription(description);
         this.from = from;
         this.to = to;
-        this.setTypeOfTask("E");
+        this.setTypeOfTask(Task.TaskTypes.E);
     }
 
     /**
@@ -53,8 +56,8 @@ public class Event extends Task {
     @Override
     public String saveFileFormat(String delimiter) {
         return String.format("%s%s%s%s%s%s%s%s%s",
-                Character.toString(this.typeOfTask), delimiter,
-                this.isDone ? "1" : "0", delimiter,
+                this.typeOfTask.toString(), delimiter,
+                this.isDone ? Storage.DONE_MARKER : Storage.UNDONE_MARKER, delimiter,
                 this.from, delimiter,
                 this.to, delimiter,
                 this.description);
@@ -63,6 +66,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[%s][%s] %s (from: %s, to: %s)",
-                Character.toString(this.typeOfTask), this.isDone ? "X" : " ", this.description, this.from, this.to);
+                this.typeOfTask.toString(),
+                this.isDone ? MARKED_MARKER : UNMARKED_MARKER,
+                this.description,
+                this.from,
+                this.to);
     }
 }
