@@ -1,7 +1,6 @@
 package chatkaki;
 
 import chatkaki.commands.Command;
-import chatkaki.commands.CommandList;
 import chatkaki.tasks.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -29,6 +28,7 @@ public class ChatKakiController {
     }
 
     private String getAllTasks() {
+        assert TaskList.getTasks() != null : "TaskList array should not be null";
         StringBuilder listMessage = new StringBuilder();
         for (int i = 0; i < TaskList.getSize(); i++) {
             if (i > 0) {
@@ -49,6 +49,7 @@ public class ChatKakiController {
         Command command = Parser.parse(userInput);
         try {
             String output = command.execute();
+            assert output != null : "Command output should not be null";
             chatArea.appendText("ChatKaki: " + output + "\n");
         } catch (Exception e) {
             chatArea.appendText("Error: " + e.getMessage() + "\n");
