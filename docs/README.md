@@ -1,7 +1,7 @@
-# Hoodini User Guide
+# Hoodini User Guide 🐕:
 
+![HoodiniBot](https://github.com/user-attachments/assets/8ae32f6a-4686-41b2-8840-5a9b41e0e7aa)
 
-![Hoodini](src/main/resources/images/Hoodini.png)
 
 Hoodini is a productivity tool that helps you manage your tasks and deadlines. It is a command line application that allows you to add, delete, and mark tasks as done. It also allows you to set deadlines for your tasks.
 
@@ -17,7 +17,8 @@ Noted. I have added this task:
 [T][] read book
 You have 4 tasks in the list.
 ```
-![Screenshot 2024-09-07 at 2.05.17 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_UgmsP9%2FScreenshot%202024-09-07%20at%202.05.17%E2%80%AFPM.png)
+
+![Add Todo Task](https://github.com/user-attachments/assets/955cf695-f781-408c-a700-d049cd807e75)
 
 ## Adding Deadline tasks
 
@@ -33,7 +34,8 @@ Noted. I have added this task:
 [D][] tutorial (by: Sep 7 2024)
 You have 5 tasks in the list.
 ```
-![Screenshot 2024-09-07 at 2.08.11 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_o1ZNcc%2FScreenshot%202024-09-07%20at%202.08.11%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 40 53 PM](https://github.com/user-attachments/assets/2c25b31a-dcdd-467f-b57a-19eedce424ab)
+
 
 ## Adding Event tasks
 
@@ -49,7 +51,8 @@ Noted. I have added this task:
 You have 6 tasks in the list.
 ```
 
-![Screenshot 2024-09-07 at 2.11.23 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_4hTfRG%2FScreenshot%202024-09-07%20at%202.11.23%E2%80%AFPM.png)
+
+![Screenshot 2024-09-07 at 2 41 11 PM](https://github.com/user-attachments/assets/f49cf5ea-2411-4432-93b2-6867a769d640)
 
 
 
@@ -61,7 +64,8 @@ Example: `list`
 
 Expected output:
 
-![Screenshot 2024-09-07 at 2.13.01 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_YTa87z%2FScreenshot%202024-09-07%20at%202.13.01%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 41 38 PM](https://github.com/user-attachments/assets/7fc4be54-bf84-4dbf-8b54-5cfac45c755c)
+
 
 ## Marking tasks in the list
 
@@ -75,7 +79,8 @@ Expected output:
 I have marked the task as done:
 [D] [X] tutorial (by: Sep 8 2024)
 ```
-![Screenshot 2024-09-07 at 2.14.36 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_24Z4pS%2FScreenshot%202024-09-07%20at%202.14.36%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 42 16 PM](https://github.com/user-attachments/assets/16a1c29b-4bb1-4fa1-8961-d8c9bc3e4c18)
+
 
 ## Unmarking tasks in the list
 
@@ -89,7 +94,8 @@ Expected output:
 I have marked the task as undone:
 [D] [] homework (by: Sep 11 2024)
 ```
-![Screenshot 2024-09-07 at 2.22.15 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_gxgGwV%2FScreenshot%202024-09-07%20at%202.22.15%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 42 38 PM](https://github.com/user-attachments/assets/0ecea390-1aa5-4703-902e-e011be5356ca)
+
 
 
 ## Deleting tasks in the list
@@ -105,7 +111,8 @@ Noted. I have deleted this task:
 [D] [X] tutorial (by: Sep 7 2024)
 You have 4 tasks in the list.
 ```
-![Screenshot 2024-09-07 at 2.17.37 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_0SHpiU%2FScreenshot%202024-09-07%20at%202.17.37%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 43 00 PM](https://github.com/user-attachments/assets/fb459602-3294-4919-9f68-9069b247666a)
+
 
 ## Finding tasks in the list
 
@@ -120,7 +127,8 @@ Here are the list of tasks found:
 1.[D] [] homework (by: Sep 11 2024)
 ```
 
-![Screenshot 2024-09-07 at 2.19.20 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_gOaksY%2FScreenshot%202024-09-07%20at%202.19.20%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 43 26 PM](https://github.com/user-attachments/assets/dc97a258-a378-480a-aa01-5788733c0337)
+
 
 ## Sorting tasks in the list
 
@@ -130,8 +138,9 @@ Example: `sort`
 
 Expected output:
 
+![Screenshot 2024-09-07 at 2 43 43 PM](https://github.com/user-attachments/assets/36083fd8-ad2d-4b5e-ac77-68cb72f9fe26)
 
-![Screenshot 2024-09-07 at 2.20.23 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_j6WRW3%2FScreenshot%202024-09-07%20at%202.20.23%E2%80%AFPM.png)
+
 
 ## Ending the conversation
 
@@ -144,4 +153,7 @@ Expected output:
 ```
 Bye! Come back to Hoodini soon!
 ```
-![Screenshot 2024-09-07 at 2.25.02 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fvc%2Frcqx2qtj5r5g9g5jglx9qctr0000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_GMrI4Z%2FScreenshot%202024-09-07%20at%202.25.02%E2%80%AFPM.png)
+![Screenshot 2024-09-07 at 2 43 55 PM](https://github.com/user-attachments/assets/f6967dc8-f4c3-4774-8ae2-95fb3b9ba3db)
+
+Thank you for reading :dog:
+
