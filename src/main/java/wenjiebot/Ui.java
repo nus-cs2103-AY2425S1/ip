@@ -2,6 +2,8 @@ package wenjiebot;
 
 import java.util.Scanner;
 
+import javafx.application.Platform;
+
 /**
  * The Ui class handles interactions with the user, including displaying messages and reading input.
  * It provides methods to show welcome and farewell messages, display lines for formatting,
@@ -74,6 +76,10 @@ public class Ui {
     }
     public void setOutput(String message) {
         this.output = message;
+    }
+
+    public void exitApp() {
+        Platform.exit();
     }
 
 }

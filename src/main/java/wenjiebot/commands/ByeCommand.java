@@ -34,5 +34,6 @@ public class ByeCommand extends Command {
         storage.writeTasks();
         ui.showFarewell();
         super.setIsExit(true);
+        ui.exitApp();
     }
 }
