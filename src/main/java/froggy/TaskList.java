@@ -11,6 +11,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
@@ -23,6 +27,15 @@ public class TaskList {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + "." + tasks.get(i - 1).toString());
         }
+    }
+
+    public String getTasksToString() {
+        String output = "";
+        for (int i = 1; i <= tasks.size(); i++) {
+            //output.concat(i + "." + tasks.get(i - 1).toString() + "\n");
+            output = output + i + "." + tasks.get(i - 1).toString() + "\n";
+        }
+        return output;
     }
 
     public void printTask(int index) {

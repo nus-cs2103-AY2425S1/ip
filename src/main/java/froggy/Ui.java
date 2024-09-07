@@ -17,12 +17,24 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public String getGreeting() {
+        return GREETING;
+    }
+
     public void showGreeting() {
         System.out.println(GREETING);
     }
 
+    public String getExit() {
+        return EXIT;
+    }
+
     public void showExit() {
         System.out.println(EXIT);
+    }
+
+    public String getLine() {
+        return LINE;
     }
 
     public void showLine() {
