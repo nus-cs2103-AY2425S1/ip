@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private MentalHealth duke;
+    private MentalHealth mentalHealth;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human_smiling.png"));
     private Image dukeImage = new Image(
@@ -33,8 +33,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(MentalHealth d) {
-        duke = d;
+    public void setMentalHealth(MentalHealth d) {
+        mentalHealth = d;
     }
 
     /**
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = mentalHealth.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
