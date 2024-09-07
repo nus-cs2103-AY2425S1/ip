@@ -138,6 +138,31 @@ public class Ui {
     }
 
     /**
+     * Shows the list of tasks that are due soon.
+     *
+     * @param list the list of tasks
+     * @return string representation of the list of tasks
+     */
+    public String showReminders(TaskList list) {
+        if (list.isEmpty()) {
+            return "There are no tasks in your list.";
+        }
+
+        TaskList reminderList = list.getUpcomingTasks();
+        if (reminderList.isEmpty()) {
+            return "There are no tasks due soon.";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 1; i <= reminderList.getSize(); i++) {
+            builder.append(String.format("%d. %s\n", i, reminderList.get(i - 1)));
+        }
+        assert builder.charAt(builder.length() - 1) == '\n' : "Last char should be a newline char";
+        // Remove the last newline char
+        builder.deleteCharAt(builder.length() - 1);
+        return "Here are the upcoming tasks in your list:\n" + builder;
+    }
+
+    /**
      * Shows the error message when arguments are missing for a command.
      *
      * @return string representation of the error message

@@ -74,4 +74,19 @@ public class TaskList {
         }
         return filteredList;
     }
+
+    /**
+     * Returns a taskList with tasks that have a due date in the next 2 days.
+     *
+     * @return a taskList with the relevant tasks
+     */
+    public TaskList getUpcomingTasks() {
+        TaskList upcomingList = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.isUpcoming()) {
+                upcomingList.add(task);
+            }
+        }
+        return upcomingList;
+    }
 }

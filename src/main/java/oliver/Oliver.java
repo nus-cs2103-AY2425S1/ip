@@ -63,6 +63,8 @@ public class Oliver {
             return handleDelete(input);
         } else if (command.equalsIgnoreCase("find")) {
             return ui.showSearch(this.tasks, Parser.parseArgs(input));
+        } else if (command.equalsIgnoreCase("remind")) {
+            return ui.showReminders(this.tasks);
         } else {
             return "Invalid command. Command was not recognised.";
         }
