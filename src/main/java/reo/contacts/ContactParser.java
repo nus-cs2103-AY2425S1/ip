@@ -5,6 +5,7 @@ import reo.storage.ContactStorage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/** Parses a given user input related to contact management */
 public class ContactParser {
     private String input;
     private String[] words;
@@ -19,6 +20,13 @@ public class ContactParser {
         UNKNOWN
     }
 
+    /**
+     * Constructor for the Parser class.
+     *
+     * @param input The raw user input from the UI.
+     * @param contacts The list of contacts in the user's list at the time of the input.
+     * @param storage The storage object for writing to memory.
+     */
     public ContactParser(String input, ContactList contacts, ContactStorage storage) {
         this.input = input;
         this.contacts = contacts;
@@ -32,6 +40,13 @@ public class ContactParser {
         }
     }
 
+    /**
+     * Interpret user's command, make the necessary file changes,
+     * and display the corresponding UI.
+     *
+     * @return The String representation of the response
+     * for the corresponding command.
+     */
     public String parse() {
         switch (command) {
         case PERSON:
@@ -45,10 +60,21 @@ public class ContactParser {
         }
     }
 
+    /**
+     * Gets the correct UI for the CONTACTS command.
+     *
+     * @return The String representation of the stored ArrayList of contacts so far.
+     */
     private String handleContacts() {
         return contacts.toString();
     }
 
+    /**
+     * Parses a PERSON command to extract the relevant information.
+     *
+     * @param input The input string from the user.
+     * @return An array with the name, phone number and address of the contact.
+     */
     private String[] parsePerson(String input) {
         String[] parts = input.split("/n", 2);
         String[] firstPart = parts[0].split(" ", 2);
@@ -58,12 +84,18 @@ public class ContactParser {
         String number = secondPart[0].trim();
         String address = secondPart[1].trim();
 
-        if (name.equals("") || number.equals("") || address.equals("")) {
+        if (name.isEmpty() || number.isEmpty() || address.isEmpty()) {
             throw new IllegalArgumentException();
         }
         return new String[]{name, number, address};
     }
 
+    /**
+     * Gets the correct UI for the PERSON command.
+     *
+     * @return The String representation of the added Contact,
+     * with a confirmation message.
+     */
     private String handlePerson() {
         final String PERSON_ERROR = "ERROR: Please enter a valid name, phone number and address.";
         try {
@@ -81,6 +113,12 @@ public class ContactParser {
         }
     }
 
+    /**
+     * Gets the correct UI for the DELETE command.
+     *
+     * @return The String representation of the deleted Contact(s),
+     * with a confirmation message.
+     */
     private String handleDelete() {
         final String DELETE_CONFIRMATION = "I've deleted these contacts:\n";
         final String DELETE_ERROR = "Please enter one or more valid contact numbers.\n";

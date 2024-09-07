@@ -5,7 +5,7 @@ import reo.storage.TaskStorage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/** Parses a given user input */
+/** Parses a given user input related to task management */
 public class TaskParser {
     enum Command {
         BYE,

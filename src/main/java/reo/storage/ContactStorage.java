@@ -13,13 +13,27 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+/** Supports the required file operations for Contact. */
 public class ContactStorage {
     private String filePath;
+
+    /**
+     * Constructor for the ContactStorage class.
+     *
+     * @param filePath The file path to write / read data to / from.
+     */
     public ContactStorage(String filePath) {
         assert filePath != null : "File path cannot be null";
         assert !filePath.isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
     }
+
+    /**
+     * Reads the saved file, and interprets its contents to create
+     * an ArrayList of Contact objects represented by the file contents.
+     *
+     * @return An ArrayList of Contacts interpreted from the file.
+     */
     public ArrayList<Contact> readFile() {
         ArrayList<Contact> contacts = new ArrayList<>();
         try {
@@ -55,6 +69,12 @@ public class ContactStorage {
         return contacts;
     }
 
+    /**
+     * Writes to the saved file by appending the file representation
+     * of contact to the end of the file.
+     *
+     * @param contact The Contact to be converted to file representation and appended.
+     */
     public void writeFile(Contact contact) {
         if (contact == null) {
             throw new NullPointerException();
@@ -71,6 +91,11 @@ public class ContactStorage {
         }
     }
 
+    /**
+     * Removes the specified line i from the saved file.
+     *
+     * @param lineNumber The line number (1-indexed) to be removed.
+     */
     public void removeLine(int lineNumber) {
         assert lineNumber > 0 : "Line number must be greater than 0";
         try {
