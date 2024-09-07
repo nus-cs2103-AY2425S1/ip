@@ -20,7 +20,9 @@ public class Todo extends Task {
     }
 
     public static Task load(String input) {
+        assert !input.isEmpty();
         String[] parameters = input.split("\\|");
+        assert parameters.length == 3;
         boolean completed = parameters[1].trim().equals("1");
         return new Todo(parameters[2].trim(), completed);
     }

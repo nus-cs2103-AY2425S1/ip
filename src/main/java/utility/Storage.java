@@ -35,6 +35,8 @@ public class Storage {
                 throw new FileNotFoundException("Could not create file " + saveFile.getAbsolutePath());
             }
         }
+        assert (saveFile.exists());
+
         FileWriter fw = new FileWriter(storagePath);
         for (Task task : tasks) {
             fw.write(task.getSaveFormat() + "\n");

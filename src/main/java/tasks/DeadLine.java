@@ -30,7 +30,9 @@ public class DeadLine extends Task {
     }
 
     public static DeadLine load(String input) {
+        assert !input.isBlank();
         String[] parameters = input.split("\\|");
+        assert parameters.length == 4;
         boolean completed = parameters[1].trim().equals("1");
         return new DeadLine(
                 parameters[2].trim(),
