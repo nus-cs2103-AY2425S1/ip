@@ -1,6 +1,7 @@
 package storage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,9 +37,7 @@ public class TaskList {
      */
     public TaskList(Task ... tasks) {
         this.tasks = new ArrayList<>();
-        for (Task task : tasks) {
-            this.tasks.add(task);
-        }
+        Collections.addAll(this.tasks, tasks);
     }
 
     /**
@@ -95,28 +94,24 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
-     * @return The task that was marked as done.
      */
-    public Task markDone(int index) throws DudeException {
+    public void markDone(int index) throws DudeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DudeException("There is no such task!");
         }
-
         if (tasks.get(index).isDone()) {
             throw new DudeException("This task is already marked as done!");
         }
         Task task = this.tasks.get(index);
         task.markAsDone();
-        return task;
     }
 
     /**
      * Marks a task as undone.
      *
      * @param index The index of the task to be marked as undone.
-     * @return The task that was marked as undone.
      */
-    public Task markUndone(int index) throws DudeException {
+    public void markUndone(int index) throws DudeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DudeException("There is no such task!");
         }
@@ -125,7 +120,6 @@ public class TaskList {
         }
         Task task = this.tasks.get(index);
         task.markAsUndone();
-        return task;
     }
 
     /**
