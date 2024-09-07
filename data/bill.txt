@@ -4,4 +4,6 @@
 4.[T][X] fly
 5.[T][X] sad
 6.[T][X] cryhard
-7.[T][X] juggle
+7.[T][ ] juggle
+8.[T][X] crys
+9.[D][ ] winning (by: Jun 10 2024)

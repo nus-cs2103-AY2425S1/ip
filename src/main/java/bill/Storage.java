@@ -99,7 +99,7 @@ public class Storage {
             // load storage into list var
             switch (route) {
             case 'T':
-                System.out.println("todo " + line.substring(firstSpace));
+                //System.out.println("todo " + line.substring(firstSpace));
                 ui.handleToDo("todo " + line.substring(firstSpace), userList, this, tasks);
                 break;
             case 'D':

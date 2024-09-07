@@ -28,12 +28,14 @@ public class TaskList {
      * @param storage Storage to save the updated list to bill.txt persistent data.
      * @throws IOException If there is an error writing to the bill.txt file.
      */
-    public void addTask(Task newTask, ArrayList<Task> userList, Storage storage) throws IOException {
+    public String addTask(Task newTask, ArrayList<Task> userList, Storage storage) throws IOException {
         userList.add(newTask);
-        System.out.println("added: " + newTask);
-        System.out.println("Now you have " + userList.size() + " tasks in the list.");
+
         //update hardisk list
         storage.saveList(userList);
+
+        return "added: " + newTask.toString() + "\n" +
+                "Now you have " + userList.size() + " tasks in the list.\n";
     }
 
     /**
@@ -54,14 +56,16 @@ public class TaskList {
      *
      * @param userList Current accessible state of mutable list.
      */
-    public void showList(ArrayList<Task> userList) {
+    public String showList(ArrayList<Task> userList) {
         if (userList.isEmpty()) {
-            System.out.println("List is empty");
+            return "List is empty\n";
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the tasks in your list:\n");
             for (int i = 0; i < userList.size(); i++) {
-                System.out.println((i + 1) + "." + userList.get(i));
+                sb.append((i + 1)).append(". ").append(userList.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 
@@ -70,23 +74,24 @@ public class TaskList {
      *
      * @param keyWord The keyword that the user want to match.
      */
-    public void showFilterList(String keyWord) {
+    public String showFilterList(String keyWord) {
         // similar to show list but filter by description to contains the keyword searched by the user
         if (userList.isEmpty()) {
-            System.out.println("List is empty, no matching tasks");
+            return "List is empty, no matching tasks\n";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the matching tasks in your list:\n");
             boolean hasNoMatch = true;
             for (int i = 0; i < userList.size(); i++) {
                 if (userList.get(i).getDescription().contains(keyWord)) {
-                    System.out.println((i + 1) + "." + userList.get(i));
+                    sb.append(i + 1).append(". ").append(userList.get(i)).append("\n");
                     hasNoMatch = false;
                 }
             }
             if (hasNoMatch) {
-                System.out.println("There are no matching tasks in your list currently matching the keyword "
-                            + keyWord);
+                sb.append("There are no matching tasks in your list currently matching the keyword ").append(keyWord);
             }
+            return sb.toString();
         }
     }
 
@@ -96,7 +101,7 @@ public class TaskList {
      * @param targetTaskNumber The index of the targeted task from the userList to mark or unmark it.
      * @param markOrUnmark Identifier of mark or unmark, which determines if the target task will be marked or unmarked.
      */
-    public void markOrUnmarkTask(int targetTaskNumber, String markOrUnmark) {
+    public String markOrUnmarkTask(int targetTaskNumber, String markOrUnmark) {
         Task targetTask = userList.get(targetTaskNumber);
         if (markOrUnmark.equals("mark")) {
             targetTask.mark();
@@ -104,6 +109,6 @@ public class TaskList {
             // unmarked
             targetTask.unmark();
         }
-        System.out.println(targetTask);
+        return targetTask.toString();
     }
 }

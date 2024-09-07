@@ -17,6 +17,11 @@ public class Bill {
         tasks = new TaskList();
     }
 
+    public String getResponse(String userCommand) {
+        // returns a string based on bill's response to user input
+        return ui.handleUserCommandsGui(userCommand, storage, tasks);
+    }
+
     /**
      * Starts Bill chatbot when called.
      */
