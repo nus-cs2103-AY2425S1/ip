@@ -4,8 +4,9 @@
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: aliceblue;
     -fx-font: 20px "Arial";
+    -fx-border-radius: 8px;
 }
 
 .button {
@@ -21,14 +22,14 @@
 .button:hover {
     -fx-background-color: aliceblue;
     -fx-font-size: 16px;
-    -fx-cursor: pointer
+    -fx-cursor: pointer;
     -fx-border-width: 2px;
     -fx-border-radius: 8px;
 }
 
 .button:pressed {
-    -fx-background-color:orange;
-    -fx-font-size: 20px;
+    -fx-background-color: rgb(53, 51, 61);
+    -fx-font-size: 17px;
 }
 
 .scroll-pane,
@@ -42,7 +43,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: gray;
     -fx-background-radius: 1em;
 }
 

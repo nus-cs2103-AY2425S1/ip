@@ -3,12 +3,12 @@
     -fx-text-fill: #ff8787;
     -fx-font-size: 14px;
     -fx-padding: 20px;  /* Adjust padding as needed */
-    -fx-background-radius: 3em 3em 0 3em;
+    -fx-background-radius: 3em 0 3em 3em;
     -fx-background-insets: 0px 7px 0px 7px;
 }
 
 .reply-label {
-    -fx-background-radius: 3em 3em 3em 0;
+    -fx-background-radius: 0 3em 3em 3em;
     -fx-border-radius: 1em 1em 1em 0;
 }
 
