@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.DukeException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.tasks.Task;
 
 
@@ -36,10 +36,10 @@ public class FindCommand extends Command {
      * @param tasks The TaskList object containing the list of tasks.
      * @param ui The Ui object responsible for user interaction.
      * @param storage The Storage object for reading and writing tasks (not used in this command).
-     * @throws DukeException If an error occurs during execution.
+     * @throws WenJieException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
         String[] parts = getInput().split(" ");
         ArrayList<Task> taskList = tasks.getTasks();
 
@@ -53,6 +53,7 @@ public class FindCommand extends Command {
         ui.showLine();
         System.out.println(displayList(result));
         ui.showLine();
+        ui.setOutput(displayList(result));
     }
 
     /**

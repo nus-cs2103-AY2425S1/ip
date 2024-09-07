@@ -3,7 +3,7 @@ package wenjiebot;
 import java.util.Scanner;
 
 import wenjiebot.commands.Command;
-import wenjiebot.exceptions.DukeException;
+import wenjiebot.exceptions.WenJieException;
 
 /**
  * The WenJie class represents the main application for the wenjiebot individual project.
@@ -31,7 +31,7 @@ public class WenJie {
     /**
      * Starts the WenJie application, displaying a welcome message and
      * continuously processing user commands until the exit condition is met.
-     * Handles any DukeException that occurs during command execution.
+     * Handles any WenJieException that occurs during command execution.
      */
     public void run() {
         ui.showWelcome();
@@ -43,7 +43,7 @@ public class WenJie {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (WenJieException e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -59,5 +59,19 @@ public class WenJie {
     public static void main(String[] args) {
         String filePath = "./src/main/java/data/wenjie.txt";
         new WenJie(filePath).run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        ui.showWelcome();
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (WenJieException e) {
+            ui.showError(e.getMessage());
+        }
+        return ui.getOutput();
     }
 }

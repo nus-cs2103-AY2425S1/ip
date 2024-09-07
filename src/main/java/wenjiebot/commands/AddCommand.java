@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.DukeException;
 import wenjiebot.exceptions.InvalidInputException;
 import wenjiebot.exceptions.NoFollowUpException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.tasks.Deadline;
 import wenjiebot.tasks.Event;
 import wenjiebot.tasks.Task;
@@ -49,10 +49,10 @@ public class AddCommand extends Command {
      * @param tasks the TaskList that contains all the tasks.
      * @param ui the Ui used for interaction with the user.
      * @param storage the Storage used to store and retrieve tasks.
-     * @throws DukeException if there is an error during execution, such as invalid input or missing follow-up details.
+     * @throws WenJieException if there is an error during execution, such as invalid input/missing follow-up details.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
         ArrayList<Task> taskList = tasks.getTasks();
 
         switch (typeOfEvent) {
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             ToDo todo = new ToDo(getInput().substring(5));
             taskList.add(todo);
             printAcknowledgeMessage(taskList.size(), ui, todo);
-
+            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, todo));
 
             break;
 
@@ -76,6 +76,7 @@ public class AddCommand extends Command {
             taskList.add(deadline);
 
             printAcknowledgeMessage(taskList.size(), ui, deadline);
+            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, deadline));
 
             break;
 
@@ -86,6 +87,7 @@ public class AddCommand extends Command {
             taskList.add(event);
 
             printAcknowledgeMessage(taskList.size(), ui, event);
+            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, event));
 
             break;
 
@@ -194,5 +196,11 @@ public class AddCommand extends Command {
                 + task + "\n"
                 + "Now you have " + taskListSize + " tasks in the list.");
         ui.showLine();
+    }
+
+    public String getAcknoledgeMessage(int taskListSize, Ui ui, Task task) {
+        return ("Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + taskListSize + " tasks in the list.");
     }
 }
