@@ -37,7 +37,7 @@ public class MortalReminderWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the MortalReminder instance
      */
     public void setMortalReminder(MortalReminder mortalReminder) {
         this.mortalReminder = mortalReminder;

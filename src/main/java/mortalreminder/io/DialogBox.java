@@ -64,11 +64,14 @@ public class DialogBox extends HBox {
     private void changeDialogStyle(CommandType commandType) {
         switch (commandType) {
         case TODO:
+            // Fallthrough
         case DEADLINE:
+            // Fallthrough
         case EVENT:
             dialog.getStyleClass().add("add-label");
             break;
         case MARK:
+            // Fallthrough
         case UNMARK:
             dialog.getStyleClass().add("marked-label");
             break;

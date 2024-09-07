@@ -38,10 +38,11 @@ public class FormattedPrinting {
      *
      * @param taskList the current total list of tasks to be printed out
      * @return a string of the list of all tasks currently tracked.
+     * @throws MortalReminderException from an inner method.
      */
     public static String printList(TaskList taskList) throws MortalReminderException {
         if (taskList.getSize() == 0) {
-            return emptyList();
+            return getResponse("You have no tasks in your list.");
         } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
@@ -54,6 +55,7 @@ public class FormattedPrinting {
      *
      * @param taskList the list of similar tasks to be printed out.
      * @return a string of all similar tasks to the search term(s) queried by user.
+     * @throws MortalReminderException from an inner method.
      */
     public static String printSimilarTasks(TaskList taskList) throws MortalReminderException {
         if (taskList.getSize() == 0) {
@@ -134,18 +136,15 @@ public class FormattedPrinting {
         return getResponse("OK, I've marked this task as not done yet:\n" + printTask(task));
     }
 
-    public static String emptyList() {
-        return getResponse("You have no tasks in your list.");
-    }
-
     /**
      * Returns a list of all upcoming tasks from today.
      * These tasks must be {@link mortalreminder.tasks.TimedTask} and not have been marked as done.
      *
      * @param tasks The list of all tasks that are upcoming from today and is tracked by the backend.
      * @return a string formatted version of all upcoming tasks from now that have not been marked as done.
+     * @throws MortalReminderException if the {@link TaskList} is empty.
      */
-    public static String upcomingDeadlinesEvents(ArrayList<Task> tasks) throws MortalReminderException {
+    public static String printUpcomingDeadlinesEvents(ArrayList<Task> tasks) throws MortalReminderException {
         if (tasks.isEmpty()) {
             throw new MortalReminderException("There are no upcoming tasks!");
         } else {

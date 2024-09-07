@@ -28,6 +28,7 @@ public class Storage {
      * to the file. If an {@link IOException} occurs, an error message is printed.
      *
      * @param task the {@link Task} to append to the file.
+     * @throws MortalReminderException if the file cannot be found.
      */
     public static void appendToListFile(Task task) throws MortalReminderException {
         try {
@@ -45,6 +46,8 @@ public class Storage {
      * <p>
      * This method deletes all content from the storage file by opening it in write mode
      * and writing an empty string. If an {@link IOException} occurs, an error message is printed.
+     *
+     * @throws MortalReminderException if the file cannot be found from the hardcoded path.
      */
     public static void clearListFile() throws MortalReminderException {
         try {
@@ -67,6 +70,7 @@ public class Storage {
      * following post.</a>
      *
      * @param taskList the {@link TaskList} containing tasks to re-append to the file.
+     * @throws MortalReminderException if there is an error inside the clearListFile() method.
      */
     public static void refreshStorageFile(TaskList taskList) throws MortalReminderException {
         clearListFile();
@@ -83,6 +87,7 @@ public class Storage {
      * an error message is printed, and a new, empty {@link TaskList} is returned.
      *
      * @return a {@link TaskList} containing tasks loaded from the file, or an empty {@link TaskList} if loading fails.
+     * @throws MortalReminderException if file is unreadable or cannot be created.
      */
     public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {

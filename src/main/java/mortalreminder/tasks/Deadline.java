@@ -33,7 +33,6 @@ public class Deadline extends Task implements TimedTask {
         this.description = descriptionString[0].trim();
         this.deadline = getTime(descriptionString[1].trim());
         this.type = "D";
-
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits

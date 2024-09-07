@@ -15,7 +15,7 @@ import mortalreminder.tasks.Task;
 import mortalreminder.tasks.TimedTask;
 import mortalreminder.tasks.ToDo;
 
-// javadocs was generated using ChatGPT with minor edits.
+// javadocs were generated using ChatGPT with minor edits.
 
 /**
  * Handles the processing of commands related to task management.
@@ -31,11 +31,11 @@ public class Processor {
      * <p>
      * Depending on the command type, this method can print the task list, create a new task,
      * mark or unmark a task as done, delete a task, clear all tasks, or list upcoming tasks.
-     * If the command is of type {@code BYE}, it will stop further processing.
      *
      * @param command  the {@link Command} to process.
      * @param taskList the {@link TaskList} to modify based on the command.
      * @return response string which is the output message of the entire command.
+     * @throws MortalReminderException based on different input or command errors found in the given command.
      */
     public String handleCommand(Command command, TaskList taskList) throws MortalReminderException {
         CommandType commandType = command.commandType();
@@ -71,10 +71,10 @@ public class Processor {
             return taskList.clearList();
 
         case UPCOMING_TASKS:
-            return upcomingTasks(taskList);
+            return getUpcomingTasks(taskList);
 
         default:
-            return unrecognisedCommand();
+            return feedbackUnrecognisedCommand();
         }
     }
 
@@ -89,6 +89,7 @@ public class Processor {
      * @param taskList       the {@link TaskList} containing the tasks to modify.
      * @param commandType    the {@link CommandType} indicating the action to perform.
      * @return returns a confirmation message of the corresponding type of command done.
+     * @throws MortalReminderException if the index given is invalid (does not exist in the {@link TaskList}).
      */
     public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
@@ -126,6 +127,7 @@ public class Processor {
      * @param taskList       the {@link TaskList} to add the new task to.
      * @param commandType    the {@link CommandType} indicating the type of task to create.
      * @return returns a confirmation message of type of task created or the reason why the task could not be created.
+     * @throws MortalReminderException if there is an error in the initialisation in the new {@link Task} to be created.
      */
     public String createTask(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
@@ -149,7 +151,7 @@ public class Processor {
      * @param taskList the {@link TaskList} containing the tasks to check for upcoming due dates.
      * @return a string message containing list of upcoming tasks that have not been marked yet.
      */
-    public String upcomingTasks(TaskList taskList) throws MortalReminderException {
+    public String getUpcomingTasks(TaskList taskList) throws MortalReminderException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
@@ -161,10 +163,14 @@ public class Processor {
                 }
             }
         }
-        return FormattedPrinting.upcomingDeadlinesEvents(tasks);
+        return FormattedPrinting.printUpcomingDeadlinesEvents(tasks);
     }
 
-    public String unrecognisedCommand() throws MortalReminderException {
+    /**
+     * Returns feedback message if the command passed by the user is unrecognisable.
+     * A list of all recognisable commands are also provided.
+     */
+    public String feedbackUnrecognisedCommand() {
         StringBuilder message = new StringBuilder("""
                     I do not recognise this command, please check again!
                     Available commands are:
@@ -174,7 +180,7 @@ public class Processor {
                 message.append(type.name().toLowerCase()).append("\n");
             }
         }
-        throw new MortalReminderException(message.toString());
+        return message.toString();
     }
 
 }

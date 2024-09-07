@@ -68,6 +68,7 @@ public class Parser {
      *
      * @param input the input string read from a file.
      * @return the corresponding {@code Task} object, or {@code null} if the input is invalid.
+     * @throws MortalReminderException if the file contains unrecognisable text.
      */
     public static Task parseInputFromFile(String input) throws MortalReminderException {
 

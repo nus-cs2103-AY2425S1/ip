@@ -28,6 +28,7 @@ public class TaskList {
      *
      * @param index the index of the task to retrieve.
      * @return the {@link Task} at the specified index, or {@code null} if the index is invalid.
+     * @throws MortalReminderException if the index is invalid in the list.
      */
     public Task getTask(int index) throws MortalReminderException {
         try {
@@ -51,6 +52,7 @@ public class TaskList {
      *
      * @param task the {@link Task} to add.
      * @return string of confirmation message if adding was successful and an error message if not.
+     * @throws MortalReminderException if the description of the task to be added is empty.
      */
     public String addTask(Task task) throws MortalReminderException {
         if (!Objects.equals(task.getDescription().trim(), "")) {
@@ -85,6 +87,7 @@ public class TaskList {
      *
      * @param task the {@link Task} to delete.
      * @return a string of confirmation or error message if the task cannot be deleted.
+     * @throws MortalReminderException if the task does not exist.
      */
     public String deleteTask(Task task) throws MortalReminderException {
         if (!Objects.equals(task.getDescription().trim(), "")) {
@@ -132,21 +135,5 @@ public class TaskList {
     public String clearList() {
         this.taskList.clear();
         return FormattedPrinting.clearList();
-    }
-
-    /**
-     * Returns a string representation of the task list in a format suitable for saving to a file.
-     * <p>
-     * Each task is converted to its file format and appended to the output string.
-     *
-     * @return a string representation of the task list.
-     */
-    @Override
-    public String toString() {
-        StringBuilder output = new StringBuilder();
-        for (Task task : this.taskList) {
-            output.append(task.convertToFileFormat()).append("\n");
-        }
-        return output.toString();
     }
 }
