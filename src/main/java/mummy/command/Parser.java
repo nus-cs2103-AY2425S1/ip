@@ -1,4 +1,4 @@
-package mummy.utility;
+package mummy.command;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * The Parser class provides methods for parsing commands and extracting tokens from them.
  */
-public class Parser {
+public final class Parser {
 
     /**
      * Parses a command string and extracts the command, description, and other arguments.

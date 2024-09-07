@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,9 +29,9 @@ public class Storage {
      * @return An ArrayList of strings containing the lines of the file.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public ArrayList<String> load() throws IOException {
+    public List<String> load() throws IOException {
         File file = new File(ioPath);
-        ArrayList<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
         if (file.exists()) {
             // if file already exists or is successfully created
@@ -56,7 +56,7 @@ public class Storage {
      * @param lines the collection of lines to be saved
      * @throws IOException if an I/O error occurs while writing to the file
      */
-    public void save(Collection<String> lines) throws IOException {
+    public void save(List<String> lines) throws IOException {
         FileWriter fw = new FileWriter(this.ioPath, false);
         for (String line : lines) {
             fw.write(line + "\n");
