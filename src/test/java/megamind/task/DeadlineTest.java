@@ -26,7 +26,7 @@ public class DeadlineTest {
     @Test
     public void testToString() {
         Deadline deadline = new Deadline("project meeting", "11/11/1111 1111");
-        assertEquals("[D][ ] project meeting (BY: 11 Nov 1111, 11:11:00 AM)",
+        assertEquals("[D][ ] project meeting (BY: Nov 11, 1111, 11:11:00 AM)",
                 deadline.toString());
     }
 }
