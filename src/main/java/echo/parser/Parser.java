@@ -1,10 +1,10 @@
 package echo.parser;
 
 import echo.exception.EchoException;
-import echo.task.Deadlines;
-import echo.task.Events;
+import echo.task.Deadline;
+import echo.task.Event;
 import echo.task.Task;
-import echo.task.ToDos;
+import echo.task.ToDo;
 
 /**
  * Represents a parser to parse inputs given by users
@@ -23,17 +23,18 @@ public class Parser {
     }
 
     /**
-     * Returns the description of the todo task
+     * Returns array of string containing the description of the todo task
      *
      * @param taskDescription string of description provided after parsing the input
-     * @return string of task description of todo task
+     * @return array of string containing description of todo task e.g. [description]
      * @throws EchoException if there is no task description
      */
-    public String parseToDos(String taskDescription) throws EchoException {
+    public String[] parseToDo(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
             throw new EchoException("Sorry! Please include a description of what to do.");
         }
-        return taskDescription;
+        String[] toDoArray = { taskDescription };
+        return toDoArray;
     }
 
     /**
@@ -41,11 +42,11 @@ public class Parser {
      * e.g. [task description, deadline]
      *
      * @param taskDescription string of description provided after parsing the input.
-     * @return string array of deadline task containing task description and deadline.
+     * @return array of string containing task description and deadline. e.g. [description, deadline]
      * @throws EchoException if there is no task description and
      *                       if there is no deadline include for the task.
      */
-    public String[] parseDeadlines(String taskDescription) throws EchoException {
+    public String[] parseDeadline(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
             throw new EchoException("Sorry! Please include a description of what to do.");
         }
@@ -65,10 +66,11 @@ public class Parser {
      * e.g.[task description, start time, end time]
      *
      * @param taskDescription string of description provided after parsing the input.
-     * @return string array of event containing task description, start and end time of event.
+     * @return array of string containing task description, start and end time of event.
+     *         e.g. [description, start time, end time]
      * @throws EchoException if there is no task description and there is no start or end time.
      */
-    public String[] parseEvents(String taskDescription) throws EchoException {
+    public String[] parseEvent(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
             throw new EchoException("Sorry! Please include a description of what to do.");
         }
@@ -118,26 +120,27 @@ public class Parser {
 
         switch (command) {
         case "todo":
-            ToDos toDoTask = new ToDos(taskDescription);
+            String[] toDoArray = parseToDo(taskDescription);
+            ToDo toDoTask = new ToDo(toDoArray);
+
             markTask(taskStatus, toDoTask);
             return toDoTask;
         case "deadline":
             String deadline = textArray[3];
             taskDescription = taskDescription + " " + deadline;
-            String[] deadlineArray = this.parseDeadlines(taskDescription);
-            String deadlineDescription = deadlineArray[0];
-            String deadlineDate = deadlineArray[1];
-            Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
+
+            String[] deadlineArray = parseDeadline(taskDescription);
+            Deadline deadlineTask = new Deadline(deadlineArray);
+
             markTask(taskStatus, deadlineTask);
             return deadlineTask;
         case "event":
             String startToEndTime = textArray[3];
             taskDescription = taskDescription + " " + startToEndTime;
-            String[] eventArray = this.parseEvents(taskDescription);
-            String eventDescription = eventArray[0];
-            String eventStartTime = eventArray[1];
-            String eventEndTime = eventArray[2];
-            Events eventTask = new Events(eventDescription, eventStartTime, eventEndTime);
+
+            String[] eventArray = parseEvent(taskDescription);
+            Event eventTask = new Event(eventArray);
+
             markTask(taskStatus, eventTask);
             return eventTask;
         default:
