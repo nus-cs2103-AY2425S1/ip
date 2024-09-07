@@ -38,7 +38,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        displayMessage("Hello! I'm Nixy", "What can I do for you?");
+        displayMessage("Hello! I'm Nixy\n" + "What can I do for you?");
     }
 
     public void showGoodbye() {
@@ -86,7 +86,7 @@ public class Ui {
      * @param taskString The string represenation of task that was marked as done.
      */
     public void showMarkedAsDone(String taskString) {
-        displayMessage("Nice! I've marked this task as done:",
+        displayMessage("Nice! I've marked this task as done:\n" +
             "  " + taskString);
     }
 
@@ -95,7 +95,7 @@ public class Ui {
      * @param taskString The string represenation of task that was marked as not done.
      */
     public void showMarkedAsUndone(String taskString) {
-        displayMessage("OK, I've marked this task as not done yet:",
+        displayMessage("OK, I've marked this task as not done yet:\n",
             "  " + taskString);
     }
 
@@ -105,8 +105,8 @@ public class Ui {
      * @param taskCount The number of tasks remaining in the list.
      */
     public void showDeletedTask(String taskString, int taskCount) {
-        displayMessage("Noted. I've removed this task:",
-            "  " + taskString, String.format("Now you have %d tasks in the list.", taskCount));
+        displayMessage("Noted. I've removed this task:\n" +
+            "  " + taskString + String.format("\nNow you have %d tasks in the list.", taskCount));
     }
 
     /**
@@ -123,8 +123,8 @@ public class Ui {
      * @param taskCount The number of tasks in the list.
      */
     public void showAddedTask(Task task, int taskCount) {
-        displayMessage("Got it. I've added this task:",
-            "  " + task, String.format("Now you have %d tasks in the list.", taskCount));
+        displayMessage("Got it. I've added this task:\n" +
+            "  " + task + String.format("\nNow you have %d tasks in the list.", taskCount));
     }
 
     /**
