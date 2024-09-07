@@ -1,5 +1,7 @@
 package ui;
 
+import command.CommandType;
+import elliot.Elliot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,10 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import elliot.Elliot;
 import utility.Ui;
-import command.CommandType;
+
 
 /**
  * Controller for the main GUI.
@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
     private Image elliotImage = new Image(this.getClass()
             .getResourceAsStream("/images/elliot.png"));
 
+    /**
+     * Initialized anchor pane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

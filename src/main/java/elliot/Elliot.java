@@ -1,7 +1,5 @@
 package elliot;
 
-import java.util.Scanner;
-
 import command.Command;
 import command.CommandType;
 import exception.ElliotException;
@@ -18,6 +16,9 @@ public class Elliot {
     private TaskList taskList;
     private CommandType commandType = CommandType.LIST;
 
+    /**
+     * Creates Elliot obect with storage and taskList loaded
+     */
     public Elliot() {
         storage = new Storage("./data/ElliotTaskList.ser");
         taskList = storage.loadTaskList();
