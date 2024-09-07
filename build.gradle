@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("eevee.Eevee")
+    mainClass.set("eevee.Launcher")
 }
 
 shadowJar {
