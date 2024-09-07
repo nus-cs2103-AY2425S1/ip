@@ -27,6 +27,8 @@ public class TaskParser {
             case "D" -> new Deadline(name, LocalDateTime.parse(split[3], formatter));
             case "E" ->
                     new Event(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
+            case "P" ->
+                    new Period(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
             default -> throw new MichaelScottException("Wrong stuff");
         };
 

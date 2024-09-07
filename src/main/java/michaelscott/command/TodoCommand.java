@@ -37,7 +37,7 @@ public class TodoCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks) {
-        assert tasks != null : "asks cannot be null";
+        assert tasks != null : "tasks cannot be null";
 
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
