@@ -3,6 +3,7 @@ package yapper.app;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Manages a list of tasks, including adding, deleting, marking, and listing tasks.
@@ -147,14 +148,13 @@ public class TaskList {
      * Finds and prints out the tasks that contain a certain keyword
      *
      * @param keyword     the keyword used to filter out the relevant tasks
+     * @return            the strings representing each task that contains the provided keyword
      */
     public String findTasks(String keyword) {
-        ArrayList<Task> foundMatches = new ArrayList<>();
-        for (Task task : this.taskList) {
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                foundMatches.add(task);
-            }
-        }
+        ArrayList<Task> foundMatches = this.taskList.stream()
+            .filter(task -> task.toString().toLowerCase().contains(keyword.toLowerCase()))
+            .collect(Collectors.toCollection(ArrayList::new));
+
         if (foundMatches.isEmpty()) {
             return Ui.wrapText("Sorry, I couldn't find any tasks that had this keyword! :(");
         }
