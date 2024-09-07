@@ -19,6 +19,17 @@ public class AddCommand implements Command {
         words = msg.split(" ");
     }
 
+    @Override
+    public String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
+        Task newTask = TaskList.getTask(msg, words);
+        tasks.addTask(newTask);
+        String plural = tasks.size() == 1 ? " task" : " tasks";
+        String response = "atreides.task.Task added\n"
+                + newTask.toString().indent(2)
+                + tasks.size() + plural + " in list\n";
+        return response;
+    }
+
     /**
      * adds the task to the list of tasks and gets the Ui to acknowledge
      * that a task has been added.
@@ -29,12 +40,7 @@ public class AddCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
-        Task newTask = TaskList.getTask(msg, words);
-        tasks.addTask(newTask);
-        String plural = tasks.size() == 1 ? " task" : " tasks";
-        String response = "atreides.task.Task added\n"
-                + newTask.toString().indent(2)
-                + tasks.size() + plural + " in list\n";
+        String response = executeString(tasks, ui, storage);
         ui.showMessage(response);
     }
 

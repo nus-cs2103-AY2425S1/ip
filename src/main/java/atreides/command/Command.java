@@ -13,6 +13,8 @@ public interface Command {
 
     void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException;
 
+    String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException;
+
     /**
      * Represents if this is the command to stop the program
      * @return whether the Ui will continue accepting commands after this

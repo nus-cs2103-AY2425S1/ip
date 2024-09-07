@@ -6,6 +6,11 @@ import atreides.ui.Ui;
 
 public class ListCommand implements Command {
 
+    @Override
+    public String executeString(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.showList();
+    }
+
     /**
      * Ui will print the list of tasks current stored
      * @param tasks
@@ -14,7 +19,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String listOfTasks = tasks.showList();
+        String listOfTasks = executeString(tasks, ui, storage);
         ui.showMessage(listOfTasks);
     }
 

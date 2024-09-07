@@ -11,6 +11,11 @@ public class ErrorCommand implements Command {
         this.error = error;
     }
 
+    @Override
+    public String executeString(TaskList tasks, Ui ui, Storage storage) {
+        return error;
+    }
+
     /**
      * Ui will show the error message
      * @param tasks
@@ -19,6 +24,7 @@ public class ErrorCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String error = executeString(tasks, ui, storage);
         ui.showError(error);
     }
 

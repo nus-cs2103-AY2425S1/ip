@@ -7,6 +7,10 @@ import atreides.ui.Ui;
 public class ExitCommand implements Command {
 
     @Override
+    public String executeString(TaskList tasks, Ui ui, Storage storage) {
+        return "";
+    }
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {}
 
     /**

@@ -24,6 +24,10 @@ public class Ui {
         System.out.println(new Response(message));
     }
 
+    public String showStringWelcome() {
+        return INTRO;
+    }
+
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
@@ -43,5 +47,9 @@ public class Ui {
 
     public void showExit() {
         showMessage(OUTRO);
+    }
+
+    public String showStringExit() {
+        return new Response(OUTRO).toString();
     }
 }

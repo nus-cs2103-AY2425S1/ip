@@ -13,8 +13,13 @@ public class FindCommand implements Command {
     }
 
     @Override
+    public String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
+        return tasks.find(description);
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
-        String response = tasks.find(description);
+        String response = executeString(tasks, ui, storage);
         ui.showMessage(response);
     }
 

@@ -50,6 +50,24 @@ public class Atreides {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            Boolean isExit = c.isExit();
+            if (isExit) {
+                storage.writeTasks(tasks);
+                return ui.showStringExit();
+            }
+            return c.executeString(tasks, ui, storage);
+        } catch (AtreidesException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String showWelcome() {
+        return ui.showStringWelcome();
+    }
+
     public static void main(String[] args) {
         new Atreides("src/main/atreides.ui.Atreides.txt").run();
     }
