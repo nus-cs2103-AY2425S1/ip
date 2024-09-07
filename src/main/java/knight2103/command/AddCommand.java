@@ -50,8 +50,4 @@ public class AddCommand extends Command {
             return "There's an issue in the instruction format. Please check.";
         }
     }
-
-    public boolean isExit() {
-        return false;
-    }
 }

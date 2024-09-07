@@ -50,13 +50,4 @@ public class ModifyCommand extends Command {
                     + "To see all tasks, type list";
         }
     }
-
-    /**
-     * Returns whether the bot programme should be exited upon command execution.
-     *
-     * @return if programme exit after execution.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

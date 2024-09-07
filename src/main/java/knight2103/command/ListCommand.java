@@ -20,13 +20,4 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showList(tasks);
     };
-
-    /**
-     * Returns whether the bot programme should be exited upon command execution.
-     *
-     * @return if programme exit after execution.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

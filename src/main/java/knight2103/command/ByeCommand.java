@@ -19,13 +19,4 @@ public class ByeCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showBye();
     };
-
-    /**
-     * Returns whether the bot programme should be exited upon command execution.
-     *
-     * @return if programme exit after execution.
-     */
-    public boolean isExit() {
-        return true;
-    }
 }

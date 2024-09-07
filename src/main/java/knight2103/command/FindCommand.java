@@ -20,8 +20,4 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showFind(tasks, this.predicate);
     };
-
-    public boolean isExit() {
-        return false;
-    }
 }
