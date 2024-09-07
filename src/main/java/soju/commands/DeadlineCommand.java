@@ -27,16 +27,16 @@ public class DeadlineCommand extends Command {
             }
 
             // Extract the part after "deadline "
-            String[] parts = input.substring(9).split(" /by ", 2);
+            String[] taskDetails = input.substring(9).split(" /by ", 2);
 
             // The description is before the "/by"
-            String description = parts[0].trim();
+            String description = taskDetails[0].trim();
             if (description.isEmpty()) {
                 throw new SojuException("The description of a deadline cannot be empty.");
             }
 
             // The due date is after the "/by"
-            String by = parts[1].trim();
+            String by = taskDetails[1].trim();
             LocalDate localDate = LocalDate.parse(by);
 
             // Create a new Tasks.Deadline task

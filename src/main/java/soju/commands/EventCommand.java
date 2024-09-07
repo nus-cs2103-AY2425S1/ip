@@ -24,12 +24,12 @@ public class EventCommand extends Command {
      */
     public EventCommand(String input) throws SojuException {
         try {
-            String[] parts = input.substring(6).split(" /from ", 2);
-            String description = parts[0].trim(); // This is the task description
+            String[] taskDetails = input.substring(6).split(" /from ", 2);
+            String description = taskDetails[0].trim(); // This is the task description
             if (description.isEmpty()) {
                 throw new SojuException("The description of a todo cannot be empty.");
             }
-            String[] timeParts = parts[1].split(" /to ", 2);
+            String[] timeParts = taskDetails[1].split(" /to ", 2);
             String from = timeParts[0].trim(); // Start time
             String to = timeParts[1].trim(); // End time
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
