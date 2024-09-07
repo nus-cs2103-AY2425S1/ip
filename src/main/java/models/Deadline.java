@@ -30,7 +30,7 @@ public class Deadline extends Task {
         this.by = convertDate(by);
     }
 
-    private LocalDate getBy() {
+    public LocalDate getBy() {
         return this.by;
     }
     public String serialize() {
