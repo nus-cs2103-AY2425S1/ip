@@ -19,19 +19,21 @@ public class TaskListTest {
             assertNull(taskList.getTask(0));
             taskList.clearList();
         } catch (Exception e) {
-            assertEquals("Index 0 out of bounds for length 0", e.getMessage());
+            assertEquals("List is empty!", e.getMessage());
         }
 
     }
 
     @Test
-    public void getTask_negativeIndex_exceptionThrown() {
+    public void getTask_invalidIndex_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
-            assertNull(taskList.getTask(-1));
+            Task testingTask = new ToDoStub("This is a task.");
+            taskList.addTask(testingTask);
+            assertNull(taskList.getTask(2));
             fail();
         } catch (Exception e) {
-            assertEquals("Index -1 out of bounds for length 0", e.getMessage());
+            assertEquals("Invalid task number!\nPlease input a number between 1 and 1", e.getMessage());
         }
 
     }
