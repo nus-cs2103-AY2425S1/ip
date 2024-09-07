@@ -40,37 +40,54 @@ public class TaskList {
         List<String> data = storage.load();
 
         for (String line : data) {
-            try {
-                // Escape |
-                String[] taskParts = line.split(" \\| ");
-                Task task = null;
-                if (taskParts[0].equals("todo")) {
-                    task = new ToDo(taskParts[2]);
-                    if (Integer.parseInt(taskParts[1]) == 1) {
-                        task.mark();
-                    }
-                } else if (taskParts[0].equals("deadline")) {
-                    task = new Deadline(taskParts[2], taskParts[3]);
-                    if (Integer.parseInt(taskParts[1]) == 1) {
-                        task.mark();
-                    }
-                } else if (taskParts[0].equals("event")) {
-                    task = new Event(taskParts[2], taskParts[3], taskParts[4]);
-                    if (Integer.parseInt(taskParts[1]) == 1) {
-                        task.mark();
-                    }
-                } else {
-                    throw new CommandNotFoundException("Command not found: " + taskParts[0]);
-                }
-                // Add task to task list
-                if (task != null) {
-                    tasklist.add(task);
-                }
-            } catch (OuiOuiBaguetteException e) {
-                // Handle the exception (can log this if needed)
-                e.printStackTrace();;
+            Task task = parseTaskFromDataFormat(line);
+
+            // Add task to task list
+            if (task != null) {
+                tasklist.add(task);
             }
         }
+    }
+
+
+    /**
+     * Parses the data format of a task.
+     * Creates appropriate Task object.
+     *
+     * @param line Data format of a task
+     */
+    public Task parseTaskFromDataFormat(String line) {
+        Task task = null;
+
+        try {
+            // Escape |
+            String[] taskParts = line.split(" \\| ");
+
+            if (taskParts[0].equals("todo")) {
+                task = new ToDo(taskParts[2]);
+                if (Integer.parseInt(taskParts[1]) == 1) {
+                    task.mark();
+                }
+            } else if (taskParts[0].equals("deadline")) {
+                task = new Deadline(taskParts[2], taskParts[3]);
+                if (Integer.parseInt(taskParts[1]) == 1) {
+                    task.mark();
+                }
+            } else if (taskParts[0].equals("event")) {
+                task = new Event(taskParts[2], taskParts[3], taskParts[4]);
+                if (Integer.parseInt(taskParts[1]) == 1) {
+                    task.mark();
+                }
+            } else {
+                throw new CommandNotFoundException("Command not found: " + taskParts[0]);
+            }
+
+        } catch (OuiOuiBaguetteException e) {
+            // Handle the exception (can log this if needed)
+            e.printStackTrace();
+        }
+
+        return task;
     }
 
     /**
@@ -97,7 +114,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index, size());
+            throw new TaskListOutOfBoundsException(index + 1, size());
         }
         return tasklist.get(index);
     }
@@ -111,7 +128,7 @@ public class TaskList {
      */
     public Task mark(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index, size());
+            throw new TaskListOutOfBoundsException(index + 1, size());
         }
 
         Task task = tasklist.get(index);
@@ -131,7 +148,7 @@ public class TaskList {
      */
     public Task unmark(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index, size());
+            throw new TaskListOutOfBoundsException(index + 1, size());
         }
 
         Task task = tasklist.get(index);
@@ -151,7 +168,7 @@ public class TaskList {
      */
     public Task delete(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index, size());
+            throw new TaskListOutOfBoundsException(index + 1, size());
         }
 
         Task task = tasklist.remove(index);
