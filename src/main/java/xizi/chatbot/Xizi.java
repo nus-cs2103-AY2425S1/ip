@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
+import javafx.application.Platform;
 import xizi.chatbot.command.Command;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
@@ -107,7 +108,6 @@ public class Xizi {
 
             // Execute the command
             command.execute(actions, storage, ui);
-
             ps.flush(); // Ensure all data is written to the ByteArrayOutputStream
             return byteStream.toString().trim();
         } catch (XiziException | IOException e) {

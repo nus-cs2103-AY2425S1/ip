@@ -143,7 +143,10 @@ public class Ui {
                 "  Example: list on 15/08/2024 1400");
 
         printCommand("11. find <keyword>",
-                "- Displays all tasks that contain such keyword");
+                "- Displays all tasks that contain such keyword.");
+
+        printCommand("12. delete done",
+                "- Deletes all completed tasks in the task list.");
 
     }
 
