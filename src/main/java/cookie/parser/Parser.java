@@ -123,6 +123,10 @@ public class Parser {
             return new UnmarkCommand(unmarkIndex);
 
         case "todo":
+            if (description.isEmpty()) {
+                throw new CookieException("Please enter a task for you to do.");
+            }
+
             return new ToDoCommand(description);
 
         case "deadline":

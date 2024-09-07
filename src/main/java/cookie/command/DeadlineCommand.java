@@ -17,6 +17,9 @@ public class DeadlineCommand extends Command {
      * @param by the due date or time by which the task needs to be completed
      */
     public DeadlineCommand(String description, String by) {
+        assert !description.isEmpty();
+        assert !by.isEmpty();
+
         this.description = description;
         this.by = by;
     }
