@@ -140,4 +140,19 @@ class TaskList {
         }
         return this.ui.showFoundList(foundList);
     }
+
+    /**
+     * Sorts the underlying ArrayList using the Task's compareTo
+     * function.
+     *
+     * @return String showing the list is sorted.
+     * @throws RizzlerException If the ArrayList is empty.
+     */
+    String sort() throws RizzlerException {
+        if (this.tasks.size() == 0) {
+            throw new RizzlerException("No tasks here to sort");
+        }
+        this.tasks.sort((x, y) -> x.compareTo(y));
+        return this.ui.showSorted();
+    }
 }

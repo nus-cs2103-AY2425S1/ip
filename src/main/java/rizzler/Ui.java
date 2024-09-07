@@ -118,6 +118,15 @@ class Ui {
     }
 
     /**
+     * Outputs String showing that the TaskList is sorted.
+     *
+     * @return String detailing sorting.
+     */
+    String showSorted() {
+        return "I have sorted the tasks for you\n";
+    }
+
+    /**
      * Outputs error message when loading up.
      *
      * @return String for loading error.

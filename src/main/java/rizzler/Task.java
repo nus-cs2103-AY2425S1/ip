@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Represents a task that is stored in Rizzler's tasklist.
  */
-class Task {
+class Task implements Comparable<Task> {
     protected final String name;
     protected boolean isDone;
 
@@ -52,6 +52,17 @@ class Task {
             isMatched = true;
         }
         return isMatched;
+    }
+
+    /**
+     * Compares tasks by their name lexicographically.
+     *
+     * @param other the object to be compared.
+     * @return < 0 if this less than other, 0 if equal, and > 0 if more than.
+     */
+    @Override
+    public int compareTo(Task other) {
+        return this.name.compareTo(other.name);
     }
 
     /**

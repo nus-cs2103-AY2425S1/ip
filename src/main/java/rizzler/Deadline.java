@@ -37,6 +37,25 @@ class Deadline extends Task {
     }
 
     /**
+     * Compares deadlines by due date first, then name.
+     *
+     * @param other the object to be compared.
+     * @return < 0 is less, 0 if equals, > 0 if more.
+     */
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Deadline deadline) {
+            if (this.dueDate.compareTo(deadline.dueDate) == 0) {
+                return super.compareTo(other);
+            } else {
+                return this.dueDate.compareTo(deadline.dueDate);
+            }
+        } else {
+            return super.compareTo(other);
+        }
+    }
+
+    /**
      * Returns a string representation of the deadline.
      *
      * @return String that represents the deadline.
