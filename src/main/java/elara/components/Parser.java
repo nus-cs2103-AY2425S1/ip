@@ -1,4 +1,4 @@
-package elara.parser;
+package elara.components;
 
 import elara.command.AddCommand;
 import elara.command.Command;

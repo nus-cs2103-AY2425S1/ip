@@ -1,4 +1,4 @@
-package elara.storage;
+package elara.components;
 
 import java.io.File;
 import java.io.FileWriter;
