@@ -1,8 +1,7 @@
 package orion.commands;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 import orion.tasks.Task;
 
 /**
@@ -32,11 +31,12 @@ public class AddTaskCommand extends Command {
      *
      * @param tasks  the {@link TaskList} to which the task will be added
      * @param storage the {@link Storage} for managing the task list
-     * @param ui      the {@link Ui} for updating the user interface
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(task);
-        ui.printAddTask(tasks, task);
+        return String.format("Sure! I've added the following task to your list:\n"
+                + task.toString() + "\n"
+                + "Now you have " + tasks.getNoTasks() + " tasks in your list.");
     }
 }

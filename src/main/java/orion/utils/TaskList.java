@@ -1,4 +1,4 @@
-package orion.chatbot;
+package orion.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class TaskList {
     /**
      * Constructs an empty TaskList.
      */
-    protected TaskList() {
+    public TaskList() {
         tasks = new ArrayList<>();
         noTasks = 0;
     }
@@ -29,7 +29,7 @@ public class TaskList {
      *
      * @param tasks The initial list of tasks.
      */
-    protected TaskList(List<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
         noTasks = tasks.size();
     }

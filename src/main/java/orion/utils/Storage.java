@@ -1,4 +1,4 @@
-package orion.chatbot;
+package orion.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ public class Storage {
      * Constructor for Storage class.
      * Protected to prevent direct instantiation.
      */
-    protected Storage() {
+    public Storage() {
 
     }
 
@@ -54,7 +54,7 @@ public class Storage {
      * @throws OrionException If there are issues with the file's format or
      *                        if the file cannot be found or created.
      */
-    protected List<Task> loadTasks() throws OrionException {
+    public List<Task> loadTasks() throws OrionException {
         File taskList = new File(DATA_PATHNAME);
         Path path = Paths.get(DATA_PATHNAME);
         List<Task> tasks = new ArrayList<>();

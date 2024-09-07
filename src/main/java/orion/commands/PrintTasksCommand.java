@@ -2,9 +2,8 @@ package orion.commands;
 
 import java.util.List;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * Represents a command to print the list of tasks.
@@ -29,11 +28,19 @@ public class PrintTasksCommand extends Command {
      *
      * @param tasks  the {@link TaskList} containing the tasks to be printed
      * @param storage the {@link Storage} for managing the task list (not used in this command)
-     * @param ui      the {@link Ui} for updating the user interface
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         List<String> taskDescriptions = tasks.getTaskDescriptions();
-        ui.printTaskList(taskDescriptions);
+        if (taskDescriptions.isEmpty()) {
+            return "Your task list is empty! Well done!";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:");
+        for (String s : taskDescriptions) {
+            stringBuilder.append("\n");
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
     }
 }

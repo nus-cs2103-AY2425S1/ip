@@ -1,8 +1,7 @@
 package orion.commands;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 import orion.exceptions.OrionInputException;
 import orion.tasks.Task;
 
@@ -38,11 +37,10 @@ public class UnmarkTaskCommand extends Command {
      *
      * @param tasks  the {@link TaskList} containing the tasks
      * @param storage the {@link Storage} for managing the task list (not used in this command)
-     * @param ui      the {@link Ui} for updating the user interface
      * @throws OrionInputException if the task number is invalid, or if the task is already unmarked
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws OrionInputException {
+    public String execute(TaskList tasks, Storage storage) throws OrionInputException {
         if (taskNo < 1) {
             throw new OrionInputException("Please provide a positive task number!");
         }
@@ -52,6 +50,7 @@ public class UnmarkTaskCommand extends Command {
             throw new OrionInputException(errorMsg);
         }
         Task task = tasks.unmarkTask(taskNo - 1);
-        ui.printUnmarkTask(task);
+        return String.format("Sure! I've marked the following task as undone:\n"
+                + task.toString());
     }
 }

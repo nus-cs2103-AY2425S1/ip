@@ -2,9 +2,8 @@ package orion.commands;
 
 import java.util.List;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 import orion.exceptions.OrionSaveTaskListException;
 
 /**
@@ -36,19 +35,20 @@ public class ExitCommand extends Command {
      *
      * @param tasks  the {@link TaskList} containing the tasks to be saved
      * @param storage the {@link Storage} for saving the tasks
-     * @param ui      the {@link Ui} for updating the user interface
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         // Saves tasks
         List<String> saveTaskDescriptions = tasks.getSavedTaskDescriptions();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             storage.saveTasks(saveTaskDescriptions);
-            ui.printSaveTasks();
+            stringBuilder.append("Your task list has been saved successfully!");
         } catch (OrionSaveTaskListException e) {
-            ui.printSaveError();
+            stringBuilder.append("We had a problem saving your task list... Sorry about that!");
         } finally {
-            ui.printGoodbye();
+            stringBuilder.append("\nBye! Hope to see you again soon!");
         }
+        return stringBuilder.toString();
     }
 }

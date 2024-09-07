@@ -2,6 +2,9 @@ package orion.chatbot;
 
 import orion.commands.Command;
 import orion.exceptions.OrionException;
+import orion.utils.Parser;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * The Orion class represents the main chatbot application.
@@ -14,11 +17,6 @@ public class Orion {
      * Indicates whether the chatbot is online and should continue running.
      */
     private boolean isOnline;
-
-    /**
-     * The UI component responsible for handling user interaction.
-     */
-    private final Ui ui;
 
     /**
      * The storage component responsible for loading and saving tasks.
@@ -37,52 +35,63 @@ public class Orion {
      * If tasks cannot be loaded, initializes an empty task list.
      */
     public Orion() {
-        isOnline = true;
-        ui = new Ui();
+//        isOnline = true;
+//        ui = new Ui();
         storage = new Storage();
 
-        ui.printGreet();
+//        ui.printGreet();
 
         try {
             tasks = new TaskList(storage.loadTasks());
-            ui.printWelcome(tasks.getNoTasks());
+//            ui.printWelcome(tasks.getNoTasks());
         } catch (OrionException e) {
-            ui.printLoadingError();
+//            ui.printLoadingError();
             tasks = new TaskList();
         } finally {
-            ui.printBar();
+//            ui.printBar();
         }
     }
 
-    /**
-     * Starts the main loop of the chatbot.
-     * Continuously reads and executes commands from the user until the exit command is given.
-     */
-    public void run() {
-        while (isOnline) {
-            try {
-                String command = ui.readCommand();
-                Command c = Parser.parse(command);
-                c.execute(tasks, storage, ui);
-                isOnline = !c.isExit();
-            } catch (OrionException e) {
-                ui.printErrorMessage(e.getMessage());
-            } catch (Exception e) {
-                ui.printErrorMessage("Unexpected error! " + e.getMessage());
-            } finally {
-                ui.printBar();
-            }
+//    /**
+//     * Starts the main loop of the chatbot.
+//     * Continuously reads and executes commands from the user until the exit command is given.
+//     */
+//    public void run() {
+//        while (isOnline) {
+//            try {
+//                String command = ui.readCommand();
+//                Command c = Parser.parse(command);
+//                c.execute(tasks, storage, ui);
+//                isOnline = !c.isExit();
+//            } catch (OrionException e) {
+//                ui.printErrorMessage(e.getMessage());
+//            } catch (Exception e) {
+//                ui.printErrorMessage("Unexpected error! " + e.getMessage());
+//            } finally {
+//                ui.printBar();
+//            }
+//        }
+//
+//        ui.closeScanner();
+//    }
+
+//    /**
+//     * The main method that starts the Orion chatbot application.
+//     *
+//     * @param args Command-line arguments (not used).
+//     */
+//    public static void main(String[] args) {
+//        new Orion().run();
+//    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, storage);
+        } catch (OrionException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return "Unexpected error! " + e.getMessage();
         }
-
-        ui.closeScanner();
-    }
-
-    /**
-     * The main method that starts the Orion chatbot application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Orion().run();
     }
 }
