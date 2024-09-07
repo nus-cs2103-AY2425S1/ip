@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class TaskDecoderTest {
 
     @Test
-    void parseTodoSaveString() {
+    void parseTask_todoSaveString_todoTaskReturned() {
         Task task = TaskDecoder.parseTask("T|X|Buy groceries");
         assertTrue(task instanceof TodoTask);
         TodoTask todoTask = (TodoTask) task;
@@ -22,7 +22,7 @@ class TaskDecoderTest {
     }
 
     @Test
-    void parseDeadlineSaveString() {
+    void parseTask_deadlineSaveString_deadlineTaskReturned() {
         Task task = TaskDecoder.parseTask("D| |Submit assignment|2024-12-01");
         assertTrue(task instanceof DeadlineTask);
         DeadlineTask deadlineTask = (DeadlineTask) task;
@@ -32,7 +32,7 @@ class TaskDecoderTest {
     }
 
     @Test
-    void parseEventSaveString() {
+    void parseTask_eventSaveString_eventTaskReturned() {
         Task task = TaskDecoder.parseTask("E|X|Team meeting|2024-12-01|2024-12-02");
         assertTrue(task instanceof EventTask);
         EventTask eventTask = (EventTask) task;
@@ -43,14 +43,14 @@ class TaskDecoderTest {
     }
 
     @Test
-    void partialSaveString() {
+    void parseTask_partialSaveString_throwsIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
             TaskDecoder.parseTask("T|"));
         assertEquals("Invalid task string: T|", exception.getMessage());
     }
 
     @Test
-    void gibberishSaveString() {
+    void parseTask_invalidSaveString_throwsIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
             TaskDecoder.parseTask("Gibberish"));
         assertEquals("Invalid task string: Gibberish", exception.getMessage());

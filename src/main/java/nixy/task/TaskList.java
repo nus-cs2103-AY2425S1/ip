@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import nixy.Storage;
-import nixy.exceptions.TaskNotExistException;
+import nixy.exceptions.TaskNotFoundException;
 
 /**
  * Class that manages tasks as a collection.
@@ -71,7 +71,7 @@ public class TaskList {
      */
     public String markTaskAsDone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
-            throw new TaskNotExistException(
+            throw new TaskNotFoundException(
                 String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
@@ -87,7 +87,7 @@ public class TaskList {
      */
     public String markTaskAsUndone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
-            throw new TaskNotExistException(
+            throw new TaskNotFoundException(
                 String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
@@ -103,7 +103,7 @@ public class TaskList {
      */
     public String deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
-            throw new TaskNotExistException(
+            throw new TaskNotFoundException(
                 String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
         }
         Task task = tasks.remove(taskNumber - 1);
