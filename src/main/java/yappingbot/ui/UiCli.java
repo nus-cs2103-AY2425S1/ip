@@ -67,7 +67,7 @@ public class UiCli implements Ui {
      * @param line String to be decorated.
      * @param sb StringBuilder that the decorated line will be appended to.
      */
-    protected void quoteSinglelineText(String line, StringBuilder sb) {
+    private void quoteSinglelineText(String line, StringBuilder sb) {
         if (line.trim().isEmpty()) {
             sb.append(PREFIX_EMPTY);
         } else {
