@@ -59,10 +59,10 @@ application {
 shadowJar {
     archiveBaseName = "yappingbot"
     archiveClassifier = null
-    mainClassName = "yappingbot.YappingBot"
+    mainClassName = "yappingbot.Launcher"
     archiveFileName = "yappingbot.jar"
 }
 
-run{
+run {
     standardInput = System.in
 }

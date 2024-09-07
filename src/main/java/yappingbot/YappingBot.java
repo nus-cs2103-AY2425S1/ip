@@ -30,7 +30,7 @@ public class YappingBot {
      *
      * @param savefilePath the relative or absolute filepath
      */
-    private YappingBot(String savefilePath) {
+    YappingBot(String savefilePath) {
         this.savefilePath = savefilePath;
     }
 
@@ -134,7 +134,7 @@ public class YappingBot {
      * Entry point into the bot. This
      * main loop, and exiting.
      */
-    private void start() {
+    void start() {
         Storage storage = new Storage(savefilePath);
         init(storage);
         Ui.print(ReplyTextMessages.GREETING_TEXT);
@@ -151,16 +151,5 @@ public class YappingBot {
      *             default ./savefile.
      */
     public static void main(String[] args) {
-        String savefile;
-
-        // ability to give savefile path
-        if (args.length > 1) {
-            savefile = args[1];
-        } else {
-            savefile = "./savefile";
-        }
-
-        YappingBot yp = new YappingBot(savefile);
-        yp.start();
     }
 }
