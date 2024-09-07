@@ -28,7 +28,7 @@ public class Ui {
      */
     protected String displayTaskList(TaskList taskList) {
         if (taskList.getTaskList().isEmpty()) {
-            return "Seems like there are no tasks found!";
+            return "Seems like there are no tasks found!\n";
         }
         StringBuilder sb = new StringBuilder();
         int index = 1;
@@ -62,7 +62,7 @@ public class Ui {
             Task task = taskList.addTask(mainCommand, parsedCommand);
             return "Got it. Sora has added this task:\n"
                     + task
-                    + "\nNow, you have " + taskList.getSize() + " tasks in your list";
+                    + "\nNow, you have " + taskList.getSize() + " tasks in your list.\n";
         } catch (SoraException e) {
             return e.getMessage();
         }
