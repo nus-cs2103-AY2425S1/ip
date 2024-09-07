@@ -26,7 +26,7 @@ public class Parser {
      */
     public Deadline deadlineTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /by ");
-        if (parts[0] == "" || parts.length == 1) {
+        if (Objects.equals(parts[0], "") || parts.length == 1) {
             throw new IncorrectTaskInputFormatException();
         }
         try {
@@ -65,7 +65,7 @@ public class Parser {
 
     public String findKeyword(String command) throws IncorrectTaskInputFormatException {
         // Split the command by space and store the words in an array
-        String[] words = command.split(" ");
+        String[] words = command.split(" ", 2); // Split into two parts: "find" and the rest of the input
 
         // Check if the command starts with "find" and has a keyword following it
         if (words.length > 1 && words[0].equals("find")) {

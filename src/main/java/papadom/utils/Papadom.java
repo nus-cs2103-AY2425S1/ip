@@ -52,7 +52,8 @@ public class Papadom {
         System.out.println(Ui.welcomeMessage());
         STORAGE.createFileIfNotPresent();
 
-        while (true) {
+        // Ensure there's input before calling nextLine()
+        while (SCANNER.hasNextLine()) {
             String input = SCANNER.nextLine();
             String response = Papadom.getResponse(input);
             // Redundant

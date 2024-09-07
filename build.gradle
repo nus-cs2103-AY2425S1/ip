@@ -73,3 +73,19 @@ shadowJar {
         attributes 'Main-Class': 'papadom.PapadomApp'
     }
 }
+
+tasks.distZip {
+    dependsOn shadowJar
+}
+
+tasks.distTar {
+    dependsOn shadowJar
+}
+
+tasks.startScripts {
+    dependsOn shadowJar
+}
+
+tasks.startShadowScripts {
+    dependsOn jar
+}

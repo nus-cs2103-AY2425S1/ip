@@ -25,3 +25,16 @@
 [T][ ] open zoom
 [T][ ] go home
 [D][ ] homework (by: Apr 4 2024)
+[T][ ] go home
+[T][ ] go school
+[E][ ] go train (from: now to: 5pm)
+[T][ ] go home
+[T][ ] go school
+[E][ ] /go train (from: now to: later)
+[T][ ] go home
+[T][ ] go school
+[T][ ] go home
+[T][ ] go school
+[E][ ] go train (from: now to: later)
+[T][ ] hello
+[T][ ] hellojind

@@ -11,9 +11,9 @@ import papadom.tasks.Task;
  * Manages the storage of tasks in a file.
  */
 public class Storage {
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    protected static final ArrayList<Task> TASKS = new ArrayList<>();
     public ArrayList<Task> getTasks() {
-        return this.TASKS;
+        return Storage.TASKS;
     }
     private final String FILE_PATH;
 
@@ -62,13 +62,23 @@ public class Storage {
     public String findTaskBySearching(String searchText) {
         String searchResult = " Here are the matching tasks in your list:";
         int count = 1;
-        for (Task task : this.TASKS) {
+        for (Task task : Storage.TASKS) {
             // Perform operations with each task
             String description = task.getDescription();
             if (description.contains(searchText)) {
                 searchResult += "\n  " + count++ + ". " + task.toString();
             }
         }
+
+        // Check if no tasks were found
+        if (count == 1) {
+            searchResult = " No matching tasks found in your list.";
+        }
+
         return searchResult;
+    }
+
+    public void clearTasks() {
+        TASKS.clear(); // Clear all tasks from the list
     }
 }

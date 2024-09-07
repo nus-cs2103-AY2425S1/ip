@@ -1,5 +1,6 @@
 package papadom.commands;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.storage.Storage;
@@ -14,12 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class AddTodoCommandTest {
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    @BeforeEach
+    public void setup() {
+        // Reinitialize TaskList, Storage, and Ui before each test to start fresh
+        storage = new Storage("testStorage.txt");
+        storage.clearTasks();
+        taskList = new TaskList(storage);
+        ui = new Ui();
+    }
     @Test
     public void testExecuteWithValidInput() throws IncorrectTaskInputFormatException {
         // Arrange
-        Storage storage = new Storage("testStorage.txt");
-        TaskList taskList = new TaskList(storage);
-        Ui ui = new Ui();
         AddTodoCommand command = new AddTodoCommand("todo buy milk");
 
         // Capture the system output
@@ -44,9 +54,6 @@ public class AddTodoCommandTest {
     @Test
     public void testExecuteOnlyWithTypeThrowsException() {
         // Arrange
-        Storage storage = new Storage("testStorage.txt");
-        TaskList taskList = new TaskList(storage);
-        Ui ui = new Ui();
         AddTodoCommand command = new AddTodoCommand("todo");
 
         // Act & Assert
@@ -67,9 +74,6 @@ public class AddTodoCommandTest {
     @Test
     public void testExecuteWithoutTaskThrowsException() {
         // Arrange
-        Storage storage = new Storage("testStorage.txt");
-        TaskList taskList = new TaskList(storage);
-        Ui ui = new Ui();
         AddTodoCommand command = new AddTodoCommand("todo ");
 
         // Act & Assert
