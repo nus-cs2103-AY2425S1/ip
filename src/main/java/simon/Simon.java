@@ -74,7 +74,7 @@ public class Simon {
         } else {
             try {
                 String fullCommand = ui.readCommand(input);
-                assert fullCommand != null: "Command is null";
+                assert fullCommand != null : "Command is null";
                 Command command = Parser.parse(fullCommand);
                 response = command.execute(tasks, ui, storage);
             } catch (Exception e) {

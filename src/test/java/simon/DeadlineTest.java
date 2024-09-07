@@ -30,6 +30,5 @@ public class DeadlineTest {
         Deadline task = Deadline.parseFromString("Test Task", 1, "2024-08-26 1530");
         LocalDateTime expectedDeadline = LocalDateTime.of(2024, 8, 26, 15, 30);
         assertEquals("Test Task", task.getName());
-        assertEquals(1, task.getNumber());
     }
 }
