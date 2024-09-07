@@ -145,4 +145,10 @@ public class Ui {
         }
         System.out.println("_____________________________________");
     }
+
+    public void printExists(){
+        System.out.println("_____________________________________");
+        System.out.println("The task exists!");
+        System.out.println("_____________________________________");
+    }
 }

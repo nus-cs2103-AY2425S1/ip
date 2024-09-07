@@ -155,6 +155,9 @@ public class Parser {
         if (Objects.equals(userInput, "list")) {
             output = "Here are the tasks in your list:\n";
             StringBuilder result = new StringBuilder();
+            if (tasks.isEmpty()){
+                return "No Task Found";
+            }
             for (int i = 0; i < tasks.size(); i++) {
                 result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
@@ -213,7 +216,11 @@ public class Parser {
             try{
                 String desc = trimCommand(userInput, 5);
                 if(!desc.isEmpty()){
-                    return "Got it. I've added this task:\n" + taskList.addTaskUI(tasks, TaskType.TODO, desc);
+                    String taskString = taskList.addTaskUI(tasks, TaskType.TODO, desc);
+                    if (taskString.startsWith("This")) {
+                        return taskString;
+                    }
+                    return "Got it. I've added this task:\n" + taskString;
                 }else{
                     return "The description of a todo cannot be empty.";
                 }
@@ -227,7 +234,11 @@ public class Parser {
                 String[] parts = userInput.substring(9).split(" /by ");
                 String desc = parts[0].trim();
                 if(!desc.isEmpty()){
-                    return "Got it. I've added this task:\n" + taskList.addTaskUI(tasks, TaskType.DEADLINE, desc, dateTimeParser.parseDateTime(parts[1].trim()));
+                    String taskString = taskList.addTaskUI(tasks, TaskType.DEADLINE, desc, dateTimeParser.parseDateTime(parts[1].trim()));
+                    if (taskString.startsWith("This")) {
+                        return taskString;
+                    }
+                    return "Got it. I've added this task:\n" + taskString;
                 }else{
                     return "The description and date of a deadline cannot be empty.";
                 }
@@ -241,7 +252,11 @@ public class Parser {
                 String[] parts = userInput.substring(6).split(" /from | /to ");
                 String desc = parts[0].trim();
                 if(!desc.isEmpty()){
-                    return "Got it. I've added this task:\n" + taskList.addTaskUI(tasks, TaskType.EVENT, desc, dateTimeParser.parseDateTime(parts[1].trim()), dateTimeParser.parseDateTime(parts[2].trim()));
+                    String taskString = taskList.addTaskUI(tasks, TaskType.EVENT, desc, dateTimeParser.parseDateTime(parts[1].trim()), dateTimeParser.parseDateTime(parts[2].trim()));
+                    if (taskString.startsWith("This")) {
+                        return taskString;
+                    }
+                    return "Got it. I've added this task:\n" + taskString;
                 }else{
                     return "The description and date of a event cannot be empty.";
                 }
