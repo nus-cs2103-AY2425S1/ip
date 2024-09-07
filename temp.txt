@@ -1,8 +1,10 @@
-D | 1 | return book | 2019-12-02 1800
-T | 0 | book
+T | 1 | book
 D | 0 | return book | 2019-12-02 1800
 T | 0 | book
 E | 0 | project meeting | Mon 2pm | 4pm
 E | 0 | book meeting | Mon 2pm | 4pm
 T | 0 | ur mum
+D | 0 | return book | 2019-12-02 1800
+T | 0 | a
+E | 0 | project meeting | Mon 2pm | 4pm
 D | 0 | return book | 2019-12-02 1800
