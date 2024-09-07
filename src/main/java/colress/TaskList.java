@@ -2,6 +2,8 @@ package colress;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import colress.task.Task;
 
@@ -45,18 +47,7 @@ public final class TaskList {
      * @return A string representation of the task that was marked done.
      */
     public String checkTask(int... taskNumbers) {
-        try {
-            String result = "";
-            for (int i: taskNumbers) {
-                assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
-                Task task = tasks.get(i - 1);
-                task.check();
-                result += getCurrTask(i - 1);
-            }
-            return result;
-        } catch (IndexOutOfBoundsException e) {
-            return "";
-        }
+        return processTask(Task::check, taskNumbers);
     }
 
     /**
@@ -65,12 +56,16 @@ public final class TaskList {
      * @return A string representation of the task that was marked not done.
      */
     public String uncheckTask(int... taskNumbers) {
+        return processTask(Task::uncheck, taskNumbers);
+    }
+
+    private String processTask(Consumer<Task> action, int... taskNumbers) {
         try {
             String result = "";
             for (int i: taskNumbers) {
                 assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
                 Task task = tasks.get(i - 1);
-                task.uncheck();
+                action.accept(task);
                 result += getCurrTask(i - 1);
             }
             return result;
@@ -84,9 +79,10 @@ public final class TaskList {
      */
     public void deleteTask(int... taskNumbers) {
         try {
-            for (int i: taskNumbers) {
-                assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
-                tasks.remove(i - 1);
+            for (int i = taskNumbers.length - 1; i >= 0; i--) {
+                assert !isOutOfBounds(taskNumbers[i]) : "Task Number should not be out of bounds.";
+                int currIndex = taskNumbers[i] - 1;
+                tasks.remove(currIndex);
             }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -97,15 +93,7 @@ public final class TaskList {
      * Facilitates building a string representation of the list of tasks and returns it.
      */
     public String retrieveTasks() {
-        String result = "";
-        if (tasks.isEmpty()) {
-            return result;
-        }
-
-        for (int i = 0; i < tasks.size(); i++) {
-            result += getCurrTask(i);
-        }
-        return "Here is your list:" + result;
+        return buildListOfTasks(x -> false);
     }
 
     /**
@@ -113,23 +101,7 @@ public final class TaskList {
      * and returns it.
      */
     public String retrieveTasks(LocalDate date) {
-        String result = "";
-        if (tasks.isEmpty()) {
-            return result;
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currTask = tasks.get(i);
-                if (!currTask.fallsOnDate(date)) {
-                    continue;
-                }
-                result += getCurrTask(i);
-            }
-        }
-
-        if (result.isEmpty()) {
-            return result;
-        }
-        return "Here is your list:" + result;
+        return buildListOfTasks(x -> !x.fallsOnDate(date));
     }
 
     /**
@@ -137,13 +109,17 @@ public final class TaskList {
      * and returns it.
      */
     public String retrieveTasks(String keyword) {
+        return buildListOfTasks(x -> !x.containsInDescription(keyword));
+    }
+
+    private String buildListOfTasks(Function<Task, Boolean> condition) {
         String result = "";
         if (tasks.isEmpty()) {
             return result;
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 Task currTask = tasks.get(i);
-                if (!currTask.containsInDescription(keyword)) {
+                if (condition.apply(currTask)) {
                     continue;
                 }
                 result += getCurrTask(i);
