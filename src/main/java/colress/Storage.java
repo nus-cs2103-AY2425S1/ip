@@ -107,8 +107,8 @@ public final class Storage {
      */
     public void writeToTaskFile(TaskList taskList) throws IOException {
         String result = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            result += String.format(taskList.get(i).toTextFile() + "\n", i + 1);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            result += String.format(taskList.getTask(i).toTextFile() + "\n", i + 1);
         }
         initialiseFileWriter();
         writer.write(result);

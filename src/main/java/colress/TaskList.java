@@ -13,10 +13,10 @@ public final class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    public Task get(int index) {
+    public Task getTask(int index) {
         return tasks.get(index);
     }
-    public int size() {
+    public int getSize() {
         return tasks.size();
     }
     public boolean isEmpty() {
