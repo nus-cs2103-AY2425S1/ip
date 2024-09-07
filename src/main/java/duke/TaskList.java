@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * The duke.TaskList class manages a list of tasks. It provides methods to add, delete, and display tasks,
@@ -33,14 +35,9 @@ public class TaskList {
      * The tasks are printed with indentation and separated by a visual separator.
      */
     public String getTasks(ArrayList<IndividualTask> tasks) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            String number = String.valueOf(i + 1);
-            String format = this.formatListMessage(number, tasks.get(i));
-            result.append(format).append("\n");
-        }
-
-        return result.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> formatListMessage(String.valueOf(i + 1), tasks.get(i)))
+                .collect(Collectors.joining("\n"));
     }
 
 

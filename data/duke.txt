@@ -1,3 +1,4 @@
-T | 0 | i wanna die
+T | 0 | study
 D | 0 | return study | 2/12/2019 1800
 E | 0 | study | tues 6pm | wed 6pm
+T | 0 | borrow book
