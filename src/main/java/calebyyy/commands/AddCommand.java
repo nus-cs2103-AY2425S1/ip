@@ -53,8 +53,11 @@ public class AddCommand extends Command {
         } else {
             throw new IllegalArgumentException("Unknown task type");
         }
-
-        taskList.addTask(task);
-        ui.addTaskMessage(task, taskList.getTaskCount());
+        try {
+            taskList.addTask(task);
+            ui.addTaskMessage(task, taskList.getTaskCount());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

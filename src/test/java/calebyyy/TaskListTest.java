@@ -14,7 +14,11 @@ public class TaskListTest {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
         Task task = new Task("Test Task");
-        taskList.addTask(task);
+        try {
+            taskList.addTask(task);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         assertEquals(1, taskList.getTaskCount());
         assertEquals(task, taskList.getTasks().get(0));
     }
@@ -24,7 +28,11 @@ public class TaskListTest {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
         Task task = new Task("Test Task");
-        taskList.addTask(task);
+        try {
+            taskList.addTask(task);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         taskList.deleteTask(1);
         assertEquals(0, taskList.getTaskCount());
     }

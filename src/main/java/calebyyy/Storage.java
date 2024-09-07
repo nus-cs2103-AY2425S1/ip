@@ -73,7 +73,11 @@ public class Storage {
                     if (isDone) {
                         task.markAsDone();
                     }
-                    tasklist.addTask(task);
+                    try {
+                        tasklist.addTask(task);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         } catch (IOException e) {

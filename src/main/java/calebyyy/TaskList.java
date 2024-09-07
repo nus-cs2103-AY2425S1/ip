@@ -1,7 +1,9 @@
 package calebyyy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
+import calebyyy.exceptions.DuplicateTaskException;
 import calebyyy.tasks.Task;
 
 /**
@@ -13,6 +15,7 @@ public class TaskList {
      * The list of tasks.
      */
     private ArrayList<Task> tasks;
+    private HashSet<String> taskSet;
 
     /**
      * The Ui object responsible for user interaction.
@@ -27,6 +30,7 @@ public class TaskList {
     public TaskList(Ui ui) {
         assert ui != null : "Ui cannot be null";
         tasks = new ArrayList<>();
+        taskSet = new HashSet<>();
         this.ui = ui;
     }
 
@@ -42,9 +46,13 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
         assert task != null : "Task cannot be null";
+        if (taskSet.contains(task.toSaveFormat())) {
+            throw new DuplicateTaskException();
+        }
         tasks.add(task);
+        taskSet.add(task.toSaveFormat());
     }
 
     /**
