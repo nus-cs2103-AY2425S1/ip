@@ -11,6 +11,7 @@ import struggling.task.Task;
 public class Ui {
     private final String name = "struggling";
     private final Scanner sc;
+    private final StringBuilder message = new StringBuilder();
 
     public Ui() {
         sc = new Scanner(System.in);
@@ -20,16 +21,19 @@ public class Ui {
      * Formats provided string and display it.
      */
     public void show(String str) {
-        String line = "____________________________________________________________";
+        String divider = "____________________________________________________________";
         StringBuilder indent = new StringBuilder();
         for (String s : str.split("\\R")) {
             indent.append(" ").append(s).append("\n");
         }
-        String box = String.format("%s\n%s%s", line, indent, line);
+        String box = String.format("%s\n%s%s", divider, indent, divider);
         for (String s : box.split("\\R")) {
-            System.out.printf("\t%s\n", s);
+            String line = String.format("\t%s\n", s);
+            System.out.printf(line);
+            this.message.append(line);
         }
         System.out.println();
+        this.message.append("\n");
     }
 
     /**
@@ -126,5 +130,11 @@ public class Ui {
      */
     public void showUnmarkTask(Task task) {
         show(String.format("OK, I've marked this task as not done yet:\n\t%s", task));
+    }
+
+    public String getMessage() {
+        String msg = this.message.toString();
+        this.message.setLength(0);
+        return msg;
     }
 }

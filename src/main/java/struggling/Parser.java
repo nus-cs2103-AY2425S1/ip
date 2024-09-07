@@ -17,13 +17,6 @@ import struggling.task.Task;
 import struggling.task.ToDo;
 
 /**
- * Commands accepted by the Parser class.
- */
-enum Commands {
-    bye, list, mark, unmark, todo, deadline, event, delete, find
-}
-
-/**
  * Parser class deals with making sense of the user command.
  */
 public class Parser {
@@ -80,6 +73,13 @@ public class Parser {
         default:
             return new InvalidCommand();
         }
+    }
+
+    /**
+     * Commands accepted by the Parser class.
+     */
+    private enum Commands {
+        bye, list, mark, unmark, todo, deadline, event, delete, find
     }
 
 
