@@ -34,8 +34,8 @@ public class TaskList {
         //update hardisk list
         storage.saveList(userList);
 
-        return "added: " + newTask.toString() + "\n" +
-                "Now you have " + userList.size() + " tasks in the list.\n";
+        return "added: " + newTask.toString() + "\n"
+                + "Now you have " + userList.size() + " tasks in the list.\n";
     }
 
     /**
@@ -101,7 +101,7 @@ public class TaskList {
      * @param targetTaskNumber The index of the targeted task from the userList to mark or unmark it.
      * @param markOrUnmark Identifier of mark or unmark, which determines if the target task will be marked or unmarked.
      */
-    public String markOrUnmarkTask(int targetTaskNumber, String markOrUnmark) {
+    public String markOrUnmarkTask(int targetTaskNumber, String markOrUnmark, Storage storage) throws IOException {
         Task targetTask = userList.get(targetTaskNumber);
         if (markOrUnmark.equals("mark")) {
             targetTask.mark();
@@ -109,6 +109,7 @@ public class TaskList {
             // unmarked
             targetTask.unmark();
         }
+        storage.saveList(userList);
         return targetTask.toString();
     }
 }

@@ -15,7 +15,7 @@ public class Ui {
     private Parser parser;
 
     private enum Route {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE
     }
 
     /**
@@ -94,7 +94,7 @@ public class Ui {
         //update hardisk list
         storage.saveList(userList);
 
-        return tasks.markOrUnmarkTask(targetTaskNumber, parsedInput[0]);
+        return tasks.markOrUnmarkTask(targetTaskNumber, parsedInput[0], storage);
     }
 
     /**
@@ -174,12 +174,9 @@ public class Ui {
         // delete and update hardisk
         tasks.deleteTask(targetTaskNumber, storage);
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(targetTask);
-        System.out.println("Now you have " + userList.size() + " tasks in the list.");
-        return  "Noted. I've removed this task:\n" +
-                targetTask.toString() + "\n" +
-                "Now you have " + userList.size() + " tasks in the list.\n";
+        return "Noted. I've removed this task:\n"
+                + targetTask.toString() + "\n"
+                + "Now you have " + userList.size() + " tasks in the list.\n";
     }
 
     private String handleFind(String[] parsedInput, TaskList tasks) throws BillException {
@@ -216,6 +213,12 @@ public class Ui {
                 return handleDelete(parsedInput, userList, tasks, storage);
             case FIND:
                 return handleFind(parsedInput, tasks);
+            case BYE:
+                if (parsedInput.length == 1) {
+                    return "Goodbye! Hope to see you again soon!";
+                } else {
+                    throw new BillException("Not a recognised command, bye command should follow the format: bye");
+                }
             default:
                 throw new BillException("Not a recognised command, please try again");
             }
