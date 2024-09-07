@@ -17,8 +17,8 @@ public class Elliot {
     private Storage storage;
     private TaskList taskList;
 
-    private Elliot(String filePathString) {
-        storage = new Storage(filePathString);
+    public Elliot() {
+        storage = new Storage("./data/ElliotTaskList.ser");
         taskList = storage.loadTaskList();
     }
 
@@ -26,7 +26,7 @@ public class Elliot {
      * Main entry for the class and chatbot as a whole.
      */
     public static void main(String[] args) {
-        new Elliot("./data/ElliotTaskList.ser").run();
+        new Elliot().run();
     }
 
     /**
@@ -59,6 +59,13 @@ public class Elliot {
                 continue;
             }
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
 }
