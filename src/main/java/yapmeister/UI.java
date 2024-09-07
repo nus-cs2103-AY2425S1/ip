@@ -22,10 +22,6 @@ public class UI {
      */
     public UI() {
         scanner = new Scanner(System.in);
-        System.out.println("""
-                Hello I'm YapMeister
-                YAPYAPYAPYAP
-                """);
     }
 
     public void setParser(Parser parser) {
@@ -44,15 +40,17 @@ public class UI {
             input = scanner.nextLine();
             isRunning = parser.processInput(input);
         }
-        System.out.println("Fine. Bye. Leave and never return");
         scanner.close();
     }
 
     public String getResponse(String input) {
-        parser.processInput(input);
-        String ret = currentReply;
-        currentReply = "";
-        return ret;
+        if (parser.processInput(input)) {
+            String ret = currentReply;
+            currentReply = "";
+            return ret;
+        } else {
+            return "Fine. Bye. Leave and never return";
+        }
     }
 
     public void exit() {
@@ -60,7 +58,14 @@ public class UI {
     }
 
     public void displayString(String s) {
-        System.out.println(s);
-        currentReply += currentReply + "\n" + s;
+        //System.out.println(s);
+        currentReply = currentReply + "\n" + s;
+    }
+
+    public String getWelcomeMessage() {
+        return """
+                Hello I'm YapMeister
+                YAPYAPYAPYAP
+                """;
     }
 }

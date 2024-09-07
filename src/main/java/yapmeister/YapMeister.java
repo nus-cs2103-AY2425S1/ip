@@ -34,6 +34,7 @@ public class YapMeister {
         this.ui.process();
     }
 
+
     public static void main(String[] args) {
         new YapMeister("data/tasks.txt").run();
     }
@@ -42,5 +43,7 @@ public class YapMeister {
         return ui.getResponse(input);
     }
 
-
+    public String getWelcomeMessage() {
+        return ui.getWelcomeMessage();
+    }
 }
