@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
@@ -100,8 +99,8 @@ class ParserTest {
     }
 
     @Test
-    void parse_deadlineCommandWithInvalidDateFormat_throwsDateTimeParseException() {
-        assertThrows(DateTimeParseException.class, () -> Parser.parse(
+    void parse_deadlineCommandWithInvalidDateFormat_throwsNixyException() {
+        assertThrows(NixyException.class, () -> Parser.parse(
             "deadline Submit assignment /by 2024-08-01T00:00:00"));
     }
 
