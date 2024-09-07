@@ -37,6 +37,15 @@ public class Parser {
         return string.split(" ", 2)[0];
     }
 
+    /**
+     * Gets the forced command from the input string.
+     *
+     * @return The forced command extracted from the input string.
+     */
+    public String getForceCommand() {
+        return string.split(" ", 3)[1];
+    }
+
     public String getDesc() throws DukeException {
         if (string.split(" ", 2).length < 2) {
             throw new DukeException("Invalid format... What task would you like to add?");

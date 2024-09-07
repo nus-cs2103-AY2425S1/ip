@@ -131,4 +131,16 @@ public class Ui {
                     + "____________________________________\n";
         }
     }
+
+    /**
+     * Returns the task duplicate message.
+     *
+     * @return The task duplicate string.
+     */
+    public String showDuplicate() {
+        return "____________________________________\n"
+                + "You already have a task with this description! "
+                + "Type: \"force todo ...\" to force add this task.\n"
+                + "____________________________________\n";
+    }
 }

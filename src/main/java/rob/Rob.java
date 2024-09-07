@@ -109,7 +109,17 @@ public class Rob {
             case "deadline":
             case "event":
             case "todo":
+                String desc = parser.getDesc();
+                if (!tasks.searchTasks(desc).isEmpty()) {
+                    return ui.showDuplicate();
+                }
                 handleAddTask(command, parser);
+                return ui.printText(tasks);
+            case "force":
+                parser = new Parser(input.split(" ", 2)[1]);
+                parser.checkString();
+                String forcedCommand = parser.getCommand();
+                handleAddTask(forcedCommand, parser);
                 return ui.printText(tasks);
             default:
                 throw new DukeException("I'm sorry... I don't seem to understand.");
@@ -120,6 +130,13 @@ public class Rob {
         }
     }
 
+    /**
+     * Handles adding a task based on the command provided.
+     *
+     * @param command The type of task to add ("deadline", "event", or "todo").
+     * @param parser  The parser used to extract task details such as description, dates, and times.
+     * @throws DukeException If an unknown command is provided or there is an error in adding the task.
+     */
     private void handleAddTask(String command, Parser parser) throws DukeException {
         String desc = parser.getDesc();
         switch (command) {
