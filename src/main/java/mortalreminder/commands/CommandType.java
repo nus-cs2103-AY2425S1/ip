@@ -15,4 +15,6 @@ public enum CommandType {
     UNKNOWN,
     UPCOMING_TASKS,
     CLEAR_TASKS,
+    ADD_COMMAND_ALTERNATIVE,
+    CLEAR_ALTERNATIVES,
 }

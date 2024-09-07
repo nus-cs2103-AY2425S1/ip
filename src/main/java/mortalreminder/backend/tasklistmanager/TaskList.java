@@ -3,7 +3,7 @@ package mortalreminder.backend.tasklistmanager;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import mortalreminder.backend.Storage;
+import mortalreminder.backend.TaskListStorage;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Task;
@@ -61,7 +61,7 @@ public class TaskList {
      */
     public String addTask(Task task) throws MortalReminderException {
         if (!Objects.equals(task.getDescription().trim(), "")) {
-            Storage.appendToListFile(task);
+            TaskListStorage.appendToListFile(task);
             this.taskList.add(task);
             return FormattedPrinting.addTask(task, this);
         } else {
@@ -101,7 +101,7 @@ public class TaskList {
             throw new MortalReminderException("The code should have never reached this point!");
         }
         this.taskList.remove(task);
-        Storage.refreshStorageFile(this);
+        TaskListStorage.refreshStorageFile(this);
         return FormattedPrinting.deleteTask(task, this);
     }
 
@@ -122,7 +122,7 @@ public class TaskList {
      */
     public String clearList() throws MortalReminderException {
         this.taskList.clear();
-        Storage.clearListFile();
+        TaskListStorage.clearListFile();
         return FormattedPrinting.clearList();
     }
 }

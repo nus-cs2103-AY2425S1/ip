@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import mortalreminder.MortalReminder;
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandType;
+import mortalreminder.errorhandling.MortalReminderException;
 
 /**
  * Controller for the main GUI.
@@ -52,12 +53,21 @@ public class MortalReminderWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        Command command = Parser.parseInputFromUser(input);
-        String response = mortalReminder.executeCommand(command);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())
-        );
+        String response;
+        try {
+            Command command = Parser.parseInputFromUser(input);
+            response = mortalReminder.executeCommand(command);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())
+            );
+        } catch (MortalReminderException e) {
+            response = e.getMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getMortalReminderDialog(response, mortalReminderImage, CommandType.UNKNOWN)
+            );
+        }
         userInput.clear();
     }
 

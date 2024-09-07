@@ -1,6 +1,6 @@
 package mortalreminder.backend.tasklistmanager;
 
-import mortalreminder.backend.Storage;
+import mortalreminder.backend.TaskListStorage;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
@@ -35,7 +35,7 @@ public class TaskEditor {
             } else {
                 throw new MortalReminderException("This statement should be unreachable, code has an error!");
             }
-            Storage.refreshStorageFile(taskList);
+            TaskListStorage.refreshStorageFile(taskList);
             return feedback;
         } catch (NumberFormatException e) {
             throw new MortalReminderException("Please enter a valid number after the command!");

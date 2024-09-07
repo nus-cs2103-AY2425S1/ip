@@ -1,7 +1,7 @@
 package mortalreminder;
 
 import mortalreminder.backend.Processor;
-import mortalreminder.backend.Storage;
+import mortalreminder.backend.TaskListStorage;
 import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.Command;
 import mortalreminder.errorhandling.MortalReminderException;
@@ -23,7 +23,7 @@ public class MortalReminder {
      */
     public String welcome() {
         try {
-            this.taskList = Storage.loadTaskListFromFile();
+            this.taskList = TaskListStorage.loadTaskListFromFile();
         } catch (MortalReminderException e) {
             return e.getMessage();
         }
@@ -43,5 +43,4 @@ public class MortalReminder {
             return e.getMessage();
         }
     }
-
 }
