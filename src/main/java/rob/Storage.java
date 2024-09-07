@@ -38,24 +38,29 @@ public class Storage {
                 String firstLimiter = (parts.length > 3) ? parts[3].trim() : "";
                 String secondLimiter = (parts.length > 4) ? parts[4].trim() : "";
 
-                if (type.equals("[T]")) {
+                switch (type) {
+                case "[T]" -> {
                     Todo todoTask = new Todo(desc);
                     if (status.equals("[X]")) {
                         todoTask.markAsDone();
                     }
                     tasks.getTasks().add(todoTask);
-                } else if (type.equals("[D]")) {
-                    Deadline deadlingTask = new Deadline(desc, firstLimiter);
+                }
+                case "[D]" -> {
+                    Deadline deadlineTask = new Deadline(desc, firstLimiter);
                     if (status.equals("[X]")) {
-                        deadlingTask.markAsDone();
+                        deadlineTask.markAsDone();
                     }
-                    tasks.getTasks().add(deadlingTask);
-                } else if (type.equals("[E]")) {
+                    tasks.getTasks().add(deadlineTask);
+                }
+                case "[E]" -> {
                     Event eventTask = new Event(desc, firstLimiter, secondLimiter);
                     if (status.equals("[X]")) {
                         eventTask.markAsDone();
                     }
                     tasks.getTasks().add(eventTask);
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + type);
                 }
             }
             scanner.close();

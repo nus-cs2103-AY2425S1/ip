@@ -103,10 +103,10 @@ public class Ui {
                     + "____________________________________\n";
         } else {
             taskList.getTask(taskNum - 1).markAsDone();
-            String marked = "____________________________________\n"
-                    + "Nice! I've marked this task as done:\n" + taskList.getTask(taskNum - 1) + "\n"
-                    + "____________________________________\n";
-            return (marked);
+            return ("____________________________________\n"
+                    + "Nice! I've marked this task as done:\n"
+                    + taskList.getTask(taskNum - 1) + "\n"
+                    + "____________________________________\n");
         }
     }
 
@@ -125,11 +125,10 @@ public class Ui {
                     + "____________________________________\n";
         } else {
             taskList.getTask(taskNum - 1).unmark();
-            String unmarked = "____________________________________\n"
-                    + "OK, I've marked this task as not done yet:\n" + taskList.getTask(taskNum - 1) + "\n"
+            return "____________________________________\n"
+                    + "OK, I've marked this task as not done yet:\n"
+                    + taskList.getTask(taskNum - 1) + "\n"
                     + "____________________________________\n";
-            return unmarked;
         }
     }
-
 }
