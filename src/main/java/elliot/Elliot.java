@@ -16,6 +16,7 @@ import utility.Ui;
 public class Elliot {
     private Storage storage;
     private TaskList taskList;
+    private CommandType commandType = CommandType.LIST;
 
     public Elliot() {
         storage = new Storage("./data/ElliotTaskList.ser");
@@ -23,49 +24,31 @@ public class Elliot {
     }
 
     /**
-     * Main entry for the class and chatbot as a whole.
-     */
-    public static void main(String[] args) {
-        new Elliot().run();
-    }
-
-    /**
-     * This method seeks to abstract out the logic of running the chatbot away from the main
-     * method.
-     *
-     * The function of this method is to engage all of the sub classes and its functions to
-     * provide user input and chatbot output to the command line.
-     */
-    private void run() {
-        Scanner scanner = new Scanner(System.in);
-        boolean isRunning = true;
-
-        Ui.introSay();
-        while (isRunning) {
-            System.out.print("> ");
-            String userInput = scanner.nextLine().strip();
-            String[] commandString = Strip.stripStringArray(userInput
-                    .toLowerCase().split(" ", 2));
-            Ui.say("");
-            try {
-                CommandType commandType = CommandType.parseStringToCommand(commandString[0]);
-                Command command = commandType.getCommand();
-                command = command.parseArguments(commandString.length < 2
-                        ? ""
-                        : commandString[1]);
-                taskList = command.runCommand(taskList, storage);
-                isRunning = !(commandType == CommandType.BYE);
-            } catch (ElliotException e) {
-                continue;
-            }
-        }
-    }
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Ui.flushOutputString();
+        input = input.strip();
+        String[] commandString = Strip.stripStringArray(input.toLowerCase().split(" ", 2));
+        Ui.say("");
+        try {
+            commandType = CommandType.parseStringToCommand(commandString[0]);
+            Command command = commandType.getCommand();
+            command = command.parseArguments(commandString.length < 2
+                    ? ""
+                    : commandString[1]);
+            taskList = command.runCommand(taskList, storage);
+        } catch (ElliotException e) {
+            // Fallthrough
+        }
+        return Ui.getOutputString();
+    }
+
+    /**
+     * Returns the command type of the parsed command.
+     */
+    public CommandType getCommandType() {
+        return commandType;
     }
 
 }

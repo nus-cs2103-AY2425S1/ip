@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import elliot.Elliot;
+import utility.Ui;
+import command.CommandType;
 
 /**
  * Controller for the main GUI.
@@ -33,6 +36,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Ui.introSay();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getElliotDialog(Ui.getOutputString(), elliotImage, CommandType.LIST));
+        Ui.flushOutputString();
     }
 
     /** Injects the Elliot instance */
@@ -46,13 +53,17 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = elliot.getResponse(input);
+        CommandType commandType = elliot.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getElliotDialog(response, elliotImage)
+                DialogBox.getElliotDialog(response, elliotImage, commandType)
         );
         userInput.clear();
+        if (commandType == CommandType.BYE) {
+            Platform.exit();
+        }
     }
 }

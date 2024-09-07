@@ -4,6 +4,7 @@ package utility;
  * This class is created to serve the purpose of printing items to screen.
  */
 public class Ui {
+    private static String outputString = "";
 
     /**
      * Prints string to stdout without endline, followed by a visual line.
@@ -11,9 +12,16 @@ public class Ui {
      * @param textToSay a string of text to be printed to stdout
      */
     public static void say(String textToSay) {
-        String line = "____________________________________________________________\n";
-        System.out.print(textToSay);
-        System.out.print(line);
+        outputString += textToSay
+                + "_______________________________________________________\n";
+    }
+
+    public static String getOutputString() {
+        return outputString;
+    }
+
+    public static void flushOutputString() {
+        outputString = "";
     }
 
     /**

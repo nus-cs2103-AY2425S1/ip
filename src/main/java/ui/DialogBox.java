@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import command.CommandType;
+
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
@@ -53,10 +55,33 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getElliotDialog(String text, Image img) {
+    public static DialogBox getElliotDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(CommandType commandType) {
+        switch(commandType) {
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            dialog.getStyleClass().add("add-label");
+            break;
+        case MARK:
+            // Fallthrough
+        case UNMARK:
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case DELETE:
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            // Do nothing   
+        }
     }
 }
 
