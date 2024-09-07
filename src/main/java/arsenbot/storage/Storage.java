@@ -9,14 +9,29 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles loading and saving tasks from/to a file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the file path to load and save tasks from/to
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file at the specified file path.
+     * If the file does not exist, it returns an empty list of tasks.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws IOException if an I/O error occurs during file reading
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -43,6 +58,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the file at the specified file path.
+     * If the directory does not exist, it creates the directory.
+     *
+     * @param tasks the list of tasks to save to the file
+     * @throws IOException if an I/O error occurs during file writing
+     */
     public void save(List<Task> tasks) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
