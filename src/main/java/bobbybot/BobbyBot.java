@@ -16,6 +16,8 @@ public class BobbyBot {
     protected final Ui ui;
     protected final Storage storage;
 
+    private ArrayList<Command> commandStack = new ArrayList<>();
+
     /**
      * Creates an instance of BobbyBot.
      */
@@ -48,6 +50,17 @@ public class BobbyBot {
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
+            if (command.isUndo()) {
+                if (commandStack.isEmpty()) {
+                    throw new BobbyBotException("There are no commands to undo.");
+                }
+                Command lastCommand = commandStack.remove(commandStack.size() - 1);
+                lastCommand.unExecute(tasks, ui, storage);
+            }
+
+            if (command.isUndoable()) {
+                commandStack.add(command);
+            }
         } catch (BobbyBotException e) {
             ui.printError(e);
         }

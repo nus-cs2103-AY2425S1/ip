@@ -1,7 +1,5 @@
 package bobbybot.commands;
 
-import java.io.IOException;
-
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
 import bobbybot.TaskList;
@@ -23,6 +21,7 @@ public class CommandUnmark extends Command {
      * @throws BobbyBotException If the argument is invalid.
      */
     public CommandUnmark(String argument) throws BobbyBotException {
+        isUndoable = true;
         String[] params = argument.split(" ");
         if (params.length != 1) {
             throw new BobbyBotException("Please specify exactly one task number.");
@@ -40,12 +39,12 @@ public class CommandUnmark extends Command {
         if (index < 0 || index >= tasks.getSize()) {
             throw new BobbyBotException("Please specify a task number that is in range.");
         }
+        memento = new Memento(tasks);
 
         Task task = tasks.markUndone(index);
 
         ui.printResponse("OK, I've marked this task as not done yet:", "\t" + task);
 
         storage.saveTasksToFile(tasks.toArray());
-
     }
 }

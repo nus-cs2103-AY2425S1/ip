@@ -1,7 +1,5 @@
 package bobbybot.commands;
 
-import java.io.IOException;
-
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
 import bobbybot.TaskList;
@@ -32,7 +30,8 @@ public class CommandMark extends Command {
             throw new BobbyBotException("Please specify a valid number.");
         }
         // Since the list shown to the user is 1-indexed, we need to subtract 1 from the index.
-        this.index = Integer.parseInt(argument) - 1;
+        index = Integer.parseInt(argument) - 1;
+        isUndoable = true;
     }
 
     @Override
@@ -40,12 +39,12 @@ public class CommandMark extends Command {
         if (index < 0 || index >= tasks.getSize()) {
             throw new BobbyBotException("Please specify a task number that is in range.");
         }
+        memento = new Memento(tasks);
 
         Task task = tasks.markDone(index);
 
         ui.printResponse("Nice! I've marked this task as done:", "\t" + task);
 
         storage.saveTasksToFile(tasks.toArray());
-
     }
 }

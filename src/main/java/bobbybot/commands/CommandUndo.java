@@ -4,17 +4,18 @@ import bobbybot.Storage;
 import bobbybot.TaskList;
 import bobbybot.ui.Ui;
 
+
 /**
- * Represents a command to exit the program.
+ * Represents a command to undo the previous command.
  */
-public class CommandBye extends Command {
-    public CommandBye(String argument) {
+public class CommandUndo extends Command {
+
+    public CommandUndo(String argument) {
         isUndoable = false;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printResponse("Bye. Hope to see you again soon!");
-        ui.stop();
+        isUndo = true;
     }
 }

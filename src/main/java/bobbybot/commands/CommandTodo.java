@@ -1,7 +1,5 @@
 package bobbybot.commands;
 
-import java.io.IOException;
-
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
 import bobbybot.TaskList;
@@ -28,17 +26,19 @@ public class CommandTodo extends Command {
         if (argument.isEmpty()) {
             throw new BobbyBotException("The description of a todo cannot be empty.");
         }
+        isUndoable = true;
         description = argument;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
+        memento = new Memento(tasks);
+
         Task todo = new ToDo(description);
         tasks.addTask(todo);
 
         ui.printAddTask(tasks, todo);
 
         storage.saveTasksToFile(tasks.toArray());
-
     }
 }

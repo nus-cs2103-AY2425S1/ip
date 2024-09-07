@@ -9,6 +9,7 @@ import bobbybot.commands.CommandFind;
 import bobbybot.commands.CommandList;
 import bobbybot.commands.CommandMark;
 import bobbybot.commands.CommandTodo;
+import bobbybot.commands.CommandUndo;
 import bobbybot.commands.CommandUnmark;
 
 /**
@@ -46,6 +47,8 @@ public class Parser {
             return new CommandEvent(argument);
         case "find":
             return new CommandFind(argument);
+        case "undo":
+            return new CommandUndo(argument);
         default:
             throw new BobbyBotException("I'm sorry, but I don't know what that means :-(");
         }
