@@ -66,10 +66,8 @@ public class Storage {
     public void writeToFile(String filename) throws IOException {
         try (BufferedWriter writer = new
                 BufferedWriter(new FileWriter(filename))) {
-            for (Input i : inputs) {
-                writer.write(i.toString());
-                writer.newLine();
-            }
+            writer.write(sortHelper());
+
         }
     }
 
@@ -215,6 +213,40 @@ public class Storage {
             j++;
         }
         return sb.toString();
+    }
+
+    private String sortHelper() {
+        StringBuilder sb = new StringBuilder();
+
+        List<Deadline> deadlines = inputs.stream()
+                .filter(input -> input instanceof Deadline)
+                .map(input -> (Deadline) input)
+                .sorted(Comparator.comparing(Deadline::getDeadline))
+                .collect(Collectors.toList());
+        List<ToDo> toDos = inputs.stream()
+                .filter(input -> input instanceof ToDo)
+                .map(input -> (ToDo) input)
+                .sorted(Comparator.comparing(ToDo::toString))
+                .collect(Collectors.toList());
+        List<Event> events = inputs.stream()
+                .filter(input -> input instanceof Event)
+                .map(input -> (Event) input)
+                .sorted(Comparator.comparing(Event::toString))
+                .collect(Collectors.toList());
+        for (int i = 0; i < deadlines.size(); i++) {
+            sb.append(deadlines.get(i)).append("\n");
+
+        }
+        for (int i = 0; i < events.size(); i++) {
+            sb.append(events.get(i)).append("\n");
+
+        }
+        for (int i = 0; i < toDos.size(); i++) {
+            sb.append(toDos.get(i)).append("\n");
+
+        }
+        return sb.toString();
+
     }
 
 
