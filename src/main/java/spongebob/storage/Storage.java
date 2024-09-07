@@ -87,6 +87,7 @@ public class Storage {
                 default:
                     break;
                 }
+
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Some parts are corrupted!");
             }

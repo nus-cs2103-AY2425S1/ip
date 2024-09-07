@@ -23,9 +23,10 @@ public class Deadline extends Task {
     public Deadline(String description, String deadline) throws SpongebobException {
         super(description, TaskType.DEADLINE);
 
-        // check for errors
+        // check missing fields
         if (description.equals(" ") || deadline.equals(" ")
                 || description.isEmpty() || deadline.isEmpty()) {
+
             String msg = "";
             if (description.equals(" ") || description.isEmpty()) {
                 msg += " Description,";

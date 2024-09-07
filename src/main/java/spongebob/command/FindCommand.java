@@ -27,14 +27,18 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+
         String keyword = arguments[1];
-        StringBuilder builder = new StringBuilder();
+
+        StringBuilder listInStringBuilder = new StringBuilder();
         ListIterator<Task> iter = taskList.find(keyword).listIterator();
+
+        // adds and format tasks in string form to builder.
         while (iter.hasNext()) {
             Task cur = iter.next();
-            builder.append((iter.previousIndex() + 1) + "." + cur + "\n");
+            listInStringBuilder.append((iter.previousIndex() + 1) + "." + cur + "\n");
         }
-        return ui.showFindTask(builder.toString());
+        return ui.showFindTask(listInStringBuilder.toString());
 
     }
 

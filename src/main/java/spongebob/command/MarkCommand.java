@@ -25,6 +25,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+
+        // checks if there is nothing to mark
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {
             if (this.arguments[0].equals("mark")) {
                 return ui.showMarkedError();
@@ -33,6 +35,8 @@ public class MarkCommand extends Command {
                 return ui.showUnmarkedError();
             }
         }
+
+        // set index of task to mark / unmark.
         this.index = Integer.parseInt(arguments[1]) - 1;
         Task task = taskList.getCache().get(index);
 
@@ -54,6 +58,7 @@ public class MarkCommand extends Command {
                 // should not happen
                 return ui.unknownCommand();
             }
+
         } catch (IndexOutOfBoundsException e) {
             return ui.showException(e);
         }
