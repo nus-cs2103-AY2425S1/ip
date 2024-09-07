@@ -14,6 +14,7 @@ public class ChatKakiApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(ChatKakiApp.class.getResource("/view/ChatKakiView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        scene.getStylesheets().add(ChatKakiApp.class.getResource("/styles.css").toExternalForm());
         stage.setTitle("ChatKaki");
         stage.setScene(scene);
         stage.show();

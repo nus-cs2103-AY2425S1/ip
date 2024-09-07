@@ -13,7 +13,7 @@
         <TextArea fx:id="chatArea" editable="false" focusTraversable="false" prefHeight="250" />
         <Label text="These are your tasks" />
         <TextArea fx:id="taskArea" editable="false" focusTraversable="false" prefHeight="100" />
-        <TextField fx:id="inputField" onAction="#handleUserInput" prefHeight="40"/>
+        <TextField fx:id="inputField" onAction="#handleUserInput" prefHeight="40" promptText="Enter your message here..."/>
         <Button text="Ask" onAction="#handleUserInput"/>
     </children>
     <padding>
