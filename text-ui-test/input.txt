@@ -1,0 +1,14 @@
+list
+nonsense
+todo read book
+deadline return book /by 2024-12-22
+event project meeting /start 2024-09-22 /at 18:00 /end 2024-09-22 /at 19:00
+list
+mark 1
+mark 4
+mark 1
+list
+mark 2
+mark 3
+list
+bye

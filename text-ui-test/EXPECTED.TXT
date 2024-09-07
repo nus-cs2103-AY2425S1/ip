@@ -1,7 +1,129 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+Him: Hello! I'm Him
+     What can I do for you?
+
+User:
+Him: How about you add some tasks first
+
+User:
+Him: nonsense? What are you saying????
+
+User:
+Him: added "read book" to list
+
+User:
+Him: added "return book (by: 2024-12-22)" to list
+
+User:
+Him: added "project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)" to list
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][ ] read book
+2.[D][ ] return book (by: 2024-12-22)
+3.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: LET'S GOOOOO! read book has been completed!
+
+User:
+Him: task 4 does not exist
+
+User:
+Him: the task has already been completed
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][ ] return book (by: 2024-12-22)
+3.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: LET'S GOOOOO! return book (by: 2024-12-22) has been completed!
+
+User:
+Him: LET'S GOOOOO! project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00) has been completed!
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: WAIT NO! DON'T LEAVE ME ALON-
+
+
+Him: Hello! I'm Him
+     What can I do for you?
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: nonsense? What are you saying????
+
+User:
+Him: added "read book" to list
+
+User:
+Him: added "return book (by: 2024-12-22)" to list
+
+User:
+Him: added "project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)" to list
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+4.[T][ ] read book
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: the task has already been completed
+
+User:
+Him: LET'S GOOOOO! read book has been completed!
+
+User:
+Him: the task has already been completed
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+4.[T][X] read book
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: the task has already been completed
+
+User:
+Him: the task has already been completed
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+4.[T][X] read book
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
+
+User:
+Him: WAIT NO! DON'T LEAVE ME ALON-
 
