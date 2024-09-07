@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Sora sora;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image soraImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Kirby.jpg"));
+    private Image soraImage = new Image(this.getClass().getResourceAsStream("/images/Deer.jpg"));
 
     @FXML
     public void initialize() {
