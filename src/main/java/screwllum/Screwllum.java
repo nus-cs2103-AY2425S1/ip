@@ -1,4 +1,9 @@
-package Alvis;
+package screwllum;
+
+import screwllum.tasks.Deadline;
+import screwllum.tasks.Event;
+import screwllum.tasks.Task;
+import screwllum.tasks.ToDo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class Alvis {
+public class Screwllum {
     private static final String FILE_PATH = "./Save.txt";
     
     public static void main(String[] args) throws IOException {
