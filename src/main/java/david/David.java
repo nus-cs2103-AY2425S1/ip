@@ -125,6 +125,8 @@ public class David {
             throw new DavidInvalidRangeException();
         }
 
+        assert eventSplit.length > 1 : "from field does not exist";
+
         String[] eventDetails = eventSplit[1].split(" /to", 2);
         if (eventDetails.length <= 1 || eventDetails[0].trim().equals("") || eventDetails[1].trim().equals("")) {
             //only the "from" field exist
