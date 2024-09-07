@@ -1,6 +1,5 @@
 package gui;
 import FRIDAY.FRIDAY;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private FRIDAY FRIDAY;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("../images/user.png"));
-    private Image FRIDAYImage = new Image(this.getClass().getResourceAsStream("../images/FRIDAY.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image FRIDAYImage = new Image(this.getClass().getResourceAsStream("/images/FRIDAY.png"));
 
     @FXML
     public void initialize() {
