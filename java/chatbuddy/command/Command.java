@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage to load/save tasks.
      * @throws ChatBuddyException If there is an error while executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException;
 
     /**
      * Indicates whether this command causes the application to exit.

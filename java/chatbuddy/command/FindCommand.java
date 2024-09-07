@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      * @param storage The Storage instance to save tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
@@ -40,6 +40,13 @@ public class FindCommand extends Command {
                 matchingTasks.add(task);
             }
         }
-        ui.showFindResult(matchingTasks);
+
+        if (matchingTasks.isEmpty()) {
+            ui.showError("No matching tasks found with the keyword: " + keyword);
+        } else {
+            ui.showFindResult(matchingTasks);
+        }
+
+        return ui.getOutput();  // Return the UI output to the GUI
     }
 }
