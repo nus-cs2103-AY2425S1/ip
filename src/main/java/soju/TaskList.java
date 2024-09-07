@@ -39,6 +39,7 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task deleteTask(int taskNumber) {
+        assert taskNumber > 0;
         return tasks.remove(taskNumber - 1);
     }
 
@@ -60,6 +61,7 @@ public class TaskList {
      * @return The task that was marked as done.
      */
     public Task markTask(int taskNumber) {
+        assert taskNumber > 0;
         Task task = tasks.get(taskNumber - 1);
         task.setAsDone();
         return task;
@@ -72,6 +74,7 @@ public class TaskList {
      * @return The task that was unmarked.
      */
     public Task unmarkTask(int taskNumber) {
+        assert taskNumber > 0;
         Task task = tasks.get(taskNumber - 1);
         task.setAsNotDone();
         return task;
