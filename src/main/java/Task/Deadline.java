@@ -37,6 +37,8 @@ public class Deadline extends Task {
             String[] parts = name.split("/by", 2);
             String taskName = parts[0].trim();
             String taskDeadline = parts[1].trim();
+            assert !taskName.isEmpty() : "Task name should not be empty";
+            assert !taskDeadline.isEmpty() : "Task deadline should not be empty";
             System.out.println("Deadline is");
             System.out.println(taskDeadline);
             LocalDateTime deadline = formatter(taskDeadline);

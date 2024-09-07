@@ -64,16 +64,17 @@ public class Event extends Task {
         try {
             String[] parts = name.split("/from", 2);
             String taskName = parts[0].trim();
+            assert !taskName.isEmpty() : "Task name should not be empty";
             String[] dateTimes = parts[1].trim().split(" /to ", 2);
+            assert !dateTimes[0].isEmpty() : "Task start should not be empty";
+            assert !dateTimes[1].isEmpty() : "Task end should not be empty";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
             LocalDateTime start = LocalDateTime.parse(dateTimes[0].trim(), formatter);
             LocalDateTime end = LocalDateTime.parse(dateTimes[1].trim(), formatter);
             return new Event(taskName, taskType, start, end);
         }
         catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            line.drawLine();
-            System.out.println("      Invalid Event format. Expected format: 'task description /by date/time' ");
-            line.drawLine();
+            System.out.println("Invalid Event format. Expected format: 'task description /by date/time' ");
             throw new TaskCreationException();
         }
     }
