@@ -51,6 +51,7 @@ public class ChangeStatusCommand extends Command {
                         + task.toString()
                         + "\n";
             } else {
+                assert (this.inputList)[0].equals("unmark");
                 //check if task is already unmarked
                 if (!task.isDone()) {
                     throw new HenryException("The task is already unmarked!");
