@@ -86,13 +86,7 @@ public abstract class Task {
      * @return <code>true</code>if task's description contains the keyword.
      */
     public boolean descriptionContains(String keyword) {
-        String[] description = this.description.split(" ");
-        for (String s : description) {
-            if (s.equalsIgnoreCase(keyword)) {
-                return true;
-            }
-        }
-        return false;
+        return this.description.contains(keyword);
     }
 
     @Override
