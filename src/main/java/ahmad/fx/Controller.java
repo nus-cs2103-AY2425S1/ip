@@ -1,6 +1,9 @@
 package ahmad.fx;
 
 
+import static ahmad.Ahmad.*;
+import static javafx.application.Platform.*;
+
 import java.io.IOException;
 
 import ahmad.Ahmad;
@@ -33,6 +36,9 @@ public class Controller {
      */
     @FXML
     public void initialize() {
+        userInput.setOnAction((event) -> {
+            handleUserSend();
+        });
 
         chatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
             scrollPane.setVvalue(1.0);
@@ -44,7 +50,9 @@ public class Controller {
         String inputText = userInput.getText().trim();
         System.out.println(inputText);
         pushUserMessage(inputText);
-        pushBotMessage(inputText);
+        if (processUserMessage(inputText)) {
+            exit();
+        }
     }
 
     private void pushUserMessage(String message) {
@@ -54,12 +62,19 @@ public class Controller {
             chatBox.getChildren().add(fxmlLoader.load());
             UserChatController userChatController = fxmlLoader.getController();
             userChatController.setText(message);
+
+            userInput.clear();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void pushBotMessage(String message) {
+    /**
+     * Pushes a message to bot.
+     *
+     * @param message Message to be pushed/printed.
+     */
+    public void pushBotMessage(String message) {
         FXMLLoader fxmlLoader = new FXMLLoader(Ahmad.class.getResource("/fx/BotChat.fxml"));
 
         try {

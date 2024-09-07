@@ -20,7 +20,7 @@
             </Label>
             <Label fx:id="chatLabel" maxHeight="-Infinity" maxWidth="400.0" style="-fx-padding: 10; -fx-background-color: #DADADA; -fx-background-radius: 10;" text="sdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsdsdfsd" wrapText="true">
                <font>
-                  <Font name="Segoe UI" size="19.0" />
+                  <Font name="Segoe UI" size="17.0" />
                </font>
             </Label>
          </children>
