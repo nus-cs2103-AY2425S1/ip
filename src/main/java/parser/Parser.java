@@ -60,6 +60,7 @@ public class Parser {
                 } else if (deadlineArgs.length < 2) {
                     throw new DudeException("The deadline of a deadline cannot be empty!");
                 }
+                assert deadlineArgs.length == 2 : "The deadlineArgs array should have length 2";
                 try {
                     LocalDateTime by = LocalDateTime.parse(deadlineArgs[1], FORMATTER);
                     return new AddCommand(new Deadline(deadlineArgs[0], by));
@@ -73,6 +74,7 @@ public class Parser {
                 } else if (eventArgs.length < 3) {
                     throw new DudeException("The format of timings of the event is wrong!");
                 }
+                assert eventArgs.length == 3 : "The eventArgs array should have length 3";
                 try {
                     LocalDateTime from = LocalDateTime.parse(eventArgs[1], FORMATTER);
                     LocalDateTime to = LocalDateTime.parse(eventArgs[2], FORMATTER);
@@ -91,7 +93,7 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DudeException("No argument found!");
         } catch (IllegalArgumentException e) {
-            throw new DudeException("I'm sorry, but I don't know what that means :(");
+            return new InvalidCommand();
         }
     }
 }
