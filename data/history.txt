@@ -1,2 +1,4 @@
 T | 0 | run
 T | 0 | 124
+T | 0 | read book
+D | 0 | return book | 2024-09-01 1523

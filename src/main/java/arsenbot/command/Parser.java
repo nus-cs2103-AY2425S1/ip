@@ -31,6 +31,8 @@ public class Parser {
             return new UnmarkCommand(input);
         } else if (input.equals("bye")) {
             return new ExitCommand();
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
         } else {
             throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
         }
