@@ -36,8 +36,13 @@ public class Bob {
         }
     }
 
+    /**
+     * Returns the startup message, which includes a welcome message and the status of task loading.
+     *
+     * @return A string representing the startup message.
+     */
     public static String startUp() {
-        return ui.showWelcome() + "\n" + loadStatusMessage;
+        return ui.showMessage(ui.showWelcome(), "\n", loadStatusMessage);
     }
 
     /**
@@ -57,6 +62,12 @@ public class Bob {
         UNKNOWN
     }
 
+    /**
+     * Returns a response from Bob based on the user's input.
+     *
+     * @param userInput The user's input message.
+     * @return A string containing Bob's response to the user.
+     */
     public String getResponse(String userInput) {
         try {
             Command command = Parser.parseCommand(userInput);
@@ -105,6 +116,11 @@ public class Bob {
         }
     }
 
+    /**
+     * Returns the command type of the last user input processed.
+     *
+     * @return The command type.
+     */
     public Command getCommandType() {
         return commandType;
     }

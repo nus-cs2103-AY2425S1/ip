@@ -8,8 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
- * Controller for the main GUI.
+ * Controller class for the main GUI of Bob.
+ * This class manages the layout, user interactions, and display of dialogs between the user and Bob.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -28,6 +30,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Initializes the main window and displays a welcome message from Bob when the application starts.
+     * The scroll pane is enabled to scroll down automatically when new dialogs are added.
+     * It also displays a welcome message when the application starts.
      */
     @FXML
     public void initialize() {
@@ -40,15 +44,18 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Bob instance into the controller.
+     *
+     * @param b The Bob instance used to generate responses and handle logic for the chatbot.
      */
-    public void setDuke(Bob b) {
+    public void setBob(Bob b) {
         this.bob = b;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input from the text field when the send button is pressed or the user hits enter.
+     * It creates two dialog boxes: one echoing the user's input and the other containing Bob's response.
+     * After processing, the user input is cleared.
      */
     @FXML
     private void handleUserInput() {
@@ -57,7 +64,7 @@ public class MainWindow extends AnchorPane {
         Bob.Command commandType = bob.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, bobImage, commandType)
+                DialogBox.getBobDialog(response, bobImage, commandType)
         );
         userInput.clear();
     }
