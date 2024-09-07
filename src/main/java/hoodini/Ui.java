@@ -58,7 +58,7 @@ public class Ui {
      *
      */
     public String delete(Input input, int counter) {
-        return "Noted. " + "I have deleted this task:"
+        return "Noted. " + "I have deleted this task:\n"
                 + input + "\nYou have " + counter
                 + " tasks in the list.";
     }
