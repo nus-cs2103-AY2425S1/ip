@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
             "/images/jianbing.png")));
     private Image wenJieImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/wenjie.jpg")));
+            "/images/wenjie.png")));
 
     /**
      * Initializes the MainWindow controller. Binds the vertical scroll value of the scroll pane

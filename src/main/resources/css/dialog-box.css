@@ -17,8 +17,8 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
 
     /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;

@@ -192,15 +192,15 @@ public class AddCommand extends Command {
      */
     public void printAcknowledgeMessage(int taskListSize, Ui ui, Task task) {
         ui.showLine();
-        System.out.println("Got it. I've added this task:\n"
+        System.out.println("Nya~~ I've added this task:\n"
                 + task + "\n"
-                + "Now you have " + taskListSize + " tasks in the list.");
+                + "Now you have " + taskListSize + " tasks in the list babe.");
         ui.showLine();
     }
 
     public String getAcknoledgeMessage(int taskListSize, Ui ui, Task task) {
-        return ("Got it. I've added this task:\n"
+        return ("Nya~~ I've added this task:\n"
                 + task + "\n"
-                + "Now you have " + taskListSize + " tasks in the list.");
+                + "Now you have " + taskListSize + " tasks in the list babe.");
     }
 }
