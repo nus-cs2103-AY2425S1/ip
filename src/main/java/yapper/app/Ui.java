@@ -39,6 +39,7 @@ public class Ui {
      * @param text the message to be displayed
      */
     public static String wrapText(String text) {
+        assert text != null : "Text should not be null";
         return showLine() + text + "\n" + showLine();
     }
 
@@ -48,6 +49,7 @@ public class Ui {
      * @param texts an array of messages to be displayed
      */
     public static String wrapText(String[] texts) {
+        assert texts != null : "Text should not be null";
         StringBuilder sb = new StringBuilder(showLine());
         for (String s : texts) {
             sb.append(s).append("\n");
