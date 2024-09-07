@@ -40,6 +40,7 @@ public class Xizi {
         } catch (IOException | XiziException e) {
             ui.printErrorMessage(e.getMessage());
         }
+        assert actions != null : "Loaded tasks should not be null.";
     }
 
     /**
@@ -99,6 +100,7 @@ public class Xizi {
             //System.out.println("Absolute path: " + filePath.toAbsolutePath());
 
             Command command = parser.parse(input);
+            assert command != null : "Parsed command should not be null.";
 
             // Redirect output to a ByteArrayOutputStream to capture the response
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
