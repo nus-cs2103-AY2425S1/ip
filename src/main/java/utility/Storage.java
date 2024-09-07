@@ -1,13 +1,16 @@
 package utility;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /** A class to store the Task data */
 public class Storage {
@@ -67,6 +70,8 @@ public class Storage {
                 break;
             case 'E':
                 tasks.add(Event.load(line));
+                break;
+            default:
                 break;
             }
         }
