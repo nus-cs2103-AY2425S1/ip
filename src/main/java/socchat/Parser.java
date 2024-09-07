@@ -93,14 +93,14 @@ public class Parser {
         return tokens;
     }
 
-    public String getResponse(String[] input) {
+    public String getResponse(String... input) {
         String[] strToken;
         String respond = "";
-        String commandInput = input[0];
-        String remaining = input[1];
+
         try {
+            String commandInput = input[0];
+            String remaining;
             Command command = getCommand(commandInput);
-            System.out.print("> ");
             switch (command) {
                 case BYE:
                     return exit();
@@ -108,15 +108,18 @@ public class Parser {
                     respond = taskList.list();
                     break;
                 case MARK:
+                    remaining = input[1];
                     String taskIndexString = remaining.trim();
                     respond = taskList.setMark(taskIndexString, true);
                     break;
                 case UNMARK:
+                    remaining = input[1];
                     taskIndexString = remaining.trim();
                     respond = taskList.setMark(taskIndexString, false);
                     break;
                 case TODO:
-                    if (remaining == null ||remaining.isEmpty()) {
+                    remaining = input[1];
+                    if (remaining == null ||remaining.trim().isEmpty()) {
                         throw new SocchatException("Todo cannot have empty description");
                     }
                     String str = command + " " + remaining;
@@ -124,20 +127,24 @@ public class Parser {
                     respond = taskList.addTodo(strToken);
                     break;
                 case DEADLINE:
+                    remaining = input[1];
                     str = command + " " + remaining;
                     strToken = Parser.tokenizeAdd(str);
                     respond = taskList.addDeadline(strToken);
                     break;
                 case EVENT:
+                    remaining = input[1];
                     str = command + " " + remaining;
                     strToken = Parser.tokenizeAdd(str);
                     respond = taskList.addEvent(strToken);
                     break;
                 case DELETE:
+                    remaining = input[1];
                     taskIndexString = remaining;
                     respond = taskList.delete(taskIndexString);
                     break;
                 case FIND:
+                    remaining = input[1];
                     str = remaining;
                     respond = taskList.find(str);
                     break;
@@ -145,6 +152,9 @@ public class Parser {
                     respond = "Unrecognized command. Please try again.";
                     break;
             }
+
+        } catch (NullPointerException e) {
+            respond = "Empty description";
 
         } catch (SocchatException e) {
             respond = e.getMessage();
