@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDemureBotDialog("""
-                 Hello! I'm DemureBot
-                 What can I do for you?
+                Hello! I'm DemureBot
+                What can I do for you?
                 """, demureBotImage)
         );
     }
@@ -55,6 +55,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDemureBotDialog(response, demureBotImage)
         );
         userInput.clear();
+        if (response.equals("Bye. Hope to see you again soon!")) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.exit(0);
+            }).start();
+        }
     }
 }
 

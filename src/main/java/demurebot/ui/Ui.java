@@ -13,10 +13,7 @@ public class Ui {
      * @return The end message.
      */
     public String displayEnd() {
-        return("""
-                 Bye. Hope to see you again soon!
-                """
-        );
+        return("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -26,7 +23,7 @@ public class Ui {
      * @return The message indicating that a task has been marked as done.
      */
     public String displayMarkTask(Task task) {
-        return(" Nice! I've marked this task as done:\n   "
+        return("Nice! I've marked this task as done:\n   "
                 + task + "\n"
         );
     }
@@ -38,7 +35,7 @@ public class Ui {
      * @return The message indicating that a task has been marked as not done.
      */
     public String displayUnmarkTask(Task task) {
-        return(" OK, I've marked this task as not done yet:\n   "
+        return("OK, I've marked this task as not done yet:\n   "
                 + task + "\n"
         );
     }
@@ -51,7 +48,7 @@ public class Ui {
      * @return The message indicating that a task has been deleted.
      */
     public String displayDeleteTask(Task task, int size) {
-        return(" Noted. I've removed this task:\n   "
+        return("Noted. I've removed this task:\n   "
                 + task + "\n"
                 + " Now you have " + size + " tasks in the list.\n"
         );
@@ -76,10 +73,7 @@ public class Ui {
      * @return The message indicating that the task list is empty.
      */
     public String displayEmptyList() {
-        return("""
-            There are no tasks in the list.
-            """
-        );
+        return("There are no tasks in the list.");
     }
 
     /**
