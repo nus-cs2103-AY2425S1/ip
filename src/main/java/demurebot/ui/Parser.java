@@ -1,23 +1,23 @@
 package demurebot.ui;
 
-import demurebot.DemureBotException;
-import demurebot.command.Command;
-import demurebot.command.EndCommand;
-import demurebot.command.ListCommand;
-import demurebot.command.MarkCommand;
-import demurebot.command.UnmarkCommand;
-import demurebot.command.DeleteCommand;
-import demurebot.command.TodoCommand;
-import demurebot.command.DeadlineCommand;
-import demurebot.command.EventCommand;
-import demurebot.command.InvalidCommand;
-import demurebot.command.FindCommand;
-import demurebot.task.Deadline;
-import demurebot.task.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import demurebot.DemureBotException;
+import demurebot.command.Command;
+import demurebot.command.DeadlineCommand;
+import demurebot.command.DeleteCommand;
+import demurebot.command.EndCommand;
+import demurebot.command.EventCommand;
+import demurebot.command.FindCommand;
+import demurebot.command.InvalidCommand;
+import demurebot.command.ListCommand;
+import demurebot.command.MarkCommand;
+import demurebot.command.TodoCommand;
+import demurebot.command.UnmarkCommand;
+import demurebot.task.Deadline;
+import demurebot.task.Event;
 
 /**
  * The Parser class is responsible for parsing user commands and creating the appropriate Command objects.
@@ -51,7 +51,7 @@ public abstract class Parser {
             // check that there is a task description
             if (description.isEmpty()) {
                 throw new DemureBotException(
-                        "The description of a todo cannot be empty.\nAdd description after todo.\n"
+                        "Please include the description of your task.\nAdd description after todo.\n"
                 );
             }
             return new TodoCommand(description);
@@ -78,14 +78,14 @@ public abstract class Parser {
         // check that there is a task description
         if (remainder.isEmpty() || remainder.startsWith("/by")) {
             throw new DemureBotException(
-                    "The description of a deadline cannot be empty.\nAdd description after deadline.\n"
+                    "Please include the description of your task.\nAdd description after deadline.\n"
             );
         }
         String[] splitBy = remainder.split("/by");
         // check that there is a deadline
         if (splitBy.length == 1) {
             throw new DemureBotException(
-                    "The deadline of a deadline cannot be empty.\nAdd deadline after /by.\n"
+                    "Please include the deadline of your task.\nAdd deadline after /by.\n"
             );
         }
         String description = splitBy[0].trim();
@@ -105,14 +105,14 @@ public abstract class Parser {
         // check that there is a task description
         if (remainder.isEmpty() || remainder.startsWith("/from")) {
             throw new DemureBotException(
-                    "The description of an event cannot be empty.\nAdd description after event.\n"
+                    "Please include the description of your task.\nAdd description after event.\n"
             );
         }
         String[] splitFrom = remainder.split("/from");
         // check that there is a start time
         if (splitFrom.length == 1) {
             throw new DemureBotException(
-                    "The start time of an event cannot be empty.\nAdd start time after /from.\n"
+                    "Please include the start time of your event.\nAdd start time after /from.\n"
             );
         }
         String description = splitFrom[0].trim();
@@ -120,7 +120,7 @@ public abstract class Parser {
         // check that there is an end time
         if (splitTo.length == 1) {
             throw new DemureBotException(
-                    "The end time of an event cannot be empty.\nAdd end time after /to.\n"
+                    "Please include the end time of your event.\nAdd end time after /to.\n"
             );
         }
         String from = formatDateTime(splitTo[0].trim());

@@ -1,16 +1,18 @@
 package demurebot.command;
 
-import demurebot.task.TaskList;
-import demurebot.task.Todo;
-import demurebot.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import demurebot.task.TaskList;
+import demurebot.task.Todo;
+import demurebot.ui.Ui;
+
 
 public class MarkCommandTest {
 
@@ -31,12 +33,9 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("1");
         command.execute(taskList, ui);
         assertEquals("""
-                ____________________________________________________________
-                 Nice! I've marked this task as done:
-                   [T][X] Sample Task 1
-                ____________________________________________________________
-
-
+                Nice! You have completed
+                  [T][X] Sample Task 1
+                Very demure, very mindful!
                 """, outContent.toString());
     }
 
@@ -51,13 +50,15 @@ public class MarkCommandTest {
     public void testExecuteWithIndexOutOfRange() {
         MarkCommand command = new MarkCommand("10");
         command.execute(taskList, ui);
-        assertEquals("Invalid index: 10\nPlease enter a number within 1 to number of current tasks.\n\n", outContent.toString());
+        assertEquals("Invalid index: 10\nPlease enter a number within 1 to number of current tasks.\n\n",
+                outContent.toString());
     }
 
     @Test
     public void testExecuteWithNegativeIndex() {
         MarkCommand command = new MarkCommand("-1");
         command.execute(taskList, ui);
-        assertEquals("Invalid index: -1\nPlease enter a number within 1 to number of current tasks.\n\n", outContent.toString());
+        assertEquals("Invalid index: -1\nPlease enter a number within 1 to number of current tasks.\n\n",
+                outContent.toString());
     }
 }

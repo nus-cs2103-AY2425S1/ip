@@ -1,6 +1,5 @@
 package demurebot;
 
-import demurebot.Main;
 import javafx.application.Application;
 
 /**

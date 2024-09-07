@@ -1,16 +1,18 @@
 package demurebot.command;
 
-import demurebot.task.TaskList;
-import demurebot.task.Todo;
-import demurebot.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import demurebot.task.TaskList;
+import demurebot.task.Todo;
+import demurebot.ui.Ui;
+
 
 public class DeleteCommandTest {
 
@@ -31,9 +33,9 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("1");
         command.execute(taskList, ui);
         assertEquals("""
-                 Noted. I've removed this task:
-                   [T][ ] Sample Task 1
-                 Now you have 0 tasks in the list.
+                Ok dear, I've removed this task:
+                  [T][ ] Sample Task 1
+                Now you have 0 tasks in the list.
                 """, outContent.toString());
     }
 
@@ -48,13 +50,15 @@ public class DeleteCommandTest {
     public void testExecuteWithIndexOutOfRange() {
         DeleteCommand command = new DeleteCommand("10");
         command.execute(taskList, ui);
-        assertEquals("Invalid index: 10\nPlease enter a number within 1 to number of current tasks.\n\n", outContent.toString());
+        assertEquals("Invalid index: 10\nPlease enter a number within 1 to number of current tasks.\n\n",
+                outContent.toString());
     }
 
     @Test
     public void testExecuteWithNegativeIndex() {
         DeleteCommand command = new DeleteCommand("-1");
         command.execute(taskList, ui);
-        assertEquals("Invalid index: -1\nPlease enter a number within 1 to number of current tasks.\n\n", outContent.toString());
+        assertEquals("Invalid index: -1\nPlease enter a number within 1 to number of current tasks.\n\n",
+                outContent.toString());
     }
 }

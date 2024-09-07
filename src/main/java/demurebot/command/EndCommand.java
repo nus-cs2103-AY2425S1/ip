@@ -6,7 +6,7 @@ import demurebot.ui.Ui;
 /**
  * Represents a command to end the program.
  */
-public class EndCommand extends Command{
+public class EndCommand extends Command {
     /**
      * Constructor for EndCommand.
      */

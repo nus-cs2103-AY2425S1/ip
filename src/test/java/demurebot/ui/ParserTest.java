@@ -1,10 +1,21 @@
 package demurebot.ui;
 
-import demurebot.DemureBotException;
-import demurebot.command.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import demurebot.DemureBotException;
+import demurebot.command.Command;
+import demurebot.command.DeadlineCommand;
+import demurebot.command.DeleteCommand;
+import demurebot.command.EndCommand;
+import demurebot.command.EventCommand;
+import demurebot.command.InvalidCommand;
+import demurebot.command.ListCommand;
+import demurebot.command.MarkCommand;
+import demurebot.command.TodoCommand;
+import demurebot.command.UnmarkCommand;
 
 public class ParserTest {
 
@@ -80,5 +91,4 @@ public class ParserTest {
                 "event /from 2023-10-10 1400 /to 2023-10-10 1600"
         ));
     }
-
 }

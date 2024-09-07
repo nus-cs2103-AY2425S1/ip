@@ -26,12 +26,17 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image demureBotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window.
+     * Binds the scroll pane to the dialog container.
+     * Adds a welcome message from DemureBot to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDemureBotDialog("""
-                Hello! I'm DemureBot
+                Hi there! I'm DemureBot
                 What can I do for you?
                 """, demureBotImage)
         );
@@ -55,7 +60,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDemureBotDialog(response, demureBotImage)
         );
         userInput.clear();
-        if (response.equals("Bye. Hope to see you again soon!")) {
+        if (response.equals("Bye~~ Hope to see you again soon!")) {
             new Thread(() -> {
                 try {
                     Thread.sleep(3000);

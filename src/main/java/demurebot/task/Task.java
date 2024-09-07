@@ -4,7 +4,7 @@ package demurebot.task;
  * Abstract class representing a task in the DemureBot application.
  * A task has a description and a status indicating whether it is done.
  */
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

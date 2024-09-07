@@ -1,17 +1,17 @@
 package demurebot.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import demurebot.DemureBotException;
 import demurebot.task.Deadline;
 import demurebot.task.Event;
 import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.task.Todo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the storage of tasks in the DemureBot application.
@@ -97,20 +97,22 @@ public class Storage {
         String description = split[2];
         Task task = null;
         switch (type) {
-            case "T":
-                task = new Todo(description, isDone);
-                break;
-            case "D":
-                validateTaskFormat(split, 4);
-                String by = split[3];
-                task = new Deadline(description, by, isDone);
-                break;
-            case "E":
-                validateTaskFormat(split, 5);
-                String from = split[3];
-                String to = split[4];
-                task = new Event(description, from, to, isDone);
-                break;
+        case "T":
+            task = new Todo(description, isDone);
+            break;
+        case "D":
+            validateTaskFormat(split, 4);
+            String by = split[3];
+            task = new Deadline(description, by, isDone);
+            break;
+        case "E":
+            validateTaskFormat(split, 5);
+            String from = split[3];
+            String to = split[4];
+            task = new Event(description, from, to, isDone);
+            break;
+        default:
+            throw new DemureBotException("Saved task has invalid format");
         }
         if (task == null) {
             throw new DemureBotException("Saved task has invalid format");

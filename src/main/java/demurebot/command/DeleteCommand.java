@@ -35,12 +35,12 @@ public class DeleteCommand extends Command {
             list.removeTask(index);
             return ui.displayDeleteTask(task, list.getSize());
         } catch (NumberFormatException e) {
-            return("Please enter a positive integer after delete.\n");
+            return "Please enter a positive integer after delete.\n";
         } catch (IndexOutOfBoundsException e) {
-            return("Invalid index: " +
-                (Integer.parseInt(remainder)) +
-                "\n" +
-                "Please enter a number within 1 to number of current tasks.\n"
+            return ("Invalid index: "
+                    + remainder
+                    + "\n"
+                    + "Please enter a number within 1 to number of current tasks.\n"
             );
         }
     }

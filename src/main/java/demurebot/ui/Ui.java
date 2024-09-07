@@ -13,7 +13,7 @@ public class Ui {
      * @return The end message.
      */
     public String displayEnd() {
-        return("Bye. Hope to see you again soon!");
+        return "Bye~~ Hope to see you again soon!";
     }
 
     /**
@@ -23,9 +23,10 @@ public class Ui {
      * @return The message indicating that a task has been marked as done.
      */
     public String displayMarkTask(Task task) {
-        return("Nice! I've marked this task as done:\n   "
+        return ("Nice! You have completed\n  "
                 + task + "\n"
-        );
+                + "Very demure, very mindful!\n"
+            );
     }
 
     /**
@@ -35,9 +36,10 @@ public class Ui {
      * @return The message indicating that a task has been marked as not done.
      */
     public String displayUnmarkTask(Task task) {
-        return("OK, I've marked this task as not done yet:\n   "
+        return ("Oh no! You haven't completed\n  "
                 + task + "\n"
-        );
+                + "Not very demure, not very mindful!\n"
+            );
     }
 
     /**
@@ -48,10 +50,10 @@ public class Ui {
      * @return The message indicating that a task has been deleted.
      */
     public String displayDeleteTask(Task task, int size) {
-        return("Noted. I've removed this task:\n   "
+        return ("Ok dear, I've removed this task:\n  "
                 + task + "\n"
                 + " Now you have " + size + " tasks in the list.\n"
-        );
+            );
     }
 
     /**
@@ -62,10 +64,10 @@ public class Ui {
      * @return The message indicating that a task has been added.
      */
     public String displayAddTask(Task task, int size) {
-        return("Got it. I've added this task:\n  "
+        return ("Of course, I've added this task:\n  "
                 + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
-        );
+            );
     }
 
     /**
@@ -73,7 +75,7 @@ public class Ui {
      * @return The message indicating that the task list is empty.
      */
     public String displayEmptyList() {
-        return("There are no tasks in the list.");
+        return "There are no tasks:DDD\n";
     }
 
     /**
@@ -86,7 +88,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         for (int i = 0; i < list.getSize(); i++) {
             Task task = list.getTask(i);
-            response.append((i + 1)).append(".").append(task);
+            response.append((i + 1)).append(".").append(task).append("\n");
         }
         return response.toString();
     }

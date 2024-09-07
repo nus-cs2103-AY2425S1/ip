@@ -35,12 +35,11 @@ public class MarkCommand extends Command {
             task.markAsDone();
             return ui.displayMarkTask(task);
         } catch (NumberFormatException e) {
-            return("Please enter a positive integer after mark.\n");
+            return "Please enter a positive integer after mark.\n";
         } catch (IndexOutOfBoundsException e) {
-            return("Invalid index: " +
-                remainder +
-                "\n" +
-                "Please enter a number within 1 to number of current tasks.\n"
+            return ("Invalid index: "
+                    + remainder + "\n"
+                    + "Please enter a number within 1 to number of current tasks.\n"
             );
         }
     }
