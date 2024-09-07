@@ -47,6 +47,7 @@ public class BingBongBot {
 
             // Execute the command and capture the response
             String response = command.execute(tasks, storage);
+            assert response != null : "response should not be null";
 
             // Save isExit status
             isExit = command.isExit();
