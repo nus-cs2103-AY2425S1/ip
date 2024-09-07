@@ -3,7 +3,7 @@ package mortalreminder.io;
 import java.util.Arrays;
 
 import mortalreminder.commands.Command;
-import mortalreminder.commands.CommandTypes;
+import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Deadline;
 import mortalreminder.tasks.Events;
@@ -24,7 +24,7 @@ public class Parser {
      * Parses the user's input from the console and returns a corresponding {@code Command} object.
      * <p>
      * This method trims the input, splits it into parts, identifies the command word,
-     * and determines the corresponding {@link CommandTypes}. If the command is not recognized,
+     * and determines the corresponding {@link CommandType}. If the command is not recognized,
      * it defaults to an unknown command type.
      *
      * @param input the user's input string.
@@ -46,11 +46,11 @@ public class Parser {
           and minor syntax errors were debugged using ChatGPT
          */
 
-        CommandTypes commandType;
+        CommandType commandType;
         try {
-            commandType = CommandTypes.valueOf(commandWord.toUpperCase());
+            commandType = CommandType.valueOf(commandWord.toUpperCase());
         } catch (IllegalArgumentException e) {
-            commandType = CommandTypes.UNKNOWN;
+            commandType = CommandType.UNKNOWN;
         }
 
         // Use the initialise method to create and return a Commands object

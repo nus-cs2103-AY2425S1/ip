@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import mortalreminder.commands.CommandTypes;
+import mortalreminder.commands.CommandType;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -43,7 +43,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getMortalReminderDialog(String text, Image img, CommandTypes commandType) {
+    public static DialogBox getMortalReminderDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
         db.changeDialogStyle(commandType);
@@ -61,7 +61,7 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
-    private void changeDialogStyle(CommandTypes commandType) {
+    private void changeDialogStyle(CommandType commandType) {
         switch (commandType) {
         case TODO:
         case DEADLINE:

@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mortalreminder.MortalReminder;
 import mortalreminder.commands.Command;
-import mortalreminder.commands.CommandTypes;
+import mortalreminder.commands.CommandType;
 
 /**
  * Controller for the main GUI.
@@ -26,7 +26,8 @@ public class MortalReminderWindow extends AnchorPane {
 
     private MortalReminder mortalReminder;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Darius.png"));
+    private Image userImage = new Image(this.getClass()
+            .getResourceAsStream("/images/Darius.png"));
     private Image mortalReminderImage = new Image(this.getClass()
             .getResourceAsStream("/images/MortalReminder.png"));
 
@@ -64,7 +65,7 @@ public class MortalReminderWindow extends AnchorPane {
     public void onStartUp() {
         String welcome = mortalReminder.welcome();
         dialogContainer.getChildren()
-                .add(DialogBox.getMortalReminderDialog(welcome, mortalReminderImage, CommandTypes.UNKNOWN));
+                .add(DialogBox.getMortalReminderDialog(welcome, mortalReminderImage, CommandType.UNKNOWN));
     }
 }
 

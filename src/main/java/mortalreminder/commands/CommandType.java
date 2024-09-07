@@ -3,7 +3,7 @@ package mortalreminder.commands;
 /**
  * Contains all types of commands in an Enum list.
  */
-public enum CommandTypes {
+public enum CommandType {
     TODO,
     DEADLINE,
     EVENT,

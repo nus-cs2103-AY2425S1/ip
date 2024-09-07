@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import mortalreminder.commands.Command;
-import mortalreminder.commands.CommandTypes;
+import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Deadline;
@@ -38,7 +38,7 @@ public class Processor {
      * @return response string which is the output message of the entire command.
      */
     public String handleCommand(Command command, TaskList taskList) throws MortalReminderException {
-        CommandTypes commandType = command.commandType();
+        CommandType commandType = command.commandType();
 
         String commandDetails = Arrays.stream(command.commandDetails())
                 .reduce((accumulator, element) -> accumulator + " " + element)
@@ -53,12 +53,16 @@ public class Processor {
             return FormattedPrinting.printSimilarTasks(foundTasks);
 
         case MARK:
+            // Fallthrough
         case UNMARK:
+            // Fallthrough
         case DELETE:
             return markUnmarkOrDelete(commandDetails, taskList, commandType);
 
         case TODO:
+            // Fallthrough
         case DEADLINE:
+            // Fallthrough
         case EVENT:
             return createTask(commandDetails, taskList, commandType);
 
@@ -70,14 +74,7 @@ public class Processor {
             return upcomingTasks(taskList);
 
         default:
-            StringBuilder message = new StringBuilder("I do not recognise this command, please check again!\n"
-                    + "Available commands are:\n");
-            for (CommandTypes type : CommandTypes.values()) {
-                if (type != CommandTypes.UNKNOWN) {
-                    message.append(type.name().toLowerCase()).append("\n");
-                }
-            }
-            throw new MortalReminderException(message.toString());
+            return unrecognisedCommand();
         }
     }
 
@@ -90,20 +87,20 @@ public class Processor {
      *
      * @param commandDetails the details of the command, typically the task index.
      * @param taskList       the {@link TaskList} containing the tasks to modify.
-     * @param commandType    the {@link CommandTypes} indicating the action to perform.
+     * @param commandType    the {@link CommandType} indicating the action to perform.
      * @return returns a confirmation message of the corresponding type of command done.
      */
-    public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType)
+    public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
         try {
             String response = "";
             int index = Integer.parseInt(commandDetails) - 1;
             Task newTask = taskList.getTask(index);
             if (newTask != null) {
-                if (commandType == CommandTypes.MARK) {
+                if (commandType == CommandType.MARK) {
                     response = newTask.markDone();
                     Storage.refreshStorageFile(taskList);
-                } else if (commandType == CommandTypes.UNMARK) {
+                } else if (commandType == CommandType.UNMARK) {
                     response = newTask.markUndone();
                     Storage.refreshStorageFile(taskList);
                 } else {
@@ -127,15 +124,15 @@ public class Processor {
      *
      * @param commandDetails the details of the command, typically the task description.
      * @param taskList       the {@link TaskList} to add the new task to.
-     * @param commandType    the {@link CommandTypes} indicating the type of task to create.
+     * @param commandType    the {@link CommandType} indicating the type of task to create.
      * @return returns a confirmation message of type of task created or the reason why the task could not be created.
      */
-    public String createTask(String commandDetails, TaskList taskList, CommandTypes commandType)
+    public String createTask(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
         Task newTask;
-        if (commandType == CommandTypes.TODO) {
+        if (commandType == CommandType.TODO) {
             newTask = new ToDo(commandDetails);
-        } else if (commandType == CommandTypes.DEADLINE) {
+        } else if (commandType == CommandType.DEADLINE) {
             newTask = new Deadline(commandDetails);
         } else {
             newTask = new Events(commandDetails);
@@ -165,6 +162,19 @@ public class Processor {
             }
         }
         return FormattedPrinting.upcomingDeadlinesEvents(tasks);
+    }
+
+    public String unrecognisedCommand() throws MortalReminderException {
+        StringBuilder message = new StringBuilder("""
+                    I do not recognise this command, please check again!
+                    Available commands are:
+                    """);
+        for (CommandType type : CommandType.values()) {
+            if (type != CommandType.UNKNOWN) {
+                message.append(type.name().toLowerCase()).append("\n");
+            }
+        }
+        throw new MortalReminderException(message.toString());
     }
 
 }

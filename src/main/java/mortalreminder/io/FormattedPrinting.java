@@ -3,7 +3,7 @@ package mortalreminder.io;
 import java.util.ArrayList;
 
 import mortalreminder.backend.TaskList;
-import mortalreminder.commands.CommandTypes;
+import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
 
@@ -34,7 +34,7 @@ public class FormattedPrinting {
     }
 
     /**
-     * Returns all current tasks inside the list when the LIST {@link CommandTypes} is used.
+     * Returns all current tasks inside the list when the LIST {@link CommandType} is used.
      *
      * @param taskList the current total list of tasks to be printed out
      * @return a string of the list of all tasks currently tracked.
@@ -50,7 +50,7 @@ public class FormattedPrinting {
     }
 
     /**
-     * Returns all the similar types of tasks queried by the user when the FIND {@link CommandTypes} is used.
+     * Returns all the similar types of tasks queried by the user when the FIND {@link CommandType} is used.
      *
      * @param taskList the list of similar tasks to be printed out.
      * @return a string of all similar tasks to the search term(s) queried by user.

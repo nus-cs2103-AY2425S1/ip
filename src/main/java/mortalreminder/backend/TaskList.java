@@ -42,10 +42,6 @@ public class TaskList {
         }
     }
 
-    public boolean isEmpty() {
-        return this.taskList.isEmpty();
-    }
-
     /**
      * Adds a task to the list and updates the storage file.
      * <p>

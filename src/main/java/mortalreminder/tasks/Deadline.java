@@ -83,14 +83,13 @@ public class Deadline extends Task implements TimedTask {
         return this.type + "|" + this.isDone + "|" + this.description + "|" + this.deadline;
     }
 
-    // the following function was optimised using chatGPT
-
     /**
      * Checks for invalid data and parameter numbers passed into the constructor of this class.
      * If there are less or more than 2 objects (description and deadline) in description string, that means
      * there is too much or too little information provided to create the class.
      * As such the ArrayIndexOutOfBoundsException() is thrown to prevent the creation of the file.
-     * The getTime() methods help check if the parsing of the dates and times are correct.
+     * The getTime() methods help check if the parsing of the dates and times are correct. This function was optimised
+     * using chatGPT.
      *
      * @param descriptionString A list of string values passed in from the constructor which are to be checked
      *                          for data validation purposes. An error will be thrown if one of the values are
@@ -101,7 +100,7 @@ public class Deadline extends Task implements TimedTask {
             throws MortalReminderException {
         if (descriptionString.length != 2) {
             throw new MortalReminderException("Please input the correct number of details for deadlines! " +
-                    "Remember that you need to include /by in the command.");
+                    "Remember that you need to include '/by' in the command.");
         }
         try {
             getTime(descriptionString[1].trim());
