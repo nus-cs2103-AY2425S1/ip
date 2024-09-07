@@ -159,4 +159,22 @@ public class Ui {
                 + list;
         printDialogBox(content);
     }
+
+    /**
+     * Prints the number of recurring tasks added.
+     * @param times number of items added.
+     * @param type either weekly or daily recurring tasks.
+     */
+    public void printRecurringTask(int times, String type) {
+        String content = String.valueOf(times);
+        if (type.equals("day")) {
+            content += " daily ";
+        } else if (type.equals("week")) {
+            content += " weekly ";
+        } else {
+            content += " INCORRECT ";
+        }
+        content += "tasks added";
+        printDialogBox(content);
+    }
 }

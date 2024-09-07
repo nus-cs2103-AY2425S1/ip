@@ -33,6 +33,7 @@ public class HelpCommand extends Command {
                         + "\n" + DeleteCommand.MESSAGE_USAGE
                         + "\n" + DueCommand.MESSAGE_USAGE
                         + "\n" + HelpCommand.MESSAGE_USAGE
+                        + "\n" + RecurringCommand.MESSAGE_USAGE
         );
     }
 }

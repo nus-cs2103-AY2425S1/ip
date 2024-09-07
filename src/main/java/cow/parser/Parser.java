@@ -18,6 +18,7 @@ import cow.commands.HelpCommand;
 import cow.commands.IncorrectCommand;
 import cow.commands.ListCommand;
 import cow.commands.MarkCommand;
+import cow.commands.RecurringCommand;
 import cow.commands.TodoCommand;
 import cow.commands.UnmarkCommand;
 import cow.exceptions.CowExceptions;
@@ -29,6 +30,7 @@ import cow.tasks.Deadlines;
 /**
  * Class to handle the parsing of input commands.
  **/
+@SuppressWarnings("checkstyle:Regexp")
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -42,10 +44,9 @@ public class Parser {
      */
     public static Command parse(String userInput) throws CowExceptions {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    HelpCommand.MESSAGE_USAGE));
+        IncorrectCommand isNotMatch = checkMatcher(matcher, HelpCommand.MESSAGE_USAGE);
+        if (isNotMatch != null) {
+            return isNotMatch;
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -72,9 +73,64 @@ public class Parser {
             return prepDue(arguments);
         case FindCommand.COMMAND_WORD:
             return prepFindCommand(arguments);
+        case RecurringCommand.COMMAND_WORD:
+            return prepRecurringCommand(arguments);
         default:
             return new HelpCommand();
         }
+    }
+
+    /**
+     * Prepares the recurring command.
+     *
+     * @param args the expected command arguments.
+     * @return a recurring command or invalid command if unsuccessful.
+     */
+    private static Command prepRecurringCommand(String args) {
+        Matcher matcher = getRecurringMatcher(args);
+        IncorrectCommand isNotMatch = checkMatcher(matcher, RecurringCommand.MESSAGE_USAGE);
+        if (isNotMatch != null) {
+            return isNotMatch;
+        }
+        int times;
+        try {
+            times = Integer.parseInt(matcher.group("times").trim());
+        } catch (NumberFormatException e) {
+            return getIncorrectCommand(RecurringCommand.MESSAGE_USAGE);
+        }
+        return getRecurringCommand(matcher, times);
+    }
+
+    /**
+     * Creates recurring command from the arguments.
+     *
+     * @param matcher matcher used for getting the arguments.
+     * @param times to recur.
+     * @return Reoccurring command or invalid command.
+     */
+    private static Command getRecurringCommand(Matcher matcher, int times) {
+        try {
+            return new RecurringCommand(matcher.group("desc").trim(),
+                    LocalDateTime.parse(matcher.group("start").trim(), Deadlines.FORMAT),
+                    matcher.group("freq").trim(),
+                    times);
+        } catch (DateTimeParseException e) {
+            return getIncorrectCommand(RecurringCommand.MESSAGE_USAGE);
+        }
+    }
+    /**
+     * Gets the matcher for the recurring command.
+     *
+     * @param args from the command
+     * @return the matcher used to extract arguments.
+     */
+    private static Matcher getRecurringMatcher(String args) {
+        String regex = "^(?<desc>.+?)\\s"
+                + "*/start\\s*(?<start>.+?)\\s"
+                + "*/freq\\s*(?<freq>.+?)\\s"
+                + "*/times\\s*(?<times>.+?)$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(args.trim());
     }
 
     /**
@@ -84,11 +140,36 @@ public class Parser {
      * @return the corresponding command.
      */
     private static Command prepFindCommand(String arguments) {
-        if (arguments == null || arguments.isEmpty()) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+        IncorrectCommand command = checkEmptyCommand(arguments, FindCommand.MESSAGE_USAGE);
+        if (command != null) {
+            return command;
         }
         return new FindCommand(arguments);
+    }
+
+    /**
+     * Checks if the command arguments is empty.
+     *
+     * @param arguments from the regex.
+     * @param usage the example usage of the command it is checking.
+     * @return an IncorrectCommand with the example usage.
+     */
+    private static IncorrectCommand checkEmptyCommand(String arguments, String usage) {
+        if (arguments == null || arguments.isEmpty()) {
+            return getIncorrectCommand(usage);
+        }
+        return null;
+    }
+
+    /**
+     * Creates the IncorrectCommand.
+     *
+     * @param usage the correct example usage.
+     * @return the IncorrectCommand object.
+     */
+    private static IncorrectCommand getIncorrectCommand(String usage) {
+        return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                usage));
     }
 
     /**
@@ -118,8 +199,7 @@ public class Parser {
             LocalDate parsedDate = LocalDate.parse(args.trim(), formatter);
             return new DueCommand(parsedDate);
         } catch (DateTimeParseException e) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    DueCommand.MESSAGE_USAGE));
+            return getIncorrectCommand(DueCommand.MESSAGE_USAGE);
         }
     }
 
@@ -132,17 +212,15 @@ public class Parser {
     private static Command prepareDeadline(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/by\\s*(?<by>.*)$");
         Matcher matcher = pattern.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeadlineCommand.MESSAGE_USAGE));
+        IncorrectCommand isNotMatch = checkMatcher(matcher, DeadlineCommand.MESSAGE_USAGE);
+        if (isNotMatch != null) {
+            return isNotMatch;
         }
-
         try {
             return new DeadlineCommand(matcher.group("desc"),
                     LocalDateTime.parse(matcher.group("by"), Deadlines.FORMAT));
         } catch (DateTimeParseException e) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeadlineCommand.MESSAGE_USAGE));
+            return getIncorrectCommand(DeadlineCommand.MESSAGE_USAGE);
         }
     }
 
@@ -155,13 +233,26 @@ public class Parser {
     private static Command prepareEvent(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/from\\s*(?<from>.+?)\\s*/to\\s*(?<to>.+)$");
         Matcher matcher = pattern.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    EventCommand.MESSAGE_USAGE));
+        IncorrectCommand isNotMatch = checkMatcher(matcher, EventCommand.MESSAGE_USAGE);
+        if (isNotMatch != null) {
+            return isNotMatch;
         }
-
         return new EventCommand(matcher.group("desc"),
                 matcher.group("from"), matcher.group("to"));
+    }
+
+    /**
+     * Checks if matcher matches.
+     *
+     * @param matcher the matcher to check.
+     * @param usage the correct command usage example.
+     * @return IncorrectCommand object.
+     */
+    private static IncorrectCommand checkMatcher(Matcher matcher, String usage) {
+        if (!matcher.matches()) {
+            return getIncorrectCommand(usage);
+        }
+        return null;
     }
 
     /**
@@ -172,8 +263,7 @@ public class Parser {
      */
     private static Command prepareTodo(String args) {
         if (args == null || args.isEmpty()) {
-            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    TodoCommand.MESSAGE_USAGE));
+            return getIncorrectCommand(TodoCommand.MESSAGE_USAGE);
         }
         return new TodoCommand(args);
     }
