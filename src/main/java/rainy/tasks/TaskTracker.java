@@ -115,6 +115,10 @@ public class TaskTracker {
      */
 
     public void sortList() {
+        String tempStorage;
+        for (Task t: this.taskList) {
+            tempStorage = t.toString();
+        }
         Collections.sort(this.taskList);
         if (this.taskList.size() > 0) {
             ui.sortDone();

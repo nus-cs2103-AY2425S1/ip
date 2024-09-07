@@ -62,9 +62,7 @@ public class Storage {
                 }
                 trace++;
             }
-            ui.startTracking();
         } catch (FileNotFoundException e) {
-            ui.startTracking();
             newTask = new TaskTracker();
         }
         newTask.toggleReceivedInputs();
