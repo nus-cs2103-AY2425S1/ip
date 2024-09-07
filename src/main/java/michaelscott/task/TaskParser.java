@@ -1,6 +1,7 @@
 package michaelscott.task;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import michaelscott.utils.MichaelScottException;
@@ -17,6 +18,7 @@ public class TaskParser {
     public static Task parseTask(String line) throws MichaelScottException {
         String[] split = line.split(" \\| ");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter DateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Task task;
         int status = Integer.parseInt(split[1]);
         String name = split[2];
@@ -28,7 +30,7 @@ public class TaskParser {
             case "E" ->
                     new Event(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
             case "P" ->
-                    new Period(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
+                    new Period(name, LocalDate.parse(split[3], DateFormatter), LocalDate.parse(split[4], DateFormatter));
             default -> throw new MichaelScottException("Wrong stuff");
         };
 

@@ -1,6 +1,6 @@
 package michaelscott.task;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * A period has a from-time and a to-time in addition to a description.
  */
 public class Period extends Task {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Constructs a Period task with the specified description, start time, and end time.
@@ -19,7 +19,7 @@ public class Period extends Task {
      * @param from        The start time of the Period.
      * @param to          The end time of the Period.
      */
-    public Period(String description, LocalDateTime from, LocalDateTime to) {
+    public Period(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -30,7 +30,7 @@ public class Period extends Task {
      *
      * @return The start time as a LocalDateTime object.
      */
-    public LocalDateTime getFrom() {
+    public LocalDate getFrom() {
         return this.from;
     }
 
@@ -39,7 +39,7 @@ public class Period extends Task {
      *
      * @return The end time as a LocalDateTime object.
      */
-    public LocalDateTime getTo() {
+    public LocalDate getTo() {
         return this.to;
     }
 

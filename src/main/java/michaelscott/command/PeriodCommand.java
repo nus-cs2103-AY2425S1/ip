@@ -1,6 +1,6 @@
 package michaelscott.command;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import michaelscott.task.Period;
@@ -14,8 +14,8 @@ import michaelscott.utils.MichaelScottException;
  */
 public class PeriodCommand implements Command {
     private final String description;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     /**
      * Constructs a new PeriodCommand by parsing the given arguments.
@@ -30,17 +30,17 @@ public class PeriodCommand implements Command {
         if (periodParts.length != 3) {
             throw new MichaelScottException(
                     "Please provide the period description, start time (/start), and end time(/end). \n"
-                            + "Here is an example: period Collect certificate /start 2024-02-02 12:00 /end 2024-02-02 17:00."
+                            + "Here is an example: period Collect certificate /start 2024-02-02 /end 2024-02-02"
             );
         }
         description = periodParts[0];
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            startDate = LocalDateTime.parse(periodParts[1], formatter);
-            endDate = LocalDateTime.parse(periodParts[2], formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            startDate = LocalDate.parse(periodParts[1], formatter);
+            endDate = LocalDate.parse(periodParts[2], formatter);
         } catch (java.time.format.DateTimeParseException e) {
             throw new MichaelScottException(
-                    "Invalid date format: Please use the format YYYY-MM-DD HH:MM."
+                    "Invalid date format: Please use the format YYYY-MM-DD"
             );
         }
     }
