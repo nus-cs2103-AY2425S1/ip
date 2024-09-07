@@ -12,7 +12,9 @@ import cookie.command.ToDoCommand;
 import cookie.command.UnmarkCommand;
 import cookie.exception.CookieException;
 
-
+/**
+ * Parses user input and converts it into corresponding {@code Command} objects.
+ */
 public class Parser {
     /**
      * Returns a command to be executed.

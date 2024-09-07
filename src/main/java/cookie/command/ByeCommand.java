@@ -6,7 +6,11 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
+/**
+ * Represents a command that handles the termination of the program.
+ * The {@code ByeCommand} is responsible for saving the current state of the task list to storage
+ * and returning a farewell message to the user.
+ */
 public class ByeCommand extends Command {
 
     /**

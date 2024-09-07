@@ -1,10 +1,13 @@
 package cookie;
 
-import cookie.task.Deadline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+
+import cookie.task.Deadline;
+
 public class DeadlineTest {
     @Test
     void testConstructor() {
@@ -25,10 +28,10 @@ public class DeadlineTest {
         DateParserStub.changePattern(deadlineDate);
 
         Deadline deadline = new Deadline("Submit assignment", by);
-        assertEquals("[D][] Submit assignment (by: Sept 10 2024)", deadline.toString());
+        assertEquals("[D][] Submit assignment (by: Sep 10 2024)", deadline.toString());
 
         deadline.markDone();
-        assertEquals("[D][X] Submit assignment (by: Sept 10 2024)", deadline.toString());
+        assertEquals("[D][X] Submit assignment (by: Sep 10 2024)", deadline.toString());
     }
 
     static class DateParserStub {

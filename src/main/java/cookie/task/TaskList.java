@@ -2,6 +2,9 @@ package cookie.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks with various operations for managing the tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskArrayList;
 

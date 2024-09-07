@@ -5,7 +5,9 @@ import cookie.storage.Storage;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
+/**
+ * Represents a command to delete a task from the task list by its index.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
@@ -26,7 +28,7 @@ public class DeleteCommand extends Command {
      * @param ui the user interface object used to print the confirmation of deletion
      * @param storage the storage object (not used in this method, but included for command consistency)
      * @return a string containing the confirmation of the deleted task and the updated task count
-     * @throws CookieException if the index is out of bounds (i.e., less than or equal to 0, or greater than the list size)
+     * @throws CookieException if the index is out of bounds
      */
     @Override
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws CookieException {

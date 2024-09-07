@@ -1,4 +1,8 @@
 package cookie.task;
+
+/**
+ * Represents a to-do task in the task list.
+ */
 public class ToDo extends Task {
 
     /**

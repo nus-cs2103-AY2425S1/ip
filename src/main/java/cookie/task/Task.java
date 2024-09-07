@@ -1,4 +1,8 @@
 package cookie.task;
+
+/**
+ * Represents a task in a to-do list with a description and a completion status.
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;

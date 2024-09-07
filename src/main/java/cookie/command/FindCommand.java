@@ -8,7 +8,9 @@ import cookie.task.Task;
 import cookie.task.TaskList;
 import cookie.ui.Ui;
 
-
+/**
+ * Represents a command to search for tasks in the task list that match a specified keyword.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

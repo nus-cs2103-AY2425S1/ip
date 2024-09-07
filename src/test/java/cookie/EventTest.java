@@ -1,12 +1,12 @@
 package cookie;
 
-import cookie.task.Event;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import cookie.task.Event;
 
 public class EventTest {
     @Test

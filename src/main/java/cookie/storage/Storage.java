@@ -14,6 +14,9 @@ import cookie.task.Event;
 import cookie.task.Task;
 import cookie.task.ToDo;
 
+/**
+ * Handles the storage and retrieval of tasks from a file.
+ */
 public class Storage {
 
     /**

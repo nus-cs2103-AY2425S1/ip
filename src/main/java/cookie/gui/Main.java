@@ -10,6 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The main application class for launching the cookie GUI application.
+ */
 public class Main extends Application {
 
     private Cookie cookie = new Cookie();
