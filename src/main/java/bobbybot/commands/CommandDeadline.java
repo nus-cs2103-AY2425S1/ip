@@ -42,11 +42,10 @@ public class CommandDeadline extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
         Task deadline = new Deadline(description, by);
         tasks.addTask(deadline);
+
         ui.printAddTask(tasks, deadline);
-        try {
-            storage.saveTasksToFile(tasks.toArray());
-        } catch (IOException e) {
-            throw new BobbyBotException("Error saving to file.");
-        }
+
+        storage.saveTasksToFile(tasks.toArray());
+
     }
 }

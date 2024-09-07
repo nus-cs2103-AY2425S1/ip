@@ -12,6 +12,8 @@ import bobbybot.BobbyBotException;
  */
 public class Deadline extends Task {
 
+    public static final String TASK_TYPE = "D";
+
     private static final DateTimeFormatter DEADLINE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final LocalDate by;
 
@@ -32,17 +34,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getTaskType() {
-        return "D";
-    }
-
-    @Override
     public String toString() {
-        return String.format("[%s]%s (by: %s)", getTaskType(), super.toString(), by.format(DEADLINE_DATE_FORMAT));
+        return String.format("[%s]%s (by: %s)", TASK_TYPE, super.toString(), by.format(DEADLINE_DATE_FORMAT));
     }
 
     @Override
     public String getFileString() {
-        return getTaskType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
+        return TASK_TYPE + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
     }
 }

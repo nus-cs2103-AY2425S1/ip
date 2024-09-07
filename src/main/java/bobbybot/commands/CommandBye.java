@@ -13,7 +13,7 @@ public class CommandBye extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        setExit();
         ui.printResponse("Bye. Hope to see you again soon!");
+        ui.stop();
     }
 }
