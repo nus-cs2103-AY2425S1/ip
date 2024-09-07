@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     private Cow cow;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image cowImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private Image cowImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /** Prints greetings on initialize **/
     @FXML

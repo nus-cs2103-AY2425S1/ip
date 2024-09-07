@@ -17,7 +17,14 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_EXAMPLE;
 
     private final int index;
+
+    /**
+     * Constructor to create a delete command.
+     *
+     * @param index of the todo list to delete.
+     */
     public DeleteCommand(int index) {
+        assert index >= 0 : "index should be >= 0";
         this.index = index - 1;
     }
 
