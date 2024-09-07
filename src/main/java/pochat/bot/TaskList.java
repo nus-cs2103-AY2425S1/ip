@@ -31,16 +31,18 @@ public class TaskList {
         return this.listTasks.get(index);
     }
 
-    public void printMatchingTasks(String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String findMatchingTasks(String keyword) {
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
 
         int index = 1;
         for (Task task : this.listTasks) {
             if (task.contains(keyword)) {
-                System.out.println(index + ". " + task);
+                message.append(index + ". " + task + "\n");
                 index++;
             }
         }
+
+        return message.toString();
     }
 
     public ArrayList<Task> toList() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import pochat.tasks.Task;
 import pochat.exceptions.ChatHistoryFileMissingException;
 
-class ChatData {
+public class ChatData {
     private final String filename;
 
     public ChatData(String filename) {
