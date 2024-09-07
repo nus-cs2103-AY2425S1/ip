@@ -3,6 +3,10 @@ package pacman;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Represents an event. A <code>Event</code> object corresponds to
+ * an event's name, a start date of the event, and a end date of the event
+ */
 public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
@@ -13,6 +17,11 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
+    /**
+     * Return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     *
+     * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     */
     public String toFile() { return "E/" + super.toFile() + "/" + from + "/" + to; }
 
     @Override
