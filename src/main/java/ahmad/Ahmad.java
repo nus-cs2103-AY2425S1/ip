@@ -1,6 +1,7 @@
 package ahmad;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import ahmad.exceptions.AhmadException;
@@ -62,8 +63,8 @@ public class Ahmad extends Application {
 
     @Override
     public void start(Stage stage) {
+
         try {
-            Storage.load();
             FXMLLoader fxmlLoader = new FXMLLoader(Ahmad.class.getResource("/fx/MainView.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
@@ -81,7 +82,13 @@ public class Ahmad extends Application {
      *
      * @param args Arguments from the compiler.
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
+
+
+        if (!Arrays.asList(args).contains("--without-file")) {
+            Storage.load();
+        }
+
         launch(args);
 
         /*
