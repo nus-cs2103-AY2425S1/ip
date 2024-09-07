@@ -32,7 +32,10 @@ public class Notgpt{
      *
      * @param args command-line arguments (not used in this application)
      */
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
+        NotgptJavaFX.main(args);
+    }
+
 //        try {
 //            Scanner scanner = new Scanner(System.in);
 //            String logo = " _   _       _                 _\n"
@@ -57,3 +60,4 @@ public class Notgpt{
 //        }
 //    }
 }
+
