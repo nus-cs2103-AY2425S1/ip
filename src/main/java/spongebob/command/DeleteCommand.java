@@ -24,6 +24,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !storage.isEmpty() : "storage is empty!";
+
         Task cur;
         try {
             cur = taskList.getCache().get(Integer.parseInt(arguments[1]) - 1);
