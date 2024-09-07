@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
         tasks.markDone(index);
+        assert tasks.getTask(index).isDone() : "Task should be marked as done";
         storage.saveTasks(tasks);
         ui.showMarked(tasks.getTask(index));
     }

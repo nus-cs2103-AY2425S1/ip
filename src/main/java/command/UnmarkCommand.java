@@ -31,6 +31,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
         tasks.markUndone(index);
+        assert !tasks.getTask(index).isDone() : "Task should not be marked as done";
         storage.saveTasks(tasks);
         ui.showUnmarked(tasks.getTask(index));
     }

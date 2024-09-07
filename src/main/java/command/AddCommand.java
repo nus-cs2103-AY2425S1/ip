@@ -32,6 +32,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
         tasks.addTask(task);
+        assert tasks.getTask(tasks.getSize() - 1).equals(task) : "Task should be added to the task list";
         storage.saveTasks(tasks);
         ui.showAdded(task, tasks);
     }
