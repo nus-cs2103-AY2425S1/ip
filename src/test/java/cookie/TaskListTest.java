@@ -61,7 +61,7 @@ public class TaskListTest {
         String expectedOutput = "Here are the tasks in your list:\n"
                 + "1: [T][] Finish homework\n"
                 + "2: [E][] Team meeting (from: Aug 25 2024 to: Aug 26 2024 )\n"
-                + "3: [D][] Submit report (by: Sept 1 2024)\n";
+                + "3: [D][] Submit report (by: Sep 1 2024)\n";
         assertEquals(expectedOutput, taskList.printTasks());
     }
 
