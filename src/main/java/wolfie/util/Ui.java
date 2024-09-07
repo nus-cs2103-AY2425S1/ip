@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import wolfie.task.Task;
-import wolfie.task.TaskList;
 
 /**
  * Represents the user interface of the application
@@ -79,21 +78,6 @@ public class Ui {
     public String showGoodbye() {
         return " Bye Dean's Lister! Hope to see you again soon :-)"; // Print the goodbye message
     }
-
-    /**
-     * Prints the tasks in the list
-     *
-     * @param tasks the list of tasks
-     * @return the tasks in the list
-     */
-    public String showTasks(TaskList tasks) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
-        }
-        return sb.toString();
-    }
     /**
      * Prints the tasks that just got added to the list
      *
@@ -102,7 +86,7 @@ public class Ui {
      * @return the task that was added
      */
     public String showTaskAdded(Task task, int size) {
-        return " Got it. I've added this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
+        return " Yasss. I've added this task:\n   " + task + "\n Now you have " + size + " tasks in the list pookie!";
     }
 
     /**
@@ -112,7 +96,7 @@ public class Ui {
      * @return the task that was removed
      */
     public String showTaskRemoved(Task task, int size) {
-        return " Noted. I've removed this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
+        return " Roger. I've removed this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -121,7 +105,7 @@ public class Ui {
      * @return the task that was marked as done
      */
     public String showTaskMarked(Task task) {
-        return " Nice! I've marked this task as done:\n   " + task;
+        return " Nice! I've marked this task as done:\n   " + task + "\n" + " Good job my king!";
     }
 
     /**
@@ -166,5 +150,14 @@ public class Ui {
             sb.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
         return sb.toString();
+    }
+    /**
+     * Prints the tasks in the list
+     *
+     * @param taskListString the list of tasks in string format
+     * @return the tasks in the list
+     */
+    public String showTaskList(String taskListString) {
+        return "Here are the tasks in your list:\n" + taskListString;
     }
 }
