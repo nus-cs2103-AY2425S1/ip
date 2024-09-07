@@ -30,10 +30,13 @@ public class TaskList extends ArrayList<Task> {
      */
     public void addTask(TaskType taskType, String... input) throws HamyoException {
         if (taskType.equals(TaskType.TODO)) {
+            assert input.length == 1 : "incorrect number of ToDo inputs";
             this.add(new ToDo(input[0]));
         } else if (taskType.equals(TaskType.DEADLINE)) {
+            assert input.length == 2 : "incorrect number of Deadline inputs";
             this.add(new Deadline(input[0], input[1]));
         } else if (taskType.equals(TaskType.EVENT)) {
+            assert input.length == 3 : "incorrect number of Event input";
             this.add(new Event(input[0], input[1], input[2]));
         }
         Ui.printAddTask(this.get(this.size() - 1), this.size());
