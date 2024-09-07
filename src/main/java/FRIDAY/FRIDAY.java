@@ -137,6 +137,10 @@ public class FRIDAY {
         }
     }
 
+    public String getResponse(String s) {
+        return "hello";
+    }
+
     public static void main(String[] args) {
         FRIDAY bot = new FRIDAY();
         bot.start();
