@@ -19,6 +19,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+        assert tasks != null : "Task list should not be null";
         ui.showList(tasks);
     }
 

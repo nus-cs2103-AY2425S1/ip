@@ -45,7 +45,10 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DudeException {
+        if (hasDuplicate(task)) {
+            throw new DudeException("This task is already in the list!");
+        }
         this.tasks.add(task);
     }
 
@@ -142,5 +145,9 @@ public class TaskList {
         ArrayList<Task> matchingTasks = taskStream.filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
+    }
+
+    public boolean hasDuplicate(Task task) {
+        return this.tasks.contains(task);
     }
 }

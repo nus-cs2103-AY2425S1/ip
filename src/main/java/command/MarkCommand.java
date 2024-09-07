@@ -30,6 +30,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+        assert tasks != null : "Task list should not be null";
         tasks.markDone(index);
         assert tasks.getTask(index).isDone() : "Task should be marked as done";
         storage.saveTasks(tasks);

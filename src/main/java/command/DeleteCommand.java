@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+        assert tasks != null : "Task list should not be null";
         Task task = tasks.deleteTask(index);
         storage.saveTasks(tasks);
         ui.showDeleted(task, tasks);
