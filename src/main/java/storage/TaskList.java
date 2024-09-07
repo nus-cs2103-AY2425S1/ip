@@ -1,6 +1,8 @@
 package storage;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import exception.DudeException;
 import task.Task;
@@ -142,12 +144,9 @@ public class TaskList {
      * @return The list of tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        Stream<Task> taskStream = this.tasks.stream();
+        ArrayList<Task> matchingTasks = taskStream.filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
     }
 }
