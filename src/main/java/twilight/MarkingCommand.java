@@ -17,16 +17,18 @@ public class MarkingCommand extends Command {
         this.taskNum = Integer.valueOf(details) - 1;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
+        String output = "";
         if (type == 1) {
-            System.out.println("Excellent I have marked it: " + tasks.mark(taskNum));
+            output = "Excellent I have marked it: " + tasks.mark(taskNum);
         } else {
-            System.out.println("Fine I have unmarked it: " + tasks.unmark(taskNum));
+            output = "Fine I have unmarked it: " + tasks.unmark(taskNum);
         }
         try {
             storage.saveData(tasks.getTasks());
+            return output;
         } catch (IOException e) {
-            System.out.println("error saving");
+            return "error saving";
         }
     }
 }

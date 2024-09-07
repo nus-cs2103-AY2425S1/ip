@@ -25,12 +25,18 @@ public class TaskList {
     }
 
     /**
-     * Prints the tasks stored in the list.
+     * Returns a string of the tasks stored in the list.
      */
-    public void list() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+    public String list() {
+        String list = "";
+        int listSize = tasks.size();
+        if (listSize > 2) {
+            for (int i = 0; i < listSize - 1; i++) {
+                list += (i + 1) + ". " + tasks.get(i).toString()+ "\n";
+            }
         }
+        list += listSize + ". " + tasks.get(listSize - 1).toString();
+        return "Here are the current tasks:\n" + list;
     }
 
     /**

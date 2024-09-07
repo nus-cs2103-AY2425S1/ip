@@ -10,7 +10,7 @@ public class ListCommand extends Command {
      */
     public ListCommand() {};
 
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
-        tasks.list();
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
+        return tasks.list();
     }
 }

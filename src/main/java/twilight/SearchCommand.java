@@ -15,7 +15,7 @@ public class SearchCommand extends Command {
         this.query = query;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
-        System.out.println(tasks.query(query));
+    public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
+        return tasks.query(query);
     }
 }
