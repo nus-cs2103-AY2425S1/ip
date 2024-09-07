@@ -12,6 +12,9 @@ import duck.util.Utils;
  */
 public class MarkCommand extends Command {
 
+    public static final String MARK_COMMAND_ERROR_MESSAGE = "Update tasks with correct format please >:(\n"
+            + "mark/unmark {index of task to update}";
+
     /**
      * Constructs a MarkCommand with the specified message.
      *
@@ -34,8 +37,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException("Update tasks with correct format please >:(\n"
-                    + "mark/unmark {index of task to update}");
+            throw new DuckException(MARK_COMMAND_ERROR_MESSAGE);
         }
 
         String[] words = message.split(" ");

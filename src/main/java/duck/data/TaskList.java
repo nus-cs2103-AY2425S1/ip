@@ -1,6 +1,7 @@
 package duck.data;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import duck.data.exception.DuckException;
 import duck.data.task.Task;
@@ -56,5 +57,11 @@ public class TaskList extends ArrayList<Task> {
             }
         }
         return matchingTasks;
+    }
+
+    /** Prints all the tasks in the task list, with index. */
+    public void printTasks() {
+        AtomicInteger idx = new AtomicInteger(1);
+        this.forEach(task -> System.out.println(idx.getAndIncrement() + "." + task.toString()));
     }
 }

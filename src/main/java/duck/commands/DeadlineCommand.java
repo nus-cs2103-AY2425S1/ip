@@ -18,6 +18,14 @@ import duck.util.Utils;
  */
 public class DeadlineCommand extends Command {
 
+    private static final String DEADLINE_COMMAND_ERROR_MESSAGE = """
+            Hey, a deadline instruction should be of the following format:
+            deadline {description} /by {deadline}
+            {deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm
+            """;
+
+    private static final String DEADLINE_COMMAND_PATTERN = "(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$";
+
     /**
      * Constructs a DeadlineCommand with the specified message.
      *
@@ -64,18 +72,23 @@ public class DeadlineCommand extends Command {
      */
     private Deadline parseDeadline(String input) throws DuckException {
         // Regular expression to match the pattern for deadline
-        Pattern pattern = Pattern.compile("(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$");
+        Pattern pattern = Pattern.compile(DEADLINE_COMMAND_PATTERN);
         Matcher matcher = pattern.matcher(input);
+        return createDeadline(matcher);
+    }
 
+    private Deadline createDeadline(Matcher matcher) throws DuckException {
         if (matcher.matches()) {
             String description = matcher.group(1);
             String deadlineStr = matcher.group(2);
+
             LocalDateTime deadline = Utils.convertToDateTime(deadlineStr);
+
             return new Deadline(description, deadline);
         } else {
-            throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
-                    + "deadline {description} /by {deadline}\n"
-                    + "{deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm\n");
+            throw new DuckException(DEADLINE_COMMAND_ERROR_MESSAGE);
         }
     }
+
+
 }

@@ -123,7 +123,9 @@ public class Duck {
         // Ensure all output is flushed
         System.out.flush();
 
-        // Convert the captured output to a string
+        // Reset the standard output
+        System.setOut(originalOut);
+
         return baos.toString();
     }
     /**
@@ -134,6 +136,5 @@ public class Duck {
      */
     public static void main(String[] args) {
         new Duck(FILE_PATH).run();
-        // new Duck(FILE_PATH).run();
     }
 }

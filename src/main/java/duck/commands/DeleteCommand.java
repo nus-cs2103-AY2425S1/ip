@@ -13,6 +13,14 @@ import duck.util.Utils;
  */
 public class DeleteCommand extends Command {
 
+
+    private static final String DELETE_COMMAND_ERROR_MESSAGE = """
+            Delete tasks with correct format please >:(
+            delete {index of task to delete}
+            """;
+    private static final String INVALID_INDEX_FORMAT = "Oops! you have to indicate a valid task index!\n";
+    private static final String INDEX_OUT_OF_BOUNDS = "Oops! Index out of bound :( Input a valid task index.\n";
+
     /**
      * Constructs a DeleteCommand with the specified message.
      *
@@ -35,19 +43,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException("Delete tasks with correct format please >:(\n"
-                    + "delete {index of task to delete}\n");
+            throw new DuckException(DELETE_COMMAND_ERROR_MESSAGE);
         }
 
-        String[] words = message.split(" ");
-
-        try {
-            tasks.deleteTask(Integer.parseInt(words[1]) - 1, storage);
-        } catch (NumberFormatException e) {
-            throw new DuckException("Oops! you have to indicate a valid task index!\n");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
-        }
+        int taskIndex = getTaskIndex(message);
+        tasks.deleteTask(taskIndex, storage);
     }
 
     /**
@@ -58,5 +58,16 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    private int getTaskIndex(String message) throws DuckException {
+        String[] words = message.split(" ");
+        try {
+            return Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DuckException(INVALID_INDEX_FORMAT);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException(INDEX_OUT_OF_BOUNDS);
+        }
     }
 }

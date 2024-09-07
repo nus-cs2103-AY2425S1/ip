@@ -17,6 +17,16 @@ import duck.util.Utils;
  */
 public class EventCommand extends Command {
 
+
+    private static final String INVALID_EVENT_DURATION = "The end time of an event should be after the start time!\n";
+    private static final String EVENT_COMMAND_PATTERN = "(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
+    private static final String EVENT_COMMAND_ERROR_MESSAGE = """
+            Give me a valid event format!
+            event {description} /from {start} /to {end}
+            {start}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
+            {end}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
+            """;
+
     /**
      * Constructs an EventCommand with the specified message.
      *
@@ -61,27 +71,28 @@ public class EventCommand extends Command {
      *                       the end time is not after the start time.
      */
     private Event parseEvent(String input) throws DuckException {
-        Pattern pattern = Pattern.compile("(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$");
+        Pattern pattern = Pattern.compile(EVENT_COMMAND_PATTERN);
         Matcher matcher = pattern.matcher(input);
 
+        return createEvent(matcher);
+    }
+
+    private Event createEvent(Matcher matcher) throws DuckException {
         if (matcher.matches()) {
             String description = matcher.group(1);
             String fromStr = matcher.group(2);
             String toStr = matcher.group(3);
+
             LocalDateTime from = Utils.convertToDateTime(fromStr);
             LocalDateTime to = Utils.convertToDateTime(toStr);
+
             if (!to.isAfter(from)) {
-                throw new DuckException("The end time of an event should be after the start time!\n");
+                throw new DuckException(INVALID_EVENT_DURATION);
             } else {
                 return new Event(description, from, to);
             }
         } else {
-            throw new DuckException("""
-                    Give me a valid event format!
-                    event {description} /from {start} /to {end}
-                    {start}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
-                    {end}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
-                    """);
+            throw new DuckException(EVENT_COMMAND_ERROR_MESSAGE);
         }
     }
 }
