@@ -1,66 +1,33 @@
 package ipman;
 
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 /**
- * Handles user interface interactions.
- * This class provides methods to display messages and manage output buffers.
- * It includes functionality to print banners, separators, and buffered messages.
- *
- * @author miloaisdino
+ * A GUI for Duke using FXML.
  */
-public class Ui {
-    public static final String SEPARATOR = "____________________________________________________________";
-    private String buffer = "";
+public class Ui extends Application {
 
-    /**
-     * Constructs a Ui instance.
-     */
-    public Ui() {
-    }
+    private IpMan ipMan;
 
-    /**
-     * Prints the welcome banner
-     */
-    public void showBanner() {
-        System.out.println(SEPARATOR);
-        System.out.println("Hello from Ip Man!\nWhat can I do for you?");
-        System.out.println(SEPARATOR);
-    }
-
-    /**
-     * Prints a separator line.
-     * The separator line is defined by the SEPARATOR constant.
-     */
-    public void printSeparator() {
-        System.out.println(SEPARATOR);
-    }
-
-    /**
-     * Adds a string to the output buffer.
-     * The string is appended to the current buffer content.
-     *
-     * @param str The string to add to the buffer.
-     */
-    public void addToBuffer(String str) {
-        buffer = buffer + "\r\n" + str;
-    }
-
-    /**
-     * Outputs the buffer content to the screen and clears the buffer.
-     * If the buffer is not empty, it prints the buffer content followed by a separator line.
-     */
-    public void outputBuffer() {
-        if (!buffer.isEmpty()) {
-            System.out.println(buffer);
-            printSeparator();
-            flushBuffer();
+    @Override
+    public void start(Stage stage) {
+        try {
+            ipMan = new IpMan("data/saved.txt");
+            ipMan.init();
+            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setIpMan(ipMan);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    /**
-     * Outputs the buffer content to the screen and clears the buffer.
-     * If the buffer is not empty, it prints the buffer content followed by a separator line.
-     */
-    public void flushBuffer() {
-        buffer = "";
     }
 }

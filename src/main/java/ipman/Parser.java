@@ -14,19 +14,19 @@ import java.util.Scanner;
 public class Parser {
     private final ArrayList<Task> taskList;
     private final Storage db;
-    private final Ui ui;
+    private final TextUi textUi;
 
     /**
      * Constructs a Parser with the specified task list, storage, and user interface.
      *
      * @param taskList The list of tasks.
      * @param db The storage for saving and loading tasks.
-     * @param ui The user interface for interacting with the user.
+     * @param textUi The user interface for interacting with the user.
      */
-    public Parser(ArrayList<Task> taskList, Storage db, Ui ui) {
+    public Parser(ArrayList<Task> taskList, Storage db, TextUi textUi) {
         this.taskList = taskList;
         this.db = db;
-        this.ui = ui;
+        this.textUi = textUi;
     }
 
     /**
@@ -45,17 +45,38 @@ public class Parser {
                     db.addEntry(line);
                 }
             } catch (CommandException ce) {
-                ui.addToBuffer(ce.getMessage());
+                textUi.addToBuffer(ce.getMessage());
             } catch (Exception e) {
-                ui.addToBuffer("Unknown error: " + e.getMessage());
+                textUi.addToBuffer("Unknown error: " + e.getMessage());
             } finally {
                 if (!isSaved) {
-                    ui.outputBuffer();
+                    textUi.printBuffer();
                 } else {
-                    ui.flushBuffer();
+                    textUi.flushBuffer();
                 }
             }
         }
+    }
+
+    /**
+     * Parses input from the user interface and processes each line.
+     * It adds entries to storage when necessary.
+     *
+     * @param line The text command from the user interface
+     * @return The output buffer content
+     */
+    public String parseFromUi(String line) {
+        try {
+            parseLine(line);
+            if (!line.split(" ")[0].equals("list")) {
+                db.addEntry(line);
+            }
+        } catch (CommandException ce) {
+            textUi.addToBuffer(ce.getMessage());
+        } catch (Exception e) {
+            textUi.addToBuffer("Unknown error: " + e.getMessage());
+        }
+        return textUi.outputBuffer();
     }
 
     /**
@@ -67,15 +88,15 @@ public class Parser {
     public void parseLine(String line) throws CommandException {
         if (line.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
-            ui.printSeparator();
+            textUi.printSeparator();
             System.exit(0);
         }
         String command = line.split(" ")[0];
         switch (command) {
         case "list": {
-            ui.addToBuffer("Here are the tasks in your list:");
+            textUi.addToBuffer("Here are the tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
-                ui.addToBuffer((i + 1) + ". " + taskList.get(i));
+                textUi.addToBuffer((i + 1) + ". " + taskList.get(i));
             }
             break;
         }
@@ -84,11 +105,11 @@ public class Parser {
                 throw new CommandException("The search string must not be empty.");
             }
             String query = line.split(" ", 2)[1];
-            ui.addToBuffer("Here are the matching tasks in your list:");
+            textUi.addToBuffer("Here are the matching tasks in your list:");
             int displayIndex = 1;
             for (Task task : taskList) {
                 if (String.valueOf(task).contains(query)) {
-                    ui.addToBuffer((displayIndex++) + ". " + task);
+                    textUi.addToBuffer((displayIndex++) + ". " + task);
                 }
             }
             break;
@@ -98,10 +119,10 @@ public class Parser {
             if (idx < 0 || idx >= taskList.size()) {
                 throw new CommandException("The item to delete does not exist.");
             }
-            ui.addToBuffer("Noted. I've removed this task:");
-            ui.addToBuffer(String.valueOf(taskList.get(idx)));
+            textUi.addToBuffer("Noted. I've removed this task:");
+            textUi.addToBuffer(String.valueOf(taskList.get(idx)));
             taskList.remove(idx);
-            ui.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
+            textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
             break;
         }
         case "unmark": {
@@ -109,8 +130,8 @@ public class Parser {
             if (idx < 0 || idx >= taskList.size()) {
                 return;
             }
-            ui.addToBuffer("OK, I've marked this task as not done yet:");
-            ui.addToBuffer(taskList.get(idx).unmarkStatus());
+            textUi.addToBuffer("OK, I've marked this task as not done yet:");
+            textUi.addToBuffer(taskList.get(idx).unmarkStatus());
             break;
         }
         case "mark": {
@@ -118,8 +139,8 @@ public class Parser {
             if (idx < 0 || idx >= taskList.size()) {
                 return;
             }
-            ui.addToBuffer("Nice! I've marked this task as done:");
-            ui.addToBuffer(taskList.get(idx).markStatus());
+            textUi.addToBuffer("Nice! I've marked this task as done:");
+            textUi.addToBuffer(taskList.get(idx).markStatus());
             break;
         }
         case "todo": {
@@ -156,9 +177,9 @@ public class Parser {
         }
 
         if (Arrays.asList("todo", "deadline", "event").contains(line.split(" ")[0])) {
-            ui.addToBuffer("Got it. I've added this task:");
-            ui.addToBuffer(String.valueOf(taskList.get(taskList.size() - 1)));
-            ui.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
+            textUi.addToBuffer("Got it. I've added this task:");
+            textUi.addToBuffer(String.valueOf(taskList.get(taskList.size() - 1)));
+            textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
         }
     }
 }
