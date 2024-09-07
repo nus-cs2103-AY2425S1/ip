@@ -5,6 +5,10 @@ import Majima.storage.Storage;
 import Majima.task.TaskList;
 import Majima.ui.Ui;
 
+/**
+ * A skeleton of a class that represents a Command. Further changes to bot
+ * behaviour can be passed as commands and added as new classes which extend from here.
+ */
 public abstract class Command {
 
     /**
