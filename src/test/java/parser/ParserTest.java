@@ -6,21 +6,22 @@ import org.junit.jupiter.api.Test;
 
 import command.AddCommand;
 import command.ExitCommand;
+import command.InvalidCommand;
 import command.ListCommand;
 import exception.DudeException;
 
 public class ParserTest {
 
     @Test
-    public void parseInvalidCommand() {
+    public void parseInvalidCommand() throws DudeException {
         String input = "invalid command";
-        assertThrows(DudeException.class, () -> Parser.parse(input));
+        assert(Parser.parse(input) instanceof InvalidCommand);
     }
 
     @Test
-    public void parseEmptyCommand() {
+    public void parseEmptyCommand() throws DudeException {
         String input = "";
-        assertThrows(DudeException.class, () -> Parser.parse(input));
+        assert(Parser.parse(input) instanceof InvalidCommand);
     }
 
     @Test
@@ -37,13 +38,13 @@ public class ParserTest {
 
     @Test
     public void parseWrongDeadlineFormat() throws DudeException {
-        String input = "read book by tomorrow";
+        String input = "deadline read book by tomorrow";
         assertThrows(DudeException.class, () -> Parser.parse(input));
     }
 
     @Test
     public void parseWrongEventFormat() throws DudeException {
-        String input = "meeting from tomorrow to next week";
+        String input = "event meeting from tomorrow to next week";
         assertThrows(DudeException.class, () -> Parser.parse(input));
     }
 
