@@ -2,6 +2,7 @@ package oliver;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a task that has to be completed by a certain deadline
@@ -22,6 +23,18 @@ public class Deadline extends Task {
     @Override
     public String getFormatted() {
         return "D|" + super.getStatusIcon() + "|" + super.description + "|" + this.by;
+    }
+
+    /**
+     * Returns true if the task has a deadline within 2 days of now.
+     *
+     * @return boolean representing whether the task is an upcoming task
+     */
+    @Override
+    public boolean isUpcoming() {
+        LocalDateTime now = LocalDateTime.now();
+        long daysDifference = ChronoUnit.DAYS.between(now, this.by);
+        return Math.abs(daysDifference) <= 2;
     }
 
     @Override

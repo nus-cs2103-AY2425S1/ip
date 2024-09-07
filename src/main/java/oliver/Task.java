@@ -28,6 +28,10 @@ public class Task {
         return "";
     }
 
+    public boolean isUpcoming() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
