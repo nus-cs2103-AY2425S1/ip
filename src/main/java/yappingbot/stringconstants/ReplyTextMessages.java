@@ -16,6 +16,7 @@ public final class ReplyTextMessages {
                                                          + "'%s' is!\n";
     public static final String LIST_TEXT = "Here are the tasks in your list:";
     public static final String ADDED_TEXT = "Got it. I've added this task:";
+    public static final String RESET_TEXT = "Alright. Back to main view of whole list.";
     public static final String DELETED_TEXT = "Noted. I've deleted this task:";
     public static final String DELETE_USAGE =
             """
@@ -84,6 +85,7 @@ public final class ReplyTextMessages {
     public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse "
                                                                                + "value - %s";
     public static final String SAVEFILE_IO_EXCEPTION_1s = "Unable to save list to disk - %s";
+    public static final String IO_EXCEPTION_1s = "Error dealing with input / output - %s";
     public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time"
                                                  + " format!";
     public static final String SAVE_FILE_ERROR_1s = "Error encountered while saving savefile:\n%s";
