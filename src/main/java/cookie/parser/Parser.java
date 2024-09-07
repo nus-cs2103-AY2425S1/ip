@@ -1,5 +1,9 @@
 package cookie.parser;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Hashtable;
+
 import cookie.command.ByeCommand;
 import cookie.command.Command;
 import cookie.command.DeadlineCommand;
@@ -8,6 +12,7 @@ import cookie.command.EventCommand;
 import cookie.command.FindCommand;
 import cookie.command.ListCommand;
 import cookie.command.MarkCommand;
+import cookie.command.SetAliasCommand;
 import cookie.command.ToDoCommand;
 import cookie.command.UnmarkCommand;
 import cookie.exception.CookieException;
@@ -16,11 +21,27 @@ import cookie.exception.CookieException;
  * Parses user input and converts it into corresponding {@code Command} objects.
  */
 public class Parser {
+
+    private static final Hashtable<String, String> commandAliasesMap = new Hashtable<>();
+
+    private static final HashSet<String> validCommands = new HashSet<>(Arrays.asList(
+            "bye",
+            "list",
+            "find",
+            "delete",
+            "mark",
+            "unmark",
+            "todo",
+            "deadline",
+            "event",
+            "set"
+    ));
+
     /**
-     * Returns a command to be executed.
+     * Extracts the command keyword from the input string.
      *
-     * @param input String to be parsed.
-     * @return Command to be executed.
+     * @param input the input string containing the command
+     * @return the command keyword
      */
     public String parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);
@@ -28,10 +49,10 @@ public class Parser {
     }
 
     /**
-     * Returns the description of a task
+     * Extracts the description or arguments from the input string.
      *
-     * @param input String to be parsed.
-     * @return Description of the task.
+     * @param input the input string containing the description
+     * @return the description or arguments
      */
     public String parseDescription(String input) {
         String[] splitInput = input.split(" ", 2);
@@ -39,20 +60,21 @@ public class Parser {
     }
 
     /**
-     * Returns the index of task.
+     * Parses an integer from the input string.
      *
-     * @param input String to be parsed.
-     * @return Index of task.
+     * @param input the input string containing the integer
+     * @return the integer value
+     * @throws NumberFormatException if the input is not a valid integer
      */
     public int parseInteger(String input) {
         return Integer.parseInt(input);
     }
 
     /**
-     * Returns the deadline details.
+     * Extracts deadline details from the input string.
      *
-     * @param input String to be parsed.
-     * @return Array containing deadline details of deadline task.
+     * @param input the input string containing the deadline details
+     * @return an array containing the task description and the deadline
      */
     public String[] parseDeadline(String input) {
         return input.split(" /by ", 2);
@@ -65,8 +87,35 @@ public class Parser {
      * @return Array containing event details of event task.
      */
     public String[] parseEvent(String input) {
-
         return input.split(" /from | /to ");
+    }
+
+    /**
+     * Extracts the alias command details from the input string.
+     *
+     * @param input the input string containing the alias command details
+     * @return an array containing the original command and its alias
+     */
+    public String[] parseAlias(String input) {
+        return input.split(" ", 2);
+    }
+
+    /**
+     * Resolves the actual command from a possible alias.
+     *
+     * @param command the command keyword or alias
+     * @return the actual command keyword
+     * @throws CookieException if the command or alias is invalid
+     */
+    private String resolveCommand(String command) throws CookieException {
+        if (!validCommands.contains(command)) {
+            String resolvedCommand = commandAliasesMap.get(command);
+            if (resolvedCommand == null) {
+                throw new CookieException("Cookie does not understand this command. I'm sorry!!");
+            }
+            return resolvedCommand;
+        }
+        return command;
     }
 
     /**
@@ -83,6 +132,8 @@ public class Parser {
     public Command parseInputToCommand(String input) throws CookieException {
         String command = parseCommand(input);
         String description = parseDescription(input);
+
+        command = resolveCommand(command);
 
         switch(command) {
         case "bye":
@@ -151,6 +202,21 @@ public class Parser {
 
             return new EventCommand(eventDetails[0], eventDetails[1], eventDetails[2]);
 
+        case "set":
+            String[] aliasCommand = parseAlias(description);
+
+            if (aliasCommand.length < 2 || aliasCommand[0].isEmpty() || aliasCommand[1].isEmpty()) {
+                throw new CookieException("To set an alias, there must be a command and it's alias\n"
+                        + "(set [command] [alias])");
+            }
+
+            if (!validCommands.contains(aliasCommand[0])) {
+                throw new CookieException("The command you want to set as an alias does not exist!\n"
+                        + "Here are the available commands: bye, list, find, delete, mark, unmark,"
+                        + " todo, deadline, event");
+            }
+
+            return new SetAliasCommand(aliasCommand[0], aliasCommand[1], Parser.commandAliasesMap);
         default:
             throw new CookieException("Cookie does not understand this command. I'm sorry!!");
         }

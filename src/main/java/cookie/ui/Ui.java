@@ -18,7 +18,7 @@ public class Ui {
         return "Hello! I'm Cookie\n"
                 + "How can I help you?\n"
                 + "Here are some commands you can use:\n"
-                + "todo, deadline, event, mark, unmark, delete, list and find";
+                + "todo, deadline, event, mark, unmark, delete, list, find and set";
     }
 
     /**
@@ -94,5 +94,16 @@ public class Ui {
             list.append(count++).append(": ").append(task.toString()).append("\n");
         }
         return list.toString();
+    }
+
+    /**
+     * Generates a success message indicating that a command has been successfully set with a new alias.
+     *
+     * @param command the original command that has been aliased
+     * @param alias the new alias set for the command
+     * @return a formatted success message stating that the alias has been set
+     */
+    public String setAsAliasSuccess(String command, String alias) {
+        return String.format("You have successfully set %s as %s", command, alias);
     }
 }
