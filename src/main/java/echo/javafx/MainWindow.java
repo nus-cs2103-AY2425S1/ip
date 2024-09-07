@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Echo instance and creates a Echo dialogBox to greet users*/
+    /** Injects the Echo instance and creates an Echo dialogBox to greet users */
     public void setEcho(Echo echo) {
         this.echo = echo;
         DialogBox echoBox = DialogBox.getEchoDialog(echo.initialise(), echoImage);
@@ -67,7 +67,14 @@ public class MainWindow extends AnchorPane {
             stage.close();
 
             alert.showAndWait();
+        } else if (userText.equals("help")) {
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("List of Commands");
+            alert.setContentText(echoText);
+            alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            alert.getDialogPane().setPrefSize(400,500);
 
+            alert.showAndWait();
         } else {
             DialogBox userBox = DialogBox.getUserDialog(userText, userImage);
             DialogBox echoBox = DialogBox.getEchoDialog(echoText, echoImage);

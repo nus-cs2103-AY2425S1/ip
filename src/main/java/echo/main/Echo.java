@@ -165,6 +165,15 @@ public class Echo {
     }
 
     /**
+     * Handles the command when user types in "help
+     *
+     * @return a string of commands and how to use them
+     */
+    public String handleHelpCommand() {
+        return ui.printValidCommands();
+    }
+
+    /**
      * Determines which command the user is giving and calls the respective functions to handle the command
      *
      * @param input command and description entered by users e.g. deadline work /by 11-12-2024 2345
@@ -196,6 +205,8 @@ public class Echo {
                 return handleFindCommand(description);
             case "bye":
                 return handleByeCommand();
+            case "help":
+                return handleHelpCommand();
             default:
                 throw new EchoException("Sorry! I don't get what you mean. Try again with the list of commands above.");
             }

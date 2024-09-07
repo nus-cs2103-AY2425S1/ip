@@ -149,17 +149,32 @@ public class Ui {
     /**
      * Returns a string of list of valid commands and how to use them
      *
+     * @return string of message containing valid commands
      */
-    public String showValidCommands() {
-        return ("List of valid commands:\n"
-                + "list --> list\n"
-                + "mark --> mark [index]\n"
-                + "unmark --> unmark [index]\n"
-                + "todo --> todo [task description]\n"
-                + "deadline --> deadline [task description] /by[dd-MM-yyyy HHmm]\n"
-                + "event --> event [task description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]\n"
-                + "delete --> delete [index]\n"
-                + "find --> find [keyword]\n"
-                + "bye --> bye");
+    public String printValidCommands() {
+        return ("""
+                1. list --> list
+                   - Prints the list of task you have
+                2. mark --> mark [index]
+                   - Marks the task at index to be completed                   
+                3. unmark --> unmark [index]
+                   - Unmark the task at index to be not completed
+                4. todo --> todo [task description]
+                   - Adds a todo task with task description into your tasklist
+                5. deadline --> deadline [task description] /by[dd-MM-yyyy HHmm]
+                   - Adds a deadline task with task description 
+                     and deadline into your tasklist
+                6. event --> event [task description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]
+                   - Adds an event task with task description, start time 
+                     and end time to your tasklist
+                7. delete --> delete [index]
+                   - Delete a task at index
+                8. find --> find [keyword]
+                   - Prints a list of task containing keyword in the task description
+                9. bye --> bye
+                   - Terminate the chat bot and save task list into txt file
+                10. help --> help
+                   - Prints a list of valid commands
+                """);
     }
 }
