@@ -39,10 +39,27 @@ public class Barney {
     }
 
     /**
-     * Runs the Barney application for GUI.
+     * Initialises the GUI for Barney.
+     *
+     * @return The output message.
      */
-    public void runGui() {
+    public String initialiseGui() {
         this.ui = new Gui();
+        String output = "";
+        try {
+            tasks = new TaskList(storage.loadData());
+            output += ui.printLoadData(tasks);
+        } catch (BarneyException e) {
+            output += ui.printLoadingError(e.getMessage());
+            tasks = new TaskList();
+        }
+        output += ui.printWelcome();
+
+        return output;
+    }
+
+    public String getResponse(String input) {
+        return "testing";
     }
 
     /**
@@ -50,7 +67,6 @@ public class Barney {
      */
     public void runSystemOut() {
         this.ui = new SystemOutUI();
-        TaskList tasks;
         try {
             tasks = new TaskList(storage.loadData());
             ui.printLoadData(tasks);
