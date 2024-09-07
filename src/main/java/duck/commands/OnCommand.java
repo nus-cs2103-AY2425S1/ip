@@ -19,7 +19,7 @@ import duck.ui.Ui;
  */
 public class OnCommand extends Command {
 
-    private static final String ON_COMMAND_ERROR_MESSAGE = "The format for 'On' instruction is:\n"
+    private static final String ERROR_MESSAGE_ON_COMMAND = "The format for 'On' instruction is:\n"
             + "on {yyyy-MM-dd}";
 
     /**
@@ -57,7 +57,7 @@ public class OnCommand extends Command {
     private LocalDate getLocalDate() throws DuckException {
         String[] words = message.split(" ");
         if (words.length != 2) {
-            throw new DuckException(ON_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_ON_COMMAND);
         }
 
         return LocalDate.parse(words[1]);

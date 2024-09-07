@@ -1,6 +1,5 @@
 package duck.commands;
 
-import duck.common.Message;
 import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
@@ -13,7 +12,7 @@ import duck.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    private static final String MARK_COMMAND_ERROR_MESSAGE = "Update tasks with correct format please >:(\n"
+    private static final String ERROR_MESSAGE_MARK_COMMAND = "Update tasks with correct format please >:(\n"
             + "mark/unmark {index of task to update}";
 
     /**
@@ -38,7 +37,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException(MARK_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_MARK_COMMAND);
         }
 
         int taskIndex = Utils.getTaskIndex(message);

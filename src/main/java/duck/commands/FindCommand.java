@@ -12,8 +12,8 @@ import duck.ui.Ui;
  */
 public class FindCommand extends Command {
 
-    private static final String FIND_COMMAND_ERROR_MESSAGE = "Quack, you need to provide a keyword to search for!\n";
-    private static final String NO_TASKS_FOUND = "Quack, there are no tasks matching that keyword!";
+    private static final String ERROR_MESSAGE_FIND_COMMAND = "Quack, you need to provide a keyword to search for!\n";
+    private static final String TASKS_NOT_FOUND = "Quack, there are no tasks matching that keyword!";
     private static final String TASKS_FOUND = "Quack, I found these related tasks for you!";
 
 
@@ -45,7 +45,7 @@ public class FindCommand extends Command {
 
     private void printFindResult(TaskList matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println(NO_TASKS_FOUND);
+            System.out.println(TASKS_NOT_FOUND);
         } else {
             System.out.println(TASKS_FOUND);
             matchingTasks.printTasks();
@@ -58,7 +58,7 @@ public class FindCommand extends Command {
 
     private String getKeyword() throws DuckException {
         if (!isCorrectFindFormat()) {
-            throw new DuckException(FIND_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_FIND_COMMAND);
         }
         return message.substring(5);
     }

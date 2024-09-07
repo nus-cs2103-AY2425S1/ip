@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
     /**
      * The help string that contains the list of available commands and their usage.
      */
-    private static final String HELP_STRING = """
+    private static final String MESSAGE_HELP_COMMAND = """
             Quack! Seems like you need Duck's help.
             Here are the commands you can use:
             1. todo <description> - Add a todo task
@@ -48,7 +48,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
-        ui.showHelpMessage(HELP_STRING);
+        ui.showHelpMessage(MESSAGE_HELP_COMMAND);
     }
 
     /**

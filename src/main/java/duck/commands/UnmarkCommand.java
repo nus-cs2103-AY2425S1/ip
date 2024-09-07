@@ -13,7 +13,7 @@ import duck.ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    private static final String UNMARK_COMMAND_ERROR_MESSAGE = """
+    private static final String ERROR_MESSAGE_UNMARK_COMMAND = """
             Update tasks with correct format please >:(
             mark/unmark {index of task to update}
             """;
@@ -40,7 +40,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException(UNMARK_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_UNMARK_COMMAND);
         }
 
         int taskIndex = Utils.getTaskIndex(message);

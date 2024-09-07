@@ -20,8 +20,8 @@ public class EventCommand extends Command {
 
 
     private static final String INVALID_EVENT_DURATION = "The end time of an event should be after the start time!\n";
-    private static final String EVENT_COMMAND_PATTERN = "(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
-    private static final String EVENT_COMMAND_ERROR_MESSAGE = """
+    private static final String PATTERN_EVENT_COMMAND = "(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
+    private static final String ERROR_MESSAGE_EVENT_COMMAND = """
             Give me a valid event format!
             event {description} /from {start} /to {end}
             {start}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
@@ -72,7 +72,7 @@ public class EventCommand extends Command {
      *                       the end time is not after the start time.
      */
     private Event parseEvent(String input) throws DuckException {
-        Pattern pattern = Pattern.compile(EVENT_COMMAND_PATTERN);
+        Pattern pattern = Pattern.compile(PATTERN_EVENT_COMMAND);
         Matcher matcher = pattern.matcher(input);
 
         return createEvent(matcher);
@@ -93,7 +93,7 @@ public class EventCommand extends Command {
                 return new Event(description, from, to);
             }
         } else {
-            throw new DuckException(EVENT_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_EVENT_COMMAND);
         }
     }
 }

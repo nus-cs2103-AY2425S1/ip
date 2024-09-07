@@ -16,6 +16,10 @@ import duck.storage.Storage;
  */
 public class TaskList extends ArrayList<Task> {
 
+    private static final String MESSAGE_ADD_TASK = "Got it. I've added this task:\n";
+    private static final String MESSAGE_TASK_LIST_SIZE = " tasks left in the list.\n";
+    private static final String MESSAGE_REMOVE_TASK = "Noted. I've removed this task:\n";
+
     /**
      * Adds a task to the task list and updates the storage system.
      *
@@ -26,8 +30,8 @@ public class TaskList extends ArrayList<Task> {
     public void addTask(Task task, Storage storage) throws DuckException {
         this.add(task);
         storage.appendTask(task);
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + this.size() + " tasks in the list.\n");
+        System.out.println(MESSAGE_ADD_TASK + task);
+        System.out.println(this.size() + MESSAGE_TASK_LIST_SIZE);
     }
 
     /**
@@ -53,10 +57,10 @@ public class TaskList extends ArrayList<Task> {
      * @throws DuckException If an error occurs while interacting with the storage system.
      */
     public void deleteTask(int index, Storage storage) throws DuckException {
-        System.out.println("Noted. I've removed this task:\n" + this.get(index));
+        System.out.println(MESSAGE_REMOVE_TASK + this.get(index));
         this.remove(index);
         storage.writeTasks(this);
-        System.out.println("Now you have " + this.size() + " tasks in the list.\n");
+        System.out.println(this.size() + MESSAGE_TASK_LIST_SIZE);
     }
 
     /**

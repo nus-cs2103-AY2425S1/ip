@@ -11,7 +11,7 @@ import duck.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    private static final String LIST_COMMAND_MESSAGE = "Here are the tasks in your list:";
+    private static final String MESSAGE_LIST_COMMAND = "Here are the tasks in your list:";
 
     /**
      * Constructs a ListCommand with the specified message.
@@ -33,7 +33,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
-        System.out.println(LIST_COMMAND_MESSAGE);
+        System.out.println(MESSAGE_LIST_COMMAND);
         tasks.printTasks();
     }
 

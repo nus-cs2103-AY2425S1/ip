@@ -10,7 +10,7 @@ import duck.ui.Ui;
  */
 public class InvalidCommand extends Command {
 
-    private static final String INVALID_COMMAND_MESSAGE =
+    private static final String MESSAGE_INVALID_COMMAND =
             "Hey, that's not a valid instruction! I don't know how to respond to that.\n";
 
     /**
@@ -32,7 +32,7 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
-        System.out.println(INVALID_COMMAND_MESSAGE);
+        System.out.println(MESSAGE_INVALID_COMMAND);
     }
 
     /**

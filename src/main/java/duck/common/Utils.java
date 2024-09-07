@@ -11,6 +11,14 @@ import duck.data.exception.DuckException;
  */
 public class Utils {
 
+    private static final String INVALID_DATE_FORMAT = """
+             Invalid date format following the command /from /to /by!
+             Please use one of the following formats:
+             yyyy-MM-dd HHmm or yyyy/MM/dd HHmm
+            """;
+    private static final String DATE_FORMAT_ONE = "yyyy-MM-dd HHmm";
+    private static final String DATE_FORMAT_TWO = "yyyy/MM/dd HHmm";
+
     /**
      * Private constructor to prevent instantiation.
      */
@@ -27,8 +35,8 @@ public class Utils {
      */
     public static LocalDateTime convertToDateTime(String dateTimeStr) throws DuckException {
         // Define the two accepted date-time formats
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern(DATE_FORMAT_ONE);
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(DATE_FORMAT_TWO);
 
         try {
             // Try to parse the input string using the first format
@@ -39,11 +47,7 @@ public class Utils {
                 return LocalDateTime.parse(dateTimeStr, formatter2);
             } catch (DateTimeParseException ex) {
                 // If both fail, throw a Duck.Duck.data.exception.DuckException
-                throw new DuckException("""
-                        Invalid date format following the command /from /to /by!
-                        Please use one of the following formats:
-                        yyyy-MM-dd HHmm or yyyy/MM/dd HHmm
-                       """);
+                throw new DuckException(INVALID_DATE_FORMAT);
             }
         }
     }

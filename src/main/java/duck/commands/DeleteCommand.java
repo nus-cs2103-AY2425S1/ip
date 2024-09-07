@@ -15,7 +15,7 @@ import duck.ui.Ui;
 public class DeleteCommand extends Command {
 
 
-    private static final String DELETE_COMMAND_ERROR_MESSAGE = """
+    private static final String ERROR_MESSAGE_DELETE_COMMAND = """
             Delete tasks with correct format please >:(
             delete {index of task to delete}
             """;
@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException(DELETE_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_DELETE_COMMAND);
         }
 
         int taskIndex = Utils.getTaskIndex(message);

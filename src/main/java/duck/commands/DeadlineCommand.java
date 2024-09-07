@@ -19,7 +19,7 @@ import duck.ui.Ui;
  */
 public class DeadlineCommand extends Command {
 
-    private static final String DEADLINE_COMMAND_ERROR_MESSAGE = """
+    private static final String ERROR_MESSAGE_DEADLINE_COMMAND = """
             Hey, a deadline instruction should be of the following format:
             deadline {description} /by {deadline}
             {deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm
@@ -87,7 +87,7 @@ public class DeadlineCommand extends Command {
 
             return new Deadline(description, deadline);
         } else {
-            throw new DuckException(DEADLINE_COMMAND_ERROR_MESSAGE);
+            throw new DuckException(ERROR_MESSAGE_DEADLINE_COMMAND);
         }
     }
 
