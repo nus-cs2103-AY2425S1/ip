@@ -9,7 +9,7 @@ import yapper.exceptions.YapperException;
  */
 public class Parser {
 
-    private static final String[] NO_RESPONSE = {
+    private static final String[] NO_USER_TEXT_RESPONSES = {
         "Huh?",
         "What?",
         "I didn't catch that.",
@@ -36,7 +36,7 @@ public class Parser {
      */
     public String[] parseLine(String input) throws YapperException {
         if (input.isEmpty()) {
-            throw new YapperException(NO_RESPONSE[random.nextInt(NO_RESPONSE.length)]);
+            throw new YapperException(NO_USER_TEXT_RESPONSES[random.nextInt(NO_USER_TEXT_RESPONSES.length)]);
         }
         return input.split("\\s+");
     }

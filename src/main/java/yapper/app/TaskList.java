@@ -27,6 +27,7 @@ public class TaskList {
      * Adds a new task to the task list and updates the file.
      *
      * @param task the task to be added
+     * @return     a string reflecting the changes
      */
     public String addTask(Task task) {
         this.taskList.add(task);
@@ -73,6 +74,7 @@ public class TaskList {
 
     /**
      * Lists all tasks currently in the task list, displaying their index and description.
+     * @return a list of all tasks
      */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
@@ -90,6 +92,7 @@ public class TaskList {
      * Deletes a task from the list based on the specified task number and updates the file.
      *
      * @param taskNumber the number of the task to be deleted
+     * @return           a string reflecting the changes
      */
     public String deleteTask(String taskNumber) {
         Task task = null;
@@ -116,6 +119,7 @@ public class TaskList {
      *
      * @param command     the command specifying whether to mark or unmark the task
      * @param taskNumber  the number of the task to be marked or unmarked
+     * @return            a string reflecting the changes
      */
     public String markTask(String command, String taskNumber) {
         Task task = null;
