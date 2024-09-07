@@ -33,6 +33,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+        assert keyword != null : "Keyword should not be null";
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         ui.showMatching(matchingTasks);
     }

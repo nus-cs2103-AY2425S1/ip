@@ -45,7 +45,10 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DudeException {
+        if (tasks.contains(task)) {
+            throw new DudeException("This task is already in the list!");
+        }
         this.tasks.add(task);
     }
 
