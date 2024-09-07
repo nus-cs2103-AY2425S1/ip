@@ -26,16 +26,19 @@ public class AddCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param ui instance of a Ui class that interacts with the user
+     * @param ui instance of an Ui class that interacts with the user
      * @return statement telling user that task is added
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
+
         String[] words = this.input.split(" ");
         String task = words[0].toLowerCase();
+
         String activityAndTime = this.input.replaceFirst(words[0] + " ", "");
         String[] activityAndTimeList = activityAndTime.split(" /");
         String activity = activityAndTimeList[0];
+
         if (task.equals("todo")) {
             //check if todo description is valid
             if (words.length == 1) {
