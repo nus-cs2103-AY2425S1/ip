@@ -17,7 +17,10 @@ import hoshi.ui.Ui;
  */
 public class Parser {
 
+    private static final String INPUT_ERROR_MESSAGE = "Hoshi doesn't understand, try a different input?";
+
     private final Storage storage = new Storage("./data/Hoshi.txt");
+
 
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
@@ -48,7 +51,7 @@ public class Parser {
         case "find":
             return handleFind(input, taskList, ui);
         default:
-            return ui.displayError("Hoshi doesn't understand, try a different input?");
+            return ui.displayError(INPUT_ERROR_MESSAGE);
         }
     }
 
@@ -62,38 +65,34 @@ public class Parser {
     public String handleMark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 5) {
-
             return ui.displayTaskToMark();
+        }
 
-        } else {
+        String trimmedInput = input.trim();
 
-            String trimmedInput = input.trim();
+        char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
-            char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
+        // get only the number from the 2nd half of the splitInput
+        int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            // get only the number from the 2nd half of the splitInput
-            int markIndex = Character.getNumericValue(taskNo) - 1;
+        try {
 
-            try {
+            // if specified index is not out of bounds
+            if (markIndex <= taskList.size() - 1) {
 
-                // if specified index is not out of bounds
-                if (markIndex <= taskList.size() - 1) {
+                taskList.get(markIndex).setIsDone(true);
+                //ui.displayTaskMarked(taskList.get(markIndex));
+                handleSave(ui, taskList);
 
-                    taskList.get(markIndex).setIsDone(true);
-                    //ui.displayTaskMarked(taskList.get(markIndex));
-                    handleSave(ui, taskList);
+                return ui.displayTaskMarked(taskList.get(markIndex));
 
-                    return ui.displayTaskMarked(taskList.get(markIndex));
-
-                } else {
-                    throw new HoshiException("Hoshi doesn't have such a task!");
-                }
-
-
-            } catch (HoshiException e) {
-                return ui.displayError(e.getMessage());
+            } else {
+                throw new HoshiException("Hoshi doesn't have such a task!");
             }
 
+
+        } catch (HoshiException e) {
+            return ui.displayError(e.getMessage());
         }
     }
 
@@ -108,35 +107,33 @@ public class Parser {
 
         if (input.trim().length() < 7) {
             return ui.displayTaskToMark();
+        }
 
-        } else {
+        String trimmedInput = input.trim();
 
-            String trimmedInput = input.trim();
+        char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
-            char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
+        // get only the number from the 2nd half of the splitInput
+        int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            // get only the number from the 2nd half of the splitInput
-            int markIndex = Character.getNumericValue(taskNo) - 1;
+        try {
 
-            try {
+            // if specified index is not out of bounds
+            if (markIndex <= taskList.size() - 1) {
 
-                // if specified index is not out of bounds
-                if (markIndex <= taskList.size() - 1) {
+                // set isDone to false
+                taskList.get(markIndex).setIsDone(false);
 
-                    // set isDone to false
-                    taskList.get(markIndex).setIsDone(false);
+                handleSave(ui, taskList);
 
-                    handleSave(ui, taskList);
+                return ui.displayTaskUnmarked(taskList.get(markIndex));
 
-                    return ui.displayTaskUnmarked(taskList.get(markIndex));
-
-                } else {
-                    throw new HoshiException("Hoshi doesn't have such a task!");
-                }
-
-            } catch (HoshiException e) {
-                return ui.displayError(e.getMessage());
+            } else {
+                throw new HoshiException("Hoshi doesn't have such a task!");
             }
+
+        } catch (HoshiException e) {
+            return ui.displayError(e.getMessage());
         }
     }
 
@@ -150,37 +147,36 @@ public class Parser {
     public String handleDelete(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
-            return ui.displayError("Hoshi doesn't understand, try a different input?");
+            return ui.displayError(INPUT_ERROR_MESSAGE);
+        }
 
-        } else {
-            String trimmedInput = input.trim();
+        String trimmedInput = input.trim();
 
-            char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
+        char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
-            // get only the number from the 2nd half of the splitInput
-            int markIndex = Character.getNumericValue(taskNo) - 1;
+        // get only the number from the 2nd half of the splitInput
+        int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            try {
+        try {
 
-                // if specified index is not out of bounds
-                if (markIndex <= taskList.size() - 1) {
+            // if specified index is not out of bounds
+            if (markIndex <= taskList.size() - 1) {
 
-                    Task task = taskList.get(markIndex);
-                    // delete the task
-                    taskList.delete(markIndex);
+                Task task = taskList.get(markIndex);
+                // delete the task
+                taskList.delete(markIndex);
 
-                    handleSave(ui, taskList);
+                handleSave(ui, taskList);
 
-                    return ui.displayTaskDeleted(task);
+                return ui.displayTaskDeleted(task);
 
 
-                } else {
-                    throw new HoshiException("Hoshi doesn't have such a task!");
-                }
-
-            } catch (HoshiException e) {
-                return ui.displayError(e.getMessage());
+            } else {
+                throw new HoshiException("Hoshi doesn't have such a task!");
             }
+
+        } catch (HoshiException e) {
+            return ui.displayError(e.getMessage());
         }
     }
 
@@ -196,125 +192,119 @@ public class Parser {
         if (input.trim().length() < 4) {
 
             return ui.displayTaskAdd();
+        }
 
-        } else {
+        String[] splitInput = input.split(" ");
 
-            String[] splitInput = input.split(" ");
+        String taskInput = splitInput[1];
 
-            String taskInput = splitInput[1];
+        switch (taskInput) {
+        case "todo" -> {
 
-            switch (taskInput) {
-            case "todo" -> {
+            ui.displayTodoTask();
 
-                ui.displayTodoTask();
+            try {
 
-                try {
+                String desc = splitInput[2];
 
-                    String desc = splitInput[2];
-
-                    if (desc.isEmpty()) {
-                        throw new HoshiException("Hoshi doesn't understand! Please follow the example input"
-                                + "Add todo Feed Parrot \n");
-                    }
-
-                    Todo newToDo = new Todo(desc);
-                    taskList.add(newToDo);
-
-                    handleSave(ui, taskList);
-
-                    return ui.displayTaskAdded(desc);
-
-
-                } catch (HoshiException e) {
-                    return ui.displayError(e.getMessage());
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.displayError("Hoshi wants you to try specifying the task!");
+                if (desc.isEmpty()) {
+                    throw new HoshiException("Hoshi doesn't understand! Please follow the example input"
+                            + "Add todo Feed Parrot \n");
                 }
 
-            }
-            case "deadline" -> {
+                Todo newToDo = new Todo(desc);
+                taskList.add(newToDo);
 
-                ui.displayDeadlineTask();
+                handleSave(ui, taskList);
 
-                try {
-
-                    String desc = splitInput[2];
-
-                    if (desc.isEmpty()) {
-                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                    }
-
-                    ui.displayDeadlineDue();
-                    // parse endDate
-                    LocalDate dateTime = LocalDate.parse(splitInput[3]);
-
-                    Deadline newDeadline = new Deadline(desc, dateTime);
-                    taskList.add(newDeadline);
-
-                    handleSave(ui, taskList);
-
-                    ui.displayTaskAdded(input);
-
-                } catch (HoshiException e) {
-                    ui.displayError(e.getMessage());
-                } catch (IndexOutOfBoundsException e) {
-                    ui.displayError("Hoshi wants you to try specifying the task!");
-                } catch (DateTimeParseException e) {
-                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
-                            + "Add deadline Assignment1 2021-12-20");
-                }
+                return ui.displayTaskAdded(desc);
 
 
-            }
-            case "event" -> {
-
-                ui.displayEventTask();
-
-                try {
-
-                    String desc = splitInput[2];
-
-                    if (desc.isEmpty()) {
-                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                    }
-                    // display event start
-                    ui.displayEventStart();
-
-                    // parse startTime
-                    LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
-
-                    // display event end
-                    ui.displayEventEnd();
-                    // parse endTime
-                    LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
-
-                    Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
-                    taskList.add(newEvent);
-
-                    handleSave(ui, taskList);
-
-                    ui.displayTaskAdded(input);
-
-
-                } catch (HoshiException e) {
-                    ui.displayError(e.getMessage());
-                } catch (IndexOutOfBoundsException e) {
-                    ui.displayError("Hoshi wants you to try specifying the task!");
-                } catch (DateTimeParseException e) {
-                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
-                            + "Add deadline Assignment1 2021-12-20 2022-12-20");
-                }
-
-            }
-            default ->
-
-                    // in event of invalid input
-                    ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
-
+            } catch (HoshiException e) {
+                return ui.displayError(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                return ui.displayError("Hoshi wants you to try specifying the task!");
             }
 
         }
-        return ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
+        case "deadline" -> {
+
+            ui.displayDeadlineTask();
+
+            try {
+
+                String desc = splitInput[2];
+
+                if (desc.isEmpty()) {
+                    throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                }
+
+                ui.displayDeadlineDue();
+                // parse endDate
+                LocalDate dateTime = LocalDate.parse(splitInput[3]);
+
+                Deadline newDeadline = new Deadline(desc, dateTime);
+                taskList.add(newDeadline);
+
+                handleSave(ui, taskList);
+
+                ui.displayTaskAdded(input);
+
+            } catch (HoshiException e) {
+                ui.displayError(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                ui.displayError("Hoshi wants you to try specifying the task!");
+            } catch (DateTimeParseException e) {
+                ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
+                        + "Add deadline Assignment1 2021-12-20");
+            }
+
+
+        }
+        case "event" -> {
+
+            ui.displayEventTask();
+
+            try {
+
+                String desc = splitInput[2];
+
+                if (desc.isEmpty()) {
+                    throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                }
+                // display event start
+                ui.displayEventStart();
+
+                // parse startTime
+                LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
+
+                // display event end
+                ui.displayEventEnd();
+                // parse endTime
+                LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
+
+                Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
+                taskList.add(newEvent);
+
+                handleSave(ui, taskList);
+
+                ui.displayTaskAdded(input);
+
+
+            } catch (HoshiException e) {
+                ui.displayError(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                ui.displayError("Hoshi wants you to try specifying the task!");
+            } catch (DateTimeParseException e) {
+                ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
+                        + "Add deadline Assignment1 2021-12-20 2022-12-20");
+            }
+        }
+        default ->
+                // in event of invalid input
+                ui.displayError(INPUT_ERROR_MESSAGE);
+        }
+        return ui.displayError(INPUT_ERROR_MESSAGE);
     }
 
     /**
