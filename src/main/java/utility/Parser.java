@@ -166,6 +166,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(userInput.substring(5).trim());
                 String result = taskList.markTaskUI(tasks, taskNumber);
                 if (result.startsWith("No")) {
+                    assert result.equals("No Task Found") : "Wrong Output here";
                     return result;
                 }else {
                     output = "Nice! I've marked this task as done:\n";
@@ -181,6 +182,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 String result = taskList.unmarkTaskUI(tasks, taskNumber);
                 if (result.startsWith("No")) {
+                    assert result.equals("No Task Found") : "Wrong Output here";
                     return result;
                 }else{
                     output = "OK, I've marked this task as not done yet:\n";
@@ -196,6 +198,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 String result = taskList.deleteTaskUI(tasks, taskNumber);
                 if (result.startsWith("No")) {
+                    assert result.equals("No Task Found") : "Wrong Output here";
                     return result;
                 }else{
                     output = "Noted. I've removed this task:\n";
