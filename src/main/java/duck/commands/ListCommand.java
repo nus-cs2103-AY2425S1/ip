@@ -11,7 +11,7 @@ import duck.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    public static final String LIST_COMMAND_MESSAGE = "Here are the tasks in your list:";
+    private static final String LIST_COMMAND_MESSAGE = "Here are the tasks in your list:";
 
     /**
      * Constructs a ListCommand with the specified message.

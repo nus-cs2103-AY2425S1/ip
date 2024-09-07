@@ -1,16 +1,22 @@
 package duck.commands;
 
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.common.Utils;
+
 
 /**
  * Represents a command to unmark a task as incomplete.
  * This command is used to indicate that a task is no longer completed and should be marked as incomplete.
  */
 public class UnmarkCommand extends Command {
+
+    private static final String UNMARK_COMMAND_ERROR_MESSAGE = """
+            Update tasks with correct format please >:(
+            mark/unmark {index of task to update}
+            """;
 
     /**
      * Constructs an UnmarkCommand with the specified message.
@@ -34,20 +40,12 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException("Update tasks with correct format please >:(\n"
-                    + "mark/unmark {index of task to update}\n");
+            throw new DuckException(UNMARK_COMMAND_ERROR_MESSAGE);
         }
 
-        String[] words = message.split(" ");
-
-        try {
-            tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
-            storage.writeTasks(tasks);
-        } catch (NumberFormatException e) {
-            throw new DuckException("Oops! you have to indicate a valid task index!\n");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
-        }
+        int taskIndex = Utils.getTaskIndex(message);
+        tasks.updateTaskStatus(taskIndex, false);
+        storage.writeTasks(tasks);
     }
 
     /**

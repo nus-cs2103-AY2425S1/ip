@@ -1,6 +1,5 @@
 package duck.commands;
 
-import duck.common.Message;
 import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
@@ -46,7 +45,7 @@ public class DeleteCommand extends Command {
             throw new DuckException(DELETE_COMMAND_ERROR_MESSAGE);
         }
 
-        int taskIndex = getTaskIndex(message);
+        int taskIndex = Utils.getTaskIndex(message);
         tasks.deleteTask(taskIndex, storage);
     }
 
@@ -60,14 +59,5 @@ public class DeleteCommand extends Command {
         return false;
     }
 
-    private int getTaskIndex(String message) throws DuckException {
-        String[] words = message.split(" ");
-        try {
-            return Integer.parseInt(words[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new DuckException(Message.INVALID_INDEX_FORMAT);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
-        }
-    }
+
 }

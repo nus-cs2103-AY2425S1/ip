@@ -9,6 +9,7 @@ import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
 import duck.data.task.Event;
+import duck.data.task.Task;
 import duck.storage.Storage;
 import duck.ui.Ui;
 
@@ -17,6 +18,9 @@ import duck.ui.Ui;
  * When executed, it filters tasks by their due date or event time and displays them to the user.
  */
 public class OnCommand extends Command {
+
+    private static final String ON_COMMAND_ERROR_MESSAGE = "The format for 'On' instruction is:\n"
+            + "on {yyyy-MM-dd}";
 
     /**
      * Constructs an OnCommand with the specified message.
@@ -38,37 +42,57 @@ public class OnCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        LocalDate date = getLocalDate();
+
+        // Filter deadlines and events that are due or occur on the specified date
+        Stream<Deadline> deadlineStream = filterDeadlineTasks(tasks, date);
+        Stream<Event> eventStream = filterEventTasks(tasks, date);
+
+        // Print the filtered tasks and events
+        printFilteredDeadlines(date, deadlineStream);
+        System.out.println(); // Print a newline between the filtered deadlines and events
+        printFilteredEvents(date, eventStream);
+    }
+
+    private LocalDate getLocalDate() throws DuckException {
         String[] words = message.split(" ");
         if (words.length != 2) {
-            throw new DuckException("The format for 'On' instruction is:\n"
-                    + "on {yyyy-MM-dd}");
+            throw new DuckException(ON_COMMAND_ERROR_MESSAGE);
         }
 
-        LocalDate date = LocalDate.parse(words[1]);
-        AtomicInteger idx = new AtomicInteger(1);
+        return LocalDate.parse(words[1]);
+    }
 
-        // Filter and display deadlines and events that are due or occur on the specified date
+    private void printFilteredEvents(LocalDate date, Stream<Event> eventStream) {
+        System.out.println("Here are the events still happening on "
+                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        printTasks(eventStream);
+    }
+
+    private void printFilteredDeadlines(LocalDate date, Stream<Deadline> deadlineStream) {
         System.out.println("Here are the tasks due by "
                 + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-        Stream<Deadline> deadlineStream = tasks.stream()
+        printTasks(deadlineStream);
+    }
+
+    private Stream<Deadline> filterDeadlineTasks(TaskList tasks, LocalDate date) {
+        return tasks.stream()
                 .filter(task -> task instanceof Deadline)
                 .map(task -> (Deadline) task)
                 .filter(deadline -> deadline.isOn(date));
-        deadlineStream.forEach(deadline -> System.out.println(idx.getAndIncrement() + "." + deadline.toString()));
+    }
 
-        idx.set(1);
-        System.out.println();
-
-
-        // Filter and display events that are still happening on the specified date
-        System.out.println("Here are the events still happening on "
-                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-        Stream<Event> eventStream = tasks.stream()
+    private Stream<Event> filterEventTasks(TaskList tasks, LocalDate date) {
+        return tasks.stream()
                 .filter(task -> task instanceof Event)
                 .map(task -> (Event) task)
                 .filter(event -> event.isEndingAfter(date));
-        eventStream.forEach(event -> System.out.println(idx.getAndIncrement() + "." + event.toString()));
-        System.out.println();
+
+    }
+
+    private void printTasks(Stream<? extends Task> taskStream) {
+        AtomicInteger idx = new AtomicInteger(1);
+        taskStream.forEach(task -> System.out.println(idx.getAndIncrement() + "." + task.toString()));
     }
 
     /**

@@ -31,6 +31,21 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * Marks a task as done or incomplete and updates the storage system.
+     *
+     * @param taskIndex The index of the task to be marked as done.
+     * @param isDone A boolean indicating whether the task should be marked as done or incomplete.
+     */
+    public void updateTaskStatus(int taskIndex, boolean isDone) {
+        if (isDone) {
+            this.get(taskIndex).markAsDone();
+        } else {
+            this.get(taskIndex).markAsIncomplete();
+        }
+
+
+    }
+    /**
      * Deletes a task from the task list by its index and updates the storage system.
      *
      * @param index The index of the task to be deleted.

@@ -74,4 +74,16 @@ public class Utils {
             return false;
         }
     }
+
+
+    public static int getTaskIndex(String message) throws DuckException {
+        String[] words = message.split(" ");
+        try {
+            return Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DuckException(Message.INVALID_INDEX_FORMAT);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
+        }
+    }
 }

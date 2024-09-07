@@ -13,7 +13,7 @@ import duck.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    public static final String MARK_COMMAND_ERROR_MESSAGE = "Update tasks with correct format please >:(\n"
+    private static final String MARK_COMMAND_ERROR_MESSAGE = "Update tasks with correct format please >:(\n"
             + "mark/unmark {index of task to update}";
 
     /**
@@ -41,16 +41,9 @@ public class MarkCommand extends Command {
             throw new DuckException(MARK_COMMAND_ERROR_MESSAGE);
         }
 
-        String[] words = message.split(" ");
-
-        try {
-            tasks.get(Integer.parseInt(words[1]) - 1).markAsDone();
-            storage.writeTasks(tasks);
-        } catch (NumberFormatException e) {
-            throw new DuckException(Message.INVALID_INDEX_FORMAT);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
-        }
+        int taskIndex = Utils.getTaskIndex(message);
+        tasks.updateTaskStatus(taskIndex, true);
+        storage.writeTasks(tasks);
     }
 
     /**
