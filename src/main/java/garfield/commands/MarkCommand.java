@@ -26,16 +26,33 @@ public class MarkCommand extends Command {
      * Executes the MarkCommand by marking the specified task as completed, displaying
      * a confirmation message to the user, and saving the updated task list to storage.
      *
-     * @param taskList The TaskList in which the task will be marked as completed.
+     * @param tasks The TaskList in which the task will be marked as completed.
      * @param ui The Ui object used to interact with the user.
      * @param storage The Storage object used to save the updated task list.
      * @throws GarfieldException If an error occurs during command execution, such as an invalid task ID.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws GarfieldException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException {
         ui.showMessage("Nice. You actually did something. I've marked that garfield.task as done:\n\n\t"
-                + taskList.mark(taskId));
-        storage.save(taskList);
+                + tasks.mark(taskId));
+        storage.save(tasks);
 
+    }
+
+    /**
+     * Executes the MarkCommand by marking the specified task as completed, displaying
+     * a confirmation message to the user, and saving the updated task list to storage.
+     *
+     * @param tasks The TaskList in which the task will be marked as completed.
+     * @param storage The Storage object used to save the updated task list.
+     * @return A String of the response message by the chatbot to the user.
+     * @throws GarfieldException If an error occurs during command execution, such as an invalid task ID.
+     */
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws GarfieldException {
+        String result = tasks.mark(taskId);
+        storage.save(tasks);
+        return "Nice. You actually did something. I've marked that garfield.task as done:\n\n\t"
+                + result;
     }
 }

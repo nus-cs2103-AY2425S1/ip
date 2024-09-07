@@ -24,17 +24,34 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the UnmarkCommand by marking the specified task as incomplete, displaying
-     * a confirmation message to the user, and saving the updated task list to storage.
+     * a confirmation message to the user, and saves the updated task list to storage.
      *
-     * @param taskList The TaskList in which the task will be marked as incomplete.
+     * @param tasks The TaskList in which the task will be marked as incomplete.
      * @param ui The Ui object used to interact with the user.
      * @param storage The Storage object used to save the updated task list.
      * @throws GarfieldException If an error occurs during command execution, such as an invalid task ID.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws GarfieldException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException {
         ui.showMessage("Oh, having second thoughts? OK, I've marked that garfield.task as not done yet:\n\n\t"
-                + taskList.unmark(taskId) + "\n\nClearly, you're still undecided.");
-        storage.save(taskList);
+                + tasks.unmark(taskId) + "\n\nClearly, you're still undecided.");
+        storage.save(tasks);
+    }
+
+    /**
+     * Executes the UnmarkCommand by marking the specified task as incomplete, returns
+     * a confirmation message to be shown to the user, and saves the updated task list to storage.
+     *
+     * @param tasks The TaskList in which the task will be marked as incomplete.
+     * @param storage The Storage object used to save the updated task list.
+     * @return A String representing the result of the command execution to be shown to the user.
+     * @throws GarfieldException If an error occurs during command execution, such as an invalid task ID.
+     */
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws GarfieldException {
+        String result = tasks.unmark(taskId);
+        storage.save(tasks);
+        return "Oh, having second thoughts? OK, I've marked that garfield.task as not done yet:\n\n\t"
+                + result + "\n\nClearly, you're still undecided.";
     }
 }

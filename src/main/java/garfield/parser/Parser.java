@@ -1,15 +1,22 @@
 package garfield.parser;
 
-import garfield.Garfield;
-import garfield.commands.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import garfield.commands.AddCommand;
+import garfield.commands.Command;
+import garfield.commands.DeleteCommand;
+import garfield.commands.ExitCommand;
+import garfield.commands.FindCommand;
+import garfield.commands.ListCommand;
+import garfield.commands.MarkCommand;
+import garfield.commands.UnmarkCommand;
 import garfield.exceptions.GarfieldException;
 import garfield.tasks.Deadline;
 import garfield.tasks.Event;
 import garfield.tasks.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class contains static methods that can be called to parse a user inputted string,
@@ -99,7 +106,8 @@ public class Parser {
             }
         }
 
-        throw new GarfieldException(inputLine + "? I’m not sure what that means. Can you give me a bit more to work with?");
+        throw new GarfieldException(inputLine
+                + "? I'm not sure what that means. Can you give me a bit more to work with?");
     }
 
     /**
@@ -164,7 +172,7 @@ public class Parser {
      * @return garfield.task.Deadline object.
      * @throws GarfieldException An exception for Garfield chatbot.
      */
-    private static Deadline parseDeadline(String fullInput) throws GarfieldException{
+    private static Deadline parseDeadline(String fullInput) throws GarfieldException {
         if (fullInput.length() <= 9) {
             throw new GarfieldException("You are missing a description!");
         }

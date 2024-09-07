@@ -1,9 +1,10 @@
 package garfield.commands;
 
+import garfield.storage.Storage;
 import garfield.tasks.Task;
 import garfield.tasks.TaskList;
 import garfield.ui.Ui;
-import garfield.storage.Storage;
+
 
 /**
  * The AddCommand class represents a command to add a new task to the task list
@@ -26,16 +27,34 @@ public class AddCommand extends Command {
      * Executes the AddCommand by adding the task to the task list, displaying a
      * message to the user, and saving the updated task list to storage.
      *
-     * @param taskList The TaskList to which the task will be added.
+     * @param tasks The TaskList to which the task will be added.
      * @param ui The Ui object used to interact with the user.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.add(this.task);
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        tasks.add(this.task);
         ui.showMessage("Fine. I'll add '" + task.getTaskDescription() + "' to the list.\n\n\t"
                 + this.task + "\n\nJust what you needed to boost your list to a grand total of "
-                + taskList.size() + " task" + ((taskList.size() == 1)? "" : "s") + ". Lucky you.");
-        storage.save(taskList);
+                + tasks.size() + " task" + ((tasks.size() == 1) ? "" : "s") + ". Lucky you.");
+        storage.save(tasks);
+    }
+
+    /**
+     * Executes the AddCommand by adding the task to the task list
+     * and saving the updated task list to storage. Returns a String representing
+     * the response by the chatbot.
+     *
+     * @param tasks The TaskList to which the task will be added.
+     * @param storage The Storage object used to save the updated task list.
+     * @return A String representing the message to the user.
+     */
+    @Override
+    public String execute(TaskList tasks, Storage storage) {
+        tasks.add(this.task);
+        storage.save(tasks);
+        return "Fine. I'll add '" + task.getTaskDescription() + "' to the list.\n\n\t"
+                + this.task + "\n\nJust what you needed to boost your list to a grand total of "
+                + tasks.size() + " task" + ((tasks.size() == 1) ? "" : "s") + ". Lucky you.";
     }
 }
