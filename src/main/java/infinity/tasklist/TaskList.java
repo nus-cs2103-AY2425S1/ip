@@ -35,7 +35,7 @@ public class TaskList {
             "Hey! That's not a number";
 
     private ArrayList<Task> tasks = new ArrayList<>(MAX_SIZE);
-    private int nextTaskIndex;
+    private int tasksSize;
 
     /**
      * Constructor for the TaskList class.
@@ -44,7 +44,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> initialTask) {
         this.tasks = initialTask;
-        this.nextTaskIndex = initialTask.size();
+        this.tasksSize = initialTask.size();
     }
 
     /**
@@ -61,7 +61,9 @@ public class TaskList {
         }
 
         tasks.add(task);
-        nextTaskIndex++;
+        tasksSize++;
+
+        assert tasks.size() > 0 && tasks.size() <= MAX_SIZE : "Task size should be in range";
 
         return Ui.botSays(String.format("I've added '%s'", task));
     }
@@ -89,6 +91,9 @@ public class TaskList {
         } else {
             try {
                 Task removedTask = tasks.remove(taskIndex);
+                tasksSize--;
+
+                assert tasks.size() >= 0 : "Task size should be at least 0";
 
                 return Ui.botSays(String.format(
                         "I've removed task %d:\n%s", taskIndex + 1, removedTask.toString()));
@@ -121,6 +126,8 @@ public class TaskList {
             throw new InfinityException(Ui.botSays(BOT_UNABLE_TO_FIND));
         }
 
+        assert tasks.get(taskIndex).toString().charAt(4) == 'X' : "Task should be marked as X";
+
         return Ui.botSays(String.format(
                 "I've marked task %d as done:\n%s",
                 taskIndex + 1,
@@ -142,7 +149,7 @@ public class TaskList {
      * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return nextTaskIndex == 0;
+        return tasksSize == 0;
     }
 
     /**

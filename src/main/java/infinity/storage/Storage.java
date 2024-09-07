@@ -2,6 +2,7 @@ package infinity.storage;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -102,8 +103,26 @@ public class Storage {
         } catch (NoSuchElementException e) {
             // Do nothing, likely means end of file
         }
-
+        
+        assert doesFileExist() : "Save file should exist";
         return tasks;
+    }
+
+    /**
+     * Creates the save file before reading instead of just reading.
+     *
+     * @return The tasks in the file as an ArrayList of Task.
+     * @throws InfinityException If there are issues reading the file.
+     */
+    public static ArrayList<Task> checkAndReadFile() throws InfinityException {
+        try {
+            createFileIfNotExists();
+            return readFile();
+        } catch (IOException | InfinityException e) {
+            throw new InfinityException(Ui.botSays(
+                    "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? "
+                            + e.getMessage()));
+        }
     }
 
     /**
@@ -129,7 +148,7 @@ public class Storage {
 
             return Ui.botSays(BOT_SUCCESSFUL_SAVE);
         } catch (IOException e) {
-            throw new InfinityException(BOT_ERROR_IO + e.getMessage());
+            throw new InfinityException(Ui.botSays(BOT_ERROR_IO + e.getMessage()));
         }
     }
 
@@ -151,5 +170,6 @@ public class Storage {
             Files.createDirectories(Paths.get(FILE_DIR_PATH));
             Files.createFile(Paths.get(FILE_PATH));
         }
+        assert doesFileExist() : "Save file should exist";
     }
 }
