@@ -30,12 +30,14 @@ public class Deadline extends Task {
      * @throws TaskCreationException if error occurs while creating task
      * @return Deadline
      */
+//    deadline return book /by 2/12/2019 1800
     public static Deadline of(String name, TaskType taskType) throws TaskCreationException {
         try {
             String[] parts = name.split("/by", 2);
             String taskName = parts[0].trim();
             String taskDeadline = parts[1].trim();
-
+            System.out.println("Deadline is");
+            System.out.println(taskDeadline);
             LocalDateTime deadline = formatter(taskDeadline);
             return new Deadline(taskName, taskType, deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -71,8 +73,10 @@ public class Deadline extends Task {
 
     public static LocalDateTime formatter(String s) throws DateTimeParseException {
         DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"),
-                DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")  // Add more formats as needed
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
         };
 
         for (DateTimeFormatter formatter : formatters) {
