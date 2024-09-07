@@ -25,7 +25,7 @@ public class Storage {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            //do nothing
+            throw new RuntimeException(e);
         }
     }
 
