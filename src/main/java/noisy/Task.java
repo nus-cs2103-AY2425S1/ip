@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 public abstract class Task {
     protected String description;

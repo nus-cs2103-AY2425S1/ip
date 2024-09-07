@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 import java.util.ArrayList;
 public class TaskList {

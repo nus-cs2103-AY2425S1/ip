@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 import java.time.LocalDate;
 
@@ -30,9 +30,9 @@ public class Parser {
                         throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     return 3;
-                case "Noisy.Deadline":
+                case "noisy.Deadline":
                     return 4;
-                case "Noisy.Event":
+                case "noisy.Event":
                     return 5;
                 case "delete":
                     return 6;

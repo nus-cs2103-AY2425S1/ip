@@ -1,10 +1,10 @@
-package Noisy;
+package noisy;
 
 public class Ui {
 
     public void printWelcome() {
         String welcomeMessage = "____________________________________________________________\n"
-                + " Hello! I'm Noisy.Noisy\n"
+                + " Hello! I'm noisy.noisy\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
 

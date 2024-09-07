@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 import java.io.File;
 import java.io.IOException;
