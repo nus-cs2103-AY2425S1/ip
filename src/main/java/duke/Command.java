@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Represents a command issued by the user.
@@ -238,20 +239,11 @@ public class Command {
      * @return A list of {@code IndividualTask} objects that match the keyword.
      */
     private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyWord) {
-        ArrayList<IndividualTask> matchingTasks = new ArrayList<>();
-
-        ArrayList<IndividualTask> allTasks = tasks.getListTask();
-
         assert keyWord != null && !keyWord.isEmpty() : "Keyword should not be null or empty";
 
-
-        for (IndividualTask task : allTasks) {
-            if (task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
-
-        return matchingTasks;
+        return tasks.getListTask().stream()
+                .filter(task -> task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
