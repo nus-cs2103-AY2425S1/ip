@@ -1,4 +1,6 @@
-package nugget;
+package nugget.command;
+
+import nugget.*;
 
 /**
  * Represents a command to add a task to the task list.

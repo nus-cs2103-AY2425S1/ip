@@ -1,2 +1,3 @@
-[T][X] sleep
-[D][ ] sleep by tonight (by: Feb 24 2024, 07:00 PM)
+[T][ ] sleep
+[T][ ] eat
+[T][X] 2

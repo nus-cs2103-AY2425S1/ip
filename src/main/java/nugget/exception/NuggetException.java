@@ -1,4 +1,4 @@
-package nugget;
+package nugget.exception;
 
 /**
  * Represents an exception specific to the Nugget application.

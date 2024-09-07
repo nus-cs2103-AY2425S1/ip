@@ -1,4 +1,9 @@
-package nugget;
+package nugget.command;
+
+import nugget.exception.NuggetException;
+import nugget.Storage;
+import nugget.TaskList;
+import nugget.Ui;
 
 /**
  * Represents a command that can be executed to perform an action on a {@link TaskList}.

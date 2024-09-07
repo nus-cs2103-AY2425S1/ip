@@ -1,6 +1,8 @@
 package nugget;
 
-import java.util.Scanner;
+import nugget.gui.Main;
+import nugget.command.Command;
+import nugget.exception.NuggetException;
 
 /**
  * The main class for the Nugget application, which handles task management.
@@ -10,49 +12,44 @@ public class Nugget {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
+    private Main gui;  // Reference to the JavaFX GUI
 
     /**
-     * Constructs a Nugget instance with the specified file path for storage.
+     * Constructs a Nugget instance with the specified file path for storage and GUI reference.
      *
      * @param filePath The file path where tasks will be loaded and saved.
+     * @param gui The reference to the Main JavaFX GUI for output handling.
      */
-    public Nugget(String filePath) {
-        ui = new Ui();
+    public Nugget(String filePath, Main gui) {
+        this.gui = gui;
+        ui = new Ui(gui);  // Pass GUI to UI
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         parser = new Parser(tasks);
     }
 
     /**
-     * Starts the Nugget application, accepting user input and executing commands
-     * until the user exits.
+     * Initializes the Nugget application, printing the intro message.
      */
-    public void run() {
+    public void start() {
         ui.printIntro();
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            String command = scanner.nextLine().trim();
-            try {
-                if (command.equals("bye")) {
-                    break;
-                }
-                Command c = parser.parse(command);
-                c.execute(tasks, ui, storage);
-            } catch (NuggetException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-
-        ui.printEnd();
     }
 
     /**
-     * The main entry point for the Nugget application.
+     * Handles a single input from the GUI and executes the appropriate command.
      *
-     * @param args Command line arguments; not used in this application.
+     * @param input The user's input command.
      */
-    public static void main(String[] args) {
-        new Nugget("data/nugget.txt").run();
+    public void handleInput(String input) {
+        try {
+            if (input.equals("bye")) {
+                ui.printEnd();
+                return;
+            }
+            Command c = parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (NuggetException e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

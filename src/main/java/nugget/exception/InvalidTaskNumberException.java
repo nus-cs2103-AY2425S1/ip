@@ -1,4 +1,4 @@
-package nugget;
+package nugget.exception;
 
 /**
  * Represents an exception that is thrown when an invalid task number is provided.

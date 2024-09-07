@@ -1,4 +1,8 @@
-package nugget;
+package nugget.command;
+
+import nugget.*;
+import nugget.exception.InvalidTaskNumberException;
+import nugget.exception.NuggetException;
 
 /**
  * Represents a command to delete a task from the task list.

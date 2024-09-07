@@ -1,6 +1,6 @@
-package nugget;
+package nugget.exception;
 
-import nugget.NuggetException;
+import nugget.exception.NuggetException;
 
 public class UnknownCommandException extends NuggetException {
     public UnknownCommandException() {
