@@ -44,6 +44,10 @@ public class Event extends Task implements Datable {
         this.to = end;
     }
 
+    public boolean isStartingBefore(LocalDate date) {
+        return !from.toLocalDate().isAfter(date);
+    }
+
     /**
      * Checks if the event ends after a specified date.
      *

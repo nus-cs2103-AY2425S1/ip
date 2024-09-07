@@ -53,7 +53,7 @@ public class FindCommand extends Command {
     }
 
     private boolean isCorrectFindFormat() {
-        return message.length() <= 5;
+        return message.length() > 5;
     }
 
     private String getKeyword() throws DuckException {

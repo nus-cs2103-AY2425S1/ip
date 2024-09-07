@@ -2,9 +2,11 @@ package duck.commands;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import duck.common.Message;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
@@ -21,6 +23,9 @@ public class OnCommand extends Command {
 
     private static final String ERROR_MESSAGE_ON_COMMAND = "The format for 'On' instruction is:\n"
             + "on {yyyy-MM-dd}";
+    private static final String PATTERN_ON_COMMAND = "MMM dd yyyy";
+    private static final String MESSAGE_EVENTS_HAPPENING_ON = "Here are the events still happening on ";
+    private static final String MESSAGE_DEADLINES_DUE_BY = "Here are the tasks due by ";
 
     /**
      * Constructs an OnCommand with the specified message.
@@ -60,18 +65,22 @@ public class OnCommand extends Command {
             throw new DuckException(ERROR_MESSAGE_ON_COMMAND);
         }
 
-        return LocalDate.parse(words[1]);
+        try {
+            return LocalDate.parse(words[1]);
+        } catch (DateTimeParseException e) {
+            throw new DuckException(ERROR_MESSAGE_ON_COMMAND);
+        }
     }
 
     private void printFilteredEvents(LocalDate date, Stream<Event> eventStream) {
-        System.out.println("Here are the events still happening on "
-                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println(MESSAGE_EVENTS_HAPPENING_ON
+                + date.format(DateTimeFormatter.ofPattern(PATTERN_ON_COMMAND)) + ":");
         printTasks(eventStream);
     }
 
     private void printFilteredDeadlines(LocalDate date, Stream<Deadline> deadlineStream) {
-        System.out.println("Here are the tasks due by "
-                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println(MESSAGE_DEADLINES_DUE_BY
+                + date.format(DateTimeFormatter.ofPattern(PATTERN_ON_COMMAND)) + ":");
         printTasks(deadlineStream);
     }
 
@@ -86,12 +95,14 @@ public class OnCommand extends Command {
         return tasks.stream()
                 .filter(task -> task instanceof Event)
                 .map(task -> (Event) task)
-                .filter(event -> event.isEndingAfter(date));
+                .filter(event ->
+                        event.isStartingBefore(date)
+                                && event.isEndingAfter(date));
 
     }
 
     private void printTasks(Stream<? extends Task> taskStream) {
-        AtomicInteger idx = new AtomicInteger(1);
+        AtomicInteger idx = new AtomicInteger(Message.TASK_LIST_FIRST_INDEX);
         taskStream.forEach(task -> System.out.println(idx.getAndIncrement() + "." + task.toString()));
     }
 

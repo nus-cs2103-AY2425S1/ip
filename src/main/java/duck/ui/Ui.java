@@ -1,8 +1,9 @@
 package duck.ui;
 
-import java.util.Scanner;
 
-import duck.data.exception.DuckException;
+
+import duck.data.exception.DuckException;import java.util.Scanner;
+
 
 
 

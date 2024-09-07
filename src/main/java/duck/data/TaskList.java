@@ -3,6 +3,7 @@ package duck.data;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import duck.common.Message;
 import duck.data.exception.DuckException;
 import duck.data.task.Task;
 import duck.storage.Storage;
@@ -17,7 +18,7 @@ import duck.storage.Storage;
 public class TaskList extends ArrayList<Task> {
 
     private static final String MESSAGE_ADD_TASK = "Got it. I've added this task:\n";
-    private static final String MESSAGE_TASK_LIST_SIZE = " tasks left in the list.\n";
+    private static final String MESSAGE_TASK_LIST_SIZE = " tasks in the list now.\n";
     private static final String MESSAGE_REMOVE_TASK = "Noted. I've removed this task:\n";
 
     /**
@@ -40,11 +41,16 @@ public class TaskList extends ArrayList<Task> {
      * @param taskIndex The index of the task to be marked as done.
      * @param isDone A boolean indicating whether the task should be marked as done or incomplete.
      */
-    public void updateTaskStatus(int taskIndex, boolean isDone) {
-        if (isDone) {
-            this.get(taskIndex).markAsDone();
-        } else {
-            this.get(taskIndex).markAsIncomplete();
+    public void updateTaskStatus(int taskIndex, boolean isDone) throws DuckException {
+
+        try {
+            if (isDone) {
+                this.get(taskIndex).markAsDone();
+            } else {
+                this.get(taskIndex).markAsIncomplete();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
         }
 
 
@@ -57,10 +63,14 @@ public class TaskList extends ArrayList<Task> {
      * @throws DuckException If an error occurs while interacting with the storage system.
      */
     public void deleteTask(int index, Storage storage) throws DuckException {
-        System.out.println(MESSAGE_REMOVE_TASK + this.get(index));
-        this.remove(index);
-        storage.writeTasks(this);
-        System.out.println(this.size() + MESSAGE_TASK_LIST_SIZE);
+        try {
+            System.out.println(MESSAGE_REMOVE_TASK + this.get(index));
+            this.remove(index);
+            storage.writeTasks(this);
+            System.out.println(this.size() + MESSAGE_TASK_LIST_SIZE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
+        }
     }
 
     /**
@@ -70,17 +80,18 @@ public class TaskList extends ArrayList<Task> {
      */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
-        for (Task t : this) {
-            if (t.getDescription().contains(keyword)) {
-                matchingTasks.add(t);
+        this.forEach(task -> {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
             }
-        }
+        });
+
         return matchingTasks;
     }
 
     /** Prints all the tasks in the task list, with index. */
     public void printTasks() {
-        AtomicInteger idx = new AtomicInteger(1);
+        AtomicInteger idx = new AtomicInteger(Message.TASK_LIST_FIRST_INDEX);
         this.forEach(task -> System.out.println(idx.getAndIncrement() + "." + task.toString()));
     }
 }
