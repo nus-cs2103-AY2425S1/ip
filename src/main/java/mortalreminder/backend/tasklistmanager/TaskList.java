@@ -1,8 +1,9 @@
-package mortalreminder.backend;
+package mortalreminder.backend.tasklistmanager;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+import mortalreminder.backend.Storage;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Task;
@@ -18,7 +19,7 @@ import mortalreminder.tasks.Task;
  * long term storage and formatted printing for printing list to the user.
  */
 public class TaskList {
-    protected final ArrayList<Task> taskList = new ArrayList<>();
+    protected ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Retrieves the task at the specified index from the list.
@@ -41,6 +42,10 @@ public class TaskList {
                     + "Please input a number between 1 and "
                     + this.getSize());
         }
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
     /**
@@ -77,7 +82,6 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-
     /**
      * Deletes a task from the list and updates the storage file.
      * <p>
@@ -90,35 +94,15 @@ public class TaskList {
      * @throws MortalReminderException if the task does not exist.
      */
     public String deleteTask(Task task) throws MortalReminderException {
-        if (!Objects.equals(task.getDescription().trim(), "")) {
-            this.taskList.remove(task);
-            Storage.refreshStorageFile(this);
-            return FormattedPrinting.deleteTask(task, this);
-        } else {
+        if (Objects.equals(task.getDescription().trim(), "")) {
             assert false;
-            // We are deleting, the task should have gone through this check when it was created.
+            // We are deleting a task, the task should have gone through this check when it was created.
             // As such the code should never have reached this point in the delete function.
             throw new MortalReminderException("The code should have never reached this point!");
         }
-    }
-
-    /**
-     * Finds and returns the task based on descriptions matching the descriptions passed in.
-     *
-     * @param descriptions string argument(s) we are looking for in all matching tasks.
-     * @return TaskList of matching tasks that contain the description string passed into the method call.
-     */
-    public TaskList findTasks(String... descriptions) {
-        TaskList similarTasks = new TaskList();
-        for (Task task : this.taskList) {
-            for (String description : descriptions) {
-                if (task.getDescription().contains(description.trim())
-                        && !similarTasks.taskList.contains(task)) {
-                    similarTasks.loadTask(task);
-                }
-            }
-        }
-        return similarTasks;
+        this.taskList.remove(task);
+        Storage.refreshStorageFile(this);
+        return FormattedPrinting.deleteTask(task, this);
     }
 
     /**
@@ -131,12 +115,14 @@ public class TaskList {
     }
 
     /**
-     * Clears all tasks from the list and prints a confirmation message.
+     * Clears all tasks from the list and storage and prints a confirmation message.
      *
      * @return A string of the confirmation message of the tasks being cleared.
+     * @throws MortalReminderException from inner method.
      */
-    public String clearList() {
+    public String clearList() throws MortalReminderException {
         this.taskList.clear();
+        Storage.clearListFile();
         return FormattedPrinting.clearList();
     }
 }

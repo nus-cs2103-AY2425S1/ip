@@ -13,7 +13,7 @@ import mortalreminder.errorhandling.MortalReminderException;
  * <p>
  * The {@code Events} class extends the {@code Task} class and implements the {@code TimedTask} interface.
  */
-public class Events extends Task implements TimedTask {
+public class Event extends Task implements TimedTask {
     private final LocalDateTime fromTime;
     private final LocalDateTime toTime;
 
@@ -27,14 +27,14 @@ public class Events extends Task implements TimedTask {
      * @param description the description of the event, including start and end times.
      * @throws IllegalArgumentException if the description is improperly formatted.
      */
-    public Events(String description) throws MortalReminderException {
+    public Event(String description) throws MortalReminderException {
         super(description);
         String[] descriptionString = description.split("/from|/to");
         checkInitialisationDetails(descriptionString);
         this.description = descriptionString[0];
         this.fromTime = getTime(descriptionString[1].trim());
         this.toTime = getTime(descriptionString[2].trim());
-        this.type = "E";
+        this.type = "E"; // short for Event
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits
@@ -51,7 +51,7 @@ public class Events extends Task implements TimedTask {
      * @param toTime      the end time of the event as a {@link String}.
      * @param isDone      whether the event is marked as done.
      */
-    public Events(String description, String fromTime, String toTime, boolean isDone) throws MortalReminderException {
+    public Event(String description, String fromTime, String toTime, boolean isDone) throws MortalReminderException {
         super(description);
         this.type = "E";
         this.description = description;
@@ -104,8 +104,8 @@ public class Events extends Task implements TimedTask {
     public void checkInitialisationDetails(String[] descriptionString)
             throws MortalReminderException {
         if (descriptionString.length != 3) {
-            throw new MortalReminderException("Please input the correct number of details for deadlines! " +
-                    "Remember that you need to include /from and /to in the command.");
+            throw new MortalReminderException("Please input the correct number of details for deadlines! "
+                    + "Remember that you need to include /from and /to in the command.");
         }
         try {
             getTime(descriptionString[1].trim());

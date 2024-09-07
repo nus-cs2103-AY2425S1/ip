@@ -22,14 +22,17 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MortalReminderWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Mortal Reminder");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+
             MortalReminderWindow controller = fxmlLoader.<MortalReminderWindow>getController();
             controller.setMortalReminder(mortalReminder);
             controller.onStartUp();
+            // divided for better readability.
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

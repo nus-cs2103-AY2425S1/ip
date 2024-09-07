@@ -2,7 +2,7 @@ package mortalreminder;
 
 import mortalreminder.backend.Processor;
 import mortalreminder.backend.Storage;
-import mortalreminder.backend.TaskList;
+import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.Command;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;

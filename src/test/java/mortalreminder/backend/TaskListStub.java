@@ -1,7 +1,6 @@
 package mortalreminder.backend;
 
-import java.util.ArrayList;
-
+import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.tasks.Task;
 
 public class TaskListStub extends TaskList {
