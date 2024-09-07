@@ -1,0 +1,9 @@
+list
+todo A todo task
+deadline A deadline task /by tonight
+event An event /from now /to later
+list
+mark 1
+mark 3
+list
+bye

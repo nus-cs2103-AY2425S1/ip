@@ -122,8 +122,8 @@ public class Bob {
     }
 
     private static void greet() {
-        say("Hey there! Bob at your service.  \n" +
-                "Let’s roll up our sleeves and get to work!");
+        say("Hey there! Bob at your service.\n" +
+                "Let's roll up our sleeves and get to work!");
     }
 
     private static void exit() {
