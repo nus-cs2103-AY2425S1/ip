@@ -1,10 +1,17 @@
-package reo;
+package reo.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import reo.Reo;
+import reo.contacts.Contact;
+import reo.contacts.ContactList;
+import reo.storage.ContactStorage;
+import reo.storage.TaskStorage;
+import reo.tasks.Task;
+import reo.tasks.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,15 +30,26 @@ public class Ui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            Storage storage = new Storage("./data/reo.txt");
+
+            TaskStorage taskStorage = new TaskStorage("./data/reo.txt");
             TaskList tasklist;
             try {
-                tasklist = new TaskList(storage.readFile());
+                tasklist = new TaskList(taskStorage.readFile());
             } catch (Exception e) {
                 tasklist = new TaskList(new ArrayList<Task>());
             }
-            storage = new Storage("./data/reo.txt");
-            fxmlLoader.<MainWindow>getController().setProperties(tasklist, storage);
+
+            // TODO: ADD FILE READING
+            ContactStorage contactStorage = new ContactStorage("./data/contacts.txt");
+            ContactList contactList;
+
+            try {
+                contactList = new ContactList(contactStorage.readFile());
+            } catch (Exception e) {
+                contactList = new ContactList(new ArrayList<Contact>());
+            }
+
+            fxmlLoader.<MainWindow>getController().setProperties(tasklist, taskStorage, contactList, contactStorage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

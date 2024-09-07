@@ -1,4 +1,4 @@
-package reo;
+package reo.tasks;
 
 import org.junit.jupiter.api.Test;
 

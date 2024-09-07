@@ -1,7 +1,12 @@
-package reo;
+package reo.tasks;
 
-/** Parses a given user input */
-public class Parser {
+import reo.storage.TaskStorage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/** Parses a given user input related to task management */
+public class TaskParser {
     enum Command {
         BYE,
         LIST,
@@ -18,7 +23,7 @@ public class Parser {
     private String[] words;
     private Command command;
     private TaskList tasks;
-    private Storage storage;
+    private TaskStorage storage;
 
     /**
      * Constructor for the Parser class.
@@ -27,7 +32,7 @@ public class Parser {
      * @param tasks The list of tasks in the user's list at the time of the input.
      * @param storage The storage object for writing to memory.
      */
-    public Parser(String input, TaskList tasks, Storage storage) {
+    public TaskParser(String input, TaskList tasks, TaskStorage storage) {
         assert input != null : "Input string should not be null";
         assert tasks != null : "TaskList should not be null";
         assert storage != null : "Storage should not be null";
@@ -147,6 +152,22 @@ public class Parser {
     }
 
     /**
+     * Parses a DEADLINE command to extract the relevant information.
+     *
+     * @param input The input string from the user.
+     * @return An array with the name and deadline of the task.
+     */
+
+    public String[] parseDeadline(String input) {
+        String[] parts = input.split("/by", 2);
+        String[] firstPart = parts[0].split(" ", 2);
+
+        String name = firstPart[1];
+        String deadline = parts[1].trim();
+        return new String[]{name, deadline};
+    }
+
+    /**
      * Gets the correct UI for the DEADLINE command.
      *
      * @return The String representation of the marked Task,
@@ -155,22 +176,34 @@ public class Parser {
     public String handleDeadline() {
         final String DEADLINE_CONFIRMATION = "I've added this deadline:\n";
         final String DEADLINE_ERROR = "Please enter a valid task name and deadline.\n";
-        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
-            String[] parts = input.split("/by", 2);
-            String[] firstPart = parts[0].split(" ", 2);
-
-            String name = firstPart[1];
-            String deadline = parts[1].trim();
-
+            String name = parseDeadline(input)[0];
+            String deadline = parseDeadline(input)[1];
             Deadline deadlineToPush = new Deadline(name, false, deadline);
+            if (deadlineToPush.dateToString() == null) {
+                final String INVALID_DATE_FORMAT_ERROR = "ERROR: Invalid date format (Usage: yyyy-mm-dd).";
+                return INVALID_DATE_FORMAT_ERROR;
+            }
             tasks.addDeadline(deadlineToPush);
             storage.writeFile(deadlineToPush);
+            final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
             return DEADLINE_CONFIRMATION + deadlineToPush.toString() + "\n"
                     + TASKS_LEFT_CONFIRMATION;
         } catch (ArrayIndexOutOfBoundsException e) {
             return DEADLINE_ERROR;
         }
+    }
+
+    public String[] parseEvent(String input) {
+        String[] parts = input.split("/from", 2);
+        String[] firstPart = parts[0].split(" ", 2);
+        String[] secondPart = parts[1].split("/to", 2);
+
+        String name = firstPart[1];
+        String from = secondPart[0].trim();
+        String to = secondPart[1].trim();
+
+        return new String[]{name, from, to};
     }
 
     /**
@@ -184,13 +217,9 @@ public class Parser {
         final String EVENT_ERROR = "Please enter a valid task name and to & from dates.\n";
         final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
-            String[] parts = input.split("/from", 2);
-            String[] firstPart = parts[0].split(" ", 2);
-            String[] secondPart = parts[1].split("/to", 2);
-
-            String name = firstPart[1];
-            String from = secondPart[0].trim();
-            String to = secondPart[1].trim();
+            String name = parseEvent(input)[0];
+            String from = parseEvent(input)[1];
+            String to = parseEvent(input)[2];
 
             Event eventToPush = new Event(name, false, to, from);
             tasks.addEvent(eventToPush);
@@ -208,17 +237,21 @@ public class Parser {
      * @return The String representation of the deleted Task,
      * with a confirmation message.
      */
-    public String handleDelete() {
-        final String DELETE_CONFIRMATION = "I've deleted this task:\n";
-        final String DELETE_ERROR = "Please enter a valid task number.\n";
-        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+    private String handleDelete() {
+        final String DELETE_CONFIRMATION = "I've deleted these tasks:\n";
+        final String DELETE_ERROR = "Please enter one or more valid task numbers.\n";
         try {
-            int index = Integer.valueOf(words[1]) - 1;
-            Task toDelete = tasks.get(index);
-            tasks.deleteTask(index);
-            storage.removeLine(index + 1);
-            return DELETE_CONFIRMATION + toDelete.toString() + "\n"
-                    + TASKS_LEFT_CONFIRMATION;
+            TaskList toDelete = new TaskList(new ArrayList<Task>());
+            ArrayList<Integer> indexes = new ArrayList<>();
+            Arrays.sort(words, 1, words.length);
+            for (int i = 1; i < words.length; i++) {
+                int index = Integer.valueOf(words[i]) - 1;
+                indexes.add(index);
+                toDelete.add(tasks.get(index));
+                storage.removeLine(index + 1);
+            }
+            tasks.deleteTasks(indexes);
+            return DELETE_CONFIRMATION + toDelete.toString();
         } catch (IndexOutOfBoundsException e) {
             return DELETE_ERROR;
         }
@@ -252,13 +285,12 @@ public class Parser {
     }
 
     /**
-     * Gets the correct UI for unknown commands.
+     * Returns null when the user does not enter a valid command.
      *
-     * @return The error message for unknown commands.
+     * @return null;
      */
     public String handleUnknown() {
-        final String COMMAND_ERROR = "ERROR: Please enter a valid command.\n";
-        return COMMAND_ERROR;
+        return null;
     }
 
 }

@@ -1,4 +1,9 @@
-package reo;
+package reo.storage;
+
+import reo.tasks.Todo;
+import reo.tasks.Deadline;
+import reo.tasks.Event;
+import reo.tasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +16,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-/** Supports the required file operations for reo.Reo. */
-public class Storage {
+/** Represents the required file operations for Task. */
+public class TaskStorage {
     private String filePath;
-    public Storage(String filePath) {
+
+    /**
+     * Constructor for the TaskStorage class.
+     *
+     * @param filePath The file path to write / read data to / from.
+     */
+    public TaskStorage(String filePath) {
         assert filePath != null : "File path cannot be null";
         assert !filePath.isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
@@ -31,7 +42,7 @@ public class Storage {
 
     /**
      * Reads the saved file, and interprets its contents to create
-     * an ArrayList of reo.Task objects represented by the file contents.
+     * an ArrayList of reo.tasks.Task objects represented by the file contents.
      *
      * @return An ArrayList of Tasks interpreted from the file.
      */
@@ -53,26 +64,26 @@ public class Storage {
                     String[] split = line.split("\\|");
 
                     switch (split[0].trim()) {
-                        case "T":
-                            boolean isDoneT = convertIntToBool(Integer.parseInt(split[1].trim()));
-                            String nameT = split[2].trim();
-                            tasks.add(new Todo(nameT, isDoneT));
-                            break;
-                        case "E":
-                            boolean isDoneE = convertIntToBool(Integer.parseInt(split[1].trim()));
-                            String nameE = split[2].trim();
-                            String from = split[3].trim();
-                            String to = split[4].trim();
-                            tasks.add(new Event(nameE, isDoneE, to, from));
-                            break;
-                        case "D":
-                            boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
-                            String nameD = split[2].trim();
-                            String deadline = split[3].trim();
-                            tasks.add(new Deadline(nameD, isDoneD, deadline));
-                            break;
-                        default:
-                            assert false : "Unrecognized task type in file";
+                    case "T":
+                        boolean isDoneT = convertIntToBool(Integer.parseInt(split[1].trim()));
+                        String nameT = split[2].trim();
+                        tasks.add(new Todo(nameT, isDoneT));
+                        break;
+                    case "E":
+                        boolean isDoneE = convertIntToBool(Integer.parseInt(split[1].trim()));
+                        String nameE = split[2].trim();
+                        String from = split[3].trim();
+                        String to = split[4].trim();
+                        tasks.add(new Event(nameE, isDoneE, to, from));
+                        break;
+                    case "D":
+                        boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
+                        String nameD = split[2].trim();
+                        String deadline = split[3].trim();
+                        tasks.add(new Deadline(nameD, isDoneD, deadline));
+                        break;
+                    default:
+                        assert false : "Unrecognized task type in file";
                     }
                 });
             }

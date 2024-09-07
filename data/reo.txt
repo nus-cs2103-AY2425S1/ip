@@ -1,3 +1,3 @@
-T | 0 | didnscj
-T | 0 | lab1
+T | 1 | sajbds
 T | 0 | lab2
+T | 0 | shbf

@@ -1,4 +1,6 @@
-package reo;
+package reo.tasks;
+
+import reo.tasks.Task;
 
 /** Represents the Task type Todo */
 public class Todo extends Task {

@@ -1,4 +1,4 @@
-package reo;
+package reo.ui;
 
 import javafx.application.Application;
 

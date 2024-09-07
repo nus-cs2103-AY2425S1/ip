@@ -1,4 +1,4 @@
-package reo;
+package reo.tasks;
 
 /** Represents the Task type Event */
 public class Event extends Task {

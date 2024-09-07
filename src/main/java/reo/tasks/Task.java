@@ -1,4 +1,4 @@
-package reo;
+package reo.tasks;
 
 public class Task {
     private boolean isDone;

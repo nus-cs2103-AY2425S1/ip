@@ -1,6 +1,7 @@
-package reo;
+package reo.storage;
 
 import org.junit.jupiter.api.Test;
+import reo.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class StorageTest {
+public class TaskStorageTest {
     @Test
     public void writeFile_emptyFileAndValidTodo() {
         try {
@@ -29,7 +30,7 @@ public class StorageTest {
             // Clear file to delete data from previous tests.
             new PrintWriter("./data/test.txt").close();
 
-            Storage storage = new Storage("./data/test.txt");
+            TaskStorage storage = new TaskStorage("./data/test.txt");
 
             // Dummy Todo object
             Todo todo = new Todo("Test todo item", false);
@@ -67,7 +68,7 @@ public class StorageTest {
             // Clear file to delete data from previous tests.
             new PrintWriter("./data/test.txt").close();
 
-            Storage storage = new Storage("./data/test.txt");
+            TaskStorage storage = new TaskStorage("./data/test.txt");
 
             // Dummy Todo object
             Todo todo = new Todo("Test todo item", false);
@@ -109,7 +110,7 @@ public class StorageTest {
             // Clear file to delete data from previous tests.
             new PrintWriter("./data/test.txt").close();
 
-            Storage storage = new Storage("./data/test.txt");
+            TaskStorage storage = new TaskStorage("./data/test.txt");
 
             // Dummy invalid Todo object
             Todo todo = null;
