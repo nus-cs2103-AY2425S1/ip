@@ -55,10 +55,10 @@ public class Knight2103 {
                 return e.getMessage();
             }
 
-            // input to allow chatbot to exit the application?
-            // if exception error, should say unsuccessful addition something like this
+            // if exception error, should say unsuccessful command execution in GUI
             // javaDoc comments; Formatting; Code quality.
-            // adding assertions
             // welcome message - state all commands that can be used.
+            // adding assertions
+
     }
 }

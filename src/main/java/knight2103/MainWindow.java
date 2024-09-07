@@ -60,9 +60,9 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        /*
-        if (input.contains("Bye. Hope to see you again soon!")) {
-            Platform.exit();
-        }*/
+        if (response.contains("Bye. Hope to see you again soon!")) {
+            userInput.setEditable(false); // help obtained from https://coderanch.com/t/713720/java/stop-user-writing-TextArea#:~:text=How%20do%20I%20stop%20user%20writing%20in%20my%20TextArea%20%3F&text=To%20prevent%20user%20write%20into,and%20set%20it%20to%20false.
+            userInput.setPromptText("Bot has exited. To start chatting, please close and restart");
+        }
     }
 }
