@@ -1,4 +1,4 @@
-package noisy;
+package Noisy;
 
 /**
  * Represents a task with a description and a status indicating whether it is done or not.
@@ -46,19 +46,12 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-<<<<<<< HEAD:src/main/java/noisy/Task.java
-    public String getDescription() {
-        return this.description;
-    }
-
-=======
     /**
      * Returns the string representation of the task.
      * The format includes the status icon and the task description.
      *
      * @return The string representation of the task.
      */
->>>>>>> branch-A-JavaDoc:src/main/java/Noisy/Task.java
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

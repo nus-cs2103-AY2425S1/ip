@@ -2,8 +2,21 @@ package noisy;
 
 import java.time.LocalDate;
 
+/**
+ * The Parser class is responsible for parsing user input and dates.
+ * It provides methods for converting date strings to {@code LocalDate} objects
+ * and for determining the type of command issued by the user.
+ */
 public class Parser {
 
+    /**
+     * Parses a date string into a {@code LocalDate} object.
+     * The date string should be in the ISO-8601 format (e.g., "2024-09-06").
+     *
+     * @param date The date string to be parsed.
+     * @return The {@code LocalDate} representation of the date string.
+     * @throws java.time.format.DateTimeParseException If the date string is invalid.
+     */
     public LocalDate parseDate(String date) {
         return LocalDate.parse(date);
     }
