@@ -1,4 +1,4 @@
-package noosy.command;
+package noosy.commands;
 
 import noosy.storage.Storage;
 import noosy.ui.Ui;

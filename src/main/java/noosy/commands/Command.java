@@ -1,4 +1,4 @@
-package noosy.command;
+package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;

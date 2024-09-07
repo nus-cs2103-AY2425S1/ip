@@ -27,13 +27,13 @@ public class Deadline extends Task {
 
     @Override
     public String storeInFile() {
-        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by Noosy";
+        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by noosy.Noosy";
         return String.format("T | %s | %s | %s", super.storeInFile(), this.name, this.due);
     }
 
     @Override
     public String toString() {
-        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by Noosy";
+        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by noosy.Noosy";
         String desc = String.format("[D]%s (by: %s)", super.toString(), formattedDate);
         return desc;
     }
