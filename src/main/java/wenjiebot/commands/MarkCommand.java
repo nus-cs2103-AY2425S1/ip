@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.WenJieException;
 import wenjiebot.exceptions.NoNumberInputtedException;
 import wenjiebot.exceptions.OutOfBoundsException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.tasks.Task;
 
 

@@ -1,9 +1,9 @@
 package wenjiebot.commands;
 
-import wenjiebot.exceptions.WenJieException;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
+import wenjiebot.exceptions.WenJieException;
 
 /**
  * Abstract class representing a command in Wenjie chatbot.
