@@ -31,7 +31,6 @@ public class MichaelScott {
 
     public String getResponse(String input) throws MichaelScottException {
         try {
-            CommandParser parser = new CommandParser();
             Command c = parser.parse(input);
             String result = c.execute(tasks);
             this.commandType = c.getSimpleName();
