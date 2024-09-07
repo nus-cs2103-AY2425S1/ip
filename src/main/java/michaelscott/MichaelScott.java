@@ -30,18 +30,15 @@ public class MichaelScott {
     }
 
     public String getResponse(String input) throws MichaelScottException {
-        try {
-            Command c = parser.parse(input);
-            String result = c.execute(tasks);
-            this.commandType = c.getSimpleName();
-            storage.saveTasks(tasks.getTasks());
-            if (commandType.equals("ExitCommand")) {
-                return "Exit-Signal";
-            }
-            return result;
-        } catch (MichaelScottException e) {
-            throw e;
+        CommandParser parser = new CommandParser();
+        Command c = parser.parse(input);
+        String result = c.execute(tasks);
+        this.commandType = c.getSimpleName();
+        storage.saveTasks(tasks.getTasks());
+        if (commandType.equals("ExitCommand")) {
+            return "Exit-Signal";
         }
+        return result;
     }
 
     public String getCommandType() {

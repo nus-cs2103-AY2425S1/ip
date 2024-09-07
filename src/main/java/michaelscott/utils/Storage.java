@@ -22,6 +22,7 @@ public class Storage {
      * Constructs a storage class.
      */
     public Storage(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
         try {
             Files.createDirectories(Paths.get("./userdata"));
         } catch (IOException e) {
@@ -37,6 +38,8 @@ public class Storage {
      * @param todo the task list.
      */
     public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
+        assert todo != null : "Task list cannot be null";
+
         File file = new File(this.filePath);
         FileWriter fw;
 
@@ -46,6 +49,7 @@ public class Storage {
             }
             fw = new FileWriter(file);
             for (int i = 0; i < todo.toArray().length; i++) {
+                assert todo.get(i) != null : "Task at index " + i + " is null";
                 fw.write(todo.get(i).toFile() + "\n");
             }
             fw.close();
@@ -59,6 +63,7 @@ public class Storage {
      * Parses the file and constructs the appropriate classes.
      */
     public void loadTasks(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
         File file = new File(this.filePath);
         Scanner sc;
         String line;
@@ -69,7 +74,10 @@ public class Storage {
             sc = new Scanner(file);
             while (sc.hasNext()) {
                 line = sc.nextLine();
-                taskList.addTask(TaskParser.parseTask(line));
+                assert line != null && !line.isEmpty() : "Invalid line read from file";
+                Task task = TaskParser.parseTask(line);
+                assert task != null : "Failed to parse task from line: " + line;
+                taskList.addTask(task);
             }
             sc.close();
         } catch (IOException | MichaelScottException e) {

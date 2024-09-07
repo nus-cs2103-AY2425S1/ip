@@ -21,16 +21,21 @@ public class FindCommand implements Command {
      * @throws MichaelScottException If the keyword is empty or consists only of whitespace.
      */
     public FindCommand(String keyword) throws MichaelScottException {
+        assert keyword != null : "keyword cannot be null";
+
         if (keyword.trim().isEmpty()) {
             throw new MichaelScottException(
                     "You need to tell me what to search for! [find <Stuff>]"
             );
         }
+      
         this.keyword = keyword.trim().toLowerCase();
     }
 
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {
+        assert tasks != null : "tasks cannot be null";
+
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);

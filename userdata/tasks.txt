@@ -3,5 +3,3 @@ T | 0 | send fax to dwight from reception
 T | 0 | spend 30 mins at reception
 D | 0 | prank dwight | 2024-09-03 12:30
 T | 0 | stuff
-T | 0 | stuff
-T | 0 | stuff
