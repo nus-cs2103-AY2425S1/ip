@@ -38,11 +38,12 @@ public class Add {
     public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException,
             DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
-        final List<String> prompts = Arrays.asList(prompt.split("todo "));
-        if (prompts.size() < 2) {
+        if (prompt.length() < 5) {
             throw new TodoEmptyNameException();
         }
-        final Task newTask = Task.of(TaskType.Todo, prompts.get(1));
+        final String extractedPrompt = prompt.substring(4);
+
+        final Task newTask = Task.of(TaskType.Todo, extractedPrompt);
         return Add.process(newTask);
     }
 
@@ -62,11 +63,12 @@ public class Add {
     public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException,
             EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
-        final List<String> prompts = Arrays.asList(prompt.split("deadline "));
-        if (prompts.size() < 2) {
+        if (prompt.length() < 10) {
             throw new DeadlineEmptyNameException();
         }
-        final Task newTask = Task.of(TaskType.Deadline, prompts.get(1));
+        final String extractedPrompt = prompt.substring(9);
+
+        final Task newTask = Task.of(TaskType.Deadline, extractedPrompt);
         return Add.process(newTask);
     }
 
@@ -86,11 +88,12 @@ public class Add {
     public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException,
             EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
-        final List<String> prompts = Arrays.asList(prompt.split("event "));
-        if (prompts.size() < 2) {
+        if (prompt.length() < 7) {
             throw new EventEmptyNameException();
         }
-        final Task newTask = Task.of(TaskType.Event, prompts.get(1));
+        final String extractedPrompt = prompt.substring(6);
+
+        final Task newTask = Task.of(TaskType.Event, extractedPrompt);
         return Add.process(newTask);
     }
 }
