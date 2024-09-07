@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.InvalidInputException;
+import wenjiebot.exceptions.InvalidDateInputException;
 import wenjiebot.exceptions.NoFollowUpException;
 import wenjiebot.exceptions.WenJieException;
 import wenjiebot.tasks.Deadline;
@@ -104,9 +104,9 @@ public class AddCommand extends Command {
      *
      * @return the Event object created from the user input.
      * @throws NoFollowUpException if the event description is missing.
-     * @throws InvalidInputException if the input format is invalid.
+     * @throws InvalidDateInputException if the input format is invalid.
      */
-    private Event getEvent() throws NoFollowUpException, InvalidInputException {
+    private Event getEvent() throws NoFollowUpException, InvalidDateInputException {
         String[] parts = getInput().split(" ");
 
         if (getInput().length() <= 5) {
@@ -141,7 +141,7 @@ public class AddCommand extends Command {
         }
 
         if (endIndex == 0) {
-            throw new InvalidInputException();
+            throw new InvalidDateInputException();
         }
 
         String desc = getInput().substring(6, endIndex);

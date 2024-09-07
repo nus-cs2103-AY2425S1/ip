@@ -5,12 +5,12 @@ package wenjiebot.exceptions;
  * This exception provides a custom error message to guide the user in correcting
  * the format for event or deadline tasks.
  */
-public class InvalidInputException extends WenJieException {
+public class InvalidDateInputException extends WenJieException {
 
     /**
-     * Constructs an InvalidInputException with a default error message.
+     * Constructs an InvalidDateInputException with a default error message.
      */
-    public InvalidInputException() {
+    public InvalidDateInputException() {
         super("test");
     }
 

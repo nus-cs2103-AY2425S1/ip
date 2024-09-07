@@ -68,7 +68,7 @@ public class Storage {
                 if (!content.isBlank()) {
                     for (String stringifiedTask : parts) {
                         boolean isDone = stringifiedTask.charAt(4) == '1';
-                        Task taskToAdd = getTask(stringifiedTask, isDone);
+                        Task taskToAdd = convertStringToTask(stringifiedTask, isDone);
                         tasks.add(taskToAdd);
                     }
                 }
@@ -87,7 +87,7 @@ public class Storage {
      * @param isDone whether the task is marked as done.
      * @return the corresponding Task object.
      */
-    private static Task getTask(String stringifiedTask, boolean isDone) {
+    private static Task convertStringToTask(String stringifiedTask, boolean isDone) {
         String description = stringifiedTask.substring(8);
         Task taskToAdd = null;
 
