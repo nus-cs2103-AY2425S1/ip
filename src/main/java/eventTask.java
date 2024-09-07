@@ -6,6 +6,15 @@ public class eventTask extends Task{
         this.starts = starts;
         this.ends = ends;
     }
+
+    String getStarts() {
+        return starts;
+    }
+
+    String getEnds() {
+        return ends;
+    }
+
     @Override
     public String toString() {
         String icon = "[E]";
