@@ -39,23 +39,14 @@ public class Task implements Serializable {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
-    /**
-     * Marks the task as done.
-     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Marks the task as not done.
-     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
-    /**
-     * Returns the description of the task.
-     */
     public String getDescription() {
         return description;
     }

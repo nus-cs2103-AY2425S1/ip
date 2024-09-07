@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
      * @param m The Megamind instance to be set.
      */
     public void setMegamind(Megamind m) {
+        assert m != null : "Megamind instance should not be null";
         megamind = m;
         displayGreetingMessage();
     }
@@ -62,7 +63,7 @@ public class MainWindow extends AnchorPane {
     private void displayGreetingMessage() {
         String greetingMessage = megamind.greet();
         dialogContainer.getChildren().addAll(
-                DialogBox.getCookieDialog(greetingMessage, megamindImage)
+                DialogBox.getMegamindDialog(greetingMessage, megamindImage)
         );
     }
 
@@ -78,7 +79,7 @@ public class MainWindow extends AnchorPane {
         String response = megamind.handleCommand(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCookieDialog(response, megamindImage)
+                DialogBox.getMegamindDialog(response, megamindImage)
         );
         userInput.clear();
 
