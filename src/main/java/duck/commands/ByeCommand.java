@@ -1,6 +1,7 @@
 package duck.commands;
 
 import duck.data.TaskList;
+import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
 import javafx.animation.PauseTransition;
@@ -33,7 +34,9 @@ public class ByeCommand extends Command {
      * @param ui The user interface for displaying messages to the user.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         ui.showGoodbyeMessage();
 
         // Pause for 2 seconds before exiting

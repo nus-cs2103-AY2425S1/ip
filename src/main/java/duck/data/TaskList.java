@@ -23,6 +23,9 @@ public class TaskList extends ArrayList<Task> {
      * @throws DuckException If an error occurs while interacting with the storage system.
      */
     public void addTask(Task task, Storage storage) throws DuckException {
+        assert task != null : "Task to be added is null";
+        assert storage != null : "Storage not yet initialized";
+
         this.add(task);
         storage.appendTask(task);
         System.out.println("Got it. I've added this task:\n" + task);
@@ -37,6 +40,8 @@ public class TaskList extends ArrayList<Task> {
      * @throws DuckException If an error occurs while interacting with the storage system.
      */
     public void deleteTask(int index, Storage storage) throws DuckException {
+        assert index >= 0 && index < this.size();
+
         System.out.println("Noted. I've removed this task:\n" + this.get(index));
         this.remove(index);
         storage.writeTasks(this);

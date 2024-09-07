@@ -38,6 +38,8 @@ public class OnCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         String[] words = message.split(" ");
         if (words.length != 2) {
             throw new DuckException("The format for 'On' instruction is:\n"
