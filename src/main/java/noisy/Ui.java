@@ -1,5 +1,7 @@
 package noisy;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public void printWelcome() {
@@ -54,5 +56,17 @@ public class Ui {
                 "Now you have " + taskList.getListSize() + " tasks in the list.\n" +
                 "____________________________________________________________";
         System.out.println(taskAdd);
+    }
+
+    public void printFind(TaskList taskList, String keyword) {
+        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+        if (foundTasks.isEmpty()) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + foundTasks.get(i));
+            }
+        }
     }
 }

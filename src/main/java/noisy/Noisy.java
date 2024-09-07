@@ -32,6 +32,12 @@ public class Noisy {
                 continue;
             }
 
+            if (input.startsWith("find ")) {
+                String keyword = input.split(" ", 2)[1];
+                ui.printFind(taskList, keyword);
+                continue;
+            }
+
             task = null;
             try {
                 switch (input.split(" ")[0]) {
