@@ -3,6 +3,7 @@ package colress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Objects;
 
 import colress.command.AddCommand;
@@ -106,13 +107,6 @@ public final class Ui {
         } catch (UnknownCommandException e) {
             return e.getMessage();
         }
-    }
-
-    /**
-     * Cancels current command and sets UI to receive another command.
-     */
-    public void processCancel() {
-        setStatus(Status.COMMAND);
     }
 
     /**

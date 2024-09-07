@@ -46,46 +46,50 @@ public final class Storage {
         }
     }
 
-    private void repopulateTasks(TaskList taskList)
-            throws FileCorruptedException, FileNotFoundException {
+    private void repopulateTasks(TaskList taskList) throws FileCorruptedException, FileNotFoundException {
         Scanner reader = new Scanner(taskFile);
         String[] strings;
         String currLine;
 
-        if (reader.hasNextLine()) {
-            while (reader.hasNextLine()) {
-                currLine = reader.nextLine();
-                strings = currLine.split(" \\| ");
-                boolean isChecked;
-                if (Objects.equals(strings[0], "[X]")) {
-                    isChecked = true;
-                } else if (Objects.equals(strings[0], "[ ]")) {
-                    isChecked = false;
-                } else {
-                    throw new FileCorruptedException();
-                }
+        while (reader.hasNextLine()) {
+            currLine = reader.nextLine();
+            strings = currLine.split(" \\| ");
+            boolean isChecked = isChecked(strings);
+            addTaskToList(taskList, strings, isChecked, TaskType.valueOf(strings[1]));
+        }
+    }
 
-                switch (TaskType.valueOf(strings[1])) {
-                case TODO:
-                    taskList.addTask(new ToDo(strings[2], isChecked));
-                    break;
-                case DEADLINE:
-                    LocalDate deadline = readDate(strings[3]);
+    private boolean isChecked(String[] arr) throws FileCorruptedException {
+        if (Objects.equals(arr[0], "[X]")) {
+            return true;
+        } else if (Objects.equals(arr[0], "[ ]")) {
+            return false;
+        } else {
+            throw new FileCorruptedException();
+        }
+    }
 
-                    taskList.addTask(new Deadline(strings[2], deadline, isChecked));
-                    break;
-                case EVENT:
-                    LocalDate eventDate = readDate(strings[3]);
-                    String[] times = strings[4].split(" to ");
-                    LocalTime from = readTime(times[0]);
-                    LocalTime to = readTime(times[1]);
+    private void addTaskToList(TaskList taskList, String[] arr, boolean isChecked, TaskType taskType)
+            throws FileCorruptedException {
+        switch (taskType) {
+        case TODO:
+            taskList.addTask(new ToDo(arr[2], isChecked));
+            break;
+        case DEADLINE:
+            LocalDate deadline = readDate(arr[3]);
 
-                    taskList.addTask(new Event(strings[2], eventDate, from, to, isChecked));
-                    break;
-                default:
-                    throw new FileCorruptedException();
-                }
-            }
+            taskList.addTask(new Deadline(arr[2], deadline, isChecked));
+            break;
+        case EVENT:
+            LocalDate eventDate = readDate(arr[3]);
+            String[] times = arr[4].split(" to ");
+            LocalTime from = readTime(times[0]);
+            LocalTime to = readTime(times[1]);
+
+            taskList.addTask(new Event(arr[2], eventDate, from, to, isChecked));
+            break;
+        default:
+            throw new FileCorruptedException();
         }
     }
 
