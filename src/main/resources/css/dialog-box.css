@@ -1,25 +1,49 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
-    -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-radius: 1em 1em 0 1em;
+    /* Light grey background for incoming messages */
+    -fx-background-color: #f0f0f0;
+
+    /* Rounded corners */
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+
+    /* Padding to add space inside the message box */
+    -fx-padding: 10px 15px;
+
+    /* Light grey border */
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    /* Blue background for outgoing messages */
+    -fx-background-color: #14213D;
+
+    /* Matching rounded corners */
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+
+    /* White text for better contrast */
+    -fx-text-fill: white;
+
+    /* Padding inside the message box */
+    -fx-padding: 10px 15px;
+
+    /* Borderless outgoing message */
+    -fx-border-color: transparent;
 }
 
 #displayPicture {
-    /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    /* Circular display picture */
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
 
-    /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
 
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
+    /* Set fixed width and height for consistency */
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+
+    /* Optional: Add a small border around the image */
+    -fx-border-color: white;
+    -fx-border-width: 2px;
 }
-

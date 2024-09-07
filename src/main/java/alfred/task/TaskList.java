@@ -3,8 +3,6 @@ package alfred.task;
 import java.util.ArrayList;
 import java.util.List;
 
-import alfred.ui.AlfredResponse;
-
 /**
  * Manages a list of tasks. Provides methods for adding, deleting, and updating tasks.
  * Also provides access to the current list of tasks and their count.
@@ -47,6 +45,15 @@ public class TaskList {
     }
 
     /**
+     * Checks if task list is empty
+     *
+     * @return {@code true} if task list is empty, {@code false} otherwise
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    /**
      * Adds a new task to the list.
      *
      * @param task The <code>Task</code> to be added.
@@ -69,26 +76,6 @@ public class TaskList {
 
         // Return the deleted task so it can be used in the response
         return task;
-    }
-
-    /**
-     * Updates the completion status of the task at the specified position in the list.
-     * The task number is 1-based, so taskNumber - 1 is used to access the correct index.
-     * Returns a message indicating whether the task was marked as done or undone.
-     *
-     * @param taskNumber The position of the task to be updated (1-based index).
-     * @param mark <code>true</code> to mark the task as done, <code>false</code> to unmark it.
-     * @return A string message indicating the task's updated status.
-     */
-    public String updateTaskStatus(int taskNumber, boolean mark) {
-        Task task = tasks.get(taskNumber - 1);
-        if (mark) {
-            task.markAsDone();
-            return AlfredResponse.showTaskMarked(task); // Return the marked task message
-        } else {
-            task.unmark();
-            return AlfredResponse.showTaskUnmarked(task); // Return the unmarked task message
-        }
     }
 
     /**

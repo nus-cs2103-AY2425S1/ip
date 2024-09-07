@@ -9,7 +9,6 @@ import alfred.storage.Storage;
 import alfred.task.Task;
 import alfred.task.TaskList;
 import alfred.ui.AlfredResponse;
-import alfred.ui.MainWindow;
 
 /**
  * Represents the main class that manages the operations and interactions within
@@ -18,7 +17,7 @@ import alfred.ui.MainWindow;
 public class Alfred {
     private TaskList tasks;
     private Storage storage;
-    private MainWindow mainWindow;
+    private String loadingError;
 
     /**
      * Initializes a new instance of <code>Alfred</code> with the specified file path
@@ -29,14 +28,13 @@ public class Alfred {
      */
     public Alfred(String filePath) {
         storage = new Storage(filePath);
-        mainWindow = new MainWindow();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            mainWindow.displayAlfredResponse(AlfredResponse.showLoadingError(e));
+            loadingError = AlfredResponse.showLoadingError(e);
             this.tasks = new TaskList();
         } catch (AlfredException e) {
-            mainWindow.displayAlfredResponse(AlfredResponse.showCorruptedSaveError(e));
+            loadingError = AlfredResponse.showCorruptedSaveError(e);
             storage.clearStorage();
             tasks = new TaskList();
         }
@@ -118,10 +116,14 @@ public class Alfred {
 
     /**
      * Retrieves and returns the current list of tasks in a formatted string.
+     * Returns message saying there are no task if tasks are empty.
      *
-     * @return A string containing the formatted task list.
+     * @return A string containing the formatted task list. Returns message if tasks empty.
      */
     public String getTasks() {
+        if (tasks.isEmpty()) {
+            return AlfredResponse.getNoTasksMessage();
+        }
         return AlfredResponse.getTaskList(tasks.getTasks());
     }
 
@@ -193,5 +195,9 @@ public class Alfred {
         } catch (IOException e) {
             return AlfredResponse.showSavingError(e);
         }
+    }
+
+    public String getLoadingError() {
+        return loadingError;
     }
 }

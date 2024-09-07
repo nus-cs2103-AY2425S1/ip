@@ -39,6 +39,11 @@ public class MainWindow extends AnchorPane {
     public void setAlfred(Alfred alfred) {
         this.alfred = alfred;
         displayAlfredResponse(AlfredResponse.greet());
+
+        String loadingError = alfred.getLoadingError();
+        if (loadingError != null) {
+            displayAlfredResponse(loadingError);
+        }
     }
 
     /**
