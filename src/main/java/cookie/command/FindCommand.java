@@ -18,6 +18,8 @@ public class FindCommand extends Command {
      * @param keyword the keyword to search for in the task descriptions
      */
     public FindCommand(String keyword) {
+        assert !keyword.isEmpty();
+
         this.keyword = keyword;
     }
 

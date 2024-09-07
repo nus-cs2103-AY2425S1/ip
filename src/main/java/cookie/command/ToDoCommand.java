@@ -16,6 +16,8 @@ public class ToDoCommand extends Command {
      * @param description the description of the to-do task
      */
     public ToDoCommand(String description) {
+        assert !description.isEmpty();
+
         this.description = description;
     }
     /**
@@ -32,9 +34,6 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws CookieException {
-        if (description.isEmpty()) {
-            throw new CookieException("Please enter a task for you to do.");
-        }
 
         ToDo newTodoTask = new ToDo(description);
         taskList.addTask(newTodoTask);

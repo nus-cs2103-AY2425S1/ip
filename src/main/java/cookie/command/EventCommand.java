@@ -19,6 +19,10 @@ public class EventCommand extends Command {
      * @param to the end time or date of the event
      */
     public EventCommand(String description, String from, String to) {
+        assert !description.isEmpty();
+        assert !from.isEmpty();
+        assert !to.isEmpty();
+
         this.description = description;
         this.from = from;
         this.to = to;
