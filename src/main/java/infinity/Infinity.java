@@ -27,7 +27,7 @@ public class Infinity {
 
         if (botTasks == null) {
             try {
-                botTasks = new TaskList(Storage.readFile());
+                botTasks = new TaskList(Storage.checkAndReadFile());
                 dialogContainer.getChildren().addAll(
                         DialogBox.createBotDialog(Ui.botSays(String.format(
                                 "Hello, I'm a dummy bot called %s\n%s",

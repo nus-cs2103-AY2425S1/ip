@@ -95,6 +95,7 @@ public class Command {
 
         }
 
+        assert !botOutput.isEmpty() : "Bot Output should not be empty";
         return botOutput;
     }
 }
