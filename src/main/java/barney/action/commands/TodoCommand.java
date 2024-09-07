@@ -28,19 +28,17 @@ public class TodoCommand extends Command {
      *
      * @param tasks The TaskList to which the new TodoTask will be added.
      * @param ui    The Ui object used to print the added task.
-     * @return true if the TodoCommand is executed successfully, false otherwise.
+     * @return String representing the result of the added task function..
      * @throws InvalidArgumentException if the argumentMap is invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String description = getParameter("description");
 
         TodoTask newTodo = new TodoTask(description);
         tasks.add(newTodo);
-        ui.printAddedTask(newTodo, tasks.size());
-
-        return true;
+        return ui.printAddedTask(newTodo, tasks.size());
     }
 }

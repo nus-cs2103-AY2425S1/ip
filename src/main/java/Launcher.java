@@ -19,8 +19,10 @@ public class Launcher {
             saveFilePath = args[1];
         }
 
+        String[] guiArgs = {saveFilePath};
+
         switch (mode) {
-        case "gui" -> Application.launch(Main.class, args);
+        case "gui" -> Application.launch(Main.class, guiArgs);
         case "text" -> new Barney(saveFilePath).runSystemOut();
         default -> System.out.println("Invalid argument: " + mode);
         }

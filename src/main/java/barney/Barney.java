@@ -1,5 +1,7 @@
 package barney;
 
+import static barney.action.CommandManager.CommandType.BYE;
+
 import java.util.Scanner;
 
 import barney.action.CommandManager;
@@ -11,6 +13,7 @@ import barney.storage.Storage;
 import barney.ui.Gui;
 import barney.ui.SystemOutUI;
 import barney.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * The Barney class represents a chatbot application that allows users to
@@ -48,18 +51,46 @@ public class Barney {
         String output = "";
         try {
             tasks = new TaskList(storage.loadData());
-            output += ui.printLoadData(tasks);
+            output += ui.printLoadData(tasks) + "\n";
         } catch (BarneyException e) {
-            output += ui.printLoadingError(e.getMessage());
+            output += ui.printLoadingError(e.getMessage()) + "\n";
             tasks = new TaskList();
         }
-        output += ui.printWelcome();
+        output += ui.printWelcome() + "\n";
 
         return output;
     }
 
     public String getResponse(String input) {
-        return "testing";
+        String output = "";
+        Command command;
+        try {
+            if (input.matches("^\\s*$")) {
+                return "Please enter a valid command";
+            }
+
+            command = commandManager.getCommand(input);
+            output += command.execute(tasks, ui);
+        } catch (InvalidArgumentException e) {
+            return ui.printInvalidCommand();
+        } catch (BarneyException e) {
+            return ui.printChatError(e.getMessage());
+        } catch (Exception e) {
+            return ui.printChatError("An unknown error occurred. Please try again. " + e.getMessage());
+        }
+
+        try {
+            storage.writeData(tasks);
+        } catch (BarneyException e) {
+            return ui.printSaveError(e.getMessage());
+        }
+
+        if (command.getName().equals(BYE.toString())) {
+            output += ui.printBye();
+            Platform.exit();
+        }
+
+        return output;
     }
 
     /**
@@ -86,7 +117,10 @@ public class Barney {
                     continue;
                 }
                 Command command = commandManager.getCommand(line);
-                isChatting = command.execute(tasks, ui);
+                if (command.getName().equals(BYE.toString())) {
+                    isChatting = false;
+                }
+                command.execute(tasks, ui);
             } catch (InvalidArgumentException e) {
                 ui.printInvalidCommand();
             } catch (BarneyException e) {

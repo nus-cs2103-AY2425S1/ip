@@ -27,12 +27,12 @@ public class UnmarkCommand extends Command {
      *
      * @param tasks The task list to operate on.
      * @param ui    The user interface to display messages.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the result of the unmark operation.
      * @throws InvalidArgumentException if the task number is invalid or out of
      *                                  range.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String indexStr = getParameter("index");
@@ -48,8 +48,6 @@ public class UnmarkCommand extends Command {
         Task task = tasks.get(index);
         task.unmark();
 
-        ui.printUnmarkedTask(task);
-
-        return true;
+        return ui.printUnmarkedTask(task);
     }
 }

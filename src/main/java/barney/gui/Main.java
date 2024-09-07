@@ -15,7 +15,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Barney barney = new Barney("tasks.txt");
+    private Barney barney;
+
+    @Override
+    public void init() {
+        Parameters params = getParameters();
+        String saveFilePath = params.getRaw().get(0);
+        barney = new Barney(saveFilePath);
+    }
 
     @Override
     public void start(Stage stage) {

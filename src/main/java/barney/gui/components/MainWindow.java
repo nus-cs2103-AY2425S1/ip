@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Barney barney;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaBarney.png"));
+    private Image barneyImage = new Image(this.getClass().getResourceAsStream("/images/DaBarney.jpg"));
 
     @FXML
     public void initialize() {
@@ -37,6 +37,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setBarney(Barney b) {
         barney = b;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBarneyDialog(barney.initialiseGui(), barneyImage)
+        );
     }
 
     /**
@@ -49,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = barney.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBarneyDialog(response, barneyImage)
         );
         userInput.clear();
     }

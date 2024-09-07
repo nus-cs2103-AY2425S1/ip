@@ -27,18 +27,16 @@ public class FindCommand extends Command {
      *
      * @param tasks The TaskList to search for matching tasks.
      * @param ui    The Ui object used to print messages.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the matching tasks.
      * @throws InvalidArgumentException if the command arguments are invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String keyword = getParameter("keyword");
 
         TaskList matchingTasks = tasks.find(keyword);
-        ui.printMatchingTasks(matchingTasks);
-
-        return true;
+        return ui.printMatchingTasks(matchingTasks);
     }
 }

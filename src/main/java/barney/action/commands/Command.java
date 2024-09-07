@@ -34,7 +34,7 @@ public abstract class Command {
      * @throws InvalidArgumentException if there is an invalid argument passed to
      *                                  the command.
      */
-    public abstract boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException;
+    public abstract String execute(TaskList tasks, Ui ui) throws InvalidArgumentException;
 
     /**
      * Verifies the flags in the given argument map.
@@ -63,5 +63,14 @@ public abstract class Command {
      */
     String getParameter(String key) {
         return argumentMap.get(key);
+    }
+
+    /**
+     * Returns the name of the command.
+     *
+     * @return the name of the command
+     */
+    public String getName() {
+        return name;
     }
 }

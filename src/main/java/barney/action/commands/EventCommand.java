@@ -26,11 +26,11 @@ public class EventCommand extends Command {
      *
      * @param tasks The TaskList to which the EventTask will be added.
      * @param ui    The Ui object used to print messages.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the result of the event task function.
      * @throws InvalidArgumentException if the command arguments are invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String description = getParameter("description");
@@ -39,8 +39,7 @@ public class EventCommand extends Command {
 
         EventTask newEvent = new EventTask(description, at, to);
         tasks.add(newEvent);
-        ui.printAddedTask(newEvent, tasks.size());
+        return ui.printAddedTask(newEvent, tasks.size());
 
-        return true;
     }
 }

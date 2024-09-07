@@ -31,13 +31,13 @@ public class EndCommand extends Command {
      *
      * @param tasks The TaskList object containing the list of tasks.
      * @param ui    The Ui object for user interface interactions.
-     * @return A boolean value indicating the success of the execution.
+     * @return String representing the result of the command execution.
      * @throws InvalidArgumentException If the argument map is invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
-        return false;
+        return "";
     }
 
 }

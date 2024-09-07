@@ -30,12 +30,12 @@ public class DeleteCommand extends Command {
      * @param tasks The task list from which the task will be deleted.
      * @param ui    The user interface to display the result of the delete
      *              operation.
-     * @return {@code true} if the delete command is executed successfully, {@code false} otherwise.
+     * @return String representing the result of the delete operation.
      * @throws InvalidArgumentException If the index of the task to delete is out of
      *                                  range.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String index = getParameter("index");
@@ -45,8 +45,6 @@ public class DeleteCommand extends Command {
         }
 
         Task deletedTask = tasks.pop(deleteIndex);
-        ui.printDeleteTask(deletedTask, tasks.size());
-
-        return true;
+        return ui.printDeleteTask(deletedTask, tasks.size());
     }
 }

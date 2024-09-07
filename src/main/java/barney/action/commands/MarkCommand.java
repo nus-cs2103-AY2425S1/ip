@@ -27,12 +27,12 @@ public class MarkCommand extends Command {
      *
      * @param tasks The TaskList containing the tasks.
      * @param ui    The Ui object for user interaction.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the result of the mark task function.
      * @throws InvalidArgumentException if the task number is invalid or out of
      *                                  range.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String indexStr = getParameter("index");
@@ -48,8 +48,7 @@ public class MarkCommand extends Command {
         Task task = tasks.get(index);
         task.mark();
 
-        ui.printMarkedTask(task);
+        return ui.printMarkedTask(task);
 
-        return true;
     }
 }

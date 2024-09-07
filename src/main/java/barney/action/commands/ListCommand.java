@@ -26,14 +26,13 @@ public class ListCommand extends Command {
      *
      * @param tasks The TaskList object containing the list of tasks.
      * @param ui    The Ui object for displaying the list of tasks.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the list of tasks.
      * @throws InvalidArgumentException if the command arguments are invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
-        ui.printList(tasks);
-        return true;
+        return ui.printList(tasks);
     }
 }

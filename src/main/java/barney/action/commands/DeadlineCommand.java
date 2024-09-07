@@ -31,11 +31,11 @@ public class DeadlineCommand extends Command {
      *
      * @param tasks The TaskList object that stores the list of tasks.
      * @param ui    The Ui object that handles user interface interactions.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String representing the result of the command execution.
      * @throws InvalidArgumentException if the argumentMap is invalid.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags();
 
         String description = getParameter("description");
@@ -43,8 +43,6 @@ public class DeadlineCommand extends Command {
 
         DeadlineTask newDeadline = new DeadlineTask(description, by);
         tasks.add(newDeadline);
-        ui.printAddedTask(newDeadline, tasks.size());
-
-        return true;
+        return ui.printAddedTask(newDeadline, tasks.size());
     }
 }
