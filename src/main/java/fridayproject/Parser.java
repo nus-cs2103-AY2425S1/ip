@@ -49,6 +49,8 @@ public class Parser {
                 addDeadline(inputString);
             } else if (inputString.startsWith("event ")) {
                 addEvent(inputString);
+            } else if (inputString.startsWith("find ")) {
+                findWord(inputString);
             } else {
                 ui.displayUnknownCommandError();
             }
@@ -67,7 +69,7 @@ public class Parser {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
         }
-        int taskNumber = Integer.parseInt(input.substring(5));
+        int taskNumber = Integer.parseInt(input.substring(5)) - 1;
         taskList.markTaskAsDone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         ui.displayMessage("Nice! I've marked this task as done:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
@@ -79,7 +81,7 @@ public class Parser {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
         }
-        int taskNumber = Integer.parseInt(input.substring(7));
+        int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         taskList.markTaskAsUndone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         ui.displayMessage("OK, I've marked this task as not done yet:\n  " 
@@ -147,5 +149,14 @@ public class Parser {
         storage.saveTasksToFile(taskList.getTasks());
         ui.displayMessage("Got it. I've added this task:\n  " + event.getTypeIcon() 
         + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private void findWord(String input) throws FridayException, IOException {
+        String keyword = input.substring(5).trim();
+        if (keyword.isEmpty()) {
+            throw new FridayException("The keyword for the find command cannot be empty.\n" 
+            + "Please enter a valid keyword.");
+        }
+        taskList.findTasks(keyword);
     }
 }
