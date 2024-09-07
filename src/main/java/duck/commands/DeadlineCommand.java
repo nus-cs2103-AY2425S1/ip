@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
+
 
 /**
  * Represents a command to add a Deadline task to the task list.

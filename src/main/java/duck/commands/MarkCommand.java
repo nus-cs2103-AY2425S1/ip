@@ -1,10 +1,11 @@
 package duck.commands;
 
+import duck.common.Message;
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
 
 /**
  * Represents a command to mark a task as done in the task list.
@@ -46,9 +47,9 @@ public class MarkCommand extends Command {
             tasks.get(Integer.parseInt(words[1]) - 1).markAsDone();
             storage.writeTasks(tasks);
         } catch (NumberFormatException e) {
-            throw new DuckException("Oops! you have to indicate a valid task index!\n");
+            throw new DuckException(Message.INVALID_INDEX_FORMAT);
         } catch (IndexOutOfBoundsException e) {
-            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
+            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
         }
     }
 

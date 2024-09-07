@@ -1,4 +1,4 @@
-package duck.util;
+package duck.common;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

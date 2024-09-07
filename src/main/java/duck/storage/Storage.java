@@ -13,7 +13,7 @@ import duck.data.task.Event;
 import duck.data.task.Task;
 import duck.data.task.TaskType;
 import duck.data.task.ToDo;
-import duck.util.Utils;
+import duck.common.Utils;
 
 /**
  * Manages the loading and saving of tasks from/to a file.

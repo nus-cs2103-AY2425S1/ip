@@ -1,10 +1,12 @@
 package duck.commands;
 
+import duck.common.Message;
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
+
 
 /**
  * Represents a command to delete a task from the task list.
@@ -18,8 +20,6 @@ public class DeleteCommand extends Command {
             Delete tasks with correct format please >:(
             delete {index of task to delete}
             """;
-    private static final String INVALID_INDEX_FORMAT = "Oops! you have to indicate a valid task index!\n";
-    private static final String INDEX_OUT_OF_BOUNDS = "Oops! Index out of bound :( Input a valid task index.\n";
 
     /**
      * Constructs a DeleteCommand with the specified message.
@@ -65,9 +65,9 @@ public class DeleteCommand extends Command {
         try {
             return Integer.parseInt(words[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DuckException(INVALID_INDEX_FORMAT);
+            throw new DuckException(Message.INVALID_INDEX_FORMAT);
         } catch (IndexOutOfBoundsException e) {
-            throw new DuckException(INDEX_OUT_OF_BOUNDS);
+            throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
         }
     }
 }
