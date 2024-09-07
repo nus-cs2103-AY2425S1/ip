@@ -1,5 +1,5 @@
-T | 1 | Gym
-T | 0 | cs2100 quiz
-T | 0 | lecture
-T | 0 | ip
-E | 0 | cooking | Sept 03 2024 16:20 - Sept 03 2024 18:20
+T | 1 | ma2104 lect
+T | 1 | cs2101
+E | 1 | work | Sept 04 2024 11:00 - Sept 04 2024 15:00
+E | 1 | boxing | Sept 04 2024 18:30 - Sept 04 2024 19:30
+T | 0 | laundry
