@@ -10,7 +10,7 @@
 
 .button {
     -fx-background-color: main-color;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: bold 16px "Arial";
     -fx-text-fill: #d06666;
     -fx-border-color: aliceblue;
     -fx-border-width: 2px;
