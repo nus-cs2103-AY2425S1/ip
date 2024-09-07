@@ -1,1 +1,24 @@
-./shell.nix
+with import <nixpkgs> {};
+pkgs.mkShell {
+    buildInputs = with pkgs; [
+        jdk17
+        scenebuilder
+    ];
+
+    shellHook = ''
+        export NIX_SHELL_TITLE=""
+        hyprctl dispatch setfloating activewindow true 
+        hyprctl dispatch resizeactive exact 70% 70% 
+        hyprctl dispatch centerwindow
+        export JAVA_HOME="${pkgs.jdk17}/lib/openjdk"
+        export JAVAFX_HOME="${pkgs.openjfx17}"
+        export PATH="$JAVA_HOME/bin:$PATH"
+        export LD_LIBRARY_PATH="${pkgs.openjfx17}/modules_libs/javafx.graphics:"
+        export LD_LIBRARY_PATH="${pkgs.xorg.libXxf86vm}/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="${pkgs.xorg.libX11}/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="${pkgs.xorg.libXtst}/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="${pkgs.libGL}/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="${pkgs.glib.out}/lib:$LD_LIBRARY_PATH"
+        exec zsh
+        '';
+}
