@@ -20,7 +20,7 @@ public class Parser {
     }
 
     /**
-     * Constructor for Parser class.
+     * Reads input and returns in an understandable format
      *
      * @param input Input to format.
      * @return HashMap of commands and their corresponding inputs.

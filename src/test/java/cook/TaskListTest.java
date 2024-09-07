@@ -9,7 +9,7 @@ import tasks.ToDo;
 public class TaskListTest {
 
     @Test
-    public void markTaskTest() {
+    public void mark_task_trueReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
 
@@ -19,7 +19,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void unmarkTaskTest() {
+    public void unmark_task_falseReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
 
@@ -29,7 +29,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void markMarkedTaskTest() {
+    public void mark_markedTask_trueReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
         todo.mark(true);
@@ -40,7 +40,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void unmarkMarkedTaskTest() {
+    public void unmark_markedTask_falseReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
         todo.mark(true);
@@ -51,7 +51,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTaskTest() {
+    public void delete_task_emptyStringReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
 
