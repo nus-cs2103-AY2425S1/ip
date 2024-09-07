@@ -95,7 +95,10 @@ public class TaskList {
             Storage.refreshStorageFile(this);
             return FormattedPrinting.deleteTask(task, this);
         } else {
-            throw new MortalReminderException("Invalid Task to be deleted!");
+            assert false;
+            // We are deleting, the task should have gone through this check when it was created.
+            // As such the code should never have reached this point in the delete function.
+            throw new MortalReminderException("The code should have never reached this point!");
         }
     }
 
