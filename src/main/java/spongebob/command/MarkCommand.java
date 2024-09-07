@@ -27,6 +27,11 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
 
         // checks if there is nothing to mark
+        assert !storage.isEmpty() : "storage is empty!";
+        assert arguments[1] == "mark"
+                || arguments[1] == "unmark"
+                    : "Arguments must be mark or unmark!";
+
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {
             if (this.arguments[0].equals("mark")) {
                 return ui.showMarkedError();

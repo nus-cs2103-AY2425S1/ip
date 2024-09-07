@@ -7,7 +7,6 @@ import spongebob.storage.TaskList;
 import spongebob.task.Task;
 import spongebob.ui.Ui;
 
-
 /**
  * Command to find keyword in task list
  */
@@ -20,13 +19,15 @@ public class FindCommand extends Command {
     }
 
     /**
-     * executes the command, prints out list of tasks that contains keyword
+     * Executes the command, prints out list of tasks that contains keyword
      * @param taskList  tasklist of Spongebob
      * @param ui    UI Component of Spongebob
      * @param storage   Storage of Spongebob
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+
+        assert !storage.isEmpty() : "storage is empty!";
 
         String keyword = arguments[1];
 
