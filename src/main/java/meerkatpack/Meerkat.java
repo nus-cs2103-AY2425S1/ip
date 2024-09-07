@@ -1,5 +1,8 @@
 package meerkatpack;
 
+import com.sun.javafx.sg.prism.NGGroup;
+import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
 import taskpack.TaskList;
 
 import java.io.FileNotFoundException;
@@ -11,11 +14,8 @@ import java.util.Scanner; // Import the Scanner class
 public class Meerkat {
 
     private static final String STORAGE_FILE_PATH = "Meerkat.txt";
-    private static Ui ui = new Ui();
     private static Storage storage = new Storage();
-    private static TaskList taskList = new TaskList();
     private static Parser parser = new Parser();
-    private static DialogBox DialogBox;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in); // Create a Scanner object
@@ -25,8 +25,6 @@ public class Meerkat {
         } catch (FileNotFoundException e) {
             return;
         }
-
-        meerkatpack.DialogBox.getMeerkatDialog(ui.showGreetingMessage(), ui.getMeerkatImage());
 
         while (true) {
             // scans the new text for new info

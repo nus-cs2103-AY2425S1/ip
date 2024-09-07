@@ -4,8 +4,17 @@ package taskpack;
  * Used to represent a Todo task.
  */
 public class Todo extends Task {
+
+    /**
+     * Constructor for
+     * @param name
+     */
     public Todo(String name) {
         super(name);
+    }
+
+    public Todo(String name, boolean isCompleted) {
+        super(name, isCompleted);
     }
     @Override
     public String toString() {

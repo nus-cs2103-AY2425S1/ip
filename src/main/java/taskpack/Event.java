@@ -20,6 +20,19 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Overloaded constructor method
+     * @param name Name of the task.
+     * @param start Start time of the task.
+     * @param end End time of the task.
+     * @param isCompleted Task completion status.
+     */
+    public Event(String name, String start, String end, boolean isCompleted) {
+        super(name, isCompleted);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";

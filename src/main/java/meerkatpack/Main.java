@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * A GUI for meerkatpack.Duke using FXML.
+ * A GUI for meerkatpack.Meerkat using FXML.
  */
 public class Main extends Application {
 

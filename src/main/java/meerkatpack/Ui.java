@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class Ui {
 
-    private static final String LINES = "____________________________________________________________";
-    private Image meerkatImage = new Image(this.getClass().getResourceAsStream("/images/meerkat.png"));
+    private static final String LINES = "__________________________________________________";
+    private final Image meerkatImage = new Image(this.getClass().getResourceAsStream("/images/meerkat.png"));
 
     /**
      * Returns the meerkat image
@@ -28,9 +28,9 @@ public class Ui {
     public String showList(TaskList taskList) {
         StringBuilder result = new StringBuilder();
         result.append(LINES);
-        result.append("Here are the tasks in your list:");
+        result.append("\nHere are the tasks in your list\n");
         for (int i = 1; i < (taskList.getSize() + 1); i++) {
-            result.append(i).append(".").append(taskList.getTaskList().get(i - 1).toString());
+            result.append(i).append(".").append(taskList.getTaskList().get(i - 1).toString()).append("\n");
         }
         result.append(LINES);
         return result.toString();
@@ -160,9 +160,9 @@ public class Ui {
     public String showMatchingTasks(List<Task> listOfTasks) {
         StringBuilder result = new StringBuilder();
         result.append(LINES);
-        result.append("Here are the matching tasks in your list:");
+        result.append("\nHere are the matching tasks in your list:\n");
         for (int i = 1; i < (listOfTasks.size() + 1); i++) {
-            result.append(i).append(".").append(listOfTasks.get(i - 1).toString());
+            result.append(i).append(".").append(listOfTasks.get(i - 1).toString()).append("\n");
         }
         result.append(LINES);
         return result.toString();

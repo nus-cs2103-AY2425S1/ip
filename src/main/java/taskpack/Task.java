@@ -16,6 +16,11 @@ public class Task {
         this.name = name;
     }
 
+    public Task(String name, boolean isCompleted) {
+        this.isCompleted = isCompleted;
+        this.name = name;
+    }
+
     protected void markAsCompleted() {
         this.isCompleted = true;
     }

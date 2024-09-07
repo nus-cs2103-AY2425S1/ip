@@ -19,6 +19,18 @@ public class Deadline extends Task {
         super(name);
         this.dueDate = dueDate;
     }
+
+    /**
+     * Overloaded constructor for a deadline task.
+     * @param name Name of the deadline task.
+     * @param dueDate Deadline of the deadline task.
+     * @param isCompleted Completion status of the task.
+     */
+    public Deadline(String name, LocalDateTime dueDate, boolean isCompleted) {
+        super(name, isCompleted);
+        this.dueDate = dueDate;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");

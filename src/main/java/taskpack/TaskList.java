@@ -43,17 +43,28 @@ public class TaskList {
      * Prints UI creation message only if the file is created during the run instead
      * of when reading tasks from save file.
      * @param name The name of the task.
-     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @param markedStatus Completion status of the task
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public String createTodoTask(String name, boolean fromSave) throws IOException {
+    public void createTodoTask(String name, boolean markedStatus) throws IOException {
+        Task thisTask = new Todo(name, markedStatus);
+        listOfTasks.add(thisTask);
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+    }
+
+    /**
+     * Overloaded creator for todo Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
+    public String createTodoTask(String name) throws IOException {
         Task thisTask = new Todo(name);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
-        if (!fromSave) {
-            return ui.showTaskCreationMessage(thisTask, this);
-        }
-        return "";
+        return ui.showTaskCreationMessage(thisTask, this);
     }
 
     /**
@@ -62,17 +73,30 @@ public class TaskList {
      * Prints UI creation message only if the file is created during the run instead
      * of when reading tasks from save file.
      * @param name The name of the task.
-     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @param markedStatus The completion status of the task.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public String createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
+    public void createEventTask(String name, String start, String end, boolean markedStatus) throws IOException {
+        Task thisTask = new Event(name, start, end, markedStatus);
+        listOfTasks.add(thisTask);
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+    }
+
+    /**
+     * Creates an Event Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @param start The start date of the task.
+     * @param end The end date of the task.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
+    public String createEventTask(String name, String start, String end) throws IOException {
         Task thisTask = new Event(name, start, end);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
-        if (!fromSave) {
-            return ui.showTaskCreationMessage(thisTask, this);
-        }
-        return "";
+        return ui.showTaskCreationMessage(thisTask, this);
     }
 
     /**
@@ -81,17 +105,30 @@ public class TaskList {
      * Prints UI creation message only if the file is created during the run instead
      * of when reading tasks from save file.
      * @param name The name of the task.
-     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @param dueDate The deadline of the task.
+     * @param markedStatus The completion status of the task.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public String createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
+    public void createDeadlineTask(String name, LocalDateTime dueDate, boolean markedStatus) throws IOException {
+        Task thisTask = new Deadline(name, dueDate, markedStatus);
+        listOfTasks.add(thisTask);
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+    }
+
+    /**
+     * Creates a Deadline Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @param duedate The deadline of the task.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
+    public String createDeadlineTask(String name, LocalDateTime duedate) throws IOException {
         Task thisTask = new Deadline(name, duedate);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
-        if (!fromSave) {
-            return ui.showTaskCreationMessage(thisTask, this);
-        }
-        return "";
+        return ui.showTaskCreationMessage(thisTask, this);
     }
 
     /**
