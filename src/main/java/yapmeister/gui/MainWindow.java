@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the YapMeister instance */
     public void setYapMeister(YapMeister d) {
         yapMeister = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getYapMeisterDialog(yapMeister.getWelcomeMessage(), yapMeisterImage)
+        );
     }
 
     /**

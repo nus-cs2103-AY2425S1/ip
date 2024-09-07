@@ -82,6 +82,7 @@ public class Parser {
             if (command != null) {
                 command.execute(tasks, storage, ui);
             }
+            storage.saveLoadedTasks(tasks); //save after each input
         } catch (InvalidInputException | InvalidMarkException | IOException e) {
             ui.displayString(e.getMessage());
         } catch (NumberFormatException e) {
