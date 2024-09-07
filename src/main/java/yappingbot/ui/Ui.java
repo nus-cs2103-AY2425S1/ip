@@ -1,17 +1,13 @@
 package yappingbot.ui;
 
-import static jdk.internal.org.jline.utils.Colors.s;
-
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
-import yappingbot.exceptions.YappingBotOobException;
-import yappingbot.exceptions.YappingBotSaveFileIoException;
 
 /**
  * Abstract user-interface class for mainly outputting different texts and decorating them to
  * represet the bot talking.
  */
-public abstract class Ui {
+public interface Ui {
 
     /**
      * Prints a String to output.
