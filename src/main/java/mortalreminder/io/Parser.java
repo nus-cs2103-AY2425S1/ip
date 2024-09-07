@@ -31,7 +31,6 @@ public class Parser {
      * @return a {@code Command} object corresponding to the parsed input.
      */
     public static Command parseInputFromUser(String input) {
-
         // Trim and split the input into designated parts
         String[] splitInput = input.trim().replaceAll("\\s+", " ").split(" ");
         String commandWord = splitInput[0];

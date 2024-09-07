@@ -2,7 +2,7 @@ package mortalreminder.io;
 
 import java.util.ArrayList;
 
-import mortalreminder.backend.TaskList;
+import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;

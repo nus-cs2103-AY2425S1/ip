@@ -104,8 +104,8 @@ public class Event extends Task implements TimedTask {
     public void checkInitialisationDetails(String[] descriptionString)
             throws MortalReminderException {
         if (descriptionString.length != 3) {
-            throw new MortalReminderException("Please input the correct number of details for deadlines! " +
-                    "Remember that you need to include /from and /to in the command.");
+            throw new MortalReminderException("Please input the correct number of details for deadlines! "
+                    + "Remember that you need to include /from and /to in the command.");
         }
         try {
             getTime(descriptionString[1].trim());

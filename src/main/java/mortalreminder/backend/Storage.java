@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.Parser;
 import mortalreminder.tasks.Task;
@@ -92,16 +93,11 @@ public class Storage {
     public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {
             File f = new File(STORAGE_LIST_FILE_PATH);
-            TaskList taskList = new TaskList();
-
-            // Check if the file/folder already exists and create if it is not,
-            // send warning if unable to create either if file still does not exist.
             if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
                 throw new MortalReminderException("File cannot be created!");
             }
-
-            // Load all tasks in the storage file into the TaskList and returns it at the start of the program.
             Scanner s = new Scanner(f);
+            TaskList taskList = new TaskList();
             while (s.hasNextLine()) {
                 String input = s.nextLine();
                 Task task = Parser.parseInputFromFile(input);
