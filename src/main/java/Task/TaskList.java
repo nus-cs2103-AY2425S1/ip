@@ -86,11 +86,13 @@ public class TaskList {
         switch (taskType) {
         case T:
             task = ToDo.of(description, taskType);
+            this.taskList.add(task);
             saveTasks();
             break;
         case D:
             try {
                 task = Deadline.of(description + " /by " + parts[3], taskType);
+                this.taskList.add(task);
                 saveTasks();
             } catch (TaskCreationException e) {
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
@@ -99,6 +101,7 @@ public class TaskList {
         case E:
             try {
                 task = Event.of(description + "/from " + parts[3] + " /to " + parts[4], taskType);
+                this.taskList.add(task);
                 saveTasks();
             } catch (TaskCreationException e) {
                 System.out.println("Error occurred while parsing task");
@@ -140,7 +143,9 @@ public class TaskList {
                 default:
                     throw new IllegalArgumentException("Invalid task type");
             }
-
+            if (isDuplicate(newTask)) {
+                return "That task is a duplicate, unable to add task";
+            }
             this.taskList.add(newTask);
             this.taskListLength += 1;
 
@@ -166,6 +171,17 @@ public class TaskList {
 
         return response.toString();
     }
+
+    private boolean isDuplicate(Task newTask) {
+        for (Task task : this.taskList) {
+            if (task.getTaskName().equals(newTask.getTaskName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     /**
      * Deletes a task from the task list.
