@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI.
+ * Controller for the mainWindow.css GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML

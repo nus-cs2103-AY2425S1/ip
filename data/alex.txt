@@ -1,4 +1,4 @@
 [D][X] rrrr // by: 2020-02-02
 [T][ ] ther
 [T][X] paint
-[T][ ] paint wall
+[T][X] paint wall
