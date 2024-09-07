@@ -42,6 +42,23 @@ class Event extends Task {
         this.endTime = endTime;
     }
 
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Event event) {
+            if (this.startTime.compareTo(event.startTime) == 0) {
+                if (this.endTime.compareTo(event.endTime) == 0) {
+                    return super.compareTo(other);
+                } else {
+                    return this.endTime.compareTo(event.endTime);
+                }
+            } else {
+                return this.startTime.compareTo(event.startTime);
+            }
+        } else {
+            return super.compareTo(other);
+        }
+    }
+
     /**
      * Returns a String representation of the event.
      *

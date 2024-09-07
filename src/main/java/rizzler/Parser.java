@@ -36,6 +36,8 @@ class Parser {
             return new FindCommand(parsedCommand);
         case "bye":
             return new ExitCommand();
+        case "sort":
+            return new SortCommand();
         default:
             throw new RizzlerException("I've gyatt no idea what you're saying!");
         }
