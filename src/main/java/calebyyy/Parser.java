@@ -125,7 +125,6 @@ public class Parser {
      */
     public void executeCommand(String input) throws CalebyyyException {
         assert input != null && !input.trim().isEmpty() : "Input cannot be null or empty";
-        
         String[] parts = input.split(" ", 2);
         String commandName = parts[0];
 
