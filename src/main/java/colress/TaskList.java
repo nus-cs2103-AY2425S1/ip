@@ -48,6 +48,7 @@ public final class TaskList {
         try {
             String result = "";
             for (int i: taskNumbers) {
+                assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
                 Task task = tasks.get(i - 1);
                 task.check();
                 result += getCurrTask(i - 1);
@@ -67,6 +68,7 @@ public final class TaskList {
         try {
             String result = "";
             for (int i: taskNumbers) {
+                assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
                 Task task = tasks.get(i - 1);
                 task.uncheck();
                 result += getCurrTask(i - 1);
@@ -83,6 +85,7 @@ public final class TaskList {
     public void deleteTask(int... taskNumbers) {
         try {
             for (int i: taskNumbers) {
+                assert !isOutOfBounds(i) : "Task Number should not be out of bounds.";
                 tasks.remove(i - 1);
             }
         } catch (IndexOutOfBoundsException e) {
