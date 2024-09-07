@@ -98,6 +98,9 @@ public class Ui {
      * @return the tasks marked message
      */
     public String getTaskMarkedMessage(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            return "No tasks to mark as done.";
+        }
         StringBuilder message = new StringBuilder("Nice! I've marked these tasks as done:\n");
         for (Task task : tasks) {
             message.append(" - ").append(task).append("\n");
@@ -112,6 +115,9 @@ public class Ui {
      * @return the tasks unmarked message
      */
     public String getTaskUnmarkedMessage(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            return "No tasks to mark as not done.";
+        }
         StringBuilder message = new StringBuilder("OK, I've marked these tasks as not done yet:\n");
         for (Task task : tasks) {
             message.append(" - ").append(task).append("\n");
