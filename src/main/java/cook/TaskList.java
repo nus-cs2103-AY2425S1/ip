@@ -11,7 +11,7 @@ public class TaskList {
     protected ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskList class
+     * Constructor for TaskList class.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -28,13 +28,13 @@ public class TaskList {
      * Marks or unmarks task.
      *
      * @param taskNo Task number in tasks.
-     * @param toMark Mark or unmark task.
+     * @param isMarking Mark or unmark task.
      * @return Success of marking or unmarking task.
      * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
      */
-    public boolean markTask(int taskNo, boolean toMark) throws IndexOutOfBoundsException {
+    public boolean markTask(int taskNo, boolean isMarking) throws IndexOutOfBoundsException {
         int indexNo = taskNo - 1;
-        return this.tasks.get(indexNo).mark(toMark);
+        return this.tasks.get(indexNo).mark(isMarking);
     }
 
     /**

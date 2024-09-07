@@ -23,7 +23,7 @@ public class ParserTest {
     }
 
     @Test
-    public void byeTest() {
+    public void command_bye_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -38,7 +38,7 @@ public class ParserTest {
     }
 
     @Test
-    public void listTest() {
+    public void command_list_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -53,7 +53,7 @@ public class ParserTest {
     }
 
     @Test
-    public void markTest() {
+    public void command_mark_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -69,7 +69,7 @@ public class ParserTest {
     }
 
     @Test
-    public void unmarkTest() {
+    public void command_unmark_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -85,7 +85,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deleteTest() {
+    public void command_delete_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -101,7 +101,7 @@ public class ParserTest {
     }
 
     @Test
-    public void todoTest() {
+    public void command_todo_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -117,7 +117,7 @@ public class ParserTest {
     }
 
     @Test
-    public void todoSpacedDescTest() {
+    public void command_todoSpacedDesc_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -133,7 +133,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deadlineTest() {
+    public void command_deadline_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -150,7 +150,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deadlineSpacedDescTest() {
+    public void command_deadlineSpacedDesc_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -167,7 +167,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest() {
+    public void command_event_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
@@ -186,7 +186,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventSpacedDescTest() {
+    public void command_eventSpacedDesc_parsedCorrectly() {
         HashMap<String, Integer> validCommandArgs = this.init();
 
         HashMap<String, String> expectedCommandArgs = new HashMap<>();
