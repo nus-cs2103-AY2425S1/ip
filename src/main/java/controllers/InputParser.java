@@ -32,6 +32,15 @@ public class InputParser {
             } catch (Exception e) {
                 throw new InvalidInputError("Invalid input for delete!");
             }
+
+        } else if (isFindCommand(cmd)) {
+            try {
+                String[] parts = cmd.split(" ");
+                String taskName = parts[1];
+                return new FindCommand(taskName);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for delete!");
+            }
         } else if (isUnmarkCommand(cmd)) {
             try {
                 String[] parts = cmd.split(" ");
@@ -106,6 +115,20 @@ public class InputParser {
         return parts[0].equals("deadline");
     }
 
+<<<<<<< Updated upstream
+=======
+
+    private boolean isFindCommand(String command) {
+        String[] parts = command.split(" ");
+        return parts[0].equals("find");
+    }
+    /**
+     * Checks if the input string is an "event" command.
+     *
+     * @param command The input string to check.
+     * @return {@code true} if the input is an "event" command, {@code false} otherwise.
+     */
+>>>>>>> Stashed changes
     private boolean isEventCommand(String command) {
         String[] parts = command.split(" ");
         return parts[0].equals("event");
