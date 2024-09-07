@@ -5,6 +5,9 @@ public class deadlineTask extends Task {
         super(status);
         this.dl = dl;
     }
+    String getDeadline() {
+        return dl;
+    }
 
     @Override
     public String toString() {

@@ -1,14 +1,62 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Espresso {
     private ArrayList<Task> tasks ;
     private int count;
+    private final String FILE_PATH = "./data/Espresso.txt";
 
     public Espresso() {
         tasks = new ArrayList<>();
         count = 0;
+        loadTasks();
     }
+
+    void loadTasks() {
+        try {
+            File file = new File("./data/Espresso.txt");
+            if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            } else {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    String taskLine = sc.nextLine();
+                    String[] parts = taskLine.split(" \\| ");
+                    String taskType = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String status = parts[2];
+                    Task task = null;
+                    if (taskType.equals("T")) {
+                        task = new todoTask(status);
+                    } else if (taskType.equals("D")) {
+                        String dl = parts[3];
+                        task = new deadlineTask(status, dl);
+                    } else if (taskType.equals("E")) {
+                        String starts = parts[3];
+                        String ends = parts[4];
+                        task = new eventTask(status, starts, ends);
+                    } else {
+                        System.out.println("Incorrect task entry..moving ahead");
+                        continue;
+                    }
+                    if (task != null) {
+                        if (isDone) {
+                            task.mark();
+                        }
+                        tasks.add(task);
+                        count++;
+                    }
+                }
+                sc.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
 
     void addToList(String str) {
         Task task = null;
@@ -34,16 +82,16 @@ public class Espresso {
                 } else {
                     throw new IllegalArgumentException("Random Input! I don't know what that means :(");
                 }
-            tasks.add(task);
-            System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task);
-            if (count == 0)
-                System.out.println("Now you have " + (count + 1) + " task in the list.");
-            else
-                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-            System.out.println("____________________________________________________________");
-            count++;
+                tasks.add(task);
+                saveTaskList();
+                System.out.println("____________________________________________________________");System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
+                if (count == 0)
+                    System.out.println("Now you have " + (count + 1) + " task in the list.");
+                else
+                    System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                count++;
         }
         catch (IllegalArgumentException e) {
             System.out.println("____________________________________________________________");
@@ -52,10 +100,36 @@ public class Espresso {
         }
     }
 
+    void saveTaskList() {
+        try {
+            FileWriter filewriter = new FileWriter("./data/Espresso.txt");
+            for (Task task : tasks) {
+                filewriter.write(taskToFileFormat(task) + "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            System.out.println("Error encountered in saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    String taskToFileFormat(Task task) {
+        if (task instanceof todoTask) {
+            return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getStatus();
+        } else if (task instanceof deadlineTask) {
+            deadlineTask deadline = (deadlineTask) task;
+            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getStatus() + " | " + deadline.getDeadline();
+        } else if (task instanceof eventTask) {
+            eventTask event = (eventTask) task;
+            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getStatus() + " | " + event.getStarts() + " | " + event.getEnds();
+        }
+        return "";
+    }
+
 
     void deleteTask(int position) {
         System.out.println("____________________________________________________________");
         Task rem = tasks.remove(position);
+        saveTaskList();
         count--;
         System.out.println("Noted. I've removed this task:");
         System.out.println(" " + rem);
