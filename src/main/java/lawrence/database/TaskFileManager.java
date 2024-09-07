@@ -20,7 +20,7 @@ import lawrence.task.Task;
  * </p>
  */
 public class TaskFileManager {
-    private final File FILE;
+    private final File file;
 
     /**
      * Default constructor. The {@link Path} instance provided can be a
@@ -29,7 +29,7 @@ public class TaskFileManager {
      * @param path the path to the text file used to store tasks
      */
     public TaskFileManager(Path path) {
-        FILE = path.toAbsolutePath()
+        file = path.toAbsolutePath()
                 .normalize()
                 .toFile();
     }
@@ -43,15 +43,15 @@ public class TaskFileManager {
      * @throws IOException if reading from the file is unsuccessful
      */
     public Task[] readTasksFromFile() throws IOException {
-        if (!FILE.exists()) {
+        if (!file.exists()) {
             return new Task[0];
         }
 
-        Scanner sc = new Scanner(new FileReader(FILE));
+        Scanner sc = new Scanner(new FileReader(file));
         sc.useDelimiter("\n");
 
         ArrayList<Task> tasks = new ArrayList<>();
-        while(sc.hasNext()) {
+        while (sc.hasNext()) {
             try {
                 String taskString = sc.nextLine();
                 tasks.add(TaskParser.createTask(taskString, InputSource.FILE));
@@ -78,7 +78,7 @@ public class TaskFileManager {
     public void saveTasksToFile(Task[] tasks) throws IOException {
         createFileIfNotExists();
 
-        FileWriter writer = new FileWriter(FILE);
+        FileWriter writer = new FileWriter(file);
         String result = convertToSaveFormat(tasks);
         writer.write(result);
         writer.close();
@@ -108,19 +108,19 @@ public class TaskFileManager {
      * @throws IOException if the creation of the file was unsuccessful
      */
     private void createFileIfNotExists() throws IOException {
-        if (FILE.exists()) {
+        if (file.exists()) {
             return;
         }
 
-        boolean parentDirectoryCreated = FILE.getParentFile().mkdirs();
-        boolean fileCreated = FILE.createNewFile();
+        boolean parentDirectoryCreated = file.getParentFile().mkdirs();
+        boolean fileCreated = file.createNewFile();
 
         if (!parentDirectoryCreated) {
-            throw new IOException("An error occurred when trying to initialise the file directory " + FILE.getPath());
+            throw new IOException("An error occurred when trying to initialise the file directory " + file.getPath());
         }
 
         if (!fileCreated) {
-            throw new IOException("An error occurred when trying to initialise " + FILE.getName());
+            throw new IOException("An error occurred when trying to initialise " + file.getName());
         }
     }
 }

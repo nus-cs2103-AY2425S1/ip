@@ -1,15 +1,18 @@
 package lawrence.parser;
 
-import lawrence.command.Command;
-import lawrence.command.DisplayTasksCommand;
-import lawrence.command.ExitSessionCommand;
-import lawrence.command.CompleteTaskCommand;
-import lawrence.command.UncompleteTaskCommand;
-import lawrence.command.DeleteTaskCommand;
-import lawrence.command.AddTaskCommand;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import lawrence.command.AddTaskCommand;
+import lawrence.command.Command;
+import lawrence.command.CompleteTaskCommand;
+import lawrence.command.DeleteTaskCommand;
+import lawrence.command.DisplayTasksCommand;
+import lawrence.command.ExitSessionCommand;
+import lawrence.command.UncompleteTaskCommand;
 
 public class CommandParserTest {
     @Test

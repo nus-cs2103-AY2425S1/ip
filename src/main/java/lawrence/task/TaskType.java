@@ -10,7 +10,8 @@ public enum TaskType {
 
     private String taskType;
 
-    /** Default constructor.
+    /**
+     * Default constructor.
      * <p>
      * The input string is converted into lowercase for greater input flexibility.
      * </p>

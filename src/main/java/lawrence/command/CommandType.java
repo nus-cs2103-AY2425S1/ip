@@ -16,7 +16,8 @@ public enum CommandType {
 
     private String commandType;
 
-    /** Default constructor.
+    /**
+     * Default constructor.
      * <p>
      * The input string is converted into lowercase for greater input flexibility.
      * </p>

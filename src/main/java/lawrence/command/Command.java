@@ -26,7 +26,7 @@ public abstract class Command {
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
      */
-    abstract public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
+    public abstract void execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
 
     /**
      * Returns a boolean indicating whether the program should

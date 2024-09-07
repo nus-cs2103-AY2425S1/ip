@@ -66,7 +66,7 @@ public class Lawrence {
         String userInput;
         boolean shouldContinue = true;
         while (shouldContinue) {
-            userInput = sc.nextLine();  // Get next user input
+            userInput = sc.nextLine(); // Get next user input
             try {
                 Command c = CommandParser.createCommand(userInput);
                 c.execute(tasks, manager, ui);

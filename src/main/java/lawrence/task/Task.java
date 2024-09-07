@@ -9,10 +9,10 @@ public abstract class Task {
 
     /**
      * Constructor. Creates a {@link Task} object with the specified
-     *task description.
-     *<p>
-     *The task will be marked as incomplete by default.
-     *</p>
+     * task description.
+     * <p>
+     * The task will be marked as incomplete by default.
+     * </p>
      * @param description the name of the task
      */
     public Task(String description) {

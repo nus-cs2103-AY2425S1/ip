@@ -2,11 +2,11 @@ package lawrence.parser;
 
 import java.time.LocalDateTime;
 
+import lawrence.task.Deadline;
+import lawrence.task.Event;
 import lawrence.task.Task;
 import lawrence.task.TaskType;
 import lawrence.task.Todo;
-import lawrence.task.Deadline;
-import lawrence.task.Event;
 import lawrence.utils.DateParser;
 
 /**

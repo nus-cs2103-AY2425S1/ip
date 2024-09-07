@@ -8,7 +8,7 @@ import lawrence.utils.DateParser;
  * Represents a task that has a start time and an end time.
  */
 public class Event extends Task {
-    private LocalDateTime  from;
+    private LocalDateTime from;
     private LocalDateTime to;
 
     /**
@@ -40,7 +40,7 @@ public class Event extends Task {
      * @param from the start date of the event
      * @param to the end date of the event
      */
-    public Event(String description, boolean isComplete, LocalDateTime  from, LocalDateTime  to) {
+    public Event(String description, boolean isComplete, LocalDateTime from, LocalDateTime to) {
         super(description, isComplete);
         this.from = from;
         this.to = to;
