@@ -75,6 +75,15 @@ public class AlfredResponse {
     }
 
     /**
+     * Generates message when task list is empty
+     *
+     * @return String message saying that there are no tasks
+     */
+    public static String getNoTasksMessage() {
+        return "Outstanding Sir, there are no tasks in your list.";
+    }
+
+    /**
      * Generates a message listing all tasks that match the search keyword.
      *
      * @param foundTasks The list of tasks that match the search keyword.
