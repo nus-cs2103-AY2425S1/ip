@@ -25,6 +25,7 @@ public class TaskList {
      * @param ui The Ui object responsible for user interaction.
      */
     public TaskList(Ui ui) {
+        assert ui != null : "Ui cannot be null";
         tasks = new ArrayList<>();
         this.ui = ui;
     }
@@ -42,6 +43,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -51,6 +53,8 @@ public class TaskList {
      * @param taskNumber The number of the task to be marked as done.
      */
     public void markTask(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
+
         tasks.get(taskNumber - 1).markAsDone();
     }
 
@@ -60,6 +64,8 @@ public class TaskList {
      * @param taskNumber The number of the task to be unmarked as done.
      */
     public void unmarkTask(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
+
         tasks.get(taskNumber - 1).markAsNotDone();
     }
 
@@ -78,6 +84,8 @@ public class TaskList {
      * @param taskNumber The number of the task to be deleted.
      */
     public void deleteTask(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
+
         Task task = tasks.get(taskNumber - 1);
         tasks.remove(taskNumber - 1);
         ui.deleteTaskMessage(task, tasks.size());
@@ -98,6 +106,7 @@ public class TaskList {
      * @param keyword The keyword to search for.
      */
     public void findKeyword(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
