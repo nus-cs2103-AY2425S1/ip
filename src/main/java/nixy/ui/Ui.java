@@ -1,5 +1,7 @@
 package nixy.ui;
 
+import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -12,31 +14,42 @@ import nixy.task.TaskList;
  * It provides methods to read input from the user and display messages to the user.
  */
 public class Ui {
+    private Consumer<String[]> display;
 
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public Ui() {
+        this.display = PrintUtility::wrapPrintWithHorizontalLines;
+    }
+
+    private void displayMessage(String... lines) {
+        display.accept(lines);
+    }
 
     /**
-     * Read input from the user.
+     * Read input from the user via command line interface.
      */
-    public static String readInput() {
+    public static String readCliInput() {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         return input;
     }
 
-    public static void showWelcome() {
-        PrintUtility.wrapPrintWithHorizontalLines("Hello! I'm Nixy", "What can I do for you?");
+    public void setDisplay(Consumer<String[]> display) {
+        this.display = display;
     }
 
-    public static void showGoodbye() {
-        PrintUtility.wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
+    public void showWelcome() {
+        displayMessage("Hello! I'm Nixy", "What can I do for you?");
+    }
+
+    public void showGoodbye() {
+        displayMessage("Bye. Hope to see you again soon!");
     }
 
     /**
      * Display the list of tasks to the user.
      * @param tasks The list of tasks to display.
      */
-    public static void showList(TaskList tasks) {
+    public void showList(TaskList tasks) {
         displayList(tasks, "Here are the tasks in your list:");
     }
 
@@ -45,7 +58,7 @@ public class Ui {
      *
      * @param tasks The list of found tasks.
      */
-    public static void showMatchingList(TaskList tasks) {
+    public void showMatchingList(TaskList tasks) {
         displayList(tasks, "Here are the matching tasks in your list:");
     }
 
@@ -56,23 +69,24 @@ public class Ui {
      * @param tasks The list of tasks to display.
      * @param message The message to display before the list.
      */
-    private static void displayList(TaskList tasks, String message) {
-        PrintUtility.indentPrint(HORIZONTAL_LINE);
-        PrintUtility.indentPrint(message);
+    private void displayList(TaskList tasks, String message) {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add(message);
         Iterator<Task> tasksIterator = tasks.getTasksIterator();
         for (int i = 0; tasksIterator.hasNext(); i++) {
             Task task = tasksIterator.next();
-            PrintUtility.indentPrint(String.format("%d. %s", i + 1, task));
+            lines.add(String.format("%d. %s", i + 1, task));
         }
-        PrintUtility.indentPrint(HORIZONTAL_LINE);
+        String printMessage = String.join("\n" + "    ", lines);
+        displayMessage(printMessage.trim());
     }
 
     /**
      * Show the message that the task has been marked as done.
      * @param taskString The string represenation of task that was marked as done.
      */
-    public static void showMarkedAsDone(String taskString) {
-        PrintUtility.wrapPrintWithHorizontalLines("Nice! I've marked this task as done:",
+    public void showMarkedAsDone(String taskString) {
+        displayMessage("Nice! I've marked this task as done:",
             "  " + taskString);
     }
 
@@ -80,8 +94,8 @@ public class Ui {
      * Show the message that the task has been marked as not done.
      * @param taskString The string represenation of task that was marked as not done.
      */
-    public static void showMarkedAsUndone(String taskString) {
-        PrintUtility.wrapPrintWithHorizontalLines("OK, I've marked this task as not done yet:",
+    public void showMarkedAsUndone(String taskString) {
+        displayMessage("OK, I've marked this task as not done yet:",
             "  " + taskString);
     }
 
@@ -90,8 +104,8 @@ public class Ui {
      * @param taskString The string represenation of task that was deleted.
      * @param taskCount The number of tasks remaining in the list.
      */
-    public static void showDeletedTask(String taskString, int taskCount) {
-        PrintUtility.wrapPrintWithHorizontalLines("Noted. I've removed this task:",
+    public void showDeletedTask(String taskString, int taskCount) {
+        displayMessage("Noted. I've removed this task:",
             "  " + taskString, String.format("Now you have %d tasks in the list.", taskCount));
     }
 
@@ -99,8 +113,8 @@ public class Ui {
      * Display the NixyException message to the user.
      * @param e The exception to display.
      */
-    public static void showNixyException(NixyException e) {
-        PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
+    public void showNixyException(NixyException e) {
+        displayMessage(e.getMessage());
     }
 
     /**
@@ -108,16 +122,16 @@ public class Ui {
      * @param task The task that was added.
      * @param taskCount The number of tasks in the list.
      */
-    public static void showAddedTask(Task task, int taskCount) {
-        PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task:",
+    public void showAddedTask(Task task, int taskCount) {
+        displayMessage("Got it. I've added this task:",
             "  " + task, String.format("Now you have %d tasks in the list.", taskCount));
     }
 
     /**
      * Alert user that command is not recognized.
      */
-    public static void showUnknownWarning() {
-        PrintUtility.wrapPrintWithHorizontalLines("HEY YOU ARE TYPING WEIRD THINGS! I don't understand.");
+    public void showUnknownWarning() {
+        displayMessage("HEY YOU ARE TYPING WEIRD THINGS! I don't understand.");
     }
 
 
