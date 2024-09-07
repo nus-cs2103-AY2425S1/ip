@@ -11,7 +11,9 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
-    public String toFile() { return "D/" + super.toFile() + "/" + by; }
+    public String toFile() {
+        return "D/" + super.toFile() + "/" + by;
+    }
 
     @Override
     public String toString() {
