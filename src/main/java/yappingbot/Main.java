@@ -1,10 +1,13 @@
 package yappingbot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -38,11 +41,15 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Label helloWorld = new Label("asdad");
-        Scene scene = new Scene(helloWorld);
-
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            VBox vb = fxmlloader.load();
+            Scene scene = new Scene(vb);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
