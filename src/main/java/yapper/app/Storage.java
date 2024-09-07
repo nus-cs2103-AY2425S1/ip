@@ -34,6 +34,7 @@ public class Storage {
      * Creates necessary directories if they do not exist.
      */
     private void initialiseFile() {
+        assert this.filePath != null : "The path to the file should not be null";
         File directory = this.referenceFile.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
@@ -46,13 +47,6 @@ public class Storage {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        // Reads the files contents
-        try {
-            readFile();
-        } catch (YapperException e) {
-            Ui.errorCaught(e.getMessage());
         }
     }
     /**
@@ -71,6 +65,7 @@ public class Storage {
      * @throws YapperException if there is an issue with file format or other reading errors
      */
     public ArrayList<Task> readFile() throws YapperException {
+        assert this.referenceFile != null : "File should not be null and should exist";
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(this.referenceFile)) {
             while (fileScanner.hasNextLine()) {

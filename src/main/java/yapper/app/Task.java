@@ -18,10 +18,8 @@ public class Task {
         "HHmm",
         "HH:mm[:ss]"
     };
-
-    @SuppressWarnings("checkstyle:DeclarationOrder")
     private static String[] dateFormats = {
-        "d/M/yyyy", // Date only
+        "d/M/yyyy",
         "d/MM/yyyy",
         "dd/M/yyyy",
         "dd/MM/yyyy",
@@ -41,6 +39,7 @@ public class Task {
      * @throws YapperException if the description is empty
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null";
         if (description.isEmpty()) {
             throw new YapperException("Description cannot be empty");
         }
@@ -72,6 +71,7 @@ public class Task {
      * @return the formatted date/time string, or the original string if parsing fails
      */
     public String formattedDate(String time) {
+        assert time != null : "Time should not be null";
         ArrayList<Function<String, String>> formatters = new ArrayList<>();
         formatters.add(this::formatStringToDateAndTime);
         formatters.add(this::formatStringToDate);
