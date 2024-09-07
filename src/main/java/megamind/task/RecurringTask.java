@@ -1,19 +1,19 @@
 package megamind.task;
 
-import megamind.exception.InvalidCommandException;
+import static java.lang.Long.parseLong;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static java.lang.Long.parseLong;
+import megamind.exception.InvalidCommandException;
 
 /**
  * The `RecurringTask` class represents a task that recurs at a specified interval.
  * It extends the `Task` class and includes additional information about the start and end times,
  * as well as the recurrence interval.
  */
-public class RecurringTask extends Task{
+public class RecurringTask extends Task {
     @Serial
     private static final long serialVersionUID = 1L;
     private final LocalDateTime start;
@@ -42,7 +42,8 @@ public class RecurringTask extends Task{
      * @throws NumberFormatException If interval is not a valid long.
      * @throws InvalidCommandException If starting, ending or interval is invalid.
      */
-    public static RecurringTask create (String description, String start, String end, String interval) throws DateTimeParseException, NumberFormatException, InvalidCommandException {
+    public static RecurringTask create(String description, String start, String end, String interval)
+            throws DateTimeParseException, NumberFormatException, InvalidCommandException {
         LocalDateTime starting = LocalDateTime.parse(start.trim(), INPUT_FORMATTER);
         LocalDateTime ending = LocalDateTime.parse(end.trim(), INPUT_FORMATTER);
         long startingInterval = parseLong(interval);

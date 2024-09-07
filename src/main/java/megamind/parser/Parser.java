@@ -1,9 +1,9 @@
 package megamind.parser;
 
+import java.util.Arrays;
+
 import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
-
-import java.util.Arrays;
 
 /**
  * The `Parser` class is responsible for parsing user commands.
