@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Ynch y) {
+    /** Injects the Ynch instance */
+    public void setYnch(Ynch y) {
         ynch = y;
     }
 
@@ -45,9 +45,18 @@ public class MainWindow extends AnchorPane {
         String response = ynch.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, ynchImage)
+                DialogBox.getYnchDialog(response, ynchImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Displays the startup message to be used by the chatbot.
+     */
+    public void onStartUp() {
+        String greeting = ynch.greet();
+        dialogContainer.getChildren()
+                .add(DialogBox.getYnchDialog(greeting, ynchImage));
     }
 }
 

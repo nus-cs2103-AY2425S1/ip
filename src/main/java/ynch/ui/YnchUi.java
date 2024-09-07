@@ -19,9 +19,9 @@ class YnchUi {
      * @param task the added task
      * @param size the current size of the task list
      */
-    void printAdd(Task task, int size) {
-        System.out.println("Meow! I've added this task: \n" + task + 
-        "\n Now you have " + size + " tasks in the list.");
+    String printAdd(Task task, int size) {
+        return "Meow! I've added this task: \n" + task +
+        "\n Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -30,9 +30,9 @@ class YnchUi {
      * @param task the deleted task
      * @param size the current size of the task list
      */
-    void printDelete(Task task, int size) {
-        System.out.println("Meow! I've removed this task: \n" + task + 
-        "\n Now you have " + size + " tasks in the list.");
+    String printDelete(Task task, int size) {
+        return "Meow! I've removed this task: \n" + task +
+        "\n Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -40,8 +40,8 @@ class YnchUi {
      *
      * @param task the marked task
      */
-    void printMark(Task task) {
-        System.out.println("Meow! I've marked this task as done: \n" + task);
+    String printMark(Task task) {
+        return "Meow! I've marked this task as done: \n" + task;
     }
 
     /**
@@ -49,30 +49,30 @@ class YnchUi {
      *
      * @param task the unmarked task
      */
-    void printUnmark(Task task) {
-        System.out.println("Meow! I've marked this task as not done yet: \n" + task);
+    String printUnmark(Task task) {
+        return "Meow! I've marked this task as not done yet: \n" + task;
     }
 
     
-    void printFind(TaskList tasks) {
+    String printFind(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Meow! I can't find anything matching your search :(");
+            return "Meow! I can't find anything matching your search :(";
         } else {
-            System.out.println("Meow! Here are the matching tasks in your list: \n" + tasks.list());
+            return "Meow! Here are the matching tasks in your list: \n" + tasks.list();
         }
     }
 
     /**
      * Prints a greeting message.
      */
-    void greet() {
-        System.out.println("Meow! How can I help you today?");
+    String greet() {
+        return "Meow! How can I help you today?";
     }
     /**
      * Prints an exit message.
      */
-    void exit() {
-        System.out.println("Bye. Hope to see you again soon meow!");
+    String exit() {
+        return "Bye. Hope to see you again soon meow!";
     }
 
 }
