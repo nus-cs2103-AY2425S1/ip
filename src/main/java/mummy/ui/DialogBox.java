@@ -1,5 +1,8 @@
 package mummy.ui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import mummy.command.Command;
 
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -53,16 +54,16 @@ public class DialogBox extends HBox {
     private void changeDialogStyle(Command.CommandType commandType) {
         switch(commandType) {
         case TODO, DEADLINE, EVENT:
-          dialog.getStyleClass().add("add-label");
-          break;
-        case MARK, UNMARK:
-          dialog.getStyleClass().add("marked-label");
-          break;
+            dialog.getStyleClass().add("add-label");
+            break;
+        case MARK:
+            dialog.getStyleClass().add("marked-label");
+            break;
         case DELETE:
-          dialog.getStyleClass().add("delete-label");
-          break;
+            dialog.getStyleClass().add("delete-label");
+            break;
         default:
-          // Do nothing
+            // Do nothing
         }
     }
 

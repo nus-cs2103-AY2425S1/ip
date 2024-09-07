@@ -17,6 +17,9 @@ public abstract class Command {
 
     private final HashMap<String, String> arguments;
 
+    /**
+     * Represents the types of commands that can be executed.
+     */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
         EVENT, DELETE, FIND, UNKNOWN
@@ -81,6 +84,7 @@ public abstract class Command {
      *
      * @param taskList the task list to be modified
      * @param storage the storage for saving and loading tasks
+     * @return message generated from executing the command
      * @throws MummyException if there is an error executing the command
      */
     public abstract String execute(TaskList taskList, Storage storage) throws MummyException;
@@ -92,6 +96,10 @@ public abstract class Command {
      */
     public abstract boolean isExit();
 
+    /**
+     * Returns the type of the command.
+     * @return the type of the command
+     */
     public abstract CommandType getCommandType();
 
     /**

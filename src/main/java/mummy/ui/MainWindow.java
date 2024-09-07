@@ -1,5 +1,8 @@
 package mummy.ui;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,8 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mummy.command.Command;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for the main GUI.
@@ -65,11 +66,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void exitProgram() {
-        CompletableFuture.delayedExecutor(500, TimeUnit.MILLISECONDS).execute(Platform::exit);
+        CompletableFuture.delayedExecutor(500, TimeUnit.MILLISECONDS)
+                .execute(Platform::exit);
     }
-
-
-
-
 }
-

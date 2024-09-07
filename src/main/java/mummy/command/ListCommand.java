@@ -1,9 +1,10 @@
 package mummy.command;
 
+import java.util.HashMap;
+
 import mummy.task.TaskList;
 import mummy.utility.Storage;
 
-import java.util.HashMap;
 
 /**
  * Represents a command to list all tasks in the task list.

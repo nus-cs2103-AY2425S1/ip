@@ -8,29 +8,37 @@ import mummy.utility.Storage;
 
 
 /**
- * Represents the main class for the Mummy application.
- * The Mummy class is responsible for initializing the application, loading tasks from storage,
- * and handling user commands.
+ * The Mummy class represents the service class of the Mummy application.
+ * It handles the initialization of the storage, loading of the task list,
+ * and execution of user commands.
  */
 public class Mummy {
     private static final String LOGO = "Mummy";
 
     private static final String IO_PATH = "./data/mummy.txt";
 
-    private Storage storage;
+    private final Storage storage;
 
-    private TaskList taskList;
+    private final TaskList taskList;
 
     private Command currentCommand;
 
+    /**
+     * Constructs a new instance of the Mummy class.
+     * Initializes the storage with the given file path.
+     * Loads the task list from the storage file if it exists,
+     * otherwise creates a new empty task list.
+     */
     public Mummy() {
         this.storage = new Storage(IO_PATH);
-
+        TaskList taskList;
         try {
-            this.taskList = new TaskList(this.storage.load());
+            taskList = new TaskList(this.storage.load());
         } catch (IOException e) {
-            this.taskList = new TaskList();
+            taskList = new TaskList();
         }
+
+        this.taskList = taskList;
     }
 
     public String getResponse(String input) {
