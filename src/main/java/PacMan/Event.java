@@ -1,7 +1,7 @@
 package pacman;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private final LocalDate from;
@@ -13,10 +13,13 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
-    public String toFile() { return "E/" + super.toFile() + "/" + from + "/" + to; }
+    public String toFile() {
+        return "E/" + super.toFile() + "/" + from + "/" + to;
+    }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E]" + super.toString() + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
