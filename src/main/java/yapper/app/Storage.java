@@ -35,8 +35,6 @@ public class Storage {
      */
     private void initialiseFile() {
         assert this.filePath != null : "The path to the file should not be null";
-        this.referenceFile = new File(this.filePath);
-
         File directory = this.referenceFile.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();

@@ -28,4 +28,3 @@
 | E |   | something over there or elsewhere | Jan 2 2983 12:00 pm ----- May 5 1879 06:00 pm
 | E |   | something | 6 ----- 4
 | E |   | this | Feb 1 1999 04:00 pm ----- Jun 7 2001 06:00 pm
-| E |   | something | Jan 2 1999 04:00 pm ----- Jul 6 2002 06:00 pm
