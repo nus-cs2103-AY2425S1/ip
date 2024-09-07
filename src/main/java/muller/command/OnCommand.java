@@ -33,19 +33,7 @@ public class OnCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        System.out.println("Tasks on " + date.format(Task.OUTPUT_DATE_FORMATTER) + ":");
-        boolean isFound = false;
-        for (Task task : tasks.getTasks()) {
-            if (task.isOnDate(date)) {
-                System.out.println("  " + task);
-                isFound = true;
-            }
-        }
-        if (!isFound) {
-            System.out.println("  No tasks found.");
-        }
-        ui.showLine();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTaskOnDate(tasks, date);
     }
 }

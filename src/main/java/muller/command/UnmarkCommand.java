@@ -24,14 +24,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         tasks.get(index).markAsNotDone();
-        ui.showLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + tasks.get(index));
-        ui.showLine();
-
         storage.saveTasks(tasks);
+        return ui.showTaskUnMarked(tasks, index);
     }
 
     /**

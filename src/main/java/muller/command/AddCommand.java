@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         if (commandInputs.length < 2) {
             throw new MullerException(taskType.equals("T") ? "Todo what?"
                     : taskType.equals("D") ? "Deadline for what?" : "Event for what?");
@@ -50,12 +50,9 @@ public class AddCommand extends Command {
         }
 
         tasks.addTask(task);
-        ui.showLine();
-        ui.showTaskAdded(task, tasks);
-        ui.showLine();
-
         // Save the updated task list to the storage
         storage.saveTasks(tasks);
+        return ui.showTaskAdded(task, tasks);
     }
 
     /**

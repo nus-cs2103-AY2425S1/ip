@@ -1,6 +1,8 @@
 package muller.command;
 
+import muller.Muller;
 import muller.storage.Storage;
+import muller.task.Task;
 import muller.task.TaskList;
 import muller.ui.Ui;
 
@@ -24,19 +26,18 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
-        if (index < 0 || index >= tasks.getSize()) {
-            throw new MullerException("Invalid task number!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+        try {
+            if (index < 0 || index >= tasks.getSize()) {
+                throw new MullerException("Invalid task number!");
+            }
+            Task deletedTask = tasks.get(index);
+            tasks.deleteTask(index);
+            storage.saveTasks(tasks);
+            return ui.showTaskDeleted(tasks, deletedTask, index);
+        } catch (MullerException e) {
+            return e.getMessage();
         }
-
-        ui.showLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + tasks.get(index));
-        tasks.deleteTask(index);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-        ui.showLine();
-
-        storage.saveTasks(tasks);
     }
 
     /**
