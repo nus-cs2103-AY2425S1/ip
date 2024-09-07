@@ -1,9 +1,8 @@
 package sora;
 
-import sora.Tasks.TaskList;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import sora.Tasks.TaskList;
 
 /**
  * Sora is the main class.
@@ -19,11 +18,9 @@ public class Sora {
 
     /**
      * Constructs a new Sora.
-     *
-     * @param filePath Path of file to save and write.
      */
-    public Sora(String filePath) {
-        this.storage = new Storage(filePath);
+    public Sora() {
+        this.storage = new Storage("savedtasks.txt");
         this.taskList = new TaskList();
         this.ui = new Ui();
         try {
@@ -33,64 +30,52 @@ public class Sora {
         }
     }
 
-    /**
-     * Starts Sora. Begins accepting user input.
-     */
-    public void run() {
-        Scanner commandScanner = new Scanner(System.in);
-        boolean isLive = true;
-
-        this.ui.printGreeting();
-
-        while (isLive) {
-            ArrayList<String> parsedCommand = Parser.parse(commandScanner.nextLine().trim());
-            String mainCommand = parsedCommand.get(0).toLowerCase();
-            try {
-                switch (mainCommand) {
-                case "bye":
-                    this.ui.printFarewell();
-                    isLive = false;
-                    break;
-                case "list":
-                    this.taskList.displayList();
-                    break;
-                case "mark":
-                    this.taskList.markTask(parsedCommand.get(1));
-                    break;
-                case "unmark":
-                    this.taskList.unmarkTask(parsedCommand.get(1));
-                    break;
-                case "todo":
-                    this.taskList.addTask("todo", parsedCommand);
-                    break;
-                case "deadline":
-                    this.taskList.addTask("deadline", parsedCommand);
-                    break;
-                case "event":
-                    this.taskList.addTask("event", parsedCommand);
-                    break;
-                case "delete":
-                    this.taskList.deleteTask(parsedCommand.get(1));
-                    break;
-                case "find":
-                    this.taskList.findTask(parsedCommand.get(1));
-                    break;
-                case "":
-                    throw new SoraException("\tPlease Enter a Command\n" + Ui.HORIZONTAL_LINE);
-                default:
-                    this.ui.printInvalidCommand();
-                }
-                this.storage.saveTaskList(taskList);
-                System.out.println(Ui.HORIZONTAL_LINE);
-            } catch (SoraException e) {
-                System.out.println(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                this.ui.printInvalidCommand();
-            }
+    public String getResponse(String input) {
+        String res;
+        ArrayList<String> parsedCommand = Parser.parse(input);
+        String mainCommand = parsedCommand.get(0).toLowerCase();
+        switch (mainCommand) {
+        case "welcome":
+            res = Ui.greeting;
+            break;
+        case "bye":
+            res = Ui.farewell;
+            break;
+        case "list":
+            res = ui.displayTaskList(this.taskList);
+            break;
+        case "mark":
+            res = ui.displayMarkedTask(this.taskList, parsedCommand.get(1));
+            break;
+        case "unmark":
+            res = ui.displayUnMarkedTask(this.taskList, parsedCommand.get(1));
+            break;
+        case "todo":
+            res = ui.displayAddedTask(this.taskList, "todo", parsedCommand);
+            break;
+        case "deadline":
+            res = ui.displayAddedTask(this.taskList, "deadline", parsedCommand);
+            break;
+        case "event":
+            res = ui.displayAddedTask(this.taskList, "event", parsedCommand);
+            break;
+        case "delete":
+            res = ui.displayDeletedTask(this.taskList, parsedCommand.get(1));
+            break;
+        case "find":
+            res = ui.displayFoundTask(this.taskList, parsedCommand.get(1));
+            break;
+        case "":
+            res = Ui.emptyCommand;
+            break;
+        default:
+            res = Ui.invalidCommand;
         }
-    }
-
-    public static void main(String[] args) {
-        new Sora("savedtasks.txt").run();
+        try {
+            this.storage.saveTaskList(this.taskList);
+        } catch (SoraException e) {
+            res = e.getMessage();
+        }
+        return res;
     }
 }
