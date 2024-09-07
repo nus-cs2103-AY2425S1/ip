@@ -1,5 +1,7 @@
 package megamind.ui;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * The `Ui` class handles interactions with the user.
  * It provides methods to display messages, errors, and task-related information.
@@ -58,6 +60,15 @@ public class Ui {
      */
     public String showExit() {
         return "See you around!";
+    }
+
+    public String showErrorMessage(Exception e) {
+        if (e instanceof DateTimeParseException) {
+            return "Invalid date/time format. Please use the "
+                   + "format: dd/MM/yyyy HHmm";
+        } else {
+            return e.getMessage();
+        }
     }
 
     /**

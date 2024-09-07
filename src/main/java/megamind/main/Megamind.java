@@ -63,12 +63,7 @@ public class Megamind {
         } catch (InvalidCommandException | TaskNotFoundException
                  | MissingParameterException
                  | DateTimeParseException e) {
-            if (e instanceof DateTimeParseException) {
-                return "Invalid date/time format. Please use the "
-                             + "format: dd/MM/yyyy HHmm";
-            } else {
-                return e.getMessage();
-            }
+            return ui.showErrorMessage(e);
         }
     }
 
