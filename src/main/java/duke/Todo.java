@@ -1,8 +1,9 @@
 package duke;
 
-import java.time.LocalDate;
-
-public class Todo extends Task{
+/**
+ * The Class that stores tasks that do not have a deadline or start and end date.
+ */
+public class Todo extends Task {
 
     /**
      * Initialises the Todo object as the constructor.

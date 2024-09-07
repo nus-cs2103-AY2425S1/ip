@@ -1,9 +1,12 @@
 package duke;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Processes the information from the user. Based upon the user's commands, calls upon and relays the necessary
+ * information accordingly.
+ */
 public class Parser {
 
     private String inputString;
@@ -20,6 +23,13 @@ public class Parser {
         return inputString;
     }
 
+    /**
+     * Calls ui to ask the user for input, process the input accordingly and calls ui again to display information back
+     * to the user.
+     *
+     * @param tasks Stores the user's tasks inside the TaskList object while the program is running.
+     * @param ui Handles the interaction between the user and program.
+     */
     public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
             EmptyCommandException {
         String instruction = inputString.split(" ", 2)[0];
@@ -43,14 +53,14 @@ public class Parser {
         if (instruction.equals("mark")) {
             int idx = Integer.parseInt(remainingInput) - 1;
             tasks.set(idx, true);
-            System.out.println("Nice! I've marked this task as done:\n" +
-                    tasks.get(idx));
+            System.out.println("Nice! I've marked this task as done:\n"
+                    + tasks.get(idx));
         } else if (instruction.equals("unmark")) {
             int idx = Integer.parseInt(remainingInput) - 1;
             tasks.set(idx, false);
-            System.out.println("OK, I've marked this task as not done yet:\n" +
-                    tasks.get(idx));
-        } else if (instruction.equals("todo")){
+            System.out.println("OK, I've marked this task as not done yet:\n"
+                    + tasks.get(idx));
+        } else if (instruction.equals("todo")) {
             Todo task = new Todo(remainingInput);
             tasks.add(task);
             ui.taskAddOrDeleteDisplay(task, "add", tasks);

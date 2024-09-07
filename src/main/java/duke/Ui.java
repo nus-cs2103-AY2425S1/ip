@@ -2,18 +2,21 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * The Class that handles the interaction between the user and the program.
+ */
 public class Ui {
 
-    private static final String logo = " ,--.--------.    ,----.    ,-,--.             ,---.      \n" +
-                                       "/==/,  -   , -\\,-.--` , \\ ,-.'-  _\\  _.-.    .--.'  \\     \n" +
-                                       "\\==\\.-.  - ,-./==|-  _.-`/==/_ ,_.'.-,.'|    \\==\\-/\\ \\    \n" +
-                                       " `--`\\==\\- \\  |==|   `.-.\\==\\  \\  |==|, |    /==/-|_\\ |   \n" +
-                                       "      \\==\\_ \\/==/_ ,    / \\==\\ -\\ |==|- |    \\==\\,   - \\  \n" +
-                                       "      |==|- ||==|    .-'  _\\==\\ ,\\|==|, |    /==/ -   ,|  \n" +
-                                       "      |==|, ||==|_  ,`-._/==/\\/ _ |==|- `-._/==/-  /\\ - \\ \n" +
-                                       "      /==/ -//==/ ,     /\\==\\ - , /==/ - , ,|==\\ _.\\=\\.-' \n" +
-                                       "      `--`--``--`-----``  `--`---'`--`-----' `--`         \n" +
-                                       "\n";
+    private static final String logo = " ,--.--------.    ,----.    ,-,--.             ,---.      \n"
+                                      + "/==/,  -   , -\\,-.--` , \\ ,-.'-  _\\  _.-.    .--.'  \\     \n"
+                                      + "\\==\\.-.  - ,-./==|-  _.-`/==/_ ,_.'.-,.'|    \\==\\-/\\ \\    \n"
+                                      + " `--`\\==\\- \\  |==|   `.-.\\==\\  \\  |==|, |    /==/-|_\\ |   \n"
+                                      + "      \\==\\_ \\/==/_ ,    / \\==\\ -\\ |==|- |    \\==\\,   - \\  \n"
+                                      + "      |==|- ||==|    .-'  _\\==\\ ,\\|==|, |    /==/ -   ,|  \n"
+                                      + "      |==|, ||==|_  ,`-._/==/\\/ _ |==|- `-._/==/-  /\\ - \\ \n"
+                                      + "      /==/ -//==/ ,     /\\==\\ - , /==/ - , ,|==\\ _.\\=\\.-' \n"
+                                      + "      `--`--``--`-----``  `--`---'`--`-----' `--`         \n"
+                                      + "\n";
 
     private boolean flag = false;
     private Scanner scanner;
@@ -42,8 +45,8 @@ public class Ui {
      *
      */
     public void showLoadingError() {
-        System.out.println("Regrettably, the storage file you have indicated cannot be " +
-                           "located within the depths of the system.");
+        System.out.println("Regrettably, the storage file you have indicated cannot be "
+                           + "located within the depths of the system.");
     }
 
     /**
@@ -51,29 +54,50 @@ public class Ui {
      *
      */
     public void greet() {
-        System.out.println("____________________________________________________________\n" +
-                "Hello! I'm\n" + logo +
-                "How may I be of service to you in this moment?\n" +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n"
+               + "Hello! I'm\n" + logo
+               + "How may I be of service to you in this moment?\n"
+               + "____________________________________________________________\n");
 
     }
 
+    /**
+     * Displays the tasks hitherto entered by the user.
+     * @param tasks A TaskList object storing tasks entered so far.
+     */
     public void printList(TaskList tasks) {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + "." + tasks.get(i));
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
+    /**
+     * The method that displays the customised header when the user enters the appropriate command before it lists
+     * the tasks.
+     * @param tasks The Tasklist object holding tasks currently stored in the program.
+     */
     public void display(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
         printList(tasks);
     }
 
+    /**
+     * The method that displays the customised header when the user searches for a specific description within the
+     * tasks currently stored in the program before it lists the said tasks.
+     * @param tasks The Tasklist object holding tasks currently stored in the program.
+     */
     public void display_search(TaskList tasks) {
         System.out.println("Here are the matching tasks in your list:");
         printList(tasks);
     }
 
+    /**
+     * The method that displays the customised header and footer, includng the task, when the user adds or deletes a
+     * task.
+     * @param task The task that was added or deleted.
+     * @param addOrDelete The String holding the action (add or delete) done to the task.
+     * @param tasks The Tasklist that holds or held the task of interest.
+     */
     public void taskAddOrDeleteDisplay(Task task, String addOrDelete, TaskList tasks) {
         System.out.println("Got it. I've " + addOrDelete + "ed this task:");
         System.out.println(task);

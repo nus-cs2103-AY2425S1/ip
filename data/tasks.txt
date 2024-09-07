@@ -10,3 +10,5 @@ T , 0 , borrow book
 E , 0 , amazing race , Fri 6pm-7am
 D , 1 , finish after action review , 2024-09-12
 D , 0 , finish 2103 , 2024-09-06
+T , 0 , borrow book
+D , 0 , finish work , 2012-06-11
