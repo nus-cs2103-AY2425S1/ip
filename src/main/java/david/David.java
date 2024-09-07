@@ -39,6 +39,11 @@ public class David {
         this.tasks = cache.loadTasks();
     };
 
+    public String getStartUpMessage() {
+        return ui.start();
+    }
+
+
     /**
      * Get response from chatbot
      */

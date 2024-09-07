@@ -9,17 +9,14 @@ import david.task.TaskList;
  * Ui class for I/O operations
  */
 public class Ui {
-    private static final String INTRO =
-            "____________________________________________________________\n"
-                    + " Hello! I'm David.\n"
-                    + " What can I do for you?\n"
-                    + "____________________________________________________________";
-    private static final String OUTRO =
-            "____________________________________________________________\n"
-                    + "Bye. Hope to see you again soon!\n"
-                    + "____________________________________________________________\n";
+    private static final String INTRO = " Hello! I'm David.\n"
+            + " What can I do for you?\n";
+
+    private static final String OUTRO = "Bye. Hope to see you again soon!\n";
+
 
     private Scanner sc;
+
 
     /**
      * Constructor for UI interface
@@ -55,15 +52,12 @@ public class Ui {
      * @param noOfTasks Current size of arraylist
      */
     public String displayTaskDetails(Task t, int noOfTasks) {
-        return "____________________________________________________________\n"
-                        + "Got it. I've added this task:\n"
-                        + t
-                        + "\n"
-                        + "     You now have "
-                        + noOfTasks
-                        + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-
+        return "Got it. I've added this task:\n"
+                + t
+                + "\n"
+                + "     You now have "
+                + noOfTasks
+                + " tasks in the list.\n";
     }
 
     /**
@@ -72,14 +66,12 @@ public class Ui {
      * @param noOfTasks Current size of arraylist
      */
     public String displaySuccessfulDeleteMessage(Task t, int noOfTasks) {
-        return "____________________________________________________________\n"
-                        + "Alright, I've removed this task from the list:\n"
-                        + t
-                        + "\n"
-                        + "     You now have "
-                        + noOfTasks
-                        + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
+        return "Alright, I've removed this task from the list:\n"
+                + t
+                + "\n"
+                + "     You now have "
+                + noOfTasks
+                + " tasks in the list.\n";
     }
 
     /**
@@ -87,11 +79,9 @@ public class Ui {
      * @param t Task to mark as done
      */
     public String displayMarkAsDoneMessage(Task t) {
-        return "____________________________________________________________\n"
-                        + "Nice! I've marked this task as done:\n"
-                        + t
-                        + "\n"
-                        + "____________________________________________________________\n";
+        return "Nice! I've marked this task as done:\n"
+                + t
+                + "\n";
     }
 
     /**
@@ -99,11 +89,9 @@ public class Ui {
      * @param t Task to unmark as done
      */
     public String displayMarkAsUnDoneMessage(Task t) {
-        return "____________________________________________________________\n"
-                        + "Okay, I've marked this task as not done yet:\n"
-                        + t
-                        + "\n"
-                        + "____________________________________________________________\n";
+        return "Okay, I've marked this task as not done yet:\n"
+                + t
+                + "\n";
     }
 
     /**

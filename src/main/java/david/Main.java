@@ -22,8 +22,13 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDavid(chatbot); // inject the Duke instance
+
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            controller.setDavid(chatbot); // inject the Duke instance
+            controller.launchChatBot();
+
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

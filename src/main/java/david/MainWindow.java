@@ -64,7 +64,7 @@ public class MainWindow extends AnchorPane {
         String response = david.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, davidImage)
+                DialogBox.getDavidDialog(response, davidImage)
         );
         userInput.clear();
 
@@ -72,6 +72,17 @@ public class MainWindow extends AnchorPane {
             exitProgram();
         }
     }
+
+    /**
+     * Display a message on launching the application
+     */
+    public void launchChatBot() {
+        String introMessage = david.getStartUpMessage();
+        dialogContainer.getChildren().add(
+                DialogBox.getDavidDialog(introMessage, davidImage)
+        );
+    }
+
 
     /**
      * Ends the chatbot after a 1-second timer
