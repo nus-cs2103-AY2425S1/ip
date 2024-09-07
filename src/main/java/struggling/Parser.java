@@ -1,5 +1,7 @@
 package struggling;
 
+import java.time.LocalDate;
+
 import struggling.command.AddCommand;
 import struggling.command.Command;
 import struggling.command.DeleteCommand;
@@ -13,8 +15,6 @@ import struggling.task.Deadline;
 import struggling.task.Event;
 import struggling.task.Task;
 import struggling.task.ToDo;
-
-import java.time.LocalDate;
 
 /**
  * Commands accepted by the Parser class.
@@ -77,9 +77,9 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(args[1]) - 1);
         case find:
             return new FindCommand(args[1]);
+        default:
+            return new InvalidCommand();
         }
-
-        return new InvalidCommand();
     }
 
 

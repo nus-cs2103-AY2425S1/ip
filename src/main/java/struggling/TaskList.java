@@ -1,13 +1,13 @@
 package struggling;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import struggling.task.Deadline;
 import struggling.task.Event;
 import struggling.task.Task;
 import struggling.task.ToDo;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * TaskList object contains the task list and provides
@@ -33,12 +33,18 @@ public class TaskList {
         tasks = new ArrayList<>();
         for (String s : input) {
             String[] args = s.split(" \\| ");
-            Task task = switch (args[0]) {
-                case "T" -> new ToDo(args[2]);
-                case "D" -> new Deadline(args[2], LocalDate.parse(args[3]));
-                case "E" -> new Event(args[2], args[3], args[4]);
-                default -> throw new StrugglingException("Save file corrupted");
-            };
+
+            Task task;
+
+            if (args[0] == "T") {
+                task = new ToDo(args[2]);
+            } else if (args[0] == "D") {
+                task = new Deadline(args[2], LocalDate.parse(args[3]));
+            } else if (args[0] == "E") {
+                task = new Event(args[2], args[3], args[4]);
+            } else {
+                throw new StrugglingException("Save file corrupted");
+            }
 
             if (Objects.equals(args[1], "1")) {
                 task.mark();
@@ -131,11 +137,17 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public ArrayList<String> findTask(String str) {
+    /**
+     * Returns a list of string representation of tasks which
+     * descriptions contain the keyword.
+     *
+     * @param keyword The string to find in task description.
+     */
+    public ArrayList<String> findTask(String keyword) {
         ArrayList<String> arr = new ArrayList<>();
 
         for (Task t : tasks) {
-            if (t.getDescription().contains(str)) {
+            if (t.getDescription().contains(keyword)) {
                 arr.add(t.toString());
             }
         }

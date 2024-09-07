@@ -1,5 +1,8 @@
 package struggling.task;
 
+/**
+ * Task class keep a description and the done status of a user task.
+ */
 public class Task {
     private final String description;
     private boolean isDone;

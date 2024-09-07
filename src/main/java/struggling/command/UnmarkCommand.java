@@ -4,6 +4,9 @@ import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
 
+/**
+ * UnmarkCommand specifies instruction to mark a task as not done.
+ */
 public class UnmarkCommand extends Command {
 
     private final int index;

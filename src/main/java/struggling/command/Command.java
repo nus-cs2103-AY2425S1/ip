@@ -1,10 +1,10 @@
 package struggling.command;
 
+import java.io.IOException;
+
 import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
-
-import java.io.IOException;
 
 /**
  * Command object specifies if the program should be terminated
