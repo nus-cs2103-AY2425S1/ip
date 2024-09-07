@@ -39,6 +39,9 @@ public class TaskList {
      */
     public Task markAndGetTask(String value) {
         int index = Integer.parseInt(value) - 1;
+        if (index < 0) {
+            throw new EchoException("Sorry! Index cannot be negative, index of the task starts with 1");
+        }
         Task task = this.getTask(index);
         task.mark();
         return task;
@@ -49,9 +52,13 @@ public class TaskList {
      *
      * @param value index of the task to be unmarked in the taskList.
      * @return the task being unmarked.
+     * @throws EchoException if index is less than 0
      */
     public Task unmarkAndGetTask(String value) {
         int index = Integer.parseInt(value) - 1;
+        if (index < 0) {
+            throw new EchoException("Sorry! Index cannot be negative, index of the task starts with 1");
+        }
         Task task = this.getTask(index);
         task.unmark();
         return task;
@@ -66,6 +73,10 @@ public class TaskList {
      */
     public Task getTask(int index) {
         int largestIndex = this.sizeOfTaskList() - 1;
+
+        assert index >= 0 : "index of the task should not be negative";
+        assert largestIndex >= 0 : "largest index of the task array cannot be less than 0";
+
         if (index > largestIndex) {
             throw new EchoException("There is not enough task. "
                     + "\nPlease add more task or change another index.");
