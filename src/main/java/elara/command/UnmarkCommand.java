@@ -1,9 +1,9 @@
 package elara.command;
 
-import elara.components.Storage;
-import elara.components.Ui;
 import elara.task.InvalidInputException;
-import elara.task.TaskList;
+import elara.utils.Storage;
+import elara.utils.TaskList;
+import elara.utils.Ui;
 
 /**
  * Represents a command that marks a task as done that can be executed in the Elara chatbot.

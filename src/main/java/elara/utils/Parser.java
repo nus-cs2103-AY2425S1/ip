@@ -1,4 +1,4 @@
-package elara.components;
+package elara.utils;
 
 import elara.command.AddCommand;
 import elara.command.Command;

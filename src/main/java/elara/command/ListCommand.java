@@ -1,8 +1,8 @@
 package elara.command;
 
-import elara.storage.Storage;
-import elara.task.TaskList;
-import elara.ui.Ui;
+import elara.utils.Storage;
+import elara.utils.TaskList;
+import elara.utils.Ui;
 
 /**
  * Represents a command that lists out the tasks in task list that can be executed in the Elara chatbot.

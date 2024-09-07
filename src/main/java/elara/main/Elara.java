@@ -2,11 +2,11 @@ package elara.main;
 
 import elara.command.Command;
 import elara.command.ExitCommand;
-import elara.parser.Parser;
-import elara.storage.Storage;
 import elara.task.InvalidInputException;
-import elara.task.TaskList;
-import elara.ui.Ui;
+import elara.utils.Parser;
+import elara.utils.Storage;
+import elara.utils.TaskList;
+import elara.utils.Ui;
 
 /**
  * The main class for the Elara chatbot application.
@@ -15,18 +15,18 @@ import elara.ui.Ui;
  */
 public class Elara {
 
+    private static final String FILE_PATH = "./data/Elara.txt";
+
     private final Storage storage;
     private final TaskList taskList;
     private final Ui ui;
 
     /**
      * Constructs an instance of the Elara chatbot.
-     *
-     * @param filePath The file path where the task list is stored.
      */
-    public Elara(String filePath) {
+    public Elara() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         taskList = new TaskList(storage.load());
     }
 
@@ -53,11 +53,11 @@ public class Elara {
 
     /**
      * The main method that starts the Elara chatbot program.
-     * Initializes the chatbot with the given file path to store tasks.
+     * Initializes the chatbot with  the given file path to store tasks.
      *
      * @param args Command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        new Elara("./data/Elara.txt").run();
+        new Elara().run();
     }
 }

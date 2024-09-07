@@ -4,17 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import elara.storage.Storage;
 import elara.task.DeadlineException;
 import elara.task.DeadlineTask;
 import elara.task.EventException;
 import elara.task.EventTask;
 import elara.task.InvalidInputException;
 import elara.task.Task;
-import elara.task.TaskList;
 import elara.task.ToDoException;
 import elara.task.ToDoTask;
-import elara.ui.Ui;
+import elara.utils.Storage;
+import elara.utils.TaskList;
+import elara.utils.Ui;
 
 /**
  * Represents a command to add tasks (ToDo, Deadline, Event) to the task list.

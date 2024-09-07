@@ -1,6 +1,8 @@
-package elara.task;
+package elara.utils;
 
 import java.util.ArrayList;
+
+import elara.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -97,7 +99,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
+            if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
