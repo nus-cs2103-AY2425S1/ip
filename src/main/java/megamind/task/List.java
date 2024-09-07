@@ -14,7 +14,29 @@ public class List {
      * Constructor for the List class.
      */
     public List(ArrayList<Task> tasks) {
+        ArrayList<Task> newTasks = new ArrayList<>();
+
+        // Handles recursion of tasks
+        tasks.forEach(task -> handleRecursion(newTasks, task));
+        tasks.addAll(newTasks);
         this.tasks = tasks;
+    }
+
+    /**
+     * Handles the recursion of tasks.
+     * If the task is an instance of `RecurringTask`, it handles the recurrence and adds the new task to the list.
+     *
+     * @param list The list to which the recurring tasks are added.
+     * @param t    The task to be checked and handled for recurrence.
+     */
+    public void handleRecursion(ArrayList<Task> list, Task t) {
+        if (t instanceof RecurringTask) {
+            Task recur = ((RecurringTask) t).handleRecurringTask();
+            if (recur != null) {
+                list.add(recur);
+            }
+            handleRecursion(list, recur);
+        }
     }
 
     /**
@@ -23,7 +45,10 @@ public class List {
      * @param task Task object that is to be added to the array list.
      */
     public void add(Task task) {
-        tasks.add(task);
+        ArrayList<Task> newTasks = new ArrayList<>();
+        newTasks.add(task);
+        handleRecursion(newTasks, task);
+        tasks.addAll(newTasks);
     }
 
     /**
@@ -98,14 +123,15 @@ public class List {
      * Deletes a task from the list.
      *
      * @param index Index of the task to be deleted.
-     * @return True if the task is successfully deleted, false otherwise.
+     * @return Task if the task is successfully deleted, null otherwise.
      */
-    public boolean delete(int index) {
+    public Task delete(int index) {
         if (index >= 0 && index < tasks.size()) {
+            Task t = tasks.get(index);
             tasks.remove(index);
-            return true;
+            return t;
         } else {
-            return false;
+            return null;
         }
     }
 

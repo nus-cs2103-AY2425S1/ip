@@ -88,9 +88,10 @@ public class Ui {
                 2. todo <description> - Add a to-do task
                 3. deadline <description> /by <deadline> - Add a deadline task
                 4. event <description> /from <start time> /to <end time> - Add an event task
-                5. mark <task number> - Mark a task as done
-                6. unmark <task number> - Mark a task as not done
-                7. delete <task number> - Delete a task
-                8. bye - Exit the program""";
+                5. recur <description> /from <start time> /to <end time> /every <number of days> - Add an recurring task
+                6. mark <task number> - Mark a task as done
+                7. unmark <task number> - Mark a task as not done
+                8. delete <task number> - Delete a task
+                9. bye - Exit the program""";
     }
 }
