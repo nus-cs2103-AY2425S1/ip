@@ -26,6 +26,9 @@ public class FindTaskCommand extends Command {
      * @param keyword The keyword used to search for tasks in the task list.
      */
     public FindTaskCommand(String keyword) {
+        // Assert that the keyword is not null or empty
+        assert keyword != null : "Keyword must not be null";
+        assert !keyword.trim().isEmpty() : "Keyword must not be empty";
         this.keyword = keyword;
     }
 
@@ -43,11 +46,18 @@ public class FindTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        // Assert that taskList and ui are not null
+        assert taskList != null : "Task list must not be null";
+        assert ui != null : "UI object must not be null";
+
         List<Task> tasks = taskList.getTasks();
         List<Task> foundTasks = new ArrayList<>();
 
         // Search for tasks that contain the keyword in their description
         for (Task task : tasks) {
+            // Assert that the task description is not null
+            assert task.getDescription() != null : "Task description must not be null";
+
             if (task.getDescription().contains(this.keyword)) {
                 foundTasks.add(task);
             }

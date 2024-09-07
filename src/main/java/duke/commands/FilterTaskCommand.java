@@ -25,6 +25,8 @@ public class FilterTaskCommand extends Command {
      */
     public FilterTaskCommand(LocalDateTime dateTime) {
         super();
+        // Assert that the provided dateTime is not null
+        assert dateTime != null : "DateTime for filtering tasks must not be null";
         this.dateTime = dateTime;
     }
 
@@ -38,7 +40,16 @@ public class FilterTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        // Assert that taskList and ui are not null before proceeding
+        assert taskList != null : "Task list must not be null";
+        assert ui != null : "UI object must not be null";
+
+        // Fetch the tasks that occur at the specified dateTime
         List<Task> tasks = taskList.getTasksOccurring(dateTime);
+
+        // Assert that the task list returned is not null (it may be empty, but shouldn't be null)
+        assert tasks != null : "Task list returned by getTasksOccurring must not be null";
+
         return ui.formatTaskListings(tasks, true);
     }
 }

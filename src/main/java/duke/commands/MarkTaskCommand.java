@@ -28,6 +28,8 @@ public class MarkTaskCommand extends Command {
         super();
         this.markAsDone = markAsDone;
         this.taskIndex = taskIndex;
+        // Assert that the taskIndex is not negative
+        assert taskIndex >= 0 : "Task index must not be negative";
     }
 
     /**
@@ -40,8 +42,18 @@ public class MarkTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        // Assert that taskList and ui are not null
+        assert taskList != null : "Task list must not be null";
+        assert ui != null : "UI object must not be null";
+
+        // Ensure taskIndex is within valid bounds
+        assert this.taskIndex >= 0 && this.taskIndex < taskList.getTasks().size() : "Task index is out of bounds";
+
         if (this.taskIndex != -1) {
             Task task = taskList.getTask(this.taskIndex);
+            // Assert that the task is not null
+            assert task != null : "Task should not be null";
+
             if (this.markAsDone) {
                 task.setDone();
                 return ui.formatMarkTask(task);
@@ -50,6 +62,6 @@ public class MarkTaskCommand extends Command {
                 return ui.formatUnmarkTask(task);
             }
         }
-        throw new InvalidInputException("Please enter a valid task!");
+        throw new InvalidInputException("Please enter a valid task index to mark!");
     }
 }

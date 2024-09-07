@@ -35,32 +35,42 @@ public class Storage {
      * @return The corresponding Task object, or null if there is an error converting the task.
      */
     private static Task convertStateToTask(String state) {
+        // Assert that the state string is valid and not empty
+        assert state != null && !state.trim().isEmpty() : "Invalid state string provided";
+
         String[] taskInformation = state.split(" \\| ");
+        assert taskInformation.length >= 3 : "Malformed state string, expected at least 3 parts";
+
         String description = taskInformation[2];
         Task task;
 
         if (taskInformation[0].equals("T")) {
             task = new ToDos(description);
         } else if (taskInformation[0].equals("D")) {
+            assert taskInformation.length >= 4 : "Malformed deadline state, expected 4 parts";
             String by = taskInformation[3];
 
             try {
                 task = new Deadline(description, by);
             } catch (InvalidDeadlineException e) {
-                System.out.println(e.getMessage() + "error converting task back to deadline");
+                System.out.println(e.getMessage() + " error converting task back to deadline");
                 return null;
             }
-        } else {
+        } else if (taskInformation[0].equals("E")) {
+            assert taskInformation.length >= 4 : "Malformed event state, expected 4 parts";
             String[] times = taskInformation[3].split("-");
+            assert times.length == 2 : "Malformed event times, expected 'from-to' format";
             String from = times[0];
             String to = times[1];
 
             try {
                 task = new Event(description, from, to);
             } catch (InvalidEventException e) {
-                System.out.println(e.getMessage() + "error converting task back to event");
+                System.out.println(e.getMessage() + " error converting task back to event");
                 return null;
             }
+        } else {
+            throw new IllegalArgumentException("Unknown task type: " + taskInformation[0]);
         }
 
         if (taskInformation[1].equals("1")) {
@@ -77,13 +87,20 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void saveTasksListToStateFile(List<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks list cannot be null";
+
         Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
         Path filePath = dirPath.resolve(Storage.STATE_FILE);
+
+        if (Files.notExists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
 
         BufferedWriter writer = Files.newBufferedWriter(filePath);
         List<String> stateFile = new ArrayList<>();
 
         for (Task task : tasks) {
+            assert task != null : "Task cannot be null";
             stateFile.add(Storage.convertTaskToState(task));
         }
 
@@ -102,6 +119,8 @@ public class Storage {
      * @return The string representation of the task for storage.
      */
     private static String convertTaskToState(Task task) {
+        assert task != null : "Task cannot be null";
+
         StringBuilder str = new StringBuilder();
         str.append(task.getStatusIcon().equals("X") ? "| 1 " : "| 0 ");
         str.append("| ");
@@ -155,7 +174,10 @@ public class Storage {
         // Convert the state file lines to a list of tasks
         List<Task> tasks = new ArrayList<>();
         for (String state : lines) {
-            tasks.add(Storage.convertStateToTask(state));
+            Task task = Storage.convertStateToTask(state);
+            if (task != null) {
+                tasks.add(task);
+            }
         }
 
         return tasks;

@@ -23,6 +23,7 @@ public class AddTaskCommand extends Command {
      */
     public AddTaskCommand(String userInput) {
         super();
+        assert userInput != null && !userInput.isEmpty() : "User input must not be null or empty";
         this.userInput = userInput;
     }
 
@@ -36,11 +37,14 @@ public class AddTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "UI must not be null";
+        assert storage != null : "Storage must not be null";
+
         try {
             return taskList.addTask(this.userInput);
         } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
-            // ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
-            throw new InvalidInputException("Please enter a valid task!");
+            throw new InvalidInputException("Please enter a valid task to add!");
         }
     }
 }

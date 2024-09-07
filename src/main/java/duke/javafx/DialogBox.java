@@ -26,11 +26,19 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img, String styleClass) {
+        assert text != null : "Text for dialog should not be null";
+        assert img != null : "Image for dialog should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            assert fxmlLoader != null : "FXMLLoader should not be null"; // Assertion to ensure loader is valid
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+
+            assert dialog != null : "Label 'dialog' should be initialized after loading FXML";
+            assert displayPicture != null : "ImageView 'displayPicture' should be initialized after loading FXML";
+
             double radius = 49.5; // half of fitHeight/fitWidth of ImageView
             Circle clip = new Circle(radius, radius, radius);
             displayPicture.setClip(clip);
@@ -50,6 +58,8 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        assert !tmp.isEmpty() : "DialogBox children should not be empty when flipping";
+
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
