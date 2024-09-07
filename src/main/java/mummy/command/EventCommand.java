@@ -5,21 +5,20 @@ import java.util.HashMap;
 import mummy.task.Event;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Storage;
 
 /**
  * Represents a command to add an event task.
  * Inherits from the Command class.
  */
-public class EventCommand extends Command {
+public final class EventCommand extends Command {
 
     public EventCommand(HashMap<String, String> arguments) {
         super(arguments);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String description = this.getArgument("description", "");
         String from = this.getArgument("from");
         String to = this.getArgument("to");
@@ -28,11 +27,16 @@ public class EventCommand extends Command {
             throw new MummyException("/from and /to are required");
         }
 
-        addTask(new Event(description, from, to), taskList, ui, storage);
+        return this.addTask(new Event(description, from, to), taskList, storage);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.EVENT;
     }
 }
