@@ -10,6 +10,7 @@ import myapp.command.EventCommand;
 import myapp.command.ExitCommand;
 import myapp.command.FindCommand;
 import myapp.command.FixedDurationCommand;
+import myapp.command.HelpCommand;
 import myapp.command.ListCommand;
 import myapp.command.ListOnCommand;
 import myapp.command.MarkCommand;
@@ -41,6 +42,8 @@ public class Parser {
         switch (command) {
         case BYE:
             return new ExitCommand();
+        case HELP:
+            return new HelpCommand();
         case LIST_ON:
             return parseListOnCommand(input);
         case LIST:
