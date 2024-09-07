@@ -73,17 +73,19 @@ public class TaskList {
      */
     public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
         Task newTask = switchTask(tasks, type, desc, args);
+        if (detectDuplicates(tasks, newTask)){
+            ui.printExists();
+        }
+        tasks.add(newTask);
         ui.alterTask(tasks, newTask, true);
     }
 
     private Task switchTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime[] args) {
-        Task newTask = switch (type) {
+        return switch (type) {
             case TODO -> new ToDo(desc);
             case DEADLINE -> new Deadline(desc, args[0]);
             case EVENT -> new Event(desc, args[0], args[1]);
         };
-        tasks.add(newTask);
-        return newTask;
     }
 
     /**
@@ -161,6 +163,10 @@ public class TaskList {
      */
     public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
         Task newTask = switchTask(tasks, type, desc, args);
+        if (detectDuplicates(tasks, newTask)){
+            return "This task exists!";
+        }
+        tasks.add(newTask);
         return "  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
@@ -180,5 +186,35 @@ public class TaskList {
             return "No matching tasks found.";
         }
         return foundTasks;
+    }
+
+    /**
+     * Detects if there is a duplicate task in the list.
+     *
+     * @param tasks The list of tasks.
+     * @param newTask The new task to check for duplicates.
+     * @return True if a duplicate task is found, false otherwise.
+     */
+    public Boolean detectDuplicates(ArrayList<Task> tasks, Task newTask) {
+        for (Task task : tasks) {
+            if (task.getDesc().equals(newTask.getDesc())) {
+                if (task instanceof Deadline && newTask instanceof Deadline) {
+                    if (((Deadline) task).getBy().equals(((Deadline) newTask).getBy())) {
+                        return true;
+                    }
+                }
+                else if (task instanceof Event existingEvent && newTask instanceof Event newEvent) {
+                    if (existingEvent.getFrom().equals(newEvent.getFrom()) &&
+                            existingEvent.getTo().equals(newEvent.getTo())) {
+                        return true;
+                    }
+                }
+                // For TODO tasks, a matching description is enough to count as duplicate
+                else if (task instanceof ToDo && newTask instanceof ToDo) {
+                    return true; // Duplicate ToDo task
+                }
+            }
+        }
+        return false; // No duplicates found
     }
 }
