@@ -1,15 +1,16 @@
-package orion.chatbot;
+package orion.ui;
 
 import java.util.List;
 import java.util.Scanner;
 
 import orion.tasks.Task;
+import orion.utils.TaskList;
 
 /**
- * The {@code Ui} class handles all interactions with the user. It provides
- * methods for printing messages to the console and reading user input.
- * The class is responsible for displaying various user interface elements
- * such as greetings, task lists, and error messages.
+ * The {@code Ui} class is a CLI based UI which handles all interactions
+ * with the user. It provides methods for printing messages to the console
+ * and reading user input. The class is responsible for displaying various
+ * user interface elements such as greetings, task lists, and error messages.
  */
 public class Ui {
 
@@ -41,14 +42,14 @@ public class Ui {
     /**
      * Constructs a {@code Ui} object and initializes the {@code Scanner}.
      */
-    protected Ui() {
+    public Ui() {
         sc = new Scanner(System.in);
     }
 
     /**
      * Prints a horizontal bar to the console.
      */
-    protected void printBar() {
+    public void printBar() {
         System.out.println(Ui.BAR);
     }
 
@@ -86,7 +87,7 @@ public class Ui {
      *
      * @return The command input by the user.
      */
-    protected String readCommand() {
+    public String readCommand() {
         String input = sc.nextLine();
         printBar();
         return input;
@@ -153,14 +154,14 @@ public class Ui {
      *
      * @param taskNo The number of tasks loaded.
      */
-    protected void printWelcome(int taskNo) {
+    public void printWelcome(int taskNo) {
         printIndent(String.format("Welcome back! You have %d tasks in your task list.", taskNo));
     }
 
     /**
      * Prints an error message indicating that tasks could not be loaded.
      */
-    protected void printLoadingError() {
+    public void printLoadingError() {
         printIndent("Your existing task list is somewhere amongst the stars...");
         printIndent("We can't seem to find it!");
         printIndent("We've created a new task list for you.");

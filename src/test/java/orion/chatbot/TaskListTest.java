@@ -13,6 +13,7 @@ import orion.tasks.Deadline;
 import orion.tasks.Event;
 import orion.tasks.Task;
 import orion.tasks.Todo;
+import orion.utils.TaskList;
 
 public class TaskListTest {
 

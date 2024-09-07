@@ -1,4 +1,4 @@
-package orion.chatbot;
+package orion.utils;
 
 import java.util.Arrays;
 
@@ -46,7 +46,7 @@ public class Parser {
      * @return the corresponding {@link Command} object
      * @throws OrionException if the input is invalid or cannot be parsed into a valid command
      */
-    protected static Command parse(String input) throws OrionException {
+    public static Command parse(String input) throws OrionException {
         String[] inputArray = input.split(" ");
         String command = inputArray[0].toLowerCase();
         String[] parsedInputArray = input.split("/");

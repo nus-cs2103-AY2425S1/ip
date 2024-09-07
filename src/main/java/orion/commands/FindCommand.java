@@ -2,9 +2,8 @@ package orion.commands;
 
 import java.util.List;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * Represents a command to find and list tasks that match a specific query.
@@ -26,16 +25,23 @@ public class FindCommand extends Command {
 
     /**
      * Executes the find command by searching for tasks that match the query and printing them.
-     * The matching tasks are obtained from the {@link TaskList} and their descriptions are printed
-     * using the {@link Ui}.
+     * The matching tasks are obtained from the {@link TaskList} and their descriptions are printed.
      *
      * @param tasks the {@link TaskList} containing the tasks to search through
      * @param storage the {@link Storage} object used for data storage (not used in this method)
-     * @param ui the {@link Ui} object used to print the task descriptions
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         List<String> taskDescriptions = tasks.getMatchingTasks(query);
-        ui.printTaskList(taskDescriptions);
+        if (taskDescriptions.isEmpty()) {
+            return "Your task list is empty! Well done!";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:");
+        for (String s : taskDescriptions) {
+            stringBuilder.append("\n");
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
     }
 }

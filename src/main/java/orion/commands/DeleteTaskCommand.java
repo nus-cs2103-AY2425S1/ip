@@ -1,8 +1,7 @@
 package orion.commands;
 
-import orion.chatbot.Storage;
-import orion.chatbot.TaskList;
-import orion.chatbot.Ui;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 import orion.exceptions.OrionException;
 import orion.exceptions.OrionInputException;
 import orion.tasks.Task;
@@ -39,12 +38,11 @@ public class DeleteTaskCommand extends Command {
      *
      * @param tasks  the {@link TaskList} from which the task will be deleted
      * @param storage the {@link Storage} for managing the task list
-     * @param ui      the {@link Ui} for updating the user interface
      * @throws OrionException if an error occurs during execution, such as
      *                        an invalid task number
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws OrionException {
+    public String execute(TaskList tasks, Storage storage) throws OrionException {
         if (taskNo < 1) {
             throw new OrionInputException("Please provide a positive task number!");
         }
@@ -54,7 +52,9 @@ public class DeleteTaskCommand extends Command {
             throw new OrionInputException(errorMsg);
         }
         Task task = tasks.deleteTask(taskNo - 1);
-        ui.printDeleteTask(tasks, task);
+        return String.format("Sure! I've deleted the following task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + tasks.getNoTasks() + " tasks in your list.");
     }
 }
 
