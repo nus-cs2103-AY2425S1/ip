@@ -11,6 +11,40 @@ import jackbean.task.TaskList;
  * This JavaDoc was written by GitHub Copilot.
  */
 public class JackBean {
+    private TaskList taskList;
+
+    public JackBean() {
+        taskList = new TaskList();
+        Storage.fetchStorage(taskList);
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        // handle bye
+        if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
+            return "Bye homie! Come back if you need anything else. " + "JackBean, signing off!";
+        }
+
+        switch (input.toLowerCase()) {
+        case "hi":
+        case "hey":
+        case "yo":
+        case "hello":
+            return "Hello homie! I'm JackBean, a chatbot designed to help you with your daily tasks!"
+                    + "\nHow may I help you today my homie?";
+        }
+
+        // handle other input
+        try {
+            String reply = Parser.parseUserInput(input, taskList);
+            return reply;
+        } catch (Exception e) {
+            return "Homie! There was an error:\n" + e.toString();
+        }
+    }
+
     /**
      * Main entry-point for the JackBean application.
      * This JavaDoc was written by GitHub Copilot.
