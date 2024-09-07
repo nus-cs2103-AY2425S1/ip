@@ -8,6 +8,7 @@ import knight2103.tasks.Event;
 import knight2103.Ui;
 import knight2103.files.Storage;
 
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
@@ -48,6 +49,8 @@ public class AddCommand extends Command {
                     "yyyy-mm-dd or with the time format";
         } catch (ArrayIndexOutOfBoundsException e) {
             return "There's an issue in the instruction format. Please check.";
+        } catch (IOException e) { // from save() in Storage class
+            return "Problems creating an instance of FileWriter";
         }
     }
 }

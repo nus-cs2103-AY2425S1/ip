@@ -5,6 +5,8 @@ import knight2103.tasks.Task;
 import knight2103.Ui;
 import knight2103.files.Storage;
 
+import java.io.IOException;
+
 public class ModifyCommand extends Command {
     ModifyCommand(CommandVerb verb, String description) {
         super(verb, description);
@@ -48,6 +50,8 @@ public class ModifyCommand extends Command {
             return e.getMessage()
                     + "There aren't so many tasks. Please check if the task number is correct. "
                     + "To see all tasks, type list";
+        } catch (IOException e) { // from save() in Storage class
+            return "Problems creating an instance of FileWriter";
         }
     }
 }

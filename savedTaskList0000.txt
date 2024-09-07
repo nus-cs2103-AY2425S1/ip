@@ -1,7 +1,0 @@
-T | 1 | book fair
-D | 0 | return book | 2024-12-03
-E | 0 | read | 2024-12-13T22:00 | 2024-12-14T11:00
-T | 0 | CS2103
-T | 1 | race car
-
-T | 0 | helpme

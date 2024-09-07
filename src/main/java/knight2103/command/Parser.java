@@ -1,7 +1,5 @@
 package knight2103.command;
 
-import java.util.Optional;
-
 public class Parser {
     /**
      * Interprets user input and creates a relevant command. Returns Optional<Command>.
@@ -17,39 +15,35 @@ public class Parser {
      * the expected basic format which for certain commands, requires some
      * description apart from the first word (command verb).
      */
-    public static Optional<Command> parse(String fullCommand) throws InvalidCommandException {
+    public static Command parse(String fullCommand) throws InvalidCommandException {
         String[] commandArray = fullCommand.split(" ", 2);
         try {
             switch (commandArray[0]) {
             case "list":
-                return Optional.of(new ListCommand());
+                return new ListCommand();
             case "todo":
-                return Optional.of(new AddCommand(CommandVerb.TODO, commandArray[1]));
+                return new AddCommand(CommandVerb.TODO, commandArray[1]);
             case "deadline":
-                return Optional.of(new AddCommand(CommandVerb.DEADLINE, commandArray[1]));
+                return new AddCommand(CommandVerb.DEADLINE, commandArray[1]);
             case "event":
-                return Optional.of(new AddCommand(CommandVerb.EVENT, commandArray[1]));
+                return new AddCommand(CommandVerb.EVENT, commandArray[1]);
             case "mark":
-                return Optional.of(new ModifyCommand(CommandVerb.MARK, commandArray[1]));
+                return new ModifyCommand(CommandVerb.MARK, commandArray[1]);
             case "unmark":
-                return Optional.of(new ModifyCommand(CommandVerb.UNMARK, commandArray[1]));
+                return new ModifyCommand(CommandVerb.UNMARK, commandArray[1]);
             case "delete":
-                return Optional.of(new ModifyCommand(CommandVerb.DELETE, commandArray[1]));
+                return new ModifyCommand(CommandVerb.DELETE, commandArray[1]);
             case "find":
-                return Optional.of(new FindCommand(CommandVerb.FIND, commandArray[1]));
+                return new FindCommand(CommandVerb.FIND, commandArray[1]);
             case "bye":
-                return Optional.of(new ByeCommand());
+                return new ByeCommand();
             default:
-                throw new InvalidCommandException();
+                throw new InvalidCommandException("Invalid Instruction. Only valid Instructions are "
+                        + "list, todo, deadline, event, mark, unmark, delete, find");
             }
-        } catch (InvalidCommandException e) { // HMM
-            System.out.println("Invalid Instruction. Only valid Instructions are "
-                    + "list, todo, deadline, event, mark, unmark, delete, find");
-            return Optional.empty();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("There's an issue in the instruction format. "
+            throw new InvalidCommandException("There's an issue in the instruction format. "
                     + "Please check that it is <knight2103.command.CommandVerb> <description> format");
-            return Optional.empty();
         }
     }
 }

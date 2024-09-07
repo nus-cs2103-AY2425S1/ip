@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     /** Allows bot to start talking when GUI is opened*/
     public void startBotConvo() {
         dialogContainer.getChildren().addAll(DialogBox.getKnight2103Dialog(
-                knight2103.enableWelcome(),
+                knight2103.triggerWelcome(),
                 knight2103Image));
     }
 
