@@ -115,7 +115,7 @@ public class TaskList {
     }
 
     /**
-     * Clears all tasks from the list and prints a confirmation message.
+     * Clears all tasks from the list and storage and prints a confirmation message.
      *
      * @return A string of the confirmation message of the tasks being cleared.
      * @throws MortalReminderException from inner method.
