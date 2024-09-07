@@ -135,6 +135,27 @@ public class Bob {
                         list.get(i));
             }
         },
+        DELETE("delete") {
+            @Override
+            public void run() {
+                if (argument.isBlank()) {
+                    throw new MissingArgumentException("index of the task that you want to delete");
+                }
+                int i;
+                try {
+                    i = Integer.parseInt(argument) - 1;
+                } catch (NumberFormatException e) {
+                    throw new IncorrectArgumentException("an integer");
+                }
+                if (i < 0 || i >= list.size()) {
+                    throw new IncorrectArgumentException("a valid index");
+                }
+                Task task = list.remove(i);
+                say("OK, I've removed this task:\n  " +
+                        task + "\n" +
+                        "Now you have " + list.size() + " tasks in the list.");
+            }
+        },
         CATCH_ALL("") {
             @Override
             public void run() {
