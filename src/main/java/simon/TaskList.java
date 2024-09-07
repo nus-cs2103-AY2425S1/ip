@@ -34,6 +34,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "task cannot be null";
         this.tasks.add(task);
     }
 
@@ -87,13 +88,13 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         int count = 1;
         for (Task task : tasks) {
-            output += ("\t") + (count) + (". ") + (task.toString()) + "\n";
+            output.append(("\t")).append(count).append(". ").append(task.toString()).append("\n");
             count++;
         }
-        return output;
+        return output.toString();
     }
 
     /**

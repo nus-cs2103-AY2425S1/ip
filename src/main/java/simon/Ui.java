@@ -50,6 +50,7 @@ public class Ui {
      * @return A string representation of the task list.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "tasks cannot be null";
         StringBuilder str = new StringBuilder();
         System.out.print(HOR_LINE);
         str.append("Here are your tasks: \n");
@@ -93,6 +94,7 @@ public class Ui {
      * @return A message indicating that the task was marked as done.
      */
     public String showTaskMarked(Task task) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("\tNice! I've marked this task as done:\n" + "\t" + task.toString()));
         return "Nice! I've marked this task as done: \n" + task.toString();
     }
@@ -104,6 +106,7 @@ public class Ui {
      * @return A message indicating that the task was marked as not done yet.
      */
     public String showTaskUnmarked(Task task) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("\tOK, I've marked this task as not done yet:\n" + "\t" + task.toString()));
         return "OK, I've marked this task as not done yet: \n" + task.toString();
     }
@@ -116,6 +119,7 @@ public class Ui {
      * @return A message indicating that the task was deleted and the new task count.
      */
     public String showTaskDeleted(Task task, int taskCount) {
+        assert task != null : "task cannot be null";
         System.out.print(printMessage("Noted. I've removed this task:\n" + "\t" + task.toString())
                 + "\tNow you have " + taskCount + " tasks in the list.");
         return ("Noted. I've removed this task: " + task.toString())
