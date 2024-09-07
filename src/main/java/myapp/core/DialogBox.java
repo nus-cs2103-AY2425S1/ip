@@ -77,7 +77,7 @@ public class DialogBox extends HBox {
      * @param img The bot's display picture.
      * @return A DialogBox configured for the bot's response.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getBingBongDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

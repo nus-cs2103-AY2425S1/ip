@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
 
     /** The image representing the bot in the dialog boxes. */
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/BingBong.png"));
 
     /**
      * Constructs a MainWindow and sets up the primary stage.
@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm BingBong\n" + "What can I do for you?", botImage)
+                DialogBox.getBingBongDialog("Hello! I'm BingBong\n" + "What can I do for you?", botImage)
         );
     }
 
@@ -98,7 +98,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, botImage)
+                DialogBox.getBingBongDialog(response, botImage)
         );
 
         if (bot.isExit()) {

@@ -3,10 +3,9 @@ package myapp.core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 import myapp.task.Deadline;
 import myapp.task.Event;
@@ -42,19 +41,17 @@ public class Storage {
      *      or if the file contains unknown task types.
      */
     public List<Task> load() throws BingBongException {
-        try {
-            return Files.lines(Paths.get(filePath))
-                    .map(line -> {
-                        try {
-                            return parseTask(line);
-                        } catch (BingBongException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .collect(Collectors.toList());
+        List<Task> tasks = new ArrayList<>();
+        try (Scanner reader = new Scanner(new File(filePath))) {
+            while (reader.hasNext()) {
+                String line = reader.nextLine();
+                Task task = parseTask(line);
+                tasks.add(task);
+            }
         } catch (IOException e) {
             throw new BingBongException("Error reading from file: " + e.getMessage());
         }
+        return tasks;
     }
 
     /**
