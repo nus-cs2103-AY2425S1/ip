@@ -6,4 +6,18 @@ list
 mark 1
 mark 3
 list
+blah
+todo
+deadline /by now
+deadline A deadline
+event /from now /to later
+event An event
+mark
+mark a
+mark 999
+mark 0
+unmark
+unmark a
+unmark 999
+unmark 0
 bye

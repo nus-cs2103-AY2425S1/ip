@@ -38,7 +38,7 @@ public class Bob {
                 if (argument.isBlank()) {
                     throw new MissingArgumentException("description of the todo");
                 }
-                Task task = new Todo(argument);
+                Task task = new Todo(argument.strip());
                 list.add(task);
                 say("added: " + task);
             }
@@ -50,13 +50,13 @@ public class Bob {
                 if (byIndex == -1) {
                     throw new MissingArgumentException("'by' argument to add a deadline");
                 }
-                String desc = argument.substring(0, byIndex);
+                String desc = argument.substring(0, byIndex).strip();
                 if (desc.isBlank()) {
                     throw new MissingArgumentException("description of the deadline");
                 }
                 Task task = new Deadline(
                         desc,
-                        argument.substring(byIndex + 4)
+                        argument.substring(byIndex + 4).strip()
                 );
                 list.add(task);
                 say("added: " + task);
@@ -80,12 +80,15 @@ public class Bob {
                 String desc = fromIndex < toIndex
                                 ? argument.substring(0, fromIndex)
                                 : argument.substring(0, toIndex);
+                desc = desc.strip();
                 String from = fromIndex < toIndex
                                 ? argument.substring(fromIndex + 6, toIndex)
                                 : argument.substring(fromIndex + 6);
+                from = from.strip();
                 String to = fromIndex < toIndex
                                 ? argument.substring(toIndex + 4)
                                 : argument.substring(toIndex + 4, fromIndex);
+                to = to.strip();
                 if (desc.isBlank()) {
                     throw new MissingArgumentException("description of the event");
                 }
