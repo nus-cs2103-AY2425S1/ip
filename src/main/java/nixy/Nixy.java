@@ -1,5 +1,7 @@
 package nixy;
 
+import java.util.function.Consumer;
+
 import nixy.exceptions.NixyException;
 import nixy.parse.Parsed;
 import nixy.parse.Parser;
@@ -16,6 +18,7 @@ public class Nixy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Runnable onExit = () -> {};
 
     /**
      * Constructor for Nixy.
@@ -35,88 +38,124 @@ public class Nixy {
     }
 
     /**
-     * Main driver for Nixy
+     * Sets the display method for Nixy to display messages.
+     *
+     * @param display The display method to set.
+     */
+    public void setNewDisplay(Consumer<String[]> display) {
+        ui.setDisplay(display);
+    }
+
+    /**
+     * Sets the onExit method for Nixy to run when the application exits.
+     *
+     * @param onExit The onExit method to set.
+     */
+    public void setOnExit(Runnable onExit) {
+        this.onExit = onExit;
+    }
+
+    /**
+     * Displays the welcome message to the user.
+     */
+    public void showWelcome() {
+        ui.showWelcome();
+    }
+
+    /**
+     * Processes user input and executes the corresponding command logic.
+     *
+     * @param userInput The user input to process.
+     */
+    public void processInput(String userInput) {
+        Parsed p;
+        Command c;
+        try {
+            p = Parser.parse(userInput);
+            c = p.getCommand();
+        } catch (NixyException e) {
+            ui.showNixyException(e);
+            return;
+        }
+        switch (c) {
+        case BYE:
+            ui.showGoodbye();
+            onExit.run();
+            break;
+        case LIST:
+            ui.showList(tasks);
+            break;
+        case MARK:
+            try {
+                String taskStr = tasks.markTaskAsDone(p.getTaskNumber());
+                ui.showMarkedAsDone(taskStr);
+                storage.save(tasks);
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+            }
+            break;
+        case UNMARK:
+            try {
+                String taskStr = tasks.markTaskAsUndone(p.getTaskNumber());
+                ui.showMarkedAsUndone(taskStr);
+                storage.save(tasks);
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+            }
+            break;
+        case DELETE:
+            try {
+                String taskStr = tasks.deleteTask(p.getTaskNumber());
+                ui.showDeletedTask(taskStr, tasks.getTaskCount());
+                storage.save(tasks);
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+            }
+            break;
+        case FIND:
+            try {
+                TaskList foundTasks = tasks.findTasks(p.getStringParam());
+                ui.showMatchingList(foundTasks);
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+            }
+            break;
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            try {
+                Task task = p.getTask();
+                tasks.addTask(task);
+                ui.showAddedTask(task, tasks.getTaskCount());
+                storage.save(tasks);
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+            }
+            break;
+        case INVALID:
+            ui.showUnknownWarning();
+            break;
+        default:
+            // Should not reach here
+            break;
+        }
+    }
+
+    /**
+     * Main driver for Nixy cli
      * Entry point to display welcome message and read user input.
      */
     public void run() {
-        ui.showWelcome();
-        Boolean isExit = false;
-        while (!isExit) {
-            String input = ui.readInput();
-            Parsed p;
-            Command c;
-            try {
-                p = Parser.parse(input);
-                c = p.getCommand();
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-                continue;
-            }
-            switch (c) {
-            case BYE:
-                isExit = true;
-                break;
-            case LIST:
-                ui.showList(tasks);
-                break;
-            case MARK:
-                try {
-                    String taskStr = tasks.markTaskAsDone(p.getTaskNumber());
-                    ui.showMarkedAsDone(taskStr);
-                    storage.save(tasks);
-                } catch (NixyException e) {
-                    ui.showNixyException(e);
-                }
-                break;
-            case UNMARK:
-                try {
-                    String taskStr = tasks.markTaskAsUndone(p.getTaskNumber());
-                    ui.showMarkedAsUndone(taskStr);
-                    storage.save(tasks);
-                } catch (NixyException e) {
-                    ui.showNixyException(e);
-                }
-                break;
-            case DELETE:
-                try {
-                    String taskStr = tasks.deleteTask(p.getTaskNumber());
-                    ui.showDeletedTask(taskStr, tasks.getTaskCount());
-                    storage.save(tasks);
-                } catch (NixyException e) {
-                    ui.showNixyException(e);
-                }
-                break;
-            case FIND:
-                try {
-                    TaskList foundTasks = tasks.findTasks(p.getStringParam());
-                    ui.showMatchingList(foundTasks);
-                } catch (NixyException e) {
-                    ui.showNixyException(e);
-                }
-                break;
-            case TODO:
-                // Fallthrough
-            case DEADLINE:
-                // Fallthrough
-            case EVENT:
-                try {
-                    Task task = p.getTask();
-                    tasks.addTask(task);
-                    ui.showAddedTask(task, tasks.getTaskCount());
-                    storage.save(tasks);
-                } catch (NixyException e) {
-                    ui.showNixyException(e);
-                }
-                break;
-            case INVALID:
-                ui.showUnknownWarning();
-                break;
-            default:
-                // Should not reach here
-                break;
-            }
+        // Have to use array to store boolean value to be able to modify it in lambda
+        boolean[] isExit = { false };
+        onExit = () -> isExit[0] = true;
+        showWelcome();
+        while (!isExit[0]) {
+            String userInput = ui.readCliInput();
+            processInput(userInput);
         }
-        ui.showGoodbye();
     }
 
     public static void main(String[] args) {
