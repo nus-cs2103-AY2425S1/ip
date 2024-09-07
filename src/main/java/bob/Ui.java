@@ -38,42 +38,42 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm Bob the bot!\nHow can I help you?");
+    public String showWelcome() {
+        return "Hello! I'm Bob the bot!\nHow can I help you?";
     }
 
     /**
      * Displays an error message to the user.
      */
-    public void showError(Exception e) {
-        System.out.println(e.getMessage());
+    public String showError(Exception e) {
+        return e.getMessage();
     }
 
     /**
      * Displays a message to the user.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 
     /**
      * Displays a success message to indicate successful loading of saved tasks.
      */
-    public void showLoadingSuccess() {
-        System.out.println("Saved tasks has been successfully loaded.");
+    public String showLoadingSuccess() {
+        return "Saved tasks are successfully loaded.";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("Bye! Hope to see you again :)");
+    public String showGoodbye() {
+        return "Bye! Hope to see you again :)";
     }
 
     /**
      * Displays a message to indicate user's list of tasks is empty.
      */
-    public void showNoTasks() {
-        System.out.println("There are 0 tasks in your list now. Start adding them!");
+    public String showNoTasks() {
+        return "There are 0 tasks in your list now. Start adding them!";
     }
 }
