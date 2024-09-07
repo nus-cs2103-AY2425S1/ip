@@ -1,7 +1,10 @@
-package Joseph;
+package Joseph.GUI;
 
 import Joseph.Exceptions.UnknownCommandException;
 import Joseph.Tasks.TaskList;
+import Joseph.UI;
+import Joseph.Parser;
+import Joseph.Storage;
 
 /**
  *  The main class of the chatbot.
@@ -34,5 +37,9 @@ public class Joseph {
                 ui.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    public String getResponse(String input) {
+        return "Joseph heard: " + input;
     }
 }
