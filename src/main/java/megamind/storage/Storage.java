@@ -47,7 +47,7 @@ public class Storage {
      * If loading is successful, the tasks are loaded into the task list.
      *
      * Warning can be suppressed as the only object type that can be saved
-     * is an ArrayList<Task>.
+     * is an ArrayList consisting of Task objects.
      */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> loadTasks() {

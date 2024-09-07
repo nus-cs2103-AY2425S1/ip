@@ -26,7 +26,7 @@ public class EventTest {
     @Test
     public void testToString() {
         Event event = new Event("project meeting", "11/11/1111 1111", "22/12/2222 2222");
-        assertEquals("[E][ ] project meeting (FROM: 11 Nov 1111, 11:11:00 am TO: 22 Dec 2222, 10:22:00 pm)",
+        assertEquals("[E][ ] project meeting (FROM: Nov 11, 1111, 11:11:00 AM TO: Dec 22, 2222, 10:22:00 PM)",
                 event.toString());
     }
 }

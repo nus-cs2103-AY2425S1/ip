@@ -62,6 +62,12 @@ public class Ui {
         return "See you around!";
     }
 
+    /**
+     * Shows an error message to the user based on the exception type.
+     *
+     * @param e The exception that was thrown.
+     * @return A string containing the error message to be displayed to the user.
+     */
     public String showErrorMessage(Exception e) {
         if (e instanceof DateTimeParseException) {
             return "Invalid date/time format. Please use the "
