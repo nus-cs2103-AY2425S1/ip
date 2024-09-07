@@ -14,11 +14,11 @@
 
 /* Paste this below reply-label */
 .add-label {
-    -fx-background-color: yellow;
+    -fx-background-color: palegreen;
 }
 
 .marked-label {
-    -fx-background-color: palegreen;
+    -fx-background-color: yellow;
 }
 
 .delete-label {

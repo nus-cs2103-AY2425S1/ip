@@ -64,7 +64,7 @@ public class Storage {
      * <p>
      * This method refreshes the file after mark, unmark or delete operations by first clearing the file
      * and adding all the tasks back into the file.
-     * back to the file. This effectively updates the file to reflect the current state of the task list.
+     * This effectively updates the file to reflect the current state of the task list.
      * The method was inspired from the
      * <a href="https://stackoverflow.com/questions/5800603/delete-specific-line-from-java-text-file">
      * following post.</a>
@@ -100,7 +100,7 @@ public class Storage {
                 throw new MortalReminderException("File cannot be created!");
             }
 
-            // Load all tasks in the storage file into the TaskList at the start of the program.
+            // Load all tasks in the storage file into the TaskList and returns it at the start of the program.
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 String input = s.nextLine();

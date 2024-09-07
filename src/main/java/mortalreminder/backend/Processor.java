@@ -142,6 +142,8 @@ public class Processor {
             newTask = new Deadline(commandDetails);
         } else {
             assert commandType == CommandType.EVENT;
+            // the only other commandType that should be passed in at this point should be EVENT.
+            // If this assert is false, that means that either this method or handleCommand was modified incorrectly.
             newTask = new Event(commandDetails);
         }
         return taskList.addTask(newTask);
@@ -160,12 +162,18 @@ public class Processor {
         ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            if (Objects.equals(task.getType(), "D")
-                    || Objects.equals(task.getType(), "E")) {
-                TimedTask timedTask = (TimedTask) task;
-                if (LocalDateTime.now().isBefore(timedTask.getDueDate()) && !task.getIsDone()) {
-                    tasks.add(task);
-                }
+
+            /* stops the current iteration if the task is not a TimedTask or already done. */
+            if (Objects.equals(task.getType(), "T") || task.getIsDone()) {
+                continue;
+            }
+            // An assumption is everything past this is all some type of timed task.
+            assert task.getType().equals("D") || task.getType().equals("E");
+
+            /* Add the task only if the task deadline or duration falls before the given deadline. */
+            TimedTask timedTask = (TimedTask) task;
+            if (LocalDateTime.now().isBefore(timedTask.getDueDate())) {
+                tasks.add(task);
             }
         }
         return FormattedPrinting.printUpcomingDeadlinesEvents(tasks);
@@ -181,9 +189,10 @@ public class Processor {
                     Available commands are:
                     """);
         for (CommandType type : CommandType.values()) {
-            if (type != CommandType.UNKNOWN) {
-                message.append(type.name().toLowerCase()).append("\n");
+            if (type == CommandType.UNKNOWN) {
+                continue;
             }
+            message.append(type.name().toLowerCase()).append("\n");
         }
         return message.toString();
     }

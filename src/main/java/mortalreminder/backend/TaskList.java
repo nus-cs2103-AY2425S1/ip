@@ -34,6 +34,7 @@ public class TaskList {
         try {
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
+            // adding different but specific error messages to ensure the user gets more useful feedback.
             if (this.getSize() == 0) {
                 throw new MortalReminderException("List is empty!");
             }
@@ -96,7 +97,7 @@ public class TaskList {
             return FormattedPrinting.deleteTask(task, this);
         } else {
             assert false;
-            // We are deleting, the task should have gone through this check when it was created.
+            // We are deleting a task, the task should have gone through this check when it was created.
             // As such the code should never have reached this point in the delete function.
             throw new MortalReminderException("The code should have never reached this point!");
         }
