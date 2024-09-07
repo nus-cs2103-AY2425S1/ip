@@ -121,7 +121,6 @@ public class Xizi {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(byteStream);
         ui.setOutput(ps);
-
         ui.showWelcomeMessage();
         ps.flush();
         return byteStream.toString().trim();

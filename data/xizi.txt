@@ -1,5 +1,4 @@
 T | 1 | read book
-T | 1 | read book
 D | 0 | submit report | Dec 1 2024, 11:59pm
 T | 0 | read book
 D | 0 | submit report | Dec 1 2024, 11:59pm

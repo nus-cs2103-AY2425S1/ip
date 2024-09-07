@@ -9,7 +9,6 @@ import java.util.Scanner;
  * Represents the user interface of the chatbot, handling all interactions with the user.
  */
 public class Ui {
-    private static final String DIVIDER = "____________________________________________________________";
     private final Scanner in;
     private PrintStream out;
 
@@ -44,10 +43,8 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcomeMessage() {
-        out.println(DIVIDER);
         out.println("Hello! I'm Xizi.");
         out.println("What can I do for you?");
-        out.println(DIVIDER);
     }
 
 
@@ -58,18 +55,14 @@ public class Ui {
      * @param message The error message to display.
      */
     public void printErrorMessage(String message) {
-        out.println(DIVIDER);
         out.println("OOPS!!! " + message);
-        out.println(DIVIDER);
     }
 
     /**
      * Displays a goodbye message to the user.
      */
     public void showGoodbyeMessage() {
-        out.println(DIVIDER);
         out.println("Goodbye! Have a great day!");
-        out.println(DIVIDER);
     }
 
     /**
@@ -87,10 +80,10 @@ public class Ui {
     }
 
     /**
-     * Prints a line divider to the output stream.
+     * Prints an empty line divider to the output stream, being modified from text UI.
      */
     public void showLine() {
-        out.println(DIVIDER);
+        out.println();
     }
 
     /**
@@ -105,7 +98,9 @@ public class Ui {
      * Displays a help message with command descriptions and examples.
      */
     public void printHelp(String... extra) {
-        out.println(DIVIDER);
+        if (extra.length > 0) {
+            out.println(extra);
+        }
         out.println("Here are the available commands and their formats:");
         out.println();
 
@@ -150,7 +145,6 @@ public class Ui {
         printCommand("11. find <keyword>",
                 "- Displays all tasks that contain such keyword");
 
-        out.println(DIVIDER);
     }
 
     private void printCommand(String command, String description) {
