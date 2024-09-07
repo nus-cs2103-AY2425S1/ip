@@ -62,7 +62,8 @@ public class Command {
             case DEADLINE:
                 String[] deadlineParts = arguments.split(" /by ");
                 if (deadlineParts.length < 2) {
-                    throw new InvalidInputFormatException("OOPS!!! The deadline command requires a description and a date/time after '/by'.");
+                    throw new InvalidInputFormatException("OOPS!!! The deadline command requires "
+                            + "a description and a date/time after '/by'.");
                 }
                 Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
                 tasksList.addTask(newDeadline);
@@ -71,7 +72,8 @@ public class Command {
             case EVENT:
                 String[] eventParts = arguments.split(" /from | /to ");
                 if (eventParts.length < 3) {
-                    throw new InvalidInputFormatException("OOPS!!! The event command requires a description, start time after '/from', and end time after '/to'.");
+                    throw new InvalidInputFormatException("OOPS!!! The event command requires "
+                            + "a description, start time after '/from', and end time after '/to'.");
                 }
                 Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
                 tasksList.addTask(newEvent);

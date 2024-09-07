@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that manages the storage of tasks list in local storage
+ */
 public class Storage {
     /** Relative file path to store tasks list*/
     private String filePath;

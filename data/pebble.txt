@@ -1,6 +1,6 @@
-<<<<<<< Updated upstream
+[X] Invalid task, please contact administrator
 [D][ ] lecture (by: tmr)
 [E][ ] eventA (from: tmr to: 2359)
-=======
+[ ] Invalid task, please contact administrator
 [T][ ] homeworkkk
->>>>>>> Stashed changes
+[ ] Invalid task, please contact administrator

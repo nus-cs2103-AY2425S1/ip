@@ -9,6 +9,10 @@ public abstract class Task {
     /** Marker to track completion of task */
     protected boolean isDone;
 
+    /**
+     * Constructor class
+     * @param description Description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
