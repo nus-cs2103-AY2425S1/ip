@@ -37,6 +37,11 @@ public class Parser {
      * @param ui The Ui object responsible for user interaction.
      */
     public Parser(Calebyyy calebyyy, TaskList taskList, Storage storage, Ui ui) {
+        assert calebyyy != null : "Calebyyy object cannot be null";
+        assert taskList != null : "TaskList object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+        assert ui != null : "Ui object cannot be null";
+
         this.taskList = taskList;
         this.storage = storage;
         addCommand = new AddCommand(calebyyy, ui, taskList);
@@ -69,6 +74,8 @@ public class Parser {
      * @return The command.
      */
     public Command getCommand(CommandType commandType) {
+        assert commandType != null : "CommandType cannot be null";
+
         switch (commandType) {
         case ADD:
             return addCommand;
@@ -117,6 +124,8 @@ public class Parser {
      * @throws CalebyyyException If an error occurs during execution.
      */
     public void executeCommand(String input) throws CalebyyyException {
+        assert input != null && !input.trim().isEmpty() : "Input cannot be null or empty";
+        
         String[] parts = input.split(" ", 2);
         String commandName = parts[0];
 
@@ -150,6 +159,7 @@ public class Parser {
         }
 
         Command command = getCommand(commandType);
+        assert command != null : "Command cannot be null";
         command.execute(input);
         storage.saveTasks(taskList);
     }
