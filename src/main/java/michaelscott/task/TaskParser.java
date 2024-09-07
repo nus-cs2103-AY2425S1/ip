@@ -9,6 +9,7 @@ import michaelscott.utils.MichaelScottException;
  * Handles the task parser class.
  */
 public class TaskParser {
+
     /**
      * Takes a line from the input file and returns an appropriate task.
      * @Params String line;

@@ -12,21 +12,21 @@ import michaelscott.utils.MichaelScottException;
  * in their description and returns a list of matching tasks.
  */
 public class FindCommand implements Command {
-    private final String keyWord;
+    private final String keyword;
 
     /**
      * Constructs a new FindCommand with the given keyword.
      *
-     * @param keyWord The keyword to search for in task descriptions.
+     * @param keyword The keyword to search for in task descriptions.
      * @throws MichaelScottException If the keyword is empty or consists only of whitespace.
      */
-    public FindCommand(String keyWord) throws MichaelScottException {
-        if (keyWord.trim().isEmpty()) {
+    public FindCommand(String keyword) throws MichaelScottException {
+        if (keyword.trim().isEmpty()) {
             throw new MichaelScottException(
                     "You need to tell me what to search for! [find <Stuff>]"
             );
         }
-        this.keyWord = keyWord.trim().toLowerCase();
+        this.keyword = keyword.trim().toLowerCase();
     }
 
     @Override
@@ -34,13 +34,13 @@ public class FindCommand implements Command {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
-            if (task.toString().toLowerCase().contains(this.keyWord)) {
+            if (task.toString().toLowerCase().contains(this.keyword)) {
                 matchingTasks.add(task);
             }
         }
 
         if (matchingTasks.isEmpty()) {
-            return "I cannot find any tasks with " + this.keyWord + " in their description.";
+            return "I cannot find any tasks with " + this.keyword + " in their description.";
         }
 
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");

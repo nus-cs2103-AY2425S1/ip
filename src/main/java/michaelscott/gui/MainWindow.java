@@ -57,7 +57,6 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage, commandType)
             );
-            userInput.clear();
         } catch (MichaelScottException e) {
             String response = e.getMessage();
             String commandType = "ErrorOccurred";
@@ -65,6 +64,8 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage, commandType)
             );
+        } finally {
+            userInput.clear();
         }
     }
 }

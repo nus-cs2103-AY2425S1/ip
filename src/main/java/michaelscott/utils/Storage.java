@@ -31,10 +31,6 @@ public class Storage {
         loadTasks(taskList);
     }
 
-    public Storage() {
-        this.filePath = "./";
-    }
-
     /**
      * Reads the task from file and updates the task list.
      *

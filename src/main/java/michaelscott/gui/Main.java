@@ -14,7 +14,7 @@ import michaelscott.MichaelScott;
  */
 public class Main extends Application {
 
-    private MichaelScott michaelScott = new MichaelScott();
+    private final MichaelScott michaelScott = new MichaelScott();
 
     @Override
     public void start(Stage stage) {
@@ -25,7 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(616);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setMichaelScott(michaelScott);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMichaelScott(michaelScott);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
