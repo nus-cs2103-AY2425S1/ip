@@ -2,6 +2,7 @@ package myapp.command;
 
 import myapp.core.BingBongException;
 import myapp.core.Storage;
+import myapp.task.Task;
 import myapp.task.TaskList;
 
 /**
@@ -27,17 +28,17 @@ public class ListCommand extends Command {
      * @throws BingBongException If the task list is empty.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage)
-            throws BingBongException {
+    public String execute(TaskList tasks, Storage storage) throws BingBongException {
         if (tasks.isEmpty()) {
             throw new BingBongException("No tasks have been saved.");
-        } else {
-            StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                list.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
-            }
-            return list.toString();
         }
+
+        StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            appendTaskToList(list, task, i);
+        }
+        return list.toString();
     }
 
     /**
@@ -48,5 +49,16 @@ public class ListCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Appends a task to the list with the appropriate numbering.
+     *
+     * @param list The {@link StringBuilder} to append the task to.
+     * @param task The task to append.
+     * @param count The number representing the task's position in the list.
+     */
+    private void appendTaskToList(StringBuilder list, Task task, int count) {
+        list.append(count + 1).append(". ").append(task).append("\n");
     }
 }

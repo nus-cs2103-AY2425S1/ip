@@ -16,7 +16,7 @@ import myapp.task.TaskList;
  */
 public class DeadlineCommand extends AddCommand {
     /** The date and time by which the task should be completed. */
-    private LocalDateTime by;
+    private LocalDateTime dateTime;
 
     /**
      * Constructs a DeadlineCommand with the specified task description and deadline.
@@ -26,7 +26,7 @@ public class DeadlineCommand extends AddCommand {
      */
     public DeadlineCommand(String s, LocalDateTime dt) {
         super(s);
-        this.by = dt;
+        this.dateTime = dt;
     }
 
     /**
@@ -39,7 +39,7 @@ public class DeadlineCommand extends AddCommand {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        Task task = new Deadline(description, by);
+        Task task = new Deadline(description, dateTime);
         tasks.add(task);
         saveTasks(tasks, storage);
         return printAddMessage(tasks, task);

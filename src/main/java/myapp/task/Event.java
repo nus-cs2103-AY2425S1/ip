@@ -11,8 +11,8 @@ import myapp.core.DateTimeHandler;
  * representing the start and end of the event.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
 
     /**
      * Constructs an Event object with the specified description, start date/time, and end date/time.
@@ -23,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startDateTime = from;
+        this.endDateTime = to;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Event extends Task {
      *
      * @return the {@link LocalDateTime} when the event starts.
      */
-    public LocalDateTime getFrom() {
-        return from;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
 
     /**
@@ -41,8 +41,8 @@ public class Event extends Task {
      *
      * @return the {@link LocalDateTime} when the event ends.
      */
-    public LocalDateTime getTo() {
-        return to;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     /**
@@ -52,8 +52,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateTimeHandler.format(from)
-                + " to: " + DateTimeHandler.format(to) + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeHandler.format(startDateTime)
+                + " to: " + DateTimeHandler.format(endDateTime) + ")";
     }
 
     /**
@@ -65,7 +65,7 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + DateTimeHandler.format(from, true) + " | "
-                + DateTimeHandler.format(to, true);
+                + DateTimeHandler.format(startDateTime, true) + " | "
+                + DateTimeHandler.format(endDateTime, true);
     }
 }

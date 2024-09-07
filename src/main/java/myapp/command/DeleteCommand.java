@@ -39,9 +39,7 @@ public class DeleteCommand extends Command {
         }
         Task task = tasks.delete(index);
         saveTasks(tasks, storage);
-        return "Noted. I've removed this task:\n" + task
-                + "\n" + "Now you have " + tasks.size()
-                + " tasks in the list";
+        return printRemoveMessage(task, tasks.size());
     }
 
     /**
@@ -52,5 +50,18 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Prints a message confirming the removal of the task and the updated size of the task list.
+     *
+     * @param task The task that was removed from the task list.
+     * @param size The new size of the task list after the task was removed.
+     * @return A string message confirming the task removal.
+     */
+    private String printRemoveMessage(Task task, int size) {
+        return "Noted. I've removed this task:\n" + task
+                + "\n" + "Now you have " + size
+                + " tasks in the list";
     }
 }

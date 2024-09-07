@@ -11,7 +11,7 @@ import myapp.core.DateTimeHandler;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    protected LocalDateTime deadlineTime;
 
     /**
      * Constructs a {@code Deadline} object with the specified description and deadline date/time.
@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
-        this.by = by;
+        this.deadlineTime = by;
     }
 
     /**
@@ -29,8 +29,8 @@ public class Deadline extends Task {
      *
      * @return the {@link LocalDateTime} by which the task must be completed.
      */
-    public LocalDateTime getBy() {
-        return by;
+    public LocalDateTime getDateTime() {
+        return deadlineTime;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + DateTimeHandler.format(by) + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeHandler.format(deadlineTime) + ")";
     }
 
     /**
@@ -51,6 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + DateTimeHandler.format(by, true);
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + DateTimeHandler.format(deadlineTime, true);
     }
 }
