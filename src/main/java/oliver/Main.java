@@ -25,7 +25,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setOliver(oliver);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Unable to start the GUI for oliver.");
         }
     }
 }

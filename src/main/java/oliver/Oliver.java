@@ -117,7 +117,7 @@ public class Oliver {
         try {
             ToDo t = new ToDo(Parser.parseArgs(input));
             tasks.add(t);
-            return ui.showAdd(t, tasks.getSize());
+            return ui.showAdded(t, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         }
@@ -144,7 +144,7 @@ public class Oliver {
             String action = parts[0].trim();
             Deadline d = new Deadline(action.split(" ", 2)[1], dateTime);
             tasks.add(d);
-            return ui.showAdd(d, tasks.getSize());
+            return ui.showAdded(d, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
@@ -172,7 +172,7 @@ public class Oliver {
 
             Event e = new Event(action.split(" ", 2)[1], start, end);
             tasks.add(e);
-            return ui.showAdd(e, tasks.getSize());
+            return ui.showAdded(e, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
@@ -195,7 +195,7 @@ public class Oliver {
             }
             Task removedTask = tasks.get(index);
             tasks.delete(taskNum);
-            return ui.showDelete(removedTask, tasks.getSize());
+            return ui.showDeleted(removedTask, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (NumberFormatException e) {

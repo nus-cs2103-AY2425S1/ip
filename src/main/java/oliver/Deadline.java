@@ -1,6 +1,5 @@
 package oliver;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,6 +26,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h.mm a")) + ")";
+        return "[D]" + super.toString() + " (by: " +
+                this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h.mm a")) + ")";
     }
 }
