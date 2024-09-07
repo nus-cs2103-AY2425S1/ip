@@ -1,4 +1,4 @@
-package Cookie;
+package cookie.task;
 public abstract class Task {
     private String description;
     private boolean isDone;

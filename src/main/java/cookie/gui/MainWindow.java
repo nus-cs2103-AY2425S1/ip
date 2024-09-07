@@ -1,6 +1,6 @@
-package Cookie.gui;
+package cookie.gui;
 
-import Cookie.Cookie;
+import cookie.Cookie;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+
 
 public class MainWindow extends AnchorPane {
     @FXML

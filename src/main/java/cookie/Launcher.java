@@ -1,6 +1,6 @@
-package Cookie;
+package cookie;
 
-import Cookie.gui.Main;
+import cookie.gui.Main;
 import javafx.application.Application;
 /**
  * Acts as the entry point for Cookie application
