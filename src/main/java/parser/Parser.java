@@ -8,6 +8,7 @@ import ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * The Parser class is responsible for interpreting user commands and
@@ -140,58 +141,138 @@ public class Parser {
      */
     public String handleCommand(String command, TaskList taskList, Ui ui) throws JarException {
         CommandName commandType = parseCommandType(command);
-        String response = "";
 
         switch (commandType) {
         case EXIT:
-            response = "exit";
-            break;
+            return handleExitCommand();
         case LIST:
-            response = ui.showTaskList(taskList.listTasks());
-            break;
+            return handleListCommand(taskList, ui);
         case MARK:
-            int markNumber = getTaskNumber(command);
-            Task markTask = taskList.getTask(markNumber);
-            if (markTask != null) {
-                taskList.markTaskAsDone(markNumber);
-                response = ui.showTaskMarked(markTask);
-            } else {
-                throw new JarException("Invalid task number.");
-            }
-            break;
+            return handleMarkCommand(command, taskList, ui);
         case UNMARK:
-            int unmarkNumber = getTaskNumber(command);
-            Task unmarkTask = taskList.getTask(unmarkNumber);
-            if (unmarkTask != null) {
-                taskList.markTaskAsUndone(unmarkNumber);
-                response = ui.showTaskUnmarked(unmarkTask);
-            } else {
-                throw new JarException("Invalid task number.");
-            }
-            break;
+            return handleUnmarkCommand(command, taskList, ui);
         case DELETE:
-            int deleteNumber = getTaskNumber(command);
-            Task deleteTask = taskList.getTask(deleteNumber);
-            taskList.deleteTask(deleteNumber);
-            response = ui.showDeleteTask(deleteTask) + "\n" + ui.showTaskCount(taskList.getTaskCount());
-            break;
+            return handleDeleteCommand(command, taskList, ui);
         case TODO:
-            // Fallthrough
+            //Fallthrough
         case DEADLINE:
-            // Fallthrough
+            //Fallthrough
         case EVENT:
-            Task task = parseTask(command);
-            taskList.addTask(task);
-            response = ui.showTaskAdded(task.toString()) + "\n" + ui.showTaskCount(taskList.getTaskCount());
-            break;
+            return handleTaskCreationCommand(command, taskList, ui);
         case FIND:
-            String keyword = command.substring(4).trim();
-            response = ui.showTaskList(taskList.findTasks(keyword));
-            break;
+            return handleFindCommand(command, taskList, ui);
         default:
             throw new JarException("Unknown command: " + command + ". Please enter a valid command.");
         }
-        return response;
+    }
+
+    /**
+     * Handles the "exit" command.
+     *
+     * @return A string indicating the exit command.
+     */
+    private String handleExitCommand() {
+        return "exit";
+    }
+
+    /**
+     * Handles the "list" command, which shows the list of tasks.
+     *
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string containing the list of tasks.
+     */
+    private String handleListCommand(TaskList taskList, Ui ui) {
+        return ui.showTaskList(taskList.listTasks());
+    }
+
+    /**
+     * Handles the "mark" command, which marks a task as done.
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string indicating the task has been marked as done.
+     * @throws JarException If the task number is invalid.
+     */
+    private String handleMarkCommand(String command, TaskList taskList, Ui ui) throws JarException {
+        int markNumber = getTaskNumber(command);
+        Task markTask = taskList.getTask(markNumber);
+        if (markTask != null) {
+            taskList.markTaskAsDone(markNumber);
+            return ui.showTaskMarked(markTask);
+        } else {
+            throw new JarException("Invalid task number.");
+        }
+    }
+
+    /**
+     * Handles the "unmark" command, which marks a task as undone.
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string indicating the task has been marked as undone.
+     * @throws JarException If the task number is invalid.
+     */
+    private String handleUnmarkCommand(String command, TaskList taskList, Ui ui) throws JarException {
+        int unmarkNumber = getTaskNumber(command);
+        Task unmarkTask = taskList.getTask(unmarkNumber);
+        if (unmarkTask != null) {
+            taskList.markTaskAsUndone(unmarkNumber);
+            return ui.showTaskUnmarked(unmarkTask);
+        } else {
+            throw new JarException("Invalid task number.");
+        }
+    }
+
+    /**
+     * Handles the "delete" command, which deletes a task from the list.
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string indicating the task has been deleted.
+     * @throws JarException If the task number is invalid.
+     */
+    private String handleDeleteCommand(String command, TaskList taskList, Ui ui) throws JarException {
+        int deleteNumber = getTaskNumber(command);
+        Task deleteTask = taskList.getTask(deleteNumber);
+        taskList.deleteTask(deleteNumber);
+        return ui.showDeleteTask(deleteTask) + "\n" + ui.showTaskCount(taskList.getTaskCount());
+    }
+
+    /**
+     * Handles the creation of a new task (TODO, DEADLINE, or EVENT).
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string indicating the task has been added.
+     * @throws JarException If the command format is invalid.
+     */
+    private String handleTaskCreationCommand(String command, TaskList taskList, Ui ui) throws JarException {
+        Task task = parseTask(command);
+        taskList.addTask(task);
+        return ui.showTaskAdded(task.toString()) + "\n" + ui.showTaskCount(taskList.getTaskCount());
+    }
+
+    /**
+     * Handles the "find" command, which finds tasks matching a keyword.
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A string containing the list of matching tasks.
+     */
+    private String handleFindCommand(String command, TaskList taskList, Ui ui) {
+        String keyword = command.substring(4).trim();  // Extract keyword from command
+        try {
+            ArrayList<Task> foundTasks = taskList.findTasks(keyword);  // Find tasks with the keyword
+            return ui.showTaskList(foundTasks);  // Display the list of found tasks
+        } catch (JarException e) {
+            return "Error: " + e.getMessage();  // Handle case where keyword is invalid
+        }
     }
 
     /**
