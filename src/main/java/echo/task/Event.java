@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  *
  * @author Ernest Lim
  */
-public class Events extends Task {
+public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -20,33 +20,28 @@ public class Events extends Task {
      * @param end end time of the event
      * @throws DateTimeParseException if the format provided is not the same as INPUT_FORMATTER
      */
-    public Events(String description, String start, String end) throws DateTimeParseException {
+    public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
         this.startDate = LocalDateTime.parse(start, INPUT_FORMATTER);
         this.endDate = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
-    /**
-     * Returns the Event as a string with its status, description, start time and end time
-     *
-     * @return a String of the Event
-     */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate.format(OUTPUT_FORMATTER)
-                + " to: " + this.endDate.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(OUTPUT_FORMATTER)
+                + " to: " + endDate.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
-     * Returns Event as a fancier string with its status, description, start time and end time
+     * Returns Event as a fancier string e.g. Event | 1 | 23 | /from 11-11-1111 1111 /to 02-02-1122 1221
      * Meant for recording in text files
      *
-     * @return Fancier string of the Deadline
+     * @return Fancier string of the Event
      */
     @Override
     public String toFancyString() {
-        return "Event | " + super.getStatus() + " | " + super.getDescription()
-                + " | /from " + super.reverseLocalDateTimeParse(this.startDate)
-                + " /to " + super.reverseLocalDateTimeParse(this.endDate);
+        return "Event | " + super.getStatus() + " | " + super.description
+                + " | /from " + super.reverseLocalDateTimeParse(startDate)
+                + " /to " + super.reverseLocalDateTimeParse(endDate);
     }
 }

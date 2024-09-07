@@ -5,29 +5,24 @@ package echo.task;
  *
  * @author Ernest Lim
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Constructor for ToDos object
      *
      * @param description description of the ToDos task
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 
-    /**
-     * Returns the ToDos as a string with its status and description
-     *
-     * @return a String of the ToDos
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
     /**
-     * Returns the ToDos as a fancier string with its status and description
+     * Returns the ToDos as a fancier string e.g. ToDo | 0 | work
      * Meant for recording in text files
      *
      * @return Fancier string of the ToDos
@@ -35,6 +30,6 @@ public class ToDos extends Task {
     @Override
     public String toFancyString() {
         return "ToDo | " + super.getStatus() + " | "
-                + super.getDescription();
+                + super.description;
     }
 }

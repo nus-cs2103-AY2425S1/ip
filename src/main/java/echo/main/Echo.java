@@ -8,10 +8,10 @@ import java.util.Scanner;
 import echo.exception.EchoException;
 import echo.parser.Parser;
 import echo.storage.Storage;
-import echo.task.Deadlines;
-import echo.task.Events;
+import echo.task.Deadline;
+import echo.task.Event;
 import echo.task.Task;
-import echo.task.ToDos;
+import echo.task.ToDo;
 import echo.tasklist.TaskList;
 import echo.ui.Ui;
 
@@ -39,9 +39,15 @@ public class Echo {
         this.storage = new Storage(filePath);
     }
 
-    public String greetUser() {
+    /**
+     * Initialise the chatbot by loading the list of task in the txt file into the chatbot and
+     * returning a string of greeting message
+     *
+     * @return a string of greeting message
+     */
+    public String initialise() {
         try {
-            this.storage.loadStorage(this.parser, this.taskList);
+            storage.loadStorage(parser, taskList);
             return ui.greet();
         } catch (IOException e) {
             return ui.printErrorMessage(e);
@@ -54,7 +60,7 @@ public class Echo {
      * @return string of the list of tasks in taskList
      */
     public String handleListCommand() {
-        return this.ui.listAllTask(this.taskList);
+        return ui.listAllTask(this.taskList);
     }
 
     /**
@@ -65,7 +71,7 @@ public class Echo {
      */
     public String handleMarkCommand(String index) {
         Task task = taskList.markAndGetTask(index);
-        return this.ui.printMarkMessage(task);
+        return ui.printMarkMessage(task);
     }
 
     /**
@@ -88,7 +94,7 @@ public class Echo {
      */
     public String handleToDoCommand(String taskDescription) {
         String description = parser.parseToDos(taskDescription);
-        ToDos toDoTask = new ToDos(description);
+        ToDo toDoTask = new ToDo(description);
         taskList.addTask(toDoTask);
         return ui.printAddTaskMessage(toDoTask, taskList);
     }
@@ -104,7 +110,7 @@ public class Echo {
         String[] deadlineArray = parser.parseDeadlines(taskDescription);
         String deadlineDescription = deadlineArray[0];
         String deadlineDate = deadlineArray[1];
-        Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
+        Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
         taskList.addTask(deadlineTask);
         return ui.printAddTaskMessage(deadlineTask, taskList);
     }
@@ -121,7 +127,7 @@ public class Echo {
         String eventDescription = eventArray[0];
         String eventStartTime = eventArray[1];
         String eventEndTime = eventArray[2];
-        Events eventTask = new Events(eventDescription, eventStartTime, eventEndTime);
+        Event eventTask = new Event(eventDescription, eventStartTime, eventEndTime);
         taskList.addTask(eventTask);
         return ui.printAddTaskMessage(eventTask, taskList);
     }
@@ -149,6 +155,11 @@ public class Echo {
         return ui.printFoundTask(arrayList);
     }
 
+    /**
+     * Handles the command when user types in "bye"
+     *
+     * @return a string of goodbye message
+     */
     public String handleByeCommand() {
         try {
             this.storage.saveTaskList(this.taskList);
@@ -205,20 +216,19 @@ public class Echo {
      */
     public void run() {
         try {
-            System.out.println(this.greetUser());
-            this.storage.loadStorage(this.parser, this.taskList);
+            System.out.println(initialise());
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
             while (!input.equals("bye")) {
-                String output = this.executeInput(input);
+                String output = executeInput(input);
                 System.out.println(output);
                 input = scanner.nextLine();
             }
             scanner.close();
 
             System.out.println(ui.bye());
-            this.storage.saveTaskList(this.taskList);
+            storage.saveTaskList(taskList);
 
         } catch (IOException e) {
             System.out.println(ui.printErrorMessage(e));

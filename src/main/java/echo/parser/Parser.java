@@ -1,10 +1,10 @@
 package echo.parser;
 
 import echo.exception.EchoException;
-import echo.task.Deadlines;
-import echo.task.Events;
+import echo.task.Deadline;
+import echo.task.Event;
 import echo.task.Task;
-import echo.task.ToDos;
+import echo.task.ToDo;
 
 /**
  * Represents a parser to parse inputs given by users
@@ -109,26 +109,31 @@ public class Parser {
 
         switch (command) {
         case "todo":
-            ToDos toDoTask = new ToDos(taskDescription);
+            ToDo toDoTask = new ToDo(taskDescription);
+
             markTask(taskStatus, toDoTask);
             return toDoTask;
         case "deadline":
             String deadline = textArray[3];
             taskDescription = taskDescription + " " + deadline;
-            String[] deadlineArray = this.parseDeadlines(taskDescription);
+
+            String[] deadlineArray = parseDeadlines(taskDescription);
             String deadlineDescription = deadlineArray[0];
             String deadlineDate = deadlineArray[1];
-            Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
+            Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
+
             markTask(taskStatus, deadlineTask);
             return deadlineTask;
         case "event":
             String startToEndTime = textArray[3];
             taskDescription = taskDescription + " " + startToEndTime;
-            String[] eventArray = this.parseEvents(taskDescription);
+
+            String[] eventArray = parseEvents(taskDescription);
             String eventDescription = eventArray[0];
             String eventStartTime = eventArray[1];
             String eventEndTime = eventArray[2];
-            Events eventTask = new Events(eventDescription, eventStartTime, eventEndTime);
+            Event eventTask = new Event(eventDescription, eventStartTime, eventEndTime);
+
             markTask(taskStatus, eventTask);
             return eventTask;
         default:
