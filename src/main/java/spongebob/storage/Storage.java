@@ -56,7 +56,8 @@ public class Storage {
         for (String line : this.data) {
 
             try {
-                args = Arrays.asList(line.split("\\|"));
+                args = Arrays.asList(line.split("\\|",6));
+                System.out.println(args);
 
                 switch (args.get(0)) {
 
@@ -65,22 +66,25 @@ public class Storage {
                     if (args.get(1).equals("true")) {
                         newTask.markAsDone();
                     }
+                    newTask.setTag(args.get(3));
                     res.add(newTask);
                     break;
 
                 case "DEADLINE":
-                    newTask = new Deadline(args.get(2), args.get(3));
+                    newTask = new Deadline(args.get(2), args.get(4));
                     if (args.get(1).equals("true")) {
                         newTask.markAsDone();
                     }
+                    newTask.setTag(args.get(3));
                     res.add(newTask);
                     break;
 
                 case "EVENT":
-                    newTask = new Event(args.get(2), args.get(3), args.get(4));
+                    newTask = new Event(args.get(2), args.get(4), args.get(5));
                     if (args.get(1).equals("true")) {
                         newTask.markAsDone();
                     }
+                    newTask.setTag(args.get(3));
                     res.add(newTask);
                     break;
 
@@ -109,10 +113,10 @@ public class Storage {
     /**
      * Deletes task from tasklist.
      *
-     * @param task A task created by the user
+     * @param index Index of task to be removed
      */
-    public void delete(Task task) {
-        this.data.remove(task.save());
+    public void delete(int index) {
+        this.data.remove(index);
         this.write();
     }
 

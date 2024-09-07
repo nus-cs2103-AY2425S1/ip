@@ -1,13 +1,6 @@
 package spongebob;
 
-import spongebob.command.AddCommand;
-import spongebob.command.Command;
-import spongebob.command.DeleteCommand;
-import spongebob.command.DisplayCommand;
-import spongebob.command.ExitCommand;
-import spongebob.command.FindCommand;
-import spongebob.command.MarkCommand;
-import spongebob.command.UnknownCommand;
+import spongebob.command.*;
 
 /**
  * Object to parse user input into commands that can be executed by Spongebob
@@ -90,6 +83,14 @@ public class Parser {
 
         case "find":
             return new FindCommand(arguments);
+
+        case "tag":
+            commands = arguments[1].split(" ", 2);
+            if (commands.length > 1) {
+                arguments[2] = commands[1].trim();
+                arguments[1] = commands[0].trim();
+            }
+            return new TagCommand(arguments);
 
         default:
             return new UnknownCommand();

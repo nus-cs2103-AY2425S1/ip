@@ -42,7 +42,12 @@ public class MarkCommand extends Command {
         }
 
         // set index of task to mark / unmark.
-        this.index = Integer.parseInt(arguments[1]) - 1;
+        try {
+            this.index = Integer.parseInt(arguments[1]) - 1;
+
+        } catch (NumberFormatException e) {
+            return ui.showException(e);
+        }
         Task task = taskList.getCache().get(index);
 
         try {

@@ -63,7 +63,8 @@ public class Event extends Task {
                 + this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
                 + " To: "
                 + this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy "))
-                + ")";
+                + ")"
+                + super.getTag();
 
     }
 
