@@ -16,6 +16,10 @@ import java.util.Objects;
  */
 public class Parser {
 
+    private String trimCommand(String userInput, int size){
+        return userInput.substring(size).trim();
+    }
+
     /**
      * Parses the user input command and executes the appropriate action on the task list.
      *
@@ -42,7 +46,7 @@ public class Parser {
 
         if (userInput.startsWith("mark")) {
             try{
-                int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+                int taskNumber = Integer.parseInt(trimCommand(userInput, 5));
                 taskList.markTask(tasks, taskNumber);
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
                 ui.printError("number");
@@ -52,8 +56,7 @@ public class Parser {
 
         if (userInput.startsWith("unmark")) {
             try{
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
-                taskList.unmarkTask(tasks, taskNumber);
+                taskList.unmarkTask(tasks, Integer.parseInt(trimCommand(userInput, 7)));
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
                 ui.printError("number");
             }
@@ -62,8 +65,7 @@ public class Parser {
 
         if (userInput.startsWith("delete")) {
             try{
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
-                taskList.deleteTask(tasks, taskNumber);
+                taskList.deleteTask(tasks, Integer.parseInt(trimCommand(userInput, 7)));
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
                 ui.printError("number");
             }
@@ -72,7 +74,7 @@ public class Parser {
 
         if (userInput.startsWith("todo")) {
             try{
-                String desc = userInput.substring(5).trim();
+                String desc = trimCommand(userInput, 5);
                 if(!desc.isEmpty()){
                     taskList.addTask(tasks, TaskType.TODO, desc);
                 }else{
@@ -176,7 +178,7 @@ public class Parser {
 
         if (userInput.startsWith("unmark")) {
             try{
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 String result = taskList.unmarkTaskUI(tasks, taskNumber);
                 if (result.startsWith("No")) {
                     return result;
@@ -191,7 +193,7 @@ public class Parser {
 
         if (userInput.startsWith("delete")) {
             try{
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 String result = taskList.deleteTaskUI(tasks, taskNumber);
                 if (result.startsWith("No")) {
                     return result;
@@ -206,7 +208,7 @@ public class Parser {
 
         if (userInput.startsWith("todo")) {
             try{
-                String desc = userInput.substring(5).trim();
+                String desc = trimCommand(userInput, 5);
                 if(!desc.isEmpty()){
                     return "Got it. I've added this task:\n" + taskList.addTaskUI(tasks, TaskType.TODO, desc);
                 }else{
@@ -248,7 +250,7 @@ public class Parser {
 
         if (userInput.startsWith("find")) {
             try{
-                String keyword = userInput.substring(5).trim();
+                String keyword = trimCommand(userInput, 5);
                 if (keyword.isEmpty()){
                     return "The keyword to look for cannot be empty.";
                 }

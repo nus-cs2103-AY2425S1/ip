@@ -70,14 +70,19 @@ public class TaskList {
      * @param desc  The description of the task.
      * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
      */
-    public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) { // Use var-args here
+    public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
+        Task newTask = switchTask(tasks, type, desc, args);
+        ui.alterTask(tasks, newTask, true);
+    }
+
+    private Task switchTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime[] args) {
         Task newTask = switch (type) {
             case TODO -> new ToDo(desc);
             case DEADLINE -> new Deadline(desc, args[0]);
             case EVENT -> new Event(desc, args[0], args[1]);
         };
         tasks.add(newTask);
-        ui.alterTask(tasks, newTask, true);
+        return newTask;
     }
 
     /**
@@ -153,13 +158,8 @@ public class TaskList {
      * @param desc  The description of the task.
      * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
      */
-    public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) { // Use var-args here
-        Task newTask = switch (type) {
-            case TODO -> new ToDo(desc);
-            case DEADLINE -> new Deadline(desc, args[0]);
-            case EVENT -> new Event(desc, args[0], args[1]);
-        };
-        tasks.add(newTask);
+    public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
+        Task newTask = switchTask(tasks, type, desc, args);
         return "  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 

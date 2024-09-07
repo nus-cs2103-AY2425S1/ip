@@ -21,7 +21,7 @@ public class Event extends Task{
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return super.toString() + " (from: " + FROM.format(formatter) + " to: " + TO.format(formatter) + ")";
+        return super.toString() + " (from: " + this.FROM.format(formatter) + " to: " + this.TO.format(formatter) + ")";
     }
 
     public LocalDateTime getFrom(){
