@@ -1,6 +1,5 @@
 package bobbybot.commands;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,16 +35,18 @@ public class CommandDeadline extends Command {
         } else {
             throw new BobbyBotException("Please specify it in this format 'deadline <description> /by <by>'.");
         }
+        isUndoable = true;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
+        memento = new Memento(tasks);
+
         Task deadline = new Deadline(description, by);
         tasks.addTask(deadline);
 
         ui.printAddTask(tasks, deadline);
 
         storage.saveTasksToFile(tasks.toArray());
-
     }
 }

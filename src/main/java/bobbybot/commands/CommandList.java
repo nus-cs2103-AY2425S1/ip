@@ -9,7 +9,13 @@ import bobbybot.ui.Ui;
  */
 public class CommandList extends Command {
 
+    /**
+     * Creates a new CommandList object.
+     *
+     * @param argument Unused argument.
+     */
     public CommandList(String argument) {
+        isUndoable = false;
     }
 
     @Override

@@ -8,7 +8,7 @@ import bobbybot.tasks.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskList, initializes an empty task list.
@@ -24,6 +24,15 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    /**
+     * Copy TaskList over to this TaskList.
+     *
+     * @param taskList TaskList to be copied over.
+     */
+    public void copyOver(TaskList taskList) {
+        this.tasks = new ArrayList<>(taskList.tasks);
     }
 
     /**

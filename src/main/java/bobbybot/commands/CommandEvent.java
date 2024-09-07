@@ -1,6 +1,5 @@
 package bobbybot.commands;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,16 +38,18 @@ public class CommandEvent extends Command {
             throw new BobbyBotException("Please specify it in this format "
                     + "'event <description> /from <from> /to <to>.'");
         }
+        isUndoable = true;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
+        memento = new Memento(tasks);
+
         Task event = new Event(description, from, to);
         tasks.addTask(event);
 
         ui.printAddTask(tasks, event);
 
         storage.saveTasksToFile(tasks.toArray());
-
     }
 }

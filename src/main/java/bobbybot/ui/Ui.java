@@ -126,4 +126,11 @@ public class Ui {
     public void printError(Exception e) {
         printResponse(e.getMessage());
     }
+
+    /**
+     * Prints the undo message.
+     */
+    public void printUndo() {
+        printResponse("Undoing the last command.");
+    }
 }

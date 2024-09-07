@@ -10,7 +10,13 @@ import bobbybot.ui.Ui;
 public class CommandFind extends Command {
     private final String keyword;
 
+    /**
+     * Creates a new CommandFind object.
+     *
+     * @param keyword The keyword to search for.
+     */
     public CommandFind(String keyword) {
+        isUndoable = false;
         this.keyword = keyword;
     }
 
