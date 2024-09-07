@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private FRIDAY FRIDAY;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("images/user.png"));
-    private Image FRIDAYImage = new Image(this.getClass().getResourceAsStream("images/FRIDAY.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("../images/user.png"));
+    private Image FRIDAYImage = new Image(this.getClass().getResourceAsStream("../images/FRIDAY.png"));
 
     @FXML
     public void initialize() {
@@ -43,7 +43,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = FRIDAY.getResponse(input);
+
+        if (input.isEmpty()) {
+            return;
+        }
+
+        String response = FRIDAY.getResponse(input.trim());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getFRIDAYDialog(response, FRIDAYImage)

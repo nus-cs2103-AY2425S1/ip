@@ -30,20 +30,17 @@ public class FRIDAY {
     /**
      * starts the bot
      */
-    public void start() {
-        this.activateBot();
-        while (isActive) {
-            try {
-                //collect user input
-                String userInput = ui.readUserInput();
-                String keyword = Parser.parseCmd(userInput);
-                //taskDetails is the user input without the keyword
-                String taskDetails = Parser.parseTaskDetails(userInput);
-                this.performAction(keyword, taskDetails);
-            } catch (FRIDAYException e) {
-                System.out.println(e.getMessage());
-            }
+    public String getResponse(String userInput) {
+        try {
+            //collect user input
+            String keyword = Parser.parseCmd(userInput);
+            //taskDetails is the user input without the keyword
+            String taskDetails = Parser.parseTaskDetails(userInput);
+            return this.performAction(keyword, taskDetails);
+        } catch (FRIDAYException e) {
+            System.out.println(e.getMessage());
         }
+        return "FUCK:";
     }
 
     /**
@@ -71,18 +68,16 @@ public class FRIDAY {
      * @param taskDetails contains miscellaneous information about the task, if applicable
      * @throws FRIDAYException exception is thrown when the type of action to be performed is not recognized
      */
-    public void performAction(String keyword, String taskDetails) throws FRIDAYException {
+    public String performAction(String keyword, String taskDetails) throws FRIDAYException {
         //keywords trigger respective actions
         switch (keyword) {
         //keywords
         case ("mark"):
             taskList.markTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            ui.printCheck();
-            break;
+            return ui.printCheck();
         case ("unmark"):
             taskList.unMarkTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            ui.printUncheck();
-            break;
+            return ui.printUncheck();
         case ("todo"):
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
@@ -90,8 +85,7 @@ public class FRIDAY {
             //create new to do task
             Task newToDo = new ToDo(taskDetails.strip(), 0);
             taskList.addTask(newToDo);
-            ui.printAdd(newToDo, taskList.numTasks());
-            break;
+            return ui.printAdd(newToDo, taskList.numTasks());
         case ("deadline"):
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
@@ -99,50 +93,39 @@ public class FRIDAY {
             //create new deadline task
             Task newDeadline = Parser.parseDeadline(taskDetails);
             taskList.addTask(newDeadline);
-            ui.printAdd(newDeadline, taskList.numTasks());
-            break;
+            return ui.printAdd(newDeadline, taskList.numTasks());
         case ("event"):
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
             Task newEvent = Parser.parseEvent(taskDetails);
             taskList.addTask(newEvent);
-            ui.printAdd(newEvent, taskList.numTasks());
-            break;
+            return ui.printAdd(newEvent, taskList.numTasks());
         case ("delete"):
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
             taskList.removeTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1), taskList.numTasks());
-            break;
-
+            return ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1), taskList.numTasks());
         case ("bye"):
             storage.updateStorage(this.taskList.getList());
-            deactivateBot();
-            break;
+            return "Bye! See you again!";
         case ("list"):
-            System.out.println(taskList.displayTasks());
-            break;
+            return taskList.displayTasks();
         case("search"):
             String word = Parser.parseTaskDetails(taskDetails);
             ArrayList<Task> searchResults = taskList.search(word);
-            ui.displaySearchResults(searchResults);
+            return ui.displaySearchResults(searchResults);
             //if there is no input then nothing added to list
         case (""):
-            break;
+            return "Please input a command";
         //to handle all normal inputs less empty strings
         default:
             throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
         }
     }
 
-    public String getResponse(String s) {
-        return "hello";
-    }
-
     public static void main(String[] args) {
         FRIDAY bot = new FRIDAY();
-        bot.start();
     }
 }
