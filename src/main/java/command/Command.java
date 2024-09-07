@@ -3,6 +3,7 @@ import fridayException.FridayException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 /**
  * Represents a command that can be executed by the user.
@@ -19,6 +20,7 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws FridayException;
 
+    public abstract String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException;
     /**
      * Indicates whether the command ends the scanner loop.
      *

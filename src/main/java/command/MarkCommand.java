@@ -6,6 +6,7 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 import java.io.IOException;
 
@@ -46,5 +47,21 @@ public class MarkCommand extends Command {
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
+    }
+
+    @Override
+    public String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException {
+        Task taskToMark = tasks.getTask(taskIndex); // Get the task to be marked
+        try {
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new InvalidMarkArgument();
+            }
+            tasks.markTask(taskIndex); // Mark the task as completed
+
+            storage.save(tasks.getTasks()); // Save the updated task list to the file
+        } catch (IOException e) {
+            throw new FridayException("Error saving tasks to file.");
+        }
+        return gui.showTaskMarked(taskToMark); // Show the user that the task was marked
     }
 }

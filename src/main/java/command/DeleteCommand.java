@@ -6,6 +6,7 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 import java.io.IOException;
 
@@ -41,10 +42,24 @@ public class DeleteCommand extends Command {
             Task taskToDelete = tasks.getTask(taskIndex);  // Get the task to be deleted
             tasks.removeTask(taskIndex);  // Remove the task from the list
             ui.showTaskRemoved(taskToDelete, tasks.size());  // Show the user that the task was removed
-
             storage.save(tasks.getTasks());  // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
+    }
+
+    @Override
+    public String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException {
+        Task taskToDelete = tasks.getTask(taskIndex); // Get the task to be deleted
+        try {
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new InvalidDeleteArgument();
+            }
+            tasks.removeTask(taskIndex);  // Remove the task from the list
+            storage.save(tasks.getTasks());  // Save the updated task list to the file
+        } catch (IOException e) {
+            throw new FridayException("Error saving tasks to file.");
+        }
+        return gui.showTaskRemoved(taskToDelete, tasks.size());  // Show the user that the task was removed
     }
 }

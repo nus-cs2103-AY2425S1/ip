@@ -3,6 +3,7 @@ package command;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 /**
  * Represents a command to find tasks that contain a specific keyword.
@@ -29,6 +30,11 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showFindList(taskList.getTasks(), keyword);
+    }
+
+    @Override
+    public String executeGui(TaskList taskList, UiGui gui, Storage storage) {
+        return gui.showFindList(taskList.getTasks(), keyword);
     }
 
 }

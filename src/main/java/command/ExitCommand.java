@@ -3,6 +3,7 @@ package command;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 /**
  * Represents a command to exit the application.
@@ -19,6 +20,11 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
+    }
+
+    @Override
+    public String executeGui(TaskList tasks, UiGui gui, Storage storage) {
+        return gui.showGoodbye();
     }
 
     /**

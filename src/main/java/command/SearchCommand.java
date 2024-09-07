@@ -3,6 +3,7 @@ package command;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
 
 import java.time.LocalDate;
 
@@ -31,5 +32,11 @@ public class SearchCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showSearchList(tasks.getTasks(), searchDate);
+
+    }
+
+    @Override
+    public String executeGui(TaskList tasks,UiGui gui, Storage storage) {
+        return gui.showSearchList(tasks.getTasks(), searchDate);
     }
 }

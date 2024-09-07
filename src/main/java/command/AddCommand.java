@@ -4,6 +4,8 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
+import ui.UiGui;
+
 import java.io.IOException;
 
 /**
@@ -38,5 +40,17 @@ public class AddCommand extends Command {
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
+    }
+
+    @Override
+    public String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException {
+        tasks.addTask(task);
+
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            throw new FridayException("Error saving tasks to file.");
+        }
+        return gui.showTaskAdded(task, tasks.size());
     }
 }
