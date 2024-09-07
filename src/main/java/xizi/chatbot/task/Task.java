@@ -32,6 +32,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public boolean getDone() {
+        return isDone;
+    }
+
     /**
      * Marks the task as done.
      */
