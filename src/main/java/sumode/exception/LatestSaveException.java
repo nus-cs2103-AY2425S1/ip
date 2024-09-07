@@ -11,5 +11,4 @@ public class LatestSaveException extends SumoDException {
     public LatestSaveException() {
         super("Sumo cannot save latest change.");
     }
-    
 }
