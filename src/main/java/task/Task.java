@@ -32,6 +32,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return getType() + (isDone ? "[X] " : "[ ] ") + DESC;
+        return getType() + (this.isDone ? "[X] " : "[ ] ") + this.DESC;
     }
 }

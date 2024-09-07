@@ -52,7 +52,8 @@ public class Storage {
                         break;
 
                     case "E":
-                        Event event = new Event(desc, dateTimeParser.parseDateTime(parts[3].trim()), dateTimeParser.parseDateTime(parts[4].trim()));
+                        Event event = new Event(desc, dateTimeParser.parseDateTime(parts[3].trim()),
+                                dateTimeParser.parseDateTime(parts[4].trim()));
                         if (isDone) event.markDone();
                         tasks.add(event);
                         break;

@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private final Will will = new Will();
+    private final Will WILL = new Will();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setWill(will);
+            fxmlLoader.<MainWindow>getController().setWill(WILL);
             stage.show();
         } catch (IOException ignored) {
         }
