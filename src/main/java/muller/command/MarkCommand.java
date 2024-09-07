@@ -24,14 +24,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         tasks.get(index).markAsDone();
-        ui.showLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + tasks.get(index));
-        ui.showLine();
-
         storage.saveTasks(tasks);
+        return ui.showTaskMarked(tasks, index);
     }
 
     /**

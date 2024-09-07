@@ -97,10 +97,10 @@ public class Storage {
         task.setType(type);
         task.markAsDone(isDone);
 
-        if (type.equals("[D]") && parts.length >= 4) {
+        if (type.equals("D") && parts.length >= 4) {
             LocalDate date = LocalDate.parse(parts[3], Task.INPUT_DATE_FORMATTER);
             task.setDate(date);
-        } else if (type.equals("[E]") && parts.length >= 5) {
+        } else if (type.equals("E") && parts.length >= 5) {
             LocalDate startDate = LocalDate.parse(parts[3], Task.INPUT_DATE_FORMATTER);
             LocalDate endDate = LocalDate.parse(parts[4], Task.INPUT_DATE_FORMATTER);
             task.setDateRange(startDate, endDate);

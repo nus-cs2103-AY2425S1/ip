@@ -16,15 +16,6 @@ public abstract class Command {
      * @param storage The Storage for saving/loading tasks.
      * @throws MullerException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException;
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public boolean isExit() {
-        return false;
-    }
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException;
 }
 

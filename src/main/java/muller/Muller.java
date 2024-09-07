@@ -31,25 +31,15 @@ public class Muller {
         }
     }
     /**
-     * Runs the main loop of the application, processing user commands
-     * until the exit command is given.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
+    public String getResponse(String input) {
         Parser parser = new Parser();
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command command = parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (MullerException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+        try {
+            Command command = parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (MullerException e) {
+            return ui.showError(e.getMessage());
         }
     }
     /**
@@ -58,6 +48,6 @@ public class Muller {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Muller("data/muller.txt").run();
+        new Muller("data/muller.txt");
     }
 }
