@@ -57,11 +57,12 @@ public class FindCommand implements Command {
 
         if (matchingTasks.isEmpty()) {
             ui.printMessage("No tasks matching your keyword were found.");
-        } else {
-            ui.printMessage("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.printMessage((i + 1) + "." + matchingTasks.get(i));
-            }
+            return;
+        }
+
+        ui.printMessage("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            ui.printMessage((i + 1) + "." + matchingTasks.get(i));
         }
 
         ui.showLine();

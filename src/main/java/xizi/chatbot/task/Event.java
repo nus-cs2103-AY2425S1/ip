@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
-    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime from;
     protected LocalDateTime to;
     /**
@@ -47,9 +46,11 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+        String fromDate = this.from.format(OUTPUT_DATE_FORMAT);
+        String toDate = this.to.format(OUTPUT_DATE_FORMAT);
         return String.format("E | %d | %s | %s | %s",
                 this.isDone ? 1 : 0,
-                this.name, this.from.format(OUTPUT_DATE_FORMAT), this.to.format(OUTPUT_DATE_FORMAT));
+                this.name, fromDate, toDate);
     }
 
 

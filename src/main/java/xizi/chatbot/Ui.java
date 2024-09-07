@@ -2,6 +2,7 @@ package xizi.chatbot;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -99,7 +100,7 @@ public class Ui {
      */
     public void printHelp(String... extra) {
         if (extra.length > 0) {
-            out.println(extra);
+            out.println(Arrays.toString(extra));
         }
         out.println("Here are the available commands and their formats:");
         out.println();
