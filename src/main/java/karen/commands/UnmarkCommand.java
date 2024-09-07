@@ -16,11 +16,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         taskList.unmarkTask(this.index);
         Task t = taskList.getTask(this.index);
-        ui.showUnmarkMessage(t);
         Storage.saveToFile(taskList);
+        return ui.showUnmarkMessage(t);
     }
 
     @Override

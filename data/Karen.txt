@@ -1,3 +1,0 @@
-T | 0 | run up stairs
-E | 0 | find run up | 2020-10-12 2200 | 2020-11-21 0900
-D | 0 | super duper run up | 2024-01-22 1200

@@ -1,5 +1,6 @@
 package karen.main;
 
+import javafx.application.Platform;
 import karen.commands.Command;
 import karen.tasks.TaskList;
 import karen.util.Parser;
@@ -43,6 +44,18 @@ public class Karen {
                 return;
             }
         }
+    }
+
+    /**
+     * Executes the command and returns the response string to pass to the GUI
+     * @param input The command String
+     */
+    public String getKarenResponse(String input) {
+        Command c = Parser.parse(input, ui);
+        if (c.isExit()) {
+            Platform.exit();
+        }
+        return c.execute(taskList, ui);
     }
 
     public static void main(String[] args) {

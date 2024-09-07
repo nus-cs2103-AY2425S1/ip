@@ -16,10 +16,10 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         taskList.addTask(this.task);
-        ui.showAddTaskMessage(this.task, taskList);
         Storage.saveToFile(taskList);
+        return ui.showAddTaskMessage(this.task, taskList);
     }
 
     @Override

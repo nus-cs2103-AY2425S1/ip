@@ -17,13 +17,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         List<Task> foundList = taskList.searchTasks(this.searchWord);
         TaskList foundTasks = TaskList.fromList(foundList);
         if (foundTasks.getSize() == 0) {
-            ui.showFoundNothingMessage();
+            return ui.showFoundNothingMessage();
         } else {
-            ui.showFindOutput(foundTasks);
+            return ui.showFindOutput(foundTasks);
         }
     }
 

@@ -13,7 +13,7 @@ public abstract class Command {
      * @param taskList TaskList to execute command on
      * @param ui Ui object to handle user input/output
      */
-    public abstract void execute(TaskList taskList, Ui ui);
+    public abstract String execute(TaskList taskList, Ui ui);
 
     /**
      * Checks to see if this {@code Command} is of type {@code ExitCommand}
