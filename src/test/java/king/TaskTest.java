@@ -1,14 +1,15 @@
 package king;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 import king.task.Deadline;
 import king.task.Event;
 import king.task.Task;
 import king.task.Todo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
 

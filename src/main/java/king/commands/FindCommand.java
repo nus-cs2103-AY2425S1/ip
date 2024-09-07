@@ -1,13 +1,13 @@
 package king.commands;
 
-import king.KingException;
-import king.Storage;
-import king.Ui;
-import king.task.Task;
-import king.TaskList;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import king.KingException;
+import king.Storage;
+import king.TaskList;
+import king.Ui;
+import king.task.Task;
 
 /**
  * Represents a command to find tasks containing a keyword in their description.
@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         if (matchingTasks.isEmpty()) {
             ui.showNoTaskFound(keyword);
         } else {
-           ui.showTasksFound(matchingTasks);
+            ui.showTasksFound(matchingTasks);
         }
     }
 

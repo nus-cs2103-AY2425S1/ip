@@ -1,20 +1,20 @@
 package king;
 
-import king.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import king.task.Task;
 
 /**
  * The Ui class handles interactions with the user such as displaying messages.
  */
 public class Ui {
-    private static final String LOGO = " _  __ _             \n" +
-            "| |/ /(_)_ __   __ _ \n" +
-            "| ' / | | '_ \\ / _` |\n" +
-            "| . \\ | | | | | (_| |\n" +
-            "|_|\\_\\|_|_| |_|\\__, |\n" +
-            "               |___/ ";
+    private static final String LOGO = " _  __ _             \n"
+            + "| |/ /(_)_ __   __ _ \n"
+            + "| ' / | | '_ \\ / _` |\n"
+            + "| . \\ | | | | | (_| |\n"
+            + "|_|\\_\\|_|_| |_|\\__, |\n"
+            + "               |___/ ";
 
     /**
      * Displays the welcome message with the "King" logo.
@@ -105,11 +105,21 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays a message indicating that no tasks were found containing the given keyword.
+     *
+     * @param keyword The keyword used to search for tasks.
+     */
     public void showNoTaskFound(String keyword) {
         System.out.println("No tasks found containing the keyword: " + keyword);
         showLine();
     }
 
+    /**
+     * Displays the list of tasks that match the search criteria.
+     *
+     * @param tasks The list of tasks that were found to match the search keyword.
+     */
     public void showTasksFound(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {

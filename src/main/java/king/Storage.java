@@ -1,12 +1,12 @@
 package king;
 
-import king.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import king.task.Task;
 
 /**
  * The Storage class is responsible for reading and writing tasks to and from a file.

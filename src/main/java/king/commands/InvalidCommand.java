@@ -1,6 +1,5 @@
 package king.commands;
 
-import king.KingException;
 import king.Storage;
 import king.TaskList;
 import king.Ui;

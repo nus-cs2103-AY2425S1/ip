@@ -48,7 +48,9 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedFrom = from.format(formatter);
         String formattedTo = to.format(formatter);
-        return "[E]" + "[" + this.getStatusIcon() + "]" + " " + this.description + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E]" + "[" + this.getStatusIcon() + "]"
+                + " " + this.description + " (from: " + formattedFrom + " to: "
+                + formattedTo + ")";
     }
 
     /**

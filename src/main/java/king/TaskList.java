@@ -1,8 +1,8 @@
 package king;
 
-import king.task.Task;
-
 import java.util.ArrayList;
+
+import king.task.Task;
 
 /**
  * The TaskList class encapsulates a list of tasks.

@@ -2,11 +2,21 @@ package king;
 
 import king.commands.Command;
 
+/**
+ * The main class for the King application. It handles initialization, task storage, and user interaction.
+ */
 public class King {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes the King application with the specified file path for storing tasks.
+     * Loads tasks from the file, if available. If there is an issue loading the tasks,
+     * initializes an empty task list.
+     *
+     * @param filePath The file path to load and store tasks.
+     */
     public King(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -17,6 +27,11 @@ public class King {
         }
     }
 
+    /**
+     * Runs the King application, displaying a welcome message and processing user commands
+     * until the user exits the program. If any errors occur while processing a command,
+     * an error message is displayed.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

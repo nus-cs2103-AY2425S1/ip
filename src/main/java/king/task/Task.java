@@ -72,21 +72,23 @@ public abstract class Task {
         String description = parts[2];
 
         switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                if (parts.length == 4) {
-                    LocalDateTime by = LocalDateTime.parse(parts[3]);
-                    return new Deadline(description, by, isDone);
-                }
-                break;
-            case "E":
-                if (parts.length == 5) {
-                    LocalDateTime from = LocalDateTime.parse(parts[3]);
-                    LocalDateTime to = LocalDateTime.parse(parts[4]);
-                    return new Event(description, from, to, isDone);
-                }
-                break;
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            if (parts.length == 4) {
+                LocalDateTime by = LocalDateTime.parse(parts[3]);
+                return new Deadline(description, by, isDone);
+            }
+            break;
+        case "E":
+            if (parts.length == 5) {
+                LocalDateTime from = LocalDateTime.parse(parts[3]);
+                LocalDateTime to = LocalDateTime.parse(parts[4]);
+                return new Event(description, from, to, isDone);
+            }
+            break;
+        default:
+            System.out.println("Unrecognized task type: " + type); // Default case to handle unknown types
         }
         return null; // Invalid format
     }
