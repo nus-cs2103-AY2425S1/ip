@@ -1,5 +1,6 @@
 package calebyyy;
 
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import calebyyy.commands.Command;
-import calebyyy.exceptions.InvalidCommandException;
 import calebyyy.commands.ListCommand;
+import calebyyy.exceptions.InvalidCommandException;
 
 public class ParserTest {
     private Parser parser;
