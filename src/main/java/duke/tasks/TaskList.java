@@ -6,8 +6,8 @@ import java.util.List;
 
 import duke.data.TaskDataBase;
 import duke.exceptions.InvalidDateException;
+import duke.exceptions.InvalidTaskInDatabaseException;
 import duke.exceptions.TaskNotFoundException;
-import duke.ui.Ui;
 
 /**
  * This class represents a list containing tasks.
@@ -16,30 +16,27 @@ import duke.ui.Ui;
 public class TaskList {
     private static TaskList tasks;
     private List<Task> listOfTasks;
-    private Ui ui;
 
-    protected TaskList(Ui ui) {
-        try {
-            listOfTasks = TaskDataBase.load();
-            this.ui = ui;
-        } catch (IOException e) {
-            ui.printMessage("Oops! There is a issue with file database.");
-        } catch (InvalidDateException e) {
-            ui.printMessage(e.toString());
-        }
+    protected TaskList() throws IOException, InvalidDateException {
+        listOfTasks = TaskDataBase.load();
     }
 
     /**
      * Initializes the `TaskList` if it hasn't been initialized yet.
      *
-     * @param ui The `Ui` object used to interact with the user during task initialization.
      * @return The initialized `TaskList` instance.
      */
-    public static TaskList init(Ui ui) {
-        if (tasks == null) {
-            tasks = new TaskList(ui);
+    public static TaskList init() throws InvalidTaskInDatabaseException {
+        try {
+            if (tasks == null) {
+                tasks = new TaskList();
+            }
+            return tasks;
+        } catch (IOException e) {
+            throw new InvalidTaskInDatabaseException();
+        } catch (InvalidDateException e) {
+            throw new InvalidTaskInDatabaseException();
         }
-        return tasks;
     }
 
     /**
@@ -47,27 +44,35 @@ public class TaskList {
      *
      * @param task The name of task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         listOfTasks.add(task);
-        TaskDataBase.save(listOfTasks, ui);
-        ui.printMessage("Got it. I've added this task:" + "\n"
-                + "  " + task.toString() + "\n"
-                + "Now you have " + listOfTasks.size() + " tasks in the list.");
+        try {
+            TaskDataBase.save(listOfTasks);
+            return "Got it! I've added this task:" + "\n" + "  " + task.toString() + "\n"
+                    + "Now you have " + listOfTasks.size() + " tasks in the list.";
+        } catch (IOException e) {
+            return "There is an error saving task into database ( ;´ - `;);";
+        }
     }
 
     /**
      * Marks specific task as done.
      *
      * @param index The task number to be marked.
+     * @return Description of task marked returned.
      */
-    public void markTask(int index) throws TaskNotFoundException {
-        if (index > 0 && index <= listOfTasks.size()) {
-            Task task = listOfTasks.get(index - 1);
-            task.markAsDone();
-            TaskDataBase.save(listOfTasks, ui);
-            ui.printMessage("Nice! I've marked this task as done:\n" + "  " + task.toString());
-        } else {
-            throw new TaskNotFoundException();
+    public String markTask(int index) throws TaskNotFoundException {
+        try {
+            if (index > 0 && index <= listOfTasks.size()) {
+                Task task = listOfTasks.get(index - 1);
+                task.markAsDone();
+                TaskDataBase.save(listOfTasks);
+                return "Nice! I've marked this task as done:\n" + "  " + task;
+            } else {
+                throw new TaskNotFoundException();
+            }
+        } catch (IOException e) {
+            return "There is an error saving task into database ( ;´ - `;);";
         }
     }
 
@@ -75,15 +80,20 @@ public class TaskList {
      * Marks specific task as not done.
      *
      * @param index The task number to be marked.
+     * @return Description of task unmarked returned.
      */
-    public void unmarkTask(int index) throws TaskNotFoundException {
-        if (index > 0 && index <= listOfTasks.size()) {
-            Task task = listOfTasks.get(index - 1);
-            TaskDataBase.save(listOfTasks, ui);
-            task.markAsNotDone();
-            ui.printMessage("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
-        } else {
-            throw new TaskNotFoundException();
+    public String unmarkTask(int index) throws TaskNotFoundException {
+        try {
+            if (index > 0 && index <= listOfTasks.size()) {
+                Task task = listOfTasks.get(index - 1);
+                TaskDataBase.save(listOfTasks);
+                task.markAsNotDone();
+                return "OK! I've marked this task as not done yet:\n" + "  " + task;
+            } else {
+                throw new TaskNotFoundException();
+            }
+        } catch (IOException e) {
+            return "There is an error saving task into database ( ;´ - `;);";
         }
     }
 
@@ -93,14 +103,19 @@ public class TaskList {
      * @param index The index of the task to be deleted (1-based index).
      * @throws TaskNotFoundException If the index is out of bounds, meaning no task exists at the specified index.
      */
-    public void deleteTask(int index) throws TaskNotFoundException {
-        if (index > 0 && index <= listOfTasks.size()) {
-            Task removedTask = listOfTasks.remove(index - 1);
-            TaskDataBase.save(listOfTasks, ui);
-            ui.printMessage("Noted. I've removed this task:" + "\n" + "  " + removedTask + "\n" + "Now you have "
-                    + listOfTasks.size() + " tasks in the list." );
-        } else {
-            throw new TaskNotFoundException();
+    public String deleteTask(int index) throws TaskNotFoundException {
+        try {
+            if (index > 0 && index <= listOfTasks.size()) {
+                Task removedTask = listOfTasks.remove(index - 1);
+                TaskDataBase.save(listOfTasks);
+                return "Noted! I've removed this task:" + "\n" + "  "
+                        + removedTask + "\n" + "Now you have "
+                        + listOfTasks.size() + " tasks in the list.";
+            } else {
+                throw new TaskNotFoundException();
+            }
+        } catch (IOException e) {
+            return "There is an error saving task into database ( ;´ - `;);";
         }
     }
 
@@ -110,8 +125,10 @@ public class TaskList {
      * @return The description of all tasks added.
      */
     public String printList() {
+        if (listOfTasks.isEmpty()) {
+            return " There is currently no task in your list";
+        }
         StringBuilder tasks = new StringBuilder("Here are the tasks in your list:" + "\n");
-
         for (int i = 0; i < listOfTasks.size(); i++) {
             tasks.append(i + 1).append(".").append(listOfTasks.get(i).toString());
             if (i < listOfTasks.size() - 1) {
@@ -124,7 +141,7 @@ public class TaskList {
     /**
      * Prints all tasks matching user input.
      */
-    public void findTask(String keyword) throws TaskNotFoundException {
+    public String findTask(String keyword) throws TaskNotFoundException {
         List<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             Task task = listOfTasks.get(i);
@@ -141,6 +158,6 @@ public class TaskList {
         for (int i = 0; i < matchingTasks.size(); i++) {
             result.append((i + 1) + ". " + matchingTasks.get(i) + "\n");
         }
-        ui.printMessage(result.toString());
+        return result.toString();
     }
 }
