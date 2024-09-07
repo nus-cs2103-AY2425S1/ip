@@ -28,19 +28,7 @@ public class ChangeStatusCommand extends Command {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
-            int number = Integer.parseInt((this.inputList)[1]);
-            //check if number is out of range
-            if (number > numOfTasks) {
-                throw new HenryException("There "
-                        + (numOfTasks <= 1 ? "is " : "are ")
-                        + "only "
-                        + numOfTasks
-                        + (numOfTasks <= 1 ? " task" : " tasks")
-                        + "!");
-            } else if (number <= 0) {
-                throw new HenryException("Number must be greater than zero!");
-            }
-            Task task = taskList.getTasks().get(number - 1);
+            Task task = getTask(taskList, numOfTasks);
             if ((this.inputList)[0].equals("mark")) {
                 //check if task is already marked
                 if (task.isDone()) {
@@ -66,4 +54,28 @@ public class ChangeStatusCommand extends Command {
         }
     }
 
+    /**
+     * Returns the task that user wants to mark or unmark
+     *
+     * @param taskList instance of a TaskList class that contains
+     *                 an array of tasks
+     * @param numOfTasks number of tasks recorded in taskList object
+     * @return the task that user is asking for
+     */
+    private Task getTask(TaskList taskList, int numOfTasks) throws HenryException {
+        int number = Integer.parseInt((this.inputList)[1]);
+        //check if number is out of range
+        if (number > numOfTasks) {
+            throw new HenryException("There "
+                    + (numOfTasks <= 1 ? "is " : "are ")
+                    + "only "
+                    + numOfTasks
+                    + (numOfTasks <= 1 ? " task" : " tasks")
+                    + "!");
+        } else if (number <= 0) {
+            throw new HenryException("Number must be greater than zero!");
+        }
+        Task task = taskList.getTasks().get(number - 1);
+        return task;
+    }
 }

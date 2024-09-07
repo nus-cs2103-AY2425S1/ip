@@ -27,18 +27,7 @@ public class DeleteCommand extends Command {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
-            int number = Integer.parseInt(this.input);
-            //check if number is out of range
-            if (number > numOfTasks) {
-                throw new HenryException("There "
-                        + (numOfTasks <= 1 ? "is " : "are ")
-                        + "only "
-                        + numOfTasks
-                        + (numOfTasks <= 1 ? " task" : " tasks")
-                        + "!");
-            } else if (number <= 0) {
-                throw new HenryException("Number must be greater than zero!");
-            }
+            int number = getNumber(numOfTasks);
             Task task = taskList.getTasks().get(number - 1);
             taskList.getTasks().remove(number - 1);
             return "\nNoted. I've removed this task:\n"
@@ -50,5 +39,27 @@ public class DeleteCommand extends Command {
         } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }
+    }
+
+    /**
+     * Returns the task number that user wants to delete
+     *
+     * @param numOfTasks number of tasks recorded in taskList object
+     * @return the task number that user is asking for
+     */
+    private int getNumber(int numOfTasks) throws HenryException {
+        int number = Integer.parseInt(this.input);
+        //check if number is out of range
+        if (number > numOfTasks) {
+            throw new HenryException("There "
+                    + (numOfTasks <= 1 ? "is " : "are ")
+                    + "only "
+                    + numOfTasks
+                    + (numOfTasks <= 1 ? " task" : " tasks")
+                    + "!");
+        } else if (number <= 0) {
+            throw new HenryException("Number must be greater than zero!");
+        }
+        return number;
     }
 }
