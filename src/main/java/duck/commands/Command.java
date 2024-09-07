@@ -33,7 +33,12 @@ public abstract class Command {
      * @param ui The user interface for displaying messages to the user.
      * @throws DuckException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException;
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        // assertions are done in the abstract class so that subclasses will not need to check for them again.
+        assert tasks != null;
+        assert storage != null;
+        assert ui != null;
+    }
 
     /**
      * Determines whether the command signifies an exit operation.

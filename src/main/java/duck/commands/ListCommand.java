@@ -32,6 +32,8 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         int idx = 1;
         System.out.println("Here are the tasks in your list:");
         for (Task t : tasks) {

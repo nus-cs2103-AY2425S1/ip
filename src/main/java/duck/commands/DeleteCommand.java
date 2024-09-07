@@ -34,6 +34,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         if (!Utils.isCorrectUpdateFormat(message)) {
             throw new DuckException("Delete tasks with correct format please >:(\n"
                     + "delete {index of task to delete}\n");

@@ -35,6 +35,8 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        super.execute(tasks, storage, ui);
+
         if (message.length() <= 5) {
             throw new DuckException("Quack, you need to provide a keyword to search for!\n");
         }
