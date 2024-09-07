@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ahmad.fx.Controller">
+    <children>
+        <ScrollPane fx:id="scrollPane" prefHeight="656.0" prefWidth="520.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="chatBox" alignment="BOTTOM_LEFT" prefHeight="654.0" prefWidth="505.0" />
+         </content></ScrollPane>
+        <TextField id="userInput" fx:id="userInput" layoutX="-1.0" layoutY="656.0" prefHeight="50.0" prefWidth="478.0" />
+        <Button layoutX="477.0" layoutY="656.0" mnemonicParsing="false" onAction="#handleUserSend" prefHeight="50.0" prefWidth="43.0" text="Button" />
+    </children>
+</AnchorPane>
