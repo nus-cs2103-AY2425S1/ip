@@ -56,7 +56,7 @@ public class TaskList {
     private void loadTasksFromSave() {
         File file = new File(save.getPath());
         if (!file.exists()) {
-//            System.out.println("File does not exist");
+            System.out.println("File does not exist");
             return;
         }
 
@@ -76,6 +76,9 @@ public class TaskList {
 
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
+        for (String part : parts) {
+            assert !part.isEmpty();
+        }
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -226,7 +229,7 @@ public class TaskList {
             return "Error marking as undone";
         }
         Task currentTask = taskList.get(idx);
-        currentTask.markAsDone();
+        currentTask.markAsUndone();
         String response = "Ok, I've marked this task as not done:" + "[" + currentTask.getStatus() + "] " + currentTask.readTask();
         return response;
     }
@@ -264,6 +267,7 @@ public class TaskList {
      */
     public String find(String s) {
         List<Task> tasks = new ArrayList<>();
+        assert !s.isEmpty() : "Search term should not be empty";
         StringBuilder response = new StringBuilder();
 
         for (Task task : taskList) {

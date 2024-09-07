@@ -22,6 +22,7 @@ public class ToDo extends Task {
      * @return ToDo
      */
     public static ToDo of(String name, TaskType taskType) {
+        assert !name.isEmpty() : "Task name should not be empty";
         return new ToDo(name, TaskType.T);
     }
 }

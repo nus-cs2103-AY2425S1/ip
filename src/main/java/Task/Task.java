@@ -38,6 +38,7 @@ public class Task {
      * @throws TaskCreationException if error occurs while creating task
      */
     public static Task of(String name, TaskType taskType) throws TaskCreationException {
+        assert !name.isEmpty() : "Task name should not be empty";
         return new Task(name, taskType);
     }
 
