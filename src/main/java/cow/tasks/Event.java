@@ -9,6 +9,7 @@ public class Event extends Task {
 
     /**
      * Creates an Event instance.
+     *
      * @param description Of the Event.
      * @param from Start of Event.
      * @param to End of Event.
@@ -21,6 +22,7 @@ public class Event extends Task {
 
     /**
      * Alternate constructor for loading isDone directly.
+     *
      * @param isDone 1 or 0 indicating if task is done.
      * @param description The Description of the event.
      * @param from from to state the start of the event.
@@ -39,6 +41,7 @@ public class Event extends Task {
 
     /**
      * A string that matches the format for writing it to file.
+     *
      * @return A string to be written to a txt file.
      */
     @Override

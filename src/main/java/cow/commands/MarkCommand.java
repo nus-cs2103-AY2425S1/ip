@@ -23,6 +23,7 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the task at the specified index in the todo list as completed.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.

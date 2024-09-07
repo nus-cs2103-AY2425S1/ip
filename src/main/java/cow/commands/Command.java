@@ -10,6 +10,7 @@ import cow.todolist.TodoList;
 public abstract class Command {
     /**
      * Checks if the command is a command that terminates the program.
+     *
      * @return boolean.
      */
     public boolean isExit() {
@@ -18,6 +19,7 @@ public abstract class Command {
 
     /**
      * Executes the task of each command.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.

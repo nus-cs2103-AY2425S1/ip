@@ -16,6 +16,7 @@ public class ByeCommand extends Command {
 
     /**
      * Prints the message goodbye before termination.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.
@@ -28,6 +29,7 @@ public class ByeCommand extends Command {
 
     /**
      * Returns true to tell the program to terminate.
+     *
      * @return boolean.
      */
     @Override

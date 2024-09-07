@@ -17,12 +17,19 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_EXAMPLE;
 
     private final int index;
+
+    /**
+     * Delete the item from the todolist based on the index entered.
+     *
+     * @param index of the todo list to delete starting from 1.
+     */
     public DeleteCommand(int index) {
         this.index = index - 1;
     }
 
     /**
      * Deletes task using the index in the todo list.
+     *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.

@@ -1,8 +1,6 @@
 package cow;
 
 import java.io.IOException;
-import java.util.Scanner;
-
 import cow.commands.Command;
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
@@ -13,13 +11,13 @@ import cow.todolist.TodoList;
 /** Creates a cow object to start the chatbot. **/
 public class Cow {
     // solution below inspired by https://www.w3schools.com/java/java_user_input.asp
-    private static final Scanner scanner = new Scanner(System.in);
     private TodoList todoList;
     private final FileSaver fs;
     private final Ui ui;
 
     /**
      * Creates an instance of the Cow class.
+     *
      * @param filePath of the save file.
      */
     public Cow(String filePath) {
@@ -28,9 +26,13 @@ public class Cow {
         try {
             todoList = fs.loadData();
         } catch (IOException | CowExceptions e) {
-            ui.printLoadingError();
-            todoList = new TodoList();
+            handleCowException();
         }
+    }
+
+    private void handleCowException() {
+        ui.printLoadingError();
+        todoList = new TodoList();
     }
 
     /**
@@ -52,6 +54,12 @@ public class Cow {
         }
     }
 
+    /**
+     * Gets response from cow from an input.
+     *
+     * @param input user input from GUI.
+     * @return the response from cow.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -62,10 +70,18 @@ public class Cow {
         }
     }
 
+    /**
+     * Gets cow greeting message.
+     * @return a string.
+     */
     public String getGreetings() {
         return ui.printGreetings();
     }
 
+    /**
+     * Runs cow.
+     * @param args are optional.
+     */
     public static void main(String[] args) {
         new Cow("data/cow.txt").run();
     }
