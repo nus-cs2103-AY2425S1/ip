@@ -32,11 +32,12 @@ public abstract class Command {
      * Executes the command with the given TaskList, Ui, and Storage.
      * Subclasses should override this method to provide specific command behavior.
      *
-     * @param taskList The TaskList that the command will operate on.
+     * @param tasks The TaskList that the command will operate on.
      * @param ui The Ui object used to interact with the user.
      * @param storage The Storage object used to save or load tasks.
      * @throws GarfieldException If an error occurs during command execution.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws GarfieldException {
-    }
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException;
+
+    public abstract String execute(TaskList tasks, Storage storage) throws GarfieldException;
 }

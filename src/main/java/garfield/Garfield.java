@@ -22,7 +22,7 @@ public class Garfield {
      *
      * @param saveFilePath The file path where tasks are saved and loaded from.
      */
-    public Garfield(String saveFilePath){
+    public Garfield(String saveFilePath) {
         this.ui = new Ui();
         this.storage = new Storage(saveFilePath);
         this.taskList = new TaskList(this.storage.load());
@@ -55,5 +55,14 @@ public class Garfield {
      */
     public static void main(String[] args) {
         new Garfield("./data/save.txt").run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(taskList, storage);
+        } catch (GarfieldException e) {
+            return e.getMessage();
+        }
     }
 }
