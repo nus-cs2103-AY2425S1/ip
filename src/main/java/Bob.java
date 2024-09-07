@@ -35,6 +35,9 @@ public class Bob {
         TODO("todo") {
             @Override
             public void run() {
+                if (argument.isBlank()) {
+                    throw new MissingArgumentException("description of the todo");
+                }
                 Task task = new Todo(argument);
                 list.add(task);
                 say("added: " + task);
@@ -43,68 +46,80 @@ public class Bob {
         DEADLINE("deadline") {
             @Override
             public void run() {
-                int byIndex = argument.lastIndexOf(" /by ");
+                int byIndex = argument.lastIndexOf("/by ");
                 if (byIndex == -1) {
-                    say("Deadlines require a 'by' argument!");
-                } else {
-                    Task task = new Deadline(
-                            argument.substring(0, byIndex),
-                            argument.substring(byIndex + 5)
-                    );
-                    list.add(task);
-                    say("added: " + task);
+                    throw new MissingArgumentException("'by' argument to add a deadline");
                 }
+                String desc = argument.substring(0, byIndex);
+                if (desc.isBlank()) {
+                    throw new MissingArgumentException("description of the deadline");
+                }
+                Task task = new Deadline(
+                        desc,
+                        argument.substring(byIndex + 4)
+                );
+                list.add(task);
+                say("added: " + task);
             }
         },
         EVENT("event") {
             @Override
             public void run() {
-                int fromIndex = argument.lastIndexOf(" /from ");
-                int toIndex = argument.lastIndexOf(" /to ");
+                int fromIndex = argument.lastIndexOf("/from ");
+                int toIndex = argument.lastIndexOf("/to ");
                 if (fromIndex == -1 || toIndex == -1) {
-                    say("Events require a 'from' and 'to' argument!");
+                    throw new MissingArgumentException("'from' and 'to' arguments to add an event");
                 } else {
-                    String desc = fromIndex < toIndex
-                                    ? argument.substring(0, fromIndex)
-                                    : argument.substring(0, toIndex);
-                    String from = fromIndex < toIndex
-                                    ? argument.substring(fromIndex + 7, toIndex)
-                                    : argument.substring(fromIndex + 7);
-                    String to = fromIndex < toIndex
-                                    ? argument.substring(toIndex + 5)
-                                    : argument.substring(toIndex + 5, fromIndex);
-                    Task task = new Event(desc, from, to);
+                    Task task = getTask(fromIndex, toIndex);
                     list.add(task);
                     say("added: " + task);
                 }
+            }
+
+            private static Task getTask(int fromIndex, int toIndex) {
+                String desc = fromIndex < toIndex
+                                ? argument.substring(0, fromIndex)
+                                : argument.substring(0, toIndex);
+                String from = fromIndex < toIndex
+                                ? argument.substring(fromIndex + 6, toIndex)
+                                : argument.substring(fromIndex + 6);
+                String to = fromIndex < toIndex
+                                ? argument.substring(toIndex + 4)
+                                : argument.substring(toIndex + 4, fromIndex);
+                if (desc.isBlank()) {
+                    throw new MissingArgumentException("description of the event");
+                }
+                return new Event(desc, from, to);
             }
         },
         MARK("mark") {
             @Override
             public void run() {
-                if (!argument.isBlank()) {
-                    int i = Integer.parseInt(argument) - 1;
-                    list.get(i).mark();
-                    say("Nice! I've marked this task as done:\n  " +
-                            list.get(i));
+                if (argument.isBlank()) {
+                    throw new MissingArgumentException("index of the task that you want to mark");
                 }
+                int i = Integer.parseInt(argument) - 1;
+                list.get(i).mark();
+                say("Nice! I've marked this task as done:\n  " +
+                        list.get(i));
             }
         },
         UNMARK("unmark") {
             @Override
             public void run() {
-                if (!argument.isBlank()) {
-                    int i = Integer.parseInt(argument) - 1;
-                    list.get(i).unmark();
-                    say("OK, I've marked this task as not done yet:\n  " +
-                            list.get(i));
+                if (argument.isBlank()) {
+                    throw new MissingArgumentException("index of the task that you want to unmark");
                 }
+                int i = Integer.parseInt(argument) - 1;
+                list.get(i).unmark();
+                say("OK, I've marked this task as not done yet:\n  " +
+                        list.get(i));
             }
         },
         CATCH_ALL("") {
             @Override
             public void run() {
-                say("Unknown command");
+                throw new UnknownCommandException();
             }
         };
 
@@ -154,15 +169,19 @@ public class Bob {
             String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0];
             argument = input.length == 1 ? "" : input[1];
-            for (Command c : Command.values()) {
-                if (command.equals(c.CMD)) {
-                    c.run();
-                    executed = true;
-                    break;
+            try {
+                for (Command c : Command.values()) {
+                    if (command.equals(c.CMD)) {
+                        c.run();
+                        executed = true;
+                        break;
+                    }
                 }
-            }
-            if (!executed) {
-                Command.CATCH_ALL.run();
+                if (!executed) {
+                    Command.CATCH_ALL.run();
+                }
+            } catch (BobException e) {
+                say(e.getMessage());
             }
         }
     }
