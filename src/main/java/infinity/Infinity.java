@@ -15,6 +15,13 @@ import javafx.scene.layout.VBox;
 public class Infinity {
 
     private static TaskList botTasks;
+    /** Bot reply for unsuccessful load */
+    private static final String BOT_LOADING_FAILED = "Loading of save file was unsuccessful: ";
+    /** Bot reply for startup */
+    private static final String BOT_STARTUP = String.format(
+            "Hello, I'm a dummy bot called %s\n%s",
+            Ui.BOT_NAME,
+            "What can I not do for you?");
 
     /**
      * Constructor for the Infinity class.
@@ -29,13 +36,10 @@ public class Infinity {
             try {
                 botTasks = new TaskList(Storage.checkAndReadFile());
                 dialogContainer.getChildren().addAll(
-                        DialogBox.createBotDialog(Ui.botSays(String.format(
-                                "Hello, I'm a dummy bot called %s\n%s",
-                                Ui.BOT_NAME,
-                                "What can I not do for you?")), botImage));
+                        DialogBox.createBotDialog(Ui.botSays(BOT_STARTUP), botImage));
             } catch (InfinityException e) {
                 dialogContainer.getChildren().addAll(DialogBox.createBotDialog(
-                        "Loading of save file was unsuccessful: " + e.getMessage(), botImage));
+                        BOT_LOADING_FAILED + e.getMessage(), botImage));
             }
         }
 

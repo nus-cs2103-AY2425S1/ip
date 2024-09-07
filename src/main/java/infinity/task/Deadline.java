@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import infinity.infinityexception.InfinityException;
 import infinity.parser.Parser;
+import infinity.storage.Storage;
 import infinity.ui.Ui;
 
 /**
@@ -26,7 +27,7 @@ public class Deadline extends Task {
             String by = description.split(" /by ")[1];
             byDate = Parser.parseDateTime(by);
 
-            this.setTypeOfTask("D");
+            this.setTypeOfTask(Task.TaskTypes.D);
         } catch (DateTimeException e) {
             throw new InfinityException(Ui.botSays("""
                     Oops, I think your date format is a little wrong.
@@ -50,7 +51,7 @@ public class Deadline extends Task {
         this.isDone = isDone;
         this.setDescription(description);
         this.byDate = Parser.parseDateTime(by);
-        this.setTypeOfTask("D");
+        this.setTypeOfTask(Task.TaskTypes.D);
     }
 
     /**
@@ -62,8 +63,8 @@ public class Deadline extends Task {
     @Override
     public String saveFileFormat(String delimiter) {
         return String.format("%s%s%s%s%s%s%s",
-                this.typeOfTask, delimiter,
-                this.isDone ? "1" : "0", delimiter,
+                this.typeOfTask.toString(), delimiter,
+                this.isDone ? Storage.DONE_MARKER : Storage.UNDONE_MARKER, delimiter,
                 Parser.parseDateTimeString(byDate), delimiter,
                 this.description);
     }
@@ -71,8 +72,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[%s][%s] %s (by: %s)",
-                this.typeOfTask,
-                this.isDone ? "X" : " ",
+                this.typeOfTask.toString(),
+                this.isDone ? MARKED_MARKER : UNMARKED_MARKER,
                 this.description,
                 Parser.parseDateTimeStringAlt(byDate));
     }
