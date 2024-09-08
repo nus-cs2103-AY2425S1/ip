@@ -79,26 +79,31 @@ public class Prince {
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String line = "";
-
         System.out.println("Hello! I'm Prince!");
         System.out.println("What would you like me to add to your TODO list today?");
 
+        line = scanner.nextLine();
+        getResponse(line);
 
-        while(!line.equals("bye")) {
-            line = scanner.nextLine();
-            try {
-                if(line.equals("bye")) {
-                    ui.terminationMessage();
-                    break;
-                }
-                System.out.println(parser.parseConversation(line));
-                System.out.println("How else would you like me to edit your TODO list today?");
-                Storage.pushTasksToFile(TaskList.getList());
-            } catch (IncompleteDescException | UnknownWordException e) {
-                ui.printErrorMessage(e.getMessage());
-            }
-        }
         scanner.close();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        //return "Duke heard: " + input;
+        try {
+            if(input.equals("bye")) {
+                return ui.terminationMessage();
+            }
+            String response = parser.parseConversation(input);
+            Storage.pushTasksToFile(TaskList.getList());
+            return response;
+            //System.out.println("How else would you like me to edit your TODO list today?");
+        } catch (IncompleteDescException | UnknownWordException e) {
+            return ui.printErrorMessage(e.getMessage());
+        }
     }
 
     /**
