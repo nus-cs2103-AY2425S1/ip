@@ -1,15 +1,27 @@
 package elysia.ui;
 
-import elysia.tasks.*;
+import elysia.tasks.TaskList;
+import elysia.tasks.Todo;
+import elysia.tasks.Event;
+import elysia.tasks.Deadline;
+import elysia.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles user input and output for the Elysia application.
+ * Manages the parsing of user commands and interactions with the task list.
+ */
 public class InputOutputHandler {
     TaskList taskList;
     FileReaderWriter fileReaderWriter;
 
+    /**
+     * Constructs an InputOutputHandler and initializes the task list and file reader/writer.
+     * Loads any previously saved tasks from the file.
+     */
     public InputOutputHandler() {
         taskList = new TaskList();
         fileReaderWriter = new FileReaderWriter(taskList);
@@ -19,6 +31,15 @@ public class InputOutputHandler {
         }
     }
 
+    /**
+     * Parses user input and executes the corresponding command.
+     * Supports commands for adding, deleting, marking, unmarking tasks, and more.
+     *
+     * @param input The user's command as a string.
+     * @return {@code true} if the application should continue running; {@code false} if the application should exit.
+     * @throws ElysiaException If the input command is unknown.
+     * @throws StringIndexOutOfBoundsException If there is an error processing the input string.
+     */
     public boolean parseInput(String input) throws ElysiaException, StringIndexOutOfBoundsException {
         String output = "";
         if (input.equals("bye")) {

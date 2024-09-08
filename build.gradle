@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "elysia"
     archiveClassifier = null
+    archiveFileName = 'elysia.jar'
 }
 
 run{
