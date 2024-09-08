@@ -34,6 +34,7 @@ public class Storage {
      * @return True if the file exists, false otherwise
      */
     private boolean fileExists() {
+        assert filePath != null && !filePath.isBlank();
         return new File(filePath + File.separator + FILE_NAME).exists();
     }
 
@@ -53,6 +54,7 @@ public class Storage {
      * @throws ClassNotFoundException If the stored class is not recognized.
      */
     public TaskList loadTasks() throws IOException, ClassNotFoundException {
+        assert filePath != null && !filePath.isBlank();
         FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + FILE_NAME);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         return (TaskList) objectInputStream.readObject();
@@ -64,6 +66,7 @@ public class Storage {
      * @param taskList The tasks to be saved
      */
     public void saveTasks(TaskList taskList) {
+        assert taskList != null; // Must not save a null taskList
         if (!fileExists()) {
             File dir = new File(filePath);
             dir.mkdirs();
