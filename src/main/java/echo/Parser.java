@@ -76,8 +76,9 @@ public class Parser {
      */
     public static String parse(String userInput, TaskList allTasks) throws DukeException {
         // parse the command
-        String[] cmdParts = userInput.split(" ", 2);
-        String command = cmdParts[0].toUpperCase();
+        String[] commandArray = userInput.split(" ", 2);
+        assert commandArray.length <= 2 : "Command array should be at most 2 in length";
+        String command = commandArray[0].toUpperCase();
 
         // set isExit flag to indicate bot exit
         // boolean isExit = false;
@@ -89,13 +90,13 @@ public class Parser {
             case LIST:
                 return listAllTask(allTasks);
             case MARK:
-                return mark(cmdParts, allTasks);
+                return mark(commandArray, allTasks);
             case UNMARK:
-                return unmark(cmdParts, allTasks);
+                return unmark(commandArray, allTasks);
             case DELETE:
-                return deleteTask(cmdParts, allTasks);
+                return deleteTask(commandArray, allTasks);
             case FIND:
-                return findTask(cmdParts, allTasks);
+                return findTask(commandArray, allTasks);
             default:
                 Task task = Task.createTask(userInput);
                 return allTasks.add(task);
@@ -106,6 +107,8 @@ public class Parser {
             throw new DukeException("Invalid command entered. " + "\n" + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid index entered. " + "\n" + e.getMessage());
+        } catch (AssertionError e) {
+            throw new DukeException(e.getMessage());
         }
     }
 }
