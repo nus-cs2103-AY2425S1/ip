@@ -52,6 +52,10 @@ public class Jackson {
         this.ui = new Ui();
         this.storage = new Storage(PATH);
         this.commandType = Commands.CommandType.INTRO;
+
+        // Code to test if asserts enabled
+        // Should be the case since build.gradle explicitly enables it
+        // assert false: "Asserts enabled!";
     }
 
     /**
