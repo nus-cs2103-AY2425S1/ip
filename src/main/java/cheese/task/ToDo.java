@@ -1,27 +1,35 @@
 package cheese.task;
 
-import cheese.CheeseException;
+import cheese.exception.CheeseException;
 
 /**
  * Basically same as Task
  */
 public class ToDo extends Task {
-    private ToDo(String name) throws CheeseException {
+    /**
+     * Creates a ToDo from a name
+     * @param name for task
+     * @throws CheeseException if name is blank
+     */
+    public ToDo(String name) throws CheeseException {
         super(name);
     }
+
+    /**
+     * Create a ToDo from csv data
+     * @param data data from Storage file
+     * @throws CheeseException if data is in wrong format
+     */
     public ToDo(String[] data) throws CheeseException {
         super(data);
     }
 
     /**
-     * Factory method to ensure correct creation of Cheese.ToDo
-     * @param input String
-     * @return Cheese.ToDo
-     * @throws CheeseException custom exception
+     * Returns correct format for user to create a ToDo
+     * @return String of the correct command
      */
-    public static ToDo of(String input) throws CheeseException {
-        String name = input.replace("todo", "").strip();
-        return new ToDo(name);
+    public static String correctFormat() {
+        return "todo [name]";
     }
 
     @Override

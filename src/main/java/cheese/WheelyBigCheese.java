@@ -1,6 +1,7 @@
 package cheese;
 
 import cheese.command.Command;
+import cheese.exception.CheeseException;
 
 /**
  * Main class of chat bot
@@ -11,12 +12,13 @@ public class WheelyBigCheese {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    private boolean exitChat;
+    private boolean isExitChat;
 
     WheelyBigCheese() {
         ui = new Ui();
+        assert !LIST_FILE_PATH.isBlank();
         storage = new Storage(LIST_FILE_PATH);
-        exitChat = false;
+        isExitChat = false;
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (CheeseException e) {
@@ -26,7 +28,7 @@ public class WheelyBigCheese {
     }
 
     /**
-     * Command to start bot
+     * Returns to start bot
      * @return String greeting
      */
     public String start() {
@@ -44,11 +46,11 @@ public class WheelyBigCheese {
             //Get user input and basic manipulation of input
             Command c = Parser.parse(input, tasks.size());
             response = c.execute(tasks, ui, storage);
-            exitChat = c.isExit();
+            isExitChat = c.isExit();
         } catch (CheeseException e) {
-            exitChat = true;
-            return ui.say(e);
+            response = ui.say(e);
         }
+        assert !response.isBlank();
         return response;
     }
 
@@ -78,7 +80,7 @@ public class WheelyBigCheese {
      * @return boolean
      */
     public boolean isExit() {
-        return exitChat;
+        return isExitChat;
     }
 
     public static void main(String[] args) {

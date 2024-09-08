@@ -1,6 +1,6 @@
 package cheese.command;
 
-import cheese.CheeseException;
+import cheese.exception.CheeseException;
 import cheese.Storage;
 import cheese.TaskList;
 import cheese.Ui;
@@ -13,7 +13,7 @@ public class AddCommand extends Command {
     private final Task task;
 
     /**
-     * Only constructor for add command
+     * Creates AddCommand and saves Task to add
      * @param task task to add
      */
     public AddCommand(Task task) {
@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Function to call to add the task
+     * Adds task to Storage, TaskList and returns Ui response
      * @param tasks list of tasks
      * @param ui format response
      * @param storage store data
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
-        storage.add(task);
+        storage.addTask(task);
         tasks.add(task);
         return ui.say(task, tasks, false);
     }

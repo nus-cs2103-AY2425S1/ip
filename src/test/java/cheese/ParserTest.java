@@ -1,5 +1,6 @@
 package cheese;
 
+import cheese.exception.CheeseException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import cheese.command.*;
