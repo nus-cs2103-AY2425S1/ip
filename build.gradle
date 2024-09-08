@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("qwerty.Qwerty")
+    mainClass.set("qwerty.Launcher")
 }
 
 shadowJar {
