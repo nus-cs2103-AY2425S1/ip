@@ -6,6 +6,7 @@ import skibidi.command.DeleteCommand;
 import skibidi.command.FindCommand;
 import skibidi.command.ListCommand;
 import skibidi.command.MarkCommand;
+import skibidi.command.SetPriorityCommand;
 import skibidi.command.UnmarkCommand;
 import skibidi.task.AbstractTask.TaskValidationException;
 import skibidi.task.Deadline;
@@ -29,7 +30,8 @@ public class CommandParser {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND
+        FIND,
+        PRIORITY
     }
 
     /** Check if command is exit command. */
@@ -71,6 +73,13 @@ public class CommandParser {
                     throw new CommandParseException("COMMAND find REQUIRES A SEARCH QUERY");
                 }
                 return new FindCommand(args[1].strip());
+            case PRIORITY:
+                if (args.length != 2) {
+                    throw new CommandParseException("COMMAND priority REQUIRES 2 ARGUMENTS");
+                }
+                return new SetPriorityCommand(
+                        Integer.parseInt(args[1].strip()),
+                        Integer.parseInt(args[2].strip()));
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
             }
