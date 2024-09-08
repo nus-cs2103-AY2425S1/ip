@@ -2,7 +2,6 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.List;
-import duke.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -61,17 +60,8 @@ public class TaskList {
      *
      * @return The number of tasks in the list.
      */
-    public int size() {
+    public int getSize() {
         return tasks.size();
-    }
-
-    /**
-     * Checks if the TaskList is empty.
-     *
-     * @return True if the TaskList has no tasks, false otherwise.
-     */
-    public boolean isEmpty() {
-        return tasks.isEmpty();
     }
 
     /**

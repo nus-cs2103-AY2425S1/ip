@@ -68,7 +68,7 @@ public class Parser {
     private String markTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index >= 0 && index < tasks.size()) {
+            if (index >= 0 && index < tasks.getSize()) {
                 tasks.get(index).markAsDone();
                 return ui.showTaskMarked(tasks.get(index));
             } else {
@@ -88,7 +88,7 @@ public class Parser {
     private String unmarkTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index >= 0 && index < tasks.size()) {
+            if (index >= 0 && index < tasks.getSize()) {
                 tasks.get(index).markAsNotDone();
                 return ui.showTaskUnmarked(tasks.get(index));
             } else {
@@ -114,7 +114,7 @@ public class Parser {
             if (description.isEmpty()) {
                 return ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
             } else {
-                return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                return ui.showTaskAdded(tasks.get(tasks.getSize() - 1), tasks.getSize());
             }
         }
     }
@@ -138,7 +138,7 @@ public class Parser {
                 } else {
                     try {
                         tasks.add(new Deadline(description, by));
-                        return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        return ui.showTaskAdded(tasks.get(tasks.getSize() - 1), tasks.getSize());
                     } catch (DateTimeParseException e) {
                         return ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
                     }
@@ -171,7 +171,7 @@ public class Parser {
                     } else {
                         try {
                             tasks.add(new Event(description, from, to));
-                            return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                            return ui.showTaskAdded(tasks.get(tasks.getSize() - 1), tasks.getSize());
                         } catch (DateTimeParseException e) {
                             return ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
                         }
@@ -194,9 +194,9 @@ public class Parser {
     private String deleteTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index >= 0 && index < tasks.size()) {
+            if (index >= 0 && index < tasks.getSize()) {
                 Task removedTask = tasks.remove(index);
-                return ui.showTaskDeleted(removedTask, tasks.size());
+                return ui.showTaskDeleted(removedTask, tasks.getSize());
             } else {
                 return ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
             }
