@@ -35,16 +35,23 @@ public class DateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        
         if (this.getInput().matches("task .+")) {
             // Split the user input to get the date specified by the user
             String[] taskParts = this.getInput().split(" ", 2);
+            assert taskParts.length == 2 : "Input should be split into two parts";
+
             String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
+            assert !taskPeriod.isEmpty() : "Task period should not be empty";
 
             try {
                 LocalDate taskDate = LocalDate.parse(taskPeriod);
+                assert taskDate != null : "Task date cannot be null";
 
                 // Filter the task list by the given date
                 List<Task> filteredTasks = tasks.filterByDate(taskDate);
+                assert filteredTasks != null : "Filtered tasks list cannot be null";
 
                 // Check if the filtered task list is empty
                 if (filteredTasks.isEmpty()) {

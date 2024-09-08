@@ -22,10 +22,12 @@ public class Jeff {
      */
     public Jeff(String filePath) {
         this.storage = new Storage(filePath);
+        assert this.storage != null : "Storage should not be null";
 
         // Load the task list from the task list text file
         try {
             this.tasks = new TaskList(this.storage.load());
+            assert this.tasks != null : "Task list should not be null";
         } catch (JeffException e) {
             this.tasks = new TaskList();
         }
@@ -41,6 +43,7 @@ public class Jeff {
         try {
             // Parse the user input into commands
             Command c = Parser.parse(input);
+            assert c != null : "Command should not be null";
 
             // Execute the command
             return c.execute(this.tasks, this.storage);

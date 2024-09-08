@@ -31,8 +31,12 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         // Get the task from the taskList
         Task targetTask = tasks.getTask(this.getInput(), "mark ");
+        assert targetTask != null : "Target task should not be null";
 
         // Check if the task has been done or not
         if (targetTask.isDone()) {
@@ -42,6 +46,10 @@ public class MarkCommand extends Command {
         } else {
             // Mark the task as done
             targetTask.markAsDone();
+            assert targetTask.isDone() : "Target task should be marked as done";
+
+            // Update database
+            storage.writeTaskList(tasks);
 
             // Return the response
             return Parser.prettyText("OK, I've marked this task as done:\n   " + targetTask.toString());

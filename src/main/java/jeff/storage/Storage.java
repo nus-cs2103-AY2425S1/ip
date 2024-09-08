@@ -24,6 +24,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
+        assert this.filePath != null : "File path should not be null";
     }
 
     /**
@@ -36,6 +37,8 @@ public class Storage {
         try {
             // Check if the parent directory exists
             Path directoryPath = this.filePath.getParent();
+            assert directoryPath != null : "Directory path should not be null";
+
             if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
             }
@@ -59,9 +62,12 @@ public class Storage {
      * @throws JeffException if something went wrong when getting the file.
      */
     public void writeTaskList(TaskList taskList) throws JeffException {
+        assert taskList != null : "Task list should not be null";
+
         try {
             // Map the tasks in the task list into their file strings
             List<String> fileStringList = taskList.toFileStrings();
+            assert fileStringList != null : "File string list should not be null";
 
             // Write the strings into the file
             Files.write(filePath, fileStringList);

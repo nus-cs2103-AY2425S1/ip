@@ -1,1 +1,1 @@
-T | 0 | borrow book
+D | 1 | return book | 2024-09-20 20:00
