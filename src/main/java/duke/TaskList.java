@@ -1,6 +1,5 @@
 package duke;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +28,8 @@ public class TaskList {
      * @param storage the Storage object to handle file operations
      */
     public void mark(int index, Storage storage) {
+        assert storage != null : "Storage object should not be null";
+
         Task task = this.toDoList.get(index - 1);
         task.markAsDone();
         storage.replaceLineInFile(this, index - 1);
@@ -43,6 +44,8 @@ public class TaskList {
      * @param storage the Storage object to handle file operations
      */
     public void unmark(int index, Storage storage) {
+        assert storage != null : "Storage object should not be null";
+
         Task task = toDoList.get(index - 1);
         task.unmarkAsUndone();
         storage.replaceLineInFile(this, index - 1);
@@ -57,6 +60,8 @@ public class TaskList {
      * @param storage the Storage object to handle file operations
      */
     public void delete(int index, Storage storage) {
+        assert storage != null : "Storage object should not be null";
+
         Task task = toDoList.get(index - 1);
         toDoList.remove(index - 1);
         storage.deleteLineFromFile(index - 1);
@@ -72,6 +77,8 @@ public class TaskList {
      * @param task the Task to load into the list
      */
     public void load(Task task) {
+        assert task != null : "Task to load should not be null";
+
         this.toDoList.add(task);
         this.counter += 1;
     }
@@ -83,6 +90,9 @@ public class TaskList {
      * @param storage the Storage object to handle file operations
      */
     public void add(Task task, Storage storage) {
+        assert task != null : "Task to add should not be null";
+        assert storage != null : "Storage object should not be null";
+
         this.toDoList.add(task);
         storage.writeToFile(task);
         System.out.println("Got it. I've added this task: ");
@@ -126,6 +136,8 @@ public class TaskList {
      * @return An ArrayList of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Keyword should not be null or empty";
+
         ArrayList<Task> tasksFound = new ArrayList<>();
         for (Task t : this.toDoList) {
             if (t.getDescription().contains(keyword)) {

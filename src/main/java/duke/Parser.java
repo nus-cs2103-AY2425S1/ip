@@ -21,11 +21,18 @@ public class Parser {
      * @return the Task object corresponding to the string
      */
     public Task convertStringToTask(String line) {
+        assert line != null : "Input line cannot be null";
+
         Task task;
         String[] parts = line.split(" \\| ");
+        assert parts.length >= 3 : "Invalid task format";
+
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
+
+        assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Unknown task type";
+
         if (taskType.equals("T")) {
             Todo todo = new Todo(description);
             if (isDone) {
@@ -33,6 +40,8 @@ public class Parser {
             }
             task = todo;
         } else if (taskType.equals("D")) {
+          assert parts.length == 4 : "Invalid deadline format";
+
             String timeToConvert = isolateTimeToConvert(parts[3]);
             Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
             if (isDone) {
@@ -40,8 +49,11 @@ public class Parser {
             }
             task = deadline;
         } else {
+            assert parts.length == 5 : "Invalid event format";
+          
             String timeToConvertFrom = isolateTimeToConvert(parts[3]);
             String timeToConvertTo = isolateTimeToConvert(parts[4]);
+          
             Event event = new Event(description, convertStringToDate(timeToConvertFrom),
                     convertStringToDate(timeToConvertTo));
             if (isDone) {
@@ -67,6 +79,8 @@ public class Parser {
      * or null if the format is invalid
      */
     public LocalDateTime convertStringToDate(String dateTimeString) {
+        assert dateTimeString != null : "Date-time string cannot be null";
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(dateTimeString, formatter);
@@ -79,6 +93,8 @@ public class Parser {
     }
 
     private Todo parseTodoCommand(String command) {
+        assert command.startsWith("todo") : "Command must start with 'todo'";
+
         String description = command.substring(4).trim(); // Extract description
         if (description.isEmpty()) {
             throw new IllegalArgumentException("Description for 'todo' cannot be empty.");
@@ -87,6 +103,8 @@ public class Parser {
     }
 
     private Deadline parseDeadlineCommand(String command) {
+        assert command.startsWith("deadline") : "Command must start with 'deadline'";
+
         String[] parts = command.split("/by");
         if (parts.length != 2) {
             throw new IllegalArgumentException(
@@ -104,6 +122,8 @@ public class Parser {
     }
 
     protected Event parseEventCommand(String command) {
+        assert command.startsWith("event") : "Command must start with 'event'";
+
         String[] partsFrom = command.split("/from");
         if (partsFrom.length != 2) {
             throw new IllegalArgumentException(
@@ -130,6 +150,9 @@ public class Parser {
     }
 
     private int parseIndexCommand(String[] getInstr, TaskList taskList) throws InvalidIndexException {
+        assert getInstr != null : "Instruction cannot be null";
+        assert taskList != null : "TaskList cannot be null";
+
         int index;
         if (getInstr.length <= 1) {
             throw new InvalidIndexException("Invalid index provided, please provide proper index.");

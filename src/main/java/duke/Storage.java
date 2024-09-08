@@ -25,6 +25,9 @@ public class Storage {
      * @param filePath the name of the data file
      */
     public Storage(String dataDir, String filePath) {
+        assert dataDir != null && !dataDir.isEmpty() : "Data directory should not be null or empty";
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
+
         this.dataDir = dataDir;
         this.filePath = filePath;
     }
@@ -37,6 +40,9 @@ public class Storage {
      * @param parser   the Parser to use for converting strings to tasks
      */
     public void loadFile(TaskList taskList, Parser parser) {
+        assert taskList != null : "TaskList should not be null";
+        assert parser != null : "Parser should not be null";
+
         try {
             File fileDir = new File(this.dataDir);
             if (!fileDir.exists()) {
@@ -63,6 +69,8 @@ public class Storage {
      * @param task the Task to write to the file
      */
     public void writeToFile(Task task) {
+        assert task != null : "Task should not be null";
+
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter(this.dataDir + this.filePath, true))) {
             String taskString = convertTaskToString(task);
@@ -74,6 +82,8 @@ public class Storage {
     }
 
     private String convertTaskToString(Task task) {
+        assert task != null : "Task should not be null";
+
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
@@ -94,6 +104,9 @@ public class Storage {
      * @param index    the index of the task to replace in the file
      */
     public void replaceLineInFile(TaskList taskList, int index) {
+        assert taskList != null : "TaskList should not be null";
+        assert index >= 0 && index < taskList.getSize() : "Index out of bounds";
+
         File inputFile = new File(this.dataDir + this.filePath);
         File tempFile = new File(this.dataDir + "temp.txt");
 
@@ -127,6 +140,8 @@ public class Storage {
      * @param index the index of the line to delete from the file
      */
     public void deleteLineFromFile(int index) {
+        assert index >= 0 : "Index should be greater than or equal to zero";
+
         File inputFile = new File(this.dataDir + this.filePath);
         File tempFile = new File(this.dataDir + "temp.txt");
 
