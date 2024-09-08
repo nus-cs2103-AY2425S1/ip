@@ -91,6 +91,16 @@ public class Parser {
     }
 
     /**
+     * Returns the file string representation of a LocalDateTime object.
+     *
+     * @param dateTime LocalDateTime object.
+     * @return File string representation of the given date and time.
+     */
+    public static String toDateTimeFileString(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    /**
      * Adds a space in front of each line in the text.
      *
      * @param text Given text.

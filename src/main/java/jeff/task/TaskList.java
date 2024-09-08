@@ -107,6 +107,7 @@ public class TaskList {
                 this.addTask(currentTask);
                 assert this.tasks.contains(currentTask) : "Task list should contain the new task after adding it";
             }
+
             assert this.tasks != null : "Task list should not be null";
 
         } catch (FileCorruptException e) {

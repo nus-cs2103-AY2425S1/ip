@@ -44,6 +44,8 @@ public class UnmarkCommand extends Command {
         targetTask.markAsNotDone();
         assert !targetTask.isDone() : "Target task should be marked as not done yet";
 
+        storage.updateTaskListInDatabase(tasks);
+
         return Parser.addSpaceInFrontOfEachLine(
                 "OK, I've marked this task as not done yet:\n   " + targetTask.toString()
         );

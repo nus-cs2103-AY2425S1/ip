@@ -62,7 +62,7 @@ public class DeadlineTask extends Task {
         return String.format(
                 "D | %s | %s",
                 super.toFileString(),
-                Parser.toDateTimeString(this.deadline)
+                Parser.toDateTimeFileString(this.deadline)
         );
     }
 

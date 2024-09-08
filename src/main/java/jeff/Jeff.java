@@ -1,5 +1,7 @@
 package jeff;
 
+import java.util.Scanner;
+
 import jeff.command.Command;
 import jeff.exception.JeffException;
 import jeff.parser.Parser;
@@ -26,7 +28,8 @@ public class Jeff {
 
         // Load the task list from the task list text file
         try {
-            this.tasks = new TaskList(this.storage.loadTaskListFromDatabase());
+            Scanner scanner = this.storage.loadTaskListFromDatabase();
+            this.tasks = new TaskList(scanner);
             assert this.tasks != null : "Task list should not be null";
         } catch (JeffException e) {
             this.tasks = new TaskList();

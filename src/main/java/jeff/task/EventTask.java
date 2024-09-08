@@ -70,8 +70,8 @@ public class EventTask extends Task {
         return String.format(
                 "E | %s | %s | %s",
                 super.toFileString(),
-                Parser.toDateTimeString(this.start),
-                Parser.toDateTimeString(this.end)
+                Parser.toDateTimeFileString(this.start),
+                Parser.toDateTimeFileString(this.end)
         );
     }
 

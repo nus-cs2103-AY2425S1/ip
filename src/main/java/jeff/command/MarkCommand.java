@@ -44,6 +44,8 @@ public class MarkCommand extends Command {
         targetTask.markAsDone();
         assert targetTask.isDone() : "Target task should be marked as done";
 
+        storage.updateTaskListInDatabase(tasks);
+
         return Parser.addSpaceInFrontOfEachLine(
                 "OK, I've marked this task as done:\n   " + targetTask.toString()
         );
