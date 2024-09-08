@@ -43,16 +43,18 @@ public class Qwerty {
      * @param rawInput String input to execute.
      */
     public void handleUserInput(String rawInput) {
+        if (!isChatting) {
+            return;
+        }
+
         ui.showUserMessage(rawInput);
-        if (isChatting) {
-            try {
-                Command command = Parser.parse(rawInput);
-                command.execute(tasks, ui, storage);
-                storage.saveTasks(tasks);
-                isChatting = !command.isExitCommand();
-            } catch (QwertyException e) {
-                ui.showError(e.getMessage());
-            }
+        try {
+            Command command = Parser.parse(rawInput);
+            command.execute(tasks, ui, storage);
+            storage.saveTasks(tasks);
+            isChatting = !command.isExitCommand();
+        } catch (QwertyException e) {
+            ui.showError(e.getMessage());
         }
     }
 }
