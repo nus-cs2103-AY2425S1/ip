@@ -35,7 +35,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + from.format(OUTPUT_DATE_FORMAT) + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")";
+                + from.format(OUTPUT_DATE_FORMAT) + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")"
+                + (this.getTags().isEmpty() ? "" : " [Tags: " + getTags() + "]");
     }
 
     /**
@@ -48,9 +49,10 @@ public class Event extends Task {
     public String toFileFormat() {
         String fromDate = this.from.format(OUTPUT_DATE_FORMAT);
         String toDate = this.to.format(OUTPUT_DATE_FORMAT);
-        return String.format("E | %d | %s | %s | %s",
+        String tags = this.getTags().isEmpty() ? "" : String.join(", ", this.getTags());
+        return String.format("E | %d | %s | %s | %s | %s",
                 this.isDone ? 1 : 0,
-                this.name, fromDate, toDate);
+                this.name, fromDate, toDate, tags);
     }
 
 

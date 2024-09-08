@@ -80,18 +80,59 @@ public class Storage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
         // same as output format in xizi class
         Task task;
-        switch (parts[0]) {
+        String taskType = parts[0];
+        String description = parts[2];
+        switch (taskType) {
         case "T":
-            task = new Todo(parts[2]);
+            task = new Todo(description);
+            if (parts.length > 3) {
+                String tagsPart = parts[3].trim();
+                if (!tagsPart.isEmpty()) {
+                    // Ensure that tags are correctly split without #
+                    String[] tagsArray = tagsPart.split(", ");
+                    for (String tag : tagsArray) {
+                        if (!tag.isEmpty()) {
+                            // Add tag directly (without #)
+                            task.addTag(tag);
+                        }
+                    }
+                }
+            }
             break;
         case "D":
             LocalDateTime ddl = LocalDateTime.parse(parts[3], formatter);
-            task = new Deadline(parts[2], ddl);
+            task = new Deadline(description, ddl);
+            if (parts.length > 4) {
+                String tagsPart = parts[4].trim();
+                if (!tagsPart.isEmpty()) {
+                    // Ensure that tags are correctly split without #
+                    String[] tagsArray = tagsPart.split(", ");
+                    for (String tag : tagsArray) {
+                        if (!tag.isEmpty()) {
+                            // Add tag directly (without #)
+                            task.addTag(tag);
+                        }
+                    }
+                }
+            }
             break;
         case "E":
             LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
             LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-            task = new Event(parts[2], from, to);
+            task = new Event(description, from, to);
+            if (parts.length > 5) {
+                String tagsPart = parts[5].trim();
+                if (!tagsPart.isEmpty()) {
+                    // Ensure that tags are correctly split without #
+                    String[] tagsArray = tagsPart.split(", ");
+                    for (String tag : tagsArray) {
+                        if (!tag.isEmpty()) {
+                            // Add tag directly (without #)
+                            task.addTag(tag);
+                        }
+                    }
+                }
+            }
             break;
         default:
             throw new XiziException("File data corrupted: Unknown task type.");
@@ -99,6 +140,7 @@ public class Storage {
         if (parts[1].equals("1")) {
             task.markDone();
         }
+
         return task;
     }
 

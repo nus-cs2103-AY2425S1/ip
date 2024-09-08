@@ -149,6 +149,10 @@ public class Ui {
         printCommand("12. delete done",
                 "- Deletes all completed tasks in the task list.");
 
+        printCommand("13. tag <task_number> #<tag>",
+                "- Assigns a tag to the specified task.",
+                "  Example: tag 2 #urgent");
+
     }
 
     private void printCommand(String command, String description) {

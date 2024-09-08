@@ -22,7 +22,20 @@ public enum CommandType {
      */
     UNMARK("^unmark (\\d+)$"),
 
+    /**
+     * Represents the "delete done" command, which deletes all tasks that are marked as completed.
+     * This command does not take any arguments.
+     * Example: "delete done"
+     */
     DELETE_DONE("^delete done$"),
+
+    /**
+     * Represents the "tag" command, which adds a tag to a specific task identified by its task number.
+     * The command expects a task number and a tag in the format #tag.
+     * Example: "tag 1 #fun" adds the tag "#fun" to task number 1.
+     * The tag must start with a '#' character and can be alphanumeric.
+     */
+    TAG("^tag (\\d+) (#\\w+)$"),
 
     /**
      * Represents the "delete" command, which deletes a task.

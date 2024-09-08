@@ -1,6 +1,9 @@
 package xizi.chatbot.task;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a general task with a name and a completion status.
  * This is an abstract class that provides basic functionality for tasks.
@@ -9,6 +12,7 @@ package xizi.chatbot.task;
 public abstract class Task {
     protected String name;
     protected boolean isDone;
+    private List<String> tags;
 
     /**
      * Constructs a {@code Task} with the specified name and initializes it as not done.
@@ -18,6 +22,7 @@ public abstract class Task {
     Task(String command) {
         this.name = command;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     public String getName() {
@@ -31,6 +36,21 @@ public abstract class Task {
      */
     void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    /**
+     * Adds a tag to the task.
+     *
+     * @param tag {@code true} is String that contains the tag information.
+     */
+    public void addTag(String tag) {
+        if (!tags.contains(tag)) {
+            tags.add(tag);
+        }
+    }
+
+    public String getTags() {
+        return String.join(", ", tags);
     }
 
     public boolean getDone() {

@@ -17,6 +17,7 @@ import xizi.chatbot.command.HelpCommand;
 import xizi.chatbot.command.ListCommand;
 import xizi.chatbot.command.ListOnCommand;
 import xizi.chatbot.command.MarkCommand;
+import xizi.chatbot.command.TagCommand;
 import xizi.chatbot.command.TodoCommand;
 import xizi.chatbot.command.UnmarkCommand;
 import xizi.chatbot.task.TaskList;
@@ -91,6 +92,8 @@ public class Parser {
             return new FindCommand(userInput);
         case DELETE_DONE:
             return new DeleteDoneTasksCommand();
+        case TAG:
+            return new TagCommand(userInput);
         default:
             throw new XiziException("Sorry, I didn't understand that command."
                     + "Type help for all available commands and format.");
