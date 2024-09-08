@@ -230,4 +230,46 @@ class ParserTest {
         // ... Add assertions for other command descriptions ...
         assertTrue(response.contains("12. bye - Exit the application"));
     }
+
+    @Test
+    void testArchiveCommand() throws DukeException {
+        // Add some tasks
+        Parser parser1 = new Parser(new Scanner(new ByteArrayInputStream("todo Test task 1".getBytes())));
+        parser1.handleUserInput();
+        Parser parser2 = new Parser(new Scanner(new ByteArrayInputStream("todo Test task 2".getBytes())));
+        parser2.handleUserInput();
+        newOut.reset();
+
+        // Execute archive command
+        Parser parser3 = new Parser(new Scanner(new ByteArrayInputStream("archive".getBytes())));
+        parser3.handleUserInput();
+
+        String output = newOut.toString().trim();
+        assertTrue(output.contains("Tasks archived to:"), "Should indicate tasks were archived");
+        assertTrue(output.contains("Current task list has been cleared."), "Should indicate task list was cleared");
+
+        // Check that the list is now empty
+        newOut.reset();
+        Parser parser4 = new Parser(new Scanner(new ByteArrayInputStream("list".getBytes())));
+        parser4.handleUserInput();
+        assertEquals("List is currently empty.", newOut.toString().trim(), "Task list should be empty after archiving");
+    }
+
+    @Test
+    void testHandleGuiInputArchive() throws DukeException {
+        Parser parser = new Parser(new Scanner(System.in));
+
+        // Add some tasks
+        parser.handleGuiInput("todo Test task 1");
+        parser.handleGuiInput("todo Test task 2");
+
+        // Execute archive command
+        String response = parser.handleGuiInput("archive");
+        assertTrue(response.contains("Tasks archived to:"), "Should indicate tasks were archived");
+        assertTrue(response.contains("Current task list has been cleared."), "Should indicate task list was cleared");
+
+        // Check that the list is now empty
+        String listResponse = parser.handleGuiInput("list");
+        assertEquals("List is currently empty.", listResponse.trim(), "Task list should be empty after archiving");
+    }
 }
