@@ -5,6 +5,7 @@ package patrick.tasklist;
  * It provides methods to mark the task as done or undone and to retrieve its status and description.
  */
 public class Task extends TaskList {
+    public static final String COLUMN = " | ";
     protected String description;
     protected boolean isDone;
 
@@ -58,6 +59,6 @@ public class Task extends TaskList {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " | " + this.description;
+        return getStatusIcon() + COLUMN + this.description;
     }
 }

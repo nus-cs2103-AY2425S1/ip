@@ -16,6 +16,9 @@ import patrick.ui.Ui;
  * {@code LocalTime} fields to store the event's start and end times.
  */
 public class Event extends Task {
+    public static final String THERE_IS_AN_ERROR = "There is an error: ";
+    public static final String PREFIX = "E | ";
+    public static final String COLUMN = " | ";
     private final LocalDateTime from;
     private final LocalTime to;
 
@@ -41,7 +44,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+        return PREFIX + super.toString() + COLUMN + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + "-" + this.to.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
@@ -55,43 +58,55 @@ public class Event extends Task {
      */
     public static String eventTask(String input) throws Parser.PatrickException {
         String response;
-        String newInput = input.replace("event ", "");
+        String newInput = input.replace("event", "").trim();
         Task task;
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Event Task Details cannot be empty!!");
-        } else if (!newInput.contains("/from")) {
-            throw new Parser.PatrickException("You are missing a '/from' in your details!!");
-        } else if (!newInput.contains("/to")) {
-            throw new Parser.PatrickException("You are missing a '/to' in your details!!");
-        } else {
-            String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
-            if (taskDescription.isEmpty()) {
-                throw new Parser.PatrickException("Event Task Description cannot be empty!!");
-            } else {
-                String from = newInput.substring(newInput.indexOf("/from"),
-                        newInput.indexOf("/to") - 1).replace("/from ", "");
-                String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
-                if (from.isEmpty()) {
-                    throw new Parser.PatrickException("You are missing 'from' information from your details!!");
-                } else if (to.isEmpty()) {
-                    throw new Parser.PatrickException("You are missing 'to' information from your details!!");
-                } else if (DateFormatChecker.getDateFormat(from).equals("Unknown Format")) {
-                    throw new Parser.PatrickException("Your 'from' format is incorrect.\n"
-                                                        + "Type 'formats' for the formats.\n");
-                } else if (DateFormatChecker.getTimeFormat(to).equals("Unknown Format")) {
-                    throw new Parser.PatrickException("Your 'to' format is incorrect.\nFormat of 'to' is HHmm.");
-                } else {
-                    task = new Event(taskDescription, from, to);
-                    Storage.addList(task);
-                    response = Ui.showUserMsg(task.toString());
-                    try {
-                        Storage.appendToFile("\n" + task.toString());
-                    } catch (IOException e) {
-                        response = "There is an error: " + e.getMessage();
-                    }
-                }
-                return response;
-            }
         }
+
+        if (!newInput.contains("/from")) {
+            throw new Parser.PatrickException("You are missing a '/from' in your details!!");
+        }
+
+        if (!newInput.contains("/to")) {
+            throw new Parser.PatrickException("You are missing a '/to' in your details!!");
+        }
+
+        String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
+        if (taskDescription.isEmpty()) {
+            throw new Parser.PatrickException("Event Task Description cannot be empty!!");
+        }
+
+        String from = newInput.substring(newInput.indexOf("/from"),
+                newInput.indexOf("/to") - 1).replace("/from ", "");
+        String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
+        if (from.isEmpty()) {
+            throw new Parser.PatrickException("You are missing 'from' information from your details!!");
+        }
+
+        if (to.isEmpty()) {
+            throw new Parser.PatrickException("You are missing 'to' information from your details!!");
+        }
+
+        if (DateFormatChecker.getDateFormat(from).equals("Unknown Format")) {
+            throw new Parser.PatrickException("Your 'from' format is incorrect.\n"
+                    + "Type 'formats' for the formats.\n");
+        }
+        if (DateFormatChecker.getTimeFormat(to).equals("Unknown Format")) {
+            throw new Parser.PatrickException("Your 'to' format is incorrect.\nFormat of 'to' is HHmm.");
+        }
+
+        task = new Event(taskDescription, from, to);
+        Storage.addList(task);
+        response = Ui.showUserMsg(task.toString());
+
+        try {
+            Storage.appendToFile("\n" + task);
+        } catch (IOException e) {
+            response = THERE_IS_AN_ERROR + e.getMessage();
+        }
+        return response;
+
+
     }
 }
