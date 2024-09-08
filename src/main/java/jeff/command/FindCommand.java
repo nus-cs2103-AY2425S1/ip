@@ -33,11 +33,16 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+        
         if (this.getInput().matches("find .+")) {
             // Split the input to get the filter name
             String[] taskParts = this.getInput().split(" ", 2);
+            assert taskParts.length == 2 : "Task parts should be of length 2";
 
             String filterName = taskParts.length > 1 ? taskParts[1] : "";
+            assert !filterName.isEmpty() : "Filter name should not be empty";
 
             // Check if the filter name is empty
             if (filterName.isEmpty()) {
@@ -46,6 +51,7 @@ public class FindCommand extends Command {
 
             // Filter the task list by the filter name
             List<Task> filteredTasks = tasks.filterByName(filterName);
+            assert filteredTasks != null : "Filtered tasks should not be null";
 
             // Check if the list is empty
             if (filteredTasks.isEmpty()) {
@@ -54,6 +60,7 @@ public class FindCommand extends Command {
 
             // Convert the list of tasks to a string
             String taskListString = Parser.listToString(filteredTasks);
+            assert !taskListString.isEmpty() : "Task list string should not be empty";
 
             // Return the filtered list string representation
             return Parser.prettyText("Here are the matching tasks in your list:\n" + taskListString);

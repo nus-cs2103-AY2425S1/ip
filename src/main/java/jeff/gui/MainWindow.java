@@ -29,13 +29,16 @@ public class MainWindow extends AnchorPane {
     private Jeff jeff;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/person.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/jeff.png"));
+    private final Image jeffImage = new Image(this.getClass().getResourceAsStream("/images/jeff.png"));
 
     /**
      * Initialise the program.
      */
     @FXML
     public void initialize() {
+        assert userImage != null : "User image not loaded";
+        assert jeffImage != null : "Jeff Chatbot image not loaded";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         showWelcomeMessage();
     }
@@ -59,7 +62,7 @@ public class MainWindow extends AnchorPane {
         String response = jeff.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJeffDialog(response, dukeImage)
+                DialogBox.getJeffDialog(response, jeffImage)
         );
         userInput.clear();
 
@@ -77,7 +80,7 @@ public class MainWindow extends AnchorPane {
      */
     private void showWelcomeMessage() {
         dialogContainer.getChildren().add(
-                DialogBox.getJeffDialog(Parser.prettyText("Hello! I'm Jeff.\nWhat can I do for you?"), dukeImage)
+                DialogBox.getJeffDialog(Parser.prettyText("Hello! I'm Jeff.\nWhat can I do for you?"), jeffImage)
         );
     }
 }

@@ -28,6 +28,9 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+        
         // Store the tasks to the data folder
         storage.writeTaskList(tasks);
 

@@ -27,6 +27,7 @@ public class TaskList {
      * @throws JeffException if the file is corrupt.
      */
     public TaskList(Scanner scanner) throws JeffException {
+        assert scanner != null : "Scanner should not be null";
         try {
             // Read every line in the scanner
             while (scanner.hasNext()) {
@@ -80,10 +81,12 @@ public class TaskList {
                 // Add task to task list if it exists
                 if (currentTask != null) {
                     this.tasks.add(currentTask);
+                    assert this.tasks.contains(currentTask) : "Task list should contain the new task after adding it";
                 } else {
                     throw new FileCorruptException();
                 }
             }
+            assert this.tasks != null : "Task list should not be null";
 
         } catch (FileCorruptException e) {
             throw new JeffException(e.toString());
@@ -97,7 +100,18 @@ public class TaskList {
      * @return Task at the given index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < this.tasks.size() : "Task index should not be out of bounds";
         return this.tasks.get(index);
+    }
+
+    /**
+     * Checks if the given task is in the task list.
+     * 
+     * @param task Given task. 
+     * @return true if the given task is in the task list, and false otherwise.
+     */
+    public boolean contains(Task task) {
+        return this.tasks.contains(task);
     }
 
     /**
@@ -106,6 +120,7 @@ public class TaskList {
      * @param task Task to be added to the task list.
      */
     public void add(Task task) {
+        assert task != null : "Input task should not be null";
         this.tasks.add(task);
     }
 
@@ -115,6 +130,7 @@ public class TaskList {
      * @param task Task to be removed from the task list.
      */
     public void remove(Task task) {
+        assert task != null : "Input task should not be null";
         this.tasks.remove(task);
     }
 
@@ -143,6 +159,7 @@ public class TaskList {
      * @return A list of filtered tasks.
      */
     public List<Task> filterByDate(LocalDate date) {
+        assert date != null : "Input date should not be null";
         return this.tasks.stream().filter(task -> task.isOnThisDate(date)).toList();
     }
 
@@ -175,6 +192,8 @@ public class TaskList {
      *                       exist.
      */
     public Task getTask(String input, String prefix) throws JeffException {
+        assert !prefix.isEmpty() : "Input prefix should not be empty";
+        
         // Check if input is valid
         if (!input.matches(prefix + "\\d+")) {
             throw new JeffException("The format is wrong! It should be \"" + prefix + "xx\", where xx is a number.");
