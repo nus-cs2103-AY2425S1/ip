@@ -26,6 +26,10 @@ public class Storage {
         this.path = path;
     }
 
+    public Storage() {
+        path = java.nio.file.Paths.get(System.getProperty("user.home"), "my", "apps", "dir");
+    }
+
     /**
      * Clears (not deletes) file at specified file path
      *
@@ -45,7 +49,7 @@ public class Storage {
      * @throws EmptyDescriptionException If description is empty.
      * @throws ImproperFileTypeException If file is corrupt or not in the proper format.
      */
-    private static Task readFileToTask(String line) throws EmptyDescriptionException, ImproperFileTypeException {
+    protected static Task readFileToTask(String line) throws EmptyDescriptionException, ImproperFileTypeException {
         boolean taskIsCompleted = false;
         if (line.substring(0, 1).equals("1")) {
             taskIsCompleted = true;
