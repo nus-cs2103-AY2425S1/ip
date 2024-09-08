@@ -23,6 +23,8 @@ public class MissingArgumentException extends AronaException {
             return "Error! Please input description, from date, and to date.";
         case FIND:
             return "Error! Please input a keyword";
+        case ARCHIVE:
+            return "Error! Please input a file name shorter than 260 characters";
         default:
             return "";
         }
