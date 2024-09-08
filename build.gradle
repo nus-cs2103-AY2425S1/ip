@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("purrfessordipsy.PurrfessorDipsy");
+    mainClass.set("dipsy.javafx.Launcher");
 }
 
 shadowJar {
