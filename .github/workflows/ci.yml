@@ -3,11 +3,16 @@ name: Java CI
 on: [push, pull_request]
 
 jobs:
+  # Build Stage
   build:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
+
+    env:
+      LC_ALL: en_SG.UTF-8
+      LANG: en_SG.UTF-8
 
     steps:
       - name: Set up repository
@@ -25,8 +30,61 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
 
+      # Set locale to en_SG (Linux/macOS)
+      - name: Set locale to en_SG (Linux/macOS)
+        if: matrix.platform != 'windows-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y locales
+          sudo locale-gen en_SG.UTF-8
+          sudo update-locale LANG=en_SG.UTF-8
+
+      - name: Print locale info for debugging (all platforms)
+        run: |
+          echo "Locale: $(locale)"
+          echo "Time zone: $(date +'%Z %z')"
+
       - name: Build the project
         run: ./gradlew build
+
+  # Test Stage (depends on the build stage)
+  test:
+    needs: build  # This ensures the test stage runs after the build stage
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    env:
+      LC_ALL: en_SG.UTF-8
+      LANG: en_SG.UTF-8
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+          java-package: jdk+fx
+
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
+
+      # Set locale to en_SG (Linux/macOS)
+      - name: Set locale to en_SG (Linux/macOS)
+        if: matrix.platform != 'windows-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y locales
+          sudo locale-gen en_SG.UTF-8
+          sudo update-locale LANG=en_SG.UTF-8
+
+      - name: Print locale info for debugging (all platforms)
+        run: |
+          echo "Locale: $(locale)"
+          echo "Time zone: $(date +'%Z %z')"
 
       - name: Run checkstyleMain
         run: ./gradlew checkstyleMain
@@ -34,7 +92,7 @@ jobs:
       - name: Run checkstyleTest
         run: ./gradlew checkstyleTest
 
-      - name: Run tests
+      - name: Run all tests in the duke package
         run: |
           # Find all test classes recursively in src/test/java/duke and run them
           find ./src/test/java/duke -name '*Test.java' | while read test; do
