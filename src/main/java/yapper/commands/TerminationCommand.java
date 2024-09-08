@@ -14,19 +14,30 @@ import yapper.exceptions.YapperException;
  * A class representing the command to terminate the program.
  */
 public class TerminationCommand extends Command {
+    private static final String GOODBYE = "Bye bye! :)";
+
     public TerminationCommand() {
         super();
     }
 
     @Override
     public String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException {
-        String response = Ui.wrapText("Bye bye! :)");
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(1),
                 event -> Platform.exit()
         ));
         timeline.setCycleCount(1);
         timeline.play();
-        return response;
+        return GOODBYE;
+    }
+
+    @Override
+    public String commandDescription() {
+        return "Closes the program";
+    }
+
+    @Override
+    public String toString() {
+        return "TerminationCommand";
     }
 }

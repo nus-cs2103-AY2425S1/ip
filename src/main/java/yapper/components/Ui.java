@@ -18,12 +18,9 @@ public class Ui {
     /**
      * Displays the introduction message and prompts the user.
      */
-    public static String yapperIntroduction() {
-        String[] temp = {
-            "Hello! I'm " + NAME,
-            "What can I do for you?"
-        };
-        return wrapText(temp);
+    public String yapperIntroduction() {
+        return display(String.format("Hello, I'm %s", NAME),
+                "Type 'help' or '?' for a list of available commands");
     }
 
     /**
@@ -34,36 +31,17 @@ public class Ui {
     }
 
     /**
-     * Wraps and displays a single string message with line dividers.
-     *
-     * @param text the message to be displayed
-     */
-    public static String wrapText(String text) {
-        assert text != null : "Text should not be null";
-        return showLine() + text + "\n" + showLine();
-    }
-
-    /**
      * Wraps and displays an array of strings as messages with line dividers.
      *
      * @param texts an array of messages to be displayed
      */
-    public static String wrapText(String[] texts) {
+    public String display(String... texts) {
         assert texts != null : "Text should not be null";
-        StringBuilder sb = new StringBuilder(showLine());
-        for (String s : texts) {
-            sb.append(s).append("\n");
+        StringBuilder response = new StringBuilder();
+        for (String text : texts) {
+            response.append(text).append("\n");
         }
-        return sb.append(showLine()).toString();
-    }
-
-    /**
-     * Displays an error message wrapped with line dividers.
-     *
-     * @param errorMessage the error message to be displayed
-     */
-    public static String errorCaught(String errorMessage) {
-        return wrapText(errorMessage);
+        return response.toString();
     }
 
 }

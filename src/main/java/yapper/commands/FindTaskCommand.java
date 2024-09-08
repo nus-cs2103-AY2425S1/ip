@@ -17,4 +17,14 @@ public class FindTaskCommand extends Command {
     public String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException {
         return taskList.findTasks(parser.getKeyword());
     }
+
+    @Override
+    public String commandDescription() {
+        return "Finds a task based on a keyword, FORMAT: find [KEYWORD]";
+    }
+
+    @Override
+    public String toString() {
+        return "FindTaskCommand";
+    }
 }

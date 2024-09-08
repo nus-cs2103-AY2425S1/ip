@@ -33,13 +33,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        displayIntro();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the Yapper instance */
     public void setYapper(Yapper y) {
         yapper = y;
+        displayIntro();
     }
 
     /**
@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
 
     private void displayIntro() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.yapperIntroduction(), yapperImage)
+                DialogBox.getDukeDialog(yapper.introduction(), yapperImage)
         );
     }
 }

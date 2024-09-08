@@ -17,4 +17,14 @@ public class DeleteTaskCommand extends Command {
     public String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException {
         return taskList.deleteTask(parser.getTaskNumber());
     }
+
+    @Override
+    public String commandDescription() {
+        return "Deletes a task (tasks are 1-indexed), FORMAT: delete [TASK_NUMBER]";
+    }
+
+    @Override
+    public String toString() {
+        return "DeleteTaskCommand";
+    }
 }

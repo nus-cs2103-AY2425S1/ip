@@ -39,9 +39,17 @@ public class Yapper {
         try {
             parser.parseLine(input);
             String command = parser.getCommand();
-            return this.commandList.getCommandToExecute(command).execute(this.parser, this.taskList, this.storage);
+            String response = this
+                    .commandList
+                    .getCommandToExecute(command)
+                    .execute(this.parser, this.taskList, this.storage);
+            return this.ui.display(response);
         } catch (YapperException e) {
-            return Ui.errorCaught(e.getMessage());
+            return this.ui.display(e.getMessage());
         }
+    }
+
+    public String introduction() {
+        return this.ui.yapperIntroduction();
     }
 }

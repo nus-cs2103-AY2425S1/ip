@@ -22,8 +22,18 @@ public class AddDeadlineCommand extends AddTaskCommand {
     }
 
     @Override
+    public String commandDescription() {
+        return "Adds a deadline, FORMAT: deadline [DESCRIPTION] /by [DEADLINE]";
+    }
+
+    @Override
     public Task createTaskToAdd(String... arguments) {
         assert arguments.length == 2 : "Should have a deadline description and a deadline";
         return new Deadline(arguments[0], arguments[1]);
+    }
+
+    @Override
+    public String toString() {
+        return "AddDeadlineCommand";
     }
 }

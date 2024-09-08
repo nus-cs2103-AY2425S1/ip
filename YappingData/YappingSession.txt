@@ -1,6 +1,5 @@
 | T |   | bye
 | T |   | hi
-| E | X | here | h ----- y
 | D | X | return book | Dec 2 2019
 | D | X | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
@@ -29,3 +28,5 @@
 | E |   | something | 6 ----- 4
 | E | X | this | Feb 2 2002 04:00 pm ----- Sept 9 2014 05:45 pm
 | E |   | something | Feb 2 1999 ----- May 5 2005 04:57 pm
+| D | X | this | summer
+| E |   | something | today ----- Feb 2 1999 03:46 pm

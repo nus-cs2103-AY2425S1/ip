@@ -30,7 +30,7 @@ public class TaskList {
      * Adds a new task to the task list and updates the file.
      *
      * @param task the task to be added
-     * @return     a string reflecting the changes
+     * @return     an array of strings reflecting the changes
      */
     public String addTask(Task task) {
         assert task != null : "Task should not be null";
@@ -41,7 +41,7 @@ public class TaskList {
             "A total of " + getSize() + " " + pluralise() + " are on the list."
         };
         writeToFile();
-        return Ui.wrapText(texts);
+        return stringifyResponse(texts);
     }
 
     /**
@@ -90,32 +90,31 @@ public class TaskList {
     public String listTasks() {
         assert this.taskList != null : "Task list should not be null";
         StringBuilder sb = new StringBuilder();
-        sb.append(Ui.showLine());
         String header = String.format("You currently have %d %s\n", getSize(), pluralise());
         sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
             String temp = i + "." + getTask(i) + "\n";
             sb.append(temp);
         }
-        return sb.append(Ui.showLine()).toString();
+        return sb.toString();
     }
 
     /**
      * Deletes a task from the list based on the specified task number and updates the file.
      *
      * @param taskNumber the number of the task to be deleted
-     * @return           a string reflecting the changes
+     * @return           an array of strings reflecting the changes
      */
     public String deleteTask(int taskNumber) throws YapperException {
         Task task = getTask(taskNumber);
         this.taskList.remove(taskNumber - 1);
         writeToFile();
         String[] texts = {
-            "The following task has been removed form the list:",
-            "  " + task,
-            "A total of " + getSize() + " " + pluralise() + " are still left."
+            "The following task has been removed form the list:\n",
+            "  " + task + "\n",
+            "A total of " + getSize() + " " + pluralise() + " are still left.\n"
         };
-        return Ui.wrapText(texts);
+        return stringifyResponse(texts);
     }
 
     /**
@@ -123,7 +122,7 @@ public class TaskList {
      *
      * @param command     the command specifying whether to mark or unmark the task
      * @param taskNumber  the number of the task to be marked or unmarked
-     * @return            a string reflecting the changes
+     * @return            a array of strings reflecting the changes
      */
     public String markOrUnmarkTask(String command, int taskNumber) throws YapperException {
         Task task = getTask(taskNumber);
@@ -140,7 +139,7 @@ public class TaskList {
             message,
             " " + task,
         };
-        return Ui.wrapText(texts);
+        return stringifyResponse(texts);
     }
 
     /**
@@ -155,7 +154,7 @@ public class TaskList {
             .collect(Collectors.toCollection(ArrayList::new));
 
         if (foundMatches.isEmpty()) {
-            return Ui.wrapText("Sorry, I couldn't find any tasks that had this keyword! :(");
+            return "Sorry, I couldn't find any tasks that had this keyword! :(";
         }
         return new TaskList(foundMatches, "").listTasks();
     }
@@ -174,5 +173,13 @@ public class TaskList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String stringifyResponse(String... texts) {
+        StringBuilder response = new StringBuilder();
+        for (String text : texts) {
+            response.append(text).append("\n");
+        }
+        return response.toString();
     }
 }

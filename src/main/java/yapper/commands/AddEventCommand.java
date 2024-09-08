@@ -22,8 +22,18 @@ public class AddEventCommand extends AddTaskCommand {
     }
 
     @Override
+    public String commandDescription() {
+        return "Adds an event, FORMAT: event [DESCRIPTION] /from [START_DATE] /to [END_DATE]";
+    }
+
+    @Override
     public Task createTaskToAdd(String... arguments) {
         assert arguments.length == 3 : "Should have a deadline description and a deadline";
         return new Event(arguments[0], arguments[1], arguments[2]);
+    }
+
+    @Override
+    public String toString() {
+        return "AddEventCommand";
     }
 }

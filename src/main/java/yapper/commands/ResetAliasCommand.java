@@ -7,23 +7,30 @@ import yapper.components.TaskList;
 /**
  * A class representing the list command to list out tasks.
  */
-public class ListOutTasksCommand extends Command {
-    public ListOutTasksCommand() {
+public class ResetAliasCommand extends Command {
+    private CommandList commandList;
+
+    /**
+     * Constructor for SetAliasCommand class
+     * @param commandList
+     */
+    public ResetAliasCommand(CommandList commandList) {
         super();
+        this.commandList = commandList;
     }
 
     @Override
     public String execute(Parser parser, TaskList taskList, Storage storage) {
-        return taskList.listTasks();
+        return this.commandList.resetToDefault();
     }
 
     @Override
     public String commandDescription() {
-        return "Lists out all tasks on the task list";
+        return "Resets the command list to its default setting";
     }
 
     @Override
     public String toString() {
-        return "ListOutTasksCommand";
+        return "ResetAliasCommand";
     }
 }

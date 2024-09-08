@@ -12,4 +12,5 @@ public abstract class Command {
     public Command() {
     }
     public abstract String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException;
+    public abstract String commandDescription();
 }

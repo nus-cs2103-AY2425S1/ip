@@ -17,4 +17,14 @@ public class MarkCommand extends Command {
     public String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException {
         return taskList.markOrUnmarkTask("mark", parser.getTaskNumber());
     }
+
+    @Override
+    public String commandDescription() {
+        return "Marks a task (tasks are 1-indexed), FORMAT: mark [TASK_NUMBER]";
+    }
+
+    @Override
+    public String toString() {
+        return "MarkCommand";
+    }
 }

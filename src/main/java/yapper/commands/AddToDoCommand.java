@@ -22,7 +22,17 @@ public class AddToDoCommand extends AddTaskCommand {
     }
 
     @Override
+    public String commandDescription() {
+        return "Adds a todo, FORMAT: todo [DESCRIPTION]";
+    }
+
+    @Override
     public Task createTaskToAdd(String... arguments) {
         return new ToDo(arguments[0]);
+    }
+
+    @Override
+    public String toString() {
+        return "AddToDoCommand";
     }
 }

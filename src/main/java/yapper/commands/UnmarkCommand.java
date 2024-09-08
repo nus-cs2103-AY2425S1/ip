@@ -17,4 +17,14 @@ public class UnmarkCommand extends Command {
     public String execute(Parser parser, TaskList taskList, Storage storage) throws YapperException {
         return taskList.markOrUnmarkTask("unmark", parser.getTaskNumber());
     }
+
+    @Override
+    public String commandDescription() {
+        return "Unmarks a task (tasks are 1-indexed), FORMAT: unmark [TASK_NUMBER]";
+    }
+
+    @Override
+    public String toString() {
+        return "UnmarkCommand";
+    }
 }
