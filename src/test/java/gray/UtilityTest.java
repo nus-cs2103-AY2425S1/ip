@@ -13,7 +13,7 @@ public class UtilityTest {
     @Test
     public void serialise_badFile_exceptionThrown() {
         try {
-            Utility.serialise(new File("./awd/awd/awd"), new Serializable() {});
+            Utility.serialize(new File("./awd/awd/awd"), new Serializable() {});
             fail();
         } catch (IOException e) {
             assertEquals("./awd/awd/awd (No such file or directory)", e.getMessage());
@@ -23,7 +23,7 @@ public class UtilityTest {
     @Test
     public void deserialise_badFile_exceptionThrown() {
         try {
-            Utility.deserialise(new File("./awd/awd/awd"));
+            Utility.deserialize(new File("./awd/awd/awd"));
             fail();
         } catch (IOException e) {
             assertEquals("./awd/awd/awd (No such file or directory)", e.getMessage());

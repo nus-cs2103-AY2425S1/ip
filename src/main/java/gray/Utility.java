@@ -15,13 +15,13 @@ import java.io.Serializable;
 public class Utility {
 
     /**
-     * Serialises the object to the file.
+     * Serializes the object to the file.
      *
      * @param file
      * @param obj
      * @throws IOException
      */
-    public static void serialise(File file, Serializable obj) throws IOException {
+    public static void serialize(File file, Serializable obj) throws IOException {
         FileOutputStream f = new FileOutputStream(file);
         ObjectOutput s = new ObjectOutputStream(f);
         s.writeObject(obj);
@@ -31,14 +31,14 @@ public class Utility {
     }
 
     /**
-     * Deserialises an object from the file.
+     * Deserializes an object from the file.
      *
      * @param file
      * @return
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public static Object deserialise(File file) throws IOException, ClassNotFoundException {
+    public static Object deserialize(File file) throws IOException, ClassNotFoundException {
         FileInputStream in = new FileInputStream(file);
         ObjectInputStream s = new ObjectInputStream(in);
         Object obj = s.readObject();
