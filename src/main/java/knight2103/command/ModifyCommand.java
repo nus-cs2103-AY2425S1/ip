@@ -41,6 +41,7 @@ public class ModifyCommand extends Command {
                 taskAffected = tasks.unmark(taskIndex);
                 stringToReturn = ui.showUnmark(taskAffected);
             } else { // CommandVerb.DELETE
+                assert this.verb == CommandVerb.DELETE;
                 taskAffected = tasks.delete(taskIndex);
                 stringToReturn = ui.showDelete(taskAffected, tasks);
             }
