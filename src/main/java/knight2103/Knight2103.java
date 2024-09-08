@@ -54,8 +54,6 @@ public class Knight2103 {
                 return "Failed to execute Command:\n" + e.getMessage();
             }
 
-            // if exception error, should say unsuccessful command execution in GUI
-        // ^make sure exception message makes sense and comments the tracing.
             // javaDoc comments; Formatting; Code quality.
             // welcome message - state all commands that can be used.
             // adding assertions

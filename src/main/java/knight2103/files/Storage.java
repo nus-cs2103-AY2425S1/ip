@@ -91,31 +91,54 @@ public class Storage {
         String[] lineArray = lineInFile.split(" \\| ");
         String errorMessage = "";
         Task taskToAdd = null;
+
+        final int TASK_TYPE_INDEX = 0;
+        final int IS_TASK_MARKED_INDEX = 1;
+        final int TASK_DESCRIPTION_INDEX = 2;
+        final int DEADLINE_INDEX = 3;
+        final int EVENT_START_TIME_INDEX = 3;
+        final int EVENT_END_TIME_INDEX = 4;
+
+        final int EXPECTED_TODO_ARRAY_LENGTH = 3;
+        final int EXPECTED_DEADLINE_ARRAY_LENGTH = 4;
+        final int EXPECTED_EVENT_ARRAY_LENGTH = 5;
+
+        final String TASK_UNMARKED_STATUS = "0";
+        final String TASK_MARKED_STATUS = "1";
+
         try {
-            switch (lineArray[0]) {
+            switch (lineArray[TASK_TYPE_INDEX]) {
             case "T":
-                if (lineArray.length != 3) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. 3 columns for Todo task");
+                if (lineArray.length != EXPECTED_TODO_ARRAY_LENGTH) {
+                    throw new InvalidFileContentsException(
+                            "Number of columns mismatch. 3 columns for Todo task");
                 }
-                taskToAdd = new TodoTask(lineArray[2]);
+                taskToAdd = new TodoTask(lineArray[TASK_DESCRIPTION_INDEX]);
                 break;
             case "D":
-                if (lineArray.length != 4) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. 4 columns for Deadline task");
+                if (lineArray.length != EXPECTED_DEADLINE_ARRAY_LENGTH) {
+                    throw new InvalidFileContentsException(
+                            "Number of columns mismatch. 4 columns for Deadline task");
                 }
                 try {
-                    taskToAdd = new DeadlineTask(lineArray[2], lineArray[3]);
+                    taskToAdd = new DeadlineTask(
+                            lineArray[TASK_DESCRIPTION_INDEX],
+                            lineArray[DEADLINE_INDEX]);
                 } catch (DateTimeParseException e) {
                     errorMessage += "\nDate format is wrong in the file contents."
                             + " For Deadline task, it should be yyyy-MM-dd format.";
                 }
                 break;
             case "E":
-                if (lineArray.length != 5) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. 5 columns for Event task");
+                if (lineArray.length != EXPECTED_EVENT_ARRAY_LENGTH) {
+                    throw new InvalidFileContentsException(
+                            "Number of columns mismatch. 5 columns for Event task");
                 }
                 try {
-                    taskToAdd = new EventTask(lineArray[2], lineArray[3], lineArray[4]);
+                    taskToAdd = new EventTask(
+                            lineArray[TASK_DESCRIPTION_INDEX],
+                            lineArray[EVENT_START_TIME_INDEX],
+                            lineArray[EVENT_END_TIME_INDEX]);
                 } catch (DateTimeParseException e) {
                     errorMessage += "\nDate & Time format is wrong in the file contents."
                             + " For Events task, it should be yyyy-MM-ddThh:mm format";
@@ -125,11 +148,10 @@ public class Storage {
                 throw new InvalidFileContentsException("Only T, E, D accepted but others found in 1st column");
             }
 
-            // check for marked or unmarked Task checkForMarkedFormat()
-            // need to assert here.
-            if (lineArray[1].equals("1")) {
+            // need to assert here that taskToAdd won't be null
+            if (lineArray[IS_TASK_MARKED_INDEX].equals(TASK_MARKED_STATUS)) {
                 taskToAdd.markDone();
-            } else if (!lineArray[1].equals("0")) { // neither 0 nor 1
+            } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // neither 0 nor 1
                 throw new InvalidFileContentsException("the value of the 2nd column should only be 0 or 1");
             }
             return new Pair<Optional<Task>, String>(Optional.of(taskToAdd), errorMessage);

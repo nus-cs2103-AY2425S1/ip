@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
     protected final LocalDate deadline;
+    private static final String DEADLINE_IDENTIFIER = "D";
+    private static final String DATE_TIME_FORMAT_FOR_LIST = "d MMM yyyy";
 
     /**
      * Constructs a task with deadline object which contains a description of the task.
@@ -18,12 +20,12 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toStringInFile() {
-        return "D " + super.toStringInFile() + String.format(" | %s", this.deadline);
+        return String.format("%s %s | %s", DEADLINE_IDENTIFIER, super.toStringInFile(), this.deadline);
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(),
-                this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        return String.format("[%s]%s (by: %s)", DEADLINE_IDENTIFIER, super.toString(),
+                this.deadline.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)));
     }
 }

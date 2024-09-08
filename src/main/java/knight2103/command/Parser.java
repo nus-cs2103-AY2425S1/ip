@@ -17,25 +17,35 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws InvalidCommandException {
         String[] commandArray = fullCommand.split(" ", 2);
+        final String COMMAND_LIST_INPUT = "list";
+        final String COMMAND_TODO_INPUT = "todo";
+        final String COMMAND_DEADLINE_INPUT = "deadline";
+        final String COMMAND_EVENT_INPUT = "event";
+        final String COMMAND_MARK_INPUT = "mark";
+        final String COMMAND_UNMARK_INPUT = "unmark";
+        final String COMMAND_DELETE_INPUT = "delete";
+        final String COMMAND_FIND_INPUT = "find";
+        final String COMMAND_BYE_INPUT = "bye";
+
         try {
             switch (commandArray[0]) {
-            case "list":
+            case COMMAND_LIST_INPUT: // must be final
                 return new ListCommand();
-            case "todo":
+            case COMMAND_TODO_INPUT:
                 return new AddCommand(CommandVerb.TODO, commandArray[1]);
-            case "deadline":
+            case COMMAND_DEADLINE_INPUT:
                 return new AddCommand(CommandVerb.DEADLINE, commandArray[1]);
-            case "event":
+            case COMMAND_EVENT_INPUT:
                 return new AddCommand(CommandVerb.EVENT, commandArray[1]);
-            case "mark":
+            case COMMAND_MARK_INPUT:
                 return new ModifyCommand(CommandVerb.MARK, commandArray[1]);
-            case "unmark":
+            case COMMAND_UNMARK_INPUT:
                 return new ModifyCommand(CommandVerb.UNMARK, commandArray[1]);
-            case "delete":
+            case COMMAND_DELETE_INPUT:
                 return new ModifyCommand(CommandVerb.DELETE, commandArray[1]);
-            case "find":
+            case COMMAND_FIND_INPUT:
                 return new FindCommand(CommandVerb.FIND, commandArray[1]);
-            case "bye":
+            case COMMAND_BYE_INPUT:
                 return new ByeCommand();
             default:
                 throw new InvalidCommandException("Invalid Commands. Only valid command verbs are "

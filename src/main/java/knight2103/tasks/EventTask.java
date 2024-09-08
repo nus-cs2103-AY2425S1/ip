@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class EventTask extends Task {
     protected final LocalDateTime startTime;
     protected final LocalDateTime endTime;
+    private static final String EVENT_IDENTIFIER = "E";
+    private static final String DATE_TIME_FORMAT_FOR_LIST = "d MMM (E) HH:mm";
 
     /**
      * Constructs a task Event object which contains a description of the event task.
@@ -20,13 +22,14 @@ public class EventTask extends Task {
 
     @Override
     public String toStringInFile() {
-        return "E " + super.toStringInFile() + String.format(" | %s | %s", this.startTime, this.endTime);
+        return String.format("%s %s | %s | %s", EVENT_IDENTIFIER, super.toStringInFile(),
+                this.startTime, this.endTime);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.startTime.format(DateTimeFormatter.ofPattern("d MMM (E) HH:mm")),
-                this.endTime.format(DateTimeFormatter.ofPattern("d MMM (E) HH:mm")));
+        return String.format("[%s]%s (from: %s to: %s)", EVENT_IDENTIFIER, super.toString(),
+                this.startTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)),
+                this.endTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)));
     }
 }
