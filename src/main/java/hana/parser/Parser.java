@@ -19,6 +19,18 @@ import hana.command.UnmarkCommand;
  * Deals with making sense of the user command
  */
 public class Parser {
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_FIND_BY_DATE = "findByDate";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_FIND_BY_KEY = "findByKey";
+    private static final String COMMAND_HELLO = "hello";
 
     /**
      * Use input and return the command to execute.
@@ -28,32 +40,45 @@ public class Parser {
      * @throws HanaException If input is not one of the available commands.
      */
     public static Command parse(String input) throws HanaException {
-        if (input.startsWith("mark")) {
+        String commandType = getCommandType(input);
+
+        switch (commandType) {
+        case COMMAND_MARK:
             return new MarkCommand(input);
-        } else if (input.startsWith("unmark")) {
+        case COMMAND_UNMARK:
             return new UnmarkCommand(input);
-        } else if (input.startsWith("todo")) {
+        case COMMAND_TODO:
             return new ToDoCommand(input);
-        } else if (input.startsWith("deadline")) {
+        case COMMAND_DEADLINE:
             return new DeadlineCommand(input);
-        } else if (input.startsWith("event")) {
+        case COMMAND_EVENT:
             return new EventCommand(input);
-        } else if (input.startsWith("delete")) {
+        case COMMAND_DELETE:
             return new DeleteCommand(input);
-        } else if (input.startsWith("bye")) {
+        case COMMAND_BYE:
             return new ByeCommand();
-        } else if (input.startsWith("list")) {
+        case COMMAND_LIST:
             return new ListCommand();
-        } else if (input.startsWith("findByDate")) {
+        case COMMAND_FIND_BY_DATE:
             return new FindByDateCommand(input);
-        } else if (input.startsWith("help")) {
+        case COMMAND_HELP:
             return new HelpCommand();
-        } else if (input.startsWith("findByKey")) {
+        case COMMAND_FIND_BY_KEY:
             return new FindCommand(input);
-        } else if (input.startsWith("hello")) {
+        case COMMAND_HELLO:
             return new GreetingsCommand();
-        } else {
-            throw new HanaException("Unknown command! Use help to see list of available commands");
+        default:
+            throw new HanaException("Unknown command! Use 'help' to see the list of available commands.");
         }
+    }
+
+    /**
+     * Helper method to extract the command type from user input.
+     *
+     * @param input The user input command string.
+     * @return A string representing the command type.
+     */
+    private static String getCommandType(String input) {
+        return input.trim().split("\\s+")[0];
     }
 }

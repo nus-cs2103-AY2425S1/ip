@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a Event task with a description, start and end date.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -30,8 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(FORMATTER) + " to: " + to.format(FORMATTER) + ")";
     }
 
     /**
@@ -41,9 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String fileString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | "
-                + to.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(FORMATTER) + " | "
+                + to.format(FORMATTER);
     }
 
     /**
