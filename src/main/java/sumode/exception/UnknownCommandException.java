@@ -12,6 +12,6 @@ public class UnknownCommandException extends SumoDException {
      * @param command The unknown command which user tried to perform.
      */
     public UnknownCommandException(Command command) {
-        super("Sumo dunno your command \"" + command + "\" ! Check spelling of your first word.");
+        super("Sumo dunno your command \"" + command + "\" ! Check spelling of your first word pleaseeeeeeeeee.....");
     }
 }
