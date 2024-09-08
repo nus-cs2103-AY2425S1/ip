@@ -169,8 +169,8 @@ public class TaskList {
      * @throws InvalidDataException if command is missing taskDesc or duedate parameter.
      */
     public String addDeadline(String input) throws InvalidDataException {
-        input = input.substring(8).trim();
-        String[] parts = input.split("/by", 2);
+        String inputParamString = input.substring(8).trim();
+        String[] parts = inputParamString.split("/by", 2);
         if (parts.length != 2) {
             return "Syntax: deadline <taskname> /by <datetime>";
         }
@@ -190,8 +190,8 @@ public class TaskList {
      * @throws InvalidDataException if command is missing taskDesc or fromDate or toDate parameter.
      */
     public String addEvent(String input) throws InvalidDataException {
-        input = input.substring(5).trim();
-        String[] part1 = input.split("/from", 2);
+        String inputParamString = input.substring(5).trim();
+        String[] part1 = inputParamString.split("/from", 2);
         if (part1.length != 2) {
             return "Syntax: event <taskname> /from <datetime> /to <datetime>";
         }
@@ -224,6 +224,27 @@ public class TaskList {
                                  Noted, removing:
                                      %s
                                  You now have %d task(s) in total.""", taskDeleted, listings.size());
+        } catch (NumberFormatException e) {
+           return "Oops! That does not seem like a number.";
+        } catch (IndexOutOfBoundsException e) {
+            return "Oops! Please specific a number within the list.";
+        }
+    }
+
+    public String setPriority(String input) throws InvalidDataException {
+        String inputParamString = input.substring(8).trim();
+        String[] parts = inputParamString.split("/priority", 2);
+        if (parts.length != 2) {
+            return "Syntax: priority <taskIndex> /priority <int 1-3>";
+        }
+        try {
+            int taskId = Integer.parseInt(parts[0].trim());
+            int priorityLevel = Integer.parseInt(parts[1].trim());
+            listings.get(taskId - 1).setPriority(priorityLevel);
+            return String.format("""
+                                 Set priority to task:
+                                     %s
+                                 """, listings.get(taskId - 1));
         } catch (NumberFormatException e) {
            return "Oops! That does not seem like a number.";
         } catch (IndexOutOfBoundsException e) {

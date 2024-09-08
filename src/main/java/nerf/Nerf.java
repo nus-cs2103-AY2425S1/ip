@@ -94,6 +94,8 @@ public class Nerf {
                     return this.taskList.deleteTask(input);
                 } else if (input.startsWith("find ")) {
                     return this.taskList.findTasks(input);
+                } else if (input.startsWith("priority")) {
+                    return this.taskList.setPriority(input);
                 } else {
                     return  """
                             Sorry, I dont understand what u are asking of me.

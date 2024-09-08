@@ -6,6 +6,7 @@ package nerf.task;
 public abstract class Task {
     private final String description;
     private boolean isDone = false;
+    private TaskPriority priority;
 
     public Task(String description) {
         this.description = description;
@@ -14,6 +15,10 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    public void setPriority(int priorityLevel) {
+        this.priority = TaskPriority.getPriorityLevel(priorityLevel);
     }
 
     /** 
@@ -61,7 +66,12 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), this.description);
+        String res = String.format("[%s] %s", getStatusIcon(), this.description);
+        if (this.priority != null) {
+            res += String.format(" Priority: %s", this.priority);
+        }
+        return res;
+        
     }
 
 }
