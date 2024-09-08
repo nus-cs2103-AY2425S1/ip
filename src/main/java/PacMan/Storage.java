@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
-    private void createDirectory(String path) {
-        new java.io.File(path).mkdirs();
-    }
-
     public Storage(String path) {
         this.filePath = path;
         createDirectory(this.filePath.substring(0, this.filePath.lastIndexOf('/')));
+    }
+
+    private void createDirectory(String path) {
+        new java.io.File(path).mkdirs();
     }
 
     /**
@@ -50,11 +50,16 @@ public class Storage {
                     String to = data.split("/")[4];
                     list.add(new Event(task, from, to));
                 }
+                default -> {
+                    System.out.println("Invalid type");
+                }
                 }
                 list.get(list.size() - 1).setMarkDone(isTaskDone);
             }
             scanner.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
@@ -71,6 +76,8 @@ public class Storage {
             file.createNewFile();
             fw.write(list);
             fw.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

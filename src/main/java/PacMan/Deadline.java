@@ -20,7 +20,9 @@ public class Deadline extends Task {
      *
      * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
      */
-    public String toFile() { return "D/" + super.toFile() + "/" + by; }
+    public String toFile() {
+        return "D/" + super.toFile() + "/" + by;
+    }
 
     @Override
     public String toString() {

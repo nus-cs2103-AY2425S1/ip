@@ -14,7 +14,9 @@ public class Todo extends Task {
      *
      * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
      */
-    public String toFile() { return "T/" + super.toFile(); }
+    public String toFile() {
+        return "T/" + super.toFile();
+    }
 
     @Override
     public String toString() {
