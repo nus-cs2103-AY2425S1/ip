@@ -16,11 +16,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return String representation of the deadline task in the form "[D] ['completion status] 'task name' (by: 'MMM d HH:mm')"
+     * @return String representation of the deadline task in the form
+     * "[D] ['completion status] 'task name' (by: 'MMM d HH:mm')"
      */
     @Override
     public String toString() {
-        return "[D]" + "[" + this.check() + "] " + this.name + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
+        return "[D]" + "[" + this.check() + "] " + this.name +
+                " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
     }
 
     /**

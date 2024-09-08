@@ -22,8 +22,8 @@ public class TaskList {
      */
     public Task getTask(int index) {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            return db.get(index);
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            return tempDatabase.get(index);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");
         }
@@ -32,10 +32,10 @@ public class TaskList {
     /**
      * @return integer number of existing tasks.
      */
-    public int size() {
+    public int getSize() {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            return db.size();
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            return tempDatabase.size();
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");
         }
@@ -47,10 +47,10 @@ public class TaskList {
      */
     public void markTask(int index) {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            Task t = db.get(index);
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            Task t = tempDatabase.get(index);
             t.complete();
-            this.storage.updateFileContents(db);
+            this.storage.updateFileContents(tempDatabase);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");
         } catch (IOException e) {
@@ -64,10 +64,10 @@ public class TaskList {
      */
     public void unmarkTask(int index) {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            Task t = db.get(index);
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            Task t = tempDatabase.get(index);
             t.undo();
-            this.storage.updateFileContents(db);
+            this.storage.updateFileContents(tempDatabase);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");
         } catch (IOException e) {
@@ -81,9 +81,9 @@ public class TaskList {
      */
     public void addTask(Task task) {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            db.add(task);
-            this.storage.updateFileContents(db);
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            tempDatabase.add(task);
+            this.storage.updateFileContents(tempDatabase);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");
         } catch (IOException e) {
@@ -97,10 +97,10 @@ public class TaskList {
      */
     public Task deleteTask(int index) {
         try {
-            ArrayList<Task> db = this.storage.getFileContents();
-            Task t = db.get(index);
-            db.remove(t);
-            this.storage.updateFileContents(db);
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            Task t = tempDatabase.get(index);
+            tempDatabase.remove(t);
+            this.storage.updateFileContents(tempDatabase);
             return t;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File was not found!");

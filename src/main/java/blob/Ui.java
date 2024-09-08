@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    public final String unknownCommandMsg = "ERROR! Unknown command!";
+    public final String UNKNOWN_COMMAND_MSG = "ERROR! Unknown command!";
     private Parser parser;
     private TaskList tasklist;
     private Image userImg;
