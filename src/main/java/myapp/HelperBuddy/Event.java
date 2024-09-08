@@ -49,6 +49,7 @@ public class Event extends Task {
         assert parts.length >= 4 : "Task data should have at least 4 parts";
 
         String description = parts[2];
+<<<<<<< HEAD
         LocalDateTime from = null;
         LocalDateTime to = null;
         try {
@@ -61,12 +62,40 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             System.out.println("Warning: There is no date format provided.");
         }
+=======
+
+        LocalDateTime from = parseDateTime(parts, 3);
+        LocalDateTime to = parseDateTime(parts, 4);
+>>>>>>> branch-A-CodeQuality
 
         Event event = new Event(description, from, to);
-        if (parts[1].trim().equals("1")) {
+
+        if (parts.length > 1 && parts[1].trim().equals("1")) {
             event.markDone();
         }
+
         return event;
+    }
+
+    /**
+     * Parses a date-time string from an array of string parts.
+     * The method attempts to parse a date-time string at the specified index in the array.
+     * If the index is out of bounds or the date-time format is invalid, it returns null.
+     * @param parts The array of string parts, which contains the date-time strings.
+     * @param index The index in the array where the date-time string is located.
+     * @return A LocalDateTime object parsed from the string at the specified index.
+     */
+    public static LocalDateTime parseDateTime(String[] parts, int index) {
+        if (index >= parts.length) {
+            return null;
+        }
+
+        try {
+            return LocalDateTime.parse(parts[index], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Warning: Invalid date format at index " + index);
+            return null;
+        }
     }
 
     /**
@@ -80,6 +109,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+<<<<<<< HEAD
         String formattedFrom = (eventFrom != null) ? " (from: "
                 + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
                 : "";
@@ -89,6 +119,19 @@ public class Event extends Task {
                 : "";
         return "[E][" + (this.getDone() ? "X" : " ") + "] "
                 + this.getDescription() + formattedFrom + formattedTo;
+=======
+        StringBuilder sb = new StringBuilder();
+        sb.append("[E][").append(this.getDone() ? "X" : " ").append("] ").append(this.getDescription());
+
+        if (eventFrom != null) {
+            sb.append(" (from: ").append(eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
+        }
+        if (eventTo != null) {
+            sb.append(" to: ").append(eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))).append(")");
+        }
+
+        return sb.toString();
+>>>>>>> branch-A-CodeQuality
     }
 
     /**
@@ -103,6 +146,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+<<<<<<< HEAD
         String formattedFrom = (eventFrom != null) ? " | "
                 + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                 : "";
@@ -111,5 +155,18 @@ public class Event extends Task {
                 : "";
         return "E | " + (this.getDone() ? "1" : "0") + " | "
                 + this.getDescription() + formattedFrom + formattedTo;
+=======
+        StringBuilder sb = new StringBuilder();
+        sb.append("E | ").append(this.getDone() ? "1" : "0").append(" | ").append(this.getDescription());
+
+        if (eventFrom != null) {
+            sb.append(" | ").append(eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
+        }
+        if (eventTo != null) {
+            sb.append(" | ").append(eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
+        }
+
+        return sb.toString();
+>>>>>>> branch-A-CodeQuality
     }
 }
