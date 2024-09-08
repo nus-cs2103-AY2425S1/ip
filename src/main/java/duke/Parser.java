@@ -40,7 +40,7 @@ public class Parser {
             }
             task = todo;
         } else if (taskType.equals("D")) {
-            assert parts.length == 4 : "Invalid deadline format";
+          assert parts.length == 4 : "Invalid deadline format";
 
             String timeToConvert = isolateTimeToConvert(parts[3]);
             Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
@@ -53,6 +53,7 @@ public class Parser {
 
             String timeToConvertFrom = isolateTimeToConvert(parts[3]);
             String timeToConvertTo = isolateTimeToConvert(parts[4]);
+
             Event event = new Event(description, convertStringToDate(timeToConvertFrom),
                     convertStringToDate(timeToConvertTo));
             if (isDone) {
