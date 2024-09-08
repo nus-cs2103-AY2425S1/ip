@@ -5,15 +5,24 @@ import noosy.exception.NoosyException;
 import noosy.task.Deadline;
 import noosy.task.Event;
 import noosy.task.Todo;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and creates appropriate Command objects for the task management system.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A Command object corresponding to the user's input.
+     * @throws NoosyException If the input is invalid or incomplete.
+     */
     public static Command parse(String fullCommand) throws NoosyException {
         String separated[] = fullCommand.split(" ", 2);
         String firstWord = separated[0];
@@ -107,15 +116,17 @@ public class Parser {
                 }
 
             default:
-                throw new NoosyException("Beep Boop. noosy.Noosy is confused. \n" +
-                        "noosy.Noosy only understands: \n" +
+                throw new NoosyException("Beep Boop. Noosy is confused... \n" +
+                        "Noosy only understands: \n" +
                         "list – listing your tasks \n" +
-                        "mark – mark a task as complete \n" +
-                        "unmark – unmark a task \n" +
-                        "delete – delete a task \n" +
+                        "mark i– mark task i as complete \n" +
+                        "unmark i – unmark task i \n" +
+                        "delete i – delete task i \n" +
                         "todo – add a task with no time associated \n" +
                         "deadline – add a task with a deadline \n" +
-                        "event – add a task with duration \n");
+                        "event – add a task with duration \n" +
+                        "on – check tasks on a certain date \n" +
+                        "bye – say goodbye to Noosy \n");
         }
     }
 }
