@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -26,7 +27,8 @@ public enum DateTimeFormatEnum {
     /**
      * Date-time format with a time component including AM/PM meridiem (e.g., "Dec 2 2019, 6:00 PM").
      */
-    DATE_TIME_FOR_SAVING("MMM d yyyy, h:mm a", DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")),
+    DATE_TIME_FOR_SAVING("MMM d yyyy, h:mm a", DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a",
+            new Locale("en", "SG"))),
 
     /**
      * Date-only format without a time component (e.g., "2/12/2019").
