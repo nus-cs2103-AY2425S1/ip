@@ -1,6 +1,7 @@
-package mendel.frontend;
+package mendel.main;
 
 import javafx.application.Application;
+import mendel.frontend.Main;
 
 /**
  * A launcher class to workaround classpath issues.
