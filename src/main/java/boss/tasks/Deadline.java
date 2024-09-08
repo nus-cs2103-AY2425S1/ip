@@ -1,9 +1,6 @@
-package boss;
+package boss.tasks;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Deadline, which is a type of task

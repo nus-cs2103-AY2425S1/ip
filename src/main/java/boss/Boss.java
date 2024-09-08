@@ -1,5 +1,7 @@
 package boss;
 
+import boss.exceptions.BossException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -24,7 +26,7 @@ public class Boss {
         ui.welcome();
         Scanner myObj = new Scanner(System.in);
 
-        Parser parser = new Parser(storage, tasks, ui);
+        Parser parser = new Parser(storage, tasks);
 
         String task = myObj.nextLine();
         while (!task.equals("bye")) {
@@ -46,10 +48,10 @@ public class Boss {
 
     /**
      * Creates a Boss Object
+     *
      * @param filePath The location of the file that the chatbot
      *  will read and write data from and to respectively.
      */
-
     public Boss(String filePath) {
         try {
             ui = new Ui();
@@ -61,8 +63,37 @@ public class Boss {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(e);
         }
+    }
+
+    /**
+     * Gets the response of the Boss Chatbot based on the user's input!
+     * Used for the GUI.
+     *
+     * @param input user input.
+     * @return String containing response from the Boss Chatbot.
+     */
+    public String getResponse(String input) {
+        switch(input) {
+            case "hello":
+            case "hey":
+            case "whats up":
+                return "WHATS GOOD, MY HOMIE! I'm the boss!" + "\n" + "How can I help you?";
+        }
+
+        try {
+            Parser parser = new Parser(storage, tasks);
+            String responseText = parser.getResponse(input);
+            return responseText;
+        } catch (IOException e) {
+            System.out.println(e);
+            return "error";
+        } catch (BossException e) {
+            System.out.println(e);
+            return "error";
+        }
+
     }
 
 

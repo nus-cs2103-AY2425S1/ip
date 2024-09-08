@@ -1,4 +1,4 @@
-package boss;
+package boss.tasks;
 
 /**
  * Represents the Task class.

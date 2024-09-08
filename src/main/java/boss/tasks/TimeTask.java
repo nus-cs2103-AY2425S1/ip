@@ -1,4 +1,6 @@
-package boss;
+package boss.tasks;
+
+import boss.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
