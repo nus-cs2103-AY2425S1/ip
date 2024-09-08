@@ -67,9 +67,7 @@ public class DeleteCommand extends Command {
         tasks.removeFromList(taskIndex);
 
         ui.displayResponse("Noted. I've removed this task:\n"
-                + "  "
-                + deletedTaskDetails
-                + '\n'
+                + "  " + deletedTaskDetails + '\n'
                 + tasks.getTasksSummary());
 
         // Update the save file
