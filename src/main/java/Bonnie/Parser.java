@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Parser {
 
-    public Parser() {
-    }
-
-
     /**
      * Parses the user input and performs the corresponding action.
      *
@@ -26,7 +22,7 @@ public class Parser {
                 list += String.format("%d. %s\n", i, TaskList.getTasks().get(i - 1));
             }
             System.out.println(list);
-        } else if (check_mark_command(input)) {
+        } else if (checkMarkCommand(input)) {
             String[] arr = input.split(" ", 2);
             Integer taskNum = Integer.valueOf(arr[1]);
             if (arr[0].equals("mark")) {
@@ -36,11 +32,11 @@ public class Parser {
                 // Mark task "taskNum" as not done
                 TaskList.unmarkTaskAsDone(taskNum);
             }
-        } else if (check_delete_command(input)) {
+        } else if (checkDeleteCommand(input)) {
             String[] arr = input.split(" ", 2);
             Integer taskNum = Integer.valueOf(arr[1]);
             TaskList.removeTask(taskNum);
-        } else if (check_find_command(input)) {
+        } else if (checkFindCommand(input)) {
             String[] arr = input.split(" ", 2);
             String stringToFindBy = arr[1];
             ArrayList<Task> foundTasks = TaskList.findTasks(stringToFindBy);
@@ -60,7 +56,7 @@ public class Parser {
         Storage.updateFile();
     }
 
-    private static boolean check_mark_command(String targetString) {
+    private static boolean checkMarkCommand(String targetString) {
         String[] arr = targetString.split(" ");
         if ((arr[0].equals("mark") || arr[0].equals("unmark")) && arr.length == 2) {
             try {
@@ -80,7 +76,7 @@ public class Parser {
         }
     }
 
-    private static boolean check_delete_command(String targetString) {
+    private static boolean checkDeleteCommand(String targetString) {
         String[] arr = targetString.split(" ");
         if (arr[0].equals("delete") && arr.length == 2) {
             try {
@@ -99,7 +95,7 @@ public class Parser {
         }
     }
 
-    private static boolean check_find_command(String targetString) {
+    private static boolean checkFindCommand(String targetString) {
         String[] arr = targetString.split(" ", 2);
         if (arr[0].equals("find")) {
             return true;

@@ -12,13 +12,11 @@ import java.util.regex.Pattern;
 public class Storage {
 
     static private File f;
-
-    public Storage() {
-    }
+    static private String filePath = "src/main/java/Files/tasks.txt";
 
     // Prepare the file for reading and writing
     protected static void init() {
-        f = new File("src/main/java/Files/tasks.txt");
+        f = new File(filePath);
         try {
             if (!f.exists()) {
                 f.createNewFile();
@@ -67,7 +65,7 @@ public class Storage {
 
     protected static void updateFile() {
         try {
-            FileWriter writer = new FileWriter("src/main/java/Files/tasks.txt");
+            FileWriter writer = new FileWriter(filePath);
             for (int i = 0; i < TaskList.getSize(); i++) {
                 writer.write(String.format("%s\n", TaskList.getTasks().get(i).toString()));
             }

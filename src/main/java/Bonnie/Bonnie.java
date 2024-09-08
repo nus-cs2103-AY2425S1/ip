@@ -8,7 +8,8 @@ public class Bonnie {
     private static String username;
     private static ArrayList<Task> tasklist = new ArrayList<>();
 
-    public static void main(String[] args) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException, IOException {
+    public static void main(String[] args) throws EmptyTodoException, UnknownCommandException,
+            DeadlineFormatException, IOException {
         startApp();
     }
 

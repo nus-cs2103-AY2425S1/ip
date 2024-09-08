@@ -21,7 +21,7 @@ public class Ui {
         System.out.println("Hello I'm Bonnie, what is your name?");
 
         Scanner scannerObj = new Scanner(System.in);
-        String my_username = scannerObj.nextLine();
+        String myUsername = scannerObj.nextLine();
         System.out.println(String.format(
             "Hey %s! Welcome to the Bonnie chat bot! Please input a command to continue!\n" +
                     "1. bye : leaves the conversation with Bonnie\n" +
