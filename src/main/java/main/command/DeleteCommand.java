@@ -21,20 +21,6 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Returns an integer representing the index of a task in an array.
-     * @param input Input by the user.
-     * @return Index of the task.
-     */
-    private int getIndex(String input) {
-        // get character value of index in the input
-        String indexAsString = input.substring(7);
-        // convert to arr index
-        int index = Integer.valueOf(indexAsString) - 1;
-        return index;
-
-    }
-
-    /**
      * Deletes tasks from taskList and storage.
      * Displays input for user.
      * @param input    Input by the user.
@@ -46,18 +32,16 @@ public class DeleteCommand extends Command {
     private void delete(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
         // extra check to make sure the start of input is "delete"
         String checkDelete = input.substring(0, 6);
-        if (checkDelete.equals("delete")) {
-            // remove the task from storage.txt
-            storage.deleteFromFile(input, taskList);
-            int index = getIndex(input);
-            Task task = taskList.get(index);
-            taskList.remove(index);
-            ui.showDelete();
-            ui.showTaskToString(task);
-            ui.showNumberOfTasks(taskList);
-        } else {
+        if (!checkDelete.equals("delete")) {
             throw new PrinceException("Please ensure that your input begins with 'delete'!");
         }
+        storage.deleteFromFile(input, taskList);
+        int index = getIndex(input);
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        ui.showDelete();
+        ui.showTaskToString(task);
+        ui.showNumberOfTasks(taskList);
     }
 
     @Override

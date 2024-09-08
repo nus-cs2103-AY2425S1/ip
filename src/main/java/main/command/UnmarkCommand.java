@@ -21,19 +21,6 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Returns an integer representing the index of a task in an array.
-     * @param input Input by the user.
-     * @return Index of the task.
-     */
-    private int getIndex(String input) {
-        // get character value of index in the input
-        String indexAsString = input.substring(7);
-        // convert to arr index
-        int index = Integer.valueOf(indexAsString) - 1;
-        return index;
-    }
-
-    /**
      * Marks task as incomplete.
      * Update storage with correct boolean status.
      * Displays input for user.
@@ -47,18 +34,16 @@ public class UnmarkCommand extends Command {
         if (input.equals("unmark")) {
             throw new PrinceException("Don't forget to include the number of the task!");
         }
-        // extra check to make sure the start of input is "unmark"
         String checkUnmark = input.substring(0, 6);
         if (checkUnmark.equals("unmark")) {
-            int index = getIndex(input);
-            Task task = taskList.get(index);
-            task.markAsNotDone();
-            storage.updateFile(input, taskList);
-            ui.showUnmark();
-            ui.showTaskToString(task);
-        } else {
             throw new PrinceException("Please ensure that your input begins with 'unmark'!");
         }
+        int index = getIndex(input);
+        Task task = taskList.get(index);
+        task.markAsNotDone();
+        storage.updateFile(input, taskList);
+        ui.showUnmark();
+        ui.showTaskToString(task);
     }
 
     @Override

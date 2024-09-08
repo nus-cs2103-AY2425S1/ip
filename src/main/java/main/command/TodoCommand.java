@@ -46,15 +46,14 @@ public class TodoCommand extends Command {
             throws PrinceException {
         if (input.equals("todo")) {
             throw new PrinceException("Please describe your todo task in more detail!");
-        } else {
-            ui.showAdd();
-            String desc = getTodo(input);
-            Todo todo = new Todo(desc);
-            taskList.add(todo);
-            ui.showTaskToString(todo);
-            ui.showNumberOfTasks(taskList);
-            storage.saveToFile(todo, taskList);
         }
+        ui.showAdd();
+        String desc = getTodo(input);
+        Todo todo = new Todo(desc);
+        taskList.add(todo);
+        ui.showTaskToString(todo);
+        ui.showNumberOfTasks(taskList);
+        storage.saveToFile(todo, taskList);
     }
 
     @Override

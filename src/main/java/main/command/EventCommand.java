@@ -67,17 +67,16 @@ public class EventCommand extends Command {
             throws PrinceException {
         if (input.equals("event")) {
             throw new PrinceException("Please describe your event task in more detail!");
-        } else {
-            ui.showAdd();
-            String desc = getEvent(input);
-            String from = getFrom(input);
-            String to = getTo(input);
-            Event event = new Event(desc, from, to);
-            taskList.add(event);
-            ui.showTaskToString(event);
-            ui.showNumberOfTasks(taskList);
-            storage.saveToFile(event, taskList);
         }
+        ui.showAdd();
+        String desc = getEvent(input);
+        String from = getFrom(input);
+        String to = getTo(input);
+        Event event = new Event(desc, from, to);
+        taskList.add(event);
+        ui.showTaskToString(event);
+        ui.showNumberOfTasks(taskList);
+        storage.saveToFile(event, taskList);
     }
 
     @Override

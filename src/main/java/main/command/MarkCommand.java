@@ -21,19 +21,6 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Returns an integer representing the index of a task in an array.
-     * @param input Input by the user.
-     * @return Index of the task.
-     */
-    private int getIndex(String input) {
-        // get character value of index in input
-        String indexAsString = input.substring(5);
-        // convert to arr index
-        int index = Integer.valueOf(indexAsString) - 1;
-        return index;
-    }
-
-    /**
      * Marks task as complete.
      * Update storage with correct boolean status.
      * Displays input for user.
@@ -48,16 +35,15 @@ public class MarkCommand extends Command {
             throw new PrinceException("Don't forget to include the number of the task!");
         }
         String checkMark = input.substring(0, 4);
-        if (checkMark.equals("mark")) {
-            int index = getIndex(input);
-            Task task = taskList.get(index);
-            task.markAsDone();
-            storage.updateFile(input, taskList);
-            ui.showMark();
-            ui.showTaskToString(task);
-        } else {
+        if (!checkMark.equals("mark")) {
             throw new PrinceException("Please ensure that your input begins with 'mark'!");
         }
+        int index = getIndex(input);
+        Task task = taskList.get(index);
+        task.markAsDone();
+        storage.updateFile(input, taskList);
+        ui.showMark();
+        ui.showTaskToString(task);
     }
 
     @Override

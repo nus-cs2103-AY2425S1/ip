@@ -32,18 +32,18 @@ public class FindCommand extends Command {
         String[] arr = input.split(" ");
         String find = arr[0].trim();
         String keyword = arr[1].trim();
-        TaskList newTaskList = new TaskList();
-        if (find.equals("find")) {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
-                String desc = task.getDescription();
-                if (desc.contains(keyword)) {
-                    newTaskList.add(task);
-                }
-            }
-        } else {
+        if (!find.equals("find")) {
             throw new PrinceException("Please ensure that your input begins with 'find'!");
         }
+        TaskList newTaskList = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            String desc = task.getDescription();
+            if (desc.contains(keyword)) {
+                newTaskList.add(task);
+            }
+        }
+
         if (newTaskList.size() > 0) {
             ui.showMatchingTaskList(newTaskList);
         } else {
