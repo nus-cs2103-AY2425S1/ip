@@ -3,6 +3,9 @@ package hamyo.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import hamyo.misc.HamyoException;
 import hamyo.misc.Ui;
@@ -65,15 +68,11 @@ public class TaskList extends ArrayList<Task> {
      * List all the users' tasks onto the terminal.
      */
     public void listTasks() throws HamyoException {
-        StringBuilder tasksList = new StringBuilder();
-        for (int i = 1; i < this.size() + 1; i++) {
-            if (!tasksList.isEmpty()) {
-                tasksList.append("\n");
-            }
-            tasksList.append(i).append(". ").append(this.get(i - 1).toString());
-        }
+        String tasksList = IntStream.rangeClosed(1, this.size())
+            .mapToObj(i -> i + ". " + this.get(i - 1).toString())
+            .collect(Collectors.joining("\n"));
 
-        Ui.printListTasks(tasksList.toString());
+        Ui.printListTasks(tasksList);
     }
 
     /**
@@ -85,20 +84,14 @@ public class TaskList extends ArrayList<Task> {
     public void listTasksByDate(String strDate) throws HamyoException {
         try {
             LocalDate date = LocalDate.parse(strDate);
-            StringBuilder tasksList = new StringBuilder();
-            int counter = 1;
-            for (Task task : this) {
-                if (!(task instanceof Deadline) && !(task instanceof Event)) {
-                    continue;
-                } else if (!task.occursToday(date)) {
-                    continue;
-                } else if (!tasksList.isEmpty()) {
-                    tasksList.append("\n");
-                }
-                tasksList.append(counter++).append(". ").append(task.toString());
-            }
+            AtomicInteger counter = new AtomicInteger(1);
+            String tasksList = this.stream()
+                .filter(task -> task instanceof Deadline || task instanceof Event) // Filter for Deadline and Event.
+                .filter(task -> task.occursToday(date)) // Filter for Deadline and Event that occurs today.
+                .map(task -> counter.getAndIncrement() + ". " + task.toString()) // Format as String.
+                .collect(Collectors.joining("\n"));
 
-            Ui.printListTasksByDate(tasksList.toString(), date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            Ui.printListTasksByDate(tasksList, date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }
@@ -112,18 +105,13 @@ public class TaskList extends ArrayList<Task> {
      */
     public void listTasksByKeyword(String keyword) throws HamyoException {
         try {
-            StringBuilder tasksList = new StringBuilder();
-            int counter = 1;
-            for (Task task : this) {
-                if (!task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                    continue;
-                } else if (!tasksList.isEmpty()) {
-                    tasksList.append("\n");
-                }
-                tasksList.append(counter++).append(". ").append(task);
-            }
+            AtomicInteger counter = new AtomicInteger(1);
+            String tasksList = this.stream()
+                .filter(task -> task.toString().toLowerCase().contains(keyword.toLowerCase()))
+                .map(task -> counter.getAndIncrement() + ". " + task)
+                .collect(Collectors.joining("\n"));
 
-            Ui.printListTasksByKeyword(tasksList.toString(), keyword);
+            Ui.printListTasksByKeyword(tasksList, keyword);
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }
