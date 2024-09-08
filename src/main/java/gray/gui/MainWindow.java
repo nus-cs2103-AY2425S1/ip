@@ -4,10 +4,8 @@ import static gray.Constants.FILEPATH_VIEW_MAIN_WINDOW;
 
 import java.io.IOException;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import gray.Main;
-import gray.gui.DialogBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
