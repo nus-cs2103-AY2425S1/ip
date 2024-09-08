@@ -53,9 +53,9 @@ public class Infinity {
      */
     public static String newUserInput(String currentInput) {
         try {
-            return Command.findCommand(currentInput, botTasks);
+            return Ui.botSays(Command.findCommand(currentInput, botTasks));
         } catch (InfinityException e) {
-            return e.getMessage();
+            return Ui.botSays(e.getMessage());
         }
     }
 

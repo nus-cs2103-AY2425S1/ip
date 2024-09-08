@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import infinity.infinityexception.InfinityException;
 import infinity.parser.Parser;
 import infinity.storage.Storage;
-import infinity.ui.Ui;
 
 /**
  * This class is the deadline task that the bot will recognise and manage.
@@ -22,20 +21,20 @@ public class Deadline extends Task {
      */
     public Deadline(String description) throws InfinityException {
         try {
-            this.setDescription(description.split(" /by ")[0]);
-
-            String by = description.split(" /by ")[1];
+            String[] splitInput = description.split(" /by ");
+            this.setDescription(splitInput[0]);
+            String by = splitInput[1];
             byDate = Parser.parseDateTime(by);
 
             this.setTypeOfTask(Task.TaskTypes.D);
         } catch (DateTimeException e) {
-            throw new InfinityException(Ui.botSays("""
+            throw new InfinityException("""
                     Oops, I think your date format is a little wrong.
-                    I only understand dates in the format of DD-MM-YYYY HHMM or DD/MM/YYYY HHMM"""));
+                    I only understand dates in the format of DD-MM-YYYY HHMM or DD/MM/YYYY HHMM\n""");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InfinityException(Ui.botSays("""
+            throw new InfinityException("""
                     Oops, I think your format is a little wrong.
-                    Did you forget the date, '/' or the task?"""));
+                    Did you forget the date, '/' or the task?\n""");
         }
     }
 

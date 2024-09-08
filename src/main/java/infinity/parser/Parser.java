@@ -4,12 +4,25 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Locale;
+
+import infinity.command.Command;
+import infinity.infinityexception.InfinityException;
+import infinity.parser.runnable.Runnable;
 
 /**
  * This class handles the parsing of user inputs.
  */
 public class Parser {
+    /** Delimiter used for multi-operations */
+    public static final String MULTI_OPERATION_DELIMITER = "&&";
+    /** Bot reply for insufficient arguments */
+    private static final String BOT_INSUFFICIENT_ARGUMENTS = "Insufficient arguments provided\n";
+    /** Bot reply for invalid date */
+    private static final String BOT_INVALID_DATE = "Invalid date time format\n";
+    /** Bot reply for invalid inputs */
+    private static final String BOT_INVALID_INPUT = "Invalid inputs given\n";
 
     /**
      * Checks the length of the value given whether it is within the specified range.
@@ -91,7 +104,7 @@ public class Parser {
                 && isNumberInRange(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59);
 
         if (!(isInputLengthCorrect && isInputDayMonthYearInRange && isHourMinuteInRange)) {
-            throw new DateTimeException("Invalid date time format");
+            throw new DateTimeException(BOT_INVALID_DATE);
         }
 
         return LocalDateTime.of(
@@ -101,5 +114,81 @@ public class Parser {
                 Integer.parseInt(dateTimeBrokenDown[3].substring(0, 2)),
                 Integer.parseInt(dateTimeBrokenDown[3].substring(2))
         );
+    }
+
+    private static String[] sortIntegerStrings(String[] inputs, boolean isReversed) throws InfinityException {
+        int[] integersInput = new int[inputs.length];
+        String[] finalInputs = new String[inputs.length];
+
+        try {
+            for (int i = 0; i < inputs.length; i++) {
+                integersInput[i] = Integer.parseInt(inputs[i]);
+            }
+        } catch (NumberFormatException e) {
+            throw new InfinityException(BOT_INVALID_INPUT);
+        }
+
+        Arrays.sort(integersInput);
+
+        if (isReversed) {
+            for (int i = 0; i < integersInput.length / 2; ++i) {
+                int temp = integersInput[i];
+                integersInput[i] = integersInput[integersInput.length - i - 1];
+                integersInput[integersInput.length - i - 1] = temp;
+            }
+        }
+
+        for (int i = 0; i < inputs.length; i++) {
+            finalInputs[i] = Integer.toString(integersInput[i]);
+        }
+
+        return finalInputs;
+    }
+
+    /**
+     * Parses a user input and runs each operation if there are multiple of them.
+     *
+     * @param runnable The lambda function to run for each multi input.
+     * @param input The user input.
+     * @param command The command to trim.
+     * @return The bot output of all executions.
+     * @throws InfinityException If any execution has an error.
+     */
+    public static String parseAndRun(Runnable runnable,
+                                     String input,
+                                     Command.KnownCommands command) throws InfinityException {
+        if (input.length() <= command.toString().length() + 1) {
+            throw new InfinityException(BOT_INSUFFICIENT_ARGUMENTS);
+        }
+
+        String[] parsedInput = Parser.parseMultiOperations(input, command.toString());
+
+        // Edge case for when user deletes last few in ascending order, causing taskSize to go below last index
+        if (command == Command.KnownCommands.DELETE) {
+            parsedInput = sortIntegerStrings(parsedInput, true);
+        }
+
+        StringBuilder botOutput = new StringBuilder();
+        for (String s : parsedInput) {
+            String eachOutput = runnable.run(s);
+            botOutput.append(eachOutput);
+        }
+        return botOutput.toString();
+    }
+
+    /**
+     * Parses a user input, removes the command, and returns an ArrayList of each item to execute command on.
+     *
+     * @param input The user input.
+     * @param startsWith The command to trim.
+     * @return ArrayList of String of each item to execute the command on.
+     */
+    public static String[] parseMultiOperations(String input, String startsWith) {
+        String inputWithoutCommand = input.substring(startsWith.length());
+        String[] result = inputWithoutCommand.trim().split(MULTI_OPERATION_DELIMITER);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = result[i].trim();
+        }
+        return result;
     }
 }
