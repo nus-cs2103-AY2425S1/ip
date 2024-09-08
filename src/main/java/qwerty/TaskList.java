@@ -118,7 +118,7 @@ public class TaskList {
     /**
      * Returns a string generated from the tasks currently in the task list.
      * The string contains all the details needed to reconstruct each task,
-     * making it suitable to be used in a save file.
+     * making it suitable to be used in a save file. Uses streams.
      *
      * @return String containing task details.
      */
