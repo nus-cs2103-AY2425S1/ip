@@ -64,7 +64,7 @@ public class Parser {
                         throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount()
                                 + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
                     }
-                } else { // "mark"
+                } else {
                     throw new MeowException("Please specify which task to mark. Example: mark 1");
                 }
             } else if (input.startsWith("unmark")) {
