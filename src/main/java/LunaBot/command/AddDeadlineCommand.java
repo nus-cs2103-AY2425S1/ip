@@ -1,3 +1,11 @@
+package LunaBot.command;
+
+import LunaBot.exception.LunaBotException;
+import LunaBot.storage.Storage;
+import LunaBot.task.Deadline;
+import LunaBot.task.TaskList;
+import LunaBot.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,15 +24,15 @@ public class AddDeadlineCommand extends Command {
             throw new LunaBotException("Description of task cannot be empty");
         }
         if (parts[1].isEmpty()) {
-            throw new LunaBotException("Deadline of task cannot be empty");
+            throw new LunaBotException("LunaBot.task.Deadline of task cannot be empty");
         }
         this.description = parts[0];
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.by = LocalDateTime.parse(parts[1], formatter);
         }
         catch (DateTimeParseException e) {
-            throw new LunaBotException("Invalid deadline date/time format. Use yyyy-MM-dd HHmm");
+            throw new LunaBotException("Invalid deadline date/time format. Use yyyy-MM-dd HH:mm");
         }
     }
 

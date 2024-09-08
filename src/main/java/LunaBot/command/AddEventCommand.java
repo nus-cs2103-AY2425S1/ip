@@ -1,3 +1,11 @@
+package LunaBot.command;
+
+import LunaBot.exception.LunaBotException;
+import LunaBot.storage.Storage;
+import LunaBot.task.Event;
+import LunaBot.task.TaskList;
+import LunaBot.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,12 +32,12 @@ public class AddEventCommand extends Command {
         }
         this.description = parts[0];
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.from = LocalDateTime.parse(parts[1], formatter);
             this.to = LocalDateTime.parse(parts[2], formatter);
         }
         catch  (DateTimeParseException e) {
-            throw new LunaBotException("Invalid event date/time format. Use yyyy-MM-dd HHmm");
+            throw new LunaBotException("Invalid event date/time format. Use yyyy-MM-dd HH:mm");
         }
     }
 

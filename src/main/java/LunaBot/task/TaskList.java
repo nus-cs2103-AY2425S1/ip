@@ -1,3 +1,7 @@
+package LunaBot.task;
+
+import LunaBot.exception.LunaBotException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -28,14 +32,14 @@ public class TaskList {
     }
 
     public Task deleteTask(int index) throws LunaBotException {
-        if (index <= 0 || index > taskList.size()) {
+        if (index < 0 || index >= taskList.size()) {
             throw new LunaBotException(" Invalid task number.");
         }
         return taskList.remove(index);
     }
 
     public Task get(int index) throws LunaBotException {
-        if (index <= 0 || index > taskList.size()) {
+        if (index < 0 || index >= taskList.size()) {
             throw new LunaBotException(" Invalid task number.");
         }
         return taskList.get(index);

@@ -1,3 +1,11 @@
+package LunaBot.storage;
+
+import LunaBot.exception.LunaBotException;
+import LunaBot.task.Task;
+import LunaBot.task.ToDo;
+import LunaBot.task.Deadline;
+import LunaBot.task.Event;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,7 +46,7 @@ public class Storage {
                 LocalDateTime dateTime = null;
 
                 if (arr.length > 3) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                     dateTime = LocalDateTime.parse(arr[3], formatter);
                 }
 
@@ -50,8 +58,8 @@ public class Storage {
                         taskList.add(new Deadline(description, dateTime, isDone));
                         break;
                     case "E":
-                        LocalDateTime from = LocalDateTime.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        LocalDateTime to = LocalDateTime.parse(arr[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime from = LocalDateTime.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        LocalDateTime to = LocalDateTime.parse(arr[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                         taskList.add(new Event(description, from, to, isDone));
                         break;
                     default:

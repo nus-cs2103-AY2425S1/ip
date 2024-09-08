@@ -1,3 +1,11 @@
+package LunaBot.command;
+
+import LunaBot.exception.LunaBotException;
+import LunaBot.storage.Storage;
+import LunaBot.task.TaskList;
+import LunaBot.task.ToDo;
+import LunaBot.ui.Ui;
+
 public class AddToDoCommand extends Command {
     private String description;
 
