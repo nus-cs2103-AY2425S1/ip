@@ -52,6 +52,16 @@ public abstract class Task {
     public static Task fromFileFormat(String fullLine) {
         String[] parts = fullLine.split("\\|");
 
+        if (parts[0].equals("T")) {
+            return ToDo.fromFileFormat(fullLine);
+        }
+        if (parts[0].equals("D")) {
+            return Deadline.fromFileFormat(fullLine);
+        }
+        if (parts[0].equals("E")) {
+            return Event.fromFileFormat(fullLine);
+        }
+
         switch (parts[0]) {
             case "T":
                 return ToDo.fromFileFormat(fullLine);

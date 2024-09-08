@@ -84,6 +84,7 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             // Log or handle the exception if saving fails
+            return;
         }
     }
 }

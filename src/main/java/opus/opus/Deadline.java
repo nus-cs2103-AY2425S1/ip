@@ -27,15 +27,7 @@ public class Deadline extends Task {
             this.byString = by;
         }
     }
-
-    /**
-     * Returns the formatted deadline. If the deadline was successfully parsed,
-     * it is returned in [MMM dd yyyy] format. Otherwise, the original
-     * string is returned.
-     *
-     * @return The formatted deadline or the original string if parsing failed.
-     */
-    private String getBy() {
+    private String getBy(){
         if (byDateTime != null) {
             DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
             return byDateTime.format(outputFormat);
