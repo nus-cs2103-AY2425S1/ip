@@ -161,8 +161,8 @@ public class Parser {
             }
         case FIND:
             String keyword = input.split(" ", 2)[1].trim();
-            TaskList findList = list.findTask(keyword);
-            if (findList.getSize() == 0) {
+            TaskList findList = list.findTaskByKeyword(keyword);
+            if (findList.getTaskCount() == 0) {
                 return ui.noFindMsg();
             } else {
                 return ui.findMsg(findList);
