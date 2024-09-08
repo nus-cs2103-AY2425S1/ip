@@ -92,10 +92,15 @@ public class Ui {
     }
 
     /**
-     * Displays an error message for invalid date input.
+     * Displays a list of tasks with a corresponding keyword.
      */
-    public void showInvalidDate() {
-        System.out.println("Please enter the date in the format yyyy-MM-dd:");
+    public void showFindCommand(TaskList tasksWithKeyword) {
+        if (tasksWithKeyword.size() == 0) {
+            System.out.println("Hmm, no task found. Try other words?");
+        } else {
+            System.out.println("Ahh, I've found the following for you! \n");
+            tasksWithKeyword.printTasks();
+        }
     }
 
     /**
