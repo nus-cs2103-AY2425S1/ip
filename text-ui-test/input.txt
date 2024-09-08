@@ -1,0 +1,17 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+mark 2
+list
+todo write essay
+event team dinner /from Fri 7pm /to 9pm
+list
+deadline submit report /by Tuesday
+mark 4
+list
+todo plan vacation
+event conference /from Wed 10am /to 12pm
+mark 6
+bye
