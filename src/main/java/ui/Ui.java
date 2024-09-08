@@ -50,7 +50,8 @@ public class Ui {
 
     public static String taskAddDescription(Task task) {
         return "Got it. I've added this task:\n" + "  " + task.printTask() + "\n" +
-                "Now you have " + TaskList.getList().size() + " tasks in the list";
+                "Now you have " + TaskList.getList().size() + " tasks in the list" + "\n" +
+                "How else would you like me to edit your TODO list today?";
     }
 
     /**
@@ -62,15 +63,16 @@ public class Ui {
 
     public static String taskDelDescription(int num, Task task){
         return "Noted. I've removed this task:\n" + "  " + task.printTask() + "\n" +
-                "Now you have " + TaskList.getList().size() + " tasks in the list";
+                "Now you have " + TaskList.getList().size() + " tasks in the list" + "\n" +
+                "How else would you like me to edit your TODO list today?";
     }
 
     /**
      * Prints a termination message to the console.
      */
 
-    public void terminationMessage() {
-        System.out.println("Bye! Hope to see you again soon!");
+    public String terminationMessage() {
+        return "Bye! Hope to see you again soon!";
     }
 
     /**
@@ -78,8 +80,12 @@ public class Ui {
      * @param message
      */
 
-    public void printErrorMessage(String message) {
-        System.out.println(message);
+    public String printErrorMessage(String message) {
+        return message;
+    }
+
+    public static String getInitialGreeting() {
+        return "Hello! I'm Prince! What would you like me to add to your TODO list today?";
     }
 
 }

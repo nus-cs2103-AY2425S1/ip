@@ -1,2 +1,5 @@
-T | 0 | print tasks
 T | 1 | mark papers
+T | 1 | book papers
+T | 0 | books return 
+T | 0 | paint book
+T | 1 | print task
