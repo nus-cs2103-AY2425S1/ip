@@ -27,6 +27,9 @@ public class DeadlineTask extends Task {
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             this.by = by;
         }
+        if (by.split(" ").length == 1) {
+            return;
+        }
         try {
             timeBy = by.split(" ")[1];
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HHmm");
@@ -46,16 +49,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by, boolean isDone) {
         super(description, isDone);
-        try {
-            LocalDate byDate = LocalDate.parse(by.split(" ")[0]);
-            String timeBy = by.split(" ")[1];
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HHmm");
-            LocalTime byTime = LocalTime.parse(timeBy, dtf);
-            this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            this.by += byTime.format(DateTimeFormatter.ofPattern(" h:mma"));
-        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            this.by = by;
-        }
+        this.by = by;
     }
 
     /**

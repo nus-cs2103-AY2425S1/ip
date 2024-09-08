@@ -29,7 +29,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList cannot be null";
         try {
             return tasks.deleteTask(taskNum);
         } catch (PikappiException e) {

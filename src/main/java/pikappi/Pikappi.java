@@ -10,7 +10,7 @@ public class Pikappi {
     protected static Ui ui = new Ui();
     protected static Storage storage = new Storage("data/pikappi.txt");
     protected static TaskList tasks = new TaskList();
-    protected static Parser parser = new Parser(storage, tasks, ui);
+    protected static Parser parser = new Parser();
 
     public void loadTasks() throws PikappiException {
         tasks = storage.load();
@@ -18,6 +18,7 @@ public class Pikappi {
 
     public String getResponse(String input) {
         try {
+            storage.save(tasks);
             Command c = parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (PikappiException e) {

@@ -120,7 +120,6 @@ public class TaskList {
      *
      * @param keywords Keyword to search for in tasks
      * @return TaskList object that contains tasks that match the keyword
-     * @throws PikappiException If no tasks match the keyword
      */
     public TaskList findTask(String... keywords) {
         TaskList matches = new TaskList();

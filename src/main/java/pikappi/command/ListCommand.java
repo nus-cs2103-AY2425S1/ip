@@ -8,13 +8,6 @@ import pikappi.Ui;
  * Represents a command by user to list all tasks.
  */
 public class ListCommand extends Command {
-
-    /**
-     * Creates a new ListCommand object.
-     */
-    public ListCommand() {
-    }
-
     /**
      * Lists all tasks in the list of tasks.
      *
