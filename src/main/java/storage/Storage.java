@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,14 +24,32 @@ public class Storage {
     private static final File SAVE_FILE = new File(FILE_PATH);
 
     /**
+     * Resets the save file due to corrupted data.
+     *
+     * @param description String describing the corruption.
+     * @throws BrockException Always throws this exception, containing message about the corruption.
+     *      To be bubbled up to the Brock.run() in the main class.
+     */
+    private void resetSaveFile(String description) throws BrockException {
+        this.writeToFile("", false);
+        throw new BrockException("While reading from save file: \n"
+                + description + '\n'
+                + "Save file is corrupted. File has been reset!");
+    }
+
+    /**
      * Removes closing bracket from the body string of each task.
      * So that the correct date or time can be extracted for deadline and event tasks.
      *
      * @param target String fragment with closing bracket to be removed.
      * @return String without the closing bracket.
      */
-    private String removeCloseBracket(String target) {
+    private String removeCloseBracket(String target) throws BrockException {
         int length = target.length();
+        char lastChar = target.charAt(length - 1);
+        if (lastChar != ')') {
+            this.resetSaveFile("Invalid deadline/event entry - missing closing bracket!");
+        }
         // Substring from start to the second last index
         return target.substring(0, length - 1);
     }
@@ -41,16 +60,21 @@ public class Storage {
      * @param targetDate Date string to be parsed.
      * @return Parsed date string.
      */
-    private String parseDate(String targetDate) {
+    private String parseDate(String targetDate) throws BrockException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return LocalDate.parse(targetDate, dateFormatter)
-                .toString();
+        try {
+            return LocalDate.parse(targetDate, dateFormatter)
+                    .toString();
+        } catch (DateTimeParseException e) {
+            this.resetSaveFile("Invalid deadline/event entry - date format is wrong!");
+            return null;
+        }
     }
 
     /**
      * Creates a {@code ToDo} object corresponding to a todo task.
      *
-     * @param taskBody String storing task description.
+     * @param taskBody   String storing task description.
      * @param taskStatus Character representing task status.
      * @return {@code ToDo} object created.
      */
@@ -65,14 +89,18 @@ public class Storage {
     /**
      * Creates a {@code Deadline} object corresponding to a deadline task.
      *
-     * @param taskBody String storing task description and due datetime.
+     * @param taskBody   String storing task description and due datetime.
      * @param taskStatus Character representing task status.
      * @return {@code Deadline} object created.
      * @throws BrockException If date and time are invalid when constructing object.
-     *      (They should already be validated)
+     *                        (They should already be validated)
      */
     private Task handleDeadline(String taskBody, char taskStatus) throws BrockException {
         String[] parts = taskBody.split(" \\(by: ", 2);
+        if (parts.length < 2) {
+            this.resetSaveFile("Invalid deadline entry - missing due date!");
+        }
+
         String description = parts[0];
 
         String dateTime = parts[1];
@@ -101,18 +129,26 @@ public class Storage {
     /**
      * Creates an {code Event} object corresponding to an event task.
      *
-     * @param taskBody String storing task description, as well as start and end datetime.
+     * @param taskBody   String storing task description, as well as start and end datetime.
      * @param taskStatus Character representing task status.
      * @return {@code Event} object created.
      * @throws BrockException If date and time are invalid when constructing object.
-     *      (They should already be validated)
+     *                        (They should already be validated)
      */
     private Task handleEvent(String taskBody, char taskStatus) throws BrockException {
         String[] parts = taskBody.split(" \\(from: ", 2);
+        if (parts.length < 2) {
+            this.resetSaveFile("Invalid event entry - missing start date!");
+        }
+
         String description = parts[0];
 
         String dateTime = parts[1];
         String[] dateTimeParts = dateTime.split(" \\| ", 2);
+        if (dateTimeParts.length < 2) {
+            this.resetSaveFile("Invalid event entry - missing date separator!");
+        }
+
         String startDateTime = dateTimeParts[0];
         String endDateTime = dateTimeParts[1];
 
@@ -155,6 +191,9 @@ public class Storage {
     private Task convertToTaskObject(String taskString) throws BrockException {
         // Split by ". "
         String[] taskComponents = taskString.split("\\. ", 2);
+        if (taskComponents.length < 2) {
+            this.resetSaveFile("Invalid task entry - missing task number!");
+        }
 
         String taskDetails = taskComponents[1];
         char taskType = taskDetails.charAt(1);
@@ -166,7 +205,10 @@ public class Storage {
             case 'T' -> handleToDo(taskBody, taskStatus);
             case 'D' -> handleDeadline(taskBody, taskStatus);
             case 'E' -> handleEvent(taskBody, taskStatus);
-            default -> throw new BrockException("Unrecognized task type!");
+            default -> {
+                this.resetSaveFile("Invalid task entry - unrecognized task type!");
+                yield null;
+            }
         };
     }
 
@@ -176,19 +218,15 @@ public class Storage {
      * @return An {@code ArrayList<Task>} to store all objects.
      * @throws BrockException If unable to find save file.
      */
-    public ArrayList<Task> loadTasksFromFile() throws BrockException {
-        try {
-            ArrayList<Task> tasks = new ArrayList<>();
-            Scanner s = new Scanner(SAVE_FILE);
-            while (s.hasNext()) {
-                String taskString = s.nextLine();
-                Task task = convertToTaskObject(taskString);
-                tasks.add(task);
-            }
-            return tasks;
-        } catch (FileNotFoundException e) {
-            throw new BrockException("Unable to find and read from save file!");
+    public ArrayList<Task> loadTasksFromFile() throws BrockException, FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Scanner s = new Scanner(SAVE_FILE);
+        while (s.hasNext()) {
+            String taskString = s.nextLine();
+            Task task = convertToTaskObject(taskString);
+            tasks.add(task);
         }
+        return tasks;
     }
 
     /**
@@ -222,7 +260,7 @@ public class Storage {
         fileResult.append("Creating save file for tasks...\n")
                 .append(fileStatus);
 
-        return new String[] {dirResult.toString(),
+        return new String[]{dirResult.toString(),
                 fileResult.toString()};
     }
 

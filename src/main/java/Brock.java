@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,9 +44,16 @@ public class Brock {
         try {
             ArrayList<Task> prevTasks = STORAGE.loadTasksFromFile();
             tasks = new TaskList(prevTasks);
-        } catch (BrockException e) {
-            UI.displayResponse(e.getMessage());
+            UI.displayResponse("Successfully read from save file!");
+        } catch (FileNotFoundException e) {
+            UI.displayResponse("Unable to find the save file!\n"
+                    + "Please re-run the program and try again.");
             return;
+        } catch (BrockException e) {
+            // Save file was corrupted
+            // Reset to blank file and proceed
+            UI.displayResponse(e.getMessage());
+            tasks = new TaskList(new ArrayList<>());
         }
 
         // Begin the interaction with chatbot
