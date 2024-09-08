@@ -33,15 +33,15 @@ public class Skibidi {
             try {
                 String line = reader.readLine();
                 if (parser.isExit(line)) {
-                    ui.printExitMessage();
+                    System.out.println(Ui.getExitMessage());
                     break;
                 }
                 System.out.println(getResponse(line));
                 storage.saveTasksToDisk(taskList);
-            } catch (IOException err) {
-                System.out.println(err.toString());
+            } catch (IOException e) {
+                System.out.println(e.toString());
             }
-            ui.printSeparator();
+            System.out.println(Ui.getSeparator());
         }
     }
 

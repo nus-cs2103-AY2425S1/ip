@@ -4,9 +4,7 @@ import java.util.List;
 
 import skibidi.task.AbstractTask;
 
-/**
- * Represents a list of Tasks for the application.
- */
+/** Represents a list of Tasks for the application. */
 public class TaskList {
     /**
      * Exception thrown when a task with given number id is not found in TaskList.
@@ -23,30 +21,22 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    /**
-     * Return whether task list is empty.
-     */
+    /** Return whether task list is empty. */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
-    /**
-     * Return number of items in task list.
-     */
+    /** Return number of items in task list. */
     public int size() {
         return tasks.size();
     }
 
-    /**
-     * Return whether task with number id is present in the task list.
-     */
+    /** Return whether task with number id is present in the task list. */
     public boolean hasTaskWithId(int taskId) {
         return taskId > 0 && taskId <= tasks.size();
     }
 
-    /**
-     * Return Task with given number id.
-     */
+    /** Return Task with given number id. */
     public AbstractTask getTask(int taskId) throws TaskNotFoundException {
         if (hasTaskWithId(taskId)) {
             return tasks.get(taskId - 1);
@@ -55,17 +45,13 @@ public class TaskList {
         }
     }
 
-    /**
-     * Add task into task list.
-     */
+    /** Add task into task list. */
     public void addTask(AbstractTask task) {
         assert task != null : "Task being added is invalid!";
         tasks.add(task);
     }
 
-    /**
-     * Delete task with given number id from the task list.
-     */
+    /** Delete task with given number id from the task list. */
     public AbstractTask deleteTask(int taskId) throws TaskNotFoundException {
         if (hasTaskWithId(taskId)) {
             return tasks.remove(taskId - 1);
@@ -74,9 +60,7 @@ public class TaskList {
         }
     }
 
-    /**
-     * Return new list of tasks with description that matches given string.
-     */
+    /** Return new list of tasks with description that matches given string. */
     public List<AbstractTask> findTasksMatchingDescription(String query) {
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(query))
