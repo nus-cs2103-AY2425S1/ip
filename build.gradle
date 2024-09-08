@@ -48,7 +48,8 @@ checkstyle {
 }
 
 application {
-    mainClass.set("easton.Easton")
+    // mainClass.set("easton.Easton")
+    mainClass.set("easton.Launcher")
 }
 
 shadowJar {
