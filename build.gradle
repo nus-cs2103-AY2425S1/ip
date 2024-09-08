@@ -4,6 +4,8 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'}
 
+mainClassName = "LunaBot.LunaBot"
+
 repositories {
     mavenCentral()
 }
@@ -37,6 +39,7 @@ application {
 shadowJar {
     archiveBaseName = "LunaBot"
     archiveClassifier = null
+    archiveFileName = "LunaBot.jar"
 }
 
 checkstyle {
