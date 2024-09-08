@@ -13,6 +13,15 @@ public class Event extends Task {
         return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + from + "|" + to;
     }
 
+    public static Task fromFileFormat(String fullLine) {
+        String[] parts = fullLine.split("\\|");
+        Event event = new Event(parts[2], parts[3], parts[4]);
+        if (parts[1].equals("1")) {
+            event.markAsDone();
+        }
+        return event;
+    }
+
     @Override
     public String toString() {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + from + " to: " + to + ")";
