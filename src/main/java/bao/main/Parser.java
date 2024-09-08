@@ -36,160 +36,182 @@ public class Parser {
         String args = parts.length > 1 ? parts[1] : "";
 
         switch (commandType) {
-        case "welcome" -> {
-            response.append("Bao says hello! Bao's name is Bao but you can call me Bao\n")
-                    .append("\n")
-                    .append("Bao is ready for instructions");
-        }
-        case "bye" -> {
-            response.append("Bye :( Come back soon!");
-            System.exit(0);
-        }
-        case "list" -> {
-            if (tasks.getTasks().isEmpty()) {
-                response.append("Bao is not tracking anything!");
-                break;
-            }
-            for (int i = 0; i < tasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(tasks.getTask(i).toString());
-                if (i != tasks.size() - 1) {
-                    response.append("\n");
-                }
-            }
-        }
-        case "mark" -> {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                tasks.getTask(index).mark();
-                storage.save(tasks.getTasks());
-                response.append("Bao has marked it as done!").append("\n");
-                response.append(tasks.getTask(index).toString());
-            } catch (Exception e) {
-                response.append("Bao needs a valid task number to mark!");
-            }
-        }
-        case "unmark" -> {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                tasks.getTask(index).unmark();
-                storage.save(tasks.getTasks());
-                response.append("Bao has marked it as not done!").append("\n");
-                response.append(tasks.getTask(index).toString());
-            } catch (Exception e) {
-                response.append("Bao needs a valid task number to unmark!");
-            }
-        }
-        case "todo" -> {
-            if (args.isEmpty()) {
-                response.append("Bao needs a description of the task!");
-            } else {
-                try {
-                    tasks.addTask(new ToDo(args));
-                    storage.save(tasks.getTasks());
-                    response.append("Bao got it! Bao is now tracking: ");
-                    response.append(tasks.getTask(tasks.size() - 1).toString());
-                } catch (IOException e) {
-                    response.append("Bao could not save tasks");
-                }
-            }
-        }
-        case "deadline" -> {
-            String[] argParts = args.split(" /by ");
-            if (argParts.length < 2) {
-                response.append("Bao needs a proper description and deadline for the task!");
-            } else {
-                try {
-                    LocalDateTime dateTime = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
-                    tasks.addTask(new Deadline(argParts[0], dateTime));
-                    storage.save(tasks.getTasks());
-                    response.append("Bao got it! Bao is now tracking: ");
-                    response.append(tasks.getTask(tasks.size() - 1).toString());
-                } catch (DateTimeParseException e) {
-                    response.append("Bao needs a valid date format");
-                } catch (IOException e) {
-                    response.append("Bao could not save tasks");
-                }
-            }
-        }
-        case "event" -> {
-            String[] argParts = args.split(" /from | /to ");
-            if (argParts.length < 3) {
-                response.append("Bao needs a proper description and duration for the task!");
-            } else {
-                try {
-                    LocalDateTime from = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
-                    LocalDateTime to = LocalDateTime.parse(argParts[2], Bao.getInputDateFormat());
-                    tasks.addTask(new Event(argParts[0], from, to));
-                    storage.save(tasks.getTasks());
-                    response.append("Bao got it! Bao is now tracking: ");
-                    response.append(tasks.getTask(tasks.size() - 1).toString());
-                } catch (DateTimeParseException e) {
-                    response.append("Bao needs a valid date format");
-                } catch (IOException e) {
-                    response.append("Bao could not save tasks");
-                }
-            }
-        }
-        case "delete" -> {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                Task removed = tasks.getTask(index);
-                tasks.deleteTask(index);
-                storage.save(tasks.getTasks());
-                response.append("Bao has removed this task:").append("\n")
-                        .append(removed.toString()).append("\n")
-                        .append("Bao is now tracking ").append(tasks.size()).append(" tasks");
-            } catch (Exception e) {
-                response.append("Bao needs a task number to delete!");
-            }
-        }
-        case "on" -> {
-            try {
-                LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                response.append("Bao showing tasks on ").append(date.format(Bao.getDateOnlyFormat())).append(":");
-                boolean found = false;
-                for (Task task : tasks.getTasks()) {
-                    if (task instanceof Deadline) {
-                        Deadline deadlineTask = (Deadline) task;
-                        if (deadlineTask.getDate().toLocalDate().equals(date)) {
-                            response.append(deadlineTask.toString());
-                            found = true;
-                        }
-                    } else if (task instanceof Event) {
-                        Event eventTask = (Event) task;
-                        if (eventTask.getFromDateTime().toLocalDate().equals(date)) {
-                            response.append(eventTask.toString());
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        response.append("Bao cannot find any tasks on this date!");
-                    }
-                }
-
-            } catch (DateTimeParseException e) {
-                response.append("Bao needs a valid date format such as 2024-08-28");
-            }
-        }
-        case "find" -> {
-            if (args.isEmpty()) {
-                response.append("Bao needs a keyword to find in the tasks!");
-            } else {
-                ArrayList<Task> foundTasks = tasks.findTasks(args.trim());
-                if (foundTasks.isEmpty()) {
-                    response.append("Bao could not find any tasks with the keyword");
-                } else {
-                    response.append("Bao found these tasks with the keyword!");
-                    for (int i = 0; i < foundTasks.size(); i++) {
-                        response.append((i + 1)).append(". ").append(foundTasks.get(i).toString());
-                    }
-                }
-            }
-        }
-        default -> {
-            response.append("Bao needs a proper command :(");
-        }
+        case "welcome" -> response.append(handleWelcome());
+        case "bye" -> handleBye();
+        case "list" -> response.append(handleList(tasks));
+        case "mark" -> response.append(handleMark(args, tasks, storage));
+        case "unmark" -> response.append(handleUnmark(args, tasks, storage));
+        case "todo" -> response.append(handleToDo(args, tasks, storage));
+        case "deadline" -> response.append(handleDeadline(args, tasks, storage));
+        case "event" -> response.append(handleEvent(args, tasks, storage));
+        case "delete" -> response.append(handleDelete(args, tasks, storage));
+        case "on" -> response.append(handleOn(args, tasks));
+        case "find" -> response.append(handleFind(args, tasks));
+        default -> response.append("Bao needs a proper command :(");
         }
         return response.toString();
+    }
+
+    private static String handleWelcome() {
+        return "Bao says hello! Bao's name is Bao but you can call me Bao\n\nBao is ready for instructions";
+    }
+
+    private static void handleBye() {
+        System.exit(0);
+    }
+
+    private static String handleList(TaskList tasks) {
+        if (tasks.getTasks().isEmpty()) {
+            return "Bao is not tracking anything!";
+        }
+        StringBuilder response = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            response.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
+        }
+        return response.toString().trim();
+    }
+
+    private static String handleMark(String args, TaskList tasks, Storage storage) {
+        try {
+            int index = Integer.parseInt(args) - 1;
+            tasks.getTask(index).mark();
+            storage.save(tasks.getTasks());
+            return "Bao has marked it as done!\n" + tasks.getTask(index);
+        } catch (Exception e) {
+            return "Bao needs a valid task number to mark!";
+        }
+    }
+
+    private static String handleUnmark(String args, TaskList tasks, Storage storage) {
+        try {
+            int index = Integer.parseInt(args) - 1;
+            tasks.getTask(index).unmark();
+            storage.save(tasks.getTasks());
+            return "Bao has marked it as not done!\n";
+        } catch (Exception e) {
+            return "Bao needs a valid task number to unmark!";
+        }
+    }
+
+    private static String handleToDo(String args, TaskList tasks, Storage storage) {
+        assert args != null : "ToDo command must have arguments";
+
+        if (args.isEmpty()) {
+            return "Bao needs a description of the task!";
+        } else {
+            try {
+                tasks.addTask(new ToDo(args));
+                storage.save(tasks.getTasks());
+                return "Bao got it! Bao is now tracking: " + tasks.getTask(tasks.size() - 1).toString();
+            } catch (IOException e) {
+                return "Bao could not save tasks";
+            }
+        }
+    }
+
+    private static String handleDeadline(String args, TaskList tasks, Storage storage) {
+        assert args != null : "Deadline command must have arguments";
+
+        String[] argParts = args.split(" /by ");
+        assert argParts.length >= 2 : "Bao needs a proper description and deadline for the task!";
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
+            tasks.addTask(new Deadline(argParts[0], dateTime));
+            storage.save(tasks.getTasks());
+            return "Bao got it! Bao is now tracking: " + tasks.getTask(tasks.size() - 1).toString();
+        } catch (DateTimeParseException e) {
+            return "Bao needs a valid date format";
+        } catch (IOException e) {
+            return "Bao could not save tasks";
+        }
+    }
+
+    private static String handleEvent(String args, TaskList tasks, Storage storage) {
+        assert args != null : "Event command must have arguments";
+
+        String[] argParts = args.split(" /from | /to ");
+        assert argParts.length >= 3 : "Bao needs a proper description and duration for the task!";
+        try {
+            LocalDateTime from = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
+            LocalDateTime to = LocalDateTime.parse(argParts[2], Bao.getInputDateFormat());
+            tasks.addTask(new Event(argParts[0], from, to));
+            storage.save(tasks.getTasks());
+            return "Bao got it! Bao is now tracking: " + tasks.getTask(tasks.size() - 1).toString();
+        } catch (DateTimeParseException e) {
+            return "Bao needs a valid date format";
+        } catch (IOException e) {
+            return "Bao could not save tasks";
+        }
+    }
+
+    private static String handleDelete(String args, TaskList tasks, Storage storage) {
+        assert args != null : "Delete command must have arguments";
+
+        try {
+            int index = Integer.parseInt(args) - 1;
+            Task removed = tasks.getTask(index);
+            tasks.deleteTask(index);
+            storage.save(tasks.getTasks());
+            return "Bao has removed this task:\n" + removed.toString()
+                    + "\nBao is now tracking " + tasks.size() + " tasks";
+        } catch (Exception e) {
+            return "Bao needs a task number to delete!";
+        }
+    }
+
+    private static String handleOn(String args, TaskList tasks) {
+        assert args != null : "On command must have arguments";
+
+        try {
+            LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            StringBuilder response = new StringBuilder("Bao showing tasks on "
+                    + date.format(Bao.getDateOnlyFormat()) + ":");
+            boolean found = false;
+
+            for (Task task : tasks.getTasks()) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.getDate().toLocalDate().equals(date)) {
+                        response.append("\n").append(deadlineTask.toString());
+                        found = true;
+                    }
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    if (eventTask.getFromDateTime().toLocalDate().equals(date)) {
+                        response.append("\n").append(eventTask.toString());
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found) {
+                response.append("Bao cannot find any tasks on this date!");
+            }
+            return response.toString();
+        } catch (DateTimeParseException e) {
+            return "Bao needs a valid date format such as 2024-08-28";
+        }
+    }
+
+    private static String handleFind(String args, TaskList tasks) {
+        assert args != null : "Find command must have arguments";
+        assert tasks != null : "TaskList must not be null";
+
+        if (args.isEmpty()) {
+            return "Bao needs a keyword to find in the tasks!";
+        } else {
+            ArrayList<Task> foundTasks = tasks.findTasks(args.trim());
+            assert foundTasks != null : "Result of findTasks must not be null";
+
+            if (foundTasks.isEmpty()) {
+                return "Bao could not find any tasks with the keyword";
+            } else {
+                StringBuilder response = new StringBuilder("Bao found these tasks with the keyword!");
+                for (int i = 0; i < foundTasks.size(); i++) {
+                    response.append("\n").append(i + 1).append(". ").append(foundTasks.get(i).toString());
+                }
+                return response.toString();
+            }
+        }
     }
 }
