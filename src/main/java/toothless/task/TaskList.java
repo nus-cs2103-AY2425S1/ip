@@ -119,13 +119,19 @@ public class TaskList {
      *
      * @param keyword The keyword to be searched.
      */
-    public String findTask(String keyword) {
+    public String findTask(String... keyword) {
         StringBuilder response = new StringBuilder("Here are the quests that match your keyword:\n");
         int taskCount = 0;
         for (Task task : list) {
-            if (task.getDescription().contains(keyword)) {
-                response.append(String.format("%d. %s\n", list.indexOf(task) + 1, task));
-                taskCount++;
+            for (String key : keyword) {
+                String[] splitKey = key.split("\\s+");
+                for (String k : splitKey) {
+                    if (task.getDescription().contains(k)) {
+                        response.append(String.format("%d. %s\n", list.indexOf(task) + 1, task));
+                        taskCount++;
+                        break;
+                    }
+                }
             }
         }
 
