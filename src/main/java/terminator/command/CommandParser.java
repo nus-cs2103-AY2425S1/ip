@@ -14,36 +14,28 @@ public class CommandParser {
     // dd/MM/YYYY HHmm
     private static final String TASK_DATETIME_FORMAT = "\\d\\d?/\\d\\d?/\\d{4} \\d{4}";
 
-    private final Pattern listPattern;
-    private final Pattern markPattern;
-    private final Pattern unmarkPattern;
-    private final Pattern todoPattern;
-    private final Pattern eventPattern;
-    private final Pattern deadlinePattern;
-    private final Pattern deletePattern;
-    private final Pattern findPattern;
+    private static final Pattern LIST_PATTERN = Pattern.compile("^list(\\s+" + ANY_WORDS + ")?$");
+    private static final Pattern markPattern = Pattern.compile("^mark(\\s+\\d+\\s*$)?");
+    private static final Pattern unmarkPattern = Pattern.compile("^unmark(\\s+\\d+\\s*$)?");
+    private static final Pattern todoPattern = Pattern.compile("^todo(\\s+"
+            + ANY_WORDS
+            + ")?");
+    private static final Pattern eventPattern = Pattern.compile("^event(\\s+"
+            + ANY_WORDS
+            + " /from " + TASK_DATETIME_FORMAT
+            + " /to " + TASK_DATETIME_FORMAT
+            + "\\s*$)?");
+    private static final Pattern deadlinePattern = Pattern.compile("^deadline(\\s+"
+            + ANY_WORDS
+            + " /by " + TASK_DATETIME_FORMAT
+            + "\\s*$)?");
+    private static final Pattern deletePattern = Pattern.compile("^delete(\\s+\\d+\\s*$)?");
+    private static final Pattern findPattern = Pattern.compile("find(\\s+" + ANY_WORDS + "$)?");
 
     /**
      * Creates a new instance of a CommandParser.
      */
     public CommandParser() {
-        this.listPattern = Pattern.compile("^list(\\s+" + ANY_WORDS + ")?$");
-        this.markPattern = Pattern.compile("^mark(\\s+\\d+\\s*$)?");
-        this.unmarkPattern = Pattern.compile("^unmark(\\s+\\d+\\s*$)?");
-        this.todoPattern = Pattern.compile("^todo(\\s+"
-                + ANY_WORDS
-                + ")?");
-        this.eventPattern = Pattern.compile("^event(\\s+"
-                + ANY_WORDS
-                + " /from " + TASK_DATETIME_FORMAT
-                + " /to " + TASK_DATETIME_FORMAT
-                + "\\s*$)?");
-        this.deadlinePattern = Pattern.compile("^deadline(\\s+"
-                + ANY_WORDS
-                + " /by " + TASK_DATETIME_FORMAT
-                + "\\s*$)?");
-        this.deletePattern = Pattern.compile("^delete(\\s+\\d+\\s*$)?");
-        this.findPattern = Pattern.compile("find(\\s+" + ANY_WORDS + "$)?");
     }
 
     /**
@@ -57,7 +49,7 @@ public class CommandParser {
         Matcher matcher;
         if (input.isEmpty()) {
             return new EmptyCommand();
-        } else if ((matcher = listPattern.matcher(input)).find()) {
+        } else if ((matcher = LIST_PATTERN.matcher(input)).find()) {
             return new ListCommand(matcher.group(1));
         } else if ((matcher = markPattern.matcher(input)).find()) {
             return new MarkCommand(matcher.group(1));
