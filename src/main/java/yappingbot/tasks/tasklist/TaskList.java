@@ -8,6 +8,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.Task;
@@ -19,7 +20,6 @@ import yappingbot.ui.Ui;
 public class TaskList implements Iterable<Task> {
     protected ArrayList<Task> tasks;
     protected int size;
-    protected Ui ui;
 
     /**
      * Creates an empty task list.
@@ -32,15 +32,13 @@ public class TaskList implements Iterable<Task> {
      * Creates a task list populated with values from the given ArrayList of Strings.
      *
      * @param tasksRaw ArrayList of Strings, each a line that denotes a serialized task.
-     * @return TaskList, populated with appropriate values.
      */
-    public static TaskList generateFromRaw(ArrayList<String> tasksRaw) {
-        TaskList userList = new TaskList();
+    public YappingBotInvalidSaveFileException generateFromRaw(ArrayList<String> tasksRaw) {
         ArrayList<Exception> errorLists = new ArrayList<>();
         for (String taskIndividualRaw : tasksRaw) {
             String[] s = taskIndividualRaw.split(":");
             try {
-                userList.addTask(parseSingleTask(s));
+                this.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
                 errorLists.add(e);
             }
@@ -48,11 +46,13 @@ public class TaskList implements Iterable<Task> {
         if (!errorLists.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (Exception e : errorLists) {
-                sb.append(e.getMessage());
+                // TODO: replace with exception collector class
+                sb.append(e.toString());
+                sb.append('\n');
             }
-            ui.printfError(ReplyTextMessages.LOAD_FILE_ERROR_1s, sb.toString());
+            return new YappingBotInvalidSaveFileException(sb.toString());
         }
-        return userList;
+        return null;
     }
 
     /**
@@ -120,7 +120,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task get(int index) throws YappingBotOobException {
         if (index < 0 || index >= size) {
-            throw new YappingBotOobException(index);
+            throw new YappingBotOobException(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, index);
         }
         return tasks.get(index);
     }

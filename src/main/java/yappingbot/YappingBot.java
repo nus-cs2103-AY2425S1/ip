@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
@@ -32,7 +34,7 @@ public class YappingBot {
      * @param ui Ui interface that will handle input and output
      * @param storage Storage interface to save and retrieve savefiles
      */
-    YappingBot(Ui ui, Storage storage) {
+    public YappingBot(Ui ui, Storage storage) {
         this.ui = ui;
         this.storage = storage;
         this.parser = new Parser();
@@ -45,19 +47,24 @@ public class YappingBot {
      * load the list from disk.
      */
     private void init() {
+        userList = new TaskList();
         try {
             ArrayList<String> s = storage.loadListFromFile();
-            userList = TaskList.generateFromRaw(s);
+            YappingBotInvalidSaveFileException e = userList.generateFromRaw(s);
+            // Lord forgive me for returning execptions without throwing them is so
+            // illegal.
+            if (e != null) {
+                ui.printError(e);
+            }
         } catch (YappingBotSaveFileNotFoundException e) {
             ui.printError(e);
-            userList = new TaskList();
         }
     }
 
     /**
      * Saves the task list to disk using the already-created Storage object.
      */
-    private void saveAndExit() {
+    private void saveAndCleanup() {
         // REVERT LIST TO MAIN PARENT!
         userList = commandDispatch.resetView(userList);
         try {
@@ -86,14 +93,17 @@ public class YappingBot {
                     commandDispatch.printUserList(userList);
                     break;
                 case MARK:
+                    checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
                     break;
                 case UNMARK:
+                    checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
                     break;
                 case DELETE:
+                    checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.deleteTask(taskListIndexPtr, userList);
                     break;
@@ -120,6 +130,13 @@ public class YappingBot {
         }
     }
 
+    private void checkMinimumArgsAvailable(String[] userInputSlices, int i)
+    throws YappingBotOobException {
+        if ((userInputSlices.length - 1) < i) {
+            throw new YappingBotOobException("", i);
+        }
+    }
+
     /**
      * Executes the initialization,
      * Entry point into the bot. This
@@ -129,7 +146,7 @@ public class YappingBot {
         init();
         ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();
+        saveAndCleanup();
         ui.print(ReplyTextMessages.EXIT_TEXT);
-        saveAndExit();
     }
 }

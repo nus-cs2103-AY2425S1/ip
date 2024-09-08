@@ -39,7 +39,7 @@ public class CommandDispatcher {
         while (userList instanceof TaskListFilterView) {
             userList = ((TaskListFilterView) userList).getParent();
         }
-        ui.println(ReplyTextMessages.RESET_TEXT);
+        ui.print(ReplyTextMessages.RESET_TEXT);
         return userList;
     }
 
