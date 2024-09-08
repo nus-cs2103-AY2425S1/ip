@@ -39,13 +39,21 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        return this.getTypeIcon() + super.toString() + " (by: " + this.getDate() + ")";
+    }
+
+    private String get12HourFormat(LocalDateTime by) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        return by.format(formatter);
+    }
+
+    private String getDate() {
         int day = this.by.getDayOfMonth();
         Month month = this.by.getMonth();
         int year = this.by.getYear();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String time12HourFormat = this.by.format(formatter);
+        String time12HourFormat = get12HourFormat(this.by);
         String date = day + " " + month + " " + year + " " + time12HourFormat;
-        return this.getTypeIcon() + super.toString() + " (by: " + date + ")";
+        return date;
     }
 
     /**
