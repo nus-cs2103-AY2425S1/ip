@@ -10,6 +10,8 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+        assert description != null : "Description should not be null.";
+        assert !description.trim().isEmpty() : "Description should not be empty.";
     }
 
     /**
@@ -20,8 +22,13 @@ public class ToDo extends Task {
      * @return A To_Do object created from the string data.
      */
     public static ToDo parseTask(String taskData) {
+        assert taskData != null : "Task data should not be null.";
         String[] parts = taskData.split(" \\| ");
+        assert parts.length >= 3 : "Task data should have at least 3 parts.";
+
         String description = parts[2].trim();
+        assert !description.isEmpty() : "Description should not be empty.";
+
         ToDo todo = new ToDo(description);
         if (parts[1].trim().equals("1")) {
             todo.markDone();
@@ -37,6 +44,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        assert this.getDescription() != null : "Description should not be null.";
         return "[T][" + (this.getDone() ? "X" : " ") + "] " + this.getDescription();
     }
 
@@ -48,6 +56,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileFormat() {
+        assert this.getDescription() != null : "Description should not be null.";
         return "T | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription();
     }
 }

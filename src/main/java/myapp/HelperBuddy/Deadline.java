@@ -12,12 +12,12 @@ public class Deadline extends Task {
 
     /**
      * Constructs a {@code Deadline} task with the specified description and deadline.
-     *
      * @param description The description of the task.
      * @param deadlineBy  The deadline date and time for the task.
      */
     public Deadline(String description, LocalDateTime deadlineBy) {
         super(description);
+        assert description != null && !description.isBlank() : "Description should not be null or blank";
         this.deadlineBy = deadlineBy;
     }
 
@@ -28,12 +28,14 @@ public class Deadline extends Task {
      * The fields are: task type ("D"), completion status (1 for done, 0 for not done),
      * description, and optionally, the deadline.
      * If the deadline is missing or incorrectly formatted, a warning is printed, and the deadline will be null.
-     *
      * @param taskData The string representing the Deadline task.
      * @return A Deadline object created from the string data.
      */
     public static Deadline parseTask(String taskData) {
+        assert taskData != null && !taskData.isBlank() : "Task data should not be null or blank";
         String[] parts = taskData.split(" \\| ");
+        assert parts.length >= 3 : "Task data should have at least 3 parts";
+
         String description = parts[2].trim();
         LocalDateTime deadlineBy = null;
         if (parts.length > 3) {
@@ -43,6 +45,7 @@ public class Deadline extends Task {
                 System.out.println("Warning: There is no date format provided");
             }
         }
+
         Deadline deadline = new Deadline(description, deadlineBy);
         if (parts[1].trim().equals("1")) {
             deadline.markDone();
@@ -56,15 +59,17 @@ public class Deadline extends Task {
      * completion status, description, and the deadline formatted as "MMM dd yyyy HH:mm".
      * For example, a completed task might be represented as:
      * "[D][X] Finish assignment (by: Oct 10 2024 15:30)".
-     *
      * @return A string representing the Deadline task.
      */
     @Override
     public String toString() {
-        return "[D][" + (this.getDone() ? "X" : " ") + "] " + this.getDescription()
-                + (deadlineBy != null ? " (by: "
+        String formattedDeadline = (deadlineBy != null)
+                ? " (by: "
                 + deadlineBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + ")" : "");
+                + ")"
+                : "";
+        return "[D][" + (this.getDone() ? "X" : " ") + "] "
+                + this.getDescription() + formattedDeadline;
     }
 
     /**
@@ -78,8 +83,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription()
-                + (deadlineBy != null ? " | "
-                + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
+        String formattedDeadline = (deadlineBy != null)
+                ? " | "
+                + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                : "";
+        return "D | " + (this.getDone() ? "1" : "0") + " | "
+                + this.getDescription() + formattedDeadline;
     }
 }
