@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import gui.MainGui;
 import javafx.application.Application;
+import skibidi.CommandParser.CommandParseException;
 
 /**
  * Driver class for the chatbot application.
@@ -56,9 +57,11 @@ public class Skibidi {
         if (parser.isExit(input)) {
             return Ui.getExitMessage();
         }
-        return parser.parseCommand(input)
-                .flatMap(cmd -> cmd.execute(taskList, storage, ui))
-                .orElse("INVALID COMMAND RECEIVED");
+        try {
+           return parser.parseCommand(input).execute(taskList, storage, ui).get();
+        } catch (CommandParseException err) {
+            return err.getMessage();
+        }
     }
 
     public static void main(String[] args) {

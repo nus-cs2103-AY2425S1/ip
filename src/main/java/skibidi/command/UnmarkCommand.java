@@ -28,10 +28,10 @@ public class UnmarkCommand extends AbstractCommand {
         try {
             AbstractTask task = taskList.getTask(taskId);
             task.unmark();
-            String message = "\tUNMARKING TASK\n\t" + task.toString();
+            String message = "UNMARKING TASK\n" + task.toString();
             return Optional.of(message);
         } catch (TaskNotFoundException err) {
-            return Optional.of("\t" + err.getMessage());
+            return Optional.of("" + err.getMessage());
         }
     }
 }

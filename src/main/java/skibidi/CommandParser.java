@@ -2,7 +2,6 @@ package skibidi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
 
 import skibidi.command.AbstractCommand;
 import skibidi.command.AddCommand;
@@ -19,7 +18,10 @@ import skibidi.task.Todo;
  * Handles parsing of input commands.
  */
 public class CommandParser {
-    static class CommandParseException extends Exception {
+    /**
+     * Exception thrown when string command is invalid.
+     */
+    public static class CommandParseException extends Exception {
         public CommandParseException(String message) {
             super(message);
         }
@@ -46,29 +48,32 @@ public class CommandParser {
     /**
      * Parse given string command and returns command if succesful. Otherwise, an empty Optional is returned.
      */
+<<<<<<< HEAD
     public Optional<AbstractCommand> parseCommand(String line) {
+=======
+    public AbstractCommand parseCommand(String line) throws CommandParseException {
+>>>>>>> branch-A-CodingStandard
         String[] args = line.split(" ", 2);
         if (args.length == 0) {
-            System.out.println("\tNO COMMANDS GIVEN");
-            return Optional.empty();
+            throw new CommandParseException("NO COMMANDS GIVEN");
         }
-        String[] cmdArgs;
         try {
+            String[] cmdArgs;
             Commands command = Commands.valueOf(args[0].toUpperCase());
             switch (command) {
             case LIST:
-                return Optional.of(new ListCommand());
+                return new ListCommand();
             case MARK:
-                return Optional.of(new MarkCommand(Integer.parseInt(args[1].strip())));
+                return new MarkCommand(Integer.parseInt(args[1].strip()));
             case UNMARK:
-                return Optional.of(new UnmarkCommand(Integer.parseInt(args[1].strip())));
+                return new UnmarkCommand(Integer.parseInt(args[1].strip()));
             case TODO:
                 if (args.length != 2 || args[1].isEmpty()) {
                     throw new CommandParseException("COMMAND todo REQUIRES DESCRIPTION ARGUMENT");
                 }
                 Todo todo = new Todo(args[1].strip());
-                String successMessage = String.format("\tADDED TODO: %s\n", todo.toString());
-                return Optional.of(new AddCommand(todo, successMessage));
+                String successMessage = String.format("ADDED TODO: %s\n", todo.toString());
+                return new AddCommand(todo, successMessage);
             case DEADLINE:
                 cmdArgs = args[1].split("/by");
                 if (cmdArgs.length != 2) {
@@ -77,8 +82,8 @@ public class CommandParser {
                 Deadline deadline = new Deadline(
                         cmdArgs[0].strip(),
                         LocalDate.parse(cmdArgs[1].strip()));
-                successMessage = String.format("\tADDED DEADLINE: %s\n", deadline.toString());
-                return Optional.of(new AddCommand(deadline, successMessage));
+                successMessage = String.format("ADDED DEADLINE: %s\n", deadline.toString());
+                return new AddCommand(deadline, successMessage);
             case EVENT:
                 // Assume order of arguments is always /from followed by /to
                 cmdArgs = args[1].split("/from|/to");
@@ -89,27 +94,24 @@ public class CommandParser {
                         cmdArgs[0].strip(),
                         LocalDate.parse(cmdArgs[1].strip()),
                         LocalDate.parse(cmdArgs[2].strip()));
-                successMessage = String.format("\tADDED EVENT: %s\n", event.toString());
-                return Optional.of(new AddCommand(event, successMessage));
+                successMessage = String.format("ADDED EVENT: %s\n", event.toString());
+                return new AddCommand(event, successMessage);
             case DELETE:
-                return Optional.of(new DeleteCommand(Integer.parseInt(args[1].strip())));
+                return new DeleteCommand(Integer.parseInt(args[1].strip()));
             case FIND:
                 if (args.length != 2 || args[1].isEmpty()) {
                     throw new CommandParseException("COMMAND find REQUIRES A SEARCH QUERY");
                 }
-                return Optional.of(new FindCommand(args[1].strip()));
+                return new FindCommand(args[1].strip());
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
             }
         } catch (NumberFormatException err) {
-            System.out.printf("\tERROR: INVALID NUMBER GIVEN FOR COMMAND: %s\n", args[0]);
-        } catch (CommandParseException err) {
-            System.out.printf("\t%s\n", err.getMessage());
+            throw new CommandParseException(String.format("ERROR: INVALID NUMBER GIVEN FOR COMMAND: %s", args[0]));
         } catch (IllegalArgumentException err) {
-            System.out.printf("\tERROR: INVALID COMMAND GIVEN %s\n", args[0]);
+            throw new CommandParseException(String.format("ERROR: INVALID COMMAND GIVEN %s", args[0]));
         } catch (DateTimeParseException err) {
-            System.out.println("\tERROR: COULD NOT PARSE DATE ARGUMENT");
+            throw new CommandParseException("ERROR: COULD NOT PARSE DATE ARGUMENT");
         }
-        return Optional.empty();
     }
 }
