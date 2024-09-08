@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import dave.command.Command;
 import dave.exceptions.InvalidCommandException;
+import dave.exceptions.InvalidDescriptionException;
 import dave.parser.Parser;
 import dave.storage.Storage;
 import dave.task.TaskList;
 import dave.ui.Ui;
-
 
 /**
  * The main class for the Dave application, responsible for initializing components
@@ -32,43 +32,23 @@ public class Dave {
     }
 
     /**
-     * Runs the main program loop, accepting user commands and executing them until the user exits.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-
-                if (c == null) {
-                    continue;
-                }
-
-                c.execute(tasks, storage, ui);
-                isExit = c.isExit();
-            } catch (InvalidCommandException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showLine();
-                System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * The main entry point of the Dave application. It initializes the Dave instance
-     * with a specific file path and starts the program.
+     * Gets the response for a user input.
      *
-     * @param args Command-line arguments (not used).
+     * @param input The user input.
+     * @return The response from executing the command.
      */
-    public static void main(String[] args) {
-        new Dave("C:\\Users\\thamy\\OneDrive\\data\\daveData.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage, ui);
+        } catch (InvalidCommandException e) {
+            return e.getMessage();
+        } catch (InvalidDescriptionException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return "An error occurred while trying to write to the file.";
+        } catch (Exception e) {
+            return "Unexpected error occurred.";
+        }
     }
 }

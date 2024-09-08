@@ -32,7 +32,7 @@ public class Deadline extends Task {
         String[] arguments = description.split("/by ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Oh No! Please provide a deadline task "
+            throw new InvalidDescriptionException("Huh! Please provide a deadline task "
                     + "in the format: <task> /by <date>");
         }
 

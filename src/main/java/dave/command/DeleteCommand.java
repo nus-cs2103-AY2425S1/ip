@@ -31,26 +31,28 @@ public class DeleteCommand extends Command {
      * @param tasks   The {@code TaskList} containing the tasks.
      * @param storage The {@code Storage} object to handle saving the updated task list.
      * @param ui      The {@code Ui} object to handle user interaction.
+     * @return A {@code String} message confirming that the task has been deleted successfully, or an error message if something went wrong.
      * @throws IOException If an input or output error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         try {
             Task task = tasks.getTask(index);
             tasks.deleteTask(index);
-            System.out.println("Noted. I've removed this task: " + task);
-            System.out.println(task);
-            System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+            String output = "Noted. I've removed this task:\n"
+                    + task + "\n"
+                    + "Now you have " + tasks.getSize() + " tasks in the list.";
             storage.saveFile(tasks);
+            return output;
         } catch (IndexOutOfBoundsException e) {
             ui.showLine();
-            System.out.println("Oh no! You have entered an invalid number. Please try again.");
+            return "Oh no! You have entered an invalid number. Please try again.";
         } catch (IOException e) {
             ui.showLine();
-            System.out.println("An error occurred while saving the task to the file.");
+            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
             ui.showLine();
-            System.out.println("An unexpected error occurred while marking the task.");
+            return "An unexpected error occurred while deleting the task.";
         }
     }
 }

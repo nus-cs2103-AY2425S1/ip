@@ -30,22 +30,24 @@ public class AddCommand extends Command {
      * @param tasks   The {@code TaskList} containing the tasks.
      * @param storage The {@code Storage} object to handle saving the updated task list.
      * @param ui      The {@code Ui} object to handle user interaction.
+     * @return A {@code String} message confirming that the task has been added successfully.
      * @throws IOException If an input or output error occurs while saving the task.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         try {
             tasks.addTask(task);
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(task);
-            System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+            String output = "Got it. I've added this task: \n"
+                    + task + "\n"
+                    + "Now you have " + tasks.getSize() + " tasks in the list.";
             storage.amendFile(task); // Ensure amendFile is accessed via the correct instance
+            return output;
         } catch (IOException e) {
             ui.showLine();
-            System.out.println("An error occurred while saving the task to the file.");
+            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
             ui.showLine();
-            System.out.println("An unexpected error occurred while adding the task.");
+            return "An unexpected error occurred while adding the task.";
         }
     }
 }

@@ -23,7 +23,7 @@ public abstract class Command {
      * @param ui      The {@code Ui} object to handle user interaction.
      * @throws IOException If an I/O error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Storage storage, Ui ui) throws IOException;
+    public abstract String execute(TaskList tasks, Storage storage, Ui ui) throws IOException;
 
     /**
      * Determines if the command is an exit command.

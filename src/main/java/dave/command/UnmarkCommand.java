@@ -25,29 +25,26 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the command to unmark a task as not done in the task list.
-     * It updates the task's status, saves the updated task list to the storage, and provides feedback to the user.
+     * It updates the task's status, saves the updated task list to the storage, and returns feedback to the user.
      *
      * @param tasks   The {@code TaskList} containing the tasks.
      * @param storage The {@code Storage} object to handle saving the updated task list.
      * @param ui      The {@code Ui} object to handle user interaction.
+     * @return A string message indicating the result of the operation.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             Task task = tasks.getTask(taskIndex - 1);
             task.markAsNotDone();
-            System.out.println("Ok, I've marked this task as not done yet:");
-            System.out.println(task);
             Storage.saveFile(tasks);
+            return "Ok, I've marked this task as not done yet:\n" + task;
         } catch (IndexOutOfBoundsException e) {
-            ui.showLine();
-            System.out.println("Oh no! You have entered an invalid number. Please try again.");
+            return "Oh no! You have entered an invalid number. Please try again.";
         } catch (IOException e) {
-            ui.showLine();
-            System.out.println("An error occurred while saving the task to the file.");
+            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
-            ui.showLine();
-            System.out.println("An unexpected error occurred while marking the task.");
+            return "An unexpected error occurred while marking the task.";
         }
     }
 }

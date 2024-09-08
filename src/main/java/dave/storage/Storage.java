@@ -22,8 +22,6 @@ import dave.exceptions.InvalidDateTimeFormatException;
 public class Storage {
     private static String filePath;
 
-    String horizontal = "__________________________________________________________";
-
     /**
      * Constructs a Storage object and loads tasks from the specified file into the given TaskList.
      *
@@ -35,7 +33,6 @@ public class Storage {
             this.filePath = file;
             taskList.setTaskList(loadFile());
         } catch (IOException e) {
-            System.out.println(horizontal);
             System.out.println("An error occurred while saving the task to the file.");
         }
     }
@@ -100,7 +97,7 @@ public class Storage {
 
         File file = new File(filePath);
         if (!file.exists()) {
-            return tasks;  // Return empty list if file doesn't exist
+            return tasks; // Return empty list if file doesn't exist
         }
 
         Scanner scanner = new Scanner(file);
@@ -113,37 +110,37 @@ public class Storage {
 
             try {
                 switch (taskType) {
-                    case "T": // Todo
-                        Todo todo = new Todo(description);
-                        if (isDone) {
-                            todo.markAsDone();
-                        }
-                        tasks.add(todo);
-                        break;
+                case "T": // Todo
+                    Todo todo = new Todo(description);
+                    if (isDone) {
+                        todo.markAsDone();
+                    }
+                    tasks.add(todo);
+                    break;
 
-                    case "D": // Deadline
-                        String deadlineStr = parts[3].trim();
-                        LocalDateTime dueDate = LocalDateTime.parse(deadlineStr, dateFormatter);
-                        Deadline deadline = new Deadline(description + " /by " + dueDate.format(formatter));
-                        if (isDone) {
-                            deadline.markAsDone();
-                        }
-                        tasks.add(deadline);
-                        break;
+                case "D": // Deadline
+                    String deadlineStr = parts[3].trim();
+                    LocalDateTime dueDate = LocalDateTime.parse(deadlineStr, dateFormatter);
+                    Deadline deadline = new Deadline(description + " /by " + dueDate.format(formatter));
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
+                    tasks.add(deadline);
+                    break;
 
-                    case "E": // Event
-                        String eventStr = parts[3].trim();
-                        String[] eventParts = eventStr.split(" - ");
-                        LocalDateTime fromDate = LocalDateTime.parse(eventParts[0], dateFormatter);
-                        Event event = new Event(description + " /from " + fromDate.format(formatter) + " /to " + eventParts[1]);
-                        if (isDone) {
-                            event.markAsDone();
-                        }
-                        tasks.add(event);
-                        break;
+                case "E": // Event
+                    String eventStr = parts[3].trim();
+                    String[] eventParts = eventStr.split(" - ");
+                    LocalDateTime fromDate = LocalDateTime.parse(eventParts[0], dateFormatter);
+                    Event event = new Event(description + " /from " + fromDate.format(formatter) + " /to " + eventParts[1]);
+                    if (isDone) {
+                        event.markAsDone();
+                    }
+                    tasks.add(event);
+                    break;
 
-                    default:
-                        throw new IOException("Unrecognized task type: " + taskType);
+                default:
+                    throw new IOException("Unrecognized task type: " + taskType);
                 }
             } catch (InvalidDateTimeFormatException | InvalidDescriptionException e) {
                 System.out.println("An error occurred while loading the task from the file.");

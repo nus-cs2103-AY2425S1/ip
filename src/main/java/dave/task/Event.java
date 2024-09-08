@@ -34,19 +34,19 @@ public class Event extends Task {
         String[] arguments = description.split("/from ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Oh No! Please provide an event "
+            throw new InvalidDescriptionException("Huh! Please provide an event "
                     + "in the format: <task> /from <start> /to <end>");
         }
 
         String[] timeParts = arguments[1].split(" /to ");
         if (timeParts.length < 2) {
-            throw new InvalidDescriptionException("Oh No! Please provide a valid time range "
+            throw new InvalidDescriptionException("Huh! Please provide a valid time range "
                     + "in the format: from <start date> <start time> /to <end time>");
         }
 
         String[] fromParts = timeParts[0].trim().split(" ");
         if (fromParts.length < 2) {
-            throw new InvalidDescriptionException("Oh No! Please provide a valid time range "
+            throw new InvalidDescriptionException("Huh! Please provide a valid time range "
                     + "in the format: from <start date> <start time> /to <end time>");
         }
         this.fromDate = parseDate(fromParts[0]);

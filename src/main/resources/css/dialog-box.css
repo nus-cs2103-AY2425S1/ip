@@ -1,0 +1,35 @@
+.label {
+    -fx-background-color: #1a1a1a;  /* Black background */
+    -fx-border-color: white;  /* White border for contrast */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;  /* Rounded corners */
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-text-fill: ladder(black, white 49%, black 50%);  /* Text is white */
+}
+
+.reply-label {
+    -fx-background-color: #1a1a1a;  /* Lighter grey for replies */
+    -fx-border-color: white;  /* White border for consistency */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;  /* Rounded corners for replies */
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-text-fill: white;  /* White text on grey background */
+}
+
+#displayPicture {
+    /* Shadow effect on image */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 5, 5);  /* Stronger shadow for emphasis */
+
+    /* Change size of image */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees */
+    -fx-rotate: 0;
+}

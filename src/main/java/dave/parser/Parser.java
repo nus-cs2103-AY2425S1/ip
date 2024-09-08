@@ -35,7 +35,7 @@ public class Parser {
      * @return The corresponding {@code Command} object for the input command.
      * @throws InvalidCommandException if the command is not recognized.
      */
-    public static Command parse(String fullCommand) throws InvalidCommandException {
+    public static Command parse(String fullCommand) throws InvalidCommandException, InvalidDescriptionException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandWord = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
@@ -45,8 +45,8 @@ public class Parser {
             taskType = TaskType.valueOf(commandWord);
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException(
-                    "I'm not sure what you mean. Here are the commands "
-                            + "I understand: todo, deadline, event, list, mark, unmark, bye"
+                    "Are you joking ? Here are the missions "
+                            + "I accept: todo, deadline, event, list, mark, unmark, bye"
             );
         }
 
@@ -84,11 +84,7 @@ public class Parser {
                 return null;
             }
         } catch (InvalidDescriptionException e) {
-            System.out.println(e.getMessage());
-            return null;
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred");
-            return null;
+            throw e;
         }
     }
 }
