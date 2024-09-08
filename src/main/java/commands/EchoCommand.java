@@ -22,13 +22,12 @@ public class EchoCommand extends Command {
     /**
      * Executes the command to echo a message.
      *
-     * @param ui The user interface to interact with the user.
+     * @param ui      The user interface to interact with the user.
      * @param storage The task storage to store the task.
-     * @return True to continue running the program.
+     * @return Output message to be displayed to the user.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
-        ui.printMessage(message);
-        return true;
+    public String execute(Ui ui, TaskStorage storage) {
+        return ui.outputMessage(message);
     }
 }

@@ -28,7 +28,7 @@ public class Ui {
      * @return The message to be printed.
      */
     public String outputMessage(String message) {
-        return "Erm...\n SKIBIDI: " + message;
+        return "Erm...\n" + message;
     }
 
     /**

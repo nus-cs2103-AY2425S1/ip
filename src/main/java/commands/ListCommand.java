@@ -12,12 +12,12 @@ public class ListCommand extends Command {
     /**
      * Executes the command to list all tasks.
      *
-     * @param ui The user interface to interact with the user.
+     * @param ui      The user interface to interact with the user.
      * @param storage The task storage to store the task.
-     * @return True to continue running the program.
+     * @return Output message to be displayed to the user.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
+    public String execute(Ui ui, TaskStorage storage) {
         StringBuilder list = new StringBuilder();
         list.append("Here are the tasks in your list:\n");
         int index = 1;
@@ -27,7 +27,6 @@ public class ListCommand extends Command {
             index++;
         }
 
-        ui.printMessage(list.toString());
-        return true;
+        return ui.outputMessage(list.toString());
     }
 }

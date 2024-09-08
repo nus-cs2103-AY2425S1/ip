@@ -22,30 +22,9 @@ public class Skibidi {
         try {
             storage = new TaskStorage("data/tasks.txt");
         } catch (IOException e) {
-            ui.printMessage("Error loading tasks: " + e.getMessage());
+            ui.outputMessage("Error loading tasks: " + e.getMessage());
             storage = null;
         }
-    }
-
-    /**
-     * Runs the Skibidi program.
-     */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isRunning = true;
-
-        while (isRunning) {
-            try {
-                String userInput = scanner.nextLine();
-                Command command = parser.parse(userInput);
-                isRunning = command.execute(ui, storage);
-            } catch (SkibidiException e) {
-                ui.printMessage(e.getMessage());
-            }
-        }
-
-        scanner.close();
     }
 
     /**
@@ -54,9 +33,9 @@ public class Skibidi {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
-            command.execute(ui, storage);
+            return ui.outputMessage("Erm...\n" + command.execute(ui, storage));
         } catch (SkibidiException e) {
-            e.getMessage();
+            return e.getMessage();
         }
     }
 }

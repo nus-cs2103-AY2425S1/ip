@@ -32,20 +32,19 @@ public class DeleteCommand extends Command {
     /**
      * Executes the command to delete a task.
      *
-     * @param ui The user interface to interact with the user.
+     * @param ui      The user interface to interact with the user.
      * @param storage The task storage to store the task.
-     * @return True to continue running the program.
+     * @return Output message.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
+    public String execute(Ui ui, TaskStorage storage) {
         try {
             Task task = storage.getTask(index);
             storage.deleteTask(index);
-            ui.printMessage("Noted. I've removed this task:\n  " + task
+            return ui.outputMessage("Noted. I've removed this task:\n  " + task
                     + "\nNow you have " + storage.getTaskCount() + " tasks in the list.");
         } catch (SkibidiException | IOException e) {
-            ui.printMessage(e.getMessage());
+            return ui.outputMessage(e.getMessage());
         }
-        return true;
     }
 }
