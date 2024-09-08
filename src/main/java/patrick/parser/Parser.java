@@ -28,6 +28,7 @@ public class Parser {
      * @return the response message based on the executed command.
      */
     public String parseTask(String userInput) {
+        assert userInput != null : "User Input cannot be null";
         checkType(userInput);
         String response;
 
@@ -111,6 +112,7 @@ public class Parser {
             response = "What are you trying to say man. Re-enter your command \n";
             break;
         }
+        assert response != null : "Response cannot be null";
         return response;
     }
 
@@ -120,6 +122,8 @@ public class Parser {
      * @param input the input provided by the user.
      */
     public void checkType(String input) {
+        assert input != null : "input cannot be null";
+
         if (input.startsWith("list")) {
             inputType = Type.LIST;
         } else if (input.startsWith("bye")) {

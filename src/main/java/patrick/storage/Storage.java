@@ -80,6 +80,7 @@ public class Storage {
      * @param index the 1-based index of the task to be deleted.
      */
     public static void deleteItem(int index) {
+        assert index >= 0 : "index cannot be less than 0";
         list.remove(index - 1);
     }
 
