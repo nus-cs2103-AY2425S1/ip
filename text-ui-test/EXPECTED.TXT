@@ -78,7 +78,7 @@ ________________________________________________________________________________
 Yay! This task has been marked as completed.
 [E] [X] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ____________________________________________________________________________________________
-Oh No! Usage: mark [index]
+Oh No! Invalid index 4 provided!
 ____________________________________________________________________________________________
 These are your tasks:
 1. [T] [X] apple
@@ -123,7 +123,7 @@ ________________________________________________________________________________
 These are your tasks:
 No tasks found!
 ____________________________________________________________________________________________
-Oh No! Usage: delete [index]
+Oh No! Invalid index 1 provided!
 ____________________________________________________________________________________________
 Got it. I've added this task:
 [D] [ ] TEST_DEADLINE_DATETIME (by: Dec 31 1999 20:00HRS)
@@ -209,6 +209,113 @@ Here are the matching tasks in your list for MEMORY.
 ____________________________________________________________________________________________
 Here are the matching tasks in your list for DATETIME.
 1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] first task
+There are 5 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] second task
+There are 6 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] third task
+There are 7 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] fourth task
+There are 8 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] fifth task
+There are 9 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] sixth task
+There are 10 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Invalid index apple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index banana provided!
+____________________________________________________________________________________________
+Aight Bet! I am marking 3 tasks!
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] first task
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] third task
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] sixth task
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+5. [T] [X] first task
+6. [T] [ ] second task
+7. [T] [X] third task
+8. [T] [ ] fourth task
+9. [T] [ ] fifth task
+10. [T] [X] sixth task
+____________________________________________________________________________________________
+Oh No! Invalid index pineapple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index orange provided!
+____________________________________________________________________________________________
+Aight Bet! I am unmarking 3 tasks!
+____________________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[T] [ ] third task
+____________________________________________________________________________________________
+Oh No! This task was already marked as incomplete!
+____________________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[T] [ ] sixth task
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+5. [T] [X] first task
+6. [T] [ ] second task
+7. [T] [ ] third task
+8. [T] [ ] fourth task
+9. [T] [ ] fifth task
+10. [T] [ ] sixth task
+____________________________________________________________________________________________
+Oh No! Invalid index durian provided!
+____________________________________________________________________________________________
+Oh No! Invalid index dragonfruit provided!
+____________________________________________________________________________________________
+Aight Bet! I am deleting 6 tasks!
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] sixth task
+There are 9 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] fifth task
+There are 8 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] fourth task
+There are 7 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] third task
+There are 6 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] second task
+There are 5 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [X] first task
+There are 4 tasks in the list now.
 ____________________________________________________________________________________________
 Annyeong! Till we meet again. <3
 ____________________________________________________________________________________________

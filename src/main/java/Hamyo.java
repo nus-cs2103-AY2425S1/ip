@@ -1,6 +1,8 @@
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import hamyo.misc.HamyoException;
 import hamyo.misc.Parser;
@@ -89,8 +91,8 @@ public class Hamyo {
         System.setOut(old);
 
         System.out.print(outputStream);
-        return outputStream.toString().split(
-                "\n" + Ui.LINE)[0];
+        String response = String.join("\n", outputStream.toString().split("\n" + Ui.LINE));
+        return response.substring(0, response.length() - 2);
     }
 
     /**

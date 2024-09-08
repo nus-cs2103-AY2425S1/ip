@@ -58,4 +58,15 @@ find tODo
 find 2002
 find mEmoRy
 find dATetImE
+todo first task
+todo second task
+todo third task
+todo fourth task
+todo fifth task
+todo sixth task
+mark 10 apple 7 5 5 banana
+list
+unmark 10 10 pineapple 7 7 8 orange
+list
+delete 5 durian 8 10 9 7 6 dragonfruit
 bye

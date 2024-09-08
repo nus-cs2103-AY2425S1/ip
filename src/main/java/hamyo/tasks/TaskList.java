@@ -54,7 +54,7 @@ public class TaskList extends ArrayList<Task> {
     public void deleteTask(int index) throws HamyoException {
         try {
             if (index < 0 || index >= this.size()) {
-                throw new HamyoException("Usage: delete [index]");
+                throw new HamyoException("Invalid index " + (index + 1) + " provided!");
             }
             Task deletedTask = this.remove(index);
 
@@ -126,7 +126,7 @@ public class TaskList extends ArrayList<Task> {
     public void markTask(int index) throws HamyoException {
         try {
             if (index < 0 || index >= this.size()) {
-                throw new HamyoException("Usage: mark [index]");
+                throw new HamyoException("Invalid index " + (index + 1) + " provided!");
             }
             this.get(index).mark(true);
         } catch (NumberFormatException e) {
@@ -143,7 +143,7 @@ public class TaskList extends ArrayList<Task> {
     public void unmarkTask(int index) throws HamyoException {
         try {
             if (index < 0 || index >= this.size()) {
-                throw new HamyoException("Usage: unmark [index]");
+                throw new HamyoException("Invalid index " + (index + 1) + " provided!");
             }
             this.get(index).unmark(true);
         } catch (NumberFormatException e) {

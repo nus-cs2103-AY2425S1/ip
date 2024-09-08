@@ -1,10 +1,12 @@
 package hamyo.misc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+
 import hamyo.tasks.TaskList;
 import hamyo.tasks.TaskType;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Deals with making sense of the user command.
@@ -169,6 +171,10 @@ public class Parser {
             throw new HamyoException("Usage: mark [index]");
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am marking %d tasks!\n", indexes.size());
+            Ui.printLine();
+        }
         for (Integer i : indexes) {
             try {
                 tasks.markTask(i - 1);
@@ -194,6 +200,10 @@ public class Parser {
             throw new HamyoException("Usage: unmark [index]");
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am unmarking %d tasks!\n", indexes.size());
+            Ui.printLine();
+        }
         for (Integer i : indexes) {
             try {
                 tasks.unmarkTask(i - 1);
@@ -218,7 +228,12 @@ public class Parser {
         if (commandFields.length() <= 1) {
             throw new HamyoException("Usage: delete [index]");
         }
-        ArrayList<Integer> indexes = commandFieldsToDescendingIntegerList(commandFields);
+        ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am deleting %d tasks!\n", indexes.size());
+            Ui.printLine();
+        }
+        indexes.sort(Collections.reverseOrder());
         for (Integer i : indexes) {
             try {
                 tasks.deleteTask(i - 1);
@@ -229,7 +244,7 @@ public class Parser {
     }
 
     /**
-     * Converts a given command fields to a ArrayList of Integer in given
+     * Converts a given command fields to a ArrayList of Integer in ascending
      * order, without any duplicates.
      *
      * @param commandFields The specified indexes.
@@ -248,30 +263,6 @@ public class Parser {
             }
         }
         lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
-        return lst;
-    }
-
-    /**
-     * Converts a given command fields to a ArrayList of Integer in descending
-     * order, without any duplicates.
-     *
-     * @param commandFields The specified indexes.
-     */
-    private static ArrayList<Integer> commandFieldsToDescendingIntegerList(String commandFields) {
-        // Remove leading whitespace.
-        String[] strLst = commandFields.substring(1).split(" ");
-        // Populate the list only if the index is valid.
-        ArrayList<Integer> lst = new ArrayList<>();
-        for (int i = 0; i < strLst.length; i++) {
-            try {
-                Integer index = Integer.parseInt(strLst[i]);
-                lst.add(index);
-            } catch (NumberFormatException e) {
-                Ui.printException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
-            }
-        }
-        lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
-        lst.sort(Collections.reverseOrder()); // Sort in descending order.
         return lst;
     }
 }
