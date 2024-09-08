@@ -34,7 +34,7 @@ public class UnmarkCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert storage != null : "Storage should not be null";
 
-        Task targetTask = tasks.getTaskByCommand(this.getInput(), "unmark ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "unmark", "u");
         assert targetTask != null : "Target task should not be null";
 
         if (!targetTask.isDone()) {

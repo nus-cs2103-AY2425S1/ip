@@ -13,6 +13,11 @@ import jeff.storage.Storage;
 import jeff.task.TaskList;
 
 public class MarkCommandTest {
+    private static final String TASK_DONE_ERROR = "This task has already been marked as done!";
+    private static final String TASK_NUM_DONT_EXIST_ERROR = "This task number does not exist!";
+    private static final String WRONG_FORMAT_ERROR =
+            "The format is wrong! It should be \"mark(or m) xx\", where xx is a number.";
+
     private TaskList tasks;
     private Storage storage;
 
@@ -33,12 +38,29 @@ public class MarkCommandTest {
     }
 
     @Test
+    public void execute_markTaskAlias() throws JeffException {
+        String response = new MarkCommand("m 1").execute(tasks, storage);
+
+        assertEquals(" OK, I've marked this task as done:\n" + "    [T][X] read book\n",
+                response);
+    }
+
+    @Test
     public void execute_markAlreadyMarkedTask_throwException() throws JeffException {
         new MarkCommand("mark 1").execute(tasks, storage);
         Command c = new MarkCommand("mark 1");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("This task has already been marked as done!", exception.toString());
+        assertEquals(TASK_DONE_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_markAlreadyMarkedTaskAlias_throwException() throws JeffException {
+        new MarkCommand("mark 1").execute(tasks, storage);
+        Command c = new MarkCommand("m 1");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(TASK_DONE_ERROR, exception.toString());
     }
 
     @Test
@@ -46,7 +68,15 @@ public class MarkCommandTest {
         Command c = new MarkCommand("mark 2");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("This task number does not exist!", exception.toString());
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_markNonExistentTaskAlias_throwException() throws JeffException {
+        Command c = new MarkCommand("m 2");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
     }
 
     @Test
@@ -54,16 +84,30 @@ public class MarkCommandTest {
         Command c = new MarkCommand("mark");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"mark xx\", where xx is a number.",
-                exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
     }
 
     @Test
-    public void execute_wrongFormatMarkTask_throwException() throws JeffException {
+    public void execute_emptyMarkTaskAlias_throwException() throws JeffException {
+        Command c = new MarkCommand("m");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_noSpacingMarkTask_throwException() throws JeffException {
         Command c = new MarkCommand("mark1");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"mark xx\", where xx is a number.",
-                exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_noSpacingMarkTaskAlias_throwException() throws JeffException {
+        Command c = new MarkCommand("m1");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
     }
 }

@@ -13,6 +13,10 @@ import jeff.task.TaskList;
  * Represents an "Add Event task" command.
  */
 public class AddEventCommand extends AddCommand {
+    private static final String WRONG_FORMAT_ERROR = "The format is wrong! "
+            + "It should be \"event(or e) xx /from yyyy-mm-dd HH:mm(or hh:mm am/pm) "
+            + "/to yyyy-mm--dd HH:mm(or hh:mm am/pm)\"";
+
     /**
      * Constructor for AddEventCommand Class.
      * Stores the user's input.
@@ -24,12 +28,12 @@ public class AddEventCommand extends AddCommand {
     }
 
     /**
-     * Checks if the description for the event task inputted by the user is empty or not.
+     * Checks if the format of the user input is wrong or not.
      *
-     * @return true if the user input does not have a description and false otherwise.
+     * @return true if the user input is in the wrong format and false otherwise.
      */
-    private boolean isDescriptionEmpty() {
-        return !this.getInput().matches("event .+");
+    private boolean isFormatWrong() {
+        return !this.getInput().matches("event .+") && !this.getInput().matches("e .+");
     }
 
     /**
@@ -38,7 +42,7 @@ public class AddEventCommand extends AddCommand {
      * @return Event task based on user input.
      */
     private EventTask createTask() throws JeffException {
-        assert !this.isDescriptionEmpty() : "Event task description should not be empty when creating the task";
+        assert !this.isFormatWrong() : "Event task should not be in the wrong format when creating the task";
 
         // Split the description into content, start and end
         String taskDescription = this.getTaskDescription();
@@ -59,10 +63,7 @@ public class AddEventCommand extends AddCommand {
                     Parser.getLocalDateTime(endPeriod)
             );
         } catch (DateTimeParseException e) {
-            throw new JeffException("The format is wrong! "
-                    + "It should be \"event xx /from yyyy-mm-dd HH:mm /to yyyy-mm--dd HH:mm\" or "
-                    + "\"event xx /from yyyy-mm-dd hh:mm AM/PM /to yyyy-mm--dd hh:mm AM/PM\"!"
-            );
+            throw new JeffException(WRONG_FORMAT_ERROR);
         }
     }
 
@@ -77,12 +78,16 @@ public class AddEventCommand extends AddCommand {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        if (this.isDescriptionEmpty()) {
-            throw new JeffException("Sorry, the description of an event cannot be empty!");
+        if (this.isFormatWrong()) {
+            throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
         Task targetTask = this.createTask();
+        assert targetTask != null : "Target task should not be null";
+
         tasks.addTask(targetTask);
+        assert tasks.contains(targetTask) : "Task list should contain the newly added task";
+
         storage.updateTaskListInDatabase(tasks);
 
         return this.getResponse(targetTask, tasks);

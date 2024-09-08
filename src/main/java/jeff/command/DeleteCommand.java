@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert storage != null : "Storage should not be null";
 
-        Task targetTask = tasks.getTaskByCommand(this.getInput(), "delete ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "delete", "dd");
         assert targetTask != null : "Target task should not be null";
         assert tasks.contains(targetTask) : "Task list should contain the target task before removal";
 

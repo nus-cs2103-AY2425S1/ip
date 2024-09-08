@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert storage != null : "Storage should not be null";
 
-        Task targetTask = tasks.getTaskByCommand(this.getInput(), "mark ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "mark", "m");
         assert targetTask != null : "Target task should not be null";
 
         if (targetTask.isDone()) {

@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         // Exit the application if the user inputs "bye"
-        if (input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("b")) {
             // Schedule exit after a short delay
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());

@@ -30,25 +30,25 @@ public class Parser {
      * @throws JeffException if the user's input is not a command available.
      */
     public static Command parse(String input) throws JeffException {
-        if (input.equals("list")) {
+        if (input.equals("list") || input.equals("l")) {
             return new ListCommand(input);
-        } else if (input.equals("bye")) {
+        } else if (input.equals("bye") || input.equals("b")) {
             return new ExitCommand(input);
-        } else if (input.startsWith("mark")) {
+        } else if (input.startsWith("mark") || input.startsWith("m")) {
             return new MarkCommand(input);
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark") || input.startsWith("u")) {
             return new UnmarkCommand(input);
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete") || input.startsWith("dd")) {
             return new DeleteCommand(input);
-        } else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo") || input.startsWith("t")) {
             return new AddToDoCommand(input);
-        } else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline") || input.startsWith("dl")) {
             return new AddDeadlineCommand(input);
-        } else if (input.startsWith("event")) {
+        } else if (input.startsWith("event") || input.startsWith("e")) {
             return new AddEventCommand(input);
-        } else if (input.startsWith("date")) {
+        } else if (input.startsWith("date") || input.startsWith("dt")) {
             return new DateCommand(input);
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("find") || input.startsWith("f")) {
             return new FindCommand(input);
         } else {
             throw new JeffException();

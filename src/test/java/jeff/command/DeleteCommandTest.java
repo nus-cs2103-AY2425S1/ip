@@ -13,6 +13,10 @@ import jeff.storage.Storage;
 import jeff.task.TaskList;
 
 public class DeleteCommandTest {
+    private static final String WRONG_FORMAT_ERROR =
+            "The format is wrong! It should be \"delete(or dd) xx\", where xx is a number.";
+    private static final String TASK_NUM_DONT_EXIST_ERROR = "This task number does not exist!";
+
     private TaskList tasks;
     private Storage storage;
 
@@ -38,11 +42,32 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_deleteExistingTaskAlias() throws JeffException {
+        Command c = new DeleteCommand("dd 1");
+        String response = c.execute(tasks, storage);
+
+        assertEquals(0, tasks.size());
+        assertEquals(" Noted. I've removed this task:\n"
+                        + "    [T][  ] read book\n"
+                        + " Now you have 0 tasks in the list.\n",
+                response);
+    }
+
+    @Test
     public void execute_nonExistentTaskDelete_throwException() throws JeffException {
         Command c = new DeleteCommand("delete 2");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("This task number does not exist!", exception.toString());
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_nonExistentTaskDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd 2");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
         assertEquals(1, tasks.size());
     }
 
@@ -51,8 +76,16 @@ public class DeleteCommandTest {
         Command c = new DeleteCommand("delete");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"delete xx\", where xx is a number.",
-                exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_noInputDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
         assertEquals(1, tasks.size());
     }
 
@@ -61,8 +94,16 @@ public class DeleteCommandTest {
         Command c = new DeleteCommand("delete hi");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"delete xx\", where xx is a number.",
-                exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_nonNumberInputDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd hi");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
         assertEquals(1, tasks.size());
     }
 
@@ -71,8 +112,16 @@ public class DeleteCommandTest {
         Command c = new DeleteCommand("delete -1");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"delete xx\", where xx is a number.",
-                exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_negativeNumberDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd -1");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
         assertEquals(1, tasks.size());
     }
 
@@ -81,8 +130,34 @@ public class DeleteCommandTest {
         Command c = new DeleteCommand("delete 0");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("This task number does not exist!",
-                exception.toString());
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_zeroNumberDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd 0");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(TASK_NUM_DONT_EXIST_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_noSpacingDelete_throwException() throws JeffException {
+        Command c = new DeleteCommand("delete1");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    public void execute_noSpacingDeleteAlias_throwException() throws JeffException {
+        Command c = new DeleteCommand("dd1");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
         assertEquals(1, tasks.size());
     }
 }
