@@ -17,7 +17,8 @@ public class Deadline extends Task {
             this.byString = by;
         }
     }
-    private String getBy(){
+
+    private String getBy() {
         if (byDateTime != null) {
             DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
             return byDateTime.format(outputFormat);

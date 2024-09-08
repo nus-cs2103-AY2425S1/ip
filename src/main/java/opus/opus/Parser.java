@@ -21,6 +21,6 @@ public class Parser {
     public static String[] parseEventDetails(String details) {
         String[] parts = details.split(" /from ");
         String[] timeParts = parts[1].split(" /to ");
-        return new String[]{parts[0], timeParts[0], timeParts[1]};
+        return new String[] { parts[0], timeParts[0], timeParts[1] };
     }
 }

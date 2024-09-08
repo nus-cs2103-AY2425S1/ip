@@ -13,11 +13,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load(){
+    public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        try{
+        try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -41,28 +41,26 @@ public class Storage {
             }
             scanner.close();
             return tasks;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return tasks;
         }
     }
 
-    public void save(ArrayList<Task> tasks){
+    public void save(ArrayList<Task> tasks) {
         File file = new File(filePath);
 
         File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
-            parentDir.mkdirs(); 
+            parentDir.mkdirs();
         }
 
-        try{
+        try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat() + "\n");
             }
             writer.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return;
         }
     }
