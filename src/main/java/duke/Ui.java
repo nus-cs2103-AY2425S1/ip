@@ -11,11 +11,13 @@ public class Ui {
     private Duke duke;
 
     /**
-     * Constructs a {@code Ui} instance with the specified Duke instance.
+     * Constructs an Ui instance with the specified Duke instance.
      *
      * @param duke The Duke instance used to manage application state and interactions.
      */
     public Ui(Duke duke) {
+        assert duke != null : "Duke instance should not be null";
+
         this.duke = duke;
     }
 
@@ -42,6 +44,8 @@ public class Ui {
      * @param taskList the list of tasks to be printed
      */
     public void printList(TaskList taskList) {
+        assert taskList != null : "TaskList should not be null";
+
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getSize(); i++) {
             int serial = i + 1;
@@ -56,6 +60,8 @@ public class Ui {
      * @param tasksFound The list of tasks that match the search criteria.
      */
     public void printKeywordList(ArrayList<Task> tasksFound) {
+        assert tasksFound != null : "Tasks found list should not be null";
+
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasksFound.size(); i++) {
             int serial = i + 1;
