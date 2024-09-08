@@ -103,7 +103,7 @@ public class Parser {
         case MARK:
             try {
                 int numMark = Integer.parseInt(input.split(" ")[1]);
-                assert numMark > 0 && numMark <= list.getSize() : "Mark index is out of bounds";
+                assert numMark > 0 && numMark <= list.getTaskCount() : "Mark index is out of bounds";
                 return list.markTask(numMark);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
@@ -111,7 +111,7 @@ public class Parser {
         case UNMARK:
             try {
                 int numUnmark = Integer.parseInt(input.split(" ")[1]);
-                assert numUnmark > 0 && numUnmark <= list.getSize() : "Unmark index is out of bounds";
+                assert numUnmark > 0 && numUnmark <= list.getTaskCount() : "Unmark index is out of bounds";
                 return list.unmarkTask(numUnmark);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
@@ -119,7 +119,7 @@ public class Parser {
         case DELETE:
             try {
                 int numDelete = Integer.parseInt(input.split(" ")[1]);
-                assert numDelete > 0 && numDelete <= list.getSize() : "Delete index is out of bounds";
+                assert numDelete > 0 && numDelete <= list.getTaskCount() : "Delete index is out of bounds";
                 return list.delete(numDelete);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
