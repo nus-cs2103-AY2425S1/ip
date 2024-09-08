@@ -25,7 +25,9 @@ public class Prince {
      */
     public Prince() {
         ui = new Ui();
+        assert ui != null : "UI should not be null after initialisation";
         storage = new Storage(FILE_PATH);
+        assert storage != null : "Storage should not be null after initialisation";
         try {
             tasks = new TaskList(storage.loadFromFile());
         } catch (PrinceException e) {
@@ -48,6 +50,7 @@ public class Prince {
             ui.resetBuilder();
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+            assert c != null : "Command should not be null after parsing";
             isExit = c.isExit();
             return ui.getBuilder();
         } catch (PrinceException e) {
