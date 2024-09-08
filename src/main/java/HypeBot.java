@@ -209,11 +209,11 @@ public class HypeBot {
     private static void createOrLocateTasklistTextFile() {
         Path tasklistPath = Paths.get("data", "tasklist.txt");
         try {
-            Files.createDirectories(Paths.get("data"));
+            Files.createDirectories(Paths.get("data")); // ensures directory /data exists.
             File tempTasklistTextFile = tasklistPath.toFile();
-            tempTasklistTextFile.createNewFile();
+            tempTasklistTextFile.createNewFile(); // ensures /data/tasklist.txt exists.
             tasklistTextFile = tempTasklistTextFile;
-        } catch (IOException e) {
+        } catch (IOException e) { // should not be reached
             System.out.println(addBufferLineError("but I couldn't load your saved tasks."));
         }
     }
@@ -225,10 +225,17 @@ public class HypeBot {
         while (!canExit) {
             String line = SCANNER.nextLine();
 
+            // If user hasn't entered anything, take in the next line
             if (line.trim().isEmpty()) {
                 continue;
             }
 
+            /*
+            Parse user entry.
+            If command entered is todo, deadline, event: [{Task_Type} {Name}, {Deadline/Start Time}, {End Time}]
+            If command entered is mark, unmark, delete: [{Command_Type} {Index}]
+            If command entered is list, bye: [{Command_Type}]
+             */
             String[] splitLineForDates = line.split("/");
             String[] commandAndTaskName = splitLineForDates[0].split(" ");
             String command = commandAndTaskName[0];
