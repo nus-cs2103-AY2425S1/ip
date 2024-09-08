@@ -7,16 +7,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
     public void markAsDone() {
         this.isDone = true;
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public boolean isDone() {
+        return isDone;
     }
+
+    public abstract String toSaveFormat();
 }

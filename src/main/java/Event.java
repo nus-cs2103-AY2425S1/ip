@@ -1,15 +1,20 @@
 public class Event extends Task {
-    protected String to;
-    protected String from;
+    private String from;
+    private String to;
 
-    public Event(String description, String to, String from) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.to = to;
         this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + from + "|" + to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + from + " to: " + to + ")";
     }
 }
