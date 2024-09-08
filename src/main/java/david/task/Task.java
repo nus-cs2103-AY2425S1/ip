@@ -11,6 +11,7 @@ public abstract class Task {
      * constructor for Task class
      */
     public Task(String s, boolean isCompleted) {
+        assert s.length() != 0 : "No event string provided";
         this.isCompleted = isCompleted;
         this.taskName = s;
     }
@@ -20,6 +21,7 @@ public abstract class Task {
      * @return name of the event
      */
     public String getTask() {
+        assert taskName.length() != 0 : "No event string provided";
         return this.taskName;
     }
 
@@ -54,6 +56,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
+        assert taskName.length() != 0 : "No event string provided";
         String isCompleted = this.isCompleted ? "X" : " ";
 
         return "[" + isCompleted + "] " + this.taskName;
