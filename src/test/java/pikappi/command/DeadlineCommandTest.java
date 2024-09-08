@@ -1,11 +1,11 @@
 package pikappi.command;
 
-import org.junit.jupiter.api.Test;
-import pikappi.Storage;
-import pikappi.exception.PikappiException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import pikappi.exception.PikappiException;
 
 public class DeadlineCommandTest {
     @Test
