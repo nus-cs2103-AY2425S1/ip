@@ -22,7 +22,6 @@ public class Deez {
 
     private static Storage storage = new Storage("./data");
     protected TaskList taskList = new TaskList(new ArrayList<>());
-    protected boolean isActive = true;
     private Ui ui = new Ui();
 
     /**
@@ -42,7 +41,7 @@ public class Deez {
      * Constructor for testing purposes
      *
      * @param isTesting flag to tell the constructor to not initialise taskList with storage.
-     *                  This is important to preserve the correctness of DeezTest.
+     *                  This is important to preserve the correctness of test cases in DeezTest.
      */
     public Deez(Boolean isTesting) {
     }
@@ -75,7 +74,7 @@ public class Deez {
      * Handle the exit command
      */
     private void handleExit() {
-        // TODO: handle exit
+        // TODO: Not really sure how to handle this at the moment
     }
 
     /**
