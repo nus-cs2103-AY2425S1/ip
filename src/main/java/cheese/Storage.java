@@ -21,6 +21,7 @@ public class Storage {
 
     Storage(String filePath) {
         this.filePath = filePath;
+        assert !this.filePath.isEmpty();
     }
 
     /**
@@ -102,5 +103,6 @@ public class Storage {
         }
         boolean deleted = original.delete();
         boolean renamed = tmp.renameTo(original);
+        assert deleted && renamed;
     }
 }
