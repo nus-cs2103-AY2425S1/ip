@@ -25,39 +25,36 @@ public class MainWindow extends AnchorPane {
 
     private KillJoy kj;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/killjoy.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
+    private Image killjoyImage = new Image(this.getClass().getResourceAsStream("/images/killjoy.png"));
+    private Image logo = new Image(this.getClass().getResourceAsStream("/images/killjoy.gif"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
     public void setKj(KillJoy kj) {
         this.kj = kj;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = kj.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getKjDialog(response, killjoyImage)
         );
         userInput.clear();
     }
 
     @FXML
     public void welcomeMessage() {
-        String greetings = UserInterface.getLogoString() + "\n" + UserInterface.getWelcomeString();
+        String greetings = UserInterface.getWelcomeString();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greetings, dukeImage)
+                DialogBox.getKjDialog(greetings, killjoyImage)
         );
     }
+
 }

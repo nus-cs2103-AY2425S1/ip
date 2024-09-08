@@ -27,6 +27,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setKj(kj);
             kj.loadTasks();
             stage.show();
+
             MainWindow mw = fxmlLoader.getController();
             mw.welcomeMessage();
         } catch (IOException e) {

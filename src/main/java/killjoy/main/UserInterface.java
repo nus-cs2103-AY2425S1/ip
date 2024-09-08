@@ -5,21 +5,9 @@ package killjoy.main;
  * Contains methods to interact with the user.
  */
 public class UserInterface {
-    private static final String WELCOME_STRING = "    Hello! I'm KillJoy\n    I'm GENIUS!!!\n"
-            + "    What can I do for you?\n" + "    ------------------------------------";
-    private static final String EXIT_STRING = "    ------------------------------------\n"
-            + "    Bubyyeee & Don't Stwesszz. Time to hide now!!\n"
-            + "    ------------------------------------";
-    private static final String LOGO_STRING = "    ------------------------------------\n"
-            + "     _  ___ _ _      _\n"
-            + "    | |/ (_) | |    | |\n"
-            + "    | ' / _| | |    | | ___  _   _\n"
-            + "    |  < | | | |_   | |/ _ \\| | | |\n"
-            + "    | . \\| | | | |__| | (_) | |_| |\n"
-            + "    |_|\\_\\_|_|_|\\____/ \\___/ \\__, |\n"
-            + "                              __/ |\n"
-            + "                             |___/\n"
-            + "    ------------------------------------";
+    private static final String WELCOME_STRING = "Hello! I'm KillJoy\nI'm GENIUS!!!\n" + "What can I do for you?";
+    private static final String EXIT_STRING = "Bubyyeee & Don't Stwesszz. Time to hide now!!";
+
     private static final String MARK_STRING = "Ayee Yooo! I've marked this task okaayyyyy:";
     private static final String UNMARK_STRING = "Yo big guy! I've unmarked this for you:";
     private static final String DELETE_STRING = "Okay! I'll remove this task:";
@@ -49,9 +37,6 @@ public class UserInterface {
         return WELCOME_STRING;
     }
 
-    public static String getLogoString() {
-        return LOGO_STRING;
-    }
 
 
     /**

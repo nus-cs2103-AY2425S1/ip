@@ -23,6 +23,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private ImageView welcomeImage;
 
     private DialogBox(String text, Image img) {
         try {
@@ -53,7 +55,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getKjDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
