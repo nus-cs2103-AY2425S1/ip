@@ -19,7 +19,7 @@ import duke.ui.Notgpt;
  * </p>
  */
 public class Storage {
-    private ArrayList<Task> store = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
     private Path filePath = Paths.get(".", "data", "data.txt");
 
     /**
@@ -33,7 +33,7 @@ public class Storage {
         try {
             Files.createDirectories(filePath.getParent());
             if (Files.exists(filePath)) {
-                this.store = DataParser.readTasksFromFile(filePath);
+                this.taskList = DataParser.readTasksFromFile(filePath);
                 System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
                 System.out.println("*the first word will always be read as the command*");
                 Notgpt.lnDiv();
@@ -78,7 +78,7 @@ public class Storage {
      * @param s the description of the todo task
      */
     public void todo(String s) {
-        store.add(new Todo(s));
+        taskList.add(new Todo(s));
         this.writeToFile();
     }
 
@@ -88,7 +88,7 @@ public class Storage {
      * @param s the description of the event task
      */
     public void event(String s) {
-        store.add(new Event(s));
+        taskList.add(new Event(s));
         this.writeToFile();
     }
 
@@ -98,7 +98,7 @@ public class Storage {
      * @param s the description of the deadline task
      */
     public void deadline(String s) {
-        store.add(new Deadline(s));
+        taskList.add(new Deadline(s));
         this.writeToFile();
     }
 
@@ -113,9 +113,9 @@ public class Storage {
     public String toString() {
         String thing = "";
         int j = 1;
-        for (int i = 0; i < store.size(); i++) {
-            thing += j + ". " + store.get(i).toString();
-            if (i != store.size() - 1) {
+        for (int i = 0; i < taskList.size(); i++) {
+            thing += j + ". " + taskList.get(i).toString();
+            if (i != taskList.size() - 1) {
                 thing += "\n";
             }
             j++;
@@ -129,7 +129,7 @@ public class Storage {
      * @param i the index of the task to mark as completed
      */
     public void mark(int i) {
-        store.get(i - 1).complete();
+        taskList.get(i - 1).complete();
         this.writeToFile();
     }
 
@@ -139,7 +139,7 @@ public class Storage {
      * @param i the index of the task to unmark as not completed
      */
     public void unmark(int i) {
-        store.get(i - 1).uncomplete();
+        taskList.get(i - 1).uncomplete();
         this.writeToFile();
     }
 
@@ -149,7 +149,7 @@ public class Storage {
      * @param i the index of the task to delete
      */
     public void delete(int i) {
-        store.remove(i - 1);
+        taskList.remove(i - 1);
         this.writeToFile();
     }
 
@@ -165,9 +165,9 @@ public class Storage {
     public String find(String s) {
         String thing = "";
         int j = 1;
-        for (int i = 0; i < store.size(); i++) {
-            if (store.get(i).getTask().contains(s)) {
-                thing += j + ". " + store.get(i).toString() + "\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getTask().contains(s)) {
+                thing += j + ". " + taskList.get(i).toString() + "\n";
                 j++;
             }
         }
@@ -177,7 +177,7 @@ public class Storage {
      * Clears out the entire Storage Arraylist and cleans up any remaining data from the data.txt file as well
      */
     public void clear() {
-        store.clear();
+        taskList.clear();
         this.writeToFile();
     }
 
@@ -187,6 +187,6 @@ public class Storage {
      * @return the size of the task list
      */
     public int size() {
-        return store.size();
+        return taskList.size();
     }
 }

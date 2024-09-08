@@ -59,12 +59,12 @@ public class NotgptJavaFX extends Application {
         inputBox.getChildren().addAll(inputField, sendButton);
 
         // Layout
-        VBox root = new VBox();
+        VBox vBoxRoot = new VBox();
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
-        root.getChildren().addAll(scrollPane, inputBox);
+        vBoxRoot.getChildren().addAll(scrollPane, inputBox);
 
         // Set up the scene
-        Scene scene = new Scene(root, 500, 800);
+        Scene scene = new Scene(vBoxRoot, 500, 800);
         primaryStage.setScene(scene);
 
         // Event handling
