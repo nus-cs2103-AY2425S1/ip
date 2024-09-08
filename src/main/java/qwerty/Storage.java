@@ -86,7 +86,7 @@ public class Storage {
                     }
                 }
             } catch (FileNotFoundException e) {
-                // this should not happen, already checked if file exists
+                assert false; // file should exist, this should not happen
             }
         }
     }
@@ -100,6 +100,10 @@ public class Storage {
      * @throws QwertyException If arguments are missing and/or invalid.
      */
     private void createTask(TaskList taskList, String[] args) throws QwertyException {
+        // private method so this is ok
+        assert args != null && args.length >= 1;
+        assert taskList != null;
+
         switch (args[0]) {
         case "":
             break; // skip empty lines
