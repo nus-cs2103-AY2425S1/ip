@@ -158,12 +158,11 @@ public class TaskList {
         return msg.toString();
     }
 
-    public String prioritiseTask(String[] split) throws SlothingWafflerException {
-        if (split.length < 2 || split[1].isBlank()) {
-            throw new SlothingWafflerException("Please state the task number that you wish to prioritise!");
+    public String prioritiseTask(int taskNum) throws SlothingWafflerException {
+        if (taskNum > tasks.size() || taskNum <= 0) {
+            throw new SlothingWafflerException("You either have no tasks or don't have that many tasks!");
         }
-        int taskNumber = Integer.parseInt(split[1]);
-        Task task = tasks.get(taskNumber - 1);
+        Task task = tasks.get(taskNum - 1);
         tasks.remove(task);
         tasks.add(0, task);
         return "Good to see you getting your priorities straight! " +

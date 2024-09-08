@@ -37,7 +37,7 @@ public class Parser {
         case "find":
             return tasks.findMatchingTasks(split);
         case "priority":
-            return tasks.prioritiseTask(split);
+            return tasks.prioritiseTask(Integer.parseInt(split[1]));
         default:
             throw new SlothingWafflerException("Please give instructions that the Slothing Waffler can understand :(");
         }
