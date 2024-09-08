@@ -1,7 +1,5 @@
 package skibidi.task;
 
-import java.io.IOException;
-
 /** Task subclass with only description. */
 public class Todo extends AbstractTask {
     /** Construct new Todo instance using command inputs. */
@@ -20,7 +18,7 @@ public class Todo extends AbstractTask {
     }
 
     @Override
-    public String serialize() throws IOException {
+    public String serialize() {
         return String.join("|", new String[]{"T", getStatusIcon(), description});
     }
 }

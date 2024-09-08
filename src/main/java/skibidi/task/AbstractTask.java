@@ -1,6 +1,5 @@
 package skibidi.task;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 /** Abstract class representing a task. */
@@ -53,18 +52,18 @@ public abstract class AbstractTask {
      * Convert information about task to a string representation so that it can
      * be easily saved to disk.
      */
-    public abstract String serialize() throws IOException;
+    public abstract String serialize();
 
     /**
      * Construct new instance of child class of AbstractTask, based on the raw
      * string provided.
      */
-    public static AbstractTask deserialize(String rawString) throws IOException, TaskDeserializationException {
+    public static AbstractTask deserialize(String rawString) throws TaskDeserializationException {
         String[] args = rawString.split("[|]");
         if (args.length == 0) {
             throw new TaskDeserializationException("Empty inputs given!");
         }
-        switch (args[1]) {
+        switch (args[0]) {
         case "E":
             if (args.length != 5) {
                 throw new TaskDeserializationException("Invalid format given for Event!");
