@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private SlothingWaffler slothingWaffler;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/sleeper.png"));
-    private Image slothImage = new Image(this.getClass().getResourceAsStream("/images/sloth.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/sleeper.png"));
+    private final Image slothImage = new Image(this.getClass().getResourceAsStream("/images/sloth.png"));
 
     @FXML
     public void initialize() {
@@ -56,6 +56,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSlothingWafflerDialog(response, slothImage)
         );
         userInput.clear();
+
         if (response.equals("See you next time! Remember to get a waffle!")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
             pause.setOnFinished(event -> Platform.exit());
