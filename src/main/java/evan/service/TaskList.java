@@ -95,18 +95,6 @@ public class TaskList {
     }
 
     /**
-     * Prints a formatted representation of the TaskList.
-     */
-    public void display() {
-        if (tasks.isEmpty()) {
-            System.out.println("Hooray! Your task list is empty!");
-        }
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, tasks.get(i));
-        }
-    }
-
-    /**
      * Returns a String representation of the TaskList object that will be saved to the storage .txt file.
      * Each Task in the TaskList has its own encodeAsString() method that will be called.
      *

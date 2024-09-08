@@ -11,7 +11,16 @@ import evan.exception.SavingException;
  * The main class for the Evan chatbot.
  */
 public class Evan {
-    private final Ui ui;
+    private static final String COMMAND_LIST = """
+            Commands supported by Evan:
+            - list
+            - todo <description>
+            - deadline <description> /by <when>
+            - event <description> /from <start> /to <end>
+            - mark <task_number>
+            - unmark <task_number>
+            - delete <task_number>
+            - find <description>""";
     private final UserInputParser userInputParser;
     private Storage storage;
     private TaskList taskList;
@@ -22,48 +31,37 @@ public class Evan {
      * @param filePath File path of the .txt file that will store Evan's data.
      */
     public Evan(String filePath) {
-        ui = new Ui();
         userInputParser = new UserInputParser();
 
         try {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
         } catch (FileCreationException e) {
-            ui.showLine();
-            ui.showError(e.getMessage());
+            System.out.println(e.getMessage());
             System.exit(1);
         } catch (LoadingException e) {
-            ui.showLine();
-            ui.showError(e.getMessage());
+            System.out.println(e.getMessage());
             taskList = new TaskList();
         }
     }
 
     /**
-     * Starts the Evan chatbot.
-     * The user will be prompted to enter a command in the command line after this method is called.
+     * Generates a response for the user's chat message.
+     *
+     * @param input User's chat message.
+     * @return Evan's response.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = ui.getUserInput();
-                Command command = userInputParser.parse(userInput);
-                command.execute(taskList, ui, storage);
-                storage.save(taskList); // Save the task list after every update
-                isExit = command.isExit();
-            } catch (InvalidUserInputException e) {
-                ui.showError(e.getMessage());
-                ui.showValidCommands();
-            } catch (NoSuchTaskException | SavingException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-        System.exit(0);
-    }
-
     public String getResponse(String input) {
-        return "Evan heard: " + input;
+        String response;
+        try {
+            Command command = userInputParser.parse(input);
+            response = command.execute(taskList);
+            storage.save(taskList); // Save the task list after every update
+        } catch (InvalidUserInputException e) {
+            response = e.getMessage() + "\n" + COMMAND_LIST;
+        } catch (NoSuchTaskException | SavingException e) {
+            response = e.getMessage();
+        }
+        return response;
     }
 }

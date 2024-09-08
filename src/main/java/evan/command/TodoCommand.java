@@ -1,8 +1,6 @@
 package evan.command;
 
-import evan.service.Storage;
 import evan.service.TaskList;
-import evan.service.Ui;
 import evan.task.Todo;
 
 /**
@@ -24,17 +22,9 @@ public class TodoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList) {
         Todo todo = new Todo(description);
         taskList.add(todo);
-        ui.showSuccess("Got it. I've added this todo:\n" + todo);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this todo:\n" + todo;
     }
 }

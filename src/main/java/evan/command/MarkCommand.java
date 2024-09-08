@@ -1,9 +1,7 @@
 package evan.command;
 
 import evan.exception.NoSuchTaskException;
-import evan.service.Storage;
 import evan.service.TaskList;
-import evan.service.Ui;
 
 /**
  * Represents a command that the chatbot can execute to mark a task as complete.
@@ -24,16 +22,8 @@ public class MarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws NoSuchTaskException {
+    public String execute(TaskList taskList) throws NoSuchTaskException {
         taskList.markTaskAsDone(taskNumber);
-        ui.showSuccess("Alright, I've marked task (" + taskNumber + ") as completed.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Alright, I've marked task (" + taskNumber + ") as completed.";
     }
 }
