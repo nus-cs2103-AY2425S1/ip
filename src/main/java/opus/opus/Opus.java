@@ -1,17 +1,33 @@
 package opus;
 
+/**
+ * The Opus class is the main entry point of the Duke task manager application.
+ * It initializes the necessary components (UI, storage, task list) and runs 
+ * the main loop to interact with the user, handle commands, and manage tasks.
+ */
 public class Opus {
 
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Initializes the Opus application with the specified file path for storage.
+     * Loads tasks from storage and sets up UI and task list.
+     *
+     * @param filePath Path to the file where tasks are stored.
+     */
     public Opus(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
     }
 
+    /**
+     * Starts the main loop of the application, interacting with the user and processing
+     * commands until the user issues the "bye" command. Commands such as adding tasks,
+     * marking tasks, listing tasks, and deleting tasks are handled.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -65,6 +81,11 @@ public class Opus {
         }
     }
 
+    /**
+     * Main method to launch the Opus application.
+     * 
+     * @param args Command-line arguments, not used.
+     */
     public static void main(String[] args) {
         new Opus("data/tasks.txt").run();
     }
