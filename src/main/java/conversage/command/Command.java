@@ -4,6 +4,7 @@ import conversage.exception.ConverSageException;
 import conversage.storage.Storage;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
+import javafx.beans.binding.StringBinding;
 
 /**
  * Represents a command that can be executed.
@@ -18,7 +19,7 @@ public abstract class Command {
      * @param storage the storage.
      * @throws ConverSageException if an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException;
 
     /**
      * Returns true if the command is an exit command.

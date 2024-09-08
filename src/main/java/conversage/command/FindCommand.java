@@ -18,9 +18,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         List<Task> tasksList = tasks.getTasks();
-
+        String toRet = "";
         ui.showLine();
 
         int count = 1;
@@ -30,14 +30,19 @@ public class FindCommand extends Command {
                 if (count == 1) {
                     // show start mssage for first task
                     ui.showMessage("Unveiled by the sage's insight, these tasks resonate with your search:");
+                    toRet = toRet + "Unveiled by the sage's insight, these tasks resonate with your search:\n";
                 }
                 ui.showMessage(count + " " + task.toString());
+                toRet = toRet + count + " " + task.toString() + "\n";
                 count++;
             }
         }
         if (count == 1) {
             ui.showMessage("The sage's wisdom reveals no tasks that align with your query. Perhaps the path you seek is yet to be trodden.");
+            toRet = toRet + "The sage's wisdom reveals no tasks that align with your query. Perhaps the path you seek is yet to be trodden.";
         }
         ui.showLine();
+
+        return toRet;
     }
 }

@@ -5,6 +5,7 @@ import conversage.storage.Storage;
 import conversage.task.Task;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
+import javafx.beans.binding.StringBinding;
 
 /**
  * Represents a command to unmark a task as not done.
@@ -23,7 +24,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         Task task = tasks.getTask(taskIndex - 1); // since tasks are 0-indexed
         task.markAsUndone();
         ui.showMessage("I've marked this task as not done yet, get to it quickly.\n" + task.toString());
@@ -31,5 +32,6 @@ public class UnmarkCommand extends Command {
 
         // Update storage
         storage.save(tasks.getTasks());
+        return "I've marked this task as not done yet, get to it quickly.\n" + task.toString();
     }
 }

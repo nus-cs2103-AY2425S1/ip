@@ -24,14 +24,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+        
         Task toDelTask = tasks.getTask(this.toDel - 1);
         tasks.deleteTask(toDel - 1);
         ui.showLine();
-        ui.showMessage("Noted, I've removed this task:");
-        ui.showMessage("  " + toDelTask.toString());
-        ui.showMessage("You have " + tasks.size() + " tasks in your list.");
+        ui.showMessage("Noted, I've removed this task:\n  " + toDelTask.toString() + "\nYou have " + tasks.size() + " tasks in your list.");
         ui.showLine();
         storage.save(tasks.getTasks());
+
+        return "Noted, I've removed this task:\n  " + toDelTask.toString() + "\nYou have " + tasks.size() + " tasks in your list.";
     }
 }

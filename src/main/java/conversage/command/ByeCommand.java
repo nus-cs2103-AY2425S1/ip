@@ -10,10 +10,11 @@ import conversage.ui.Ui;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         ui.showLine();
         ui.showMessage("Goodbye. We shall meet again soon.");
         ui.showLine();
+        return "Goodbye. We shall meet again soon.";
     }
 
     @Override
