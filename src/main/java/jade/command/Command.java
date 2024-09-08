@@ -10,6 +10,10 @@ import jade.ui.Ui;
 public abstract class Command {
     protected TaskManager taskManager;
 
+    public Command() {
+
+    }
+
     /**
      * Constructs a Command object with the specified TaskManager.
      *
@@ -25,7 +29,9 @@ public abstract class Command {
      * @return A string message representing the result of the command execution.
      * @throws JadeException if the command execution fails.
      */
-    public abstract String run() throws JadeException;
+    public abstract String run();
+
+    public abstract String runForGUI();
 
     protected String displayMessage(String message) {
         return Ui.TOP_LINE + message + Ui.BOT_LINE;

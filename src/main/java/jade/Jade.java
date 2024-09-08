@@ -1,5 +1,9 @@
 package jade;
 
+import jade.command.Command;
+
+import jade.exception.JadeException;
+import jade.parser.Parser;
 import jade.storage.Storage;
 import jade.task.TaskManager;
 import jade.ui.Ui;
@@ -10,6 +14,9 @@ import jade.ui.Ui;
  */
 public class Jade {
     private static final String FILE_PATH = "./data/jade.txt";
+    private static Storage storage = new Storage(FILE_PATH);
+    private static TaskManager taskManager = new TaskManager(storage);
+    private static Parser parser = new Parser();
 
     /**
      * Main method to start the Jade application.
@@ -18,9 +25,7 @@ public class Jade {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        Storage storage = new Storage(FILE_PATH);
-        TaskManager taskManager = new TaskManager(storage);
-        Ui ui = new Ui(taskManager);
+        Ui ui = new Ui(taskManager, parser);
         ui.run();
     }
 
@@ -28,6 +33,11 @@ public class Jade {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Jade heard: " + input;
+        try {
+            Command command = parser.parse(input, taskManager, parser);
+            return command.runForGUI();
+        } catch (JadeException e) {
+            return e.getMessage();
+        }
     }
 }

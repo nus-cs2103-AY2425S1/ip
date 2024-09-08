@@ -2,7 +2,6 @@ package jade.task;
 
 import java.util.ArrayList;
 
-import jade.command.FindCommand;
 import jade.exception.JadeException;
 import jade.storage.Storage;
 

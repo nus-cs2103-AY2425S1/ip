@@ -5,13 +5,38 @@ import java.util.Scanner;
 
 import jade.command.*;
 import jade.exception.JadeException;
-import jade.task.*;
+import jade.task.Deadline;
+import jade.task.Event;
+import jade.task.Task;
+import jade.task.TaskManager;
+import jade.task.TaskType;
+import jade.task.Todo;
 import jade.ui.Ui;
 
 /**
  * Handles the parsing of user commands and executes the appropriate actions.
  */
 public class Parser {
+
+    public Command parse(String command, TaskManager taskManager, Parser parser) throws JadeException {
+        if (command.equals("bye")) {
+            return new ExitCommand();
+        } else if (command.equals("list")) {
+            return new ListCommand(taskManager);
+        } else if (command.startsWith("mark")) {
+            return new MarkCommand(taskManager, command, true);
+        } else if (command.startsWith("unmark")) {
+            return new MarkCommand(taskManager, command, false);
+        } else if (isTaskCommand(command)) {
+            return new AddCommand(taskManager, parser, command);
+        } else if (command.startsWith("delete")) {
+            return new DeleteCommand(taskManager, command);
+        } else if (command.startsWith("find")) {
+            return new FindCommand(taskManager, command);
+        } else {
+            throw new JadeException("Please specify the type of task: todo, deadline, or event.");
+        }
+    }
 
     public void parse(Scanner sc, TaskManager taskManager) {
         String command = sc.nextLine();

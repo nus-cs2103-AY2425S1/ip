@@ -1,5 +1,6 @@
 package jade.gui;
 
+import jade.command.GreetCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        handleUser();
     }
 
     /** Injects the Jade instance */
@@ -48,6 +50,14 @@ public class MainWindow extends AnchorPane {
         String response = jade.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
+                DialogBox.getJadeDialog(response, jadeImage)
+        );
+        userInput.clear();
+    }
+
+    private void handleUser() {
+        String response = new GreetCommand().runForGUI();
+        dialogContainer.getChildren().addAll(
                 DialogBox.getJadeDialog(response, jadeImage)
         );
         userInput.clear();

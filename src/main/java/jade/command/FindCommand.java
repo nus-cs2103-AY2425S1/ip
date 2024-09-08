@@ -1,9 +1,8 @@
 package jade.command;
 
-import jade.exception.JadeException;
 import jade.task.Task;
 import jade.task.TaskManager;
-import jade.ui.Ui;
+import static jade.ui.Ui.INDENT;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String run() throws JadeException {
+    public String run() {
         String keyword = command.substring(5).trim();
 
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -32,14 +31,39 @@ public class FindCommand extends Command {
 
         StringBuilder message = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            message.append(Ui.INDENT).append("No matching tasks found.");
+            message.append(INDENT).append("No matching tasks found.");
         } else {
-            message.append(Ui.INDENT).append("Here are the matching tasks in your list:");
+            message.append(INDENT).append("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append("\n").append(Ui.INDENT).append(i + 1).append(".").append(matchingTasks.get(i));
+                message.append("\n").append(INDENT).append(i + 1).append(".").append(matchingTasks.get(i));
             }
         }
 
         return displayMessage(message.toString());
+    }
+
+    @Override
+    public String runForGUI() {
+        String keyword = command.substring(5).trim();
+
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < taskManager.getTaskCount(); i++) {
+            Task task = taskManager.getTask(i);
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        StringBuilder message = new StringBuilder();
+        if (matchingTasks.isEmpty()) {
+            message.append("No matching tasks found.");
+        } else {
+            message.append("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                message.append("\n").append(i + 1).append(".").append(matchingTasks.get(i));
+            }
+        }
+
+        return message.toString();
     }
 }
