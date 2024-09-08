@@ -33,6 +33,17 @@ public class TaskList {
         return output.toString();
     }
 
+    public String findTask(String matcher) {
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int index = 0, findIndex = 0; index < this.list.size(); index = index + 1) {
+            if (this.list.get(index).isMatched(matcher)) {
+                findIndex = findIndex + 1;
+                output.append(findIndex).append(". ").append(this.list.get(index).toString()).append("\n");
+            }
+        }
+        return output.toString();
+    }
+
     public int getSize() {
         return list.size();
     }

@@ -51,6 +51,11 @@ public class Parser {
         ui.showResult("  " + deletedTask);
         ui.showResult("Now you have " + list.getSize() + " tasks in the list.");
     }
+
+    private static void addTask(String matcher) {
+        ui.showResult(list.findTask(matcher));
+    }
+
     public static boolean execute(String command, TaskList list, Ui ui) {
         Parser.ui = ui;
         Parser.list = list;
@@ -98,6 +103,9 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.showResult("I'm sorry, but it's invalid index :(");
             }
+        }
+        case "find" -> {
+            addTask(command.split(" ", 2)[1]);
         }
         default -> ui.showResult("I'm sorry, but I can't understand what you ask :(");
         }
