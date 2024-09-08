@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("evan.service.Evan")
+    mainClass.set("evan.gui.Launcher")
 }
 
 shadowJar {

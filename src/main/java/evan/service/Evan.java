@@ -41,13 +41,6 @@ public class Evan {
 
     /**
      * Starts the Evan chatbot.
-     */
-    public static void main(String[] args) {
-        new Evan("data/tasks.txt").run();
-    }
-
-    /**
-     * Starts the Evan chatbot.
      * The user will be prompted to enter a command in the command line after this method is called.
      */
     public void run() {
@@ -68,5 +61,9 @@ public class Evan {
             }
         }
         System.exit(0);
+    }
+
+    public String getResponse(String input) {
+        return "Evan heard: " + input;
     }
 }
