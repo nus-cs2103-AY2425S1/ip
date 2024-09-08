@@ -34,6 +34,10 @@ public class JackBean {
         case "hello":
             return "Hello homie! I'm JackBean, a chatbot designed to help you with your daily tasks!"
                     + "\nHow may I help you today my homie?";
+        case "leo":
+            return "Leo is the BEST BOSS EVER!";
+        case "lose to you":
+            return "NAH HOMIE, LOSE TO YOU";
         }
 
         // handle other input
