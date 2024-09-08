@@ -25,6 +25,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img) {
+        String displayString = text;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -32,10 +33,10 @@ public class DialogBox extends HBox {
             fxmlLoader.load();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            text = e.getMessage();
+            displayString = e.getMessage();
         }
 
-        dialog.setText(text);
+        dialog.setText(displayString);
         displayPicture.setImage(img);
     }
 

@@ -41,8 +41,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance and adds intro message */
-    public void setDuke(WheelyBigCheese b) {
+    /** Injects the CheeseBot instance and adds intro message */
+    public void setCheese(WheelyBigCheese b) {
         bot = b;
         String response = bot.start();
         dialogContainer.getChildren().add(
@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (bot.isExit()) {
-            // If exit close program after 3s
+            // If exit, close program after 3s
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override

@@ -1,31 +1,31 @@
 package cheese.command;
 
-import cheese.CheeseException;
+import cheese.exception.CheeseException;
 import cheese.Storage;
 import cheese.TaskList;
 import cheese.Ui;
 import cheese.task.Task;
 
 /**
- * Command to mark a task as done
+ * Command to mark a Task as done
  */
 public class MarkCommand extends UpdateCommand {
-    private final boolean done;
+    private final boolean setDone;
     private final int idx;
 
     /**
-     * Constructor for mark command, needs idx of task and boolean if done
+     * Creates a MarkCommand, needs idx of task and boolean to indicate if done
      * @param idx int
-     * @param done bool
+     * @param setDone bool
      */
-    public MarkCommand(int idx, boolean done) {
+    public MarkCommand(int idx, boolean setDone) {
         super(idx, false);
         this.idx = idx;
-        this.done = done;
+        this.setDone = setDone;
     }
 
     /**
-     * Uses the UpdateCommand execute() to save
+     * Sets tasks to setDone, save and returns Ui response
      * @param tasks list of tasks
      * @param ui format response
      * @param storage store data
@@ -34,7 +34,7 @@ public class MarkCommand extends UpdateCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         Task t = tasks.get(idx);
-        t.setDone(done);
+        t.setDone(setDone);
         return super.execute(tasks, ui, storage);
     }
 }

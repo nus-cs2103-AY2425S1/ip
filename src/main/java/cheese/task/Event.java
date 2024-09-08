@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-import cheese.CheeseException;
+import cheese.Parser;
+import cheese.exception.CheeseException;
 
 /**
  * Task with 2 dates
@@ -13,7 +14,14 @@ public class Event extends Task {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    private Event(String name, LocalDate startDate, LocalDate endDate) throws CheeseException {
+    /**
+     * Creates an event
+     * @param name name of Task
+     * @param startDate start date of Event
+     * @param endDate end date of Event
+     * @throws CheeseException if name is blank
+     */
+    public Event(String name, LocalDate startDate, LocalDate endDate) throws CheeseException {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -30,27 +38,8 @@ public class Event extends Task {
         if (data.length != 5) {
             throw new CheeseException("Incorrect data format");
         }
-        startDate = Task.parseDate(data[3]);
-        endDate = Task.parseDate(data[4]);
-    }
-
-    /**
-     * Factory method to ensure correct creation of Cheese.Event
-     *
-     * @param input String
-     * @return Cheese.Event
-     * @throws CheeseException custom exception
-     */
-    public static Event of(String input) throws CheeseException {
-        String[] words = input.replace("event", "").strip().split("/from");
-        if (words.length < 2) {
-            throw new CheeseException("Cheese.Event needs /from .... /to");
-        }
-        String[] dates = words[1].split("/to");
-        if (dates.length < 2) {
-            throw new CheeseException("Cheese.Event needs also needs a /to");
-        }
-        return new Event(words[0].strip(), parseDate(dates[0].strip()), parseDate(dates[1].strip()));
+        startDate = Parser.parseDate(data[3]);
+        endDate = Parser.parseDate(data[4]);
     }
 
     /**

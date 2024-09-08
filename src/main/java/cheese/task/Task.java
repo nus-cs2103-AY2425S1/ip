@@ -1,10 +1,8 @@
 package cheese.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import cheese.CheeseException;
+import cheese.exception.CheeseException;
 
 /**
  * Parent class for all tasks
@@ -37,24 +35,6 @@ public class Task {
         }
         done = Objects.equals(data[1], "1");
         name = data[2];
-    }
-
-    /**
-     * Helper function for children to parse date
-     * @param dateStr specific format for date
-     * @return LocalDate
-     * @throws CheeseException if dateStr wrong
-     */
-    public static LocalDate parseDate(String dateStr) throws CheeseException {
-        LocalDate d;
-        dateStr = dateStr.strip();
-        try {
-            d = LocalDate.parse(dateStr);
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-            throw new CheeseException("Wrong format for date. YYYY-MM-DD");
-        }
-        return d;
     }
 
     /**

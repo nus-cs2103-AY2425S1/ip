@@ -1,6 +1,5 @@
 package cheese.command;
 
-import cheese.CheeseException;
 import cheese.Storage;
 import cheese.TaskList;
 import cheese.Ui;
@@ -10,22 +9,18 @@ import cheese.task.Task;
  * Command to search through tasks
  */
 public class FindCommand extends Command {
-    private final String keyword;
+    private final String query;
 
     /**
-     * Constructor for FindCommand, requires keyword to find task
-     * @param inputTokens String[]
-     * @throws CheeseException Ensure correct input
+     * Creates a FindCommand, requires keyword to find task
+     * @param keyword string to query against
      */
-    public FindCommand(String[] inputTokens) throws CheeseException {
-        if (inputTokens.length != 2) {
-            throw new CheeseException("FindCommand require 'find ....'");
-        }
-        this.keyword = inputTokens[1];
+    public FindCommand(String query) {
+        this.query = query;
     }
 
     /**
-     * Searches through task list to find matching tasks
+     * Returns string of tasks with name that is a substring of the keyword
      * @param tasks list of tasks
      * @param ui format response
      * @param storage store data
@@ -35,7 +30,7 @@ public class FindCommand extends Command {
         TaskList matchedTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            if (t.getName().contains(keyword)) {
+            if (t.getName().contains(query)) {
                 matchedTasks.add(t);
             }
         }

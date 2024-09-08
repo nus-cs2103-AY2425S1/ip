@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import cheese.exception.CheeseException;
 import cheese.task.Deadline;
 import cheese.task.Event;
 import cheese.task.Task;
@@ -25,21 +26,20 @@ public class Storage {
     }
 
     /**
-     * Return or create list file
+     * Return file that stores task list. Create one if does not exist
      * @return File
      * @throws IOException In case of IOException
      */
     private File getListFile() throws IOException {
         File f = new File(filePath);
         if (!f.exists()) {
-            boolean created = f.createNewFile();
-            System.out.println(created);
+            f.createNewFile();
         }
         return f;
     }
 
     /**
-     * Load tasks from file
+     * Load tasks from file into an ArrayList
      * @return tasks from file
      * @throws CheeseException I/O exception or Incorrect data format
      */
@@ -71,7 +71,7 @@ public class Storage {
      * Add and save new task
      * @param t task to be added
      */
-    public void add(Task t) throws CheeseException {
+    public void addTask(Task t) throws CheeseException {
         try (FileWriter fw = new FileWriter(getListFile(), true)) {
             fw.write(t.dataString() + System.lineSeparator());
         } catch (IOException e) {
@@ -86,7 +86,7 @@ public class Storage {
      * @param delete if delete task
      * @throws CheeseException Missing/Incorrect input
      */
-    public void update(int idx, TaskList tasks, boolean delete) throws CheeseException {
+    public void updateTask(int idx, TaskList tasks, boolean delete) throws CheeseException {
         File original;
         File tmp = new File("tmp.txt");
 

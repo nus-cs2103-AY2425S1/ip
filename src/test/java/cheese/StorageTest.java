@@ -1,5 +1,6 @@
 package cheese;
 
+import cheese.exception.CheeseException;
 import cheese.task.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -15,7 +16,7 @@ public class StorageTest {
 
     Deadline deadline = new Deadline("D,1,abc,2025-04-03".split(","));
     Event event = new Event("E,0,abc ,2024-03-04,2025-04-03".split(","));
-    ToDo toDo = ToDo.of("Read a book");
+    ToDo toDo = new ToDo("Read a book");
 
     public StorageTest() throws CheeseException {
     }
@@ -56,8 +57,8 @@ public class StorageTest {
         File tempFile = new File(tempDir, "testTasks.txt");
         Storage storage = new Storage(tempFile.getAbsolutePath());
 
-        Task task = ToDo.of("Read a book");
-        storage.add(task);
+        Task task = new ToDo("Read a book");
+        storage.addTask(task);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
             String line = reader.readLine();
@@ -70,13 +71,13 @@ public class StorageTest {
         File tempFile = new File(tempDir, "testTasks.txt");
 
         Storage storage = new Storage(tempFile.getAbsolutePath());
-        storage.add(toDo);
-        storage.add(deadline);
+        storage.addTask(toDo);
+        storage.addTask(deadline);
 
         TaskList tasks = new TaskList();
         tasks.add(toDo);
         tasks.add(deadline);
-        storage.update(1, tasks, true); //delete deadline
+        storage.updateTask(1, tasks, true); //delete deadline
 
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
@@ -106,7 +107,7 @@ public class StorageTest {
         tasks.add(new Deadline("D,1,Submit updated report,2024-08-23".split(","))); // Updated
         tasks.add(event); // Unchanged
 
-        storage.update(1, tasks, false);
+        storage.updateTask(1, tasks, false);
 
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
