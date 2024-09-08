@@ -46,46 +46,69 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        // Assert that the file path is not null
         assert filePath != null : "File path should not be null";
 
         if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
+            createNewFile(file);
             return tasks;
         }
 
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-
         for (String line : lines) {
-            String[] parts = line.split(" \\| ");
-            String taskType = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-
-            switch (taskType) {
-                case "T":
-                    tasks.add(new ToDo(description));
-                    tasks.get(tasks.size() - 1).setStatus(isDone);
-                    break;
-                case "D":
-                    LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-                    tasks.add(new DeadLine(description, by));
-                    tasks.get(tasks.size() - 1).setStatus(isDone);
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    tasks.add(new Event(description, from, to));
-                    tasks.get(tasks.size() - 1).setStatus(isDone);
-                    break;
-                default:
-                    throw new JarException("Data file corrupted. Invalid task type.");
-            }
+            Task task = parseTaskFromLine(line);
+            tasks.add(task);
         }
 
         return tasks;
     }
+
+    /**
+     * Creates a new file if the file does not exist.
+     *
+     * @param file The file to create.
+     * @throws IOException If an I/O error occurs while creating the file.
+     */
+    private void createNewFile(File file) throws IOException {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+    }
+
+    /**
+     * Parses a task from a line of text from the data file.
+     *
+     * @param line A line of text from the data file representing a task.
+     * @return The parsed Task object.
+     * @throws JarException If the task type is invalid or the data is corrupted.
+     */
+    private Task parseTaskFromLine(String line) throws JarException {
+        String[] parts = line.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new ToDo(description);
+            task.setStatus(isDone);
+            break;
+        case "D":
+            LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+            task = new DeadLine(description, by);
+            task.setStatus(isDone);
+            break;
+        case "E":
+            String from = parts[3];
+            String to = parts[4];
+            task = new Event(description, from, to);
+            task.setStatus(isDone);
+            break;
+        default:
+            throw new JarException("Data file corrupted. Invalid task type.");
+        }
+        return task;
+    }
+
 
     /**
      * Saves the current list of tasks to the specified file.
