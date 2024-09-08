@@ -180,7 +180,7 @@ public class Parser {
             }
 
             // Process and Reply
-            storage.archive(data[1], taskList);
+            storage.save(taskList, data[1]);
             taskList.deleteAll();
             storage.save(taskList);
             return ui.showArchive(data[1]);

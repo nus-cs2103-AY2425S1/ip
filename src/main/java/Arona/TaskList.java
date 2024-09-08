@@ -7,11 +7,11 @@ import Arona.Tasks.Task;
 import Arona.Tasks.Todo;
 import Arona.Tasks.Event;
 import Arona.Tasks.Deadline;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TaskList {
 
@@ -121,6 +121,13 @@ public class TaskList {
      */
     public void deleteAll() {
         list.clear();
+    }
+
+    /**
+     * Returns the task list as a stream
+     */
+    public Stream<Task> toStream() {
+        return list.stream();
     }
 
     /**

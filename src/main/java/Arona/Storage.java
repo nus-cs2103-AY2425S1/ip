@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Storage {
@@ -49,6 +49,7 @@ public class Storage {
         }
 
         // Read data.txt file
+        // for each line in file, add to arraylist data
         try (Stream<String> lines = Files.lines(dataDir)){
             lines.forEach(data::add);
         }
@@ -56,51 +57,31 @@ public class Storage {
         return data;
     }
 
-    /**
-     * Archives tasks from taskList as text in [name].txt
-     * @param  name  name of file that will contain archive
-     * @param  taskList  arraylist where each element is from Task class
-     * @exception InvalidPathException thrown when filepath isn't in the correct format
-     * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
-     * @exception SecurityException thrown when file can't be accessed due to system security settings
-     */
-    public void archive(String name, TaskList taskList) throws Exception {
-        // Current data.txt directory
-        Path dataDir = Paths.get(".\\" + name + ".txt");
-
-        // Make data.txt file if it doesn't exist
-        try {
-            Files.createFile(dataDir);
-        } catch (Exception e) {
-            // If the exception isn't "file already exists", throw it
-            if (!(e instanceof FileAlreadyExistsException)) {
-                throw(e);
-            }
-        }
-
-        // Write data to file
-        Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        for (int i = 0; i < taskList.size(); i++) {
-            Files.write(dataDir, Collections.singletonList(taskList.get(i) + ""), StandardOpenOption.APPEND);
-        }
-    }
 
     /**
      * Saves tasks from taskList as text in data.txt
      * @param  taskList  arraylist where each element is from Task class
+     * @param  name  varargs array, if empty, use data.txt, else, use name given in index 0 (from archive command)
      * @exception InvalidPathException thrown when filepath isn't in the correct format
      * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
      * @exception SecurityException thrown when file can't be accessed due to system security settings
      */
-    public void save(TaskList taskList) throws Exception {
-        // Current data.txt directory
-        Path dataDir = Paths.get(FILEPATH);
-
-        // Write data to file
-        Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        for (int i = 0; i < taskList.size(); i++) {
-            Files.write(dataDir, Collections.singletonList(taskList.get(i) + ""), StandardOpenOption.APPEND);
+    public void save(TaskList taskList, String... name) throws Exception {
+        // Set directory
+        Path dataPath;
+        if (name.length == 0) {
+            dataPath = Paths.get(FILEPATH);
+        } else {
+            dataPath = Paths.get(".\\" + name[0] + ".txt");
         }
+
+        // Create string with all tasks
+        String content = taskList.toStream()
+                .map(Object::toString)
+                .collect(Collectors.joining(System.lineSeparator()));
+
+        //Write to file, create file if needed
+        Files.writeString(dataPath, content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     /**
