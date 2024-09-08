@@ -2,6 +2,7 @@ package terminator.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -26,13 +27,14 @@ public class DialogBox extends HBox {
         text = new Label(s);
         displayPicture = new ImageView(i);
 
-        //
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
         this.setAlignment(Pos.TOP_RIGHT);
 
         this.getChildren().addAll(text, displayPicture);
+        setMargin(displayPicture, new Insets(16.0, 0.0, 0.0, 0.0));
+        setMargin(text, new Insets(16.0, 0.0, 0.0, 0.0));
     }
 
     /**
@@ -54,4 +56,5 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
 }

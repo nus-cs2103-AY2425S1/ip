@@ -14,6 +14,7 @@ public class ListCommand extends Command {
     private static final String ERR_MSG = """
             List command takes no arguments.\n
             Usage: list""";
+
     public ListCommand(String input) {
         super(input);
     }
