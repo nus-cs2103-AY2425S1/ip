@@ -1,4 +1,4 @@
-package terminator;
+package terminator.cli;
 
 /**
  * Class responsible for displaying UI interface.

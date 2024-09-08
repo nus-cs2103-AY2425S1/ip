@@ -1,4 +1,4 @@
-package terminator;
+package terminator.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

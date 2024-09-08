@@ -9,6 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import terminator.cli.TerminalUi;
+
 public class TerminalUiTest {
 
     private static final String HLINE = "____________________________________________________________\n";

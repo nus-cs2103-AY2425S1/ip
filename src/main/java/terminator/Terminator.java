@@ -2,6 +2,7 @@ package terminator;
 
 import java.util.Scanner;
 
+import terminator.cli.TerminalUi;
 import terminator.command.Command;
 import terminator.command.CommandParser;
 import terminator.command.DeadlineCommand;
