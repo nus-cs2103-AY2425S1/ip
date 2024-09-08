@@ -82,9 +82,9 @@ public class Parser {
         // CHECKSTYLE.OFF: Indentation
         return switch (type) {
             case ADD -> new AddCommand(Task.getTaskFromTokens(tokenMap));
-            case DELETE -> new DeleteCommand(parseInt(argument));
-            case MARK -> new MarkCommand(parseInt(argument));
-            case UNMARK -> new UnmarkCommand(parseInt(argument));
+            case DELETE -> new DeleteCommand(parseInt(argument) - 1);
+            case MARK -> new MarkCommand(parseInt(argument) - 1);
+            case UNMARK -> new UnmarkCommand(parseInt(argument) - 1);
             case LIST -> new ListCommand();
             case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();

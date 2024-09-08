@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         assert index >= 0 : "index should be non negative";
 
-        this.index = index - 1;
+        this.index = index;
     }
 
     @Override

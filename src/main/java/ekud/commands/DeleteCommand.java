@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         assert index >= 0 : "index should be non negative";
 
-        this.index = index - 1;
+        this.index = index;
     }
 
     @Override
