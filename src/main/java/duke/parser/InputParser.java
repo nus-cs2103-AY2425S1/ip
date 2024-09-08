@@ -38,24 +38,35 @@ public class InputParser {
         assert userInput != null : "User input must not be null";
         assert !userInput.trim().isEmpty() : "User input must not be empty";
 
-        if (userInput.equals("list")) {
+        // Extract the command keyword (first word) from the user input for switch case
+        String commandKeyword = userInput.split(" ")[0].toLowerCase();
+
+        switch (commandKeyword) {
+        case "list":
             return new ListTaskCommand();
-        } else if (userInput.startsWith("unmark")) {
+        case "unmark":
             return new MarkTaskCommand(false, InputParser.parseTaskIndex(userInput));
-        } else if (userInput.startsWith("mark")) {
+        case "mark":
             return new MarkTaskCommand(true, InputParser.parseTaskIndex(userInput));
-        } else if (userInput.startsWith("delete")) {
+        case "delete":
             return new DeleteTaskCommand(InputParser.parseTaskIndex(userInput));
-        } else if (userInput.startsWith("filter")) {
+        case "filter": {
             String dateString = InputParser.parseCommandArgument(userInput, "Invalid date format.");
             LocalDateTime dateTime = duke.parser.DateTimeFormatEnum.parse(dateString)
                     .orElseThrow(() -> new InvalidInputException("Invalid date format."));
             return new FilterTaskCommand(dateTime);
-        } else if (userInput.startsWith("find")) {
+        }
+        case "find": {
             String keyword = InputParser.parseCommandArgument(userInput, "Invalid find command format.");
             return new FindTaskCommand(keyword);
-        } else { // we try to add a task (todos/deadline/event)
+        }
+        case "todo":
+        case "deadline":
+        case "event":
             return new AddTaskCommand(userInput);
+
+        default:
+            throw new InvalidInputException("The command you entered does not exist!");
         }
     }
 
