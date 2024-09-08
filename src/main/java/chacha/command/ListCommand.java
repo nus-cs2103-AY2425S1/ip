@@ -5,6 +5,9 @@ import chacha.Storage;
 import chacha.Ui;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to list all tasks.
+ */
 public class ListCommand extends Command {
 
     public ListCommand(ChaCha chacha) {

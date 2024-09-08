@@ -7,6 +7,9 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to mark a Task.
+ */
 public class MarkCommand extends Command {
 
     public MarkCommand(ChaCha chacha) {

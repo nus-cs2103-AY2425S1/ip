@@ -5,6 +5,9 @@ import chacha.Storage;
 import chacha.Ui;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to return error message to user.
+ */
 public class ErrorCommand extends Command {
 
     public ErrorCommand(ChaCha chacha) {

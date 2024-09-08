@@ -7,6 +7,9 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to delete a Task.
+ */
 public class DeleteCommand extends Command {
 
     public DeleteCommand(ChaCha chacha) {

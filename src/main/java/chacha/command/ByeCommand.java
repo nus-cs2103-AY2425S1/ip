@@ -5,6 +5,9 @@ import chacha.Storage;
 import chacha.Ui;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to exit the application.
+ */
 public class ByeCommand extends Command {
 
     public ByeCommand(ChaCha chacha) {

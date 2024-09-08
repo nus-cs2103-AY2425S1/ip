@@ -5,6 +5,9 @@ import chacha.Storage;
 import chacha.Ui;
 import chacha.task.TaskList;
 
+/**
+ * Represents an abstract command for the ChaCha application.
+ */
 public abstract class Command {
     protected ChaCha chacha;
 

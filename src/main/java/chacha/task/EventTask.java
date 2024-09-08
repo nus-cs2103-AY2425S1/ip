@@ -12,6 +12,15 @@ public class EventTask extends Task {
     protected String startTime;
     protected String endTime;
 
+    /**
+     * Creates a EventTask object, initialising description, isDone status, date, startTime and endTime.
+     *
+     * @param description
+     * @param isDone
+     * @param date
+     * @param startTime
+     * @param endTime
+     */
     public EventTask(String description, boolean isDone, LocalDate date, String startTime, String endTime) {
         super(description, isDone);
         this.date = date;
@@ -43,7 +52,7 @@ public class EventTask extends Task {
         String output = "E | ";
         String status = (super.isDone ? "1" : "0");
         output += status + " | ";
-        return output + description + " | " + date.toString() +
-                " | " + startTime + "-" + endTime + "\n";
+        return output + description + " | " + date.toString()
+                + " | " + startTime + "-" + endTime + "\n";
     }
 }

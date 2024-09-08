@@ -1,12 +1,12 @@
 package chacha;
 
-import chacha.command.Parser;
-import chacha.task.TaskList;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import chacha.command.Parser;
 
 public class CommandTest {
     private ChaCha chacha = new ChaCha();
@@ -27,7 +27,7 @@ public class CommandTest {
     @Test
     public void doAddEventCommand_dateWrongFormat_exceptionMessage() {
         String input = "event meeting /08-09-2024 /from 2pm /to 4pm";
-        String actual = parser.parseCommand(input). split("\n")[1]
+        String actual = parser.parseCommand(input).split("\n")[1]
                 .substring(5);
         String expected = "Please input the date in the format YYYY-MM-DD. ";
         assertEquals(expected, actual);
@@ -36,7 +36,7 @@ public class CommandTest {
     @Test
     public void doAddEventCommand_missingComponent_exceptionMessage() {
         String input = "event meeting /2024-09-08";
-        String actual = parser.parseCommand(input). split("\n")[1]
+        String actual = parser.parseCommand(input).split("\n")[1]
                 .substring(5);
         String expected = "You are missing some info needed (task description, date, start time, end time).";
         assertEquals(expected, actual);

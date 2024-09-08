@@ -1,17 +1,12 @@
 package chacha.command;
 
 import chacha.ChaCha;
-import chacha.ChaChaException;
 import chacha.Storage;
 import chacha.Ui;
-import chacha.task.Task;
 import chacha.task.TaskList;
 
-import java.time.DateTimeException;
-import java.util.ArrayList;
-
 /**
- * Represents the object that handles user inputs and matches them to the respective action.
+ * Parses user inputs and matches them to the respective action.
  *
  */
 public class Parser {
@@ -20,6 +15,14 @@ public class Parser {
     private Ui ui;
     private ChaCha chacha;
 
+    /**
+     * Creates a Parser object with the specified components
+     *
+     * @param chacha
+     * @param storage
+     * @param tasks
+     * @param ui
+     */
     public Parser(ChaCha chacha, Storage storage, TaskList tasks, Ui ui) {
         this.chacha = chacha;
         this.storage = storage;

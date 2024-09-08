@@ -1,5 +1,7 @@
 package chacha.command;
 
+import java.util.ArrayList;
+
 import chacha.ChaCha;
 import chacha.ChaChaException;
 import chacha.Storage;
@@ -7,8 +9,9 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents the command to find a Task.
+ */
 public class FindCommand extends Command {
 
     public FindCommand(ChaCha chacha) {
