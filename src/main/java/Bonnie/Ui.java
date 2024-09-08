@@ -34,8 +34,8 @@ public class Ui {
                     "8. find {keyword}: Bonnie find all tasks containing that keyword from your task list.\n" +
                     "Bonnie wants to remind you that you should substitute items with curly braces with the actual information.\n" +
                     "Also, do remember to use the forward slashes! \"/from\" is valid but \"from\" is NOT valid!\n" +
-                    "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n", my_username));
-        username = my_username;
+                    "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n", myUsername));
+        username = myUsername;
 
         // Ui needs to continuously call Parser to parse tasks
         while (true) {
