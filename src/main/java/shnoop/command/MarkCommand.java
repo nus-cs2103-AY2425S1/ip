@@ -7,10 +7,19 @@ import shnoop.ui.*;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates all the relevant actions to be taken when a Mark Command is issued.
+ */
 public class MarkCommand extends Command {
     private int idx;
     private boolean mode;
 
+    /**
+     * Creates an instance of a MarkCommand to be executed after.
+     *
+     * @param input String input to be read.
+     * @param mode True if the command indicates a Mark Command, false if the command indicates an Unmark Command.
+     */
     public MarkCommand(String input, boolean mode) {
         idx = Integer.parseInt(input.split(" ")[1]) - 1;
         this.mode = mode;

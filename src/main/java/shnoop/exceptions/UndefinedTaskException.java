@@ -1,4 +1,8 @@
 package shnoop.exceptions;
+
+/**
+ * Obsolete Exception representing a situation where a Task was created without a Task Type.
+ */
 public class UndefinedTaskException extends Exception {
 
     public UndefinedTaskException(String message) {

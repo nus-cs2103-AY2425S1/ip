@@ -1,11 +1,27 @@
 package shnoop.tasks;
 
+/**
+ * Encapsulates a task that does not have any time-related details.
+ */
 public class Todo extends Task {
-    public Todo (String description) {
+
+    /**
+     * Creates a Todo Task based on the given description.
+     *
+     * @param description Details of the Todo Task.
+     */
+    public Todo(String description) {
         super(description.substring(5, description.length()));
     }
 
-    public Todo (String description, boolean done) {
+    /**
+     * Creates a Todo Task based on the given description, but also mark it as done.
+     * Typically used by FileWriter / FileReader when loading from Storage and adding to TaskList.
+     *
+     * @param description Details of the Todo Task.
+     * @param done True if the Todo Task created should be marked as done.
+     */
+    public Todo(String description, boolean done) {
         super(description);
         if (done) {
             this.markTask();
@@ -43,8 +59,8 @@ public class Todo extends Task {
     // @@author GeeksForGeeks
 
     @Override
-    public String toUString() {
-        String s = super.toUString();
+    public String toUniqueFileString() {
+        String s = super.toUniqueFileString();
         s += "001"; // Unique identifier for Todo Tasktype
         s += super.description;
         return s;

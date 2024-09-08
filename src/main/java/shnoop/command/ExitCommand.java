@@ -7,10 +7,10 @@ import shnoop.ui.*;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates all the relevant actions to be taken when an Exit Command is issued.
+ */
 public class ExitCommand extends Command {
-
-    public ExitCommand() {
-    }
 
     @Override
     public boolean isExit() {

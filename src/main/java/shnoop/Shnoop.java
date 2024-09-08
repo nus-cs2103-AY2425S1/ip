@@ -15,12 +15,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
+/**
+ * Represents the main Chatbot which utilizes multiple packages to create a cohesive experience.
+ */
 public class Shnoop {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
     private static java.nio.file.Path path;
 
+    /**
+     * Creates a Shnoop instance with a specified filepath referring to where information will be saved in.
+     *
+     * @param path Filepath where text file representing the task list will be stored.
+     */
     public Shnoop(java.nio.file.Path path) {
         storage = new Storage(path);
         ui = new Ui();
@@ -36,6 +44,9 @@ public class Shnoop {
         }
     }
 
+    /**
+     * Starts the Shnoop instance and begin running the program.
+     */
     public void run() {
         // @@author CS2103T Website
         // Reused from https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/project.html
@@ -62,6 +73,11 @@ public class Shnoop {
         // @@author CS2103T Website
     }
 
+    /**
+     * Begins the program.
+     *
+     * @param args Arguments to be taken in (if any).
+     */
     public static void main(String[] args) {
         // @@author Steve Hills
         // Reused from https://www.sghill.net/2014/how-do-i-make-cross-platform-file-paths-in-java/

@@ -7,10 +7,19 @@ import shnoop.ui.*;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates all the relevant actions to be taken when an Add Command is issued.
+ */
 public class AddCommand extends Command {
     private String taskDescription;
     private Parser.Commands taskType = Parser.Commands.UNDEFINED;
 
+    /**
+     * Creates an instance of an AddCommand to be executed after.
+     *
+     * @param taskDescription Description of Task to be added.
+     * @param taskType Type of Task to be added.
+     */
     public AddCommand(String taskDescription, Parser.Commands taskType) {
         this.taskDescription = taskDescription;
         this.taskType = taskType;

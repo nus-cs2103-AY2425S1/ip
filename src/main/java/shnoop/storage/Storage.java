@@ -11,9 +11,17 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents class that interacts with the text file containing all the relevant information used by the ChatBot.
+ */
 public class Storage {
     private final java.nio.file.Path path;
 
+    /**
+     * Initializes Storage with a certain file directory where text file will be used.
+     *
+     * @param path File path where text file is / will be located.
+     */
     public Storage(java.nio.file.Path path) {
         this.path = path;
     }
@@ -24,7 +32,8 @@ public class Storage {
 
     /**
      * Clears (not deletes) file at specified file path
-     * @throws IOException
+     *
+     * @throws IOException If file does not exist.
      */
     public void clearFile() throws IOException {
         FileWriter fw = new FileWriter(path.toString() + "/shnoopstorage.txt", false);
@@ -115,6 +124,7 @@ public class Storage {
 
     /**
      * Loads file based on path Storage was initialised with. Creates new one if not available.
+     * @return ArrayList of Tasks that was loaded from the text file.
      */
     public ArrayList<Task> load() throws ShnoopException, FileNotFoundException {
         boolean directoryExists = java.nio.file.Files.exists(path);
@@ -155,21 +165,27 @@ public class Storage {
         clearFile();
         for (int i = 0; i < tasks.size() - 1; i ++) {
             try {
-                writeToFile(tasks.get(i).toUString() + "\n");
+                writeToFile(tasks.get(i).toUniqueFileString() + "\n");
             } catch (IOException e) {
                 System.out.println("Something went wrong when trying to writeToFile: " + e.getMessage());
             } catch (NullPointerException eNull) {
                 throw new RuntimeException("The file seems to be corrupted in some way.");
             }
         }
-        writeToFile(task.toUString() + "\n");
+        writeToFile(task.toUniqueFileString() + "\n");
     }
 
+    /**
+     * Saves the Tasks and any relevant changes into the text file specified in the file path.
+     *
+     * @param tasks Tasks to be saved.
+     * @throws IOException If the file does not exist.
+     */
     public void save(TaskList tasks) throws IOException {
         clearFile();
         for (int i = 0; i < tasks.size(); i ++) {
             try {
-                writeToFile(tasks.get(i).toUString() + "\n");
+                writeToFile(tasks.get(i).toUniqueFileString() + "\n");
             } catch (IOException e) {
                 System.out.println("Something went wrong when trying to writeToFile: " + e.getMessage());
             }

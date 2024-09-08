@@ -5,8 +5,14 @@ import shnoop.exceptions.*;
 
 import java.io.IOException;
 
+/**
+ * Reads and understands user input in the UI, and processes the relevant commands to be executed.
+ */
 public class Parser {
 
+    /**
+     * Enums representing all the possible command keywords as well as Task types.
+     */
     public enum Commands {
         DELETE,
         MARK,
@@ -24,18 +30,18 @@ public class Parser {
      *
      * @param str String to be checked.
      * @param length Length of string (to avoid repeated str.length() calls).
-     * @return True if String starts with "Todo "
+     * @return True if String starts with "Todo ".
      */
     public static boolean startsWithTodo(String str, int length) {
         return (length >= 6 && str.toLowerCase().startsWith("todo "));
     }
 
     /**
-     * Determines if String indicates a Event task.
+     * Determines if String indicates an Event task.
      *
      * @param str String to be checked.
      * @param length Length of string (to avoid repeated str.length() calls).
-     * @return True if String starts with "Event "
+     * @return True if String starts with "Event ".
      */
     public static boolean startsWithEvent(String str, int length) {
         return (length >= 7 && str.toLowerCase().startsWith("event "));
@@ -46,14 +52,20 @@ public class Parser {
      *
      * @param str String to be checked.
      * @param length Length of string (to avoid repeated str.length() calls).
-     * @return True if String starts with "Deadline "
+     * @return True if String starts with "Deadline ".
      */
     public static boolean startsWithDeadline(String str, int length) {
         return (length >= 10 && str.toLowerCase().startsWith("deadline "));
     }
 
 
-    public Commands getTaskType (String str){
+    /**
+     * Determines the type of Task based on the command / user input.
+     *
+     * @param str User input to be read.
+     * @return Enum representing the Task type.
+     */
+    public Commands getTaskType(String str){
         int length = str.length();
         if (startsWithTodo(str, length)) {
             return Commands.TODO;
@@ -67,27 +79,11 @@ public class Parser {
     }
 
     /**
-     * Returns the relevant string excluding Todo, Event, or Deadline tag.
+     * Determines if a part of a String can be interpreted as an Integer.
      *
-     * @param str User input to sieve through.
-     * @return String excluding task type.
+     * @param str String to be analysed.
+     * @return True if String can be expressed as an Integer.
      */
-    public String getTaskDetails (String str){
-        Parser.Commands taskType = getTaskType(str);
-        int length = str.length();
-
-        switch (taskType) {
-        case TODO:
-            return str.substring(5, length);
-        case EVENT:
-            return str.substring(6, length);
-        case DEADLINE:
-            return str.substring(9, length);
-        default:
-            return str;
-        }
-    }
-
     public static boolean canBeInteger(String str) {
         if (str == null || str == "") {
             return false;
@@ -104,6 +100,13 @@ public class Parser {
     // @@author Richard H
     // From https://stackoverflow.com/questions/4936819/java-check-if-enum-contains-a-given-string
     // Reused with minor modifications
+
+    /**
+     * Determines if the specified String is an element within the Enum Commands.
+     *
+     * @param test String to be checked and compared with.
+     * @return True if the String is an element in the Enum Commands.
+     */
     public static boolean contains(String test) {
         for (Commands c : Commands.values()) {
             if (c.name().equals(test)) {
@@ -114,6 +117,13 @@ public class Parser {
     }
     // @@author Richard H
 
+    /**
+     * Determines the relevant Command to be executed based on the String input.
+     *
+     * @param input String representation of a command to be run based on user input.
+     * @return Command that should be run based on the user input.
+     * @throws ShnoopException If the input is not a valid command.
+     */
     public static Command parse(String input) throws ShnoopException {
         String improperInput =
                 "✿ Shnoop ✿: You could travel the world, but nothing comes close to choosing a task type.\n" +

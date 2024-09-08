@@ -1,14 +1,32 @@
 package shnoop.tasks;
 
 import shnoop.exceptions.*;
+
+/**
+ * Represents a Task that must be done by a certain time / date.
+ */
 public class Deadline extends Task {
     protected String by;
-    public Deadline (String description, String by) {
+
+    /**
+     * Creates a Deadline instance with the given input.
+     *
+     * @param description Details of Deadline.
+     * @param by Time associated with the Deaadline.
+     */
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline (String description, String by, boolean done) {
+    /**
+     * Creates a Deadline instance with the given input, including if it should be marked when created.
+     *
+     * @param description Details of Deadline.
+     * @param by Time associated with the Deaadline.
+     * @param done True if Deadline should be marked when created.
+     */
+    public Deadline(String description, String by, boolean done) {
         super(description);
         this.by = by;
         if (done) {
@@ -21,7 +39,8 @@ public class Deadline extends Task {
      *
      * @param str Un-separated String
      */
-    public Deadline (String str) throws IncompleteEventOrDeadlineException {
+    public Deadline(String str) throws IncompleteEventOrDeadlineException {
+        super(str);
         if (!str.contains("/by ")) {
             throw new IncompleteEventOrDeadlineException();
         } else {
@@ -45,8 +64,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toUString() {
-        String s = super.toUString();
+    public String toUniqueFileString() {
+        String s = super.toUniqueFileString();
         s += "003"; // Unique identifier for Event Tasktype
         s += super.description;
         s += "/by/";
