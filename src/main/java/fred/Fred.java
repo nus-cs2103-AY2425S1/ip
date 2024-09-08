@@ -32,17 +32,6 @@ public class Fred {
         storage.getDataFile();
         ArrayList<Task> tasksFromDataFile = storage.getTasksFromDataFile();
         tasks.loadTasksFromDataFile(tasksFromDataFile);
-        ui.greet();
-        String input;
-        while (true) {
-            input = ui.getInput();
-            try {
-                String[] action = parser.parseInput(input);
-                executeAction(action);
-            } catch (FredException e) {
-                ui.say(e.getMessage());
-            }
-        }
     }
 
     /**
@@ -69,18 +58,17 @@ public class Fred {
      * @param action A String array containing the action and its parameters.
      * @throws FredException If the action is invalid or cannot be executed.
      */
-    void executeAction(String[] action) throws FredException {
+    String executeAction(String[] action) throws FredException {
         String message = null;
         int taskNumber;
         Task task;
         switch (action[0]) {
         case "sayFarewell":
-            ui.sayFarewell();
-            exit();
+            message = "Bye. Hope to see you again soon!";
             break;
         case "printTaskList":
-            ArrayList<Task> taskList = tasks.getTaskList();
-            ui.printTaskList(taskList);
+            String taskListString = tasks.getTaskListString();
+            message = taskListString;
             break;
         case "markTaskAsDone":
             taskNumber = Integer.parseInt(action[1]);
@@ -110,12 +98,20 @@ public class Fred {
                     "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
             break;
         case "findTaskInTaskList":
-             ArrayList<Task> tasksWithKeyword = tasks.findTasksInTaskList(action[1]);
-             ui.printTasksWithKeyword(tasksWithKeyword);
-             break;
+            String tasksWithKeyword = tasks.findTasksInTaskList(action[1]);
+            message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
+            break;
         }
-        if (message != null) {
-            ui.say(message);
+        ui.say(message);
+        return message;
+    }
+
+    String getResponse(String input) {
+        try {
+            String[] action = parser.parseInput(input);
+            return executeAction(action);
+        } catch (FredException e) {
+            return e.getMessage();
         }
     }
 }
