@@ -17,7 +17,7 @@ public class FileReaderWriterStub extends FileReaderWriter{
      * @param taskList A {@link TaskList} instance (not used in this stub).
      */
     public FileReaderWriterStub(TaskList taskList) {
-        super(null);
+        super(null);// TaskList not used in this stub
     }
 
     /**

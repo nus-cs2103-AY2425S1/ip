@@ -75,7 +75,7 @@ public class TaskList {
      *
      * @return The number of tasks in the list.
      */
-    public String size() {
+    public String getSizeAsString() {
         return "" + list.size();
     }
 

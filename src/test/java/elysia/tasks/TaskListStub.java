@@ -34,7 +34,7 @@ public class TaskListStub extends TaskList{
      * @throws IndexOutOfBoundsException If the task number is -1.
      */
     @Override
-    public void markTask (int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
+    public void markTask (int taskNumber) {
         if (taskNumber == -1) {
             throw new IndexOutOfBoundsException("task not in tasklist");
         }
@@ -49,7 +49,7 @@ public class TaskListStub extends TaskList{
      * @throws IndexOutOfBoundsException If the task number is -1.
      */
     @Override
-    public void unmarkTask (int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
+    public void unmarkTask (int taskNumber) {
         if (taskNumber == -1) {
             throw new IndexOutOfBoundsException("task not in tasklist");
         }
@@ -81,7 +81,7 @@ public class TaskListStub extends TaskList{
      * @return An empty string.
      */
     @Override
-    public String size() {
+    public String getSizeAsString() {
         isSizeCalled = true;
         return "";
     }

@@ -1,17 +1,19 @@
 package elysia.tasks;
 
+import java.lang.IndexOutOfBoundsException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for the {@link TaskList} class.
  * Tests the functionality of adding and deleting tasks, as well as handling exceptions.
  */
 public class TaskListTest {
-    TaskList taskList;
+    private TaskList taskList;
 
     /**
      * Sets up the test environment before each test is run.
@@ -52,9 +54,6 @@ public class TaskListTest {
      */
     @Test
     void deleteTask_wrongIndex_exceptionThrown() {
-        try {
-            taskList.deleteTask(1);
-            fail();
-        } catch (IndexOutOfBoundsException ignored) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask(1));
     }
 }

@@ -75,7 +75,7 @@ public class InputOutputHandler {
                 Todo newTodo = new Todo(input.substring(5));
                 taskList.addTask(newTodo);
                 output = "Added the task below to your list~\n" + newTodo.toString() + "\n";
-                output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                output += "Wow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
             }
         } else if (input.startsWith("deadline")) {
             if (input.equals("deadline")) {
@@ -96,7 +96,7 @@ public class InputOutputHandler {
                 Deadline newDeadline = new Deadline(input.substring(9,index), date);
                 taskList.addTask(newDeadline);
                 output += "Added the task below to your list~\n" + newDeadline.toString() + "\n";
-                output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                output += "Wow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
             }
         } else if (input.startsWith("event")) {
             if (input.equals("event")) {
@@ -109,7 +109,7 @@ public class InputOutputHandler {
                         input.substring(index1+4));
                 taskList.addTask(newEvent);
                 output = "Added the task below to your list~\n" + newEvent.toString() + "\n";
-                output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                output += "Wow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
             }
         } else if (input.startsWith("delete")) {
             if (input.equals("delete")) {
@@ -120,7 +120,7 @@ public class InputOutputHandler {
                     Task deletedTask = taskList.deleteTask(index);
                     output = "You don't need this task below anymore? Ok deleting it~\n";
                     output += deletedTask.toString();
-                    output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                    output += "Wow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
                 } catch (IndexOutOfBoundsException e) {
                     output = "Uh oh, this task number does not exist...";
                 }
