@@ -58,6 +58,10 @@ public class Storage {
             }
         }
 
+        // Assert that the file is created and directory exists
+        assert Files.exists(DIR) : "Directory does not exist after creation attempt";
+        assert Files.exists(FILE) : "File does not exist after creation attempt";
+
         try (BufferedReader br = Files.newBufferedReader(FILE)) {
             String line = br.readLine();
             while (line != null) {
@@ -96,7 +100,10 @@ public class Storage {
     public void save() throws HanaException {
         try (BufferedWriter bw = Files.newBufferedWriter(FILE)) {
             for (Task task : tasks) {
-                bw.write(task.fileString());
+                String taskString = task.fileString();
+                // Assert that the task string is not null or empty
+                assert taskString != null && !taskString.isEmpty() : "Task string is null or empty";
+                bw.write(taskString);
                 bw.newLine();
             }
         } catch (IOException e) {
