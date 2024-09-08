@@ -86,6 +86,7 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+        tasks.sort((a, b) -> b.getPriority() - a.getPriority());
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(String.format("\t%d. ", i + 1));
             stringBuilder.append(tasks.get(i).toString());

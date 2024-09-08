@@ -6,6 +6,7 @@ import skibidi.command.DeleteCommand;
 import skibidi.command.FindCommand;
 import skibidi.command.ListCommand;
 import skibidi.command.MarkCommand;
+import skibidi.command.SetPriorityCommand;
 import skibidi.command.UnmarkCommand;
 import skibidi.task.AbstractTask.TaskValidationException;
 import skibidi.task.Deadline;
@@ -29,7 +30,8 @@ public class CommandParser {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND
+        FIND,
+        PRIORITY
     }
 
     /** Check if command is exit command. */
@@ -53,7 +55,7 @@ public class CommandParser {
             case UNMARK:
                 return new UnmarkCommand(Integer.parseInt(args[1].strip()));
             case TODO:
-                Todo todo = Todo.validateThenCreate(args);
+                Todo todo = Todo.validateThenCreate(args[1]);
                 String successMessage = String.format("ADDED TODO: %s\n", todo.toString());
                 return new AddCommand(todo, successMessage);
             case DEADLINE:
@@ -71,6 +73,14 @@ public class CommandParser {
                     throw new CommandParseException("COMMAND find REQUIRES A SEARCH QUERY");
                 }
                 return new FindCommand(args[1].strip());
+            case PRIORITY:
+                String[] cmdArgs = args[1].split(" ");
+                if (cmdArgs.length != 2) {
+                    throw new CommandParseException("COMMAND priority REQUIRES 2 ARGUMENTS");
+                }
+                return new SetPriorityCommand(
+                        Integer.parseInt(cmdArgs[0].strip()),
+                        Integer.parseInt(cmdArgs[1].strip()));
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
             }
