@@ -23,7 +23,7 @@ public class TodoTest {
     public void testTodoValidation_todoCreatedCorrectly() {
         String placeholderDescription = "Finish some chores.";
         Todo todo = new Todo(placeholderDescription);
-        String expected = "[T][ ] " + placeholderDescription;
+        String expected = "[T][ ][0] " + placeholderDescription;
         Assertions.assertEquals(expected, todo.toString());
     }
 

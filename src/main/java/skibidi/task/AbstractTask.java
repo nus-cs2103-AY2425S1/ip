@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public abstract class AbstractTask {
     protected String description;
     protected boolean isDone;
+    private int priority;
 
     /**
      * Exception thrown when input arguments given to constructor of any child
@@ -30,11 +31,13 @@ public abstract class AbstractTask {
     protected AbstractTask(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     protected AbstractTask(String marker, String description) {
         this.description = description;
         this.isDone = marker.equals("X");
+        this.priority = 0;
     }
 
     public String getStatusIcon() {
@@ -53,9 +56,17 @@ public abstract class AbstractTask {
         return this.description;
     }
 
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return String.format("[%s][%d] %s", getStatusIcon(), getPriority(), description);
     }
 
     /**
