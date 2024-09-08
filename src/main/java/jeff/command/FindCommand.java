@@ -9,6 +9,7 @@ import jeff.task.TaskList;
  * Represents a "Find task" command.
  */
 public class FindCommand extends Command {
+    private static final String WRONG_FORMAT_ERROR = "The format is wrong! It should be \"find(or f) xx\"!";
     /**
      * Constructor for FindCommand Class.
      * Stores the user's input.
@@ -20,12 +21,12 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Checks if the description for the find command inputted by the user is empty or not.
+     * Checks if the format of the user input is wrong or not.
      *
-     * @return true if the user input does not have a description and false otherwise.
+     * @return true if the user input is in the wrong format and false otherwise.
      */
-    private boolean isDescriptionEmpty() {
-        return !this.getInput().matches("find .+");
+    private boolean isFormatWrong() {
+        return !this.getInput().matches("find .+") && !this.getInput().matches("f .+");
     }
 
     /**
@@ -35,17 +36,15 @@ public class FindCommand extends Command {
      * @throws JeffException if there is no search text.
      */
     private String getSearchText() throws JeffException {
-        if (this.isDescriptionEmpty()) {
-            throw new JeffException("The format is wrong! It should be \"find xx\"!");
+        if (this.isFormatWrong()) {
+            throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
         String[] taskParts = this.getInput().split(" ", 2);
-        assert taskParts.length == 2 : "Task parts should be of length 2";
-
         String searchText = taskParts.length > 1 ? taskParts[1] : "";
 
         if (searchText.isEmpty()) {
-            throw new JeffException("The format is wrong! It should be \"find xx\"!");
+            throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
         return searchText;

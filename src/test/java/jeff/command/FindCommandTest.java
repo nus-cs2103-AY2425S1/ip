@@ -13,6 +13,8 @@ import jeff.storage.Storage;
 import jeff.task.TaskList;
 
 public class FindCommandTest {
+    private static final String WRONG_FORMAT_ERROR = "The format is wrong! It should be \"find(or f) xx\"!";
+
     private TaskList tasks;
     private Storage storage;
 
@@ -38,8 +40,26 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_findWordAlias_success() throws JeffException {
+        String response = new FindCommand("f book").execute(tasks, storage);
+
+        assertEquals(" Here are the matching tasks in your list:\n"
+                        + " 1.[T][  ] borrow book\n"
+                        + " 2.[D][  ] return book (by: Aug 30 2024 06:00 pm)\n",
+                response);
+    }
+
+    @Test
     public void execute_findPhrase() throws JeffException {
         String response = new FindCommand("find borrow book").execute(tasks, storage);
+
+        assertEquals(" Here are the matching tasks in your list:\n" + " 1.[T][  ] borrow book\n",
+                response);
+    }
+
+    @Test
+    public void execute_findPhraseAlias() throws JeffException {
+        String response = new FindCommand("f borrow book").execute(tasks, storage);
 
         assertEquals(" Here are the matching tasks in your list:\n" + " 1.[T][  ] borrow book\n",
                 response);
@@ -56,8 +76,26 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_findIncompleteWordAlias() throws JeffException {
+        String response = new FindCommand("f boo").execute(tasks, storage);
+
+        assertEquals(" Here are the matching tasks in your list:\n"
+                        + " 1.[T][  ] borrow book\n"
+                        + " 2.[D][  ] return book (by: Aug 30 2024 06:00 pm)\n",
+                response);
+    }
+
+    @Test
     public void execute_findByWord_throwsException() throws JeffException {
         Command c = new FindCommand("find by");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals("Sorry, no task contains the phrase by.", exception.toString());
+    }
+
+    @Test
+    public void execute_findByWordAlias_throwsException() throws JeffException {
+        Command c = new FindCommand("f by");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
         assertEquals("Sorry, no task contains the phrase by.", exception.toString());
@@ -72,11 +110,27 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_wrongFormat_throwsException() throws JeffException {
+    public void execute_findWordAlias_failure() throws JeffException {
+        Command c = new FindCommand("f food");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals("Sorry, no task contains the phrase food.", exception.toString());
+    }
+
+    @Test
+    public void execute_noSpacing_throwsException() throws JeffException {
         Command c = new FindCommand("findfood");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"find xx\"!", exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_noSpacingAlias_throwsException() throws JeffException {
+        Command c = new FindCommand("ffood");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
     }
 
     @Test
@@ -84,6 +138,14 @@ public class FindCommandTest {
         Command c = new FindCommand("find");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
-        assertEquals("The format is wrong! It should be \"find xx\"!", exception.toString());
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_emptyDescriptionAlias_throwsException() throws JeffException {
+        Command c = new FindCommand("f");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(WRONG_FORMAT_ERROR, exception.toString());
     }
 }

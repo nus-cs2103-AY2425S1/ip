@@ -237,22 +237,32 @@ public class TaskList {
      *
      * @param input User's input.
      * @param prefix Action that the user wants to take.
+     * @param alias Alias of the prefix.
      * @return The target task from the task list.
      * @throws JeffException if the input is in the wrong format or if the task number specified by the user does not
      *                       exist.
      */
-    public Task getTaskByCommand(String input, String prefix) throws JeffException {
+    public Task getTaskByCommand(String input, String prefix, String alias) throws JeffException {
         assert !prefix.isEmpty() : "Input prefix should not be empty";
 
         // Check if input is valid
-        if (!input.matches(prefix + "\\d+")) {
+        if (!input.matches(prefix + " \\d+") && !input.matches(alias + " \\d+")) {
             throw new JeffException(
-                    "The format is wrong! It should be \"" + prefix + "xx\", where xx is a number."
+                    String.format(
+                            "The format is wrong! It should be \"%s(or %s) xx\", where xx is a number.",
+                            prefix,
+                            alias
+                    )
             );
         }
 
-        // Get the task index
-        String taskNumberString = input.substring(prefix.length());
+        String taskNumberString;
+        if (input.matches(prefix + " \\d+")) {
+            taskNumberString = input.substring(prefix.length() + 1);
+        } else {
+            taskNumberString = input.substring(alias.length() + 1);
+        }
+
         int taskIndex = Integer.parseInt(taskNumberString) - 1;
 
         // Check if taskIndex exists in taskList

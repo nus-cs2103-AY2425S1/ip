@@ -10,6 +10,8 @@ import jeff.task.ToDoTask;
  * Represents an "Add to-do task" command.
  */
 public class AddToDoCommand extends AddCommand {
+    private static final String WRONG_FORMAT_ERROR = "The format is wrong! It should be \"todo(or t) xx\"";
+
     /**
      * Constructor for AddToDoCommand Class.
      * Stores the user's input.
@@ -21,12 +23,12 @@ public class AddToDoCommand extends AddCommand {
     }
 
     /**
-     * Checks if the description for the to-do task inputted by the user is empty or not.
+     * Checks if the format of the user input is wrong or not.
      *
-     * @return true if the user input does not have a description and false otherwise.
+     * @return true if the user input is in the wrong format and false otherwise.
      */
-    private boolean isDescriptionEmpty() {
-        return !this.getInput().matches("todo .+");
+    private boolean isFormatWrong() {
+        return !this.getInput().matches("todo .+") && !this.getInput().matches("t .+");
     }
 
     /**
@@ -35,7 +37,7 @@ public class AddToDoCommand extends AddCommand {
      * @return To-do task based on user input.
      */
     private ToDoTask createTask() {
-        assert !this.isDescriptionEmpty() : "To-do task description should not be empty when creating the task";
+        assert !this.isFormatWrong() : "To-Do task should not be in the wrong format when creating the task";
 
         String taskDescription = this.getTaskDescription();
         return new ToDoTask(taskDescription);
@@ -52,12 +54,16 @@ public class AddToDoCommand extends AddCommand {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
-        if (this.isDescriptionEmpty()) {
-            throw new JeffException("Sorry, the description of a todo cannot be empty!");
+        if (this.isFormatWrong()) {
+            throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
         Task targetTask = this.createTask();
+        assert targetTask != null : "Target task should not be null";
+
         tasks.addTask(targetTask);
+        assert tasks.contains(targetTask) : "Task list should contain the newly added task";
+
         storage.updateTaskListInDatabase(tasks);
 
         return this.getResponse(targetTask, tasks);

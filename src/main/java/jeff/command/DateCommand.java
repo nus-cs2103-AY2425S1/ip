@@ -12,7 +12,7 @@ import jeff.task.TaskList;
  * Represents a "Check what task is on a certain date" command.
  */
 public class DateCommand extends Command {
-    private static final String WRONG_FORMAT_ERROR = "The format is wrong! It should be \"date yyyy-mm-dd\"!";
+    private static final String WRONG_FORMAT_ERROR = "The format is wrong! It should be \"date(or dt) yyyy-mm-dd\"!";
 
     /**
      * Constructor for DateCommand Class.
@@ -25,12 +25,12 @@ public class DateCommand extends Command {
     }
 
     /**
-     * Checks if the user has inputted a description after the 'date' command.
+     * Checks if the format of the user input is wrong or not.
      *
-     * @return true if the user input does not have a description and false otherwise.
+     * @return true if the user input is in the wrong format and false otherwise.
      */
-    private boolean isDescriptionEmpty() {
-        return !this.getInput().matches("date .+");
+    private boolean isFormatWrong() {
+        return !this.getInput().matches("date .+") && !this.getInput().matches("dt .+");
     }
 
     /**
@@ -40,13 +40,10 @@ public class DateCommand extends Command {
      * @throws JeffException if the format of the user input is wrong.
      */
     private LocalDate getDate() throws JeffException {
-        assert !this.isDescriptionEmpty() : "Finding tasks by date should not have an empty date";
+        assert !this.isFormatWrong() : "Command should not be in the wrong format when getting date";
 
         String[] taskParts = this.getInput().split(" ", 2);
-        assert taskParts.length == 2 : "Input should be split into two parts";
-
         String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
-        assert !taskPeriod.isEmpty() : "Task period should not be empty";
 
         try {
             return LocalDate.parse(taskPeriod);
@@ -65,6 +62,7 @@ public class DateCommand extends Command {
      */
     private TaskList filterByDate(TaskList tasks, LocalDate taskDate) throws JeffException {
         TaskList filteredTasks = tasks.filterByDate(taskDate);
+        assert filteredTasks != null : "Filtered tasks list cannot be null";
 
         if (filteredTasks.isEmpty()) {
             throw new JeffException("No deadlines/events on " + Parser.toDateString(taskDate) + "!");
@@ -86,7 +84,7 @@ public class DateCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws JeffException {
         assert tasks != null : "Task list should not be null";
 
-        if (this.isDescriptionEmpty()) {
+        if (this.isFormatWrong()) {
             throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
@@ -94,7 +92,6 @@ public class DateCommand extends Command {
         assert taskDate != null : "Task date cannot be null";
 
         TaskList filteredTasks = this.filterByDate(tasks, taskDate);
-        assert filteredTasks != null : "Filtered tasks list cannot be null";
 
         String taskListString = filteredTasks.toString();
 
