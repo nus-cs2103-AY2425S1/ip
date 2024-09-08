@@ -24,13 +24,20 @@ public class Storage {
     private File file;
 
     /**
-     * Constructor for a Storage instance. If the file in the specified path does
-     * not exist, a new file with the specified path will be created.
+     * Constructor for a Storage instance.
      *
      * @param path path of the file to locate. "./savedTasks.txt" by default.
      */
     public Storage(String path) {
         this.path = path;
+        this.getFile();
+    }
+
+    /**
+     * Retrieve the file of the given path. If the file in the specified path does
+     * not exist, a new file with the specified path will be created.
+     */
+    private void getFile() {
         try {
             File tempFile = new File("./savedTasks.txt");
             if (!tempFile.exists()) {
@@ -54,30 +61,7 @@ public class Storage {
             Scanner scannedTasks = new Scanner(this.file);
             while (scannedTasks.hasNext()) {
                 String[] task = scannedTasks.nextLine().split(" \\| ");
-                Task tempTask;
-                switch (task[0]) {
-                case "T":
-                    tempTask = new ToDo(task[2]);
-                    break;
-                case "D":
-                    tempTask = new Deadline(task[2], task[3]);
-                    break;
-                case "E":
-                    tempTask = new Event(task[2], task[3], task[4]);
-                    break;
-                default:
-                    throw new HamyoException("Invalid case " + task[0] + ".");
-                }
-                switch (task[1]) {
-                case "1":
-                    tempTask.mark(false);
-                    break;
-                case "0":
-                    break;
-                default:
-                    throw new HamyoException("Invalid boolean " + task[1] + ".");
-                }
-                tasks.add(tempTask);
+                loadTask(task, tasks);
             }
             scannedTasks.close();
         } catch (HamyoException e) {
@@ -87,6 +71,43 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads an individual Task given as a Formatted String and adds it to the
+     * tasks TaskList.
+     * @param task The individual Task given as a Formatted String.
+     * @param tasks The list of the users' tasks.
+     * @throws HamyoException  If file is corrupted.
+     */
+    private static void loadTask(String[] task, TaskList tasks) throws HamyoException {
+        Task tempTask;
+        try {
+            switch (task[0]) {
+            case "T":
+                tempTask = new ToDo(task[2]);
+                break;
+            case "D":
+                tempTask = new Deadline(task[2], task[3]);
+                break;
+            case "E":
+                tempTask = new Event(task[2], task[3], task[4]);
+                break;
+            default:
+                throw new HamyoException("Invalid case " + task[0] + ".");
+            }
+            switch (task[1]) {
+            case "1":
+                tempTask.mark(false);
+                break;
+            case "0":
+                break;
+            default:
+                throw new HamyoException("Invalid boolean " + task[1] + ".");
+            }
+            tasks.add(tempTask);
+        } catch (HamyoException e) {
+            throw new HamyoException("Possible File Corruption. " + e.getMessage());
+        }
+    }
     /**
      * Saves tasks from the list of tasks into the file of the specified path.
      *
