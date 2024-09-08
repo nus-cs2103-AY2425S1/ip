@@ -1,3 +1,4 @@
+package shnoop.exceptions;
 public class UndefinedTaskException extends Exception {
 
     public UndefinedTaskException(String message) {

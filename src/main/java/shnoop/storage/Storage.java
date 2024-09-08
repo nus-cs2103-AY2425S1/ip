@@ -1,3 +1,8 @@
+package shnoop.storage;
+
+import shnoop.exceptions.*;
+import shnoop.tasks.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -58,6 +63,7 @@ public class Storage {
                 return new Deadline(desc, by, taskIsCompleted);
             }
         } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
         return null;

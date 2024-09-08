@@ -1,3 +1,4 @@
+package shnoop.exceptions;
 public class IncompleteEventOrDeadlineException extends Exception {
 
     public IncompleteEventOrDeadlineException(String message) {

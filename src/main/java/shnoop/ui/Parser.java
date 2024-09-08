@@ -1,3 +1,8 @@
+package shnoop.ui;
+
+import shnoop.command.*;
+import shnoop.exceptions.*;
+
 import java.io.IOException;
 
 public class Parser {
