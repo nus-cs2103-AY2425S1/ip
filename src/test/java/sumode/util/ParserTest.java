@@ -1,17 +1,20 @@
 package sumode.util;
 
-import org.junit.jupiter.api.Test;
-import sumode.exception.WrongSyntaxForCommandException;
-import sumode.util.Parser;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import sumode.exception.WrongSyntaxForCommandException;
+
+
 
 
 public class ParserTest {
 
     @Test
-    public void TestNormalEvent() {
+    public void testNormalEvent() {
         try {
             String[] parsed = Parser.parseEvent("parktour         /from now /to day");
             assertEquals("parktour", parsed[0]);
@@ -24,7 +27,7 @@ public class ParserTest {
     }
 
     @Test
-    public void TestFlipEvent() {
+    public void testFlipEvent() {
         try {
             String[] parsed = Parser.parseEvent("parktour         /to day /from     now  ");
             assertEquals("parktour", parsed[0]);
@@ -37,13 +40,14 @@ public class ParserTest {
     }
 
     @Test
-    public void TestEmptyStringEvent() {
-        try {
+    public void testEmptyStringEvent() {
+        Exception exception = assertThrows(WrongSyntaxForCommandException.class, () -> {
             String[] parsed = Parser.parseEvent("nothing /to /from");
-        } catch (Exception e) {
-            fail("Exception is thrown when is it not supposed to be. Exception message below\n"
-                    + e.getMessage());
-        }
+        });
+        assertEquals("""
+                        Sumo understood your command but dunno what you want! Please utilise "event" the correct way.
+                        The correct syntax is event <task name> /from <date> /to <date>.""",
+                exception.getMessage());
     }
 
 }
