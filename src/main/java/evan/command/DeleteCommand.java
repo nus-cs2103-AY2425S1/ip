@@ -1,9 +1,7 @@
 package evan.command;
 
 import evan.exception.NoSuchTaskException;
-import evan.main.Storage;
-import evan.main.TaskList;
-import evan.main.Ui;
+import evan.service.TaskList;
 
 /**
  * Represents a command that the chatbot can execute to delete a task.
@@ -24,16 +22,8 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws NoSuchTaskException {
+    public String execute(TaskList taskList) throws NoSuchTaskException {
         taskList.deleteTask(taskNumber);
-        ui.showSuccess("Okay, task (" + taskNumber + ") has been deleted.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Okay, task (" + taskNumber + ") has been deleted.";
     }
 }

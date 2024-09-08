@@ -1,8 +1,6 @@
 package evan.command;
 
-import evan.main.Storage;
-import evan.main.TaskList;
-import evan.main.Ui;
+import evan.service.TaskList;
 import evan.task.Deadline;
 
 /**
@@ -27,17 +25,9 @@ public class DeadlineCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList) {
         Deadline deadline = new Deadline(description, by);
         taskList.add(deadline);
-        ui.showSuccess("Got it. I've added this deadline:\n" + deadline);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this deadline:\n" + deadline;
     }
 }

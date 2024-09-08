@@ -1,4 +1,4 @@
-package evan.main;
+package evan.service;
 
 import static java.lang.Integer.parseInt;
 
@@ -9,7 +9,6 @@ import evan.command.Command;
 import evan.command.DeadlineCommand;
 import evan.command.DeleteCommand;
 import evan.command.EventCommand;
-import evan.command.ExitCommand;
 import evan.command.FindCommand;
 import evan.command.ListCommand;
 import evan.command.MarkCommand;
@@ -109,11 +108,7 @@ public class UserInputParser {
                 }
                 throw new InvalidUserInputException("The 'find' command requires <description>.");
             }
-            case "exit" -> {
-                return new ExitCommand();
-            }
             default -> throw new InvalidUserInputException("No such command exists.");
-
             }
         }
         throw new InvalidUserInputException("No command was provided.");

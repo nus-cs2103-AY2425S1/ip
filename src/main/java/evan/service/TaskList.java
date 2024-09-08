@@ -1,4 +1,4 @@
-package evan.main;
+package evan.service;
 
 import java.util.ArrayList;
 
@@ -92,18 +92,6 @@ public class TaskList {
             }
         }
         return new TaskList(matchingTasks);
-    }
-
-    /**
-     * Prints a formatted representation of the TaskList.
-     */
-    public void display() {
-        if (tasks.isEmpty()) {
-            System.out.println("Hooray! Your task list is empty!");
-        }
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, tasks.get(i));
-        }
     }
 
     /**

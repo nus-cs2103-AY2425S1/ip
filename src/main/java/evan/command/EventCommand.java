@@ -1,8 +1,6 @@
 package evan.command;
 
-import evan.main.Storage;
-import evan.main.TaskList;
-import evan.main.Ui;
+import evan.service.TaskList;
 import evan.task.Event;
 
 /**
@@ -30,17 +28,9 @@ public class EventCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList) {
         Event event = new Event(description, from, to);
         taskList.add(event);
-        ui.showSuccess("Got it. I've added this event:\n" + event);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this event:\n" + event;
     }
 }
