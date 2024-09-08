@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Papagu.Ui.Papagu.Main")
+    mainClass.set("Launcher.Main")
 }
 
 checkstyle {

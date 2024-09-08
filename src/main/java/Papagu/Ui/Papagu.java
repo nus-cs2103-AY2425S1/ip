@@ -1,8 +1,13 @@
-package Papagu.Ui; 
+package Papagu.Ui;
 
-import java.nio.file.Paths;
-import java.util.Scanner;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
+import java.util.Scanner;
+
+
+
 
 /**
  * Main class for Papagu chatbot
@@ -17,7 +22,6 @@ public class Papagu {
     /**
      * Constructor for Papagu
      * Reads off any tasks from tasks.txt file
-     * 
      */
     public Papagu(String filePath) {
         ui = new Ui();
@@ -46,14 +50,33 @@ public class Papagu {
         sc.close();
     }
 
-    public static void main(String[] args) {
-        // Print current working directory
-        //System.out.println("Working Directory = " + Paths.get("").toAbsolutePath().toString());
+    /**
+     * Function to get response from Papagu
+     * @param input
+     * @return response
+     */
+    public String getResponse(String input) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        PrintStream originalOut = System.out;
+        System.setOut(printStream);
+        if (input.equals("bye")) {
+            Ui.printBye();
+            System.setOut(originalOut);
+            String capturedOutput = outputStream.toString();
+            return capturedOutput;
+        } else {
+            Parser.parseInput(tasks, input, this.storage);
+            System.setOut(originalOut);
+            String capturedOutput = outputStream.toString();
+            return capturedOutput;
+        }
+    }
 
-        // Print classpath
-        //System.out.println("Classpath = " + System.getProperty("java.class.path"));
+    public static void main(String[] args) {
         new Papagu("data/tasks.txt").run();
     }
+
 }
 
 
