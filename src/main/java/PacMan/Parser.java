@@ -55,6 +55,10 @@ public class Parser {
         ui.showResult("Now you have " + list.getSize() + " tasks in the list.");
     }
 
+    private static void addTask(String matcher) {
+        ui.showResult(list.findTask(matcher));
+    }
+
     /**
      * Execute the command
      * If the command add, delete, or mark the tasks, <code>execute</code> use <code>list</code>'s method
@@ -113,6 +117,9 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.showResult("I'm sorry, but it's invalid index :(");
             }
+        }
+        case "find" -> {
+            addTask(command.split(" ", 2)[1]);
         }
         default -> ui.showResult("I'm sorry, but I can't understand what you ask :(");
         }

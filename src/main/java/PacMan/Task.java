@@ -32,6 +32,10 @@ public class Task {
         return mark + "/" + taskName;
     }
 
+    public boolean isMatched(String matcher) {
+        return this.taskName.contains(matcher);
+    }
+
     @Override
     public String toString() {
         String mark = this.markDone ? "X" : " ";
