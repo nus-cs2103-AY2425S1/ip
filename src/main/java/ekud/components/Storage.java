@@ -59,11 +59,11 @@ public class Storage {
         try {
             if (!directory.exists()) {
                 boolean createdDirectory = directory.mkdir();
-                assert (createdDirectory);
+                assert (createdDirectory) : "directory should have been created";
             }
             boolean createdFile = dataFile.createNewFile();
 
-            assert (createdFile);
+            assert (createdFile) : "save file should have been created";
         } catch (IOException e) {
             String error = String.format("Oh no!! I could not create a save file for you\n  ERROR %s", e);
             ui.addToBuffer(error);
@@ -110,8 +110,7 @@ public class Storage {
 
             boolean deletedOriginal = dataFile.delete();
             boolean renamed = copy.renameTo(dataFile);
-            boolean deleted = copy.delete();
-            assert(deletedOriginal && renamed && deleted);
+            assert (deletedOriginal && renamed) : "original file should be replaced";
         } catch (IOException e) {
             String error = String.format("""
                     Something went wrong when trying to load your save!
