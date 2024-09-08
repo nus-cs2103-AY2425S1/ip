@@ -1,5 +1,9 @@
 package myapp.helperbuddy;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -8,10 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Main class which represents the JavaFX GUI for the chatbot
