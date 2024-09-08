@@ -6,27 +6,32 @@ import infinity.storage.Storage;
  * This abstract class are the tasks that the bot will recognise and manage.
  */
 public abstract class Task {
+    /** Marker for reader if marked */
+    public static final String MARKED_MARKER = "X";
+    /** Marker for reader if not done */
+    public static final String UNMARKED_MARKER = " ";
+    /** Type of Tasks available as enum */
+    public enum TaskTypes {
+        D,
+        E,
+        T
+    }
     /** Description of the Task */
     protected String description;
     /** Status of the Task, whether it is marked */
     protected boolean isDone = false;
     /** Type of Task */
     protected Task.TaskTypes typeOfTask;
-    public enum TaskTypes {
-        D,
-        E,
-        T
-    }
-    /** Marker for reader if marked */
-    public static final String MARKED_MARKER = "X";
-    /** Marker for reader if not done */
-    public static final String UNMARKED_MARKER = " ";
 
     /**
      * Sets the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**

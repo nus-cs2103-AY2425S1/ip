@@ -36,9 +36,6 @@ public class TaskListTest {
             fail();
         } catch (InfinityException e) {
             assertEquals(e.getMessage(), """
-
-                    Infinity
-                    --------
                     I'm sorry, but I can't remember more tasks.
                     """);
             System.out.println("Test 2: Too Many Todo Added - passed");
@@ -67,9 +64,6 @@ public class TaskListTest {
             fail();
         } catch (InfinityException e) {
             assertEquals(e.getMessage(), """
-
-                    Infinity
-                    --------
                     Hmmm, you seem to have chose a task that doesn't exist. Nice try :)
                     """);
             System.out.println("Test 4: Invalid Todo Deleted - passed");
@@ -84,9 +78,6 @@ public class TaskListTest {
             fail();
         } catch (InfinityException e) {
             assertEquals(e.getMessage(), """
-
-                    Infinity
-                    --------
                     Hey! That's not a number
                     """);
             System.out.println("Test 5: Invalid String Parsed for Delete - passed");
@@ -98,7 +89,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList(new ArrayList<>());
         try {
             taskList.addTask(new ToDos("todo task A"));
-            taskList.markTask("mark 1");
+            taskList.markTask("1");
             assertEquals(taskList.getTasks().get(0).toString(), "[T][X] todo task A");
             System.out.println("Test 6: Valid Marked Test - passed");
         } catch (Exception e) {
@@ -114,10 +105,7 @@ public class TaskListTest {
             fail();
         } catch (InfinityException e) {
             assertEquals(e.getMessage(), """
-
-                    Infinity
-                    --------
-                    Hmmm, I can't find that task. Please try again.
+                    Hey! That's not a number
                     """);
             System.out.println("Test 7: Invalid Marked Test - passed");
         }

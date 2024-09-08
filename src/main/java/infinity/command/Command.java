@@ -1,6 +1,7 @@
 package infinity.command;
 
 import infinity.infinityexception.InfinityException;
+import infinity.parser.Parser;
 import infinity.storage.Storage;
 import infinity.task.Deadline;
 import infinity.task.Event;
@@ -13,7 +14,10 @@ import infinity.ui.Ui;
  */
 public class Command {
 
-    private enum KnownCommands {
+    /**
+     * Commands that the bot knows and can use as enum.
+     */
+    public enum KnownCommands {
         BYE,
         DEADLINE,
         DELETE,
@@ -51,57 +55,72 @@ public class Command {
     /**
      * Finds the command to execute given the user input and executes it.
      *
-     * @param currentInput User input.
+     * @param input User input.
      * @param botTasks Tasklist of tasks.
      * @return The bot output.
      * @throws InfinityException If there are errors encountered parsing or executing commands.
      */
-    public static String findCommand(String currentInput, TaskList botTasks) throws InfinityException {
+    public static String findCommand(String input, TaskList botTasks) throws InfinityException {
 
         String botOutput;
 
-        if (doesInputEqualCommand(currentInput, KnownCommands.BYE)) {
+        if (doesInputEqualCommand(input, KnownCommands.BYE)) {
 
             botOutput = Ui.endBot();
 
-        } else if (doesInputEqualCommand(currentInput, KnownCommands.LIST)) {
+        } else if (doesInputEqualCommand(input, KnownCommands.LIST)) {
 
             botOutput = botTasks.listTasks();
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.MARK) && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.MARK)) {
 
-            botOutput = botTasks.markTask(currentInput);
+            botOutput = Parser.parseAndRun(
+                    botTasks::markTask,
+                    input,
+                    KnownCommands.MARK);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.TODO) && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.TODO)) {
 
-            botOutput = botTasks.addTask(new ToDos(currentInput.substring(5)));
+            botOutput = Parser.parseAndRun((String eachInput) -> botTasks.addTask(new ToDos(eachInput)),
+                                            input,
+                                            KnownCommands.TODO);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.DEADLINE) && currentInput.length() > 9) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.DEADLINE)) {
 
-            botOutput = botTasks.addTask(new Deadline(currentInput.substring(9)));
+            botOutput = Parser.parseAndRun((String eachInput) -> botTasks.addTask(new Deadline(eachInput)),
+                                            input,
+                                            KnownCommands.DEADLINE);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.EVENT) && currentInput.length() > 6) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.EVENT)) {
 
-            botOutput = botTasks.addTask(new Event(currentInput.substring(6)));
+            botOutput = Parser.parseAndRun((String eachInput) -> botTasks.addTask(new Event(eachInput)),
+                                            input,
+                                            KnownCommands.EVENT);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.DELETE) && currentInput.length() > 7) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.DELETE)) {
 
-            botOutput = botTasks.deleteTask(currentInput.substring(7));
+            botOutput = Parser.parseAndRun(
+                    botTasks::deleteTask,
+                    input,
+                    KnownCommands.DELETE);
             Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.FIND) && currentInput.length() > 5) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.FIND)) {
 
-            botOutput = botTasks.findTasks(currentInput.substring(5));
+            botOutput = Parser.parseAndRun(
+                    botTasks::findTasks,
+                    input,
+                    KnownCommands.FIND);
 
-        } else if (doesInputStartsWithCommand(currentInput, KnownCommands.SAVE)) {
+        } else if (doesInputStartsWithCommand(input, KnownCommands.SAVE)) {
 
             botOutput = Storage.saveFile(botTasks.getTasks());
 
-        } else if (doesInputEqualCommand(currentInput, KnownCommands.HELP)) {
+        } else if (doesInputEqualCommand(input, KnownCommands.HELP)) {
 
             botOutput = Ui.getCommands();
 

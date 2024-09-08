@@ -2,7 +2,6 @@ package infinity.storage;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,13 +15,16 @@ import infinity.task.Event;
 import infinity.task.Task;
 import infinity.task.ToDos;
 import infinity.tasklist.TaskList;
-import infinity.ui.Ui;
 
 /**
  * This class handles the storage of the tasks in a file.
  */
 public class Storage {
 
+    /** Marker for Save file if done */
+    public static final String DONE_MARKER = "1";
+    /** Marker for Save file if not done */
+    public static final String UNDONE_MARKER = "0";
     /** Filepath Directory for Save file */
     private static final String FILE_DIR_PATH = "../../../../data";
     /** Filename for Save file */
@@ -33,13 +35,9 @@ public class Storage {
     private static final String DELIMITER = "\0";
     /** Bot reply for issue encountered. */
     private static final String BOT_ERROR_IO =
-            "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? ";
+            "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug?\n";
     /** Bot reply for successful save */
-    private static final String BOT_SUCCESSFUL_SAVE = "Save Successful, Woohoo!";
-    /** Marker for Save file if done */
-    public static final String DONE_MARKER = "1";
-    /** Marker for Save file if not done */
-    public static final String UNDONE_MARKER = "0";
+    private static final String BOT_SUCCESSFUL_SAVE = "Save Successful, Woohoo!\n";
 
     /**
      * Combines the description of the remainder of the text, if the text includes the delimiter.
@@ -103,7 +101,7 @@ public class Storage {
         } catch (NoSuchElementException e) {
             // Do nothing, likely means end of file
         }
-        
+
         assert doesFileExist() : "Save file should exist";
         return tasks;
     }
@@ -119,9 +117,9 @@ public class Storage {
             createFileIfNotExists();
             return readFile();
         } catch (IOException | InfinityException e) {
-            throw new InfinityException(Ui.botSays(
+            throw new InfinityException(
                     "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? "
-                            + e.getMessage()));
+                            + e.getMessage());
         }
     }
 
@@ -146,9 +144,9 @@ public class Storage {
 
             file.close();
 
-            return Ui.botSays(BOT_SUCCESSFUL_SAVE);
+            return BOT_SUCCESSFUL_SAVE;
         } catch (IOException e) {
-            throw new InfinityException(Ui.botSays(BOT_ERROR_IO + e.getMessage()));
+            throw new InfinityException(BOT_ERROR_IO + e.getMessage());
         }
     }
 

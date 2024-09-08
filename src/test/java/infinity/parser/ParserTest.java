@@ -40,42 +40,42 @@ public class ParserTest {
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         try {
             assertEquals(Parser.parseDateTime("01/12/2024 2360"),
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         try {
             assertEquals(Parser.parseDateTime("32/12/2024 2459"),
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         try {
             assertEquals(Parser.parseDateTime("00/12/2024 2459"),
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         try {
             assertEquals(Parser.parseDateTime("01/13/2024 2459"),
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         try {
             assertEquals(Parser.parseDateTime("01/00/2024 2459"),
                     LocalDateTime.of(2024, 12, 1, 0, 59));
             fail();
         } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format");
+            assertEquals(e.getMessage(), "Invalid date time format\n");
         }
         System.out.println("Test 4: Invalid Dates - passed");
     }
