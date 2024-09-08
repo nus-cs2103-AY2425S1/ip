@@ -29,6 +29,9 @@ public class Bruno {
      * @param filePath The path to the file that stores task data.
      */
     public Bruno(String directoryPath, String filePath) {
+        assert directoryPath != null : "Directory path is null";
+        assert filePath != null : "File path is null";
+
         this.storage = new Storage(directoryPath, filePath);
         this.storage.ensureDirectoryExists();
         this.storage.ensureFileExists();
@@ -44,6 +47,8 @@ public class Bruno {
 
     public String getResponse(String input) {
         try {
+            assert input != null : "Input string is null";
+
             Command c = Parser.parse(input, taskList);
             c.execute();
             commandType = c.getClass().getSimpleName();
