@@ -58,6 +58,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bot.getResponse(input);
+        assert userImage != null;
+        assert botImage != null;
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getBotDialog(response, botImage)

@@ -15,6 +15,7 @@ public class WheelyBigCheese {
 
     WheelyBigCheese() {
         ui = new Ui();
+        assert !LIST_FILE_PATH.isBlank();
         storage = new Storage(LIST_FILE_PATH);
         exitChat = false;
         try {
@@ -49,6 +50,7 @@ public class WheelyBigCheese {
             exitChat = true;
             return ui.say(e);
         }
+        assert !response.isBlank();
         return response;
     }
 
