@@ -21,16 +21,15 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm optimus.Optimus");
-        System.out.println("What can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Optimus\nWhat can I do for you?";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -48,10 +47,9 @@ public class Ui {
      * @param task the task that has been added.
      * @param size the current number of tasks in the list.
      */
-    public void TaskAdded(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
+    public String taskAdded(Task task, int size) {
+        return "Got it. I've added this task:\n  " + task.toString() +
+                "\nNow you have " + size + (size == 1 ? " task" : " tasks") + " in the list.";
     }
 
     /**
@@ -60,10 +58,9 @@ public class Ui {
      * @param task the task that has been removed.
      * @param size the current number of tasks in the list.
      */
-    public void TaskDeleted(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
+    public String TaskDeleted(Task task, int size) {
+        return "Noted. I've removed this task:\n  " + task.toString() +
+                "\nNow you have " + size + (size == 1 ? " task" : " tasks") + " in the list.";
     }
 
     /**
@@ -71,11 +68,12 @@ public class Ui {
      *
      * @param tasks the list of tasks to display.
      */
-    public void listTasks(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks(TaskList tasks) {
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.sizeOfRecord(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i).toString());
+            response.append((i + 1)).append(". ").append(tasks.getTask(i).toString()).append("\n");
         }
+        return response.toString();
     }
 
     /**
@@ -83,9 +81,8 @@ public class Ui {
      *
      * @param task the task that has been marked as done.
      */
-    public void TaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.toString());
+    public String TaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task.toString();
     }
 
     /**
@@ -93,9 +90,8 @@ public class Ui {
      *
      * @param task the task that has been marked as not done.
      */
-    public void TaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task.toString());
+    public String TaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n  " + task.toString();
     }
 
     /**
@@ -103,11 +99,12 @@ public class Ui {
      *
      * @param tasks the list of tasks to display.
      */
-    public void listFoundTasks(List<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String listFoundTasks(List<Task> tasks) {
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
+        return response.toString();
     }
 
     /**
@@ -115,7 +112,17 @@ public class Ui {
      *
      * @param message the error message to display.
      */
-    public void printError(String message) {
-        System.out.println(message);
+    public String printError(String message) {
+        return message;
+    }
+
+    /**
+     * Returns a response message to display in the GUI.
+     *
+     * @param response the response message to display.
+     * @return the response message as a string.
+     */
+    public String printResponse(String response) {
+        return response;
     }
 }

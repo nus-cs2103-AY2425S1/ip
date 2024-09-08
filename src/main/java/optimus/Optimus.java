@@ -31,26 +31,15 @@ public class Optimus {
     /**
      * Starts the main loop of the Optimus application, reading and processing user commands.
      */
-    public void run() {
-        ui.showWelcome();
-        while (true) {
-            String command = ui.readCommand();
-            try {
-                Task task = Parser.parseCommand(command, tasks, ui, storage);
-                if (task != null) {
-                    tasks.addTask(task);
-                    ui.TaskAdded(task, tasks.sizeOfRecord());
-                }
-            } catch (OptimusException | IOException e) {
-                ui.printError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            // Parse the user's input command and get the response string
+            return Parser.parseCommand(input, tasks, ui, storage);
+        } catch (OptimusException | IOException e) {
+            // Return the error message if an exception occurs
+            return "Error: " + e.getMessage();
         }
     }
 
-    /**
-     * The entry point for the Optimus application.
-     */
-    public static void main(String[] args) {
-        new Optimus(FILE_PATH).run();
-    }
+
 }
