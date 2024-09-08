@@ -65,7 +65,7 @@ public class YappingBot {
      */
     private void saveAndCleanup() {
         // REVERT LIST TO MAIN PARENT!
-        userList = commandDispatch.resetView(userList);
+        userList = commandDispatch.resetView(userList, true);
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -86,7 +86,7 @@ public class YappingBot {
                 case EXIT:
                     return;
                 case RESET_LIST:
-                    userList = commandDispatch.resetView(userList);
+                    userList = commandDispatch.resetView(userList, false);
                     break;
                 case LIST:
                     commandDispatch.printUserList(userList);

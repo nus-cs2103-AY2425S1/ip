@@ -31,15 +31,18 @@ public class CommandDispatcher {
      * Resets the currentUserList to default view if it is currently a filter view.
      *
      * @param currentUserList TaskList that needs to be resetted
+     * @param silent boolean on whether to run this silently
      * @return TaskList of the whole task list, not filtered
      */
-    public TaskList resetView(TaskList currentUserList) {
+    public TaskList resetView(TaskList currentUserList, boolean silent) {
         // reset the view to main parent
         TaskList userList = currentUserList;
         while (userList instanceof TaskListFilterView) {
             userList = ((TaskListFilterView) userList).getParent();
         }
-        ui.println(ReplyTextMessages.RESET_TEXT);
+        if (!silent) {
+            ui.println(ReplyTextMessages.RESET_TEXT);
+        }
         return userList;
     }
 

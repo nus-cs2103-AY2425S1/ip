@@ -15,7 +15,7 @@ public class UiCli implements Ui {
     private static final String PREFIX_EMPTY = " |";
     private final Scanner scanner;
 
-    public UiCli () {
+    public UiCli() {
         this.scanner = new Scanner(System.in);
     }
 

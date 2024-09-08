@@ -7,6 +7,10 @@ import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
 import yappingbot.ui.Ui;
 
+/**
+ * UI implementation for javafx GUI.
+ * Abides by the UI contract that YappingBot uses.
+ */
 public class UiGui implements Ui {
 
     ArrayDeque<String> inputBuffer = new ArrayDeque<>();
@@ -30,22 +34,23 @@ public class UiGui implements Ui {
 
     @Override
     public void printError(String e) {
-        System.out.println(e);
+        println(e);
     }
 
     @Override
     public void printError(YappingBotException e) {
-        System.out.println(e.getErrorMessage());
+        println(e.getErrorMessage());
     }
 
     @Override
     public void printfError(String formattedString, Object... o) {
-        System.out.printf(formattedString, o);
+        printf(formattedString, o);
     }
 
     @Override
     public boolean hasInputLines() {
         while (inputBuffer.isEmpty()) {
+            Thread.onSpinWait();
             if (programClose) {
                 return false;
             }
@@ -64,7 +69,13 @@ public class UiGui implements Ui {
 
     @Override
     public boolean hasOutputLines() {
-        return !outputBuffer.isEmpty();
+        while (outputBuffer.isEmpty()) {
+            Thread.onSpinWait();
+            if (programClose) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

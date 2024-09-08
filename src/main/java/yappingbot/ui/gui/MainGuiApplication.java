@@ -19,11 +19,15 @@ import yappingbot.storage.Storage;
  */
 public class MainGuiApplication extends Application {
 
-    private UiGui ui;
+    private static final UiGui ui = new UiGui();
 
     @Override
     public void start(Stage stage) {
-        ui = new UiGui();
+        stage.setOnCloseRequest(e -> {
+            ui.setProgramClose(true);
+            Platform.exit();
+            System.exit(0);
+        });
 
         try {
             URL mainWindowResource = MainGuiApplication.class.getResource("/view/MainWindow.fxml");
@@ -35,27 +39,11 @@ public class MainGuiApplication extends Application {
             stage.setScene(scene);
             fxmlloader.<MainWindow>getController().setUi(ui);
 
-            stage.setOnCloseRequest(e -> {
-                ui.setProgramClose(true);
-                // HACK: we're just hoping yp cleans up faster than this
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException(ex);
-                }
-                Platform.exit();
-                System.exit(0);
-            });
-
 
             stage.show();
             YappingBot yp = new YappingBot(ui, new Storage(Launcher.getSavefilePath()));
-            // yp.start();
-
-            // reach here when yp stops
-            ui.setProgramClose(true);
-
+            Thread ypLogic = new Thread(yp::start);
+            ypLogic.start();
 
         } catch (IOException e) {
             ui.printError(e.getMessage());
