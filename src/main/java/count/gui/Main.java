@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import count.Count;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -25,8 +26,13 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCount(count);
             stage.show();
+            // TODO:
+            if (!this.count.getOnStatus()) {
+                Platform.exit();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
