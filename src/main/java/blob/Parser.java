@@ -1,6 +1,7 @@
 package blob;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Handles the manipulation of input from the user.
@@ -96,7 +97,7 @@ public class Parser {
                     a = a.append(str);
                 }
 
-                Todo t = new Todo(a.toString(), false);
+                Todo t = new Todo(a.toString(), false, new ArrayList<String>());
                 tasklist.addTask(t);
                 msg.append("Got it. I've added this task:\n");
                 msg.append(t + "\n");
@@ -141,7 +142,7 @@ public class Parser {
                 String Iso8601Format = stringDate.toString() + "T" + stringTime.toString() + ":00";
 
                 try {
-                    Deadline d = new Deadline(a.toString(), false, Iso8601Format);
+                    Deadline d = new Deadline(a.toString(), false, Iso8601Format, new ArrayList<String>());
                     tasklist.addTask(d);
                     msg.append("Got it. I've added this task:\n");
                     msg.append(d + "\n");
@@ -207,7 +208,7 @@ public class Parser {
                 String endIso8601Format = endDate.toString() + "T" + endTime.toString() + ":00";
 
                 try {
-                    Event e = new Event(a.toString(), false, startIso8601Format, endIso8601Format);
+                    Event e = new Event(a.toString(), false, startIso8601Format, endIso8601Format, new ArrayList<String>());
                     tasklist.addTask(e);
                     msg.append("Got it. I've added this task:\n");
                     msg.append(e + "\n");
@@ -248,6 +249,49 @@ public class Parser {
                     }
                     return msg.toString();
                 }
+            } else if (act.equals("tag")) {
+                StringBuilder s = new StringBuilder("");
+
+                //if 'tag' doesn't come with the proper amount of parameters
+                if (arr.length < 3) {
+                    s.append("'tag' requires the next two parameters 'task number' and 'tag name'!");
+                    return s.toString();
+                }
+
+                try {
+                    int index = Integer.parseInt(arr[i + 1]) - 1;
+                    String tag = arr[i + 2];
+                    tasklist.tagTask(index, tag);
+                    s.append("OK, I've tagged this task as such:\n");
+                    s.append(tasklist.getTask(index));
+                } catch (NumberFormatException e) {
+                    s.append("Invalid Command!");
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = Integer.parseInt(arr[i + 1]);
+                    s.append(String.format("There is no task at task number '%d'", taskNum));
+                }
+                return s.toString();
+            } else if (act.equals("untag")) {
+                StringBuilder s = new StringBuilder("");
+
+                //if 'tag' doesn't come with the proper amount of parameters
+                if (arr.length < 2) {
+                    s.append("'untag' requires the parameter 'task number'!");
+                    return s.toString();
+                }
+
+                try {
+                    int index = Integer.parseInt(arr[i + 1]) - 1;
+                    tasklist.untagTask(index);
+                    s.append("OK, I've untagged this task as such:\n");
+                    s.append(tasklist.getTask(index));
+                } catch (NumberFormatException e) {
+                    s.append("Invalid Command!");
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = Integer.parseInt(arr[i + 1]);
+                    s.append(String.format("There is no task at task number '%d'", taskNum));
+                }
+                return s.toString();
             } else {
                     return "ERROR! Unknown Command!";
             }

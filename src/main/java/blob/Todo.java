@@ -1,12 +1,14 @@
 package blob;
 
+import java.util.ArrayList;
+
 /**
  * Represents a 'ToDo' task.
  * Constructor requires name and boolean value of whether task is done or not.
  */
 public class Todo extends Task {
-    public Todo(String name, boolean isDone) {
-        super(name,isDone);
+    public Todo(String name, boolean isDone, ArrayList<String> tags) {
+        super(name, isDone, tags);
         super.type = "T";
     }
 
@@ -15,7 +17,15 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + "[" + this.check() + "] " + this.name;
+        if (this.tags.isEmpty()) {
+            return "[T]" + "[" + this.check() + "] " + this.name;
+        }
+        StringBuilder tags = new StringBuilder("");
+        for (int i = 0; i < this.tags.size(); i++) {
+            String tag = this.tags.get(i);
+            tags.append("#" + tag + " ");
+        }
+        return "[T] [" + this.check() + "] " + this.name + " - " + tags.toString();
     }
 }
 

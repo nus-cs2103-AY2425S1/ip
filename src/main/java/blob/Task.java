@@ -1,5 +1,7 @@
 package blob;
 
+import java.util.ArrayList;
+
 /**
  * Represents a Task that contains the following fields, a String representation of its type,
  * a name, and a boolean value of whether it is done or not.
@@ -8,10 +10,12 @@ public class Task {
     protected String type;
     protected String name;
     protected boolean isDone;
+    protected ArrayList<String> tags = new ArrayList<>();
 
-    public Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone, ArrayList<String> tags) {
         this.name = name;
         this.isDone = isDone;
+        this.tags = tags;
     }
 
     /**
@@ -37,10 +41,35 @@ public class Task {
     }
 
     /**
-     * @return String representation of the task of form "['completion status'] 'task name'"
+     * @return String representation of the task of form "['completion status'] 'task name' - #tag1 #tag2..."
      */
     @Override
     public String toString() {
-        return "[" + this.check() + "] " + this.name;
+        if (this.tags.isEmpty()) {
+            return "[" + this.check() + "] " + this.name;
+        } else {
+            StringBuilder tags = new StringBuilder("");
+            for (int i = 0; i < this.tags.size(); i++) {
+                String tag = this.tags.get(i);
+                tags.append("#" + tag + " ");
+            }
+            return "[" + this.check() + "] " + this.name + " - " + tags.toString();
+        }
+    }
+
+    public String displayTags() {
+        if (this.tags.isEmpty()) {
+            return "";
+        } else {
+            StringBuilder tags = new StringBuilder("");
+            for (int i = 0; i < this.tags.size(); i++) {
+                if (i != this.tags.size() - 1) {
+                    tags.append(this.tags.get(i) + ",");
+                } else {
+                    tags.append(this.tags.get(i));
+                }
+            }
+            return tags.toString();
+        }
     }
 }
