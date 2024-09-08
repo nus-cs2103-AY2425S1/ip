@@ -62,3 +62,6 @@ run this -> ./gradlew checkstyleMain checkstyleTest
 # to run GUI in gradle
 ./gradlew build
 ./gradlew run 
+
+# editing 
+edit 1 Complete the assignment

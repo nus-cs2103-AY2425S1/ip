@@ -167,6 +167,18 @@ public class Ui {
     }
 
     /**
+     * Displays a message indicating that a task has been edited successfully.
+     *
+     * @param task The task that was edited.
+     */
+    public void showEditSuccess(Task task) {
+        lastResponse = "Task edited successfully:\n   " + task;
+        System.out.println("____________________________________________________________");
+        System.out.println(lastResponse);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
      * Returns the last response displayed to the user.
      *
      * @return The last response string.

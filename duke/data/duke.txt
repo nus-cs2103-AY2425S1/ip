@@ -1,4 +1,4 @@
-T | 0 | buy groceries
+T | 0 | Complete the assignment
 E | 0 | team meeting | 2pm | 4pm
 D | 0 | return book | 2019-10-15
 D | 0 | buy groceries | 2019-10-15

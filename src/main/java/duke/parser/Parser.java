@@ -82,6 +82,21 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
                 }
+            case "edit":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("edit");
+                }
+                String[] editParts = words[1].split(" ", 2);
+                if (editParts.length < 2 || editParts[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("edit description");
+                }
+                int taskIndex;
+                try {
+                    taskIndex = Integer.parseInt(editParts[0]) - 1;
+                } catch (NumberFormatException e) {
+                    throw new UnknownCommandException("Invalid task number.");
+                }
+                return new EditCommand(taskIndex, editParts[1].trim());
             default:
                 throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
         }

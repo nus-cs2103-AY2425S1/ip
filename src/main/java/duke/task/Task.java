@@ -70,4 +70,13 @@ public abstract class Task {
      * @return A formatted string for saving the task to a file.
      */
     public abstract String toSaveFormat();
+
+        /**
+     * Sets a new description for the task.
+     *
+     * @param description The new description to set.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
