@@ -28,8 +28,7 @@ public class Deadline extends Task {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
-                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
-                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
     }
 
@@ -47,8 +46,7 @@ public class Deadline extends Task {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
-                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
-                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
     }
 

@@ -24,12 +24,13 @@ public class MarkDoneCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new MissingIndexExceptions("mark", "mark <index>");
         }
         int markIndex = Integer.parseInt(description);
-        taskList.markDone(markIndex, ui);
+        String response = taskList.markDone(markIndex, ui);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }

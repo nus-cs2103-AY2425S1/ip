@@ -11,6 +11,6 @@ public class ToothlessExceptions extends Exception {
      * @param message the error message to be displayed
      */
     public ToothlessExceptions(String message) {
-        super("Toothless:\nOops! Some error has occurred! X.X\n\n" + message);
+        super("Oops! Some error has occurred! X.X\n\n" + message);
     }
 }

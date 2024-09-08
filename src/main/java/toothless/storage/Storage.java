@@ -30,7 +30,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Toothless:\nOh no! There is an error saving quests to file.");
+            System.out.println("Oh no! There is an error saving quests to file.");
         }
     }
 
@@ -64,7 +64,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Toothless:\nOh no! There is an error loading quests from file.");
+            System.out.println("Oh no! There is an error loading quests from file.");
         }
 
         return list;

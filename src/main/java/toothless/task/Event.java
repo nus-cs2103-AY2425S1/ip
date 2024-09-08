@@ -30,8 +30,7 @@ public class Event extends Task {
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (Exception e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
-                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
-                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
     }
 
@@ -51,8 +50,7 @@ public class Event extends Task {
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (Exception e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
-                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
-                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
     }
 
