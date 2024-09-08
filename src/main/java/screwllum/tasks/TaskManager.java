@@ -1,6 +1,6 @@
 package screwllum.tasks;
 
-import screwllum.Ui;
+import screwllum.utils.Ui;
 import screwllum.exception.InvalidIndexException;
 
 import java.util.ArrayList;

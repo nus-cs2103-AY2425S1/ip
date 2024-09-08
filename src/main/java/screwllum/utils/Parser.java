@@ -1,4 +1,4 @@
-package screwllum;
+package screwllum.utils;
 
 import screwllum.exception.InvalidCommandException;
 import screwllum.exception.InvalidDateFormatException;

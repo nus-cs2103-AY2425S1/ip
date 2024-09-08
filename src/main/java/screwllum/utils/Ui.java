@@ -1,4 +1,4 @@
-package screwllum;
+package screwllum.utils;
 
 import screwllum.tasks.Task;
 

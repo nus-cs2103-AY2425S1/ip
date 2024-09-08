@@ -1,6 +1,6 @@
 package screwllum.tasks;
 
-import screwllum.Parser;
+import screwllum.utils.Parser;
 
 import java.time.LocalDate;
 
