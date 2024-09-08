@@ -19,22 +19,11 @@
     -fx-font: 15px "Poppins", sans-serif;
 }
 
-.add-label {
-    -fx-background-color: yellow;
-}
-
-.marked-label {
-    -fx-background-color: palegreen;
-}
-
-.delete-label {
-    -fx-background-color: lightpink;
-}
-
 #displayPicture {
-    -fx-background-radius: 50%;
-    -fx-clip: arc(0, 0, 100, 100, 0, 360);
-    -fx-fit-width: 50px;
-    -fx-fit-height: 50px;
-    -fx-preserve-ratio: true;
+    /* Change size of image. */
+    -fx-scale-x: 70%;
+    -fx-scale-y: 70%;
+
+    /* Make the image circular */
+    -fx-clip: circle;
 }
