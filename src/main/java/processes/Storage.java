@@ -28,6 +28,8 @@ public class Storage {
     public Storage(String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
+        assert dirPath != null : "dirPath cannot be null";
+        assert filePath != null : "filePath cannot be null";
     }
 
     /**
@@ -67,6 +69,7 @@ public class Storage {
             while (sc.hasNext()) {
                 String input = sc.nextLine();
                 String type = input.substring(0, 1);
+                assert (type.equals("T") || type.equals("D") || type.equals("E")) : "No such task type " + type;
                 String[] args = input.substring(2).trim().split("\\|");
 
                 Task newTask = null;
@@ -99,6 +102,7 @@ public class Storage {
     public void save(ArrayList<Task> taskList) {
         try {
             FileWriter file = new FileWriter(filePath);
+            assert new File(filePath).exists() : "File to write to doesn't exist";
             for (Task item : taskList) {
                 file.write(item.toSave());
                 file.write("\n");
