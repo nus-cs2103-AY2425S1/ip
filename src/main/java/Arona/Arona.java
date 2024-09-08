@@ -39,6 +39,11 @@ public class Arona {
      * @param  input  the unprocessed String input from the user
      */
     public String getResponse(String input) {
+        assert storage != null;
+        assert taskList != null;
+        assert parser != null;
+        assert ui != null;
+
         String reply = "";
 
         // Process inputs

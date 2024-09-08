@@ -32,7 +32,9 @@ public class Storage {
     public ArrayList<String> load() throws Exception {
         // String array of data.txt
         ArrayList<String> data = new ArrayList<>();
+
         // Current data.txt directory
+        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
 
         // Make data.txt file if it doesn't exist
@@ -62,6 +64,7 @@ public class Storage {
      */
     public void save(TaskList taskList) throws Exception {
         // Current data.txt directory
+        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
 
         // Write data to file
@@ -77,6 +80,7 @@ public class Storage {
      * @return A string that shows the absolute file path of data.txt
      */
     public String getStorageLocation() {
+        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
         return dataDir.toAbsolutePath().toString();
     }
