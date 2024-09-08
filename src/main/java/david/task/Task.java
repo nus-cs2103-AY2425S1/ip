@@ -55,6 +55,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String isCompleted = this.isCompleted ? "X" : " ";
+
         return "[" + isCompleted + "] " + this.taskName;
     }
 

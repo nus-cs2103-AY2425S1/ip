@@ -16,12 +16,15 @@ public class TodoTask extends Task {
 
     @Override
     public String toCacheString() {
-        return "T|" + (this.isCompleted() ? "1" : "0") + "|" + this.getTask();
+        String isCompleted = this.isCompleted() ? "1" : "0";
+
+        return "T|" + isCompleted + "|" + this.getTask();
     }
 
     @Override
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
+
         return "[T]" + "[" + isCompleted + "] " + super.getTask();
     }
 }

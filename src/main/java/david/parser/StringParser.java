@@ -8,7 +8,7 @@ import david.exceptions.DavidInvalidArgumentsException;
 public class StringParser extends Parser {
 
     /**
-     * Takes an input string and returns the action to perform
+     * Takes an input string and returns the action/command to perform
      * @param s takes in the full input string
      * @return String denoting the action
      */
@@ -25,9 +25,11 @@ public class StringParser extends Parser {
      */
     public static String parseStringToArguments(String s) throws DavidInvalidArgumentsException {
         String[] input = s.split("\s", 2);
+
         if (input.length == 1 || input[1].equals("")) {
             throw new DavidInvalidArgumentsException();
         }
+
         return input[1];
     }
 }

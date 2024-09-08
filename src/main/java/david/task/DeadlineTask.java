@@ -22,12 +22,15 @@ public class DeadlineTask extends Task {
     }
     @Override
     public String toCacheString() {
-        return "D|" + (this.isCompleted() ? "1" : "0") + "|"
+        String isCompleted = this.isCompleted() ? "1" : "0";
+
+        return "D|" + isCompleted + "|"
                 + this.getTask() + "|" + DateParser.formatCacheDate(this.by);
     }
     @Override
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
+
         return "[D]" + "[" + isCompleted + "] " + super.getTask() + "(by: "
                 + DateParser.formatOutputDate(this.by) + ")";
     }
