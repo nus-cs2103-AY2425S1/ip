@@ -53,7 +53,10 @@ public class Opus {
                     ui.showMessage(taskList.getTask(i).toString());
                     taskList.removeTask(i);
                     ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
-                } else {
+                } else if (words[0].equals("find")){
+                    String keyword = words[1];
+                    taskList.findTasks(keyword);
+                }else {
                     if (words[0].equals("todo")) {
                         if (words.length <= 1) {
                             throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");

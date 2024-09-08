@@ -73,4 +73,8 @@ public abstract class Task {
                 return null;
         }
     }
+
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
 }
