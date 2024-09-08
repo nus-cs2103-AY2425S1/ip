@@ -18,12 +18,7 @@ public class FutureYou {
         initializeFile(ui);
 
     }
-    /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
+
     /**
      * The main method that runs the FutreYou Program.
      *
@@ -39,6 +34,20 @@ public class FutureYou {
             futureYou.ui.respond(userCommand);
         }
         futureYou.ui.close();
+    }
+
+    /**
+     * Echos response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Future You heard: " + input;
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String procressResponse(String userCommand) {
+        return this.ui.respond(userCommand);
     }
 
     private void initializeFile(Ui ui) throws IOException {

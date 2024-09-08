@@ -21,10 +21,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private FutureYou duke;
+    private FutureYou futureYou;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/futureYou.png"));
+    private Image futureYouImage = new Image(this.getClass().getResourceAsStream("/images/futureYou.png"));
 
     @FXML
     public void initialize() {
@@ -32,8 +32,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(FutureYou d) {
-        duke = d;
+    public void setFutureYou(FutureYou futureYou) {
+        this.futureYou = futureYou;
     }
 
     /**
@@ -43,10 +43,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = futureYou.procressResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getFutureYouDialog(response, futureYouImage)
         );
         userInput.clear();
     }

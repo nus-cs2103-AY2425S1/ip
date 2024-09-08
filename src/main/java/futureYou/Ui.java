@@ -70,25 +70,26 @@ public class Ui {
      *
      * @param userCommand The command inputted by the user.
      */
-    public void respond(String userCommand) {
+    public String respond(String userCommand) {
+        String message = "";
         try {
             String command = Parser.parseCommand(userCommand);
             switch (command) {
             case "todo": {
-                displayMessage(Parser.parseToDoTask(userCommand));
+                message = Parser.parseToDoTask(userCommand);
                 break;
             }
             case "list":
-                displayMessage(TaskList.listTasks());
+            message =TaskList.listTasks();
                 break;
             case "mark": {
                 int taskNum = Parser.parseTaskNumber(userCommand);
-                displayMessage(TaskList.markTask(taskNum));
+                message =TaskList.markTask(taskNum);
                 break;
             }
             case "delete": {
                 int taskNum = Parser.parseTaskNumber(userCommand);
-                displayMessage(TaskList.deleteTask(taskNum));
+                message =TaskList.deleteTask(taskNum);
                 break;
             }
             case "bye":
@@ -96,19 +97,27 @@ public class Ui {
                 close();
                 break;
             case "deadline": {
-                displayMessage(Parser.parseDeadlineTask(userCommand));
+                message = Parser.parseDeadlineTask(userCommand);
                 break;
             }
             case "event": {
-                displayMessage(Parser.parseEventTask(userCommand));
+                message = Parser.parseEventTask(userCommand);
+                break;
+            }            
+            case "find": {
+                message = TaskList.findTask(userCommand);
                 break;
             }
             default: // User enters invalid command
-                displayMessage("Please enter a valid command!");
+                message = "Please enter a valid command!";
                 break;
             }
+            displayMessage(message);
+            return message;
         } catch (Exception e) {
-            displayMessage("Please enter a valid command");
+            message = "Error Accorded when parsing command";
+            displayMessage(message);
+            return message;
         }
     }
 }
