@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * This class encapsulates a Task.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /** String description of the task */
     private final String description;
     /** Marks whether the task is done */
@@ -84,4 +84,22 @@ public abstract class Task {
     public boolean descriptionContainsString(String string) {
         return this.description.contains(string);
     }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (this instanceof DeadlineTask deadlineTask && otherTask instanceof DeadlineTask otherDeadlineTask) {
+            return deadlineTask.getDeadline().compareTo(
+                    otherDeadlineTask.getDeadline()
+            );
+        } else if (this instanceof DeadlineTask && otherTask instanceof Todo) {
+            return -1;
+        } else if (this instanceof Todo && otherTask instanceof DeadlineTask){
+            return 1;
+        } else {
+            assert (this instanceof Todo && otherTask instanceof Todo);
+            return 0; // comparison of future task types to be defined later
+        }
+    }
+
+
 }

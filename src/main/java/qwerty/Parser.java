@@ -12,6 +12,7 @@ import qwerty.command.EventCommand;
 import qwerty.command.FindCommand;
 import qwerty.command.ListCommand;
 import qwerty.command.MarkCommand;
+import qwerty.command.SortCommand;
 import qwerty.command.TodoCommand;
 import qwerty.command.UnknownCommand;
 import qwerty.command.UnmarkCommand;
@@ -81,6 +82,7 @@ public class Parser {
         case "event" -> new EventCommand(args);
         case "delete" -> new DeleteCommand(args);
         case "find" -> new FindCommand(args);
+        case "sort" -> new SortCommand(args);
         default -> new UnknownCommand(args);
         };
     }

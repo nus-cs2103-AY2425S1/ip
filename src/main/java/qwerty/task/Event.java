@@ -9,10 +9,8 @@ import java.util.List;
  * This class encapsulates an Event type task.
  * An Event starts at a specific time and ends at a specific time.
  */
-public class Event extends Task {
+public class Event extends DeadlineTask {
 
-    /** The time at which the event starts */
-    private final LocalDateTime from;
     /** The time at which the event ends */
     private final LocalDateTime to;
 
@@ -24,19 +22,8 @@ public class Event extends Task {
      * @param to End date of the event.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
-        this.from = from;
+        super(description, from);
         this.to = to;
-    }
-
-    /**
-     * Returns the event start time as a formatted string.
-     * The format is "MMM dd yyyy HHmm", e.g. "Aug 26 2024 1450".
-     *
-     * @return Formatted string representing the event start time.
-     */
-    public String getEventStartTime() {
-        return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
     /**
@@ -52,7 +39,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + getEventStartTime() + " to: " + getEventEndTime() + ")";
+                + getDeadlineAsString() + " to: " + getEventEndTime() + ")";
     }
 
     @Override
@@ -61,7 +48,7 @@ public class Event extends Task {
                 "E",
                 getStatusIcon(),
                 getDescription(),
-                from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
                 to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
         );
     }

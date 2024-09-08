@@ -128,4 +128,12 @@ public class TaskList {
                 .map(x -> String.join("|", x) + "\n")
                 .reduce("", (s1, s2) -> s1 + s2);
     }
+
+    /**
+     * Sorts the task list by deadline. More urgent deadlines will appear first.
+     * Tasks with no deadline (e.g. todo) will appear last.
+     */
+    public void sort() {
+        this.tasks.sort(Task::compareTo);
+    }
 }
