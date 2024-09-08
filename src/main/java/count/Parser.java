@@ -11,6 +11,7 @@ import count.action.Greet;
 import count.action.Help;
 import count.action.ListReply;
 import count.action.Mark;
+import count.action.Remind;
 import count.action.Save;
 import count.action.Unmark;
 import count.exception.CountException;
@@ -91,11 +92,13 @@ public class Parser {
         try {
             switch (firstWord.toLowerCase()) {
             case "mark":
-                return new Mark(this.ls, Integer.valueOf(rest));
+                return new Mark(this.ls, Integer.parseInt(rest));
             case "unmark":
-                return new Unmark(this.ls, Integer.valueOf(rest));
+                return new Unmark(this.ls, Integer.parseInt(rest));
             case "delete":
-                return new Delete(this.ls, Integer.valueOf(rest));
+                return new Delete(this.ls, Integer.parseInt(rest));
+            case "remind":
+                return new Remind(this.ls, Integer.parseInt(rest));
             case "todo":
                 return new AddTask(this.ls, new ToDo(rest));
             case "deadline":
@@ -111,8 +114,8 @@ public class Parser {
                 throw new InvalidCommandException();
             }
         } catch (NumberFormatException e) {
-            throw new IncorrectFormatException("Use a number after mark/unmark/delete to specify the task targeted!\n"
-                    + "Type 'help' to see correct formatting examples");
+            throw new IncorrectFormatException("Use a number after mark/unmark/delete/remind to specify"
+                    + " the task targeted!\n Type 'help' to see correct formatting examples");
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new IncorrectFormatException("Invalid format for event or deadline!\n"
                     + "Type 'help' to see correct formatting examples");

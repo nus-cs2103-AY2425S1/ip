@@ -39,7 +39,9 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
+    public LocalDate getEndTime() {
+        return this.endTime;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime.format(outputFormat)

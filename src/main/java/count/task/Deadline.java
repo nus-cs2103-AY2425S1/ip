@@ -33,6 +33,9 @@ public class Deadline extends Task {
         super(description, completion);
         this.endTime = endTime;
     }
+    public LocalDate getEndTime() {
+        return this.endTime;
+    }
 
     @Override
     public String toString() {
