@@ -26,6 +26,11 @@ public class Hana {
         ui = new Ui();
         tasks = new TaskList(new ArrayList<>());
         storage = new Storage(tasks.getTasks());
+
+        // Assert that important components are initialized
+        assert ui != null : "Ui is not initialized";
+        assert tasks != null : "TaskList is not initialized";
+        assert storage != null : "Storage is not initialized";
         try {
             storage.load();
         } catch (HanaException e) {

@@ -34,7 +34,10 @@ public class TaskList {
      */
     public void addTask(Task task) throws HanaException {
         if (tasks.size() < MAX_TASKS) {
+            int sizeBefore = tasks.size();
             tasks.add(task);
+            // Assert that the size increased by 1
+            assert tasks.size() == sizeBefore + 1 : "Task not added correctly";
         } else {
             throw new HanaException("Task list is full!");
         }
@@ -64,7 +67,10 @@ public class TaskList {
      */
     public void deleteTask(int taskNumber) throws HanaException {
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            int sizeBefore = tasks.size();
             Task removedTask = tasks.remove(taskNumber - 1);
+            // Assert that the size decreased by 1
+            assert tasks.size() == sizeBefore - 1 : "Task not deleted correctly";
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -86,6 +92,8 @@ public class TaskList {
      * @return A list of tasks containing the keyword.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        // Assert that the keyword is not null
+        assert keyword != null : "Search keyword cannot be null.";
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
