@@ -1,6 +1,5 @@
 package botty.commands;
 
-import botty.exceptions.BottyException;
 import botty.tasks.TaskManager;
 
 /**
