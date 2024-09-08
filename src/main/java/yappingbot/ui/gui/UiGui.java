@@ -1,9 +1,11 @@
-package yappingbot.ui;
+package yappingbot.ui.gui;
 
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
+import yappingbot.ui.Ui;
 
 public class UiGui implements Ui {
+
     @Override
     public void print(String s) {
 

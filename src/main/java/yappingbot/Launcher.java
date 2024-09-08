@@ -3,7 +3,7 @@ package yappingbot;
 import java.util.Arrays;
 
 import yappingbot.storage.Storage;
-import yappingbot.ui.MainGuiApplication;
+import yappingbot.ui.gui.MainGuiApplication;
 import yappingbot.ui.UiCli;
 
 /**
@@ -11,7 +11,7 @@ import yappingbot.ui.UiCli;
  */
 public class Launcher {
 
-    static String savefilePath;
+    public static String savefilePath;
 
     /**
      * MainGuiApplication entry point. Parses arguments and launches YappingBot appropriately.
@@ -45,6 +45,7 @@ public class Launcher {
                         System.out.printf("Error: %s missing argument: savefile path!\n", args[i]);
                     } else {
                         customSavefilePath = args[savefilePathIndex];
+                        i = i + 1;
                     }
                     continue;
                 case "--":
@@ -56,10 +57,11 @@ public class Launcher {
             }
         }
 
+        Launcher.savefilePath = customSavefilePath.isEmpty() ? "./savefile" : customSavefilePath;
         if (isUsingGui) {
-            launchGui(customSavefilePath, jfxArgs);
+            launchGui(jfxArgs);
         } else {
-            launchCli(customSavefilePath, jfxArgs);
+            launchCli(jfxArgs);
         }
     }
 
@@ -67,22 +69,18 @@ public class Launcher {
      * Static method to launchGui MainGuiApplication without GUI.
      * Use as fallback method.
      *
-     * @param savefilePath String path to use for savefile, or "" to use default.
      * @param args String ArrayList of arguments passed in via CLI when launching this app.
      */
-    public static void launchGui(String savefilePath, String[] args) {
-        Launcher.savefilePath = savefilePath.isEmpty() ? "./savefile" : savefilePath;
+    public static void launchGui(String[] args) {
         MainGuiApplication.launch(MainGuiApplication.class, args);
     }
 
     /**
      * Static method to launchGui MainGuiApplication with JavaFX GUI.
      *
-     * @param customSavefilePath String path to use for savefile, or "" to use default.
      * @param args String ArrayList of arguments passed in via CLI when launching this app.
      */
-    public static void launchCli(String customSavefilePath, String[] args) {
-        savefilePath = customSavefilePath.isEmpty() ? "./savefile" : customSavefilePath;
+    public static void launchCli(String[] args) {
         YappingBot yp = new YappingBot(new UiCli(), new Storage(savefilePath));
         yp.start();
     }
