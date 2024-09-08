@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Shows the message of the bot. This message will appear the first time the GUI is initiated,
      * where the bot will send a response first.
-     * @param message
+     * @param message Message for the bot to initiate.
      * @return The message the bot initiates.
      */
     public String showWelcome(String message) {

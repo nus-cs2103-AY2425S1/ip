@@ -174,7 +174,9 @@ public class Storage {
                         "Only T, E, D accepted but others found in 1st column");
             }
 
-            // need to assert here that taskToAdd won't be null
+            assert taskToAdd != null;
+            assert lineArray.length > 2;
+
             if (lineArray[IS_TASK_MARKED_INDEX].equals(TASK_MARKED_STATUS)) {
                 taskToAdd.markDone();
             } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // invalid status

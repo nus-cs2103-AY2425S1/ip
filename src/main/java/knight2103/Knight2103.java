@@ -68,9 +68,6 @@ public class Knight2103 {
             return "Failed to execute Command:\n" + e.getMessage();
         }
 
-        // javaDoc comments; Formatting; Code quality.
         // welcome message - state all commands that can be used.
-        // adding assertions
-
     }
 }
