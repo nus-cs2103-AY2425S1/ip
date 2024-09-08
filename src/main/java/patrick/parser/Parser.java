@@ -29,7 +29,7 @@ public class Parser {
      */
     public String parseTask(String userInput) {
         checkType(userInput);
-        String response = null;
+        String response;
 
         switch (inputType) {
         case LIST:

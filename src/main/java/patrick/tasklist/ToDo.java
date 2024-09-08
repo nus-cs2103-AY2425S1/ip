@@ -12,6 +12,8 @@ import patrick.ui.Ui;
  */
 public class ToDo extends Task {
 
+    public static final String PREFIX = "T | ";
+
     /**
      * Constructs a {@code ToDo} task with the specified description.
      *
@@ -28,7 +30,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "T | " + super.toString();
+        return PREFIX + super.toString();
     }
 
     /**
@@ -40,8 +42,9 @@ public class ToDo extends Task {
      * @throws Parser.PatrickException if the description of the todo is empty.
      */
     public static String toDoTask(String input) throws Parser.PatrickException {
-        String response = null;
-        String taskDescription = input.replace("todo ", "").trim();
+        String response;
+        String taskDescription = input.replace("todo", "").trim();
+
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Description of a todo cannot be empty!!");
         } else {
@@ -54,7 +57,7 @@ public class ToDo extends Task {
                 }
                 Storage.appendToFile(task.toString());
             } catch (IOException e) {
-                response = Ui.showErrorMsg("There is an error: " + e.getMessage());
+                response = Ui.showErrorMsg(Ui.THERE_IS_AN_ERROR + e.getMessage());
             }
         }
         return response;

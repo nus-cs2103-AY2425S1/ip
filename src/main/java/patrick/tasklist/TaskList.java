@@ -53,17 +53,19 @@ public class TaskList {
         int num = Integer.parseInt(taskNo);
         if (taskNo.isEmpty()) {
             throw new Parser.PatrickException("Delete Task Details cannot be empty!!");
-        } else if (num > Storage.getList().size()) {
-            throw new Parser.PatrickException("Input task index is invalid. Please try again!!");
-        } else {
-            response = Ui.showDeleteItemMsg(num);
-            Storage.deleteItem(num);
-            try {
-                Storage.writeToFile();
-            } catch (IOException e) {
-                response = "There is an error: " + e.getMessage();
-            }
         }
+        if (num > Storage.getList().size()) {
+            throw new Parser.PatrickException("Input task index is invalid. Please try again!!");
+        }
+
+        response = Ui.showDeleteItemMsg(num);
+        Storage.deleteItem(num);
+        try {
+            Storage.writeToFile();
+        } catch (IOException e) {
+            response = Ui.THERE_IS_AN_ERROR + e.getMessage();
+        }
+
         return response;
     }
 
@@ -76,35 +78,37 @@ public class TaskList {
      *     or the task is already marked as done.
      */
     public static String mark(String input) throws Parser.PatrickException {
-        String response = null;
+        String response;
         String taskNo = input.replace("mark", "").trim();
         if (taskNo.isEmpty()) {
             throw new Parser.PatrickException("Task Number cannot be empty!!");
-        } else {
-            try {
-                Integer.parseInt(taskNo);
-            } catch (NumberFormatException e) {
-                throw new Parser.PatrickException("Mark Task Details must be an integer");
-            }
-            int num = Integer.parseInt(taskNo);
-            if (num > Storage.getList().size()) {
-                throw new Parser.PatrickException("Invalid Task Number!!");
-            } else {
-                Task curr = (Task) Storage.getList().get(num - 1);
-                if (curr.isDone) {
-                    throw new Parser.PatrickException("You cannot mark a completed task!!");
-                } else {
-                    curr.markAsDone();
-                    response = "Nice! I've marked this task as done:\n  " + curr.toString() + "\n";
-                    try {
-                        Storage.writeToFile();
-                    } catch (IOException e) {
-                        return "There is an error: " + e.getMessage();
-                    }
-                    return response;
-                }
-            }
         }
+
+        try {
+            Integer.parseInt(taskNo);
+        } catch (NumberFormatException e) {
+            throw new Parser.PatrickException("Mark Task Details must be an integer");
+        }
+
+        int num = Integer.parseInt(taskNo);
+        if (num > Storage.getList().size()) {
+            throw new Parser.PatrickException("Invalid Task Number!!");
+        }
+
+        Task curr = Storage.getList().get(num - 1);
+        if (curr.isDone) {
+            throw new Parser.PatrickException("You cannot mark a completed task!!");
+        }
+
+        curr.markAsDone();
+        response = "Nice! I've marked this task as done:\n  " + curr + "\n";
+        try {
+            Storage.writeToFile();
+        } catch (IOException e) {
+            return Ui.THERE_IS_AN_ERROR + e.getMessage();
+        }
+
+        return response;
     }
 
     /**
@@ -116,36 +120,38 @@ public class TaskList {
      *     or the task is already marked as not done.
      */
     public static String unmark(String input) throws Parser.PatrickException {
-        String response = null;
+        String response;
         String taskNo = input.replace("unmark", "").trim();
         if (taskNo.isEmpty()) {
             throw new Parser.PatrickException("Task Number cannot be empty!!");
-        } else {
-            try {
-                Integer.parseInt(taskNo);
-            } catch (NumberFormatException e) {
-                throw new Parser.PatrickException("Unmark Task Details must be an integer");
-            }
-            int num = Integer.parseInt(taskNo);
-
-            if (num > Storage.getList().size()) {
-                throw new Parser.PatrickException("Invalid Task Number!!");
-            } else {
-                Task curr = (Task) Storage.getList().get(num - 1);
-                if (!curr.isDone) {
-                    throw new Parser.PatrickException("You cannot unmark an incomplete task!!");
-                } else {
-                    curr.markAsUndone();
-                    response = "Nice! I've marked this task as not done yet:\n  " + curr.toString() + "\n";
-                    try {
-                        Storage.writeToFile();
-                    } catch (IOException e) {
-                        return "There is an error: " + e.getMessage();
-                    }
-                    return response;
-                }
-            }
         }
+
+        try {
+            Integer.parseInt(taskNo);
+        } catch (NumberFormatException e) {
+            throw new Parser.PatrickException("Unmark Task Details must be an integer");
+        }
+
+        int num = Integer.parseInt(taskNo);
+        if (num > Storage.getList().size()) {
+            throw new Parser.PatrickException("Invalid Task Number!!");
+        }
+
+        Task curr = (Task) Storage.getList().get(num - 1);
+        if (!curr.isDone) {
+            throw new Parser.PatrickException("You cannot unmark an incomplete task!!");
+        }
+
+        curr.markAsUndone();
+        response = "Nice! I've marked this task as not done yet:\n  " + curr + "\n";
+
+        try {
+            Storage.writeToFile();
+        } catch (IOException e) {
+            return Ui.THERE_IS_AN_ERROR + e.getMessage();
+        }
+
+        return response;
     }
 
     /**
@@ -161,20 +167,22 @@ public class TaskList {
         String keyword = input.replace("find", "").trim();
         if (keyword.isEmpty()) {
             throw new Parser.PatrickException("Find keyword cannot be empty!");
-        } else {
-            for (int i = 0; i < Storage.getList().size(); i++) {
-                if (Storage.getList().get(i).toString().contains(keyword)) {
-                    if (count == 0) {
-                        response = "Here are the matching tasks in your list:\n";
-                    }
-                    count++;
-                    response += count + " " + Storage.getList().get(i).toString() + "\n";
+        }
+
+        for (int i = 0; i < Storage.getList().size(); i++) {
+            if (Storage.getList().get(i).toString().contains(keyword)) {
+                if (count == 0) {
+                    response = "Here are the matching tasks in your list:\n";
                 }
-            }
-            if (count == 0) {
-                response = "There are no matching tasks in your list!";
+                count++;
+                response += count + " " + Storage.getList().get(i).toString() + "\n";
             }
         }
+
+        if (count == 0) {
+            response = "There are no matching tasks in your list!";
+        }
+
         return response;
     }
 

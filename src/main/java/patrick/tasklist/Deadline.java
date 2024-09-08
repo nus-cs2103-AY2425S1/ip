@@ -14,6 +14,9 @@ import patrick.ui.Ui;
  * It extends the {@code Task} class and includes a {@code LocalDateTime} field to store the deadline.
  */
 public class Deadline extends Task {
+    public static final String PREFIX = "D | ";
+    public static final String COLUMN = " | ";
+    public static final String THERE_IS_AN_ERROR = "There is an error: ";
     protected LocalDateTime by;
 
     /**
@@ -36,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+        return PREFIX + super.toString() + COLUMN + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
     }
 
     /**
@@ -52,31 +55,34 @@ public class Deadline extends Task {
         String newInput = input.replace("deadline ", "");
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Deadline Task Details cannot be empty!!");
-        } else if (!newInput.contains("/by")) {
-            throw new Parser.PatrickException("You are missing a '/by' in your details!!");
-        } else {
-            String taskDescription = newInput.substring(0, newInput.indexOf("/") - 1);
-            if (taskDescription.isEmpty()) {
-                throw new Parser.PatrickException("Deadline Task Description cannot be empty!!");
-            } else {
-                String deadline = newInput.substring(newInput.indexOf("/by")).replace("/by ", "");
-                if (deadline.isEmpty()) {
-                    throw new Parser.PatrickException("Deadline Task deadline cannot be empty!!");
-                } else if (DateFormatChecker.getDateFormat(deadline).equals("Unknown Format")) {
-                    throw new Parser.PatrickException("Your deadline format is incorrect.\n"
-                                                        + "Type 'formats' for the formats.");
-                } else {
-                    Task task = new Deadline(taskDescription, deadline);
-                    Storage.addList(task);
-                    response = Ui.showUserMsg(task.toString());
-                    try {
-                        Storage.appendToFile("\n" + task);
-                    } catch (IOException e) {
-                        response = "There is an error: " + e.getMessage();
-                    }
-                }
-                return response;
-            }
         }
+        if (!newInput.contains("/by")) {
+            throw new Parser.PatrickException("You are missing a '/by' in your details!!");
+        }
+
+        String taskDescription = newInput.substring(0, newInput.indexOf("/") - 1);
+        if (taskDescription.isEmpty()) {
+            throw new Parser.PatrickException("Deadline Task Description cannot be empty!!");
+        }
+
+        String deadline = newInput.substring(newInput.indexOf("/by")).replace("/by ", "");
+        if (deadline.isEmpty()) {
+            throw new Parser.PatrickException("Deadline Task deadline cannot be empty!!");
+        }
+
+        if (DateFormatChecker.getDateFormat(deadline).equals("Unknown Format")) {
+            throw new Parser.PatrickException("Your deadline format is incorrect.\n"
+                    + "Type 'formats' for the formats.");
+        }
+
+        Task task = new Deadline(taskDescription, deadline);
+        Storage.addList(task);
+        response = Ui.showUserMsg(task.toString());
+        try {
+            Storage.appendToFile("\n" + task);
+        } catch (IOException e) {
+            response = THERE_IS_AN_ERROR + e.getMessage();
+        }
+        return response;
     }
 }

@@ -17,7 +17,7 @@ import patrick.tasklist.ToDo;
  * It supports loading tasks from a file, adding, deleting, and saving tasks.
  */
 public class Storage {
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static final ArrayList<Task> list = new ArrayList<>();
     private static String filePath;
 
     /**
@@ -96,36 +96,34 @@ public class Storage {
         Task currTask;
         while (s.hasNext()) {
             String taskString = s.nextLine();
+            String taskDescription = taskString.substring(8);
             if (taskString.startsWith("T ")) {
-                String taskDescription = taskString.substring(8);
                 currTask = new ToDo(taskDescription);
                 list.add(currTask);
-                if (taskString.substring(4).startsWith("X")) {
-                    currTask.markAsDone();
-                }
+                isDone(taskString, currTask);
             } else if (taskString.startsWith("D ")) {
-                String taskDescription = taskString.substring(8);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
                 String deadline = taskString.substring(8).replace(taskDescription, "").replace(" | ", "");
                 currTask = new Deadline(taskDescription, deadline);
                 list.add(currTask);
-                if (taskString.substring(4).startsWith("X")) {
-                    currTask.markAsDone();
-                }
+                isDone(taskString, currTask);
             } else if (taskString.startsWith("E ")) {
-                String taskDescription = taskString.substring(8);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
                 String tempFrom = taskString.substring(8).replace(taskDescription + " ", "").substring(2);
                 String to = tempFrom.substring(tempFrom.indexOf("-") + 1);
                 String from = tempFrom.replace("-" + to, "");
                 currTask = new Event(taskDescription, from, to);
                 list.add(currTask);
-                if (taskString.substring(4).startsWith("X")) {
-                    currTask.markAsDone();
-                }
+                isDone(taskString, currTask);
             } else {
                 throw new IllegalValueException("Invalid File");
             }
+        }
+    }
+
+    private static void isDone(String taskString, Task currTask) {
+        if (taskString.substring(4).startsWith("X")) {
+            currTask.markAsDone();
         }
     }
 

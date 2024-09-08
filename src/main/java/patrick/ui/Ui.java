@@ -18,6 +18,7 @@ public class Ui {
     private static final String TASK_MSG = "Got it. I've added this task:\n";
     private static final String NUM_TASK_MSG_1 = "Now you have ";
     private static final String NUM_TASK_MSG_2 = " tasks in the list.\n";
+    public static final String THERE_IS_AN_ERROR = "There is an error: ";
 
     private final Scanner in; // Scanner for user input
     private final PrintStream out; // PrintStream for output
@@ -46,8 +47,7 @@ public class Ui {
      * @param msg the task details to display.
      */
     public static String showUserMsg(String msg) {
-        return Ui.TASK_MSG + msg + "\n" + Ui.NUM_TASK_MSG_1
-                + Storage.getList().size() + Ui.NUM_TASK_MSG_2;
+        return Ui.TASK_MSG + msg + "\n" + Ui.NUM_TASK_MSG_1 + Storage.getList().size() + Ui.NUM_TASK_MSG_2;
     }
 
     /**
@@ -66,10 +66,12 @@ public class Ui {
      */
     public static String printFileContents() {
         String list = "Here are the tasks in your list:" + "\n";
+
         for (int i = 1; i <= Storage.getList().size(); i++) {
-            Task curr = (Task) Storage.getList().get(i - 1);
+            Task curr = Storage.getList().get(i - 1);
             list += i + ". " + curr.toString() + "\n";
         }
+
         return list;
     }
 
@@ -78,8 +80,8 @@ public class Ui {
      */
     public static String formats() {
         String response = "Here are the different formats available:\n" + "yyyy-MM-dd HHmm\n" + "dd-MM-yyyy HHmm\n"
-                            + "d-MM-yyyy HHmm\n" + "MM-dd-yyyy HHmm\n" + "yyyy/MM/dd HHmm\n" + "dd/MM/yyyy HHmm\n"
-                            + "d/MM/yyyy HHmm\n" + "MM/dd/yyyy HHmm\n" + "MMM dd yyyy HHmm\n" + "MMM d yyyy HHmm\n";
+                + "d-MM-yyyy HHmm\n" + "MM-dd-yyyy HHmm\n" + "yyyy/MM/dd HHmm\n" + "dd/MM/yyyy HHmm\n"
+                + "d/MM/yyyy HHmm\n" + "MM/dd/yyyy HHmm\n" + "MMM dd yyyy HHmm\n" + "MMM d yyyy HHmm\n";
         return response;
     }
 
