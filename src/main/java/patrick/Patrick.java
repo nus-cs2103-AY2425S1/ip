@@ -59,6 +59,7 @@ public class Patrick {
      * @return The response generated based on the user's input.
      */
     public String getResponse(String input) {
+        assert input != null : "input cannot be null";
         String response = new Parser().parseTask(input);
         if (response.equals(MESSAGE_BYE)) {
             System.exit(0);

@@ -40,7 +40,7 @@ public class ToDo extends Task {
      * @throws Parser.PatrickException if the description of the todo is empty.
      */
     public static String toDoTask(String input) throws Parser.PatrickException {
-        String response = null;
+        String response;
         String taskDescription = input.replace("todo ", "").trim();
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Description of a todo cannot be empty!!");
