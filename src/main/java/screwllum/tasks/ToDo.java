@@ -1,4 +1,4 @@
-package Alvis;
+package screwllum.tasks;
 
 public class ToDo extends Task {
     public ToDo(String desc) {

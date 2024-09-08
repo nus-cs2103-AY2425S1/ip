@@ -1,4 +1,4 @@
-package Alvis;
+package screwllum.tasks;
 
 public abstract class Task {
     protected String desc;
