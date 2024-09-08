@@ -2,6 +2,7 @@ package yappingbot.ui;
 
 import java.util.Scanner;
 
+import jdk.jshell.spi.ExecutionControl;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
 
@@ -35,17 +36,27 @@ public class UiCli implements Ui {
     }
 
     @Override
-    public boolean hasNextLine() {
+    public boolean hasInputLines() {
         return scanner.hasNext();
     }
 
     @Override
-    public String getNextLine() throws YappingBotIoException {
+    public String getNextInputLine() throws YappingBotIoException {
         try {
             return scanner.nextLine();
         } catch (Exception e) {
             throw new YappingBotIoException(e.getMessage());
         }
+    }
+
+    @Override
+    public String getNextOutputLine() {
+        throw new YappingBotIoException("NOT IMPLEMENTED");
+    }
+
+    @Override
+    public boolean hasOutputLines() {
+        throw new YappingBotIoException("NOT IMPLEMENTED");
     }
 
     @Override

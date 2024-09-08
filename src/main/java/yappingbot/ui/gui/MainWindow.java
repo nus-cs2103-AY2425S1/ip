@@ -17,14 +17,14 @@ public class MainWindow extends VBox {
     @FXML
     private TextField userInput;
     @FXML
-    private Button sendButton;
+    private VBox dialogContainer;
     @FXML
     private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(
+            this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image ypImage = new Image(
+            this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private UiGui ui;
 
@@ -33,14 +33,21 @@ public class MainWindow extends VBox {
     }
 
     @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        // String response = duke.getResponse(input);
         try {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage)
-              //      DialogBox.getDukeDialog(response, dukeImage)
-            );
+            dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+            dialogContainer.getChildren().add(DialogBox.getReplyDialog(input, ypImage));
+            // while (ui.hasOutputLines()) {
+            //     ui.pushInputLine(input);
+            //     String response = ui.getNextOutputLine();
+            //     dialogContainer.getChildren().add(DialogBox.getReplyDialog(response, ypImage));
+            // }
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }

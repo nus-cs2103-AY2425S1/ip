@@ -77,8 +77,8 @@ public class YappingBot {
      * The main loop that receives and executes commands.
      */
     private void mainLoop() {
-        while (ui.hasNextLine()) {
-            String userInput = ui.getNextLine().trim();
+        while (ui.hasInputLines()) {
+            String userInput = ui.getNextInputLine().trim();
             String[] userInputSlices = userInput.split(" ");
             try {
                 int taskListIndexPtr; // task list pointer

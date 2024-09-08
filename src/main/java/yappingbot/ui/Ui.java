@@ -55,11 +55,11 @@ public interface Ui {
 
     /**
      * Peeks into input buffer and returns true if a next line is available, or <b>blocks</b>
-     * until a line is present in the input buffer.
+     * until a line is present in the input buffer, or the input stream is closed.
      *
      * @return boolean true if line is available, or false if input is closed.
      */
-    public abstract boolean hasNextLine();
+    public abstract boolean hasInputLines();
 
 
     /**
@@ -67,6 +67,22 @@ public interface Ui {
      *
      * @return String of next line in input buffer.
      */
-    public abstract String getNextLine() throws YappingBotIoException;
+    public abstract String getNextInputLine();
+
+
+    /**
+     * Returns the output lines in the buffer to be printed.
+     *
+     * @return String to be outputted or printed:
+     */
+    public abstract String getNextOutputLine() throws YappingBotIoException;
+
+    /**
+     * Peeks into output buffer and returns true if a next line is available, or <b>blocks</b>
+     * until a line is present in the output buffer, or the output stream is closed.
+     *
+     * @return boolean true if line is available, or false if output is closed.
+     */
+    public abstract boolean hasOutputLines();
 }
 

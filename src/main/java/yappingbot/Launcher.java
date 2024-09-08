@@ -84,4 +84,13 @@ public class Launcher {
         YappingBot yp = new YappingBot(new UiCli(), new Storage(savefilePath));
         yp.start();
     }
+
+    /**
+     * Get savefile path captured by launcher.
+     *
+     * @return String of savefile path
+     */
+    public static String getSavefilePath() {
+        return savefilePath;
+    }
 }
