@@ -110,6 +110,7 @@ public class Storage {
      * Creates a new cache inside Data folder if it does not exist
      */
     private void createNewCache() {
+        assert this.path.length() != 0 : "No path specified";
         File newFile = new File(this.path);
         try {
             newFile.createNewFile();
