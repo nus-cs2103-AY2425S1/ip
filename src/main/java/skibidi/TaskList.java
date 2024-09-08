@@ -76,10 +76,10 @@ public class TaskList {
     /**
      * Return new list of tasks with description that matches given string.
      */
-    public TaskList findTasksMatchingDescription(String query) {
-        return new TaskList(tasks.stream()
+    public List<AbstractTask> findTasksMatchingDescription(String query) {
+        return tasks.stream()
                 .filter(task -> task.getDescription().contains(query))
-                .toList());
+                .toList();
     }
 
     @Override

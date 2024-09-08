@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import skibidi.task.AbstractTask;
+import skibidi.task.AbstractTask.TaskDeserializationException;
 
 /**
  * Handles writing tasks to disk and loading tasks from file.
@@ -60,10 +61,10 @@ public final class Storage {
                 tasks.add(AbstractTask.deserialize(line));
             }
             scanner.close();
-        } catch (FileNotFoundException err) {
+        } catch (FileNotFoundException e) {
             System.out.println("No data file found, task list is empty!");
-        } catch (IOException | AbstractTask.TaskDeserializationException err) {
-            System.out.println(err.toString());
+        } catch (TaskDeserializationException e) {
+            System.out.println(e.getMessage());
         }
         return tasks;
     }

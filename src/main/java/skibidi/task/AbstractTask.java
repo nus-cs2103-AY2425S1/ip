@@ -8,6 +8,16 @@ public abstract class AbstractTask {
     protected boolean isDone;
 
     /**
+     * Exception thrown when input arguments given to constructor of any child
+     * of AbstractTask fails.
+     */
+    public static class TaskValidationException extends Exception {
+        public TaskValidationException(String message) {
+            super(String.format("TASK VALIDATION ERROR: %s", message));
+        }
+    }
+
+    /**
      * Exception thrown when unable to deserialize a string into any subclasses
      * of AbstractTask.
      */

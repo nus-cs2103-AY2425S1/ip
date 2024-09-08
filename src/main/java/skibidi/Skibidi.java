@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import gui.MainGui;
 import javafx.application.Application;
 import skibidi.CommandParser.CommandParseException;
+import skibidi.task.AbstractTask.TaskValidationException;
 
 /** Driver class for the chatbot application. */
 public class Skibidi {
@@ -51,8 +52,8 @@ public class Skibidi {
         }
         try {
             return parser.parseCommand(input).execute(taskList, storage, ui);
-        } catch (CommandParseException err) {
-            return err.getMessage();
+        } catch (CommandParseException | TaskValidationException e) {
+            return e.getMessage();
         }
     }
 
