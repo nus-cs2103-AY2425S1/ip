@@ -9,14 +9,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Main class to launchGui GUI Application.
+ * MainGuiApplication class to launchGui GUI Application.
  */
-public class Main extends Application {
+public class MainGuiApplication extends Application {
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlloader = new FXMLLoader(
+                    MainGuiApplication.class.getResource("/view/MainWindow.fxml"));
             VBox vb = fxmlloader.load();
             Scene scene = new Scene(vb);
             stage.setScene(scene);

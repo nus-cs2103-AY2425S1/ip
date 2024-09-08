@@ -3,7 +3,7 @@ package yappingbot;
 import java.util.Arrays;
 
 import yappingbot.storage.Storage;
-import yappingbot.ui.Main;
+import yappingbot.ui.MainGuiApplication;
 import yappingbot.ui.UiCli;
 
 /**
@@ -14,7 +14,7 @@ public class Launcher {
     static String savefilePath;
 
     /**
-     * Main entry point. Parses arguments and launches YappingBot appropriately.
+     * MainGuiApplication entry point. Parses arguments and launches YappingBot appropriately.
      * Currently supported flags:
      * -c: use CLI instead of JavaFX GUI.
      * -s or --savefile [SAVEFILE_PATH]: use a custom savefile path.
@@ -64,7 +64,7 @@ public class Launcher {
     }
 
     /**
-     * Static method to launchGui Main without GUI.
+     * Static method to launchGui MainGuiApplication without GUI.
      * Use as fallback method.
      *
      * @param savefilePath String path to use for savefile, or "" to use default.
@@ -72,11 +72,11 @@ public class Launcher {
      */
     public static void launchGui(String savefilePath, String[] args) {
         Launcher.savefilePath = savefilePath.isEmpty() ? "./savefile" : savefilePath;
-        Main.launch(Main.class, args);
+        MainGuiApplication.launch(MainGuiApplication.class, args);
     }
 
     /**
-     * Static method to launchGui Main with JavaFX GUI.
+     * Static method to launchGui MainGuiApplication with JavaFX GUI.
      *
      * @param customSavefilePath String path to use for savefile, or "" to use default.
      * @param args String ArrayList of arguments passed in via CLI when launching this app.
