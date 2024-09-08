@@ -1,6 +1,7 @@
 package terminator;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -100,7 +101,11 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String terminatorText = terminator.getResponse(userInput.getText());
+        String input = userInput.getText();
+        if (input.equals("bye")) {
+            Platform.exit();
+        }
+        String terminatorText = terminator.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getTerminatorDialog(terminatorText, dukeImage)

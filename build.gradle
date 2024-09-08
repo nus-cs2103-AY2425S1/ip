@@ -50,6 +50,9 @@ application {
 shadowJar {
     archiveBaseName = "terminator"
     archiveClassifier = null
+    manifest {
+        attributes("Main-Class": "terminator.Launcher")
+    }
 }
 
 run{
