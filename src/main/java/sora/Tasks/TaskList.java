@@ -138,6 +138,8 @@ public class TaskList {
                 throw new SoraException(
                         "Please Enter - Event (Description) /from (dd/MM/yy HHmm) /to (dd/MM/yy HHmm)\n");
             }
+        default:
+            // Do Nothing
         }
         return this.taskList.get(this.taskList.size() - 1);
     }
@@ -165,6 +167,7 @@ public class TaskList {
     /**
      * Locates all tasks, containing the specified substring, of this TaskList instance.
      * Returns a Stringbuilder containing the Tasks in String Format.
+     * If No Tasks are found, a Unique Statement "No Tasks Found" will be returned.
      *
      * @param s User's Substring.
      * @return Stringbuilder containing the Tasks in String Format.
@@ -179,6 +182,9 @@ public class TaskList {
             index++;
         }
         StringBuilder sb = new StringBuilder();
+        if (taskListFound.isEmpty()) {
+            sb.append("Sora is unable to find any Tasks!\n");
+        }
         taskListFound.forEach((i, t) -> sb.append(i++ + ". " + t.toString() + "\n"));
         return sb;
     }
