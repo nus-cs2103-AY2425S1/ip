@@ -9,9 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-/**
- * DialogBox is used for the dialog boxes in the GUI.
- */
 public class DialogBox extends HBox {
 
     private Label text;
@@ -69,4 +66,3 @@ public class DialogBox extends HBox {
         return db;
     }
 }
-

@@ -6,9 +6,6 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-
-
-
 /**
  * Main class for Papagu chatbot
  */

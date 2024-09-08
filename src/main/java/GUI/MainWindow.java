@@ -20,11 +20,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Papagu papagu;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image papaguImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Enel.png"));
+    private Image papaguImage = new Image(this.getClass().getResourceAsStream("/images/Papagu.png"));
 
     @FXML
     public void initialize() {
@@ -34,7 +32,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setPapagu(Papagu papagu) {
         this.papagu = papagu;
-
+        String welcomeMessage = "Hello! I'm Papagu\nWhat can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getPapaguDialog(welcomeMessage, papaguImage));
     }
 
     /**
