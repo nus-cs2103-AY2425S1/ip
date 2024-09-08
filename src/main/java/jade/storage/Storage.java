@@ -1,4 +1,4 @@
-package storage;
+package jade.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,10 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import jade.task.Deadline;
+import jade.task.Event;
+import jade.task.Task;
+import jade.task.Todo;
 
 /**
  * Manages the loading and saving of tasks to and from a file.

@@ -1,10 +1,10 @@
-package task;
+package jade.task;
 
 import java.util.ArrayList;
 
-import exception.JadeException;
-import storage.Storage;
-import ui.Ui;
+import jade.command.FindCommand;
+import jade.exception.JadeException;
+import jade.storage.Storage;
 
 /**
  * Manages a list of tasks.
@@ -70,21 +70,6 @@ public class TaskManager {
         } else {
             throw new JadeException("Hmm, no such task. Try again.");
         }
-    }
-
-    /**
-     * Finds a task from the task list.
-     *
-     * @param keyword The keyword of the task to be found.
-     */
-    public void findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        Ui.showMatchingTasks(matchingTasks);
     }
 
     /**

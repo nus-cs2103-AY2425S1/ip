@@ -1,6 +1,8 @@
-import storage.Storage;
-import task.TaskManager;
-import ui.Ui;
+package jade;
+
+import jade.storage.Storage;
+import jade.task.TaskManager;
+import jade.ui.Ui;
 
 /**
  * The main entry point for the Jade application.
@@ -20,5 +22,12 @@ public class Jade {
         TaskManager taskManager = new TaskManager(storage);
         Ui ui = new Ui(taskManager);
         ui.run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Jade heard: " + input;
     }
 }

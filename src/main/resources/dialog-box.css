@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.label {
+    -fx-background-color: #b8e0d4;
+    -fx-border-color: #5c706a;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-font: 15px "Poppins", sans-serif;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-font: 15px "Poppins", sans-serif;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+    -fx-background-radius: 50%;
+    -fx-clip: arc(0, 0, 100, 100, 0, 360);
+    -fx-fit-width: 50px;
+    -fx-fit-height: 50px;
+    -fx-preserve-ratio: true;
+}

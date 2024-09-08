@@ -1,4 +1,4 @@
-package task;
+package jade.task;
 
 /**
  * Represents the types of tasks that can be managed in the task list.

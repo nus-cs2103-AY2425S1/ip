@@ -1,18 +1,52 @@
-package parser;
+package jade.parser;
 
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
-import exception.JadeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-import ui.Ui;
+import jade.command.*;
+import jade.exception.JadeException;
+import jade.task.*;
+import jade.ui.Ui;
 
 /**
  * Handles the parsing of user commands and executes the appropriate actions.
  */
 public class Parser {
+
+    public void parse(Scanner sc, TaskManager taskManager) {
+        String command = sc.nextLine();
+        while (!command.equals("bye")) {
+            try {
+                if (command.equals("list")) {
+                    System.out.println(new ListCommand(taskManager).run());
+                } else if (command.startsWith("mark")) {
+                    System.out.println(new MarkCommand(taskManager, command, true).run());
+                } else if (command.startsWith("unmark")) {
+                    System.out.println(new MarkCommand(taskManager, command, false).run());
+                } else if (isTaskCommand(command)) {
+                    System.out.println(new AddCommand(taskManager, this, command).run());
+                } else if (command.startsWith("delete")) {
+                    System.out.println(new DeleteCommand(taskManager, command).run());
+                } else if (command.startsWith("find")) {
+                    System.out.println(new FindCommand(taskManager, command).run());
+                } else {
+                    throw new JadeException("Please specify the type of task: todo, deadline, or event.");
+                }
+            } catch (JadeException e) {
+                System.out.println(Ui.TOP_LINE + Ui.INDENT + e.getMessage() + Ui.BOT_LINE);
+            }
+            command = sc.nextLine();
+        }
+    }
+
+    private boolean isTaskCommand(String command) {
+        try {
+            TaskType.valueOf(command.split(" ")[0].toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
     /**
      * Parses a user command to create a task object (Todo, Deadline, or Event).

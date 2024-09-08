@@ -1,4 +1,4 @@
-package parser;
+package jade.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import exception.JadeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import jade.exception.JadeException;
+import jade.task.Deadline;
+import jade.task.Event;
+import jade.task.Task;
+import jade.task.Todo;
 
 public class ParserTest {
     @Test

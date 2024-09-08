@@ -1,12 +1,12 @@
-package task;
+package jade.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import exception.JadeException;
-import storage.Storage;
+import jade.exception.JadeException;
+import jade.storage.Storage;
 
 public class TaskManagerTest {
     private Storage storage;
