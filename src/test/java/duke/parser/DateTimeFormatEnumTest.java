@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,9 @@ public class DateTimeFormatEnumTest {
     public void parse_validDateTimeForSaving_correctLocalDateTime() {
         String input = "Dec 2 2019, 6:00 pm";
         LocalDateTime expected = LocalDateTime.of(2019, 12, 2, 18, 0);
+
+        // Set the default locale to Singapore (en_SG)
+        Locale.setDefault(new Locale("en", "SG"));
 
         Optional<LocalDateTime> result = DateTimeFormatEnum.parse(input);
 

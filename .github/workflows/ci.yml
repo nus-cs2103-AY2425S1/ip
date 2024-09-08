@@ -10,10 +10,6 @@ jobs:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
 
-    env:
-      LC_ALL: en_SG.UTF-8
-      LANG: en_SG.UTF-8
-
     steps:
       - name: Set up repository
         uses: actions/checkout@v2
@@ -30,34 +26,16 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
 
-      # Set locale to en_SG (Linux/macOS)
-      - name: Set locale to en_SG (Linux/macOS)
-        if: matrix.platform != 'windows-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y locales
-          sudo locale-gen en_SG.UTF-8
-          sudo update-locale LANG=en_SG.UTF-8
-
-      - name: Print locale info for debugging (all platforms)
-        run: |
-          echo "Locale: $(locale)"
-          echo "Time zone: $(date +'%Z %z')"
-
       - name: Build the project
         run: ./gradlew build
 
-  # Test Stage (depends on the build stage)
+  # Test Stage
   test:
     needs: build  # This ensures the test stage runs after the build stage
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
-
-    env:
-      LC_ALL: en_SG.UTF-8
-      LANG: en_SG.UTF-8
 
     steps:
       - name: Set up repository
@@ -71,20 +49,6 @@ jobs:
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
-
-      # Set locale to en_SG (Linux/macOS)
-      - name: Set locale to en_SG (Linux/macOS)
-        if: matrix.platform != 'windows-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y locales
-          sudo locale-gen en_SG.UTF-8
-          sudo update-locale LANG=en_SG.UTF-8
-
-      - name: Print locale info for debugging (all platforms)
-        run: |
-          echo "Locale: $(locale)"
-          echo "Time zone: $(date +'%Z %z')"
 
       - name: Run checkstyleMain
         run: ./gradlew checkstyleMain
