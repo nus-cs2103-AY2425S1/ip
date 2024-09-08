@@ -4,6 +4,8 @@ import static java.lang.Integer.parseInt;
 
 import exceptions.InvalidTaskNameException;
 
+import java.util.Arrays;
+
 
 /**
  * Represents the ToDo task.
@@ -14,15 +16,23 @@ public class ToDo extends Task {
     /**
      * Constructor for a ToDo task by taking in a string with the relevant information
      *
-     * @param inputStr The string containing information of the task
+     * @param inputStr The string containing information of the task, which is the name and tags
      * @throws InvalidTaskNameException If no name is provided.
      */
     public ToDo(String inputStr) throws InvalidTaskNameException {
-        String name = inputStr;
+        String[] args = inputStr.split("#");
+        String name = args[0];
         if (name.length() == 0) {
             throw new InvalidTaskNameException();
         }
         this.name = name;
+
+        if (args.length < 2) {
+            return;
+        }
+
+        // adding tags
+        tags.addAll(Arrays.asList(args).subList(1, args.length));
     }
 
     /**
@@ -35,10 +45,20 @@ public class ToDo extends Task {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
-        } else {
+        } else if (isDone == 1) {
             this.isDone = true;
+        } else {
+            System.out.println("Error: problem with storing data, cannot have isDone having a value that is " +
+                    "not 1 or 0");
+            System.exit(-1);
         }
         this.name = input[1];
+        if (input.length < 3) {
+            return;
+        }
+
+        // adding tags
+        tags.addAll(Arrays.asList(input).subList(2, input.length));
     }
 
 

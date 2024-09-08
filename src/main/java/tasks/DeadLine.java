@@ -4,6 +4,7 @@ import static java.lang.Integer.parseInt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -28,28 +29,37 @@ public class DeadLine extends Task {
      */
     public DeadLine(String inputString) throws InvalidTaskNameException, InvalidDateException {
         inputString = inputString.trim();
-        if (inputString.contains("/by ")) {
-            int index = inputString.indexOf("/by ");
-            String taskName = inputString.substring(0, index).trim();
-            String byDate = inputString.substring(index + 4);
-            if (taskName.length() == 0) {
-                throw new InvalidTaskNameException();
-            }
 
-            if (byDate.length() == 0) {
-                throw new InvalidDateException();
-            }
-
-            this.name = taskName;
-            try {
-                this.endDate = LocalDate.parse(byDate);
-            } catch (DateTimeParseException ex) {
-                throw new InvalidDateException("Invalid date format given");
-            }
-
-        } else {
+        if (!inputString.contains("/by ")) {
             throw new InvalidDateException();
         }
+
+        int index = inputString.indexOf("/by ");
+        String[] nameAndTags = inputString.substring(0, index).trim().split("#");
+        String taskName = nameAndTags[0];
+        String byDate = inputString.substring(index + 4);
+        if (taskName.isEmpty()) {
+            throw new InvalidTaskNameException();
+        }
+
+        if (byDate.isEmpty()) {
+            throw new InvalidDateException();
+        }
+
+        this.name = taskName;
+        try {
+            this.endDate = LocalDate.parse(byDate);
+        } catch (DateTimeParseException ex) {
+            throw new InvalidDateException("Invalid date format given");
+        }
+
+        if (nameAndTags.length < 2) {
+            return;
+        }
+
+        // add tags
+        tags.addAll(Arrays.asList(nameAndTags).subList(1, nameAndTags.length));
+
     }
 
     /**
@@ -62,11 +72,22 @@ public class DeadLine extends Task {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
-        } else {
+        } else if (isDone == 1) {
             this.isDone = true;
+        } else {
+            System.out.println("Error: problem with storing data, cannot have isDone having a value that is " +
+                    "not 1 or 0");
+            System.exit(-1);
         }
         this.name = input[1].trim();
         this.endDate = LocalDate.parse(input[2].trim());
+
+        if (input.length < 4) {
+            return;
+        }
+
+        // add tags
+        tags.addAll(Arrays.asList(input).subList(3, input.length));
     }
 
     /**

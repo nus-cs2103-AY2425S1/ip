@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.ArrayList;
+
 /**
  * Represents the general form of a task.
  * A <code>Task</code> object minimally has a name and a flag to show if it is done
@@ -7,6 +9,7 @@ package tasks;
 public abstract class Task {
     protected String name;
     protected boolean isDone = false;
+    protected ArrayList<String> tags = new ArrayList<>();
 
     public String getName() {
         return this.name;

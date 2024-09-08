@@ -4,6 +4,7 @@ import static java.lang.Integer.parseInt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -31,47 +32,58 @@ public class Event extends Task {
      */
     public Event(String inputString) throws InvalidTaskNameException, InvalidDateException {
 
-        if (inputString.contains("/from ")) {
-            int fromIndex = inputString.indexOf("/from ");
-            String taskName = inputString.substring(0, fromIndex).trim();
-            if (taskName.length() == 0) {
-                throw new InvalidTaskNameException();
-            }
-
-            if (inputString.contains("/to ")) {
-                int toIndex = inputString.indexOf("/to ");
-                if (toIndex < fromIndex) {
-                    throw new InvalidDateException("Wrong date order provided!");
-                }
-                String fromDate = inputString.substring(fromIndex + 6, toIndex);
-                String toDate = inputString.substring(toIndex + 4);
-                if (fromDate.length() == 0) {
-                    throw new InvalidDateException("From date not provided");
-                } else if (toDate.length() == 0) {
-                    throw new InvalidDateException("To date not provided");
-                }
-                this.name = taskName;
-                try {
-                    this.fromDate = LocalDate.parse(fromDate.trim());
-                } catch (DateTimeParseException ex) {
-                    throw new InvalidDateException("Invalid from date format given");
-                }
-
-                try {
-                    this.toDate = LocalDate.parse(toDate.trim());
-                } catch (DateTimeParseException ex) {
-                    throw new InvalidDateException("Invalid to date format given");
-                }
-
-                if (this.toDate.isBefore(this.fromDate)) {
-                    throw new InvalidDateException("To date is before from date");
-                }
-            } else {
-                throw new InvalidDateException("To date is not provided!");
-            }
-        } else {
+        if (!inputString.contains("/from ")) {
             throw new InvalidDateException("From date is not provided!");
         }
+
+        if (!inputString.contains("/to ")) {
+            throw new InvalidDateException("To date is not provided!");
+        }
+
+        int fromIndex = inputString.indexOf("/from ");
+        int toIndex = inputString.indexOf("/to ");
+        if (toIndex < fromIndex) {
+            throw new InvalidDateException("Wrong date order provided!");
+        }
+
+        String[] nameAndTag = inputString.substring(0, fromIndex).trim().split("#");
+        String taskName = nameAndTag[0];
+        if (taskName.isEmpty()) {
+            throw new InvalidTaskNameException();
+        }
+
+
+
+        String fromDate = inputString.substring(fromIndex + 6, toIndex);
+        String toDate = inputString.substring(toIndex + 4);
+        if (fromDate.isEmpty()) {
+            throw new InvalidDateException("From date not provided");
+        } else if (toDate.isEmpty()) {
+            throw new InvalidDateException("To date not provided");
+        }
+
+        this.name = taskName;
+        try {
+            this.fromDate = LocalDate.parse(fromDate.trim());
+        } catch (DateTimeParseException ex) {
+            throw new InvalidDateException("Invalid from date format given");
+        }
+
+        try {
+            this.toDate = LocalDate.parse(toDate.trim());
+        } catch (DateTimeParseException ex) {
+            throw new InvalidDateException("Invalid to date format given");
+        }
+
+        if (this.toDate.isBefore(this.fromDate)) {
+            throw new InvalidDateException("To date is before from date");
+        }
+
+        if (nameAndTag.length < 2) {
+            return;
+        }
+        tags.addAll(Arrays.asList(nameAndTag).subList(1, nameAndTag.length));
+
     }
 
     /**
@@ -84,12 +96,23 @@ public class Event extends Task {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
-        } else {
+        } else if (isDone == 1) {
             this.isDone = true;
+        } else {
+            System.out.println("Error: problem with storing data, cannot have isDone having a value that is " +
+                    "not 1 or 0");
+            System.exit(-1);
         }
         this.name = input[1].trim();
         this.fromDate = LocalDate.parse(input[2].trim());
         this.toDate = LocalDate.parse(input[3].trim());
+
+        if (input.length < 5) {
+            return;
+        }
+
+        // add tags
+        tags.addAll(Arrays.asList(input).subList(4, input.length));
     }
 
     /**
