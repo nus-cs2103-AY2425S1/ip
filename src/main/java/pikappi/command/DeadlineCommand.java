@@ -39,6 +39,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+        assert tasks != null : "TaskList cannot be null";
         return tasks.addTask(new DeadlineTask(description, by));
     }
 }

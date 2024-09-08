@@ -31,6 +31,7 @@ public class TaskList {
      * @return List of tasks
      */
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "Tasks should not be null";
         return tasks;
     }
 
@@ -41,6 +42,7 @@ public class TaskList {
      * @param task Task to be added
      */
     public void load(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -65,16 +67,19 @@ public class TaskList {
      * @throws PikappiException If the task does not exist
      */
     public String deleteTask(int taskNum) throws PikappiException {
-        if (taskNum > tasks.size() || taskNum < 1) {
+        assert taskNum > 0 : "Task number should be greater than 0";
+        if (taskNum > tasks.size()) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
         }
         Task task = tasks.get(taskNum - 1);
+        assert task != null : "Task should not be null";
         tasks.remove(taskNum - 1);
         return ui.showDeletedTask(task, tasks.size());
     }
 
     /** Lists all tasks in the list of tasks. */
     public String listTasks() {
+        assert tasks != null : "Tasks should not be null";
         if (tasks.isEmpty()) {
             return ui.showNoTasks();
         }
@@ -87,8 +92,10 @@ public class TaskList {
      * @param taskNumber Index of the task to be marked as done
      */
     public String markTask(int taskNumber) throws PikappiException {
+        assert taskNumber > 0 : "Task number should be greater than 0";
         try {
             Task task = tasks.get(taskNumber - 1);
+            assert task != null : "Task should not be null";
             task.markAsDone();
             return ui.showMarkedTask(task);
         } catch (IndexOutOfBoundsException e) {
@@ -102,7 +109,9 @@ public class TaskList {
      * @param taskNumber Index of the task to be unmarked as not done
      */
     public String unmarkTask(int taskNumber) {
+        assert taskNumber > 0 : "Task number should be greater than 0";
         Task task = tasks.get(taskNumber - 1);
+        assert task != null : "Task should not be null";
         task.unmarkAsDone();
         return ui.showUnmarkedTask(task);
     }

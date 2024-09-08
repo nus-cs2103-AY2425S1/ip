@@ -44,16 +44,17 @@ test {
 }
 
 application {
-    mainClass.set("pikappi.Pikappi")
+    mainClass.set("pikappi.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Pikappi"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
