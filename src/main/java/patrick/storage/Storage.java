@@ -17,7 +17,7 @@ import patrick.tasklist.ToDo;
  * It supports loading tasks from a file, adding, deleting, and saving tasks.
  */
 public class Storage {
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static final ArrayList<Task> list = new ArrayList<>();
     private static String filePath;
 
     /**
@@ -80,6 +80,7 @@ public class Storage {
      * @param index the 1-based index of the task to be deleted.
      */
     public static void deleteItem(int index) {
+        assert index >= 0 : "index cannot be less than 0";
         list.remove(index - 1);
     }
 
