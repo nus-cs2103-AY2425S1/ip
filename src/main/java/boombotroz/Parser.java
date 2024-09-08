@@ -11,8 +11,8 @@ public class Parser {
      *
      * @param taskList list of all the tasks.
      */
-    public String getList(TaskList taskList) {
-        return taskList.printAll();
+    public String getList(Ui ui, TaskList taskList) {
+        return ui.printAll(taskList);
 
     }
 
@@ -56,7 +56,7 @@ public class Parser {
             Storage storage, Ui ui)
                     throws BoomException, IOException {
         String s = "";
-        s += taskList.unmarkTask(input, ui);
+        s = taskList.unmarkTask(input, ui);
         storage.writeTasks(taskList.getAll());
         return s;
     }
@@ -98,15 +98,7 @@ public class Parser {
     public String findTask(TaskList taskList, String input, Ui ui) throws BoomException {
         ui.emptyWord(input);
         String word = input.substring(5);
-        String s = "";
-        s += "Here are the matching tasks in your list:\n";
-        for (int i = 0; i < taskList.size(); i++) {
-            Task curr = taskList.getTask(i);
-            if (curr.getDescription().matches(word)) {
-                s += String.format("%d.%s\n", i, curr);
-            }
-        }
-        return s;
+        return ui.findTaskMessage(taskList, word);
     }
 
     /**
@@ -118,7 +110,7 @@ public class Parser {
      * @param input input given by user.
      * @param storage file that stores current state of task_list.
      * @param ui handles errors that may occur.
-     * @return Message after adding task.
+     * @return Message after creating and adding task.
      * @throws BoomException If no task details given.
      * @throws IOException If writing to file has issue.
      */
@@ -134,9 +126,7 @@ public class Parser {
         Task createdTask = new ToDo(false, toDoTask);
         taskList.addTask(createdTask);
         String s = "";
-        s += "Got it. I've added this task:\n";
-        s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        s = ui.toDoMessage(createdTask, taskList);
         storage.writeTasks(taskList.getAll());
         return s;
 
@@ -151,7 +141,7 @@ public class Parser {
      * @param input input given by user.
      * @param storage file that stores current state of task_list.
      * @param ui handles errors that may occur.
-     * @return Message after adding task.
+     * @return Message after creating and adding task.
      * @throws BoomException If no task details OR no deadline given.
      * @throws IOException If writing to file has issue.
      */
@@ -173,9 +163,7 @@ public class Parser {
         createdTask.hasDate(ui);
         taskList.addTask(createdTask);
         String s = "";
-        s += "Got it. I've added this task:\n";
-        s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        s = ui.deadlineMessage(createdTask, taskList);
         storage.writeTasks(taskList.getAll());
         return s;
     }
@@ -215,13 +203,9 @@ public class Parser {
         createdTask.hasDate(ui);
         taskList.addTask(createdTask);
         String s = "";
-        s += "Got it. I've added this task:\n";
-        s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        s = ui.eventMessage(createdTask, taskList);
         storage.writeTasks(taskList.getAll());
         return s;
-
-
     }
 
 }

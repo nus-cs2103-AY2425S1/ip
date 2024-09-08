@@ -45,7 +45,7 @@ public class Boombotroz {
 
             try {
                 if (input.equals("list")) {
-                    return parser.getList(taskList);
+                    return parser.getList(ui, taskList);
 
 
                 } else if (input.startsWith("mark ")) {

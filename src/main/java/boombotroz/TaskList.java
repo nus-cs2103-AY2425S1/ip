@@ -57,11 +57,10 @@ public class TaskList {
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
         String s = "";
-        s += "Noted. I've removed this task:\n";
-        s += String.format("  %s\n", taskList.get(index));
+        s = ui.deleteTaskMessage(this, index);
         taskList.remove(taskList.get(index));
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
         return s;
+
     }
 
     /**
@@ -83,10 +82,7 @@ public class TaskList {
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
         taskList.get(index).setMark(true);
-        String s = "";
-        s += "Nice! I've marked this as done:\n";
-        s += String.format("  %s", taskList.get(index));
-        return s;
+        return ui.markTaskMessage(this, index);
     }
 
     /**
@@ -107,23 +103,8 @@ public class TaskList {
 
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
-        String s = "";
         taskList.get(index).setMark(false);
-        s += "OK, I've marked this task as not done yet:\n";
-        s += String.format("  %s", taskList.get(index));
-        return s;
-    }
-
-    /**
-     * Prints all the task from task list.
-     */
-    public String printAll() {
-        String s = "";
-        s += "Here are the tasks in your list:\n";
-        for (int i = 0; i < taskList.size(); i++) {
-            s += String.format("%d.%s\n", i + 1, taskList.get(i));
-        }
-        return s;
+        return ui.unmarkTaskMessage(this, index);
     }
 
     /**

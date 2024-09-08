@@ -7,6 +7,128 @@ import java.time.LocalDate;
 public class Ui {
 
     /**
+     * Prints all the task from task list.
+     *
+     * @param taskList list of all the tasks.
+     * @return List of all tasks.
+     */
+    public String printAll(TaskList taskList) {
+        String s = "";
+        s += "Here are the tasks in your list:\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            s += String.format("%d.%s\n", i + 1, taskList.getTask(i));
+        }
+        return s;
+    }
+
+    /**
+     * Returns message after marking task.
+     *
+     * @param taskList list of tasks.
+     * @param index position of task to be marked.
+     * @return Message after marking task.
+     */
+    public String markTaskMessage(TaskList taskList, int index) {
+        String s = "";
+        s += "Nice! I've marked this as done:\n";
+        s += String.format("  %s", taskList.getTask(index));
+        return s;
+    }
+
+    /**
+     * Returns message after unmarking task.
+     *
+     * @param taskList list of tasks.
+     * @param index position of task to be unmarked.
+     * @return Message after unmarking task.
+     */
+    public String unmarkTaskMessage(TaskList taskList, int index) {
+        String s = "";
+        s += "OK, I've marked this task as not done yet:\n";
+        s += String.format("  %s", taskList.getTask(index));
+        return s;
+    }
+
+    /**
+     * Returns message after deleting task.
+     *
+     * @param taskList list of tasks.
+     * @param index position of task to be deleted.
+     * @return Message after deleting task.
+     */
+    public String deleteTaskMessage(TaskList taskList, int index) {
+        String s = "";
+        s += "Noted. I've removed this task:\n";
+        s += String.format("  %s\n", taskList.getTask(index));
+        s += String.format("Now you have %d tasks in the list.", taskList.size() - 1);
+        return s;
+    }
+
+    /**
+     * Returns message after finding matching task(s).
+     *
+     * @param taskList list of tasks.
+     * @param word word that appear in the task(s).
+     * @return Message after finding task(s).
+     */
+    public String findTaskMessage(TaskList taskList, String word) {
+        String s = "";
+        s += "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            Task curr = taskList.getTask(i);
+            if (curr.getDescription().matches(word)) {
+                s += String.format("%d.%s\n", i, curr);
+            }
+        }
+        return s;
+    }
+
+    /**
+     * Returns message after creating ToDo task.
+     *
+     * @param createdTask ToDo task that was created.
+     * @param taskList list of tasks.
+     * @return Message after creating ToDo task.
+     */
+    public String toDoMessage(Task createdTask, TaskList taskList) {
+        String s = "";
+        s += "Got it. I've added this task:\n";
+        s += String.format("  %s\n", createdTask);
+        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        return s;
+    }
+
+    /**
+     * Returns message after creating Deadline task.
+     *
+     * @param createdTask Deadline task that was created.
+     * @param taskList list of tasks.
+     * @return Message after creating Deadline task.
+     */
+    public String deadlineMessage(Task createdTask, TaskList taskList) {
+        String s = "";
+        s += "Got it. I've added this task:\n";
+        s += String.format("  %s\n", createdTask);
+        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        return s;
+    }
+
+    /**
+     * Returns message after creating Event task.
+     *
+     * @param createdTask Event task that was created.
+     * @param taskList list of tasks.
+     * @return Message after creating Event task.
+     */
+    public String eventMessage(Task createdTask, TaskList taskList) {
+        String s = "";
+        s += "Got it. I've added this task:\n";
+        s += String.format("  %s\n", createdTask);
+        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        return s;
+    }
+
+    /**
      * Throws exception when input invalid.
      */
     public void invalidInput() throws BoomException {
