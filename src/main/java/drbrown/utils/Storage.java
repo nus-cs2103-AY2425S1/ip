@@ -47,6 +47,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            assert file.exists() : "file doesn't exist";
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String[] sentenceSplit = scanner.nextLine().split(" \\| ");
@@ -82,12 +83,14 @@ public class Storage {
      * @param tasks The TaskList containing the current tasks to be saved to the file.
      */
     public void update(TaskList tasks) {
+        assert tasks != null : "tasks should not be null";
         try {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            assert (file.exists()) : "File doesn't exist";
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks.getList()) {
                 fw.write(task.toFileString() + System.lineSeparator());

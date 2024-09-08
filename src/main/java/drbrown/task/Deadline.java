@@ -21,6 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime) {
         super(isCompleted, description);
+        assert endDateTime != null : "End time should not be null";
         this.endDateTime = endDateTime;
     }
 

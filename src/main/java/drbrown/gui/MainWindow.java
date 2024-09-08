@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
      * @param drBrown The DrBrown instance to be used for generating responses.
      */
     public void setDrBrown(DrBrown drBrown) {
+        assert drBrown != null : "DrBrown should not be null";
         this.drBrown = drBrown;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(drBrown.showGreeting(), drBrownImage)

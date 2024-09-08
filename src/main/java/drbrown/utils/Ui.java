@@ -47,6 +47,7 @@ public class Ui {
      * @return The error message as a String.
      */
     public String showError(String message) {
+        assert message != null : "Message should not be null";
         return message;
     }
 
@@ -57,6 +58,7 @@ public class Ui {
      * @return A string message confirming the task creation.
      */
     public String showTaskCreation(Task task) {
+        assert task != null : "Task should not be null";
         return task.toUiString() + "\n" + task;
     }
 
@@ -67,6 +69,7 @@ public class Ui {
      * @return A string message confirming the task has been marked as completed.
      */
     public String showMarkTask(Task markTask) {
+        assert markTask != null : "Task should not be null";
         return "Task complete! If my calculations are correct, when this baby hits 88 miles per hour..."
                 + " you're gonna see some serious progress!\n\n" + markTask;
     }
@@ -78,6 +81,7 @@ public class Ui {
      * @return A string message confirming the task has been unmarked as incomplete.
      */
     public String showUnmarkTask(Task unmarkTask) {
+        assert unmarkTask != null : "Task should not be null";
         return "Looks like we're going back to the future—task unmarked! Time to revisit this one.\n\n" + unmarkTask;
     }
 
@@ -98,6 +102,7 @@ public class Ui {
      * @return A string message confirming the deletion of the task.
      */
     public String showDeleteTask(Task deleteTask) {
+        assert deleteTask != null : "Task should not be null";
         return "That task's history has been erased! Just like Marty's fading photo - it's gone, "
                 + "like it never existed!\n\n" + deleteTask;
     }
@@ -109,6 +114,7 @@ public class Ui {
      * @return A string message displaying the total count of tasks.
      */
     public String showCount(TaskList tasks) {
+        assert tasks != null : "Tasks should not be null";
         return "\nYour total count is now " + tasks.getCount() + "! Like the time circuits, "
                 + "everything's in sync - keep those tasks ticking along!";
     }
