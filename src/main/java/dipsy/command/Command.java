@@ -10,7 +10,6 @@ import dipsy.ui.Ui;
  * Specific command types should extend this class and implement the {@link #execute()} method.
  */
 public abstract class Command {
-
     /** The user input that triggered this command. */
     protected final String userInput;
 
@@ -34,7 +33,7 @@ public abstract class Command {
     }
 
     /**
-     * Executes the command, then returns a String message to be shown to the user.
+     * Executes the command.
      * Subclasses should override this method to provide specific command behavior.
      *
      * @throws InvalidCommandException If the command is invalid.

@@ -30,7 +30,7 @@ public class TodoCommand extends Command {
 
     /**
      * Executes the TodoCommand by parsing the user input and adding a new ToDo task to the task list.
-     * Returns a String message to be shown to the user.
+     * If the input is invalid, an exception is thrown.
      *
      * @throws InvalidCommandException If the command format is invalid.
      */

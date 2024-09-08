@@ -17,9 +17,9 @@ import dipsy.ui.Ui;
  * The command follows the format "deadline &lt;description&gt; /by &lt;date&gt;".
  * The date must be in the format "yyyy-MM-dd".
  */
-public class DeadlineCommand extends Command {
 
-    /** Regular expression(regex) pattern to parse the deadline command input.**/
+public class DeadlineCommand extends Command {
+    /** Regular exppression(regen) pattern to parse the deadline command input.**/
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
 
     /**
@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the DeadlineCommand by parsing the user input and adding a new deadline task to the task list.
-     * Returns a String message to be shown to the user.
+     * If the input is invalid or the date format is incorrect, exceptions are thrown.
      *
      * @throws InvalidCommandException If the command format is invalid.
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.

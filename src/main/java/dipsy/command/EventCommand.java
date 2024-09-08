@@ -35,7 +35,7 @@ public class EventCommand extends Command {
 
     /**
      * Executes the DeadlineCommand by parsing the user input and adding a new event task to the task list.
-     * Returns a String message to be shown to the user.
+     * If the input is invalid or the date format is incorrect, exceptions are thrown.
      *
      * @throws InvalidCommandException If the command format is invalid.
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.

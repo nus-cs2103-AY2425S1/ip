@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
     /**
      * Executes the MarkCommand by parsing the user input and marking the specified task
      * as done or undone in the task list.
-     * Returns a String message to be shown to the user.
+     * If the input is invalid or the task number is out of bounds, an exception is thrown.
      *
      * @throws InvalidCommandException If the command format is invalid or the task number is out of bounds.
      */
