@@ -11,7 +11,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         Task task = new ToDo("Sample task");
         taskList.add(task);
-        assertEquals(1, taskList.size(), "TaskList size should increase after adding a task.");
+        assertEquals(1, taskList.getSize(), "TaskList size should increase after adding a task.");
     }
 
     @Test
