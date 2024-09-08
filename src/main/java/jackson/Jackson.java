@@ -12,7 +12,7 @@ import jackson.enums.Actions;
 import jackson.enums.Commands;
 import jackson.exceptions.OutOfListException;
 import jackson.exceptions.SyntaxException;
-import jackson.exceptions.UnsupportedException;
+import jackson.exceptions.UnsupportedCommandException;
 import jackson.tasks.Deadline;
 import jackson.tasks.Event;
 import jackson.tasks.Task;
@@ -120,42 +120,42 @@ public class Jackson {
             case TODO:
                 task = new Todo(matcher.group(1));
                 this.taskList.addTask(task);
-                output = this.ui.printAddList(task, this.taskList);
+                output = this.ui.printAfterAddList(task, this.taskList);
                 this.commandType = Commands.CommandType.TASKS;
                 break;
             case DEADLINE:
                 task = new Deadline(matcher.group(1), matcher.group(2));
                 this.taskList.addTask(task);
-                output = this.ui.printAddList(task, this.taskList);
+                output = this.ui.printAfterAddList(task, this.taskList);
                 this.commandType = Commands.CommandType.TASKS;
                 break;
             case EVENT:
                 task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
                 this.taskList.addTask(task);
-                output = this.ui.printAddList(task, this.taskList);
+                output = this.ui.printAfterAddList(task, this.taskList);
                 this.commandType = Commands.CommandType.TASKS;
                 break;
             case MARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.mark(index);
-                output = this.ui.printMark(task);
+                output = this.ui.printAfterMark(task);
                 this.commandType = Commands.CommandType.MODIFY;
                 break;
             case UNMARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.unmark(index);
-                output = this.ui.printUnmark(task);
+                output = this.ui.printAfterUnmark(task);
                 this.commandType = Commands.CommandType.MODIFY;
                 break;
             case DELETE:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.deleteTask(index);
-                output = this.ui.printDeleteList(task, this.taskList);
+                output = this.ui.printAfterDeleteList(task, this.taskList);
                 this.commandType = Commands.CommandType.MODIFY;
                 break;
             case FIND:
                 tasks = this.taskList.findTasks(matcher.group(1));
-                output = this.ui.printFindList(tasks, matcher.group(1));
+                output = this.ui.printAfterFindList(tasks, matcher.group(1));
                 this.commandType = Commands.CommandType.TASKS;
                 break;
             case BYE:
@@ -167,14 +167,14 @@ public class Jackson {
                 this.commandType = Commands.CommandType.SECRET;
                 break;
             case INVALID:
-                throw new UnsupportedException(input);
+                throw new UnsupportedCommandException(input);
             default:
                 output = "Unknown error! Contact the developer...\n";
                 break;
             }
-        } catch (UnsupportedException e) {
+        } catch (UnsupportedCommandException e) {
             // if user input not recognised, print command list
-            output = this.ui.printCommands();
+            output = this.ui.printCommandList();
             this.commandType = Commands.CommandType.ERROR;
         } catch (SyntaxException e) {
             // if the user input is in the wrong format for the command, print format guide

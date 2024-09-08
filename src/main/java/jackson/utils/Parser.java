@@ -8,6 +8,8 @@ import jackson.exceptions.SyntaxException;
 
 /**
  * Parser static class to handle regex checking and input parsing.
+ * Regex check will check for a specified pattern in the input string and return any matches.
+ * This helps to provide a standardized and simple way to check for edge cases and abnormal input.
  */
 public class Parser {
 

@@ -3,8 +3,8 @@ package jackson.exceptions;
 /**
  * Thrown when unrecognised command and input is given.
  */
-public class UnsupportedException extends JacksonException {
-    public UnsupportedException(String msg) {
+public class UnsupportedCommandException extends JacksonException {
+    public UnsupportedCommandException(String msg) {
         super(msg);
     }
 }
