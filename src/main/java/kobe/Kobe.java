@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * The main class of the Kobe chatbot application.
- * Handles the initialization of the application and runs the main program loop.
+ * Handles the initialization of the application and provides response handling.
  */
 public class Kobe {
 
@@ -40,32 +40,24 @@ public class Kobe {
     }
 
     /**
-     * Runs the main loop of the Kobe chatbot application, processing user commands until an exit command is given.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * The entry point of the Kobe chatbot application.
+     * Processes user input and returns the chatbot's response.
      *
-     * @param args Command line arguments (not used).
+     * @param input The user's input command.
+     * @return The response from the chatbot.
      */
-    public static void main(String[] args) {
-        new Kobe("data/kobee.txt").run();
+    public String getResponse(String input) {
+        if (input.equals("list")) {
+            return tasks.getAllTasksAsString();
+        }
+        if (input.equals("welcome")) {
+            return ui.getWelcomeMessage();
+        }
+        try {
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            return ui.getLatestResponse();  // Get the latest response for the GUI
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();  // Return error message if something goes wrong
+        }
     }
 }

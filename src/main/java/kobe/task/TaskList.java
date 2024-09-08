@@ -91,4 +91,16 @@ public class TaskList {
         }
         return new TaskList(matchingTasks);
     }
+
+    public String getAllTasksAsString() {
+        StringBuilder taskListBuilder = new StringBuilder();
+        if (tasks.isEmpty()) {
+            return "Your task list is currently empty.";
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                taskListBuilder.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
+            }
+            return taskListBuilder.toString().trim();  // Remove trailing newline
+        }
+    }
 }
