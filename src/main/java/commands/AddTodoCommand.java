@@ -33,19 +33,18 @@ public class AddTodoCommand extends Command {
     /**
      * Executes the command to add a todo task.
      *
-     * @param ui The user interface to interact with the user.
+     * @param ui      The user interface to interact with the user.
      * @param storage The task storage to store the task.
-     * @return True to continue running the program.
+     * @return Output message.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
+    public String execute(Ui ui, TaskStorage storage) {
         try {
             Todo todo = new Todo(description, false);
             storage.addTask(todo);
-            ui.printMessage("Got it. I've added this task:\n  " + todo);
+            return ui.outputMessage("Got it. I've added this task:\n  " + todo);
         } catch (SkibidiException | IOException e) {
-            ui.printMessage(e.getMessage());
+            return ui.outputMessage(e.getMessage());
         }
-        return true;
     }
 }

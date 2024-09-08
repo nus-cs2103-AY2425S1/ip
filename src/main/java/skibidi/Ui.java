@@ -16,30 +16,25 @@ public class Ui {
     /**
      * Shows the welcome message.
      */
-    public void showWelcome() {
-        System.out.println(logo + line
-                + " Hello! I'm SKIBIDI\n"
-                + " What can I do for you?\n"
-                + line);
+    public String welcomeText() {
+        return " Hello! I'm SKIBIDI\n"
+                + " What can I do for you?\n";
     }
 
     /**
      * Prints a message to the user.
      *
      * @param message The message to be printed.
+     * @return The message to be printed.
      */
-    public void printMessage(String message) {
-        System.out.println("Erm...");
-        System.out.println("SKIBIDI: " + message);
-        System.out.println("");
+    public String outputMessage(String message) {
+        return message;
     }
 
     /**
-     * Shows the goodbye message.
+     * Returns the goodbye message.
      */
-    public void showGoodbye() {
-        System.out.println(line);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
+    public String goodbyeText() {
+        return "Bye. Hope to see you again soon!";
     }
-}
+}   

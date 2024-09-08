@@ -11,13 +11,12 @@ public class ExitCommand extends Command {
     /**
      * Executes the command to exit the program.
      *
-     * @param ui The user interface to interact with the user.
+     * @param ui      The user interface to interact with the user.
      * @param storage The task storage to store the task.
-     * @return False to indicate the program should exit.
+     * @return Output message to be displayed to the user.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
-        ui.showGoodbye();
-        return false;
+    public String execute(Ui ui, TaskStorage storage) {
+        return ui.goodbyeText();
     }
 }
