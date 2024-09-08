@@ -1,2 +1,3 @@
-Todo | 0 | swim | No time constraint
-Todo | 0 | meeting tonight | No time constraint
+Todo | X | fly | No time constraint
+Todo | X | eat | No time constraint
+Todo | 0 | dance | No time constraint

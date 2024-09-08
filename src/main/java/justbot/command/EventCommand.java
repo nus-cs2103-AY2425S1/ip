@@ -35,10 +35,10 @@ public class EventCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(this.eventTask);
-        ui.addTaskMessage(taskList, eventTask);
         storage.saveTasks(taskList);
+        return ui.addTaskMessage(taskList, eventTask);
     }
 
     /**

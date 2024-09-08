@@ -34,10 +34,10 @@ public class DeadlineCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(this.deadlineTask);
-        ui.addTaskMessage(taskList, deadlineTask);
         storage.saveTasks(taskList);
+        return ui.addTaskMessage(taskList, deadlineTask);
     }
 
     /**

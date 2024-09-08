@@ -33,14 +33,15 @@ public class DeleteCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.validateDeleteTaskNumber(this.deleteNumber);
-            ui.deleteTaskMessage(taskList, this.deleteNumber);
+            String result = ui.deleteTaskMessage(taskList, this.deleteNumber);
             taskList.delete(this.deleteNumber);
             storage.saveTasks(taskList);
+            return result;
         } catch (JustbotException e) {
-            ui.getJustBotExceptionMessage(e);
+            return ui.getJustBotExceptionMessage(e);
         }
     }
 

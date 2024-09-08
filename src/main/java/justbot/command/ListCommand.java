@@ -22,12 +22,12 @@ public class ListCommand extends Command {
      * @param storage The Storage instance (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.validateNotEmpty();
-            ui.listMessage(taskList);
+            return ui.listMessage(taskList);
         } catch (JustbotException e) {
-            ui.getJustBotExceptionMessage(e);
+            return ui.getJustBotExceptionMessage(e);
         }
     }
 
