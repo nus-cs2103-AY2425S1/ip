@@ -1,6 +1,7 @@
 package deez;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -16,7 +17,7 @@ public class Ui {
      */
     public Ui() {
         messageConsumer = (String message) -> {
-            System.out.println("WARN: Ui is in headless mode");
+            System.out.println("WARN: Ui is running in headless mode");
             System.out.println(message);
         };
     }
@@ -44,7 +45,7 @@ public class Ui {
      *
      * @param arrayList The list to print.
      */
-    public void printList(ArrayList<?> arrayList) {
+    public void printList(List<?> arrayList) {
         if (arrayList.isEmpty()) {
             say("<No items in list>");
             return;

@@ -1,9 +1,9 @@
 package deez;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 
@@ -18,11 +18,8 @@ import javafx.util.Pair;
  * Deez class
  */
 public class Deez {
-    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     private static Storage storage = new Storage("./data");
     protected TaskList taskList = new TaskList(new ArrayList<>());
-    protected boolean isActive = true;
     private Ui ui = new Ui();
 
     /**
@@ -42,7 +39,7 @@ public class Deez {
      * Constructor for testing purposes
      *
      * @param isTesting flag to tell the constructor to not initialise taskList with storage.
-     *                  This is important to preserve the correctness of DeezTest.
+     *                  This is important to preserve the correctness of test cases in DeezTest.
      */
     public Deez(Boolean isTesting) {
     }
@@ -75,7 +72,7 @@ public class Deez {
      * Handle the exit command
      */
     private void handleExit() {
-        // TODO: handle exit
+        // TODO: Not really sure how to handle this at the moment
     }
 
     /**
@@ -119,7 +116,8 @@ public class Deez {
      */
     private void handleAddDeadline(Properties props) throws DeezException {
         try {
-            LocalDateTime byDateTime = LocalDateTime.parse(props.getProperty("by"), dateTimeInputFormatter);
+            LocalDateTime byDateTime = Parser.parseDateTimeString(props.getProperty("by"));
+
             Deadline d = new Deadline(props.getProperty("name"), byDateTime);
             taskList.addTask(d);
             ui.say("Donezo. I have added your task.", d.toString(),
@@ -138,8 +136,9 @@ public class Deez {
      */
     private void handleAddEvent(Properties props) throws DeezException {
         try {
-            LocalDateTime startDate = LocalDateTime.parse(props.getProperty("from"), dateTimeInputFormatter);
-            LocalDateTime endDate = LocalDateTime.parse(props.getProperty("to"), dateTimeInputFormatter);
+            LocalDateTime startDate = Parser.parseDateTimeString(props.getProperty("from"));
+            LocalDateTime endDate = Parser.parseDateTimeString(props.getProperty("to"));
+
             if (startDate.isAfter(endDate)) {
                 throw new DeezException("Start date must be before end date.", "Usage:",
                     "event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
@@ -191,7 +190,7 @@ public class Deez {
         if (keyword == null || keyword.isEmpty()) {
             throw new DeezException("No keyword provided.", "Usage:", "find book", "Please try again.");
         }
-        ArrayList<Task> foundTasks = taskList.getTasks(keyword);
+        List<Task> foundTasks = taskList.getTasks(keyword);
         ui.printList(foundTasks);
     }
 

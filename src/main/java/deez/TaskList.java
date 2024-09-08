@@ -2,6 +2,8 @@ package deez;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import deez.tasks.Task;
 
@@ -37,14 +39,10 @@ public class TaskList implements Serializable {
      * @param keyword
      * @return A list of tasks that contain the given keyword in their descriptions.
      */
-    public ArrayList<Task> getTasks(String keyword) {
-        ArrayList<Task> result = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.getDescription().contains(keyword)) {
-                result.add(t);
-            }
-        }
-        return result;
+    public List<Task> getTasks(String keyword) {
+        return tasks.stream()
+            .filter(task -> task.getDescription().contains(keyword))
+            .collect(Collectors.toList());
     }
 
     /**
