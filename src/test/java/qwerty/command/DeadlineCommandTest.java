@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.ui.Ui;
+import qwerty.stubs.UiStub;
 
 public class DeadlineCommandTest {
 
@@ -36,7 +36,7 @@ public class DeadlineCommandTest {
     public void execute_emptyMap_exceptionThrown() {
         HashMap<String, String> args = new HashMap<>();
         Command command = new DeadlineCommand(args);
-        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new Ui(), new Storage("")));
+        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new UiStub(), new Storage("")));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DeadlineCommandTest {
         HashMap<String, String> args = new HashMap<>();
         args.put("main", null);
         Command command = new DeadlineCommand(args);
-        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new Ui(), new Storage("")));
+        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new UiStub(), new Storage("")));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class DeadlineCommandTest {
         HashMap<String, String> args = new HashMap<>();
         args.put("main", "deadline");
         Command command = new DeadlineCommand(args);
-        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new Ui(), new Storage("")),
+        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new UiStub(), new Storage("")),
                 "You didn't tell me when your deadline is.");
     }
 
@@ -62,7 +62,7 @@ public class DeadlineCommandTest {
         args.put("main", "deadline");
         args.put("by", null);
         Command command = new DeadlineCommand(args);
-        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new Ui(), new Storage("")),
+        assertThrows(QwertyException.class, () -> command.execute(new TaskList(), new UiStub(), new Storage("")),
                 "You didn't tell me when your deadline is.");
     }
 
@@ -72,7 +72,7 @@ public class DeadlineCommandTest {
         args.put("main", "deadline");
         args.put("by", "108r91itn");
         Command command = new DeadlineCommand(args);
-        assertDoesNotThrow(() -> command.execute(new TaskList(), new Ui(), new Storage("")));
+        assertDoesNotThrow(() -> command.execute(new TaskList(), new UiStub(), new Storage("")));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class DeadlineCommandTest {
         args.put("main", "deadline");
         args.put("by", "108r91itn");
         Command command = new DeadlineCommand(args);
-        assertDoesNotThrow(() -> command.execute(new TaskList(), new Ui(), new Storage("")));
+        assertDoesNotThrow(() -> command.execute(new TaskList(), new UiStub(), new Storage("")));
         String expected = """
                 Well done! An error has occurred:
                 I don't like the way you write dates.
@@ -95,7 +95,7 @@ public class DeadlineCommandTest {
         args.put("main", "deadline");
         args.put("by", "12/08/2036 0000");
         Command command = new DeadlineCommand(args);
-        assertDoesNotThrow(() -> command.execute(new TaskList(), new Ui(), new Storage("")));
+        assertDoesNotThrow(() -> command.execute(new TaskList(), new UiStub(), new Storage("")));
         String expected = """
                 Added this task:
                 [D][ ] deadline (by: Aug 12 2036 0000)
