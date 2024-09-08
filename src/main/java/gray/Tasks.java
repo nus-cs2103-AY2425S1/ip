@@ -29,7 +29,7 @@ public class Tasks {
     private void save() {
         saveFile.getParentFile().mkdirs();
         try {
-            Utility.serialise(saveFile, tasks);
+            Utility.serialize(saveFile, tasks);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,7 +41,7 @@ public class Tasks {
             return;
         }
         try {
-            ArrayList<Task> taskList = (ArrayList<Task>) Utility.deserialise(saveFile);
+            ArrayList<Task> taskList = (ArrayList<Task>) Utility.deserialize(saveFile);
             tasks.clear();
             tasks.addAll(taskList);
         } catch (IOException | ClassNotFoundException e) {
