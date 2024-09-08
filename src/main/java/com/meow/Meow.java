@@ -60,7 +60,12 @@ public class Meow {
     public static final void main(String[] args) throws Meowception, IOException {
         new Meow().run();
     }
-
+    
+    /*
+     * Returns the response from the chatbot to GUI
+     * @param String input of user
+     * @return String response from chatbot
+     */
     public String getResponse(String input) {
         try {
             
@@ -70,6 +75,10 @@ public class Meow {
         }
     }
 
+    /*
+     * Returns the welcome message from the chatbot to GUI
+     * @return String welcome message
+     */
     public String getWelcomeMessage() {
         return ui.getStartingMessage();
     }
