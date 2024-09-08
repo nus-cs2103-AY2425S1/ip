@@ -1,8 +1,7 @@
 package duke.commands;
 
 import duke.exceptions.InvalidInputException;
-import duke.exceptions.InvalidTodoDescriptionException;
-import duke.exceptions.UnknownMessageException;
+import duke.exceptions.InvalidTaskException;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
@@ -43,7 +42,7 @@ public class AddTaskCommand extends Command {
 
         try {
             return taskList.addTask(this.userInput);
-        } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
+        } catch (InvalidTaskException e) {
             throw new InvalidInputException("Please enter a valid task to add!");
         }
     }
