@@ -57,3 +57,7 @@ checkstyle {
 application {
     mainClass.set("Launcher")
 }
+
+run {
+    enableAssertions = true
+}
