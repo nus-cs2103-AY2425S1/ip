@@ -1,10 +1,15 @@
 package knight2103.command;
 
-import knight2103.tasks.TaskList;
-import knight2103.tasks.Task;
 import knight2103.Ui;
 import knight2103.files.Storage;
+import knight2103.tasks.TaskList;
+import knight2103.tasks.Task;
 
+import java.io.IOException;
+
+/**
+ * Models after commands that modify a list of task, such as mark, unmark and delete tasks.
+ */
 public class ModifyCommand extends Command {
     ModifyCommand(CommandVerb verb, String description) {
         super(verb, description);
@@ -15,12 +20,14 @@ public class ModifyCommand extends Command {
      * mark, unmark, delete to modify the selected task. Depending on the exact
      * command used, the task will be modified accordingly.
      *
-     * @param tasks The class storing the list of tasks found in the bot.
+     * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
-     * @param storage The class containing the file that saves the list of tasks.
-     * @throws IndexOutOfBoundsException If integer keyed in the command is
-     * out of range of the length of the list of tasks.
+     * @param storage The object containing the file that saves the list of tasks.
+     * @return The message to be shown after command execution in the bot's GUI.
      * @throws NumberFormatException If the predicate part of command is not an Integer.
+     * @throws IndexOutOfBoundsException If the integer keyed in the command is
+     * out of range of the length of the list of tasks.
+     * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -37,26 +44,18 @@ public class ModifyCommand extends Command {
                 taskAffected = tasks.delete(taskIndex);
                 stringToReturn = ui.showDelete(taskAffected, tasks);
             }
-            storage.save(tasks);
+            storage.saveToFile(tasks);
             return stringToReturn;
         } catch (NumberFormatException e) {
-            return "Please state the task number in INTEGER. Definitely not the task name";
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "There's an issue in the instruction format. " + "Please check that it is " +
-                    "<knight2103.command.CommandVerb> <Integer> format";
+            return "Failed to execute Command:\nPlease state the task number in an INTEGER. "
+                    + "Definitely not the task name";
         } catch (IndexOutOfBoundsException e) {
-            return e.getMessage()
-                    + "There aren't so many tasks. Please check if the task number is correct. "
-                    + "To see all tasks, type list";
+            return "Failed to execute Command:\n" + e.getMessage()
+                    + "\nTask number exceeded total numbers of tasks in the list. "
+                    + "Please check if the task number is correct. "
+                    + "\nTo see all tasks, type list";
+        } catch (IOException e) { // from save() in Storage class
+            return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }
-    }
-
-    /**
-     * Returns whether the bot programme should be exited upon command execution.
-     *
-     * @return if programme exit after execution.
-     */
-    public boolean isExit() {
-        return false;
     }
 }

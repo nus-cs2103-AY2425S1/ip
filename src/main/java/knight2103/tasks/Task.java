@@ -1,5 +1,8 @@
 package knight2103.tasks;
 
+/**
+ * Contains the basic requirements of what makes a task.
+ */
 public class Task {
     protected final String description;
     protected boolean isDone;
@@ -7,6 +10,8 @@ public class Task {
     /**
      * Constructs a task object which contains a description of the task.
      * The task object by default has the completion status set as not done.
+     *
+     * @param description The description of the task.
      */
     Task(String description) {
         this.description = description;
@@ -36,12 +41,18 @@ public class Task {
      *
      * @return String representation of Task object specifically in storage File.
      */
-    public String saveToFileFormat() {
-        return String.format("| %d | %s", this.isDone ? 1 : 0, this.description);
+    public String toStringInFile() {
+        final String TASK_MARKED_FILE_STATUS = "1";
+        final String TASK_UNMARKED_FILE_STATUS = "0";
+        return String.format("| %s | %s",
+                this.isDone ? TASK_MARKED_FILE_STATUS : TASK_UNMARKED_FILE_STATUS, this.description);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", isDone ? "X" : " ", this.description);
+        final String TASK_MARKED_LIST_STATUS = "X";
+        final String TASK_UNMARKED_LIST_STATUS = " ";
+        return String.format("[%s] %s",
+                this.isDone ? TASK_MARKED_LIST_STATUS : TASK_UNMARKED_LIST_STATUS, this.description);
     }
 }

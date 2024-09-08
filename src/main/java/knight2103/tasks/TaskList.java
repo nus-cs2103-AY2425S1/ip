@@ -2,6 +2,9 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Models a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -31,52 +34,12 @@ public class TaskList {
     }
 
     /**
-     * Returns a String which represents a formatted list of tasks in the bot.
+     * Returns the Task specified by the index in the bot's taskList.
      *
-     * @return Formatted List of task in the bot's application.
+     * @return the Task specified by index in the bot's taskList.
      */
-    public String printToList() {
-        String stringToPrint = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            int bulletPoint = i + 1;
-            stringToPrint += bulletPoint + ". " + this.tasks.get(i) + "\n";
-        }
-        return stringToPrint;
-    }
-
-    /**
-     * Returns a String which will be saved in the bot's storage file.
-     *
-     * @return Formatted List of task to be saved in storage file.
-     */
-    public String printToFile() {
-        String stringToWrite = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            stringToWrite += this.tasks.get(i).saveToFileFormat() + "\n";
-        }
-        return stringToWrite;
-    }
-
-    /**
-     * Returns a String which represents a formatted list of tasks
-     * that contain the word to be searched.
-     *
-     * @return Formatted list of tasks that contain the search word.
-     */
-    public String searchPrintToList(String wordSearch) {
-        String stringToPrint = "";
-        int bulletPoint = 0;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task searchedTask = this.tasks.get(i);
-            if (searchedTask.getDescription().contains(wordSearch)) {
-                bulletPoint++;
-                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
-            }
-        }
-        if (bulletPoint == 0) {
-            stringToPrint = "NIL: There is no matching tasks.\n";
-        }
-        return stringToPrint;
+    public Task getTask(int index) {
+        return this.tasks.get(index);
     }
 
     /**
@@ -97,7 +60,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If index indicating the Task is out of range
      * of the taskList.
      */
-    public Task mark(int index) throws IndexOutOfBoundsException {
+    public Task mark(int index) throws IndexOutOfBoundsException { // modify Command
         tasks.get(index).markDone();
         return tasks.get(index); // must be after markDone to return the newly updated one
     }

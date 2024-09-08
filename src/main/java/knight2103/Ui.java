@@ -1,84 +1,114 @@
 package knight2103;
 
-import knight2103.tasks.Task;
 import knight2103.tasks.TaskList;
+import knight2103.tasks.Task;
 
-import java.util.Scanner;
-
+/**
+ * User interface of the bot.
+ */
 public class Ui {
-
-    /*private final String welcome;
-    private Scanner inputScanner;*/
-
-    public Ui(String botName) { // Starting of bot programme
-        /*this.welcome =
-                showLine() + "\n" + "Hello! I'm " + botName
-                        + "\n" + "What can I do for you?\n" + showLine() + "\n";
-        this.inputScanner = new Scanner(System.in);*/
+    /**
+     * Shows the message of the bot. This message will appear the first time the GUI is initiated,
+     * where the bot will send a response first.
+     * @param message
+     * @return The message the bot initiates.
+     */
+    public String showWelcome(String message) {
+        return message;
     }
 
-    public String showLine() {
-        return "_____________";
-    }
-
-    /*
-    public String showWelcome() {
-        //System.out.println(this.welcome);
-        return this.welcome;
-    }*/
-
-    public String showBye() {
-        //System.out.println(showLine() + "\n" + "Bye. Hope to see you again soon!" + "\n" + showLine());
-        return showLine() + "\n" + "Bye. Hope to see you again soon!" + "\n" + showLine();
-    }
-
-    /*
-    public String readCommand() {
-        return inputScanner.nextLine();
-    }*/
-
-    public String showLoadingError() {
-        //System.out.println("File cannot be loaded. Create list of tasks instead.");
-        return "File cannot be loaded. Create list of tasks instead.";
-    }
-
-    public String showList(TaskList tasks) {
-        System.out.println(showLine() + "\n" + tasks.printToList() + showLine());
-        return showLine() + "\n" + tasks.printToList() + showLine();
-    }
-
+    /**
+     * Shows the message of the bot after AddCommand execution (task is added).
+     * @param taskToAdd The task to be added to the bot's list of task.
+     * @param tasks The object storing the list of tasks found in the bot.
+     * @return The message after AddCommand execution.
+     */
     public String showAdd(Task taskToAdd, TaskList tasks) {
-        /*System.out.println(showLine() + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have "
-                + tasks.getSize() + " tasks in the list.\n" + showLine());*/
-        return showLine() + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have "
-                + tasks.getSize() + " tasks in the list.\n" + showLine();
+        return "Task added:\n" + taskToAdd + "\nTotal number of tasks in list: "
+                + tasks.getSize() + "\nType command \"list\" to see full list of tasks.";
     }
 
+    /**
+     * Shows the message of the bot after task is being marked.
+     * @param taskAffected The task to be marked as done.
+     * @return The message after task is being marked.
+     */
     public String showMark(Task taskAffected) {
-        /*System.out.println(showLine() + "\nNice! I've marked this task as done:\n"
-                + taskAffected + "\n" + showLine());*/
-        return showLine() + "\nNice! I've marked this task as done:\n"
-                + taskAffected + "\n" + showLine();
+        return "Mark this task as done!:\n" + taskAffected
+                + "\nType command \"list\" to see updated list of tasks.";
     }
 
+    /**
+     * Shows the message of the bot after task is being unmarked (mark as not done).
+     * @param taskAffected The task to be marked as not done.
+     * @return The message after task is being marked as not done.
+     */
     public String showUnmark(Task taskAffected) {
-        /*System.out.println(showLine() + "\nOK, I've marked this task as not done yet:\n"
-                + taskAffected + "\n" + showLine());*/
-        return showLine() + "\nOK, I've marked this task as not done yet:\n"
-                + taskAffected + "\n" + showLine();
+        return "Mark this task as not done yet!:\n" + taskAffected
+                + "\nType command \"list\" to see updated list of tasks.";
     }
 
+    /**
+     * Shows the message of the bot after task is being deleted.
+     * @param taskAffected The task to be deleted.
+     * @return The message after task is being deleted.
+     */
     public String showDelete(Task taskAffected, TaskList tasks) {
-        /*System.out.println(showLine() + "\nNoted. I've removed this task:\n" + taskAffected
-                + "\n Now you have " + tasks.getSize() + " tasks in the list.\n" + showLine());*/
-        return showLine() + "\nNoted. I've removed this task:\n" + taskAffected
-                + "\n Now you have " + tasks.getSize() + " tasks in the list.\n" + showLine();
+        return "Task removed:\n" + taskAffected + "\nTotal number of tasks in list: "
+                + tasks.getSize() + "\nType command \"list\" to see full list of tasks.";
     }
 
+    /**
+     * Shows the message of the bot which is the full list of tasks the bot has.
+     * @param tasks The object storing the list of tasks found in the bot.
+     * @return The message including the full list of tasks.
+     */
+    public String showList(TaskList tasks) {
+        return "Here's the list of tasks:\n" + formatToFullList(tasks);
+    }
+
+    /**
+     * Shows the message of the bot after finding tasks that have their description
+     * matched with the key word. The message includes the list of matched tasks.
+     * @param tasks The object storing the list of tasks found in the bot.
+     * @param searchWord The key word to be checked for if it is in the task description.
+     * @return The message including the list of tasks that matches the search word.
+     */
     public String showFind(TaskList tasks, String searchWord) {
-        /* System.out.println(showLine() + "\nHere are the matching tasks in your list:\n"
-                + tasks.searchPrintToList(searchWord) + showLine());*/
-        return showLine() + "\nHere are the matching tasks in your list:\n"
-                + tasks.searchPrintToList(searchWord) + showLine();
+        String listString = formatToMatchedList(tasks, searchWord);
+        return listString.isEmpty()
+                ? "NIL: There is no matching tasks.\n"
+                : "Here are the matching tasks in your list:\n" + listString;
+    }
+
+    /**
+     * Shows the message of the bot after ByeCommand execution, where the bot ceases its operations
+     * (The GUI programme ends).
+     * @return The message after the bot ceases its operations.
+     */
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    private String formatToMatchedList(TaskList tasks, String wordSearch) {
+        return formatToList(tasks, wordSearch);
+    }
+
+    private String formatToFullList(TaskList tasks) {
+        return formatToList(tasks);
+    }
+
+    private String formatToList(TaskList tasks, String... filterWords) {
+        String stringToReturn = "";
+        int bulletPoint = 0;
+        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
+            Task currentTask = tasks.getTask(i);
+            if (!(filterWords.length == 0 || currentTask.getDescription().contains(filterWords[0]))) {
+                continue;
+            }
+            bulletPoint = i + 1;
+            stringToReturn += bulletPoint + ". " + currentTask + "\n";
+        }
+        return stringToReturn;
     }
 }
