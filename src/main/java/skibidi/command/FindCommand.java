@@ -1,8 +1,11 @@
 package skibidi.command;
 
+import java.util.List;
+
 import skibidi.Storage;
 import skibidi.TaskList;
 import skibidi.Ui;
+import skibidi.task.AbstractTask;
 
 /** Command to find list of tasks with description matching given query. */
 public class FindCommand extends AbstractCommand {
@@ -18,7 +21,7 @@ public class FindCommand extends AbstractCommand {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        TaskList searchResults = taskList.findTasksMatchingDescription(query);
+        List<AbstractTask> searchResults = taskList.findTasksMatchingDescription(query);
         if (searchResults.isEmpty()) {
             return "NO TASK DESCRIPTIONS MATCH THE QUERY";
         }

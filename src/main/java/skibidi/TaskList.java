@@ -1,6 +1,5 @@
 package skibidi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import skibidi.task.AbstractTask;
@@ -60,6 +59,7 @@ public class TaskList {
      * Add task into task list.
      */
     public void addTask(AbstractTask task) {
+        assert task != null : "Task being added is invalid!";
         tasks.add(task);
     }
 
@@ -77,14 +77,10 @@ public class TaskList {
     /**
      * Return new list of tasks with description that matches given string.
      */
-    public TaskList findTasksMatchingDescription(String query) {
-        List<AbstractTask> results = new ArrayList<>();
-        for (AbstractTask task : tasks) {
-            if (task.getDescription().contains(query)) {
-                results.add(task);
-            }
-        }
-        return new TaskList(results);
+    public List<AbstractTask> findTasksMatchingDescription(String query) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(query))
+                .toList();
     }
 
     @Override

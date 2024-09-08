@@ -1,12 +1,21 @@
 package skibidi.task;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 /** Abstract class representing a task. */
 public abstract class AbstractTask {
     protected String description;
     protected boolean isDone;
+
+    /**
+     * Exception thrown when input arguments given to constructor of any child
+     * of AbstractTask fails.
+     */
+    public static class TaskValidationException extends Exception {
+        public TaskValidationException(String message) {
+            super(String.format("TASK VALIDATION ERROR: %s", message));
+        }
+    }
 
     /**
      * Exception thrown when unable to deserialize a string into any subclasses
@@ -53,18 +62,18 @@ public abstract class AbstractTask {
      * Convert information about task to a string representation so that it can
      * be easily saved to disk.
      */
-    public abstract String serialize() throws IOException;
+    public abstract String serialize();
 
     /**
      * Construct new instance of child class of AbstractTask, based on the raw
      * string provided.
      */
-    public static AbstractTask deserialize(String rawString) throws IOException, TaskDeserializationException {
+    public static AbstractTask deserialize(String rawString) throws TaskDeserializationException {
         String[] args = rawString.split("[|]");
         if (args.length == 0) {
             throw new TaskDeserializationException("Empty inputs given!");
         }
-        switch (args[1]) {
+        switch (args[0]) {
         case "E":
             if (args.length != 5) {
                 throw new TaskDeserializationException("Invalid format given for Event!");
