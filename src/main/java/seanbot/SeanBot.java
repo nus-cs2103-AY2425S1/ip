@@ -66,6 +66,19 @@ public class SeanBot {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "SeanBot heard: " + input;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream stream = new PrintStream(output);
+        PrintStream oldOut = System.out;
+        System.setOut(stream);
+
+        try {
+            parser.parse(input, tasks, ui, storage);
+        } catch (SeanBotException | IOException e) {
+            System.setOut(oldOut);
+            return "Error: " + e.getMessage();
+        }
+        System.out.flush();
+        System.setOut(oldOut);
+        return output.toString();
     }
 }
