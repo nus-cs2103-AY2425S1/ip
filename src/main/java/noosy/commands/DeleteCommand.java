@@ -2,9 +2,9 @@ package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.Task;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.

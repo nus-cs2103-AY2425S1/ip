@@ -1,8 +1,8 @@
 package noosy.commands;
 
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Represents the list command in the Noosy task management chatbot.

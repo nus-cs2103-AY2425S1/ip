@@ -1,8 +1,5 @@
 package noosy.storage;
 
-import noosy.exception.NoosyException;
-import noosy.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import noosy.exception.NoosyException;
+import noosy.task.Deadline;
+import noosy.task.Event;
+import noosy.task.Task;
+import noosy.task.TaskList;
+import noosy.task.Todo;
 
 /**
  * Handles the storage and retrieval of tasks from a file.

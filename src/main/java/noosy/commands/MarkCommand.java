@@ -2,9 +2,9 @@ package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.Task;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Represents a command to mark a task as done in the task list.
