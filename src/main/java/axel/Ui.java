@@ -8,6 +8,8 @@ import java.util.List;
  * Provides methods to display messages and interact with the user through the command line.
  */
 public class Ui {
+    private static final String LINE = "____________________________________________________________";
+    private static final String INDENT = "    ";
     protected Scanner scanner;
 
     /**
@@ -16,14 +18,22 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     /**
      * Displays the welcome message to the user.
      */
     public void showWelcome() {
         System.out.println("____________________________________________________________");
-        System.out.println("YO! YO! It's axel.Axel, at your service.");
+        System.out.println("YO! YO! It's Axel, at your service.");
         System.out.println("Hit me up with anything that I can help with!");
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Returns a welcome message as a string.
+     */
+    public String showWelcomeAsString() {
+        return LINE + "\nYO! YO! It's Axel, at your service.\nHit me up with anything that I can help with!\n" + LINE;
     }
 
     /**
@@ -36,6 +46,13 @@ public class Ui {
     }
 
     /**
+     * Returns a goodbye message as a string.
+     */
+    public String showGoodbyeAsString() {
+        return LINE + "\nSad to see you go... goodbye!!\n" + LINE;
+    }
+
+    /**
      * Displays an error message to the user.
      *
      * @param message The error message to be displayed.
@@ -44,6 +61,16 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("HOLD YOUR HORSES!! " + message);
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Returns an error message as a string.
+     *
+     * @param message The error message to be returned.
+     * @return The formatted error message as a string.
+     */
+    public String showErrorAsString(String message) {
+        return LINE + "\nHOLD YOUR HORSES!! " + message + "\n" + LINE;
     }
 
     /**
@@ -70,6 +97,18 @@ public class Ui {
     }
 
     /**
+     * Returns a message indicating that a task has been added as a string.
+     *
+     * @param task The task that has been added.
+     * @param taskCount The current number of tasks in the list.
+     * @return The formatted task added message as a string.
+     */
+    public String showTaskAddedAsString(Task task, int taskCount) {
+        return LINE + "\nGot it. I've added this task:\n" + INDENT + task +
+                "\nNow you have " + taskCount + " tasks in the list.\n" + LINE;
+    }
+
+    /**
      * Displays a message indicating that a task has been removed.
      *
      * @param task      The task that was removed.
@@ -81,6 +120,18 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Returns a message indicating that a task has been removed as a string.
+     *
+     * @param task The task that has been removed.
+     * @param taskCount The current number of tasks in the list.
+     * @return The formatted task removed message as a string.
+     */
+    public String showTaskRemovedAsString(Task task, int taskCount) {
+        return LINE + "\nNoted. I've removed this task:\n" + INDENT + task +
+                "\nNow you have " + taskCount + " tasks in the list.\n" + LINE;
     }
 
     /**
@@ -96,6 +147,17 @@ public class Ui {
     }
 
     /**
+     * Returns a message indicating that a task has been marked as done as a string.
+     *
+     * @param task The task that has been marked as done.
+     * @return The formatted marked task message as a string.
+     */
+    public String showTaskDoneAsString(Task task) {
+        return LINE + "\nNice! I've marked this task as done:\n" + task + "\n" + LINE;
+    }
+
+
+    /**
      * Displays a message indicating that a task has been marked as not done.
      *
      * @param task The task that was marked as not done.
@@ -105,6 +167,16 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Returns a message indicating that a task has been marked as not done as a string.
+     *
+     * @param task The task that has been marked as not done.
+     * @return The formatted unmarked task message as a string.
+     */
+    public String showTaskNotDoneAsString(Task task) {
+        return LINE + "\nOK, I've marked this task as not done yet:\n" + task + "\n" + LINE;
     }
 
     /**
@@ -125,11 +197,47 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Returns the list of tasks as a string.
+     *
+     * @param tasks The TaskList containing tasks to be displayed.
+     * @return The formatted task list as a string.
+     */
+    public String showTaskListAsString(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        sb.append(LINE);
+        return sb.toString();
+    }
+
+    /**
+     * Prints the list of tasks that match a given search condition.
+     *
+     * @param tasks The list of tasks to be printed.
+     */
     public void printMatchingTasks(List<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
+    }
+
+    /**
+     * Shows the list of tasks that match a given search condition as a string.
+     *
+     * @param tasks The list of tasks to be printed.
+     * @return The formatted list of corresponding tasks as a string
+     */
+    public String showMatchingTasksAsString(List<Task> tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append((i + 1) + "." + tasks.get(i) + "\n");
+        }
+        return result.toString();
     }
 }
 

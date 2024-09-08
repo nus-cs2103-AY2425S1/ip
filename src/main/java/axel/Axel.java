@@ -36,7 +36,7 @@ public class Axel {
      * @param filePath The path to the file where tasks are stored.
      */
     public Axel(String filePath) {
-        ui = new Ui();
+        ui = new Ui ();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -65,6 +65,14 @@ public class Axel {
             }
         }
         ui.showGoodbye();
+    }
+
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input).execute(tasks, ui, storage);
+        } catch (AxelException e) {
+            return e.getMessage();
+        }
     }
 
     /**

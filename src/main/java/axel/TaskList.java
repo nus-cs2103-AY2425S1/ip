@@ -77,6 +77,12 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Finds tasks that contain the specified keyword in their name.
+     *
+     * @param keyword The keyword to search for in the task names.
+     * @return A list of tasks that contain the specified keyword.
+     */
     public List<Task> findTasksWithKeyword(String keyword) {
         return tasks.stream()
                 .filter(task -> task.getTaskName().contains(keyword))

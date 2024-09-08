@@ -18,7 +18,7 @@ public interface Command {
      * @param storage  The storage system for saving tasks.
      * @throws AxelException If an error occurs during command execution.
      */
-    void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException;
+    String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException;
 
     /**
      * Determines if the command signals the application to exit.
@@ -56,7 +56,7 @@ class AddCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         taskList.addTask(task);
         ui.printTaskAdded(task, taskList.size());
         try {
@@ -64,6 +64,7 @@ class AddCommand extends CommandBase {
         } catch (IOException e) {
             throw new AxelException("Error saving tasks.");
         }
+        return ui.showTaskAddedAsString(task, taskList.size());
     }
 }
 
@@ -83,7 +84,7 @@ class MarkCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
         task.markAsDone();
         ui.printTaskDone(task);
@@ -92,6 +93,7 @@ class MarkCommand extends CommandBase {
         } catch (IOException e) {
             throw new AxelException("Error saving tasks.");
         }
+        return ui.showTaskDoneAsString(task);
     }
 }
 /**
@@ -110,7 +112,7 @@ class UnmarkCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
         task.markAsNotDone();
         ui.printTaskNotDone(task);
@@ -119,7 +121,9 @@ class UnmarkCommand extends CommandBase {
         } catch (IOException e) {
             throw new AxelException("Error saving tasks.");
         }
+        return ui.showTaskNotDoneAsString(task);
     }
+
 }
 
 /**
@@ -138,7 +142,7 @@ class DeleteCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
         taskList.removeTask(taskIndex);
         ui.printTaskRemoved(task, taskList.size());
@@ -147,6 +151,7 @@ class DeleteCommand extends CommandBase {
         } catch (IOException e) {
             throw new AxelException("Error saving tasks.");
         }
+        return ui.showTaskRemovedAsString(task, taskList.size());
     }
 }
 
@@ -155,8 +160,9 @@ class DeleteCommand extends CommandBase {
  */
 class ListCommand extends CommandBase {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printTaskList(taskList.getTasks());
+        return ui.showTaskListAsString(taskList.getTasks());
     }
 }
 
@@ -170,11 +176,15 @@ class ExitCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // No action needed for exit command
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.showGoodbye();
+        return ui.showGoodbyeAsString();
     }
 }
 
+/**
+ * Represents a command to find the corresponding task in the task list.
+ */
 class FindCommand extends CommandBase {
     protected String keyword;
 
@@ -183,8 +193,9 @@ class FindCommand extends CommandBase {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> matchingTasks = taskList.findTasksWithKeyword(keyword);
         ui.printMatchingTasks(matchingTasks);
+        return ui.showMatchingTasksAsString(matchingTasks);
     }
 }
