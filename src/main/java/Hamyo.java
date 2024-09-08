@@ -1,8 +1,6 @@
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import hamyo.misc.HamyoException;
 import hamyo.misc.Parser;
