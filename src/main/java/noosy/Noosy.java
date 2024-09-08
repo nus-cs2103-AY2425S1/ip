@@ -1,11 +1,11 @@
 package noosy;
 
-import noosy.parser.Parser;
-import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.commands.Command;
 import noosy.exception.NoosyException;
+import noosy.parser.Parser;
+import noosy.storage.Storage;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 import java.io.IOException;
 

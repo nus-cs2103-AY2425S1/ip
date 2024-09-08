@@ -5,7 +5,6 @@ import noosy.exception.NoosyException;
 import noosy.task.Deadline;
 import noosy.task.Event;
 import noosy.task.Todo;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,6 +55,13 @@ public class Parser {
                 }
 
                 return new DeleteCommand(Integer.parseInt(input.trim()) - 1);
+
+            case "find":
+                if (input == null) {
+                    throw new NoosyException("I can't see the keyword. Try typing it.");
+                }
+
+                return new FindCommand(input);
 
             case "on":
                 if (input == null) {

@@ -2,8 +2,8 @@ package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Abstract base class for all commands in the Noosy task management chatbot.

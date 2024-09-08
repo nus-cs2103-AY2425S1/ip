@@ -73,4 +73,16 @@ public class TaskList {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
+
+    public TaskList find(String keyword) {
+        TaskList tasksWithKeyword = new TaskList();
+
+        for (Task task: this.tasks) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                tasksWithKeyword.add(task);
+            }
+        }
+
+        return tasksWithKeyword;
+    }
 }
