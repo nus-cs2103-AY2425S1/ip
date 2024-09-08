@@ -262,6 +262,7 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public String mark(int index) throws ReginaException {
+        assert index >= 0 && index < listOfTasks.size() : "Out of bounds index for mark: " + index;
         this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
@@ -275,6 +276,7 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public String unmark(int index) throws ReginaException {
+        assert index >= 0 && index < listOfTasks.size() : "Out of bounds index for mark: " + index;
         this.marker.unmark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();

@@ -19,6 +19,7 @@ public class Parser {
      * @return An Optional of regina.CommandData containing command details (command type, task details).
      */
     public Optional<CommandData> parse(String input) {
+        assert input != null : "Input should not be null";
         // Check for command types
         String command = input.split(" ")[0];
 

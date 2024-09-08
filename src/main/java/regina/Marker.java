@@ -29,6 +29,7 @@ public class Marker {
      * @throws ReginaException If the index is out of bounds or less than zero.
      */
     public void mark(int index) throws ReginaException {
+        assert listOfTasks != null : "Task list cannot be null";
         int taskCount = listOfTasks.size();
         if (index >= taskCount) {
             String message = String.format("You cannot count ah! There %s only %d task%s!",
@@ -51,6 +52,7 @@ public class Marker {
      * @throws ReginaException If the index is out of bounds or less than zero.
      */
     public void unmark(int index) throws ReginaException {
+        assert listOfTasks != null : "Task list cannot be null";
         int taskCount = listOfTasks.size();
         if (index >= taskCount) {
             String message = String.format("You cannot count ah! There %s only %d task%s",
