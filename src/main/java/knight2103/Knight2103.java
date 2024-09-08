@@ -27,7 +27,7 @@ public class Knight2103 {
             Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.load();
             this.tasks = new TaskList(tasksWithErrorMsg.getFirstItem());
             this.errorMessage = tasksWithErrorMsg.getSecondItem();
-        } catch (FileNotFoundException e) { // file be loaded regardless
+        } catch (FileNotFoundException e) { // file be loaded regardless, exception from Storage
             this.errorMessage += "\nNote: the Storage File to initialise is not found. "
                     + "Will create new file instead\n. Existing storage file should be"
                     + "named as \"savedTaskList.txt\" in root directory";
@@ -51,11 +51,12 @@ public class Knight2103 {
                 Command c = Parser.parse(input);
                 output = c.execute(tasks, ui, storage);
                 return output;
-            } catch (InvalidCommandException e) { // what exceptions comes here?
-                return e.getMessage();
+            } catch (InvalidCommandException e) { // Exceptions from commands
+                return "Failed to execute Command:\n" + e.getMessage();
             }
 
             // if exception error, should say unsuccessful command execution in GUI
+        // ^make sure exception message makes sense and comments the tracing.
             // javaDoc comments; Formatting; Code quality.
             // welcome message - state all commands that can be used.
             // adding assertions

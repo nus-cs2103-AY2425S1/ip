@@ -38,12 +38,12 @@ public class Parser {
             case "bye":
                 return new ByeCommand();
             default:
-                throw new InvalidCommandException("Invalid Instruction. Only valid Instructions are "
+                throw new InvalidCommandException("Invalid Commands. Only valid command verbs are "
                         + "list, todo, deadline, event, mark, unmark, delete, find");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidCommandException("There's an issue in the instruction format. "
-                    + "Please check that it is <knight2103.command.CommandVerb> <description> format");
+                    + "\nPlease check that it is <CommandVerb> <description> format");
         }
     }
 }

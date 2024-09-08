@@ -97,7 +97,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If index indicating the Task is out of range
      * of the taskList.
      */
-    public Task mark(int index) throws IndexOutOfBoundsException {
+    public Task mark(int index) throws IndexOutOfBoundsException { // modify Command
         tasks.get(index).markDone();
         return tasks.get(index); // must be after markDone to return the newly updated one
     }

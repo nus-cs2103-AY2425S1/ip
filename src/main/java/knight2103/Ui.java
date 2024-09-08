@@ -9,25 +9,27 @@ public class Ui {
     }
 
     public String showList(TaskList tasks) {
-        return tasks.printToList();
+        return "Here's the list of tasks:\n" + tasks.printToList();
     }
 
     public String showAdd(Task taskToAdd, TaskList tasks) {
-        return "Got it. I've added this task:\n" + taskToAdd + "\n Now you have "
-                + tasks.getSize() + " tasks in the list.";
+        return "Task added:\n" + taskToAdd + "\n Total number of tasks in list: "
+                + tasks.getSize() + "\n Type command \"list\" to see full list of tasks.";
     }
 
     public String showMark(Task taskAffected) {
-        return "Nice! I've marked this task as done:\n" + taskAffected;
+        return "Mark this task as done!:\n" + taskAffected
+                + "\n Type command \"list\" to see updated list of tasks.";
     }
 
     public String showUnmark(Task taskAffected) {
-        return "OK, I've marked this task as not done yet:\n" + taskAffected;
+        return "Mark this task as not done yet!:\n" + taskAffected
+                + "\n Type command \"list\" to see updated list of tasks.";
     }
 
     public String showDelete(Task taskAffected, TaskList tasks) {
-        return "Noted. I've removed this task:\n" + taskAffected
-                + "\n Now you have " + tasks.getSize() + " tasks in the list.";
+        return "Task removed:\n" + taskAffected + "\n Total number of tasks in list: "
+                + tasks.getSize() + "\n Type command \"list\" to see full list of tasks.";
     }
 
     public String showFind(TaskList tasks, String searchWord) {

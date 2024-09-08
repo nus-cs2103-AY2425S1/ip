@@ -45,12 +45,14 @@ public class AddCommand extends Command {
             storage.save(taskToAdd);
             return ui.showAdd(taskToAdd, tasks);
         } catch (DateTimeParseException e) {
-            return "knight2103.tasks.Deadline format is wrong during input. " + "Please follow " +
-                    "yyyy-mm-dd or with the time format";
+            return "Failed to execute Command:\nInput of Date or time format is wrong."
+                    + "\nFor Deadline task, the format should be in yyyy-MM-dd"
+                    + "\nFor Event task, the format should be in yyyy-MM-ddThh:mm";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "There's an issue in the instruction format. Please check.";
+            return "Failed to execute Command:\n"
+                    + "There's an issue in the instruction format. Please check.";
         } catch (IOException e) { // from save() in Storage class
-            return "Problems creating an instance of FileWriter";
+            return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }
     }
 }
