@@ -28,6 +28,9 @@ public class Parser {
 
 
     /**
+     * Returns an ArrayList<String>, where each element corresponds
+     * to the name of the CommandType enum value.
+     *
      * @return An ArrayList<String>, containing the String values of all the CommandType values.
      */
     public static ArrayList<String> getCommandTypes() {
@@ -98,7 +101,7 @@ public class Parser {
      */
     public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
-        if (!getCommandTypes().contains(commandDetails[0].toUpperCase())) {
+        if (unknownCommand(commandDetails)) {
             // when the command is gibberish and NOT one of the commands in CommandType
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1 && !(commandDetails[0].equals("bye") || commandDetails[0].equals("list"))) {
@@ -110,6 +113,24 @@ public class Parser {
                 throw new JanetException("WHOOPS! You can't leave out the task's description!");
             }
         }
+    }
+
+
+    /**
+     * Returns true if command is,
+     * 1. gibberish and not an enum CommandType value (eg. marker, blah blah, events).
+     * 2. 'bye ...' where '...' represents additional texts behind the word bye.
+     * 3. 'list ...' where '...' represents additional texts behind the word list.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    public static boolean unknownCommand(String[] commandDetails) {
+        boolean notACommand = !(getCommandTypes().contains(commandDetails[0].toUpperCase()));
+        boolean byeWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[1].equals("bye"));
+        boolean listWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[1].equals("list"));
+
+        return notACommand || byeWithAdditionalTexts || listWithAdditionalTexts;
     }
 
 
