@@ -48,4 +48,8 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
+    public boolean containsString(String searchString) {
+        return description.contains(searchString);
+    }
 }

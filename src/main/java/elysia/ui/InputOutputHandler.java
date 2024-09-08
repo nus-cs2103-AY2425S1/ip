@@ -9,6 +9,7 @@ import elysia.tasks.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Handles user input and output for the Elysia application.
@@ -114,7 +115,7 @@ public class InputOutputHandler {
         } else if (input.startsWith("delete")) {
             if (input.equals("delete")) {
                 output = "Hmph! What do you even want me to delete?";
-            }   else {
+            } else {
                 int index = Integer.parseInt(input.substring(7));
                 try {
                     Task deletedTask = taskList.deleteTask(index);
@@ -125,8 +126,20 @@ public class InputOutputHandler {
                     output = "Uh oh, this task number does not exist...";
                 }
             }
-        }
-        else {
+        } else if (input.startsWith("find")) {
+            if (input.equals("find")) {
+                output = "Hmph! What do you even want me to find?";
+            } else {
+                TaskList searchResults = taskList.searchByKeyword(input.substring(5));
+                if (Objects.equals(searchResults.size(), "0")) {
+                    output = "I couldn't find anything...";
+                } else {
+                    output = "Here's the tasks matching your search string! " +
+                            "I hope you found what you're looking for!\n";
+                    output += searchResults.toString();
+                }
+            }
+        } else {
             throw new ElysiaException("unknown command");
         }
         Message.print(output);
