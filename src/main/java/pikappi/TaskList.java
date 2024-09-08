@@ -1,6 +1,7 @@
 package pikappi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import pikappi.exception.PikappiException;
 import pikappi.task.Task;
@@ -67,7 +68,7 @@ public class TaskList {
      */
     public String deleteTask(int taskNum) throws PikappiException {
         assert taskNum > 0 : "Task number should be greater than 0";
-        if (taskNum > tasks.size() || taskNum < 1) {
+        if (taskNum > tasks.size()) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
         }
         Task task = tasks.get(taskNum - 1);
@@ -123,14 +124,10 @@ public class TaskList {
      */
     public TaskList findTask(String... keywords) {
         TaskList matches = new TaskList();
-        for (String keyword : keywords) {
-            for (Task task : tasks) {
-                assert task != null : "Task should not be null";
-                if (task.getDescription().contains(keyword)) {
-                    matches.getTasks().add(task);
-                }
-            }
-        }
+        Arrays.stream(keywords)
+                .forEach(keyword -> tasks.stream()
+                        .filter(task -> task.getDescription().contains(keyword))
+                        .forEach(task -> matches.getTasks().add(task)));
         return matches;
     }
 }
