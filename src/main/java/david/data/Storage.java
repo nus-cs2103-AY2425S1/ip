@@ -29,8 +29,8 @@ TaskType | completed | eventName | (optional) by/from | (optional) to
  * Defines a Storage class to store Data
  */
 public class Storage {
-    private String path;
     private static final String taskCompleted = "1";
+    private String path;
 
     /**
      * Constructor to instantiate a new Storage object

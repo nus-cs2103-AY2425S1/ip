@@ -27,7 +27,7 @@ public class DateParser extends Parser {
             String dateInput = date.trim();
 
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
-            LocalDateTime d = LocalDateTime.parse(date, inputFormatter);
+            LocalDateTime d = LocalDateTime.parse(dateInput, inputFormatter);
 
             return d;
         } catch (DateTimeParseException e) {
