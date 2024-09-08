@@ -18,11 +18,11 @@ public class DeleteCommand extends AbstractCommand {
     public Optional<String> execute(TaskList taskList, Storage storage, Ui ui) {
         try {
             AbstractTask task = taskList.deleteTask(taskId);
-            String message = String.format("\tDELETED TASK: %s\n", task.toString())
-                    + String.format("\tNUMBER OF TASKS IN LIST: %d", taskList.size());
+            String message = String.format("DELETED TASK: %s\n", task.toString())
+                    + String.format("NUMBER OF TASKS IN LIST: %d", taskList.size());
             return Optional.of(message);
         } catch (TaskNotFoundException err) {
-            return Optional.of("\t" + err.getMessage());
+            return Optional.of(err.getMessage());
         }
     }
 }

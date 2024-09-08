@@ -18,6 +18,6 @@ public class AddCommand extends AbstractCommand {
 
     public Optional<String> execute(TaskList taskList, Storage storage, Ui ui) {
         taskList.addTask(task);
-        return Optional.of(message + String.format("\tNUMBER OF TASKS IN LIST: %d", taskList.size()));
+        return Optional.of(message + String.format("NUMBER OF TASKS IN LIST: %d", taskList.size()));
     }
 }

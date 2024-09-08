@@ -95,8 +95,7 @@ public class MainGui extends Application {
         String response = bot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(new Label(input), new ImageView(userImage)),
-                DialogBox.getBotDialog(new Label(response), new ImageView(botImage))
-        );
+                DialogBox.getBotDialog(new Label(response), new ImageView(botImage)));
         userInput.clear();
         if (input.equals("bye") || input.equals("exit")) {
             Platform.exit();

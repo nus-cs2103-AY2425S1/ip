@@ -19,10 +19,10 @@ public class MarkCommand extends AbstractCommand {
         try {
             AbstractTask task = taskList.getTask(taskId);
             task.mark();
-            String message = "\tMARKING TASK\n\t" + task.toString();
+            String message = "MARKING TASK\n" + task.toString();
             return Optional.of(message);
         } catch (TaskNotFoundException err) {
-            return Optional.of("\t" + err.getMessage());
+            return Optional.of(err.getMessage());
         }
     }
 }

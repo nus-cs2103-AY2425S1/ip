@@ -9,9 +9,9 @@ import skibidi.Ui;
 public class ListCommand extends AbstractCommand {
     public Optional<String> execute(TaskList taskList, Storage storage, Ui ui) {
         if (taskList.isEmpty()) {
-            return Optional.of("\tNO ITEMS");
+            return Optional.of("NO ITEMS");
         }
-        String message = "\tLISTING ITEMS:\n" + taskList.toString();
+        String message = "LISTING ITEMS:\n" + taskList.toString();
         return Optional.of(message);
     }
 }

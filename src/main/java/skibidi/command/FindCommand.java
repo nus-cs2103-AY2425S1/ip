@@ -16,8 +16,8 @@ public class FindCommand extends AbstractCommand {
     public Optional<String> execute(TaskList taskList, Storage storage, Ui ui) {
         TaskList searchResults = taskList.findTasksMatchingDescription(query);
         if (searchResults.isEmpty()) {
-            return Optional.of("\tNO TASK DESCRIPTIONS MATCH THE QUERY");
+            return Optional.of("NO TASK DESCRIPTIONS MATCH THE QUERY");
         }
-        return Optional.of("\tSEARCH RESULTS:\n" + searchResults.toString());
+        return Optional.of("SEARCH RESULTS:\n" + searchResults.toString());
     }
 }
