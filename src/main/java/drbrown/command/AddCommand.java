@@ -37,7 +37,7 @@ public class AddCommand extends Command {
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        return ui.showTaskCreation(task) + "\n" + ui.showCount(tasks);
+        return ui.showTaskCreation(tasks, task);
     }
 
     /**

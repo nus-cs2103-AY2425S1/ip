@@ -23,7 +23,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + getStatus() + " | " + getDescription();
+        return "T" + super.toFileString();
     }
 
     /**
@@ -44,6 +44,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T][" + (getStatus() ? "X" : " ") + "] " + getDescription();
+        return "[T]" + super.toString();
     }
 }

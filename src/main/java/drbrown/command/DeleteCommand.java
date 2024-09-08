@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
-            return tasks.removeItem(itemIndex, ui) + "\n" + ui.showCount(tasks);
+            return tasks.removeItem(itemIndex, ui);
         } catch (IndexOutOfBoundsException e) {
             throw new DrBrownException("You got the count wrong! That's not how you calculate time "
                     + "travel - you're off by a few gigawatts!");

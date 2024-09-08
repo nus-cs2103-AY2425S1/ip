@@ -36,7 +36,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + getStatus() + " | " + getDescription() + " | "
+        return "E" + super.toFileString() + " | "
                 + startDateTime.format(FILE_DATE_TIME_FORMATTER) + " | "
                 + endDateTime.format(FILE_DATE_TIME_FORMATTER);
     }
@@ -62,7 +62,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (getStatus() ? "X" : " ") + "] " + getDescription()
+        return "[E]" + super.toString()
                 + " (from: " + startDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " end: "
                 + endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }

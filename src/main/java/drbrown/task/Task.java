@@ -62,7 +62,9 @@ public abstract class Task {
      *
      * @return A string formatted for file storage representing the task.
      */
-    public abstract String toFileString();
+    public String toFileString() {
+        return " | " + this.getStatus() + " | " + this.getDescription();
+    };
 
     /**
      * Returns the string representation of the task in the format suitable for UI display.
@@ -70,4 +72,9 @@ public abstract class Task {
      * @return A user-friendly string that describes the task.
      */
     public abstract String toUiString();
+
+    @Override
+    public String toString() {
+        return "[" + (this.getStatus() ? "X" : " ") + "] " + this.getDescription();
+    }
 }

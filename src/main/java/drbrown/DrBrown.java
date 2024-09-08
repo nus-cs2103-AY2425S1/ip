@@ -34,31 +34,6 @@ public class DrBrown {
     }
 
     /**
-     * Runs the main loop of the DrBrown application.
-     * Continuously reads user input, parses commands, executes them, and handles exceptions.
-     * The loop terminates when the user issues an exit command.
-     * The user is prompted for input, and appropriate messages are displayed for each action.
-     */
-    public void run() {
-        ui.showGreeting();
-        ui.showLine();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(userInput);
-                command.executeCommand(tasks, ui, storage);
-                isExit = command.shouldExit();
-            } catch (DrBrownException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * Returns a greeting message to be displayed in the GUI.
      *
      * @return A string containing the greeting message.
@@ -90,6 +65,6 @@ public class DrBrown {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new DrBrown().run();
+        new DrBrown();
     }
 }

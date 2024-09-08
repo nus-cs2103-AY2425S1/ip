@@ -18,16 +18,7 @@ public class Ui {
      * @return The greeting message as a String.
      */
     public String showGreeting() {
-        return "Roads? Where We're Going, We Don't Need Roads?! "
-                + "So, what can I help you with today?";
-    }
-
-    /**
-     * Displays a line separator for visual clarity in the console output.
-     */
-    public void showLine() {
-        System.out.println("--------------------------------------"
-                + "----------------------------------------------------------------------");
+        return "Roads? Where We're Going, We Don't Need Roads?! So, what can I help you with today?";
     }
 
     /**
@@ -36,8 +27,7 @@ public class Ui {
      * @return The end message as a String.
      */
     public String showEnd() {
-        return "Your future is whatever you make it, so make it a good one! "
-                + "Until next time, keep the DeLorean ready!";
+        return "Your future is whatever you make it, so make it a good one! Until next time, keep the DeLorean ready!";
     }
 
     /**
@@ -56,8 +46,8 @@ public class Ui {
      * @param task The task that was created.
      * @return A string message confirming the task creation.
      */
-    public String showTaskCreation(Task task) {
-        return task.toUiString() + "\n" + task;
+    public String showTaskCreation(TaskList tasks, Task task) {
+        return task.toUiString() + "\n" + task + "\n" + this.showCount(tasks);
     }
 
     /**
@@ -87,8 +77,7 @@ public class Ui {
      * @return A string message introducing the task list.
      */
     public String showList() {
-        return "Here's your list! Like Doc Brown's flux capacitor, this will help keep everything"
-                + " in perfect sync!\n\n";
+        return "Here's your list! Like Doc Brown's flux capacitor, this will help keep everything in perfect sync!\n\n";
     }
 
     /**
@@ -97,9 +86,9 @@ public class Ui {
      * @param deleteTask The task that was deleted.
      * @return A string message confirming the deletion of the task.
      */
-    public String showDeleteTask(Task deleteTask) {
+    public String showDeleteTask(TaskList tasks, Task deleteTask) {
         return "That task's history has been erased! Just like Marty's fading photo - it's gone, "
-                + "like it never existed!\n\n" + deleteTask;
+                + "like it never existed!\n\n" + deleteTask + "\n" + this.showCount(tasks);
     }
 
     /**
@@ -129,22 +118,6 @@ public class Ui {
      */
     public String showFind() {
         return "Here are the matching tasks in your list — it's your density... "
-                + "I mean, your destiny to get these done!\n";
-    }
-
-    /**
-     * Reads a command input from the user.
-     *
-     * @return The user input as a String.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Closes the scanner used for reading user input.
-     */
-    public void closeCommand() {
-        scanner.close();
+                 + "I mean, your destiny to get these done!\n";
     }
 }

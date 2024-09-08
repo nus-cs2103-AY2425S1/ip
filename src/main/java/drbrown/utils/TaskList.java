@@ -66,7 +66,7 @@ public class TaskList {
     public String removeItem(int index, Ui ui) {
         Task deleteTask = this.tasks.get(index);
         tasks.remove(deleteTask);
-        return ui.showDeleteTask(deleteTask);
+        return ui.showDeleteTask(this, deleteTask);
     }
 
     /**
@@ -78,24 +78,15 @@ public class TaskList {
      * @return A string containing the list of matching tasks or a message indicating no matches.
      */
     public String findMatching(String keyword, Ui ui) {
-        StringBuilder result = new StringBuilder();
-        boolean isMatching = false;
+        StringBuilder result = new StringBuilder().append(ui.showFind()).append("\n");
         int listCount = 1;
         for (Task item : this.tasks) {
             if (item.getDescription().contains(keyword)) {
-                if (!isMatching) {
-                    result.append(ui.showFind()).append("\n");
-                    isMatching = true;
-                }
                 result.append(listCount).append(". ").append(item).append("\n");
                 listCount++;
             }
         }
-        if (!isMatching) {
-            return "Oops! Seems like there are no matching tasks.";
-        } else {
-            return result.toString();
-        }
+        return listCount == 1 ? "Oops! Seems like there are no matching tasks." : result.toString();
     }
 
     /**

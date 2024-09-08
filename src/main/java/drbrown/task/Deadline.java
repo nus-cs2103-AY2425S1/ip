@@ -31,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + getStatus() + " | " + getDescription() + " | " + endDateTime.format(FILE_DATE_TIME_FORMATTER);
+        return "D" + super.toFileString() + " | " + endDateTime.format(FILE_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -52,7 +52,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + (getStatus() ? "X" : " ") + "] " + getDescription()
-                + " (by: " + endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }
