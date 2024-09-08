@@ -12,12 +12,6 @@ public class Ui {
     protected static Scanner reader = new Scanner(System.in);
 
     /**
-     * Returns a Ui object that interacts with the user.
-     */
-    public Ui() {
-    }
-
-    /**
      * Bids farewell to the user when the program ends.
      */
     public String goodbye() {
@@ -61,6 +55,7 @@ public class Ui {
      * @param matchingTasks TaskList list of tasks that contains matching tasks
      */
     public String showMatchingTasks(TaskList matchingTasks) {
+        assert matchingTasks != null : "Matching tasks should not be null";
         if (matchingTasks.getTasks().isEmpty()) {
             return "Pika..? No matching tasks found..";
         } else {
@@ -83,6 +78,7 @@ public class Ui {
      * @param tasks TaskList list of tasks to be shown
      */
     public String showAllTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks should not be null";
         String s = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
@@ -100,6 +96,7 @@ public class Ui {
      * @param task Task that was marked as done
      */
     public String showMarkedTask(Task task) {
+        assert task != null : "Task should not be null";
         return "Pika! I've marked this task as done:\n" + task;
     }
 
@@ -109,6 +106,7 @@ public class Ui {
      * @param task Task that was unmarked as not done yet
      */
     public String showUnmarkedTask(Task task) {
+        assert task != null : "Task should not be null";
         return "kaPi! I've unmarked this task as not done yet:\n" + task;
     }
 

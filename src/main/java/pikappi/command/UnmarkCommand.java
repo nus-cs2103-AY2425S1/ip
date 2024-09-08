@@ -28,6 +28,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList cannot be null";
         storage.save(tasks);
         return tasks.unmarkTask(index);
     }

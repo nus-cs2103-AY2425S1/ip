@@ -28,6 +28,7 @@ public class Storage {
      * @param path Filepath to save and load tasks from
      */
     public Storage(String path) {
+        assert path != null : "Path should not be null";
         this.path = path;
         this.tasks = new TaskList();
     }
@@ -49,6 +50,7 @@ public class Storage {
      * @param tasks TaskList object that contains tasks
      */
     public void save(TaskList tasks) {
+        assert tasks != null : "Tasks should not be null";
         this.tasks = tasks;
         this.saveTasks();
     }
@@ -89,6 +91,7 @@ public class Storage {
      * @throws PikappiException If there is an error loading the task
      */
     public void loadCurrentTask(ArrayList<String> task) throws PikappiException {
+        assert task != null : "Task should not be null";
         if (task.size() < 3) {
             throw new PikappiException("Error loading task!");
         }
