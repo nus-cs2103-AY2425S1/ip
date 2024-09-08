@@ -158,4 +158,16 @@ public class TaskList {
         return msg.toString();
     }
 
+    public String prioritiseTask(String[] split) throws SlothingWafflerException {
+        if (split.length < 2 || split[1].isBlank()) {
+            throw new SlothingWafflerException("Please state the task number that you wish to prioritise!");
+        }
+        int taskNumber = Integer.parseInt(split[1]);
+        Task task = tasks.get(taskNumber - 1);
+        tasks.remove(task);
+        tasks.add(0, task);
+        return "Good to see you getting your priorities straight! " +
+                "I have put this task at the top of your task list:\n" + task;
+    }
+
 }
