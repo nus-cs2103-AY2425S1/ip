@@ -42,6 +42,9 @@ public class Parser {
                 case "bye":
                     scan.close();
                     return false;
+                case "help":
+                    printHelpMessage();
+                    break;
                 case "list":
                     taskList.printTaskList();
                     break;
@@ -103,6 +106,9 @@ public class Parser {
             case "bye":
                 System.setOut(sysstream);
                 return "Bye. Hope to see you again soon!";
+            case "help":
+                printHelpMessage();
+                break;
             case "list":
                 taskList.printTaskList();
                 break;
@@ -155,5 +161,25 @@ public class Parser {
         }
         split[0] = split[0].toLowerCase();
         return split;
+    }
+
+    /**
+     * Prints a help message with available commands and their usage.
+     */
+    private void printHelpMessage() {
+        System.out.println("Available commands:");
+        System.out.println("1. todo <task description> - Create a todo task");
+        System.out.println("2. deadline <task description> /by <date time> - Create a deadline task");
+        System.out.println(
+                "3. event <task description> /from <start date time> /to <end date time> - Create an event task");
+        System.out.println("4. list - Display all tasks");
+        System.out.println("5. mark <task number> - Mark a task as done");
+        System.out.println("6. unmark <task number> - Mark a task as not done");
+        System.out.println("7. delete <task number> - Delete a task");
+        System.out.println("8. find <keyword> - Find tasks containing the keyword");
+        System.out.println("9. update <task number> <new task type> <new task description> - Update an existing task");
+        System.out.println("10. savefile <filename> - Switch to a different save file");
+        System.out.println("11. help - Display this help message");
+        System.out.println("12. bye - Exit the application");
     }
 }
