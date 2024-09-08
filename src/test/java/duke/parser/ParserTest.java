@@ -192,4 +192,42 @@ class ParserTest {
         String response = parser.handleGuiInput("invalid command");
         assertEquals("Invalid command provided.", response.trim());
     }
+
+    /**
+     * Tests the parser's response to the help command.
+     */
+    @Test
+    void testHelp() {
+        Parser parser = new Parser(new Scanner(new ByteArrayInputStream("help".getBytes())));
+        parser.handleUserInput();
+        String output = newOut.toString().trim();
+        assertTrue(output.contains("Available commands:"));
+        assertTrue(output.contains("1. todo <task description> - Create a todo task"));
+        assertTrue(output.contains("2. deadline <task description> /by <date time> - Create a deadline task"));
+        assertTrue(output.contains(
+                "3. event <task description> /from <start date time> /to <end date time> - Create an event task"));
+        assertTrue(output.contains("4. list - Display all tasks"));
+        assertTrue(output.contains("5. mark <task number> - Mark a task as done"));
+        assertTrue(output.contains("6. unmark <task number> - Mark a task as not done"));
+        assertTrue(output.contains("7. delete <task number> - Delete a task"));
+        assertTrue(output.contains("8. find <keyword> - Find tasks containing the keyword"));
+        assertTrue(output.contains(
+                "9. update <task number> <new task type> <new task description> - Update an existing task"));
+        assertTrue(output.contains("10. savefile <filename> - Switch to a different save file"));
+        assertTrue(output.contains("11. help - Display this help message"));
+        assertTrue(output.contains("12. bye - Exit the application"));
+    }
+
+    /**
+     * Tests the parser's handling of GUI input for the help command.
+     */
+    @Test
+    void testHandleGuiInputHelp() throws DukeException {
+        Parser parser = new Parser(new Scanner(System.in));
+        String response = parser.handleGuiInput("help");
+        assertTrue(response.contains("Available commands:"));
+        assertTrue(response.contains("1. todo <task description> - Create a todo task"));
+        // ... Add assertions for other command descriptions ...
+        assertTrue(response.contains("12. bye - Exit the application"));
+    }
 }
