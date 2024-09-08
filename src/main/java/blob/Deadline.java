@@ -11,6 +11,7 @@ public class Deadline extends Task {
     public Deadline(String name, boolean isDone, String deadline) {
         super(name,isDone);
         this.deadline = LocalDateTime.parse(deadline);
+        assert this.deadline.isAfter(LocalDateTime.now()) : "Deadline of task is already in the past!";
         super.type = "D";
     }
 

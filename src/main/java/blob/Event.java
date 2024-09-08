@@ -15,7 +15,9 @@ public class Event extends Task {
     public Event(String name, boolean isDone, String start, String end) {
         super(name, isDone);
         this.start = LocalDateTime.parse(start);
+        assert this.start.isAfter(LocalDateTime.now()) : "This event's start time is already in the past!";
         this.end = LocalDateTime.parse(end);
+        assert this.end.isAfter(this.start) : "This event ends earlier than it begins? How can that be?";
         super.type = "E";
     }
 
