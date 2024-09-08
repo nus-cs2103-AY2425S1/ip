@@ -44,6 +44,17 @@ public class TaskList {
         return taskList;
     }
 
+
+    /**
+     * Getter method that returns the size of the current list of tasks
+     *
+     * @return The size of current list of tasks
+     *
+     */
+    public int getSize() {
+        return taskList.size();
+    }
+
     /**
      * Does not return anything.
      * Taking in the user input from an Ui object, create a ToDo class and add it to the current list of tasks
