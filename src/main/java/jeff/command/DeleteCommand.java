@@ -31,8 +31,16 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task targetTask = tasks.getTaskByCommand(this.getInput(), "delete ");
+        assert targetTask != null : "Target task should not be null";
+        assert tasks.contains(targetTask) : "Task list should contain the target task before removal";
+
         tasks.deleteTask(targetTask);
+        assert !tasks.contains(targetTask) : "Task list should not contain the target task after removal";
+
         storage.updateTaskListInDatabase(tasks);
 
         return Parser.addSpaceInFrontOfEachLine(

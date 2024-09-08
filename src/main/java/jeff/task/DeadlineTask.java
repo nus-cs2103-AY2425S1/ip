@@ -21,6 +21,7 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
+        assert this.deadline != null : "Deadline should not be null";
     }
 
     /**
@@ -34,6 +35,7 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, LocalDateTime deadline, boolean isDone) {
         super(description, isDone);
         this.deadline = deadline;
+        assert this.deadline != null : "Deadline should not be null";
     }
 
     /**

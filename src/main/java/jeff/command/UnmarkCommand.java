@@ -31,13 +31,18 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task targetTask = tasks.getTaskByCommand(this.getInput(), "unmark ");
+        assert targetTask != null : "Target task should not be null";
 
         if (!targetTask.isDone()) {
             throw new JeffException("This task has already been marked as not done yet!");
         }
 
         targetTask.markAsNotDone();
+        assert !targetTask.isDone() : "Target task should be marked as not done yet";
 
         return Parser.addSpaceInFrontOfEachLine(
                 "OK, I've marked this task as not done yet:\n   " + targetTask.toString()

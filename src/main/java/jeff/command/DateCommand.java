@@ -43,7 +43,10 @@ public class DateCommand extends Command {
         assert !this.isDescriptionEmpty() : "Finding tasks by date should not have an empty date";
 
         String[] taskParts = this.getInput().split(" ", 2);
+        assert taskParts.length == 2 : "Input should be split into two parts";
+
         String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
+        assert !taskPeriod.isEmpty() : "Task period should not be empty";
 
         try {
             return LocalDate.parse(taskPeriod);
@@ -81,12 +84,18 @@ public class DateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+
         if (this.isDescriptionEmpty()) {
             throw new JeffException(WRONG_FORMAT_ERROR);
         }
 
         LocalDate taskDate = this.getDate();
+        assert taskDate != null : "Task date cannot be null";
+
         TaskList filteredTasks = this.filterByDate(tasks, taskDate);
+        assert filteredTasks != null : "Filtered tasks list cannot be null";
+
         String taskListString = filteredTasks.toString();
 
         return Parser.addSpaceInFrontOfEachLine(

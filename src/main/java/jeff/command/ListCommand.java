@@ -29,6 +29,8 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+
         if (tasks.isEmpty()) {
             throw new JeffException("List is empty!");
         }

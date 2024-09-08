@@ -35,7 +35,13 @@ public class FindCommand extends Command {
      * @throws JeffException if there is no search text.
      */
     private String getSearchText() throws JeffException {
+        if (this.isDescriptionEmpty()) {
+            throw new JeffException("The format is wrong! It should be \"find xx\"!");
+        }
+
         String[] taskParts = this.getInput().split(" ", 2);
+        assert taskParts.length == 2 : "Task parts should be of length 2";
+
         String searchText = taskParts.length > 1 ? taskParts[1] : "";
 
         if (searchText.isEmpty()) {
@@ -55,6 +61,7 @@ public class FindCommand extends Command {
      */
     private TaskList filterBySearchText(TaskList tasks, String searchText) throws JeffException {
         TaskList filteredTasks = tasks.filterByName(searchText);
+        assert filteredTasks != null : "Filtered tasks should not be null";
 
         if (filteredTasks.isEmpty()) {
             throw new JeffException("Sorry, no task contains the phrase " + searchText + ".");
@@ -74,6 +81,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         String searchText = this.getSearchText();
         TaskList filteredTasks = this.filterBySearchText(tasks, searchText);
         String taskListString = filteredTasks.toString();

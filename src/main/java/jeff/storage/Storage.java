@@ -24,6 +24,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
+        assert this.filePath != null : "File path should not be null";
     }
 
     /**
@@ -35,6 +36,8 @@ public class Storage {
     public Scanner loadTaskListFromDatabase() throws JeffException {
         try {
             Path directoryPath = this.filePath.getParent();
+            assert directoryPath != null : "Directory path should not be null";
+
             if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
             }
@@ -56,8 +59,12 @@ public class Storage {
      * @throws JeffException if something went wrong when getting the file.
      */
     public void updateTaskListInDatabase(TaskList taskList) throws JeffException {
+        assert taskList != null : "Task list should not be null";
+
         try {
             List<String> fileStringList = taskList.toListOfFileStrings();
+            assert fileStringList != null : "File string list should not be null";
+
             Files.write(filePath, fileStringList);
         } catch (IOException e) {
             throw new JeffException("Something went wrong when updating the database!");

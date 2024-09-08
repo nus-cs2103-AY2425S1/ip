@@ -24,6 +24,8 @@ public class EventTask extends Task {
         super(description);
         this.start = start;
         this.end = end;
+        assert this.start != null : "Start period should not be null";
+        assert this.end != null : "End period should not be null";
     }
 
     /**
@@ -39,6 +41,8 @@ public class EventTask extends Task {
         super(description, isDone);
         this.start = start;
         this.end = end;
+        assert this.start != null : "Start period should not be null";
+        assert this.end != null : "End period should not be null";
     }
 
     /**

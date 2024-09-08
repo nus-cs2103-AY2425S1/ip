@@ -31,13 +31,18 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JeffException {
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task targetTask = tasks.getTaskByCommand(this.getInput(), "mark ");
+        assert targetTask != null : "Target task should not be null";
 
         if (targetTask.isDone()) {
             throw new JeffException("This task has already been marked as done!");
         }
 
         targetTask.markAsDone();
+        assert targetTask.isDone() : "Target task should be marked as done";
 
         return Parser.addSpaceInFrontOfEachLine(
                 "OK, I've marked this task as done:\n   " + targetTask.toString()
