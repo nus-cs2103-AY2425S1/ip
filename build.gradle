@@ -52,7 +52,7 @@ shadowJar {
     archiveBaseName = "NathanBot"
     archiveClassifier = null
     archiveFileName = 'NathanBot.jar'
-    mainClassName = 'NathanBot'
+    mainClassName = 'Main'
 }
 
 checkstyle {
