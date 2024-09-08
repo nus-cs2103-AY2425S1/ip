@@ -9,17 +9,27 @@ public class TaskManager {
         this.taskList = taskList;
     }
 
-    public void add(Task task, List<Task> taskList) {
-        taskList.add(task);
-        System.out.println("Understood, I have added to your list:\n" + task.toString());
-        System.out.println("You have " + taskList.size() + " tasks");
+    public void execute(List<String> tokens) {
+        switch (tokens.get(0)) {
+        case "toggle":
+            taskList.get(Integer.parseInt(tokens.get(1))).toggleStatus();
+            break;
+        case "delete":
+            taskList.remove(Integer.parseInt(tokens.get(1)));
+            break;
+        case "todo":
+            taskList.add(new ToDo(tokens.get(1)));
+            break;
+        case "deadline":
+            taskList.add(new Deadline(tokens.get(1), tokens.get(2)));
+            break;
+        case "event":
+            taskList.add(new Event(tokens.get(1), tokens.get(2), tokens.get(3)));
+            break;
+        }
     }
     
-    public void delete(int index) {
-        try {
-            taskList.remove(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            
-        }
+    public List<Task> getTaskList() {
+        return taskList;
     }
 }
