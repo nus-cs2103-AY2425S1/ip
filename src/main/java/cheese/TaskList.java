@@ -1,6 +1,7 @@
 package cheese;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import cheese.task.Task;
 
@@ -32,5 +33,17 @@ public class TaskList {
 
     public Task remove(int idx) {
         return tasks.remove(idx);
+    }
+
+    /**
+     * Returns a TaskList of matched tasks
+     * @param query search query of user
+     * @return TaskList
+     */
+    public TaskList search(String query) {
+        ArrayList<Task> matchedTasks = tasks.stream().filter(
+            task -> task.getName().contains(query)
+        ).collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(matchedTasks);
     }
 }
