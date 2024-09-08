@@ -1,5 +1,10 @@
 package boss;
 
+import boss.exceptions.BossException;
+import boss.exceptions.EmptyTaskInputException;
+import boss.exceptions.NonExistentTaskException;
+import boss.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -8,14 +13,10 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-    }
-
-    public Task getTask(int index) {
-        return tasks.get(index);
     }
 
     public void addTask(Task task) {
@@ -30,13 +31,12 @@ public class TaskList {
     public String unmark(String task) throws BossException {
         // replace all characters with nothing, in order to extract number!
         String taskNum = task.replaceAll("[^0-9]", "");
-
-        if (taskNum.equals("")) {
-            throw new BossException("Please specify a task number to unmark");
+        if (taskNum.isEmpty()) {
+            throw new EmptyTaskInputException("unmark");
         }
         int num = Integer.parseInt(taskNum);
         if (tasks.size() < num) {
-            throw new BossException("boss.Task " + num + " does not exist yet");
+            throw new NonExistentTaskException(num);
         }
         Task item = tasks.get(num - 1);
         item.markAsUnDone();
@@ -56,12 +56,12 @@ public class TaskList {
     public String mark(String task) throws BossException {
         String taskNum = task.replaceAll("[^0-9]", "");
 
-        if (taskNum.equals("")) {
-            throw new BossException("Please specify a task number to mark");
+        if (taskNum.isEmpty()) {
+            throw new EmptyTaskInputException("mark");
         }
         int num = Integer.parseInt(taskNum);
         if (tasks.size() < num) {
-            throw new BossException("boss.Task " + num + " does not exist yet");
+            throw new NonExistentTaskException(num);
         }
         Task item = tasks.get(num - 1);
         item.markAsDone();
@@ -79,12 +79,12 @@ public class TaskList {
      */
     public String delete(String task) throws BossException {
         String taskNum = task.replaceAll("[^0-9]", "");
-        if (taskNum.equals("")) {
-            throw new BossException("Please specify a task number to delete");
+        if (taskNum.isEmpty()) {
+            throw new EmptyTaskInputException("delete");
         }
         int num = Integer.parseInt(taskNum);
         if (tasks.size() < num) {
-            throw new BossException("boss.Task " + num + " does not exist");
+            throw new NonExistentTaskException(num);
         }
         Task item = tasks.remove(num - 1);
         String newFileData = getAll(tasks);
@@ -99,7 +99,7 @@ public class TaskList {
      * used to rewrite text file
      *
      * @param tasks list of tasks
-     * @return
+     * @return a String containing all the tasks
      */
     private static String getAll(ArrayList<Task> tasks) {
         String s = "";
@@ -113,11 +113,18 @@ public class TaskList {
     /**
      * Prints user messages to the screen.
      */
-    public void printabstraction() {
+    public void printTextAbstraction() {
         System.out.println("Got it! I've added this task now");
         int size = tasks.size();
         System.out.println(tasks.get(size-1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public String printAbstraction() {
+        String toPrint = "";
+        toPrint = toPrint + "Got it! I've added this task now!" + "\n";
+        toPrint = toPrint + "Now you have " + tasks.size() + " tasks in the list." + "\n";
+        return toPrint;
     }
 
 
@@ -139,6 +146,24 @@ public class TaskList {
         if (i == 0) {
             System.out.println("There are no matching tasks :(");
         }
+    }
+
+    public String findTask(String word) {
+        int i = 0;
+        String result = "";
+        for (Task str : tasks) {
+            if (str.getDescription().contains(word)) {
+                if (i == 0) {
+                    result = result + "Here are the matching tasks in your list: " + "\n";
+                    i++;
+                }
+                result = result + str + "\n";
+            }
+        }
+        if (i == 0) {
+            return "There are no matching tasks :(";
+        }
+        return result;
     }
 
 }

@@ -1,6 +1,6 @@
-package boss;
+package boss.tasks;
 
-import boss.Task;
+import boss.tasks.Task;
 
 /**
  * Represents the Todo class, which is a type of task,

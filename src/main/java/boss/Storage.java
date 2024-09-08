@@ -1,5 +1,10 @@
 package boss;
 
+import boss.tasks.Deadline;
+import boss.tasks.Event;
+import boss.tasks.Task;
+import boss.tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -40,6 +45,19 @@ public class Storage {
 
             i++;
         }
+    }
+
+    public String printTasks() throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        int i = 1;
+        String result = "";
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            result = result + i + ". " + str + "\n";
+            i++;
+        }
+        return result;
     }
 
     /**
