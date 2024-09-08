@@ -64,12 +64,12 @@ public class Parser {
     /**
      * Prints tasks in the task list with provided keywords.
      *
-     * @param cmdParts command user input.
+     * @param commandArray command user input.
      * @param allTasks task list.
      * @return A string containing the list of tasks that match the search keywords.
      */
-    public static String findTask(String[] cmdParts, TaskList allTasks) {
-        String keywords = cmdParts[1];
+    public static String findTask(String[] commandArray, TaskList allTasks) {
+        String keywords = commandArray[1];
         return allTasks.find(keywords);
     }
 
