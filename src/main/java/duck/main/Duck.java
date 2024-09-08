@@ -64,6 +64,20 @@ public class Duck {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        String response;
+        if (input.equals("bye")) {
+            ui.showGoodbyeMessage();
+            response = ui.getLastResponse();
+            return response;
+        }
+
+        try {
+            Command cmd = Parser.parse(input);
+            cmd.execute(tasks, ui, storage);
+            response = ui.getLastResponse();
+        } catch (InvalidCommandException e) {
+            response = "Invalid command!";
+        }
+        return response;
     }
 }
