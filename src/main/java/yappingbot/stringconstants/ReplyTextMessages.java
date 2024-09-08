@@ -75,7 +75,8 @@ public final class ReplyTextMessages {
                         unmark TASK_NUMBER
 
                     where TASK_NUMBER is the task number in the task list""";
-    public static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
+    public static final String EXIT_TEXT = "Bye. Hope to see you again soon! (You may close this "
+                                           + "window)";
 
     public static final String SAVE_FILE_NOT_FOUND_EXCEPTION = "Savefile not found...\nBeginning "
                                                                + "with blank list";

@@ -20,6 +20,8 @@ public class MainWindow extends VBox {
     @FXML
     private TextField userInput;
     @FXML
+    private Button sendButton;
+    @FXML
     private VBox dialogContainer;
     @FXML
     private ScrollPane scrollPane;
@@ -86,5 +88,13 @@ public class MainWindow extends VBox {
             ui.printError(e.getMessage());
         }
         userInput.clear();
+    }
+
+    /**
+     * Disables the input and send button so that User will stop and close.
+     */
+    public void disableInputs() {
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
     }
 }

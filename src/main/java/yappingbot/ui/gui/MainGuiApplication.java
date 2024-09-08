@@ -42,7 +42,11 @@ public class MainGuiApplication extends Application {
 
             stage.show();
             YappingBot yp = new YappingBot(ui, new Storage(Launcher.getSavefilePath()));
-            Thread ypLogic = new Thread(yp::start);
+            Thread ypLogic = new Thread(() -> {
+                yp.start();
+                ui.setProgramClose(true);
+                fxmlloader.<MainWindow>getController().disableInputs();
+            });
             ypLogic.start();
 
         } catch (IOException e) {
