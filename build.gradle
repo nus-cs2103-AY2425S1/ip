@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("cookie.gui.Main")
+    mainClass.set("cookie.Launcher")
 }
 
 shadowJar {
@@ -60,8 +60,4 @@ shadowJar {
 run{
     standardInput = System.in
     enableAssertions = true
-    jvmArgs = [
-            "--module-path", configurations.runtimeClasspath.asPath,
-            "--add-modules", "javafx.controls,javafx.fxml"
-    ]
 }
