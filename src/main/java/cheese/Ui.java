@@ -2,6 +2,7 @@ package cheese;
 
 import java.util.Scanner;
 
+import cheese.exception.CheeseException;
 import cheese.task.Task;
 
 /**
@@ -10,7 +11,7 @@ import cheese.task.Task;
 public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
     private static final String ENDING = "Schwooo Weeeeee!!! Shutting down..... Window closing in 3s :)";
-    private static final String ERROR = "Cheese.Command not gouda.... ";
+    private static final String ERROR = "Command not gouda.... ";
     private final Scanner sc;
 
     Ui() {
@@ -18,7 +19,7 @@ public class Ui {
     }
 
     /**
-     * read user commands from standard input
+     * Reads and returns user commands from standard input
      * @return user input as String
      */
     public String readCommand() {
@@ -26,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Format the output of the bot
+     * Returns the output of the bot
      * @param s String to say
      */
     public String say(String s) {
@@ -37,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Say the task list
+     * Say all items in the task list
      */
     public String say(TaskList tasks) {
         StringBuilder allItems = new StringBuilder("Got your cheese:");
@@ -79,18 +80,18 @@ public class Ui {
      * @param e custom exception
      */
     public String say(CheeseException e) {
-        return say(ERROR + e.getMessage());
+        return say(ERROR + "\n" + e.getMessage());
     }
 
     /**
-     * Say greeting
+     * Say greeting when bot starts
      */
     public String greet() {
         return say(GREETING);
     }
 
     /**
-     * Say ending
+     * Say ending when bot closes
      */
     public String bye() {
         return say(ENDING);

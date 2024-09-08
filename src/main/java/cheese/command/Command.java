@@ -1,17 +1,17 @@
 package cheese.command;
 
-import cheese.CheeseException;
+import cheese.exception.CheeseException;
 import cheese.Storage;
 import cheese.TaskList;
 import cheese.Ui;
 
 /**
- * Encapsulates small parts of logic for the bot
+ * Abstract parent class for all commands
  */
-public class Command {
+public abstract class Command {
     private final boolean exitChat;
 
-    Command() {
+    public Command() {
         exitChat = false;
     }
 
@@ -30,7 +30,5 @@ public class Command {
      * @param storage store data
      * @throws CheeseException in case something breaks
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
-        return ui.say("Beeop... Unknown command");
-    }
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException;
 }

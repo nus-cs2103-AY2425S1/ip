@@ -1,11 +1,11 @@
-package cheese;
+package cheese.exception;
 
 /**
- * Custom exception
+ * Parent exception for CheeseBot
  */
 public class CheeseException extends Exception {
     /**
-     * Just a constructor
+     * Creates a CheeseException
      * @param message error message to inform user
      */
     public CheeseException(String message) {
