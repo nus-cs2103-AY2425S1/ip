@@ -29,99 +29,87 @@ public class UserInterface {
         this.killJoy = killJoy;
     }
 
-    public String getMarkString() {
+    public static String getMarkString() {
         return MARK_STRING;
     }
 
-    public String getUnmarkString() {
+    public static String getUnmarkString() {
         return UNMARK_STRING;
     }
 
-    public String getDeleteString() {
+    public static String getDeleteString() {
         return DELETE_STRING;
     }
 
-    public String getExitString() {
+    public static String getExitString() {
         return EXIT_STRING;
     }
 
-    public String getWelcomeString() {
+    public static String getWelcomeString() {
         return WELCOME_STRING;
     }
 
-    public String getLogoString() {
+    public static String getLogoString() {
         return LOGO_STRING;
     }
 
-    public void printLine() {
-        System.out.println("    ------------------------------------");
-    }
 
     /**
      * Prints the task list.
      */
-    public void printTaskList() {
-        printLine();
-        System.out.println("    Here are your tasks lah!! Don't die:");
+    public String printTaskList() {
+        String str = "Here are your tasks lah!! Don't die:\n";
         for (int i = 0; i < killJoy.getTaskCount(); i++) {
-            System.out.println("    " + (i + 1) + ". " + killJoy.getTask(i));
+            str += (i + 1) + ". " + killJoy.getTask(i) + "\n";
         }
-        printLine();
+        return str;
     }
 
     /**
      * Displays the message when the user does not enter anything.
      */
-    public void displayNoStringMessage() {
-        printLine();
-        System.out.println("    WHHHAHAHAHHA!! You didn't enter anything siaaa!!!");
-        printLine();
+    public static String displayNoStringMessage() {
+        return ("WHHHAHAHAHHA!! You didn't enter anything siaaa!!!");
     }
     /**
      * Displays the message when the user enters an invalid date format.
      */
-    public void displayEnterNumberMessage() {
-        printLine();
-        System.out.println("    MAOHWAHAWK !! Enter the task number too!!!");
-        printLine();
+    public static String displayEnterNumberMessage() {
+        return ("MAOHWAHAWK !! Enter the task number too!!!");
     }
 
     /**
      * Displays the message when the user enters an invalid command format.
      */
-    public void displayInvalidCommandFormatMessage() {
-        System.out.println("    DANGER !! Invalid command format");
+    public static String displayInvalidCommandFormatMessage() {
+        return ("DANGER !! Invalid command format");
     }
 
     /**
      * Displays the message when the user enters an invalid date format.
      */
-    public void displayTaskDoesNotExistMessage() {
-        printLine();
-        System.out.println("    DANGER !! Task does not exist");
-        printLine();
+    public static String displayTaskDoesNotExistMessage() {
+        return ("DANGER !! Task does not exist");
     }
     /**
      * Displays the message when the user enters an invalid date format.
      */
-    public void displayUnknownCommandMessage() {
-        printLine();
-        System.out.println("    AGWHAHH!!! What'ya sayin' dawgg??");
-        printLine();
+    public static String displayUnknownCommandMessage() {
+        return ("AGWHAHH!!! What'ya sayin' dawgg??");
     }
 
     /**
      * Displays the message when a task is added.
      */
-    public void displayAddedTaskMessage() {
-        System.out.println("    Yo Dawgg!! Added this task:");
-        System.out.println("    " + killJoy.getTask(killJoy.getTaskCount() - 1));
+    public String displayAddedTaskMessage() {
+        String str = "Yo Dawgg!! Added this task:\n";
+        str += killJoy.getTask(killJoy.getTaskCount() - 1);
         if (killJoy.getTaskCount() == 1) {
-            System.out.println("    Now you have " + killJoy.getTaskCount() + " task in the list.");
+            str += "Now you have " + killJoy.getTaskCount() + " task in the list.";
         } else {
-            System.out.println("    Now you have " + killJoy.getTaskCount() + " tasks in the list.");
+            str += "    Now you have " + killJoy.getTaskCount() + " tasks in the list.";
         }
-        printLine();
+        return str;
     }
 
 }

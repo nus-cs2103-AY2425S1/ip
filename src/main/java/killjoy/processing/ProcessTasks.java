@@ -32,31 +32,23 @@ public class ProcessTasks {
      *
      * @param input The user input.
      */
-    public void processUserInput(String input) {
+    public String processUserInput(String input) {
         Task.TaskType taskType = parser.parseUserInput(input);
 
         if (taskType == null) {
-            ui.displayUnknownCommandMessage();
-            return;
+            return ui.displayUnknownCommandMessage();
         }
 
         String[] inputSplitBySlash = input.split("/");
 
         if (taskType != Task.TaskType.TODO && inputSplitBySlash.length == 1) {
-            ui.printLine();
-            ui.displayInvalidCommandFormatMessage();
-            ui.printLine();
-            return;
+            return ui.displayInvalidCommandFormatMessage();
         }
 
         if (inputSplitBySlash[0].split(" ").length == 1) {
-            ui.printLine();
-            ui.displayInvalidCommandFormatMessage();
-            ui.printLine();
-            return;
+            return ui.displayInvalidCommandFormatMessage();
         }
 
-        ui.printLine();
         switch (taskType) {
         case TODO: {
             String description = Parser.getDescriptionFromInput(input);
@@ -68,9 +60,7 @@ public class ProcessTasks {
             String by = Parser.getByTimeString(input);
             LocalDateTime byDateTime = Parser.parseStringToLocalDateTime(by);
             if (byDateTime == null) {
-                ui.displayInvalidCommandFormatMessage();
-                ui.printLine();
-                return;
+                return ui.displayInvalidCommandFormatMessage();
             }
             kj.addTask(description, byDateTime);
             break;
@@ -82,9 +72,7 @@ public class ProcessTasks {
             String to = Parser.getToTimeString(input);
             LocalDateTime toDateTime = Parser.parseStringToLocalDateTime(to);
             if (fromDateTime == null || toDateTime == null) {
-                ui.displayInvalidCommandFormatMessage();
-                ui.printLine();
-                return;
+                return ui.displayInvalidCommandFormatMessage();
             }
             kj.addTask(description, fromDateTime, toDateTime);
             break;
@@ -93,7 +81,7 @@ public class ProcessTasks {
             break;
         }
 
-        ui.displayAddedTaskMessage();
+        return ui.displayAddedTaskMessage();
     }
 
     /**
@@ -101,43 +89,39 @@ public class ProcessTasks {
      *
      * @param input The user input.
      */
-    public void markOrDelete(String input) {
+    public String markOrDelete(String input) {
         String[] parsedInput = Parser.parseMarkUnmarkDelete(input);
 
         if (parsedInput == null) {
-            return;
+            return ui.displayInvalidCommandFormatMessage();
         }
 
         String inputCommand = parsedInput[0];
         int taskIndex = Integer.parseInt(parsedInput[1]) - 1;
 
         if (taskIndex + 1 > kj.getTaskCount() || taskIndex < 0) {
-            ui.displayTaskDoesNotExistMessage();
-            return;
+            return ui.displayTaskDoesNotExistMessage();
         }
 
         Task task = kj.getTask(taskIndex);
         if (inputCommand.equals("mark")) {
             task.changeStatus();
-            ui.printLine();
-            System.out.println("    " + ui.getMarkString() + "\n        " + task);
-            ui.printLine();
+            String str = ui.getMarkString() + "\n" + task + "\n";
         } else if (inputCommand.equals("unmark")) {
             task.changeStatus();
-            ui.printLine();
-            System.out.println("    " + ui.getUnmarkString() + "\n        " + task);
-            ui.printLine();
+            String str = ui.getUnmarkString() + "\n" + task + "\n";
         } else if (inputCommand.equals("delete")) {
             kj.removeTask(taskIndex);
-            ui.printLine();
-            System.out.println("    " + ui.getDeleteString() + "\n        " + task);
+            String str = ui.getDeleteString() + "\n" + task + "\n";
             if (kj.getTaskCount() == 1) {
-                System.out.println("    Now you have " + kj.getTaskCount() + " task in the list.");
+                str += "    Now you have 1 task in the list.";
+                return str;
             } else {
-                System.out.println("    Now you have " + kj.getTaskCount() + " tasks in the list.");
+                str += "    Now you have " + kj.getTaskCount() + " tasks in the list.";
+                return str;
             }
-            ui.printLine();
         }
+        return null;
     }
 
     /**
@@ -181,15 +165,13 @@ public class ProcessTasks {
      * @param input The user input.
      * @param taskList The list of tasks.
      */
-    public void findTask(String input, ArrayList<Task> taskList) {
+    public String findTask(String input, ArrayList<Task> taskList) {
         String[] inputAsList = input.split(" ");
         if (inputAsList.length == 1) {
-            ui.displayNoStringMessage();
-            return;
+            return ui.displayNoStringMessage();
         }
         String keyword = inputAsList[1];
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        ui.printLine();
         int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             Task task = kj.getTask(i);
@@ -199,15 +181,15 @@ public class ProcessTasks {
             }
         }
         if (count == 0) {
-            System.out.println("    No matching tasks found lahhh!! Siaaaa");
+            return "No matching tasks found lahhh!! Siaaaa";
         } else {
-            System.out.println("    Here you go mate! These are the matching tasks:");
+            String str = "Here you go mate! These are the matching tasks:\n";
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                System.out.println("    " + (i + 1) + ". " + task);
+                str += (i + 1) + ". " + task + "\n";
             }
+            return str;
         }
-        ui.printLine();
     }
 
     private void changeStatusOfTask(Task task, int i) {
