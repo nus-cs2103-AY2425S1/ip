@@ -34,6 +34,9 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+    public Duke() {
+        this(FILE_NAME);
+    }
 
     /**
      * Parameterless function that handles the various objects for storing, manipulating and displaying the data on
@@ -66,6 +69,41 @@ public class Duke {
         }
         System.out.println("Farewell! Until we meet again.\n");
 
+    }
+
+    /**
+     * Takes in the user's response as a String and returns the information to be displayed back to the User.
+     * @param userResponse The string holding the user's response.
+     * @return A response to the user's response.
+     */
+    public String getResponse(String userResponse) {
+        ui.greet();
+        //String userResponse = ui.out();
+        if (!Objects.equals(userResponse, "bye")) {
+            try {
+                Parser ps = new Parser(userResponse);
+                return ps.stringProcess(tasks, ui);
+                //userResponse = ui.out();
+                //add return statement
+            } catch (EmptyTaskException e) {
+                return "The description of the task must contain some substance; it cannot be void.";
+            } catch (EmptyCommandException e) {
+                return "An empty command has been received.";
+            } catch (InvalidInstructionException e) {
+                return "The instruction provided is deemed invalid.";
+            } catch (DateTimeParseException e) {
+                return "Ah, esteemed inquirer, the date format you have provided is not correct."
+                        + " It must be expressed as \"yyyy-mm-dd\".";
+            }
+        } else {
+            try {
+                storage.writeToFile(FILE_NAME, tasks);
+            } catch (IOException e) {
+                return "The endeavor to create the storage file has encountered an impediment."
+                        + " I implore you to attempt this task once more in due course. Till then: ";
+            }
+            return "Farewell! Until we meet again.\n";
+        }
     }
 
     public static void main(String[] args) {

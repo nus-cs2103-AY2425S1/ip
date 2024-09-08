@@ -54,10 +54,15 @@ public class Ui {
      *
      */
     public void greet() {
-        System.out.println("____________________________________________________________\n"
-               + "Hello! I'm\n" + logo
-               + "How may I be of service to you in this moment?\n"
-               + "____________________________________________________________\n");
+        System.out.println(getGreet());
+
+    }
+
+    public String getGreet() {
+        return "________________________________________________________\n"
+                + "Hello! I'm\n" + logo
+                + "How may I be of service to you in this moment?\n"
+                + "________________________________________________________\n";
 
     }
 
@@ -72,6 +77,19 @@ public class Ui {
     }
 
     /**
+     * This method returns the tasks hitherto entered by the user as a list
+     * @param tasks The tasks listed by the user.
+     * @return The tasks as an enumerated string.
+     */
+    public String stringList(TaskList tasks) {
+        String acc = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            acc = acc + (i + 1) + "." + tasks.get(i) + "\n";
+        }
+        return acc;
+    }
+
+    /**
      * The method that displays the customised header when the user enters the appropriate command before it lists
      * the tasks.
      * @param tasks The Tasklist object holding tasks currently stored in the program.
@@ -80,15 +98,21 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         printList(tasks);
     }
+    public String guiDisplay(TaskList tasks) {
+        return "Here are the tasks in your list:\n" + stringList(tasks);
+    }
 
     /**
      * The method that displays the customised header when the user searches for a specific description within the
      * tasks currently stored in the program before it lists the said tasks.
      * @param tasks The Tasklist object holding tasks currently stored in the program.
      */
-    public void display_search(TaskList tasks) {
+    public void displaySearch(TaskList tasks) {
         System.out.println("Here are the matching tasks in your list:");
         printList(tasks);
+    }
+    public String guiDisplaySearch(TaskList tasks) {
+        return "Here are the matching tasks in your list:\n" + stringList(tasks);
     }
 
     /**
@@ -102,6 +126,21 @@ public class Ui {
         System.out.println("Got it. I've " + addOrDelete + "ed this task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * The method that returns as a string the customised header and footer, includng the task, when the user adds or
+     * deletes a task.
+     * @param task The task that was added or deleted.
+     * @param addOrDelete The String holding the action (add or delete) done to the task.
+     * @param tasks The Tasklist that holds or held the task of interest.
+     * @return A customised string showing what action (add or delete) was done to the task with respect to the
+     *     TaskList tasks.
+     */
+    public String guiTaskAddOrDeleteDisplay(Task task, String addOrDelete, TaskList tasks) {
+        return "Got it. I've " + addOrDelete + "ed this task:\n"
+                + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
     public String out() {
