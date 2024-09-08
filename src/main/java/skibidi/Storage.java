@@ -62,9 +62,7 @@ public final class Storage {
             scanner.close();
         } catch (FileNotFoundException err) {
             System.out.println("No data file found, task list is empty!");
-        } catch (IOException err) {
-            System.out.println(err.toString());
-        } catch (AbstractTask.TaskDeserializationException err) {
+        } catch (IOException | AbstractTask.TaskDeserializationException err) {
             System.out.println(err.toString());
         }
         return tasks;
