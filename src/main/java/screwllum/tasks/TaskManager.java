@@ -2,6 +2,7 @@ package screwllum.tasks;
 
 import screwllum.Ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
@@ -9,6 +10,10 @@ public class TaskManager {
     
     public TaskManager(List<Task> taskList) {
         this.taskList = taskList;
+    }
+    
+    public TaskManager() {
+        this.taskList = new ArrayList<Task>();
     }
 
     public void execute(List<String> tokens, Ui ui) {
