@@ -20,6 +20,12 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo) {
         super(description);
+        assert description != null && !description.isBlank()
+                : "Description should not be null or blank";
+        assert eventFrom == null || eventTo == null
+                : "Event start time and end time should not be null or blank";
+        assert !eventFrom.isAfter(eventTo)
+                : "Event start time must be before or equal to end time";
         this.eventFrom = eventFrom;
         this.eventTo = eventTo;
     }
@@ -37,20 +43,25 @@ public class Event extends Task {
      * @return An Event task object created from the string data.
      */
     public static Event parseTask(String taskData) {
+        assert taskData != null && !taskData.isBlank()
+                : "Task data should not be null or blank";
         String[] parts = taskData.split(" \\| ");
+        assert parts.length >= 4 : "Task data should have at least 4 parts";
+
         String description = parts[2];
         LocalDateTime from = null;
         LocalDateTime to = null;
-        if (parts.length > 3) {
-            try {
-                from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                if (parts.length > 4) {
-                    to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Warning: There is no date format provided.");
+        try {
+            from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            if (parts.length > 4) {
+                to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             }
+            assert from == null || to == null || !from.isAfter(to)
+                    : "Event start time must be before or equal to end time";
+        } catch (DateTimeParseException e) {
+            System.out.println("Warning: There is no date format provided.");
         }
+
         Event event = new Event(description, from, to);
         if (parts[1].trim().equals("1")) {
             event.markDone();
@@ -69,12 +80,15 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (this.getDone() ? "X" : " ")
-                + "] " + this.getDescription()
-                + (eventFrom != null ? " (from: "
-                + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : "")
-                + (eventTo != null ? " to: "
-                + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
+        String formattedFrom = (eventFrom != null) ? " (from: "
+                + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                : "";
+        String formattedTo = (eventTo != null) ? " to: "
+                + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + ")"
+                : "";
+        return "[E][" + (this.getDone() ? "X" : " ") + "] "
+                + this.getDescription() + formattedFrom + formattedTo;
     }
 
     /**
@@ -89,9 +103,13 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+        String formattedFrom = (eventFrom != null) ? " | "
+                + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                : "";
+        String formattedTo = (eventTo != null) ? " | "
+                + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                : "";
         return "E | " + (this.getDone() ? "1" : "0") + " | "
-                + this.getDescription()
-                + (eventFrom != null ? " | " + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "")
-                + (eventTo != null ? " | " + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
+                + this.getDescription() + formattedFrom + formattedTo;
     }
 }

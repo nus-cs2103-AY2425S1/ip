@@ -23,6 +23,7 @@ public class TaskList {
      * @param task The Task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added should not be null.";
         tasks.add(task);
     }
 
@@ -34,10 +35,8 @@ public class TaskList {
      * @return The Task at the specified index, or null if the index is out of bounds.
      */
     public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            return tasks.get(index);
-        }
-        return null;
+        assert index >= 0 && index < tasks.size() : "Index should be within the bounds of the list.";
+        return (index >= 0 && index < tasks.size()) ? tasks.get(index) : null;
     }
 
     /**
@@ -49,6 +48,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the bounds of the list.";
         return tasks.remove(index);
     }
 
@@ -74,6 +74,7 @@ public class TaskList {
      * @return A list of tasks containing the keyword.
      */
     public List<Task> searchTasks(String keyword) {
+        assert keyword != null : "Search keyword should not be null.";
         return tasks.stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());

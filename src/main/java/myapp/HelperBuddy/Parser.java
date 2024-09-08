@@ -19,27 +19,34 @@ public class Parser {
      * @return Task object depending on the user's command
      */
     public static Task parseCommand(String command) {
+        assert command != null : "Command string should not be null.";
+        command = command.trim();
+        assert !command.isEmpty() : "Command string should not be empty.";
+
         if (command.startsWith("todo")) {
             String description = command.substring(4);
-            if (!description.isEmpty()) {
-                return new ToDo(description);
-            }
+            assert !description.isEmpty() : "ToDo description should not be empty.";
+            return new ToDo(description);
         } else if (command.startsWith("deadline")) {
-            String description = command.substring(8);
-            String[] parts = command.split("/by");
+            String description = command.substring(8).trim();
+            String[] parts = command.split("/by", 2);
+            assert parts.length == 2 : "Deadline command should contain '/by' separator.";
             LocalDateTime deadline = parseDateTime(parts[1].trim());
-            if (!description.isEmpty() && deadline != null) {
-                return new Deadline(description, deadline);
-            }
+            assert !description.isEmpty() : "Deadline description should not be empty.";
+            assert deadline != null : "Deadline date/time should be valid.";
+            return new Deadline(description, deadline);
         } else if (command.startsWith("event")) {
-            String description = command.substring(5);
-            String[] parts = command.split("/from");
-            String[] subParts = parts[1].split("/to");
+            String description = command.substring(5).trim();
+            String[] parts = command.split("/from", 2);
+            assert parts.length == 2 : "Event command should contain '/from' separator.";
+            String[] subParts = parts[1].split("/to", 2);
+            assert subParts.length == 2 : "Event command should contain '/to' separator.";
             LocalDateTime from = parseDateTime(subParts[0].trim());
             LocalDateTime to = parseDateTime(subParts[1].trim());
-            if (!description.isEmpty() && from != null && to != null) {
-                return new Event(description, from, to);
-            }
+            assert !description.isEmpty() : "Event description should not be empty.";
+            assert from != null : "Event start date/time should be valid.";
+            assert to != null : "Event end date/time should be valid.";
+            return new Event(description, from, to);
         }
         return null;
     }
@@ -48,11 +55,12 @@ public class Parser {
      * Parses a command string to create an appropriate datetime object
      * If the command format is incorrect or any part of the command is invalid,
      * an error message is printed and no LocalDateTime object is returned
-     *
      * @param dateTimeStr user's command string to be parsed
      * @return LocalDateTime object depending on the user's command
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
+        assert dateTimeStr != null : "DateTime string should not be null.";
+        dateTimeStr = dateTimeStr.trim();
         if (dateTimeStr.isEmpty()) {
             return null;
         }

@@ -31,6 +31,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane must be initialized.";
+        assert dialogContainer != null : "DialogContainer must be initialized.";
+        assert userInput != null : "UserInput must be initialized.";
+        assert sendButton != null : "SendButton must be initialized.";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -38,6 +43,7 @@ public class MainWindow extends AnchorPane {
      * Sets the buddy from the Ui class.
      */
     public void setBuddy(Ui buddy) {
+        assert buddy != null : "Buddy must not be null.";
         this.buddy = buddy;
     }
 
@@ -48,7 +54,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input should not be null.";
+        assert !input.trim().isEmpty() : "User input should not be empty.";
+
         String response = getResponse(input);
+        assert response != null : "Buddy response should not be null.";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBuddyDialog(response, buddyImage)
@@ -58,7 +69,6 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Handles user input and processes it using the Ui class.
-     *
      * @return the buddy response in the dialog container.
      */
     private String getResponse(String input) {

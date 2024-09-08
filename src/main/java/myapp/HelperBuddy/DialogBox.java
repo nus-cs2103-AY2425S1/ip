@@ -27,11 +27,12 @@ public class DialogBox extends HBox {
      * Constructs a DialogBox object with the specified text and image.
      * This constructor loads the FXML layout for the dialog box and initializes
      * the dialog text and display picture.
-     *
      * @param text to be displayed in the dialog box.
      * @param img  to be displayed alongside the text.
      */
     private DialogBox(String text, Image img) {
+        assert text != null : "Dialog text should not be null";
+        assert img != null : "Image should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -47,7 +48,6 @@ public class DialogBox extends HBox {
     /**
      * Creates and returns a DialogBox representing the user's dialog.
      * The dialog box will display the specified text and image without flipping the alignment.
-     *
      * @param text to be displayed in the user's dialog box.
      * @param img  to be displayed alongside the user's dialog.
      * @return DialogBox object containing the user's dialog.
@@ -60,12 +60,13 @@ public class DialogBox extends HBox {
      * Creates and returns a DialogBox representing the bot's dialog.
      * The dialog box will display the specified text and image, with the alignment flipped
      * so that the image appears on the left side and the text on the right.
-     *
      * @param text to be displayed in the bot's dialog box.
      * @param img  to be displayed alongside the bot's dialog.
      * @return DialogBox object containing the bot's dialog.
      */
     public static DialogBox getBuddyDialog(String text, Image img) {
+        assert text != null : "Dialog text for buddy should not be null";
+        assert img != null : "Image for buddy should not be null";
         DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
@@ -80,5 +81,13 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        // Assert that the alignment is correctly set after flip
+        assert getAlignment().equals(Pos.TOP_LEFT) : "Alignment should be TOP_LEFT after flip";
+
+        // Assert that the children are reversed correctly
+        ObservableList<Node> reversedChildren = FXCollections.observableArrayList(getChildren());
+        Collections.reverse(reversedChildren);
+        assert getChildren().equals(reversedChildren) : "Children should be reversed after flip";
     }
 }
