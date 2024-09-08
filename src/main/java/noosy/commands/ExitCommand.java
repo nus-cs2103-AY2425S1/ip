@@ -5,7 +5,7 @@ import noosy.task.TaskList;
 import noosy.ui.Ui;
 
 /**
- * Represents the exit command in the Noosy task management system.
+ * Represents the exit command in the Noosy task management chatbot.
  * This command is responsible for terminating the program execution.
  */
 public class ExitCommand extends Command {
