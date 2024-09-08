@@ -76,6 +76,8 @@ public class MainWindow extends Stage {
         String input = this.userInput.getText();
         String response = this.moiMoi.getResponse(input);
 
+        assert response != null : "response should not be null";
+
         if (response.isEmpty()) {
             javafx.application.Platform.exit();
         } else {
