@@ -54,8 +54,7 @@ public class ListOnCommand implements Command {
             for (Task task : actions.getItems()) {
                 if (task instanceof Event) {
                     Event event = (Event) task;
-                    if ((event.getFrom().isBefore(date) || event.getFrom().equals(date))
-                            && (event.getTo().isAfter(date) || event.getTo().equals(date))) {
+                    if (isConcurrent(event)) {
                         ui.printMessage(event.toString());
                         hasTasksFound = true;
                     } else if (task instanceof Deadline) {
@@ -75,6 +74,19 @@ public class ListOnCommand implements Command {
             ui.printMessage("No tasks found on this date.");
         }
         ui.showLine();
+    }
+
+    private boolean isConcurrent(Event event) {
+        //Start date requirements
+        boolean isStartDateBefore = event.getFrom().isBefore(date);
+        boolean isStartDateEqual = event.getFrom().equals(date);
+
+        //End date requirement
+        boolean isEndDateAfter = event.getTo().isAfter(date);
+        boolean isEndDateEqual = event.getTo().equals(date);
+
+        return (isStartDateBefore || isStartDateEqual)
+                && (isEndDateAfter || isEndDateEqual);
     }
 }
 

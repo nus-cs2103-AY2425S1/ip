@@ -1,5 +1,6 @@
 package xizi.chatbot.task;
 
+
 /**
  * Represents a general task with a name and a completion status.
  * This is an abstract class that provides basic functionality for tasks.
