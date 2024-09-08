@@ -21,6 +21,7 @@ public class Deadline extends Task {
 
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
+        assert parameters.length == 4 : "Number of elements after splitting should be 4.";
         return new Deadline(
                 parameters[2],
                 LocalDateTime.parse(parameters[3]),
