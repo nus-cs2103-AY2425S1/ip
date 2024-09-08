@@ -108,4 +108,39 @@ public class TaskList {
             throw new RuntimeException("Error updating database!");
         }
     }
+
+    /**
+     * Adds a tag to the existing task
+     * @param index index of task
+     * @param tag tag associated with the task
+     */
+    public void tagTask(int index, String tag) {
+        try {
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            Task t = tempDatabase.get(index);
+            t.tags.add(tag);
+            this.storage.updateFileContents(tempDatabase);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File was not found!");
+        } catch (IOException e) {
+            throw new RuntimeException("Error updating database!");
+        }
+    }
+
+    /**
+     * Clears ALL tags from the existing task
+     * @param index index of task
+     */
+    public void untagTask(int index) {
+        try {
+            ArrayList<Task> tempDatabase = this.storage.getFileContents();
+            Task t = tempDatabase.get(index);
+            t.tags.clear();
+            this.storage.updateFileContents(tempDatabase);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File was not found!");
+        } catch (IOException e) {
+            throw new RuntimeException("Error updating database!");
+        }
+    }
 }

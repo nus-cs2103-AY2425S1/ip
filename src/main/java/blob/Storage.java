@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Storage {
     private File file;
     private String filePath;
+    private final String NA_DATA = "NA";
 
     public Storage(String filePath) {
         //ensures file is always created (if it didn't exist initially)
@@ -22,12 +23,12 @@ public class Storage {
             this.file = new File(filePath);
             if (this.file.createNewFile()) {
                 FileWriter fw = new FileWriter(filePath);
-                fw.write("type,is_checked,task_name,time1,time2\n");
+                fw.write("type,is_checked,task_name,time1,time2,tags\n");
                 fw.close();
             } else {
                 Scanner s = new Scanner(this.file);
                 String headers = s.nextLine();
-                assert headers.equals("type,is_checked,task_name,time1,time2\n") : "File headers are wrong!";
+                assert headers.equals("type,is_checked,task_name,time1,time2,tags\n") : "File headers are wrong!";
             }
         } catch (IOException e) {
             throw new RuntimeException("Database file was unable to be generated!");
@@ -51,15 +52,28 @@ public class Storage {
             String taskName = array[2];
 
             if (taskType.equals("T")) {
-                Todo t = new Todo(taskName, isChecked == 1);
+                ArrayList<String> tags = new ArrayList<>();
+                for (int i = 5; i < array.length; i++) {
+                    tags.add(array[i]);
+                }
+
+                Todo t = new Todo(taskName, isChecked == 1, tags);
                 tasks.add(t);
 
             } else if (taskType.equals("D")) {
-                Deadline d = new Deadline(taskName, isChecked == 1, array[3]);
+                ArrayList<String> tags = new ArrayList<>();
+                for (int i = 5; i < array.length; i++) {
+                    tags.add(array[i]);
+                }
+                Deadline d = new Deadline(taskName, isChecked == 1, array[3], tags);
                 tasks.add(d);
 
             } else if (taskType.equals("E")) {
-                Event e = new Event(taskName, isChecked == 1, array[3], array[4]);
+                ArrayList<String> tags = new ArrayList<>();
+                for (int i = 5; i < array.length; i++) {
+                    tags.add(array[i]);
+                }
+                Event e = new Event(taskName, isChecked == 1, array[3], array[4], tags);
                 tasks.add(e);
             }
         }
@@ -73,26 +87,26 @@ public class Storage {
      */
     public void updateFileContents(ArrayList<Task> database) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
-        StringBuilder allData = new StringBuilder("type,is_checked,task_name,time1,time2\n");
+        StringBuilder allData = new StringBuilder("type,is_checked,task_name,time1,time2,tags\n");
         for (int i = 0; i < database.size(); i++) {
             Task t = database.get(i);
             String isChecked = String.valueOf(t.isDone ? 1 : 0);
 
             if (t.type.equals("T")) {
-                StringBuilder data = new StringBuilder(String.format("%s,%s,%s\n",
-                        t.type, isChecked, t.name));
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
+                        t.type, isChecked, t.name, NA_DATA, NA_DATA, t.displayTags()));
                 allData.append(data);
 
             } else if (t.type.equals("D")) {
                 Deadline d = (Deadline) t;
-                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s\n",
-                        t.type, isChecked, t.name, d.getDeadline()));
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
+                        t.type, isChecked, t.name, d.getDeadline(), NA_DATA, t.displayTags()));
                 allData.append(data);
                 
             } else if (t.type.equals("E")) {
                 Event e = (Event) t;
-                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s\n",
-                        t.type, isChecked, t.name, e.getStart(), e.getEnd()));
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
+                        t.type, isChecked, t.name, e.getStart(), e.getEnd(), t.displayTags()));
                 allData.append(data);
             }
         }

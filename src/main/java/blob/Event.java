@@ -2,6 +2,7 @@ package blob;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Represents the Event task (subtype of Task)
@@ -12,8 +13,8 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String name, boolean isDone, String start, String end) {
-        super(name, isDone);
+    public Event(String name, boolean isDone, String start, String end, ArrayList<String> tags) {
+        super(name, isDone, tags);
         this.start = LocalDateTime.parse(start);
         assert this.start.isAfter(LocalDateTime.now()) : "This event's start time is already in the past!";
         this.end = LocalDateTime.parse(end);
@@ -26,9 +27,20 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        if (this.tags.isEmpty()) {
+            return "[E]" + "[" + this.check() + "] " + this.name +
+                    " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) +
+                    " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
+        }
+        StringBuilder tags = new StringBuilder("");
+        for (int i = 0; i < this.tags.size(); i++) {
+            String tag = this.tags.get(i);
+            tags.append("#" + tag + " ");
+        }
         return "[E]" + "[" + this.check() + "] " + this.name +
                 " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) +
-                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
+                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ") - " +
+                tags.toString();
     }
 
     /**

@@ -1,3 +1,3 @@
-type,is_checked,task_name,time1,time2
-T,0,Complete CS2103T iP tasks
-D,0,CS2103 tP task,2024-09-11T23:59
+type,is_checked,task_name,time1,time2,tags
+T,0,CS2103T HW,NA,NA,acad,fun,computing
+E,0,CS2103 Practical,2024-09-20T14:00,2024-09-20T16:00,exam
