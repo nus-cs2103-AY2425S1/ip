@@ -33,14 +33,14 @@ public class Parser {
         HashMap<String, String> map = new HashMap<>();
 
         // extract first argument separately because it has no identifier
-        String[] argSplit = additionalArgs.split(" /", 2);
-        map.put("main", argSplit[0].isEmpty() ? null : argSplit[0]);
+        String[] argSplits = additionalArgs.split(" /", 2);
+        map.put("main", argSplits[0].isEmpty() ? null : argSplits[0]);
 
-        if (argSplit.length < 2) {
+        if (argSplits.length < 2) {
             return map; // no additional parameters to parse
         }
 
-        Scanner scanner = new Scanner(argSplit[1]).useDelimiter(" /");
+        Scanner scanner = new Scanner(argSplits[1]).useDelimiter(" /");
 
         // extract additional parameters and their arguments
         while (scanner.hasNext()) {
@@ -63,9 +63,11 @@ public class Parser {
     public static Command parse(String rawInput) {
 
         // separate command keyword from argument string
-        String[] firstSplit = rawInput.split(" ", 2);
-        String commandWord = firstSplit[0];
-        String argumentString = firstSplit.length > 1 ? firstSplit[1] : ""; // empty string for no args
+        String[] firstSplits = rawInput.split(" ", 2);
+        String commandWord = firstSplits[0];
+
+        // extract argument hashmap from argument string
+        String argumentString = firstSplits.length > 1 ? firstSplits[1] : ""; // empty string for no args
         HashMap<String, String> args = Parser.parseArgs(argumentString);
 
         return switch (commandWord) {
