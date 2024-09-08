@@ -18,7 +18,7 @@ public class Main extends Application {
         AnchorPane mainPage = fxmlLoader.load();
         DialogPane dialogPane = fxmlLoader.getController();
         dialogPane.add(DialogBox.getDukeDialog(Response.greet(),
-                new Image(getClass().getResourceAsStream("/Miku.jpeg"))));
+                new Image(getClass().getResourceAsStream("/miku.jpeg"))));
         Scene scene = new Scene(mainPage);
         primaryStage.setScene(scene);
         primaryStage.show();

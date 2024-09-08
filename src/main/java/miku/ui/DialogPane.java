@@ -50,7 +50,7 @@ public class DialogPane extends AnchorPane {
         String reponse = run.getResponse(inputField.getText());
         box.getChildren().addAll(
                 DialogBox.getUserDialog(inputField.getText(), new Image(getClass().getResourceAsStream("/user.png"))),
-                DialogBox.getDukeDialog(reponse, new Image(getClass().getResourceAsStream("/Miku.jpeg")))
+                DialogBox.getDukeDialog(reponse, new Image(getClass().getResourceAsStream("/miku.jpeg")))
         );
         inputField.clear();
     }
