@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public abstract class AbstractTask {
     protected String description;
     protected boolean isDone;
-    public int priority;
+    private int priority;
 
     /**
      * Exception thrown when input arguments given to constructor of any child
@@ -58,6 +58,10 @@ public abstract class AbstractTask {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     @Override
