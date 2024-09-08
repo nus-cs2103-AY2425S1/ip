@@ -27,6 +27,7 @@ public class Parser {
         this.ui = new Ui();
         this.list = new TaskList();
         this.storage = new Storage(path);
+        assert path != null && !path.isEmpty() : "Storage path should not be null or empty";
     }
 
     /**
@@ -102,6 +103,7 @@ public class Parser {
         case MARK:
             try {
                 int numMark = Integer.parseInt(input.split(" ")[1]);
+                assert numMark > 0 && numMark <= list.getSize() : "Mark index is out of bounds";
                 return list.markTask(numMark);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
@@ -109,6 +111,7 @@ public class Parser {
         case UNMARK:
             try {
                 int numUnmark = Integer.parseInt(input.split(" ")[1]);
+                assert numUnmark > 0 && numUnmark <= list.getSize() : "Unmark index is out of bounds";
                 return list.unmarkTask(numUnmark);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
@@ -116,6 +119,7 @@ public class Parser {
         case DELETE:
             try {
                 int numDelete = Integer.parseInt(input.split(" ")[1]);
+                assert numDelete > 0 && numDelete <= list.getSize() : "Delete index is out of bounds";
                 return list.delete(numDelete);
             } catch (Exception e) {
                 return ui.invalidNumMsg();
@@ -123,6 +127,7 @@ public class Parser {
         case TODO:
             try {
                 String description = input.split(" ", 2)[1];
+                assert description != null && !description.isEmpty() : "Todo description should not be empty";
                 Todo todo = new Todo(description);
                 return list.addToList(todo);
             } catch (Exception e) {
@@ -135,6 +140,8 @@ public class Parser {
                 String[] time = detail[1].trim().split("/to");
                 String start = time[0].trim();
                 String end = time[1].trim();
+                assert description != null && !description.isEmpty() : "Event description should not be empty";
+                assert start != null && end != null : "Event start and end times should not be null";
                 Event event = new Event(description, setTime(start), setTime(end));
                 return list.addToList(event);
             } catch (Exception e) {
@@ -145,6 +152,8 @@ public class Parser {
                 String[] detail = input.split(" ", 2)[1].split("/by");
                 String description = detail[0].trim();
                 String time = detail[1].trim();
+                assert description != null && !description.isEmpty() : "Deadline description should not be empty";
+                assert time != null : "Deadline time should not be null";
                 Deadline deadline = new Deadline(description, setTime(time));
                 return list.addToList(deadline);
             } catch (Exception e) {
