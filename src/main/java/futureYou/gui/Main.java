@@ -1,5 +1,7 @@
 package futureyou.gui;
 
+import futureyou.FutureYou;
+
 import javafx.scene.layout.Region;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,8 +13,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+import java.io.IOException;
+
 
 public class Main extends Application {
+
+    private FutureYou futureYou;
+
+    {
+        try {
+            futureYou = new FutureYou();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -89,7 +103,12 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = futureYou.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(dukeText, futureYouImage)
+        );
         userInput.clear();
     }
 
