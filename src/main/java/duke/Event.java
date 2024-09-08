@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     protected LocalDateTime start;
-    protected LocalDateTi
+    protected LocalDateTime end;
 
     /**
      * Constructs an {@code Event} task with the specified description,
