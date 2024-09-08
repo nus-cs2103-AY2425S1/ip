@@ -30,6 +30,9 @@ public class Storage {
      * @param filePath The {@link String} representing the path of the data file.
      */
     public Storage(String filePath) {
+        boolean isNonEmptyPath = (filePath != null && !filePath.isEmpty());
+        assert isNonEmptyPath : "filePath must be non empty string";
+
         dataFile = new File(filePath);
         directory = dataFile.getParentFile();
     }
@@ -51,6 +54,8 @@ public class Storage {
      * @see Storage#hasExistingPath()
      */
     public void createPath(Ui ui) {
+        assert ui != null : "ui should not be null";
+
         try {
             if (!directory.exists()) {
                 boolean createdDirectory = directory.mkdir();
@@ -75,6 +80,9 @@ public class Storage {
      * @param ui The {@link Ui} to print output to.
      */
     public void loadTasks(TaskList tasks, Ui ui) {
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "ui should not be null";
+
         File copy = new File(dataFile.getParent() + "/temp.txt");
 
         try {
@@ -120,6 +128,9 @@ public class Storage {
      * @param ui The {@link Ui} to print output to.
      */
     public void saveNewTask(Task task, Ui ui) {
+        assert task != null : "task should not be null";
+        assert ui != null : "ui should not be null";
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
             writer.append(task.getSaveTaskString());
@@ -141,6 +152,9 @@ public class Storage {
      * @param ui The {@link Ui} to print output to.
      */
     public void deleteTask(Task task, Ui ui) {
+        assert task != null : "task should not be null";
+        assert ui != null : "ui should not be null";
+
         String saveString = task.getSaveTaskString();
 
         try {
@@ -178,6 +192,11 @@ public class Storage {
      * @param ui The {@link Ui} to print output to.
      */
     public void updateTaskState(Task task, String previousState, Ui ui) {
+        assert task != null : "task should not be null";
+        assert ui != null : "ui should not be null";
+        boolean isNonEmptyState = (previousState != null && !previousState.isEmpty());
+        assert isNonEmptyState : "previousState should be non-empty";
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));
             StringBuilder sb = new StringBuilder();

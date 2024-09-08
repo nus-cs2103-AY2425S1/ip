@@ -2,6 +2,7 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
+import ekud.exceptions.EkudException;
 import ekud.ui.Ui;
 
 /**
@@ -11,7 +12,8 @@ import ekud.ui.Ui;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
         // does nothing
     }
 

@@ -2,6 +2,7 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
+import ekud.exceptions.EkudException;
 import ekud.task.Task;
 import ekud.ui.Ui;
 
@@ -19,11 +20,15 @@ public class AddCommand extends Command {
      * @param task The {@link Task} to add.
      */
     public AddCommand(Task task) {
+        assert task != null : "task should not be null";
+
         this.task = task;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
+
         tasks.addTask(task);
 
         String message = String.format("added: %s\nAnd another one; %d out of %d tasks to complete...",

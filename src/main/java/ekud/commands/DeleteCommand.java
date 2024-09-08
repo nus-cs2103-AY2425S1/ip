@@ -21,11 +21,15 @@ public class DeleteCommand extends Command {
      * @param index The index to delete.
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "index should be non negative";
+
         this.index = index - 1;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
+
         Task removed = tasks.removeTask(index);
         String completeResponse = removed.isDone()
                 ? "Great work on completing your ekud.task!"

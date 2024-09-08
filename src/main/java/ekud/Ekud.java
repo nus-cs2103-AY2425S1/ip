@@ -45,6 +45,8 @@ public class Ekud {
      * @param ui The {@link Ui} which takes user input and prints output.
      */
     public Ekud(Ui ui) {
+        assert ui != null : "Ui should not be null";
+
         this.ui = ui;
         storage = new Storage(TASK_DATA_PATH);
         tasks = new TaskList();
