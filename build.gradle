@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("conversage.ConverSage")
+    mainClass.set("conversage.Launcher")
 }
 
 checkstyle {
