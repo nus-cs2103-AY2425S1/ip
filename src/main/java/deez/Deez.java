@@ -1,7 +1,6 @@
 package deez;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -18,8 +17,6 @@ import javafx.util.Pair;
  * Deez class
  */
 public class Deez {
-    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     private static Storage storage = new Storage("./data");
     protected TaskList taskList = new TaskList(new ArrayList<>());
     private Ui ui = new Ui();
@@ -118,7 +115,8 @@ public class Deez {
      */
     private void handleAddDeadline(Properties props) throws DeezException {
         try {
-            LocalDateTime byDateTime = LocalDateTime.parse(props.getProperty("by"), dateTimeInputFormatter);
+            LocalDateTime byDateTime = Parser.parseDateTimeString(props.getProperty("by"));
+
             Deadline d = new Deadline(props.getProperty("name"), byDateTime);
             taskList.addTask(d);
             ui.say("Donezo. I have added your task.", d.toString(),
@@ -137,8 +135,9 @@ public class Deez {
      */
     private void handleAddEvent(Properties props) throws DeezException {
         try {
-            LocalDateTime startDate = LocalDateTime.parse(props.getProperty("from"), dateTimeInputFormatter);
-            LocalDateTime endDate = LocalDateTime.parse(props.getProperty("to"), dateTimeInputFormatter);
+            LocalDateTime startDate = Parser.parseDateTimeString(props.getProperty("from"));
+            LocalDateTime endDate = Parser.parseDateTimeString(props.getProperty("to"));
+
             if (startDate.isAfter(endDate)) {
                 throw new DeezException("Start date must be before end date.", "Usage:",
                     "event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
