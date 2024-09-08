@@ -44,7 +44,6 @@ public abstract class Task {
     public void markDone() {
         isDone = true;
         done = "X";
-        System.out.println("Nice! I've marked this task as done:\n[" + done + "] " + desc);
     }
 
     /**
@@ -53,7 +52,18 @@ public abstract class Task {
     public void markUndone() {
         isDone = false;
         done = " ";
-        System.out.println("Ok! I've marked this task as not done yet:\n[" + done + "] " + desc);
+    }
+
+    /**
+     * Return the isDone description after marking.
+     * @return Response
+     */
+    public String doneStringValue() {
+        if (isDone) {
+            return "Nice! I've marked this task as done:\n[" + done + "] " + desc;
+        } else {
+            return "Ok! I've marked this task as not done yet:\n[" + done + "] " + desc;
+        }
     }
 
     public String getDesc() {

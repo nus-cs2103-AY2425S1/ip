@@ -21,8 +21,6 @@ public class TaskList extends ArrayList<Task> {
      */
     public void addItem(Task task) {
         tasks.add(task);
-        System.out.println("Got it . I've added this task:\n" + task.stringValue());
-        System.out.println("いまは " + tasks.size() + " tasks in the list");
     }
 
     public ArrayList<Task> getTasks() {
@@ -35,9 +33,7 @@ public class TaskList extends ArrayList<Task> {
      * @param num the index of the task to be removed
      */
     public void deleteItem(int num) {
-        System.out.println("はい、わかりました\nI have removed the following task: " + tasks.get(num - 1).stringValue());
         tasks.remove(num - 1);
-        System.out.println("いまは " + tasks.size() + " tasks in the list");
     }
 
     public void mark(int num) {
@@ -78,5 +74,9 @@ public class TaskList extends ArrayList<Task> {
 
     public int size() {
         return tasks.size();
+    }
+
+    public Task get(int index) {
+        return tasks.get(index);
     }
 }

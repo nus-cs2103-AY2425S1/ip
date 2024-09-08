@@ -2,7 +2,7 @@ package miku.command;
 
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 /**
  * Displays all the tasks in the list.
@@ -23,9 +23,8 @@ public class ShowListCommand extends Command {
      * @param storage  The storage function to store the data into a text file.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        taskList.printList();
-        ui.printSectionBreak();
+    public void execute(TaskList taskList, Response ui, Storage storage) {
+        ui.setResponse(ui.printListResponse(taskList));
     }
 
 }

@@ -2,7 +2,7 @@ package miku.command;
 
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 /**
  * Finds and prints the matched results
@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        taskList.searchList(string);
+    public void execute(TaskList taskList, Response ui, Storage storage) {
+        ui.setResponse(ui.searchList(string, taskList));
     }
 }

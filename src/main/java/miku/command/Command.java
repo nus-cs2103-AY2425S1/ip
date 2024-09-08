@@ -2,7 +2,7 @@ package miku.command;
 
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 /**
  * The abstract parent class of all other specfic command classes.
@@ -16,5 +16,5 @@ public abstract class Command {
      * @param ui       The UI to perform printing.
      * @param storage  The storage function to store the data into a text file.
      */
-    public abstract void execute(TaskList taskList, UI ui, Storage storage);
+    public abstract void execute(TaskList taskList, Response ui, Storage storage);
 }

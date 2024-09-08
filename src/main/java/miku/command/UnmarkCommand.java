@@ -2,7 +2,7 @@ package miku.command;
 
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 /**
  * Unmarks a specified task.
@@ -27,9 +27,9 @@ public class UnmarkCommand extends Command {
      * @param storage  The storage function to store the data into a text file.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public void execute(TaskList taskList, Response ui, Storage storage) {
         taskList.unmark(index);
-        ui.printSectionBreak();
         storage.saveFromTaskList(taskList);
+        ui.setResponse(taskList.get(index).doneStringValue());
     }
 }

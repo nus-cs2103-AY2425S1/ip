@@ -3,7 +3,7 @@ package miku.command;
 import miku.exception.RemoveNullException;
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 
 /**
@@ -30,14 +30,15 @@ public class RemoveCommand extends Command {
      * @param storage  The storage function to store the data into a text file.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public void execute(TaskList taskList, Response ui, Storage storage) {
         try {
+            String deleteResponse = ui.deleteItemResponse(index, taskList);
             if (index < 1 || index > taskList.size()) {
                 throw new RemoveNullException("In valid index");
             }
             taskList.deleteItem(index);
             storage.saveFromTaskList(taskList);
-            ui.printSectionBreak();
+            ui.setResponse(deleteResponse);
         } catch (RemoveNullException e) {
             e.print();
         }

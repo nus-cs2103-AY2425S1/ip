@@ -3,7 +3,7 @@ package miku.command;
 import miku.task.Task;
 import miku.utility.Storage;
 import miku.utility.TaskList;
-import miku.utility.UI;
+import miku.utility.Response;
 
 
 /**
@@ -29,9 +29,9 @@ public class AddCommand extends Command {
      * @param storage  The storage function to store the data into a text file.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public void execute(TaskList taskList, Response ui, Storage storage) {
         taskList.addItem(task);
         storage.saveFromTaskList(taskList);
-        ui.printSectionBreak();
+        ui.setResponse(ui.addItemResponse(task, taskList));
     }
 }

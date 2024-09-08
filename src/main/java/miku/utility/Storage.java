@@ -14,7 +14,6 @@ import miku.task.Task;
 import miku.task.Todo;
 
 
-
 /**
  * Stores the data into a txt file.
  */
