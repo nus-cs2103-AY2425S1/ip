@@ -7,36 +7,47 @@ import main.util.Storage;
 import main.util.Ui;
 
 /**
- * Command that finds tasks containing the keyword
- * as inputted by the user.
+ * Command that finds exact match for tasks containing 
+ * the keyword/phrase as inputted by the user.
  */
-public class FindCommand extends Command {
+public class FindExactCommand extends Command {
     private String input;
 
     /**
      * Constructor for FindCommand class.
      * @param input Input by the user.
      */
-    public FindCommand(String input) {
+    public FindExactCommand(String input) {
         this.input = input;
     }
 
     /**
-     * Finds tasks that contains the keyword as inputted by the user.
+     * Finds tasks that matches the exact keyword/phrase as inputted by the user.
      * @param input Input by the user.
      * @param taskList List of tasks.
      * @param ui Ui as initialised in main.
      * @throws PrinceException
      */
-    private void find(String input, TaskList taskList, Ui ui) {
+    private void findExact(String input, TaskList taskList, Ui ui) {
         String[] arr = input.split(" ");
-        String keyword = arr[1].trim();
+        StringBuilder builder = new StringBuilder();
+        String taskDescription;
+
+        for (int i = 1; i < arr.length; i++) {
+            if (i == arr.length - 1) {
+                builder.append(arr[i]); // ensure no spacing at the last word of the string
+            } else {
+                builder.append(arr[i] + " ");
+            }
+            System.out.println("DEBUG: " + builder);
+        }
+        taskDescription = builder.toString();
 
         TaskList newTaskList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             String desc = task.getDescription();
-            if (desc.contains(keyword)) {
+            if (desc.equals(taskDescription)) {
                 newTaskList.add(task);
             }
         }
@@ -50,6 +61,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws PrinceException {
-        find(input, tasks, ui);
+        findExact(input, tasks, ui);
     }
 }
