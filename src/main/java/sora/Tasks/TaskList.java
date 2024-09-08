@@ -43,10 +43,11 @@ public class TaskList {
 
     /**
      * Marks a task as done.
-     * Prints the outcome for the user.
+     * Returns the Marked Task.
      *
      * @param value Index of the task to be marked as done. Starting from 1.
-     * @throws SoraException If value is not an integer or out of bounds.
+     * @return The Marked Task
+     * @throws SoraException If Task is already marked or value is not an integer or out of bounds.
      */
     public Task markTask(String value) throws SoraException {
         try {
@@ -65,10 +66,11 @@ public class TaskList {
 
     /**
      * Marks a task as not done.
-     * Prints the outcome for the user.
+     * Returns the Unmarked Task.
      *
      * @param value Index of the task to be marked as not done. Starting from 1.
-     * @throws SoraException If value is not an integer or out of bounds.
+     * @return The Unmarked Task.
+     * @throws SoraException If Task is already unmarked or value is not an integer or out of bounds.
      */
     public Task unmarkTask(String value) throws SoraException {
         try {
@@ -86,11 +88,12 @@ public class TaskList {
     }
 
     /**
-     * Create a new task and add it to this TaskList instance.
-     * Prints the outcome for the user.
+     * Creates a new task and add it to this TaskList instance.
+     * Returns the Added Task.
      *
      * @param mainCommand Type of task (Todo, Deadline, Event)
      * @param parsedCommand Details of task in parsed format.
+     * @return The Added Task.
      * @throws SoraException If parsedCommand is invalid.
      */
     public Task addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
@@ -140,10 +143,11 @@ public class TaskList {
     }
 
     /**
-     * Delete a task.
-     * Prints the outcome for the user.
+     * Deletes a task.
+     * Returns the Deleted Task.
      *
-     * @param value Index of the task to be marked as not done. Starting from 1.
+     * @param value Index of the task to be deleted. Starting from 1.
+     * @return The Deleted Task.
      * @throws SoraException If value is not an integer or out of bounds.
      */
     public Task deleteTask(String value) throws SoraException {
@@ -159,9 +163,11 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks, containing the specified substring, of this TaskList instance.
+     * Locates all tasks, containing the specified substring, of this TaskList instance.
+     * Returns a Stringbuilder containing the Tasks in String Format.
      *
      * @param s User's Substring.
+     * @return Stringbuilder containing the Tasks in String Format.
      */
     public StringBuilder findTask(String s) {
         HashMap<Integer, Task> taskListFound = new HashMap<>();

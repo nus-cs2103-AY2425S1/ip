@@ -20,7 +20,7 @@ public class Ui {
     }
 
     /**
-     * Returns TaskList Content.
+     * Returns String of TaskList Content.
      * If TaskList is empty, a Unique Statement "No Tasks Found" will be returned.
      *
      * @param taskList TaskList.
@@ -39,6 +39,13 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns a String of Outcome of Marking Task.
+     *
+     * @param taskList TaskList.
+     * @param index Index of the task to be marked as done. Starting from 1.
+     * @return String of Outcome of Marking Task.
+     */
     protected String displayMarkedTask(TaskList taskList, String index) {
         try {
             Task task = taskList.markTask(index);
@@ -48,6 +55,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns a String of Outcome of Unmarking Task.
+     *
+     * @param taskList TaskList.
+     * @param index Index of the task to be marked as not done. Starting from 1.
+     * @return String of Outcome of Unmarking Task.
+     */
     protected String displayUnMarkedTask(TaskList taskList, String index) {
         try {
             Task task = taskList.unmarkTask(index);
@@ -57,6 +71,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns a String of Outcome of Adding Task.
+     *
+     * @param taskList TaskList.
+     * @param mainCommand Type of task (Todo, Deadline, Event)
+     * @param parsedCommand Details of task in parsed format.
+     * @return String of Outcome of Adding Task.
+     */
     protected String displayAddedTask(TaskList taskList, String mainCommand, ArrayList<String> parsedCommand) {
         try {
             Task task = taskList.addTask(mainCommand, parsedCommand);
@@ -68,6 +90,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns a String of Outcome of Deleting Task.
+     *
+     * @param taskList TaskList.
+     * @param index Index of the task to be deleted. Starting from 1.
+     * @return String of Outcome of Deleting Task.
+     */
     protected String displayDeletedTask(TaskList taskList, String index) {
         try {
             Task deletedTask = taskList.deleteTask(index);
@@ -77,6 +106,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns a String of Outcome of Finding Task.
+     *
+     * @param taskList TaskList.
+     * @param s User's Substring.
+     * @return String of Outcome of Finding Task.
+     */
     protected String displayFoundTask(TaskList taskList, String s) {
         return taskList.findTask(s).toString();
     }

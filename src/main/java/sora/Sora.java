@@ -30,6 +30,12 @@ public class Sora {
         }
     }
 
+    /**
+     * Derives Sora's Response to User's Command.
+     *
+     * @param input User's Command.
+     * @return Sora's Response.
+     */
     public String getResponse(String input) {
         String res;
         ArrayList<String> parsedCommand = Parser.parse(input);
