@@ -50,7 +50,7 @@ public class Skibidi {
             return Ui.getExitMessage();
         }
         try {
-           return parser.parseCommand(input).execute(taskList, storage, ui).get();
+           return parser.parseCommand(input).execute(taskList, storage, ui);
         } catch (CommandParseException err) {
             return err.getMessage();
         }
