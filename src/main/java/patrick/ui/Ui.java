@@ -13,12 +13,13 @@ import patrick.tasklist.Task;
  */
 public class Ui {
     // Constants for displaying UI elements and messages
+    public static final String THERE_IS_AN_ERROR = "There is an error: ";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
     private static final String TASK_MSG = "Got it. I've added this task:\n";
     private static final String NUM_TASK_MSG_1 = "Now you have ";
     private static final String NUM_TASK_MSG_2 = " tasks in the list.\n";
-    public static final String THERE_IS_AN_ERROR = "There is an error: ";
+
 
     private final Scanner in; // Scanner for user input
     private final PrintStream out; // PrintStream for output
