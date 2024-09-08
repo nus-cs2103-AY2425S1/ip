@@ -1,4 +1,4 @@
-//package screwllum;
+package screwllum;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -69,7 +69,6 @@ public class Parser {
     }
     
     public static LocalDateTime parseDateTime(String dateTimeString) {
-        
         return parseDateTime(dateTimeString, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
     }
     
