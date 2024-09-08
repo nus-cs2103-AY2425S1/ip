@@ -125,9 +125,9 @@ public class EventCommand extends Command {
 
         // Update the save file
         storage.writeToFile(tasks.numTasks()
-                        + ". "
-                        + tasks.getTaskDetails(eventTask)
-                        + '\n',
+                + ". "
+                + tasks.getTaskDetails(eventTask)
+                + '\n',
                 true);
     }
 

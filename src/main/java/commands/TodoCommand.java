@@ -68,9 +68,9 @@ public class TodoCommand extends Command {
 
         // Update the save file
         storage.writeToFile(tasks.numTasks()
-                        + ". "
-                        + tasks.getTaskDetails(todoTask)
-                        + '\n',
+                + ". "
+                + tasks.getTaskDetails(todoTask)
+                + '\n',
                 true);
     }
 

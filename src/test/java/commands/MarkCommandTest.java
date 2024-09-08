@@ -1,6 +1,8 @@
 package commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,27 +12,21 @@ public class MarkCommandTest extends BaseCommandTest {
     @Test
     public void execute_missingNumber_throwsException() {
         MarkCommand mc = new MarkCommand("mark");
-        try {
-            mc.execute(UI, STORAGE, TASKS);
-        } catch (BrockException e) {
-            assertEquals("Missing task number!", e.getMessage());
-        }
+        assertThrows(BrockException.class, () ->
+                mc.execute(UI, STORAGE, TASKS));
     }
 
     @Test
     public void execute_invalidNumber_throwsException() {
         MarkCommand mc = new MarkCommand("mark 5");
-        try {
-            mc.execute(UI, STORAGE, TASKS);
-        } catch (BrockException e) {
-            assertEquals("Task number does not exist!", e.getMessage());
-        }
+        assertThrows(BrockException.class, () ->
+                mc.execute(UI, STORAGE, TASKS));
     }
 
     @Test
-    public void execute_correctNumber_marksTask() throws BrockException {
+    public void execute_unmarkedTask_marksTask() {
         TodoCommand tc = new TodoCommand("todo borrow book");
-        tc.execute(UI, STORAGE, TASKS);
+        assertDoesNotThrow(() -> tc.execute(UI, STORAGE, TASKS));
         NEW_OUT.reset();
 
         String expectedResponse = "Nice! I've marked this task as done:\n"
@@ -39,7 +35,7 @@ public class MarkCommandTest extends BaseCommandTest {
         String expectedOutput = super.getOutput();
 
         MarkCommand mc = new MarkCommand("mark 1");
-        mc.execute(UI, STORAGE, TASKS);
+        assertDoesNotThrow(() -> mc.execute(UI, STORAGE, TASKS));
         String actualOutput = super.getOutput();
 
         assertEquals(expectedOutput, actualOutput);

@@ -1,18 +1,17 @@
 package commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-import exceptions.BrockException;
 
 public class ListCommandTest extends BaseCommandTest {
     private static final ListCommand LIST_COMMAND = new ListCommand("list");
 
     @Test
-    public void execute_singleTask_correctResponse() throws BrockException {
+    public void execute_singleTask_correctResponse() {
         TodoCommand tc = new TodoCommand("todo borrow book");
-        tc.execute(UI, STORAGE, TASKS);
+        assertDoesNotThrow(() -> tc.execute(UI, STORAGE, TASKS));
         NEW_OUT.reset();
 
         String expectedResponse = "Here is the task in your list:\n"
@@ -27,7 +26,7 @@ public class ListCommandTest extends BaseCommandTest {
     }
 
     @Test
-    public void execute_noTask_correctResponse() throws BrockException {
+    public void execute_noTask_correctResponse() {
         String expectedResponse = "Here are the tasks in your list:\n"
                 + "No current tasks!";
         UI.displayResponse(expectedResponse);
