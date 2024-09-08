@@ -32,7 +32,7 @@ public class Task implements Serializable {
         return String.format("[%c] %s", icon, description);
     }
 
-    public boolean contains(String search) {
-        return description.contains(search);
+    public String getDescription() {
+        return description;
     }
 }

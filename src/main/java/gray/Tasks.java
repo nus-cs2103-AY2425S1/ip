@@ -87,7 +87,7 @@ public class Tasks {
      */
     public List<Task> search(String search) {
         return tasks.stream()
-                .filter(task -> task.contains(search))
+                .filter(task -> task.getDescription().contains(search))
                 .collect(Collectors.toList());
     }
 }

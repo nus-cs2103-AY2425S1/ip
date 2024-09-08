@@ -10,6 +10,7 @@ import gray.command.factory.ByeCommandFactory;
 import gray.command.factory.CommandFactory;
 import gray.command.factory.DeleteCommandFactory;
 import gray.command.factory.FindCommandFactory;
+import gray.command.factory.HelpCommandFactory;
 import gray.command.factory.ListCommandFactory;
 import gray.command.factory.MarkCommandFactory;
 
@@ -26,7 +27,8 @@ public class Parser {
             new AddEventCommandFactory(),
             new MarkCommandFactory(),
             new DeleteCommandFactory(),
-            new FindCommandFactory()
+            new FindCommandFactory(),
+            new HelpCommandFactory()
     );
 
     /**
