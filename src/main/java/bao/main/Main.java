@@ -22,6 +22,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         bao = new Bao("./data/bao.json.txt");
+        assert bao != null : "Bao instance must not be null";
+
         try {
             stage.setMinHeight(660);
             stage.setMinWidth(417);

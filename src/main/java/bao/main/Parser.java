@@ -34,6 +34,7 @@ public class Parser {
         String[] parts = command.split(" ", 2);
         String commandType = parts[0];
         String args = parts.length > 1 ? parts[1] : "";
+        assert args != null : "Arguments of the command should not be null";
 
         switch (commandType) {
         case "welcome" -> response.append(handleWelcome());
@@ -94,8 +95,6 @@ public class Parser {
     }
 
     private static String handleToDo(String args, TaskList tasks, Storage storage) {
-        assert args != null : "ToDo command must have arguments";
-
         if (args.isEmpty()) {
             return "Bao needs a description of the task!";
         } else {
@@ -110,8 +109,6 @@ public class Parser {
     }
 
     private static String handleDeadline(String args, TaskList tasks, Storage storage) {
-        assert args != null : "Deadline command must have arguments";
-
         String[] argParts = args.split(" /by ");
         assert argParts.length >= 2 : "Bao needs a proper description and deadline for the task!";
         try {
@@ -127,8 +124,6 @@ public class Parser {
     }
 
     private static String handleEvent(String args, TaskList tasks, Storage storage) {
-        assert args != null : "Event command must have arguments";
-
         String[] argParts = args.split(" /from | /to ");
         assert argParts.length >= 3 : "Bao needs a proper description and duration for the task!";
         try {
@@ -145,8 +140,6 @@ public class Parser {
     }
 
     private static String handleDelete(String args, TaskList tasks, Storage storage) {
-        assert args != null : "Delete command must have arguments";
-
         try {
             int index = Integer.parseInt(args) - 1;
             Task removed = tasks.getTask(index);
@@ -160,8 +153,6 @@ public class Parser {
     }
 
     private static String handleOn(String args, TaskList tasks) {
-        assert args != null : "On command must have arguments";
-
         try {
             LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             StringBuilder response = new StringBuilder("Bao showing tasks on "
@@ -194,9 +185,6 @@ public class Parser {
     }
 
     private static String handleFind(String args, TaskList tasks) {
-        assert args != null : "Find command must have arguments";
-        assert tasks != null : "TaskList must not be null";
-
         if (args.isEmpty()) {
             return "Bao needs a keyword to find in the tasks!";
         } else {
