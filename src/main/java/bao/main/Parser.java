@@ -26,6 +26,10 @@ public class Parser {
      * @param storage Storage object for saving and loading tasks.
      */
     public static String parse(String command, TaskList tasks, Storage storage) {
+        assert command != null : "Command should not be null";
+        assert tasks != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+
         StringBuilder response = new StringBuilder();
         String[] parts = command.split(" ", 2);
         String commandType = parts[0];

@@ -22,6 +22,8 @@ public class Storage {
      * @param filePath Path of the file used for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.isEmpty() : "File path should not be empty";
         this.filePath = filePath;
     }
 
@@ -34,6 +36,7 @@ public class Storage {
     public ArrayList<Task> loadFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        assert file != null : "File object should not be null";
         if (!file.exists()) {
             return tasks;
         }
@@ -54,6 +57,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void save(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null : "Task list should not be null";
         File file = new File(filePath);
         if (!file.exists()) {
             file.getParentFile().mkdirs();

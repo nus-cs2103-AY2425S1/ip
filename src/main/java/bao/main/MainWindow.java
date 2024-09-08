@@ -28,6 +28,8 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane should not be null";
+        assert dialogContainer != null : "DialogueContainer should not be null";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -37,6 +39,7 @@ public class MainWindow extends AnchorPane {
      * @param bao A Bao instance is taken as a parameter
      * */
     public void setBao(Bao bao) {
+        assert bao != null : "Bao instance should not be null";
         this.bao = bao;
         showWelcomeMessage();
     }
