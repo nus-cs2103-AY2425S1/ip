@@ -1,7 +1,5 @@
 package slothingwaffler;
 
-import java.util.Scanner;
-
 /**
  * Main class for running the Slothing Waffler application.
  * <p>
