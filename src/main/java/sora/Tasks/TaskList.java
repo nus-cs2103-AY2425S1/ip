@@ -53,14 +53,14 @@ public class TaskList {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
             if (task.isDone) {
-                throw new SoraException("Sora has discovered task as already marked as done\n");
+                throw new SoraException("Sora has discovered task as already marked as done!\n");
             }
             task.markAsDone();
             return task;
         } catch (NumberFormatException e) {
-            throw new SoraException("\tPlease Enter - Mark (int)\n");
+            throw new SoraException("Please Enter - Mark (int)\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new SoraException("\tPlease Enter Integer Value within List Size\n");
+            throw new SoraException("Please Enter Integer Value within List Size!\n");
         }
     }
 
@@ -76,14 +76,14 @@ public class TaskList {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
             if (!task.isDone) {
-                throw new SoraException("Sora has discovered task as already marked as not done\n");
+                throw new SoraException("Sora has discovered task as already marked as not done!\n");
             }
             task.markAsNotDone();
             return task;
         } catch (NumberFormatException e) {
-            throw new SoraException("Please Enter - Mark (int)\n");
+            throw new SoraException("Please Enter - Unmark (int)\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new SoraException("Please Enter Integer Value within List Size\n");
+            throw new SoraException("Please Enter Integer Value within List Size!\n");
         }
     }
 
@@ -106,9 +106,9 @@ public class TaskList {
                 throw new SoraException("Please Enter - Todo (Description)\n");
             }
         case "deadline":
-            String by = parsedCommand.get(2).substring(3);
-            LocalDateTime byDate = Parser.parseDate(by);
             try {
+                String by = parsedCommand.get(2).substring(3);
+                LocalDateTime byDate = Parser.parseDate(by);
                 if (byDate == null) {
                     this.taskList.add(new Deadline(parsedCommand.get(1), by));
                 } else {
@@ -119,11 +119,11 @@ public class TaskList {
                 throw new SoraException("Please Enter - Deadline (Description) /by (dd/MM/yy HHmm)\n");
             }
         case "event":
-            String from = parsedCommand.get(2).substring(5);
-            LocalDateTime fromDate = Parser.parseDate(from);
-            String to = parsedCommand.get(3).substring(3);
-            LocalDateTime toDate = Parser.parseDate(to);
             try {
+                String from = parsedCommand.get(2).substring(5);
+                LocalDateTime fromDate = Parser.parseDate(from);
+                String to = parsedCommand.get(3).substring(3);
+                LocalDateTime toDate = Parser.parseDate(to);
                 if (fromDate != null && toDate != null) {
                     this.taskList.add(new Event(parsedCommand.get(1), fromDate, toDate));
                 } else if (fromDate != null && toDate == null) {

@@ -42,19 +42,19 @@ public class Sora {
         String mainCommand = parsedCommand.get(0).toLowerCase();
         switch (mainCommand) {
         case "welcome":
-            res = Ui.greeting;
+            res = Ui.GREETING;
             break;
         case "bye":
-            res = Ui.farewell;
+            res = Ui.FAREWELL;
             break;
         case "list":
             res = ui.displayTaskList(this.taskList);
             break;
         case "mark":
-            res = ui.displayMarkedTask(this.taskList, parsedCommand.get(1));
+            res = ui.displayMarkedTask(this.taskList, parsedCommand);
             break;
         case "unmark":
-            res = ui.displayUnMarkedTask(this.taskList, parsedCommand.get(1));
+            res = ui.displayUnMarkedTask(this.taskList, parsedCommand);
             break;
         case "todo":
             res = ui.displayAddedTask(this.taskList, "todo", parsedCommand);
@@ -66,16 +66,16 @@ public class Sora {
             res = ui.displayAddedTask(this.taskList, "event", parsedCommand);
             break;
         case "delete":
-            res = ui.displayDeletedTask(this.taskList, parsedCommand.get(1));
+            res = ui.displayDeletedTask(this.taskList, parsedCommand);
             break;
         case "find":
-            res = ui.displayFoundTask(this.taskList, parsedCommand.get(1));
+            res = ui.displayFoundTask(this.taskList, parsedCommand);
             break;
         case "":
-            res = Ui.emptyCommand;
+            res = Ui.EMPTYCOMMAND;
             break;
         default:
-            res = Ui.invalidCommand;
+            res = Ui.INVALIDCOMMAND;
         }
         try {
             this.storage.saveTaskList(this.taskList);

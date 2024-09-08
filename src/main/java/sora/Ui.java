@@ -10,10 +10,10 @@ import sora.Tasks.TaskList;
  * It deals with interactions with the user.
  */
 public class Ui {
-    protected static final String greeting = "Hello! I'm Sora!\nWhat can I do for you?\n";
-    protected static final String farewell = "Bye. Hope to see you again soon!\n";
-    protected static final String emptyCommand = "Please Enter a Command\n";
-    protected static final String invalidCommand = "Sora doesn't understand! Please Try Again!\n";
+    protected static final String GREETING = "Hello! I'm Sora!\nWhat can I do for you?\n";
+    protected static final String FAREWELL = "Bye. Hope to see you again soon!\n";
+    protected static final String EMPTYCOMMAND = "Please Enter a Command\n";
+    protected static final String INVALIDCOMMAND = "Sora doesn't understand! Please Try Again!\n";
 
     protected static String displayMessage(String message) {
         return message;
@@ -43,15 +43,17 @@ public class Ui {
      * Returns a String of Outcome of Marking Task.
      *
      * @param taskList TaskList.
-     * @param index Index of the task to be marked as done. Starting from 1.
+     * @param parsedCommand Parsed Command with Index of the task to be marked as done. Starting from 1.
      * @return String of Outcome of Marking Task.
      */
-    protected String displayMarkedTask(TaskList taskList, String index) {
+    protected String displayMarkedTask(TaskList taskList, ArrayList<String> parsedCommand) {
         try {
-            Task task = taskList.markTask(index);
+            Task task = taskList.markTask(parsedCommand.get(1));
             return "Nice! Sora has marked this task as done:\n" + task;
         } catch (SoraException e) {
             return e.getMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return "Please Enter - Mark (int)\n";
         }
     }
 
@@ -59,15 +61,17 @@ public class Ui {
      * Returns a String of Outcome of Unmarking Task.
      *
      * @param taskList TaskList.
-     * @param index Index of the task to be marked as not done. Starting from 1.
+     * @param parsedCommand Parsed Command with Index of the task to be marked as not done. Starting from 1.
      * @return String of Outcome of Unmarking Task.
      */
-    protected String displayUnMarkedTask(TaskList taskList, String index) {
+    protected String displayUnMarkedTask(TaskList taskList, ArrayList<String> parsedCommand) {
         try {
-            Task task = taskList.unmarkTask(index);
+            Task task = taskList.unmarkTask(parsedCommand.get(1));
             return "Nice! Sora has marked this task as not done:\n" + task;
         } catch (SoraException e) {
             return e.getMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return "Please Enter - Unmark (int)\n";
         }
     }
 
@@ -76,7 +80,7 @@ public class Ui {
      *
      * @param taskList TaskList.
      * @param mainCommand Type of task (Todo, Deadline, Event)
-     * @param parsedCommand Details of task in parsed format.
+     * @param parsedCommand Parsed Command with Details of task
      * @return String of Outcome of Adding Task.
      */
     protected String displayAddedTask(TaskList taskList, String mainCommand, ArrayList<String> parsedCommand) {
@@ -94,15 +98,17 @@ public class Ui {
      * Returns a String of Outcome of Deleting Task.
      *
      * @param taskList TaskList.
-     * @param index Index of the task to be deleted. Starting from 1.
+     * @param parsedCommand Parsed Command with Index of the task to be deleted. Starting from 1.
      * @return String of Outcome of Deleting Task.
      */
-    protected String displayDeletedTask(TaskList taskList, String index) {
+    protected String displayDeletedTask(TaskList taskList, ArrayList<String> parsedCommand) {
         try {
-            Task deletedTask = taskList.deleteTask(index);
+            Task deletedTask = taskList.deleteTask(parsedCommand.get(1));
             return "Noted. Sora has removed this task:\n" + deletedTask;
         } catch (SoraException e) {
             return e.getMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return "Please Enter - Delete (int)\n";
         }
     }
 
@@ -110,10 +116,14 @@ public class Ui {
      * Returns a String of Outcome of Finding Task.
      *
      * @param taskList TaskList.
-     * @param s User's Substring.
+     * @param parsedCommand Parsed Command with User's Substring.
      * @return String of Outcome of Finding Task.
      */
-    protected String displayFoundTask(TaskList taskList, String s) {
-        return taskList.findTask(s).toString();
+    protected String displayFoundTask(TaskList taskList, ArrayList<String> parsedCommand) {
+        try {
+            return taskList.findTask(parsedCommand.get(1)).toString();
+        } catch (IndexOutOfBoundsException e) {
+            return "Please Enter - Find (String)\n";
+        }
     }
 }
