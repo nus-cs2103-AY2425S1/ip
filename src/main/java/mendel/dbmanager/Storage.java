@@ -1,17 +1,17 @@
 package mendel.dbmanager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
 import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.ServerError;
 import mendel.metacognition.TaskList;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The Storage class handles the interaction with the file system to manage storage
@@ -60,12 +60,14 @@ public class Storage {
                 if (lineSegments[0].equals("T")) {
                     taskStorage.silencedAdd(Todo.loadOf(lineSegments[1].equals("1"), lineSegments[2]));
                 } else if (lineSegments[0].equals("D")) {
-                    taskStorage.silencedAdd(Deadline.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3]));
+                    taskStorage.silencedAdd(Deadline.loadOf(lineSegments[1].equals("1"),
+                            lineSegments[2], lineSegments[3]));
                 } else if (lineSegments[0].equals("E")) {
                     taskStorage.silencedAdd(Event.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3],
                             lineSegments[4]));
                 } else {
-                    throw new ServerError(String.format("Unidentifiable task type %s. Ensure correct task type", lineSegments[0]));
+                    throw new ServerError(String.format("Unidentifiable task type %s. Ensure correct task type",
+                            lineSegments[0]));
                 }
 
             }

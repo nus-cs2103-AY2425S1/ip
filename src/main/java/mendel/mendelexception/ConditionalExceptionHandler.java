@@ -21,7 +21,7 @@ public class ConditionalExceptionHandler {
      *
      * @return A instance with no error conditions.
      */
-    public static ConditionalExceptionHandler of(){
+    public static ConditionalExceptionHandler of() {
         return new ConditionalExceptionHandler(false);
     }
 
@@ -35,23 +35,27 @@ public class ConditionalExceptionHandler {
     public ConditionalExceptionHandler orConditionTriggerException(boolean isMet) throws MendelException {
         if (isMet) {
             return new ConditionalExceptionHandler(true);
+        } else {
+            return new ConditionalExceptionHandler(false);
         }
-        else return new ConditionalExceptionHandler(false);
     }
 
     /**
-     * Chains logical or error conditions and triggers an exception if both the orCondition and the new condition are met.
+     * Chains logical or error conditions and triggers an exception if both the orCondition
+     * and the new condition are met.
      *
      * @param isMet A boolean indicating whether the new condition is met.
      * @param errorMsg The message to be used if the exception is triggered.
      * @return A new instance, with the conditional state updated based on the new condition.
      * @throws MendelException If both the current condition and the new condition are met.
      */
-    public ConditionalExceptionHandler andConditionTriggerException(boolean isMet, String errorMsg) throws MendelException {
+    public ConditionalExceptionHandler andConditionTriggerException(boolean isMet, String errorMsg)
+            throws MendelException {
         if (this.isConditional && isMet) {
             throw new MendelException(errorMsg);
+        } else {
+            return new ConditionalExceptionHandler(true);
         }
-        else return new ConditionalExceptionHandler(true);
     }
 
     /**
@@ -62,9 +66,13 @@ public class ConditionalExceptionHandler {
      * @return A new instance, with the conditional state set based on the condition.
      * @throws MendelException If the condition is met.
      */
-    public ConditionalExceptionHandler conditionTriggerException(boolean isMet, String errorMsg) throws MendelException {
-        if (isMet) throw new MendelException(errorMsg);
-        else return new ConditionalExceptionHandler(false);
+    public ConditionalExceptionHandler conditionTriggerException(boolean isMet, String errorMsg)
+            throws MendelException {
+        if (isMet) {
+            throw new MendelException(errorMsg);
+        } else {
+            return new ConditionalExceptionHandler(false);
+        }
     }
 
 }

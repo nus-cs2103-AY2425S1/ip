@@ -55,27 +55,27 @@ public class Parser {
             if (segments[0].equals("mark")) {
                 message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
-            } else if(segments[0].equals("unmark")) {
+            } else if (segments[0].equals("unmark")) {
                 message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
-            } else if(segments[0].equals("delete")) {
+            } else if (segments[0].equals("delete")) {
                 message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
-            } else if(segments[0].equals("todo")) {
+            } else if (segments[0].equals("todo")) {
                 Todo task = Todo.of(currAction);
                 message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if(segments[0].equals("deadline")) {
+            } else if (segments[0].equals("deadline")) {
                 Deadline task = Deadline.of(currAction);
                 message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if(segments[0].equals("event")) {
+            } else if (segments[0].equals("event")) {
                 Event task = Event.of(currAction);
                 message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if(segments[0].equals("findeventon")) {
+            } else if (segments[0].equals("findeventon")) {
                 message = taskStorage.find(segments[1]);
-            } else if(segments[0].equals("find")) {
+            } else if (segments[0].equals("find")) {
                 message = taskStorage.findDescription(currAction);
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
