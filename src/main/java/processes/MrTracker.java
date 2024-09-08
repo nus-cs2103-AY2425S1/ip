@@ -140,7 +140,7 @@ public class MrTracker {
         case FIND:
             String prompt = input.substring(5).trim();
             ArrayList<Task> output = taskList.find(prompt);
-            res = ui.showMatchedTasks(output);
+            res = ui.showMatchedTasks(output, prompt);
             break;
 
         case WELCOME:
@@ -151,7 +151,6 @@ public class MrTracker {
             res = ui.showMessage("I am sorry, but I don't know what that means :-(");
             break;
         }
-
         storage.save(taskList.getTasks());
         return res;
     }
