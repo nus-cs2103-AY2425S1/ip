@@ -11,6 +11,7 @@ import duck.task.TaskList;
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
+    private String lastResponse;
 
     /**
      * Constructs an Ui instance and initializes the scanner for user input.
@@ -28,7 +29,8 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Duck\nWhat can I do for you?";
-        System.out.println(LINE + "\n" + welcomeMessage + "\n" + LINE);
+        this.lastResponse = "\n" + welcomeMessage + "\n";
+        System.out.println(this.lastResponse);
     }
 
     /**
@@ -36,37 +38,41 @@ public class Ui {
      */
     public void showGoodbyeMessage() {
         String goodbyeMessage = "Bye. Hope to see you again soon!";
-        System.out.println(LINE + "\n" + goodbyeMessage + "\n" + LINE);
+        this.lastResponse = "\n" + goodbyeMessage + "\n";
+        System.out.println(this.lastResponse);
     }
 
     /**
      * Show message when task is added.
      */
     public void showAddTaskMessage(Task task, TaskList list) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+        this.lastResponse = "Got it. I've added this task:" + task;
+        this.lastResponse += "\nNow you have " + list.getSize() + " tasks in the list.";
+        System.out.println(this.lastResponse);
     }
 
     /**
      * Show the number of tasks message.
      */
     public void showNumOfTasksMessage(TaskList list) {
-        System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+        this.lastResponse = "Now you have " + list.getSize() + " tasks in the list.";
+        System.out.println(this.lastResponse);
     }
 
     /**
      * Show message when task is marked.
      */
     public void showMarkedTaskMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done: " + task);
+        this.lastResponse = "Nice! I've marked this task as done: " + task;
+        System.out.println(this.lastResponse);
     }
 
     /**
      * Show message when task is unmarked.
      */
     public void showUnmarkedTaskMessage(Task task) {
-        System.out.println("OK, I've marked this task as not done yet: " + task);
+        this.lastResponse = "OK, I've marked this task as not done yet: " + task;
+        System.out.println(this.lastResponse);
     }
 
     /**
@@ -75,12 +81,12 @@ public class Ui {
      * @param list the current task list
      */
     public void showTasks(TaskList list) {
-        System.out.println(LINE + "\nHere are the tasks in your list:");
+        this.lastResponse = "Here are the tasks in your list: ";
         for (int i = 0; i < list.getSize(); i++) {
             int num = i + 1;
-            System.out.println(num + ". " + list.getTask(i));
+            this.lastResponse += "\n" + num + ". " + list.getTask(i);
         }
-        System.out.println(LINE);
+        System.out.println(this.lastResponse);
     }
 
     /**
@@ -96,5 +102,14 @@ public class Ui {
 
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
+    }
+
+    /**
+     * Returns the last response from Duck.
+     *
+     * @return The last response.
+     */
+    public String getLastResponse() {
+        return this.lastResponse;
     }
 }
