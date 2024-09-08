@@ -1,5 +1,7 @@
 package yappingbot.ui;
 
+import java.util.Scanner;
+
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
 
@@ -8,8 +10,13 @@ import yappingbot.exceptions.YappingBotIoException;
  * the bot talking.
  */
 public class UiCli implements Ui {
-    private static final String PREFIX = "|  ";
-    private static final String PREFIX_EMPTY = "|";
+    private static final String PREFIX = " |  ";
+    private static final String PREFIX_EMPTY = " |";
+    private final Scanner scanner;
+
+    public UiCli () {
+        this.scanner = new Scanner(System.in);
+    }
 
     @Override
     public void printError(YappingBotException e) {
@@ -18,32 +25,42 @@ public class UiCli implements Ui {
 
     @Override
     public void printError(String msg) {
+        // TODO: make different from stdout
         System.out.print(quoteMultilineText(msg));
+    }
+
+    @Override
+    public void printfError(String formattedString, Object... o) {
+        printError(String.format(formattedString, o));
     }
 
     @Override
     public boolean hasNextLine() {
-        return false;
+        return scanner.hasNext();
     }
 
     @Override
     public String getNextLine() throws YappingBotIoException {
-        return "";
+        try {
+            return scanner.nextLine();
+        } catch (Exception e) {
+            throw new YappingBotIoException(e.getMessage());
+        }
     }
 
     @Override
     public void print(String msg) {
-        System.out.print(quoteMultilineText(msg));
+        System.out.print(quoteMultilineText(msg) + "\n");
     }
 
     @Override
     public void println(String msg) {
-        System.out.print(quoteSinglelineText(msg));
+        System.out.println(quoteSinglelineText(msg));
     }
 
     @Override
     public void printf(String formattedString, Object... o) {
-        System.out.print(quoteMultilineText(String.format(formattedString, o)));
+        print(String.format(formattedString, o));
     }
 
     /**

@@ -39,7 +39,7 @@ public class CommandDispatcher {
         while (userList instanceof TaskListFilterView) {
             userList = ((TaskListFilterView) userList).getParent();
         }
-        ui.print(ReplyTextMessages.RESET_TEXT);
+        ui.println(ReplyTextMessages.RESET_TEXT);
         return userList;
     }
 
@@ -58,14 +58,15 @@ public class CommandDispatcher {
         StringBuilder sb = new StringBuilder();
         sb.append(ReplyTextMessages.LIST_TEXT);
         if (userList instanceof TaskListFilterView) {
-            sb.append(String.format("(Filter: '%s')",
+            sb.append(String.format("\n(Filter: '%s')",
                                      ((TaskListFilterView) userList).getFilterString()));
         }
+        sb.append("\n");
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
             sb.append(
                     String.format(
-                            "%2d.%s",
+                            "\n%2d.%s",
                             i + 1,
                             String.format(
                                     ReplyTextMessages.TASK_PRINT_TEXT_3s,
@@ -95,6 +96,7 @@ public class CommandDispatcher {
         } else {
             sb.append(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT);
         }
+        sb.append("\n");
         sb.append(
                 String.format(
                         ReplyTextMessages.TASK_PRINT_TEXT_3s,
@@ -115,12 +117,14 @@ public class CommandDispatcher {
     public void deleteTask(int i, TaskList userList) {
         Task t = userList.deleteTask(i);
         ui.print(ReplyTextMessages.DELETED_TEXT
-               + String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                                    t.getTaskTypeSymbol(),
-                                    t.getTaskDoneCheckmark(),
-                                    t)
-               + String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d,
-                                    userList.size()));
+                 + "\n"
+                 + String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
+                                 t.getTaskTypeSymbol(),
+                                 t.getTaskDoneCheckmark(),
+                                 t)
+                 + "\n"
+                 + String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d,
+                                 userList.size()));
     }
 
 
@@ -238,6 +242,7 @@ public class CommandDispatcher {
                     userInputSpliced);
         }
         sb = new StringBuilder();
+        sb.append("\n");
         sb.append(ReplyTextMessages.ADDED_TEXT);
         sb.append(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
@@ -246,6 +251,7 @@ public class CommandDispatcher {
                               newTask)
         );
         userList.addTask(newTask);
+        sb.append("\n");
         sb.append(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         ui.print(sb.toString());
     }
@@ -265,6 +271,7 @@ public class CommandDispatcher {
         String searchStringSanitized = searchString.replaceAll("\n", "");
         sb.append(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
         TaskList newFilteredView = TaskListFilterView.createFilter(userList, searchString);
+        sb.append("\n");
         if (newFilteredView.isEmpty()) {
             sb.append(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
             ui.print(sb.toString());
