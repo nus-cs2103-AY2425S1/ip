@@ -54,6 +54,9 @@ public class Storage {
             // when file cannot be accessed/written to
             output += "Error! Please check your file permissions!\n";
         }
+
+        // confirm file has been created either way
+        assert f.exists(): "Error processing file! Please check your directory and debug from there!\n";
         return output;
     }
 
@@ -68,6 +71,10 @@ public class Storage {
         Matcher m;
         Task t;
         String output = "";
+
+        // assertion to check if file exists
+        assert f.exists(): "Error! File does not exist!\n";
+
         try {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {

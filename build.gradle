@@ -49,6 +49,7 @@ application {
 
 run {
     mainClass.set("jackson.Launcher")
+    enableAssertions = true
 }
 
 shadowJar {
