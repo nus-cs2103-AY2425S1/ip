@@ -28,6 +28,16 @@ public class Opus {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks[i]);
                 } 
+                else if (words[0].equals("delete")) {
+                    int i = Integer.parseInt(words[1]);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("   " + tasks[i]);
+                    for (int j = i; j < taskCount; j++) {
+                        tasks[j] = tasks[j + 1]; 
+                    }
+                    taskCount--; 
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                } 
                 else {
                     if (words[0].equals("todo")) {
                         if (words.length <= 1) {
