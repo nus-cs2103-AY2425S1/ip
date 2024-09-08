@@ -16,7 +16,7 @@ public class Event extends Task {
     /**
      * A constructor for Event.
      * @param description Description of the event as inputted by the user.
-     * @param from        Date and/ or time representing the start of the event.
+     * @param from        Date and/or time representing the start of the event.
      * @param to          Date and/or time representing the end of the event.
      */
     public Event(String description, String from, String to) {
