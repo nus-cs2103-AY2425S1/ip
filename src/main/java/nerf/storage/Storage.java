@@ -45,8 +45,18 @@ public class Storage {
      * @throws FilePermissionsException If unable to read file.
      */
     public List<String> load() throws FilePermissionsException {
+        checkSafeFileExist();
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get(getFullPath()));
+            return fileContent;
+        } catch (IOException e) {
+            throw new FilePermissionsException("No permission to read save file");
+        }
+    }
+
+    private void checkSafeFileExist() throws FilePermissionsException {
         File directory = new File(this.saveDirectory);
-        File saveFile = new File(this.getFullPath());
+        File saveFile = new File(getFullPath());
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -56,12 +66,6 @@ public class Storage {
             } catch (IOException e) {
                 throw new FilePermissionsException("No permission to write to directory");
             }
-        }
-        try {
-            List<String> fileContent = Files.readAllLines(Paths.get(this.getFullPath()));
-            return fileContent;
-        } catch (IOException e) {
-            throw new FilePermissionsException("No permission to read save file");
         }
     }
 

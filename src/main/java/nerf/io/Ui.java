@@ -5,7 +5,7 @@ package nerf.io;
  */
 public class Ui {
     private static final int LINE_LENGTH = 60;
-    private final String LOGO = """
+    private static final String LOGO = """
                                 ##  ##   ######   #####    ######
                                 ### ##   ##       ##  ##   ##    
                                 ######   ##       ##  ##   ##    
@@ -14,36 +14,46 @@ public class Ui {
                                 ##  ##   ##       ## ##    ##    
                                 ##  ##   ######   ##  ##   ##    
                                 """;
-    private final Parser parser;                                   
+    private final Parser parser;
+
     public Ui() {
         this.parser = new Parser();
     }
 
     /**
-     * Prints out initial welcome banner.
+     * Print initial welcome banner.
+     */
+    public static void printGreetings() {
+        System.out.println("Hello there! I am Nerf, your personal chatbot assistant.");
+        System.out.println(printLogo());
+        System.out.println("How may I help you today?");
+    }
+
+    /**
+     * Returns initial welcome banner.
      * 
      * @return welcome banner.
      */
-    public String greetings() {
-       
-        String res = "Hello there! I am Nerf, your personal chatbot assistant.\n" 
-                + "How may I help you today?";
-
-        return res;
+    public String getGreetings() {
+        return "Hello there! I am Nerf, your personal chatbot assistant.\nHow may I help you today?";
     }
 
     /**
-     * Prints out the nerf logo.
+     * Returns the nerf logo.
+     * 
+     * @return nerf logo.
      */
-    public String printLogo() {
-        return this.LOGO;
+    public static String printLogo() {
+        return Ui.LOGO;
     }
 
     /**
-     * Prints out divider line.
+     * Returns divider line.
+     * 
+     * @return divider line.
      */
-    public static void printDivider() {
-        System.out.println("_".repeat(Ui.LINE_LENGTH));
+    public static String printDivider() {
+        return "_".repeat(Ui.LINE_LENGTH);
     }
 
     /**
@@ -67,7 +77,7 @@ public class Ui {
      * 
      * @return goodbye string.
      */
-    public String exit() {
+    public String getExit() {
         return "Goodbye. Hope to see you soon!";
     }
 

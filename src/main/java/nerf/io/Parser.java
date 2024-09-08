@@ -10,6 +10,13 @@ import java.util.Scanner;
  */
 public class Parser {
     private final Scanner scanner;
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    public enum DateFormatType {
+        SAVE,
+        PRINT
+    }
 
     public Parser() {
         this.scanner = new Scanner(System.in);
@@ -44,13 +51,16 @@ public class Parser {
      * Returns the date as string in the requested format.
      * 
      * @param date the date object representation.
-     * @param save boolean for toggling string pattern.
+     * @param format the format requested.
      * @return the requested string representation of date.
      */
-    public static String dateToString(LocalDate date,boolean save){
-        if (save){
-            return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    public static String dateToString(LocalDate date, DateFormatType format) {
+        if (format == DateFormatType.SAVE) {
+            return date.format(Parser.SAVE_FORMAT);
+        } else if (format == DateFormatType.PRINT) {
+            return date.format(PRINT_FORMAT);
+        } else {
+            return "invalid date";
         }
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }

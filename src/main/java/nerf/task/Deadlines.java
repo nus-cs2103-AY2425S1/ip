@@ -34,7 +34,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return String.format("D | %s | %s", super.getSaveFormat(), Parser.dateToString(this.dueDate, true));
+        return String.format("D | %s | %s", super.getSaveFormat(), Parser.dateToString(this.dueDate, Parser.DateFormatType.SAVE));
     }
 
     /**
@@ -44,6 +44,6 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString(){
-        return String.format("[D]%s (by: %s)",super.toString(), Parser.dateToString(this.dueDate, false));
+        return String.format("[D]%s (by: %s)",super.toString(), Parser.dateToString(this.dueDate, Parser.DateFormatType.PRINT));
     }
 }
