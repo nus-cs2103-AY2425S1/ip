@@ -53,7 +53,7 @@ public class ParsedInput {
      * @return a {@code ParsedInput} with the given command and arguments.
      * @throws BottyException if the command or arguments are invalid.
      */
-    public static ParsedInput parse(String input) throws BottyException {
+    public static ParsedInput parse(String input) throws EmptyCommandException {
         // take in user input and return a command input
         // that splits all the argument
 

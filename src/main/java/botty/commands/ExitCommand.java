@@ -8,15 +8,14 @@ import botty.tasks.TaskManager;
  */
 public class ExitCommand extends Command {
     /**
-     * Executes the exit command, does not actually do anything
+     * Executes the exit command
      * @param taskManager
      * @param parsedInput
      * @return success message
-     * @throws BottyException if given input is invalid
      */
     @Override
     public String execute(TaskManager taskManager, ParsedInput parsedInput) {
-        return "";
+        return "Goodbye! Thanks for your continued patronage.";
     }
     /**
      * Returns true since this is the exit command
