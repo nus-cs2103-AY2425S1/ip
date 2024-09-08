@@ -49,18 +49,14 @@ public class Skibidi {
     }
 
     /**
-     * The entry point of the Skibidi program.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new Skibidi().run();
-    }
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = parser.parse(input);
+            command.execute(ui, storage);
+        } catch (SkibidiException e) {
+            e.getMessage();
+        }
     }
 }
