@@ -110,21 +110,19 @@ public class TaskList {
      * @return A TaskList containing the tasks that occur on the specified date.
      */
     public TaskList findTasksByDate(LocalDate date) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task instanceof Deadline) {
-                if (((Deadline) task).getBy().equals(date)) {
-                    matchingTasks.add(task);
-                }
-            } else if (task instanceof Event) {
-                LocalDate from = ((Event) task).getFrom();
-                LocalDate to = ((Event) task).getTo();
-                if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
-                    matchingTasks.add(task);
-                }
-            }
-        }
-        return new TaskList(matchingTasks);
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> {
+                    if (task instanceof Deadline) {
+                        return ((Deadline) task).getBy().equals(date);
+                    } else if (task instanceof Event) {
+                        LocalDate from = ((Event) task).getFrom();
+                        LocalDate to = ((Event) task).getTo();
+                        return (date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to));
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+        return new TaskList(new ArrayList<>(matchingTasks));
     }
 
     /**
