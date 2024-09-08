@@ -1,28 +1,29 @@
 package screwllum.tasks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import screwllum.Parser;
+
+import java.time.LocalDate;
 
 public class Event extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Event(String desc, String startTime, String endTime) {
+    public Event(String desc, String startDate, String endDate) {
         super(desc);
-        this.startTime = LocalDateTime.parse(startTime, formatter);
-        this.endTime = LocalDateTime.parse(endTime, formatter);
+        this.startDate = Parser.parseStringToDate(startDate);
+        this.endDate = Parser.parseStringToDate(endDate);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s(from: %s to: %s)", super.toString()
-                , startTime.format(formatter), endTime.format(formatter));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                Parser.parseDateToString(startDate, "MMM dd yyyy"),
+                Parser.parseDateToString(endDate, "MMM dd yyyy"));
                 
     }
 
     public String toSaveFormat() {
-        return String.format("E_%s_%s_%s_%s", isDone ? "1" : "0", getDesc()
-                , startTime.format(formatter), endTime.format(formatter));
+        return String.format("E_%s_%s_%s_%s", isDone ? "1" : "0", getDesc(),
+                Parser.parseDateToString(startDate), Parser.parseDateToString(endDate));
     }
 }

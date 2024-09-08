@@ -1,23 +1,23 @@
 package screwllum.tasks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import screwllum.Parser;
+
+import java.time.LocalDate;
 
 public class Deadline extends Task {
-    private LocalDateTime deadline;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDate by;
 
-    public Deadline(String desc, String deadline) {
+    public Deadline(String desc, String by) {
         super(desc);
-        this.deadline = LocalDateTime.parse(deadline, formatter);
+        this.by = Parser.parseStringToDate(by);
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline.format(formatter));
+        return String.format("[D]%s (by: %s)", super.toString(), Parser.parseDateToString(by, "MMM dd yyyy"));
     }
 
     public String toSaveFormat() {
-        return String.format("D_%s_%s_%s", isDone ? "1" : "0", getDesc(), deadline.format(formatter));
+        return String.format("D_%s_%s_%s", isDone ? "1" : "0", getDesc(), Parser.parseDateToString(by));
     }
 }
