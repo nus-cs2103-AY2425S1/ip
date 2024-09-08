@@ -35,7 +35,7 @@ public class Ui {
      * Returns command list during an unrecognised command.
      * @return String response.
      */
-    public String printCommands() {
+    public String printCommandList() {
         return """
             Harh? What you talking about?
             Try entering a recognized command:
@@ -137,7 +137,7 @@ public class Ui {
      * @param taskList {@code TaskList} object task is to be added to.
      * @return String response.
      */
-    public String printAddList(Task task, TaskList taskList) {
+    public String printAfterAddList(Task task, TaskList taskList) {
         String output = "";
         output += "Ya la, adding this task to your list!\n";
         output += String.format("\t%s\n", task);
@@ -151,7 +151,7 @@ public class Ui {
      * @param taskList {@code TaskList} object task is to be deleted from.
      * @return String response.
      */
-    public String printDeleteList(Task task, TaskList taskList) {
+    public String printAfterDeleteList(Task task, TaskList taskList) {
         String output = "";
         output += "Deleting now hor!\n";
         output += String.format("\t%s\n", task);
@@ -165,7 +165,7 @@ public class Ui {
      * @param keyword String keyword.
      * @return String response.
      */
-    public String printFindList(ArrayList<Task> tasks, String keyword) {
+    public String printAfterFindList(ArrayList<Task> tasks, String keyword) {
         String output = "";
         output += "Ok ok, find for you already...\n";
         if (tasks.isEmpty()) {
@@ -183,7 +183,7 @@ public class Ui {
      * @param task {@code Task} object to be marked.
      * @return String response.
      */
-    public String printMark(Task task) {
+    public String printAfterMark(Task task) {
         String output = "";
         output += "Solid lah, marked already\n";
         output += String.format("\t%s\n", task);
@@ -195,7 +195,7 @@ public class Ui {
      * @param task {@code Task} object to be unmarked.
      * @return String response.
      */
-    public String printUnmark(Task task) {
+    public String printAfterUnmark(Task task) {
         String output = "";
         output += "Walao, ok la I unmark already...\n";
         output += String.format("\t%s\n", task);
