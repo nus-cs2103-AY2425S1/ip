@@ -87,43 +87,47 @@ public class Parser {
             // Process
             switch (data[0]) {
                 case "todo": {
-                    if (data.length == 2 && !data[1].isEmpty()) {
-                        taskList.add(data[1]);
-                    } else {
+                    if (data.length != 2 || !data[1].isEmpty()) {
                         throw new MissingArgumentException(Command.TODO);
                     }
+
+                    taskList.add(data[1]);
                     break;
                 }
                 case "deadline": {
                     String[] taskData = data[1].split(" /by ", 2);
                     LocalDate byDate;
-                    if (taskData.length == 2) {
-                        try {
-                            byDate = LocalDate.parse(taskData[1]);
-                        } catch (DateTimeParseException e) {
-                            throw new DateFormatException();
-                        }
-                        taskList.add(taskData[0], byDate);
-                    } else {
+
+                    if (taskData.length != 2) {
                         throw new MissingArgumentException(Command.DEADLINE);
                     }
+
+                    try {
+                        byDate = LocalDate.parse(taskData[1]);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatException();
+                    }
+
+                    taskList.add(taskData[0], byDate);
                     break;
                 }
                 case "event": {
                     String[] taskData = data[1].split(" /from | /to ", 3);
                     LocalDate fromDate;
                     LocalDate toDate;
-                    if (taskData.length == 3) {
-                        try {
-                            fromDate = LocalDate.parse(taskData[1]);
-                            toDate = LocalDate.parse(taskData[2]);
-                        } catch (DateTimeParseException e) {
-                            throw new DateFormatException();
-                        }
-                        taskList.add(taskData[0], fromDate, toDate);
-                    } else {
+
+                    if (taskData.length != 3) {
                         throw new MissingArgumentException(Command.EVENT);
                     }
+
+                    try {
+                        fromDate = LocalDate.parse(taskData[1]);
+                        toDate = LocalDate.parse(taskData[2]);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatException();
+                    }
+
+                    taskList.add(taskData[0], fromDate, toDate);
                     break;
                 }
             }
