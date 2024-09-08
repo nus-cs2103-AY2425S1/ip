@@ -1,0 +1,7 @@
+T | 1 | read
+T | 1 | class
+D | 0 | assignment  | 12/12/2024 2359
+E | 0 | tedtalk  | 13/1/2024 1500 | 13/1/2024 1600
+D | 0 | assigment  | 23/4/2024 1600
+T | 0 | run
+T | 0 | homework
