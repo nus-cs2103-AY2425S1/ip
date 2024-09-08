@@ -1,20 +1,20 @@
 package knight2103.files;
 
-import knight2103.Pair;
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
 import knight2103.tasks.TodoTask;
 import knight2103.tasks.DeadlineTask;
 import knight2103.tasks.EventTask;
+import knight2103.Pair;
 
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Scanner;
 
 public class Storage {
     private final File taskFile;

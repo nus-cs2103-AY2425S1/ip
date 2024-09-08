@@ -1,7 +1,7 @@
 package knight2103;
 
-import knight2103.tasks.Task;
 import knight2103.tasks.TaskList;
+import knight2103.tasks.Task;
 
 public class Ui {
     public String showWelcome(String message) {

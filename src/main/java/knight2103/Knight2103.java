@@ -1,14 +1,14 @@
 package knight2103;
 
-import knight2103.command.InvalidCommandException;
-import knight2103.command.Parser;
-import knight2103.command.Command;
 import knight2103.files.Storage;
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
+import knight2103.command.Parser;
+import knight2103.command.Command;
+import knight2103.command.InvalidCommandException;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 public class Knight2103 {
     private String welcomeMessage;
