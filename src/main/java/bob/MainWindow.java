@@ -47,6 +47,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bob.getResponse(input);
+        assert !response.isEmpty() : "Response shouldn't be empty. Bob always responds";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBobDialog(response, bobImage)

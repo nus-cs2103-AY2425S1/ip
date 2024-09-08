@@ -30,6 +30,7 @@ public class Bob {
         String response = "";
         try {
             Command c = parser.parse(input);
+            assert c != null : "Command returned by parser shouldn't be null";
             response = c.execute(tasks, storage);
             return response;
         } catch (InvalidCommandException e) {

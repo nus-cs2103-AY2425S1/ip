@@ -37,6 +37,7 @@ public class TaskList {
     public String toText() {
         StringBuilder text = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
+
             text.append(list.get(i).toText()).append("\n");
         }
         return text.toString();
