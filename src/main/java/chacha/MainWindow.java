@@ -4,7 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -16,6 +15,9 @@ import javafx.util.Duration;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static final String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
+            + "What can I do for you? \n";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -29,9 +31,10 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image chachaImage = new Image(this.getClass().getResourceAsStream("/images/ChaChaImage.png"));
-    private final static String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
-            + "What can I do for you? \n";
 
+    /**
+     * Initializes the main window by setting up the scroll pane and adding the initial greeting dialog.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

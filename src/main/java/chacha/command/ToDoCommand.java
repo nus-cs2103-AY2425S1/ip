@@ -7,6 +7,9 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to add a ToDo Task.
+ */
 public class ToDoCommand extends Command {
 
     public ToDoCommand(ChaCha chacha) {

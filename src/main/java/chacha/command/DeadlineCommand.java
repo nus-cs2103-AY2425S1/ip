@@ -1,5 +1,7 @@
 package chacha.command;
 
+import java.time.DateTimeException;
+
 import chacha.ChaCha;
 import chacha.ChaChaException;
 import chacha.Storage;
@@ -7,8 +9,10 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
-import java.time.DateTimeException;
 
+/**
+ * Represents the command to add Deadline Task.
+ */
 public class DeadlineCommand extends Command {
 
     public DeadlineCommand(ChaCha chacha) {

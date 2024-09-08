@@ -9,6 +9,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTask extends Task {
     protected LocalDate date;
+
+    /**
+     * Creates a DeadlineTask, initialising the description, isDone status and date.
+     * @param description
+     * @param isDone
+     * @param date
+     */
     public DeadlineTask(String description, boolean isDone, LocalDate date) {
         super(description, isDone);
         this.date = date;

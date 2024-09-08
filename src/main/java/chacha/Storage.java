@@ -1,30 +1,34 @@
 package chacha;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import chacha.task.DeadlineTask;
 import chacha.task.EventTask;
 import chacha.task.Task;
 import chacha.task.TaskList;
 import chacha.task.ToDoTask;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDate;
-
-import java.util.ArrayList;
-
 /**
- * Represents the object that handles the loading of and saving into chacha.txt.
+ * Handles the loading of and saving into chacha.txt.
  *
  */
 public class Storage {
     protected String filePath;
     private BufferedReader readerFile;
-    protected FileWriter writtenFile;
+    private FileWriter writtenFile;
 
+    /**
+     * Creates a Storage object with specified filePath.
+     *
+     * @param filePath
+     * @throws IOException
+     */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
 
@@ -73,7 +77,6 @@ public class Storage {
      * Writes text into chacha.txt.
      *
      * @param text String that needs to be written.
-     * @return String representation.
      */
     public void writeFile(String text) {
         try {

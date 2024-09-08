@@ -1,21 +1,21 @@
 package chacha;
 
-import chacha.task.Task;
-
-import chacha.task.TaskList;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import chacha.task.Task;
+import chacha.task.TaskList;
 
 
 public class TaskListTest {
 
-    TaskList tasks = new TaskList();
+    private TaskList tasks = new TaskList();
     private ChaCha chacha = new ChaCha();
-    Ui ui = chacha.ui;
-    Storage storage = chacha.storage;
+    private Ui ui = chacha.ui;
+    private Storage storage = chacha.storage;
 
     @Test
     public void addToDo_missingComponent_exceptionMessage() {

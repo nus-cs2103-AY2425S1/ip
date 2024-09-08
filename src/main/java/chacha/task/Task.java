@@ -8,6 +8,12 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates Task object with specified components.
+     *
+     * @param description
+     * @param isDone
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

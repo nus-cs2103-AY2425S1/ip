@@ -1,18 +1,20 @@
 package chacha;
 
-import chacha.command.Parser;
-import chacha.task.Task;
-import chacha.task.TaskList;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Scanner;
 
+import chacha.command.Parser;
+import chacha.task.TaskList;
+
+
+/**
+ * Represents the ChaCha chatbot.
+ * It initialises the necessary components like Storage, Tasks and Ui.
+ */
 public class ChaCha {
     protected Storage storage;
     protected TaskList tasks;
@@ -21,6 +23,11 @@ public class ChaCha {
     private boolean isEnd;
     private String response;
 
+    /**
+     * Contructs a new ChaCha instance
+     * It checks if the file for storing tasks exists and creates it if not.
+     * In case of errors during file creation, appropriate exceptions are handled.
+     */
     public ChaCha() {
         try {
             Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
@@ -92,6 +99,5 @@ public class ChaCha {
      */
     public static void main(String[] args) {
         ChaCha chatbot = new ChaCha();
-//        chatbot.run();
     }
 }

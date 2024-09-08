@@ -7,6 +7,9 @@ import chacha.Ui;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
+/**
+ * Represents the command to unmark a Task.
+ */
 public class UnmarkCommand extends Command {
 
     public UnmarkCommand(ChaCha chacha) {

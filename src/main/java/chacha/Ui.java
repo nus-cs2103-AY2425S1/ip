@@ -1,18 +1,18 @@
 package chacha;
 
-import chacha.task.Task;
-import chacha.task.TaskList;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import chacha.task.Task;
+import chacha.task.TaskList;
 
 /**
  * Represents the object that handles all user interactions.
  */
 public class Ui {
-    private final static String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
+    private static final String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
             + "What can I do for you? \n";
-    private final static String EXIT = "Bye! Hope to talk to you again soon! ";
+    private static final String EXIT = "Bye! Hope to talk to you again soon! ";
 
     public Ui() {
     }
