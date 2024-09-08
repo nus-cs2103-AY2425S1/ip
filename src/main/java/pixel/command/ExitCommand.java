@@ -7,8 +7,7 @@ import pixel.task.TaskList;
 
 /**
  * Represents a command to exit the application. When executed, it displays a
- * farewell message and
- * closes the user interface.
+ * farewell message and closes the user interface.
  */
 public class ExitCommand extends Command {
 

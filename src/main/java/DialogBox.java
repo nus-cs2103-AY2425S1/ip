@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Represents a dialog box that displays text and an image.
- * Extends the HBox class.
+ * Represents a dialog box that displays text and an image. Extends the HBox
+ * class.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -65,8 +65,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Returns a dialog box representing Duke's dialog.
-     * The dialog box is flipped to display Duke's dialog on the left.
+     * Returns a dialog box representing Duke's dialog. The dialog box is flipped to
+     * display Duke's dialog on the left.
      *
      * @param text The text to be displayed in the dialog box.
      * @param img  The image to be displayed in the dialog box.

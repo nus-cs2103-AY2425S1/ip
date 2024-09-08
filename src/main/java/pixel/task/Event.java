@@ -16,7 +16,8 @@ public class Event extends Task {
      * Constructs a new Event object with the given description.
      *
      * @param description the description of the event
-     * @throws PixelException if the description is empty or does not match the required format
+     * @throws PixelException if the description is empty or does not match the
+     *                        required format
      */
     public Event(String description) throws PixelException {
         super(modifyDescription(description));
@@ -26,19 +27,20 @@ public class Event extends Task {
      * Constructs a new Event object with the given description and done status.
      *
      * @param description the description of the event
-     * @param done the done status of the event
+     * @param done        the done status of the event
      */
     public Event(String description, String done) {
         super(description, done);
     }
 
     /**
-     * Modifies the description of the event by extracting the start and end time from the given
-     * description and formatting it.
+     * Modifies the description of the event by extracting the start and end time
+     * from the given description and formatting it.
      *
      * @param des the original description of the event
      * @return the modified description with start and end time
-     * @throws PixelException if the description is empty or does not match the required format
+     * @throws PixelException if the description is empty or does not match the
+     *                        required format
      */
     private static String modifyDescription(String des) throws PixelException {
         if (des.length() == 0) {
@@ -53,8 +55,7 @@ public class Event extends Task {
             DateTimeParser toTime = new DateTimeParser(matcher.group(3));
             return String.format("%s (from: %s to: %s)", initalDes, fromTime, toTime);
         } else {
-            throw new PixelException(
-                    "Event should be of this format: {description} /from {date} /to {date}");
+            throw new PixelException("Event should be of this format: {description} /from {date} /to {date}");
         }
     }
 

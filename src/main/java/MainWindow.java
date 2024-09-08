@@ -26,9 +26,8 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/c2.png"));
 
     /**
-     * Initializes the controller.
-     * Binds the scroll pane's vertical value property to the height property of the
-     * dialog container.
+     * Initializes the controller. Binds the scroll pane's vertical value property
+     * to the height property of the dialog container.
      */
     @FXML
     public void initialize() {
@@ -45,19 +44,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Handles the user input.
-     * Creates two dialog boxes, one echoing user input and the other containing
-     * Duke's reply,
-     * and appends them to the dialog container.
+     * Handles the user input. Creates two dialog boxes, one echoing user input and
+     * the other containing Duke's reply, and appends them to the dialog container.
      * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = pixel.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(
+                response, dukeImage));
         userInput.clear();
     }
 }

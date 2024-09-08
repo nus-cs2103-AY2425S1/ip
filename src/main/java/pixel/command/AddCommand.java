@@ -56,8 +56,8 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         taskList.addTask(this.task);
-        ui.pixelSays("Got it. I've added this task:", "  " + this.task,
-                "Now you have " + taskList.size() + " tasks in the list.");
+        ui.pixelSays("Got it. I've added this task:", "  " + this.task, "Now you have " + taskList.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -73,7 +73,7 @@ public class AddCommand extends Command {
     @Override
     public String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         taskList.addTask(this.task);
-        return "Got it. I've added this task:\n" + "  " + this.task + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + "  " + this.task + "\n" + "Now you have " + taskList.size()
+                + " tasks in the list.";
     }
 }
