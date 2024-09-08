@@ -34,26 +34,20 @@ public class MarkCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert storage != null : "Storage should not be null";
 
-        // Get the task from the taskList
-        Task targetTask = tasks.getTask(this.getInput(), "mark ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "mark ");
         assert targetTask != null : "Target task should not be null";
 
-        // Check if the task has been done or not
         if (targetTask.isDone()) {
-            // Tell the user that the task is already marked as done
             throw new JeffException("This task has already been marked as done!");
-
-        } else {
-            // Mark the task as done
-            targetTask.markAsDone();
-            assert targetTask.isDone() : "Target task should be marked as done";
-
-            // Update database
-            storage.writeTaskList(tasks);
-
-            // Return the response
-            return Parser.prettyText("OK, I've marked this task as done:\n   " + targetTask.toString());
-
         }
+
+        targetTask.markAsDone();
+        assert targetTask.isDone() : "Target task should be marked as done";
+
+        storage.updateTaskListInDatabase(tasks);
+
+        return Parser.addSpaceInFrontOfEachLine(
+                "OK, I've marked this task as done:\n   " + targetTask.toString()
+        );
     }
 }

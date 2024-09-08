@@ -34,21 +34,21 @@ public class DeleteCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert storage != null : "Storage should not be null";
 
-        // Get the task from the task list
-        Task targetTask = tasks.getTask(this.getInput(), "delete ");
+        Task targetTask = tasks.getTaskByCommand(this.getInput(), "delete ");
         assert targetTask != null : "Target task should not be null";
         assert tasks.contains(targetTask) : "Task list should contain the target task before removal";
 
-
-        // Delete the task from the task list
-        tasks.remove(targetTask);
+        tasks.deleteTask(targetTask);
         assert !tasks.contains(targetTask) : "Task list should not contain the target task after removal";
 
-        // Update the storage
-        storage.writeTaskList(tasks);
+        storage.updateTaskListInDatabase(tasks);
 
-        // Return the response
-        return Parser.prettyText("Noted. I've removed this task:\n   " + targetTask.toString()
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+        return Parser.addSpaceInFrontOfEachLine(
+                String.format(
+                        "Noted. I've removed this task:\n   %s\nNow you have %d tasks in the list.",
+                        targetTask.toString(),
+                        tasks.size()
+                )
+        );
     }
 }

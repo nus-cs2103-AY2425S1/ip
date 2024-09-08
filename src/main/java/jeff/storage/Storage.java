@@ -14,7 +14,7 @@ import jeff.task.TaskList;
  * Represents a connector to take tasks from and write tasks to the task text file.
  */
 public class Storage {
-    private final Path filePath;
+    private Path filePath;
 
     /**
      * Constructor for the Storage Class.
@@ -33,9 +33,8 @@ public class Storage {
      * @return scanner that contain the tasks.
      * @throws JeffException if something went wrong when getting the file.
      */
-    public Scanner load() throws JeffException {
+    public Scanner loadTaskListFromDatabase() throws JeffException {
         try {
-            // Check if the parent directory exists
             Path directoryPath = this.filePath.getParent();
             assert directoryPath != null : "Directory path should not be null";
 
@@ -43,13 +42,11 @@ public class Storage {
                 Files.createDirectories(directoryPath);
             }
 
-            // Check if the task data file exists
             if (!Files.exists(this.filePath)) {
                 Files.createFile(this.filePath);
             }
 
             return new Scanner(this.filePath);
-
         } catch (IOException e) {
             throw new JeffException("Something went wrong: " + e.getMessage());
         }
@@ -61,19 +58,16 @@ public class Storage {
      * @param taskList List that contains the tasks.
      * @throws JeffException if something went wrong when getting the file.
      */
-    public void writeTaskList(TaskList taskList) throws JeffException {
+    public void updateTaskListInDatabase(TaskList taskList) throws JeffException {
         assert taskList != null : "Task list should not be null";
 
         try {
-            // Map the tasks in the task list into their file strings
-            List<String> fileStringList = taskList.toFileStrings();
+            List<String> fileStringList = taskList.toListOfFileStrings();
             assert fileStringList != null : "File string list should not be null";
 
-            // Write the strings into the file
             Files.write(filePath, fileStringList);
-
         } catch (IOException e) {
-            throw new JeffException("Something went wrong: " + e.getMessage());
+            throw new JeffException("Something went wrong when updating the database!");
         }
     }
 }

@@ -1,8 +1,6 @@
 package jeff.task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +8,29 @@ import java.util.Scanner;
 
 import jeff.exception.FileCorruptException;
 import jeff.exception.JeffException;
+import jeff.parser.Parser;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Constructor for the TaskList Class.
+     * Creates an empty task list.
+     */
     public TaskList() {}
+
+    /**
+     * Constructor for the TaskList Class.
+     * Adds all the tasks from the given list of tasks to the task list.
+     *
+     * @param tasks Given list of tasks.
+     */
+    public TaskList(List<Task> tasks) {
+        this.tasks.addAll(tasks);
+    }
 
     /**
      * Constructor for the TaskList Class.
@@ -28,6 +41,7 @@ public class TaskList {
      */
     public TaskList(Scanner scanner) throws JeffException {
         assert scanner != null : "Scanner should not be null";
+
         try {
             // Read every line in the scanner
             while (scanner.hasNext()) {
@@ -39,9 +53,12 @@ public class TaskList {
                     throw new FileCorruptException();
                 }
 
+                // Split the task parts into their respective parts
                 String taskType = taskParts[0];
                 boolean isDone = taskParts[1].equals("1");
                 String taskDescription = taskParts[2];
+
+                // Initialise the current task
                 Task currentTask = null;
 
                 // Categorise and initialise the task based on its task type
@@ -55,19 +72,23 @@ public class TaskList {
                     case "D":
                         // Deadline Task
                         if (taskParts.length >= 4) {
-                            currentTask = new DeadlineTask(taskDescription,
-                                    LocalDateTime.parse(taskParts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                                    isDone);
+                            currentTask = new DeadlineTask(
+                                    taskDescription,
+                                    Parser.getLocalDateTime(taskParts[3]),
+                                    isDone
+                            );
                         }
                         break;
 
                     case "E":
                         // Event Task
                         if (taskParts.length >= 5) {
-                            currentTask = new EventTask(taskDescription,
-                                    LocalDateTime.parse(taskParts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                                    LocalDateTime.parse(taskParts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                                    isDone);
+                            currentTask = new EventTask(
+                                    taskDescription,
+                                    Parser.getLocalDateTime(taskParts[3]),
+                                    Parser.getLocalDateTime(taskParts[4]),
+                                    isDone
+                            );
                         }
                         break;
 
@@ -78,18 +99,19 @@ public class TaskList {
                     throw new FileCorruptException();
                 }
 
-                // Add task to task list if it exists
-                if (currentTask != null) {
-                    this.tasks.add(currentTask);
-                    assert this.tasks.contains(currentTask) : "Task list should contain the new task after adding it";
-                } else {
+
+                if (currentTask == null) {
                     throw new FileCorruptException();
                 }
+
+                this.addTask(currentTask);
+                assert this.tasks.contains(currentTask) : "Task list should contain the new task after adding it";
             }
+
             assert this.tasks != null : "Task list should not be null";
 
         } catch (FileCorruptException e) {
-            throw new JeffException(e.toString());
+            throw new JeffException("Sorry! The task file is corrupted!");
         }
     }
 
@@ -99,15 +121,15 @@ public class TaskList {
      * @param index Index of the target task.
      * @return Task at the given index.
      */
-    public Task get(int index) {
+    public Task getTaskByIndex(int index) {
         assert index >= 0 && index < this.tasks.size() : "Task index should not be out of bounds";
         return this.tasks.get(index);
     }
 
     /**
      * Checks if the given task is in the task list.
-     * 
-     * @param task Given task. 
+     *
+     * @param task Given task.
      * @return true if the given task is in the task list, and false otherwise.
      */
     public boolean contains(Task task) {
@@ -119,7 +141,7 @@ public class TaskList {
      *
      * @param task Task to be added to the task list.
      */
-    public void add(Task task) {
+    public void addTask(Task task) {
         assert task != null : "Input task should not be null";
         this.tasks.add(task);
     }
@@ -129,7 +151,7 @@ public class TaskList {
      *
      * @param task Task to be removed from the task list.
      */
-    public void remove(Task task) {
+    public void deleteTask(Task task) {
         assert task != null : "Input task should not be null";
         this.tasks.remove(task);
     }
@@ -153,24 +175,28 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks that only takes place on the given date.
+     * Returns a filtered task list whose tasks only takes place on the given date.
      *
      * @param date Given date.
-     * @return A list of filtered tasks.
+     * @return A filtered task list.
      */
-    public List<Task> filterByDate(LocalDate date) {
+    public TaskList filterByDate(LocalDate date) {
         assert date != null : "Input date should not be null";
-        return this.tasks.stream().filter(task -> task.isOnThisDate(date)).toList();
+        return new TaskList(
+                this.tasks.stream().filter(task -> task.isOnThisDate(date)).toList()
+        );
     }
 
     /**
-     * Returns a list of tasks filtered by the given name.
+     * Returns a filtered task list filtered by the given name.
      *
      * @param name Given name to filter.
-     * @return List of filtered tasks.
+     * @return A filtered task list.
      */
-    public List<Task> filterByName(String name) {
-        return this.tasks.stream().filter(task -> task.contains(name)).toList();
+    public TaskList filterByName(String name) {
+        return new TaskList(
+                this.tasks.stream().filter(task -> task.doesDescriptionContain(name)).toList()
+        );
     }
 
     /**
@@ -178,8 +204,32 @@ public class TaskList {
      *
      * @return A list of the file string representation of the tasks.
      */
-    public List<String> toFileStrings() {
+    public List<String> toListOfFileStrings() {
         return this.tasks.stream().map(Task::toFileString).toList();
+    }
+
+    /**
+     * Returns the string representation of the task list.
+     *
+     * @return String representation of the given task list.
+     */
+    @Override
+    public String toString() {
+        // Initialise a StringBuilder
+        StringBuilder listString = new StringBuilder();
+
+        // Loop through the inputList and add it to the StringBuilder
+        for (int i = 0; i < this.size(); i++) {
+            listString.append(i + 1).append(".").append(this.getTaskByIndex(i).toString());
+
+            // Only add a new line when it is not the last task in the taskList
+            if (i != this.size() - 1) {
+                listString.append("\n");
+            }
+
+        }
+
+        return listString.toString();
     }
 
     /**
@@ -191,24 +241,26 @@ public class TaskList {
      * @throws JeffException if the input is in the wrong format or if the task number specified by the user does not
      *                       exist.
      */
-    public Task getTask(String input, String prefix) throws JeffException {
+    public Task getTaskByCommand(String input, String prefix) throws JeffException {
         assert !prefix.isEmpty() : "Input prefix should not be empty";
-        
+
         // Check if input is valid
         if (!input.matches(prefix + "\\d+")) {
-            throw new JeffException("The format is wrong! It should be \"" + prefix + "xx\", where xx is a number.");
+            throw new JeffException(
+                    "The format is wrong! It should be \"" + prefix + "xx\", where xx is a number."
+            );
         }
 
-        // Get the taskIndex
-        int taskIndex = Integer.parseInt(input.substring(prefix.length())) - 1;
+        // Get the task index
+        String taskNumberString = input.substring(prefix.length());
+        int taskIndex = Integer.parseInt(taskNumberString) - 1;
 
         // Check if taskIndex exists in taskList
-        if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+        if (taskIndex < 0 || taskIndex >= this.size()) {
             throw new JeffException("This task number does not exist!");
         }
 
-        // Get the task from taskList and return it
-        return this.tasks.get(taskIndex);
+        return this.getTaskByIndex(taskIndex);
 
     }
 }

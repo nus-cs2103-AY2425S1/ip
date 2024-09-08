@@ -20,8 +20,8 @@ public class DeleteCommandTest {
     public void setUp() throws JeffException {
         new File("data/tasks.txt").delete();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(storage.load());
-        Command c = new AddCommand("todo read book");
+        tasks = new TaskList(storage.loadTaskListFromDatabase());
+        Command c = new AddToDoCommand("todo read book");
         c.execute(tasks, storage);
     }
 
