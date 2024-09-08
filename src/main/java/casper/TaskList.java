@@ -48,6 +48,7 @@ public class TaskList {
      * Deletes task specified from the task list
      */
     public void deleteTask(Task task) {
+        assert this.taskList.contains(task) : "Task List does not contain the task to be deleted";
         this.taskList.remove(task);
     }
 
