@@ -16,13 +16,10 @@ public class Parser {
      * Parses the given user command string and returns the corresponding Command object.
      *
      * @param command The raw input string from the user.
-     * @param taskList The TaskList containing the user's tasks, used to apply the command.
+     * @param tasks The TaskList containing the user's tasks, used to apply the command.
      * @return A Command object corresponding to the parsed command, or null if an exception occurs.
      */
-    public static Command parse(String command, TaskList taskList) throws BrunoException {
-        assert command != null : "Command is null";
-        assert taskList != null : "Tasklist is null";
-
+    public static Command parse(String command, TaskList tasks) throws BrunoException {
         command = command.trim();
 
         String[] parts = command.split(" ", 2);
@@ -30,28 +27,28 @@ public class Parser {
         String restOfString = parts.length > 1 ? parts[1] : "";
 
         if (command.equalsIgnoreCase("bye")) {
-            return new ExitCommand(taskList);
+            return new ExitCommand(tasks);
         } else if (command.equalsIgnoreCase("list")) {
-            return new ListCommand(taskList);
+            return new ListCommand(tasks);
         } else if (firstWord.equalsIgnoreCase("mark")) {
             String[] taskNums = restOfString.split(" ");
-            return new MarkCommand(taskList, taskNums);
+            return new MarkCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("unmark")) {
             String[] taskNums = restOfString.split(" ");
-            return new UnmarkCommand(taskList, taskNums);
+            return new UnmarkCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("delete")) {
             String[] taskNums = restOfString.split(" ");
-            return new DeleteCommand(taskList, taskNums);
+            return new DeleteCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("todo")) {
-            return new AddCommand(taskList, restOfString, Bruno.TaskType.TODO);
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.TODO);
         } else if (firstWord.equalsIgnoreCase("deadline")) {
-            return new AddCommand(taskList, restOfString, Bruno.TaskType.DEADLINE);
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.DEADLINE);
         } else if (firstWord.equalsIgnoreCase("event")) {
-            return new AddCommand(taskList, restOfString, Bruno.TaskType.EVENT);
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.EVENT);
         } else if (firstWord.equalsIgnoreCase("find")) {
-            return new FindCommand(taskList, restOfString);
+            return new FindCommand(tasks, restOfString);
         } else {
-            return new UnknownCommand(taskList);
+            return new UnknownCommand(tasks);
         }
     }
 }
