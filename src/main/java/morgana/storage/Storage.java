@@ -51,10 +51,7 @@ public class Storage {
         File file = new File(filePath);
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                Task task = Parser.parseTask(sc.nextLine());
-                if (task != null) {
-                    tasks.add(task);
-                }
+                tasks.add(Parser.parseTaskFromString(sc.nextLine()));
             }
         } catch (FileNotFoundException e) {
             throw new MorganaException("Failed to load tasks from file: " + e.getMessage());
