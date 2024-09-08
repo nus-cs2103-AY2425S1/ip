@@ -1,24 +1,48 @@
-# Duke project template
+# Angel Chatbot Project 🚀
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to the **Angel Chatbot** project! This chatbot is designed to help you manage your tasks with ease. It supports various commands to add, mark, and delete tasks, making your life more organized.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- Supports various task types: `todo`, `deadline`, `event`, and 'find'.
+- Easily mark tasks as done or undone.
+- Search for tasks using keywords.
+- Saves tasks automatically to a file for persistence.
+- User-friendly command parsing with detailed feedback.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## How to Use
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/angel-chatbot.git
+
+2. Navitgate to the project directory:
+   ```bash
+   cd angel-chatbot
+
+3. Compile the program:
+   ```bash
+   javac -d bin src/main/java/angel/*.java
+
+4. Run the application:
+   ```bash
+   java -cp bin main.java.angel.Angel
+
+## Task List
+
+- [x] Managing Tasks
+- [x] Managing Deadlines
+- [x] Managing Events
+
+## Additional Resources
+For more information, checkout the [Github Documentation](https://docs.github.com/en).
+> "Great things are not done by impulse, but by a series of small things brought together." — Vincent Van Gogh
+
+## 
+If you are a Java Programmer you can use it to practice code too. Heres the 'main' method:
+```bash
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
