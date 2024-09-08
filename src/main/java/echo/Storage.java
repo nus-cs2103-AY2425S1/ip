@@ -55,6 +55,7 @@ public class Storage {
      */
     public static void setEmptyFile() {
         File f = new File(Storage.DATA_PATH);
+
         if (f.length() == 0) {
             TaskList allTasks = new TaskList();
             Storage.setData(allTasks);
@@ -70,7 +71,10 @@ public class Storage {
         try {
             FileOutputStream fileStream = new FileOutputStream(Storage.DATA_PATH);
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
+
             os.writeObject(taskList);
+
+            // close ObjectOutputStream
             os.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -96,9 +100,7 @@ public class Storage {
         } catch (ClassNotFoundException e) {
             System.out.println("Invalid Class Casting: " + e.getMessage());
         }
-        if (allTasks == null) {
-            allTasks = new TaskList();
-        }
+
         return allTasks;
     }
 
