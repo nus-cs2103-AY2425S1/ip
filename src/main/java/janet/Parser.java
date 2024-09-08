@@ -51,9 +51,8 @@ public class Parser {
      * @throws JanetException If user input is invalid.
      */
     public static void userInputChecker(String[] commandDetails, int numOfTasksInList) throws JanetException {
-        validateCommand(commandDetails, numOfTasksInList);
-        checkInaccurateCommand(commandDetails);
-        validateByeAndList(commandDetails);
+        // validateCommand(commandDetails, numOfTasksInList);
+        checkInaccurateCommand(commandDetails, numOfTasksInList);
     }
 
 
@@ -99,20 +98,31 @@ public class Parser {
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @throws JanetException If task number is not specified, task description is omitted, or unknown command.
      */
-    public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
+    public static void checkInaccurateCommand(String[] commandDetails, int numOfTasksInlist) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
         if (unknownCommand(commandDetails)) {
             // when the command is gibberish and NOT one of the commands in CommandType
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
-        } else if (commandDetails.length == 1 && !(commandDetails[0].equals("bye") || commandDetails[0].equals("list"))) {
-            if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) {
-                // when the command is either (mark, unmark, delete), BUT there is no task specified
-                throw new JanetException("WHOOPS! I don't know which task you are referring to...");
-            } else {
+        } else if (notByeOrListCommand(commandDetails)) {
+            if (taskNumberInvalidOrAbsent(commandDetails) || taskNumberNegativeOrZero(commandDetails)) {
+                // when the command is either (mark, unmark, delete), BUT task num not specified or invalid format
+                throw new JanetException("WHOOPS! Ensure task number is present and valid!");
+            } else if (taskNumberOutOfRange(commandDetails, numOfTasksInlist)) {
+                throw new JanetException("WHOOPS! You don't have a task of this number!");
+            } else if (taskDescriptionOmitted(commandDetails)) {
                 // when the command is either (todo, deadline, todo), BUT there is no task description
                 throw new JanetException("WHOOPS! You can't leave out the task's description!");
             }
         }
+    }
+
+
+    public static boolean emptyCommand(String[] commandDetails) {
+        return commandDetails.length == 0;
+    }
+
+    public static boolean taskDescriptionOmitted(String[] commandDetails) {
+        return false;
     }
 
 
@@ -121,31 +131,51 @@ public class Parser {
      * 1. gibberish and not an enum CommandType value (eg. marker, blah blah, events).
      * 2. 'bye ...' where '...' represents additional texts behind the word bye.
      * 3. 'list ...' where '...' represents additional texts behind the word list.
+     * false otherwise.
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @return A boolean value.
      */
     public static boolean unknownCommand(String[] commandDetails) {
         boolean notACommand = !(getCommandTypes().contains(commandDetails[0].toUpperCase()));
-        boolean byeWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[1].equals("bye"));
-        boolean listWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[1].equals("list"));
+        boolean byeWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[0].equals("bye"));
+        boolean listWithAdditionalTexts = (commandDetails.length > 1) && (commandDetails[0].equals("list"));
 
         return notACommand || byeWithAdditionalTexts || listWithAdditionalTexts;
     }
 
 
-    /**
-     * Throws a new JanetException if text follows the commands: 'bye' and 'list'
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @throws JanetException If user's command is 'bye' or 'list' with additional texts behind it (eg. bye bye)
-     */
-    public static void validateByeAndList(String[] commandDetails) throws JanetException {
-        if ((commandDetails[0].equals("bye") || commandDetails[0].equals("list")) &&
-                commandDetails.length > 1
-        ) {
-            throw new JanetException("WHOOPS! Please ensure command is correct!");
+    public static boolean taskNumberInvalidOrAbsent(String[] commandDetails) throws JanetException {
+        boolean taskNumberAbsent = (commandDetails.length == 1);
+        boolean taskNumberInvalid = false;
+        int taskNumber;
+        if (commandDetails.length == 2) {
+            // task number is present, check for validity
+            try {
+                taskNumber = Integer.parseInt(commandDetails[1]);
+            } catch (NumberFormatException e) {
+                // throw new JanetException("WHOOPS! Please provide an integer value task number!");
+                taskNumberInvalid = true;
+            }
+        } else if (commandDetails.length > 2) {
+            // more than 1 task number is provided, separated by white space(s).
+            taskNumberInvalid = true;
         }
+        return taskNumberAbsent || taskNumberInvalid;
     }
 
+
+    public static boolean notByeOrListCommand(String[] commandDetails) {
+        return !(commandDetails[0].equals("bye") || commandDetails[0].equals("list"));
+    }
+
+
+    public static boolean taskNumberOutOfRange(String[] commandDetails, int numOfTasksInList) {
+        return Integer.parseInt(commandDetails[1]) > numOfTasksInList;
+    }
+
+
+    public static boolean taskNumberNegativeOrZero(String[] commandDetails) {
+        return Integer.parseInt(commandDetails[1]) <= 0;
+    }
 }
