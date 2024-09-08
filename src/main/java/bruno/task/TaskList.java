@@ -21,7 +21,7 @@ import bruno.exceptions.UnknownCommandException;
  * Interacts with the Storage class to load and save tasks from and to a file.
  */
 public class TaskList {
-    private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private ArrayList<Task> tasks;
     private Storage storage;
 
@@ -63,52 +63,76 @@ public class TaskList {
         }
 
         Task task = null;
-        boolean recognized = true;
         if (type.equals(Bruno.TaskType.TODO)) {
-            task = new ToDo(str);
+            task = makeToDo(str);
         } else if (type.equals(Bruno.TaskType.DEADLINE)) {
-            if (!str.contains("/by")) {
-                throw new MissingFieldException();
-            }
-            String description = str.substring(0, str.indexOf("/by")).trim();
-            String byString = str.substring(str.indexOf("/by") + 3).trim();
-            if (description.isEmpty()) {
-                throw new EmptyTaskException();
-            }
-            try {
-                LocalDateTime by = LocalDateTime.parse(byString, formatter1);
-                task = new Deadline(description, by);
-            } catch (DateTimeParseException e) {
-                throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
-            }
+            task = makeDeadline(str);
         } else if (type.equals(Bruno.TaskType.EVENT)) {
-            if (!str.contains("/from") || !str.contains("/to")) {
-                throw new MissingFieldException();
-            }
-            String description = str.substring(0, str.indexOf("/from")).trim();
-            String fromString = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
-            String toString = str.substring(str.indexOf("/to") + 4).trim();
-            if (description.isEmpty()) {
-                throw new EmptyTaskException();
-            }
-            try {
-                LocalDateTime from = LocalDateTime.parse(fromString, formatter1);
-                LocalDateTime to = LocalDateTime.parse(toString, formatter1);
-                task = new Event(description, from, to);
-            } catch (DateTimeParseException e) {
-                throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
-            }
-        } else {
-            recognized = false;
+            task = makeEvent(str);
         }
 
-        if (recognized) {
+        return add(task);
+    }
+
+    private Task add(Task task) throws UnknownCommandException {
+        if (task != null) {
             tasks.add(task);
             storage.updateFile(this.tasks);
             return task;
         } else {
             throw new UnknownCommandException();
         }
+    }
+
+    private Event makeEvent(String str) throws BrunoException {
+        if (!str.contains("/from") || !str.contains("/to")) {
+            throw new MissingFieldException();
+        }
+
+        String description = str.substring(0, str.indexOf("/from")).trim();
+        String fromString = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
+        String toString = str.substring(str.indexOf("/to") + 4).trim();
+        LocalDateTime from;
+        LocalDateTime to;
+
+        try {
+            from = LocalDateTime.parse(fromString, formatter);
+            to = LocalDateTime.parse(toString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
+        }
+
+        if (description.isEmpty()) {
+            throw new EmptyTaskException();
+        }
+
+        return new Event(description, from, to);
+    }
+
+    private Deadline makeDeadline(String str) throws BrunoException {
+        if (!str.contains("/by")) {
+            throw new MissingFieldException();
+        }
+
+        String description = str.substring(0, str.indexOf("/by")).trim();
+        String byString = str.substring(str.indexOf("/by") + 3).trim();
+        LocalDateTime by;
+
+        try {
+            by = LocalDateTime.parse(byString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
+        }
+
+        if (description.isEmpty()) {
+            throw new EmptyTaskException();
+        }
+
+        return new Deadline(description, by);
+    }
+
+    private static ToDo makeToDo(String str) {
+        return new ToDo(str);
     }
 
     /**
@@ -118,18 +142,21 @@ public class TaskList {
      * @throws BrunoException If the index is invalid.
      */
     public ArrayList<Task> markTask(String ... nums) throws BrunoException {
-        ArrayList<Task> markedTasks = new ArrayList<>();
         try {
-            for (String i : nums) {
-                Task task = tasks.get(Integer.parseInt(i) - 1);
-                task.complete();
-                markedTasks.add(task);
-                storage.updateFile(this.tasks);
-            }
-
+            ArrayList<Task> markedTasks = new ArrayList<>();
+            mark(markedTasks, nums);
             return markedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
+        }
+    }
+
+    private void mark(ArrayList<Task> markedTasks, String ... nums) {
+        for (String i : nums) {
+            Task task = tasks.get(Integer.parseInt(i) - 1);
+            task.complete();
+            markedTasks.add(task);
+            storage.updateFile(this.tasks);
         }
     }
 
@@ -140,18 +167,21 @@ public class TaskList {
      * @throws BrunoException If the index is invalid.
      */
     public ArrayList<Task> unmarkTask(String ... nums) throws BrunoException {
-        ArrayList<Task> unmarkedTasks = new ArrayList<>();
         try {
-            for (String i : nums) {
-                Task task = tasks.get(Integer.parseInt(i) - 1);
-                task.uncomplete();
-                unmarkedTasks.add(task);
-                storage.updateFile(this.tasks);
-            }
-
+            ArrayList<Task> unmarkedTasks = new ArrayList<>();
+            unmark(unmarkedTasks, nums);
             return unmarkedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
+        }
+    }
+
+    private void unmark(ArrayList<Task> unmarkedTasks, String ... nums) {
+        for (String i : nums) {
+            Task task = tasks.get(Integer.parseInt(i) - 1);
+            task.uncomplete();
+            unmarkedTasks.add(task);
+            storage.updateFile(this.tasks);
         }
     }
 
@@ -168,14 +198,20 @@ public class TaskList {
                     .map(i -> Integer.parseInt(i.trim()) - 1)
                     .sorted(Comparator.reverseOrder())
                     .toList();
-            for (int i : taskIndices) {
-                Task task = tasks.remove(i);
-                deletedTasks.add(task);
-                storage.updateFile(this.tasks);
-            }
+            
+            delete(deletedTasks, taskIndices);
+
             return deletedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
+        }
+    }
+
+    private void delete(ArrayList<Task> deletedTasks, List<Integer> indices) {
+        for (int i : indices) {
+            Task task = tasks.remove(i);
+            deletedTasks.add(task);
+            storage.updateFile(this.tasks);
         }
     }
 
@@ -187,10 +223,14 @@ public class TaskList {
     public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
-                foundTasks.add(task);
-            }
+            checkForKeyword(keyword, task, foundTasks);
         }
         return foundTasks;
+    }
+
+    private static void checkForKeyword(String keyword, Task task, ArrayList<Task> foundTasks) {
+        if (task.toString().contains(keyword)) {
+            foundTasks.add(task);
+        }
     }
 }
