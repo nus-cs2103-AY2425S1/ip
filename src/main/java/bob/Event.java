@@ -22,6 +22,7 @@ public class Event extends Task {
 
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
+        assert parameters.length == 5 : "Number of elements after splitting should be 4";
         return new Event(
                 parameters[2],
                 LocalDateTime.parse(parameters[3]),

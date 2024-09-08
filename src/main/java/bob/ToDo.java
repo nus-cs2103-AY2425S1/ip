@@ -11,6 +11,7 @@ public class ToDo extends Task {
 
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
+        assert parameters.length == 3 : "Number of elements after splitting should be 3";
         return new ToDo(parameters[2], parameters[1].equals("1"));
 
     }

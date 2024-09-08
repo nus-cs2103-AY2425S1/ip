@@ -46,7 +46,9 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        String icon = isDone ? "X" : " ";
+        assert isDone ? icon.equals("X") : icon.equals(" ");
+        return icon;
     }
 
     /**

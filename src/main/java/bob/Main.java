@@ -25,7 +25,7 @@ public class Main extends Application {
         } catch (IOException e) {
             bob = new ErrorBob("I'm having trouble initialising my memory :(");
         }
-
+        assert bob != null : "bob variable cannot be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
