@@ -39,7 +39,7 @@ application {
 shadowJar {
     archiveBaseName = "blob"
     archiveClassifier = null
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     archiveFileName = "blob.jar"
 }
 

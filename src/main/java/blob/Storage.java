@@ -24,6 +24,10 @@ public class Storage {
                 FileWriter fw = new FileWriter(filePath);
                 fw.write("type,is_checked,task_name,time1,time2\n");
                 fw.close();
+            } else {
+                Scanner s = new Scanner(this.f);
+                String headers = s.nextLine();
+                assert headers.equals("type,is_checked,task_name,time1,time2\n") : "File headers are wrong!";
             }
         } catch (IOException e) {
             throw new RuntimeException("Database file was unable to be generated!");
