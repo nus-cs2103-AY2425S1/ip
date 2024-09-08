@@ -1,6 +1,7 @@
 package gray.command;
 
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import gray.Tasks;
 
@@ -17,10 +18,8 @@ public class ListCommand implements Command {
      */
     @Override
     public String execute(Tasks tasks) {
-        StringJoiner joiner = new StringJoiner("\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            joiner.add(String.format("%d. %s", i + 1, tasks.get(i)));
-        }
-        return joiner.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> String.format("%d. %s", i + 1, tasks.get(i)))
+                .collect(Collectors.joining("\n"));
     }
 }
