@@ -48,7 +48,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+            FileWriter fw = new FileWriter(filePath, true); 
             fw.close();
         }
         return taskList;
@@ -64,7 +64,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error writing to file");
         }
     }
 }
