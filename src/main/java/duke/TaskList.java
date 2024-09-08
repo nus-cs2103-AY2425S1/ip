@@ -49,11 +49,14 @@ public class TaskList {
      * @param matching The string that is to be checked against the description of the listed tasks.
      * @return The tasks that have a description that includes the parameter.
      */
-    public TaskList findAll(String matching) {
+    public TaskList findAll(String... matching) {
         TaskList taskList = new TaskList();
         for (Task task : userInputs) {
-            if (task.name.contains(matching)) {
-                taskList.add(task);
+            for (String match : matching) {
+                if (task.name.contains(match)) {
+                    taskList.add(task);
+                    break;
+                }
             }
         }
         return taskList;
