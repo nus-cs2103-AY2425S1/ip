@@ -85,7 +85,7 @@ public class Ui {
         // task = newly marked janet.Task object
         if (markResult.equals("already marked")) {
             // the desired task is already marked as done
-            return "\nThis task is already done!\n";
+            return "\nThis task is already marked!\n";
         } else {
             return "\nNice! I've marked this task as done:\n"
                     + String.format("  %s", task + "\n");
@@ -104,9 +104,9 @@ public class Ui {
         // task = newly unmarked janet.Task object
         if (markResult.equals("already unmarked")) {
             // the desired task is already marked as done
-            return "\nThis task is not already done!\n";
+            return "\nThis task is already unmarked!\n";
         } else {
-            return "\nOK, I've marked this task as not done yet:\n"
+            return "\nOK, I've unmarked this task:\n"
                     + String.format("  %s", task + "\n");
         }
     }
