@@ -28,13 +28,10 @@ public class FindCommand extends Command {
      * @param ui Ui as initialised in main.
      * @throws PrinceException
      */
-    private void find(String input, TaskList taskList, Ui ui) throws PrinceException {
+    private void find(String input, TaskList taskList, Ui ui) {
         String[] arr = input.split(" ");
-        String find = arr[0].trim();
         String keyword = arr[1].trim();
-        if (!find.equals("find")) {
-            throw new PrinceException("Please ensure that your input begins with 'find'!");
-        }
+
         TaskList newTaskList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
