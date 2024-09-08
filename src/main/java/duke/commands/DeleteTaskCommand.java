@@ -52,8 +52,12 @@ public class DeleteTaskCommand extends Command {
             // Assert that the taskIndex is within the range of the task list
             assert this.taskIndex >= 0 && this.taskIndex < taskList.getTasks().size() : "Task index is out of bounds";
 
-            Task task = taskList.deleteTask(this.taskIndex);
-            return ui.formatDeleteTask(task, taskList.getTasks().size());
+            try {
+                Task task = taskList.deleteTask(this.taskIndex);
+                return ui.formatDeleteTask(task, taskList.getTasks().size());
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("Sorry, there are only " + taskList.getTasks().size() + " tasks!");
+            }
         }
         throw new InvalidInputException("Please enter a valid task index to delete!");
     }
