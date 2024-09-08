@@ -31,4 +31,19 @@ public class TaskListTest {
         tasks.markUndone(0);
         assertFalse(tasks.getTask(0).isDone());
     }
+
+    @Test
+    public void testFindTasks() {
+        TaskList tasks = new TaskList();
+        Task task1 = new TaskStub("haha test");
+        Task task2 = new TaskStub("hehe test");
+        tasks.addTask(task1);
+        tasks.addTask(task2);
+        TaskList tasksFound = tasks.findTasks("haha");
+        assertEquals(1, tasksFound.getSize());
+        tasksFound = tasks.findTasks("hehe");
+        assertEquals(1, tasksFound.getSize());
+        tasksFound = tasks.findTasks("test");
+        assertEquals(2, tasksFound.getSize());
+    }
 }
