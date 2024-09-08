@@ -28,7 +28,7 @@ public class Ui {
      * @return The message to be printed.
      */
     public String outputMessage(String message) {
-        return "Erm...\n" + message;
+        return message;
     }
 
     /**
@@ -37,4 +37,4 @@ public class Ui {
     public String goodbyeText() {
         return "Bye. Hope to see you again soon!";
     }
-}
+}   
