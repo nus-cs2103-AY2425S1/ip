@@ -29,7 +29,7 @@ public class Parser {
 
             if (act.equals("list")) {
                 StringBuilder s = new StringBuilder("Here are the tasks in your list:\n");
-                for (int j = 0; j < tasklist.size(); j++) {
+                for (int j = 0; j < tasklist.getSize(); j++) {
                     Task t = tasklist.getTask(j);
                     s.append(String.format("%d. %s\n", j + 1, t));
                 }
@@ -72,7 +72,7 @@ public class Parser {
                     Task t = tasklist.deleteTask(index);
                     s.append("Noted, I've removed this task:\n");
                     s.append(t + "\n");
-                    s.append("Now you have " + tasklist.size() + " tasks in the list.");
+                    s.append("Now you have " + tasklist.getSize() + " tasks in the list.");
                 } catch (NumberFormatException e) {
                     s.append("Invalid Command!");
                 } catch (IndexOutOfBoundsException e) {
@@ -100,7 +100,7 @@ public class Parser {
                 tasklist.addTask(t);
                 msg.append("Got it. I've added this task:\n");
                 msg.append(t + "\n");
-                msg.append("Now you have " + tasklist.size() + " tasks in the list.");
+                msg.append("Now you have " + tasklist.getSize() + " tasks in the list.");
                 return msg.toString();
 
             } else if (act.equals("deadline")) {
@@ -136,16 +136,16 @@ public class Parser {
                 }
 
                 // for task deadline string
-                StringBuilder sDate = new StringBuilder(arr[by + 1]);
-                StringBuilder sTime = new StringBuilder(arr[by + 2]);
-                String ISO8601Format = sDate.toString() + "T" + sTime.toString() + ":00";
+                StringBuilder stringDate = new StringBuilder(arr[by + 1]);
+                StringBuilder stringTime = new StringBuilder(arr[by + 2]);
+                String Iso8601Format = stringDate.toString() + "T" + stringTime.toString() + ":00";
 
                 try {
-                    Deadline d = new Deadline(a.toString(), false, ISO8601Format);
+                    Deadline d = new Deadline(a.toString(), false, Iso8601Format);
                     tasklist.addTask(d);
                     msg.append("Got it. I've added this task:\n");
                     msg.append(d + "\n");
-                    msg.append("Now you have " + tasklist.size() + " tasks in the list.");
+                    msg.append("Now you have " + tasklist.getSize() + " tasks in the list.");
                 } catch (DateTimeParseException e) {
                     msg.append("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
                 }
@@ -197,21 +197,21 @@ public class Parser {
                 }
 
                 //for start string
-                StringBuilder stDate = new StringBuilder(arr[start + 1]);
-                StringBuilder stTime = new StringBuilder(arr[start + 2]);
-                String startISO8601Format = stDate.toString() + "T" + stTime.toString() + ":00";
+                StringBuilder startDate = new StringBuilder(arr[start + 1]);
+                StringBuilder startTime = new StringBuilder(arr[start + 2]);
+                String startIso8601Format = startDate.toString() + "T" + startTime.toString() + ":00";
 
                 //for end string
-                StringBuilder enDate = new StringBuilder(arr[end + 1]);
-                StringBuilder enTime = new StringBuilder(arr[end + 2]);
-                String endISO8601Format = enDate.toString() + "T" + enTime.toString() + ":00";
+                StringBuilder endDate = new StringBuilder(arr[end + 1]);
+                StringBuilder endTime = new StringBuilder(arr[end + 2]);
+                String endIso8601Format = endDate.toString() + "T" + endTime.toString() + ":00";
 
                 try {
-                    Event e = new Event(a.toString(), false, startISO8601Format, endISO8601Format);
+                    Event e = new Event(a.toString(), false, startIso8601Format, endIso8601Format);
                     tasklist.addTask(e);
                     msg.append("Got it. I've added this task:\n");
                     msg.append(e + "\n");
-                    msg.append("Now you have " + tasklist.size() + " tasks in the list.");
+                    msg.append("Now you have " + tasklist.getSize() + " tasks in the list.");
                 } catch (DateTimeParseException e) {
                     msg.append("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
                 }
@@ -232,7 +232,7 @@ public class Parser {
                     msg.append("Here are the matching tasks in your list:\n");
                     int num = 1;
                     boolean match = false;
-                    for (int j = 0; j < tasklist.size(); j++) {
+                    for (int j = 0; j < tasklist.getSize(); j++) {
                         Task t = tasklist.getTask(j);
                         String[] taskName = t.name.split(" ");
                         for (int k = 0; k < taskName.length; k++) {

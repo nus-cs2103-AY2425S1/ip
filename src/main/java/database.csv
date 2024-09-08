@@ -1,5 +1,3 @@
 type,is_checked,task_name,time1,time2
-T,0,Eat Cup Noodles
-T,0,throw away the cup
-T,0,capture a pet hamster
-D,0,buy groceris,2024-09-03T14:00
+T,0,Complete CS2103T iP tasks
+D,0,CS2103 tP task,2024-09-11T23:59

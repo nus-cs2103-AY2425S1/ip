@@ -26,7 +26,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + "[" + this.check() + "] " + this.name + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
+        return "[E]" + "[" + this.check() + "] " + this.name +
+                " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) +
+                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
     }
 
     /**
