@@ -31,9 +31,10 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the 'find' command. It searches the task list for tasks whose descriptions
-     * contain the specified keyword. If the keyword is missing or invalid, an exception is thrown.
+     * Executes the {@code FindCommand}. It searches the task list for tasks whose descriptions
+     * contain the specified keyword.
      *
+     * @return A message listing the tasks that match the keyword, or a message indicating that no tasks matched.
      * @throws InvalidCommandException if the command does not follow the expected syntax
      *                                 or if the keyword is missing.
      */

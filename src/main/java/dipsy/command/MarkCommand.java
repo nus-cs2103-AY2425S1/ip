@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
     private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
 
     /**
-     * Constructs a MarkCommand with the specified user input, task list, and UI handler.
+     * Constructs a {@code MarkCommand} with the specified user input, task list, and UI handler.
      *
      * @param userInput The user input that triggered this command.
      * @param tasks The task list associated with this command.
@@ -29,10 +29,11 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the MarkCommand by parsing the user input and marking the specified task
+     * Executes the {@code MarkCommand} by parsing the user input and marking the specified task
      * as done or undone in the task list.
-     * If the input is invalid or the task number is out of bounds, an exception is thrown.
      *
+     * @return A message indicating the success of marking the task as done or undone,
+     *      along with the task details.
      * @throws InvalidCommandException If the command format is invalid or the task number is out of bounds.
      */
     @Override
@@ -60,6 +61,7 @@ public class MarkCommand extends Command {
      * and saves the task list to the local disk.
      *
      * @param index The index of the task to mark as done.
+     * @return A message indicating the task has been marked as done, along with the task details.
      */
     private String markTaskAsDone(int index) {
         Task task = tasks.getTask(index);
@@ -74,6 +76,7 @@ public class MarkCommand extends Command {
      * and saves the task list to the local disk.
      *
      * @param index The index of the task to mark as undone.
+     * @return A message indicating the task has been marked as undone, along with the task details.
      */
     private String markTaskAsUndone(int index) {
         Task task = tasks.getTask(index);

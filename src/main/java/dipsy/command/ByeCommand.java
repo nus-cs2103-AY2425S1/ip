@@ -26,7 +26,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Prints the exit message;
+     * @return A farewell message to be shown to the user.
      */
     @Override
     public String execute() {

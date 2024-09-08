@@ -20,7 +20,7 @@ public abstract class Command {
     protected final Ui ui;
 
     /**
-     * Constructs a Command with the specified user input, task list, and UI handler.
+     * Constructs a {@code Command} with the specified user input, task list, and UI handler.
      *
      * @param userInput The user input that triggered this command.
      * @param tasks The task list associated with this command.
@@ -35,7 +35,7 @@ public abstract class Command {
     /**
      * Executes the command.
      * Subclasses should override this method to provide specific command behavior.
-     *
+     * @return A message to be shown to the user.
      * @throws InvalidCommandException If the command is invalid.
      * @throws InvalidDateException If the command contains an invalid date.
      */
@@ -50,7 +50,7 @@ public abstract class Command {
     }
 
     /**
-     * Checks if the instance of Command is an instance of ByeCommand.
+     * Checks if the instance of {@code Command} is an instance of {@code ByeCommand}.
      * It is used to check whether to exit the program.
      *
      * @return {@code true} if the command is an instance of ByeCommand, {@code false} otherwise.

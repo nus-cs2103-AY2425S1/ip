@@ -19,11 +19,11 @@ import dipsy.ui.Ui;
  */
 
 public class DeadlineCommand extends Command {
-    /** Regular exppression(regen) pattern to parse the deadline command input.**/
+    /** Regular expression(regex) pattern to parse the deadline command input.**/
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
 
     /**
-     * Constructs a DeadlineCommand with the specified user input, task list, and UI handler.
+     * Constructs a {@code DeadlineCommand} with the specified user input, task list, and UI handler.
      *
      * @param userInput The user input that triggered this command.
      * @param tasks The task list associated with this command.
@@ -34,9 +34,10 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the DeadlineCommand by parsing the user input and adding a new deadline task to the task list.
-     * If the input is invalid or the date format is incorrect, exceptions are thrown.
+     * Executes the {@code DeadlineCommand} by parsing the user input and adding a new deadline task to the task list.
      *
+     * @return A message indicating that the {@code Deadline} task has been successfully added, including
+     *      the task details and the updated number of tasks in the task list.
      * @throws InvalidCommandException If the command format is invalid.
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
      */

@@ -31,11 +31,14 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the {@code ListCommand}, either listing all tasks or filtering
-     * tasks by a specific date. If the input is simply "list", it will display
-     * all tasks. If the input includes a date (e.g., "list yyyy-MM-dd"), it will
-     * list tasks that are due or relevant to that date.
+     * Executes the {@code ListCommand} by listing all tasks or filtering tasks by a specific date.
      *
+     * <p>If the user input is just "list", the method displays all tasks in the task list. If the input
+     * is in the form "list yyyy-MM-dd", the method filters the tasks by the specified date and lists
+     * only the tasks that are due or relevant to that date.</p>
+     *
+     * @return A message containing the list of all tasks, or the list of tasks filtered by the specified date.
+     *         If no tasks are found, a message indicating that there are no tasks is returned.
      * @throws InvalidDateException If the provided date is in an incorrect format.
      */
     public String execute() throws InvalidDateException, InvalidCommandException {

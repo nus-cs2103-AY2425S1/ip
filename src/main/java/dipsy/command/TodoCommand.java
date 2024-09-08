@@ -18,7 +18,7 @@ public class TodoCommand extends Command {
     private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
 
     /**
-     * Constructs a TodoCommand with the specified user input, task list, and UI handler.
+     * Constructs a {@code TodoCommand} with the specified user input, task list, and UI handler.
      *
      * @param userInput The user input that triggered this command.
      * @param tasks The task list associated with this command.
@@ -29,9 +29,10 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Executes the TodoCommand by parsing the user input and adding a new ToDo task to the task list.
-     * If the input is invalid, an exception is thrown.
+     * Executes the {@code TodoCommand} by parsing the user input and adding a new ToDo task to the task list.
      *
+     * @return A message indicating that the {@code Todo} task has been successfully added, including
+     *      the task details and the updated number of tasks in the task list.
      * @throws InvalidCommandException If the command format is invalid.
      */
     @Override
