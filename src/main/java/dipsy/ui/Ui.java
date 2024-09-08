@@ -63,12 +63,22 @@ public class Ui {
     }
 
     /**
-     * @param message The error message to be shown to be user.
-     * @return An error message with the specified content.
+     * Generates an error message with the specified content.
+     *
+     * <p>This method accepts one or more messages and concatenates them into a single error message.
+     * If multiple messages are provided, they are appended with a space between them.</p>
+     *
+     * @param messages One or more error messages to be included in the error message.
+     * @return A concatenated error message prefixed with "Error:", followed by the specified messages.
      */
-    public String getErrorMessage(String message) {
-        return "Error: " + message;
+    public String getErrorMessage(String... messages) {
+        StringBuilder result = new StringBuilder("Error: ");
+        for (String message : messages) {
+            result.append(message).append(" ");
+        }
+        return result.toString().trim();
     }
+
 
     /**
      * Generates a message indicating that a task has been successfully added to the task list.
