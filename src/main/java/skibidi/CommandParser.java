@@ -74,12 +74,13 @@ public class CommandParser {
                 }
                 return new FindCommand(args[1].strip());
             case PRIORITY:
-                if (args.length != 2) {
+                String[] cmdArgs = args[1].split(" ");
+                if (cmdArgs.length != 2) {
                     throw new CommandParseException("COMMAND priority REQUIRES 2 ARGUMENTS");
                 }
                 return new SetPriorityCommand(
-                        Integer.parseInt(args[1].strip()),
-                        Integer.parseInt(args[2].strip()));
+                        Integer.parseInt(cmdArgs[0].strip()),
+                        Integer.parseInt(cmdArgs[1].strip()));
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
             }
