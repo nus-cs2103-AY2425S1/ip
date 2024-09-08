@@ -30,21 +30,34 @@ public class Dipsy {
         this.taskList = Storage.load(); // Load tasks from local disk when the application starts
     }
 
-
     /**
-     * Runs the main loop of the program, printing the welcome message and processing commands until
-     * the exit command is given.
+     *  Returns the welcome message to be displayed when the application starts.
+     * <p>This method retrieves the welcome message from the {@code Ui} class, which is displayed to
+     * the user upon starting the application.</p>
+     *  @return The welcome message to be shown when the application starts.
      */
     public String getWelcomeMessage() {
         return ui.getWelcomeMessage();
     }
 
+    /**
+     * Terminates the program.
+     * <p>This method closes the application by calling {@code System.exit(0)} to ensure a clean termination.</p>
+     */
     public void exit() {
         System.exit(0);
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response based on the user's input in the chat.
+     *
+     * <p>This method processes the user's input by first attempting to parse it into a command.
+     * If the input is invalid or unrecognized, appropriate error messages are returned.
+     * If the input is valid, the command is executed, and the result is returned as the response.
+     * If the command is an exit command, the application will close after processing the response.</p>
+     *
+     * @param input The user's input message to be processed.
+     * @return A response message based on the executed command, or an error message if the input is invalid.
      */
     public String getResponse(String input) {
         Command command;
@@ -67,7 +80,6 @@ public class Dipsy {
         } catch (InvalidDateException e) {
             return ui.getErrorMessage(e.getMessage());
         }
-
 
         if (command.isExit()) {
             exit();

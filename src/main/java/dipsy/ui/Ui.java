@@ -44,17 +44,8 @@ public class Ui {
     }
 
     /**
-     * Returns a message wrapped between two terminal lines for readability.
-     *
-     * @param message The message to print.
-     */
-    private String printWithTerminalLines(String message) {
-        String terminalLine = "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――";
-        return terminalLine + message + terminalLine;
-    }
-
-    /**
-     * Prints a welcome message when the application starts.
+     * Generates a welcome message to be displayed when the application starts.
+     * @return A welcome message to be shown when at the start of the application.
      */
     public String getWelcomeMessage() {
         String introduction = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam "
@@ -64,36 +55,39 @@ public class Ui {
     }
 
     /**
-     * Prints an exit message when the user decides to close the application.
+     * Generates a message to be displayed when the user exits the application.
+     * @return A farewell message to be shown when the user exits the application.
      */
     public String getExitMessage() {
         return "Fur-well friend, stay paw-sitive!";
     }
 
     /**
-     * Prints an error message with the specified content.
-     *
-     * @param message The error message to print.
+     * @param message The error message to be shown to be user.
+     * @return An error message with the specified content.
      */
     public String getErrorMessage(String message) {
         return "Error: " + message;
     }
 
     /**
-     * Prints a message indicating that a task has been added to the list.
-     *
+     * Generates a message indicating that a task has been successfully added to the task list.
      * @param task          The task that was added.
      * @param numberOfTasks The total number of tasks in the list.
+     * @return A message confirming that the task has been added, along with the task details
+     *         and the total number of tasks in the list.
      */
     public String getTaskAddedMessage(Task task, int numberOfTasks) {
         return "(=ↀωↀ=)ノ Task added!\n" + task + "\nYou now have " + numberOfTasks + " tasks in your list.";
     }
 
     /**
-     * Prints a message indicating that a task has been deleted from the list.
+     * Generates a message indicating that a task has been successfully deleted from the task list.
      *
      * @param task          The task that was deleted.
      * @param numberOfTasks The total number of remaining tasks in the list.
+     * @return A message confirming the task deletion, including the task details
+     *         and the total number of tasks in the list.
      */
     public String getTaskDeletedMessage(Task task, int numberOfTasks) {
         return "Purrr, I've swatted this task away:\n" + task
@@ -101,27 +95,32 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been marked as done.
+     * Generates a message indicating that a task has been successfully marked as done.
      *
      * @param task The task that was marked as done.
+     * @return A message confirming that the task has been marked as done, along with the task details.
      */
     public String getMarkTaskDoneMessage(Task task) {
         return "Meow! I’ve scratched this task off the list!\n" + task;
     }
 
     /**
-     * Prints a message indicating that a task has been marked as undone.
+     * Generates a message indicating that a task has been successfully marked as undone.
      *
      * @param task The task that was marked as undone.
+     * @return A message confirming that the task has been marked as undone, along with the task details.
      */
     public String getMarkTaskUndoneMessage(Task task) {
         return "Mrrreow! I’ve batted this task back onto the list.\n" + task;
     }
 
     /**
-     * Prints the list of tasks. If there are no tasks, a message indicating an empty list is printed.
+     * Generates a message with the list of tasks.
+     * <p>If there are no tasks, a message indicating an empty list is generated.</p>
      *
      * @param tasks The list of tasks to print.
+     * @return A message showing the list of tasks, or a message specifying that there are
+     *         no tasks.
      */
     public String getTasksMessage(ArrayList<Task> tasks) {
         int taskCount = tasks.size();
@@ -132,9 +131,12 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks that match a given keyword. If no tasks match, a message is printed.
+     * Generates a message with the list of tasks that match a given keyword.
+     * <p>If no tasks match, a message is printed.</p>
      *
      * @param tasks The list of tasks matching the keyword.
+     * @return A message showing the list of tasks matching the keyword, or a message specifying
+     *         that there are no tasks matching the keyword.
      */
     public String getTasksMatchingKeywordMessage(ArrayList<Task> tasks) {
         return tasks.isEmpty()
@@ -143,10 +145,14 @@ public class Ui {
     }
 
     /**
-     * Helper method to print tasks with a header and task list. The tasks are printed with 1-based indexing.
+     * Formats a list of tasks with a given header and returns the resulting message.
+     *
+     * <p>This helper method generates a message that starts with a provided header, followed by the list of tasks,
+     * each task being printed with 1-based indexing (i.e., the first task is labeled as 1, not 0).</p>
      *
      * @param header The header message to print before listing tasks.
-     * @param tasks  The list of tasks to print.
+     * @param tasks  The list of tasks to be formatted.
+     * @return A formatted string containing the header and the list of tasks with 1-based indexing.
      */
     private String formatTasksMessage(String header, ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder(header + "\n");
