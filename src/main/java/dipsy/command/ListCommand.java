@@ -35,6 +35,7 @@ public class ListCommand extends Command {
      * tasks by a specific date. If the input is simply "list", it will display
      * all tasks. If the input includes a date (e.g., "list yyyy-MM-dd"), it will
      * list tasks that are due or relevant to that date.
+     * Returns a String message to be shown to the user.
      *
      * @throws InvalidDateException If the provided date is in an incorrect format.
      */
@@ -64,12 +65,12 @@ public class ListCommand extends Command {
      * @return A list of tasks that are relevant to the specified date.
      */
     private ArrayList<Task> filterTasksByDate(LocalDate date) {
-        ArrayList<Task> res = new ArrayList<>();
+        ArrayList<Task> filteredListOfTasks= new ArrayList<>();
         for (Task t : tasks.getTasks()) {
             if (date.equals(t.getRelevantDate())) {
-                res.add(t);
+                filteredListOfTasks.add(t);
             }
         }
-        return res;
+        return filteredListOfTasks;
     }
 }

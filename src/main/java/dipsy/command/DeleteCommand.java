@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the DeleteCommand by parsing the user input and deleting the specified task from the task list.
-     * If the input is invalid or the task number is not valid, an exception is thrown.
+     * Returns a String message to be shown to the user.
      *
      * @throws InvalidCommandException If the command format is invalid or the task number is out of bounds.
      */
