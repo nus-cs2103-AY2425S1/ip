@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import jade.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import jade.exception.JadeException;

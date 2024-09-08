@@ -2,9 +2,6 @@ package jade.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jade.task.Task;
-import jade.task.TaskManager;
-import jade.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

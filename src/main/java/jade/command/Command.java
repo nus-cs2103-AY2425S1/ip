@@ -10,6 +10,10 @@ import jade.ui.Ui;
 public abstract class Command {
     protected TaskManager taskManager;
 
+    public Command() {
+
+    }
+
     /**
      * Constructs a Command object with the specified TaskManager.
      *
