@@ -8,18 +8,14 @@ import gui.MainGui;
 import javafx.application.Application;
 import skibidi.CommandParser.CommandParseException;
 
-/**
- * Driver class for the chatbot application.
- */
+/** Driver class for the chatbot application. */
 public class Skibidi {
     private final TaskList taskList;
     private final Storage storage;
     private final Ui ui;
     private final CommandParser parser;
 
-    /**
-     * Constructor for Skibidi chatbot instance.
-     */
+    /** Constructor for Skibidi chatbot instance. */
     public Skibidi(String dataPath) {
         storage = new Storage(dataPath);
         taskList = new TaskList(storage.loadTasksFromDisk());
@@ -27,9 +23,7 @@ public class Skibidi {
         parser = new CommandParser();
     }
 
-    /**
-     * Start terminal session for Skibidi chatbot.
-     */
+    /** Start terminal session for Skibidi chatbot. */
     public void start() {
         System.out.println(Ui.getWelcomeMessage());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -50,15 +44,13 @@ public class Skibidi {
         }
     }
 
-    /**
-     * Parse input command and get string message response.
-     */
+    /** Parse input command and get string message response. */
     public String getResponse(String input) {
         if (parser.isExit(input)) {
             return Ui.getExitMessage();
         }
         try {
-           return parser.parseCommand(input).execute(taskList, storage, ui).get();
+            return parser.parseCommand(input).execute(taskList, storage, ui);
         } catch (CommandParseException err) {
             return err.getMessage();
         }

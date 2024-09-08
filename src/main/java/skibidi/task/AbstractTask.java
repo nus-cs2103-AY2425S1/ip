@@ -3,15 +3,14 @@ package skibidi.task;
 import java.io.IOException;
 import java.time.LocalDate;
 
-/**
- * Abstract class representing a task.
- */
+/** Abstract class representing a task. */
 public abstract class AbstractTask {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Exception thrown when unable to deserialize a string into any subclasses of AbstractTask.
+     * Exception thrown when unable to deserialize a string into any subclasses
+     * of AbstractTask.
      */
     public static class TaskDeserializationException extends Exception {
         public TaskDeserializationException(String message) {
@@ -51,12 +50,14 @@ public abstract class AbstractTask {
     }
 
     /**
-     * Convert information about task to string representation to save to disk easily.
+     * Convert information about task to a string representation so that it can
+     * be easily saved to disk.
      */
     public abstract String serialize() throws IOException;
 
     /**
-     * Construct new instance of AbstractTask from its serialized string representation.
+     * Construct new instance of child class of AbstractTask, based on the raw
+     * string provided.
      */
     public static AbstractTask deserialize(String rawString) throws IOException, TaskDeserializationException {
         String[] args = rawString.split("[|]");

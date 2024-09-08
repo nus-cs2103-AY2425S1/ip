@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * API for generic application messages.
- */
+/** API for generic application messages. */
 public class Ui {
-    /**
-     * Return string for welcome message of the app.
-     */
+    /** Return string for welcome message of the app. */
     public static String getWelcomeMessage() {
         InputStream inputStream = Ui.class.getResourceAsStream("/skibidi-ascii.txt");
         if (inputStream == null) {
@@ -31,23 +27,17 @@ public class Ui {
         return message.toString();
     }
 
-    /**
-     * Return string for exit message of the app.
-     */
+    /** Return string for exit message of the app. */
     public static String getExitMessage() {
         return "EXITING APPLICATION";
     }
 
-    /**
-     * Print separator for demarcating separate command history.
-     */
+    /** Print separator for demarcating separate command history. */
     public void printSeparator() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    /**
-     * Print exit message.
-     */
+    /** Print exit message. */
     public void printExitMessage() {
         System.out.println();
         printSeparator();
