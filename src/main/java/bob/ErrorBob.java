@@ -2,6 +2,9 @@ package bob;
 
 import java.io.IOException;
 
+/**
+ * Represents a non-functioning Bob that only replies with the error he was instantiated with.
+ */
 public class ErrorBob extends Bob {
 
     private String error;
