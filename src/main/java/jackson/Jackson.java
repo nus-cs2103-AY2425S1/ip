@@ -1,11 +1,12 @@
 package jackson;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Scanner;
 import java.util.regex.Matcher;
+import java.util.stream.Stream;
 
 import jackson.enums.Actions;
 import jackson.enums.Commands;
@@ -32,6 +33,9 @@ public class Jackson {
 
     /* Path to save list data */
     private static final String PATH = "src/main/resources/texts/data.txt";
+
+    /* Path list to read secret text from */
+    private static final String SECRET_PATH = "src/main/resources/texts/secret_text.txt";
 
     /* Stores secret text for greedy loading */
     private static String secret = "";
@@ -64,26 +68,18 @@ public class Jackson {
      * @return String response.
      */
     public String readSecret() {
-        // get string builder to read line by line
-        StringBuilder temp = new StringBuilder();
-        String output;
+        String output; // variable to store the accumulated text
+        File f = new File(SECRET_PATH); // File object for Stream
         if (secret.isEmpty()) {
-            File f = new File("src/main/resources/texts/secret_text.txt");
-            try {
-                // read via scanner line by line
-                Scanner sc = new Scanner(f);
-                while (sc.hasNextLine()) {
-                    temp.append(sc.nextLine()).append("\n");
-                }
-                output = temp.toString().strip();
+            // load String Stream from File
+            try (Stream<String> secretString = Files.lines(f.toPath())) {
+                // accumulate each line
+                output = secretString.reduce((line, total) -> total + line + "\n").orElse("").strip();
 
                 // decode from base64 to utf8
                 byte[] decoded = Base64.getDecoder().decode(output);
                 output = new String(decoded);
-
-                // close scanner
-                sc.close();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 // if file path not found
                 output = "Oops! Secret file not found...";
             }
