@@ -31,32 +31,45 @@ public abstract class Task {
         if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")) {
             throw new MissingInformationException("description", descriptions);
         }
+        final int lengthOfTodo = 5;
+        final int lengthOfDeadline = 9;
+        final int lengthOfEvent = 6;
+        final int minimalLengthWithBy = 2;
+        final int minimalLengthWithFrom = 2;
+        final int minimalLengthWithTo = 3;
+        final int descriptionPos = 0;
+        final int byPos = 1;
+        final int lengthOfBy = 3;
+        final int fromPos = 1;
+        final int lengthOfFrom = 5;
+        final int toPos = 2;
+        final int lengthOfTo = 3;
         if (descriptions.startsWith("todo ")) {
-            if (descriptions.length() <= 5 || descriptions.charAt(5) == ' ') {
+            if (descriptions.length() <= lengthOfTodo || descriptions.charAt(lengthOfTodo) == ' ') {
                 throw new MissingInformationException("description", "todo");
             }
-            return new ToDo(false, descriptions.substring(5));
+            return new ToDo(false, descriptions.substring(lengthOfTodo));
         } else if (descriptions.startsWith("deadline ")) {
-            if (descriptions.length() <= 9 || descriptions.charAt(9) == ' ') {
+            if (descriptions.length() <= lengthOfDeadline || descriptions.charAt(lengthOfDeadline) == ' ') {
                 throw new MissingInformationException("description", "deadline");
             }
-            String[] strings = descriptions.substring(9).split("/");
-            if (strings.length < 2 || !strings[1].startsWith("by ")) {
+            String[] strings = descriptions.substring(lengthOfDeadline).split("/");
+            if (strings.length < minimalLengthWithBy || !strings[byPos].startsWith("by ")) {
                 throw new MissingInformationException("by time", "deadline");
             }
-            return new DeadLine(false, strings[0], strings[1].substring(3));
+            return new DeadLine(false, strings[descriptionPos], strings[byPos].substring(lengthOfBy));
         } else if (descriptions.startsWith("event ")) {
-            if (descriptions.length() <= 6 || descriptions.charAt(6) == ' ') {
+            if (descriptions.length() <= lengthOfEvent || descriptions.charAt(lengthOfEvent) == ' ') {
                 throw new MissingInformationException("description", "event");
             }
-            String[] strings = descriptions.substring(6).split("/");
-            if (strings.length < 2 || !strings[1].startsWith("from ")) {
+            String[] strings = descriptions.substring(lengthOfEvent).split("/");
+            if (strings.length < minimalLengthWithFrom || !strings[fromPos].startsWith("from ")) {
                 throw new MissingInformationException("from time", "event");
-            } else if (strings.length < 3 || !strings[2].startsWith("to ")) {
+            } else if (strings.length < minimalLengthWithTo || !strings[toPos].startsWith("to ")) {
                 throw new MissingInformationException("to time", "event");
             }
-            return new Event(false, strings[0], strings[1].substring(5),
-                    strings[2].substring(3));
+            return new Event(false, strings[descriptionPos], strings[fromPos].substring(lengthOfFrom),
+                    strings[toPos].substring(lengthOfTo));
         } else {
             throw new InvalidInputException();
         }
@@ -71,14 +84,24 @@ public abstract class Task {
      * */
 
     public static Task read(String[] strings) throws CorruptedFileException {
-        if (strings.length <= 2) {
+        final int minimalLength = 2;
+        final int typePos = 0;
+        final int iconPos = 1;
+        final int descriptionPos = 2;
+        final int byPos = 3;
+        final int fromPos = 3;
+        final int toPos = 4;
+        final int todoLength = 3;
+        final int deadlineLength = 4;
+        final int eventLength = 5;
+        if (strings.length <= minimalLength) {
             throw new CorruptedFileException("");
-        } else if (strings[0].equals("T") && strings.length == 3) {
-            return new ToDo(parseIcon(strings[1]), strings[2]);
-        } else if (strings[0].equals("D") && strings.length == 4) {
-            return new DeadLine(parseIcon(strings[1]), strings[2], strings[3]);
-        } else if (strings[0].equals("E") && strings.length == 5) {
-            return new Event(parseIcon(strings[1]), strings[2], strings[3], strings[4]);
+        } else if (strings[typePos].equals("T") && strings.length == todoLength) {
+            return new ToDo(parseIcon(strings[iconPos]), strings[descriptionPos]);
+        } else if (strings[typePos].equals("D") && strings.length == deadlineLength) {
+            return new DeadLine(parseIcon(strings[iconPos]), strings[descriptionPos], strings[byPos]);
+        } else if (strings[typePos].equals("E") && strings.length == eventLength) {
+            return new Event(parseIcon(strings[iconPos]), strings[descriptionPos], strings[fromPos], strings[toPos]);
         } else {
             throw new CorruptedFileException("");
         }
