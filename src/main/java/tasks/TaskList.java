@@ -61,6 +61,20 @@ public class TaskList implements Serializable {
     }
 
     /**
+     * Tags the target task in the list based on the index.
+     *
+     * @param index index of target Task object.
+     * @return A string confirming that the task has been tag as not done.
+     * @throws IndexOutOfBoundsException if index is out of bound.
+     */
+    public String tagTask(int index, String tag) throws IndexOutOfBoundsException {
+        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
+        Task t = this.allTasks.get(index);
+        t.setTag(tag);
+        return "OK, I've tag this task:" + "\n" + t.toString();
+    }
+
+    /**
      * Adds a Task to the task list.
      *
      * @param task Task object to add to the list.
@@ -100,7 +114,7 @@ public class TaskList implements Serializable {
         ArrayList<Task> result = new ArrayList<>();
         // Traversal the list to find Task object with keywords in description
         for (Task t : this.allTasks) {
-            if (t.toString().contains(cs)) {
+            if (t.getDescription().contains(cs)) {
                 result.add(t);
             }
         }

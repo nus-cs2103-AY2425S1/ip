@@ -50,6 +50,21 @@ public class Parser {
     }
 
     /**
+     * Tag the complete status of a target task from task list using "tag [index] /t #info" command
+     *
+     * @param commandArray command user input.
+     * @param allTasks task list.
+     * @return A string confirming that the task has been tag.
+     * @throws IllegalArgumentException If the index is out of bounds.
+     */
+    public static String tagTask(String[] commandArray, TaskList allTasks)
+            throws IndexOutOfBoundsException {
+        int index = Integer.parseInt(commandArray[1].split(" /t ", 2)[0]) - 1;
+        String tag = commandArray[1].split(" /t ", 2)[1];
+        return allTasks.tagTask(index, tag);
+    }
+
+    /**
      * Deletes a task from task list.
      * Deletes the target task from task list according to the index
      * and print the current list size.
@@ -92,7 +107,6 @@ public class Parser {
 
         // set isExit flag to indicate bot exit
         // boolean isExit = false;
-
         try {
             switch (Command.valueOf(command)) {
             case BYE:
@@ -103,6 +117,8 @@ public class Parser {
                 return mark(commandArray, allTasks);
             case UNMARK:
                 return unmark(commandArray, allTasks);
+            case TAG:
+                return tagTask(commandArray, allTasks);
             case DELETE:
                 return deleteTask(commandArray, allTasks);
             case FIND:

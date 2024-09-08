@@ -12,6 +12,7 @@ import exceptions.DukeException;
 public abstract class Task implements Serializable {
     protected String task;
     protected boolean isDone = false;
+    protected String tag = "";
 
     /**
      * Checks whether the user's input is a valid command.
@@ -156,6 +157,14 @@ public abstract class Task implements Serializable {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
+    public String getDescription() {
+        return this.task;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     /**
      * Returns basic information of the task.
      *
@@ -164,6 +173,10 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         String statusIcon = this.getStatusIcon();
-        return statusIcon + " " + this.task;
+        String info = statusIcon + " " + this.task;
+        if (this.tag != "") {
+            info += " " + this.tag;
+        }
+        return info;
     }
 }

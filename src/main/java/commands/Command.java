@@ -12,6 +12,7 @@ public enum Command {
     UNMARK,
     DELETE,
     FIND,
+    TAG,
     TODO,
     DEADLINE,
     EVENT
