@@ -17,27 +17,27 @@ import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
 
-    private final Path dataDirectory = Paths.get("data");
-    private final File testFile = new File(dataDirectory.toFile(), "test.txt");
-    private final PrintStream originalOut = System.out;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final Path DATA_DIRECTORY = Paths.get("data");
+    private final File TEST_FILE = new File(DATA_DIRECTORY.toFile(), "test.txt");
+    private final PrintStream ORIGINAL_OUT = System.out;
+    private final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() throws IOException {
-        if (!Files.exists(dataDirectory)) {
-            Files.createDirectories(dataDirectory);
+        if (!Files.exists(DATA_DIRECTORY)) {
+            Files.createDirectories(DATA_DIRECTORY);
         }
-        if (!testFile.exists()) {
-            testFile.createNewFile();
+        if (!TEST_FILE.exists()) {
+            TEST_FILE.createNewFile();
         }
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(OUT_CONTENT));
     }
 
     @AfterEach
     public void tearDown() {
-        System.setOut(originalOut);
-        if (testFile.exists()) {
-            testFile.delete();
+        System.setOut(ORIGINAL_OUT);
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
         }
     }
 
@@ -50,7 +50,7 @@ public class TaskListTest {
         assertTrue(taskList.getTask(taskIndex - 1).isDone());
         String expectedOutput = "Nice! I've marked this task as done:" + System.lineSeparator() +
                 taskList.getTask(taskIndex - 1).toString() + System.lineSeparator();
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, OUT_CONTENT.toString());
     }
 
 }
