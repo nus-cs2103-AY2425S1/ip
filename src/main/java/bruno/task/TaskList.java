@@ -194,11 +194,13 @@ public class TaskList {
     public ArrayList<Task> deleteTask(String ... nums) throws BrunoException {
         try {
             ArrayList<Task> deletedTasks = new ArrayList<>();
-            List<Integer> indices = Arrays.stream(nums)
+            List<Integer> taskIndices = Arrays.stream(nums)
                     .map(i -> Integer.parseInt(i.trim()) - 1)
                     .sorted(Comparator.reverseOrder())
                     .toList();
-            delete(deletedTasks, indices);
+            
+            delete(deletedTasks, taskIndices);
+
             return deletedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
