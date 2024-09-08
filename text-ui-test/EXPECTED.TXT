@@ -1,7 +1,111 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+Hello! I'm Qwerty.
+What can I do for you?
+
+
+Wow. You hit enter without saying anything.
+Speak up or I can't help you.
+
+
+That word isn't in my dictionary. Try again.
+
+
+Here are the tasks in your list:
+
+
+The description of a todo cannot be empty.
+
+
+The description of a todo cannot be empty.
+
+
+You forgot to give me a task number.
+
+
+That index is invalid.
+
+
+That index is invalid.
+
+
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 task in the list.
+
+
+Here are the tasks in your list:
+1.[T][ ] read book
+
+
+That index is invalid.
+
+
+Nice! I've marked this task as done:
+[T][X] read book
+
+
+Here are the tasks in your list:
+1.[T][X] read book
+
+
+The description of a deadline cannot be empty.
+
+
+When is your deadline? You didn't say.
+
+
+The description of a deadline cannot be empty.
+
+
+Got it. I've added this task:
+[D][ ] return book (by: Aug 26th 12pm)
+Now you have 2 tasks in the list.
+
+
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Aug 26th 12pm)
+
+
+The description of an event cannot be empty.
+
+
+Your event starts from...? You didn't say.
+
+
+Your event ends at...? You didn't say.
+
+
+Got it. I've added this task:
+[E][ ] lecture (from: 12pm to: 2pm)
+Now you have 3 tasks in the list.
+
+
+Got it. I've added this task:
+[E][ ] lecture 2 (from: 2pm to: 4pm)
+Now you have 4 tasks in the list.
+
+
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Aug 26th 12pm)
+3.[E][ ] lecture (from: 12pm to: 2pm)
+4.[E][ ] lecture 2 (from: 2pm to: 4pm)
+
+
+Nice! I've marked this task as done:
+[E][X] lecture (from: 12pm to: 2pm)
+
+
+Noted. I've removed this task:
+[E][ ] lecture 2 (from: 2pm to: 4pm)
+Now you have 3 tasks in the list.
+
+
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Aug 26th 12pm)
+3.[E][X] lecture (from: 12pm to: 2pm)
+
+
+Bye. Hope to see you again soon!

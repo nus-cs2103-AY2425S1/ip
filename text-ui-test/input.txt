@@ -1,0 +1,28 @@
+
+help
+list
+todo
+todo /todo todo
+mark
+mark 0
+mark 1
+todo read book
+list
+mark 0
+mark 1
+list
+deadline
+deadline return book
+deadline /by Aug 26th 12pm
+deadline return book /by Aug 26th 12pm
+list
+event
+event lecture
+event lecture /from 12pm
+event lecture /from 12pm /to 2pm
+event lecture 2 /to 4pm /from 2pm
+list
+mark 3
+delete 4
+list
+bye
