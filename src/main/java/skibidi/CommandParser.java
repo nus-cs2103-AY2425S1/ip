@@ -55,7 +55,7 @@ public class CommandParser {
             case UNMARK:
                 return new UnmarkCommand(Integer.parseInt(args[1].strip()));
             case TODO:
-                Todo todo = Todo.validateThenCreate(args);
+                Todo todo = Todo.validateThenCreate(args[1]);
                 String successMessage = String.format("ADDED TODO: %s\n", todo.toString());
                 return new AddCommand(todo, successMessage);
             case DEADLINE:
