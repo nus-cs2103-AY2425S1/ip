@@ -88,6 +88,14 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Updates size of the task list based on its inner ArrayList.
+     *
+     */
+    public void updateSize() {
+        this.size = this.items.size();
+    }
+
 
 
 

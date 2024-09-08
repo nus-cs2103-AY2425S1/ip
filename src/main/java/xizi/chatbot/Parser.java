@@ -10,6 +10,7 @@ import xizi.chatbot.command.Command;
 import xizi.chatbot.command.CommandType;
 import xizi.chatbot.command.DeadlineCommand;
 import xizi.chatbot.command.DeleteCommand;
+import xizi.chatbot.command.DeleteDoneTasksCommand;
 import xizi.chatbot.command.EventCommand;
 import xizi.chatbot.command.FindCommand;
 import xizi.chatbot.command.HelpCommand;
@@ -88,6 +89,8 @@ public class Parser {
             return new HelpCommand();
         case FIND:
             return new FindCommand(userInput);
+        case DELETE_DONE:
+            return new DeleteDoneTasksCommand();
         default:
             throw new XiziException("Sorry, I didn't understand that command."
                     + "Type help for all available commands and format.");

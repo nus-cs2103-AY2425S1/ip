@@ -22,6 +22,8 @@ public enum CommandType {
      */
     UNMARK("^unmark (\\d+)$"),
 
+    DELETE_DONE("^delete done$"),
+
     /**
      * Represents the "delete" command, which deletes a task.
      * The command expects a task number as an argument.
