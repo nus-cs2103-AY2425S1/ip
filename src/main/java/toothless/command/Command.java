@@ -17,5 +17,5 @@ public abstract class Command {
      * @param storage the storage object
      * @throws ToothlessExceptions if an error occurs during execution
      */
-    public abstract void executeCommand(TaskList tasks, Ui ui, Storage storage) throws ToothlessExceptions;
+    public abstract String executeCommand(TaskList tasks, Ui ui, Storage storage) throws ToothlessExceptions;
 }

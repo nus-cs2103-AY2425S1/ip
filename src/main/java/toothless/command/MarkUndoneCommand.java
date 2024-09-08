@@ -24,12 +24,13 @@ public class MarkUndoneCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new MissingIndexExceptions("unmark", "unmark <index>");
         }
         int markIndex = Integer.parseInt(description);
-        taskList.markUndone(markIndex, ui);
+        String response = taskList.markUndone(markIndex, ui);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }

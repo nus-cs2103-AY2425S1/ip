@@ -24,11 +24,12 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new NoDescriptionExceptions("todo", "todo <description>");
         }
-        taskList.addTask(new ToDo(description), ui, taskList);
+        String response = taskList.addTask(new ToDo(description), ui, taskList);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }

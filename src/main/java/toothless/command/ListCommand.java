@@ -9,7 +9,7 @@ import toothless.ui.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) {
-        taskList.printTask();
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.printTask();
     }
 }

@@ -1,12 +1,15 @@
 package toothless.task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import toothless.exceptions.ToothlessExceptions;
 
-import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for Deadline class.
@@ -33,9 +36,9 @@ public class DeadlineTest {
         Exception exception = assertThrows(ToothlessExceptions.class, () -> {
             new Deadline("Submit assignment", "12-12-2023 25:00");
         });
-        String expectedMessage = "Please enter a valid date and time\n" +
-                "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
-                "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+        String expectedMessage = "Please enter a valid date and time\n"
+                + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
+                + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
 

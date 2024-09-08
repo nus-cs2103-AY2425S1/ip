@@ -26,7 +26,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new NoDescriptionExceptions("event", "event <description> /from <start time> /to <end time>");
         } else if (!description.contains("/from") || !description.contains("/to")) {
@@ -40,7 +40,8 @@ public class EventCommand extends Command {
         if (splitEventTime.length != 2) {
             throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
         }
-        taskList.addTask(new Event(splitEvent[0], splitEventTime[0], splitEventTime[1]), ui, taskList);
+        String response = taskList.addTask(new Event(splitEvent[0], splitEventTime[0], splitEventTime[1]), ui, taskList);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }
