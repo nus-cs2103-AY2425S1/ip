@@ -20,6 +20,7 @@ public class TodoParser {
      * @throws DrBrownException If the input is invalid, such as missing the description.
      */
     public static Command parse(String[] inputSplit) throws DrBrownException {
+        assert inputSplit != null : "Input string array should not be null";
         try {
             if (inputSplit[1].trim().isEmpty()) {
                 throw new DrBrownException("Great Scott! You can't add a to-do without a "

@@ -19,6 +19,7 @@ public class ByeParser {
      * @throws DrBrownException If the input contains more than one word.
      */
     public static Command parse(String[] inputSplit) throws DrBrownException {
+        assert inputSplit != null : "Input string array should not be null";
         if (inputSplit.length != 1) {
             throw new DrBrownException("Whoa, hold on! You've written more letters than necessary! "
                     + "It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");

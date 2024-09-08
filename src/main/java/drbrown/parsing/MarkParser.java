@@ -20,6 +20,7 @@ public class MarkParser {
      * @throws DrBrownException If the input is invalid, such as missing the index or providing a non-numeric value.
      */
     public static Command parse(String[] inputSplit) throws DrBrownException {
+        assert inputSplit != null : "Input string array should not be null";
         try {
             if (inputSplit.length == 1) {
                 throw new DrBrownException("Great Scott! You can't complete a task without a count!\n"

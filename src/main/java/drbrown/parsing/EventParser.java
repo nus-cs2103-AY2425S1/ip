@@ -30,6 +30,7 @@ public class EventParser {
      *                          incorrect order of dates, or if the date format is incorrect.
      */
     public static Command parse(String userInput, String[] inputSplit) throws DrBrownException {
+        assert inputSplit != null : "Input string array should not be null";
         try {
             if (inputSplit.length == 1) {
                 throw new DrBrownException("Great Scott! You can't add an event without a description "

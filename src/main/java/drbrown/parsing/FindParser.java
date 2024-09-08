@@ -18,6 +18,7 @@ public class FindParser {
      * @throws DrBrownException If the input is invalid, such as missing the keyword.
      */
     public static Command parse(String[] inputSplit) throws DrBrownException {
+        assert inputSplit != null : "Input string array should not be null";
         if (inputSplit.length == 1) {
             throw new DrBrownException("Whoa, hold on! You've written too few letters than necessary! "
                     + "It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
