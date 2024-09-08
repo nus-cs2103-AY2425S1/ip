@@ -27,20 +27,16 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greeting() {
-        printLine();
-        System.out.println("Wassup! I'm Broski!");
-        System.out.println("What can I do for you bro?");
-        printLine();
+    public String greeting() {
+        return "Wassup! I'm Broski!\n"
+                + "What can I do for you bro?";
     }
 
     /**
      * Says bye to the user.
      */
     public void exit() {
-        printLine();
         System.out.println("Bye, bro. See ya around!");
-        printLine();
     }
 
     /**
@@ -48,11 +44,9 @@ public class Ui {
      * @param taskList stores all prior task input.
      */
     public void list(TaskList taskList) {
-        printLine();
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.println(i + ". " + taskList.get(i - 1));
         }
-        printLine();
     }
 
     /**
@@ -62,12 +56,10 @@ public class Ui {
      * @param reply user input.
      */
     public void mark(TaskList taskList, Parser parser, String reply) {
-        printLine();
         int i = parser.parseIndex(reply);
         taskList.get(i).mark();
         System.out.println("Solid! Marked as done for you:");
         System.out.println(taskList.get(i));
-        printLine();
     }
 
     /**
@@ -77,12 +69,10 @@ public class Ui {
      * @param reply user input.
      */
     public void unmark(TaskList taskList, Parser parser, String reply) {
-        printLine();
         int i = parser.parseIndex(reply);
         taskList.get(i).unmark();
         System.out.println("Alright, I've marked the task as undone:");
         System.out.println(taskList.get(i));
-        printLine();
     }
 
     /**
@@ -92,14 +82,12 @@ public class Ui {
      * @param reply user input.
      */
     public void delete(TaskList taskList, Parser parser, String reply) {
-        printLine();
         int i = parser.parseIndex(reply);
         String temp = taskList.get(i).toString();
         taskList.remove(i);
         System.out.println("Gotcha, I've removed this task:");
         System.out.println(temp);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        printLine();
     }
 
     /**
@@ -108,7 +96,6 @@ public class Ui {
      * @param reply user input.
      */
     public void find(TaskList taskList, String reply) {
-        printLine();
         String lookingFor = reply.replaceFirst("find ", "");
         ArrayList<Task> tempList = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -120,7 +107,6 @@ public class Ui {
         for (int i = 1; i <= tempList.size(); i++) {
             System.out.println(i + ". " + tempList.get(i - 1));
         }
-        printLine();
     }
 
     /**
@@ -138,7 +124,6 @@ public class Ui {
             TaskList taskList, Parser parser, String reply,
             DateTimeParser dateTimeParser) throws TodoException, DeadlineException,
             EventException, WrongInputException {
-        printLine();
         if (reply.length() == 4 && reply.startsWith("todo")) {
             throw new TodoException();
         }
@@ -179,7 +164,6 @@ public class Ui {
             System.out.println("  " + event);
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         }
-        printLine();
     }
 
     /**
@@ -187,7 +171,6 @@ public class Ui {
      */
     public void todoException() {
         System.out.println("Hey, your task description is empty bro.");
-        printLine();
     }
 
     /**
@@ -196,7 +179,6 @@ public class Ui {
     public void deadlineException() {
         System.out.println("Hey, your task description"
                 + " is either empty or your deadline is missing/wonky bro.");
-        printLine();
     }
 
     /**
@@ -205,7 +187,6 @@ public class Ui {
     public void eventException() {
         System.out.println("Hey, your task description"
                 + " is either empty or your duration is missing/wonky bro.");
-        printLine();
     }
 
     /**
@@ -214,7 +195,6 @@ public class Ui {
     public void wrongInputException() {
         System.out.println("I'm sorry but I can't understand you bro."
                 + " Use todo, deadline or event please!");
-        printLine();
     }
 
     /**
@@ -222,6 +202,5 @@ public class Ui {
      */
     public void invalidDateTimeException() {
         System.out.println("Invalid date/time format. Please use dd/MM/yyyy HHmm format.");
-        printLine();
     }
 }
