@@ -100,7 +100,7 @@ public class TaskList {
         return this.list;
     }
 
-    public int getSize() {
+    public int getTaskCount() {
         return this.list.size();
     }
 
@@ -110,14 +110,14 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      * @return A TaskList containing tasks that match the keyword.
      */
-    public TaskList findTask(String keyword) {
-        ArrayList<Task> temp = new ArrayList<>();
+    public TaskList findTaskByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : list) {
             if (task.getDescription().contains(keyword)) {
-                temp.add(task);
+                matchingTasks.add(task);
             }
         }
-        return new TaskList(temp);
+        return new TaskList(matchingTasks);
     }
 
     /**
