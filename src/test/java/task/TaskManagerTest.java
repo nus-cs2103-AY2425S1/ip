@@ -1,4 +1,4 @@
-package task;
+package jade.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
