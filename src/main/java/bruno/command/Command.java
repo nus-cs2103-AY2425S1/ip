@@ -53,6 +53,7 @@ public abstract class Command {
      * the specific behavior of each command.
      */
     public abstract void execute() throws BrunoException;
+    
     @Override
     public abstract String toString();
 }

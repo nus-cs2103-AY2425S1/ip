@@ -19,12 +19,12 @@ public class AddCommand extends Command {
     /**
      * Constructs an AddCommand with the specified task list, description, and task type.
      *
-     * @param tasks        The task list to which the new task will be added.
+     * @param taskList        The task list to which the new task will be added.
      * @param description  The description of the task to be added.
      * @param type         The type of the task to be added.
      */
-    public AddCommand(TaskList tasks, String description, Bruno.TaskType type) {
-        super(tasks);
+    public AddCommand(TaskList taskList, String description, Bruno.TaskType type) {
+        super(taskList);
         this.description = description;
         this.type = type;
     }

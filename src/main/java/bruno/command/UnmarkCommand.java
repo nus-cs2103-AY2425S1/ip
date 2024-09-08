@@ -18,11 +18,11 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs a UnmarkCommand with the specified task list and task number.
      *
-     * @param tasks   The task list in which the task status will be updated.
-     * @param taskNums The index of the task to be unmarked as incomplete (1-based index).
+     * @param taskList   The task list in which the task status will be updated.
+     * @param taskNums The indices of the tasks to be unmarked as incomplete (1-based index).
      */
-    public UnmarkCommand(TaskList tasks, String ... taskNums) {
-        super(tasks);
+    public UnmarkCommand(TaskList taskList, String ... taskNums) {
+        super(taskList);
         this.taskNums = taskNums;
     }
 

@@ -13,10 +13,10 @@ public class ListCommand extends Command {
     /**
      * Constructs a ListCommand with the specified task list.
      *
-     * @param tasks The task list to be displayed.
+     * @param taskList The task list to be displayed.
      */
-    public ListCommand(TaskList tasks) {
-        super(tasks);
+    public ListCommand(TaskList taskList) {
+        super(taskList);
     }
 
     /**

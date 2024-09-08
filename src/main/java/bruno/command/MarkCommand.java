@@ -18,11 +18,11 @@ public class MarkCommand extends Command {
     /**
      * Constructs a MarkCommand with the specified task list and task number.
      *
-     * @param tasks   The task list in which the task status will be updated.
-     * @param taskNums The index of the task to be marked as completed (1-based index).
+     * @param taskList The task list in which the task status will be updated.
+     * @param taskNums The indices of the tasks to be marked as completed (1-based index).
      */
-    public MarkCommand(TaskList tasks, String ... taskNums) {
-        super(tasks);
+    public MarkCommand(TaskList taskList, String ... taskNums) {
+        super(taskList);
         this.taskNums = taskNums;
     }
 

@@ -22,7 +22,7 @@ import bruno.task.ToDo;
  * and update the file with the current task list.
  */
 public class Storage {
-    private DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
     private String directoryPath;
     private String filePath;
 
@@ -60,21 +60,21 @@ public class Storage {
 
                 String[] lineParts = line.split("\\|");
                 String type = lineParts[0].trim();
-                boolean done = lineParts[1].trim().charAt(1) == 'X';
+                boolean isDone = lineParts[1].trim().charAt(1) == 'X';
                 String description = lineParts[2].trim();
 
                 if (type.equals("T")) {
-                    taskList.add(new ToDo(description, done));
+                    taskList.add(new ToDo(description, isDone));
                 } else if (type.equals("D")) {
                     String byString = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
-                    LocalDateTime by = LocalDateTime.parse(byString, formatter2);
-                    taskList.add(new Deadline(description, by, done));
+                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
+                    taskList.add(new Deadline(description, by, isDone));
                 } else if (type.equals("E")) {
                     String fromString = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
                     String toString = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
-                    LocalDateTime from = LocalDateTime.parse(fromString, formatter2);
-                    LocalDateTime to = LocalDateTime.parse(toString, formatter2);
-                    taskList.add(new Event(description, from, to, done));
+                    LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+                    LocalDateTime to = LocalDateTime.parse(toString, formatter);
+                    taskList.add(new Event(description, from, to, isDone));
                 } else {
                     System.out.println("There was a problem when loading some task");
                 }

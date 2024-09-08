@@ -17,7 +17,7 @@ public class Bruno {
         TODO, DEADLINE, EVENT
     }
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private String commandType;
 
     /**
@@ -32,7 +32,7 @@ public class Bruno {
         this.storage = new Storage(directoryPath, filePath);
         this.storage.ensureDirectoryExists();
         this.storage.ensureFileExists();
-        this.tasks = new TaskList(this.storage);
+        this.taskList = new TaskList(this.storage);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Bruno {
 
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input, tasks);
+            Command c = Parser.parse(input, taskList);
             c.execute();
             commandType = c.getClass().getSimpleName();
             return c.toString();

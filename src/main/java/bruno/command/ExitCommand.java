@@ -13,10 +13,10 @@ public class ExitCommand extends Command {
      * Constructs an ExitCommand with the specified task list.
      * This constructor also sets the command to exit the application.
      *
-     * @param tasks The task list associated with this command (though it is not used in this command).
+     * @param taskList The task list associated with this command (though it is not used in this command).
      */
-    public ExitCommand(TaskList tasks) {
-        super(tasks);
+    public ExitCommand(TaskList taskList) {
+        super(taskList);
         super.exit();
     }
 

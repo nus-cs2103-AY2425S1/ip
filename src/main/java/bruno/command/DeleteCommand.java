@@ -19,11 +19,11 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand with the specified task list and task number.
      *
-     * @param tasks   The task list from which the task will be deleted.
-     * @param taskNums The index of the task to be deleted (1-based index).
+     * @param taskList   The task list from which the task will be deleted.
+     * @param taskNums The indices of the tasks to be deleted (1-based index).
      */
-    public DeleteCommand(TaskList tasks, String ... taskNums) {
-        super(tasks);
+    public DeleteCommand(TaskList taskList, String ... taskNums) {
+        super(taskList);
         this.taskNums = taskNums;
     }
 
