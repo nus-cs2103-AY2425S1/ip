@@ -45,11 +45,11 @@ public class Nerf {
      * Main loop
      */
     public void run() {
-        this.ui.greetings();
+        Ui.printGreetings();
         String input;
         do {
             input = ui.getInput();
-            Ui.printDivider();
+            System.out.println(Ui.printDivider());
             System.out.println(handleCommand(input));
         } while (!input.equals("bye"));
         assert input.equals("bye") : "Exit keyword should be 'bye'";
@@ -61,7 +61,7 @@ public class Nerf {
      * @return greeting message.
      */
     public String getGreeting() {
-        return this.ui.greetings();
+        return this.ui.getGreetings();
     }
 
     /**
@@ -73,7 +73,7 @@ public class Nerf {
     public String handleCommand(String input) {
         switch(input){
         case "bye":
-            return this.ui.exit();
+            return this.ui.getExit();
         
         case "list": 
             return this.taskList.printList();

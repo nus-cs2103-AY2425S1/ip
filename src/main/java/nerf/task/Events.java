@@ -36,8 +36,8 @@ public class Events extends Task {
      */
     @Override
     public String getSaveFormat() {
-        String fromDate = Parser.dateToString(this.fromDate, true);
-        String toDate = Parser.dateToString(this.toDate, true);
+        String fromDate = Parser.dateToString(this.fromDate, Parser.DateFormatType.SAVE);
+        String toDate = Parser.dateToString(this.toDate, Parser.DateFormatType.SAVE);
         return String.format("E | %s | %s | %s", super.getSaveFormat(), fromDate, toDate);
     }
 
@@ -48,8 +48,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        String fromDate = Parser.dateToString(this.fromDate, false);
-        String toDate = Parser.dateToString(this.toDate, false);
+        String fromDate = Parser.dateToString(this.fromDate, Parser.DateFormatType.PRINT);
+        String toDate = Parser.dateToString(this.toDate, Parser.DateFormatType.PRINT);
         return String.format("[E]%s (from: %s to: %s)", super.toString(), fromDate, toDate);
     }
 }
