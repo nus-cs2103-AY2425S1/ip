@@ -1,7 +1,20 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Wassup, I am hinlok.Hinlok and I love chinese songs. How can I help you today.
+Type 'bye' to exit
+What the sigma!
+Your task list has 1 hinlok.tasks currently!
+Added a hinlok.tasks.Todo item: cook
+Your task list has 2 hinlok.tasks currently!
+Added a hinlok.tasks.Deadline: assignment
+Your task list has 3 hinlok.tasks currently!
+Added a hinlok.tasks.Event: birthday
+1.[T][ ] cook
+2.[D][ ] assignment (by: 5pm)
+3.[E][ ] birthday (from: 6pm to: 9pm)
+Roger sir, I marked this todo as done:
+[D][X] assignment (by: 5pm)
+1.[T][ ] cook
+2.[D][X] assignment (by: 5pm)
+3.[E][ ] birthday (from: 6pm to: 9pm)
+Roger sir, I marked this task as undone:
+[D][ ] assignment (by: 5pm)
+see ya

@@ -1,0 +1,9 @@
+hi
+todo cook
+deadline assignment /by 5pm
+event birthday /from 6pm /to 9pm
+list
+mark 2
+list
+unmark 2
+bye
