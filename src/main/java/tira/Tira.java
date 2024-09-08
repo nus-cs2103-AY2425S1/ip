@@ -89,6 +89,10 @@ public class Tira {
         // variable declarations
         new Tira("data/tasks/txt").run();
     }
+
+    public String getResponse(String input) {
+        return "Tira heard: " + input;
+    }
 }
 
 
