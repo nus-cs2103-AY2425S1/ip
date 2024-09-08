@@ -1,7 +1,9 @@
 package terminator.command;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
+import javafx.util.Pair;
 import terminator.task.Task;
 
 /**
@@ -29,10 +31,15 @@ public class ListCommand extends Command {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("Listing current mission objectives:\n");
-        for (int i = 0; i < todoList.size(); i++) {
-            Task currentTask = todoList.get(i);
-            sb.append("\n" + (i + 1) + "." + currentTask);
+
+        if (!todoList.isEmpty()) {
+            IntStream
+                    .range(1, todoList.size() + 1)
+                    .boxed()
+                    .map(i -> new Pair<Integer, Task>(i, todoList.get(i - 1)))
+                    .forEach(pair -> sb.append("\n" + pair.getKey() + "." + pair.getValue()));
         }
+
         return sb.toString();
     }
 }

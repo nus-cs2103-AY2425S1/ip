@@ -30,10 +30,10 @@ public class Terminator {
      * Creates a new instance of the Terminator object, which is the main entry point of the application.
      */
     public Terminator() {
-        this.taskList = new TaskList();
-        this.parser = new CommandParser();
-        this.terminalUi = new TerminalUi();
-        this.storage = new Storage();
+        taskList = new TaskList();
+        parser = new CommandParser();
+        terminalUi = new TerminalUi();
+        storage = new Storage();
     }
 
     /**
@@ -48,24 +48,27 @@ public class Terminator {
     private void runTerminalUi() {
         // Load data from storage
         try {
-            this.storage.loadDataFromFile(this.taskList);
+            storage.loadDataFromFile(taskList);
         } catch (TerminatorException e) {
             System.out.println("Invalid data format.");
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
-            this.terminalUi.showErrorMsg();
+            terminalUi.showErrorMsg();
             return;
         }
 
         // Start main event loop
-        this.terminalUi.greet();
+        terminalUi.greet();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            this.terminalUi.printHorizontalLine();
+            terminalUi.printHorizontalLine();
             try {
-                Command command = this.parser.parse(input);
-                String response = command.execute(this.taskList.getTaskList());
+                Command command = parser.parse(input);
+
+                assert taskList.getTaskList() != null : "Task list should not be null";
+                
+                String response = command.execute(taskList.getTaskList());
                 if (command instanceof TodoCommand
                     || command instanceof EventCommand
                     || command instanceof DeadlineCommand
@@ -76,7 +79,7 @@ public class Terminator {
             } catch (TerminatorException de) {
                 System.out.println("Error detected: " + de.getMessage());
             }
-            this.terminalUi.printHorizontalLine();
+            terminalUi.printHorizontalLine();
             input = sc.nextLine();
         }
         sc.close();
@@ -84,12 +87,12 @@ public class Terminator {
         // Save data before exit
         writeToStorage();
 
-        this.terminalUi.showExitMsg();
+        terminalUi.showExitMsg();
     }
 
     private void loadStorage() {
         try {
-            this.storage.loadDataFromFile(this.taskList);
+            storage.loadDataFromFile(taskList);
         } catch (TerminatorException e) {
             System.out.println("Invalid data format.");
         } catch (Exception e) {
@@ -105,8 +108,8 @@ public class Terminator {
     public String getResponse(String input) {
         String response = "";
         try {
-            Command command = this.parser.parse(input);
-            response = command.execute(this.taskList.getTaskList());
+            Command command = parser.parse(input);
+            response = command.execute(taskList.getTaskList());
             if (command instanceof TodoCommand
                     || command instanceof EventCommand
                     || command instanceof DeadlineCommand
@@ -121,7 +124,7 @@ public class Terminator {
 
     private void writeToStorage() {
         try {
-            taskList.writeToDisk(this.storage);
+            taskList.writeToDisk(storage);
         } catch (TerminatorException de) {
             System.out.println(de.getMessage());
         }
