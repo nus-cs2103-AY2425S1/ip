@@ -25,6 +25,7 @@ public class TaskList {
      * @param tasks The initial list of tasks to be included in the TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasklist should not be null";
         this.tasks = tasks;
     }
 
@@ -34,6 +35,7 @@ public class TaskList {
      * @param item The task to be added.
      */
     public void add(Task item) {
+        assert item != null : "Task should not be null";
         tasks.add(item);
     }
 
@@ -64,6 +66,8 @@ public class TaskList {
      * @return A string message confirming the deletion of the task.
      */
     public String removeItem(int index, Ui ui) {
+        assert index >= 0 && index < tasks.size() : "Index should be within bounds of tasklist";
+        assert ui != null : "Ui should not be null";
         Task deleteTask = this.tasks.get(index);
         tasks.remove(deleteTask);
         return ui.showDeleteTask(this, deleteTask);
@@ -78,7 +82,11 @@ public class TaskList {
      * @return A string containing the list of matching tasks or a message indicating no matches.
      */
     public String findMatching(String keyword, Ui ui) {
+        assert keyword != null : "Keyword should not be null";
+        assert ui != null : "Ui should not be null";
+
         StringBuilder result = new StringBuilder().append(ui.showFind()).append("\n");
+        boolean isMatching = false;
         int listCount = 1;
         for (Task item : this.tasks) {
             if (item.getDescription().contains(keyword)) {
@@ -97,6 +105,7 @@ public class TaskList {
      * @return A string containing all tasks in the TaskList.
      */
     public String listOut(Ui ui) {
+        assert ui != null : "Ui should not be null";
         StringBuilder result = new StringBuilder();
         int listCount = 1;
         for (Task item : this.tasks) {
@@ -115,6 +124,8 @@ public class TaskList {
      * @return A string message confirming the task has been marked as completed.
      */
     public String markTask(int itemIndex, Ui ui) {
+        assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
+        assert ui != null : "Ui should not be null";
         Task markTask = this.tasks.get(itemIndex);
         markTask.setStatus(true);
         return ui.showMarkTask(markTask);
@@ -129,6 +140,8 @@ public class TaskList {
      * @return A string message confirming the task has been unmarked as incomplete.
      */
     public String unmarkTask(int itemIndex, Ui ui) {
+        assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
+        assert ui != null : "Ui should not be null";
         Task unmarkTask = this.tasks.get(itemIndex);
         unmarkTask.setStatus(false);
         return ui.showUnmarkTask(unmarkTask);

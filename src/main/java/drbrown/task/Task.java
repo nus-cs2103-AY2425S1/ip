@@ -16,7 +16,9 @@ public abstract class Task {
      * @param isCompleted  The completion status of the task (true if completed, false otherwise).
      * @param description  The description of the task.
      */
-    public Task(boolean isCompleted, String description) {
+    public Task(Boolean isCompleted, String description) {
+        assert isCompleted != null : "Task status should not be null";
+        assert description != null : "Task description should be null";
         this.isCompleted = isCompleted;
         this.description = description;
     }
@@ -53,7 +55,8 @@ public abstract class Task {
      *
      * @param status The new completion status of the task (true if completed, false otherwise).
      */
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
+        assert status != null : "Task status should not be null";
         this.isCompleted = status;
     }
 

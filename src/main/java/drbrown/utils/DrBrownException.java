@@ -13,5 +13,6 @@ public class DrBrownException extends Exception {
      */
     public DrBrownException(String message) {
         super(message);
+        assert message != null : "Exception message should not be null";
     }
 }

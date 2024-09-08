@@ -27,6 +27,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws DrBrownException {
         String[] inputSplit = userInput.split(" ", 2);
+
         return switch (inputSplit[0]) {
         case "todo" -> TodoParser.parse(inputSplit);
         case "deadline" -> DeadlineParser.parse(inputSplit);
@@ -39,5 +40,6 @@ public class Parser {
         case "find" -> FindParser.parse(inputSplit);
         default -> throw new DrBrownException("I'm from the future, and even I don't know what that means.");
         };
+
     }
 }

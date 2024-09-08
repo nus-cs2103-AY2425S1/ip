@@ -50,6 +50,7 @@ public class DrBrown {
      * @return A string containing the result of the command execution or an error message.
      */
     public String showOutput(String userInput) {
+        assert userInput != null : "User input should not be null";
         try {
             Command command = Parser.parse(userInput);
             return command.executeCommand(tasks, ui, storage);

@@ -4,4 +4,3 @@ E | true | project meeting | 2024-08-06 1800 | 2024-08-06 2000
 T | true | join sports club
 T | false | join a fan club
 D | true | go for dinner | 2023-10-05 1900
-E | false | something3 | 2005-10-22 1400 | 2005-10-22 1600
