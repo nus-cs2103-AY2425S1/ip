@@ -68,26 +68,18 @@ public class Storage {
     public ArrayList<Task> load() throws WigglyException, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        if (file.exists()) {
-            Scanner s = new Scanner(file);
-            int count = 0;
+        Scanner s = new Scanner(file);
+        int count = 0;
 
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
 
-                try {
-                    tasks.add(Task.createFromData(line));
-                } catch (IllegalArgumentException e) {
-                    throw new WigglyException(e.getMessage() + " at line " + count);
-                } finally {
-                    count++;
-                }
-            }
-        } else {
             try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
+                tasks.add(Task.createFromData(line));
+            } catch (IllegalArgumentException e) {
+                throw new WigglyException(e.getMessage() + " at line " + count);
+            } finally {
+                count++;
             }
         }
 

@@ -60,6 +60,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markDone();
+
         sb.append("Nice! I've marked this task as done:\n");
         sb.append(task);
         return sb.toString();
@@ -78,6 +79,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markUndone();
+
         sb.append("Ok, I've marked this task as not done yet:\n");
         sb.append(task);
         return sb.toString();
@@ -95,6 +97,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         this.tasks.remove(task);
+
         sb.append("Noted. I've removed this task:\n");
         sb.append(task).append("\n");
         sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!");
