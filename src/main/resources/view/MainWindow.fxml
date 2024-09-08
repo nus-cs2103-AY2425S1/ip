@@ -7,29 +7,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="803.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="803.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
     <children>
         <TextField fx:id="userInput" layoutX="384.8" layoutY="558.0" onAction="#handleUserInput" prefHeight="32.0" prefWidth="342.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="385.0" AnchorPane.rightAnchor="76.0">
          <font>
-            <Font size="9.0" />
+            <Font size="7.0" />
          </font></TextField>
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="36.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
 
-        <VBox layoutX="387.0" layoutY="0.8" prefHeight="566.0" prefWidth="403.0" spacing="10" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="1.0">
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="546.0" prefWidth="403.0">
+        <VBox layoutX="387.0" layoutY="0.8" prefWidth="403.0" spacing="10" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="1.0" AnchorPane.rightAnchor="13.0" AnchorPane.leftAnchor="385.0">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER">
                 <content>
-                    <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="390.0" />
+                    <VBox fx:id="dialogContainer" prefWidth="390.0" VBox.vgrow="ALWAYS"/>
                 </content>
             </ScrollPane>
         </VBox>
 
-        <VBox fx:id="checkboxContainer" prefHeight="600.0" prefWidth="383.0" spacing="5" style="-fx-background-color: #CBC3E3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ScrollPane prefHeight="603.0" prefWidth="383.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
-         </children></VBox>
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="698.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="checkboxContainer" prefHeight="600.0" prefWidth="383.0" spacing="5" style="-fx-background-color: #CBC3E3;"> </VBox>
+            </content>
+        </ScrollPane>
+
+        
     </children>
 </AnchorPane>

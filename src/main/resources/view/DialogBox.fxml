@@ -14,15 +14,18 @@
                 <padding>
                     <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                 </padding>
+            <VBox.margin>
+               <Insets left="5.0" right="5.0"/>
+            </VBox.margin>
             </Label>
         </VBox>
 
-        <ImageView fx:id="displayPicture" fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="displayPicture" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
-                <Insets left="9.0" right="9.0" />
+                <Insets left="1.0" right="1.0" />
             </HBox.margin>
             <clip>
-                <Circle centerX="35.5" centerY="35.5" radius="35.5" />
+                <Circle centerX="20" centerY="20" radius="20" />
             </clip>
         </ImageView>
     </children>
@@ -31,5 +34,3 @@
         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
     </padding>
 </fx:root>
-
-

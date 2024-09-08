@@ -72,11 +72,10 @@ public class MainWindow extends AnchorPane {
         CheckBox taskCheckBox = new CheckBox(taskDescription);
         taskCheckBox.setSelected(isDone);
 
-        int finalI = i;
         taskCheckBox.setOnAction(e -> {
             if (taskCheckBox.isSelected()) {
                 try {
-                    String response = regina.mark(finalI); // Mark the task based on its index
+                    String response = regina.mark(i); // Mark the task based on its index
                     dialogContainer.getChildren().addAll(
                             DialogBox.getReginaDialog(response, reginaImage)
                     );
@@ -85,7 +84,7 @@ public class MainWindow extends AnchorPane {
                 }
             } else {
                 try {
-                    String response = regina.unmark(finalI); // Unmark the task based on its index
+                    String response = regina.unmark(i); // Unmark the task based on its index
                     dialogContainer.getChildren().addAll(
                             DialogBox.getReginaDialog(response, reginaImage)
                     );
@@ -100,11 +99,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = regina.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getReginaDialog(response, reginaImage)
-        );
+        if (!input.isEmpty()) {
+            String response = regina.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getReginaDialog(response, reginaImage)
+            );
+        }
         loadCheckboxes();
         // Clear the input field after handler
         userInput.clear();
