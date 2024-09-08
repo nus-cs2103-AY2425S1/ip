@@ -59,6 +59,7 @@ public class TaskList {
      * Add task into task list.
      */
     public void addTask(AbstractTask task) {
+        assert task != null : "Task being added is invalid!";
         tasks.add(task);
     }
 

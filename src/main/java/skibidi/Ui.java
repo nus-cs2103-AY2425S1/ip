@@ -10,9 +10,7 @@ public class Ui {
     /** Return string for welcome message of the app. */
     public static String getWelcomeMessage() {
         InputStream inputStream = Ui.class.getResourceAsStream("/skibidi-ascii.txt");
-        if (inputStream == null) {
-            return "Resource file 'skibidi-ascii.txt' not found.";
-        }
+        assert inputStream != null : "Resource file 'skibidi-ascii.txt' not found.";
 
         StringBuilder message = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import skibidi.TaskList.TaskNotFoundException;
 import skibidi.task.AbstractTask;
 import skibidi.task.AbstractTask.TaskDeserializationException;
 
@@ -41,10 +42,8 @@ public final class Storage {
             } else {
                 System.out.println("Failed to save changes to file.");
             }
-        } catch (TaskList.TaskNotFoundException err) {
-            System.out.println(err.toString());
-        } catch (IOException err) {
-            System.out.println(err.toString());
+        } catch (TaskNotFoundException | IOException e) {
+            System.out.println(e.toString());
         }
     }
 
