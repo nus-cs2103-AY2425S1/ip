@@ -158,6 +158,13 @@ public class TaskList {
         return msg.toString();
     }
 
+    /**
+     * Moves a specified task to the top of the task list, marking it as a higher priority.
+     *
+     * @param taskNum the index of the task to be prioritised (1-based index)
+     * @return a message confirming the task has been prioritised
+     * @throws SlothingWafflerException if the specified task number is invalid (e.g., out of range or zero)
+     */
     public String prioritiseTask(int taskNum) throws SlothingWafflerException {
         if (taskNum > tasks.size() || taskNum <= 0) {
             throw new SlothingWafflerException("You either have no tasks or don't have that many tasks!");
