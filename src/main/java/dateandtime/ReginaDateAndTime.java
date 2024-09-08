@@ -17,9 +17,9 @@ public class ReginaDateAndTime {
     private static final String OUTPUT_DATE_PATTERN = "MMM dd yyyy";
     private static final String OUTPUT_TIME_PATTERN = "h.mm a";
 
-    private LocalDate date;
-    private LocalTime time;
-    private String savedFormat;
+    private final LocalDate date;
+    private final LocalTime time;
+    private final String savedFormat;
 
     /**
      * Constructs a ReginaDateAndTime instance with the specified date and time.
@@ -51,7 +51,7 @@ public class ReginaDateAndTime {
      *
      * @return A string indicating day, date and time of this instant.
      */
-    public static String now() {
+    public static String getCurrentDateAndTime() {
         String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern(OUTPUT_DATE_PATTERN));
         String nowDayOfWeek = LocalDate.now().getDayOfWeek().name();
         String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern(OUTPUT_TIME_PATTERN));
@@ -105,14 +105,22 @@ public class ReginaDateAndTime {
     /**
      * Checks if this date and time is after the given date and time.
      *
-     * @param dateAndTime The ReginaDateAndTime instance to compare against.
+     * @param targetInstance The ReginaDateAndTime instance to compare against.
      * @return true if this date and time is after the given instance; false otherwise.
      */
-    public boolean isAfter(ReginaDateAndTime dateAndTime) {
-        if (this.date.isBefore(dateAndTime.getDate())) {
+    public boolean isAfter(ReginaDateAndTime targetInstance) {
+        boolean currentDateBeforeTargetDate = this.date.isBefore(targetInstance.getDate());
+        boolean currentTimeBeforeTargetTime = this.date.isEqual(targetInstance.getDate())
+                && this.time.isBefore(targetInstance.getTime());
+        boolean currentInstanceEqualTargetInstance = this.date.isEqual(targetInstance.getDate())
+                && this.time.equals(targetInstance.getTime());
+        if (currentInstanceEqualTargetInstance) {
             return false;
         }
-        if (this.date.isEqual(dateAndTime.getDate()) && this.time.isBefore(dateAndTime.getTime())) {
+        if (currentDateBeforeTargetDate) {
+            return false;
+        }
+        if (currentTimeBeforeTargetTime) {
             return false;
         }
         return true;
@@ -136,6 +144,11 @@ public class ReginaDateAndTime {
         return this.time.format(DateTimeFormatter.ofPattern(OUTPUT_TIME_PATTERN));
     }
 
+    /**
+     * Returns a string representation of the date and time in a format suitable for saving.
+     *
+     * @return A string representing date and time for data saving.
+     */
     public String toSavedFormatting() {
         return this.savedFormat;
     }
@@ -148,6 +161,7 @@ public class ReginaDateAndTime {
     @Override
     public String toString() {
         // Combine formatted date and time
-        return formattedDate() + "," + (this.time != null ? " " + formattedTime() : "");
+        String formattedTimeIfExist = this.time != null ? " " + formattedTime() : "";
+        return formattedDate() + "," + formattedTimeIfExist;
     }
 }

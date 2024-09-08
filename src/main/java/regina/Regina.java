@@ -116,7 +116,6 @@ public class Regina {
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
         TaskList tempList = this.listOfTasks.findTasksOccurringOn(occurringInstance);
         return ui.printMessage(tempList.toString());
-        // return tempList;
     }
 
     /**
@@ -146,11 +145,12 @@ public class Regina {
     public String add(String input) throws ReginaException {
         String[] parts = input.split(" "); // Split input by spaces
         String taskType = parts[0];
-        if (parts.length < 2 && isValidTaskType(taskType)) {
+        boolean taskDescriptionPresent = parts.length >= 2;
+        if (!taskDescriptionPresent && isValidTaskType(taskType)) {
             String message = String.format("OOPS!!! Add your %s task description lah!", taskType);
             throw new ReginaException(message);
         }
-        Task task = null;
+        Task task;
         switch (taskType) {
         case "todo":
             String todoDescription = input.substring(5).trim();
@@ -170,18 +170,7 @@ public class Regina {
             task = new DeadlinesTask(deadlineDescription, deadline);
             break;
         case "event":
-            String[] eventParts = input.substring(6).trim().split(" /");
-            int length = eventParts.length;
-            // check if there is the expected number of sub-parts
-            if (length != 3) {
-                throw new ReginaException("You need to add BOTH the start-time AND the end-time!\n"
-                        + "Type 'help' for reference.");
-            }
-            // if the correct number of sub-parts then check if format is correct
-            if (!(eventParts[1].contains("from") && eventParts[2].contains("to"))) {
-                throw new ReginaException("OI! Use the correct format lah!\n"
-                        + "Type 'help' for reference.");
-            }
+            String[] eventParts = getEventStringSubparts(input);
             String eventDescription = eventParts[0];
             if (!eventParts[1].contains(" ")) {
                 throw new ReginaException("NEITHER the start-time OR end-time can be left blank!\n"
@@ -202,6 +191,22 @@ public class Regina {
                 task,
                 noOfTasks,
                 noOfTasks > 1 ? "s" : ""));
+    }
+
+    private static String[] getEventStringSubparts(String input) throws ReginaException {
+        String[] eventParts = input.substring(6).trim().split(" /");
+        int length = eventParts.length;
+        // check if there is the expected number of sub-parts
+        if (length != 3) {
+            throw new ReginaException("You need to add BOTH the start-time AND the end-time!\n"
+                    + "Type 'help' for reference.");
+        }
+        // if the correct number of sub-parts then check if format is correct
+        if (!(eventParts[1].contains("from") && eventParts[2].contains("to"))) {
+            throw new ReginaException("OI! Use the correct format lah!\n"
+                    + "Type 'help' for reference.");
+        }
+        return eventParts;
     }
 
     /**
@@ -315,7 +320,7 @@ public class Regina {
                 case "help":
                     return this.ui.help(); // Create a method to build the help response
                 case "now":
-                    return ReginaDateAndTime.now(); // Return current date and time as a string
+                    return ReginaDateAndTime.getCurrentDateAndTime(); // Return current date and time as a string
                 case "clear":
                     return clearTaskList();
                 case "list":
@@ -329,17 +334,7 @@ public class Regina {
                 case "delete":
                     String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
                     if (haveNumber(parts)) { // Validate that there's a task number
-                        int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
-                        switch (data.getCommandType()) {
-                        case "mark":
-                            return mark(index);
-                        case "unmark":
-                            return unmark(index);
-                        case "delete":
-                            return delete(index);
-                        default:
-                            return this.ui.printMessage("Give a proper command lah!");
-                        }
+                        return getReplyForNumberedCommand(parts, data);
                     }
                 default:
                     return add(input); // Add a new task
@@ -349,6 +344,16 @@ public class Regina {
             return e.getMessage(); // Return the error messages
         }
         return "I'm not sure how to respond to that."; // Default response
+    }
+
+    private String getReplyForNumberedCommand(String[] parts, CommandData data) throws ReginaException {
+        int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+        return switch (data.getCommandType()) {
+        case "mark" -> mark(index);
+        case "unmark" -> unmark(index);
+        case "delete" -> delete(index);
+        default -> this.ui.printMessage("Give a proper command lah!");
+        };
     }
 
 
@@ -375,7 +380,7 @@ public class Regina {
                         regina.ui.help(); // Provide help information
                         break;
                     case "now":
-                        regina.ui.printMessage(ReginaDateAndTime.now());
+                        regina.ui.printMessage(ReginaDateAndTime.getCurrentDateAndTime());
                         break;
                     case "clear":
                         regina.clearTaskList(); // Clear all tasks

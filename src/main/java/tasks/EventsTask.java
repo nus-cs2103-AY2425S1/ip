@@ -27,7 +27,7 @@ public class EventsTask extends Task {
 
     /**
      * Checks if the event is occurring at the specified date and time.
-     *
+     * <p>
      * This method determines if the provided date and time falls within the
      * event's start and end time. The event is considered to be occurring
      * if the specified date and time is at or after the start time and

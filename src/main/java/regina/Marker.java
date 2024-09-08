@@ -8,7 +8,6 @@ import tasks.TaskList;
  * The regina.Marker class provides methods to mark and unmark tasks in a task list.
  * It interacts with the tasks.TaskList to check off tasks as completed or not.
  */
-
 public class Marker {
 
     private final TaskList listOfTasks;
