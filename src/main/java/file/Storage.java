@@ -34,9 +34,8 @@ public class Storage {
         TaskList listOfTasks = new TaskList();
         File f = new File(FILE_PATH); // Create a File for the given file path
 
-        Scanner s = null;
-        try {
-            s = new Scanner(f); // Create a Scanner using the File as the source
+        try (Scanner s = new Scanner(f)) {
+            // Create a Scanner using the File as the source
             while (s.hasNextLine()) {
                 listOfTasks.add(readLine(s.nextLine())); // Add the tasks into the list
             }
@@ -46,10 +45,6 @@ public class Storage {
                 f.createNewFile(); // Create a new file
             } catch (IOException ioe) {
                 System.out.println("Unable to create file. Please check permissions and restart me.");
-            }
-        } finally {
-            if (s != null) {
-                s.close();
             }
         }
 
@@ -77,20 +72,23 @@ public class Storage {
      */
     public static Task readLine(String line) throws ReginaException {
         Task task;
-        String[] taskParts = line.split("\\s*\\|\\s*"); // Split based on '|' with optional spaces
+        String[] taskParts = line.split("\\s*\\|\\s*");
         String taskType = taskParts[0].trim();
         boolean isMarked = taskParts.length > 1 && taskParts[1].equals("X");
         String taskDescription = taskParts.length > 2 ? taskParts[2].trim() : "";
 
-        if (taskType.equals("T")) {
-            task = new ToDosTask(taskDescription);
-        } else if (taskType.equals("D")) {
+        switch (taskType) {
+        case "T" -> task = new ToDosTask(taskDescription);
+        case "D" -> {
             String taskDeadline = taskParts[3];
             task = new DeadlinesTask(taskDescription, taskDeadline);
-        } else { // taskType is "E"
+        }
+        case "E" -> {
             String taskStartTime = taskParts[3];
             String taskEndTime = taskParts[4];
             task = new EventsTask(taskDescription, taskStartTime, taskEndTime);
+        }
+        default -> throw new ReginaException("Invalid task type detected.");
         }
 
         if (isMarked) {
