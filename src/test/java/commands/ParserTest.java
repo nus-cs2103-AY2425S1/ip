@@ -1,12 +1,12 @@
-package echo;
+package commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import commands.Parser;
-import exceptions.DukeException;
 import org.junit.jupiter.api.Test;
+
+import exceptions.DukeException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;

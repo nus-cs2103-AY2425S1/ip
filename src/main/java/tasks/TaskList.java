@@ -40,7 +40,7 @@ public class TaskList implements Serializable {
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String markTask(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1: " Index should be in proper range";
+        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
         Task t = this.allTasks.get(index);
         t.setMark();
         return "Nice! I've marked this task as done:" + "\n" + t.toString();
@@ -54,7 +54,7 @@ public class TaskList implements Serializable {
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String unmarkTask(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1: " Index should be in proper range";
+        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
         Task t = this.allTasks.get(index);
         t.setUnmark();
         return "OK, I've marked this task as not done yet:" + "\n" + t.toString();
@@ -80,7 +80,7 @@ public class TaskList implements Serializable {
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String delete(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1: " Index should be in proper range";
+        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
         String message = "Noted. I've removed this task:" + "\n";
         Task t = allTasks.get(index);
         // Remove the task from list and return the size of list

@@ -1,9 +1,9 @@
 package tasks;
 
-import exceptions.DukeException;
-
 import java.io.Serializable;
 import java.util.regex.Pattern;
+
+import exceptions.DukeException;
 
 /**
  * Abstract base class representing a task.
