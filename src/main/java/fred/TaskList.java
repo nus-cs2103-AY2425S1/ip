@@ -126,17 +126,24 @@ public class TaskList {
      *
      * @return An ArrayList containing all tasks.
      */
-    ArrayList<Task> getTaskList() {
-        return taskList;
+    String getTaskListString() {
+        StringBuilder taskListSb = new StringBuilder();
+        int index = 1;
+        for (Task task : taskList) {
+            taskListSb.append(String.format("%s.%s", index++, task));
+            taskListSb.append("\n");
+        }
+        return taskListSb.toString();
     }
 
-    ArrayList<Task> findTasksInTaskList(String keyword) {
-        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+    String findTasksInTaskList(String keyword) {
+        StringBuilder tasksWithKeyword = new StringBuilder();
         for (Task task : taskList) {
             if (task.checkForKeyword(keyword)) {
-                tasksWithKeyword.add(task);
+                tasksWithKeyword.append(task.toString());
+                tasksWithKeyword.append("\n");
             }
         }
-        return tasksWithKeyword;
+        return tasksWithKeyword.toString();
     }
 }
