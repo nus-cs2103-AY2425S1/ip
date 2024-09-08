@@ -5,61 +5,56 @@
 
  |  Available commands: list, mark, unmark, todo, event, deadline, find.
  |  I'm sorry, I do not understand what 'asdasd' is!
- |  Available commands: list, mark, unmark, todo, event, deadline.
-
-
+ |  Available commands: list, mark, unmark, todo, event, deadline, find.
  |  Here are the tasks in your list:
+ |
  |   1.[T][ ] a
  |   2.[T][X] b
  |   3.[D][ ] adadsdd (by: Dec 12 2023)
  |   4.[E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
 
+ |  Noted. I've deleted this task:
+ |  [T][ ] a
+ |  Now you have 3 tasks in the list.
+
+ |  Noted. I've deleted this task:
+ |  [D][ ] adadsdd (by: Dec 12 2023)
+ |  Now you have 2 tasks in the list.
+
  |  I'm sorry, but task number 3 does not exist!
-
-
+ |  Not enough Arguments!
+ |  Not enough Arguments!
+ |  Not enough Arguments!
  |  Nice! I've marked this task as done:
  |  [E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
 
  |  I'm sorry, but task number 3 does not exist!
-
-
  |  I'm sorry, but task number -1 does not exist!
-
-
  |  I'm sorry, but task number -1 does not exist!
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
  |  I'm sorry, I do not understand what 'todo' is!
  |  Here is the usage for the instruction 'todo':
  |
  |      todo TASK_NAME
  |
  |  where TASK_NAME is the name of this todo task to add
-
-
  |  I'm sorry, I do not understand what 'todo' is!
  |  Here is the usage for the instruction 'todo':
  |
  |      todo TASK_NAME
  |
  |  where TASK_NAME is the name of this todo task to add
-
-
- |  Got it. I've added this task:
- |  [T][ ] This is a to-do
- |  Now you have 2 tasks in the list.
-
- |  Got it. I've added this task:
- |  [T][ ] trailing spaces
+ |
+ |  Got it. I've added this task:[T][ ] This is a to-do
  |  Now you have 3 tasks in the list.
 
+ |
+ |  Got it. I've added this task:[T][ ] trailing spaces
+ |  Now you have 4 tasks in the list.
+
  |  Here are the tasks in your list:
+ |
  |   1.[T][X] b
  |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
  |   3.[T][ ] This is a to-do
@@ -72,8 +67,6 @@
  |
  |  where TASK_NAME is the name of this deadline task to add
  |        DEADLINE  is the deadline for this task
-
-
  |  I'm sorry, I do not understand what 'deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
@@ -81,12 +74,8 @@
  |
  |  where TASK_NAME is the name of this deadline task to add
  |        DEADLINE  is the deadline for this task
-
-
  |  I'm sorry, I do not understand what 'Text 'today' could not be parsed at index 0' is!
  |  Time value must be given in any valid date-time format!
-
-
  |  I'm sorry, I do not understand what 'deadline this has no by-date' is!
  |  Here is the usage for the instruction 'deadline':
  |
@@ -94,8 +83,6 @@
  |
  |  where TASK_NAME is the name of this deadline task to add
  |        DEADLINE  is the deadline for this task
-
-
  |  I'm sorry, I do not understand what 'deadline wrong tag /from alskjdadkj /to ksasdklj' is!
  |  Here is the usage for the instruction 'deadline':
  |
@@ -103,9 +90,8 @@
  |
  |  where TASK_NAME is the name of this deadline task to add
  |        DEADLINE  is the deadline for this task
-
-
  |  Here are the tasks in your list:
+ |
  |   1.[T][X] b
  |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
  |   3.[T][ ] This is a to-do
@@ -119,8 +105,6 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  I'm sorry, I do not understand what 'event' is!
  |  Here is the usage for the instruction 'event':
  |
@@ -129,12 +113,8 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  I'm sorry, I do not understand what 'Text 'yesterday love was such an easy game to play' could not be parsed at index 0' is!
  |  Time value must be given in any valid date-time format!
-
-
  |  I'm sorry, I do not understand what 'event this has no tags' is!
  |  Here is the usage for the instruction 'event':
  |
@@ -143,8 +123,6 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  I'm sorry, I do not understand what 'event wrong tag /by asldkjdska' is!
  |  Here is the usage for the instruction 'event':
  |
@@ -153,8 +131,6 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  I'm sorry, I do not understand what 'event no from tag /to today' is!
  |  Here is the usage for the instruction 'event':
  |
@@ -163,8 +139,6 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  I'm sorry, I do not understand what 'event no to tag /from tomorrow' is!
  |  Here is the usage for the instruction 'event':
  |
@@ -173,13 +147,33 @@
  |  where TASK_NAME  is the name of this event task to add
  |        START_DATE is the start time/date for this event
  |        END_DATE   is the end time/date for this event
-
-
  |  Here are the tasks in your list:
+ |
  |   1.[T][X] b
  |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
  |   3.[T][ ] This is a to-do
  |   4.[T][ ] trailing spaces
+
+ |  Not enough Arguments!
+ |  Searching for 'spaces'.
+ |  Found 1 tasks with 'spaces' (Type reset to return to default view)
+
+ |  Here are the tasks in your list:
+ |  (Filter: 'spaces')
+ |
+ |   1.[T][ ] trailing spaces
+
+ |  Nice! I've marked this task as done:
+ |  [T][X] trailing spaces
+
+ |  Alright. Back to main view of whole list.
+
+ |  Here are the tasks in your list:
+ |
+ |   1.[T][X] b
+ |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
+ |   3.[T][ ] This is a to-do
+ |   4.[T][X] trailing spaces
 
  |  Nice! I've marked this task as done:
  |  [T][X] b
@@ -191,43 +185,47 @@
  |  [T][ ] b
 
  |  I'm sorry, but task number -1 does not exist!
-
-
  |  I'm sorry, but task number -1 does not exist!
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
  |  I'm sorry, but task number -1 does not exist!
-
+ |  Noted. I've deleted this task:
+ |  [E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
+ |  Now you have 3 tasks in the list.
 
  |  Here are the tasks in your list:
+ |
  |   1.[T][ ] b
  |   2.[T][ ] This is a to-do
- |   3.[T][ ] trailing spaces
+ |   3.[T][X] trailing spaces
 
- |  Got it. I've added this task:
- |  [E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
- |  Now you have 1 tasks in the list.
-
- |  Got it. I've added this task:
- |  [D][ ] test2 (by: Dec 11 2033)
+ |  Noted. I've deleted this task:
+ |  [T][ ] b
  |  Now you have 2 tasks in the list.
 
+ |  Noted. I've deleted this task:
+ |  [T][ ] This is a to-do
+ |  Now you have 1 tasks in the list.
+
+ |
+ |  Got it. I've added this task:[E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
+ |  Now you have 2 tasks in the list.
+
+ |
+ |  Got it. I've added this task:[D][ ] test2 (by: Dec 11 2033)
+ |  Now you have 3 tasks in the list.
+
  |  Here are the tasks in your list:
- |   1.[T][ ] trailing spaces
+ |
+ |   1.[T][X] trailing spaces
  |   2.[E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
  |   3.[D][ ] test2 (by: Dec 11 2033)
 
+ |  Alright. Back to main view of whole list.
+
  |  Bye. Hope to see you again soon!
 
-TODO:trailing spaces:false
+TODO:trailing spaces:true
 EVENT:test1:false:2023-12-12:2068-12-23
 DEADLINE:test2:false:2033-12-11

@@ -2,7 +2,9 @@ package yappingbot.commands;
 
 import java.util.HashMap;
 
+import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
+import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 
 /**
@@ -74,5 +76,12 @@ public class Parser {
             throw new YappingBotInvalidTaskNumberException(userInputSlice);
         }
         return i;
+    }
+
+    public static void checkMinimumArgsAvailable(String[] userInputSlices, int i)
+    throws YappingBotOobException {
+        if ((userInputSlices.length - 1) < i) {
+            throw new YappingBotOobException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS, i);
+        }
     }
 }

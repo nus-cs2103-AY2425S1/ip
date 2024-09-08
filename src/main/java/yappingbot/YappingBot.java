@@ -6,7 +6,6 @@ import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
@@ -93,17 +92,17 @@ public class YappingBot {
                     commandDispatch.printUserList(userList);
                     break;
                 case MARK:
-                    checkMinimumArgsAvailable(userInputSlices, 1);
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
                     break;
                 case UNMARK:
-                    checkMinimumArgsAvailable(userInputSlices, 1);
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
                     break;
                 case DELETE:
-                    checkMinimumArgsAvailable(userInputSlices, 1);
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.deleteTask(taskListIndexPtr, userList);
                     break;
@@ -117,6 +116,7 @@ public class YappingBot {
                     commandDispatch.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
                     break;
                 case FIND:
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     String searchString = userInput.substring(userInput.indexOf(" ") + 1);
                     userList = commandDispatch.findStringInTasks(searchString, userList);
                     break;
@@ -127,13 +127,6 @@ public class YappingBot {
             } catch (YappingBotException e) {
                 ui.printError(e);
             }
-        }
-    }
-
-    private void checkMinimumArgsAvailable(String[] userInputSlices, int i)
-    throws YappingBotOobException {
-        if ((userInputSlices.length - 1) < i) {
-            throw new YappingBotOobException("", i);
         }
     }
 

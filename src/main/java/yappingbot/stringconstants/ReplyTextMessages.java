@@ -4,6 +4,7 @@ package yappingbot.stringconstants;
  * String constants of messages that the bot can use to reply.
  */
 public final class ReplyTextMessages {
+    public static final String NOT_ENOUGH_ARGUMENTS = "Not enough Arguments!";
     // Text strings
     private static final String BOT_NAME = "YappingBot";
     public static final String GREETING_TEXT = String.format(
