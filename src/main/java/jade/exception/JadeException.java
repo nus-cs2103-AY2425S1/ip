@@ -1,4 +1,4 @@
-package exception;
+package jade.exception;
 
 /**
  * Custom exception class for handling Jade-specific errors.

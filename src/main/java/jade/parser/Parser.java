@@ -1,13 +1,13 @@
-package parser;
+package jade.parser;
 
 import java.time.format.DateTimeParseException;
 
-import exception.JadeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-import ui.Ui;
+import jade.exception.JadeException;
+import jade.task.Event;
+import jade.task.Todo;
+import jade.ui.Ui;
+import jade.task.Deadline;
+import jade.task.Task;
 
 /**
  * Handles the parsing of user commands and executes the appropriate actions.

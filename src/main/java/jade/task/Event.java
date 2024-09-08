@@ -1,4 +1,6 @@
-package task;
+package jade.task;
+
+import jade.ui.Ui;
 
 import java.time.LocalDateTime;
 
@@ -56,7 +58,7 @@ public class Event extends Task {
     public String toString() {
         int len = super.toString().length();
         return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + "\n"
-                + ui.Ui.INDENT.repeat(3) + " ".repeat(len - 1)
+                + Ui.INDENT.repeat(3) + " ".repeat(len - 1)
                 + "to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 }

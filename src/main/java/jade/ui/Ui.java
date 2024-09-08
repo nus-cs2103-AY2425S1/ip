@@ -1,13 +1,13 @@
-package ui;
+package jade.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exception.JadeException;
-import parser.Parser;
-import task.Task;
-import task.TaskManager;
-import task.TaskType;
+import jade.exception.JadeException;
+import jade.parser.Parser;
+import jade.task.Task;
+import jade.task.TaskManager;
+import jade.task.TaskType;
 
 /**
  * Handles user interaction and input for the Jade application.
