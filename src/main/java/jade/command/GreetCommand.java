@@ -10,4 +10,9 @@ public class GreetCommand extends Command {
                 + INDENT + "What can I do for you?";
         return displayMessage(message);
     }
+
+    @Override
+    public String runForGUI() {
+        return "Hello! I'm Jade!\nWhat can I do for you?";
+    }
 }

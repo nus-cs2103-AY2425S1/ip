@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String run() throws JadeException {
+    public String run() {
         try {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
             if (taskManager.isValidTaskIndex(taskIndex)) {
@@ -38,6 +38,29 @@ public class MarkCommand extends Command {
                     + INDENT + "  mark <index>");
         } catch (JadeException e) {
             return displayErrorMessage(e.getMessage());
+        }
+    }
+
+    @Override
+    public String runForGUI() {
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+            if (taskManager.isValidTaskIndex(taskIndex)) {
+                taskManager.markTask(taskIndex, isDone);
+                String status = isDone
+                        ? "Nice! I've marked this task as done:"
+                        : "OK, I've marked this task as not done yet:";
+                StringBuilder message = new StringBuilder();
+                message.append(status).append("\n")
+                        .append("  ").append(taskManager.getTask(taskIndex));
+                return message.toString();
+            } else {
+                throw new JadeException("Hmm, no such task. Try again.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please specify a valid task number in the format:\n  mark <index>";
+        } catch (JadeException e) {
+            return e.getMessage();
         }
     }
 }

@@ -9,4 +9,9 @@ public class ExitCommand extends Command {
         String message = INDENT + "Bye. Hope to see you again soon!";
         return displayMessage(message);
     }
+
+    @Override
+    public String runForGUI() {
+        return "Bye. Hope to see you again soon!";
+    }
 }

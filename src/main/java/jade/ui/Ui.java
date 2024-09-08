@@ -24,11 +24,11 @@ public class Ui {
      *
      * @param taskManager The TaskManager to interact with.
      */
-    public Ui(TaskManager taskManager) {
+    public Ui(TaskManager taskManager, Parser parser) {
         this.taskManager = taskManager;
+        this.parser = parser;
 
         this.sc = new Scanner(System.in);
-        this.parser = new Parser();
     }
 
     /**
