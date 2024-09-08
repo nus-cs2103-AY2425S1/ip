@@ -30,16 +30,8 @@ public class Ui {
         return "EXITING APPLICATION";
     }
 
-    /** Print separator for demarcating separate command history. */
-    public void printSeparator() {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
-
-    /** Print exit message. */
-    public void printExitMessage() {
-        System.out.println();
-        printSeparator();
-        System.out.println(getExitMessage());
-        printSeparator();
+    /** Return string separator for demarcating separate command history. */
+    public static String getSeparator() {
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     }
 }
