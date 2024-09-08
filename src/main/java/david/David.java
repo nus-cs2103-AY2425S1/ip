@@ -39,6 +39,10 @@ public class David {
         this.tasks = cache.loadTasks();
     };
 
+    /**
+     * Returns a start-up message on launch of the appplication
+     * @return Start-up message
+     */
     public String getStartUpMessage() {
         return ui.start();
     }
@@ -51,7 +55,7 @@ public class David {
         inputString = input;
 
         if (inputString.equals("bye")) {
-            return endChatBot(); //end chatbot
+            return endChatBot();
         }
 
         try {
@@ -76,11 +80,7 @@ public class David {
                 throw new DavidUnknownActionException();
             }
         } catch (DavidException e) {
-            /*
-            Catch all exception.
-            The actual error message thrown/shown depends on the runtime type of
-            the exception thrown. (Polymorphism)
-             */
+            //The actual error message thrown depends on the runtime type of the exception thrown. (Polymorphism)
             return ui.displayErrorMessage(e);
         }
     }
@@ -103,8 +103,10 @@ public class David {
      */
     public String addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
+
         Task t = new TodoTask(s, false);
         this.tasks.addTask(t);
+
         return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
@@ -120,16 +122,17 @@ public class David {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /from", 2);
         String eventName = eventSplit[0];
+
+        //Check if "from" field exists
         if (eventSplit.length <= 1) {
-            //"from" field does not exist
             throw new DavidInvalidRangeException();
         }
 
         assert eventSplit.length > 1 : "from field does not exist";
 
+        //Check if "to" field exists
         String[] eventDetails = eventSplit[1].split(" /to", 2);
         if (eventDetails.length <= 1 || eventDetails[0].trim().equals("") || eventDetails[1].trim().equals("")) {
-            //only the "from" field exist
             throw new DavidInvalidRangeException();
         }
 
@@ -138,6 +141,7 @@ public class David {
 
         Task t = new EventTask(eventName, fromDate, toDate, false);
         this.tasks.addTask(t);
+
         return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
@@ -153,14 +157,15 @@ public class David {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
 
+        //Checks if deadline is added to the input string
         if (eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
-            //deadline is not added to the input string
             throw new DavidInvalidDeadlineException();
         }
 
         LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
         Task t = new DeadlineTask(eventSplit[0], byDate, false);
         this.tasks.addTask(t);
+
         return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
@@ -174,11 +179,15 @@ public class David {
         try {
             String index = StringParser.parseStringToArguments(s);
             int i = Integer.parseInt(index) - 1;
+
+            //Throws error when invalid indexed task is provided
             if (i >= tasks.getSize()) {
                 throw new DavidInvalidTaskException();
             }
+
             Task t = tasks.getTask(i);
             tasks.deleteTask(i);
+
             return ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
         } catch (NumberFormatException e) {
             return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
@@ -196,6 +205,7 @@ public class David {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsDone();
+
             return ui.displayMarkAsDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
             return ui.displayErrorMessage("No such task! Please enter a valid task.");
@@ -214,6 +224,7 @@ public class David {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsUnDone();
+
             return ui.displayMarkAsUnDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
             return ui.displayErrorMessage("No such task! Please enter a valid task.");

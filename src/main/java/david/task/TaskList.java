@@ -76,9 +76,10 @@ public class TaskList {
      * @return  String containing all events matching the string specified by the user
      */
     public String findEvent(String s) {
-        String events = " ____________________________________________________________\n"
-                + "Here are the matching tasks  in your list:\n";
+        String events = "Here are the matching tasks  in your list:\n";
+
         for (int i = 0; i < tasks.size(); i++) {
+            //Iterates through all tasks and finds tasks containing strings matching the string provided
             Task t = tasks.get(i);
             String[] eventDetails = t.getTask().split(" ");
             List<String> eventArr = new ArrayList<>(Arrays.asList(eventDetails));
@@ -87,7 +88,6 @@ public class TaskList {
             }
         }
 
-        events += " ____________________________________________________________\n";
         return events;
     }
     @Override
@@ -95,10 +95,12 @@ public class TaskList {
         if (tasks.size() == 0) {
             return "All is good :) There is no tasks for the time being.";
         }
+
         String str = "";
         for (int i = 0; i < tasks.size(); i++) {
             str += i + 1 + ": " + tasks.get(i) + "\n";
         }
+
         return str;
     }
 }

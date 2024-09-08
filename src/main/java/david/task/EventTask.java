@@ -27,7 +27,9 @@ public class EventTask extends Task {
 
     @Override
     public String toCacheString() {
-        return "E|" + (this.isCompleted() ? "1" : "0") + "|"
+        String isCompleted = this.isCompleted() ? "1" : "0";
+
+        return "E|" + isCompleted + "|"
                 + this.getTask() + "|" + DateParser.formatCacheDate(this.from)
                 + "|" + DateParser.formatCacheDate(this.to);
     }
@@ -35,6 +37,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
+
         return "[E]" + "[" + isCompleted + "] " + super.getTask()
                 + " (from: " + DateParser.formatOutputDate(this.from)
                 + " to: " + DateParser.formatOutputDate(this.to) + ")";

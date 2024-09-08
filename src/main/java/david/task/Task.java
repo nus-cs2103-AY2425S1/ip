@@ -58,6 +58,7 @@ public abstract class Task {
     public String toString() {
         assert taskName.length() != 0 : "No event string provided";
         String isCompleted = this.isCompleted ? "X" : " ";
+
         return "[" + isCompleted + "] " + this.taskName;
     }
 

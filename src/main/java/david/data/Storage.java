@@ -29,6 +29,7 @@ TaskType | completed | eventName | (optional) by/from | (optional) to
  * Defines a Storage class to store Data
  */
 public class Storage {
+    private static final String taskCompleted = "1";
     private String path;
 
     /**
@@ -40,7 +41,7 @@ public class Storage {
     }
 
     /**
-     * Loads the cached list of tasks if exist.
+     * Loads the cached list of tasks if it exists.
      * If it does not exist, a new cache will be created
      * @return arraylist of tasks
      */
@@ -67,34 +68,36 @@ public class Storage {
      * @return Task corresponding to the input string
      */
     private Task parseTask(String s) {
-        String[] info = s.split("\\|");
+        String[] taskInformation = s.split("\\|");
         Task t = null;
+
+        //Checks if the task is completed.
         boolean isCompleted = false;
-        if (info[1].equals("1")) {
+        if (taskInformation[1].equals(taskCompleted)) {
             isCompleted = true;
         }
 
-        switch (info[0]) {
+        switch (taskInformation[0]) {
         case "T":
-            //"TODO" task
-            t = new TodoTask(info[2], isCompleted);
+            //Details a "TODO" task
+            t = new TodoTask(taskInformation[2], isCompleted);
             break;
         case "D":
-            //"Deadline task"
+            //Details a "Deadline task"
             try {
-                LocalDateTime byDate = DateParser.getDate(info[3]);
-                t = new DeadlineTask(info[2], byDate, isCompleted);
+                LocalDateTime byDate = DateParser.getDate(taskInformation[3]);
+                t = new DeadlineTask(taskInformation[2], byDate, isCompleted);
                 break;
             } catch (DavidInvalidDateTimeException e) {
                 System.out.println("error");
             }
             break;
         case "E":
-            //"Event" task
+            //Details a "Event" task
             try {
-                LocalDateTime fromDate = DateParser.getDate(info[3]);
-                LocalDateTime toDate = DateParser.getDate(info[4]);
-                t = new EventTask(info[2], fromDate, toDate, isCompleted);
+                LocalDateTime fromDate = DateParser.getDate(taskInformation[3]);
+                LocalDateTime toDate = DateParser.getDate(taskInformation[4]);
+                t = new EventTask(taskInformation[2], fromDate, toDate, isCompleted);
                 break;
             } catch (DavidInvalidDateTimeException e) {
                 System.out.println("error");
@@ -112,6 +115,8 @@ public class Storage {
     private void createNewCache() {
         assert this.path.length() != 0 : "No path specified";
         File newFile = new File(this.path);
+
+        // Creates a new file for caching data.
         try {
             newFile.createNewFile();
         } catch (IOException e) {
@@ -127,15 +132,17 @@ public class Storage {
     public void saveTask(TaskList tasks) throws DavidCacheException {
         try {
             FileWriter writer = new FileWriter(this.path, false);
+
             String text = "";
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task t = tasks.getTask(i);
                 text += t.toCacheString() + "\n";
             }
             writer.write(text);
+
             writer.close();
         } catch (IOException e) {
-            //Thrown when the named file is invalid/ unavailable
+            //Named file is invalid/ unavailable
             throw new DavidCacheException();
         }
     }
