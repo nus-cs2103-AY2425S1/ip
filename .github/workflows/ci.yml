@@ -34,4 +34,4 @@ jobs:
           echo "Time Zone: $(date +'%Z %z')"
 
       - name: Build the project
-        run: ./gradlew build
+        run: ./gradlew build --info

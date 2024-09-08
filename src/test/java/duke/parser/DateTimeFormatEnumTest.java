@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,8 @@ public class DateTimeFormatEnumTest {
 
         // Set the default locale to Singapore (en_SG)
         Locale.setDefault(new Locale("en", "SG"));
+        // Set the default time zone to Singapore time (Asia/Singapore)
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
 
         // Get system details
         Locale systemLocale = Locale.getDefault();
