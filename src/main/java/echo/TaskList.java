@@ -27,6 +27,7 @@ public class TaskList implements Serializable {
             tasks += (i + 1) + ". " + this.allTasks.get(i).toString();
             tasks += (i == this.allTasks.size() - 1) ? "" : "\n";
         }
+
         return "There are " + this.allTasks.size() + " tasks in the list:"
                 + "\n" + tasks;
     }
