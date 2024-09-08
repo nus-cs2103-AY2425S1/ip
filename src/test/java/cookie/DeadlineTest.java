@@ -21,17 +21,17 @@ public class DeadlineTest {
 
     @Test
     void testToString() {
-        LocalDate deadlineDate = LocalDate.of(2024, 9, 10);
-        String by = "2024-09-10";
+        LocalDate deadlineDate = LocalDate.of(2024, 8, 29);
+        String by = "2024-08-29";
 
         DateParserStub.convertStringToDate(by);
         DateParserStub.changePattern(deadlineDate);
 
         Deadline deadline = new Deadline("Submit assignment", by);
-        assertEquals("[D][] Submit assignment (by: Sep 10 2024)", deadline.toString());
+        assertEquals("[D][] Submit assignment (by: Aug 29 2024)", deadline.toString());
 
         deadline.markDone();
-        assertEquals("[D][X] Submit assignment (by: Sep 10 2024)", deadline.toString());
+        assertEquals("[D][X] Submit assignment (by: Aug 29 2024)", deadline.toString());
     }
 
     static class DateParserStub {

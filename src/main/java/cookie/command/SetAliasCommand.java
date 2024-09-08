@@ -30,6 +30,7 @@ public class SetAliasCommand extends Command {
         this.alias = alias;
         this.commandAliasesMap = commandAliasesMap;
     }
+
     @Override
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws CookieException {
         commandAliasesMap.put(alias, command);

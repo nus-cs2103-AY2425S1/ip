@@ -24,7 +24,7 @@ public class TaskListTest {
     void setUp() {
         todoTask = new ToDo("Finish homework");
         eventTask = new Event("Team meeting", "2024-08-25", "2024-08-26");
-        deadlineTask = new Deadline("Submit report", "2024-09-01");
+        deadlineTask = new Deadline("Submit report", "2024-08-29");
 
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(todoTask);
@@ -61,7 +61,7 @@ public class TaskListTest {
         String expectedOutput = "Here are the tasks in your list:\n"
                 + "1: [T][] Finish homework\n"
                 + "2: [E][] Team meeting (from: Aug 25 2024 to: Aug 26 2024 )\n"
-                + "3: [D][] Submit report (by: Sep 1 2024)\n";
+                + "3: [D][] Submit report (by: Aug 29 2024)\n";
         assertEquals(expectedOutput, taskList.printTasks());
     }
 

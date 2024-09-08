@@ -40,6 +40,10 @@ public class FindCommand extends Command {
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws CookieException {
         ArrayList<Task> tasksMatchingKeyword = taskList.findByKeyword(this.keyword);
 
+        if (tasksMatchingKeyword.isEmpty()) {
+            return "No task matching the keyword found";
+        }
+
         String response = "Here are matching tasks in your list!\n";
         response = response + ui.printTasks(tasksMatchingKeyword);
 
