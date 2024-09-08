@@ -53,87 +53,103 @@ public class MrTracker {
         String res;
 
         PrefixString pref = parser.parseCommand(input);
-        if (pref != null) {
-            switch (pref) {
-            case BYE:
-                res = ui.showGoodbyeMessage();
-                break;
-            case LIST:
-                res = ui.showTaskList(taskList.getTasks());
-                break;
-            case MARK:
-                if (parser.checkValidIndex(input, 5)) {
-                    int index = parser.checkIndex(input, 5);
-                    try {
-                        Task markedTask = taskList.markAndUnmark(index, true);
-                        res = ui.showMarked(markedTask);
-                    } catch (TaskOutOfBoundsError ex) {
-                        res = ui.showMessage(ex.getMessage());
-                    }
-                } else {
-                    res = ui.showMessage(input.substring(5) + " is not a valid index");
-                }
-                break;
-            case UNMARK:
-                if (parser.checkValidIndex(input, 7)) {
-                    int index = parser.checkIndex(input, 7);
-                    try {
-                        Task unMarkedTask = taskList.markAndUnmark(index, false);
-                        res = ui.showUnmarked(unMarkedTask);
-                    } catch (TaskOutOfBoundsError ex) {
-                        res = ui.showMessage(ex.getMessage());
-                    }
-                } else {
-                    res = ui.showMessage(input.substring(7) + " is not a valid index");
-                }
-                break;
-            case TODO:
-                try {
-                    Task newToDo = taskList.addToDo(input.substring(5));
-                    res = ui.addedTask(newToDo, this.taskList.getTasks().size());
-                } catch (InvalidTaskNameException e) {
-                    res = ui.showMessage(e.getMessage());
-                }
-                break;
-            case DEADLINE:
-                try {
-                    Task newDeadLine = taskList.addDeadline(input.substring(9));
-                    res = ui.addedTask(newDeadLine, this.taskList.getTasks().size());
-                } catch (InvalidTaskNameException | InvalidDateException e) {
-                    res = ui.showMessage(e.getMessage());
-                }
-                break;
-            case EVENT:
-                try {
-                    Task newEvent = taskList.addEvent(input.substring(6));
-                    res = ui.addedTask(newEvent, this.taskList.getTasks().size());
-                } catch (InvalidDateException | InvalidTaskNameException e) {
-                    res = ui.showMessage(e.getMessage());
-                }
-                break;
-            case DELETE:
-                int index = parser.checkIndex(input, 7);
-                try {
-                    Task deleted = taskList.deleteTask(index);
-                    res = ui.deletedTask(deleted, this.taskList.getTasks().size());
-                } catch (TaskOutOfBoundsError e) {
-                    res = ui.showMessage(e.getMessage());
-                }
-                break;
-            case FIND:
-                String prompt = input.substring(5).trim();
-                ArrayList<Task> output = taskList.find(prompt);
-                res = ui.showMatchedTasks(output, prompt);
-                break;
-            case WELCOME:
-                res = ui.showWelcomeMessage("MrTracker");
-                break;
-            default:
-                res = ui.showMessage("I am sorry, but I don't know what that means :-(");
+
+        switch (pref) {
+        case BYE:
+            res = ui.showGoodbyeMessage();
+            break;
+
+        case LIST:
+            res = ui.showTaskList(taskList.getTasks());
+            break;
+
+        case MARK:
+            if (!parser.checkValidIndex(input, 5)) {
+                String message = input.substring(5) + " is not a valid index";
+                res = ui.showMessage(message);
                 break;
             }
-        } else {
+
+            int index = parser.checkIndex(input, 5);
+            try {
+                Task markedTask = taskList.markAndUnmark(index, true);
+                res = ui.showMarked(markedTask);
+            } catch (TaskOutOfBoundsError ex) {
+                res = ui.showMessage(ex.getMessage());
+            }
+            break;
+
+        case UNMARK:
+            if (!parser.checkValidIndex(input, 7)) {
+                String message = input.substring(7) + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+
+            index = parser.checkIndex(input, 7);
+            try {
+                Task unMarkedTask = taskList.markAndUnmark(index, false);
+                res = ui.showUnmarked(unMarkedTask);
+            } catch (TaskOutOfBoundsError ex) {
+                res = ui.showMessage(ex.getMessage());
+            }
+            break;
+
+        case TODO:
+            try {
+                Task newToDo = taskList.addToDo(input.substring(5));
+                res = ui.addedTask(newToDo, taskList.getSize());
+            } catch (InvalidTaskNameException e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
+        case DEADLINE:
+            try {
+                Task newDeadLine = taskList.addDeadline(input.substring(9));
+                res = ui.addedTask(newDeadLine, taskList.getSize());
+            } catch (InvalidTaskNameException | InvalidDateException e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
+        case EVENT:
+            try {
+                Task newEvent = taskList.addEvent(input.substring(6));
+                res = ui.addedTask(newEvent, taskList.getSize());
+            } catch (InvalidDateException | InvalidTaskNameException e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
+        case DELETE:
+            if (!parser.checkValidIndex(input, 7)) {
+               String message = input.substring(7) + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+            index = parser.checkIndex(input, 7);
+            try {
+                Task deleted = taskList.deleteTask(index);
+                res = ui.deletedTask(deleted, taskList.getSize());
+            } catch (TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
+        case FIND:
+            String prompt = input.substring(5).trim();
+            ArrayList<Task> output = taskList.find(prompt);
+            res = ui.showMatchedTasks(output, prompt);
+            break;
+
+        case WELCOME:
+            res = ui.showWelcomeMessage("MrTracker");
+            break;
+
+        default:
             res = ui.showMessage("I am sorry, but I don't know what that means :-(");
+            break;
         }
         storage.save(taskList.getTasks());
         return res;
