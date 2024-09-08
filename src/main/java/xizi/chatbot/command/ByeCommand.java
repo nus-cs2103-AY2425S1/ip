@@ -1,6 +1,5 @@
 package xizi.chatbot.command;
 
-import javafx.application.Platform;
 import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
 import xizi.chatbot.task.TaskList;
