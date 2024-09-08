@@ -4,6 +4,7 @@
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 5px;
 }
 
 
@@ -11,12 +12,14 @@
     -fx-background-color: linear-gradient(to bottom right, #e5aa2b, #d5761d);
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -padding: 30px;
 }
 
 .reply-label {
     -fx-background-color: linear-gradient(to bottom right, #c1d81a, #90d81a);
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -padding: 30px;
 }
 
 #displayPicture {
