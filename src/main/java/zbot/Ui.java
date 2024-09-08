@@ -34,8 +34,8 @@ public class Ui {
      */
     public String printAddTaskMsg(Task task, int size) {
         StringBuilder response = new StringBuilder();
-        response.append("Got it. I've added this task:");
-        response.append("  " + task);
+        response.append("Got it. I've added this task:\n");
+        response.append("  " + task + "\n");
         response.append("Now you have " + size + " tasks in the list.\n");
         return response.toString();
     }
@@ -48,8 +48,8 @@ public class Ui {
      */
     public String printDeleteTaskMsg(Task task, int size) {
         StringBuilder response = new StringBuilder();
-        response.append("Noted. I've removed this task:");
-        response.append("  " + task);
+        response.append("Noted. I've removed this task:\n");
+        response.append("  " + task + "\n");
         response.append("Now you have " + size + " tasks in the list.\n");
         return response.toString();
     }
@@ -61,9 +61,8 @@ public class Ui {
      */
     public String printMarkTaskMsg(Task task) {
         StringBuilder response = new StringBuilder();
-        response.append("Nice! I've marked this task as done:");
-        response.append("  " + task);
-        response.append("\n");
+        response.append("Nice! I've marked this task as done:\n");
+        response.append("  " + task + "\n");
         return response.toString();
     }
 
@@ -74,9 +73,8 @@ public class Ui {
      */
     public String printUnmarkTaskMsg(Task task) {
         StringBuilder response = new StringBuilder();
-        response.append("OK, I've marked this task as not done yet:");
-        response.append("  " + task);
-        response.append("\n");
+        response.append("OK, I've marked this task as not done yet:\n");
+        response.append("  " + task + "\n");
         return response.toString();
     }
 

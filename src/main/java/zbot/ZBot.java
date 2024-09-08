@@ -132,11 +132,10 @@ public class ZBot {
      */
     public String listTasks() {
         StringBuilder response = new StringBuilder();
-        response.append("Here are the tasks in your list:");
+        response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            response.append(String.format("%d. %s", i + 1, tasks.get(i)));
+            response.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
-        response.append("\n");
         return response.toString();
     }
 
@@ -212,7 +211,7 @@ public class ZBot {
         int tasksFound = 0;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
-                response.append(String.format("%d. %s", i, tasks.get(i)));
+                response.append(String.format("%d. %s\n", i, tasks.get(i)));
                 tasksFound++;
             }
         }
@@ -221,7 +220,6 @@ public class ZBot {
             response.append("No tasks found.");
         }
 
-        response.append("\n");
         return response.toString();
     }
 
