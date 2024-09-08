@@ -123,10 +123,20 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String res = "[E]";
-        res += super.toString();
-        res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
-        return res;
+        StringBuilder res = new StringBuilder("[E]");
+        res.append(super.toString());
+        res.append(" (from: ");
+        res.append(this.fromDate.toString());
+        res.append(" to: ");
+        res.append(this.toDate.toString());
+        res.append(")");
+
+        if (!tags.isEmpty()) {
+            res.append("\nTags: ");
+            tags.stream().map(tag -> res.append("#").append(tag).append(" "));
+        }
+
+        return res.toString();
     }
 
     /**
@@ -137,13 +147,20 @@ public class Event extends Task {
      */
     @Override
     public String toSave() {
-        String res = "E|";
-        res = res.concat(this.isDone ? "1|" : "0|");
-        res = res.concat(this.name);
-        res = res.concat("|");
-        res = res.concat(this.fromDate.toString());
-        res = res.concat("|");
-        res = res.concat(this.toDate.toString());
-        return res;
+        StringBuilder res = new StringBuilder("E|");
+        res.append(this.isDone ? "1|" : "0|");
+        res.append(this.name);
+        res.append("|");
+        res.append(this.fromDate.toString());
+        res.append("|");
+        res.append(this.toDate.toString());
+
+
+        if (!tags.isEmpty()) {
+            res.append("|");
+            tags.forEach(tag -> res.append("#").append(tag).append(" "));
+        }
+
+        return res.toString();
     }
 }

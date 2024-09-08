@@ -44,13 +44,14 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         if (this.isDone) {
-            res += "[X] ";
+            res.append("[X] ");
         } else {
-            res += "[ ] ";
+            res.append("[ ] ");
         }
-        res += this.name;
-        return res;
+        res.append(this.name);
+
+        return res.toString();
     }
 }

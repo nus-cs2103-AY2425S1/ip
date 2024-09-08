@@ -98,10 +98,16 @@ public class DeadLine extends Task {
      */
     @Override
     public String toString() {
-        String res = "[D]";
-        res += super.toString();
-        res += " (by: " + this.endDate.toString() + ")";
-        return res;
+        StringBuilder res = new StringBuilder("[D]");
+        res.append(super.toString());
+        res.append(" (by: ").append(this.endDate.toString()).append(")");
+
+        if (!tags.isEmpty()) {
+            res.append("\nTags: ");
+            tags.stream().map(tag -> res.append("#").append(tag).append(" "));
+        }
+
+        return res.toString();
     }
 
     /**
@@ -112,11 +118,17 @@ public class DeadLine extends Task {
      */
     @Override
     public String toSave() {
-        String res = "D|";
-        res = res.concat(this.isDone ? "1|" : "0|");
-        res = res.concat(this.name);
-        res = res.concat("|");
-        res = res.concat(this.endDate.toString());
-        return res;
+        StringBuilder res = new StringBuilder("D|");
+        res.append(this.isDone ? "1|" : "0|");
+        res.append(this.name);
+        res.append("|");
+        res.append(this.endDate.toString());
+
+        if (!tags.isEmpty()) {
+            res.append("|");
+            tags.forEach(tag -> res.append("#").append(tag).append(" "));
+        }
+
+        return res.toString();
     }
 }

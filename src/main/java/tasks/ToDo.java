@@ -70,9 +70,14 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        String res = "[T]";
-        res += super.toString();
-        return res;
+        StringBuilder res = new StringBuilder("[T]");
+        res.append(super.toString());
+
+        if (!tags.isEmpty()) {
+            res.append("\nTags: ");
+            tags.stream().map(tag -> res.append("#").append(tag).append(" "));
+        }
+        return res.toString();
     }
 
     /**
@@ -83,9 +88,15 @@ public class ToDo extends Task {
      */
     @Override
     public String toSave() {
-        String res = "T|";
-        res = res.concat(this.isDone ? "1|" : "0|");
-        res = res.concat(this.name);
-        return res;
+        StringBuilder res = new StringBuilder("T|");
+        res.append(this.isDone ? "1|" : "0|");
+        res.append(this.name);
+
+        if (!tags.isEmpty()) {
+            res.append("|");
+            tags.forEach(tag -> res.append("#").append(tag).append(" "));
+        }
+
+        return res.toString();
     }
 }
