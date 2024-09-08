@@ -1,5 +1,7 @@
 package screwllum.tasks;
 
+import screwllum.Ui;
+
 import java.util.List;
 
 public class TaskManager {
@@ -9,7 +11,7 @@ public class TaskManager {
         this.taskList = taskList;
     }
 
-    public void execute(List<String> tokens) {
+    public void execute(List<String> tokens, Ui ui) {
         switch (tokens.get(0)) {
         case "toggle":
             taskList.get(Integer.parseInt(tokens.get(1))).toggleStatus();
@@ -27,6 +29,7 @@ public class TaskManager {
             taskList.add(new Event(tokens.get(1), tokens.get(2), tokens.get(3)));
             break;
         }
+        ui.showMessage(tokens, taskList);
     }
     
     public List<Task> getTaskList() {
