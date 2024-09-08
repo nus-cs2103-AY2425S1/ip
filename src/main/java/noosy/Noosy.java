@@ -1,11 +1,11 @@
 package noosy;
 
-import noosy.parser.Parser;
-import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.commands.Command;
 import noosy.exception.NoosyException;
+import noosy.parser.Parser;
+import noosy.storage.Storage;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 import java.io.IOException;
 
@@ -15,14 +15,25 @@ import java.io.IOException;
  */
 public class Noosy {
 
-    /** The storage component for persisting tasks. */
-    private Storage storage;
+    /**
+     * The storage component for persisting tasks.
+     */
+    private final Storage storage;
 
-    /** The list of tasks managed by the system. */
+    /**
+     * The list of tasks managed by the system.
+     */
     private TaskList tasks;
 
-    /** The user interface component. */
-    private Ui ui;
+    /**
+     * The user interface component.
+     */
+    private final Ui ui;
+
+    /**
+     * The command type.
+     */
+    private String commandType;
 
     /**
      * Constructs a new Noosy task management chatbot.
@@ -41,6 +52,37 @@ public class Noosy {
         } catch (IOException e) {
             ui.showError(e.getMessage());
         }
+    }
+
+    /**
+     * The main entry point for the Noosy application.
+     * Creates a new Noosy instance and starts its execution.
+     *
+     * @param args Command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        new Noosy("data/noosy.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return c.getString();
+        } catch (NoosyException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Returns the command type.
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     /**
@@ -63,15 +105,5 @@ public class Noosy {
                 ui.showLine();
             }
         }
-    }
-
-    /**
-     * The main entry point for the Noosy application.
-     * Creates a new Noosy instance and starts its execution.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Noosy("data/noosy.txt").run();
     }
 }

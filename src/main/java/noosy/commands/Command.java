@@ -2,8 +2,8 @@ package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Abstract base class for all commands in the Noosy task management chatbot.
@@ -31,4 +31,11 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Returns a string of the command
+     *
+     * @return the command as a String.
+     */
+    public abstract String getString();
 }

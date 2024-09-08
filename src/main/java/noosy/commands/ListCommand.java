@@ -1,8 +1,8 @@
 package noosy.commands;
 
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
 
 /**
  * Represents the list command in the Noosy task management chatbot.
@@ -21,5 +21,10 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks);
+    }
+
+    @Override
+    public String getString() {
+        return "Listed!";
     }
 }

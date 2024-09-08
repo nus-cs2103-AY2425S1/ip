@@ -25,7 +25,7 @@ public class Parser {
      * @throws NoosyException If the input is invalid or incomplete.
      */
     public static Command parse(String fullCommand) throws NoosyException {
-        String separated[] = fullCommand.split(" ", 2);
+        String[] separated = fullCommand.split(" ", 2);
         String firstWord = separated[0];
         String input = separated.length > 1 ? separated[1] : null;
 
@@ -56,6 +56,13 @@ public class Parser {
                 }
 
                 return new DeleteCommand(Integer.parseInt(input.trim()) - 1);
+
+            case "find":
+                if (input == null) {
+                    throw new NoosyException("I can't see the keyword. Try typing it.");
+                }
+
+                return new FindCommand(input);
 
             case "on":
                 if (input == null) {

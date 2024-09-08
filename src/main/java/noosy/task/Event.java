@@ -9,24 +9,21 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     /**
-     * The start time of the event.
-     */
-    private LocalDateTime start;
-
-    /**
-     * The end time of the event.
-     */
-    private LocalDateTime end;
-
-    /**
      * The formatter used for parsing input date-time strings.
      */
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     /**
      * The formatter used for formatting output date-time strings.
      */
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    /**
+     * The start time of the event.
+     */
+    private final LocalDateTime start;
+    /**
+     * The end time of the event.
+     */
+    private final LocalDateTime end;
 
     /**
      * Constructs a new Event with the given name, start time, and end time.

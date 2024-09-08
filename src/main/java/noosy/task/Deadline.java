@@ -9,19 +9,17 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     /**
-     * The due date of the deadline task.
-     */
-    private LocalDate due;
-
-    /**
      * The formatter used for parsing input date strings.
      */
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     /**
      * The formatter used for formatting output date strings.
      */
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    /**
+     * The due date of the deadline task.
+     */
+    private final LocalDate due;
 
     /**
      * Constructs a new Deadline with the given name and due date.

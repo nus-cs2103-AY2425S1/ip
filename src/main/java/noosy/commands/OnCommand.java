@@ -1,11 +1,12 @@
 package noosy.commands;
 
 import noosy.storage.Storage;
-import noosy.ui.Ui;
 import noosy.task.Deadline;
 import noosy.task.Event;
 import noosy.task.Task;
 import noosy.task.TaskList;
+import noosy.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,8 +16,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class OnCommand extends Command {
 
-    /** The date for which to list tasks. */
-    private LocalDate date;
+    /**
+     * The date for which to list tasks.
+     */
+    private final LocalDate date;
 
 
     /**
@@ -42,14 +45,12 @@ public class OnCommand extends Command {
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
+            if (task instanceof Deadline deadline) {
                 if (deadline.getDate().equals(date)) {
                     System.out.println(deadline);
                     found = true;
                 }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
+            } else if (task instanceof Event event) {
                 if (event.getStart().toLocalDate().equals(date)) {
                     System.out.println(event);
                     found = true;
@@ -59,5 +60,10 @@ public class OnCommand extends Command {
         if (!found) {
             System.out.println("Hooray! Nothing to do on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
+    }
+
+    @Override
+    public String getString() {
+        return "On command!";
     }
 }
