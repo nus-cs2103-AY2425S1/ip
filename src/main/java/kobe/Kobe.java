@@ -14,13 +14,8 @@ import java.io.IOException;
  */
 public class Kobe {
 
-    /** Handles storage-related operations such as saving and loading tasks. */
     private Storage storage;
-
-    /** Manages the list of tasks in the application. */
     private TaskList tasks;
-
-    /** Manages user interactions, such as displaying messages and reading input. */
     private Ui ui;
 
     /**
@@ -55,9 +50,9 @@ public class Kobe {
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
-            return ui.getLatestResponse();  // Get the latest response for the GUI
+            return ui.getLatestResponse();
         } catch (Exception e) {
-            return "Error: " + e.getMessage();  // Return error message if something goes wrong
+            return "Error: " + e.getMessage();
         }
     }
 }

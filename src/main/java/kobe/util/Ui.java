@@ -6,13 +6,9 @@ import java.util.Scanner;
 
 /**
  * Handles the user interface for the Kobe chatbot application.
- * The Ui class is responsible for displaying messages to the user and reading user input.
  */
 public class Ui {
-    /** Scanner to read user input from the command line. */
     private final Scanner scanner;
-
-    /** Stores the latest response to be displayed in the GUI. */
     private String latestResponse;
 
     /**
@@ -43,9 +39,8 @@ public class Ui {
                 "____________________________________________________________";
     }
 
-
     /**
-     * Displays the welcome message when the application starts.
+     * Displays the welcome message.
      */
     public void showWelcome() {
         latestResponse = "Greetings from Kobe Bryant. How can I help you, my man?";
@@ -105,7 +100,7 @@ public class Ui {
         } else {
             StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                sb.append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
             latestResponse = sb.toString();
         }
@@ -123,7 +118,7 @@ public class Ui {
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                sb.append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
             latestResponse = sb.toString();
         }
@@ -139,3 +134,4 @@ public class Ui {
         return latestResponse;
     }
 }
+
