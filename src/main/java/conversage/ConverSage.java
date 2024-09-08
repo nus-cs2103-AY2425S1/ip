@@ -52,6 +52,28 @@ public class ConverSage {
         }
     }
 
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    public Ui getUi() {
+        return ui;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (ConverSageException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * The main method of the ConverSage application.
      *
