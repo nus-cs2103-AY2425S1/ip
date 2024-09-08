@@ -23,6 +23,7 @@ public class Parser {
         return inputString;
     }
 
+
     /**
      * Calls ui to ask the user for input, process the input accordingly and calls ui again to display information back
      * to the user.
@@ -85,10 +86,77 @@ public class Parser {
             ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
         } else if (instruction.equals("find")) {
             TaskList matchingTasks = tasks.findAll(remainingInput);
-            ui.display_search(matchingTasks);
+            ui.displaySearch(matchingTasks);
         } else {
             throw new InvalidInstructionException();
         }
     }
 
+    /**
+     * This method processes the user's input as acquired the object's constructor and returns the appropriate
+     * string matching the user's said input.
+     * @param tasks This contains the user's tasks listed thus far.
+     * @param ui The instance holding the current's user's interface for the programme.
+     * @return Returns the appropriate response to match the user's instruction.
+     * @throws EmptyTaskException
+     * @throws InvalidInstructionException
+     * @throws EmptyCommandException
+     */
+    public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
+            EmptyCommandException {
+        String instruction = inputString.split(" ", 2)[0];
+        if (instruction.equals("list")) {
+            return ui.guiDisplay(tasks);
+        }
+        if (inputString.split(" ", 2).length == 0) {
+            throw new EmptyCommandException();
+        }
+        boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete")
+                .contains(inputString.split(" ", 2)[0]));
+        if (inputString.split(" ", 2).length == 1 && flag1) {
+            throw new InvalidInstructionException();
+        }
+        boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inputString.split(" ", 2)[0]);
+        if (inputString.split(" ", 2).length == 1 && flag2) {
+            throw new EmptyTaskException();
+        }
+        String remainingInput = inputString.split(" ", 2)[1];
+        if (instruction.equals("mark")) {
+            int idx = Integer.parseInt(remainingInput) - 1;
+            tasks.set(idx, true);
+            return "Nice! I've marked this task as done:\n" + tasks.get(idx);
+        } else if (instruction.equals("unmark")) {
+            int idx = Integer.parseInt(remainingInput) - 1;
+            tasks.set(idx, false);
+            return "OK, I've marked this task as not done yet:\n" + tasks.get(idx);
+        } else if (instruction.equals("todo")) {
+            Todo task = new Todo(remainingInput);
+            tasks.add(task);
+            return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
+        } else if (instruction.equals("deadline")) {
+            String name = remainingInput.split(" /by ", 2)[0];
+            LocalDate endDate = LocalDate.parse(remainingInput.split(" /by ", 2)[1]);
+            Deadline task = new Deadline(name, endDate);
+            tasks.add(task);
+            return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
+        } else if (instruction.equals("event")) {
+            String name = remainingInput.split(" /from ", 2)[0];
+            remainingInput = remainingInput.split(" /from ", 2)[1];
+            String start = remainingInput.split(" /to ", 2)[0];
+            String end = remainingInput.split(" /to ", 2)[1];
+            Event task = new Event(name, start, end);
+            tasks.add(task);
+            return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
+        } else if (instruction.equals("delete")) {
+            int idx = Integer.parseInt(remainingInput) - 1;
+            Task taskToBeDeleted = tasks.get(idx);
+            tasks.delete(idx);
+            return ui.guiTaskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
+        } else if (instruction.equals("find")) {
+            TaskList matchingTasks = tasks.findAll(remainingInput);
+            return ui.guiDisplaySearch(matchingTasks);
+        } else {
+            throw new InvalidInstructionException();
+        }
+    }
 }

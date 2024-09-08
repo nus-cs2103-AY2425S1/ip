@@ -12,3 +12,5 @@ D , 1 , finish after action review , 2024-09-12
 D , 0 , finish 2103 , 2024-09-06
 T , 0 , borrow book
 D , 0 , finish work , 2012-06-11
+T , 0 , game everyday
+T , 1 , GAME EVERYDAYYY
