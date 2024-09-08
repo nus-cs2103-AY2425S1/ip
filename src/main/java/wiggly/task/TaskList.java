@@ -34,9 +34,8 @@ public class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        String sb = "Got it. I've added this task:\n" + task + "\n"
+        return "Got it. I've added this task:\n" + task + "\n"
             + "Now you have " + tasks.size() + " tasks in the list!";
-        return sb;
     }
 
     /**
@@ -56,6 +55,8 @@ public class TaskList {
      * @return a message to indicate that the mark was successful
      */
     public String markDone(int taskNumber) {
+        assert taskNumber <= tasks.size() && taskNumber > 0 : "taskNumber out of bounds";
+
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markDone();
@@ -72,6 +73,8 @@ public class TaskList {
      * @return a message to indicate that the mark was successful
      */
     public String markUndone(int taskNumber) {
+        assert taskNumber <= tasks.size() && taskNumber > 0 : "taskNumber out of bounds";
+
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markUndone();
@@ -87,6 +90,8 @@ public class TaskList {
      * @return a message to indicate that the task has been deleted
      */
     public String deleteTask(int taskNumber) {
+        assert taskNumber <= tasks.size() && taskNumber > 0 : "taskNumber out of bounds";
+
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         this.tasks.remove(task);
@@ -119,7 +124,9 @@ public class TaskList {
         int count = 1;
         StringBuilder sb = new StringBuilder();
 
+        assert tasks != null : "Task List should not be null";
         for (Task task : tasks) {
+            assert task != null : "Task must not be null";
             sb.append(count).append(". ").append(task.toString()).append("\n");
             count++;
         }
