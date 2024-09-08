@@ -27,6 +27,10 @@ public class TaskList {
      */
     public TaskList(List<String> taskList) {
         this.listings = new ArrayList<>();
+        loadTasklist(taskList);
+    }
+
+    public void loadTasklist(List<String> taskList) {
         for (String taskLine: taskList) {
             String[] task = taskLine.split("\\|");
             switch (task[0].trim()) {
@@ -151,9 +155,8 @@ public class TaskList {
         String taskDesc = input.substring(4).trim();
         if (taskDesc.equals("")) {
             throw new InvalidDataException();
-        } else {
-            return addToList(new ToDos(taskDesc)); 
         }
+        return addToList(new ToDos(taskDesc));
     }
 
     /**
@@ -168,14 +171,13 @@ public class TaskList {
         String[] parts = input.split("/by", 2);
         if (parts.length != 2) {
             return "Syntax: deadline <taskname> /by <datetime>";
-        } else {
-            String taskDesc = parts[0].trim();
-            LocalDate deadline = Parser.parseStringToDate(parts[1].trim());
-            if (taskDesc.equals("") || deadline == null) {
-                throw new InvalidDataException();
-            }
-            return addToList(new Deadlines(taskDesc,deadline));
         }
+        String taskDesc = parts[0].trim();
+        LocalDate deadline = Parser.parseStringToDate(parts[1].trim());
+        if (taskDesc.equals("") || deadline == null) {
+            throw new InvalidDataException();
+        }
+        return addToList(new Deadlines(taskDesc,deadline));
     }
 
     /**
@@ -191,20 +193,17 @@ public class TaskList {
         if (part1.length != 2) {
             return "Syntax: event <taskname> /from <datetime> /to <datetime>";
         }
-        else {
-            String[] part2 = part1[1].split("/to", 2);
-            if (part2.length != 2) {
-                return "Syntax: event <taskname> /from <datetime> /to <datetime>";
-            } else {
-                String taskDesc = part1[0].trim();
-                LocalDate from = Parser.parseStringToDate(part2[0].trim());
-                LocalDate to = Parser.parseStringToDate(part2[1].trim());
-                if (taskDesc.equals("") || from == null || to  == null) {
-                    throw new InvalidDataException();
-                }
-                return addToList(new Events(taskDesc, from, to));
-            }
+        String[] part2 = part1[1].split("/to", 2);
+        if (part2.length != 2) {
+            return "Syntax: event <taskname> /from <datetime> /to <datetime>";
+        } 
+        String taskDesc = part1[0].trim();
+        LocalDate from = Parser.parseStringToDate(part2[0].trim());
+        LocalDate to = Parser.parseStringToDate(part2[1].trim());
+        if (taskDesc.equals("") || from == null || to  == null) {
+            throw new InvalidDataException();
         }
+        return addToList(new Events(taskDesc, from, to));
     }
 
     /**
