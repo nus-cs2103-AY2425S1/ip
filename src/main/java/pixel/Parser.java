@@ -37,7 +37,8 @@ public class Parser {
             }
         }
         if (!valid) {
-            throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!", cmdString));
+            throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!",
+                    cmdString));
         }
 
         cmd = PixelCommandEnum.valueOf(cmdString.toUpperCase());

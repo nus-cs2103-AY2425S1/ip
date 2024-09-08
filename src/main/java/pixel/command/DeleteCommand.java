@@ -66,7 +66,7 @@ public class DeleteCommand extends Command {
         }
         Task task = taskList.getTaskAtIndex(taskListIndex);
         taskList.deleteTask(task);
-        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", task, taskList
-                .size());
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", task,
+                taskList.size());
     }
 }

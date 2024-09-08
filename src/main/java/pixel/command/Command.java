@@ -41,7 +41,8 @@ public abstract class Command {
      * @throws PixelException if there is an error executing the command.
      */
 
-    public abstract String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage) throws PixelException;
+    public abstract String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage)
+            throws PixelException;
 
     /**
      * Checks if the command should exit the application.

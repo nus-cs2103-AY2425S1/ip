@@ -21,8 +21,8 @@ public class DateTimeParser {
      *                        date-time format
      */
     public DateTimeParser(String input) throws PixelException {
-        List<DateTimeFormatter> formatters = Arrays.asList(DateTimeFormatter.ofPattern("dd-MM-yyyy"), DateTimeFormatter
-                .ofPattern("yyyy-MM-dd"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        List<DateTimeFormatter> formatters = Arrays.asList(DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         this.dateTime = parseDate(input.strip(), formatters);
     }
 
