@@ -2,6 +2,7 @@ package alice.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task with a deadline.
@@ -45,6 +46,24 @@ public class Deadline extends Task {
         DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         String formattedTime = (by != null) ? by.format(saveFormatter) : "N/A";
         return "D" + super.saveString() + " | " + formattedTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else if (!super.equals(o)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) o;
+        return Objects.equals(by, deadline.by);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), by);
     }
 
     /**

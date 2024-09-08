@@ -1,5 +1,7 @@
 package alice.task;
 
+import java.util.Objects;
+
 /**
  * Represents a task with a description and a completion status.
  * Provides methods to mark the task as done or undone, and to get a string representation of the task.
@@ -66,6 +68,22 @@ public class Task {
     public String saveString() {
         String status = isDone ? "1" : "0";
         return " | " + status + " | " + this.description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task task = (Task) o;
+        return Objects.equals(description, task.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
     }
 
     /**

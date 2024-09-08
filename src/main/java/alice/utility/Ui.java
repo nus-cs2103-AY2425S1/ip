@@ -101,6 +101,18 @@ public class Ui {
     }
 
     /**
+     * Returns a formatted message indicating that the task already exists in the list.
+     *
+     * @return A string with a message about the duplicate task.
+     */
+    public String addDuplicateMsg() {
+        String string = line + '\n'
+                + "Task already existed in the list" + '\n'
+                + line;
+        return string;
+    }
+
+    /**
      * Displays an error message when adding a task fails.
      */
     public String addFailMsg() {

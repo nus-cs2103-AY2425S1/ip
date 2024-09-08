@@ -39,8 +39,12 @@ public class TaskList {
      */
     public String addToList(Task task) {
         try {
-            this.list.add(task);
-            return ui.addToListMsg(task, this.list.size());
+            if (this.list.contains(task)) {
+                return ui.addDuplicateMsg();
+            } else {
+                this.list.add(task);
+                return ui.addToListMsg(task, this.list.size());
+            }
         } catch (Exception e) {
             return ui.addFailMsg();
         }
