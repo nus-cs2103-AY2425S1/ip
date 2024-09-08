@@ -67,7 +67,6 @@ public class Terminator {
                 Command command = parser.parse(input);
 
                 assert taskList.getTaskList() != null : "Task list should not be null";
-                
                 String response = command.execute(taskList.getTaskList());
                 if (command instanceof TodoCommand
                     || command instanceof EventCommand
