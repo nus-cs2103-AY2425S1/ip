@@ -25,9 +25,11 @@ public class TaskList {
      * Remove a task from the list
      *
      * @param taskId index of the task
+     * @return the deleted Task
      */
-    public void delete(int taskId) {
-        this.tasks.remove(taskId - 1);
+    public Task delete(int taskId) {
+        Task deletedTask = this.tasks.remove(taskId - 1);
+        return deletedTask;
     }
 
     /**
