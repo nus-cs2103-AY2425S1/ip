@@ -2,7 +2,6 @@ package bob;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents Bob's parser.
@@ -20,9 +19,8 @@ public class Parser {
         if (input.startsWith("list")) {
             if (input.equals("list")) {
                 return new ListCommand();
-            } else {
-                return new MatchListCommand();
             }
+            return new MatchListCommand();
         }
         if (input.startsWith("mark")) {
             String arg = input.substring("mark".length()).trim();
@@ -100,8 +98,12 @@ public class Parser {
 
     }
 
+    /**
+     * Converts input of format "yyyy-MM-dd HHmm" into a LocalDateTime object
+     */
     private LocalDateTime parseDatetime(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(input, formatter);
     }
+
 }
