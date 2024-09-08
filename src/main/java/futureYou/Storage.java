@@ -108,7 +108,7 @@ public class Storage {
         }
 
         // If file is empty
-        return new ArrayList<Task>();
+        return new ArrayList<>();
     }
 
     /**

@@ -28,8 +28,7 @@ public class Parser {
     public static String parseToDoTask(String userCommand) {
         String[] userInputs = userCommand.split(" ");
         String taskName = userInputs[1].trim();
-        String message = TaskList.addTask(taskName);
-        return message;
+        return TaskList.addTask(taskName);
     }
 
     /**
@@ -42,13 +41,12 @@ public class Parser {
         String[] userInputs = userCommand.split("/");
 
         String taskName = userInputs[0].substring(9, userInputs[0].length() - 1);
-        String deadlineString = userInputs[1].substring(3, userInputs[1].length());
+        String deadlineString = userInputs[1].substring(3);
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime deadline = LocalDateTime.parse(deadlineString, format);
 
-        String message = TaskList.addTask(taskName, deadline);
-        return message;
+        return TaskList.addTask(taskName, deadline);
     }
 
     /**
@@ -63,15 +61,14 @@ public class Parser {
 
         String taskName = userInputs[0].substring(6, userInputs[0].length() - 1);
         String startDateTimeString = userInputs[1].substring(5, userInputs[1].length() - 1);
-        String endDateTimeString = userInputs[2].substring(3, userInputs[2].length());
+        String endDateTimeString = userInputs[2].substring(3);
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, format);
         LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, format);
 
-        String message = TaskList.addTask(taskName, startDateTime, endDateTime);
-        return message;
+        return TaskList.addTask(taskName, startDateTime, endDateTime);
     }
 
     /**
