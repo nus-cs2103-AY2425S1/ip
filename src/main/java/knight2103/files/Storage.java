@@ -61,11 +61,15 @@ public class Storage {
     public Pair<ArrayList<Task>, String> load() throws FileNotFoundException { // Exception handling in Knight2103.java
         ArrayList<Task> tasks = new ArrayList<Task>();
         String errorMessage = "";
-        int lineInFileCount = 0;
+        int lineInFileCount = 0; // not item count, because .txt file can see line number easily
         Scanner scanner = new Scanner(this.taskFile);
         while (scanner.hasNextLine()) {
             lineInFileCount++;
-            Pair<Optional<Task>, String> taskAndErrorMsgPair = formatLineToTask(scanner.nextLine());
+            String lineInFocus = scanner.nextLine();
+            if (lineInFocus.isEmpty()) {
+                continue;
+            }
+            Pair<Optional<Task>, String> taskAndErrorMsgPair = formatLineToTask(lineInFocus);
             taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
             if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {
                 errorMessage += String.format("\nFile line %d - %s",
