@@ -18,12 +18,14 @@ public class Arona {
     public Arona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             taskList = new TaskList(storage.load());
         } catch (Exception e) {
             ui.showException(e);
             taskList = new TaskList();
         }
+
         parser = new Parser(taskList, ui);
     }
 
@@ -44,11 +46,13 @@ public class Arona {
         // Process inputs
         try {
             reply = parser.parse(input);
+
             // Exit when bye sent
             if (input.equalsIgnoreCase("bye")) {
                 // Save list of tasks to file
                 storage.save(taskList);
             }
+
             return reply;
 
         } catch (Exception e) {
