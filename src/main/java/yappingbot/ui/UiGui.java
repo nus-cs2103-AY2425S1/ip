@@ -30,6 +30,11 @@ public class UiGui implements Ui {
     }
 
     @Override
+    public void printfError(String formattedString, Object... o) {
+
+    }
+
+    @Override
     public boolean hasNextLine() {
         return false;
     }
