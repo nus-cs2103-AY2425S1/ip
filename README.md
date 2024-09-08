@@ -14,6 +14,13 @@ All you need to do is:
 3. ???
 4. Add your tasks!
 
+Supported flags include:
+```
+--savefile <FILEPATH> define an alternate savefile path
+        -s <FILEPATH> same as --savefile
+        -c            Run CLI mode (fallback)
+```
+
 Did I mention it's **FREE**? (Free of Charge, Free of Dom)
 
 # Features implemented:
@@ -24,12 +31,16 @@ Did I mention it's **FREE**? (Free of Charge, Free of Dom)
 - [x] Task list persistence (automatic save to and retrieve from disk)
 - [ ] Does your taxes
 - [x] Search and filter tasks (iteratively too!)
-- [ ] GUI
+- [x] GUI
+- [x] CLI mode fallback (pass `-c`)
+- [x] Change savefile path (pass `-s <filepath>`)
 - [ ] More coming soon...
 ---
 If you're bored and want to stress yourself, look no further!
 
 Clone this, and feel free to run it like this:
+
+**CLI Mode:**
 ```java
 public static void main(String[] args) {
     // Feel free to change this!
@@ -38,5 +49,17 @@ public static void main(String[] args) {
 
     YappingBot yp = new YappingBot(savefile);
     yp.start();
+}
+```
+
+**GUI Mode:** (requires javafx)
+```java
+public static void main(String[] args) {
+    // MainGuiApplication currently looks in 
+    // Launcher to retrieve the savefilePath
+    //
+    // To be updated in further commits
+    Launcher.savefilePath = "./savefile";
+    MainGuiApplication.launch(MainGuiApplication.class, args);
 }
 ```
