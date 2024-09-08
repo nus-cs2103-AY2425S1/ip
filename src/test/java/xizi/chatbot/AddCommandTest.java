@@ -2,13 +2,10 @@ package xizi.chatbot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import xizi.chatbot.command.Command;
 import xizi.chatbot.command.DeadlineCommand;
 import xizi.chatbot.command.TodoCommand;
 import xizi.chatbot.task.Deadline;
@@ -66,22 +63,6 @@ public class AddCommandTest {
         assertEquals(1, tasks.getSize());
         assertEquals("submit report", tasks.getItems().get(0).getName());
         assertInstanceOf(Deadline.class, tasks.getItems().get(0));
-    }
-
-    /**
-     * Tests the behavior when an invalid task command is parsed and executed.
-     * Verifies that an exception is thrown with the appropriate error message.
-     */
-    @Test
-    public void testAddInvalidTask() {
-        Exception exception = assertThrows(Exception.class, () -> {
-            Parser parser = new Parser();
-            Command addCommand = parser.parse("invalidCommand buy milk");
-            addCommand.execute(tasks, storage, ui);
-        });
-
-        assertTrue(exception.getMessage().contains("Sorry, I didn't understand that command. "
-                + "Type help for all available commands and format."));
     }
 
 

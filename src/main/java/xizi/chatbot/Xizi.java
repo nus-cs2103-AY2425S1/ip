@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-import javafx.application.Platform;
 import xizi.chatbot.command.Command;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
