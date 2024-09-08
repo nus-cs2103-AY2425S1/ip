@@ -135,7 +135,9 @@ public class TaskList {
      * @return task added confirmation.
      */
     private String addToList(Task input) {
+        int numberOfListings = listings.size();
         listings.add(input);
+        assert listings.size() == numberOfListings + 1 : "Listings should have increased by 1";
         return String.format("""
                              Understood. I've added the following task:
                                  %s
