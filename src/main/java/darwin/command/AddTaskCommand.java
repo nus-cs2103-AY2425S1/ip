@@ -25,7 +25,10 @@ public class AddTaskCommand extends Command {
     public void execute(TaskManager taskManager, Ui ui) {
         taskManager.addTask(this.task);
         // TODO: reduce repeated task count msg code in delete command
-        ui.send(String.format("%s\n    %s\n%s", ADD_TASK_MSG, task.getTaskInfo(),
-                String.format(TASK_COUNT_MSG, taskManager.getTaskCount())));
+        ui.send(String.format("%s\n    %s\n%s",
+                ADD_TASK_MSG,
+                task.getTaskInfo(),
+                String.format(TASK_COUNT_MSG, taskManager.getTaskCount())
+        ));
     }
 }

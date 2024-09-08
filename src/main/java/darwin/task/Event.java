@@ -21,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public String getSymbol() {
-        return "E";
+        return symbol;
     }
 
     @Override
