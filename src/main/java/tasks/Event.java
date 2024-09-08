@@ -132,8 +132,8 @@ public class Event extends Task {
         res.append(")");
 
         if (!tags.isEmpty()) {
-            res.append("\nTags: ");
-            tags.stream().map(tag -> res.append("#").append(tag).append(" "));
+            res.append("\n  Tags: ");
+            tags.forEach(tag -> res.append("#").append(tag).append(" "));
         }
 
         return res.toString();
@@ -158,7 +158,7 @@ public class Event extends Task {
 
         if (!tags.isEmpty()) {
             res.append("|");
-            tags.forEach(tag -> res.append("#").append(tag).append(" "));
+            tags.forEach(tag -> res.append(tag).append("|"));
         }
 
         return res.toString();

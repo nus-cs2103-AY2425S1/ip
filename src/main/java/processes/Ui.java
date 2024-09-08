@@ -96,7 +96,7 @@ public class Ui {
      */
     public String addedTask(Task added, int taskListSize) {
         assert added != null : "Added task given is null!";
-        return "I have added the task " + added + "\nYou now have " + taskListSize + " task(s)";
+        return "I have added the task:\n" + added + "\nYou now have " + taskListSize + " task(s)";
     }
 
     /**

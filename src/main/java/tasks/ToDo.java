@@ -31,8 +31,10 @@ public class ToDo extends Task {
             return;
         }
 
+
         // adding tags
         tags.addAll(Arrays.asList(args).subList(1, args.length));
+        tags.forEach(tag -> System.out.println("tag is: " + tag));
     }
 
     /**
@@ -74,8 +76,8 @@ public class ToDo extends Task {
         res.append(super.toString());
 
         if (!tags.isEmpty()) {
-            res.append("\nTags: ");
-            tags.stream().map(tag -> res.append("#").append(tag).append(" "));
+            res.append("\n   Tags: ");
+            tags.forEach(tag -> res.append("#").append(tag).append(" "));
         }
         return res.toString();
     }
@@ -94,7 +96,7 @@ public class ToDo extends Task {
 
         if (!tags.isEmpty()) {
             res.append("|");
-            tags.forEach(tag -> res.append("#").append(tag).append(" "));
+            tags.forEach(tag -> res.append(tag).append("|"));
         }
 
         return res.toString();
