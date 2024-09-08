@@ -32,5 +32,13 @@ public class TaskListTest {
         assertFalse(tasks.getTasks().contains(task));
     }
 
+    @Test
+    public void testPrioritiseTask() throws SlothingWafflerException {
+        tasks.addTodoTask(new String[]{"Todo", "Sample Task 1"});
+        tasks.addTodoTask(new String[]{"Todo", "Sample Task 2"});
+        Task task = tasks.get(1);
+        tasks.prioritiseTask(2);
+        assertEquals(task, tasks.get(0));
+    }
 
 }
