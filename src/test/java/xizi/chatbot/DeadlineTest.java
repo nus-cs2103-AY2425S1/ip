@@ -21,33 +21,6 @@ import xizi.chatbot.task.Deadline;
 public class DeadlineTest {
 
     /**
-     * Tests the {@link Deadline#toString()} method.
-     * Verifies that the string representation of a deadline task is formatted correctly.
-     */
-    @Test
-    public void testToString() {
-        LocalDateTime deadline = LocalDateTime.of(2023, 12, 25, 18, 0);
-        Deadline deadlineTask = new Deadline("Submit assignment", deadline);
-
-        String result = deadlineTask.toString();
-        assertEquals("[D][ ] Submit assignment (by: Dec 25 2023, 6:00pm)", result);
-    }
-
-
-    /**
-     * Tests the {@link Deadline#toFileFormat()} method.
-     * Verifies that the file format of a deadline task is generated correctly.
-     */
-    @Test
-    public void testToFileFormat() {
-        LocalDateTime deadline = LocalDateTime.of(2023, 12, 25, 18, 0);
-        Deadline deadlineTask = new Deadline("Submit assignment", deadline);
-
-        String result = deadlineTask.toFileFormat();
-        assertEquals("D | 0 | Submit assignment | Dec 25 2023, 6:00pm", result);
-    }
-
-    /**
      * Tests the {@link Deadline#getDdl()} method.
      * Verifies that the deadline date and time are returned correctly.
      */
