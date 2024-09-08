@@ -6,7 +6,7 @@ plugins {
 }
 
 checkstyle {
-    toolVersion = '10.2'
+    toolVersion = '10.18.0'
 }
 repositories {
     mavenCentral()
@@ -32,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("futureYou.FutureYou")
+    mainClass.set("futureyou.FutureYou")
 }
 
 shadowJar {
