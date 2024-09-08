@@ -26,11 +26,9 @@ class UiTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
         Ui ui = new Ui();
-        String message = "\tGood Bye. Hope to see you again soon!";
+        String message = "Good Bye. Hope to see you again soon!";
 
-        ui.showGoodbye();
-
-        Assertions.assertEquals(message + System.lineSeparator(), outputStream.toString());
+        Assertions.assertEquals(message, ui.showGoodbye());
 
         System.setOut(originalOut);
     }
