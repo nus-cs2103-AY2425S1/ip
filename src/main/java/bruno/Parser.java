@@ -20,6 +20,8 @@ public class Parser {
      * @return A Command object corresponding to the parsed command, or null if an exception occurs.
      */
     public static Command parse(String command, TaskList tasks) throws BrunoException {
+        assert command != null : "Command is null";
+
         command = command.trim();
 
         String[] parts = command.split(" ", 2);
