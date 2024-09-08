@@ -2,6 +2,9 @@ package cloud.util;
 
 import java.util.Scanner;
 
+/**
+ * Handles the response formatting for Cloud replies
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -30,24 +33,48 @@ public class Ui {
         System.out.println(message);
     }
 
-    public void showMarked(String taskStatus) {
-        System.out.println("cloud.task.Task marked as done!\n" + taskStatus);
+    public String showMarked(String taskStatus) {
+        return String.format("Task marked as done!\n" + taskStatus);
     }
 
-    public void showUnmarked(String taskStatus) {
-        System.out.println("cloud.task.Task marked as not done\n" + taskStatus);
+    public String showUnmarked(String taskStatus) {
+        return String.format("Task marked as not done\n" + taskStatus);
     }
 
-    public void showList(String list) {
-        System.out.println("Here is a list of all your tasks:\n" + list);
+    public String showList(String list) {
+        String response = String.format("Here is a list of all your tasks:\n" + list);
+        return response;
     }
 
-    public void showMatching(String list) {
-        System.out.println("Here are the matching tasks in your list:\n" + list);
+    public String showMatching(String listString) {
+        if (listString.length() == 0) {
+            return "There are no matching tasks found";
+        }
+        return String.format("Here are the matching tasks in your list:\n" + listString);
     }
 
     public void showError(String message) {
         System.out.println(message);
+    }
+
+    public String showAddedTask(TaskList taskList) {
+        String response = String.format(
+                "Added the following task:\n\t%s\nNow you have %d task%s in the list\n",
+                taskList.getLatestTask(),
+                taskList.getTaskCount(),
+                taskList.getTaskCount() != 1 ? "s" : ""
+        );
+        return response;
+    }
+
+    public String showDeletedTask(TaskList taskList, String deletedTaskStatus) {
+        String response = String.format(
+                "Removed the following task:\n\t%s\n%d task%s remaining\n",
+                deletedTaskStatus,
+                taskList.getTaskCount(),
+                taskList.getTaskCount() != 1 ? "s" : ""
+        );
+        return response;
     }
 
     public String readCommand() {
