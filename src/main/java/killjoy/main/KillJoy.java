@@ -2,7 +2,6 @@ package killjoy.main;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import killjoy.processing.ProcessTasks;
 import killjoy.processing.Storage;
@@ -99,42 +98,27 @@ public class KillJoy {
     /**
      * Starts the KillJoy application.
      */
-    public void start() {
-        System.out.println(ui.getLogoString());
-        System.out.println(ui.getWelcomeString());
-        Scanner user = new Scanner(System.in);
-
+    public void loadTasks() {
         saveAndLoad.loadTasks();
-
-        while (true) {
-            String input = user.nextLine();
-            if (input.equals("")) {
-                ui.displayNoStringMessage();
-                continue;
-            }
-
-            String[] inputAsList = input.split(" ");
-
-            if (inputAsList[0].equals("bye")) {
-                saveAndLoad.saveTasks(this.taskList);
-                System.out.println(ui.getExitString());
-                break;
-            } else if (inputAsList[0].equals("list")) {
-                ui.printTaskList();
-            } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")
-                    || inputAsList[0].equals("delete")) {
-                processTasks.markOrDelete(input);
-            } else if (inputAsList[0].equals("find")) {
-                processTasks.findTask(input, this.taskList);
-            } else {
-                processTasks.processUserInput(input);
-            }
-        }
-        user.close();
     }
 
-    public static void main(String[] args) {
-        KillJoy kj = new KillJoy();
-        kj.start();
+    public String getResponse(String input) {
+        if (input.equals("")) {
+            return ui.displayNoStringMessage();
+        }
+        String[] inputAsList = input.split(" ");
+        if (inputAsList[0].equals("bye")) {
+            saveAndLoad.saveTasks(this.taskList);
+            return ui.getExitString();
+        } else if (inputAsList[0].equals("list")) {
+            return ui.printTaskList();
+        } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")
+                || inputAsList[0].equals("delete")) {
+            return processTasks.markOrDelete(input);
+        } else if (inputAsList[0].equals("find")) {
+            return processTasks.findTask(input, this.taskList);
+        } else {
+            return processTasks.processUserInput(input);
+        }
     }
 }
