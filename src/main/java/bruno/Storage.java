@@ -51,37 +51,44 @@ public class Storage {
         try {
             File f = new File(this.filePath);
             Scanner s = new Scanner(f);
-            ArrayList<Task> taskList = new ArrayList<>();
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] lineParts = line.split("\\|");
-                String type = lineParts[0].trim();
-                boolean isDone = lineParts[1].trim().charAt(1) == 'X';
-                String description = lineParts[2].trim();
-
-                if (type.equals("T")) {
-                    taskList.add(new ToDo(description, isDone));
-                } else if (type.equals("D")) {
-                    String byString = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
-                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
-                    taskList.add(new Deadline(description, by, isDone));
-                } else if (type.equals("E")) {
-                    String fromString = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
-                    String toString = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
-                    LocalDateTime from = LocalDateTime.parse(fromString, formatter);
-                    LocalDateTime to = LocalDateTime.parse(toString, formatter);
-                    taskList.add(new Event(description, from, to, isDone));
-                } else {
-                    System.out.println("There was a problem when loading some task");
-                }
-            }
-            return taskList;
+            ArrayList<Task> tasks = new ArrayList<>();
+            readLinesForTasks(tasks, s);
+            return tasks;
         } catch (IOException e) {
             throw new FileLoadingException();
+        }
+    }
+
+    private void readLinesForTasks(ArrayList<Task> tasks, Scanner s) {
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+            readTask(line, tasks);
+        }
+    }
+
+    private void readTask(String line, ArrayList<Task> tasks) {
+        String[] lineParts = line.split("\\|");
+        String type = lineParts[0].trim();
+        boolean isDone = lineParts[1].trim().charAt(1) == 'X';
+        String description = lineParts[2].trim();
+
+        if (type.equals("T")) {
+            tasks.add(new ToDo(description, isDone));
+        } else if (type.equals("D")) {
+            String byString = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
+            LocalDateTime by = LocalDateTime.parse(byString, formatter);
+            tasks.add(new Deadline(description, by, isDone));
+        } else if (type.equals("E")) {
+            String fromString = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
+            String toString = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
+            LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+            LocalDateTime to = LocalDateTime.parse(toString, formatter);
+            tasks.add(new Event(description, from, to, isDone));
+        } else {
+            System.out.println("There was a problem when loading some task");
         }
     }
 
@@ -90,20 +97,24 @@ public class Storage {
      * This method writes each task in the provided task list to the file,
      * replacing the previous file contents.
      *
-     * @param taskList The ArrayList of tasks to be written to the file.
+     * @param tasks The ArrayList of tasks to be written to the file.
      */
-    public void updateFile(ArrayList<Task> taskList) {
+    public void updateFile(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter(filePath);
-            String listAsString = "";
-            for (Task task : taskList) {
-                listAsString += task.toString() + "\n";
-            }
-            fw.write(listAsString);
-            fw.close();
+            rewriteFile(tasks);
         } catch (IOException e) {
             Ui.printErrorMessage(e);
         }
+    }
+
+    private void rewriteFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        String listAsString = "";
+        for (Task task : tasks) {
+            listAsString += task.toString() + "\n";
+        }
+        fw.write(listAsString);
+        fw.close();
     }
 
     /**
@@ -113,9 +124,7 @@ public class Storage {
     public void ensureDirectoryExists() {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
-            if (directory.mkdirs()) {
-                System.out.println("Directory created to store data file");
-            }
+            directory.mkdirs();
         }
     }
 
@@ -127,9 +136,7 @@ public class Storage {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
-                if (file.createNewFile()) {
-                    System.out.println("Data file created");
-                }
+                file.createNewFile();
             } catch (IOException e) {
                 Ui.printErrorMessage(e);
             }
