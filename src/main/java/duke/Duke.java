@@ -2,7 +2,6 @@ package duke;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 /**
  * The Duke class represents the main entry point for the Duke application.

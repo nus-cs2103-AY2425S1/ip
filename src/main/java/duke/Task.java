@@ -7,6 +7,7 @@ public abstract class Task {
 
     protected boolean isDone;
     protected String description;
+    protected int priority;
 
     /**
      * Constructs a Task with the specified description. The task is initially not done.
@@ -16,16 +17,24 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     /**
-     * Returns a string representation of the task, including its status icon and description.
+     * Returns a string representation of the task, including its priority, status icon and description.
      *
      * @return a string representation of the task
      */
     @Override
     public String toString() {
-        return this.getStatusIcon() + " " + this.description;
+        String priority;
+        String withoutPriority = this.getStatusIcon() + " " + this.description;
+        if (this.priority == 1) {
+            priority = "(HIGH PRIORITY)";
+        } else {
+            priority = "";
+        }
+        return priority + withoutPriority;
     }
 
     /**
@@ -68,4 +77,28 @@ public abstract class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Marks the task as high priority by setting its priority to 1.
+     */
+    public void markAsHighPriority() {
+        this.priority = 1;
+    }
+
+    /**
+     * Unmarks the task as high priority by setting its priority to 0.
+     */
+    public void unmarkAsHighPriority() {
+        this.priority = 0;
+    }
+
+    /**
+     * Returns the priority of the task.
+     *
+     * @return the priority of the task, where 1 indicates high priority and 0 indicates no priority.
+     */
+    public int getPriority() {
+        return this.priority;
+    }
+
 }

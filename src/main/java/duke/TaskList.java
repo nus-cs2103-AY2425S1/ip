@@ -54,6 +54,38 @@ public class TaskList {
     }
 
     /**
+     * Marks a task as high priority at the specified index and updates the storage file.
+     *
+     * @param index   the 1-based index of the task to mark as high priority
+     * @param storage the Storage object to handle file operations
+     */
+    public void prioritise(int index, Storage storage) {
+        assert storage != null : "Storage object should not be null";
+
+        Task task = this.toDoList.get(index - 1);
+        task.markAsHighPriority();
+        storage.replaceLineInFile(this, index - 1);
+        System.out.println("Nice! I've marked this task as high priority:");
+        System.out.println(task.toString());
+    }
+
+    /**
+     * Unmarks a task as high priority at the specified index and updates the storage file.
+     *
+     * @param index   the 1-based index of the task to unmark as high priority
+     * @param storage the Storage object to handle file operations
+     */
+    public void deprioritise(int index, Storage storage) {
+        assert storage != null : "Storage object should not be null";
+
+        Task task = this.toDoList.get(index - 1);
+        task.unmarkAsHighPriority();
+        storage.replaceLineInFile(this, index - 1);
+        System.out.println("Nice! I've unmarked this task as high priority:");
+        System.out.println(task.toString());
+    }
+
+    /**
      * Deletes a task at the specified index from the task list and updates the storage file.
      *
      * @param index   the 1-based index of the task to delete
