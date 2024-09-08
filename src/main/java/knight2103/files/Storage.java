@@ -31,7 +31,7 @@ public class Storage {
      *
      * @param taskToSave The added task to be saved to the storage file.
      */
-    public void save(Task taskToSave) throws IOException {
+    public void saveToFile(Task taskToSave) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, true);
         tasksWriter.write("\n" + taskToSave.saveToFileFormat());
         tasksWriter.close();
@@ -46,7 +46,7 @@ public class Storage {
      *
      * @param tasks The newly updated tasks to be saved into the Storage File.
      */
-    public void save(TaskList tasks) throws IOException {
+    public void saveToFile(TaskList tasks) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
         tasksWriter.write(tasks.printToFile());
         tasksWriter.close();
@@ -58,7 +58,7 @@ public class Storage {
      *
      * @return The ArrayList of task that can be stored in the bot's list of tasks.
      */
-    public Pair<ArrayList<Task>, String> load() throws FileNotFoundException { // Exception handling in Knight2103.java
+    public Pair<ArrayList<Task>, String> loadFileContents() throws FileNotFoundException { // Exception handling in Knight2103.java
         ArrayList<Task> tasks = new ArrayList<Task>();
         String errorMessage = "";
         int lineInFileCount = 0; // not item count, because .txt file can see line number easily
@@ -69,7 +69,7 @@ public class Storage {
             if (lineInFocus.isEmpty()) {
                 continue;
             }
-            Pair<Optional<Task>, String> taskAndErrorMsgPair = formatLineToTask(lineInFocus);
+            Pair<Optional<Task>, String> taskAndErrorMsgPair = convertLineToTask(lineInFocus);
             taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
             if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {
                 errorMessage += String.format("\nFile line %d - %s",
@@ -79,63 +79,54 @@ public class Storage {
         return new Pair<ArrayList<Task>, String>(tasks, errorMessage);
     }
 
-    private Pair<Optional<Task>, String> formatLineToTask(String lineInFile) {
+    private Pair<Optional<Task>, String> convertLineToTask(String lineInFile) {
         String[] lineArray = lineInFile.split(" \\| ");
         String errorMessage = "";
+        Task taskToAdd = null;
         try {
-            Task taskToAdd;
             switch (lineArray[0]) {
             case "T":
                 if (lineArray.length != 3) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. There should be 3 for Todo");
+                    throw new InvalidFileContentsException("Number of columns mismatch. 3 columns for Todo task");
                 }
                 taskToAdd = new Todo(lineArray[2]);
-                return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray,
-                        taskToAdd)),
-                        errorMessage);
             case "D":
                 if (lineArray.length != 4) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. There should be 4 for Deadline");
+                    throw new InvalidFileContentsException("Number of columns mismatch. 4 columns for Deadline task");
                 }
                 try {
                     taskToAdd = new Deadline(lineArray[2], lineArray[3]);
-                    return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray, taskToAdd)), errorMessage);
                 } catch (DateTimeParseException e) {
-                    errorMessage += "\nknight2103.tasks.Deadline format is wrong in the file contents."
-                            + " For deadline, it should be yyyy-MM-dd format.";
+                    errorMessage += "\nDate format is wrong in the file contents."
+                            + " For Deadline task, it should be yyyy-MM-dd format.";
                 }
                 break;
             case "E":
                 if (lineArray.length != 5) {
-                    throw new InvalidFileContentsException("Number of columns mismatch. Expected 5 for Events");
+                    throw new InvalidFileContentsException("Number of columns mismatch. 5 columns for Event task");
                 }
                 try {
                     taskToAdd = new Event(lineArray[2], lineArray[3], lineArray[4]);
-                    return new Pair<Optional<Task>, String>(Optional.of(checkForMarkedFormat(lineArray, taskToAdd)), errorMessage);
                 } catch (DateTimeParseException e) {
-                    errorMessage += "\nDeadline format is wrong in the file contents."
-                            + " For events, it should be yyyy-MM-ddThh:mm format";
+                    errorMessage += "\nDate & Time format is wrong in the file contents."
+                            + " For Events task, it should be yyyy-MM-ddThh:mm format";
                 }
                 break;
             default:
-                throw new InvalidFileContentsException("Only T, E, D accepted but others found");
+                throw new InvalidFileContentsException("Only T, E, D accepted but others found in 1st column");
             }
+
+            // check for marked or unmarked Task checkForMarkedFormat()
+            // need to assert here.
+            if (lineArray[1].equals("1")) {
+                taskToAdd.markDone();
+            } else if (!lineArray[1].equals("0")) { // neither 0 nor 1
+                throw new InvalidFileContentsException("the value of the 2nd column should only be 0 or 1");
+            }
+            return new Pair<Optional<Task>, String>(Optional.of(taskToAdd), errorMessage);
         } catch (InvalidFileContentsException e) {
             errorMessage += e.getMessage();
         }
         return new Pair<Optional<Task>, String>(Optional.empty(), "Errors found: " + errorMessage);
-    }
-
-
-    private Task checkForMarkedFormat(String[] lineArray, Task taskToAdd) throws InvalidFileContentsException {
-        // here can assert the lineArray length > 2
-        if (lineArray[1].equals("0")) {
-            return taskToAdd;
-        } else if (lineArray[1].equals("1")) {
-            taskToAdd.markDone();
-            return taskToAdd;
-        } else {
-            throw new InvalidFileContentsException("the value of the 2nd column should only be 0 or 1");
-        }
     }
 }
