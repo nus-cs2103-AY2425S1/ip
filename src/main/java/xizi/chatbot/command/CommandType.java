@@ -38,6 +38,11 @@ public enum CommandType {
     TAG("^tag (\\d+) (#\\w+)$"),
 
     /**
+     * Represents the "remove tag" command, which removes a tag from a specific tag.
+     */
+    REMOVE_TAG("^remove tag (\\d+) (#\\w+)$"),
+
+    /**
      * Represents the "delete" command, which deletes a task.
      * The command expects a task number as an argument.
      * Example: "delete 1"

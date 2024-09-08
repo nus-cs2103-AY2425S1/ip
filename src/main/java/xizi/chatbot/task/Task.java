@@ -58,6 +58,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns true when a tag is found and removed successfully.
+     */
+    public boolean hasRemovedTag(String tag) {
+        boolean removed = this.tags.remove(tag);
+        return removed;
+    }
+
+
+    /**
      * Marks the task as done.
      */
     public void markDone() {
