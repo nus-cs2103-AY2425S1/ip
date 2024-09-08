@@ -43,7 +43,7 @@ public class Ui {
         if (taskList.size() > 0) {
             StringBuilder res = new StringBuilder("Your current tasks are: \n");
             for (int i = 0; i < taskList.size(); i++) {
-                res.append((i + 1) + "." + taskList.get(i).toString() + "\n");
+                res.append((i + 1)).append(".").append(taskList.get(i).toString()).append("\n");
             }
             return res.toString();
         } else {
@@ -70,6 +70,7 @@ public class Ui {
      * @return The success message
      */
     public String showMarked(Task markedTask) {
+        assert markedTask != null : "Marked task given is null!";
         return "task\n  " + markedTask.toString() + "\nis marked!";
     }
 
@@ -81,6 +82,7 @@ public class Ui {
      * @return The success message
      */
     public String showUnmarked(Task unmarkedTask) {
+        assert unmarkedTask != null : "Unmarked task given is null!";
         return "task\n  " + unmarkedTask.toString() + "\nis unMarked!";
     }
 
@@ -93,6 +95,7 @@ public class Ui {
      * @return The success message
      */
     public String addedTask(Task added, int taskListSize) {
+        assert added != null : "Added task given is null!";
         return "I have added the task " + added.toString() + "\nYou now have " + taskListSize + " task(s)";
     }
 
@@ -105,6 +108,7 @@ public class Ui {
      * @return The success message
      */
     public String deletedTask(Task deleted, int taskListSize) {
+        assert deleted != null : "Deleted task given is null!";
         return "The task\n " + deleted.toString() + "\nhas been removed!\nYou now have "
                 + taskListSize + " tasks left.";
     }
@@ -117,6 +121,7 @@ public class Ui {
      * @return The success message
      */
     public String showMatchedTasks(ArrayList<Task> matchList) {
+        assert matchList != null : "List of matched tasks given is null!";
         if (matchList.isEmpty()) {
             return "There are no tasks in your list that match " + "'prompt'";
         } else {
