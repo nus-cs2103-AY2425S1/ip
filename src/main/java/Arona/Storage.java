@@ -19,6 +19,8 @@ public class Storage {
      * @param  filePath  a relative filepath giving the location that data.txt should be stored in
      */
     public Storage(String filePath) {
+        assert filePath != null : "filePath should be specified";
+        assert !filePath.isBlank() : "filePath cannot be an blank string";
         this.FILEPATH = filePath;
     }
 
@@ -34,7 +36,6 @@ public class Storage {
         ArrayList<String> data = new ArrayList<>();
 
         // Current data.txt directory
-        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
 
         // Make data.txt file if it doesn't exist
@@ -56,6 +57,35 @@ public class Storage {
     }
 
     /**
+     * Archives tasks from taskList as text in [name].txt
+     * @param  name  name of file that will contain archive
+     * @param  taskList  arraylist where each element is from Task class
+     * @exception InvalidPathException thrown when filepath isn't in the correct format
+     * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
+     * @exception SecurityException thrown when file can't be accessed due to system security settings
+     */
+    public void archive(String name, TaskList taskList) throws Exception {
+        // Current data.txt directory
+        Path dataDir = Paths.get(".\\" + name + ".txt");
+
+        // Make data.txt file if it doesn't exist
+        try {
+            Files.createFile(dataDir);
+        } catch (Exception e) {
+            // If the exception isn't "file already exists", throw it
+            if (!(e instanceof FileAlreadyExistsException)) {
+                throw(e);
+            }
+        }
+
+        // Write data to file
+        Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+        for (int i = 0; i < taskList.size(); i++) {
+            Files.write(dataDir, Collections.singletonList(taskList.get(i) + ""), StandardOpenOption.APPEND);
+        }
+    }
+
+    /**
      * Saves tasks from taskList as text in data.txt
      * @param  taskList  arraylist where each element is from Task class
      * @exception InvalidPathException thrown when filepath isn't in the correct format
@@ -64,14 +94,12 @@ public class Storage {
      */
     public void save(TaskList taskList) throws Exception {
         // Current data.txt directory
-        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
 
         // Write data to file
         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
         for (int i = 0; i < taskList.size(); i++) {
-            Files.write(dataDir, Collections.singletonList(taskList.get(i).getStatusIcon() + taskList.get(i).getCategory()
-                    + " " + taskList.get(i)), StandardOpenOption.APPEND);
+            Files.write(dataDir, Collections.singletonList(taskList.get(i) + ""), StandardOpenOption.APPEND);
         }
     }
 
@@ -80,7 +108,6 @@ public class Storage {
      * @return A string that shows the absolute file path of data.txt
      */
     public String getStorageLocation() {
-        assert FILEPATH != null;
         Path dataDir = Paths.get(FILEPATH);
         return dataDir.toAbsolutePath().toString();
     }
