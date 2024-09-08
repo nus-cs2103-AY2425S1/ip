@@ -75,20 +75,29 @@ public class Ui<T> {
     }
 
     /**
-     * Shows a record.
+     * Generates a string of records.
+     * The string of records can be filtered through with a predicate.
      *
-     * @param record Record to be printed.
+     * @param records Records to be listed.
+     * @param predicate Predicate to filter the list of records.
+     * @return String of records.
      */
-    public void show(T record) {
-        print(record.toString());
+    public String toStringRecords(ArrayList<T> records, Predicate<T> predicate) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < records.size(); i++) {
+            if (predicate.test(records.get(i))) {
+                stringBuilder.append("\n").append(i + 1).append(".").append(records.get(i));
+            }
+        }
+        return stringBuilder.toString();
     }
 
     /**
-     * Prints a given text.
+     * Displays text to console.
      *
      * @param text Text to be printed
      */
-    public static void displayText(String text) {
+    public static void displayToConsole(String text) {
         print(text);
     }
 }
