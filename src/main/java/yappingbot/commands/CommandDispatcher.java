@@ -9,13 +9,42 @@ import yappingbot.tasks.Todo;
 import yappingbot.tasks.tasklist.TaskList;
 import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
-import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
 /**
  * Class of implemented commands and their functions.
  */
-public class Commands {
+public class CommandDispatcher {
+
+    private final Ui ui;
+
+    /**
+     * Constructor for dispatcher to run commands.
+     *
+     * @param ui UI interface to output text
+     */
+    public CommandDispatcher(Ui ui) {
+        this.ui = ui;
+    }
+
+    /**
+     * Resets the currentUserList to default view if it is currently a filter view.
+     *
+     * @param currentUserList TaskList that needs to be resetted
+     * @param silent boolean on whether to run this silently
+     * @return TaskList of the whole task list, not filtered
+     */
+    public TaskList resetView(TaskList currentUserList, boolean silent) {
+        // reset the view to main parent
+        TaskList userList = currentUserList;
+        while (userList instanceof TaskListFilterView) {
+            userList = ((TaskListFilterView) userList).getParent();
+        }
+        if (!silent) {
+            ui.println(ReplyTextMessages.RESET_TEXT);
+        }
+        return userList;
+    }
 
     /**
      * Prints the contents of the task list in a human-friendly format.
@@ -23,24 +52,24 @@ public class Commands {
      *
      * @param userList TaskList to be printed
      */
-    public static void printUserList(TaskList userList) {
+    public void printUserList(TaskList userList) {
         if (userList.isEmpty()) {
-            Ui.println("List is empty!");
-            return;
+            ui.println("List is empty!");
         }
 
 
-        MultilineStringBuilder msb = new MultilineStringBuilder();
-        msb.addLine(ReplyTextMessages.LIST_TEXT);
+        StringBuilder sb = new StringBuilder();
+        sb.append(ReplyTextMessages.LIST_TEXT);
         if (userList instanceof TaskListFilterView) {
-            msb.addLine(String.format("(Filter: '%s')",
+            sb.append(String.format("\n(Filter: '%s')",
                                      ((TaskListFilterView) userList).getFilterString()));
         }
+        sb.append("\n");
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
-            msb.addLine(
+            sb.append(
                     String.format(
-                            "%2d.%s",
+                            "\n%2d.%s",
                             i + 1,
                             String.format(
                                     ReplyTextMessages.TASK_PRINT_TEXT_3s,
@@ -51,7 +80,7 @@ public class Commands {
                     )
             );
         }
-        msb.print();
+        ui.print(sb.toString());
     }
 
     /**
@@ -61,16 +90,17 @@ public class Commands {
      * @param isTaskDone boolean of whether to mark or unmark the task.
      * @param userList TaskList to be searched.
      */
-    public static void changeTaskListStatus(int i, boolean isTaskDone, TaskList userList) {
+    public void changeTaskListStatus(int i, boolean isTaskDone, TaskList userList) {
         Task t = userList.get(i);
         t.setTaskDone(isTaskDone);
-        MultilineStringBuilder msb = new MultilineStringBuilder();
+        StringBuilder sb = new StringBuilder();
         if (isTaskDone) {
-            msb.addLine(ReplyTextMessages.MARKED_TASK_AS_DONE_TEXT);
+            sb.append(ReplyTextMessages.MARKED_TASK_AS_DONE_TEXT);
         } else {
-            msb.addLine(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT);
+            sb.append(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT);
         }
-        msb.addLine(
+        sb.append("\n");
+        sb.append(
                 String.format(
                         ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
@@ -78,7 +108,7 @@ public class Commands {
                         t
                 )
         );
-        msb.print();
+        ui.print(sb.toString());
     }
 
     /**
@@ -87,18 +117,17 @@ public class Commands {
      * @param i integer index of task in list.
      * @param userList TaskList to be searched.
      */
-    public static void deleteTask(int i, TaskList userList) {
+    public void deleteTask(int i, TaskList userList) {
         Task t = userList.deleteTask(i);
-        MultilineStringBuilder msb = new MultilineStringBuilder();
-        msb.addLine(ReplyTextMessages.DELETED_TEXT);
-        msb.addLine(
-                String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                              t.getTaskTypeSymbol(),
-                              t.getTaskDoneCheckmark(),
-                              t)
-        );
-        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
-        msb.print();
+        ui.print(ReplyTextMessages.DELETED_TEXT
+                 + "\n"
+                 + String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
+                                 t.getTaskTypeSymbol(),
+                                 t.getTaskDoneCheckmark(),
+                                 t)
+                 + "\n"
+                 + String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d,
+                                 userList.size()));
     }
 
 
@@ -110,7 +139,7 @@ public class Commands {
      * @param userList         TaskList to be searched
      * @throws YappingBotIncorrectCommandException Exception if creating the task failed.
      */
-    public static void createNewTask(
+    public void createNewTask(
             String[] userInputSpliced,
             TaskTypes taskTypes,
             TaskList userList)
@@ -215,17 +244,19 @@ public class Commands {
                     ReplyTextMessages.EVENT_USAGE,
                     userInputSpliced);
         }
-        MultilineStringBuilder msb = new MultilineStringBuilder();
-        msb.addLine(ReplyTextMessages.ADDED_TEXT);
-        msb.addLine(
+        sb = new StringBuilder();
+        sb.append("\n");
+        sb.append(ReplyTextMessages.ADDED_TEXT);
+        sb.append(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
                               newTask.getTaskTypeSymbol(),
                               newTask.getTaskDoneCheckmark(),
                               newTask)
         );
         userList.addTask(newTask);
-        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
-        msb.print();
+        sb.append("\n");
+        sb.append(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
+        ui.print(sb.toString());
     }
 
     /**
@@ -238,21 +269,22 @@ public class Commands {
      * @return TaskList of given userList if not found, or new TaskListFilterView with filtered
      *         Tasks.
      */
-    public static TaskList findStringInTasks(String searchString, TaskList userList) {
-        MultilineStringBuilder msb = new MultilineStringBuilder();
+    public TaskList findStringInTasks(String searchString, TaskList userList) {
+        StringBuilder sb = new StringBuilder();
         String searchStringSanitized = searchString.replaceAll("\n", "");
-        msb.addLine(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
+        sb.append(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
         TaskList newFilteredView = TaskListFilterView.createFilter(userList, searchString);
+        sb.append("\n");
         if (newFilteredView.isEmpty()) {
-            msb.addLine(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
-            msb.print();
+            sb.append(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
+            ui.print(sb.toString());
             return userList;
         } else {
-            msb.addLine(String.format(
+            sb.append(String.format(
                     ReplyTextMessages.FIND_STRING_FOUND_1d_1s,
                     newFilteredView.size(),
                     searchString));
-            msb.print();
+            ui.print(sb.toString());
             printUserList(newFilteredView);
             return newFilteredView;
         }

@@ -1,17 +1,16 @@
 package yappingbot;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import yappingbot.commands.Commands;
+import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.tasklist.TaskList;
-import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
@@ -21,48 +20,56 @@ import yappingbot.ui.Ui;
  */
 public class YappingBot {
 
+    private final CommandDispatcher commandDispatch;
+    private final Parser parser;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList userList;
-    private final String savefilePath;
 
     /**
      * Sets the savefilePath that this bot will load from
      * and save to. Saved item includes the task list.
      *
-     * @param savefilePath the relative or absolute filepath
+     * @param ui Ui interface that will handle input and output
+     * @param storage Storage interface to save and retrieve savefiles
      */
-    private YappingBot(String savefilePath) {
-        this.savefilePath = savefilePath;
+    public YappingBot(Ui ui, Storage storage) {
+        this.ui = ui;
+        this.storage = storage;
+        this.parser = new Parser();
+        this.commandDispatch = new CommandDispatcher(ui);
     }
 
     /**
      * Initializes the bot. This takes a Storage object to load the tasks from,
      * or creates a new task list if none is found or any error is encountered when trying to
      * load the list from disk.
-     *
-     * @param storage the Storage object that interfaces with the disk.
      */
-    private void init(Storage storage) {
+    private void init() {
+        userList = new TaskList();
         try {
             ArrayList<String> s = storage.loadListFromFile();
-            userList = TaskList.generateFromRaw(s);
+            YappingBotInvalidSaveFileException e = userList.generateFromRaw(s);
+            // Lord forgive me for returning execptions without throwing them is so
+            // illegal.
+            if (e != null) {
+                ui.printError(e);
+            }
         } catch (YappingBotSaveFileNotFoundException e) {
-            Ui.printError(e);
-            userList = new TaskList();
+            ui.printError(e);
         }
     }
 
     /**
      * Saves the task list to disk using the already-created Storage object.
-     *
-     * @param storage Storage object interfacing with the disk.
      */
-    private void saveAndExit(Storage storage) {
+    private void saveAndCleanup() {
         // REVERT LIST TO MAIN PARENT!
-        resetView();
+        userList = commandDispatch.resetView(userList, true);
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
-            Ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
+            ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
         }
     }
 
@@ -70,10 +77,8 @@ public class YappingBot {
      * The main loop that receives and executes commands.
      */
     private void mainLoop() {
-        Scanner userInputScanner = new Scanner(System.in);
-        Parser parser = new Parser();
-        while (userInputScanner.hasNextLine()) {
-            String userInput = userInputScanner.nextLine().trim();
+        while (ui.hasInputLines()) {
+            String userInput = ui.getNextInputLine().trim();
             String[] userInputSlices = userInput.split(" ");
             try {
                 int taskListIndexPtr; // task list pointer
@@ -81,52 +86,48 @@ public class YappingBot {
                 case EXIT:
                     return;
                 case RESET_LIST:
-                    resetView();
+                    userList = commandDispatch.resetView(userList, false);
                     break;
                 case LIST:
-                    Commands.printUserList(userList);
+                    commandDispatch.printUserList(userList);
                     break;
                 case MARK:
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
                     break;
                 case UNMARK:
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
+                    commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
                     break;
                 case DELETE:
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.deleteTask(taskListIndexPtr, userList);
+                    commandDispatch.deleteTask(taskListIndexPtr, userList);
                     break;
                 case TODO:
-                    Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.TODO, userList);
                     break;
                 case EVENT:
-                    Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
                     break;
                 case DEADLINE:
-                    Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                    commandDispatch.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
                     break;
                 case FIND:
+                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     String searchString = userInput.substring(userInput.indexOf(" ") + 1);
-                    userList = Commands.findStringInTasks(searchString, userList);
+                    userList = commandDispatch.findStringInTasks(searchString, userList);
                     break;
                 case UNKNOWN:
                 default:
                     throw new YappingBotUnknownCommandException();
                 }
             } catch (YappingBotException e) {
-                Ui.printError(e);
+                ui.printError(e);
             }
         }
-    }
-
-    private void resetView() {
-        // reset the view to main parent
-        while (userList instanceof TaskListFilterView) {
-            userList = ((TaskListFilterView) userList).getParent();
-        }
-        // TODO: add message
     }
 
     /**
@@ -134,33 +135,11 @@ public class YappingBot {
      * Entry point into the bot. This
      * main loop, and exiting.
      */
-    private void start() {
-        Storage storage = new Storage(savefilePath);
-        init(storage);
-        Ui.print(ReplyTextMessages.GREETING_TEXT);
+    public void start() {
+        init();
+        ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();
-        Ui.print(ReplyTextMessages.EXIT_TEXT);
-        saveAndExit(storage);
-    }
-
-    /**
-     * Creates a YappingBot and runs it.
-     * Main entry point.
-     *
-     * @param args if args[1] exists, it will be used for the savefile path instead of the
-     *             default ./savefile.
-     */
-    public static void main(String[] args) {
-        String savefile;
-
-        // ability to give savefile path
-        if (args.length > 1) {
-            savefile = args[1];
-        } else {
-            savefile = "./savefile";
-        }
-
-        YappingBot yp = new YappingBot(savefile);
-        yp.start();
+        saveAndCleanup();
+        ui.print(ReplyTextMessages.EXIT_TEXT);
     }
 }

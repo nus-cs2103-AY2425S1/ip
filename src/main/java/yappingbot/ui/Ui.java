@@ -1,106 +1,88 @@
 package yappingbot.ui;
 
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotIoException;
 
 /**
- * User-interface class for mainly outputting different texts and decorating them to represent
- * the bot talking.
+ * Abstract user-interface class for mainly outputting different texts and decorating them to
+ * represet the bot talking.
  */
-public class Ui {
-    private static final String PREFIX = "|  ";
-    private static final String PREFIX_EMPTY = "|";
+public interface Ui {
+
+    /**
+     * Prints a String to output.
+     *
+     * @param s String to be outputted.
+     */
+    public abstract void print(String s);
+
+    /**
+     * Prints a String line to output, followed by a newline.
+     *
+     * @param s String to be outputted as single line.
+     */
+    public abstract void println(String s);
+
+    /**
+     * Prints a String line, with formatting support.
+     *
+     * @param formattedString String that uses `String.format()` style formatting.
+     * @param o Objects that will be formatted into the format string before printing.
+     */
+    public abstract void printf(String formattedString, Object ... o);
+
+    /**
+     * Prints a String error to output.
+     *
+     * @param e String error to be outputted.
+     */
+    public abstract void printError(String e);
+
+    /**
+     * Prints a String error, with formatting support.
+     *
+     * @param formattedString String that uses `String.format()` style formatting.
+     * @param o Objects that will be formatted into the format string before printing.
+     */
+    public abstract void printfError(String formattedString, Object ... o);
+
+    /**
+     * Prints an error to output.
+     *
+     * @param e YappingBotException error to be outputted.
+     */
+    public abstract void printError(YappingBotException e);
+
+    /**
+     * Peeks into input buffer and returns true if a next line is available, or <b>blocks</b>
+     * until a line is present in the input buffer, or the input stream is closed.
+     *
+     * @return boolean true if line is available, or false if input is closed.
+     */
+    public abstract boolean hasInputLines();
 
 
     /**
-     * Decorates the given string, to denote that it is the bot's output.
+     * Pops the next line that is available in input buffer, or else throws exception.
      *
-     * @param line the message to be decorated.
-     * @return String of the newly decorated message.
+     * @return String of next line in input buffer.
      */
-    private static String quoteSinglelineText(String line) {
-        if (line == null || line.trim().isEmpty()) {
-            return PREFIX_EMPTY + "\n";
-        } else {
-            return PREFIX + line.replaceAll("\n", "") + "\n";
-        }
-    }
-
-    /**
-     * Decorates the given string, to denote that it is the bot's output.
-     * This accepts a StringBuilder for efficiently dealing with multiple lines.
-     *
-     * @param line String to be decorated.
-     * @param sb StringBuilder that the decorated line will be appended to.
-     */
-    protected static void quoteSinglelineText(String line, StringBuilder sb) {
-        if (line.trim().isEmpty()) {
-            sb.append(PREFIX_EMPTY);
-        } else {
-            sb.append(PREFIX);
-            sb.append(line.replaceAll("\n", ""));
-        }
-        sb.append("\n");
-    }
+    public abstract String getNextInputLine();
 
 
     /**
-     * Decorates the given string, to denote that it is the bot's output.
-     * This accepts multiple lines.
+     * Returns the output lines in the buffer to be printed.
      *
-     * @param text String message to be decorated.
-     * @return String of the newly decorated message.
+     * @return String to be outputted or printed:
      */
-    private static String quoteMultilineText(String text) {
-        // annotates text with pipe to denote speech from bot
-        if (text == null) {
-            return quoteSinglelineText("");
-        }
-        String[] lines = text.split("\n");
-        StringBuilder sb = new StringBuilder();
-        for (String l : lines) {
-            quoteSinglelineText(l, sb);
-        }
-        return sb.toString();
-    }
+    public abstract String getNextOutputLine() throws YappingBotIoException;
 
     /**
-     * Prints error message from a YappingBotException with decorations denoting output is from bot.
+     * Peeks into output buffer and returns true if a next line is available, or <b>blocks</b>
+     * until a line is present in the output buffer, or the output stream is closed.
      *
-     * @param e YappingBotException or its derived classes with an embedded message.
+     * @return boolean true if line is available, or false if output is closed.
      */
-    public static void printError(YappingBotException e) {
-        printError(e.getErrorMessage());
-    }
-
-
-    /**
-     * Prints error message from a YappingBotException with decorations denoting output is from bot.
-     *
-     * @param msg String error message to be outputted.
-     */
-    public static void printError(String msg) {
-        System.out.print(Ui.quoteMultilineText(msg));
-    }
-
-    /**
-     * Prints any String, with decorations denoting output is from bot.
-     *
-     * @param msg String message to be printed.
-     */
-    public static void print(String msg) {
-        System.out.print(Ui.quoteMultilineText(msg));
-    }
-
-
-    /**
-     * Prints any String in a line, with decorations denoting output is from bot.
-     * Any newlines will be removed, rendering the message in a single line
-     *
-     * @param msg String message to be printed.
-     */
-    public static void println(String msg) {
-        System.out.print(Ui.quoteSinglelineText(msg));
-    }
-
+    public abstract boolean hasOutputLines();
 }
 

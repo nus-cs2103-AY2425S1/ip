@@ -8,10 +8,10 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.Task;
-import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
 /**
@@ -32,27 +32,27 @@ public class TaskList implements Iterable<Task> {
      * Creates a task list populated with values from the given ArrayList of Strings.
      *
      * @param tasksRaw ArrayList of Strings, each a line that denotes a serialized task.
-     * @return TaskList, populated with appropriate values.
      */
-    public static TaskList generateFromRaw(ArrayList<String> tasksRaw) {
-        TaskList userList = new TaskList();
+    public YappingBotInvalidSaveFileException generateFromRaw(ArrayList<String> tasksRaw) {
         ArrayList<Exception> errorLists = new ArrayList<>();
         for (String taskIndividualRaw : tasksRaw) {
             String[] s = taskIndividualRaw.split(":");
             try {
-                userList.addTask(parseSingleTask(s));
+                this.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
                 errorLists.add(e);
             }
         }
         if (!errorLists.isEmpty()) {
-            MultilineStringBuilder msb = new MultilineStringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (Exception e : errorLists) {
-                msb.addLine(e.getMessage());
+                // TODO: replace with exception collector class
+                sb.append(e.toString());
+                sb.append('\n');
             }
-            Ui.printError(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, msb));
+            return new YappingBotInvalidSaveFileException(sb.toString());
         }
-        return userList;
+        return null;
     }
 
     /**
@@ -120,7 +120,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task get(int index) throws YappingBotOobException {
         if (index < 0 || index >= size) {
-            throw new YappingBotOobException(index);
+            throw new YappingBotOobException(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, index);
         }
         return tasks.get(index);
     }

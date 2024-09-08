@@ -4,6 +4,7 @@ package yappingbot.stringconstants;
  * String constants of messages that the bot can use to reply.
  */
 public final class ReplyTextMessages {
+    public static final String NOT_ENOUGH_ARGUMENTS = "Not enough Arguments!";
     // Text strings
     private static final String BOT_NAME = "YappingBot";
     public static final String GREETING_TEXT = String.format(
@@ -16,6 +17,7 @@ public final class ReplyTextMessages {
                                                          + "'%s' is!\n";
     public static final String LIST_TEXT = "Here are the tasks in your list:";
     public static final String ADDED_TEXT = "Got it. I've added this task:";
+    public static final String RESET_TEXT = "Alright. Back to main view of whole list.";
     public static final String DELETED_TEXT = "Noted. I've deleted this task:";
     public static final String DELETE_USAGE =
             """
@@ -73,7 +75,8 @@ public final class ReplyTextMessages {
                         unmark TASK_NUMBER
 
                     where TASK_NUMBER is the task number in the task list""";
-    public static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
+    public static final String EXIT_TEXT = "Bye. Hope to see you again soon! (You may close this "
+                                           + "window)";
 
     public static final String SAVE_FILE_NOT_FOUND_EXCEPTION = "Savefile not found...\nBeginning "
                                                                + "with blank list";
@@ -84,6 +87,7 @@ public final class ReplyTextMessages {
     public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse "
                                                                                + "value - %s";
     public static final String SAVEFILE_IO_EXCEPTION_1s = "Unable to save list to disk - %s";
+    public static final String IO_EXCEPTION_1s = "Error dealing with input / output - %s";
     public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time"
                                                  + " format!";
     public static final String SAVE_FILE_ERROR_1s = "Error encountered while saving savefile:\n%s";

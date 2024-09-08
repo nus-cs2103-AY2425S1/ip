@@ -20,11 +20,13 @@ fi
 cp ../src/test/resources/savefile_original ./savefile
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/yappingbot/*.java
+pushd ..
+if ! ./gradlew shadowjar
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
+popd || exit
 
 # shellcheck disable=SC1073
 until [ -e "./savefile" ]
@@ -33,7 +35,7 @@ do
 done
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin YappingBot ./savefile < input.txt > ACTUAL.TXT
+java -jar ../build/libs/yappingbot.jar -c -s ./savefile < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 # cp EXPECTED.TXT EXPECTED-UNIX.TXT
