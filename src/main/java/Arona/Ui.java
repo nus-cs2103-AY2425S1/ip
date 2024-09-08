@@ -88,7 +88,6 @@ public class Ui {
         return s;
     }
 
-
     public String showException(Exception e) {
         return (e.getMessage());
     }

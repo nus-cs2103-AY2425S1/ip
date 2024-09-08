@@ -36,7 +36,7 @@ public class Arona {
 
     /**
      * Entry to main logic from GUI
-     *
+     * @param  input  the unprocessed String input from the user
      */
     public String getResponse(String input) {
         String reply = "";
@@ -50,6 +50,7 @@ public class Arona {
                 storage.save(taskList);
             }
             return reply;
+
         } catch (Exception e) {
             // User Error
             if (e instanceof AronaException) {
@@ -65,7 +66,6 @@ public class Arona {
             }
             // Other exception
             else {
-                //e.printStackTrace();
                 return ui.showException(e);
             }
         }

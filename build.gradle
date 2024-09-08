@@ -41,6 +41,8 @@ test {
     }
 }
 
+mainClassName = 'Arona.Launcher'
+
 application {
     mainClass.set("Arona.Launcher")
 }
