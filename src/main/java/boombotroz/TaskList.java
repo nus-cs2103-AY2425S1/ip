@@ -31,22 +31,6 @@ public class TaskList {
 
     /**
      * Adds task to task list.
-     * Prints message about the task that was just added and number of tasks in list.
-     *
-     * @param task task to be added
-     */
-    public void addTaskWithMessage(Task task) {
-        taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(String.format(
-                "  %s", task));
-        System.out.println(String.format(
-                "Now you have %d tasks in the list.",
-                taskList.size()));
-    }
-
-    /**
-     * Adds task to task list.
      *
      * @param task task to be added
      */
@@ -60,9 +44,10 @@ public class TaskList {
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.
+     * @return message of task that is deleted.
      * @throws BoomException If position not given OR position out of range.
      */
-    public void deleteTask(String input, Ui ui) throws BoomException {
+    public String deleteTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to delete
         ui.isTaskNumber(input);
 
@@ -71,14 +56,12 @@ public class TaskList {
 
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(String.format(
-                "  %s", taskList.get(index)));
+        String s = "";
+        s += "Noted. I've removed this task:\n";
+        s += String.format("  %s\n", taskList.get(index));
         taskList.remove(taskList.get(index));
-        System.out.println(String.format(
-                "Now you have %d tasks in the list.",
-                taskList.size()));
+        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        return s;
     }
 
     /**
@@ -87,9 +70,10 @@ public class TaskList {
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.
+     * @return Message after task is marked.
      * @throws BoomException If position not given OR position out of range.
      */
-    public void markTask(String input, Ui ui) throws BoomException {
+    public String markTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to mark
         ui.isTaskNumber(input);
 
@@ -98,12 +82,11 @@ public class TaskList {
 
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
-
         taskList.get(index).setMark(true);
-        System.out.println("Nice! I've marked this as done:");
-        System.out.println(String.format(
-                "  %s", taskList.get(index)));
-
+        String s = "";
+        s += "Nice! I've marked this as done:\n";
+        s += String.format("  %s", taskList.get(index));
+        return s;
     }
 
     /**
@@ -112,9 +95,10 @@ public class TaskList {
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.
+     * @return Message after task is unmarked.
      * @throws BoomException If position not given OR position out of range.
      */
-    public void unmarkTask(String input, Ui ui) throws BoomException {
+    public String unmarkTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to unmark
         ui.isTaskNumber(input);
 
@@ -123,22 +107,23 @@ public class TaskList {
 
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
-
+        String s = "";
         taskList.get(index).setMark(false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(String.format(
-                "  %s", taskList.get(index)));
+        s += "OK, I've marked this task as not done yet:\n";
+        s += String.format("  %s", taskList.get(index));
+        return s;
     }
 
     /**
      * Prints all the task from task list.
      */
-    public void printAll() {
-        System.out.println("Here are the tasks in your list:");
+    public String printAll() {
+        String s = "";
+        s += "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(String.format(
-                    "%d.%s", i + 1, taskList.get(i)));
+            s += String.format("%d.%s\n", i + 1, taskList.get(i));
         }
+        return s;
     }
 
     /**

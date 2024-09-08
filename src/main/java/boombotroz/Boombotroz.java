@@ -6,7 +6,6 @@ import java.util.Scanner;
 /**
  * Main class where execution occurs.
  */
-
 public class Boombotroz {
     private Ui ui;
     private Storage storage;
@@ -38,70 +37,67 @@ public class Boombotroz {
     }
 
     /**
-     * Loads input to return corresponding output
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+    public String run(String input) {
 
         while (!input.equals("bye")) {
+
             try {
                 if (input.equals("list")) {
-                    parser.getList(taskList);
-                    input = scanner.nextLine();
+                    return parser.getList(taskList);
+
 
                 } else if (input.startsWith("mark ")) {
-                    parser.markTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.markTask(taskList, input, storage, ui);
+
 
                 } else if (input.startsWith("unmark ")) {
-                    parser.unmarkTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.unmarkTask(taskList, input, storage, ui);
+
 
                 } else if (input.startsWith("delete ")) {
-                    parser.deleteTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.deleteTask(taskList, input, storage, ui);
+
 
                 } else if (input.startsWith("find ")) {
-                    parser.findTask(taskList, input, ui);
-                    input = scanner.nextLine();
+                    return parser.findTask(taskList, input, ui);
+
 
                 } else if (input.startsWith("todo ")) {
-                    parser.toDoTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.toDoTask(taskList, input, storage, ui);
+
 
                 } else if (input.startsWith("deadline ")) {
-                    parser.deadlineTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.deadlineTask(taskList, input, storage, ui);
+
 
                 } else if (input.startsWith("event ")) {
-                    parser.eventTask(taskList, input, storage, ui);
-                    input = scanner.nextLine();
+                    return parser.eventTask(taskList, input, storage, ui);
+
 
                 } else {
                     ui.invalidInput();
 
                 }
             } catch (BoomException e) {
-                System.out.println(e.getMessage());
-                input = scanner.nextLine();
+                return e.getMessage();
+
 
             } catch (FileNotFoundException e) {
-                System.out.println("File not found");
+                return "File not found";
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     public static void main(String[] args) {
-        String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "ip", "src", "main");
-        new Boombotroz(path.toString() + "/data.txt").run();
 
     }
+
 
 }
 
