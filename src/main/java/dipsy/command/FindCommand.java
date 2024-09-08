@@ -38,12 +38,12 @@ public class FindCommand extends Command {
      *                                 or if the keyword is missing.
      */
     @Override
-    public void execute() throws InvalidCommandException {
+    public String execute() throws InvalidCommandException {
         Matcher matcher = FIND_PATTERN.matcher(userInput);
         if (matcher.matches()) {
             String keyword = matcher.group(1);
             ArrayList<Task> tasksMatchingKeyword = tasks.getTasksByKeyword(keyword);
-            ui.printTasksMatchingKeyword(tasksMatchingKeyword);
+            return ui.getTasksMatchingKeywordMessage(tasksMatchingKeyword);
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_FIND_COMMAND);
         }

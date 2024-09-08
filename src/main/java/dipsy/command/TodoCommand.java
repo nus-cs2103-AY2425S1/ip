@@ -35,13 +35,13 @@ public class TodoCommand extends Command {
      * @throws InvalidCommandException If the command format is invalid.
      */
     @Override
-    public void execute() throws InvalidCommandException {
+    public String execute() throws InvalidCommandException {
         Matcher matcher = TODO_PATTERN.matcher(userInput);
         if (matcher.matches()) {
             String description = matcher.group(1);
             ToDo todo = new ToDo(description);
             tasks.addTask(todo);
-            ui.printTaskAddedMessage(todo, tasks.getSize());
+            return ui.getTaskAddedMessage(todo, tasks.getSize());
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_TODO);
         }

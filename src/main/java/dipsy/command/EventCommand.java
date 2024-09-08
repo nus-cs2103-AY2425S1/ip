@@ -41,7 +41,7 @@ public class EventCommand extends Command {
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
      */
     @Override
-    public void execute() throws InvalidDateException, InvalidCommandException {
+    public String execute() throws InvalidDateException, InvalidCommandException {
         Matcher matcher = EVENT_PATTERN.matcher(userInput);
         if (matcher.matches()) {
             String description = matcher.group(1);
@@ -52,7 +52,7 @@ public class EventCommand extends Command {
                 LocalDate parsedEnd = DateParser.parseDate(end);
                 Event event = new Event(description, parsedStart, parsedEnd);
                 tasks.addTask(event);
-                ui.printTaskAddedMessage(event, tasks.getSize());
+                return ui.getTaskAddedMessage(event, tasks.getSize());
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }

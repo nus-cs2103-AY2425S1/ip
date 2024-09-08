@@ -37,13 +37,13 @@ public class DeleteCommand extends Command {
      * @throws InvalidCommandException If the command format is invalid or the task number is out of bounds.
      */
     @Override
-    public void execute() throws InvalidCommandException {
+    public String execute() throws InvalidCommandException {
         Matcher matcher = DELETE_PATTERN.matcher(userInput);
 
         if (matcher.matches()) {
             int index = Integer.parseInt(matcher.group(1));
             Task deletedTask = tasks.deleteTask(index);
-            ui.printTaskDeletedMessage(deletedTask, tasks.getSize());
+            return ui.getTaskDeletedMessage(deletedTask, tasks.getSize());
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
         }

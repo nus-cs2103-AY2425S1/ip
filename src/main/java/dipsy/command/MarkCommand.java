@@ -36,23 +36,22 @@ public class MarkCommand extends Command {
      * @throws InvalidCommandException If the command format is invalid or the task number is out of bounds.
      */
     @Override
-    public void execute() throws InvalidCommandException {
+    public String execute() throws InvalidCommandException {
         Matcher markMatcher = MARK_PATTERN.matcher(super.userInput);
-        if (markMatcher.matches()) {
-            String action = markMatcher.group(1);
-            int userGivenIndex = Integer.parseInt(markMatcher.group(2));
-            int index = userGivenIndex - 1; // Since tasks are 0-indexed.
-            if (index >= 0 && index < tasks.getSize()) {
-                if (action.equals("mark")) {
-                    markTaskAsDone(index);
-                } else {
-                    markTaskAsUndone(index);
-                }
+        if (!markMatcher.matches()) {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_COMMAND);
+        }
+        String action = markMatcher.group(1);
+        int userGivenIndex = Integer.parseInt(markMatcher.group(2));
+        int index = userGivenIndex - 1; // Since tasks are 0-indexed.
+        if (index >= 0 && index < tasks.getSize()) {
+            if (action.equals("mark")) {
+                return markTaskAsDone(index);
             } else {
-                throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
+                return markTaskAsUndone(index);
             }
         } else {
-            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_COMMAND);
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
         }
     }
 
@@ -62,11 +61,12 @@ public class MarkCommand extends Command {
      *
      * @param index The index of the task to mark as done.
      */
-    private void markTaskAsDone(int index) {
+    private String markTaskAsDone(int index) {
         Task task = tasks.getTask(index);
         task.markAsDone();
-        ui.printMarkTaskDoneMessage(task);
         saveTasksToLocalDisk();
+        return ui.getMarkTaskDoneMessage(task);
+
     }
 
     /**
@@ -75,10 +75,10 @@ public class MarkCommand extends Command {
      *
      * @param index The index of the task to mark as undone.
      */
-    private void markTaskAsUndone(int index) {
+    private String markTaskAsUndone(int index) {
         Task task = tasks.getTask(index);
         task.markAsUndone();
-        ui.printMarkTaskUndoneMessage(task);
         saveTasksToLocalDisk();
+        return ui.getMarkTaskUndoneMessage(task);
     }
 }

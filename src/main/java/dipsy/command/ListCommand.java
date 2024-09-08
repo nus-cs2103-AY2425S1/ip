@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import dipsy.exception.InvalidCommandException;
 import dipsy.exception.InvalidDateException;
 import dipsy.task.Task;
 import dipsy.tasklist.TaskList;
@@ -37,19 +38,21 @@ public class ListCommand extends Command {
      *
      * @throws InvalidDateException If the provided date is in an incorrect format.
      */
-    public void execute() throws InvalidDateException {
+    public String execute() throws InvalidDateException, InvalidCommandException {
         String[] parts = userInput.trim().split("\\s+");
         if (parts.length == 1) {
             // Case where input is 'list'
-            ui.printListOfTasks(tasks.getTasks());
+            return ui.getTasksMessage(tasks.getTasks());
         } else if (parts.length == 2) {
             // Case where input is 'list <date>'
             try {
                 LocalDate date = LocalDate.parse(parts[1]);
-                ui.printListOfTasks(filterTasksByDate(date));
+                return ui.getTasksMessage(filterTasksByDate(date));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_LIST_COMMAND);
         }
     }
 

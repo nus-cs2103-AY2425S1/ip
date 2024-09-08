@@ -19,23 +19,17 @@ public class ByeCommand extends Command {
         super(userInput, tasks, ui);
     }
 
-    /**
-     * Checks if the provided command is an instance of ByeCommand. It is used to check whether to exit the program
-     * in the main loop polling for input in the PurfessorDipsy class.
-     *
-     * @param command The command to check.
-     * @return {@code true} if the command is an instance of ByeCommand, {@code false} otherwise.
-     */
-    public static boolean isExit(Command command) {
-        return command instanceof ByeCommand;
+
+    @Override
+    public boolean isExit() {
+        return true;
     }
 
     /**
-     * Prints the exit message and terminates the program.
+     * Prints the exit message;
      */
     @Override
-    public void execute() {
-        ui.printExitMessage();
-        System.exit(0);
+    public String execute() {
+        return ui.getExitMessage();
     }
 }

@@ -44,32 +44,30 @@ public class Ui {
     }
 
     /**
-     * Prints a message wrapped between two terminal lines for readability.
+     * Returns a message wrapped between two terminal lines for readability.
      *
      * @param message The message to print.
      */
-    private void printWithTerminalLines(String message) {
+    private String printWithTerminalLines(String message) {
         String terminalLine = "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――";
-        out.println(terminalLine);
-        out.println(message);
-        out.println(terminalLine);
+        return terminalLine + message + terminalLine;
     }
 
     /**
      * Prints a welcome message when the application starts.
      */
-    public void printWelcomeMessage() {
+    public String getWelcomeMessage() {
         String introduction = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam "
                 + "and Purrtector of the Realm of Naps.\n"
                 + "How can I purrvide assistance? Purrhaps I could lend a paw!";
-        printWithTerminalLines(introduction);
+        return introduction;
     }
 
     /**
      * Prints an exit message when the user decides to close the application.
      */
-    public void printExitMessage() {
-        printWithTerminalLines("Fur-well friend, stay paw-sitive!");
+    public String getExitMessage() {
+        return "Fur-well friend, stay paw-sitive!";
     }
 
     /**
@@ -77,8 +75,8 @@ public class Ui {
      *
      * @param message The error message to print.
      */
-    public void printErrorMessage(String message) {
-        printWithTerminalLines("Error: " + message);
+    public String getErrorMessage(String message) {
+        return "Error: " + message;
     }
 
     /**
@@ -87,9 +85,8 @@ public class Ui {
      * @param task          The task that was added.
      * @param numberOfTasks The total number of tasks in the list.
      */
-    public void printTaskAddedMessage(Task task, int numberOfTasks) {
-        printWithTerminalLines("(=ↀωↀ=)ノ Task added!\n" + task
-                + "\nYou now have " + numberOfTasks + " tasks in your list.");
+    public String getTaskAddedMessage(Task task, int numberOfTasks) {
+        return "(=ↀωↀ=)ノ Task added!\n" + task + "\nYou now have " + numberOfTasks + " tasks in your list.";
     }
 
     /**
@@ -98,9 +95,9 @@ public class Ui {
      * @param task          The task that was deleted.
      * @param numberOfTasks The total number of remaining tasks in the list.
      */
-    public void printTaskDeletedMessage(Task task, int numberOfTasks) {
-        printWithTerminalLines("Purrr, I've swatted this task away:\n" + task
-                + "\nYou now have " + numberOfTasks + " tasks in your list.");
+    public String getTaskDeletedMessage(Task task, int numberOfTasks) {
+        return "Purrr, I've swatted this task away:\n" + task
+                + "\nYou now have " + numberOfTasks + " tasks in your list.";
     }
 
     /**
@@ -108,8 +105,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void printMarkTaskDoneMessage(Task task) {
-        printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
+    public String getMarkTaskDoneMessage(Task task) {
+        return "Meow! I’ve scratched this task off the list!\n" + task;
     }
 
     /**
@@ -117,8 +114,8 @@ public class Ui {
      *
      * @param task The task that was marked as undone.
      */
-    public void printMarkTaskUndoneMessage(Task task) {
-        printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
+    public String getMarkTaskUndoneMessage(Task task) {
+        return "Mrrreow! I’ve batted this task back onto the list.\n" + task;
     }
 
     /**
@@ -126,14 +123,12 @@ public class Ui {
      *
      * @param tasks The list of tasks to print.
      */
-    public void printListOfTasks(ArrayList<Task> tasks) {
+    public String getTasksMessage(ArrayList<Task> tasks) {
         int taskCount = tasks.size();
         if (taskCount == 0) {
-            printWithTerminalLines("Your task list is as empty as a well-sunned nap spot.");
-        } else {
-            printTasks("Time to stretch those paws and tackle your tasks!\n", tasks);
-
+            return "Your task list is as empty as a well-sunned nap spot.";
         }
+        return formatTasksMessage("Time to stretch those paws and tackle your tasks!\n", tasks);
     }
 
     /**
@@ -141,12 +136,10 @@ public class Ui {
      *
      * @param tasks The list of tasks matching the keyword.
      */
-    public void printTasksMatchingKeyword(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            printWithTerminalLines("There are no tasks in your list that match the keyword.");
-        } else {
-            printTasks("Here is the list of matching tasks:\n", tasks);
-        }
+    public String getTasksMatchingKeywordMessage(ArrayList<Task> tasks) {
+        return tasks.isEmpty()
+                ? "There are no tasks in your list that match the keyword."
+                : formatTasksMessage("Here is the list of matching tasks:\n", tasks);
     }
 
     /**
@@ -155,7 +148,7 @@ public class Ui {
      * @param header The header message to print before listing tasks.
      * @param tasks  The list of tasks to print.
      */
-    private void printTasks(String header, ArrayList<Task> tasks) {
+    private String formatTasksMessage(String header, ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder(header + "\n");
         int taskCount = tasks.size();
         for (int i = 0; i < taskCount; i++) {
@@ -165,6 +158,6 @@ public class Ui {
                 result.append("\n");
             }
         }
-        printWithTerminalLines(result.toString());
+        return result.toString();
     }
 }

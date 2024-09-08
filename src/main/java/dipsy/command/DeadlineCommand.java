@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
      */
     @Override
-    public void execute() throws InvalidCommandException, InvalidDateException {
+    public String execute() throws InvalidCommandException, InvalidDateException {
         Matcher matcher = DEADLINE_PATTERN.matcher(userInput);
         if (matcher.matches()) {
             String description = matcher.group(1);
@@ -50,7 +50,7 @@ public class DeadlineCommand extends Command {
                 LocalDate parsedBy = DateParser.parseDate(by);
                 Deadline deadline = new Deadline(description, parsedBy);
                 tasks.addTask(deadline);
-                ui.printTaskAddedMessage(deadline, tasks.getSize());
+                return ui.getTaskAddedMessage(deadline, tasks.getSize());
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }

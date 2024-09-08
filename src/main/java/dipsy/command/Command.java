@@ -9,7 +9,7 @@ import dipsy.ui.Ui;
  * Represents an abstract command that can be executed in the application.
  * Specific command types should extend this class and implement the {@link #execute()} method.
  */
-public class Command {
+public abstract class Command {
     /** The user input that triggered this command. */
     protected final String userInput;
 
@@ -39,9 +39,7 @@ public class Command {
      * @throws InvalidCommandException If the command is invalid.
      * @throws InvalidDateException If the command contains an invalid date.
      */
-    public void execute() throws InvalidCommandException, InvalidDateException {
-        throw new UnsupportedOperationException("This method is to be implemented by child classes");
-    }
+    public abstract String execute() throws InvalidCommandException, InvalidDateException;
 
     /**
      * Saves the current state of tasks in memory to the local disk, allowing for retrieval upon program restart.
@@ -49,5 +47,15 @@ public class Command {
      */
     protected void saveTasksToLocalDisk() {
         tasks.saveToLocalDisk();
+    }
+
+    /**
+     * Checks if the instance of Command is an instance of ByeCommand.
+     * It is used to check whether to exit the program.
+     *
+     * @return {@code true} if the command is an instance of ByeCommand, {@code false} otherwise.
+     */
+    public boolean isExit() {
+        return false;
     }
 }
