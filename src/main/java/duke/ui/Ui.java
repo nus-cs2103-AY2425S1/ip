@@ -32,7 +32,10 @@ public class Ui {
                 + "5. Mark a task as done: mark <task number>\n"
                 + "6. Unmark a task: unmark <task number>\n"
                 + "7. Delete a task: delete <task number>\n"
-                + "8. Exit: bye\n" + greeting;
+                + "8. Find tasks by keyword: find <keyword>\n"
+                + "9. Sort tasks by date: list sorted by date\n"
+                + "10. Sort tasks by description: list sorted by description\n"
+                + "11. Exit: bye\n" + greeting;
     }
 
     /**
@@ -44,7 +47,7 @@ public class Ui {
      */
     public String showTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "Ho Ho Ho! No tasks in your list yet. Add some tasks to get started.\n";
+            return "Ho Ho Ho! No corresponding tasks in your list yet. Add some tasks to get started.\n";
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append("Ho Ho Ho! Here are the tasks in your Christmas list:\n");

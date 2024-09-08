@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
 
 /**
  * Represents a list of tasks.
@@ -73,6 +74,17 @@ public class TaskList {
         return tasks;
     }
 
+
+    /**
+     * Finds and returns a list of tasks whose descriptions contain the specified keyword.
+     *
+     * <p>This method iterates through all tasks in the task list and checks if
+     * the description of each task contains the provided keyword. If a task's
+     * description contains the keyword, it is added to the list of found tasks.</p>
+     *
+     * @param keyword the keyword to search for in the task descriptions.
+     * @return a list of tasks that contain the specified keyword in their descriptions.
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -81,6 +93,43 @@ public class TaskList {
             }
         }
         return foundTasks;
+    }
+
+    /**
+     * Returns a list of tasks that have dates associated with them, sorted
+     * by date in ascending order.
+     *
+     * <p>This method filters the tasks to include only those that have a
+     * non-null date (e.g., {@code Deadline} and {@code Event} tasks).
+     * The tasks are then sorted based on their associated date, from the
+     * earliest to the latest.</p>
+     *
+     * @return a list of tasks with dates, sorted in ascending order by date.
+     */
+    public List<Task> getTasksSortedByDate() {
+        List<Task> dateTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDate() != null) {
+                dateTasks.add(task);
+            }
+        }
+        dateTasks.sort(Comparator.comparing(Task::getDate));
+        return dateTasks;
+    }
+
+    /**
+     * Returns a list of all tasks, sorted by their descriptions in
+     * lexicographical order.
+     *
+     * <p>This method sorts tasks based on their descriptions, making it
+     * easier to view tasks in alphabetical order.</p>
+     *
+     * @return a list of tasks sorted by their descriptions.
+     */
+    public List<Task> getTasksSortedByDescription() {
+        List<Task> sortedTasks = new ArrayList<>(tasks);
+        sortedTasks.sort(Comparator.comparing(Task::getDescription, String.CASE_INSENSITIVE_ORDER));
+        return sortedTasks;
     }
 }
 

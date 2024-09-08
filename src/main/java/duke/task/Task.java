@@ -1,4 +1,5 @@
 package duke.task;
+import java.time.LocalDateTime;
 
 /**
  * Represents an abstract task with a description and completion status.
@@ -68,6 +69,21 @@ public abstract class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    /**
+     * Returns the date associated with the task.
+     *
+     * <p>For tasks that have a specific date associated with them, such as
+     * {@code Deadline} and {@code Event} tasks, this method will return
+     * the relevant date. For tasks without a specific date, such as
+     * {@code ToDo} tasks, this method will return {@code null}.</p>
+     *
+     * @return the {@code LocalDateTime} of the task, or {@code null} if
+     *         the task does not have a date associated with it.
+     */
+    public LocalDateTime getDate() {
+        return null;
     }
 }
 
