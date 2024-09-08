@@ -2,8 +2,6 @@ package qwerty.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This class encapsulates a Deadline type task.

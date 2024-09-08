@@ -93,7 +93,7 @@ public abstract class Task implements Comparable<Task> {
             );
         } else if (this instanceof DeadlineTask && otherTask instanceof Todo) {
             return -1;
-        } else if (this instanceof Todo && otherTask instanceof DeadlineTask){
+        } else if (this instanceof Todo && otherTask instanceof DeadlineTask) {
             return 1;
         } else {
             assert (this instanceof Todo && otherTask instanceof Todo);
