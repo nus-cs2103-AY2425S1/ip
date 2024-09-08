@@ -1,9 +1,6 @@
 package kotori;
 
-import java.util.Scanner;
-
 import kotori.command.Command;
-import kotori.command.ExitCommand;
 import kotori.command.GreetCommand;
 import kotori.parser.Parser;
 import kotori.storage.Storage;
@@ -25,34 +22,13 @@ public class Kotori {
      * */
     public Kotori() {
         this.storage = new Storage("data", "Kotori.txt");
+        assert (storage.isSuccess());
         this.taskList = this.storage.load();
         this.parser = new Parser(storage, taskList);
     }
 
 
 
-    /**
-     * Let the bot start running.
-     * */
-
-    public void run() {
-        // Create a scanner
-        Scanner s = new Scanner(System.in);
-        // Greet the user
-        new GreetCommand().execute();
-        // Get the input and execute the correct command
-        while (s.hasNextLine()) {
-            Command command = parser.parse(s.nextLine());
-            command.execute();
-            if (command instanceof ExitCommand) {
-                break;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        new Kotori().run();
-    }
 
     /**
      * Return a string for Ui.

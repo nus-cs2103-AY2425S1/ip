@@ -19,6 +19,7 @@ public class Storage {
     private File file;
     private boolean isCorrupted = false;
     private boolean hasFile = true;
+    private boolean isSuccess = true;
 
     /**
      * Create a storage
@@ -99,7 +100,7 @@ public class Storage {
      * @throws Error if the file does not exist and can not create one.
      * */
 
-    private static File makeFile(String directoryName, String fileName) {
+    private File makeFile(String directoryName, String fileName) {
         File directory = new File(directoryName);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -109,11 +110,18 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
+                this.isSuccess = false;
                 throw new Error("A fatal error has occurs in creating the file");
             }
         }
         return file;
     }
 
+    /**
+     * Check the storage is done successfully
+     * */
+    public boolean isSuccess() {
+        return isSuccess;
+    }
 }
 
