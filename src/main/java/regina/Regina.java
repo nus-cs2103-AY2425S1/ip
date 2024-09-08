@@ -113,10 +113,10 @@ public class Regina {
      *                         retrieving tasks.
      */
     public String occurringOn(String dateAndTime) throws ReginaException {
+        assert dateAndTime != null : "dateAndTime should not be null";
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
         TaskList tempList = this.listOfTasks.findTasksOccurringOn(occurringInstance);
         return ui.printMessage(tempList.toString());
-        // return tempList;
     }
 
     /**
@@ -261,12 +261,15 @@ public class Regina {
      * @param index The index of the task to mark as done.
      * @throws ReginaException If the index is out of bounds.
      */
+
     public String mark(int index) throws ReginaException {
+        assert index >= 0 && index < listOfTasks.size() : "Out of bounds index for marking: " + index;
         this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
         return ui.printMessage(String.format("YAY! This task finish liao!\n%s\n", task.toString()));
     }
+
 
     /**
      * Unmarks a task based on the given index.

@@ -15,6 +15,8 @@ public class CommandData {
      * @param rawInput    The raw input string from the user, which may include additional details.
      */
     public CommandData(String commandType, String rawInput) {
+        assert commandType != null && !commandType.isEmpty() : "Command type should not be null or empty";
+        assert rawInput != null && !rawInput.isEmpty() : "Raw input should not be null or empty";
         this.commandType = commandType;
         this.rawInput = rawInput;
     }
