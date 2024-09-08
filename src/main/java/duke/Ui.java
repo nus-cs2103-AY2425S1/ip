@@ -70,4 +70,26 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the list of high-priority tasks from the given TaskList to the console.
+     * A high-priority task is considered to be any task where the priority is non-zero.
+     * If no high-priority tasks exist, no tasks are printed.
+     *
+     * @param taskList the TaskList containing tasks to be filtered by priority
+     */
+    public void printPriorityList(TaskList taskList) {
+        assert taskList != null : "TaskList should not be null";
+        int serial = 1;
+
+        System.out.println("Here are the high priority tasks in your list:");
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.getPriority() == 0) {
+                continue;
+            }
+            System.out.println(serial + "." + task.toString());
+            serial += 1;
+        }
+    }
+
 }

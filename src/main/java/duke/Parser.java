@@ -17,19 +17,27 @@ public class Parser {
      * Converts a string representation of a task to a Task object.
      *
      * @param line the string representation of a task, formatted as
-     *             "type | status | description | time"
+     *             "priority | type | status | description | time"
      * @return the Task object corresponding to the string
      */
     public Task convertStringToTask(String line) {
         assert line != null : "Input line cannot be null";
 
         Task task;
+        boolean isHighPriority;
         String[] parts = line.split(" \\| ");
-        assert parts.length >= 3 : "Invalid task format";
+        assert parts.length >= 4 : "Invalid task format";
 
-        String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+        String priority = parts[0];
+        String taskType = parts[1];
+        boolean isDone = parts[2].equals("1");
+        String description = parts[3];
+
+        if (priority.equals("1")) {
+            isHighPriority = true;
+        } else {
+            isHighPriority = false;
+        }
 
         assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Unknown task type";
 
@@ -38,25 +46,34 @@ public class Parser {
             if (isDone) {
                 todo.markAsDone();
             }
+            if (isHighPriority) {
+                todo.markAsHighPriority();
+            }
             task = todo;
         } else if (taskType.equals("D")) {
-            assert parts.length == 4 : "Invalid deadline format";
+            assert parts.length == 5 : "Invalid deadline format";
 
-            String timeToConvert = isolateTimeToConvert(parts[3]);
+            String timeToConvert = isolateTimeToConvert(parts[4]);
             Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
             if (isDone) {
                 deadline.markAsDone();
             }
+            if (isHighPriority) {
+                deadline.markAsHighPriority();
+            }
             task = deadline;
         } else {
-            assert parts.length == 5 : "Invalid event format";
+            assert parts.length == 6 : "Invalid event format";
 
-            String timeToConvertFrom = isolateTimeToConvert(parts[3]);
-            String timeToConvertTo = isolateTimeToConvert(parts[4]);
+            String timeToConvertFrom = isolateTimeToConvert(parts[4]);
+            String timeToConvertTo = isolateTimeToConvert(parts[5]);
             Event event = new Event(description, convertStringToDate(timeToConvertFrom),
                     convertStringToDate(timeToConvertTo));
             if (isDone) {
                 event.markAsDone();
+            }
+            if (isHighPriority) {
+                event.markAsHighPriority();
             }
             task = event;
         }
@@ -193,6 +210,22 @@ public class Parser {
                 System.out.println(e.toString());
             }
             break;
+        case "prioritise":
+            try {
+                index = parseIndexCommand(getInstr, taskList);
+                taskList.prioritise(index, storage);
+            } catch (InvalidIndexException e) {
+                System.out.println(e.toString());
+            }
+            break;
+        case "deprioritise":
+            try {
+                index = parseIndexCommand(getInstr, taskList);
+                taskList.deprioritise(index, storage);
+            } catch (InvalidIndexException e) {
+                System.out.println(e.toString());
+            }
+            break;
         case "delete":
             try {
                 index = parseIndexCommand(getInstr, taskList);
@@ -241,6 +274,9 @@ public class Parser {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
+            break;
+        case "priority":
+            ui.printPriorityList(taskList);
             break;
         default:
             try {

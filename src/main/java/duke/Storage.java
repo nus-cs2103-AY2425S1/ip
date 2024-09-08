@@ -83,14 +83,22 @@ public class Storage {
 
     private String convertTaskToString(Task task) {
         assert task != null : "Task should not be null";
+        int priority = task.getPriority();
+        String priorityCode;
+
+        if (priority == 1) {
+            priorityCode = "1";
+        } else {
+            priorityCode = "0";
+        }
 
         if (task instanceof Todo) {
-            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+            return priorityCode + " | T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
-            return "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
+            return priorityCode + " | D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
                     " | " + ((Deadline) task).getBy().toString();
         } else if (task instanceof Event) {
-            return "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
+            return priorityCode + " | E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
                     " | " + ((Event) task).getStart().toString() +
                     " | " + ((Event) task).getEnd().toString();
         }
