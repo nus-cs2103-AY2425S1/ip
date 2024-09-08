@@ -25,12 +25,12 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = tasks.markTaskAsDone(index);
-        if (task != null) {
+        if (index >= 0 && index < tasks.getSize()) {
+            Task task = tasks.markTaskAsDone(index);
             try {
                 storage.save(tasks.getTasks());
             } catch (IOException e) {
-                ui.showError("An error occurred while saving the task.");
+                return ui.showError("An error occurred while saving the task.");
             }
             return ui.showMarkedTask(task);
         } else {
