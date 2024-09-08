@@ -110,11 +110,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (isDone) {
-            return "1 | " + description.trim();
-        } else {
-            return "0 | " + description.trim();
-        }
+        return (isDone ? "1 | " : "0 | ") + description.trim();
     }
 
     /**
