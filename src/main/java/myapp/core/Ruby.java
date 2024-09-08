@@ -75,4 +75,15 @@ public class Ruby {
     public static void main(String[] args) {
         new Ruby("data/tasks.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.parse(input, taskList, ui, storage);
+        } catch (RubyException | IOException e) {
+            return e.getMessage();
+        }
+    }
 }
