@@ -40,6 +40,13 @@ public class BotimusPrime {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return parser.parse(input);
+    }
+
+    /**
      * Starts the BotimusPrime chatbot.
      * Displays a greeting message, then enters a loop to read and parse user commands.
      * The loop continues until the user issues an exit command "bye".
@@ -50,7 +57,10 @@ public class BotimusPrime {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                isExit = parser.parse(fullCommand);
+                isExit = parser.isBye(fullCommand);
+                if (!isExit) {
+                    System.out.println(parser.parse(fullCommand));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

@@ -73,29 +73,34 @@ public class Parser {
      * @param input The user input string to be parsed.
      * @return true if the command is "bye" and false otherwise.
      */
-    public boolean parse(String input) {
-        if (input.equals("bye")) {
-            return true;
-        } else if (input.equals("list")) {
-            taskList.showList();
+    public String parse(String input) {
+        if (input.equals("list")) {
+            return taskList.showList();
         } else if (input.startsWith("mark")) {
-            taskList.markDone(input);
+            return taskList.markDone(input);
         } else if (input.startsWith("unmark")) {
-            taskList.markUndone(input);
+            return taskList.markUndone(input);
         } else if (input.startsWith("todo")) {
-            taskList.addToDo(input);
+            return taskList.addToDo(input);
         } else if (input.startsWith("deadline")) {
-            taskList.addDeadline(input);
+            return taskList.addDeadline(input);
         } else if (input.startsWith("event")) {
-            taskList.addEvent(input);
+            return taskList.addEvent(input);
         } else if (input.startsWith("delete")) {
-            taskList.delete(input);
+            return taskList.delete(input);
         } else if (input.startsWith("find")) {
-            taskList.findTask(input);
+            return taskList.findTask(input);
         } else {
-            System.out.println("bro out here speaking nonsense issit");
+            return "bro out here speaking nonsense issit";
         }
-        return false;
     }
 
+
+    public boolean isBye(String input) {
+        if (input.equals("bye")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
