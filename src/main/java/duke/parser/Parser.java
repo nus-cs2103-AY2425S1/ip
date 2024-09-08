@@ -1,10 +1,12 @@
 package duke.parser;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
+import duke.storage.Storage;
 import duke.tasks.TaskList;
 
 /**
@@ -32,6 +34,7 @@ public class Parser {
      */
     public boolean handleUserInput() {
         TaskList taskList = TaskList.getInstance();
+        Storage storage = Storage.getInstance();
         while (scan.hasNext()) {
             String[] input = preprocess(scan.nextLine());
             assert input.length == 2;
@@ -60,6 +63,11 @@ public class Parser {
                 case "savefile":
                     taskList.saveFile(args);
                     break;
+                case "archive":
+                    String archiveFile = storage.archiveTasks();
+                    System.out.println("Tasks archived to: " + archiveFile);
+                    System.out.println("Current task list has been cleared.");
+                    break;
                 case "find":
                     taskList.filter(args);
                     break;
@@ -76,6 +84,8 @@ public class Parser {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Error archiving tasks: " + e.getMessage());
             }
         }
         return true;
@@ -91,6 +101,7 @@ public class Parser {
      */
     public String handleGuiInput(String input) throws DukeException {
         TaskList taskList = TaskList.getInstance();
+        Storage storage = Storage.getInstance();
 
         ByteArrayOutputStream bstream = new ByteArrayOutputStream();
         PrintStream pstream = new PrintStream(bstream);
@@ -118,6 +129,11 @@ public class Parser {
             case "savefile":
                 taskList.saveFile(args);
                 break;
+            case "archive":
+                String archiveFile = storage.archiveTasks();
+                System.out.println("Tasks archived to: " + archiveFile);
+                System.out.println("Current task list has been cleared.");
+                break;
             case "mark":
                 taskList.mark(args);
                 break;
@@ -143,6 +159,8 @@ public class Parser {
             return bstream.toString();
         } catch (DukeException e) {
             return e.getMessage();
+        } catch (IOException e) {
+            return "Error archiving tasks: " + e.getMessage();
         }
     }
 
@@ -162,6 +180,8 @@ public class Parser {
         split[0] = split[0].toLowerCase();
         return split;
     }
+
+
 
     /**
      * Prints a help message with available commands and their usage.

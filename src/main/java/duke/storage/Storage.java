@@ -147,4 +147,37 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Archives the current task list to a new file.
+     * The archive file name is created by appending "_archive" to the current file name.
+     *
+     * @return The name of the archive file created
+     * @throws IOException If there's an error writing to the archive file
+     */
+    public String archiveTasks() throws IOException {
+        String currentFileName = getFullFileName();
+        String archiveFileName = currentFileName.replace(".txt", "_archive.txt");
+
+        File currentFile = new File(DATA_DIR + currentFileName);
+        File archiveFile = new File(DATA_DIR + archiveFileName);
+
+        if (currentFile.exists()) {
+            java.nio.file.Files.copy(
+                    currentFile.toPath(),
+                    archiveFile.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+            );
+
+            // Clear the current file
+            new FileWriter(DATA_DIR + currentFileName, false).close();
+
+            // Clear the TaskList
+            TaskList.getInstance().clearTasks();
+
+            return archiveFileName;
+        } else {
+            throw new IOException("Current file does not exist.");
+        }
+    }
 }
