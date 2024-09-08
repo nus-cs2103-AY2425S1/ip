@@ -2,10 +2,6 @@ name: Java CI
 
 on: [push, pull_request]
 
-# Set permissions on GITHUB_TOKEN to allow updates to GitHub Actions workflows
-permissions:
-  actions: write
-
 jobs:
   build:
     strategy:
