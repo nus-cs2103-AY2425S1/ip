@@ -2,9 +2,9 @@ package knight2103.command;
 
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
-import knight2103.tasks.Todo;
-import knight2103.tasks.Deadline;
-import knight2103.tasks.Event;
+import knight2103.tasks.TodoTask;
+import knight2103.tasks.DeadlineTask;
+import knight2103.tasks.EventTask;
 import knight2103.Ui;
 import knight2103.files.Storage;
 
@@ -33,16 +33,16 @@ public class AddCommand extends Command {
         Task taskToAdd;
         try {
             if (this.verb == CommandVerb.TODO) {
-                taskToAdd = new Todo(this.predicate);
+                taskToAdd = new TodoTask(this.predicate);
             } else if (this.verb == CommandVerb.DEADLINE) {
                 String[] deadlineArray = this.predicate.split(" /by ");
-                taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
+                taskToAdd = new DeadlineTask(deadlineArray[0], deadlineArray[1]);
             } else { // CommandVerb.EVENT
                 String[] eventArray = this.predicate.split(" /from | /to ");
-                taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
+                taskToAdd = new EventTask(eventArray[0], eventArray[1], eventArray[2]);
             }
             tasks.add(taskToAdd);
-            storage.save(taskToAdd);
+            storage.saveToFile(taskToAdd);
             return ui.showAdd(taskToAdd, tasks);
         } catch (DateTimeParseException e) {
             return "Failed to execute Command:\nInput of Date or time format is wrong."

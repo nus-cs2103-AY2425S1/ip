@@ -3,7 +3,7 @@ package knight2103.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
     protected final LocalDate deadline;
 
     /**
@@ -11,14 +11,14 @@ public class Deadline extends Task {
      * The object by default has the completion status set as not done.
      * The object also contains information of the deadline for task completion.
      */
-    public Deadline(String description, String deadline) {
+    public DeadlineTask(String description, String deadline) {
         super(description);
         this.deadline = LocalDate.parse(deadline);
     }
 
     @Override
-    public String saveToFileFormat() {
-        return "D " + super.saveToFileFormat() + String.format(" | %s", this.deadline);
+    public String toStringInFile() {
+        return "D " + super.toStringInFile() + String.format(" | %s", this.deadline);
     }
 
     @Override

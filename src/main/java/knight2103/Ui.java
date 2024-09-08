@@ -9,7 +9,7 @@ public class Ui {
     }
 
     public String showList(TaskList tasks) {
-        return "Here's the list of tasks:\n" + tasks.printToList();
+        return "Here's the list of tasks:\n" + tasks.formatToFullList();
     }
 
     public String showAdd(Task taskToAdd, TaskList tasks) {
@@ -34,7 +34,7 @@ public class Ui {
 
     public String showFind(TaskList tasks, String searchWord) {
         return "Here are the matching tasks in your list:\n"
-                + tasks.searchPrintToList(searchWord);
+                + tasks.formatToMatchedList(searchWord);
     }
 
     public String showBye() {

@@ -39,7 +39,7 @@ public class ModifyCommand extends Command {
                 taskAffected = tasks.delete(taskIndex);
                 stringToReturn = ui.showDelete(taskAffected, tasks);
             }
-            storage.save(tasks);
+            storage.saveToFile(tasks);
             return stringToReturn;
         } catch (NumberFormatException e) {
             return "Failed to execute Command:\n"

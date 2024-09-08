@@ -31,55 +31,6 @@ public class TaskList {
     }
 
     /**
-     * Returns a String which represents a formatted list of tasks in the bot.
-     *
-     * @return Formatted List of task in the bot's application.
-     */
-    public String printToList() {
-        String stringToPrint = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            int bulletPoint = i + 1;
-            stringToPrint += bulletPoint + ". " + this.tasks.get(i) + "\n";
-        }
-        return stringToPrint;
-    }
-
-    /**
-     * Returns a String which will be saved in the bot's storage file.
-     *
-     * @return Formatted List of task to be saved in storage file.
-     */
-    public String printToFile() {
-        String stringToWrite = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            stringToWrite += this.tasks.get(i).saveToFileFormat() + "\n";
-        }
-        return stringToWrite;
-    }
-
-    /**
-     * Returns a String which represents a formatted list of tasks
-     * that contain the word to be searched.
-     *
-     * @return Formatted list of tasks that contain the search word.
-     */
-    public String searchPrintToList(String wordSearch) {
-        String stringToPrint = "";
-        int bulletPoint = 0;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task searchedTask = this.tasks.get(i);
-            if (searchedTask.getDescription().contains(wordSearch)) {
-                bulletPoint++;
-                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
-            }
-        }
-        if (bulletPoint == 0) {
-            stringToPrint = "NIL: There is no matching tasks.\n";
-        }
-        return stringToPrint;
-    }
-
-    /**
      * Adds a task into the bot's taskList.
      *
      * @param newTask Task to be added to the taskList.
@@ -129,5 +80,41 @@ public class TaskList {
         Task taskToDelete = tasks.get(index);
         tasks.remove(index);
         return taskToDelete;
+    }
+
+
+    public String formatToMatchedList(String wordSearch) {
+        String stringToPrint = "";
+        int bulletPoint = 0;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task searchedTask = this.tasks.get(i);
+            if (searchedTask.getDescription().contains(wordSearch)) {
+                bulletPoint++;
+                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
+            }
+        }
+        if (bulletPoint == 0) {
+            stringToPrint = "NIL: There is no matching tasks.\n";
+        }
+        return stringToPrint;
+    }
+
+
+    public String formatToFileList() {
+        String stringToWrite = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            stringToWrite += this.tasks.get(i).toStringInFile() + "\n";
+        }
+        return stringToWrite;
+    }
+
+
+    public String formatToFullList() {
+        String stringToReturn = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            int bulletPoint = i + 1;
+            stringToReturn += bulletPoint + ". " + this.tasks.get(i) + "\n";
+        }
+        return stringToReturn;
     }
 }

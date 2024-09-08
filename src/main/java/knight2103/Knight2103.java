@@ -3,7 +3,6 @@ package knight2103;
 import knight2103.command.InvalidCommandException;
 import knight2103.command.Parser;
 import knight2103.command.Command;
-import knight2103.files.InvalidFileContentsException;
 import knight2103.files.Storage;
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
@@ -24,7 +23,7 @@ public class Knight2103 {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
-            Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.load();
+            Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.loadFileContents();
             this.tasks = new TaskList(tasksWithErrorMsg.getFirstItem());
             this.errorMessage = tasksWithErrorMsg.getSecondItem();
         } catch (FileNotFoundException e) { // file be loaded regardless, exception from Storage

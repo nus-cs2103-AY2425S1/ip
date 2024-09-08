@@ -36,7 +36,7 @@ public class Task {
      *
      * @return String representation of Task object specifically in storage File.
      */
-    public String saveToFileFormat() {
+    public String toStringInFile() {
         return String.format("| %d | %s", this.isDone ? 1 : 0, this.description);
     }
 

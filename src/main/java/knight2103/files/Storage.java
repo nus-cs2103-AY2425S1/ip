@@ -3,9 +3,9 @@ package knight2103.files;
 import knight2103.Pair;
 import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
-import knight2103.tasks.Todo;
-import knight2103.tasks.Deadline;
-import knight2103.tasks.Event;
+import knight2103.tasks.TodoTask;
+import knight2103.tasks.DeadlineTask;
+import knight2103.tasks.EventTask;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,7 +33,7 @@ public class Storage {
      */
     public void saveToFile(Task taskToSave) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, true);
-        tasksWriter.write("\n" + taskToSave.saveToFileFormat());
+        tasksWriter.write("\n" + taskToSave.toStringInFile());
         tasksWriter.close();
     }
 
@@ -48,7 +48,7 @@ public class Storage {
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
-        tasksWriter.write(tasks.printToFile());
+        tasksWriter.write(tasks.formatToFileList());
         tasksWriter.close();
     }
 
@@ -89,13 +89,13 @@ public class Storage {
                 if (lineArray.length != 3) {
                     throw new InvalidFileContentsException("Number of columns mismatch. 3 columns for Todo task");
                 }
-                taskToAdd = new Todo(lineArray[2]);
+                taskToAdd = new TodoTask(lineArray[2]);
             case "D":
                 if (lineArray.length != 4) {
                     throw new InvalidFileContentsException("Number of columns mismatch. 4 columns for Deadline task");
                 }
                 try {
-                    taskToAdd = new Deadline(lineArray[2], lineArray[3]);
+                    taskToAdd = new DeadlineTask(lineArray[2], lineArray[3]);
                 } catch (DateTimeParseException e) {
                     errorMessage += "\nDate format is wrong in the file contents."
                             + " For Deadline task, it should be yyyy-MM-dd format.";
@@ -106,7 +106,7 @@ public class Storage {
                     throw new InvalidFileContentsException("Number of columns mismatch. 5 columns for Event task");
                 }
                 try {
-                    taskToAdd = new Event(lineArray[2], lineArray[3], lineArray[4]);
+                    taskToAdd = new EventTask(lineArray[2], lineArray[3], lineArray[4]);
                 } catch (DateTimeParseException e) {
                     errorMessage += "\nDate & Time format is wrong in the file contents."
                             + " For Events task, it should be yyyy-MM-ddThh:mm format";
