@@ -1,18 +1,27 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * The chatbot which the user interacts with.
+ * @author Youngseo Park (@youngseopark05)
+ */
 public class HypeBot {
     private static final String BUFFER_LINE = "____________________________________________________________________\n";
     private static final ArrayList<Task> TASKS = new ArrayList<>();
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static FileWriter tasklistWriter;
-    private static File tasklistFile;
+    private static File tasklistTextFile;
     private static boolean canExit = false;
 
     /**
@@ -38,7 +47,7 @@ public class HypeBot {
     /**
      * Greets the user upon init and prompts the user for a command.
      */
-    private static String greet() {
+    private static void greet() {
         String logo = """
                  ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s
                 ( OO )  /              ( (OO  ) _(  OO)\\  ( OO )              (  OO) ) \s
@@ -50,17 +59,18 @@ public class HypeBot {
                 |  | |  | `-./  /.__) |  |      |  `---.| '--'  /   `'  '-'  '   |  |  \s
                 `--' `--'   `--'      `--'      `------'`------'      `-----'    `--'  \s
                 """;
-        return addBufferLine("AYO WHAT'S UP IT'S ME YOUR\n\n" + logo
-                + "\nLOADING YOUR TASKS...\n\nWhat can I do for you, my wonderful homie?\n");
+        System.out.println(addBufferLine("AYO WHAT'S UP IT'S ME YOUR\n\n" + logo
+                + "\nLOADING YOUR TASKS IN /data/tasklist.txt...\n\nWhat can I do for you, my wonderful homie?\n"));
     }
 
     /**
-     * Greets the user goodbye upon the command 'bye'.
+     * Saves tasks stored in TASKS to /data/tasklist.txt in text form.
+     * If file /data/tasklist.txt not found, informs user tasks couldn't be saved.
      */
-    private static String exit() {
+    private static void saveTasksToLocalDisk() {
         System.out.println(addBufferLine("Alright homie, saving your tasks to your drive...\n"));
         try {
-            tasklistWriter = new FileWriter(tasklistFile);
+            FileWriter tasklistWriter = new FileWriter(tasklistTextFile);
             tasklistWriter.write("");
             for (Task task : TASKS) {
                 tasklistWriter.append(task.toFileString());
@@ -69,11 +79,19 @@ public class HypeBot {
         } catch (IOException e) {
             System.out.println(addBufferLineError("but I couldn't save your tasks to the drive.\n"));
         }
-        return addBufferLine("""
+    }
+
+    /**
+     * Greets the user goodbye upon the command 'bye'.
+     */
+    private static void exit() {
+        SCANNER.close();
+        saveTasksToLocalDisk();
+        System.out.println(addBufferLine("""
                 Alright homie, it's been a BLAST hanging out with you. \
                 Have a wonderful
                 day, and catch you soon again you ABSOLUTE BALLER!
-                """);
+                """));
     }
 
     /**
@@ -91,7 +109,7 @@ public class HypeBot {
      * Adds task requested by user to TASKS.
      * Informs user how many total tasks saved.
      *
-     * @param task Task to add to TASKS.
+     * @param task task.Task to add to TASKS.
      */
     private static String add(Task task) {
         TASKS.add(task);
@@ -102,7 +120,7 @@ public class HypeBot {
      * Takes in task number and marks corresponding task as incomplete.
      * If task number not found in list, throws IndexOutOfBoundsException.
      *
-     * @param idx Task number to mark incomplete.
+     * @param idx task.Task number to mark incomplete.
      * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
      */
     private static String unmark(int idx) throws IndexOutOfBoundsException {
@@ -114,7 +132,7 @@ public class HypeBot {
      * Takes in task number and marks corresponding task as complete.
      * If task number not found in list, throws IndexOutOfBoundsException.
      *
-     * @param idx Task number to mark complete.
+     * @param idx task.Task number to mark complete.
      * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
      */
     private static String mark(int idx) throws IndexOutOfBoundsException {
@@ -126,7 +144,7 @@ public class HypeBot {
      * Takes in task number and deletes corresponding task from TASKS.
      * If task number not found in list, throws IndexOutOfBoundsException.
      *
-     * @param idx Task number to delete.
+     * @param idx task.Task number to delete.
      * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
      */
     private static String delete(int idx) throws IndexOutOfBoundsException {
@@ -135,26 +153,40 @@ public class HypeBot {
                 + TASKS.size() + " TASKS TO GO!\n");
     }
 
+    /**
+     * Takes in a string array containing task description in text form and creates the corresponding task.
+     *
+     * @param taskTextLineElements String array containing task description in text form.
+     * @return task.Task object corresponding to task description given in array.
+     */
     private static Task loadTask(String[] taskTextLineElements) {
         String taskType = taskTextLineElements[0];
         String taskName = taskTextLineElements[2];
         Task newTask = null;
-        if (taskType.equals("T")) {
+        switch (taskType) {
+        case "T":
             newTask = new ToDo(taskName);
-        } else if (taskType.equals("D")) {
+            break;
+        case "D":
             String dueDate = taskTextLineElements[3];
             newTask = new Deadline(taskName, dueDate);
-        } else if (taskType.equals("E")) {
+            break;
+        case "E":
             String startTime = taskTextLineElements[3];
             String endTime = taskTextLineElements[4];
             newTask = new Event(taskName, startTime, endTime);
+            break;
         }
         return newTask;
     }
 
+    /**
+     * Loads tasks in text form line-by-line from /data/tasklist.txt.
+     * If file /data/tasklist.txt not found, informs user tasks couldn't be loaded.
+     */
     private static void loadTasks() {
         try {
-            Scanner tasklistFileScanner = new Scanner(tasklistFile);
+            Scanner tasklistFileScanner = new Scanner(tasklistTextFile);
             while (tasklistFileScanner.hasNextLine()) {
                 String taskTextLine = tasklistFileScanner.nextLine();
                 String[] taskTextLineElements = taskTextLine.split(" , ");
@@ -164,18 +196,23 @@ public class HypeBot {
                 }
                 TASKS.add(newTask);
             }
+            tasklistFileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println(addBufferLineError("but I couldn't find the file with your saved tasks."));
         }
     }
 
-    private static void createAndRetrieveFile() {
-        Path taskListPath = Paths.get("data", "tasks.txt");
+    /**
+     * Locates /data/tasklist.txt on local working directory and assigns to File object tasklistFile.
+     * If /data/tasklist.txt not found, creates new File /data/tasklist.txt on local working directory.
+     */
+    private static void createOrLocateTasklistTextFile() {
+        Path tasklistPath = Paths.get("data", "tasklist.txt");
         try {
             Files.createDirectories(Paths.get("data"));
-            File tempTasklistFile = taskListPath.toFile();
-            tempTasklistFile.createNewFile();
-            tasklistFile = tempTasklistFile;
+            File tempTasklistTextFile = tasklistPath.toFile();
+            tempTasklistTextFile.createNewFile();
+            tasklistTextFile = tempTasklistTextFile;
         } catch (IOException e) {
             System.out.println(addBufferLineError("but I couldn't load your saved tasks."));
         }
@@ -222,6 +259,7 @@ public class HypeBot {
                             + "deadline you got!\n"));
                     break;
                 }
+                System.out.println(splitLineForDates[1]);
                 Deadline newDeadline = new Deadline(taskName, splitLineForDates[1]);
                 System.out.println(add(newDeadline));
                 break;
@@ -285,12 +323,10 @@ public class HypeBot {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        createAndRetrieveFile();
+        createOrLocateTasklistTextFile();
         loadTasks();
-        System.out.println(greet());
-
+        greet();
         runEventLoop();
-
-        System.out.println(exit());
+        exit();
     }
 }
