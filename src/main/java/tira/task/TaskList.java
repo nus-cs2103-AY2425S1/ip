@@ -111,4 +111,27 @@ public class TaskList {
         printer.flush();
     }
 
+    public void findTask(String command, String[] splitCommand) throws TiraException {
+        ArrayList<Task> tasksThatMatch = new ArrayList<Task>();
+        String description = "";
+        for (int i = 1; i < splitCommand.length ; i++) {
+            if (splitCommand[i].equals("/from") || splitCommand[i].equals("/by")) {
+                break;
+            }
+            description += (splitCommand[i]) + " ";
+        }
+        description = description.trim();
+        for (Task task: tasks) {
+            String currentTaskDescription = task.getDescription().trim();
+            if (description.equals(currentTaskDescription)) {
+                tasksThatMatch.add(task);
+            }
+        }
+        if (tasksThatMatch.isEmpty()) {
+            ui.showNoMatchingTask();
+        } else {
+            ui.showMatchingTasks(tasksThatMatch);
+        }
+    }
+
 }
