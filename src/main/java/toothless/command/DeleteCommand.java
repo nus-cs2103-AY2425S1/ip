@@ -23,12 +23,13 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new MissingIndexExceptions("delete", "delete <index>");
         }
         int deleteIndex = Integer.parseInt(description);
-        taskList.deleteTask(deleteIndex);
+        String response = taskList.deleteTask(deleteIndex);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }

@@ -10,7 +10,7 @@ import toothless.ui.Ui;
 public class UnknownCommand extends Command {
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) {
-        ui.unknownCommand();
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) {
+        return ui.unknownCommand();
     }
 }

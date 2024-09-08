@@ -25,7 +25,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+    public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if (description.isEmpty()) {
             throw new NoDescriptionExceptions("deadline", "deadline <description> /by <timing>");
         } else if (!description.contains("/by")) {
@@ -35,7 +35,8 @@ public class DeadlineCommand extends Command {
         if (splitDeadline.length != 2) {
             throw new NoTimelineExceptions("deadline", "deadline <description> /by <timing>");
         }
-        taskList.addTask(new Deadline(splitDeadline[0], splitDeadline[1]), ui, taskList);
+        String response = taskList.addTask(new Deadline(splitDeadline[0], splitDeadline[1]), ui, taskList);
         storage.saveTask(taskList.getList());
+        return response;
     }
 }

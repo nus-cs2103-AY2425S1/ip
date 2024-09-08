@@ -10,11 +10,12 @@ import toothless.ui.Ui;
  * TaskList represents a list of tasks that is stored in the chat application.
  */
 public class TaskList {
-    private static final String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
     private ArrayList<Task> list;
 
     /**
      * Constructor for TaskList.
+     *
+     * @param list The list of tasks.
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -36,31 +37,31 @@ public class TaskList {
      * @param ui       The user interface.
      * @param taskList The task list.
      */
-    public void addTask(Task task, Ui ui, TaskList taskList) {
+    public String addTask(Task task, Ui ui, TaskList taskList) {
         list.add(task);
-        ui.addTaskMessage(task, taskList.getList().size());
+        return ui.addTaskMessage(task, taskList.getList().size());
     }
 
     /**
      * Prints the tasks in the task list.
      */
-    public void printTask() {
-        System.out.println("""
-                Toothless:
+    public String printTask() {
+        StringBuilder response = new StringBuilder("""
                 Here are the tasks on the quest board:
 
                 |-------------Quest Board -----------------|
                 """);
 
         if (list.isEmpty()) {
-            System.out.println("There are no quests on the quest board!");
+            return "There are no quests on the quest board yet!";
         } else {
             for (int i = 0; i < list.size(); i++) {
-                System.out.println(i + 1 + ". " + list.get(i).toString());
+                response.append(String.format("%d. %s\n", i + 1, list.get(i).toString()));
             }
         }
 
-        System.out.println("\n|------------------------------------------|\n\n" + DIVIDER);
+        response.append("|-------------------------------------------|\n\n");
+        return response.toString();
     }
 
     /**
@@ -68,15 +69,14 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markDone(int index, Ui ui) throws ToothlessExceptions {
+    public String markDone(int index, Ui ui) throws ToothlessExceptions {
         if (index > list.size() || index < 1) {
-            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n"
-                    + DIVIDER);
+            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
-        ui.markDoneMessage(currentTask);
+        return ui.markDoneMessage(currentTask);
     }
 
     /**
@@ -84,15 +84,14 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as undone.
      */
-    public void markUndone(int index, Ui ui) throws ToothlessExceptions {
+    public String markUndone(int index, Ui ui) throws ToothlessExceptions {
         if (index > list.size() || index < 1) {
-            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n"
-                    + DIVIDER);
+            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
-        ui.markUndoneMessage(currentTask);
+        return ui.markUndoneMessage(currentTask);
     }
 
     /**
@@ -101,18 +100,18 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @throws ToothlessExceptions If the index is out of range.
      */
-    public void deleteTask(int index) throws ToothlessExceptions {
+    public String deleteTask(int index) throws ToothlessExceptions {
         if (index > list.size() || index < 1) {
-            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n"
-                    + DIVIDER);
+            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         int newTaskSize = list.size() - 1;
-        System.out.println("Toothless:\nThe quest\n\t\t"
-                + currentTask + "\nis removed from the quest board!\n\n"
-                + "Now there is " + newTaskSize + " quests in your quest board.\n\n" + DIVIDER);
         list.remove(fixedIndex);
+
+        return "The quest\n\t\t"
+                + currentTask + "\nis removed from the quest board!\n\n"
+                + "Now there is " + newTaskSize + " quests in your quest board.\n\n";
     }
 
     /**
@@ -120,20 +119,20 @@ public class TaskList {
      *
      * @param keyword The keyword to be searched.
      */
-    public void findTask(String keyword) {
-        System.out.println("Toothless:\nHere are the quests that match your keyword:\n");
+    public String findTask(String keyword) {
+        StringBuilder response = new StringBuilder("Here are the quests that match your keyword:\n");
         int taskCount = 0;
         for (Task task : list) {
             if (task.getDescription().contains(keyword)) {
-                System.out.println(list.indexOf(task) + 1 + ". " + task);
+                response.append(String.format("%d. %s\n", list.indexOf(task) + 1, task));
                 taskCount++;
             }
         }
 
         if (taskCount == 0) {
-            System.out.println("Oopsie! Seems like there are no quests that match your keyword!\n");
+            return "Oopsie! Seems like there are no quests that match your keyword!\n\n";
         }
 
-        System.out.println("\n" + DIVIDER);
+        return response.toString();
     }
 }
