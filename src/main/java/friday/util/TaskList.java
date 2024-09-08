@@ -2,6 +2,8 @@ package friday.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import friday.task.Deadline;
 import friday.task.Event;
@@ -87,6 +89,20 @@ public class TaskList {
     }
 
     /**
+     * Filters tasks based on the specified condition.
+     *
+     * @param condition The condition to filter tasks.
+     * @return A TaskList containing the tasks that match the condition.
+     */
+    public TaskList filterTasks(java.util.function.Predicate<Task> condition) {
+        assert condition != null : "Condition should not be null";
+        ArrayList<Task> matchingTasks = new ArrayList<>(tasks.stream()
+                .filter(condition)
+                .collect(Collectors.toList()));
+        return new TaskList(matchingTasks);
+    }
+
+    /**
      * Finds tasks that occur on the specified date. This includes tasks with deadlines on that date
      * and events that occur on or span across that date.
      *
@@ -106,22 +122,6 @@ public class TaskList {
                 if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
                     matchingTasks.add(task);
                 }
-            }
-        }
-        return new TaskList(matchingTasks);
-    }
-
-    /**
-     * Finds tasks that contain the specified keyword in their description.
-     *
-     * @param keyword The keyword to search for in the task descriptions.
-     * @return A TaskList containing the tasks that match the keyword.
-     */
-    public TaskList findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
             }
         }
         return new TaskList(matchingTasks);

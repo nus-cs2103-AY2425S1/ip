@@ -22,7 +22,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        TaskList matchingTasks = tasks.findTasks(keyword);
+        TaskList matchingTasks = tasks.filterTasks(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()));
         return ui.showMatchingTasks(matchingTasks);
     }
 
