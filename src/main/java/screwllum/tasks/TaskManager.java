@@ -1,6 +1,7 @@
 package screwllum.tasks;
 
 import screwllum.Ui;
+import screwllum.exception.InvalidIndexException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,23 @@ public class TaskManager {
         this.taskList = new ArrayList<Task>();
     }
 
-    public void execute(List<String> tokens, Ui ui) {
+    public void execute(List<String> tokens, Ui ui) throws InvalidIndexException {
+        List<Task> list = null;
         switch (tokens.get(0)) {
         case "toggle":
-            taskList.get(Integer.parseInt(tokens.get(1))).toggleStatus();
+            try {
+                taskList.get(Integer.parseInt(tokens.get(1)) - 1).toggleStatus();
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidIndexException(tokens.get(1)); 
+            }
             break;
         case "delete":
-            taskList.remove(Integer.parseInt(tokens.get(1)));
+            try {
+                list = new ArrayList<>(taskList);
+                taskList.remove(Integer.parseInt(tokens.get(1)) - 1);
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidIndexException(tokens.get(1));
+            }
             break;
         case "todo":
             taskList.add(new ToDo(tokens.get(1)));
@@ -34,7 +45,11 @@ public class TaskManager {
             taskList.add(new Event(tokens.get(1), tokens.get(2), tokens.get(3)));
             break;
         }
-        ui.showMessage(tokens, taskList);
+        if (list == null) {
+            ui.showMessage(tokens, taskList);
+        } else {
+            ui.showMessage(tokens, list);
+        }
     }
     
     public List<Task> getTaskList() {
