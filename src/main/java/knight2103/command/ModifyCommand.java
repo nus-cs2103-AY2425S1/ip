@@ -42,16 +42,15 @@ public class ModifyCommand extends Command {
             storage.save(tasks);
             return stringToReturn;
         } catch (NumberFormatException e) {
-            return "Please state the task number in INTEGER. Definitely not the task name";
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "There's an issue in the instruction format. " + "Please check that it is " +
-                    "<knight2103.command.CommandVerb> <Integer> format";
+            return "Failed to execute Command:\n"
+                    + "Please state the task number in an INTEGER. Definitely not the task name";
         } catch (IndexOutOfBoundsException e) {
-            return e.getMessage()
-                    + "There aren't so many tasks. Please check if the task number is correct. "
-                    + "To see all tasks, type list";
+            return "Failed to execute Command:\n" + e.getMessage()
+                    + "\nTask number exceeded total numbers of tasks in the list. "
+                    + "Please check if the task number is correct. "
+                    + "\nTo see all tasks, type list";
         } catch (IOException e) { // from save() in Storage class
-            return "Problems creating an instance of FileWriter";
+            return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }
     }
 }
