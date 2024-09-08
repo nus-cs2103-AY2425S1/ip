@@ -1,14 +1,37 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String by;
+    protected LocalDateTime byDateTime;
+    protected String byString;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.byDateTime = LocalDateTime.parse(by, inputFormat);
+        } catch (DateTimeParseException e) {
+            this.byString = by;
+        }
+    }
+    private String getBy(){
+        if (byDateTime != null) {
+            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            return byDateTime.format(outputFormat);
+        } else {
+            return byString;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + getBy() + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + by;
+        return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + getBy();
     }
 
     public static Task fromFileFormat(String fullLine) {
@@ -18,10 +41,5 @@ public class Deadline extends Task {
             deadline.markAsDone();
         }
         return deadline;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + by + ")";
     }
 }
