@@ -25,6 +25,9 @@ public class ExitCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         storage.update(tasks);
         return ui.showEnd();
     }

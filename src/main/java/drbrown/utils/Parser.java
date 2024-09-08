@@ -44,6 +44,7 @@ public class Parser {
                     throw new DrBrownException("Great Scott! You can't add a to-do without a "
                             + "description!\n\nUse the format: todo {description}");
                 }
+                assert inputSplit.length == 2 : "Missing description";
                 Task todo = new Todo(false, inputSplit[1].trim());
                 return new AddCommand(todo);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -61,6 +62,7 @@ public class Parser {
                     throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing "
                             + "here!\nUse the format: deadline {description} /by {date}");
                 }
+                assert deadlineSplit.length == 2 : "Missing date time";
                 Task deadline = new Deadline(false, deadlineSplit[0].trim(),
                         LocalDateTime.parse(deadlineSplit[1].trim(), FILE_DATE_TIME_FORMATTER));
                 return new AddCommand(deadline);
@@ -83,6 +85,7 @@ public class Parser {
                             + "event {description} /from {date} /to {date}");
                 }
                 String[] eventSplit = inputSplit[1].split("/from | /to");
+                assert eventSplit.length == 3 : "Missing date time";
                 Task event = new Event(false, eventSplit[0].trim(),
                         LocalDateTime.parse(eventSplit[1].trim(), FILE_DATE_TIME_FORMATTER),
                         LocalDateTime.parse(eventSplit[2].trim(), FILE_DATE_TIME_FORMATTER));
@@ -98,6 +101,7 @@ public class Parser {
                     throw new DrBrownException("Great Scott! You can't complete a task without a count!\n"
                             + "Use the format: mark {count}");
                 }
+                assert inputSplit.length == 2 : "Missing index";
                 int itemMarkIndex = parseInt(inputSplit[1]) - 1;
                 return new MarkCommand(itemMarkIndex);
             } catch (NumberFormatException e) {
@@ -110,6 +114,7 @@ public class Parser {
                     throw new DrBrownException("Great Scott! You can't go back in time without a count!\n"
                             + "Use the format: unmark {count}");
                 }
+                assert inputSplit.length == 2 : "Missing index";
                 int itemUnmarkIndex = parseInt(inputSplit[1]) - 1;
                 return new UnmarkCommand(itemUnmarkIndex);
             } catch (NumberFormatException e) {
@@ -128,6 +133,7 @@ public class Parser {
                     throw new DrBrownException("You can't erase something from history without a count!\n"
                             + "Use the format: delete {count}");
                 }
+                assert inputSplit.length == 2 : "Missing index";
                 int itemDeleteIndex = parseInt(inputSplit[1]) - 1;
                 return new DeleteCommand(itemDeleteIndex);
             } catch (NumberFormatException e) {
@@ -145,6 +151,7 @@ public class Parser {
                 throw new DrBrownException("Whoa, hold on! You've written too few letters than necessary! "
                         + "It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
             }
+            assert inputSplit.length == 2 : "Missing keyword";
             return new FindCommand(inputSplit[1]);
         default:
             throw new DrBrownException("I'm from the future, and even I don't know what that means.");

@@ -20,6 +20,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in the task descriptions.
      */
     public FindCommand(String keyword) {
+        assert keyword != null : "Find keyword should not be null";
         this.keyword = keyword;
     }
 
@@ -36,6 +37,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         if (tasks.getCount() == 0) {
             throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go "
                     + "anywhere until you add something to the list!");

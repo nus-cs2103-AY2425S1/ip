@@ -20,6 +20,7 @@ public class UnmarkCommand extends Command {
      * @param itemIndex The zero-based index of the task to unmark as incomplete in the task list.
      */
     public UnmarkCommand(int itemIndex) {
+        assert itemIndex < 0 : "Item index should not be negative";
         this.itemIndex = itemIndex;
     }
 
@@ -36,6 +37,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         try {
             return tasks.unmarkTask(itemIndex, ui);
         } catch (IndexOutOfBoundsException e) {
