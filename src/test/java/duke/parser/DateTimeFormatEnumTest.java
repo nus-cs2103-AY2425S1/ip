@@ -30,9 +30,17 @@ public class DateTimeFormatEnumTest {
         // Set the default locale to Singapore (en_SG)
         Locale.setDefault(new Locale("en", "SG"));
 
+        // Get system details
+        Locale systemLocale = Locale.getDefault();
+        String timeZone = System.getProperty("user.timezone");
+
+        System.out.println("Input: " + input);
+        System.out.println("System Locale: " + systemLocale);
+        System.out.println("Time Zone: " + timeZone);
+
         Optional<LocalDateTime> result = DateTimeFormatEnum.parse(input);
 
-        System.out.println(result);
+        System.out.println("Parsed Result: " + result);
 
         assertTrue(result.isPresent(), "Expected a valid LocalDateTime object.");
         assertEquals(expected, result.get(), "Parsed LocalDateTime should match the expected value.");
