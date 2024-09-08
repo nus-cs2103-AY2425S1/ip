@@ -413,4 +413,83 @@ public class Easton {
 
         return response.toString();
     }
+
+
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @return Response to the user's chat.
+     */
+    public String getResponse(String input) {
+        Action action;
+        StringBuilder response = new StringBuilder();
+
+        try {
+            action = getActionFromInput(input);
+        } catch (IllegalActionException e) {
+            response.append(e.getMessage());
+            action = Action.INVALID;
+        }
+
+        switch (action) {
+        case BYE:
+            System.exit(0);
+            break;
+        case LIST:
+            response.append("Here are the tasks in your list:");
+            response.append(ui.toStringRecords(tasks, (x) -> true));
+            break;
+        case MARK:
+            response.append(changeTaskStatus(input,
+                    true,
+                    "Nice! I've marked this task as done:"));
+            saveTasks();
+            break;
+        case UNMARK:
+            response.append(changeTaskStatus(input,
+                    false,
+                    "OK, I've marked this task as not done yet:"));
+            saveTasks();
+            break;
+        case TODO:
+            try {
+                response.append(addTask(createToDo(input)));
+                saveTasks();
+            } catch (EmptyDescriptionException e) {
+                response.append(e.getMessage());
+            }
+            break;
+        case DEADLINE:
+            try {
+                response.append(addTask(createDeadline(input)));
+                saveTasks();
+            } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
+                response.append(e.getMessage());
+            }
+            break;
+        case EVENT:
+            try {
+                response.append(addTask(createEvent(input)));
+                saveTasks();
+            } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
+                response.append(e.getMessage());
+            }
+            break;
+        case DELETE:
+            response.append(deleteTask(input));
+            saveTasks();
+            break;
+        case FIND:
+            try {
+                response.append(findTasks(input));
+            } catch (EmptyDescriptionException e) {
+                response.append(e.getMessage());
+            }
+            break;
+        default:
+            break;
+        }
+
+        return response.toString();
+    }
 }
