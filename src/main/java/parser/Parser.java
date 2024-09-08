@@ -28,6 +28,10 @@ public class Parser {
         if (parts.length == 2) {
             try {
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
+
+                // Assert that taskNumber is within valid range (0 or higher)
+                assert taskNumber >= 0 : "Task number should be greater than or equal to 0";
+
                 if (taskNumber < 0) {
                     throw new JarException("tasks.Task number must be greater than 0.");
                 }
@@ -48,6 +52,7 @@ public class Parser {
      * @throws JarException If the command is unknown or incorrectly formatted.
      */
     public Task parseTask(String command) throws JarException {
+        assert command != null : "Command string cannot be null";
         CommandName commandType = parseCommandType(command);
 
         switch (commandType) {
