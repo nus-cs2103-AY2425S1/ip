@@ -20,7 +20,7 @@ public class Ui {
     /**
      * Bids farewell to the user when the program ends.
      */
-    public String goodbye() {
+    public String sayGoodbye() {
         return "Pi-kapi! See you again~\n";
     }
 

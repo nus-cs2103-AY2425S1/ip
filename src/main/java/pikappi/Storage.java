@@ -48,7 +48,7 @@ public class Storage {
      *
      * @param tasks TaskList object that contains tasks
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList tasks) throws PikappiException {
         this.tasks = tasks;
         this.saveTasks();
     }
@@ -60,10 +60,8 @@ public class Storage {
      */
     public void loadTasks() throws PikappiException {
         File file = new File(this.path);
-        if (!file.exists()) {
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
+        if (!file.exists() && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
             try {
                 file.createNewFile();
             } catch (Exception e) {
@@ -97,20 +95,17 @@ public class Storage {
         String taskDescription = task.get(2);
         String taskTime = "";
         String taskEndTime = "";
-        if (task.size() > 3) {
-            taskTime = task.get(3);
-        }
-        if (task.size() > 4) {
-            taskEndTime = task.get(4);
-        }
         switch (taskType) {
         case "T":
             this.tasks.load(new TodoTask(taskDescription, isDone));
             break;
         case "D":
+            taskTime = task.get(3);
             this.tasks.load(new DeadlineTask(taskDescription, taskTime, isDone));
             break;
         case "E":
+            taskTime = task.get(3);
+            taskEndTime = task.get(4);
             this.tasks.load(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
             break;
         default:
@@ -121,7 +116,7 @@ public class Storage {
     /**
      * Saves tasks to the file.
      */
-    public void saveTasks() {
+    public void saveTasks() throws PikappiException {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
             for (Task task : tasks.getTasks()) {
@@ -140,7 +135,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            ui.showErrorMessage("Error writing to file!");
+            throw new PikappiException("Error saving tasks!");
         }
 
     }

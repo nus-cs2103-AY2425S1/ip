@@ -12,8 +12,5 @@ public abstract class Command {
     private Storage storage;
     private TaskList tasks;
 
-    public Command() {
-    }
-
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException;
 }
