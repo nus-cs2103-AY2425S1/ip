@@ -1,3 +1,5 @@
+package opus;
+
 public class Parser {
     public static String[] parse(String fullCommand) {
         return fullCommand.split(" ", 2);
