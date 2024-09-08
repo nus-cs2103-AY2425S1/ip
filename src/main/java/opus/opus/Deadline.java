@@ -1,18 +1,18 @@
 package opus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    protected LocalDateTime byDateTime;
+    protected LocalDate byDateTime;
     protected String byString;
 
     public Deadline(String description, String by) {
         super(description);
         try {
             DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.byDateTime = LocalDateTime.parse(by, inputFormat);
+            this.byDateTime = LocalDate.parse(by, inputFormat);
         } catch (DateTimeParseException e) {
             this.byString = by;
         }

@@ -1,12 +1,12 @@
 package opus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
+    private LocalDate fromDateTime;
+    private LocalDate toDateTime;
     private String fromString;
     private String toString;
 
@@ -14,8 +14,8 @@ public class Event extends Task {
         super(description);
         try {
             DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.fromDateTime = LocalDateTime.parse(from, inputFormat);
-            this.toDateTime = LocalDateTime.parse(to, inputFormat);
+            this.fromDateTime = LocalDate.parse(from, inputFormat);
+            this.toDateTime = LocalDate.parse(to, inputFormat);
         } catch (DateTimeParseException e) {
             this.fromString = from;
             this.toString = to;
