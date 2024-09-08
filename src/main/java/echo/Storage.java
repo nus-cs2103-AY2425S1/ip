@@ -39,6 +39,7 @@ public class Storage {
             File parentDir = f.getParentFile();
             parentDir.mkdir();
             f.createNewFile();
+
             // Put a empty task list in the file created
             TaskList allTasks = new TaskList();
             Storage.setData(allTasks);
@@ -100,4 +101,5 @@ public class Storage {
         }
         return allTasks;
     }
+
 }

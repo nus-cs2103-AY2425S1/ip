@@ -7,35 +7,41 @@ package echo;
  */
 public class Parser {
 
+    /** Sends goodbye message to user */
+    public static String exit() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    /** Lists all tasks in the task list */
     public static String listAllTask(TaskList allTasks) {
         return allTasks.listAllTask();
     }
 
     /**
-     * Mark the complete status of a target task from task list.
+     * Marks the complete status of a target task from task list.
      *
-     * @param cmdParts command user input.
+     * @param commandArray command user input.
      * @param allTasks task list.
      * @return A string confirming that the task has been marked as done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String mark(String[] cmdParts, TaskList allTasks)
+    public static String mark(String[] commandArray, TaskList allTasks)
             throws IndexOutOfBoundsException {
-        int markIdx = Integer.parseInt(cmdParts[1]) - 1;
+        int markIdx = Integer.parseInt(commandArray[1]) - 1;
         return allTasks.markTask(markIdx);
     }
 
     /**
-     * Unmark the complete status of a target task from task list.
+     * Unmarks the complete status of a target task from task list.
      *
-     * @param cmdParts command user input.
+     * @param commandArray command user input.
      * @param allTasks task list.
      * @return A string confirming that the task has been marked as not done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String unmark(String[] cmdParts, TaskList allTasks)
+    public static String unmark(String[] commandArray, TaskList allTasks)
             throws IndexOutOfBoundsException {
-        int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
+        int unmarkIdx = Integer.parseInt(commandArray[1]) - 1;
         return allTasks.unmarkTask(unmarkIdx);
     }
 
@@ -44,14 +50,14 @@ public class Parser {
      * Deletes the target task from task list according to the index
      * and print the current list size.
      *
-     * @param cmdParts command user input.
+     * @param commandArray command user input.
      * @param allTasks task list.
      * @return A string confirming that the task has been deleted, along with the updated task list size.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String deleteTask(String[] cmdParts, TaskList allTasks)
+    public static String deleteTask(String[] commandArray, TaskList allTasks)
             throws IndexOutOfBoundsException {
-        int deleteIdx = Integer.parseInt(cmdParts[1]) - 1;
+        int deleteIdx = Integer.parseInt(commandArray[1]) - 1;
         return allTasks.delete(deleteIdx);
     }
 
@@ -85,7 +91,7 @@ public class Parser {
         try {
             switch (Command.valueOf(command)) {
             case BYE:
-                return "Bye. Hope to see you again soon!";
+                return exit();
             case LIST:
                 return listAllTask(allTasks);
             case MARK:
