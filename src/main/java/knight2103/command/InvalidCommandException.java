@@ -1,7 +1,10 @@
 package knight2103.command;
 
+/**
+ * Indicates an exception that is caused by invalid Commands executed.
+ */
 public class InvalidCommandException extends Exception {
-    public InvalidCommandException(String message) {
+    InvalidCommandException(String message) {
         super(message);
     }
 }

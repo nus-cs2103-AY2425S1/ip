@@ -1,19 +1,22 @@
 package knight2103.command;
 
+/**
+ * Acts as interpreter of the user Commands to be executed.
+ */
 public class Parser {
     /**
-     * Interprets user input and creates a relevant command. Returns Optional<Command>.
-     * If the input is not interpretable, an empty Optional is returned to
-     * indicate that a relevant command cannot be created.
+     * Interprets user input and creates a relevant command object.
+     * If the input is not interpretable, exceptions will be thrown and a command object will
+     * not be created.
      *
      * @param fullCommand The input command given which must be of String type.
-     * @return an Optional containing the Command if command is valid or
-     * an empty optional if the Command is invalid.
+     * @return the relevant Command object that corresponds to the user input, if input is valid.
      * @throws InvalidCommandException If the first word of user input does not match
-     * with expected command verbs.
+     * with expected command verbs. Or in general, if the command format is invalid.
      * @throws ArrayIndexOutOfBoundsException If the user input does not match
-     * the expected basic format which for certain commands, requires some
-     * description apart from the first word (command verb).
+     * the expected basic format which for certain commands, requires the description,
+     * apart from the first word (command verb). Such exceptions can be seen as a more specific kind of
+     * InvalidCommandException.
      */
     public static Command parse(String fullCommand) throws InvalidCommandException {
         String[] commandArray = fullCommand.split(" ", 2);
@@ -52,7 +55,7 @@ public class Parser {
                         + "list, todo, deadline, event, mark, unmark, delete, find");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("There's an issue in the instruction format. "
+            throw new InvalidCommandException("There's an issue in the instruction format."
                     + "\nPlease check that it is <CommandVerb> <description> format");
         }
     }

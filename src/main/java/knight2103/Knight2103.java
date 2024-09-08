@@ -10,6 +10,9 @@ import knight2103.command.InvalidCommandException;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 
+/**
+ * Builds the bot's characteristics.
+ */
 public class Knight2103 {
     private String welcomeMessage;
     private String errorMessage;
@@ -17,6 +20,12 @@ public class Knight2103 {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs the bot's instance object which helps to manage the list of task.
+     * The bot contains the filepath to the text file in which the list of tasks will be stored.
+     *
+     * @param filePath The relative location of the text file which contains the list of tasks.
+     */
     public Knight2103(String filePath) {
         this.welcomeMessage = "Hello! I'm Knight2103\nWhat can I do for you?";
         this.errorMessage = "";
@@ -35,28 +44,33 @@ public class Knight2103 {
     }
 
     /**
-     * Trigger a welcome message of the chatbot.
+     * Triggers a welcome message of the chatbot.
+     *
+     * @return Bot's welcome message which will be shown every time the bot application first starts.
      */
     public String triggerWelcome() { // or directly return this.welcomeMessage?
         return ui.showWelcome(this.welcomeMessage + this.errorMessage);
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message input.
+     *
+     * @return Bot's response.
+     * @param input User's input.
      */
     public String getResponse(String input) {
         String output;
-            try {
-                Command c = Parser.parse(input);
-                output = c.execute(tasks, ui, storage);
-                return output;
-            } catch (InvalidCommandException e) { // Exceptions from commands
-                return "Failed to execute Command:\n" + e.getMessage();
-            }
+        try {
+            Command c = Parser.parse(input);
+            output = c.execute(tasks, ui, storage);
+            return output;
+        } catch (InvalidCommandException e) { // Exceptions from commands
+            return "Failed to execute Command:\n" + e.getMessage();
+        }
 
-            // javaDoc comments; Formatting; Code quality.
-            // welcome message - state all commands that can be used.
-            // adding assertions
+        // javaDoc comments; Formatting; Code quality.
+        // welcome message - state all commands that can be used.
+        // adding assertions
 
     }
 }

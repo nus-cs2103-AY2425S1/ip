@@ -1,10 +1,16 @@
 package knight2103.tasks;
 
+/**
+ * Models a ToDo Task.
+ */
 public class TodoTask extends Task {
     private static final String TODO_IDENTIFIER = "T";
+
     /**
-     * Constructs a task Todo object which contains a description of the task.
+     * Constructs a task object that is of a Todo nature. It contains a description of the task.
      * The object by default has the completion status set as not done.
+     *
+     * @param description The description of the task.
      */
     public TodoTask(String description) {
         super(description);

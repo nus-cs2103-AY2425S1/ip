@@ -14,6 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 
+/**
+ * A HBox that contains dialog text and profile image.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -27,12 +30,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    // no change
+    /**
+     * Creates a DialogBox object containing user input text and user profile image.
+     * The text and user profile image are aligned right.
+     *
+     * @return DialogBox object containing the text and image.
+     * @param text User input into the textfield.
+     * @param img User profile image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    // no change
+    /**
+     * Creates a DialogBox object containing the bot's response text and bot's profile image.
+     * The response text and bot's profile image are aligned left.
+     *
+     * @return DialogBox object containing the text and image.
+     * @param text Bot's response text.
+     * @param img Bot's profile image
+     */
     public static DialogBox getKnight2103Dialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

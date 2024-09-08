@@ -7,6 +7,9 @@ import knight2103.tasks.Task;
 
 import java.io.IOException;
 
+/**
+ * Models after commands that modify a list of task, such as mark, unmark and delete tasks.
+ */
 public class ModifyCommand extends Command {
     ModifyCommand(CommandVerb verb, String description) {
         super(verb, description);
@@ -17,12 +20,14 @@ public class ModifyCommand extends Command {
      * mark, unmark, delete to modify the selected task. Depending on the exact
      * command used, the task will be modified accordingly.
      *
-     * @param tasks The class storing the list of tasks found in the bot.
+     * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
-     * @param storage The class containing the file that saves the list of tasks.
-     * @throws IndexOutOfBoundsException If integer keyed in the command is
-     * out of range of the length of the list of tasks.
+     * @param storage The object containing the file that saves the list of tasks.
+     * @return The message to be shown after command execution in the bot's GUI.
      * @throws NumberFormatException If the predicate part of command is not an Integer.
+     * @throws IndexOutOfBoundsException If the integer keyed in the command is
+     * out of range of the length of the list of tasks.
+     * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -42,8 +47,8 @@ public class ModifyCommand extends Command {
             storage.saveToFile(tasks);
             return stringToReturn;
         } catch (NumberFormatException e) {
-            return "Failed to execute Command:\n"
-                    + "Please state the task number in an INTEGER. Definitely not the task name";
+            return "Failed to execute Command:\nPlease state the task number in an INTEGER. "
+                    + "Definitely not the task name";
         } catch (IndexOutOfBoundsException e) {
             return "Failed to execute Command:\n" + e.getMessage()
                     + "\nTask number exceeded total numbers of tasks in the list. "

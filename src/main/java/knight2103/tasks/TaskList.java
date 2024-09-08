@@ -2,6 +2,9 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Models a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
