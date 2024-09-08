@@ -45,6 +45,7 @@ public class TaskList {
             throw new SlothingWafflerException("HEY!! The description of a Todo Task cannot be empty!");
         }
         Task task = new Todo(split[1]);
+        assert task != null : "task should not be null";
         tasks.add(task);
         String count = "\nYou now have " + tasks.size() + " task(s) to do.";
         return "Keep it up! I've added this new task:\n" + task + count;
@@ -66,6 +67,7 @@ public class TaskList {
             throw new SlothingWafflerException("HEY!! An event must have a description, start time, and end time.");
         }
         Task task = new Event(desc[0], desc[1], desc[2]);
+        assert task != null : "task should not be null";
         tasks.add(task);
         String count = "\nYou now have " + tasks.size() + " task(s) to do.";
         return "Keep it up! I've added this new task:\n" + task + count;
@@ -87,6 +89,7 @@ public class TaskList {
             throw new SlothingWafflerException("HEY!! The Deadline Task must have a description AND a due date.");
         }
         Task task = new Deadline(desc[0], desc[1]);
+        assert task != null : "task should not be null";
         tasks.add(task);
         String count = "\nYou now have " + tasks.size() + " task(s) to do.";
         return "Keep it up! I've added this new task:\n" + task + count;
@@ -122,6 +125,7 @@ public class TaskList {
             throw new SlothingWafflerException("You either have no tasks or don't have that many tasks!");
         }
         Task task = tasks.get(taskNum - 1);
+        assert task != null : "task should not be null";
         tasks.remove(taskNum - 1);
         String count = "\nYou now have " + tasks.size() + " task(s) to do.";
         return "Just clearing up I see. I've removed this task:\n" + task.toString() + count;
