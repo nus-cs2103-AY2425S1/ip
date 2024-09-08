@@ -123,7 +123,7 @@ public class MrTracker {
             case FIND:
                 String prompt = input.substring(5).trim();
                 ArrayList<Task> output = taskList.find(prompt);
-                res = ui.showMatchedTasks(output);
+                res = ui.showMatchedTasks(output, prompt);
                 break;
             case WELCOME:
                 res = ui.showWelcomeMessage("MrTracker");

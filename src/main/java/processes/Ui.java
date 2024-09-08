@@ -116,11 +116,11 @@ public class Ui {
      * @param matchList The list of tasks that matched the user's search
      * @return The success message
      */
-    public String showMatchedTasks(ArrayList<Task> matchList) {
+    public String showMatchedTasks(ArrayList<Task> matchList, String prompt) {
         if (matchList.isEmpty()) {
-            return "There are no tasks in your list that match " + "'prompt'";
+            return "There are no tasks in your list that match " + prompt;
         } else {
-            StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: ");
+            StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: \n");
             for (int i = 0; i < matchList.size(); i++) {
                 res.append((i + 1) + ". " + matchList.get(i).toString());
             }

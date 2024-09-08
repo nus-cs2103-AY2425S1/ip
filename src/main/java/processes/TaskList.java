@@ -2,6 +2,9 @@ package processes;
 
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -139,12 +142,7 @@ public class TaskList {
      *
      */
     public ArrayList<Task> find(String prompt) {
-        ArrayList<Task> output = new ArrayList<>();
-        for (Task item: this.taskList) {
-            if (item.getName().contains(prompt)) {
-                output.add(item);
-            }
-        }
-        return output;
+        Stream<Task> stream = this.taskList.stream().filter(t -> t.getName().contains(prompt));
+        return stream.collect(Collectors.toCollection(ArrayList::new));
     }
 }
