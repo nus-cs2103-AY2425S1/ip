@@ -28,6 +28,22 @@ public class CommandDispatcher {
     }
 
     /**
+     * Resets the currentUserList to default view if it is currently a filter view.
+     *
+     * @param currentUserList TaskList that needs to be resetted
+     * @return TaskList of the whole task list, not filtered
+     */
+    public TaskList resetView(TaskList currentUserList) {
+        // reset the view to main parent
+        TaskList userList = currentUserList;
+        while (userList instanceof TaskListFilterView) {
+            userList = ((TaskListFilterView) userList).getParent();
+        }
+        ui.println(ReplyTextMessages.RESET_TEXT);
+        return userList;
+    }
+
+    /**
      * Prints the contents of the task list in a human-friendly format.
      * Example: [T][X] Marked To-do task
      *

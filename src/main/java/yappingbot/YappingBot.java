@@ -10,7 +10,6 @@ import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.tasklist.TaskList;
-import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
@@ -20,8 +19,10 @@ import yappingbot.ui.Ui;
  */
 public class YappingBot {
 
-    private final Ui ui;
+    private final CommandDispatcher commandDispatch;
+    private final Parser parser;
     private final Storage storage;
+    private final Ui ui;
     private TaskList userList;
 
     /**
@@ -34,6 +35,8 @@ public class YappingBot {
     YappingBot(Ui ui, Storage storage) {
         this.ui = ui;
         this.storage = storage;
+        this.parser = new Parser();
+        this.commandDispatch = new CommandDispatcher(ui);
     }
 
     /**
@@ -56,7 +59,7 @@ public class YappingBot {
      */
     private void saveAndExit() {
         // REVERT LIST TO MAIN PARENT!
-        resetView();
+        commandDispatch.resetView(userList);
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -68,8 +71,6 @@ public class YappingBot {
      * The main loop that receives and executes commands.
      */
     private void mainLoop() {
-        Parser parser = new Parser();
-        CommandDispatcher commandDispatch = new CommandDispatcher(ui);
         while (ui.hasNextLine()) {
             String userInput = ui.getNextLine().trim();
             String[] userInputSlices = userInput.split(" ");
@@ -79,7 +80,7 @@ public class YappingBot {
                 case EXIT:
                     return;
                 case RESET_LIST:
-                    resetView();
+                    commandDispatch.resetView(userList);
                     break;
                 case LIST:
                     commandDispatch.printUserList(userList);
@@ -119,20 +120,12 @@ public class YappingBot {
         }
     }
 
-    private void resetView() {
-        // reset the view to main parent
-        while (userList instanceof TaskListFilterView) {
-            userList = ((TaskListFilterView) userList).getParent();
-        }
-        ui.println(ReplyTextMessages.RESET_TEXT);
-    }
-
     /**
      * Executes the initialization,
      * Entry point into the bot. This
      * main loop, and exiting.
      */
-    void start() {
+    public void start() {
         init();
         ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();
