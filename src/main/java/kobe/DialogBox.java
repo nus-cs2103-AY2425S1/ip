@@ -10,11 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * Custom control for dialog boxes used in the chatbot.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -31,12 +33,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        // Ensure the dialog grows dynamically
         dialog.setText(text);
         dialog.setWrapText(true); // Enable text wrapping
-        dialog.setMaxWidth(Double.MAX_VALUE); // Let dialog take up available space
-        dialog.setPrefWidth(300);  // Ensure the width is large enough for long texts
-        dialog.setMinHeight(Region.USE_PREF_SIZE); // Allow it to grow vertically as needed
+        dialog.setMaxWidth(250); // Set max width to prevent overflow
 
         displayPicture.setImage(img.getImage());
         displayPicture.setFitWidth(50.0);
@@ -47,10 +46,14 @@ public class DialogBox extends HBox {
         displayPicture.setClip(clip);
 
         this.getStyleClass().add("dialog-box");
+        dialog.setStyle("-fx-text-fill: inherit;"); // Ensure dialog inherits text color from CSS
         this.setAlignment(Pos.TOP_RIGHT);
         this.setSpacing(10); // Add spacing between the image and text
     }
 
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -58,17 +61,30 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a user dialog with user-specific styling.
+     *
+     * @param text Text to be displayed in the dialog box.
+     * @param img  ImageView containing the user's image.
+     * @return A dialog box configured for user input.
+     */
     public static DialogBox getUserDialog(String text, ImageView img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.getStyleClass().add("user-dialog");
         return db;
     }
 
+    /**
+     * Creates a Kobe dialog with specific styling.
+     *
+     * @param text Text to be displayed in the dialog box.
+     * @param img  ImageView containing Kobe's image.
+     * @return A dialog box configured for Kobe's response.
+     */
     public static DialogBox getKobeDialog(String text, ImageView img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         db.getStyleClass().add("kobe-dialog");
         return db;
     }
 }
-

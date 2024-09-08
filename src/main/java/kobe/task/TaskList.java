@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a list of tasks in the Duke chatbot application.
+ * Represents a list of tasks in the Kobe chatbot application.
  * Provides methods to manipulate tasks in the list.
  */
 public class TaskList {
-    /** The list of tasks. */
     private final List<Task> tasks;
 
     /**
@@ -28,12 +27,14 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
+     * Adds multiple tasks to the task list using varargs.
      *
-     * @param task The task to be added.
+     * @param tasksToAdd The tasks to be added.
      */
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTask(Task... tasksToAdd) {
+        for (Task task : tasksToAdd) {
+            tasks.add(task);
+        }
     }
 
     /**
@@ -82,6 +83,13 @@ public class TaskList {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A TaskList containing the matching tasks.
+     */
     public TaskList findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -92,6 +100,11 @@ public class TaskList {
         return new TaskList(matchingTasks);
     }
 
+    /**
+     * Returns all tasks as a string.
+     *
+     * @return The string representation of all tasks.
+     */
     public String getAllTasksAsString() {
         StringBuilder taskListBuilder = new StringBuilder();
         if (tasks.isEmpty()) {
@@ -100,7 +113,7 @@ public class TaskList {
             for (int i = 0; i < tasks.size(); i++) {
                 taskListBuilder.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
             }
-            return taskListBuilder.toString().trim();  // Remove trailing newline
+            return taskListBuilder.toString().trim();
         }
     }
 }
