@@ -1,13 +1,26 @@
+import java.util.Scanner;
+
 public class Ui {
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    private Scanner scanner;
+
+    public Ui() {
+        scanner = new Scanner(System.in);
     }
 
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
+    public void showWelcome() {
+        System.out.println("Hello! I'm Opus");
+        System.out.println("What can I do for you?");
+    }
+
+    public void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 }

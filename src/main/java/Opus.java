@@ -1,73 +1,66 @@
-import java.util.Scanner;
-
 public class Opus {
 
     private Storage storage;
     private TaskList taskList;
-    // private Ui ui;
+    private Ui ui;
 
     public Opus(String filePath) {
-        // ui = new Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println(" Hello! I'm Opus");
-        System.out.println(" What can I do for you?");
+        ui.showWelcome();
 
         while (true) {
-            String s = scanner.nextLine();
-            String[] words = s.split(" ");
+            String fullCommand = ui.readCommand();
+            String[] words = Parser.parse(fullCommand);
 
             try {
-                if (s.equals("bye")) {
+                if (words[0].equals("bye")) {
                     storage.save(taskList.getTasks());
+                    ui.showGoodbye();
                     break;
-                } else if (s.equals("list")) {
+                } else if (words[0].equals("list")) {
                     taskList.listTasks();
                 } else if (words[0].equals("mark")) {
                     int i = Integer.parseInt(words[1]) - 1;
                     taskList.getTask(i).markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskList.getTask(i));
+                    ui.showMessage("Nice! I've marked this task as done:");
+                    ui.showMessage(taskList.getTask(i).toString());
                 } else if (words[0].equals("delete")) {
                     int i = Integer.parseInt(words[1]) - 1;
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println("   " + taskList.getTask(i));
+                    ui.showMessage("Noted. I've removed this task:");
+                    ui.showMessage(taskList.getTask(i).toString());
                     taskList.removeTask(i);
-                    System.out.println(" Now you have " + taskList.getSize() + " tasks in the list.");
+                    ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
                 } else {
                     if (words[0].equals("todo")) {
                         if (words.length <= 1) {
                             throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");
                         }
-                        Task todo = new ToDo(s.substring(5));
+                        Task todo = new ToDo(words[1]);
                         taskList.addTask(todo);
                     } else if (words[0].equals("deadline")) {
-                        String[] parts = s.substring(9).split(" /by ");
+                        String[] parts = Parser.parseDeadlineDetails(words[1]);
                         Task deadline = new Deadline(parts[0], parts[1]);
                         taskList.addTask(deadline);
                     } else if (words[0].equals("event")) {
-                        String[] parts = s.substring(6).split(" /from ");
-                        String[] parts2 = parts[1].split(" /to ");
-                        Task event = new Event(parts[0], parts2[0], parts2[1]);
+                        String[] parts = Parser.parseEventDetails(words[1]);
+                        Task event = new Event(parts[0], parts[1], parts[2]);
                         taskList.addTask(event);
                     } else {
                         throw new OpusUnknownCommandException("I'm sorry, but I don't know what that means.");
                     }
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + taskList.getTask(taskList.getSize() - 1));
-                    System.out.println(" Now you have " + taskList.getSize() + " tasks in the list.");
+                    ui.showMessage("Got it. I've added this task:");
+                    ui.showMessage(taskList.getTask(taskList.getSize() - 1).toString());
+                    ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
                 }
             } catch (OpusException e) {
-                System.out.println(e.getMessage());
+                ui.showMessage(e.getMessage());
             }
         }
-        System.out.println(" Bye. Hope to see you again soon!");
-        scanner.close();
     }
 
     public static void main(String[] args) {
