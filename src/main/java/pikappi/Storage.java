@@ -28,6 +28,7 @@ public class Storage {
      * @param path Filepath to save and load tasks from
      */
     public Storage(String path) {
+        assert path != null : "Path should not be null";
         this.path = path;
         this.tasks = new TaskList();
     }
@@ -49,6 +50,7 @@ public class Storage {
      * @param tasks TaskList object that contains tasks
      */
     public void save(TaskList tasks) throws PikappiException {
+        assert tasks != null : "Tasks should not be null";
         this.tasks = tasks;
         this.saveTasks();
     }
@@ -87,6 +89,7 @@ public class Storage {
      * @throws PikappiException If there is an error loading the task
      */
     public void loadCurrentTask(ArrayList<String> task) throws PikappiException {
+        assert task != null : "Task should not be null";
         if (task.size() < 3) {
             throw new PikappiException("Error loading task!");
         }
@@ -116,7 +119,7 @@ public class Storage {
     /**
      * Saves tasks to the file.
      */
-    public void saveTasks() throws PikappiException {
+    public void saveTasks() {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
             for (Task task : tasks.getTasks()) {
@@ -135,7 +138,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new PikappiException("Error saving tasks!");
+            ui.showErrorMessage("Error writing to file!");
         }
 
     }

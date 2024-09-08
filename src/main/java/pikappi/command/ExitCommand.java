@@ -3,7 +3,6 @@ package pikappi.command;
 import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
-import pikappi.exception.PikappiException;
 
 /**
  * Represents a command by user to exit the program.
@@ -17,7 +16,8 @@ public class ExitCommand extends Command {
      * @param storage The storage object.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList cannot be null";
         return ui.sayGoodbye();
     }
 }

@@ -3,7 +3,6 @@ package pikappi.command;
 import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
-import pikappi.exception.PikappiException;
 
 /**
  * Represents a command by user to unmark a task as not done.
@@ -28,7 +27,8 @@ public class UnmarkCommand extends Command {
      * @param storage The storage object.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList cannot be null";
         return tasks.unmarkTask(index);
     }
 }
