@@ -50,12 +50,14 @@ public class Angel {
                 case "deadline":
                     Parser.DeadlineDetail deadlineDetail = (Parser.DeadlineDetail) command.getDetails();
                     taskList.addTask(new Deadline(deadlineDetail.getDescription(), deadlineDetail.getDeadline()));
-                    ui.print("Got it. I've added this task:\n  " + deadlineDetail.getDescription() + " by: " + deadlineDetail.getDeadline().format(INPUT_FORMAT));
+                    ui.print("Got it. I've added this task:\n  " + deadlineDetail.getDescription()
+                            + " by: " + deadlineDetail.getDeadline().format(INPUT_FORMAT));
                     break;
                 case "event":
                     Parser.EventDetail eventDetail = (Parser.EventDetail) command.getDetails();
                     taskList.addTask(new Event(eventDetail.getDescription(), eventDetail.getFrom(), eventDetail.getTo()));
-                    ui.print("Got it. I've added this task:\n  " + eventDetail.getDescription() + " from: " + eventDetail.getFrom().format(INPUT_FORMAT) + " to: " + eventDetail.getTo().format(INPUT_FORMAT));
+                    ui.print("Got it. I've added this task:\n  " + eventDetail.getDescription() + " from: "
+                            + eventDetail.getFrom().format(INPUT_FORMAT) + " to: " + eventDetail.getTo().format(INPUT_FORMAT));
                     break;
                 case "mark":
                     int markIndex = (int) command.getDetails();
@@ -83,7 +85,8 @@ public class Angel {
                     }
                     break;
                 default:
-                    throw new InvalidCommandException("Unknown command: " + command.getType() + ". Please enter a valid command.");
+                    throw new InvalidCommandException("Unknown command: " + command.getType()
+                            + ". Please enter a valid command.");
                 }
             } catch (InvalidCommandException e) {
                 ui.printError(e.getMessage());

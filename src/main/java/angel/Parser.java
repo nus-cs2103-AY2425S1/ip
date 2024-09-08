@@ -39,7 +39,8 @@ public class Parser {
         case "delete":
             return parseIndexCommand(parts, command);
         default:
-            throw new InvalidCommandException("Unknown command: " + command + ". Please enter a valid command (e.g., list, todo, deadline, event, mark, unmark, delete, bye, find).");
+            throw new InvalidCommandException("Unknown command: " + command
+                    + ". Please enter a valid command (e.g., list, todo, deadline, event, mark, unmark, delete, bye, find).");
         }
     }
 
@@ -52,7 +53,8 @@ public class Parser {
      */
     private static Command parseFindCommand(String[] parts) throws InvalidCommandException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new InvalidCommandException("The find command requires a keyword. Please specify a keyword after 'find'. Example: 'find book'.");
+            throw new InvalidCommandException("The find command requires a keyword. "
+                    + "Please specify a keyword after 'find'. Example: 'find book'.");
         }
         return new Command("find", parts[1].trim());
     }
@@ -80,7 +82,9 @@ public class Parser {
      */
     private static Command parseDeadlineCommand(String[] parts) throws InvalidCommandException {
         if (parts.length < 2 || !parts[1].contains(" /by ")) {
-            throw new InvalidCommandException("The description of a deadline task must include a '/by' followed by the due date/time. Example: 'deadline return book /by 2019-10-10 1800'.");
+            throw new InvalidCommandException(
+                    "The description of a deadline task must include a '/by' followed by the due date/time. "
+                    + "Example: 'deadline return book /by 2019-10-10 1800'.");
         }
         String[] deadlineDetails = parts[1].split(" /by ");
         LocalDateTime deadlineDate = parseDate(deadlineDetails[1]);
@@ -96,7 +100,9 @@ public class Parser {
      */
     private static Command parseEventCommand(String[] parts) throws InvalidCommandException {
         if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
-            throw new InvalidCommandException("The description of an event must include '/from' and '/to' followed by the start and end times. Example: 'event project meeting /from 2019-10-10 1800 /to 2019-10-10 2000'.");
+            throw new InvalidCommandException(
+                    "The description of an event must include '/from' and '/to' followed by the start and end times. "
+                    + "Example: 'event project meeting /from 2019-10-10 1800 /to 2019-10-10 2000'.");
         }
         String[] eventDetails = parts[1].split(" /from ");
         String[] times = eventDetails[1].split(" /to ");
@@ -121,7 +127,8 @@ public class Parser {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             return new Command(command, taskIndex);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Invalid task number for '" + command + "'. Please enter a valid number after '" + command + "'.");
+            throw new InvalidCommandException("Invalid task number for '"
+                    + command + "'. Please enter a valid number after '" + command + "'.");
         }
     }
 

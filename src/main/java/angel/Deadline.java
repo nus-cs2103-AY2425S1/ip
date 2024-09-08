@@ -40,7 +40,8 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the Deadline in a format suitable for saving to a file.
      *
-     * @return A string representation of the Deadline in the save format, including its type, status, description, and due date/time.
+     * @return A string representation of the Deadline in the save format,
+     * including its type, status, description, and due date/time.
      */
     @Override
     public String toSaveFormat() {

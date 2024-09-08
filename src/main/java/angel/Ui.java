@@ -1,7 +1,7 @@
 package main.java.angel;
 
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Handles interactions with the user.
