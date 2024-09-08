@@ -91,10 +91,10 @@ public class Ui {
      */
     public void greet() {
         this.respond("""
-                ------------------------------------
-                    Hello, I am Sumo-DE
+                ----------------------------------
+                      Hello, I am Sumo-DE!
                    How can Sumo help you?
-                ------------------------------------"""
+                ----------------------------------"""
         );
     }
 
@@ -102,7 +102,9 @@ public class Ui {
      * Prints a notice that command is wrong.
      */
     public void warnUnknownCommand(String commandString) {
-        this.respondDanger("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
+        this.respondDanger("Sumo dunno your command \""
+                + commandString
+                + "\" ! Check spelling of your first word pleaseeeeeeeeee.....");
     }
 
     /**
@@ -117,9 +119,9 @@ public class Ui {
      */
     public void requestNext() {
         this.respond("""
-                            ------------------------------------
+                            --------------------------------------------
                             Do you need anything else from SUMO?
-                            ------------------------------------""");
+                            --------------------------------------------""");
     }
 
     /**
@@ -159,7 +161,7 @@ public class Ui {
         if (isItFiltered) {
             response.append("Below is the list of MATCHING tasks based on your request:");
         } else {
-            response.append("\nBelow is the list of tasks:\n");
+            response.append("Below is the list of tasks:\n");
         }
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
