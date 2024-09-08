@@ -10,36 +10,32 @@ import Joseph.Storage;
  *  The main class of the chatbot.
  */
 public class Joseph {
-    public static void main(String[] args) {
-        final String name = "Joseph";
-        UI ui = new UI();
-        Parser parser = new Parser();
-        Storage storage = new Storage("./data/joseph.txt");
-        TaskList taskList = new TaskList(storage.loadTasks());
+    private final Parser parser;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final UI ui;
 
-        ui.printWelcomeMessage(name);
-
-        while (true) {
-            String input = ui.readUserInput();
-            try {
-                Parser.Command command = parser.parseCommand(input);
-                if (command == Parser.Command.EXIT) {
-                    ui.printExitMessage();
-                    storage.saveTasks(taskList.getTasks());
-                    ui.close();
-                    return;
-                } else if (command == Parser.Command.HELP) {
-                    ui.printHelpMessage();
-                } else {
-                    taskList.handleCommand(command, input, parser, ui, storage);
-                }
-            } catch (UnknownCommandException e) {
-                ui.printErrorMessage(e.getMessage());
-            }
-        }
+    public Joseph() {
+        this.ui = new UI();
+        this.parser = new Parser();
+        this.storage = new Storage("./data/joseph.txt");
+        this.taskList = new TaskList(storage.loadTasks());
     }
 
     public String getResponse(String input) {
-        return "Joseph heard: " + input;
+        try {
+            Parser.Command command = parser.parseCommand(input);
+            if (command == Parser.Command.EXIT) {
+
+                storage.saveTasks(taskList.getTasks());
+                return ui.getExitMessage();
+            } else if (command == Parser.Command.HELP) {
+                return ui.getHelpMessage();
+            } else {
+                return taskList.handleCommand(command, input, parser, ui, storage);
+            }
+        } catch (UnknownCommandException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
     }
 }

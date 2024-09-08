@@ -101,68 +101,59 @@ public class TaskList {
      * @param ui The UI to interact with the user.
      * @param storage The storage to save the task list.
      */
-    public void handleCommand(Parser.Command command, String input,
+    public String handleCommand(Parser.Command command, String input,
                               Parser parser, UI ui, Storage storage) {
         try {
             switch (command) {
             case LIST:
-                ui.printListMessage(tasks);
-                break;
+                return ui.getListMessage(tasks);
             case MARK:
                 int markNum = parser.parseTaskNumber(input, command.getCommandText());
                 String markDetails = getTask(markNum).getDetails();
                 markTask(markNum);
                 storage.saveTasks(tasks);
-                ui.printMarkMessage(markDetails);
-                break;
+                return ui.getMarkMessage(markDetails);
             case UNMARK:
                 int unmarkNum = parser.parseTaskNumber(input, command.getCommandText());
                 String unmarkDetails = getTask(unmarkNum).getDetails();
                 unmarkTask(unmarkNum);
                 storage.saveTasks(tasks);
-                ui.printUnmarkMessage(unmarkDetails);
-                break;
+                return ui.getUnmarkMessage(unmarkDetails);
             case TODO:
                 String todoDetails = parser.parseTodoDetails(input, command.getCommandText());
                 ToDo todo = new ToDo(todoDetails);
                 addTask(todo);
                 storage.saveTasks(tasks);
-                ui.printTodoMessage(todo.getDetails());
-                break;
+                return ui.getTodoMessage(todo.getDetails());
             case DEADLINE:
                 String[] deadlineDetails = parser.parseDeadlineDetails(input, command.getCommandText());
                 Deadline deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
                 addTask(deadline);
                 storage.saveTasks(tasks);
-                ui.printDeadlineMessage(deadline.getDetails());
-                break;
+                return ui.getDeadlineMessage(deadline.getDetails());
             case EVENT:
                 String[] eventDetails = parser.parseEventDetails(input, command.getCommandText());
                 JEvent event = new JEvent(eventDetails[0], eventDetails[1], eventDetails[2]);
                 addTask(event);
                 storage.saveTasks(tasks);
-                ui.printJEventMessage(event.getDetails());
-                break;
+                return ui.getJEventMessage(event.getDetails());
             case DELETE:
                 int deleteNum = parser.parseTaskNumber(input, command.getCommandText());
                 String deleteDetails = getTask(deleteNum).getDetails();
                 deleteTask(deleteNum);
                 storage.saveTasks(tasks);
-                ui.printDeleteMessage(deleteDetails);
-                break;
+                return ui.getDeleteMessage(deleteDetails);
             case FIND:
                 String keyword = parser.parseFindKeyword(input, command.getCommandText());
                 ArrayList<Task> matchingTasks = findTasks(keyword);
-                ui.printFindMessage(matchingTasks, keyword);
-                break;
+                return ui.getFindMessage(matchingTasks, keyword);
             default:
-                ui.printUnrecognisedMessage();
-                break;
+                return ui.getUnrecognisedMessage();
             }
         } catch (InsufficientDetailsException e) {
-            ui.printErrorMessage(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("A task does not exist at that index!");
+            return "A task does not exist at that index!";
         }
     }
 }

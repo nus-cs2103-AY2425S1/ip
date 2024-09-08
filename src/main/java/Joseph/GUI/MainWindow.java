@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import Joseph.UI;
 /**
  * Controller for the main GUI.
  */
@@ -21,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Joseph joseph;
+    private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gon.jpg"));
     private Image josephImage = new Image(this.getClass().getResourceAsStream("/images/bakugou.jpg"));
@@ -28,11 +31,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        UI ui = new UI();
+        String welcomeMessage = ui.getWelcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getJosephDialog(welcomeMessage, josephImage));
     }
 
     /** Injects the Joseph instance */
-    public void setJoseph(Joseph j) {
+    public void setJoseph(Joseph j, Stage stage) {
         joseph = j;
+        this.stage = stage;
     }
 
     /**
@@ -48,6 +56,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getJosephDialog(response, josephImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            stage.close();
+        }
     }
 }
 
