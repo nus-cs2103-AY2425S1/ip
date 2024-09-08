@@ -16,7 +16,7 @@ public class StorageTest {
         taskList.add(new ToDo("Sample task"));
         storage.save(taskList.getTasks());
         TaskList loadedTaskList = new TaskList(storage.load());
-        assertEquals(1, loadedTaskList.size(), "The saved task should be loaded correctly.");
+        assertEquals(1, loadedTaskList.getSize(), "The saved task should be loaded correctly.");
     }
 }
 
