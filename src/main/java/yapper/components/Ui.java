@@ -1,4 +1,4 @@
-package yapper.app;
+package yapper.components;
 
 /**
  * Provides utility methods for interacting with the user via the command line.

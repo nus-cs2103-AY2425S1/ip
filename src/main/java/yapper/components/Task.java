@@ -1,4 +1,4 @@
-package yapper.app;
+package yapper.components;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

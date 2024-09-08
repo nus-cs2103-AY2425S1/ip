@@ -1,14 +1,14 @@
 ____________________________________________________________
-Hello! I'm yapper.app.Yapper
+Hello! I'm yapper.components.Yapper
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-yapper.app.Task has been added:
+yapper.components.Task has been added:
   [T][ ] read book
 A total of 1 task are on the list.
 ____________________________________________________________
 ____________________________________________________________
-yapper.app.Task has been added:
+yapper.components.Task has been added:
   [D][ ] return book (by: June 6th)
 A total of 2 tasks are on the list.
 ____________________________________________________________
@@ -25,17 +25,17 @@ ____________________________________________________________
 Invalid format (Format: event [DESC] /from [FROM] /to [TO])
 ____________________________________________________________
 ____________________________________________________________
-yapper.app.Task has been added:
+yapper.components.Task has been added:
   [E][ ] project meeting (from: Aug 6th 2pm to : 4pm)
 A total of 3 tasks are on the list.
 ____________________________________________________________
 ____________________________________________________________
-yapper.app.Task has been added:
+yapper.components.Task has been added:
   [T][ ] join sports club
 A total of 4 tasks are on the list.
 ____________________________________________________________
 ____________________________________________________________
-yapper.app.Task has been added:
+yapper.components.Task has been added:
   [T][ ] borrow book
 A total of 5 tasks are on the list.
 ____________________________________________________________

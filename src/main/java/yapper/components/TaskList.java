@@ -1,9 +1,11 @@
-package yapper.app;
+package yapper.components;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import yapper.exceptions.YapperException;
 
 /**
  * Manages a list of tasks, including adding, deleting, marking, and listing tasks.
@@ -68,12 +70,17 @@ public class TaskList {
     /**
      * Retrieves a task from the list by its index.
      *
-     * @param index the index of the task to retrieve (uses 1-indexed numbering)
+     * @param taskNumber the 1-indexed number of the task to retrieve (uses 1-indexed numbering)
      * @return the task at the specified index
      */
-    public Task getTask(int index) {
+    public Task getTask(int taskNumber) throws YapperException {
         assert this.taskList != null : "Task list should not be null";
-        return this.taskList.get(index);
+        assert taskNumber > 0 : "Task number should not be negative";
+        assert taskNumber <= getSize() : "Task number should not be greater than length of list";
+        if (taskNumber <= 0 || taskNumber > getSize()) {
+            throw new YapperException("Oopsie! Couldn't find that one! :)");
+        }
+        return this.taskList.get(taskNumber - 1);
     }
 
     /**
@@ -87,7 +94,7 @@ public class TaskList {
         String header = String.format("You currently have %d %s\n", getSize(), pluralise());
         sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
-            String temp = i + "." + getTask(i - 1) + "\n";
+            String temp = i + "." + getTask(i) + "\n";
             sb.append(temp);
         }
         return sb.append(Ui.showLine()).toString();
@@ -99,19 +106,10 @@ public class TaskList {
      * @param taskNumber the number of the task to be deleted
      * @return           a string reflecting the changes
      */
-    public String deleteTask(String taskNumber) {
-        assert taskNumber != null : "Task number should not be null";;
-        Task task = null;
-        try {
-            int taskIndex = Integer.parseInt(taskNumber);
-            task = this.taskList.get(taskIndex - 1);
-            this.taskList.remove(taskIndex - 1);
-            writeToFile();
-        } catch (NumberFormatException e) {
-            return Ui.wrapText("That was NOT a valid number.");
-        } catch (IndexOutOfBoundsException e) {
-            return Ui.wrapText("That task is not here, sorry! :(");
-        }
+    public String deleteTask(int taskNumber) throws YapperException {
+        Task task = getTask(taskNumber);
+        this.taskList.remove(taskNumber - 1);
+        writeToFile();
         String[] texts = {
             "The following task has been removed form the list:",
             "  " + task,
@@ -127,17 +125,8 @@ public class TaskList {
      * @param taskNumber  the number of the task to be marked or unmarked
      * @return            a string reflecting the changes
      */
-    public String markTask(String command, String taskNumber) {
-        assert taskNumber != null : "Task number should not be null";;
-        Task task = null;
-        try {
-            int taskIndex = Integer.parseInt(taskNumber);
-            task = getTask(taskIndex - 1);
-        } catch (NumberFormatException e) {
-            return Ui.wrapText("That was NOT a valid number.");
-        } catch (IndexOutOfBoundsException e) {
-            return Ui.wrapText("Oopsie! Couldn't find that one! :)");
-        }
+    public String markOrUnmarkTask(String command, int taskNumber) throws YapperException {
+        Task task = getTask(taskNumber);
         String message = "";
         if (command.equals("mark")) {
             message = "This task has been marked as completed:";
