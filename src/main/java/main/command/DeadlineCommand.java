@@ -57,16 +57,15 @@ public class DeadlineCommand extends Command {
             throws PrinceException {
         if (input.equals("deadline")) {
             throw new PrinceException("Please describe your deadline task in more detail!");
-        } else {
-            ui.showAdd();
-            String desc = getDeadline(input);
-            String by = getBy(input);
-            Deadline deadlineTask = new Deadline(desc, by);
-            taskList.add(deadlineTask);
-            ui.showTaskToString(deadlineTask);
-            ui.showNumberOfTasks(taskList);
-            storage.saveToFile(deadlineTask, taskList);
         }
+        ui.showAdd();
+        String desc = getDeadline(input);
+        String by = getBy(input);
+        Deadline deadlineTask = new Deadline(desc, by);
+        taskList.add(deadlineTask);
+        ui.showTaskToString(deadlineTask);
+        ui.showNumberOfTasks(taskList);
+        storage.saveToFile(deadlineTask, taskList);
     }
 
     @Override

@@ -23,6 +23,12 @@ import main.tasks.Todo;
  */
 public class Storage {
 
+    private static final String TASK_TYPE_TODO = "T";
+    private static final String TASK_TYPE_DEADLINE = "D";
+    private static final String TASK_TYPE_EVENT = "E";
+    private static final String STATUS_DONE = "1";
+    private static final String FIELD_SEPARATOR = " .. ";
+
     private static Path filePath;
 
     /**
@@ -40,74 +46,56 @@ public class Storage {
     public TaskList loadFromFile() throws PrinceException {
         TaskList taskList = new TaskList();
         try {
-            if (Files.notExists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent());
-            }
-            if (Files.notExists(filePath)) {
-                Files.createFile(filePath);
-            }
-
-            // read from file path
+            ensureFileExists();
             List<String> lines = Files.readAllLines(filePath);
-
-            // for each line, need to splice it according to the format
-            // create new tasks in taskarray based on each line
             for (String stringTask : lines) {
-                String[] arr = stringTask.split(" .. ");
-                String taskType = "";
-                String description = "";
-                String status = "";
-                String byFrom = "";
-                String to = "";
-                // for each line in the file, splice and extract relevant fields
-                for (int i = 0; i < arr.length; i++) {
-                    if (arr[i] != null) {
-                        String trimmed = arr[i].trim();
-                        if (i == 0) {
-                            taskType = trimmed;
-                        }
-                        if (i == 1) {
-                            status = trimmed;
-                        }
-                        if (i == 2) {
-                            description = trimmed;
-                        }
-                        if (i == 3) {
-                            byFrom = trimmed;
-                        }
-                        if (i == 4) {
-                            to = trimmed;
-                        }
-                    }
-                }
-
-                // create new task based on each line in the file
-                if (taskType.equals("T")) {
-                    Task todoTask = new Todo(description);
-                    taskList.add(todoTask);
-                    if (status.equals("1")) {
-                        todoTask.markAsDone();
-                    }
-                }
-                if (taskType.equals("D")) {
-                    Task deadlineTask = new Deadline(description, byFrom);
-                    taskList.add(deadlineTask);
-                    if (status.equals("1")) {
-                        deadlineTask.markAsDone();
-                    }
-                }
-                if (taskType.equals("E")) {
-                    Task eventTask = new Event(description, byFrom, to);
-                    taskList.add(eventTask);
-                    if (status.equals("1")) {
-                        eventTask.markAsDone();
-                    }
-                }
+                Task task = parseTaskFromLine(stringTask);
+                taskList.add(task);
             }
         } catch (IOException e) {
             throw new PrinceException(e.getMessage());
         }
         return taskList;
+    }
+
+    /**
+     * Parses a line from the file into a Task object.
+     * @param line The line read from the file.
+     * @return A Task object or null if the line format is invalid.
+     */
+    private Task parseTaskFromLine(String line) {
+        String[] fields = line.split(FIELD_SEPARATOR);
+        if (fields.length < 3) {
+            return null;
+        }
+
+        String taskType = fields[0].trim();
+        String status = fields[1].trim();
+        String description = fields[2].trim();
+        String byFrom = fields.length > 3 ? fields[3].trim() : "";
+        String to = fields.length > 4 ? fields[4].trim() : "";
+
+        Task task;
+        switch (taskType) {
+        case TASK_TYPE_TODO:
+            task = new Todo(description);
+            break;
+        case TASK_TYPE_DEADLINE:
+            task = new Deadline(description, byFrom);
+            break;
+        case TASK_TYPE_EVENT:
+            task = new Event(description, byFrom, to);
+            break;
+        default:
+            task = null;
+            break;
+        };
+
+        if (task != null && STATUS_DONE.equals(status)) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**
@@ -117,19 +105,11 @@ public class Storage {
      */
     public void saveToFile(Task task, TaskList taskList) {
         try {
-            if (Files.notExists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent());
-            }
-            if (Files.notExists(filePath)) {
-                Files.createFile(filePath);
-            }
-
+            ensureFileExists();
             BufferedWriter bw = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND);
-
             String taskString = task.toFileFormat();
             bw.write(taskString);
             bw.newLine();
-
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,6 +124,9 @@ public class Storage {
     public void deleteFromFile(String input, TaskList taskList) {
         try {
             int index = getIndex(input);
+            if (index == -1) {
+                return;
+            }
             Task task = taskList.get(index);
             // open the old file for reading
             BufferedReader reader = Files.newBufferedReader(filePath);
@@ -162,8 +145,6 @@ public class Storage {
                 writer.write(currLine);
                 writer.newLine();
             }
-
-            // close both files
             reader.close();
             writer.close();
 
@@ -195,21 +176,13 @@ public class Storage {
             // for each line, check if it matches what you are supposed to remove
             while ((currLine = reader.readLine()) != null) {
                 if (currLine.contains(desc)) {
-                    // if it matches, update the status part of the line
-                    // mark the task as done or not done
-                    // use the to file format
-                    // update there
                     String updatedLine = task.toFileFormat();
                     writer.write(updatedLine);
-                    writer.newLine();
                 } else {
-                    // if it doesn't match, write it normally
                     writer.write(currLine);
-                    writer.newLine();
                 }
+                writer.newLine();
             }
-
-            // close both files
             reader.close();
             writer.close();
 
@@ -228,27 +201,33 @@ public class Storage {
      * @return Index of the task.
      */
     private int getIndex(String input) {
+        String indexAsString = "";
         if (input.contains("unmark")) {
-            // get character value of index in the input
-            String indexAsString = input.substring(7);
-            // convert to arr index
-            int index = Integer.valueOf(indexAsString) - 1;
-            return index;
-        } else if (input.contains("mark")) {
-            // get character value of index in input
-            String indexAsString = input.substring(5);
-            // convert to arr index
-            int index = Integer.valueOf(indexAsString) - 1;
-            return index;
-        } else if (input.contains("delete")) {
-            // get character value of index in the input
-            String indexAsString = input.substring(7);
-            // convert to arr index
-            int index = Integer.valueOf(indexAsString) - 1;
-            return index;
-        } else {
-            // should not reach here
+            indexAsString = input.substring(7);
+        }
+        if (input.contains("mark")) {
+            indexAsString = input.substring(5);
+        }
+        if (input.contains("delete")) {
+            indexAsString = input.substring(7);
+        }
+        if (indexAsString.equals("")) {
             return -1;
+        }
+        int index = Integer.valueOf(indexAsString) - 1;
+        return index;
+    }
+
+    /**
+     * Ensures that the storage file and its directories exist.
+     * @throws IOException
+     */
+    private void ensureFileExists() throws IOException {
+        if (Files.notExists(filePath.getParent())) {
+            Files.createDirectories(filePath.getParent());
+        }
+        if (Files.notExists(filePath)) {
+            Files.createFile(filePath);
         }
     }
 }

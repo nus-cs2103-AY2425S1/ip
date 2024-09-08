@@ -45,18 +45,18 @@ public class Ui {
     public void showTaskList(TaskList taskList) {
         if (taskList.isEmpty()) {
             append("There are no tasks in the list!\n");
-        } else {
-            String taskGreetingString = "Here are the tasks in your list:\n";
-            builder.append(taskGreetingString);
-            int length = taskList.size();
-            for (int i = 0; i < length; i++) {
-                Task task = taskList.get(i);
-                // formatting for numbering of list
-                int listNum = i + 1;
-                String numDot = listNum + ".";
-                String formatted = numDot + task.toString() + "\n";
-                builder.append(formatted);
-            }
+            return;
+        }
+        String taskGreetingString = "Here are the tasks in your list:\n";
+        builder.append(taskGreetingString);
+        int length = taskList.size();
+        for (int i = 0; i < length; i++) {
+            Task task = taskList.get(i);
+            // formatting for numbering of list
+            int listNum = i + 1;
+            String numDot = listNum + ".";
+            String formatted = numDot + task.toString() + "\n";
+            builder.append(formatted);
         }
     }
 
@@ -67,18 +67,18 @@ public class Ui {
     public void showMatchingTaskList(TaskList taskList) {
         if (taskList.isEmpty()) {
             append("There are no matching tasks in the list!\n");
-        } else {
-            String taskGreetingString = "Here are the matching tasks in your list:\n";
-            builder.append(taskGreetingString);
-            int length = taskList.size();
-            for (int i = 0; i < length; i++) {
-                Task task = taskList.get(i);
-                // formatting for numbering of list
-                int listNum = i + 1;
-                String numDot = listNum + ".";
-                String formatted = numDot + task.toString() + "\n";
-                builder.append(formatted);
-            }
+            return;
+        }
+        String taskGreetingString = "Here are the matching tasks in your list:\n";
+        builder.append(taskGreetingString);
+        int length = taskList.size();
+        for (int i = 0; i < length; i++) {
+            Task task = taskList.get(i);
+            // formatting for numbering of list
+            int listNum = i + 1;
+            String numDot = listNum + ".";
+            String formatted = numDot + task.toString() + "\n";
+            builder.append(formatted);
         }
     }
 
