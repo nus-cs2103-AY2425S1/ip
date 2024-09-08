@@ -1,8 +1,0 @@
-E,0,help (from: May 25 2022 to: May 26 2022)
-T,0,borrow book
-T,0,borrow book
-T,0,book
-T,0,book
-T,0,book
-T,0,what
-E,0,help (from: 10 May 2002 to: 11 May 2002)
