@@ -18,6 +18,7 @@ public abstract class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
+        assert description != null : "Description should not be null";
         this.description = description;
         this.isDone = false;
     }
@@ -39,10 +40,9 @@ public abstract class Task {
      * @throws IllegalArgumentException Ff the string format is invalid or unknown task type is provided.
      */
     public static Task fromString(String string) {
+        assert string != null : "Task string should not be null";
         String[] parts = string.split(" \\| ");
-        if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid task format: " + string);
-        }
+        assert parts.length >= 3 : "Invalid task format";
 
         String type = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
@@ -57,9 +57,7 @@ public abstract class Task {
             return todo;
         }
         case "D" -> {
-            if (parts.length < 4) {
-                throw new IllegalArgumentException("Invalid deadline task format: " + string);
-            }
+            assert parts.length >= 4 : "Invalid deadline task format";
             LocalDateTime dateAndTime = LocalDateTime.parse(parts[3].trim(), Bao.getFileDateFormat());
             Deadline deadline = new Deadline(description, dateAndTime);
             if (isDone) {
@@ -68,13 +66,9 @@ public abstract class Task {
             return deadline;
         }
         case "E" -> {
-            if (parts.length < 4) {
-                throw new IllegalArgumentException("Invalid deadline task format: " + string);
-            }
+            assert parts.length >= 4 : "Invalid event task format";
             String[] duration = parts[3].split(" - ");
-            if (duration.length < 2) {
-                throw new IllegalArgumentException("Invalid event duration format: " + string);
-            }
+            assert duration.length == 2 : "Invalid event duration format";
             LocalDateTime from = LocalDateTime.parse(duration[0].trim(), Bao.getFileDateFormat());
             LocalDateTime to = LocalDateTime.parse(duration[1].trim(), Bao.getFileDateFormat());
             Event event = new Event(description, from, to);
