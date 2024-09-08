@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import duke.Duke;
 
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -17,13 +19,11 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gingerbreadman.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/rudolf.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/gingerbreadman.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/rudolf.png")));
 
     @FXML
     public void initialize() {
@@ -32,6 +32,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setDuke(Duke d) {
+        assert d != null : "Duke instance should not be null";
         duke = d;
         showGreeting();
     }
@@ -40,7 +41,9 @@ public class MainWindow extends AnchorPane {
      * Creates a dialog box with Duke's greeting when the application first opens.
      */
     private void showGreeting() {
+        assert duke != null : "Duke instance should be initialized before calling showGreeting";
         String greeting = duke.getGreeting();
+        assert greeting != null && !greeting.isEmpty() : "Duke's greeting should not be null or empty";
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(greeting, dukeImage)
         );
@@ -53,7 +56,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input should not be null";
+        assert !input.trim().isEmpty() : "User input should not be empty";
+
         String response = duke.getResponse(input);
+        assert response != null : "Duke's response should not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
@@ -61,3 +69,4 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
+
