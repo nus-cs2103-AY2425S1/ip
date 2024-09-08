@@ -43,7 +43,7 @@ public class Parser {
                 }
                 tokens.add(secondSegment[1].trim());
             } catch (Exception e) {
-                System.out.println("The correct usage is: deadline <desc:string> /by <yyyy-MM-dd HH:mm>");
+                System.out.println("The correct usage is: deadline <desc:string> /by <yyyy-M-d HH>");
             }
             break;
         case "event":
@@ -58,7 +58,7 @@ public class Parser {
                 tokens.add(thirdSegment[1].trim());
                 break;
             } catch (Exception e) {
-                System.out.println("The correct usage is: event <desc:string> /from <yyyy-MM-dd HHmm>" 
+                System.out.println("The correct usage is: event <desc:string> /from <yyyy-M-d HHmm>" 
                         + " /to <yyyy-MM-dd HHmm>");
             }
             break;
