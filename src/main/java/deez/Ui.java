@@ -17,7 +17,7 @@ public class Ui {
      */
     public Ui() {
         messageConsumer = (String message) -> {
-            System.out.println("WARN: Ui is in headless mode");
+            System.out.println("WARN: Ui is running in headless mode");
             System.out.println(message);
         };
     }

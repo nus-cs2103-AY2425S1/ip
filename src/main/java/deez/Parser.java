@@ -1,5 +1,7 @@
 package deez;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 import javafx.util.Pair;
@@ -9,6 +11,7 @@ import javafx.util.Pair;
  * This class is used for parsing user input.
  */
 public class Parser {
+    private static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * This method parses the given string and returns a pair containing the command and properties.
@@ -99,5 +102,14 @@ public class Parser {
         props.setProperty("name", parts[0].strip());
         props.setProperty("by", parts[1].strip());
         return props;
+    }
+    /**
+     * This method parses the given date-time string into a LocalDateTime object.
+     *
+     * @param dateTimeString The date-time string to be parsed.
+     * @return A LocalDateTime object.
+     */
+    public static LocalDateTime parseDateTimeString(String dateTimeString) {
+        return LocalDateTime.parse(dateTimeString, DATE_TIME_INPUT_FORMATTER);
     }
 }
