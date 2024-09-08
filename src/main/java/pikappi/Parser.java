@@ -17,34 +17,6 @@ import pikappi.exception.PikappiException;
  * Represents a parser that handles user input.
  */
 public class Parser {
-    protected Storage storage;
-    protected TaskList tasks;
-    protected Ui ui;
-    protected boolean isExit;
-
-    /**
-     * Returns a Parser object that handles user input.
-     *
-     * @param storage Storage object to save and load tasks
-     * @param tasks TaskList object that stores tasks
-     * @param ui Ui object to interact with user
-     */
-    public Parser(Storage storage, TaskList tasks, Ui ui) {
-        this.storage = storage;
-        this.tasks = tasks;
-        this.ui = ui;
-        this.isExit = false;
-    }
-
-    /**
-     * Returns a boolean value that indicates if the user wants to exit the program.
-     *
-     * @return boolean value that indicates if the user wants to exit the program
-     */
-    public boolean isExit() {
-        return isExit;
-    }
-
     /**
      * Returns a Command object that corresponds to the user input.
      *
@@ -56,7 +28,6 @@ public class Parser {
         Command c;
         switch (command.split(" ")[0].toUpperCase()) {
         case "BYE":
-            isExit = true;
             c = new ExitCommand();
             break;
         case "LIST":
