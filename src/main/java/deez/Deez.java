@@ -3,6 +3,7 @@ package deez;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 
@@ -189,7 +190,7 @@ public class Deez {
         if (keyword == null || keyword.isEmpty()) {
             throw new DeezException("No keyword provided.", "Usage:", "find book", "Please try again.");
         }
-        ArrayList<Task> foundTasks = taskList.getTasks(keyword);
+        List<Task> foundTasks = taskList.getTasks(keyword);
         ui.printList(foundTasks);
     }
 

@@ -1,6 +1,7 @@
 package deez;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -44,7 +45,7 @@ public class Ui {
      *
      * @param arrayList The list to print.
      */
-    public void printList(ArrayList<?> arrayList) {
+    public void printList(List<?> arrayList) {
         if (arrayList.isEmpty()) {
             say("<No items in list>");
             return;
