@@ -164,11 +164,11 @@ public class TaskList {
     public ArrayList<Task> deleteTask(String ... nums) throws BrunoException {
         try {
             ArrayList<Task> deletedTasks = new ArrayList<>();
-            List<Integer> taskIndices = Arrays.stream(nums)
+            List<Integer> indices = Arrays.stream(nums)
                     .map(i -> Integer.parseInt(i.trim()) - 1)
                     .sorted(Comparator.reverseOrder())
                     .toList();
-            for (int i : taskIndices) {
+            for (int i : indices) {
                 Task task = tasks.remove(i);
                 deletedTasks.add(task);
                 storage.updateFile(this.tasks);
@@ -191,6 +191,7 @@ public class TaskList {
                 foundTasks.add(task);
             }
         }
+
         return foundTasks;
     }
 }
