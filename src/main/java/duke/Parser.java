@@ -42,8 +42,7 @@ public class Parser {
         } else if (taskType.equals("D")) {
             assert parts.length == 4 : "Invalid deadline format";
 
-            String[] removeT = parts[3].split("T", 2);
-            String timeToConvert = removeT[0] + " " + removeT[1];
+            String timeToConvert = isolateTimeToConvert(parts[3]);
             Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
             if (isDone) {
                 deadline.markAsDone();
@@ -52,10 +51,8 @@ public class Parser {
         } else {
             assert parts.length == 5 : "Invalid event format";
 
-            String[] removeTFrom = parts[3].split("T", 2);
-            String timeToConvertFrom = removeTFrom[0] + " " + removeTFrom[1];
-            String[] removeTTo = parts[4].split("T", 2);
-            String timeToConvertTo = removeTTo[0] + " " + removeTTo[1];
+            String timeToConvertFrom = isolateTimeToConvert(parts[3]);
+            String timeToConvertTo = isolateTimeToConvert(parts[4]);
             Event event = new Event(description, convertStringToDate(timeToConvertFrom),
                     convertStringToDate(timeToConvertTo));
             if (isDone) {
@@ -64,6 +61,12 @@ public class Parser {
             task = event;
         }
         return task;
+    }
+
+    private String isolateTimeToConvert(String timeContainingT) {
+        String[] stringWithRemovedT = timeContainingT.split("T", 2);
+        String timeToConvert = stringWithRemovedT[0] + " " + stringWithRemovedT[1];
+        return timeToConvert;
     }
 
     /**
