@@ -229,7 +229,8 @@ public class Parser {
     }
 
     /**
-     * Converts a given command fields to a ArrayList of Integer in given order.
+     * Converts a given command fields to a ArrayList of Integer in given
+     * order, without any duplicates.
      *
      * @param commandFields The specified indexes.
      */
@@ -246,11 +247,13 @@ public class Parser {
                 Ui.printException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
             }
         }
+        lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
         return lst;
     }
 
     /**
-     * Converts a given command fields to a ArrayList of Integer in descending order.
+     * Converts a given command fields to a ArrayList of Integer in descending
+     * order, without any duplicates.
      *
      * @param commandFields The specified indexes.
      */
@@ -267,7 +270,8 @@ public class Parser {
                 Ui.printException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
             }
         }
-        lst.sort(Collections.reverseOrder());
+        lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
+        lst.sort(Collections.reverseOrder()); // Sort in descending order.
         return lst;
     }
 }
