@@ -6,12 +6,24 @@ public class Task {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public boolean isComplete() {
+        return isComplete;
+    }
+
     public void mark() {
         this.isComplete = true;
     }
 
     public void unmark() {
         this.isComplete = false;
+    }
+
+    public String toFileString() {
+        return "N , 0 , T\n";
     }
 
     @Override
