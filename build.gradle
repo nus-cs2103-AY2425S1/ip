@@ -46,9 +46,8 @@ test {
 }
 
 application {
-    mainClass.set("tira.Tira")
+    mainClass.set("tira.Launcher")
 }
-
 shadowJar {
     archiveBaseName = "tira"
     archiveClassifier = null
