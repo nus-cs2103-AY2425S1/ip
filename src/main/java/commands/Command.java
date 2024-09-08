@@ -1,4 +1,4 @@
-package echo;
+package commands;
 
 /**
  * Represents the different commands that can be issued by the user

@@ -4,7 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
+import commands.Parser;
+import exceptions.DukeException;
 import org.junit.jupiter.api.Test;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
 
 public class ParserTest {
 

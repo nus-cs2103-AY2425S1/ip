@@ -2,7 +2,10 @@ package echo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import exceptions.DukeException;
 import org.junit.jupiter.api.Test;
+import tasks.Deadline;
+import tasks.Task;
 
 public class DeadlineTest {
     @Test

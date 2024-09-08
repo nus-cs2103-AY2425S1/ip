@@ -1,8 +1,9 @@
-import echo.DukeException;
-import echo.Parser;
-import echo.Storage;
-import echo.TaskList;
-import echo.Ui;
+package echo;
+
+import exceptions.DukeException;
+import commands.Parser;
+import storage.Storage;
+import tasks.TaskList;
 
 /**
  * Represents a simple task management bot that interacts with the user via the console.

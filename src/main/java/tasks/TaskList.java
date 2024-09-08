@@ -1,4 +1,4 @@
-package echo;
+package tasks;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class TaskList implements Serializable {
     private ArrayList<Task> allTasks = new ArrayList<>();
 
     /**
-     * Returns all tasks in the task list of EchoBot.
+     * Returns all tasks in the task list of echo.EchoBot.
      *
      * @return A string containing all tasks in the list.
      */

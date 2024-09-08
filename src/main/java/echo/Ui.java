@@ -16,7 +16,7 @@ public class Ui {
      */
     public void greet() {
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm EchoBot");
+        System.out.println("Hello! I'm echo.EchoBot");
         System.out.println("What can I do for you?");
     }
 }

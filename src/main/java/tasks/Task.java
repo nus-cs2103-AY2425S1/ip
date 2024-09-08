@@ -1,4 +1,6 @@
-package echo;
+package tasks;
+
+import exceptions.DukeException;
 
 import java.io.Serializable;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package echo;
+package exceptions;
 
 /**
  * Represents a custom exception specific to the Duke application.
