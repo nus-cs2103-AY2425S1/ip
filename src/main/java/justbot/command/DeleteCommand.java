@@ -36,9 +36,10 @@ public class DeleteCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.validateDeleteTaskNumber(this.deleteNumber);
+            String result = ui.deleteTaskMessage(taskList, this.deleteNumber);
             taskList.delete(this.deleteNumber);
             storage.saveTasks(taskList);
-            return ui.deleteTaskMessage(taskList, this.deleteNumber);
+            return result;
         } catch (JustbotException e) {
             return ui.getJustBotExceptionMessage(e);
         }

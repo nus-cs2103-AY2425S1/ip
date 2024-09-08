@@ -95,6 +95,9 @@ public class Parser {
             String keyword = words[1];
             return new FindCommand(keyword);
         case MARK:
+            if (words.length < 2) {
+                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+            }
             try {
                 int markNumber = Integer.parseInt(words[1].trim());
                 return new MarkCommand(markNumber);
@@ -102,6 +105,9 @@ public class Parser {
                 throw new JustbotException("Hey man, follow the format:\n" + "mark [task number]");
             }
         case UNMARK:
+            if (words.length < 2) {
+                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+            }
             try {
                 int unmarkNumber = Integer.parseInt(words[1].trim());
                 return new UnmarkCommand(unmarkNumber);
@@ -109,6 +115,9 @@ public class Parser {
                 throw new JustbotException("Hey man, follow the format:\n" + "unmark [task number]");
             }
         case DELETE:
+            if (words.length < 2) {
+                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+            }
             try {
                 int deleteNumber = Integer.parseInt(words[1].trim());
                 return new DeleteCommand(deleteNumber);
