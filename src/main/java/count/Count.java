@@ -69,7 +69,6 @@ public class Count {
      * @return String to be shown to the user
      */
     public String getResponse(String input) {
-        assert this.isOn = true;
         String response = "";
         try {
             Action curr = parser.parse(input);
