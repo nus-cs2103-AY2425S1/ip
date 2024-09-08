@@ -15,10 +15,10 @@ public class Event extends Task {
      * @param end   end date and time of the event, in the format "dd/MM/yyyy HH:mm"
      * @throws CloudException if the date or time input format is invalid
      */
-    public Event(String desc, String start, String end) throws CloudException {
+    public Event(String desc, DateTime start, DateTime end) {
         super(desc);
-        this.start = DateTime.of(start);
-        this.end = DateTime.of(end);
+        this.start = start;
+        this.end = end;
     }
 
     @Override

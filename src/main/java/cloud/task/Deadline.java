@@ -13,9 +13,9 @@ public class Deadline extends Task {
      * @param by   expiry date and time of the task, in the format "dd/MM/yyyy HH:mm"
      * @throws CloudException if date or time input format is invalid
      */
-    public Deadline(String desc, String by) throws CloudException {
+    public Deadline(String desc, DateTime by) {
         super(desc);
-        this.by = DateTime.of(by);
+        this.by = by;
     }
 
     @Override
