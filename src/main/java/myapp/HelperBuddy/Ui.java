@@ -249,13 +249,12 @@ public class Ui extends Application {
      * Shows all tasks in the provided TaskList with their corresponding index.
      */
     public String getTaskListMessage() {
-        int index = 0;
-        StringBuilder taskListMessage = new StringBuilder();
-        taskListMessage.append("Here are the tasks in your list:\n");
-        for (Task task : taskList.getTasks()) {
-            taskListMessage.append(++index).append(". ").append(task).append("\n");
-        }
-        return taskListMessage.toString();
+        assert taskList != null : "Task List should not be null";
+        List<Task> tasks = taskList.getTasks();
+        String taskListMessage = tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .reduce("Here are the tasks in your list:\n", (acc, taskStr) -> acc + taskStr + "\n");
+        return taskListMessage;
     }
 
     /**
@@ -264,15 +263,13 @@ public class Ui extends Application {
      * @param tasks is the task list to be searched
      */
     public String showSearchResults(List<Task> tasks) {
+        assert tasks != null : "Task List should not be null";
         if (tasks.isEmpty()) {
             return "No tasks found matching the search keyword.";
-        } else {
-            StringBuilder results = new StringBuilder("Search results:\n");
-            int index = 0;
-            for (Task task : tasks) {
-                results.append(++index).append(". ").append(task).append("\n");
-            }
-            return results.toString();
         }
+        String searchResults = tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .reduce("Search results:\n", (acc, taskStr) -> acc + taskStr + "\n");
+        return searchResults;
     }
 }
