@@ -48,7 +48,7 @@ public class Ui {
      * Used for find command
      * @param  taskList  an arraylist of filtered Task objects
      */
-    public String showFilterList(ArrayList<Task> taskList) throws AronaException {
+    public String showFilteredList(ArrayList<Task> taskList) throws AronaException {
         if (taskList.isEmpty()) {
             return "The task list is empty!";
         } else {
@@ -59,6 +59,14 @@ public class Ui {
             }
             return s.toString();
         }
+    }
+
+    /**
+     * Used for archive command
+     * @param  name  an arraylist of filtered Task objects
+     */
+    public String showArchive(String name) {
+        return "Ok! The tasks have been archived in " + name + ".txt";
     }
 
     public String showDelete(int size, Task task) {

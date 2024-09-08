@@ -7,4 +7,5 @@ public enum Command {
     DEADLINE,
     EVENT,
     FIND,
+    ARCHIVE,
 }

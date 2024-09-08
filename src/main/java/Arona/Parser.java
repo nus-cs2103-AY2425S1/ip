@@ -4,14 +4,18 @@ import Arona.AronaExceptions.AronaException;
 import Arona.AronaExceptions.DateFormatException;
 import Arona.AronaExceptions.MissingArgumentException;
 
+import Arona.Tasks.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Parser {
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(Storage storage, TaskList taskList, Ui ui) {
+        this.storage = storage;
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -24,7 +28,8 @@ public class Parser {
 
         // Bye command
         if (input.equalsIgnoreCase("bye")) {
-            // Reply
+            // Process and Reply
+            storage.save(taskList);
             return ui.showFarewell();
         }
 
@@ -39,6 +44,7 @@ public class Parser {
 
             // Extract and save task number
             String[] data = input.split("delete ", 2);
+            assert data.length == 2 : "delete command should have 2 parts after split";
 
             // Check if number and save index
             int index;
@@ -49,8 +55,11 @@ public class Parser {
                 throw new MissingArgumentException(Command.DELETE);
             }
 
-            // Reply
-            return ui.showDelete(taskList.size() - 1, taskList.remove(index - 1));
+            // Process and Reply
+            int listSize = taskList.size() - 1;
+            Task removedTask = taskList.remove(index - 1);
+            storage.save(taskList);
+            return ui.showDelete(listSize, removedTask);
         }
 
         // Mark and unmark command
@@ -58,6 +67,7 @@ public class Parser {
 
             // Extract and save task number
             String[] data = input.split("mark ", 2);
+            assert data.length == 2 : "Mark/unmark command should have 2 parts after split";
 
             // Extract and save action
             boolean action = input.toLowerCase().startsWith("mark");
@@ -71,8 +81,10 @@ public class Parser {
                 throw new MissingArgumentException(Command.DELETE);
             }
 
-            // Reply
-            return ui.showMark(taskList.setStatus(index - 1, action), action);
+            // Process and Reply
+            Task markedTask = taskList.setStatus(index - 1, action);
+            storage.save(taskList);
+            return ui.showMark(markedTask, action);
         }
 
         // Todos or events or deadline command
@@ -87,7 +99,7 @@ public class Parser {
             // Process
             switch (data[0]) {
                 case "todo": {
-                    if (data.length != 2 || !data[1].isEmpty()) {
+                    if (data.length != 2 || data[1].isEmpty()) {
                         throw new MissingArgumentException(Command.TODO);
                     }
 
@@ -132,8 +144,11 @@ public class Parser {
                 }
             }
 
-            // Reply
-            return ui.showAdd(taskList.size(), taskList.peek());
+            // Process and Reply
+            int listSize = taskList.size();
+            Task addedTask = taskList.peek();
+            storage.save(taskList);
+            return ui.showAdd(listSize, addedTask);
         }
 
         // Find command
@@ -147,8 +162,28 @@ public class Parser {
                 throw new MissingArgumentException(Command.FIND);
             }
 
-            // Reply
-            return ui.showFilterList(taskList.filter(keyword));
+            // Process and Reply
+            ArrayList<Task> filteredList = taskList.filter(keyword);
+            return ui.showFilteredList(filteredList);
+        }
+
+        // Archive
+        else if (input.toLowerCase().startsWith("archive ")) {
+
+            // Extract and save file name
+            String[] data = input.split("archive ", 2);
+            assert data.length == 2 : "archive command should have 2 parts after split";
+
+            // Check if name is more than 260 chars or blank
+            if (data[1].isBlank() || data[1].length() > 260) {
+                throw new MissingArgumentException(Command.ARCHIVE);
+            }
+
+            // Process and Reply
+            storage.archive(data[1], taskList);
+            taskList.deleteAll();
+            storage.save(taskList);
+            return ui.showArchive(data[1]);
         }
 
         // All other unrecognised commands

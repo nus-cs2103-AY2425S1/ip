@@ -27,7 +27,7 @@ public class ParserTest {
             ui.showException(e);
             taskList = new TaskList();
         }
-        parser = new Parser(taskList, ui);
+        parser = new Parser(storage, taskList, ui);
     }
 
     @Test

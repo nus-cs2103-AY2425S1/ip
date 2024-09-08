@@ -16,6 +16,7 @@ public class Arona {
      * @param  filePath  a relative filepath giving the location that data.txt should be stored in
      */
     public Arona(String filePath) {
+
         ui = new Ui();
         storage = new Storage(filePath);
 
@@ -26,7 +27,7 @@ public class Arona {
             taskList = new TaskList();
         }
 
-        parser = new Parser(taskList, ui);
+        parser = new Parser(storage, taskList, ui);
     }
 
     /**
@@ -41,23 +42,16 @@ public class Arona {
      * @param  input  the unprocessed String input from the user
      */
     public String getResponse(String input) {
-        assert storage != null;
-        assert taskList != null;
-        assert parser != null;
-        assert ui != null;
+        assert storage != null : "storage should be instantiated";
+        assert taskList != null : "taskList should be instantiated";
+        assert parser != null : "parser should be instantiated";
+        assert ui != null : "ui should be instantiated";
 
         String reply = "";
 
         // Process inputs
         try {
             reply = parser.parse(input);
-
-            // Exit when bye sent
-            if (input.equalsIgnoreCase("bye")) {
-                // Save list of tasks to file
-                storage.save(taskList);
-            }
-
             return reply;
 
         } catch (Exception e) {

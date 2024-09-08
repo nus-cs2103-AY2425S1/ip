@@ -117,6 +117,13 @@ public class TaskList {
     }
 
     /**
+     * Deletes the current list of tasks, used by archive command
+     */
+    public void deleteAll() {
+        list.clear();
+    }
+
+    /**
      * Adds a task to the task list by creating the appropriate task object
      * @param  line  a line from data.txt in the format of task.toString
      */
