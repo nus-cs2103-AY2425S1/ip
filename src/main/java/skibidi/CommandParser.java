@@ -48,11 +48,7 @@ public class CommandParser {
     /**
      * Parse given string command and returns command if succesful. Otherwise, an empty Optional is returned.
      */
-<<<<<<< HEAD
-    public Optional<AbstractCommand> parseCommand(String line) {
-=======
     public AbstractCommand parseCommand(String line) throws CommandParseException {
->>>>>>> branch-A-CodingStandard
         String[] args = line.split(" ", 2);
         if (args.length == 0) {
             throw new CommandParseException("NO COMMANDS GIVEN");
