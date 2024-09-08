@@ -1,8 +1,4 @@
-package futureYou;
-
-import futureYou.task.Deadline;
-import futureYou.task.Events;
-import futureYou.task.Task;
+package futureyou;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,10 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
+
 /**
- * The Storage class handles loading tasks from a file and saving tasks to a
- * file.
- * The file format is: <Task type>|<Done?>|<Task Name>|<Deadline>|<End Date>
+ * The Storage class handles loading tasks from a file and saving tasks to a file.
  * Dates are saved in the format: yyyy-MM-dd HH:mm
  */
 public class Storage {
@@ -84,11 +82,9 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file into a list. If the file does not exist, it creates
-     * a new file.
+     * Loads tasks from the file into a list. If the file does not exist, it creates a new file.
      *
-     * @return The list of tasks read from the file, if file is empty return emtpy
-     * ArrayList<Task>.
+     * @return task list, empty if file is empty or does not exist.
      * @throws IOException If there is an error reading from the file.
      */
     public ArrayList<Task> loadTasks() throws IOException {
@@ -98,7 +94,7 @@ public class Storage {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
-                if (taskData == "") {
+                if (taskData.isEmpty()) {
                     break;
                 }
                 Task task = parseTask(taskData);
@@ -118,7 +114,6 @@ public class Storage {
     /**
      * Saves the current list of tasks to a file.
      *
-     * @param taskList The TaskList containing the tasks to be saved.
      */
     public void saveTasks() {
         File file = new File(this.filePath);

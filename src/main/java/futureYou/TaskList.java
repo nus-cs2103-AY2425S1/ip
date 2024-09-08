@@ -1,36 +1,25 @@
-package futureYou;
+package futureyou;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import futureYou.task.Deadline;
-import futureYou.task.Events;
-import futureYou.task.Task;
-
-import futureYou.Storage;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
 
 /**
  * The TaskList manages a list of tasks.
  */
 public class TaskList {
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> taskList = new ArrayList<>();
     private static Storage storage;
 
     /**
-     * Constructs a new TaskList instance.
-     */
-    public TaskList() {
-        taskList = new ArrayList<>();
-    }
-
-    /**
      * Constructs a new TaskList instance using data from file.
-     * 
-     * @throws IOException
+     *
+     * @throws IOException when the file does not exist
      */
     public TaskList(String filePath) throws IOException {
         storage = new Storage(filePath);
@@ -48,23 +37,23 @@ public class TaskList {
 
     /**
      * Returns all the tasks in the user's tasklist.
-     * 
+     *
      * @return message All tasks in tasklist neatly formatted
      */
     public static String listTasks() {
-        String message = "";
+        StringBuilder message = new StringBuilder();
         int count = 1;
         System.out.println("Items in List:");
         for (Task item : taskList) {
-            message += (count++ + ". " + item.print() + System.lineSeparator());
+            message.append(count++).append(". ").append(item.print()).append(System.lineSeparator());
         }
-        return message;
+        return message.toString();
     }
 
     /**
      * Adds a new task to the list.
      *
-     * @param task The new task to add to the list.
+     * @param newTask The new task to add to the list.
      */
     public static void add(Task newTask) {
         taskList.add(newTask);
@@ -74,15 +63,14 @@ public class TaskList {
      * Adds a new task to the list and returns the formatted output to print.
      *
      * @param taskName The name of the new task to add.
-     * @return message The message to be printed
+     * @return The message to be printed
      */
     public static String addTask(String taskName) {
         Task newTask = new Task(taskName);
         taskList.add(newTask);
         storage.saveTasks();
-        String message = "Added this task: \n" + newTask.print() +
-                System.lineSeparator() + taskList.size() + " tasks in the list";
-        return message;
+        return "Added this task: \n" + newTask.print() + System.lineSeparator()
+                + taskList.size() + " tasks in the list";
     }
 
     /**
@@ -90,15 +78,14 @@ public class TaskList {
      *
      * @param taskName The name of the new deadline task to add.
      * @param deadline The deadline of the new deadline task to add.
-     * @return message The message to be printed
+     * @return The message to be printed
      */
     public static String addTask(String taskName, LocalDateTime deadline) {
         Deadline newDeadline = new Deadline(taskName, deadline);
         taskList.add(newDeadline);
         storage.saveTasks();
-        String message = "Added this task: \n" + newDeadline.print() +
-                System.lineSeparator() + taskList.size() + " tasks in the list";
-        return message;
+        return "Added this task: \n" + newDeadline.print() + System.lineSeparator()
+                + taskList.size() + " tasks in the list";
     }
 
     /**
@@ -107,29 +94,27 @@ public class TaskList {
      * @param taskName      The name of the new Event task to add.
      * @param startDateTime The start date time of the new Event task to add.
      * @param endDateTime   The start date time of the new Event task to add.
-     * @return message The message to be printed
+     * @return The message to be printed
      */
     public static String addTask(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Events newEvent = new Events(taskName, startDateTime, endDateTime);
         taskList.add(newEvent);
         storage.saveTasks();
-        String message = "Added this task: \n" + newEvent.print() +
-                System.lineSeparator() + taskList.size() + " tasks in the list";
-        return message;
+        return "Added this task: \n" + newEvent.print() + System.lineSeparator() + taskList.size()
+                + " tasks in the list";
     }
 
     /**
      * Marks a specified task as done based on the task number input by the user.
      *
      * @param taskNumber The task number to mark as done.
-     * @throws Exception If the task number is invalid.
+     * @return message to be printed after task is marked
      */
-    public static String markTask(int taskNumber) throws Exception {
+    public static String markTask(int taskNumber) {
         try {
             taskList.get(taskNumber).markTask();
             storage.saveTasks();
-            String message = "Marked as Done: \n" + taskList.get(taskNumber).print();
-            return message;
+            return "Marked as Done: \n" + taskList.get(taskNumber).print();
         } catch (Exception e) {
             return "Please enter a valid Task number";
         }
@@ -139,15 +124,14 @@ public class TaskList {
      * Deletes a specific task based on the given task number.
      *
      * @param taskNumber The task number to delete.
-     * @throws Exception If the task number is invalid.
+     * @return message to be printed after task is deleted
      */
-    public static String deleteTask(int taskNumber) throws Exception {
+    public static String deleteTask(int taskNumber) {
         try {
             Task removedTask = taskList.remove(taskNumber);
             storage.saveTasks();
-            String message = "Task Deleted: \n" + removedTask.print() + System.lineSeparator() + taskList.size()
+            return "Task Deleted: \n" + removedTask.print() + System.lineSeparator() + taskList.size()
                     + " tasks left in the list";
-            return message;
 
         } catch (Exception e) {
             return "Please enter a valid Task number";
@@ -163,17 +147,17 @@ public class TaskList {
     public static String findTask(String text) throws Exception {
         try {
 
-            String message = " Here are the matching tasks in your list: \n";
+            StringBuilder message = new StringBuilder(" Here are the matching tasks in your list: \n");
             int count = 1;
             for (Task task : TaskList.getTaskList()) {
                 if (task.getTaskName().contains(text)) {
-                    message += "[" + count++ + "]" + task.print() + System.lineSeparator();
+                    message.append("[").append(count++).append("]").append(task.print()).append(System.lineSeparator());
                 }
             }
             if (count == 1) {
                 return "No task mataching that text was found";
             }
-            return message;
+            return message.toString();
         } catch (Exception e) {
             return "Please enter a valid Task number";
         }

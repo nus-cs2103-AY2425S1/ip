@@ -1,8 +1,8 @@
-package futureYou;
+package futureyou;
 
 import org.junit.jupiter.api.Test;
 
-import futureYou.task.Deadline;
+import futureyou.task.Deadline;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

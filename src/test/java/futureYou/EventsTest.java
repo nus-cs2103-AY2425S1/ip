@@ -1,8 +1,8 @@
-package futureYou;
+package futureyou;
 
 import org.junit.jupiter.api.Test;
 
-import futureYou.task.Events;
+import futureyou.task.Events;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,8 +21,8 @@ public class EventsTest {
         LocalDateTime endDate = LocalDateTime.of(2024, 9, 20, 22, 25);
         Events event = new Events(taskName, startDate, endDate);
 
-        assertEquals(startDate.format(format), event.getstartDate());
-        assertEquals(endDate.format(format), event.getendDate());
+        assertEquals(startDate.format(format), event.getStartDate());
+        assertEquals(endDate.format(format), event.getEndDate());
     }
 
 }

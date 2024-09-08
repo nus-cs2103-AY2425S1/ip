@@ -1,4 +1,4 @@
-package futureYou;
+package futureyou;
 
 import java.util.Scanner;
 
@@ -7,11 +7,11 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final static String LOGO = " _____      _                   __   __          \n"
-            + "|  ___|   _| |_ _   _ _ __ ___  \\ \\ / /__  _   _ \n"
-            + "| |_ | | | | __| | | | '__/ _ \\  \\ V / _ \\| | | |\n"
-            + "|  _|| |_| | |_| |_| | | |  __/   | | (_) | |_| |\n"
-            + "|_|   \\__,_|\\__|\\__,_|_|  \\___|   |_|\\___/ \\__,_|\n";
+    private static final String LOGO = " _____      _                   __   __          " + System.lineSeparator()
+            + "|  ___|   _| |_ _   _ _ __ ___  \\ \\ / /__  _   _ " + System.lineSeparator()
+            + "| |_ | | | | __| | | | '__/ _ \\  \\ V / _ \\| | | |" + System.lineSeparator()
+            + "|  _|| |_| | |_| |_| | | |  __/   | | (_) | |_| |" + System.lineSeparator()
+            + "|_|   \\__,_|\\__|\\__,_|_|  \\___|   |_|\\___/ \\__,_|" + System.lineSeparator();
     private final Scanner scannerInput;
 
     /**
@@ -25,8 +25,8 @@ public class Ui {
      * Bids the user farewell with a message.
      */
     public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+        System.out.println("Bye. Hope to see you again soon!" + System.lineSeparator()
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -42,10 +42,10 @@ public class Ui {
      * Greets the user with a welcome message.
      */
     public void hello() {
-        System.out.println("____________________________________________________________\n" +
-                "Yo! It's \n" + LOGO + System.lineSeparator() +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________" + System.lineSeparator()
+                + "Yo! It's" + System.lineSeparator() + LOGO
+                + "What can I do for you?" + System.lineSeparator()
+                + "____________________________________________________________\n");
 
     }
 

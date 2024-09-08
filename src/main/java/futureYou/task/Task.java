@@ -1,11 +1,11 @@
-package futureYou.task;
+package futureyou.task;
 
 /**
  * Represents a task with a name and completion status.
-*/
+ */
 public class Task {
     private boolean completed = false;
-    private String name;
+    private final String name;
 
     /**
      * Constructs a Task with the specified name.
@@ -55,8 +55,7 @@ public class Task {
     /**
      * Returns the type of the task.
      *
-     * @return A string representing the type of the task, which is "T" for a basic
-     *         task.
+     * @return A string representing the type of the task, which is "T" for a basic task.
      */
     public String getType() {
         return "T";
@@ -64,23 +63,23 @@ public class Task {
 
     /**
      * Returns a string representation of the task formatted for storage.
-     * The format is: "T|<done>|<taskName>", where <done> is 1 if completed, 0 otherwise.
      *
      * @return A formatted string representation of the task.
      */
     @Override
     public String toString() {
+        // The format is: "T|<done>|<taskName>", where <done> is 1 if completed, 0 otherwise.
         int done = (this.getTaskStatus() ? 1 : 0);
         return this.getType() + "|" + done + "|" + this.getTaskName();
     }
 
     /**
      * Returns a formatted string representation of the task for display.
-     * The format is: "[T] [X] <taskName>", where [X] is marked if completed.
      *
      * @return A formatted string for displaying the task.
      */
     public String print() {
+        //  The format is: "[T] [X] <taskName>", where [X] is marked if completed.
         String cross = (this.getTaskStatus() ? "X" : " ");
         return "[" + this.getType() + "] " + "[" + cross + "] " + this.getTaskName();
     }

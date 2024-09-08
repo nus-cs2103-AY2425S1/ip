@@ -1,4 +1,4 @@
-package futureYou.task;
+package futureyou.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Events extends Task {
 
-    private LocalDateTime startDateTime; 
-    private LocalDateTime endDateTime; 
-    
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
+
     /**
      * Constructs an Events task with the specified name, start date, and end date.
      *
@@ -46,7 +46,7 @@ public class Events extends Task {
      *
      * @return The formatted start date and time as a string.
      */
-    public String getstartDate() {
+    public String getStartDate() {
         return this.startDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy - HH:mm"));
     }
 
@@ -56,15 +56,14 @@ public class Events extends Task {
      *
      * @return The formatted end date and time as a string.
      */
-    public String getendDate() {
+    public String getEndDate() {
         return this.endDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy - HH:mm"));
     }
 
     /**
      * Returns the type of the task.
      *
-     * @return A string representing the type of the task, which is "E" for an
-     *         event.
+     * @return A string representing the type of the task, which is "E" for an event.
      */
     @Override
     public String getType() {
@@ -73,25 +72,23 @@ public class Events extends Task {
 
     /**
      * Returns a string representation of the event formatted for storage.
-     * The format is: "E|<done>|<taskName>|<startDate>|<endDate>", where <done> is 1
-     * if completed, 0 otherwise.
      *
      * @return A formatted string representation of the event.
      */
     @Override
     public String toString() {
-        return super.toString() + "|" + this.getstartDate() + "|" + this.getendDate();
+        // The format is: "E|<done>|<taskName>|<startDate>|<endDate>", where <done> is 1 if completed, 0 otherwise.
+        return super.toString() + "|" + this.getStartDate() + "|" + this.getEndDate();
     }
 
     /**
      * Returns a formatted string representation of the event for display.
-     * The format is: "[E] [X] <taskName> (from: <startDate> to: <endDate>)", where
-     * [X] is marked if completed.
      *
      * @return A formatted string for displaying the event.
      */
     @Override
     public String print() {
-        return super.print() + " (from: " + this.getstartDate() + " to: " + this.getendDate() + ")";
+        // The format is: "[E] [X] <taskName> (from: <startDate> to: <endDate>)", where [X] is marked if completed.
+        return super.print() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
     }
 }

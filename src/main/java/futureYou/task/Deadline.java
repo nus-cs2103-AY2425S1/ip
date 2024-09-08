@@ -1,4 +1,4 @@
-package futureYou.task;
+package futureyou.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * The deadline task has a name, a specific deadline date and time, and a completion status.
  */
 public class Deadline extends Task {
-    private LocalDateTime deadline;  
-    
+    private final LocalDateTime deadline;
+
     /**
      * Constructs a Deadline task with the specified name and deadline date.
      *
@@ -55,23 +55,23 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the deadline task formatted for storage.
-     * The format is: "D|<done>|<taskName>|<deadline>", where <done> is 1 if completed, 0 otherwise.
      *
      * @return A formatted string representation of the deadline task.
      */
     @Override
     public String toString() {
+        // The format is: "D|<done>|<taskName>|<deadline>", where <done> is 1 if completed, 0 otherwise.
         return super.toString() + "|" + this.getDeadline();
     }
 
     /**
      * Returns a formatted string representation of the deadline task for display.
-     * The format is: "[D] [X] <taskName> (by: <deadline>)", where [X] is marked if completed.
      *
      * @return A formatted string for displaying the deadline task.
      */
     @Override
     public String print() {
+        //The format is: "[D] [X] <taskName> (by: <deadline>)", where [X] is marked if completed.
         return super.print() + " (by: " + this.getDeadline() + ")";
     }
 }
