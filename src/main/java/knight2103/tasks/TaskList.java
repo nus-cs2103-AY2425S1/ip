@@ -31,6 +31,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the Task specified by the index in the bot's taskList.
+     *
+     * @return the Task specified by index in the bot's taskList.
+     */
+    public Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    /**
      * Adds a task into the bot's taskList.
      *
      * @param newTask Task to be added to the taskList.
@@ -80,41 +89,5 @@ public class TaskList {
         Task taskToDelete = tasks.get(index);
         tasks.remove(index);
         return taskToDelete;
-    }
-
-
-    public String formatToMatchedList(String wordSearch) {
-        String stringToPrint = "";
-        int bulletPoint = 0;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task searchedTask = this.tasks.get(i);
-            if (searchedTask.getDescription().contains(wordSearch)) {
-                bulletPoint++;
-                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
-            }
-        }
-        if (bulletPoint == 0) {
-            stringToPrint = "NIL: There is no matching tasks.\n";
-        }
-        return stringToPrint;
-    }
-
-
-    public String formatToFileList() {
-        String stringToWrite = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            stringToWrite += this.tasks.get(i).toStringInFile() + "\n";
-        }
-        return stringToWrite;
-    }
-
-
-    public String formatToFullList() {
-        String stringToReturn = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            int bulletPoint = i + 1;
-            stringToReturn += bulletPoint + ". " + this.tasks.get(i) + "\n";
-        }
-        return stringToReturn;
     }
 }

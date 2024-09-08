@@ -9,7 +9,7 @@ public class Ui {
     }
 
     public String showList(TaskList tasks) {
-        return "Here's the list of tasks:\n" + tasks.formatToFullList();
+        return "Here's the list of tasks:\n" + formatToFullList(tasks);
     }
 
     public String showAdd(Task taskToAdd, TaskList tasks) {
@@ -33,11 +33,34 @@ public class Ui {
     }
 
     public String showFind(TaskList tasks, String searchWord) {
-        return "Here are the matching tasks in your list:\n"
-                + tasks.formatToMatchedList(searchWord);
+        String listString = formatToMatchedList(tasks, searchWord);
+        return listString.isEmpty()
+                ? "NIL: There is no matching tasks.\n"
+                : "Here are the matching tasks in your list:\n" + listString;
     }
 
     public String showBye() {
         return "Bye. Hope to see you again soon!";
+    }
+
+    private String formatToMatchedList(TaskList tasks, String wordSearch) {
+        return formatToList(tasks, wordSearch);
+    }
+
+    private String formatToFullList(TaskList tasks) {
+        return formatToList(tasks);
+    }
+
+    private String formatToList(TaskList tasks, String...filterWords) {
+        String stringToReturn = "";
+        int bulletPoint = 0;
+        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
+            Task currentTask = tasks.getTask(i);
+            if (filterWords.length == 0 || currentTask.getDescription().contains(filterWords[0])) {
+                bulletPoint = i + 1;
+                stringToReturn += bulletPoint + ". " + currentTask + "\n";
+            }
+        }
+        return stringToReturn;
     }
 }

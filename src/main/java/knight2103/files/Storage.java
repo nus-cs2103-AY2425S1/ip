@@ -48,8 +48,16 @@ public class Storage {
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
-        tasksWriter.write(tasks.formatToFileList());
+        tasksWriter.write(formatToFileList(tasks));
         tasksWriter.close();
+    }
+
+    private String formatToFileList(TaskList tasks) {
+        String stringToWrite = "";
+        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
+            stringToWrite += tasks.getTask(i).toStringInFile() + "\n";
+        }
+        return stringToWrite;
     }
 
     /**
@@ -90,6 +98,7 @@ public class Storage {
                     throw new InvalidFileContentsException("Number of columns mismatch. 3 columns for Todo task");
                 }
                 taskToAdd = new TodoTask(lineArray[2]);
+                break;
             case "D":
                 if (lineArray.length != 4) {
                     throw new InvalidFileContentsException("Number of columns mismatch. 4 columns for Deadline task");
