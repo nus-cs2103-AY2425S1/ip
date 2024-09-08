@@ -6,6 +6,7 @@ import main.command.DeadlineCommand;
 import main.command.DeleteCommand;
 import main.command.EventCommand;
 import main.command.FindCommand;
+import main.command.FindExactCommand;
 import main.command.ListCommand;
 import main.command.MarkCommand;
 import main.command.TodoCommand;
@@ -44,6 +45,8 @@ public class Parser {
             return new DeadlineCommand(input);
         case "event":
             return new EventCommand(input);
+        case "findexact":
+            return new FindExactCommand(input);
         default:
             throw new PrinceException("Sorry, I am not sure what '" + input
                     + "' means. Please try again!");
