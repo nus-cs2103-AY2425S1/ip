@@ -68,10 +68,10 @@ public class Storage {
                         task = new Todo(description);
                         break;
                     case "D":
-                        task = new Deadline(description, splits[3]);
+                        task = new Deadline(description, DateTime.of(splits[3]));
                         break;
                     case "E":
-                        task = new Event(description, splits[3], splits[4]);
+                        task = new Event(description, DateTime.of(splits[3]), DateTime.of(splits[4]));
                         break;
                     default:
                         break;
