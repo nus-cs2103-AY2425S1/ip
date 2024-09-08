@@ -44,10 +44,6 @@ public abstract class Task {
         this.isDone = true;
     }
 
-    public boolean getDone() {
-        return this.isDone;
-    }
-
     /**
      * Unmarks the task, setting its status to not done.
      */
