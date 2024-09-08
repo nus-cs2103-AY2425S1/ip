@@ -1,5 +1,9 @@
 package hamyo.misc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+
 import hamyo.tasks.TaskList;
 import hamyo.tasks.TaskType;
 
@@ -157,7 +161,7 @@ public class Parser {
      * executes the command to mark tasks of the specified index. If command fields
      * are invalid, a HamyoException is thrown.
      *
-     * @param commandFields The specified index.
+     * @param commandFields The specified indexes.
      * @param tasks The list of the users' tasks.
      * @throws HamyoException Thrown when command fields are invalid.
      */
@@ -165,10 +169,19 @@ public class Parser {
         if (commandFields.length() <= 1) {
             throw new HamyoException("Usage: mark [index]");
         }
-        try {
-            tasks.markTask(Integer.parseInt(commandFields.substring(1)) - 1);
-        } catch (NumberFormatException e) {
-            throw new HamyoException("Usage: mark [index]");
+        ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am marking %d tasks!\n", indexes.size());
+            Ui.printLine();
+        }
+        for (Integer i : indexes) {
+            try {
+                tasks.markTask(i - 1);
+            } catch (NumberFormatException e) {
+                Ui.printException(new HamyoException("Invalid index " + i + " provided!"));
+            } catch (HamyoException e) {
+                Ui.printException(e);
+            }
         }
     }
 
@@ -177,7 +190,7 @@ public class Parser {
      * executes the command to unmark tasks of the specified index. If command fields
      * are invalid, a HamyoException is thrown.
      *
-     * @param commandFields The specified index.
+     * @param commandFields The specified indexes.
      * @param tasks The list of the users' tasks.
      * @throws HamyoException Thrown when command fields are invalid.
      */
@@ -185,10 +198,19 @@ public class Parser {
         if (commandFields.length() <= 1) {
             throw new HamyoException("Usage: unmark [index]");
         }
-        try {
-            tasks.unmarkTask(Integer.parseInt(commandFields.substring(1)) - 1);
-        } catch (NumberFormatException e) {
-            throw new HamyoException("Usage: unmark [index]");
+        ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am unmarking %d tasks!\n", indexes.size());
+            Ui.printLine();
+        }
+        for (Integer i : indexes) {
+            try {
+                tasks.unmarkTask(i - 1);
+            } catch (NumberFormatException e) {
+                Ui.printException(new HamyoException("Invalid index " + i + " provided!"));
+            } catch (HamyoException e) {
+                Ui.printException(e);
+            }
         }
     }
 
@@ -197,7 +219,7 @@ public class Parser {
      * executes the command to delete tasks of the specified index. If command fields
      * are invalid, a HamyoException is thrown.
      *
-     * @param commandFields The specified index.
+     * @param commandFields The specified indexes.
      * @param tasks The list of the users' tasks.
      * @throws HamyoException Thrown when command fields are invalid.
      */
@@ -205,10 +227,41 @@ public class Parser {
         if (commandFields.length() <= 1) {
             throw new HamyoException("Usage: delete [index]");
         }
-        try {
-            tasks.deleteTask(Integer.parseInt(commandFields.substring(1)) - 1);
-        } catch (NumberFormatException e) {
-            throw new HamyoException("Usage: delete [index]");
+        ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
+        if (indexes.size() > 1) {
+            System.out.printf("Aight Bet! I am deleting %d tasks!\n", indexes.size());
+            Ui.printLine();
         }
+        indexes.sort(Collections.reverseOrder());
+        for (Integer i : indexes) {
+            try {
+                tasks.deleteTask(i - 1);
+            } catch (HamyoException e) {
+                Ui.printException(e);
+            }
+        }
+    }
+
+    /**
+     * Converts a given command fields to a ArrayList of Integer in ascending
+     * order, without any duplicates.
+     *
+     * @param commandFields The specified indexes.
+     */
+    private static ArrayList<Integer> commandFieldsToIntegerList(String commandFields) {
+        // Remove leading whitespace.
+        String[] strLst = commandFields.substring(1).split(" ");
+        // Populate the list only if the index is valid.
+        ArrayList<Integer> lst = new ArrayList<>();
+        for (int i = 0; i < strLst.length; i++) {
+            try {
+                Integer index = Integer.parseInt(strLst[i]);
+                lst.add(index);
+            } catch (NumberFormatException e) {
+                Ui.printException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
+            }
+        }
+        lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
+        return lst;
     }
 }
