@@ -44,21 +44,24 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        int startDay = this.start.getDayOfMonth();
-        Month startMonth = this.start.getMonth();
-        int startYear = this.start.getYear();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String startTime12HourFormat = this.start.format(formatter);
-        String startDate = startDay + " " + startMonth + " " + startYear + " " + startTime12HourFormat;
-
-        int endDay = this.end.getDayOfMonth();
-        Month endMonth = this.end.getMonth();
-        int endYear = this.end.getYear();
-        String endTime12HourFormat = this.end.format(formatter);
-        String endDate = endDay + " " + endMonth + " " + endYear + " " + endTime12HourFormat;
-
+        String startDate = getDate(this.start);
+        String endDate = getDate(this.end);
         return this.getTypeIcon() + super.toString() + " (from: " + startDate + " " +
                 "to: " + endDate + ")";
+    }
+
+    private String get12HourFormat(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        return dateTime.format(formatter);
+    }
+
+    private String getDate(LocalDateTime dateTime) {
+        int day = dateTime.getDayOfMonth();
+        Month month = dateTime.getMonth();
+        int year = dateTime.getYear();;
+        String time12HourFormat = get12HourFormat(dateTime);
+        String date = day + " " + month + " " + year + " " + time12HourFormat;
+        return date;
     }
 
     /**
