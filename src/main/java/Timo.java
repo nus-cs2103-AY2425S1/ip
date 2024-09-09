@@ -159,7 +159,7 @@ class Storage {
                         arr.add(new Deadline(false, b[0], datetime));
                     }
                 } else {
-                    //removing the [E][?] from the line
+                    assert tmp.startsWith("[E]") : "Error in program";
                     String details = tmp.split("] ", 2)[1];
                     //getting important values to create the Event
                     String[] split_up = details.split(" \\(from: | to: |\\)");
@@ -168,6 +168,7 @@ class Storage {
                     if (Character.compare(tmp.charAt(4), 'X') == 0) {
                         arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
                     } else {
+                        assert Character.compare(tmp.charAt(4), ' ') == 0 : "Error in file";
                         arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
                     }
                 }
@@ -469,8 +470,10 @@ class Parser {
         case "mark":
             String taskNumber = String.valueOf(command.charAt(command.length() - 1));
 
+
             //get the Task number to mark
             int markTarget = Integer.parseInt(taskNumber);
+
 
             //find the task to mark
             Task markedTask = this.taskList.mark(markTarget);
