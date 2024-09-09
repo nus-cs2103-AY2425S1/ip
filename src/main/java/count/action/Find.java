@@ -30,7 +30,7 @@ public class Find extends Action {
      */
     @Override
     public String run() {
-        String ans = "Here are the matching tasks in your list\n";
+        String ans = "Ribbit, here are the matching tasks in your list\n";
         ArrayList<Task> list = this.ls.getList();
         int numberOfSearchHits = 0;
 
@@ -39,6 +39,9 @@ public class Find extends Action {
                 numberOfSearchHits++;
                 ans += numberOfSearchHits + ". " + t.toString() + "\n";
             }
+        }
+        if (numberOfSearchHits == 0) {
+            return "Croak! There are no matching tasks in your list\n";
         }
         return ans;
     }

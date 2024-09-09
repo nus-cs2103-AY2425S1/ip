@@ -28,7 +28,7 @@ public class AddTask extends Action {
     @Override
     public String run() {
         ls.getList().add(this.task);
-        return "Added the following task:\n" + this.task.toString()
+        return "Ribbit, added the following task:\n" + this.task.toString()
                 + "\nYou now have " + ls.getList().size() + " task(s) in your list";
     }
 }

@@ -32,6 +32,10 @@ public class Save extends Action {
      */
     @Override
     public String run() throws CountException {
+        if (ls.getList().isEmpty()) {
+            return "Croak! You don't have anything in your list to save!";
+        }
+
         String output = "";
         for (int i = 0; i < ls.getList().size(); i++) {
             output += (i + 1) + "." + ls.getList().get(i).toString() + "\n";
@@ -51,7 +55,7 @@ public class Save extends Action {
         } catch (IOException e) {
             throw new CountException("File Creation failed");
         }
-        return "Your list has been saved over at Count.txt";
+        return "Ribbit, your list has been saved over at Count.txt";
     }
 }
 

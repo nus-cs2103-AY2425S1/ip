@@ -32,15 +32,19 @@ public class Remind extends Action {
 
     @Override
     public String run() {
-        String ans = "Here are the tasks in your list due in " + this.days + " days\n";
         ArrayList<Task> list = this.taskList.getList();
+        if (list.isEmpty()) {
+            return "Croak! Looks like things are empty around here...";
+        }
+        String ans = "Here are the tasks in your list due in " + this.days + " days\n";
         LocalDate dueByTime = currentTime.plusDays(this.days);
         int numberOfSearchHits = 0;
 
         for (Task t: list) {
             if (t instanceof Deadline) {
                 Deadline deadline = (Deadline) t;
-                if (deadline.getEndTime().isBefore(dueByTime)) {
+                LocalDate deadlineEndTime = deadline.getEndTime();
+                if (deadlineEndTime.isBefore(dueByTime) || deadlineEndTime.isEqual(dueByTime)) {
                     numberOfSearchHits++;
                     ans += numberOfSearchHits + ". " + deadline.toString() + "\n";
                 }
@@ -48,7 +52,8 @@ public class Remind extends Action {
 
             if (t instanceof Event) {
                 Event event = (Event) t;
-                if (event.getEndTime().isBefore(dueByTime)) {
+                LocalDate eventEndTime = event.getEndTime();
+                if (eventEndTime.isBefore(dueByTime) || eventEndTime.isEqual(dueByTime)) {
                     numberOfSearchHits++;
                     ans += numberOfSearchHits + ". " + event.toString() + "\n";
                 }

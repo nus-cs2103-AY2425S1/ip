@@ -22,6 +22,10 @@ public class ListReply extends Action {
      */
     @Override
     public String run() {
+        if (ls.getList().isEmpty()) {
+            return "Croak! Looks like things are empty around here...";
+        }
+
         String ans = "Here are the tasks in your list:\n";
         for (int i = 0; i < ls.getList().size(); i++) {
             if (i != ls.getList().size() - 1) {
