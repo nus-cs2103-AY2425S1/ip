@@ -3,6 +3,7 @@ package taskmanager;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     protected ArrayList<Task> tasks;
@@ -50,12 +51,9 @@ public class TaskManager {
             return "No tasks in the list.";
         }
 
-        StringBuilder response = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            response.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
-        }
-
-        return response.toString();
+        return tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .collect(Collectors.joining("\n"));
     }
     /**
      * Marks the task with the given index.
