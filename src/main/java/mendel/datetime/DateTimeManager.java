@@ -9,24 +9,24 @@ import java.time.format.DateTimeParseException;
  * The DateTimeManager class parses inputted of date-time strings to a consistent form.
  */
 public class DateTimeManager {
+    private static final String[] POSSIBLE_FORMATTED_TIME = new String[]{
+        "dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
+        "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
+        "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
+        "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
+        "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
+        "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
+        "d MMM yyyy HHmm"
+    };
+    private static final String[] POSSIBLE_FORMATTED_UNTIME = new String[] {
+        "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
+        "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
+        "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
+        "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
+        "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
+        "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
+    };
     private String formattedDate;
-    String[] POSSIBLEFORMATTEDTIME = new String[]{
-            "dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
-            "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
-            "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
-            "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-            "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
-            "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
-            "d MMM yyyy HHmm"
-    };
-    private final String[] POSSIBLEFORMATTEDUNTIME = new String[] {
-            "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
-            "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
-            "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
-            "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
-            "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
-            "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
-    };
 
     /**
      * Constructs a DateTimeManager object by attempting to parse a raw date string into a standard format.
@@ -50,14 +50,14 @@ public class DateTimeManager {
     }
 
     private boolean checkFormat(String rawDate) {
-        for (int i = 0; i < POSSIBLEFORMATTEDTIME.length; i++) {
-            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]))) {
+        for (int i = 0; i < POSSIBLE_FORMATTED_TIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_TIME[i]))) {
                 return true;
             }
         }
 
-        for (int i = 0; i < POSSIBLEFORMATTEDUNTIME.length; i++) {
-            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]))) {
+        for (int i = 0; i < POSSIBLE_FORMATTED_UNTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_UNTIME[i]))) {
                 return true;
             }
         }
@@ -65,17 +65,17 @@ public class DateTimeManager {
     }
 
     private String parseDate(String rawDate) {
-        for (int i = 0; i < POSSIBLEFORMATTEDTIME.length; i++) {
-            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]))) {
+        for (int i = 0; i < POSSIBLE_FORMATTED_TIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_TIME[i]))) {
                 LocalDateTime date = LocalDateTime.parse(rawDate,
-                        DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]));
+                        DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_TIME[i]));
                 return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
             }
         }
 
-        for (int i = 0; i < POSSIBLEFORMATTEDUNTIME.length; i++) {
-            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]))) {
-                LocalDate date = LocalDate.parse(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]));
+        for (int i = 0; i < POSSIBLE_FORMATTED_UNTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_UNTIME[i]))) {
+                LocalDate date = LocalDate.parse(rawDate, DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_UNTIME[i]));
                 return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             }
         }

@@ -7,9 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import mendel.main.Mendel;
 
+/**
+ * The Main class handles managing the frontend GUI that is to be displayed
+ */
 public class Main extends Application {
     private final Mendel mendel = new Mendel();
 
@@ -20,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setMendel(mendel);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMendel(mendel);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
