@@ -50,6 +50,7 @@ public class MarkCommand extends Command {
             Ui.print("OK, I've marked this task as not done yet:");
             sb.append("OK, I've marked this task as not done yet:\n");
         }
+        Ui.print("  " + task.toString());
         sb.append("  ").append(task.toString());
         storage.writeToFile(tasks.formatTasksToSave());
         return sb.toString();
