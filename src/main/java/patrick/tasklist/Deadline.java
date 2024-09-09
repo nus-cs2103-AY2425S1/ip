@@ -16,7 +16,6 @@ import patrick.ui.Ui;
 public class Deadline extends Task {
     public static final String PREFIX = "D | ";
     public static final String COLUMN = " | ";
-    public static final String THERE_IS_AN_ERROR = "There is an error: ";
     protected LocalDateTime by;
 
     /**
@@ -76,12 +75,16 @@ public class Deadline extends Task {
         }
 
         Task task = new Deadline(taskDescription, deadline);
+        if (Parser.isDuplicate(task)) {
+            return Ui.NO_DUPLICATES;
+        }
+
         Storage.addList(task);
         response = Ui.showUserMsg(task.toString());
         try {
             Storage.appendToFile("\n" + task);
         } catch (IOException e) {
-            response = THERE_IS_AN_ERROR + e.getMessage();
+            response = Ui.THERE_IS_AN_ERROR + e.getMessage();
         }
         return response;
     }

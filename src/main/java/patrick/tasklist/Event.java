@@ -10,13 +10,14 @@ import patrick.parser.Parser;
 import patrick.storage.Storage;
 import patrick.ui.Ui;
 
+import static patrick.ui.Ui.THERE_IS_AN_ERROR;
+
 /**
  * The {@code Event} class represents a task that occurs at a specific time range.
  * It extends the {@code Task} class and includes {@code LocalDateTime} and
  * {@code LocalTime} fields to store the event's start and end times.
  */
 public class Event extends Task {
-    public static final String THERE_IS_AN_ERROR = "There is an error: ";
     public static final String PREFIX = "E | ";
     public static final String COLUMN = " | ";
     private final LocalDateTime from;
@@ -97,6 +98,9 @@ public class Event extends Task {
         }
 
         task = new Event(taskDescription, from, to);
+        if (Parser.isDuplicate(task)) {
+            return Ui.NO_DUPLICATES;
+        }
         Storage.addList(task);
         response = Ui.showUserMsg(task.toString());
 

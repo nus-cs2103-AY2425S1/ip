@@ -1,9 +1,8 @@
 package patrick.parser;
 
-import patrick.tasklist.Deadline;
-import patrick.tasklist.Event;
-import patrick.tasklist.TaskList;
-import patrick.tasklist.ToDo;
+import javafx.scene.control.TableColumn;
+import patrick.storage.Storage;
+import patrick.tasklist.*;
 import patrick.ui.Ui;
 
 /**
@@ -147,6 +146,24 @@ public class Parser {
         } else {
             inputType = Type.ERROR;
         }
+    }
+
+    /**
+     * Checks if a given task already exists in the task list.
+     * <p>
+     * This method iterates over the existing tasks in the storage and compares each with the provided task
+     * based on their string representations.
+     *
+     * @param task The task to be checked for duplication.
+     * @return true if the task is a duplicate (i.e., an identical task exists in the list), false otherwise.
+     */
+    public static boolean isDuplicate(Task task) {
+        for (int i = 0; i < Storage.getList().size(); i++) {
+            if (Storage.getList().get(i).toString().equals(task.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
