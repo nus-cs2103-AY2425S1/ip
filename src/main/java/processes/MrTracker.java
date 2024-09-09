@@ -50,7 +50,7 @@ public class MrTracker {
 
         ui.showTaskList(taskList.getTasks());
 
-        String res;
+        String res = null;
 
         PrefixString pref = parser.parseCommand(input);
 
@@ -64,13 +64,13 @@ public class MrTracker {
             break;
 
         case MARK:
-            if (!parser.checkValidIndex(input, 5)) {
+            if (!parser.checkValidIndex(input.substring(5))) {
                 String message = input.substring(5) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
 
-            int index = parser.checkIndex(input, 5);
+            int index = Integer.parseInt(input.substring(5));
             try {
                 Task markedTask = taskList.markAndUnmark(index, true);
                 res = ui.showMarked(markedTask);
@@ -80,13 +80,13 @@ public class MrTracker {
             break;
 
         case UNMARK:
-            if (!parser.checkValidIndex(input, 7)) {
+            if (!parser.checkValidIndex(input.substring(7))) {
                 String message = input.substring(7) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
 
-            index = parser.checkIndex(input, 7);
+            index = Integer.parseInt(input.substring(7));
             try {
                 Task unMarkedTask = taskList.markAndUnmark(index, false);
                 res = ui.showUnmarked(unMarkedTask);
@@ -123,12 +123,12 @@ public class MrTracker {
             break;
 
         case DELETE:
-            if (!parser.checkValidIndex(input, 7)) {
+            if (!parser.checkValidIndex(input.substring(7))) {
                String message = input.substring(7) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
-            index = parser.checkIndex(input, 7);
+            index = Integer.parseInt(input.substring(7));
             try {
                 Task deleted = taskList.deleteTask(index);
                 res = ui.deletedTask(deleted, taskList.getSize());
@@ -145,6 +145,20 @@ public class MrTracker {
 
         case WELCOME:
             res = ui.showWelcomeMessage("MrTracker");
+            break;
+
+        case TAG:
+            String[] inputs = input.substring(4).split("#");
+            if (!parser.checkValidIndex(inputs[0])) {
+                String message = inputs[0] + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+            try {
+                taskList.tag(inputs);
+            } catch(TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            }
             break;
 
         default:
