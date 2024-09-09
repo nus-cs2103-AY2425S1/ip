@@ -13,6 +13,7 @@ public class Edith {
     /**
      * Handles all user inputs.
      * @param args User input.
+     * @deprecated Due to use of GUI instead, getResponse method utilised instead.
      */
     public static void main(String[] args) {
         Storage.loadTasks(TO_DO_LIST);

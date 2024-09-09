@@ -28,6 +28,7 @@ public class Ui {
      * error message if user input is an invalid command.
      * @param userInput User input.
      * @param toDoList User's to-do list.
+     * @return Chatbot response.
      */
     public static String handleUserInput(String userInput, ToDoList toDoList) {
         String command = Parser.getCommand(userInput);
@@ -59,6 +60,7 @@ public class Ui {
 
     /**
      * Greets user when Edith first starts up.
+     * @return Greeting when Edith first starts up.
      */
     public static String greetUser() {
         System.out.println(HORIZONTAL + LINEBREAK + GREETING + LINEBREAK + HORIZONTAL);
@@ -67,6 +69,7 @@ public class Ui {
 
     /**
      * Bids farewell when user inputs "bye".
+     * @return Farewell message when user inputs "bye".
      */
     public static String bidFarewell() {
         showLine();
@@ -80,13 +83,14 @@ public class Ui {
      * is invalid.
      * @param userInput User input.
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String changeTaskStatus(String userInput, ToDoList toDoList) {
         String returnStatement;
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
             String command = Parser.getCommand(userInput);
-
+            assert command.equals("mark") || command.equals("unmark");
             if (Objects.equals(command, "mark")) { // check if user wants to mark a task
                 toDoList.markTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK
@@ -113,9 +117,11 @@ public class Ui {
      * Adds task to user's to-do list. Prints error message if user input does not specify a task name.
      * @param userInput User input.
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String addTask(String userInput, ToDoList toDoList) {
         String taskType = Parser.getCommand(userInput);
+        assert taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event");
         try {
             String taskDetails = Parser.getTaskDetails(userInput, taskType);
             if (Objects.equals(taskType, "todo")) {
@@ -124,20 +130,18 @@ public class Ui {
             if (Objects.equals(taskType, "deadline")) {
                 return addDeadlineTask(taskDetails, taskType, toDoList);
             }
-            if (Objects.equals(taskType, "event")) {
-                return addEventTask(taskDetails, taskType, toDoList);
-            }
+            return addEventTask(taskDetails, taskType, toDoList);
         } catch (MissingTaskNameException e) {
             showError(e.getMessage());
             return e.getMessage();
         }
-        return null;
     }
 
     /**
      * Adds task of type ToDoTask to user's to-do list.
      * @param taskName Task's name.
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String addToDoTask(String taskName, ToDoList toDoList) {
         ToDoTask task = new ToDoTask(taskName);
@@ -153,6 +157,7 @@ public class Ui {
      * @param taskDetails Task's details including task name and deadline.
      * @param taskType Task's type: "deadline".
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
@@ -175,6 +180,7 @@ public class Ui {
      * @param taskDetails Task's details including task name and duration.
      * @param taskType Task's type: "duration".
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
@@ -206,6 +212,7 @@ public class Ui {
      * Deletes task from user's to-do list.
      * @param userInput User input.
      * @param toDoList User's to-do list.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String delete(String userInput, ToDoList toDoList) {
         try {
@@ -230,6 +237,7 @@ public class Ui {
      * Finds tasks that match keyword(s) provided by user. Prints error if user does not input any keywords.
      * @param userInput User input.
      * @param toDoList List of user's current tasks.
+     * @return Chatbot's reply indicating success or error.
      */
     public static String find(String userInput, ToDoList toDoList) {
         try {
