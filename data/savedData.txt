@@ -1,7 +1,7 @@
 T |   | Finish homework
 D | X | Submit homework | 27/8/2024 2359
 D |   | Submit project | 27/8/2024 1700
-E |   | project meeting | 27/8/2024 1800 | 27/8/2024 1900
+E | X | project meeting | 27/8/2024 1800 | 27/8/2024 1900
 E |   | project meeting | 27/8/2024 1800 | 3/9/2024 0430
 E |   | project meeting | 27/8/2024 1800 | 27/8/2024 2000
 T |   | run

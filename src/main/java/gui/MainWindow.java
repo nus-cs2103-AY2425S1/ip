@@ -38,6 +38,11 @@ public class MainWindow extends AnchorPane {
     private final Image reginaImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/Regina.jpg")));
 
+    /**
+     * Initializes the MainWindow by binding the scroll pane's value property
+     * to the height of the dialog container, and loading the initial greeting
+     * from Regina.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -47,6 +52,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Sets the Regina instance for the MainWindow and loads the task checkboxes.
+     *
+     * @param r The instance of Regina to be set.
+     */
     public void setRegina(Regina r) {
         regina = r; // Set the Regina instance
         if (regina != null) {
@@ -54,20 +64,33 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Loads the task checkboxes from the Regina instance into the checkbox container,
+     * clearing any existing checkboxes first.
+     */
     public void loadCheckboxes() {
         TaskList tasks = regina.getListOfTasks(); // Fetch the task list
         checkboxContainer.getChildren().clear(); // Clear existing checkboxes
 
         for (int i = 0; i < tasks.size(); i++) { // Iterate through tasks
-            String taskDescription = tasks.get(i).toString().substring(7); // Get string representation of the task
+            String taskDescription = tasks.get(i).toString().substring(7);
             boolean isDone = tasks.get(i).isDone();
-            CheckBox taskCheckBox = getCheckBox(taskDescription, isDone, i);
+            CheckBox taskCheckBox = getCheckBox((i + 1) + ". " + taskDescription, isDone, i);
             taskCheckBox.setWrapText(true);
 
             checkboxContainer.getChildren().add(taskCheckBox); // Add to the checkbox container
         }
     }
 
+    /**
+     * Creates a CheckBox for a task with the specified description, completion status, and index.
+     * It sets an action handler to mark or unmark the task when the checkbox is toggled.
+     *
+     * @param taskDescription The description of the task.
+     * @param isDone The completion status of the task.
+     * @param i The index of the task in the task list.
+     * @return A CheckBox control representing the task.
+     */
     private CheckBox getCheckBox(String taskDescription, boolean isDone, int i) {
         CheckBox taskCheckBox = new CheckBox(taskDescription);
         taskCheckBox.setSelected(isDone);
