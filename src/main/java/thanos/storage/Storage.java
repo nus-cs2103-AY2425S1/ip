@@ -65,9 +65,24 @@ public class Storage implements IStorage {
     @Override
     public ArrayList<Task> load() {
         ensureFileExists();
+        return getTasksFromFile();
+    }
 
+    /**
+     * Reads tasks from a file and converts them into a list of {@code Task} objects.
+     * <p>
+     * This method reads each line from the file, converts it into a {@code Task} object, and
+     * adds it to the task list. If the file is not found, an empty list is returned. In the
+     * case of an I/O error during reading, the error is printed, and the method returns any
+     * tasks successfully read up to that point.
+     * </p>
+     *
+     * @return an {@code ArrayList} of {@code Task} objects loaded from the file. If no tasks
+     *         are found or the file does not exist, an empty list is returned.
+     */
+    private ArrayList<Task> getTasksFromFile() {
+        ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            ArrayList<Task> taskList = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = convertStringToTask(line);
@@ -75,13 +90,12 @@ public class Storage implements IStorage {
                     taskList.add(task);
                 }
             }
-            return taskList;
         } catch (FileNotFoundException e) {
             System.out.println("No data file found");
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
         }
-        return new ArrayList<>();
+        return taskList;
     }
 
     /**
@@ -97,7 +111,21 @@ public class Storage implements IStorage {
     @Override
     public void save(ArrayList<Task> taskList) {
         ensureFileExists();
+        saveTasksToFile(taskList);
+    }
 
+    /**
+     * Saves the list of tasks to a file.
+     * <p>
+     * This method writes each {@code Task} in the provided task list to the file. Each task
+     * is converted to its string representation using the {@code toFileString()} method
+     * and written to a new line in the file. If an error occurs while writing to the file,
+     * an error message is printed to the console.
+     * </p>
+     *
+     * @param taskList the {@code ArrayList} of {@code Task} objects to be saved to the file.
+     */
+    private void saveTasksToFile(ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : taskList) {
                 writer.write(task.toFileString());
@@ -140,7 +168,6 @@ public class Storage implements IStorage {
      * @param line the string representation of the task from the file.
      * @return a {@code Task} object if the string is valid; {@code null} otherwise.
      */
-
     private Task convertStringToTask(String line) {
         try {
             String[] parts = line.split(" \\| ");
@@ -151,41 +178,7 @@ public class Storage implements IStorage {
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            Task task = null;
-
-            switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    throw new InvalidTaskException("Deadline missing for: " + line);
-                }
-                LocalDateTime deadline = DateTimeUtility.parse(parts[3]);
-                if (deadline != null) {
-                    task = new Deadline(description, deadline);
-                }
-                break;
-            case "E":
-                if (parts.length < 4) {
-                    throw new InvalidTaskException("Event date missing for: " + line);
-                }
-
-                String date = parts[3];
-                String[] dateParts = date.split("-");
-                if (dateParts.length != 2) {
-                    throw new InvalidTaskException("Invalid date format for: " + line);
-                }
-
-                LocalDateTime startDate = DateTimeUtility.parse(dateParts[0]);
-                LocalDateTime endDate = DateTimeUtility.parse(dateParts[1]);
-                if (startDate != null && endDate != null) {
-                    task = new Event(description, startDate, endDate);
-                }
-                break;
-            default:
-                throw new InvalidTaskException("Invalid task type for: " + line);
-            }
+            Task task = createTask(line, taskType, description, parts);
             if (task != null) {
                 task.setDone(isDone);
             }
@@ -194,5 +187,57 @@ public class Storage implements IStorage {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Creates a task based on the provided parameters.
+     *
+     * <p>This method constructs a task of the specified type, using the given description and parts.
+     * It supports creating three types of tasks: Todo, Deadline, and Event.</p>
+     *
+     * @param line the raw input line used to create the task, which is used for error messages.
+     * @param taskType the type of task to create. This should be "T" for Todo, "D" for Deadline, or "E" for Event.
+     * @param description the description of the task.
+     * @param parts an array of strings containing additional details required for creating the task.
+     *              For Deadline and Event tasks, this should include a date or date range in the correct format.
+     *
+     * @return the created Task object, which can be a Todo, Deadline, or Event.
+     *
+     * @throws InvalidTaskException if the task type is invalid, or if required parts are missing.
+     * @throws InvalidDateException if the date format is invalid when parsing the date or date range.
+     */
+    private static Task createTask(String line, String taskType, String description, String[] parts)
+            throws InvalidTaskException, InvalidDateException {
+        Task task = null;
+        switch (taskType) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            if (parts.length < 4) {
+                throw new InvalidTaskException("Deadline missing for: " + line);
+            }
+            LocalDateTime deadline = DateTimeUtility.parse(parts[3]);
+            task = new Deadline(description, deadline);
+            break;
+        case "E":
+            if (parts.length < 4) {
+                throw new InvalidTaskException("Event date missing for: " + line);
+            }
+
+            String date = parts[3];
+            String[] dateParts = date.split("-");
+            if (dateParts.length != 2) {
+                throw new InvalidTaskException("Invalid date format for: " + line);
+            }
+
+            LocalDateTime startDate = DateTimeUtility.parse(dateParts[0]);
+            LocalDateTime endDate = DateTimeUtility.parse(dateParts[1]);
+            task = new Event(description, startDate, endDate);
+            break;
+        default:
+            throw new InvalidTaskException("Invalid task type for: " + line);
+        }
+        return task;
     }
 }
