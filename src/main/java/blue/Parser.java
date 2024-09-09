@@ -38,6 +38,9 @@ public class Parser {
      */
     public String parse(String input, TaskList taskList) {
 
+        // Ensure taskList is not null
+        assert taskList != null : "TaskList should not be null";
+
         // Exit the application
         if (input.equalsIgnoreCase("bye")) {
             return UI.farewell();
@@ -51,6 +54,10 @@ public class Parser {
         // Mark a task as done
         if (input.startsWith("mark ")) {
             try {
+
+                // Ensure input has enough length to parse the task number
+                assert input.length() > 5 : "Invalid input length for mark command";
+
                 int taskNumber = Integer.parseInt(input.substring(5));
                 taskList.mark(taskNumber);
                 return UI.displayAfterMark(taskList.getTask(taskNumber - 1));
@@ -62,6 +69,7 @@ public class Parser {
         // Unmark a task
         if (input.startsWith("unmark ")) {
             try {
+                assert input.length() > 7 : "Invalid input length for unmark command";
                 int taskNumber = Integer.parseInt(input.substring(7));
                 taskList.unmark(taskNumber);
                 return UI.displayAfterUnMark(taskList.getTask(taskNumber - 1));
@@ -73,6 +81,7 @@ public class Parser {
         // Delete a task
         if (input.startsWith("delete ")) {
             try {
+                assert input.length() > 7 : "Invalid input length for delete command";
                 int taskNumber = Integer.parseInt(input.substring(7));
                 Task deletedTask = taskList.getTask(taskNumber - 1);
                 taskList.delete(taskNumber);
