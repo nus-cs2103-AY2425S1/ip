@@ -103,6 +103,7 @@ public class Yapper {
      * Each method takes the full command string entered by the user, processes it,
      * and returns a response message to be displayed to the user.
      */
+
   /**
  * Handles the "mark" command by marking a task as done.
  *
@@ -300,7 +301,7 @@ public class Yapper {
                 storage.save(tasks.getTasks());
                 return exitApplication();
             default:
-                throw new UnknownCommandException();
+                throw new UnknownCommandException(command);
             }
         } catch (IOException e) {
             throw new YapperException("Sorry boss, there was an error saving your data.");
