@@ -38,6 +38,7 @@ public class Parser {
      *               If the date could not be parsed, the method returns an empty string.
      */
     public String parseDeadline(String s, TaskList tasks) {
+        assert (s.contains("/by")) : "input string must contain this";
         String[] info = s.split(" /by ", 2);
         LocalDateTime by = this.parseDate(info[1]);
         if (by != null) {
@@ -61,6 +62,7 @@ public class Parser {
      *               or an empty string if the input is invalid.
      */
     public String parseEvent(String s, TaskList tasks) {
+        assert (s.contains("/from") && s.contains("/to")) : "input string must contain this";
         String[] info = s.split(" /from | /to ", 3);
         LocalDateTime from = this.parseDate(info[1]);
         if (from != null) {

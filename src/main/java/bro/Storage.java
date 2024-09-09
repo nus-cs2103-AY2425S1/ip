@@ -44,18 +44,21 @@ public class Storage {
             String curr = s.nextLine();
             switch (curr.charAt(3)) {
                 case 'T':
+                    assert (curr.contains("] ")) : "each task String must contain this";
                     tasks.addTodo(curr.split("] ", 2)[1]);
                     if (curr.charAt(6) == 'X') {
                         tasks.get(tasks.size() - 1).mark();
                     }
                     break;
                 case 'E':
+                    assert (curr.contains("] ")) : "each task String must contain this";
                     tasks.addEvent(curr.split("] ", 2)[1]);
                     if (curr.charAt(6) == 'X') {
                         tasks.get(tasks.size() - 1).mark();
                     }
                     break;
                 case 'D':
+                    assert (curr.contains("] ")) : "each task String must contain this";
                     tasks.addDeadline(curr.split("] ", 2)[1]);
                     if (curr.charAt(6) == 'X') {
                         tasks.get(tasks.size() - 1).mark();
