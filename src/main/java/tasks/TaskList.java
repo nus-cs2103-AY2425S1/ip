@@ -1,9 +1,10 @@
 package tasks;
 
-import storage.Storage;
 import exceptions.JarException;
+import storage.Storage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -153,4 +154,42 @@ public class TaskList {
             return sameTasks;
         }
     }
+
+    public boolean findDuplicate(Task task, TaskList taskList) {
+        for (Task currTask: taskList.getTasks()) {
+            String todoDescription = task.getTaskContent();
+            if (task.getTaskType().equals("todo")) {
+                if (todoDescription.equals(currTask.getTaskContent())) {
+                    return true;
+                }
+            } else if (task.getTaskType().equals("event")) {
+                Event taskTemp = (Event) task;
+                String taskFrom = taskTemp.getFrom();
+                String taskTo = taskTemp.getTo();
+                if (currTask.getTaskType().equals("event")) {
+                    Event currTaskTemp = (Event) currTask;
+                    String currTaskFrom = currTaskTemp.getFrom();
+                    String currTaskTo = currTaskTemp.getTo();
+                    boolean sameDates = taskFrom.equals(currTaskFrom) && taskTo.equals(currTaskTo);
+                    if (todoDescription.equals(currTask.getTaskContent()) && sameDates) {
+                        return true;
+                    }
+                }
+            } else {
+                DeadLine taskTemp = (DeadLine) task;
+                LocalDateTime taskBy = taskTemp.getBy();
+                if (currTask.getTaskType().equals("deadline")) {
+                    DeadLine currTaskTemp = (DeadLine) currTask;
+                    LocalDateTime currTaskBy = currTaskTemp.getBy();
+                    boolean sameDate = taskBy.equals(currTaskBy);
+                    if (todoDescription.equals(currTask.getTaskContent()) && sameDate) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
 }
