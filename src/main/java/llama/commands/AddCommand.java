@@ -31,7 +31,7 @@ public class AddCommand implements Command {
     private TaskType taskType;
 
     /**
-     * Constructor for AddCommand
+     * Creates a command to add tasks
      *
      * @param remaining input that represents the task, end time and start time to add
      * @param taskType type of task to save (Todo, Deadline, Event)
@@ -46,6 +46,7 @@ public class AddCommand implements Command {
                 throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
             }
         }
+
         this.remaining = remaining;
         this.taskType = taskType;
     }
@@ -60,12 +61,14 @@ public class AddCommand implements Command {
         } else if (taskType == TaskType.DEADLINE) {
             String[] substringArr = remaining.split("/by ");
             LocalDateTime deadline;
+
             try {
                 deadline = LocalDateTime.parse(substringArr[1].trim(), FORMATTER);
             } catch (DateTimeParseException e) {
                 throw new LlamaException("Invalid date given, please give in the format "
                         + "`deadline <name>/by yyyy-mm-dd HH:mm'");
             }
+
             Task newTask = new Deadline(substringArr[0], deadline, false);
             response = taskList.addTask(newTask, ui);
             storage.save(taskList);
@@ -74,9 +77,9 @@ public class AddCommand implements Command {
             String desc = substringArr[0];
             String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
             String endTimeStr = substringArr[2].substring(substringArr[2].indexOf(" ") + 1).trim();
+
             LocalDateTime startTime;
             LocalDateTime endTime;
-
             try {
                 startTime = LocalDateTime.parse(startTimeStr, FORMATTER);
                 endTime = LocalDateTime.parse(endTimeStr, FORMATTER);
