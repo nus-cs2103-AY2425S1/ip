@@ -1,5 +1,9 @@
 package bimo;
+import bimo.command.ByeCommand;
 import bimo.command.Command;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Represents a chatbot class.
@@ -32,6 +36,9 @@ public class Bimo {
         try {
             Command c = Parser.parse(input);
             response = c.execute(tasks, ui, storage);
+            if (c instanceof ByeCommand) {
+                closeApplication();
+            }
         } catch (BimoException e) {
             response = e.getMessage();
         }
@@ -58,5 +65,17 @@ public class Bimo {
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
                 + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. bye\n";
+    }
+
+    /**
+     * Creates a pause and then closes the javafx window
+     *
+     */
+    private void closeApplication() {
+        //Solution below adapted from
+        //https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        delay.setOnFinished(e -> Platform.exit());
+        delay.play();
     }
 }
