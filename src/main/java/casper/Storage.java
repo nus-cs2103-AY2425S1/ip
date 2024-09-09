@@ -45,10 +45,12 @@ public class Storage {
                     taskList.addTask(new ToDo(description, isDone));
                     break;
                 case "D":
+                    assert values.length > 3 : "Deadline does not exist";
                     LocalDate deadline = LocalDate.parse(values[3]);
                     taskList.addTask(new Deadline(description, isDone, deadline));
                     break;
                 case "E":
+                    assert values.length > 4 : "Start and end dates do not exist";
                     LocalDate start = LocalDate.parse(values[3]);
                     LocalDate end = LocalDate.parse(values[4]);
                     taskList.addTask(new Event(description, isDone, start, end));

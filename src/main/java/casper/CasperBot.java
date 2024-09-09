@@ -57,6 +57,7 @@ public class CasperBot {
      */
     public String getResponse(String input) {
         String[] parsedInputs = this.parser.splitInputIntoTwo(input);
+        assert parsedInputs.length == 2 : "The input should be parsed into 2 strings";
         String command = parsedInputs[0].toLowerCase();
         try {
             switch (command) {
@@ -102,6 +103,7 @@ public class CasperBot {
             } else if (isValidCommand(parsedInputs[0], CommandType.CREATE)) {
                 HashMap<String, String> hashMap = new HashMap<>();
                 this.parser.parseBySlash(parsedInputs[1], hashMap);
+                assert !hashMap.isEmpty() : "Key-value pairs were not added to hashmap";
                 CreateCommand createCommand = CreateCommand.valueOf(parsedInputs[0].trim().toUpperCase());
                 try {
                     switch (createCommand) {
