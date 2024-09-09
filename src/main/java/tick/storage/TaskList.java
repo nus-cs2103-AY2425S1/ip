@@ -46,8 +46,12 @@ public class TaskList {
      *
      * @param task Task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws TickException {
         assert task != null : "Task cannot be null.";
+        boolean isDuplicate = this.tasks.contains(task);
+        if (isDuplicate) {
+            throw new TickException("Task is already in the list!");
+        }
         this.tasks.add(task);
     }
 
