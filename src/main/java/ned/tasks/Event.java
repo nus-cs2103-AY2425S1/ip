@@ -16,7 +16,6 @@ public class Event extends Task {
             + "does not follow ISO 8601 (yyyy-mm-dd)"
             + ". Here are examples of valid timings:\n" + Ui.INDENTATIONS + "2015-08-04\n" + Ui.INDENTATIONS
             + "2015-08-04T10:11:30";
-
     private final LocalDate fromTiming;
     private final LocalDate toTiming;
 
