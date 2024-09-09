@@ -101,13 +101,9 @@ public class TaskList {
      * @return         the tasks which contain the keyword
      */
     public List<Task> findTasks(String keyword) {
-        List<Task> results = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.containsKeyword(keyword)) {
-                results.add(task);
-            }
-        }
-        return results;
+        return tasks.stream()
+                .filter((task) -> task.containsKeyword(keyword))
+                .toList();
     }
 
     /**
