@@ -56,7 +56,7 @@ public class Storage {
      * @return task object.
      */
     private Task parseTask(String taskData) throws OllieException {
-        assert taskData != null : "Oops! ollie.task.Task data string cannot be empty.";
+        assert taskData != null : "Oops! Task data string cannot be empty.";
 
         try {
             // Split the taskData by " | "

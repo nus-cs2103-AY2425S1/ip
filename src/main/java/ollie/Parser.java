@@ -61,14 +61,13 @@ public class Parser {
             }
             commandDescription.append(splitInput[i]);
         }
-        String commandDescriptionString = commandDescription.toString();
 
         try {
             switch (command) {
             case "hello":
-                return ui.greeting();
+                return Ui.greet();
             case "bye":
-                return ui.exit();
+                return Ui.exit();
             case "list":
                 return taskList.listTasks();
             case "mark":
