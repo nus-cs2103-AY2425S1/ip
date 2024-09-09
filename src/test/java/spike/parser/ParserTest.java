@@ -1,16 +1,18 @@
 package spike.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import spike.commands.*;
+import spike.commands.AddTaskCommand;
+import spike.commands.ByeCommand;
+import spike.commands.Command;
+import spike.commands.ListCommand;
 import spike.exceptions.SpikeException;
 import spike.storage.Storage;
 import spike.storage.TaskList;
 import spike.tasks.ToDo;
 import spike.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 public class ParserTest {
 
@@ -47,9 +49,9 @@ public class ParserTest {
 
     @Test
     public void parseDeadline_missingAll_exceptionThrown() throws SpikeException {
-            String input = "deadline ";
-            Command error = Parser.parse(input);
-            assertEquals("The description of a deadline cannot be empty.", error.getCommandType());
+        String input = "deadline ";
+        Command error = Parser.parse(input);
+        assertEquals("The description of a deadline cannot be empty.", error.getCommandType());
     }
 
     @Test
@@ -63,16 +65,16 @@ public class ParserTest {
     public void parseDeadline_missingDescription_exceptionThrown() throws SpikeException {
         String input = "deadline  /by 2024-08-28T00:00";
         Command error = Parser.parse(input);
-        assertEquals("Please enter a valid deadline description followed by " +
-                "/by yyyy-MM-dd'T'HH:mm:ss <due date, time>", error.getCommandType());
+        assertEquals("Please enter a valid deadline description followed by "
+                + "/by yyyy-MM-dd'T'HH:mm:ss <due date, time>", error.getCommandType());
     }
 
     @Test
     public void parseDeadline_missingDateTime_exceptionThrown() throws SpikeException {
         String input = "deadline do homework /by ";
         Command error = Parser.parse(input);
-        assertEquals("Please enter a valid deadline in the right format: " +
-                "deadline description /by yyyy-MM-dd'T'HH:mm:ss <due date, time>", error.getCommandType());
+        assertEquals("Please enter a valid deadline in the right format: "
+                + "deadline description /by yyyy-MM-dd'T'HH:mm:ss <due date, time>", error.getCommandType());
     }
 
     @Test

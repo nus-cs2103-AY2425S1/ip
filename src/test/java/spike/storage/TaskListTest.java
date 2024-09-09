@@ -1,10 +1,11 @@
 package spike.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import spike.exceptions.SpikeException;
 import spike.tasks.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 
