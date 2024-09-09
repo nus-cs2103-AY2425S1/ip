@@ -44,30 +44,6 @@ public class TaskList extends ArrayList<Task> {
         tasks.get(num - 1).markUndone();
     }
 
-    /**
-     * Prints all tasks stored in the list.
-     */
-    public void printList() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i).stringValue());
-        }
-    }
-
-    /**
-     * Searches and prints all the matched tasks.
-     *
-     * @param string the matching key phrase.
-     */
-    public void searchList(String string) {
-        int counter = 1;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDesc().contains(string)) {
-                System.out.println(String.valueOf(counter) + ". " + tasks.get(i).stringValue());
-                counter += 1;
-            }
-        }
-    }
-
     public void initAdd(Task element) {
         tasks.add(element);
     }
