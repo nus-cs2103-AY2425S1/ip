@@ -19,6 +19,8 @@ public class Parser {
             return Command.BYE;
         } else if (input.equals("list")) {
             return Command.LIST;
+        } else if (input.equals("list contacts")) {
+            return Command.LIST_CONTACTS;
         } else if (input.startsWith("mark ")) {
             return Command.MARK;
         } else if (input.startsWith("todo ")) {
@@ -31,6 +33,8 @@ public class Parser {
             return Command.DELETE;
         } else if (input.startsWith("find ")) {
             return Command.FIND;
+        } else if (input.startsWith("contact ")) {
+            return Command.CONTACT;
         } else {
             return Command.UNKNOWN;
         }

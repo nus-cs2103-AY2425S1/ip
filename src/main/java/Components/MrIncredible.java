@@ -5,6 +5,7 @@ import Tasks.Task;
 import Tasks.ToDo;
 import Chatbot.HarddiskStorage;
 import Chatbot.TaskStorage;
+import Chatbot.ContactStorage;
 import Chatbot.Parser;
 import Chatbot.Command;
 import Chatbot.Ui;
@@ -19,6 +20,7 @@ public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
     private static final HarddiskStorage harddiskStorage = new HarddiskStorage("./data/duke.txt");
     private static final TaskStorage taskStorage = new TaskStorage(harddiskStorage);
+    private static final ContactStorage contactStorage = new ContactStorage();
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final Ui ui = new Ui();
     private static final Parser parser = new Parser();
@@ -53,6 +55,12 @@ public class MrIncredible {
             }
             case FIND -> {
                 return findTask(input);
+            }
+            case CONTACT -> {
+                return addContact(input);
+            }
+            case LIST_CONTACTS -> {
+                return listContacts();
             }
             default -> {
                 return ui.handleError("Sorry, I don't recognize that command. Please try again.");
@@ -151,6 +159,28 @@ public class MrIncredible {
         } catch (NumberFormatException e) {
             return ui.showInvalidTaskIdError();
         }
+    }
+
+    public static String addContact(String input) {
+        // Split input by the first space
+        String[] parts = input.split(" ", 3);
+
+        // Ensure there are at least two parts (name and details)
+        if (parts.length < 3) {
+            return "Error: Contact name or details are missing.";
+        }
+
+        String name = parts[1];     // First part is the contact name
+        String details = parts[2];  // Second part is the contact details
+
+        // Add contact to the storage
+        contactStorage.addContact(name, details);
+
+        return "Contact added: " + name + " -> " + details;
+    }
+
+    public static String listContacts(){
+        return contactStorage.listContacts();
     }
 
     public static String listTasks() {
