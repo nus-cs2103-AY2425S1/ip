@@ -2,6 +2,7 @@ package taskon.parser;
 
 import static taskon.common.Messages.MESSAGE_DATE_MISSING;
 import static taskon.common.Messages.MESSAGE_DESCRIPTION_MISSING;
+import static taskon.common.Messages.MESSAGE_HELP;
 import static taskon.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static taskon.common.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static taskon.common.Messages.MESSAGE_INVALID_INTEGER;
@@ -45,13 +46,18 @@ public class Parser {
      * @throws TaskonException If the user input does not conform to the expected format.
      */
     public static Command parse(String input) throws TaskonException {
+
+        assert input != null : "Input string should not be null";
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        assert !commandWord.isEmpty() : "Command word should not be empty";
 
         switch (commandWord) {
 
@@ -86,7 +92,7 @@ public class Parser {
             return new FindCommand(arguments.trim());
 
         default:
-            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
 
         }
     }
@@ -99,6 +105,7 @@ public class Parser {
      * @throws TaskonException If the task number is not a valid integer.
      */
     private static Command prepareDelete(String arguments) throws TaskonException {
+        assert arguments != null : "Arguments for delete command should not be empty";
         try {
             int index = Integer.parseInt(arguments.trim());
             return new DeleteCommand(index - 1);
@@ -115,6 +122,7 @@ public class Parser {
      * @throws TaskonException If the task number is not a valid integer.
      */
     private static Command prepareUnmark(String arguments) throws TaskonException {
+        assert arguments != null : "Arguments for unmark command should not be empty";
         try {
             int index = Integer.parseInt(arguments.trim());
             return new UnmarkCommand(index - 1);
@@ -131,6 +139,7 @@ public class Parser {
      * @throws TaskonException If the task number is not a valid integer.
      */
     private static Command prepareMark(String arguments) throws TaskonException {
+        assert arguments != null : "Arguments for mark command should not be empty";
         try {
             int index = Integer.parseInt(arguments.trim());
             return new MarkCommand(index - 1);
@@ -147,6 +156,7 @@ public class Parser {
      * @throws TaskonException If the description is missing.
      */
     private static Command prepareTodo(String args) throws TaskonException {
+        assert args != null : "Arguments for todo command should not be empty";
         if (args.trim().isEmpty()) {
             throw new TaskonException(MESSAGE_DESCRIPTION_MISSING);
         }
@@ -161,6 +171,7 @@ public class Parser {
      * @throws TaskonException If the date is missing or invalid.
      */
     private static Command prepareDeadline(String args) throws TaskonException {
+        assert args != null : "Arguments for deadline command should not be empty";
         if (!args.contains("/by")) {
             throw new TaskonException(MESSAGE_DATE_MISSING);
         }
@@ -185,15 +196,17 @@ public class Parser {
      * @throws TaskonException If the command format is incorrect or if the date is invalid.
      */
     private static Command prepareEvent(String args) throws TaskonException {
+        assert args != null : "Arguments for event command should not be empty";
+
         String[] partsFrom = args.split("/from", 2);
         if (partsFrom.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
         }
 
         String description = partsFrom[0].trim();
         String[] partsTo = partsFrom[1].split("/to", 2);
         if (partsTo.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
         }
 
         String from = partsTo[0].trim();
