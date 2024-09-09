@@ -89,7 +89,7 @@ public class Gui {
     }
 
     /**
-     * Exits program after printing goodbye text.
+     * Prepare goodbye text for printing.
      */
     public void exit() {
         sc.close();

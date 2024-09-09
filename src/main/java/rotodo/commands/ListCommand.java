@@ -14,6 +14,8 @@ import rotodo.tasklist.TaskList;
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList tl, Gui ui, Storage st) {
+        assert ui != null;
+        assert tl != null;
         ui.addMessage(tl.toString());
     }
 }
