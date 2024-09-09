@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
 
 
 /**
@@ -110,15 +108,18 @@ public class Events extends Task {
 
         if (beginningDateTime != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + beginningDateTime.format(dateTimeFormatter) + "|" + endingDateTime.format(dateTimeFormatter);
+                    + beginningDateTime.format(dateTimeFormatter) + "|"
+                    + endingDateTime.format(dateTimeFormatter) + "|" + tag;
         } else if (beginningDate != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + beginningDate.format(dateFormatter) + "|" + endingDate.format(dateFormatter);
+                    + beginningDate.format(dateFormatter) + "|"
+                    + endingDate.format(dateFormatter) + "|" + tag;
         } else if (beginningTime != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + beginningTime.format(timeFormatter) + "|" + endingTime.format(timeFormatter);
+                    + beginningTime.format(timeFormatter) + "|"
+                    + endingTime.format(timeFormatter) + "|" + tag;
         } else {
-            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to;
+            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to + "|" + tag;
         }
         return fromToTimeString;
     }
