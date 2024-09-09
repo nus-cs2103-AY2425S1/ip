@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
+/**
+ * The Main class which runs the program
+ */
 public class Main extends Application {
 
     private BitBot bitbot;
