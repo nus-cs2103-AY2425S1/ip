@@ -1,7 +1,7 @@
 package spike.commands;
 
-import spike.storage.TaskList;
 import spike.storage.Storage;
+import spike.storage.TaskList;
 import spike.ui.Ui;
 
 /**

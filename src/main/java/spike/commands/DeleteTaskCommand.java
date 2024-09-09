@@ -1,10 +1,10 @@
 package spike.commands;
 
-import spike.storage.TaskList;
-import spike.storage.Storage;
-import spike.ui.Ui;
 import spike.exceptions.SpikeException;
+import spike.storage.Storage;
+import spike.storage.TaskList;
 import spike.tasks.Task;
+import spike.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.

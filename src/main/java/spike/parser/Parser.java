@@ -1,5 +1,8 @@
 package spike.parser;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 import spike.commands.AddTaskCommand;
 import spike.commands.ByeCommand;
 import spike.commands.Command;
@@ -11,13 +14,10 @@ import spike.commands.ListByDateCommand;
 import spike.commands.ListCommand;
 import spike.commands.MarkCommand;
 import spike.commands.UnmarkCommand;
+import spike.exceptions.SpikeException;
 import spike.tasks.Deadline;
 import spike.tasks.Event;
 import spike.tasks.ToDo;
-import spike.exceptions.SpikeException;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 
 /**
  * Represents a parser that parses user input and returns the corresponding command.
@@ -62,11 +62,12 @@ public class Parser {
                 return addEvent(inputSplit[1]);
             case ERROR:
                 return new ErrorCommand("Please enter a valid command");
+            default:
+                return new ErrorCommand("Please enter a valid command");
             }
         } catch (SpikeException e) {
             return new ErrorCommand(e.getMessage());
         }
-        return new ErrorCommand("Please enter a valid command");
     }
 
     private static InputType parseInput(String input) {
@@ -95,7 +96,7 @@ public class Parser {
         }
     }
 
-    private static void checkDescription (String[] inputArray, String inputType) throws SpikeException {
+    private static void checkDescription(String[] inputArray, String inputType) throws SpikeException {
         if ((inputArray.length == 1) || (inputArray[1].isEmpty())) {
             throw new SpikeException("The description of a " + inputType + " cannot be empty.");
         }
@@ -138,25 +139,27 @@ public class Parser {
 
         if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             if (parts[0].trim().isEmpty()) {
-                throw new SpikeException("Please enter a valid event description followed by " +
-                        "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> " +
-                        "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
+                throw new SpikeException("Please enter a valid event description followed by "
+                        + "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> "
+                        + "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
             }
-            throw new SpikeException("Please enter a valid event in the right format: event description " +
-                    "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> " +
-                    "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
+            throw new SpikeException("Please enter a valid event in the right format: event description "
+                    + "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> "
+                    + "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
         }
 
         try {
             LocalDateTime start = LocalDateTime.parse(parts[1].trim());
             LocalDateTime end = LocalDateTime.parse(parts[2].trim());
             if (start.isAfter(end)) {
-                throw new SpikeException("Please enter a valid event with a start date and time that is before the end date and time");
+                throw new SpikeException("Please enter a valid event with a start date and time "
+                        + "that is before the end date and time");
             }
             Event formattedEvent = new Event(parts[0].trim(), start, end);
             return new AddTaskCommand(formattedEvent);
         } catch (DateTimeException e) {
-            throw new SpikeException("Please enter a valid event with a start date and time followed by /to end date and time");
+            throw new SpikeException("Please enter a valid event with a start date and time "
+                    + "followed by /to end date and time");
         }
     }
 
@@ -165,11 +168,11 @@ public class Parser {
 
         if (split.length != 2 || split[0].trim().isEmpty() || split[1].trim().isEmpty()) {
             if (split.length != 2 || split[1].trim().isEmpty()) {
-                throw new SpikeException("Please enter a valid deadline in the right format: " +
-                        "deadline description /by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
+                throw new SpikeException("Please enter a valid deadline in the right format: "
+                        + "deadline description /by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
             }
-            throw new SpikeException("Please enter a valid deadline description followed by " +
-                    "/by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
+            throw new SpikeException("Please enter a valid deadline description followed by "
+                    + "/by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
         }
 
         try {

@@ -1,9 +1,9 @@
 package spike.ui;
 
-import spike.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import spike.tasks.Task;
 
 /**
  * Represents the User Interface of the application.

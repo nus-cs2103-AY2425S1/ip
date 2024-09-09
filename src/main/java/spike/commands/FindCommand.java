@@ -40,9 +40,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
-            TaskList matchingTasks = tasks.findTask(this.keyword);
-            ui.showTaskList(matchingTasks.getAllTasks());
-            storage.writeToFile(tasks);
+        TaskList matchingTasks = tasks.findTask(this.keyword);
+        ui.showTaskList(matchingTasks.getAllTasks());
+        storage.writeToFile(tasks);
     }
 
     /**

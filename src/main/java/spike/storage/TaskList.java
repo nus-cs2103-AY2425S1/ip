@@ -1,19 +1,27 @@
 package spike.storage;
 
-import spike.exceptions.SpikeException;
-import spike.tasks.Task;
-import spike.tasks.Deadline;
-import spike.tasks.Event;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import spike.exceptions.SpikeException;
+import spike.tasks.Deadline;
+import spike.tasks.Event;
+import spike.tasks.Task;
+
 /**
  * Represents the user's list of tasks.
  */
 public class TaskList {
+    private static final Comparator<Task> dateComparator = new Comparator<Task>() {
+        @Override
+        public int compare(Task t1, Task t2) {
+            LocalDateTime date1 = t1 instanceof Deadline ? ((Deadline) t1).getDate() : ((Event) t1).getFrom();
+            LocalDateTime date2 = t2 instanceof Deadline ? ((Deadline) t2).getDate() : ((Event) t2).getFrom();
+            return date1.compareTo(date2);
+        }
+    };
     private ArrayList<Task> tasks;
 
     /**
@@ -88,7 +96,7 @@ public class TaskList {
      * @return The task that was deleted.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public Task deleteTask(int index) throws IndexOutOfBoundsException{
+    public Task deleteTask(int index) throws IndexOutOfBoundsException {
         return tasks.remove(index);
     }
 
@@ -120,7 +128,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public void markTaskDone(int index) throws IndexOutOfBoundsException{
+    public void markTaskDone(int index) throws IndexOutOfBoundsException {
         tasks.get(index).markAsDone();
     }
 
@@ -133,15 +141,6 @@ public class TaskList {
     public void markTaskUndone(int index) throws IndexOutOfBoundsException {
         tasks.get(index).markAsUndone();
     }
-
-    private static final Comparator<Task> dateComparator = new Comparator<Task>() {
-        @Override
-        public int compare(Task t1, Task t2) {
-            LocalDateTime date1 = t1 instanceof Deadline ? ((Deadline) t1).getDate() : ((Event) t1).getFrom();
-            LocalDateTime date2 = t2 instanceof Deadline ? ((Deadline) t2).getDate() : ((Event) t2).getFrom();
-            return date1.compareTo(date2);
-        }
-    };
 
     /**
      * Returns a list of user's deadlines and events sorted by date (if applicable).
