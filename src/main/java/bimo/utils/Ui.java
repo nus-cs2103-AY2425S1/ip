@@ -1,6 +1,7 @@
 package bimo.utils;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import bimo.tasks.Task;
 
@@ -102,23 +103,6 @@ public class Ui {
     }
 
     /**
-     * Creates String representation of list of tasks containing
-     * specified words.
-     *
-     * @param results List of specified tasks.
-     * @return String representation of tasks with numbering.
-     */
-    public String printResultsList(ArrayList<Task> results) {
-        String response = "These are the matching tasks in your list:";
-        for (int i = 0; i < results.size(); i++) {
-            String taskMessage = String.format("\n    %d. %s", i + 1,
-                    results.get(i).toString());
-            response += taskMessage;
-        }
-        return response;
-    }
-
-    /**
      * Creates response for marking task as completed.
      *
      * @param task Task marked as completed.
@@ -184,6 +168,22 @@ public class Ui {
     public String printInvalidCommandMessage() {
         String response = "Take a look at this!\n"
                 + getListOfCommands();
+        return response;
+    }
+
+    /**
+     * Creates String representation of list of tasks containing
+     * specified words.
+     *
+     * @param results List of specified tasks.
+     * @return String representation of tasks with numbering.
+     */
+    public String printResultsList(ArrayList<Task> results) {
+        String message = "Here are the matching tasks in your list:";
+        String response = IntStream.range(1, results.size())
+                .mapToObj(index -> String.format("\n    %d. %s", index,
+                        results.get(index - 1).toString()))
+                .reduce(message, (res, next) -> res + next);
         return response;
     }
 
