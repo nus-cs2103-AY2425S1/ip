@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static hypebot.common.Messages.EVENT_TIME_PARSE_ERROR;
+import static hypebot.common.Messages.*;
 
 /**
  * Represents an Event type Task with a LocalDateTime type start time and an end time.
@@ -17,6 +17,14 @@ public class Event extends Task {
     private LocalDateTime endTime;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    private boolean areInChronologicalOrder(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isBefore(endTime);
+    }
+
+    private boolean hasPassedBy(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isBefore(LocalDateTime.now()) && endTime.isBefore(LocalDateTime.now());
+    }
+
     /**
      * Creates an Event task with the specified name, start time, and end time.
      * If due date entered by user does not follow specific format, throws DateTimeException.
@@ -24,15 +32,22 @@ public class Event extends Task {
      * @param name The name of the event.
      * @param startTimeString The start time of the event.
      * @param endTimeString The end time of the event.
-     * @throws EventTimeDateParseException Thrown if due date entered by user does not follow format 'yyyy-MM-dd HH:mm'.
+     * @throws EventDateTimeParseException Thrown if due date entered by user does not follow format 'yyyy-MM-dd HH:mm'.
      */
-    public Event(String name, String startTimeString, String endTimeString) throws EventTimeDateParseException {
+    public Event(String name, String startTimeString, String endTimeString)
+            throws EventDateTimeParseException, IllegalArgumentException {
         super(name);
         try {
-            startTime = LocalDateTime.parse(startTimeString, formatter);
-            endTime = LocalDateTime.parse(endTimeString, formatter);
+            LocalDateTime tempStartTime = LocalDateTime.parse(startTimeString, formatter);
+            LocalDateTime tempEndTime = LocalDateTime.parse(endTimeString, formatter);
+            if (!areInChronologicalOrder(tempStartTime, tempEndTime)) {
+                throw new IllegalArgumentException(EVENT_TIMES_NOT_IN_ORDER_ERROR);
+            }
+            if (hasPassedBy(tempStartTime, tempEndTime)) {
+                throw new IllegalArgumentException(EVENT_TIME_PASSED_ERROR);
+            }
         } catch (DateTimeParseException e) {
-            throw new EventTimeDateParseException(EVENT_TIME_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+            throw new EventDateTimeParseException(EVENT_TIME_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
         }
     }
 

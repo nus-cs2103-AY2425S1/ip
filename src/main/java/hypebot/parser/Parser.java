@@ -11,7 +11,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static hypebot.common.Messages.*;
+import static hypebot.common.Messages.DUE_DATE_MISSING_ERROR;
+import static hypebot.common.Messages.EVENT_TIME_MISSING_ERROR;
+import static hypebot.common.Messages.SEARCH_DATE_MISSING_ERROR;
+import static hypebot.common.Messages.SEARCH_DATE_PARSE_ERROR;
+import static hypebot.common.Messages.TASK_NAME_EMPTY_ERROR;
+import static hypebot.common.Messages.TASK_NUMBER_TO_DELETE_MISSING_ERROR;
+import static hypebot.common.Messages.TASK_NUMBER_TO_MARK_MISSING_ERROR;
+import static hypebot.common.Messages.TASK_NUMBER_TO_UNMARK_MISSING_ERROR;
 
 public class Parser {
     private static final int INDEX_OFFSET = 1;

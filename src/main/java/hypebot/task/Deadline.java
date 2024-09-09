@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static hypebot.common.Messages.DUE_DATE_PARSE_ERROR;
+import static hypebot.common.Messages.DUE_DATE_PASSED_ERROR;
 
 /**
  * Represents a Deadline type Task with a LocalDateTime type due date.
@@ -22,10 +23,14 @@ public class Deadline extends Task {
      * @param dueDateString The due date of the deadline in String form.
      * @throws DueDateParseException
      */
-    public Deadline(String name, String dueDateString) throws DueDateParseException {
+    public Deadline(String name, String dueDateString) throws DueDateParseException, IllegalArgumentException {
         super(name);
         try {
-            this.dueDate = LocalDate.parse(dueDateString, formatter);
+            LocalDate tempDate = LocalDate.parse(dueDateString, formatter);
+            if (tempDate.isBefore(LocalDate.now())) {
+                throw new IllegalArgumentException(DUE_DATE_PASSED_ERROR);
+            }
+            dueDate = tempDate;
         } catch (DateTimeParseException e) {
             throw new DueDateParseException(DUE_DATE_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
         }
