@@ -2,6 +2,7 @@ package deez;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +51,6 @@ public class Parser {
         // Parse properties
         Matcher propsMatcher = PROPS_REGEX.matcher(propString);
         Matcher nameMatcher = NAME_REGEX.matcher(propString);
-
         Matcher tagsMatcher = TAGS_REGEX.matcher(propString);
 
         while (propsMatcher.find()) {
@@ -60,12 +60,15 @@ public class Parser {
             props.setProperty("name", nameMatcher.group(0).strip());
         }
 
+        String tags = "";
         while (tagsMatcher.find()) {
-            System.out.println("Full match: " + tagsMatcher.group(0));
-            for (int i = 1; i <= tagsMatcher.groupCount(); i++) {
-                System.out.println("Group " + i + ": " + tagsMatcher.group(i));
-            }
+            tags += tagsMatcher.group(1).strip() + ",";
         }
+        if (!tags.isBlank()) {
+            tags = tags.substring(0, tags.length() - 1);
+        }
+
+        props.setProperty("tags", tags);
 
         // Validate properties
         switch (cmd) {

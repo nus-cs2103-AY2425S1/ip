@@ -2,6 +2,8 @@ package deez.tasks;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Abstract class representing a task.
@@ -12,6 +14,8 @@ public abstract class Task implements Serializable {
     protected boolean done;
     protected String description;
 
+    protected String[] tags;
+
     /**
      * Constructor for a task with a given description and done status.
      *
@@ -21,6 +25,7 @@ public abstract class Task implements Serializable {
     public Task(String description, boolean done) {
         this.description = description;
         this.done = done;
+        this.tags = new String[0];
     }
 
     /**
@@ -31,6 +36,7 @@ public abstract class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.done = false;
+        this.tags = new String[0];
     }
 
     /**
@@ -55,7 +61,8 @@ public abstract class Task implements Serializable {
     @Override
     /* Returns a string representation of the task, depending on its done status. */
     public String toString() {
-        return (this.done ? "[X] " : "[ ] ") + this.description;
+        String tagsDescription = Arrays.stream(tags).map(s -> " #" + s).collect(Collectors.joining());
+        return (this.done ? "[X] " : "[ ] ") + this.description + tagsDescription;
     }
 
     /**
@@ -65,5 +72,22 @@ public abstract class Task implements Serializable {
      */
     public boolean isDone() {
         return this.done;
+    }
+    /**
+     * Sets the tags of the task.
+     *
+     * @param tags the new tags to be set
+     */
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * Retrieves the current tags of the task.
+     *
+     * @return an array containing the task's tags
+     */
+    public String[] getTags() {
+        return this.tags;
     }
 }
