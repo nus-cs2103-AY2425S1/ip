@@ -49,7 +49,6 @@ application {
 shadowJar {
     archiveBaseName = "bmo"
     archiveClassifier = null
-    archiveBaseName = "bmo"
 }
 
 checkstyle {
