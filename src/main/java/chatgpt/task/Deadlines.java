@@ -8,9 +8,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ *  The Deadlines class represents a task that has a deadline and
+ *  contains both the task description/task name and deadline.
+ */
 public class Deadlines extends Task {
+    /** Represents the deadline of the task **/
     private LocalDateTime deadline;
 
+    /**
+     * Constructor of a new deadline task that has the task description
+     * and deadline of the given task.
+     *
+     * @param task is the description/task name
+     * @param deadline is the deadline of the given task
+     * @throws ChatBotException if deadline is not given or given in the wrong format
+     */
     public Deadlines(String task, String deadline) throws ChatBotException {
         super(task);
         if (deadline.equals(" ")){
@@ -31,6 +44,14 @@ public class Deadlines extends Task {
 
     }
 
+    /**
+     * Constructor of a deadline task that may be completed and contains the task description
+     * and deadline of the given task.
+     *
+     * @param task is the description/task name
+     * @param deadline is the deadline of hte given task
+     * @throws ChatBotException if deadline is not given or given in the wrong format
+     */
     public Deadlines(String task, String deadline, boolean isCompleted)
             throws ChatBotException {
         super(task, isCompleted);
