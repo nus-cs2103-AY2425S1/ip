@@ -1,0 +1,5 @@
+T | 1 | read book
+D | 1 | return book | 2021-10-15
+T | 0 | watch lecture
+D | 0 | submit proposal | 2024-09-02
+E | 1 | camp | 2024-08-28 to 2024-08-31
