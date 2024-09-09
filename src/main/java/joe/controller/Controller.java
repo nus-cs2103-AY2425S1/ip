@@ -63,6 +63,10 @@ public class Controller {
      */
     public void handleDone(int index) {
         assert store.get(index) != null : "Task does not exist";
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         store.get(index).toggleDone();
         ui.printDoneMessage(store.get(index));
     }
@@ -75,6 +79,10 @@ public class Controller {
      * 
      */
     public void handleUndone(int index) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         store.get(index).toggleDone();
         ui.printUndoneMessage(store.get(index));
     }
@@ -87,6 +95,10 @@ public class Controller {
      * 
      */
     public void handleDelete(int index) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         Task deletedTask = store.get(index);
         store.remove(index);
         ui.printDeleteMessage(deletedTask, store.size());
