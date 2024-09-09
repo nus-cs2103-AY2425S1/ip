@@ -2,10 +2,10 @@ package fret;
 
 import javafx.util.Pair;
 
-import command.Command;
+import ps.Parser;
+import ps.Storage;
 
-import psu.Storage;
-import psu.Parser;
+import command.Command;
 
 import task.TaskList;
 
