@@ -32,6 +32,11 @@ public class Storage {
         this.filePath = filePath;
         this.listForDisk = new ArrayList<>(100);
     }
+    /**
+     * Gets the file path where tasks are stored.
+     *
+     * @return The file path.
+     */
     public static String getFilePath() {
         return filePath;
     }
@@ -39,21 +44,32 @@ public class Storage {
     /**
      * Writes the given list of tasks to the file. Each task is converted to a
      * string format suitable for storage and then written to the file.
+     * The existing file is cleared before writing the new list.
      *
      * @param local The TaskList containing the tasks to be saved.
      * @throws Exception If an I/O error occurs while writing to the file.
      */
-    public static void writeToFile(TaskList local) throws Exception {
-        FileWriter fw = new FileWriter(filePath, true);
-        for (int x = 0; x < local.getSize(); x++) {
-            Task currTask = local.get(x);
-            listForDisk.add(currTask.toStore());
+    public static void writeToFile(TaskList local) {
+        File file = new File(filePath);
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+            assert file.length() == 0 : "File is not empty after clearing it";
+        } catch (Exception e) {
+            System.out.println("Your code is super buggy");
         }
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            for (int x = 0; x < local.getSize(); x++) {
+                Task currTask = local.get(x);
+                listForDisk.add(currTask.toStore());
+            }
 
-        for (int x = 0; x < listForDisk.size(); x++) {
-            fw.write(listForDisk.get(x) + System.lineSeparator());
+            for (String s : listForDisk) {
+                fw.write(s + System.lineSeparator());
+            }
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Your code is super buggy");
         }
-        fw.close();
     }
 
     /**
@@ -76,11 +92,6 @@ public class Storage {
             }
         } catch (Exception e) {
             System.out.println("Your code is buggy");
-        }
-        try (FileWriter fw = new FileWriter(filePath, false)) {
-            assert file.length() == 0 : "File is not empty after clearing it";
-        } catch (Exception e) {
-            System.out.println("Your code is super buggy");
         }
         return taskList;
     }
