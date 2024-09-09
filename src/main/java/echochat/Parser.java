@@ -14,6 +14,8 @@ public class Parser {
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
 
+        assert parts.length > 0 : "Input split resulted in an empty array";
+
         if (input.equals("bye")) {
             return new Command(CommandType.EXIT, null, 0);
         } else if (input.equals("list")) {
@@ -42,6 +44,7 @@ public class Parser {
         throw new InvalidCommandError();
     }
 
+
     /**
      * Returns a Command with task type todo/deadline/event type with correct details.
      * @param type either "todo", "deadline" or "event"
@@ -50,7 +53,9 @@ public class Parser {
      * @throws InvalidCommandError
      * @throws EmptyDescriptionError
      */
-    private Command parseTask(String type, String details) throws InvalidCommandError,EmptyDescriptionError {
+    private Command parseTask(String type, String details) throws InvalidCommandError, EmptyDescriptionError {
+
+        assert type.equals("todo") || type.equals("deadline") || type.equals("event") : "Unknown task type: " + type;
 
         String description = "";
         String by = null;
@@ -78,10 +83,6 @@ public class Parser {
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
         }
-//        System.out.println("by " + by);
-//        System.out.println("from " + from);
-//        System.out.println("to " + to);
-
 
         Task task = null;
         switch (type) {
@@ -89,20 +90,18 @@ public class Parser {
             task = new Todo(description);
             break;
         case "deadline":
-            if (by == null) {
-                throw new InvalidCommandError();
-            }
+            assert by != null : "Deadline task requires a 'by' date";
             task = new Deadline(by, description);
             break;
         case "event":
-            if (to == null || from == null) {
-                throw new InvalidCommandError();
-            }
+            assert from != null && to != null : "Event task requires 'from' and 'to' dates";
             task = new Event(from, to, description);
             break;
         default:
             break;
         }
+
+        assert task != null : "Task should have been initialized for type: " + type;
         return new Command(type.equals("todo") ? CommandType.TODO : type.equals("deadline") ? CommandType.DEADLINE : CommandType.EVENT, description, 0, task);
     }
 }
