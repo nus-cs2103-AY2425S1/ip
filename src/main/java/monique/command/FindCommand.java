@@ -1,6 +1,9 @@
 package monique.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import monique.storage.Storage;
 import monique.task.Task;
@@ -18,7 +21,7 @@ import monique.ui.Ui;
 public class FindCommand extends Command {
 
     private final String[] searchKeys;
-    private String findResults = "";
+    private String foundResults = "";
 
     /**
      * Constructs a {@code FindCommand} with the specified search key.
@@ -28,6 +31,7 @@ public class FindCommand extends Command {
     //Overloaded Constructor
     public FindCommand(String ...searchKeys) {
         super();
+        assert searchKeys.length > 0;
         this.searchKeys = searchKeys;
     }
 
@@ -41,17 +45,14 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //create a new arrayList<Task> for UI to print through
-        ArrayList<Task> resultList = new ArrayList<>();
-        for (Task task: tasks.getTaskList()) {
-            for (String searchKey: searchKeys) {
-                if (task.getDescription().contains(searchKey)) {
-                    resultList.add(task);
-                    break; //exits inner loop, moving on to next task.
-                }
-            }
-        }
-        this.findResults = ui.showFindResults(resultList);
+        // Create a stream that filters tasks based on searchKeys
+        List<Task> resultList = tasks.getTaskList().stream()
+                .filter(task -> Arrays.stream(searchKeys)
+                        .anyMatch(searchKey -> task.getDescription()
+                        .contains(searchKey)))
+                        .collect(Collectors.toList());
+
+        this.foundResults = ui.showFindResults((ArrayList<Task>) resultList);
     }
 
     /**
@@ -72,6 +73,6 @@ public class FindCommand extends Command {
      */
     @Override
     public String getResponse(Ui ui) {
-        return this.findResults;
+        return this.foundResults;
     }
 }

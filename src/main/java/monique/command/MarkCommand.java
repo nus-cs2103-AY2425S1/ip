@@ -10,6 +10,7 @@ import monique.ui.Ui;
  * This command updates the status of a task to completed.
  */
 public class MarkCommand extends Command {
+    public static final int INDEX_OFFSET = 1;
     private final int taskNum;
     private String markMessage = "";
 
@@ -38,9 +39,10 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MarkException {
 
-        if (this.taskNum > tasks.getNumItems() - 1 || this.taskNum < 0) {
+        if (this.taskNum > tasks.getNumItems() - INDEX_OFFSET || this.taskNum < 0) {
             throw new MarkException();
         }
+        assert (this.taskNum < tasks.getNumItems());
         tasks.markTask(this.taskNum);
         this.markMessage = ui.markMessage(tasks.getTask(this.taskNum));
     }
