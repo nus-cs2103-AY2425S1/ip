@@ -2,6 +2,7 @@ package blitz;
 
 import java.util.ArrayList;
 
+import exception.BlitzException;
 import task.Task;
 
 /**
@@ -73,6 +74,22 @@ public class TaskList {
      */
     public ArrayList<Task> getAllTask() {
         return this.list;
+    }
+
+    /**
+     * Converts a list of String into a TaskList by parsing each String into a Task.
+     *
+     * @param list The list of String containing the strings to be converted to Task object.
+     * @return TaskList containing the Task objects converted from the String.
+     */
+    public static TaskList convertStringListToTaskList(ArrayList<String> list) throws BlitzException {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        for (String str : list) {
+            taskList.add(Task.convertStringToTask(str));
+        }
+
+        return new TaskList(taskList);
     }
 
     /**
