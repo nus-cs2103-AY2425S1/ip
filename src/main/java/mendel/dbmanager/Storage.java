@@ -135,7 +135,7 @@ public class Storage {
         }
     }
 
-    private void copyTaskStorageToDb(FileWriter fw, TaskList taskStorage, int counter) throws  ServerError {
+    private void copyTaskStorageToDb(FileWriter fw, TaskList taskStorage, int counter) throws ServerError {
         while (taskStorage.hasTask(counter)) {
             Task task = taskStorage.getTask(counter);
             if (counter == 0) {
