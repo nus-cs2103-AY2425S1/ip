@@ -9,6 +9,35 @@ import bimo.tasks.Task;
  * Deals with interactions with the user.
  */
 public class Ui {
+
+    /**
+     * Creates introduction message when chatbot is first opened.
+     *
+     * @param name Name of chatbot.
+     * @return Response message when chatbot starts.
+     */
+    public String printUserIntroduction(String name) {
+        String introduction = String.format("Hello! I'm %s.", name)
+                + " What can I do for you? \n \n" + getListOfCommands();
+        return introduction;
+    }
+
+    /**
+     * Retrieves the list of  commands currently available.
+     *
+     * @return list of commands.
+     */
+    private String getListOfCommands() {
+        String list = "Available commands:\n\n"
+                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
+                + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
+                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
+                + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
+                + "8. list\n\n"
+                + "9. bye\n";
+        return list;
+    }
+
     /**
      * Displays error message for invalid tasks index.
      */

@@ -44,32 +44,15 @@ public class Bimo {
         }
         return response;
     }
-
     /**
      * Displays introduction to users.
      */
     public String greetUser() {
-        return String.format("Hello! I'm %s.", NAME)
-                + " What can I do for you? \n \n" + getListOfCommands();
+        String introduction = this.ui.printUserIntroduction(NAME);
+        return introduction;
     }
-
     /**
-     * Retrieves the list of  commands currently available.
-     *
-     * @return list of commands.
-     */
-    private String getListOfCommands() {
-        return "Available commands:\n\n"
-                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
-                + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
-                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
-                + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
-                + "8. bye\n";
-    }
-
-    /**
-     * Creates a pause and then closes the javafx window
-     *
+     * Creates a pause and then closes the javafx window.
      */
     private void closeApplication() {
         //Solution below adapted from
