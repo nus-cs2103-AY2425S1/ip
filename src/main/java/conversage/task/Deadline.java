@@ -29,6 +29,7 @@ public class Deadline extends Task{
         } catch (DateTimeParseException e) {
             throw new ConverSageException("Invalid date/time format! Please use this format: yyyy-MM-dd HHmm");
         }
+        assert deadline != null : "Deadline should be parsed correctly";
 
     }
 

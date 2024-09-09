@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
+        assert taskIndex > 0 && taskIndex < tasks.size(_): "Task index should be within valid range";
         Task task = tasks.getTask(taskIndex - 1); // since tasks are 0-indexed
         task.markAsDone();
         ui.showLine();

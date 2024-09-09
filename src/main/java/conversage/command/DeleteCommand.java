@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
-        
+        assert toDel > 0 && toDel <= tasks.size() : "Task index should be within valid range";
         Task toDelTask = tasks.getTask(this.toDel - 1);
         tasks.deleteTask(toDel - 1);
         ui.showLine();
