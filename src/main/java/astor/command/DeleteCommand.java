@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
         String formattedString = info.substring(6).trim();
         int indexC = -1;
         try {
@@ -30,7 +30,9 @@ public class DeleteCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DeleteTaskNumberException();
         }
-        taskList.deleteTask(indexC, storage);
+        String output = taskList.deleteTask(indexC, storage);
+        ui.showOutput(output);
+        return output;
     }
 
     @Override

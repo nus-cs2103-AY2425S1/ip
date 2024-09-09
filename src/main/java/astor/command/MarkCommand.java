@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
         int indexB = 0;
         String formattedString = info.substring(4).trim();
         try {
@@ -32,6 +32,7 @@ public class MarkCommand extends Command {
         }
         String output = taskList.markTaskDone(indexB, storage);
         ui.showOutput(output);
+        return output;
     }
 
     @Override

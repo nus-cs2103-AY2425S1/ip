@@ -57,6 +57,19 @@ public class Astor {
         }
     }
 
+    public String getResponse(String input) {
+        String output = "";
+        try {
+            Command c = Parser.process(input);
+            output = c.execute(taskList, ui, storage);
+        } catch (AstorException e) {
+            output = e.getMessage();
+        } catch (IOException e) {
+            output = "An error occurred while writing to the file.";
+        }
+        return output;
+    }
+
     /**
      * The entry point of the application.
      *
@@ -65,6 +78,7 @@ public class Astor {
      *
      * @param args command-line arguments
      */
+
     public static void main(String[] args) {
         Astor astor = new Astor(Astor.DESTINATION_STORAGE);
         astor.run();

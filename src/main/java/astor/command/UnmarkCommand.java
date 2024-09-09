@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
 
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
         int index = -1;
         String formattedString = info.substring(6).trim();
         try {
@@ -34,6 +34,7 @@ public class UnmarkCommand extends Command {
         }
         String output = taskList.unMarkTaskDone(index, storage);
         ui.showOutput(output);
+        return output;
     }
 
     @Override

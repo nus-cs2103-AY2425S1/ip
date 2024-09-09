@@ -14,9 +14,11 @@ import java.io.IOException;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         storage.completeModification();
-        ui.showOutput("Bye. Hope to see you again!");
+        String output = "Bye. Hope to see you again!";
+        ui.showOutput(output);
+        return output;
     }
 
     @Override

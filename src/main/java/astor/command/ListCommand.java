@@ -12,8 +12,10 @@ import astor.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showOutput("Here are the tasks in your list:" + taskList.getTaskList());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "Here are the tasks in your list:" + taskList.getTaskList();
+        ui.showOutput(output);
+        return output;
     }
 
     @Override
