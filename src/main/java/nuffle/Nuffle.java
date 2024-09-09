@@ -9,7 +9,6 @@ import nuffle.task.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Nuffle {
     private Storage storage;
@@ -18,11 +17,17 @@ public class Nuffle {
 
     private Ui ui;
 
+
     public Nuffle(String filePath) {
         try {
             this.storage = new Storage(filePath);
             this.inputList = new TaskList(this.storage.load());
             this.ui = new Ui();
+
+            // ensure that the storage, task list object is not null
+            assert this.storage != null;
+            assert this.inputList != null;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,6 +57,7 @@ public class Nuffle {
      * @param index the index of the task to mark
      */
     private String markTask(int index) {
+        assert index >= 0 && index < inputList.getSize() : "Index should be within the range of the input list";
         String response;
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
@@ -91,6 +97,7 @@ public class Nuffle {
      * @param task which is Task object
      */
     private String addTaskToList(Task task) {
+        assert task != null : "Task should not be null before adding to the list";
         inputList.addTask(task);
         return ui.addTaskMessage(task, inputList.getSize());
     }
@@ -111,16 +118,14 @@ public class Nuffle {
         }
     }
 
-    public String greetUser() {
-        return ui.printWelcomeMessage();
-    }
-
     public String getResponse(String input) throws IOException {
+        assert input != null && !input.trim().isEmpty() : "User input should not be null or empty";
         return responseHandler(input);
     }
 
     public String responseHandler(String userInput) throws IOException {
-        String response = null;
+        assert userInput != null && !userInput.trim().isEmpty() : "User input should not be null or empty";
+        String response;
 
         try {
             // Check if the user input provided is "bye", has to be lowercase
@@ -148,21 +153,21 @@ public class Nuffle {
                 response = deleteTask(index);
             } else if (userInput.startsWith("todo")) {
                 Task newTask = Parser.parseTodoCommand(userInput);
-                if (newTask != null) {
-                    response = addTaskToList(newTask);
-                }
+                assert newTask != null : "Parsed Todo task should not be null";
+                response = addTaskToList(newTask);
+
             } else if (userInput.startsWith("deadline")) {
                 // Program will add a deadline task to the list
                 Task newTask = Parser.parseDeadlineCommand(userInput);
-                if (newTask != null) {
-                    response = addTaskToList(newTask);
-                }
+                assert newTask != null : "Parsed deadline task should not be null";
+                response = addTaskToList(newTask);
+
             } else if (userInput.startsWith("event")) {
                 // Program will add an event task to the list
                 Task newTask = Parser.parseEventCommand(userInput);
-                if (newTask != null) {
-                    response = addTaskToList(newTask);
-                }
+                assert newTask != null : "Parsed event task should not be null";
+                response = addTaskToList(newTask);
+
             } else if (userInput.startsWith("find")) {
                 // get the description and parse as argument to the find function
                 ArrayList<Task> foundTasks = Parser.parseFindCommand(userInput, inputList);

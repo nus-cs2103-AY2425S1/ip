@@ -1,5 +1,6 @@
 package nuffle;
 
+import nuffle.exception.NuffleException;
 import nuffle.parser.Parser;
 import nuffle.task.Deadline;
 import nuffle.task.Task;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class parserTest {
     @Test
-    void parseReturnCorrectCommand() {
+    void parseReturnCorrectCommand() throws NuffleException {
         String userInput = "deadline submit homework /by 2024-09-15 2359";
         Task newTask = Parser.parseDeadlineCommand(userInput);
 

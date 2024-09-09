@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void displayGreeting() {
-        String greeting = this.ui.welcomeMessage(); // Assume this method returns a greeting message
+        String greeting = this.ui.printWelcomeMessage(); // Assume this method returns a greeting message
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(greeting, dukeImage) // Display greeting from Duke
         );

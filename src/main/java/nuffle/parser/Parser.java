@@ -41,16 +41,19 @@ public class Parser {
      * @return A Deadline task object, or null if there is an error in the command format.
      */
     public static Task parseDeadlineCommand(String command) throws NuffleException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
         if (!command.contains("/by")) {
             throw NuffleException.checkDeadlineFormat();
         }
         String[] desc = command.substring(8).split(" /by ");
+        assert desc.length > 0 : "description array should have at least one element.";
         if (command.substring(8).trim().isEmpty()) {
             throw NuffleException.noDesc("deadline");
         }
         if (desc.length < 2 || desc[1].trim().isEmpty()) {
             throw NuffleException.checkDeadlineParams();
         }
+        assert !desc[1].equals("") : "DateTime strings for event should not be null";
         // check that the date input is of the correct format (yyyy-mm-dd hhmm)
         if (!isValidateDateTimeFormat(desc[1])) {
             throw NuffleException.checkDateTimeFormat();
@@ -71,6 +74,7 @@ public class Parser {
      * @return A Todo task object, or null if there is an error in the command format.
      */
     public static Task parseTodoCommand(String command) throws NuffleException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty";
         // Program will add a To-do task to the list
 
         String desc = command.substring(4);
@@ -88,6 +92,7 @@ public class Parser {
      * @return An Event task object, or null if there is an error in the command format.
      */
     public static Task parseEventCommand(String command) throws NuffleException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty";
         // Program will add an event task to the list
 
         if (!(command.contains("/from") || command.contains("/to"))) {
@@ -103,6 +108,7 @@ public class Parser {
         if (desc.length < 3 || desc[1].trim().isEmpty() || desc[2].trim().isEmpty()) {
             throw NuffleException.checkEventParams();
         }
+        assert !desc[1].equals("") && !desc[2].equals("") : "DateTime strings for event should not be null";
         // check that the date input is of the correct format (yyyy-mm-dd hhmm)
         if (!isValidateDateTimeFormat(desc[1]) || !isValidateDateTimeFormat(desc[2])) {
             throw NuffleException.checkDateTimeFormat();
@@ -117,6 +123,8 @@ public class Parser {
     }
 
     public static ArrayList<Task> parseFindCommand(String command, TaskList inputList) {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty";
+        assert inputList != null : "Task list should not be null";
         String desc = command.substring(4).trim();
         return inputList.findTasksByKeyword(desc);
     }
