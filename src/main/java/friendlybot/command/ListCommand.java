@@ -38,4 +38,9 @@ public class ListCommand extends Command {
         }
         return sb.toString();
     }
+
+    @Override
+    public String toString() {
+        return "list - Displays all tasks.";
+    }
 }

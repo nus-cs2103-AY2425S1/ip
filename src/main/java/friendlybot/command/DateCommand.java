@@ -24,6 +24,11 @@ public class DateCommand extends Command {
     }
 
     /**
+     * An empty constructor for DateCommand, used to display the command format.
+     */
+    public DateCommand() {};
+
+    /**
      * Prints a list of tasks that happen on the given date upon execution.
      *
      * @param tasks An instance of TaskList where the new task is added to.
@@ -50,5 +55,10 @@ public class DateCommand extends Command {
         }
         Ui.print(sb.toString());
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "date <date> - Finds deadline and event tasks that fall on the provided date.";
     }
 }

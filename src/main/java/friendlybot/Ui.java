@@ -4,6 +4,8 @@ package friendlybot;
  * Ui deals with the interactions between FriendlyBot and the user.
  */
 public class Ui {
+    private static String exitMessage = "Bye. Hope to see you again soon!";
+
     /**
      * Prints the given String input with an indentation of 4 spaces.
      * @param str The String output that FriendlyBot wants to give the user.
@@ -26,10 +28,16 @@ public class Ui {
     /**
      * Prints an exit message for the user, when the user wishes to exit FriendlyBot.
      */
-    public String exitMessage() {
-        String exitMessage = "Bye. Hope to see you again soon!";
-        Ui.print(exitMessage);
-        return exitMessage;
+    public String printExitMessage() {
+        Ui.print(Ui.exitMessage);
+        return Ui.exitMessage;
+    }
+
+    /**
+     * Returns the exit message of Ui
+     */
+    public static String getExitMessage() {
+        return Ui.exitMessage;
     }
 
     /**
