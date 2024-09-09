@@ -54,4 +54,16 @@ public abstract class Task {
 
         return res.toString();
     }
+
+
+    /**
+     * Adds all tags to task.
+     * Returns whether the tags were successfully added to task or not
+     *
+     * @param tags The string array of tags to add to the task.
+     * @return Boolean value to indicate success of method
+     */
+    public boolean addTags(String[] tags) {
+        return false;
+    }
 }
