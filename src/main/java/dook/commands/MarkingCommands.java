@@ -40,6 +40,9 @@ public class MarkingCommands extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+
+        assert taskNumber >= 0 && taskNumber < tasks.numOfTasks() : "Task number out of range: " + taskNumber;
+
         Task task = tasks.getTask(taskNumber - 1);
         ui.separate();
         String message;

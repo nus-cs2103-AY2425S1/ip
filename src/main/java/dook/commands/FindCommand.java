@@ -39,6 +39,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
+        assert !this.keyword.isEmpty() : "Keyword is empty";
         if (this.keyword.isEmpty()) {
             throw new DookException("Provide a keyword");
         }
