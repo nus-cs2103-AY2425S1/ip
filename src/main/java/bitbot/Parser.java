@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Parser class helps to parse the input and extract out the necessary data such as
@@ -50,15 +52,11 @@ public class Parser {
      * @return a String
      */
     static String extractDescription(String[] partsOfInput, String stopKeyword) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < partsOfInput.length; i++) {
-            if (!partsOfInput[i].equals(stopKeyword)) {
-                sb.append(partsOfInput[i]).append(" ");
-            } else {
-                break;
-            }
-        }
-        return sb.toString().trim();
+        return Arrays.stream(partsOfInput) // converts into a stream
+                .skip(1) //skips the first word as that would be the keyword (e.g. find, event, deadline, todo)
+                .takeWhile(part -> !part.equals(stopKeyword)) // takes the element
+                // as long as they do not match stopKeyword
+                .collect(Collectors.joining(" ")); // collects the element of a stream into a String with a space
     }
 
     /**
@@ -69,27 +67,15 @@ public class Parser {
      * @param endKeyword the keyword from which the time String ends
      * @return a String
      */
+    // for the part on Collectors.joining(" ") I had to refer to the javadocs and the example from
+    // https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html
     static String extractTimeDetail(String[] partsOfInput, String startKeyword, String endKeyword) {
-        StringBuilder timeDetail = new StringBuilder();
-        boolean isStartKeywordFound = false;
-
-        for (String part : partsOfInput) {
-            if (isStartKeywordFound) {
-                if (endKeyword != null && part.equals(endKeyword)) {
-                    break;
-                }
-                if (timeDetail.length() > 0) {
-                    timeDetail.append(" ");
-                }
-                timeDetail.append(part);
-
-            }
-            if (part.equals(startKeyword)) {
-                isStartKeywordFound = true;
-            }
-
-        }
-        return timeDetail.toString().trim();
+        return Arrays.stream(partsOfInput) // converts into a stream
+                .dropWhile(part -> !part.equals(startKeyword)) // skips over the elements until the startKeyword
+                .skip(1) // skips the word startKeyword
+                .takeWhile(part -> endKeyword == null || !part.equals(endKeyword)) // takes the element as long as
+                // they do not match endKeyword
+                .collect(Collectors.joining(" ")); // collects the element of a stream into a String with a space
     }
 
     /**
