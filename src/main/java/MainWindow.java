@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
-    private static Image userImage = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
-    private static Image bobbyImage = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
+    private Image bobbyImage = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {

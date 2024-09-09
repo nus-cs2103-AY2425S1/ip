@@ -13,7 +13,7 @@ public class Bobby {
     /**
      * Greeting message displayed when the bot starts
      */
-    private static String START = "Hello! I'm Bobby\n"
+    private static final String START = "Hello! I'm Bobby\n"
             + "What can I do for you?\n";
 
     /**
@@ -85,7 +85,7 @@ public class Bobby {
      *
      * @throws Exception if there is an issue writing to the file.
      */
-    private static String handleBye(String desc) throws Exception {
+    private static String handleBye(String desc) {
         if (desc == null) {
             Storage.writeToFile(taskList);
             return EXIT;
@@ -116,7 +116,9 @@ public class Bobby {
     private static String handleDelete(String desc) {
         try {
             int currIndex = Integer.parseInt(desc);
-            return TaskList.deleteTask(currIndex);
+            String response = TaskList.deleteTask(currIndex);
+            Storage.writeToFile(taskList);
+            return response;
         } catch (Exception e) {
             return RETRY;
         }
@@ -155,7 +157,9 @@ public class Bobby {
                     + " please check which task you want to"
                     + " mark by keying in list! \n";
         }
-        return currTask.markAsDone();
+        String response = currTask.markAsDone();
+        Storage.writeToFile(taskList);
+        return response;
     }
 
     /**
@@ -176,7 +180,9 @@ public class Bobby {
                     + " please check which task you want to"
                     + " unmark by keying in list!\n";
         }
-        return currTask.unMark();
+        String response = currTask.unMark();
+        Storage.writeToFile(taskList);
+        return response;
     }
 
     /**
@@ -190,6 +196,7 @@ public class Bobby {
         }
         ToDos currToDo = new ToDos(desc.trim());
         TaskList.add_task(currToDo);
+        Storage.writeToFile(taskList);
         return "Got it. I've added this task:\n"
                 + currToDo.toString() + "\n"
                 + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
@@ -215,6 +222,7 @@ public class Bobby {
             LocalDateTime by = LocalDateTime.parse(details[1].trim(), formatter);
             Deadlines currDeadline = new Deadlines(details[0].trim(), by);
             TaskList.add_task(currDeadline);
+            Storage.writeToFile(taskList);
             return "Got it. I've added this task:\n"
                     + currDeadline.toString() + "\n"
                     + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
@@ -249,6 +257,7 @@ public class Bobby {
             LocalDateTime to = LocalDateTime.parse(duration[1].trim(), formatter);
             Events currEvent = new Events(details[0].trim(), from, to);
             TaskList.add_task(currEvent);
+            Storage.writeToFile(taskList);
             return "Got it. I've added this task:\n"
                     + currEvent.toString() + "\n"
                     + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
