@@ -43,4 +43,20 @@ public class EventTask extends Task {
     public String toFileString() {
         return "E | " + super.getStatusIcon() + " | " + getDescription() + " | " + start + " | " + end;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        EventTask other = (EventTask) obj;
+        return this.getDescription().equals(other.getDescription()) &&
+                this.start.equals(other.start) &&
+                this.end.equals(other.end) &&
+                this.isDone() == other.isDone(); // Assuming there's an isDone() method in Task class
+    }
+
 }

@@ -42,6 +42,17 @@ public class TaskList {
         this.noOfTask = myList.size();
     }
 
+    private boolean isDuplicate(Task newTask) {
+        for (Task task : myList) {
+            if (task.equals(newTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     /**
      * returns list of task that contains keyword
      *
@@ -105,6 +116,10 @@ public class TaskList {
         }
         else {
             throw new InputErrorException("Unknown task type.");
+        }
+
+        if (isDuplicate(task)) {
+            throw new InputErrorException("Duplicate task entry detected.");
         }
 
         myList.add(task);
