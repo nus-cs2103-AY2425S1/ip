@@ -11,8 +11,8 @@ import evelyn.task.Task;
  * Houses all logic for storing and retrieving data from Evelyn.
  */
 public class Storage {
-    private String dataPathFile;
-    private File file;
+    private String dataPathFile = null;
+    private File file = null;
 
     /**
      * Constructor for a Storage object.
@@ -29,7 +29,8 @@ public class Storage {
      * @throws IOException Exception thrown should there be difficulty carrying out this task.
      */
     public void writeToFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(dataPathFile, true);
+        assert this.dataPathFile != null : "dataPathFile should not be null";
+        FileWriter fw = new FileWriter(this.dataPathFile, true);
         fw.write(task.toString() + System.lineSeparator());
         fw.close();
     }
@@ -39,6 +40,7 @@ public class Storage {
      * @throws IOException
      */
     public void saveData() throws IOException {
+        assert this.file != null : "File object should not be null";
         this.file.delete();
         this.file.createNewFile();
     }

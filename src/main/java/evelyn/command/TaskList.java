@@ -138,17 +138,17 @@ public class TaskList {
      * @param keyword
      */
     public String find(String keyword) {
-        boolean foundSomething = false;
+        boolean hasFoundSomething = false;
         String str = "The following are all tasks and their indexes that contain the keyword: " + keyword + "\n";
         for (int i = 0; i < list.size(); i++) {
             String taskString = list.get(i).toString();
             if (taskString.contains(keyword)) {
-                foundSomething = true;
+                hasFoundSomething = true;
                 str = str + i + ". " + taskString + "\n";
             }
         }
 
-        if (foundSomething) {
+        if (hasFoundSomething) {
             return str;
         } else {
             str = "It seems like there is no task that matches your specified keyword."
