@@ -12,7 +12,7 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Constructor for TaskList
+     * Creates a TaskList object
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -44,18 +44,18 @@ public class TaskList {
     /**
      * Deletes a task from the list. Shows user success message upon completion
      *
-     * @param i task number of task to be deleted from
+     * @param taskIndex task number of task to be deleted from
      * @param ui user interface to give user information
      * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
      */
-    public String deleteTask(int i, Ui ui) throws InvalidTaskException {
+    public String deleteTask(int taskIndex, Ui ui) throws InvalidTaskException {
         String response = "";
         int numberOfTasks = this.taskList.size();
-        if (i <= 0 || i > numberOfTasks) {
+        if (taskIndex <= 0 || taskIndex > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
         }
-        Task task = this.taskList.get(i - 1);
-        this.taskList.remove(i - 1);
+        Task task = this.taskList.get(taskIndex - 1);
+        this.taskList.remove(taskIndex - 1);
         numberOfTasks--;
 
         response += ui.displayString("Deleted: " + task);
@@ -66,17 +66,17 @@ public class TaskList {
     /**
      * Marks task as complete. Shows user success message upon completion.
      *
-     * @param i task number of the task to be marked
+     * @param taskIndex task number of the task to be marked
      * @param ui user interface to give user information
      * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
      */
-    public String markTask(int i, Ui ui) throws InvalidTaskException {
+    public String markTask(int taskIndex, Ui ui) throws InvalidTaskException {
         String response = "";
         int numberOfTasks = this.taskList.size();
-        if (i <= 0 || i > numberOfTasks) {
+        if (taskIndex <= 0 || taskIndex > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
         }
-        Task task = this.taskList.get(i - 1);
+        Task task = this.taskList.get(taskIndex - 1);
         task.markDone();
 
         response += ui.displayString("Good Job! The task is now marked as done: ");
@@ -87,17 +87,17 @@ public class TaskList {
     /**
      * Marks task as not complete. Shows user success message upon completion.
      *
-     * @param i task number of task to be unmarked
+     * @param taskIndex task number of task to be unmarked
      * @param ui user interface to give user information
-     * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
+     * @throws InvalidTaskException if taskIndex < 0  or taskIndex > taskList.getSize()
      */
-    public String unmarkTask(int i, Ui ui) throws InvalidTaskException {
+    public String unmarkTask(int taskIndex, Ui ui) throws InvalidTaskException {
         String response = "";
         int numberOfTasks = this.taskList.size();
-        if (i <= 0 || i > numberOfTasks) {
+        if (taskIndex <= 0 || taskIndex > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
         }
-        Task task = this.taskList.get(i - 1);
+        Task task = this.taskList.get(taskIndex - 1);
         task.markNotDone();
 
         response += ui.displayString("Alright, the task is marked as not done: ");
@@ -155,11 +155,11 @@ public class TaskList {
     /**
      * Method to get a specific tasks
      *
-     * @param i task to get based on index
+     * @param taskIndex task to get based on index
      * @return Task at given index
      */
-    public Task getTask(int i) {
-        return taskList.get(i);
+    public Task getTask(int taskIndex) {
+        return taskList.get(taskIndex);
     }
 
 }

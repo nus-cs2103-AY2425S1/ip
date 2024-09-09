@@ -12,12 +12,12 @@ public class Event extends Task {
     private LocalDateTime endTime;
 
     /**
-     * Constructor for Event
+     * Creates Event object
      *
-     * @param desc description for task to be done
-     * @param startTime start time for task
-     * @param endTime end time for task
-     * @param isDone true if task is done; else false
+     * @param desc description of event to attend
+     * @param startTime start time of event
+     * @param endTime end time of event
+     * @param isDone true if event is done; else false
      */
     public Event(String desc, LocalDateTime startTime, LocalDateTime endTime, boolean isDone) {
         super(desc, isDone);

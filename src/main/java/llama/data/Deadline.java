@@ -11,11 +11,11 @@ public class Deadline extends Task {
     private LocalDateTime endTime;
 
     /**
-     * Constructor for Deadline
+     * Creates a Deadline object
      *
-     * @param desc description of task to be done
-     * @param endTime date and time that task needs to be done by
-     * @param isDone true if task is done; else false
+     * @param desc description of deadline to be done
+     * @param endTime date and time that deadline needs to be done by
+     * @param isDone true if deadline is done; else false
      */
     public Deadline(String desc, LocalDateTime endTime, boolean isDone) {
         super(desc, isDone);
