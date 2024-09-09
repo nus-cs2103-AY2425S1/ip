@@ -65,8 +65,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * prints out the final display of the task details to the user.
-     * @return prints out the final display of the task details to the user.
+     * Prints out the final display of the task details to the user.
+     * @return Prints out the final display of the task details to the user.
      */
     @Override
     public String finalString() {
@@ -82,8 +82,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * prints out the final display of the task details to the file to be stored.
-     * @return prints out the final display of the task details to the file to be stored.
+     * Prints out the final display of the task details to the file to be stored.
+     * @return Prints out the final display of the task details to the file to be stored.
      */
     @Override
     public String toFileFormat() {

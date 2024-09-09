@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * This is the TaskHandling class which deals with the different types of tasks present.
  */
-public class TaskHandling {
+public class TaskHandler {
     /**
      * Handles the event task. It takes in the input
      * and extract out the description, the "from" time and the "to" time.
@@ -254,7 +254,7 @@ public class TaskHandling {
             sb.append(partsOfInput[i]).append(" ");
         }
         textPart = sb.toString().trim();
-        Task toDos = new ToDos(textPart);
+        Task toDos = new Todo(textPart);
         arrayList.add(toDos);
         return "          ____________________________________\n          Got it. I've added this task:\n"
                 + "             " + toDos.finalString() + "\n"
@@ -268,7 +268,7 @@ public class TaskHandling {
      * @return a ToDos
      */
     public static Task handleTodoFromFile(String description) {
-        Task todo = new ToDos(description);
+        Task todo = new Todo(description);
         return todo;
     }
     /**

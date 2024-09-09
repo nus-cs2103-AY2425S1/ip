@@ -11,3 +11,4 @@ T| |go by drink|NIL| NIL
 T|X|go for checkup|NIL| NIL
 T| |go checkup|NIL| NIL
 E|X|go for holiday|Nov 20 2024|Nov 23 2024
+T| |attend tutorial|NIL| NIL

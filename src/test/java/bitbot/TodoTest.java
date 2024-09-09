@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ToDosTest {
+public class TodoTest {
 
-    Task toDos = new ToDos("Do Homework");
+    Task toDos = new Todo("Do Homework");
 
     @Test
     public void correctlySetsStatus() {

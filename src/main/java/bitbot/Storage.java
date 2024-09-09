@@ -116,7 +116,7 @@ public class Storage {
                     break;
 
                 case "T":
-                    task = new ToDos(partsOfLineFromFile[2]);
+                    task = new Todo(partsOfLineFromFile[2]);
                     break;
 
                 case "E":
