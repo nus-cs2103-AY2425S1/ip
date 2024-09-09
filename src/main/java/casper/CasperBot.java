@@ -9,7 +9,7 @@ import exception.CasperBotInvalidCommandException;
 import exception.CasperBotInvalidDateException;
 import exception.CasperBotIoException;
 import exception.CasperBotMissingInputException;
-import exception.CasperBotNumberFormatException;
+import exception.CasperBotOutOfBoundsException;
 
 /**
  * Represents the bot
@@ -57,105 +57,20 @@ public class CasperBot {
      */
     public String getResponse(String input) {
         String[] parsedInputs = this.parser.splitInputIntoTwo(input);
-        String command = parsedInputs[0].toLowerCase();
         try {
-            switch (command) {
-            case "list":
-                return this.ui.displayTaskList(taskList);
-            case "find":
-                if (parsedInputs[1].isBlank()) {
-                    throw new CasperBotMissingInputException("keyword", "find");
-                }
-                TaskList matched = taskList.findMatchTasks(parsedInputs[1]);
-                return this.ui.displayMatchedTasks(matched);
-            case "bye":
-                return this.ui.exit();
-            default:
-                break;
+            String result = this.runSingleWordCommand(parsedInputs);
+            if (!result.isEmpty()) {
+                return result;
             }
-            if (isValidCommand(parsedInputs[0], CommandType.TASK)) {
-                try {
-                    int index = Integer.parseInt(parsedInputs[1]) - 1;
-                    TaskCommand taskCommand = TaskCommand.valueOf(parsedInputs[0].trim().toUpperCase());
-                    Task task = this.taskList.getTask(index);
-                    switch (taskCommand) {
-                    case MARK:
-                        task.markAsDone();
-                        this.storage.updateDoneStatus(index, true);
-                        return this.ui.displayUpdateMessage(Ui.TaskCommand.MARK, task);
-                    case UNMARK:
-                        task.markAsNotDone();
-                        this.storage.updateDoneStatus(index, false);
-                        return this.ui.displayUpdateMessage(Ui.TaskCommand.UNMARK, task);
-                    case DELETE:
-                        this.taskList.deleteTask(task);
-                        this.storage.deleteFromFile(index);
-                        return this.ui.displayUpdateMessage(Ui.TaskCommand.DELETE, task)
-                                + System.lineSeparator()
-                                + this.ui.displayTaskListLength(this.taskList.getNumberOfTasks());
-                    default:
-                        throw new CasperBotInvalidCommandException();
-                    }
-                } catch (NumberFormatException e) {
-                    throw new CasperBotNumberFormatException();
-                }
-            } else if (isValidCommand(parsedInputs[0], CommandType.CREATE)) {
-                HashMap<String, String> hashMap = new HashMap<>();
-                this.parser.parseBySlash(parsedInputs[1], hashMap);
-                CreateCommand createCommand = CreateCommand.valueOf(parsedInputs[0].trim().toUpperCase());
-                try {
-                    switch (createCommand) {
-                    case TODO:
-                        String todoDescription = hashMap.get("description");
-                        if (todoDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "ToDo");
-                        }
-                        ToDo newToDo = new ToDo(todoDescription, false);
-                        this.taskList.addTask(newToDo);
-                        this.storage.writeToFile(newToDo);
-                        return this.ui.addTaskMessage(newToDo, this.taskList.getNumberOfTasks());
-                    case DEADLINE:
-                        String deadlineDescription = hashMap.get("description");
-                        if (deadlineDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "Deadline");
-                        }
-                        String deadline = hashMap.get("by");
-                        if (deadline == null || deadline.isEmpty()) {
-                            throw new CasperBotMissingInputException("/by", "Deadline");
-                        }
-                        LocalDate dateOfDeadline = LocalDate.parse(deadline);
-                        Deadline newDeadline = new Deadline(deadlineDescription, false, dateOfDeadline);
-                        this.taskList.addTask(newDeadline);
-                        this.storage.writeToFile(newDeadline);
-                        return this.ui.addTaskMessage(newDeadline, this.taskList.getNumberOfTasks());
-                    case EVENT:
-                        String eventDescription = hashMap.get("description");
-                        if (eventDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "Event");
-                        }
-                        String start = hashMap.get("from");
-                        if (start == null || start.isEmpty()) {
-                            throw new CasperBotMissingInputException("/from", "Event");
-                        }
-                        LocalDate dateOfStart = LocalDate.parse(start);
-                        String end = hashMap.get("to");
-                        if (end == null || end.isEmpty()) {
-                            throw new CasperBotMissingInputException("/to", "Event");
-                        }
-                        LocalDate dateOfEnd = LocalDate.parse(end);
-                        Event newEvent = new Event(eventDescription, false, dateOfStart, dateOfEnd);
-                        this.taskList.addTask(newEvent);
-                        this.storage.writeToFile(newEvent);
-                        return this.ui.addTaskMessage(newEvent, this.taskList.getNumberOfTasks());
-                    default:
-                        throw new CasperBotInvalidCommandException();
-                    }
-                } catch (DateTimeParseException e) {
-                    throw new CasperBotInvalidDateException();
-                }
-            } else {
-                throw new CasperBotInvalidCommandException();
+            result = this.runTaskCommand(parsedInputs);
+            if (!result.isEmpty()) {
+                return result;
             }
+            result = this.runCreateCommand(parsedInputs);
+            if (!result.isEmpty()) {
+                return result;
+            }
+            throw new CasperBotInvalidCommandException();
         } catch (CasperBotException e) {
             return this.ui.showErrorMessage(e);
         }
@@ -167,7 +82,7 @@ public class CasperBot {
      * @param commandType The type of command it should belong to (CREATE, TASK)
      * @return True if it is a valid command, False otherwise
      */
-    private boolean isValidCommand(String command, CommandType commandType) {
+    private boolean isInvalidCommand(String command, CommandType commandType) {
         try {
             switch (commandType) {
             case CREATE:
@@ -177,11 +92,123 @@ public class CasperBot {
                 TaskCommand.valueOf(command.trim().toUpperCase());
                 break;
             default:
-                return false;
+                return true;
             }
-            return true;
-        } catch (IllegalArgumentException e) {
             return false;
+        } catch (IllegalArgumentException e) {
+            return true;
         }
+    }
+    private String runSingleWordCommand(String[] parsedInputs) throws CasperBotMissingInputException,
+            CasperBotOutOfBoundsException {
+        String command = parsedInputs[0].toLowerCase();
+        switch (command) {
+        case "list":
+            return this.ui.displayTaskList(taskList);
+        case "find":
+            if (parsedInputs[1].isBlank()) {
+                throw new CasperBotMissingInputException("keyword", "find");
+            }
+            TaskList matched = taskList.findMatchTasks(parsedInputs[1]);
+            return this.ui.displayMatchedTasks(matched);
+        case "bye":
+            return this.ui.exit();
+        default:
+            return "";
+        }
+    }
+    private String runTaskCommand(String[] parsedInputs) throws CasperBotInvalidCommandException,
+            CasperBotOutOfBoundsException, CasperBotIoException {
+        if (isInvalidCommand(parsedInputs[0], CommandType.TASK)) {
+            return "";
+        }
+        int index = Integer.parseInt(parsedInputs[1]) - 1;
+        TaskCommand taskCommand = TaskCommand.valueOf(parsedInputs[0].trim().toUpperCase());
+        Task task = this.taskList.getTask(index);
+        switch (taskCommand) {
+        case MARK:
+            task.markAsDone();
+            this.storage.updateDoneStatus(index, true);
+            return this.ui.displayUpdateMessage(Ui.TaskCommand.MARK, task);
+        case UNMARK:
+            task.markAsNotDone();
+            this.storage.updateDoneStatus(index, false);
+            return this.ui.displayUpdateMessage(Ui.TaskCommand.UNMARK, task);
+        case DELETE:
+            this.taskList.deleteTask(task);
+            this.storage.deleteFromFile(index);
+            return this.ui.displayUpdateMessage(Ui.TaskCommand.DELETE, task)
+                    + System.lineSeparator()
+                    + this.ui.displayTaskListLength(this.taskList.getNumberOfTasks());
+        default:
+            throw new CasperBotInvalidCommandException();
+        }
+    }
+    private String runCreateCommand(String[] parsedInputs) throws CasperBotMissingInputException,
+            CasperBotIoException, CasperBotInvalidCommandException, CasperBotInvalidDateException {
+        if (isInvalidCommand(parsedInputs[0], CommandType.CREATE)) {
+            return "";
+        }
+        HashMap<String, String> hashMap = new HashMap<>();
+        this.parser.parseBySlash(parsedInputs[1], hashMap);
+        CreateCommand createCommand = CreateCommand.valueOf(parsedInputs[0].trim().toUpperCase());
+        try {
+            return switch (createCommand) {
+            case TODO -> handleTodo(hashMap);
+            case DEADLINE -> handleDeadline(hashMap);
+            case EVENT -> handleEvent(hashMap);
+            default -> throw new CasperBotInvalidCommandException();
+            };
+        } catch (DateTimeParseException e) {
+            throw new CasperBotInvalidDateException();
+        }
+    }
+    private String handleTodo(HashMap<String, String> hashMap) throws CasperBotMissingInputException,
+            CasperBotIoException {
+        String todoDescription = hashMap.get("description");
+        if (todoDescription.isEmpty()) {
+            throw new CasperBotMissingInputException("description", "ToDo");
+        }
+        ToDo newToDo = new ToDo(todoDescription, false);
+        this.taskList.addTask(newToDo);
+        this.storage.writeToFile(newToDo);
+        return this.ui.addTaskMessage(newToDo, this.taskList.getNumberOfTasks());
+    }
+    private String handleDeadline(HashMap<String, String> hashMap) throws CasperBotMissingInputException,
+            CasperBotIoException {
+        String deadlineDescription = hashMap.get("description");
+        if (deadlineDescription.isEmpty()) {
+            throw new CasperBotMissingInputException("description", "Deadline");
+        }
+        String deadline = hashMap.get("by");
+        if (deadline == null || deadline.isEmpty()) {
+            throw new CasperBotMissingInputException("/by", "Deadline");
+        }
+        LocalDate dateOfDeadline = LocalDate.parse(deadline);
+        Deadline newDeadline = new Deadline(deadlineDescription, false, dateOfDeadline);
+        this.taskList.addTask(newDeadline);
+        this.storage.writeToFile(newDeadline);
+        return this.ui.addTaskMessage(newDeadline, this.taskList.getNumberOfTasks());
+    }
+    private String handleEvent(HashMap<String, String> hashMap) throws CasperBotMissingInputException,
+            CasperBotIoException {
+        String eventDescription = hashMap.get("description");
+        if (eventDescription.isEmpty()) {
+            throw new CasperBotMissingInputException("description", "Event");
+        }
+        String start = hashMap.get("from");
+        if (start == null || start.isEmpty()) {
+            throw new CasperBotMissingInputException("/from", "Event");
+        }
+        LocalDate dateOfStart = LocalDate.parse(start);
+        String end = hashMap.get("to");
+        if (end == null || end.isEmpty()) {
+            throw new CasperBotMissingInputException("/to", "Event");
+        }
+        LocalDate dateOfEnd = LocalDate.parse(end);
+        Event newEvent = new Event(eventDescription, false, dateOfStart, dateOfEnd);
+        this.taskList.addTask(newEvent);
+        this.storage.writeToFile(newEvent);
+        return this.ui.addTaskMessage(newEvent, this.taskList.getNumberOfTasks());
     }
 }
