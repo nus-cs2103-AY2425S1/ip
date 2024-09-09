@@ -1,6 +1,6 @@
 package shnoop.tasks;
 
-import shnoop.exceptions.*;
+import shnoop.exceptions.IncompleteEventOrDeadlineException;
 
 /**
  * Represents a Task that must be done by a certain time / date.

@@ -1,11 +1,17 @@
 package shnoop.command;
 
-import shnoop.exceptions.*;
-import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
 import java.io.IOException;
+
+import shnoop.exceptions.IncompleteEventOrDeadlineException;
+import shnoop.storage.Storage;
+import shnoop.tasks.Deadline;
+import shnoop.tasks.Event;
+import shnoop.tasks.Task;
+import shnoop.tasks.TaskList;
+import shnoop.tasks.Todo;
+import shnoop.ui.Parser;
+import shnoop.ui.Ui;
+
 
 /**
  * Encapsulates all the relevant actions to be taken when an Add Command is issued.
@@ -38,6 +44,8 @@ public class AddCommand extends Command {
         case EVENT:
             task = new Event(taskDescription);
             break;
+        default:
+            throw new IOException();
         }
         tasks.add(task);
         ui.addTask(task, tasks.size());

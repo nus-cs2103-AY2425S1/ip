@@ -1,11 +1,10 @@
 package shnoop.command;
 
-import shnoop.exceptions.*;
-import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
 import java.io.IOException;
+
+import shnoop.storage.Storage;
+import shnoop.tasks.TaskList;
+import shnoop.ui.Ui;
 
 /**
  * Encapsulates all the relevant actions to be taken when an Exit Command is issued.

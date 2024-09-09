@@ -1,10 +1,10 @@
 package shnoop.tasks;
 
-import shnoop.exceptions.*;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import shnoop.exceptions.EmptyDescriptionException;
 
 /**
  * Encapsulates the overall Task that all sub-tasks and types of tasks inherit from.
@@ -18,7 +18,7 @@ public class Task {
      *
      * @param description
      */
-    public Task(String description){
+    public Task(String description) {
         if (description.isEmpty()) {
             try {
                 throw new EmptyDescriptionException();
@@ -92,7 +92,6 @@ public class Task {
 
     /**
      * Converts all the Task's information into a unique style to be written into a txt file.
-     * 
      * @return String which encompasses all the relevant Task information that can be deciphered and read later.
      */
     public String toUniqueFileString() {
