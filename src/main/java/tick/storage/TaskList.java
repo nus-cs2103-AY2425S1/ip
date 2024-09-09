@@ -28,6 +28,18 @@ public class TaskList {
     }
 
     /**
+     * Constructs a TaskList with the given tasks.
+     *
+     * @param tasks Tasks to be added to the TaskList.
+     */
+    public TaskList(Task... tasks) {
+        this.tasks = new ArrayList<>();
+        for (Task task : tasks) {
+            this.tasks.add(task);
+        }
+    }
+
+    /**
      * Adds a task to the TaskList.
      *
      * @param task Task to be added.
