@@ -42,13 +42,18 @@ public class FileWriting extends Storage {
         String formatted = type + SEPARATOR + status + SEPARATOR + description;
 
         if (type == "D") {
+            assert type == "D" : "Type should be 'D' but was '" + type + "'";
             String by = t.getBy();
+            assert by != null : "By should not be null";
             formatted = formatted + SEPARATOR + by;
         }
 
         if (type == "E") {
+            assert type == "E" : "Type should be 'E' but was '" + type + "'";
             String from = t.getFrom();
+            assert from != null : "From should not be null";
             String to = t.getTo();
+            assert to != null : "To should not be null";
             formatted = formatted + SEPARATOR + from + SEPARATOR + to;
         }
         return formatted;
