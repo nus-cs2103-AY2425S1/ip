@@ -43,9 +43,9 @@ public class Storage {
     /**
      * Loads tasks from datafile into TaskList object.
      *
-     * @param tl TaskList object to load data into
+     * @param tasks TaskList object to load data into
      */
-    public void loadList(TaskList tl) {
+    public void loadList(TaskList tasks) {
         try {
             FileReader fr = new FileReader(datafile);
             BufferedReader br = new BufferedReader(fr);
@@ -59,7 +59,7 @@ public class Storage {
                 try {
                     AddCommand add = new AddCommand(type, token[2].split(" \\| "));
                     add.setStatus(isDone);
-                    add.execute(tl, null, null);
+                    add.execute(tasks, null, null);
                 } catch (InvalidInputException e) {
                     // do nothing
                 }

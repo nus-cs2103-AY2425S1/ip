@@ -16,11 +16,11 @@ public abstract class Command {
      * Executes the command based on initialised state. Action
      * will be applied to (one or more of) TaskList, Ui, and Storage.
      *
-     * @param tl tasklist
-     * @param ui
-     * @param st storage
+     * @param tasks list
+     * @param gui
+     * @param storage
      */
-    public abstract void execute(TaskList tl, Gui ui, Storage st);
+    public abstract void execute(TaskList tasks, Gui gui, Storage storage);
 
     public boolean isExit() {
         return false;
