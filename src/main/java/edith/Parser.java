@@ -14,15 +14,41 @@ import edith.exception.MissingTaskNumberException;
  * This class handles all parsing of Strings into appropriate outputs.
  */
 public class Parser {
+    /**
+     * Class for commands.
+     */
+    public enum Command {
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        FIND,
+        BYE,
+        INVALID
+    }
 
     /**
      * Returns command to be executed.
      * @param userInput User input to be deciphered.
      * @return Command as a string.
      */
-    public static String getCommand(String userInput) {
+    public static Command getCommand(String userInput) {
         List<String> userInputs = Arrays.asList(userInput.split(" "));
-        return userInputs.get(0);
+        return switch (userInputs.get(0)) {
+        case "mark" -> Command.MARK;
+        case "unmark" -> Command.UNMARK;
+        case "list" -> Command.LIST;
+        case "todo" -> Command.TODO;
+        case "deadline" -> Command.DEADLINE;
+        case "event" -> Command.EVENT;
+        case "delete" -> Command.DELETE;
+        case "find" -> Command.FIND;
+        case "bye" -> Command.BYE;
+        default -> Command.INVALID;
+        };
     }
 
     /**
@@ -47,9 +73,17 @@ public class Parser {
      * @return Task details in a string.
      * @throws MissingTaskNameException When task name is not specified.
      */
-    public static String getTaskDetails(String userInput, String taskType) throws MissingTaskNameException {
+    public static String getTaskDetails(String userInput, Command taskType) throws MissingTaskNameException {
         try {
-            List<String> userInputs = Arrays.asList(userInput.split(taskType + " "));
+            String type;
+            if (taskType.equals(Command.TODO)) {
+                type = "todo";
+            } else if (taskType.equals(Command.DEADLINE)) {
+                type = "deadline";
+            } else {
+                type = "event";
+            }
+            List<String> userInputs = Arrays.asList(userInput.split(type + " "));
             return userInputs.get(1);
         } catch (IndexOutOfBoundsException e) {
             throw new MissingTaskNameException();

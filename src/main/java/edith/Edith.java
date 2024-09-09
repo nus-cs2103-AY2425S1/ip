@@ -15,6 +15,7 @@ public class Edith {
      * @param args User input.
      * @deprecated Due to use of GUI instead, getResponse method utilised instead.
      */
+    @Deprecated
     public static void main(String[] args) {
         Storage.loadTasks(TO_DO_LIST);
 
