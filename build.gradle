@@ -4,6 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+
 repositories {
     mavenCentral()
 }
@@ -33,6 +34,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "shnoop.jar"
     archiveBaseName = "shnoop"
     archiveClassifier = null
 }
