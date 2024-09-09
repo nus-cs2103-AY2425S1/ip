@@ -46,6 +46,7 @@ public class Ui {
             5. unmark [index]
             6. list
             7. find
+            8. sort [attribute] [/a or /d]
             8. bye
             """;
     }
@@ -94,6 +95,12 @@ public class Ui {
             break;
         case "bye":
             output += "bye";
+            break;
+        case "sort":
+            output += """
+                    sort [attribute] [/a or /d]
+                    where attribute is one of: name, startdatetime, enddatetime, tasktype, status""" + """
+                    d /a is ascending, whilst /d is for descending""";
             break;
         default:
             output += "Unknown error...";
@@ -203,11 +210,20 @@ public class Ui {
     }
 
     /**
-     * Returns tasks stored in the task list.
-     * @param listString {@code String} representation of tasks in the list.
+     * Returns chatbot response when requesting to display the list.
+     * @param taskList {@code TaskList} object to print out the string representation of.
      * @return String response.
      */
-    public String printList(String listString) {
-        return listString + "\n";
+    public String printList(TaskList taskList) {
+        return "Nah, here's your list\n" + taskList.toString();
+    }
+
+    /**
+     * Returns chatbot response after sorting list.
+     * @param taskList {@code TaskList} object to print out the string representation of.
+     * @return String response.
+     */
+    public String printSortedList(TaskList taskList) {
+        return "Super troublesome but sort your list liao\n" + taskList.toString();
     }
 }

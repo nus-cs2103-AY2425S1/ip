@@ -17,6 +17,7 @@ public class Actions {
         UNMARK,
         DELETE,
         FIND,
+        SORT,
         BYE,
         SECRET,
         INVALID

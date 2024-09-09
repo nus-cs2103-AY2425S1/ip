@@ -13,7 +13,7 @@ import jackson.exceptions.SyntaxException;
  */
 public class Parser {
 
-    /* Bunch of regex patterns for user input checking */
+    // Bunch of regex patterns for user input checking
     private static final Pattern TODO = Pattern.compile("^todo (.+)$");
     private static final Pattern DEADLINE = Pattern.compile("^deadline (.+) /by "
             + "(\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?)$");
@@ -24,6 +24,8 @@ public class Parser {
     private static final Pattern LIST = Pattern.compile("^list$");
     private static final Pattern DELETE = Pattern.compile("^delete (\\d+)$");
     private static final Pattern FIND = Pattern.compile("^find ([\\w\\d ]+)$");
+    private static final Pattern SORT =
+            Pattern.compile("^sort (name|startdatetime|enddatetime|status|tasktype) /([ad])$");
     private static final Pattern SECRET = Pattern.compile("^secret$");
     private static final Pattern BYE = Pattern.compile("^bye$");
 
@@ -92,6 +94,12 @@ public class Parser {
                 throw new SyntaxException("find");
             }
             a = Actions.ActionType.FIND;
+        } else if (query.startsWith("sort")) {
+            m = SORT.matcher(query);
+            if (!m.find()) {
+                throw new SyntaxException("sort");
+            }
+            a = Actions.ActionType.SORT;
         } else if (query.startsWith("bye")) {
             m = BYE.matcher(query);
             if (!m.find()) {

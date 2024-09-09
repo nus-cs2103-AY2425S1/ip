@@ -1,12 +1,12 @@
 package jackson.tasks;
 
-import jackson.utils.Temporal;
+import jackson.utils.CustomDateTime;
 
 /**
  * Deadline class containing name and deadline.
  */
 public class Deadline extends Task {
-    private Temporal deadline;
+    private CustomDateTime deadline;
 
     /**
      * Constructs Deadline Task instance.
@@ -15,11 +15,26 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = new Temporal(deadline);
+        this.deadline = new CustomDateTime(deadline);
+    }
+
+    @Override
+    public CustomDateTime getStartDateTime() {
+        return null;
+    }
+
+    @Override
+    public CustomDateTime getEndDateTime() {
+        return this.deadline;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[%s]%s (by: %s)", this.getTaskType(), super.toString(), this.deadline);
     }
 }

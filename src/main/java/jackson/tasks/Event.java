@@ -1,12 +1,13 @@
 package jackson.tasks;
 
-import jackson.utils.Temporal;
+import jackson.utils.CustomDateTime;
+
 /**
  * Event class containing name, from date and to date.
  */
 public class Event extends Task {
-    private Temporal from;
-    private Temporal to;
+    private CustomDateTime from;
+    private CustomDateTime to;
 
     /**
      * Constructs Event Task instance.
@@ -16,12 +17,28 @@ public class Event extends Task {
      */
     public Event(String name, String from, String to) {
         super(name);
-        this.from = new Temporal(from);
-        this.to = new Temporal(to);
+        this.from = new CustomDateTime(from);
+        this.to = new CustomDateTime(to);
+    }
+
+    @Override
+    public CustomDateTime getStartDateTime() {
+        return this.from;
+    }
+
+    @Override
+    public CustomDateTime getEndDateTime() {
+        return this.to;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "E";
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s | to: %s)", super.toString(), this.from, this.to);
+        return String.format("[%s]%s (from: %s | to: %s)",
+                this.getTaskType(), super.toString(), this.from, this.to);
     }
 }

@@ -28,22 +28,22 @@ import jackson.utils.Ui;
  */
 public class Jackson {
 
-    /* Expected number of tasks to store */
+    // Expected number of tasks to store
     private static final int EXPECTED_SIZE = 100;
 
-    /* Path to save list data */
+    // Path to save list data
     private static final String PATH = "src/main/resources/texts/data.txt";
 
-    /* Path list to read secret text from */
+    // Path list to read secret text from
     private static final String SECRET_PATH = "src/main/resources/texts/secret_text.txt";
 
-    /* Stores secret text for greedy loading */
+    // Stores secret text for greedy loading
     private static String secret = "";
 
-    /* Stores previous command type for css style changing */
+    // Stores previous command type for css style changing
     private Commands.CommandType commandType;
 
-    /* Instance variables for main loop */
+    // Instance variables for main loop
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
@@ -101,7 +101,8 @@ public class Jackson {
         Matcher matcher;
         ArrayList<Task> tasks;
         int index;
-        String output = "";
+        boolean isAscending;
+        String output;
         System.out.println(input);
 
         // main loop starts
@@ -114,7 +115,7 @@ public class Jackson {
             // decide what action to take based on action object received from parser
             switch (action) {
             case LIST:
-                output = this.ui.printList(this.taskList.toString());
+                output = this.ui.printList(this.taskList);
                 this.commandType = Commands.CommandType.NORMAL;
                 break;
             case TODO:
@@ -157,6 +158,12 @@ public class Jackson {
                 tasks = this.taskList.findTasks(matcher.group(1));
                 output = this.ui.printAfterFindList(tasks, matcher.group(1));
                 this.commandType = Commands.CommandType.TASKS;
+                break;
+            case SORT:
+                isAscending = matcher.group(1).equals("a");
+                this.taskList.sort(matcher.group(1), isAscending);
+                output = this.ui.printSortedList(this.taskList);
+                this.commandType = Commands.CommandType.MODIFY;
                 break;
             case BYE:
                 output = this.storage.save(this.taskList);

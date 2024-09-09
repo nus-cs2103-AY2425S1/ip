@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
  * a time or not, and both LocalDate and LocalDateTime strictly require no timing
  * and timing respectively.
  */
-public class Temporal {
+public class CustomDateTime implements Comparable<CustomDateTime> {
     // DateTimeFormatters for reading (first 2) from save file and user input
     // and writing (last 2) to save file
     private static final DateTimeFormatter dateOnly = new DateTimeFormatterBuilder()
@@ -34,12 +34,39 @@ public class Temporal {
      * Constructs Temporal instance.
      * @param dateTimeString String of dateTime to "parse".
      */
-    public Temporal(String dateTimeString) {
+    public CustomDateTime(String dateTimeString) {
         try {
             this.localDateTime = LocalDateTime.parse(dateTimeString, dateTime);
         } catch (DateTimeParseException e) {
             // if exception thrown, means dateTimeString only contains date
             this.localDate = LocalDate.parse(dateTimeString, dateOnly);
+        }
+    }
+
+    /**
+     * Returns whether a CustomDateTime object has time or not.
+     * @return true if time is present, otherwise false.
+     */
+    public boolean hasTime() {
+        return localDateTime != null;
+    }
+
+    @Override
+    public int compareTo(CustomDateTime other) {
+        if (other.hasTime() == this.hasTime()) {
+            return other.hasTime()
+                    ? this.localDateTime.compareTo(other.localDateTime)
+                    : this.localDate.compareTo(other.localDate);
+        } else if (other.hasTime()) {
+            LocalDate otherDate = other.localDateTime.toLocalDate();
+            return this.localDate.equals(otherDate)
+                    ? 1
+                    : this.localDate.compareTo(otherDate);
+        } else {
+            LocalDate thisDate = this.localDateTime.toLocalDate();
+            return thisDate.equals(other.localDate)
+                    ? -1
+                    : thisDate.compareTo(other.localDate);
         }
     }
 
