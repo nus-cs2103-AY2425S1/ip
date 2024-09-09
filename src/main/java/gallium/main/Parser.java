@@ -49,52 +49,52 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
-            try {
-                switch (message) {
-                case LIST:
-                    return new ListCommand();
+        try {
+            switch (message) {
+            case LIST:
+                return new ListCommand();
 
-                case "todo":
-                case "todo ":
-                case "deadline":
-                case "deadline ":
-                case "event":
-                case "event ":
-                    throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
+            case "todo":
+            case "todo ":
+            case "deadline":
+            case "deadline ":
+            case "event":
+            case "event ":
+                throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
 
-                default:
-                    if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
-                        return new MarkCommand(message);
-                    } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
-                            || message.startsWith(EVENT)) {
-                        return new AddCommand(message);
-                    } else if (message.startsWith(DELETE)) {
-                        return new DeleteCommand(message);
-                    } else if (message.startsWith(DATE)) {
-                        return new DateCommand(message);
-                    } else if (message.startsWith(FIND)) {
-                        return new FindCommand(message);
-                    } else if (message.startsWith(BYE)) {
-                        return new ByeCommand();
-                    } else {
-                        throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
-                    }
-                }
-
-            } catch (GalliumException e) {
-                ui.showGalliumException(e);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                if (message.startsWith(DEADLINE)) {
-                    ui.showIncompleteDeadline();
-                } else if (message.startsWith(EVENT)) {
-                    ui.showIncompleteEvent();
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
-                    ui.showWrongIndex();
+            default:
+                if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
+                    return new MarkCommand(message);
+                } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
+                        || message.startsWith(EVENT)) {
+                    return new AddCommand(message);
+                } else if (message.startsWith(DELETE)) {
+                    return new DeleteCommand(message);
+                } else if (message.startsWith(DATE)) {
+                    return new DateCommand(message);
+                } else if (message.startsWith(FIND)) {
+                    return new FindCommand(message);
+                } else if (message.startsWith(BYE)) {
+                    return new ByeCommand();
+                } else {
+                    throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
             }
-            return new ErrorCommand();
+
+        } catch (GalliumException e) {
+            ui.showGalliumException(e);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            if (message.startsWith(DEADLINE)) {
+                ui.showIncompleteDeadline();
+            } else if (message.startsWith(EVENT)) {
+                ui.showIncompleteEvent();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
+                ui.showWrongIndex();
+            }
+        }
+        return new ErrorCommand();
     }
 
 }
