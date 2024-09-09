@@ -105,10 +105,12 @@ public class TaskList {
      * @param str input string.
      */
     private void markTaskAsDone(String str) {
-        String[] temp = str.split(" ");
-        String m = temp[0];
-        int idx = Integer.parseInt(temp[1]) - 1;
         try {
+            String[] temp = str.split(" ");
+            String m = temp[0].trim();
+            String s = temp[1].trim();
+            assert !s.isEmpty() : "index value should not be empty";
+            int idx = Integer.parseInt(s) - 1;
             Task task = tasks.get(idx);
             if (Objects.equals(m, "mark")) {
                 mel.println("Mel sees you completed your task!");
@@ -120,7 +122,7 @@ public class TaskList {
             mel.println("  " + task);
             updateTasks();
         } catch (IndexOutOfBoundsException e) {
-            mel.println("Mel's brain explodes in anger?! "
+            mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
         }
     }
@@ -131,11 +133,22 @@ public class TaskList {
      * @param str input string.
      */
     private void findTask(String str) {
-        mel.println("Mel brain rattles in recollection...");
-        for (Task t : tasks) {
-            if (t.isMatch(str.split(" ", 2)[1])) {
-                mel.println(t.toString());
+        try {
+            String foundTasks = "";
+            String s = str.split(" ", 2)[1].trim();
+            mel.println("Mel brain rattles in recollection...");
+            for (Task t : tasks) {
+                if (t.isMatch(s)) {
+                    foundTasks += t + "\n";
+                }
             }
+            if (foundTasks.isEmpty()) {
+                mel.println("Mel recalls nothing of the sort :)");
+            }
+            mel.println(foundTasks);
+        } catch (IndexOutOfBoundsException e) {
+            mel.println("Mel's brain explodes in anger?!\n"
+                    + "Mel recalls only " + tasks.size() + " things");
         }
     }
 

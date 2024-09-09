@@ -14,7 +14,10 @@ public class ToDo extends Task {
      */
     public ToDo(String input) throws TaskException {
         try {
-            task = input.split(" ", 2)[1];
+            task = input.split(" ", 2)[1].trim();
+            if (task.isEmpty()) {
+                throw new TaskException("todo <task>");
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TaskException("todo <task>");
         }
@@ -22,6 +25,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
+        assert !task.isEmpty() : "task field should not be empty";
         return "[T]" + super.toString() + task;
     }
 }
