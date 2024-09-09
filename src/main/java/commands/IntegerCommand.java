@@ -40,15 +40,15 @@ public class IntegerCommand extends Command {
             switch (command) {
             case Mark:
                 task.setDone();
-                storage.save();
+                storage.saveTaskList();
                 return ui.getTaskSetDoneMessage(task);
             case Unmark:
                 task.setUndone();
-                storage.save();
+                storage.saveTaskList();
                 return ui.getTaskSetUndoneMessage(task);
             case Delete:
                 tasks.remove(task);
-                storage.save();
+                storage.saveTaskList();
                 return ui.getTaskDeletedMessage(task, tasks.size());
             default:
                 throw new IllegalStateException(); // This should never happen.

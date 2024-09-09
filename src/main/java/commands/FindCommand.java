@@ -3,7 +3,6 @@ package commands;
 import applemazer.Storage;
 import applemazer.TaskList;
 import applemazer.Ui;
-import tasks.Task;
 
 /**
  * Class that represents the "find" command.

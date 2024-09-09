@@ -1,10 +1,10 @@
 package gui;
 
-import applemazer.Applemazer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import applemazer.Applemazer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -12,7 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -45,7 +49,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getApplemazerDialog(applemazer.getUi().greeting(), applemazerImage)
         );
         scrollPane.setBackground(new Background(new BackgroundFill(Color.HOTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
-        dialogContainer.setBackground(new Background(new BackgroundFill(Color.HOTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
+        dialogContainer.setBackground(new Background(new BackgroundFill(Color.HOTPINK,
+                CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
@@ -66,7 +71,8 @@ public class MainWindow extends AnchorPane {
                 public void run() {
                     Platform.runLater(() -> {
                         if (countdownTime.get() > 0) {
-                            dialogContainer.getChildren().add(DialogBox.getApplemazerDialog("Shutting down in " + countdownTime.getAndDecrement() + "...", applemazerImage));
+                            dialogContainer.getChildren().add(DialogBox.getApplemazerDialog("Shutting down in "
+                                    + countdownTime.getAndDecrement() + "...", applemazerImage));
                         } else {
                             timer.cancel();
                             Platform.exit();

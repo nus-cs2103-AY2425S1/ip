@@ -32,7 +32,7 @@ public class TodoCommand extends Command {
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         Task task = new Todo(desc);
         tasks.add(task);
-        storage.save();
+        storage.saveTaskList();
         return ui.getTaskAddedMessage(task, tasks.size());
     }
 
