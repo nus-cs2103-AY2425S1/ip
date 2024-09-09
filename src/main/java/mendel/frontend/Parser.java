@@ -70,8 +70,8 @@ public class Parser {
             Event task = Event.of(currAction);
             message = taskStorage.add(task);
             this.dbContoller.create(task, taskStorage.isFirstTask());
-        } else if (segments[0].equals("findeventon")) {
-            message = taskStorage.find(segments[1]);
+        } else if (segments[0].equals("remind")) {
+            message = taskStorage.find(currAction);
         } else if (segments[0].equals("find")) {
             message = taskStorage.findDescription(currAction);
         } else {

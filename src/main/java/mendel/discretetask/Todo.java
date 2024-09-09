@@ -101,6 +101,11 @@ public class Todo extends Task {
         return false;
     }
 
+    @Override
+    public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
+        return false;
+    }
+
     /**
      * Parses the details of this Todo task into a string format suitable for storage in database.
      *

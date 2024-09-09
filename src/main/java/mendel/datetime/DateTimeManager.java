@@ -1,7 +1,7 @@
 package mendel.datetime;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.sound.midi.SysexMessage;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -110,6 +110,12 @@ public class DateTimeManager {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public long toEpochTime() {
+        String formatDateNoTime = new DateTimeManager(this.formattedDate).removeTimeStamp();
+        LocalDate date = LocalDate.parse(formatDateNoTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
     /**
      * Returns the formatted date string.
