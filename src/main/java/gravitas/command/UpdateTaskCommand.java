@@ -10,9 +10,9 @@ import gravitas.tasklist.TaskList;
  */
 public class UpdateTaskCommand extends Command {
 
-    private static final String OUT_OF_BOUND = "The task that you wish to mark is invalid! please try again!";
-    private static final String MARK = "Nice! I've marked this task as done:";
-    private static final String UNMARK = "OK, I've marked this task as not done yet:";
+    private static final String TASK_INVALID_MESSAGE = "The task that you wish to mark is invalid! please try again!";
+    private static final String TASK_MARK_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String TASK_UNMARK_MESSAGE = "OK, I've marked this task as not done yet:";
     private String userInput;
 
     /**
@@ -34,17 +34,19 @@ public class UpdateTaskCommand extends Command {
         int index = Integer.parseInt((msgFrag[1])) - 1;
 
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException(OUT_OF_BOUND);
+            throw new DukeException(TASK_INVALID_MESSAGE);
         }
         Task task = taskList.getTask(index);
 
         if (msgFrag[0].equals("mark")) {
             task.markTask();
-            return (MARK + "\n" + taskList.printTask(task));
+            assert task.getStatusIcon().equals("X") : "Task should be marked as done";
+            return (TASK_MARK_MESSAGE + "\n" + taskList.printTask(task));
         } else {
             task.unMarkTask();
-            System.out.println(UNMARK);
-            return (UNMARK + "\n" + taskList.printTask(task));
+            assert task.getStatusIcon().equals(" ") : "Task should be marked as done";
+            System.out.println(TASK_UNMARK_MESSAGE);
+            return (TASK_UNMARK_MESSAGE + "\n" + taskList.printTask(task));
         }
     }
 }

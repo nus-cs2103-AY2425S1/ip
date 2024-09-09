@@ -34,11 +34,12 @@ public class DeleteCommand extends Command {
             throw new DukeException(EMPTY_DELETE);
         }
         int index = Integer.parseInt((msgFrag[1])) - 1;
-
         if (index >= taskList.size() || index < 0) {
             throw new DukeException(OUT_OF_BOUND);
         }
+
         Task task = taskList.getTask(index);
+        assert task != null : "Task should not be null";
         taskList.removeTask(index);
         return (DELETE_MESSAGE + "\n" + taskList.printTask(task));
     }
