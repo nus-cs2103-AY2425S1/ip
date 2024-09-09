@@ -46,6 +46,8 @@ public class Event extends Task {
             if (hasPassedBy(tempStartTime, tempEndTime)) {
                 throw new IllegalArgumentException(EVENT_TIME_PASSED_ERROR);
             }
+            startTime = tempStartTime;
+            endTime = tempEndTime;
         } catch (DateTimeParseException e) {
             throw new EventDateTimeParseException(EVENT_TIME_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
         }
