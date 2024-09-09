@@ -65,4 +65,11 @@ public class MrYapper {
     public static void main(String[] args) {
         new MrYapper(TASK_DATA_PATH).run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return input;
+    }
 }
