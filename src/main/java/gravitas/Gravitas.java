@@ -38,8 +38,8 @@ public class Gravitas {
     public String getResponse(String input) {
         try {
             String response;
-            Command c = Parser.parse(input);
-            response = c.execute(tasks, storage);
+            Command c = Parser.parseCommand(input);
+            response = c.executeCommand(tasks, storage);
             if (c.isExit()) {
                 System.exit(0);
             }

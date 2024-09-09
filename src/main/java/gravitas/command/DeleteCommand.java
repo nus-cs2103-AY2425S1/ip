@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the user input is invalid.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
         String[] msgFrag = userInput.split(" ", 2);
         if (msgFrag.length <= 1) {
             throw new DukeException(EMPTY_DELETE);

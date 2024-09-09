@@ -32,6 +32,7 @@ public class Deadline extends Task {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate localEndDate = LocalDate.parse(EndTimeArr[0], dateFormatter);
             String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
+
             this.endDate = localEndDate;
             this.endTime = LocalTime.parse(formattedEndTime);
         } catch (DateTimeParseException e) {
@@ -43,6 +44,7 @@ public class Deadline extends Task {
     public String getDescription() {
         String formatEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hhmm a");
+
         return super.description + " (by: " + formatEndDate + " " + this.endTime.format(timeFormatter) + ")";
     }
 
@@ -51,6 +53,7 @@ public class Deadline extends Task {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         String mark = this.isDone ? "1" : "0";
+
         return (this.eventType + " | " + mark + " | " + this.description
                 + " | " + this.endDate.format(dateFormatter) + " | "
                 + this.endTime.format(timeFormatter) + "\n");

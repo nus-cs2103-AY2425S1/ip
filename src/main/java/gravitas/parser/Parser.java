@@ -25,7 +25,7 @@ public class Parser {
      * @return Command to be executed.
      * @throws DukeException If the input is invalid.
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parseCommand(String input) throws DukeException {
         String[] inputArray = input.split(" ", 2);
         String command = inputArray[0];
 
@@ -59,6 +59,7 @@ public class Parser {
         Task task;
         if (frags[0].equals("T")) {
             task = new Todo(frags[2]);
+
             if (frags[1].equals("1")) {
                 task.markTask();
             }
@@ -67,6 +68,7 @@ public class Parser {
             String startDate = frags[3] + " " + frags[4];
             String endDate = frags[5] + " " + frags[6];
             task = new Event(frags[2], startDate, endDate);
+
             if (frags[1].equals("1")) {
                 task.markTask();
             }
@@ -74,6 +76,7 @@ public class Parser {
         } else if (frags[0].equals("D")) {
             String endDate = frags[3] + " " + frags[4];
             task = new Deadline(frags[2], endDate);
+
             if (frags[1].equals("1")) {
                 task.markTask();
             }

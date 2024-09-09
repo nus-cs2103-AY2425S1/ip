@@ -29,7 +29,7 @@ public class UpdateTaskCommand extends Command {
      * @throws DukeException If the user input is invalid.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
         String[] msgFrag = userInput.split(" ", 2);
         int index = Integer.parseInt((msgFrag[1])) - 1;
 
