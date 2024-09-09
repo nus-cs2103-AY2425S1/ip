@@ -21,6 +21,7 @@ import tissue.task.ToDo;
 public class Storage {
     private final Path path;
     private final Path file;
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Constructor to determine the name and file path to store and read from.
@@ -54,7 +55,6 @@ public class Storage {
      * @return The tasks stored in an array.
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -62,23 +62,14 @@ public class Storage {
                 String taskType = values[0].strip();
                 switch (taskType) {
                 case "T":
-                    taskList.add(new ToDo(Integer.parseInt(values[1]), values[2]));
+                    addToDo(values);
                     break;
                 case "E":
-                    taskList.add(
-                            new Event(
-                                    Integer.parseInt(values[1]),
-                                    values[2].strip(),
-                                    values[3].strip(),
-                                    values[4].strip()));
+                    addEvent(values);
                     break;
 
                 case "D":
-                    taskList.add(
-                            new Deadline(
-                                    Integer.parseInt(values[1]),
-                                    values[2].strip(),
-                                    values[3].strip()));
+                    addDeadline(values);
                     break;
 
                 default:
@@ -89,6 +80,27 @@ public class Storage {
             System.out.println(e);
         }
         return taskList;
+    }
+
+    private void addToDo(String[] values) {
+        taskList.add(new ToDo(Integer.parseInt(values[1]), values[2]));
+    }
+
+    private void addEvent(String[] values) {
+        taskList.add(
+                new Event(
+                        Integer.parseInt(values[1]),
+                        values[2].strip(),
+                        values[3].strip(),
+                        values[4].strip()));
+    }
+
+    private void addDeadline(String[] values) {
+        taskList.add(
+                new Deadline(
+                        Integer.parseInt(values[1]),
+                        values[2].strip(),
+                        values[3].strip()));
     }
 
     private String parseTask(Task task) {

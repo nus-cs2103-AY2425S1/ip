@@ -37,55 +37,74 @@ public class GuiUi {
         return "Hello! I'm Tissue\n" + "What can I do for you?";
     }
 
+    private String listResponse() {
+        return INDENT + "Here are the tasks in your list:\n" + taskList.toString();
+    }
+
+    private String markResponse() {
+        Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).markTask();
+        return INDENT + "Nice! I've marked this task as done:\n" + INDENT + " " + task;
+    }
+
+    private String unmarkResponse() {
+        Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).unmarkTask();
+        return INDENT
+                + "OK, I've marked this task as not done yet:\n"
+                + INDENT
+                + "  "
+                + task;
+    }
+
+    private String deleteResponse() {
+        int line = parser.retrieveNextInt();
+        Task task = taskList.deleteTask(line);
+        storage.delete(line);
+        return INDENT
+                + "Noted. I've removed this task:\n"
+                + INDENT
+                + "  "
+                + task
+                + "\n"
+                + INDENT
+                + "Now you have "
+                + taskList.size()
+                + " tasks in the list.";
+    }
+
+    private String findResponse() {
+        ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
+        String s = INDENT + "Here are the matching tasks!\n";
+        for (Task task : matches) {
+            s = s + INDENT + task + "\n";
+        }
+        return s;
+    }
+
     public String getResponse(String input) {
         parser.setScanner(new Scanner(input));
         input = parser.retrieveNextString();
         switch (input) {
         case "list" -> {
-            return INDENT + "Here are the tasks in your list:\n" + taskList.toString();
+            return listResponse();
         }
         case "mark" -> {
-            int taskIndex = parser.retrieveNextInt() - 1;
-            Task task = taskList.retrieveTask(taskIndex).markTask();
-            return INDENT + "Nice! I've marked this task as done:\n" + INDENT + " " + task;
+            return markResponse();
         }
         case "unmark" -> {
-            int taskIndex = parser.retrieveNextInt() - 1;
-            Task task = taskList.retrieveTask(taskIndex).unmarkTask();
-            return INDENT
-                    + "OK, I've marked this task as not done yet:\n"
-                    + INDENT
-                    + "  "
-                    + task;
+            return unmarkResponse();
         }
         case "delete" -> {
-            int line = parser.retrieveNextInt();
-            Task task = taskList.deleteTask(line);
-            storage.delete(line);
-            return INDENT
-                    + "Noted. I've removed this task:\n"
-                    + INDENT
-                    + "  "
-                    + task
-                    + "\n"
-                    + INDENT
-                    + "Now you have "
-                    + taskList.size()
-                    + " tasks in the list.";
+            return deleteResponse();
         }
         case "find" -> {
-            ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
-            String s = INDENT + "Here are the matching tasks!\n";
-            for (Task task : matches) {
-                s = s + INDENT + task + "\n";
-            }
-            return s;
+            return findResponse();
         }
         default -> {
             return storeTask(input);
         }
         }
     }
+
 
     private String storeTask(String input) {
         String messageTemplate =
@@ -101,41 +120,53 @@ public class GuiUi {
                         + " tasks in the list.";
         switch (input) {
         case "todo" -> {
-            String item = parser.retrieveNextString();
-            if (item.isEmpty()) {
-                return "Description of TODO cannot be empty.";
-            } else {
-                Task task = new ToDo(false, item);
-                storage.save(task);
-                taskList.add(task);
-                return String.format(messageTemplate, task);
-            }
+            return storeToDo(messageTemplate);
         }
         case "deadline" -> {
-            String item = parser.scanUntil("/by");
-            String by = parser.retrieveNextString().strip();
-            try {
-                Task task = new Deadline(false, item, by);
-                storage.save(task);
-                taskList.add(task);
-                return String.format(messageTemplate, task);
-
-            } catch (DateTimeParseException d) {
-                return "OOPS! Please enter a date in the format YYYY-MM-DD";
-            }
+            return storeDeadline(messageTemplate);
         }
         case "event" -> {
-            String item = parser.scanUntil("/from");
-            String from = parser.scanUntil("/to");
-            String to = parser.retrieveNextString().strip();
-            Task task = new Event(false, item, from, to);
-            storage.save(task);
-            taskList.add(task);
-            return String.format(messageTemplate, task);
+            return storeEvent(messageTemplate);
         }
         default -> {
             return "Invalid input. Possible inputs are deadline, todo, event, list, mark, and unmark.";
         }
         }
+    }
+
+    private String storeToDo(String messageTemplate) {
+        String item = parser.retrieveNextString();
+        if (item.isEmpty()) {
+            return "Description of TODO cannot be empty.";
+        } else {
+            Task task = new ToDo(false, item);
+            storage.save(task);
+            taskList.add(task);
+            return String.format(messageTemplate, task);
+        }
+    }
+
+    private String storeDeadline(String messageTemplate) {
+        String item = parser.scanUntil("/by");
+        String by = parser.retrieveNextString().strip();
+        try {
+            Task task = new Deadline(false, item, by);
+            storage.save(task);
+            taskList.add(task);
+            return String.format(messageTemplate, task);
+
+        } catch (DateTimeParseException d) {
+            return "OOPS! Please enter a date in the format YYYY-MM-DD";
+        }
+    }
+
+    private String storeEvent(String messageTemplate) {
+        String item = parser.scanUntil("/from");
+        String from = parser.scanUntil("/to");
+        String to = parser.retrieveNextString().strip();
+        Task task = new Event(false, item, from, to);
+        storage.save(task);
+        taskList.add(task);
+        return String.format(messageTemplate, task);
     }
 }
