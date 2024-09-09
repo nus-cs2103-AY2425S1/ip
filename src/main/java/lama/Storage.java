@@ -30,6 +30,8 @@ public class Storage {
      * @param path String of file path where tasks will be saved and loaded from.
      */
     public Storage(String path) {
+        assert path != null : "File path should not be null";
+        assert !path.trim().isEmpty() : "File path should not be empty";
         this.path = path;
     }
 
@@ -112,7 +114,7 @@ public class Storage {
      * @throws LamaException Thrown if an error occurs while writing the file.
      */
     public void saveTasks(TaskList taskList) throws LamaException {
-
+        assert taskList != null : "Task list should not be null";
         try {
             FileWriter fileWriter = new FileWriter(path);
 
@@ -134,6 +136,7 @@ public class Storage {
      * @throws LamaException Thrown if an error occurs while writing the file.
      */
     public void addTask(Task task) throws LamaException {
+        assert task != null : "Task should not be null";
         try {
             FileWriter fileWriter = new FileWriter(path, true);
             fileWriter.write(task.toFileFormat() + "\n");

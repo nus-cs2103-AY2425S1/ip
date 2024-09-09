@@ -33,6 +33,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
+        assert taskList != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+        assert ui != null : "UI should not be null";
+
         try {
             Task task = taskList.remove(indexOfDeleteCommand);
             ui.showDeleteCommandHeader();

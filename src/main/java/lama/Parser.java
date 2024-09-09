@@ -31,7 +31,12 @@ public class Parser {
      */
     @SuppressWarnings("checkstyle:Regexp")
     public static Command parse(String command) throws LamaException {
+        assert command != null : "Command should not be null";
+        assert !command.isBlank() : "Command should not be empty or blank";
+
         String[] words = command.split(" ", 2);
+
+        assert words.length > 0 : "Command should not be an empty string";
 
         switch (words[0].toLowerCase()) {
         case "bye":

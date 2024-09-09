@@ -1,6 +1,7 @@
 package lama;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
@@ -78,8 +79,20 @@ public class TaskListTest {
     }
 
     /**
-     * Tests the remove method of TaskList.
-     * Verifies that a task is correctly removed from the task list.
+     * Tests the get method of TaskList.
+     * Verifies that a task can be correctly get from the task list.
+     */
+    @Test
+    public void getFailTest() {
+        TaskList taskList = new TaskList();
+
+        assertThrows(AssertionError.class, () -> {
+            taskList.add(null);
+        });
+    }
+    /**
+     * Tests the add method of TaskList.
+     * Verifies that an AssertionError is thrown when a null task is added.
      */
     @Test
     public void removeTest() {
