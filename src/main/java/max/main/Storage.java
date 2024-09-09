@@ -51,6 +51,7 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 Task task = createTask(line);
                 tempList.add(task);
+                assert tempList.size() <= 100 : "Task list exceeds the maximum size of 100.";
             }
             reader.close();
         } catch (IOException e) {
