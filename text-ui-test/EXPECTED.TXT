@@ -1,21 +1,10 @@
 Hello! I'm Taskon
 What can I do for you?
 
+_________________________________________
 Got it! I've added this task:
-    [D][ ] do homework (by: no idea :-p)
+    [T][ ] eat
 Now you have 1 tasks in your list.
 
-Got it! I've added this task:
-    [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 tasks in your list.
-
-Got it! I've added this task:
-    [T][ ] borrow book
-Now you have 3 tasks in your list.
-
-Here's what we've got on your to-do list:
-1.[D][ ] do homework (by: no idea :-p)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-3.[T][ ] borrow book
-
+_________________________________________
 

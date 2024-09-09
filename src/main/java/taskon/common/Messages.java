@@ -2,7 +2,6 @@ package taskon.common;
 
 /**
  * Contains all user-visible messages for the Taskon application.
- *
  * The `Messages` class provides a central location for all the messages
  * that can be displayed to the user, ensuring consistency and making it
  * easier to update or modify the messages.
@@ -18,8 +17,8 @@ public class Messages {
             + "Please try again.\n";
     public static final String MESSAGE_DATE_MISSING = "It looks like you forgot to add a date. Please try again.\n";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date! Please use yyyy-MM-dd HHmm format!\n";
-    public static final String MESSAGE_INVALID_INTEGER = "Invalid task number!";
-    public static final String MESSAGE_EMPTY_FIND = "No matching tasks found!";
+    public static final String MESSAGE_INVALID_INTEGER = "Invalid task number!\n";
+    public static final String MESSAGE_EMPTY_FIND = "No matching tasks found!\n";
     public static final String MESSAGE_HELP = """
             Taskon Commands Guide:
              1. Add Task:

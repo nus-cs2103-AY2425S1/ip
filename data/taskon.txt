@@ -3,3 +3,6 @@ D|0|return book|2024-09-01 1800
 E|0|project meeting|2024-09-01 1400|2024-09-01 1600
 T|1|testing
 D|0|2103|2024-08-30 2359
+D|0|eat|2040-11-25 2359
+T|0|sleep
+T|0|memorise script

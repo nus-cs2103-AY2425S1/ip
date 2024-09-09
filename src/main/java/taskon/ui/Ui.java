@@ -63,12 +63,12 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public String listItems(TaskList tasks) {
-        String s = "Here's what we've got on your to-do list:\n";
+        StringBuilder s = new StringBuilder("Here's what we've got on your to-do list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
-            s = s + (i + 1) + ". " + t.toString() + "\n";
+            s.append(i + 1).append(". ").append(t.toString()).append("\n");
         }
-        return s;
+        return s.toString();
     }
 
     /**
@@ -97,19 +97,23 @@ public class Ui {
      */
     public String showTasksOnDate(String date, TaskList tasks) {
         LocalDate localDate = LocalDate.parse(date);
+
         boolean isFound = false;
-        String s = "Tasks on " + localDate + " :\n";
+        StringBuilder s = new StringBuilder("Tasks on " + localDate + " :\n");
+
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
             if (task.occursOn(localDate)) {
-                s = s + task + "\n";
+                s.append(task).append("\n");
                 isFound = true;
             }
         }
+
         if (!isFound) {
             return MESSAGE_NO_TASKS;
         }
-        return s;
+
+        return s.toString();
     }
 
     /**

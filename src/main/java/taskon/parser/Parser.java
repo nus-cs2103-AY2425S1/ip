@@ -199,15 +199,11 @@ public class Parser {
         assert args != null : "Arguments for event command should not be empty";
 
         String[] partsFrom = args.split("/from", 2);
-        if (partsFrom.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
-        }
+        checkFormatValidity(partsFrom);
 
         String description = partsFrom[0].trim();
         String[] partsTo = partsFrom[1].split("/to", 2);
-        if (partsTo.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
-        }
+        checkFormatValidity(partsTo);
 
         String from = partsTo[0].trim();
         String to = partsTo[1].trim();
@@ -216,6 +212,12 @@ public class Parser {
             return new EventCommand(description, from, to);
         } catch (DateTimeParseException e) {
             throw new TaskonException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+    }
+
+    private static void checkFormatValidity(String[] parts) throws TaskonException {
+        if (parts.length < 2) {
+            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
         }
     }
 }
