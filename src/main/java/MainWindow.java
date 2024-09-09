@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getBotDialog(Bobby.getStartMsg(), bobbyImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Bobby.getStartMsg(), bobbyImage));
     }
 
     /** Injects the Bobby instance */
@@ -43,14 +43,18 @@ public class MainWindow extends AnchorPane {
         parser = new Parser();
     }
 
-
+    /**
+     * Creates two dialog boxes, one echoing user input and the other
+     * containing Bobby's reply and then appends them to the dialog container.
+     * Clears the user input after processing.
+     */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws Exception {
         String input = userInput.getText();
         String response = Bobby.check_action(Parser.getActionType(input), Parser.getDesc(input));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, bobbyImage)
+                DialogBox.getDukeDialog(response, bobbyImage)
         );
         userInput.clear();
     }

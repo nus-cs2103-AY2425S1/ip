@@ -50,9 +50,7 @@ public abstract class Task {
 
     /**
      * Marks the task as done. If the task is already done, a message indicating
-     * that it has already been completed is returned.
-     *
-     * @return A string message indicating the task's new status or that it was already completed.
+     * that it is already completed is displayed.
      */
     public String markAsDone() {
         String response;
@@ -68,9 +66,7 @@ public abstract class Task {
 
     /**
      * Marks the task as not done. If the task is already not done,
-     * a message indicating that it is not marked yet is returned.
-     *
-     * @return A string message indicating the task's new status or that it was already not done.
+     * a message indicating that it is not marked yet is displayed.
      */
     public String unMark() {
         String response;

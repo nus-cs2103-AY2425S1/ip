@@ -11,18 +11,15 @@ import java.time.format.DateTimeParseException;
 public class Bobby {
 
     /**
-     * Start message displayed when the bot starts
+     * Greeting message displayed when the bot starts
      */
     private static final String START = "Hello! I'm Bobby\n"
             + "What can I do for you?\n";
 
     /**
-     * Exit message when the bot terminates
+     * Exit msg when the bot terminates
      */
     private static final String EXIT = "Bye. Hope to see you again soon!";
-    /**
-     * Retry message displayed when the bot cannot recognize an action.
-     */
     private static final String RETRY = "HELP!! I do not recognise this action as of now.\n"
             + "You can try: todo xxx, event xxx /from xxx /to xxx, "
             + "deadline xxx /by xxx, unmark x, mark x, list, bye\n";
@@ -46,23 +43,18 @@ public class Bobby {
     public enum ActionType {
         bye, list, delete, mark, unmark, todo, deadline, event, retry, find
     }
-    /**
-     * Gets the start message to display when Bobby starts.
-     *
-     * @return The start message.
-     */
+
     public static String getStartMsg() {
         return START;
     }
-
     /**
      * Constructs a Task object from a string description.
-     * The string format is expected to match the task types (ToDo, Deadline, or Event)
-     * and should include details such as task type, status, description, and time.
      *
      * @param desc The string description of the task.
-     * @return A Task object corresponding to the description, or null if input is invalid.
+     * @return A Task object corresponding to the description,
+     *      or null if the input is invalid
      */
+
     public static Task constructTask(String desc) {
         assert desc != null : "Description cannot be null";
         String[] details = desc.split("/");
@@ -92,10 +84,10 @@ public class Bobby {
         }
     }
     /**
-     * Handles the "bye" command by saving tasks and returning the exit message.
+     * Handles the "bye" command by saving all tasks to
+     * the file and printing the exit message.
      *
-     * @param desc The user input after the "bye" command.
-     * @return The exit message or retry message.
+     * @throws Exception if there is an issue writing to the file.
      */
     private static String handleBye(String desc) {
         if (desc == null) {
@@ -108,10 +100,10 @@ public class Bobby {
     }
 
     /**
-     * Handles the "list" command by returning the current list of tasks.
+     * Handles the "list" command by printing the task list
+     * and processing the next user action.
      *
-     * @param desc The user input after the "list" command.
-     * @return The list of tasks or the retry message.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleList(String desc) {
         if (desc == null) {
@@ -120,11 +112,11 @@ public class Bobby {
             return RETRY;
         }
     }
+
     /**
-     * Handles the "delete" command by deleting the specified task from the task list.
+     * Handles the "delete" command by deleting the specified task from the list.
      *
-     * @param desc The user input specifying which task to delete.
-     * @return The response after the task is deleted or a retry message.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleDelete(String desc) {
         try {
@@ -138,10 +130,10 @@ public class Bobby {
     }
 
     /**
-     * Handles the "find" command by finding tasks with the specified keyword.
+     * Handles the "find" command by finding the task from the list that contains
+     * the keywords.
      *
-     * @param desc The user input specifying the keyword to search for.
-     * @return The response after finding matching tasks or a retry message.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleFind(String desc) {
         String keyword = desc;
@@ -155,8 +147,7 @@ public class Bobby {
     /**
      * Handles the "mark" command by marking the specified task as done.
      *
-     * @param desc The user input specifying which task to mark.
-     * @return The response after marking the task as done or a retry message.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleMark(String desc) {
         Task currTask;
@@ -179,8 +170,7 @@ public class Bobby {
     /**
      * Handles the "unmark" command by unmarking the specified task as not done.
      *
-     * @param desc The user input specifying which task to unmark.
-     * @return The response after unmarking the task or a retry message.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleUnmark(String desc) {
         Task currTask;
@@ -203,8 +193,7 @@ public class Bobby {
     /**
      * Handles the "todo" command by adding a new ToDo task to the task list.
      *
-     * @param desc The user input specifying the ToDo task description.
-     * @return The response after adding the task or an error message if invalid.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleTodo(String desc) {
         if (desc == null || desc.trim().isEmpty()) {
@@ -221,8 +210,7 @@ public class Bobby {
     /**
      * Handles the "deadline" command by adding a new Deadline task to the task list.
      *
-     * @param desc The user input specifying the Deadline task description and date/time.
-     * @return The response after adding the task or an error message if invalid.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleDeadline(String desc) {
         String errorMsg = "OOPS!!! Format of deadline should be "
@@ -251,8 +239,7 @@ public class Bobby {
     /**
      * Handles the "event" command by adding a new Event task to the task list.
      *
-     * @param desc The user input specifying the Event task description and date/time range.
-     * @return The response after adding the task or an error message if invalid.
+     * @throws Exception if there is an issue processing the next action.
      */
     private static String handleEvent(String desc) {
         String errorMsg = "OOPS!!! Format of events should be "
@@ -285,13 +272,11 @@ public class Bobby {
     }
 
     /**
-     * Determines and executes the appropriate action based on user input.
+     * Determines and executes the action based on user input.
      *
-     * @param action The type of action to perform.
-     * @param desc The user input for the command.
-     * @return The response after executing the action.
+     * @param action The type of action to perform, as determined by user input.
      */
-    public static String check_action(ActionType action, String desc) {
+    public static String check_action(ActionType action, String desc) throws Exception {
         switch (action) {
         case bye:
             return handleBye(desc);

@@ -32,11 +32,6 @@ public class Storage {
         this.filePath = filePath;
         this.listForDisk = new ArrayList<>(100);
     }
-    /**
-     * Gets the file path where tasks are stored.
-     *
-     * @return The file path.
-     */
     public static String getFilePath() {
         return filePath;
     }
@@ -44,7 +39,6 @@ public class Storage {
     /**
      * Writes the given list of tasks to the file. Each task is converted to a
      * string format suitable for storage and then written to the file.
-     * The existing file is cleared before writing the new list.
      *
      * @param local The TaskList containing the tasks to be saved.
      * @throws Exception If an I/O error occurs while writing to the file.

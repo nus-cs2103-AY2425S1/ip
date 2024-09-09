@@ -50,10 +50,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list by its index.
+     * Deletes a task from both lists by its index.
      *
      * @param idx The index of the task to delete (1-based index).
-     * @return A string message indicating the result of the deletion operation.
      */
     public static String deleteTask(int idx) {
         String response;
@@ -74,8 +73,7 @@ public class TaskList {
      * Retrieves a task from the list by its index.
      *
      * @param idx The index of the task to retrieve (1-based index).
-     * @return The {@link Task} object at the specified index,
-     *      or null if the index is invalid.
+     * @return The Task object at the specified index, or null if not found.
      */
     public static Task retrive_task(int idx) {
         if (idx >= 0 && idx <= taskList.size()) {
@@ -85,9 +83,8 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list for chat display.
-     *
-     * @return A string representation of the tasks in the list, each on a new line.
+     * Prints all tasks in the list, each on a new line.
+     * User-friendly mode.
      */
     public static String print_list() {
         String response = "Here are the tasks in your list:\n";
@@ -101,8 +98,6 @@ public class TaskList {
      * Searches for tasks containing the specified keyword in their description.
      *
      * @param keyword The substring to search for in task descriptions.
-     * @return A string containing the tasks that match the search keyword,
-     *      or a message if no matches are found.
      */
     public static String findTask(String keyword) {
         String response;
