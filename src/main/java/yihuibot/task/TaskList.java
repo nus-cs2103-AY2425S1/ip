@@ -1,6 +1,7 @@
 package yihuibot.task;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  * A class to store a list of tasks.
@@ -13,6 +14,16 @@ public class TaskList extends ArrayList<Task> {
      */
     public TaskList() {
         super();
+    }
+
+    /**
+     * Constructor for a new TaskList using Streams.
+     *
+     * @param tasks the stream of Tasks.
+     */
+    public TaskList(Stream<Task> tasks) {
+        super();
+        tasks.forEach(task -> super.add(task));
     }
 
     /**

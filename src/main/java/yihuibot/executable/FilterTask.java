@@ -62,12 +62,7 @@ public class FilterTask extends TaskModifier {
      * @return a TaskList of filtered Tasks.
      */
     private TaskList filter(TaskList tasks, String filter) {
-        TaskList taskList = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(filter)) {
-                taskList.add(tasks.get(i));
-            }
-        }
-        return taskList;
+        return new TaskList(tasks.stream()
+                .filter(task -> task.getDescription().contains(filter)));
     }
 }
