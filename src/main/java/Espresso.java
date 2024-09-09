@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.text.ParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Espresso {
@@ -32,12 +33,20 @@ public class Espresso {
                     if (taskType.equals("T")) {
                         task = new todoTask(status);
                     } else if (taskType.equals("D")) {
-                        String dl = parts[3];
-                        task = new deadlineTask(status, dl);
+                        try {
+                            String dl = parts[3];
+                            task = new deadlineTask(status, dl);
+                        } catch (ParseException e) {
+                            System.out.println("Error parsing deadline date. Skipping task.");
+                        }
                     } else if (taskType.equals("E")) {
-                        String starts = parts[3];
-                        String ends = parts[4];
-                        task = new eventTask(status, starts, ends);
+                        try{
+                            String starts = parts[3];
+                            String ends = parts[4];
+                            task = new eventTask(status, starts, ends);
+                        } catch (ParseException e) {
+                            System.out.println("Error parsing event date. Skipping task.");
+                        }
                     } else {
                         System.out.println("Incorrect task entry..moving ahead");
                         continue;
@@ -84,7 +93,8 @@ public class Espresso {
                 }
                 tasks.add(task);
                 saveTaskList();
-                System.out.println("____________________________________________________________");System.out.println("Got it. I've added this task:");
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task);
                 if (count == 0)
                     System.out.println("Now you have " + (count + 1) + " task in the list.");
@@ -96,6 +106,11 @@ public class Espresso {
         catch (IllegalArgumentException e) {
             System.out.println("____________________________________________________________");
             System.out.println("Oops! " + e.getMessage());
+            System.out.println("____________________________________________________________");
+        }
+        catch (ParseException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Invalid date format! Please use dd-MM-yyyy.");
             System.out.println("____________________________________________________________");
         }
     }
