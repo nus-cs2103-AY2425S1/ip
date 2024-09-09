@@ -40,6 +40,13 @@ public class TaskList {
         return "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
+    /**
+     * Adds multiple Todo tasks to the TaskList.
+     * Displays a confirmation message after adding the todos.
+     *
+     * @param todos An ArrayList of Task objects to be added as Todo tasks.
+     * @return A confirmation message after adding the todos.
+     */
     public String addMultipleTodos(ArrayList<Task> todos) {
         for (Task task : todos) {
             taskList.add(task);
@@ -52,6 +59,7 @@ public class TaskList {
      * Displays a confirmation message after deleting the task.
      *
      * @param index The index of the task to be deleted.
+     * @return A confirmation message after deleting the task.
      */
     public String delete(int index) {
         Task task = taskList.get(index);
@@ -59,18 +67,17 @@ public class TaskList {
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
+    /**
+     * Finds tasks in the TaskList that match the given keyword.
+     *
+     * @param word The keyword to search for in task names.
+     * @return A message containing the list of matching tasks, or a message if no tasks match.
+     */
     public String find(String word) {
         List<Task> matchingTasks = this.taskList.stream()
                 .filter(task -> task.getName()
                         .contains(word))
                 .collect(Collectors.toList());
-
-        // for (int i = 0; i < this.taskList.size(); i++) {
-        //     Task task = this.taskList.get(i);
-        //     if (task.getName().contains(word)) {
-        //         matchingTasks.add(task);
-        //     }
-        // }
 
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
@@ -88,6 +95,7 @@ public class TaskList {
      * Displays a confirmation message after marking the task.
      *
      * @param index The index of the task to be marked as done.
+     * @return A confirmation message after marking the task.
      */
     public String mark(int index) {
         Task task = taskList.get(index);
@@ -100,6 +108,7 @@ public class TaskList {
      * Displays a confirmation message after unmarking the task.
      *
      * @param index The index of the task to be marked as not done.
+     * @return A confirmation message after unmarking the task.
      */
     public String unmark(int index) {
         Task task = taskList.get(index);

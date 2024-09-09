@@ -1,10 +1,10 @@
 package command;
 
+import java.io.IOException;
+
 import exception.ScheduloException;
 import task.TaskList;
 import util.Storage;
-
-import java.io.IOException;
 
 
 /**
@@ -24,10 +24,10 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the UnmarkCommand by marking the task at the specified index as not done and saving the updated list to storage.
+     * Executes the UnmarkCommand by marking the task at the specified index as
+     * not done and saving the updated list to storage.
      *
      * @param tasks   The TaskList containing the task to be marked as not done.
-     * @param ui      The Ui instance used to interact with the user.
      * @param storage The Storage instance used to save the updated task list.
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs while saving the task list.
@@ -37,7 +37,6 @@ public class UnmarkCommand extends Command {
         String message;
         try {
             message = tasks.unmark(this.index - 1);
-            ;
         } catch (IndexOutOfBoundsException e) {
             throw new ScheduloException("The task index provided is invalid.");
         }

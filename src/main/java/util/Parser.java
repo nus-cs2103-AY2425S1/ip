@@ -92,9 +92,9 @@ public class Parser {
     /**
      * Parses the details of a mark command and returns the corresponding Command object.
      *
-     * @param splitWords
-     * @return
-     * @throws ScheduloException
+     * @param splitWords takes in a string of parts of the command
+     * @return the Command type to parse the command
+     * @throws ScheduloException which can display custom error messages
      */
     private static Command parseMarkCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
@@ -111,9 +111,9 @@ public class Parser {
     /**
      * Parses the details of an unmark command and returns the corresponding Command object.
      *
-     * @param splitWords
-     * @return
-     * @throws ScheduloException
+     * @param splitWords takes in the parts of the unmark command
+     * @return the unmark command
+     * @throws ScheduloException incase of errors with custom message
      */
 
     private static Command parseUnmarkCommand(String[] splitWords) throws ScheduloException {
@@ -131,9 +131,9 @@ public class Parser {
     /**
      * Parses the details of a delete command and returns the corresponding Command object.
      *
-     * @param splitWords
-     * @return
-     * @throws ScheduloException
+     * @param splitWords to parse the delete command
+     * @return the delete command
+     * @throws ScheduloException to handle exceptions with custom messages
      */
 
     private static Command parseDeleteCommand(String[] splitWords) throws ScheduloException {
