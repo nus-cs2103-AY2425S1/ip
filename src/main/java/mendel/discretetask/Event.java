@@ -75,6 +75,11 @@ public class Event extends Task {
         assert slashSegments.length > 1 : "Description has wrong format";
         String startMsg = new DateTimeManager(slashSegments[1].split(" /to ")[0]).toString();
         String endMsg = new DateTimeManager(slashSegments[1].split(" /to ")[1]).toString();
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg, startMsg, endMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
             if (i == mainMessage.length - 1) {
@@ -83,7 +88,7 @@ public class Event extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg, startMsg, endMsg};
+        return reformattedMsg;
     }
 
     /**

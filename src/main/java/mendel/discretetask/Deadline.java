@@ -68,6 +68,11 @@ public class Deadline extends Task {
         assert slashSegments.length > 1 : "Description has wrong format";
         String[] mainMessage = slashSegments[0].split(" ");
         String endMsg = new DateTimeManager(slashSegments[1]).toString();
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg, endMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
             if (i == mainMessage.length - 1) {
@@ -76,7 +81,7 @@ public class Deadline extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg, endMsg};
+        return reformattedMsg;
     }
 
     /**

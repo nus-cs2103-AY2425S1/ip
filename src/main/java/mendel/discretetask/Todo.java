@@ -59,16 +59,21 @@ public class Todo extends Task {
      */
     private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
-        String[] segments = rawDescription.split(" ");
+        String[] mainMessage = rawDescription.split(" ");
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
-        for (int i = 1; i < segments.length; i++) {
-            if (i == segments.length - 1) {
-                reformattedMsg += segments[i];
+        for (int i = 1; i < mainMessage.length; i++) {
+            if (i == mainMessage.length - 1) {
+                reformattedMsg += mainMessage[i];
             } else {
-                reformattedMsg += segments[i] + " ";
+                reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg};
+        return reformattedMsg;
     }
 
     /**

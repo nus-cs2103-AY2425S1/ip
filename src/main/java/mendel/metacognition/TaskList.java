@@ -140,13 +140,16 @@ public class TaskList extends Command {
      */
     public String find(String rawDate) {
         String formattedDate = new DateTimeManager(rawDate).toString();
-        String finalMessage = String.format("Here are the tasks with deadlines on: %s", formattedDate);
+        return String.format("Here are the tasks with deadlines on: %s", formattedDate)
+                + draftItemList(formattedDate);
+    }
+    private String draftItemList(String formattedDate) {
+        String finalMessage = "";
         int increment = 0;
         for (int i = 0; i < counter; i++) {
             if (this.messages.get(i).isTargetDueDate(formattedDate)) {
                 increment++;
-                finalMessage += String.format("\n%d.%s", increment,
-                        this.messages.get(i).toString());
+                finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
             }
         }
         return finalMessage;
@@ -160,6 +163,24 @@ public class TaskList extends Command {
      */
     public String findDescription(String fullCommand) {
         String[] segments = fullCommand.split("find ");
+        String matchString = stringMatcher(segments);
+        String finalMessage = "Here are the matching tasks in your list" + draftDescriptionList(matchString);
+        return finalMessage;
+    }
+
+    private String draftDescriptionList(String matchString) {
+        String finalMessage = "";
+        int increment = 0;
+        for (int i = 0; i < counter; i++) {
+            if (this.messages.get(i).isMatchingDescription(matchString)) {
+                increment++;
+                finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
+            }
+        }
+        return finalMessage;
+    }
+
+    private String stringMatcher(String[] segments) {
         String matchString = "";
         for (int i = 1; i < segments.length; i++) {
             if (i == 1) {
@@ -168,16 +189,7 @@ public class TaskList extends Command {
                 matchString += "find " + segments[i];
             }
         }
-        String finalMessage = "Here are the matching tasks in your list";
-        int increment = 0;
-        for (int i = 0; i < counter; i++) {
-            if (this.messages.get(i).isMatchingDescription(matchString)) {
-                increment++;
-                finalMessage += String.format("\n%d.%s", increment,
-                        this.messages.get(i).toString());
-            }
-        }
-        return finalMessage;
+        return matchString;
     }
 
     /**
@@ -198,14 +210,11 @@ public class TaskList extends Command {
     public String toString() {
         String finalMessage = "";
         if (counter > 0) {
-            finalMessage = String.format("1.%s",
-                    this.messages.get(0).toString());
+            finalMessage = String.format("1.%s", this.messages.get(0).toString());
         }
         for (int i = 1; i < counter; i++) {
             int increment = i + 1;
-            finalMessage += String.format("\n%d.%s", increment,
-                    this.messages.get(i).toString());
-
+            finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
         }
         return finalMessage;
     }
