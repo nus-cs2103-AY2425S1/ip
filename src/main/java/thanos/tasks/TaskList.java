@@ -2,6 +2,7 @@ package thanos.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import thanos.storage.IStorage;
 
@@ -114,13 +115,9 @@ public class TaskList {
      * @return An {@code ArrayList} of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> find(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task: this.tasks) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return this.tasks.stream()
+                .filter(task -> tasks.toString().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -130,12 +127,8 @@ public class TaskList {
      * @return an {@code ArrayList} containing tasks that match the specified date.
      */
     public ArrayList<Task> findByDate(LocalDateTime date) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task: this.tasks) {
-            if (task.checkDate(date)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return this.tasks.stream()
+                .filter(task -> task.checkDate(date))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
