@@ -41,8 +41,8 @@ public class EventTask extends Task {
     @Override
     String serialize() {
         return this.type.toChar() + Task.DELIMETER_SPACE + (this.isDone ? "1" : "0") + Task.DELIMETER_SPACE
-                + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE
-                + this.fromDate.serialize() + Task.DELIMETER_SPACE + this.toDate.serialize();
+                + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE + this.fromDate
+                        .serialize() + Task.DELIMETER_SPACE + this.toDate.serialize();
     }
 
     /**
@@ -62,6 +62,13 @@ public class EventTask extends Task {
             throw new IllegalArgumentException("Invalid task format: " + serializedTask);
         }
 
+        boolean isDone = parts[0].equals("1");
+        String description = parts[1].replace("\\" + DELIMETER, DELIMETER);
+
+        this.description = description;
+        this.isDone = isDone;
+        this.fromDate = TaskLocalDate.deserialize(parts[2]);
+        this.toDate = TaskLocalDate.deserialize(parts[3]);
     }
 
     @Override
