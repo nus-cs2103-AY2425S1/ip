@@ -19,7 +19,9 @@ public class Run {
         taskList = new TaskList();
         storage.init(taskList);
         Command cmd = commandParser.parse(userInput);
+        assert cmd != null : "The parser should return a command!";
         cmd.execute(taskList, ui, storage);
+        assert !ui.getResponse().isEmpty() : "Miku should return an response!";
         return ui.getResponse();
 
     }
