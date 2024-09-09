@@ -17,6 +17,8 @@ public class Parser {
     public String parse(TaskList taskList, String instruction) {
         if (instruction.equals("bye")) {
             return " Bye. Hope to see you again soon!";
+        } else if (instruction.equalsIgnoreCase("hi")) {
+            return "Meow! Hello There! How can i help you?";
         } else if (instruction.equals("list")) {
             return taskList.printList();
         } else if (instruction.startsWith("find ")) {
