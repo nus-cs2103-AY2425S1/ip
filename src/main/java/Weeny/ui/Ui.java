@@ -24,6 +24,7 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public String showTaskList(List<Task> tasks) {
+        assert tasks != null : "Task list should not be null";
         String taskList = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             taskList = taskList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
@@ -37,6 +38,7 @@ public class Ui {
      * @param tasks A list of tasks that contains the keyword
      */
     public String showSearchResult(List<Task> tasks) {
+        assert tasks != null : "Search result list should not be null";
         String resultList = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             resultList = resultList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
@@ -51,6 +53,7 @@ public class Ui {
      * @param size The updated number of tasks.
      */
     public String printTaskAddedMessage(Task task, int size) {
+        assert task != null : "Task should not be null";
         return String.format("Got it. I've added this task:\n" + task.toString() +
                 "\n" +"Now you have " + size + " tasks in the list.\n");
     }
@@ -62,6 +65,7 @@ public class Ui {
      * @param size The updated number of tasks.
      */
     public String showTaskDeletedMessage(Task task, int size) {
+        assert task != null : "Task should not be null";
         return String.format("Spooof! The task magically disappeared:\n" +
                 task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
     }
@@ -72,6 +76,7 @@ public class Ui {
      * @param task The task that was unmarked.
      */
     public String showUnmarkMessage(Task task) {
+        assert task != null : "Task should not be null";
         return String.format("OK, I've marked this task as not done yet:\n" +
                 task.toString() + "\n");
     }
@@ -82,6 +87,7 @@ public class Ui {
      * @param task The task that was marked.
      */
     public String showMarkMessage(Task task) {
+        assert task != null : "Task should not be null";
         return String.format("Nice! I've marked this task as done:\n" +
                 task.toString() + "\n");
     }
