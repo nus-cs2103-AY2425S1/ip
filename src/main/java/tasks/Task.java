@@ -1,5 +1,8 @@
 package tasks;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Represents the general form of a task.
  * A <code>Task</code> object minimally has a name and a flag to show if it is done
@@ -7,6 +10,7 @@ package tasks;
 public abstract class Task {
     protected String name;
     protected boolean isDone = false;
+    protected ArrayList<String> tags = new ArrayList<>();
 
     public String getName() {
         return this.name;
@@ -41,13 +45,35 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         if (this.isDone) {
-            res += "[X] ";
+            res.append("[X] ");
         } else {
-            res += "[ ] ";
+            res.append("[ ] ");
         }
-        res += this.name;
-        return res;
+        res.append(this.name);
+
+        return res.toString();
+    }
+
+
+    /**
+     * Adds all tags to task.
+     *
+     * @param tagsArr The string array of tags to add to the task.
+     */
+    public void addTags(String[] tagsArr) {
+        Collections.addAll(tags, tagsArr);
+    }
+
+    /**
+     * Removes all tags in tagsArr from task.
+     *
+     * @param tagsArr The string array of tags to remove from the task.
+     */
+    public void removeTags(String[] tagsArr) {
+        for (String s : tagsArr) {
+            tags.remove(s);
+        }
     }
 }

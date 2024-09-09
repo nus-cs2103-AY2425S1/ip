@@ -96,7 +96,7 @@ public class Ui {
      */
     public String addedTask(Task added, int taskListSize) {
         assert added != null : "Added task given is null!";
-        return "I have added the task " + added + "\nYou now have " + taskListSize + " task(s)";
+        return "I have added the task:\n" + added + "\nYou now have " + taskListSize + " task(s)";
     }
 
     /**
@@ -120,19 +120,53 @@ public class Ui {
      * @param matchList The list of tasks that matched the user's search
      * @return The success message
      */
-
-        public String showMatchedTasks(ArrayList<Task> matchList, String prompt) {
-            assert matchList != null : "List of matched tasks given is null!";
-            if (matchList.isEmpty()) {
-                return "There are no tasks in your list that match " + prompt;
-            } else {
-                StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: \n");
-                for (int i = 0; i < matchList.size(); i++) {
-                    res.append((i + 1)).append(". ").append(matchList.get(i).toString());
-                }
-                return res.toString();
+    public String showMatchedTasks(ArrayList<Task> matchList, String prompt) {
+        assert matchList != null : "List of matched tasks given is null!";
+        if (matchList.isEmpty()) {
+            return "There are no tasks in your list that match " + prompt;
+        } else {
+            StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: \n");
+            for (int i = 0; i < matchList.size(); i++) {
+                res.append((i + 1)).append(". ").append(matchList.get(i).toString());
             }
+            return res.toString();
         }
     }
+
+    /**
+     * Takes in the task that the tags were added to.
+     * Returns the message to show the user that the tags were added successfully
+     *
+     * @param taskToAddTags The task that the tags were added to.
+     * @return The success message
+     */
+    public String showTaskTags(Task taskToAddTags) {
+        return "Tags were successfully added! The task is now:\n" +
+                taskToAddTags;
+    }
+
+    /**
+     * Takes in the task that the tags were removed from.
+     * Returns the message to show the user that the tags were removed successfully
+     *
+     * @param taskToRemoveTags The task that the tags were removed from.
+     * @return The success message
+     */
+    public String showRemoveTaskTags(Task taskToRemoveTags, String[] tags) {
+        StringBuilder res = new StringBuilder();
+        res.append("The tags:\n ");
+        for (int i = 0; i < tags.length; i++) {
+            String tag = tags[i].trim();
+            if (i != tags.length - 1) {
+                res.append("#").append(tag);
+            } else {
+                res.append("#").append(tag).append(", ");
+            }
+        }
+        res.append("\nwere removed successfully! The task is now:\n");
+        res.append(taskToRemoveTags);
+        return res.toString();
+    }
+}
 
 

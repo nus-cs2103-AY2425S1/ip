@@ -2,6 +2,7 @@ package processes;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -150,10 +151,59 @@ public class TaskList {
      * After getting the list of matching tasks, print them out to the terminal
      *
      * @param prompt The prompt provided by the user.
+     * @return The output array of tasks that contains the prompt in their names.
      *
      */
     public ArrayList<Task> find(String prompt) {
         Stream<Task> stream = this.taskList.stream().filter(t -> t.getName().contains(prompt));
         return stream.collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Receive the prompt from the user and adds tag to the target task.
+     *
+     *
+     * @param inputs The String array of prompts provided by the user.
+     * Contains index of task to tag, as well as the tags to add.
+     *
+     * @return The target task that the tags were added to
+     */
+    public Task tag(String[] inputs) throws TaskOutOfBoundsError {
+        for (int i = 0; i < inputs.length; i++) {
+            inputs[i] = inputs[i].trim();
+        }
+        int index = Integer.parseInt(inputs[0]);
+
+        if (index < 1 || index > taskList.size()) {
+            throw new TaskOutOfBoundsError(index);
+        }
+        index--;
+        Task taskToAddTags = taskList.get(index);
+        taskToAddTags.addTags(Arrays.copyOfRange(inputs, 1, inputs.length));
+        return taskToAddTags;
+    }
+
+    /**
+     * Receive the prompt from the user and removes the tags from the target task.
+     *
+     *
+     * @param inputs The String array of prompts provided by the user.
+     * Contains index of task to tag, as well as the tags to remove.
+     *
+     * @return The target task that the tags were removed from
+     */
+    public Task removeTags(String[] inputs) throws TaskOutOfBoundsError {
+        for (int i = 0; i < inputs.length; i++) {
+            inputs[i] = inputs[i].trim();
+        }
+        int index = Integer.parseInt(inputs[0]);
+
+        if (index < 1 || index > taskList.size()) {
+            throw new TaskOutOfBoundsError(index);
+        }
+        index--;
+        Task taskToRemoveTags = taskList.get(index);
+        taskToRemoveTags.removeTags(Arrays.copyOfRange(inputs, 1, inputs.length));
+        return taskToRemoveTags;
     }
 }

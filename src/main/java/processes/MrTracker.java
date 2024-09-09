@@ -1,6 +1,7 @@
 package processes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -50,9 +51,14 @@ public class MrTracker {
 
         ui.showTaskList(taskList.getTasks());
 
-        String res;
+        String res = null;
 
         PrefixString pref = parser.parseCommand(input);
+
+        if (pref == null) {
+            res = ui.showMessage("I am sorry, but I don't know what that means :-(");
+            return res;
+        }
 
         switch (pref) {
         case BYE:
@@ -64,13 +70,13 @@ public class MrTracker {
             break;
 
         case MARK:
-            if (!parser.checkValidIndex(input, 5)) {
+            if (!parser.checkValidIndex(input.substring(5))) {
                 String message = input.substring(5) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
 
-            int index = parser.checkIndex(input, 5);
+            int index = Integer.parseInt(input.substring(5));
             try {
                 Task markedTask = taskList.markAndUnmark(index, true);
                 res = ui.showMarked(markedTask);
@@ -80,13 +86,13 @@ public class MrTracker {
             break;
 
         case UNMARK:
-            if (!parser.checkValidIndex(input, 7)) {
+            if (!parser.checkValidIndex(input.substring(7))) {
                 String message = input.substring(7) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
 
-            index = parser.checkIndex(input, 7);
+            index = Integer.parseInt(input.substring(7));
             try {
                 Task unMarkedTask = taskList.markAndUnmark(index, false);
                 res = ui.showUnmarked(unMarkedTask);
@@ -123,12 +129,12 @@ public class MrTracker {
             break;
 
         case DELETE:
-            if (!parser.checkValidIndex(input, 7)) {
+            if (!parser.checkValidIndex(input.substring(7))) {
                String message = input.substring(7) + " is not a valid index";
                 res = ui.showMessage(message);
                 break;
             }
-            index = parser.checkIndex(input, 7);
+            index = Integer.parseInt(input.substring(7));
             try {
                 Task deleted = taskList.deleteTask(index);
                 res = ui.deletedTask(deleted, taskList.getSize());
@@ -146,6 +152,37 @@ public class MrTracker {
         case WELCOME:
             res = ui.showWelcomeMessage("MrTracker");
             break;
+
+        case TAG:
+            String[] inputs = input.substring(4).split("#");
+            if (!parser.checkValidIndex(inputs[0])) {
+                String message = inputs[0] + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+            try {
+                Task taskToAddTags = taskList.tag(inputs);
+                res = ui.showTaskTags(taskToAddTags);
+            } catch(TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
+        case REMOVETAGS:
+            inputs = input.substring(12).split("#");
+            if (!parser.checkValidIndex(inputs[0])) {
+                String message = inputs[0] + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+            try {
+                Task taskToRemoveTags = taskList.removeTags(inputs);
+                res = ui.showRemoveTaskTags(taskToRemoveTags, Arrays.copyOfRange(inputs, 1, inputs.length));
+            } catch(TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
 
         default:
             res = ui.showMessage("I am sorry, but I don't know what that means :-(");

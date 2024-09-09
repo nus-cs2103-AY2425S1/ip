@@ -15,3 +15,6 @@ bin/
 
 /src/test/ACTUAL.TXT
 src/test/EXPECTED-UNIX.TXT
+
+# Data for tasks
+/data/tasks.txt
