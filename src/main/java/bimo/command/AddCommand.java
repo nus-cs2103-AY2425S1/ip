@@ -30,11 +30,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(task);
-        String word = tasks.getLength() == 1 ? "task" : "tasks";
-        storage.appendToFile(task);
-        return "Got it. I've added this task:\n" + "    " + task.toString()
-                + "\n" + String.format("Now you have %d %s in the tasks.",
-                tasks.getLength(), word);
+        tasks.addTask(this.task);
+        storage.appendToFile(this.task);
+        int length = tasks.getLength();
+        return ui.sendAddTaskMessage(length, task);
     }
 }
