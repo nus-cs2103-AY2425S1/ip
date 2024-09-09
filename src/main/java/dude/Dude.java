@@ -32,6 +32,8 @@ public class Dude {
      * @param filePath The file path where task data is stored.
      */
     public Dude(String filePath) {
+        assert !filePath.isEmpty();
+
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadData());
         ui = new Ui();
@@ -96,6 +98,7 @@ public class Dude {
      * @return A greeting message.
      */
     public String greet() {
+        assert isRunning;
         return ui.showGreet();
     }
 
@@ -112,6 +115,8 @@ public class Dude {
         } else {
             Task newTask = new ToDo(taskDes);
             taskList.addTask(newTask);
+
+            assert isRunning;
             return ui.showAdd(newTask, taskList);
         }
     }
@@ -142,6 +147,8 @@ public class Dude {
             LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
             Task newTask = new Deadline(splitDes[0].strip(), by);
             taskList.addTask(newTask);
+
+            assert isRunning;
             return ui.showAdd(newTask, taskList);
         }
     }
@@ -184,6 +191,8 @@ public class Dude {
 
             Task newTask = new Event(splitDes[0].strip(), from, to);
             taskList.addTask(newTask);
+
+            assert isRunning;
             return ui.showAdd(newTask, taskList);
         }
     }
@@ -202,6 +211,7 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
+        assert isRunning;
         return ui.showMark(taskList.markTask(index));
     }
 
@@ -219,6 +229,7 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
+        assert isRunning;
         return ui.showUnmark(taskList.unmarkTask(index));
     }
 
@@ -236,6 +247,7 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
+        assert isRunning;
         return ui.showDelete(taskList.deleteTask(index), taskList);
     }
 
@@ -280,6 +292,7 @@ public class Dude {
         if (filteredList.isEmpty()) {
             throw new DudeTaskNotFoundException();
         } else {
+            assert isRunning;
             return ui.showFind(filteredList);
         }
     }

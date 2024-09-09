@@ -29,6 +29,8 @@ public class Storage {
      * @param filePath The file path where task data is stored.
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty();
+
         this.filePath = filePath;
     }
 
