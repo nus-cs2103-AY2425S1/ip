@@ -3,7 +3,16 @@ package monique.parser;
 import java.util.Arrays;
 import java.util.Set;
 
-import monique.command.*;
+import monique.command.AddCommand;
+import monique.command.ByeCommand;
+import monique.command.Command;
+import monique.command.DeleteCommand;
+import monique.command.FindCommand;
+import monique.command.GuideCommand;
+import monique.command.ListCommand;
+import monique.command.MarkCommand;
+import monique.command.UnknownCommand;
+import monique.command.UnmarkCommand;
 import monique.exception.IllegalDateFormatException;
 import monique.exception.ParseException;
 import monique.task.Deadline;
@@ -18,7 +27,7 @@ import monique.task.ToDo;
 public class Parser {
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete", "find");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
-
+    private static final int INDEX_OFFSET = 1;
     /**
      * Parses the given command string and returns the corresponding <code>Command</code> object.
      * The method identifies the command type and creates the appropriate command object with the provided parameters.
@@ -47,30 +56,29 @@ public class Parser {
                     if (!hasSecondWord) {
                         throw new ParseException();
                     }
-                    int taskNum = Integer.parseInt(fullCommand.split("mark ")[1]) -1;
+                    int taskNum = Integer.parseInt(fullCommand.split("mark ")[1]) - INDEX_OFFSET;
                     command = new MarkCommand(taskNum);
                     break;
                 } catch (ParseException pe) {
                     pe.advice();
                 } catch (NumberFormatException nfe) {
                     System.out.println("you have tried to use an invalid number");
-                } finally {
-                    break;
                 }
+                break;
             }
             case "unmark": {
                 try {
                     if (!hasSecondWord) {
                         throw new ParseException();
                     }
-                    int taskNum = Integer.parseInt(fullCommand.split("unmark ")[1]) - 1;
+                    int taskNum = Integer.parseInt(fullCommand.split("unmark ")[1]) - INDEX_OFFSET;
                     command = new UnmarkCommand(taskNum);
-                    break;
                 } catch (ParseException pe) {
                     pe.advice();
                 } catch (NumberFormatException nfe) {
                     System.out.println("you have tried to use an invalid number");
                 }
+                break;
             }
             case "/commands": {
                 command = new GuideCommand();
@@ -81,28 +89,30 @@ public class Parser {
                     if (!hasSecondWord) {
                         throw new ParseException();
                     }
-                    int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) - 1;
+                    int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) - INDEX_OFFSET;
                     command = new DeleteCommand(taskNum);
-                    break;
                 } catch (ParseException pe) {
                     pe.advice();
                 } catch (NumberFormatException nfe) {
                     System.out.println("you have tried to use an invalid number");
                 }
+                break;
             }
-            case "find" : {
+            case "find": {
                 try {
                     if (!hasSecondWord) {
                         throw new ParseException();
                     }
                     String[] searchKeys = fullCommand.split("find ")[1].split(" ");
                     command = new FindCommand(searchKeys);
-                    break;
                 } catch (ParseException pe) {
                     pe.advice();
                 }
             }
-        }
+            break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + firstWord);
+            }
         } else if (taskTypes.contains(firstWord)) {
             //add to taskList
             switch (firstWord) {
@@ -115,10 +125,10 @@ public class Parser {
                     String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
                     Task taskToAdd = new ToDo(description);
                     command = new AddCommand(taskToAdd);
-                    break;
                 } catch (ParseException pe) {
                     pe.advice();
                 }
+                break;
             }
             case "deadline": {
                 try {
@@ -131,12 +141,12 @@ public class Parser {
                     String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
                     Task taskToAdd = new Deadline(description, false, by);
                     command = new AddCommand(taskToAdd);
-                    break;
                 } catch (ParseException pe) {
                     pe.advice();
                 } catch (IllegalDateFormatException idee) {
                     idee.advice();
                 }
+                break;
             }
             case "event": {
                 try {
@@ -161,6 +171,9 @@ public class Parser {
                     idee.advice();
                 }
             }
+            break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + firstWord);
             }
         }
         return command != null ? command : new UnknownCommand();

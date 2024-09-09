@@ -18,7 +18,8 @@ public class MarkException extends MoniqueException {
     /**
      * Provides advice on how to handle a mark-related exception.
      *
-     * @return a string containing advice for handling the exception, indicating that the operation failed because the item either does not exist or is already in the desired marked/unmarked state.
+     * @return a string containing advice for handling the exception, indicating that the operation failed because the
+     *      item either does not exist or is already in the desired marked/unmarked state.
      */
     @Override
     public String advice() {

@@ -35,7 +35,7 @@ public class GuideText {
             6. To create an "event" item, type "event" followed by the item description, and followed by a start time "/from start time", and finally followed by an end time "/to end time".
     e.g: "event CS2103 lecture /from <from date> /to <to date>" adds an event for CS2103 lecture, from some <from date> to some <to date>. Note that the acceptable date format is
     either: M/d/yyyy HHmm, M/d/yyyy, M-d-yyyy HHmm or M-d-yyyy.
-    
-            7. To delete an item, type "delete" followed by the item number.""";
+
+                7. To delete an item, type "delete" followed by the item number.""";
 }
 
