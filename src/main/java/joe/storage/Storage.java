@@ -23,14 +23,8 @@ public class Storage {
     public void saveTasks(ArrayList<Task> store) {
         try {
             System.out.println("Saving tasks...");
-            File file = new File(FILE_NAME);
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-            FileWriter writer = new FileWriter(file);
-            for (Task task : store) {
-                writer.write(task.toSaveString() + "\n");
-            }
-            writer.close();
+            File file = getFile();
+            writeTasksToFile(file, store);
             System.out.println("Tasks saved!");
         } catch (IOException e) {
             System.out.println(e);
@@ -40,36 +34,15 @@ public class Storage {
 
     /**
      * Loads tasks from FILE_NAME and returns them as an ArrayList.
+     * 
+     * @return The tasks loaded from FILE_NAME.
      */
     public ArrayList<Task> loadTasks() {
         try {
             ArrayList<Task> store = new ArrayList<>();
             System.out.println("Loading tasks...");
-            File file = new File(FILE_NAME);
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String data = reader.nextLine();
-                String[] parts = data.split("\\|");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String task = parts[2];
-                if (type.equals("T")) {
-                    store.add(new TaskTodo(task));
-                } else if (type.equals("D")) {
-                    String by = parts[3];
-                    store.add(new TaskDeadline(task, by));
-                } else if (type.equals("E")) {
-                    String from = parts[3];
-                    String to = parts[4];
-                    store.add(new TaskEvent(task, from, to));
-                }
-                if (isDone) {
-                    store.get(store.size() - 1).toggleDone();
-                }
-            }
-            reader.close();
+            File file = getFile();
+            readTasksFromFile(file, store);
             System.out.println("Tasks loaded!");
             return store;
         } catch (IOException e) {
@@ -77,5 +50,54 @@ public class Storage {
             System.out.println("An error occurred, tasks not loaded.");
             return new ArrayList<>();
         }
+    }
+
+    private File getFile() throws IOException {
+        File file = new File(FILE_NAME);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        return file;
+    }
+
+    private void writeTasksToFile(File file, ArrayList<Task> store) throws IOException {
+        FileWriter writer = new FileWriter(file);
+        for (Task task : store) {
+            writer.write(task.toSaveString() + "\n");
+        }
+        writer.close();
+    }
+
+    private void readTasksFromFile(File file, ArrayList<Task> store) throws IOException {
+        Scanner reader = new Scanner(file);
+        while (reader.hasNextLine()) {
+            String taskString = reader.nextLine();
+            Task task = parseTask(taskString);
+            store.add(task);
+        }
+        reader.close();
+    }
+
+    private Task parseTask(String taskString) {
+        String[] parts = taskString.split("\\|");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String taskDescription = parts[2];
+        Task task;
+        if (type.equals("T")) {
+            task = new TaskTodo(taskDescription);
+        } else if (type.equals("D")) {
+            String by = parts[3];
+            task = new TaskDeadline(taskDescription, by);
+        } else if (type.equals("E")) {
+            String from = parts[3];
+            String to = parts[4];
+            task = new TaskEvent(taskDescription, from, to);
+        } else {
+            throw new IllegalArgumentException("Invalid task type");
+        }
+        if (isDone) {
+            task.toggleDone();
+        }
+        return task;
     }
 }
