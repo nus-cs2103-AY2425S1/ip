@@ -180,7 +180,7 @@ public class Ui {
      */
     public String printResultsList(ArrayList<Task> results) {
         String message = "Here are the matching tasks in your list:";
-        String response = IntStream.range(1, results.size())
+        String response = IntStream.range(1, results.size() + 1)
                 .mapToObj(index -> String.format("\n    %d. %s", index,
                         results.get(index - 1).toString()))
                 .reduce(message, (res, next) -> res + next);
