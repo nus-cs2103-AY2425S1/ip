@@ -1,4 +1,4 @@
-package dook.commands;
+package dook.tasks;
 
 public enum TaskType {
     TODO, EVENT, DEADLINE

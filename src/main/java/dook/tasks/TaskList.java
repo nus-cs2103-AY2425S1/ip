@@ -24,6 +24,14 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Deletes a task from the TaskList at the specified index.
+     *
+     * @param taskNumber The index of the task to be deleted.
+     * @return The Task object that was removed from the TaskList.
+     * @throws DookException If the taskNumber is out of range.
+     * @throws IOException If an I/O error occurs (not expected in this method).
+     */
     public Task delete(int taskNumber) throws DookException, IOException {
         if (taskNumber < 0 || taskNumber > numOfTasks()) {
             throw new DookException("You don't have that many tasks");

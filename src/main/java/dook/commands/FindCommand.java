@@ -16,10 +16,27 @@ import dook.ui.Ui;
 public class FindCommand extends Command {
 
     private String keyword;
+
+    /**
+     * Creates a FindCommand to search for tasks containing the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the FindCommand, searching for tasks that contain the specified keyword.
+     * Displays the matching tasks or throws an exception if no tasks are found.
+     *
+     * @param taskList The TaskList from which tasks will be searched.
+     * @param ui The Ui object that handles user interactions and displays results.
+     * @param storage The Storage object that handles saving the TaskList (not used in this command).
+     * @return A message listing the tasks that match the keyword, or an exception message if no tasks match.
+     * @throws DookException If the keyword is empty or no tasks contain the keyword.
+     * @throws IOException If an I/O error occurs while interacting with the UI (not expected in this command).
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
         if (this.keyword.isEmpty()) {

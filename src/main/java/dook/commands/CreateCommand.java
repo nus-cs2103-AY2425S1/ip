@@ -7,11 +7,7 @@ import java.time.format.DateTimeParseException;
 
 import dook.DookException;
 import dook.storage.Storage;
-import dook.tasks.Deadline;
-import dook.tasks.Event;
-import dook.tasks.Task;
-import dook.tasks.TaskList;
-import dook.tasks.Todo;
+import dook.tasks.*;
 import dook.ui.Ui;
 
 /**
@@ -63,6 +59,19 @@ public class CreateCommand extends Command {
         this.by = by;
         this.type = type;
     }
+
+    /**
+     * Executes the CreateCommand, adding the task.
+     * If the task type requires specific date and time input (for Deadline or Event), this method
+     * parses the dates and times and handles potential exceptions.
+     *
+     * @param tasks The TaskList to which the new task will be added.
+     * @param ui The Ui object that handles user interactions.
+     * @param storage The Storage object to handle saving the updated TaskList.
+     * @return A confirmation message that the task has been added.
+     * @throws DookException If any input is invalid or if a required field is empty.
+     * @throws IOException If an I/O error occurs while saving the task.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         if (this.description.isEmpty()) {

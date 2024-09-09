@@ -8,7 +8,7 @@ import dook.commands.ExitCommand;
 import dook.commands.FindCommand;
 import dook.commands.ListCommand;
 import dook.commands.MarkingCommands;
-import dook.commands.TaskType;
+import dook.tasks.TaskType;
 
 /**
  * The Parser class deals with making sense of the user's commands.

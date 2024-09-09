@@ -15,9 +15,26 @@ public class DeleteCommand extends Command {
 
     private int taskNumber;
 
+    /**
+     * Creates a DeleteCommand.
+     *
+     * @param taskNumber The 1-based index of the task to be deleted from the TaskList.
+     */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
+
+    /**
+     * Executes the DeleteCommand, removing the specified task from the TaskList.
+     * The task number is used to identify which task to delete.
+     *
+     * @param tasks The TaskList from which the task will be removed.
+     * @param ui The Ui object that handles user interactions.
+     * @param storage The Storage object that handles saving the updated TaskList.
+     * @return A confirmation message that the task has been deleted.
+     * @throws DookException If the task number is invalid or out of bounds.
+     * @throws IOException If an I/O error occurs while saving the updated TaskList.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         Task removed = tasks.delete(taskNumber - 1);
