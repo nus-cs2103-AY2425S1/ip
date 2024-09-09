@@ -34,7 +34,7 @@ public class InvalidCommand extends Command {
         if (errorMessage != null && !errorMessage.isEmpty()) {
             output.append(errorMessage);
         } else {
-            output.append("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            output.append("Invalid Command! Use \"help\" to see available commands");
         }
 
         // Send the combined message to the UI

@@ -5,6 +5,7 @@ import krona.command.Command;
 import krona.command.DeleteCommand;
 import krona.command.ExitCommand;
 import krona.command.FindCommand;
+import krona.command.HelpCommand;
 import krona.command.InvalidCommand;
 import krona.command.ListCommand;
 import krona.command.MarkCommand;
@@ -33,6 +34,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "help":
+            return new HelpCommand();
         case "todo":
             if (words.length < 2 || words[1].trim().isEmpty()) {
                 return new InvalidCommand("The description of a todo cannot be empty.");
@@ -72,7 +75,7 @@ public class Parser {
             }
             return new FindCommand(words[1].trim());
         default:
-            return new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return new InvalidCommand("Invalid Command! Use \"help\" to see available commands");
         }
     }
 
