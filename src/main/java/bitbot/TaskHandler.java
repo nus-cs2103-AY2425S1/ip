@@ -104,6 +104,10 @@ public class TaskHandler {
             }
         }
 
+        assert (beginningDateTime != null || beginningTime != null || beginningDate != null)
+                : "Invalid start date/time input.";
+        assert (endingDateTime != null || endingTime != null || endingDate != null)
+                : "Invalid end date/time input";
 
         if (beginningDateTime != null) {
             event = new Events(textPart, beginningDateTime, endingDateTime);
