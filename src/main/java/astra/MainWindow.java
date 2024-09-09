@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         // Greet the user
-        sendUserMessage("Hello! I'm Astra. How can I help you today?");
+        sendAstraMessage("Hello! I'm Astra. How can I help you today?");
     }
 
     /** Injects the Duke instance */

@@ -37,4 +37,12 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Todo) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

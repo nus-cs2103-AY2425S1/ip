@@ -37,6 +37,10 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by, inputFormatter);
     }
 
+    public LocalDate getDeadline() {
+        return by;
+    }
+
     @Override
     public String toTextFile() {
         return "D | " + super.toTextFile() + " | " + by.format(inputFormatter);
@@ -45,5 +49,21 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + String.format(" (by: %s)", by.format(outputFormatter));
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) other;
+            return by.compareTo(otherDeadline.by);
+        } else if (other instanceof Event) {
+            Event otherEvent = (Event) other;
+            return by.compareTo(otherEvent.getStartDate());
+        } else if (other instanceof Todo) {
+            return -1;
+        } else {
+            assert false : "Invalid task type.";
+            return 0;
+        }
     }
 }

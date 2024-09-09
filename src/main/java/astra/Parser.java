@@ -9,6 +9,7 @@ import astra.command.ExitCommand;
 import astra.command.FindCommand;
 import astra.command.ListCommand;
 import astra.command.MarkCommand;
+import astra.command.SortCommand;
 import astra.task.Task;
 
 /**
@@ -90,6 +91,8 @@ public class Parser {
             return new AddCommand(Task.TaskType.EVENT, getArgs(fullCommand));
         case "find":
             return new FindCommand(getArgs(fullCommand).getOrDefault("main", ""));
+        case "sort":
+            return new SortCommand();
         default:
             throw new AstraException("Unknown command.");
         }
