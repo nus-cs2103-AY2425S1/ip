@@ -1,9 +1,9 @@
 package bimo.command;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
 import bimo.tasks.Task;
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command that add tasks to list.
@@ -32,11 +32,11 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         assert task != null : "Task must not be null";
         assert tasks != null : "Task list must not be null";
-        tasks.addTask(task);
-        String word = tasks.getLength() == 1 ? "task" : "tasks";
-        storage.appendToFile(task);
-        return "Got it. I've added this task:\n" + "    " + task.toString()
-                + "\n" + String.format("Now you have %d %s in the tasks.",
-                tasks.getLength(), word);
+        tasks.addTask(this.task);
+        storage.appendToFile(this.task);
+        int length = tasks.getLength();
+        String response = ui.sendAddTaskMessage(length, task);
+        return response;
+
     }
 }

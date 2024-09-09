@@ -1,10 +1,9 @@
 package bimo.command;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
 import bimo.tasks.Task;
-
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command that delete tasks.
@@ -31,19 +30,16 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "Task list must not be null";
-        if (index >= tasks.getLength() || index < 0) {
-            ui.showTaskNotFoundError();
+        if (!ui.findTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
+        Task taskRemoved = tasks.removeTask(index);
+        assert tasks != null : "Task list must not be null";
         assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
-        Task task = tasks.removeTask(index);
-        assert task != null : "Task must not be null";
+        assert taskRemoved != null : "Task must not be null";
         storage.overwriteFile(tasks);
-        String word = tasks.getLength() == 1 ? "task" : "tasks";
-        String response = "Noted. I've removed this task:\n    "
-                + task.toString() + String.format("\nNow you have %d %s in the tasks.",
-                tasks.getLength(), word);
+        int length = tasks.getLength();
+        String response = ui.sendDeleteTaskMessage(length, taskRemoved);
         return response;
     }
 }

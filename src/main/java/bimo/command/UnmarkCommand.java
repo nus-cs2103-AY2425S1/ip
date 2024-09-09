@@ -1,21 +1,22 @@
 package bimo.command;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
+import bimo.tasks.Task;
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command to unmark tasks.
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private int indexToUnmark;
     /**
      * Instantiates object to set task as uncompleted.
      *
-     * @param index Index of task inside list.
+     * @param indexToUnmark Index of task inside list.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(int indexToUnmark) {
+        this.indexToUnmark = indexToUnmark;
     }
 
     /**
@@ -28,14 +29,15 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= tasks.getLength() || index < 0) {
+        if (!ui.findTaskInList(this.indexToUnmark, tasks)) {
             return ui.showTaskNotFoundError();
         }
-        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
-        tasks.getTask(index).markUncompleted();
+        assert indexToUnmark >= 0 && indexToUnmark < tasks.getLength()
+                : "Index must not be out of bounds";
+        tasks.getTask(indexToUnmark).markUncompleted();
         storage.overwriteFile(tasks);
-        String response = "Noted. I've removed this task:\n"
-                + "    " + tasks.getTask(index).toString();
+        Task unmarkedTask = tasks.getTask(this.indexToUnmark);
+        String response = ui.printTaskUnmarked(unmarkedTask);
         return response;
     }
 }

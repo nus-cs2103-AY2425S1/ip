@@ -26,7 +26,8 @@ public class Deadline extends Task {
      * @return End date as text with |.
      */
     public String getDateAsText() {
-        return "|" + this.dueDate.toString();
+        String dueDateAsText = "|" + this.dueDate.toString();
+        return dueDateAsText;
     }
 
 
@@ -38,7 +39,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(),
+        String deadlineString = String.format("[D]%s (by: %s)", super.toString(),
                 this.dueDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        return deadlineString;
     }
 }

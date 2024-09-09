@@ -1,23 +1,24 @@
 package bimo.command;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
+import bimo.tasks.Task;
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command to set task as completed.
  */
 public class MarkCommand extends Command {
 
-    private int index;
+    private int indexToMark;
 
     /**
      * Instantiates object to set task as completed.
      *
-     * @param index Index of task inside list.
+     * @param indexToMark Index of task inside list.
      */
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(int indexToMark) {
+        this.indexToMark = indexToMark;
     }
 
     /**
@@ -30,14 +31,15 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= tasks.getLength() || index < 0) {
+        if (!ui.findTaskInList(this.indexToMark, tasks)) {
             return ui.showTaskNotFoundError();
         }
-        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
-        tasks.getTask(index).markCompleted();
+        assert indexToMark >= 0 && indexToMark < tasks.getLength()
+                : "Index must not be out of bounds";
+        tasks.getTask(this.indexToMark).markCompleted();
         storage.overwriteFile(tasks);
-        String response = "Good job! I've marked this task as done:\n"
-                + "    " + tasks.getTask(index).toString();
+        Task markedTask = tasks.getTask(this.indexToMark);
+        String response = ui.printTaskMarked(markedTask);
         return response;
     }
 }
