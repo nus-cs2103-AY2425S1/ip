@@ -29,8 +29,9 @@ public class Event extends Task {
      * Provides a string representation of the "Event" task in a format suitable for database storage.
      *
      * @return A string representing the "Event" task in a format suitable for database storage,
-     *         with the format "Event|<status>|<description>|<from>|<to>", where <status> is 1 if done, 0 if not done,
-     *         <from> is the start time of the event, and <to> is the end time of the event.
+     *         with the format "Event|&lt;status&gt;|&lt;description&gt;|&lt;from&gt;|&lt;to&gt;",
+     *         where &lt;status&gt; is 1 if done, 0 if not done, &lt;from&gt; is the start time of the event,
+     *         and &lt;to&gt; is the end time of the event.
      */
     @Override
     public String dbReadableFormat() {
@@ -59,7 +60,8 @@ public class Event extends Task {
      * Returns a string representation of the "Event" task for display purposes.
      *
      * @return A string representing the "Event" task, including its status icon, description, start time, and end time,
-     *         with the format "[E][status] description (from: start_time to: end_time)", where [status] is "X" if done, " " if not done.
+     *         with the format "[E][status] description (from: start_time to: end_time)",
+     *         where [status] is "X" if done, " " if not done.
      */
     @Override
     public String toString() {

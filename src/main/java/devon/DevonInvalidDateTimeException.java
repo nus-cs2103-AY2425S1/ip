@@ -11,7 +11,8 @@ public class DevonInvalidDateTimeException extends DevonException {
      * Returns a detailed string representation of the exception, including the specific
      * error message related to invalid date-time formats.
      *
-     * @return A string indicating the error: "OOPS!!! Invalid date-time format for '/from' or '/to'. Please use 'yyyy-MM-dd HHmm'."
+     * @return A string indicating the error: "OOPS!!! Invalid date-time format for '/from' or '/to'.
+     *         Please use 'yyyy-MM-dd HHmm'."
      */
     @Override
     public String toString() {

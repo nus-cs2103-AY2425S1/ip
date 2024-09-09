@@ -20,7 +20,8 @@ public class Todo extends Task {
      * Provides a string representation of the "To-Do" task in a format suitable for database storage.
      *
      * @return A string representing the "To-Do" task in a format suitable for database storage,
-     *         with the format "Todo|<status>|<description>", where <status> is 1 if done, 0 if not done.
+     *         with the format "Todo|&lt;status&gt;|&lt;description&gt;",
+     *         where &lt;status&gt; is 1 if done, 0 if not done.
      */
     @Override
     public String dbReadableFormat() {

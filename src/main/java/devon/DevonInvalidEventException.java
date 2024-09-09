@@ -11,7 +11,8 @@ public class DevonInvalidEventException extends DevonException {
      * Returns a detailed string representation of the exception, including the specific
      * error message related to invalid event formats.
      *
-     * @return A string indicating the error: "OOPS!!! Event is invalid! Usage: event [task] /from [start_time] /to [end_time]".
+     * @return A string indicating the error:
+     *         "OOPS!!! Event is invalid! Usage: event [task] /from [start_time] /to [end_time]".
      */
     @Override
     public String toString() {

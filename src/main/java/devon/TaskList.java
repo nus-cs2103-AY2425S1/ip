@@ -38,24 +38,24 @@ public class TaskList {
             Task newTask;
 
             switch (fields[0]) {
-                case "Deadline":
-                    newTask = new Deadline(
-                            fields[2],
-                            LocalDateTime.parse(fields[3], Storage.DATE_TIME_FORMATTER_FOR_DB)
-                    );
-                    break;
-                case "Event":
-                    newTask = new Event(
-                            fields[2],
-                            LocalDateTime.parse(fields[3], Storage.DATE_TIME_FORMATTER_FOR_DB),
-                            LocalDateTime.parse(fields[4], Storage.DATE_TIME_FORMATTER_FOR_DB)
-                    );
-                    break;
-                case "Todo":
-                    newTask = new Todo(fields[2]);
-                    break;
-                default:
-                    throw new DevonReadDatabaseException();
+            case "Deadline":
+                newTask = new Deadline(
+                        fields[2],
+                        LocalDateTime.parse(fields[3], Storage.DATE_TIME_FORMATTER_FOR_DB)
+                );
+                break;
+            case "Event":
+                newTask = new Event(
+                        fields[2],
+                        LocalDateTime.parse(fields[3], Storage.DATE_TIME_FORMATTER_FOR_DB),
+                        LocalDateTime.parse(fields[4], Storage.DATE_TIME_FORMATTER_FOR_DB)
+                );
+                break;
+            case "Todo":
+                newTask = new Todo(fields[2]);
+                break;
+            default:
+                throw new DevonReadDatabaseException();
             }
 
             boolean toBeMarkedAsDone = Integer.parseInt(fields[1]) == 1;
@@ -124,7 +124,7 @@ public class TaskList {
      * @return A string listing all tasks with their indices and details.
      */
     protected String getListAsString() {
-        StringBuilder s =  new StringBuilder("\t" + "Here are the tasks in your list:");
+        StringBuilder s = new StringBuilder("\t" + "Here are the tasks in your list:");
 
         for (int i = 0; i < this.getNumberOfTasks(); i++) {
             Task current = this.getTask(i);

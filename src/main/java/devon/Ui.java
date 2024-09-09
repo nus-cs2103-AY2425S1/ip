@@ -13,8 +13,8 @@ public class Ui {
      * Prints a long line of underscores to separate sections of output.
      */
     private void printLongLine() {
-        String LINE_SEPARATOR = "____________________";
-        System.out.println("\t" + LINE_SEPARATOR);
+        String lineSeparator = "____________________";
+        System.out.println("\t" + lineSeparator);
     }
 
     /**
