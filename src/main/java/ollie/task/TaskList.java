@@ -46,16 +46,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the task at the specified index.
-     *
-     * @param index The index of the task to retrieve.
-     * @return The task at the specified index.
-     */
-    public Task getTask(int index) {
-        return tasks.get(index);
-    }
-
-    /**
      * List all tasks in the task list.
      *
      * @return The list of tasks.

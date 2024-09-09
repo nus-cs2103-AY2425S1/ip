@@ -54,15 +54,6 @@ public class Parser {
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
 
-        StringBuilder commandDescription = new StringBuilder();
-        for (int i = 1; i < splitInput.length; i++) {
-            if (i > 1) {
-                commandDescription.append(" ");
-            }
-            commandDescription.append(splitInput[i]);
-        }
-        String commandDescriptionString = commandDescription.toString();
-
         try {
             switch (command) {
             case "hello":
