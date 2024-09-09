@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKjDialog(response, killjoyImage)
         );
+
         userInput.clear();
     }
 
@@ -54,6 +55,13 @@ public class MainWindow extends AnchorPane {
         String greetings = UserInterface.getWelcomeString();
         dialogContainer.getChildren().addAll(
                 DialogBox.getKjDialog(greetings, killjoyImage)
+        );
+    }
+
+    @FXML
+    public void logo() {
+        dialogContainer.getChildren().addAll(
+                DialogBoxImg.getKjDialog(logo, killjoyImage)
         );
     }
 

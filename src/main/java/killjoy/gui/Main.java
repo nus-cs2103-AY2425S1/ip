@@ -29,6 +29,7 @@ public class Main extends Application {
             stage.show();
 
             MainWindow mw = fxmlLoader.getController();
+            mw.logo();
             mw.welcomeMessage();
         } catch (IOException e) {
             e.printStackTrace();
