@@ -13,6 +13,10 @@ import ned.tasks.ToDo;
  * Represents the parser class, which handles interpreting user input into commands, which are then ran.
  */
 public class Parser {
+
+    private static final String PARSER_UNKNOWN_COMMAND_ERROR_MESSAGE = "M'lord, you seem to have given me a "
+            + "nonsensical command. Input a correct command, for we have little time! Winter is coming....";
+
     /**
      * Constructs an object which is responsible for converting input from users into commands and their parameters
      */
@@ -32,8 +36,7 @@ public class Parser {
             return command.getCommand();
         case UNKNOWN:
         default:
-            throw new UnknownCommandException("M'lord, you seem to have given me a nonsensical command."
-                    + " Input a correct command, for we have little time! Winter is coming....");
+            throw new UnknownCommandException(PARSER_UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 
@@ -62,12 +65,12 @@ public class Parser {
             case "event":
                 return Event.createEvent(splitLine[2], splitLine[3], splitLine[4], isTaskDone);
             default:
-                throw new UnknownCommandException(String.format("M'lord, it appears that this line: %s is an unknown task type.",
-                        savedLine));
+                throw new UnknownCommandException(String.format("M'lord, it appears that this line: %s is an unknown "
+                        + "task type.", savedLine));
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCacheLineException(String.format("M'lord, it appears that this line: %s is saved in the wrong format.",
-                    savedLine));
+            throw new InvalidCacheLineException(String.format("M'lord, it appears that this line: %s is saved in the "
+                    + "wrong format.", savedLine));
         } catch (NumberFormatException e) {
             throw new InvalidCacheLineException(
                     String.format("M'lord, it appears that this line: %s is saved with an invalid status number."

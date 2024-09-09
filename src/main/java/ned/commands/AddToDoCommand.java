@@ -12,6 +12,7 @@ import ned.tasks.ToDo;
  * Represents the todo command, which when executed, adds a new todo task to the list of tasks.
  */
 public class AddToDoCommand implements Command {
+    private static final String TODO_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create a todo task with no description";
     private final String REGEX = "^todo.*";
 
     /**
@@ -34,7 +35,7 @@ public class AddToDoCommand implements Command {
             throws NedException {
         String[] parsedInputs = userInput.split("todo", 2);
         if (parsedInputs[1].strip().isBlank()) {
-            throw new MissingTaskDescriptionException("M'lord, you cannot create a todo task with no description"
+            throw new MissingTaskDescriptionException(TODO_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         }
         Task newTask = ToDo.createToDo(parsedInputs[1].strip(), false);

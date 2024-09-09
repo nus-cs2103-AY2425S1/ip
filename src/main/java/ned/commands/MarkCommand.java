@@ -13,6 +13,12 @@ import ned.exceptions.NedException;
  */
 public class MarkCommand implements Command {
 
+    private static final String MARK_MISSING_INDEX_ERROR_MESSAGE = "Sorry m'lord, you must give me a list index with the mark command. No more, no " +
+            "less";
+    private static final String MARK_INDEX_NOT_NUMBER_ERROR_MESSAGE = "Sorry m'lord, your command must specify a "
+            + "valid number";
+    private static final String MARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, seems the item number you "
+            + "specified is not valid";
     private final String REGEX = "^mark.*";
 
     public MarkCommand() {
@@ -33,8 +39,7 @@ public class MarkCommand implements Command {
             throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
-            throw new MissingIndexException("Sorry m'lord, you must give me a list index with the mark command. No more, no " +
-                    "less" + uiInstance.getCommandMessage());
+            throw new MissingIndexException(MARK_MISSING_INDEX_ERROR_MESSAGE + uiInstance.getCommandMessage());
         }
         String possibleIndex = words[1];
         try {
@@ -42,10 +47,10 @@ public class MarkCommand implements Command {
             taskList.markTaskAsDone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
+            throw new InvalidIndexException(MARK_INDEX_NOT_NUMBER_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, seems the item number you specified is not valid"
+            throw new InvalidIndexException(MARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         }
     }

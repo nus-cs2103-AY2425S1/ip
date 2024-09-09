@@ -11,6 +11,8 @@ import ned.exceptions.NedException;
  * it to be displayed to the user.
  */
 public class FindCommand implements Command {
+    private static final String FIND_MISSING_SEARCH_ERROR_MESSAGE = "Sorry m'lord, it seems that your find command is "
+            + "missing a search term.";
     private final String REGEX = "^find.*";
 
     /**
@@ -29,7 +31,7 @@ public class FindCommand implements Command {
             throws NedException {
         String[] splitInput = userInput.split(" ");
         if (splitInput.length < 1) {
-            throw new MissingSearchTermException("Sorry m'lord, it seems that your find command is missing a search term.");
+            throw new MissingSearchTermException(FIND_MISSING_SEARCH_ERROR_MESSAGE);
         }
         String parsedInput = splitInput[1];
         TaskList listOfRelatedTasks = taskList.findRelatedTasks(parsedInput);
