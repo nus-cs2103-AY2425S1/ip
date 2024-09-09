@@ -20,7 +20,7 @@ public abstract class Task {
      */
     public Task(String task) throws IllegalArgumentException {
         if (task.isEmpty() || task.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!!(0o0) Description cannot be empty");
+            throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;
         this.isCompleted = false;
@@ -34,7 +34,7 @@ public abstract class Task {
      */
     public Task(String task, Boolean isCompleted) throws IllegalArgumentException {
         if (task.isEmpty() || task.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!!(0o0) Description cannot be empty");
+            throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;
         this.isCompleted = isCompleted;
@@ -49,7 +49,7 @@ public abstract class Task {
     public void setCompleted(boolean isCompleted)
             throws ChatBotException {
         if (this.isCompleted == isCompleted) {
-            throw new ChatBotException("\t It seems the task has already been marked as such");
+            throw new ChatBotException("\tIt seems the task has already been marked as such");
         }
         this.isCompleted = isCompleted;
     }

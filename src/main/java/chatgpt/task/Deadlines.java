@@ -28,12 +28,14 @@ public class Deadlines extends Task {
         super(task);
         if (deadline.equals(" ")){
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
-                    "\n\t Enter the deadline in the format: deadline <chatgpt.task.Task> /by <Deadline>");
+                    "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
         }
         try {
             LocalDate date = LocalDate.parse(deadline.split(" ")[1]);
-            String hours = deadline.split(" ")[2].substring(0,2);
-            String minutes = deadline.split(" ")[2].substring(2);
+            String hours = deadline.split(" ")[2]
+                    .substring(0,2);
+            String minutes = deadline.split(" ")[2]
+                    .substring(2);
             LocalTime time = LocalTime.of(Integer.valueOf(hours),
                     Integer.valueOf(minutes));
             this.deadline = LocalDateTime.of(date, time);
@@ -57,12 +59,14 @@ public class Deadlines extends Task {
         super(task, isCompleted);
         if (deadline.equals(" ")){
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
-                    "\n\t Enter the deadline in the format: deadline <chatgpt.task.Task> /by <Deadline>");
+                    "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
         }
         try {
             LocalDate date = LocalDate.parse(deadline.split(" ")[1]);
-            String hours = deadline.split(" ")[2].substring(0,2);
-            String minutes = deadline.split(" ")[2].substring(2);
+            String hours = deadline.split(" ")[2]
+                    .substring(0,2);
+            String minutes = deadline.split(" ")[2]
+                    .substring(2);
             LocalTime time = LocalTime.of(Integer.valueOf(hours),
                     Integer.valueOf(minutes));
             this.deadline = LocalDateTime.of(date, time);
