@@ -118,4 +118,11 @@ public class Ui {
             Ui.printLines(finishedUnmarking);
         }
     }
+
+    /**
+     * Prints the deleted Task String.
+     */
+    public void showDeletedTask(String deletedTaskString) {
+        Ui.printLines(deletedTaskString);
+    }
 }

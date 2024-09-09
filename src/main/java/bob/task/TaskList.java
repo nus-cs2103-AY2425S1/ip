@@ -356,4 +356,30 @@ public class TaskList {
     public ArrayList<Task> getAllRecords() {
         return this.records;
     }
+
+    /**
+     * Removes the task at the index specified by the user.
+     *
+     * @param index Index that corresponds to the task visible to the user.
+     */
+    public void removeRecord(int index) {
+        this.records.remove(index - 1);
+        this.latestRecordedIndex -= 1;
+    }
+
+    /**
+     * Returns the String representation of the task at specified index.
+     *
+     * @param index Index of the task as viewed displayed using the list command.
+     * @return
+     */
+    public String getDeletedTaskString(int index) {
+        String deletedTaskString = "Noted. I've removed this task:\n\t"
+                + records.get(index - 1).getTaskListItem()
+                + "\n\t"
+                + "Now you have "
+                + (String.valueOf(latestRecordedIndex - 1))
+                + " tasks in the list.";
+        return deletedTaskString;
+    }
 }

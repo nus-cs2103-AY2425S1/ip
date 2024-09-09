@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
                 throw new InvalidTaskException("Please input which item number you want to mark.");
             }
             int taskIndex = Integer.valueOf(inputWords[1]);
-            if (taskList.getRecordSize() < taskIndex || taskIndex <= 0) {
+            if (!taskList.isValidRecord(taskIndex)) {
                 throw new InvalidTaskException("Item index out of range.");
             }
             currTask = taskList.getIndexedTask(taskIndex);
