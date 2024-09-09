@@ -26,6 +26,7 @@ public class Parser {
      * @throws DateTimeException Thrown when the wrong date format has been keyed in
      */
     public String parse(String text) throws NoInputException, DateTimeException {
+        assert text != null : "Input text must be a string";
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             this.lst.saveTasks();
             return "Bye Bye!!";
