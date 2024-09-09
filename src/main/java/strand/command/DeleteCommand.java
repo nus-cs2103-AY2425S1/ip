@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         Task deleted = tasks.deleteTask(this.index);
-        String output = ui.deleteTask(deleted, tasks.getNumOfTasks());
+        String output = ui.taskRemoved(deleted, tasks.getNumOfTasks());
         storage.save(tasks.convertToFileFormat());
         return output;
     }

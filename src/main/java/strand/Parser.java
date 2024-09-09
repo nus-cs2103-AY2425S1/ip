@@ -36,18 +36,13 @@ public class Parser {
         }
         CommandEnums command = getCommand(split[0].toUpperCase());
 
-        switch (command) {
-        case DELETE, MARK, UNMARK:
-            return parseIndex(command, split);
-        case BYE:
-            return new ByeCommand();
-        case LIST:
-            return new ListCommand();
-        case TODO, DEADLINE, EVENT, FIND:
-            return parseDescription(command, split);
-        default:
-            throw new StrandWrongCommandException();
-        }
+        return switch (command) {
+        case DELETE, MARK, UNMARK -> parseIndex(command, split);
+        case BYE -> new ByeCommand();
+        case LIST -> new ListCommand();
+        case TODO, DEADLINE, EVENT, FIND -> parseDescription(command, split);
+        default -> throw new StrandWrongCommandException();
+        };
     }
 
     /**
@@ -74,18 +69,20 @@ public class Parser {
      * @return The command object based on the index.
      * @throws StrandNumberNotFoundException If the index is missing or invalid.
      */
-    private static Command parseIndex(CommandEnums command, String[] split) throws StrandNumberNotFoundException {
+    private static Command parseIndex(
+            CommandEnums command, String[] split) throws StrandException {
         assert command != null : "Command cannot be null";
         if (split.length < 2) {
             throw new StrandNumberNotFoundException(split[0]);
         }
         try {
             int index = Integer.parseInt(split[1]);
-            if (command.equals(CommandEnums.DELETE)) {
-                return new DeleteCommand(index);
-            } else {
-                return new MarkCommand(index, command.equals(CommandEnums.MARK));
-            }
+            return switch (command) {
+            case DELETE -> new DeleteCommand(index);
+            case MARK -> new MarkCommand(index, true);
+            case UNMARK -> new MarkCommand(index, false);
+            default -> throw new StrandWrongCommandException();
+            };
         } catch (NumberFormatException e) {
             throw new StrandNumberNotFoundException(split[0]);
         }
@@ -105,18 +102,13 @@ public class Parser {
             throw new StrandDescNotFoundException("Description");
         }
         String desc = split[1].trim();
-        switch (command) {
-        case TODO:
-            return new AddCommand(desc);
-        case DEADLINE:
-            return parseDeadlineCommand(desc);
-        case EVENT:
-            return parseEventCommand(desc);
-        case FIND:
-            return new FindCommand(desc);
-        default:
-            throw new StrandDescNotFoundException("Description");
-        }
+        return switch (command) {
+        case TODO -> new AddCommand(desc);
+        case DEADLINE -> parseDeadlineCommand(desc);
+        case EVENT -> parseEventCommand(desc);
+        case FIND -> new FindCommand(desc);
+        default -> throw new StrandDescNotFoundException("Description");
+        };
     }
 
     /**

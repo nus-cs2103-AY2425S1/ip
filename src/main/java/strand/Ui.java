@@ -8,19 +8,17 @@ import strand.task.Task;
  */
 public class Ui {
     private static final String HORIZONTAL_LINE = "～～～～～～～～～～～～～～～～～～～～～～～～><>";
-    private static final Integer INDENTATION = 4;
+    private static final int INDENTATION = 4;
 
     /**
      * Prints a string with an indentation of 4 spaces.
      *
      * @param str The string to be printed.
+     * @return The indented string.
      */
     private static String print(String str) {
-        if (str == null || str.isEmpty()) {
-            System.out.println(" ".indent(INDENTATION));
-        } else {
-            System.out.println(str.indent(INDENTATION));
-        }
+        String message = (str == null || str.isEmpty()) ? " ".repeat(INDENTATION) : str;
+        System.out.println(message.indent(INDENTATION));
         return str;
     }
 
@@ -41,14 +39,17 @@ public class Ui {
     /**
      * Displays an error message to the user.
      *
-     * @param err The error message to be displayed.
+     * @param error The error message to be displayed.
+     * @return The error message.
      */
-    public String showError(String err) {
-        return print(err);
+    public String showError(String error) {
+        return print(error);
     }
 
     /**
      * Displays a welcome message to the user.
+     *
+     * @return The welcome message.
      */
     public String welcome() {
         return print("ヾ(⌐■_■)ノ♪ Welcome! I'm Strand\nWhat can I do for you?");
@@ -56,6 +57,8 @@ public class Ui {
 
     /**
      * Displays a goodbye message to the user.
+     *
+     * @return The goodbye message.
      */
     public String goodbye() {
         return print("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
@@ -67,12 +70,13 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param size The total number of tasks in the list after adding the new task.
+     * @return The message indicating the task has been added.
      */
-    public String addTask(Task task, Integer size) {
+    public String taskAdded(Task task, int size) {
         return print(String.format("""
                 (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
                   %s
-                Now you have %d tasks in the list.""", task.toString(), size));
+                Now you have %d tasks in the list.""", task, size));
     }
 
     /**
@@ -81,27 +85,29 @@ public class Ui {
      *
      * @param task The task that was removed.
      * @param size The total number of tasks in the list after removing the task.
+     * @return The message indicating the task has been removed.
      */
-    public String deleteTask(Task task, Integer size) {
+    public String taskRemoved(Task task, int size) {
         return print(String.format("""
                 (☞ﾟ∀ﾟ)☞ Task removed:
                 %s
-                Now you have %d tasks in the list.""", task.toString(), size));
+                Now you have %d tasks in the list.""", task, size));
     }
 
     /**
      * Displays a message indicating whether a task has been marked as done or not done.
      *
      * @param task The task that was marked.
-     * @param mark {@code true} if the task was marked as done; {@code false} otherwise.
+     * @param marked {@code true} if the task was marked as done; {@code false} otherwise.
+     * @return The message indicating the task's status.
      */
-    public String markTask(Task task, Boolean mark) {
-        if (mark) {
+    public String taskMarked(Task task, boolean marked) {
+        if (marked) {
             return print(String.format("( ﾟヮﾟ) You finished a task?! "
                     + "Congrats! I've marked this task as done:\n%s", task));
         } else {
             return print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n"
-                    + "%s", task.toString()));
+                    + "%s", task));
         }
     }
 
@@ -109,8 +115,9 @@ public class Ui {
      * Displays the list of tasks.
      *
      * @param tasks The list of tasks to be displayed.
+     * @return The formatted list of tasks.
      */
-    public String list(String tasks) {
+    public String listTasks(String tasks) {
         return print(tasks);
     }
 }

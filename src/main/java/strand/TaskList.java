@@ -14,61 +14,64 @@ import strand.task.Task;
  * </p>
  */
 public class TaskList {
-    private final ArrayList<Task> strandList;
+    private final ArrayList<Task> listOfTasks;
 
     /**
-     * Constructs an empty {@code TaskList} with no initial tasks.
+     * Constructs a new {@code TaskList} instance with an empty task list.
      */
     public TaskList() {
-        this.strandList = new ArrayList<>();
+        this.listOfTasks = new ArrayList<>();
     }
 
     /**
-     * Constructs a {@code TaskList} initialized with an existing list of tasks.
+     * Constructs a new {@code TaskList} instance with the given list of tasks.
      *
-     * @param strandList The list of tasks to initialize the TaskList with.
+     * @param listOfTasks The list of tasks to initialize the TaskList with.
      */
-    public TaskList(ArrayList<Task> strandList) {
-        this.strandList = strandList;
-        assert strandList != null : "TaskList cannot be initialized with a null list";
+    public TaskList(ArrayList<Task> listOfTasks) {
+        this.listOfTasks = new ArrayList<>(listOfTasks);
     }
 
     /**
-     * Adds a new task to the list of tasks.
+     * Adds a new task to the list.
      *
-     * @param newTask The task to be added to the list.
+     * @param newTask The task to be added.
      */
     public void addTask(Task newTask) {
         assert newTask != null : "Cannot add a null task";
-        strandList.add(newTask);
+        listOfTasks.add(newTask);
     }
 
     /**
-     * Delete task from the strandList
+     * Deletes a task from the list based on the provided index.
      *
-     * @param index Index of task to be removed.
-     * @throws StrandException If the task description or necessary parameters are missing or incorrect.
+     * @param index The index of the task to be removed (1-based index).
+     * @return The removed task.
+     * @throws StrandException If the index is invalid.
      */
     public Task deleteTask(Integer index) throws StrandException {
-        if (index > this.strandList.size() || index < 1) {
-            throw new StrandWrongIndexException(this.strandList.size());
+        if (index > this.listOfTasks.size() || index < 1) {
+            throw new StrandWrongIndexException(this.listOfTasks.size());
         }
-        Task t = this.strandList.get(index - 1);
-        this.strandList.remove(index - 1);
+        Task t = this.listOfTasks.get(index - 1);
+        this.listOfTasks.remove(index - 1);
         return t;
     }
 
     /**
-     * Mark or unmark a task from the strandList
-     * @param index Index of task to be marked or unmarked.
-     * @param mark  Whether task is to be marked or unmarked.
+     * Marks or unmarks a task based on the provided index.
+     *
+     * @param index The index of the task to be marked or unmarked (1-based index).
+     * @param mark  {@code true} to mark the task as done, {@code false} to mark it as not done.
+     * @return The updated task.
+     * @throws StrandException If the index is invalid.
      */
     public Task mark(Integer index, Boolean mark) throws StrandException {
         assert index != null : "Index cannot be null";
-        if (index > strandList.size() || index < 1) {
-            throw new StrandWrongIndexException(strandList.size());
+        if (index > listOfTasks.size() || index < 1) {
+            throw new StrandWrongIndexException(listOfTasks.size());
         }
-        Task task = strandList.get(index - 1);
+        Task task = listOfTasks.get(index - 1);
         if (mark) {
             task.markAsDone();
         } else {
@@ -78,33 +81,50 @@ public class TaskList {
     }
 
     /**
-     * Return number of tasks from the strandList
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks.
      */
     public Integer getNumOfTasks() {
-        return this.strandList.size();
+        return this.listOfTasks.size();
     }
 
     @Override
     public String toString() {
-        return this.strandList.stream()
-                .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x.toString() + "\n")
-                .reduce((a, b) -> a + b).orElse("");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(listOfTasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
     /**
-     * Return file representation of strandList to be saved in file
+     * Returns a string representation of the tasks in a format suitable for saving to a file.
+     *
+     * @return The file representation of the tasks.
      */
     public String convertToFileFormat() {
-        return strandList.stream().map((x) -> x.convertToFileFormat() + "\n").reduce((a, b) -> a + b).orElse("");
+        StringBuilder sb = new StringBuilder();
+        for (Task task : listOfTasks) {
+            sb.append(task.convertToFileFormat()).append("\n");
+        }
+        return sb.toString();
     }
 
     /**
-     * Shows all tasks with the segment in their description
-     * @param segment Segment that all shown tasks should contain in their description.
+     * Returns a string representation of all tasks that contain the specified segment in their description.
+     *
+     * @param segment The segment that tasks should contain in their description.
+     * @return A string containing all matching tasks.
      */
     public String getFoundTasks(String segment) {
-        return strandList.stream().filter((x) -> x.containsSegment(segment))
-                .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x + "\n")
-                .reduce((a, b) -> a + b).orElse("");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
+            if (task.containsSegment(segment)) {
+                sb.append(i + 1).append(". ").append(task).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -24,6 +24,9 @@ import strand.task.Todo;
  * </p>
  */
 public class Storage {
+    private static final String TODO_TYPE = "T";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
     private final String filepath;
 
     /**
@@ -42,18 +45,18 @@ public class Storage {
      * @return A {@code Task} object created from the line.
      * @throws StrandException If the task type is unrecognized or the format is incorrect.
      */
-    private static Task getTask(String line) throws StrandException {
+    private static Task parseTaskFromLine(String line) throws StrandException {
         String[] split = line.split(" \\| ");
         Task newTask;
         switch (split[0]) {
-        case "T" -> {
+        case TODO_TYPE -> {
             newTask = new Todo(split[2]);
             if (split[1].equals("1")) {
                 newTask.markAsDone();
             }
         }
-        case "D" -> newTask = new Deadline(split[2], split[3]);
-        case "E" -> newTask = new Event(split[2], split[3], split[4]);
+        case DEADLINE_TYPE -> newTask = new Deadline(split[2], split[3]);
+        case EVENT_TYPE -> newTask = new Event(split[2], split[3], split[4]);
         default -> throw new StrandWrongCommandException();
         }
         if (split[1].equals("1")) {
@@ -76,7 +79,7 @@ public class Storage {
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
                     String line = s.nextLine();
-                    Task newTask = getTask(line);
+                    Task newTask = parseTaskFromLine(line);
                     tasks.add(newTask);
                 }
             }
