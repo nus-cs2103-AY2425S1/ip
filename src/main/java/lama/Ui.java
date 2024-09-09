@@ -52,7 +52,7 @@ public class Ui {
         showBar();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList.get(taskList.size() - 1));
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        showTaskCount(taskList);
         showBarFooter();
     }
 
@@ -71,7 +71,7 @@ public class Ui {
      * @param taskList Task list after the task being deleted.
      */
     public void showDeleteCommandFooter(TaskList taskList) {
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        showTaskCount(taskList);
         showBarFooter();
     }
 
@@ -118,9 +118,7 @@ public class Ui {
     public void showListCommand(TaskList taskList) {
         showBar();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i));
-        }
+        showTaskList(taskList);
         showBarFooter();
     }
 
@@ -156,10 +154,7 @@ public class Ui {
             System.out.println("No matching tasks found!");
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < filteredList.size(); i++) {
-                Task task = filteredList.get(i);
-                System.out.println((i + 1) + "." + task);
-            }
+            showTaskList(filteredList);
         }
         showBarFooter();
     }
@@ -174,7 +169,11 @@ public class Ui {
 
     private void showTaskList(TaskList taskList) {
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            System.out.println((i + 1) + "." + taskList.get(i));
         }
+    }
+
+    private void showTaskCount(TaskList taskList) {
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 }
