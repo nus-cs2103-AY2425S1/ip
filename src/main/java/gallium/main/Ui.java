@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner userInput;
-    private static final String DIVIDER = "____________________________________________________________";
     private StringBuilder output;
     /**
      * Constructs a Ui object and initializes the Scanner for user input.
@@ -39,19 +38,12 @@ public class Ui {
         this.output.append(str);
     }
 
-    public String printHelloMessage() {
-        this.append("Hello from \n");
-        this.append("  ____       _ _ _                \r\n" + //
-                " / ___| __ _| | (_)_   _ _ __ ___  \r\n" + //
-                "| |  _ / _` | | | | | | | '_ ` _ \\ \r\n" + //
-                "| |_| | (_| | | | | |_| | | | | | |\r\n" + //
-                " \\____|\\__,_|_|_|_|\\__,_|_| |_| |_|");
-        this.append("Hello! I am Gallium. What can I do for you?");
-        return this.getOutput();
+    public static String printHelloMessage() {
+        return "Hello! I am Gallium :). What can I do for you?";
     }
 
     public String printInputAgainMessage() {
-        this.append("What can I do for you?");
+        this.append("\nWhat can I do for you?");
         return this.getOutput();
     }
 

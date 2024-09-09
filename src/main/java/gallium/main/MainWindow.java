@@ -28,11 +28,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+            DialogBox.getGalliumDialog(Ui.printHelloMessage(), galliumImage)
+        );
     }
 
     /** Injects the Gallium instance */
-    public void setGallium(Gallium d) {
-        gallium = d;
+    public void setGallium(Gallium g) {
+        gallium = g;
     }
 
     /**
@@ -44,8 +47,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = gallium.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getGalliumDialog(response, galliumImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getGalliumDialog(response, galliumImage)
         );
         userInput.clear();
     }

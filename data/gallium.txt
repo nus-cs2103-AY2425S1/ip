@@ -1,10 +1,7 @@
 [E][X] b (from: Sep 9 2000, 07:00 PM to: Sep 9 2000, 08:00 PM)
-[T][X] ooo
-[D][X] d (by: Sep 8 2000, 12:00 PM)
+[T][ ] ooo
 [E][ ] e (from: Feb 2 2030, 08:00 PM to: Feb 2 2030, 10:00 PM)
-[D][X] /by 2024-08-08 1900 (by: Aug 8 2024, 07:00 PM)
 [D][X] aa (by: Oct 10 2000, 10:00 AM)
-[E][ ] test  (from: Sep 9 2000, 10:00 AM to: null, null)
 [D][ ] test (by: Sep 9 2000, 10:00 AM)
 [T][X] o
 [T][ ] j

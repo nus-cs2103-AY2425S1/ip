@@ -1,0 +1,28 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, rgb(255, 229, 224), rgb(255, 241, 229));
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 1px;
+    -fx-background-radius: 2em 2em 0 2em;
+    -fx-border-radius: 2em 2em 0 2em;
+    -fx-font: 16px "Courier";
+    -fx-padding: 6px;
+    -fx-border-insets: 20px rgb(60, 55, 52);
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

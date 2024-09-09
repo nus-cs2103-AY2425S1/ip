@@ -45,6 +45,10 @@ public class Gallium {
         ui.closeScanner();
     }
 
+    /**
+     * Runs the Gallium program in GUI, reading and executing user commands
+     * until the bye command is executed.
+     */
     public String getResponse(String input) {
         if (isExit) {
             return "";
@@ -59,6 +63,10 @@ public class Gallium {
         } catch (GalliumException e) {
             return e.getMessage();
         }
+    }
+
+    public Ui getUi() {
+        return this.ui;
     }
 
     /**
