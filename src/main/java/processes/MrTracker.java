@@ -1,6 +1,7 @@
 package processes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -53,6 +54,11 @@ public class MrTracker {
         String res = null;
 
         PrefixString pref = parser.parseCommand(input);
+
+        if (pref == null) {
+            res = ui.showMessage("I am sorry, but I don't know what that means :-(");
+            return res;
+        }
 
         switch (pref) {
         case BYE:
@@ -161,6 +167,22 @@ public class MrTracker {
                 res = ui.showMessage(e.getMessage());
             }
             break;
+
+        case REMOVETAGS:
+            inputs = input.substring(12).split("#");
+            if (!parser.checkValidIndex(inputs[0])) {
+                String message = inputs[0] + " is not a valid index";
+                res = ui.showMessage(message);
+                break;
+            }
+            try {
+                Task taskToRemoveTags = taskList.removeTags(inputs);
+                res = ui.showRemoveTaskTags(taskToRemoveTags, Arrays.copyOfRange(inputs, 1, inputs.length));
+            } catch(TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            }
+            break;
+
 
         default:
             res = ui.showMessage("I am sorry, but I don't know what that means :-(");

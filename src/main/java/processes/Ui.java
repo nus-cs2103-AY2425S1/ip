@@ -144,6 +144,29 @@ public class Ui {
         return "Tags were successfully added! The task is now:\n" +
                 taskToAddTags;
     }
+
+    /**
+     * Takes in the task that the tags were removed from.
+     * Returns the message to show the user that the tags were removed successfully
+     *
+     * @param taskToRemoveTags The task that the tags were removed from.
+     * @return The success message
+     */
+    public String showRemoveTaskTags(Task taskToRemoveTags, String[] tags) {
+        StringBuilder res = new StringBuilder();
+        res.append("The tags:\n ");
+        for (int i = 0; i < tags.length; i++) {
+            String tag = tags[i].trim();
+            if (i != tags.length - 1) {
+                res.append("#").append(tag);
+            } else {
+                res.append("#").append(tag).append(", ");
+            }
+        }
+        res.append("\nwere removed successfully! The task is now:\n");
+        res.append(taskToRemoveTags);
+        return res.toString();
+    }
 }
 
 

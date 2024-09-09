@@ -59,12 +59,21 @@ public abstract class Task {
 
     /**
      * Adds all tags to task.
-     * Returns whether the tags were successfully added to task or not
      *
-
      * @param tagsArr The string array of tags to add to the task.
      */
     public void addTags(String[] tagsArr) {
         Collections.addAll(tags, tagsArr);
+    }
+
+    /**
+     * Removes all tags in tagsArr from task.
+     *
+     * @param tagsArr The string array of tags to remove from the task.
+     */
+    public void removeTags(String[] tagsArr) {
+        for (String s : tagsArr) {
+            tags.remove(s);
+        }
     }
 }

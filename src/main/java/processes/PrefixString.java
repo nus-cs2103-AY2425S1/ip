@@ -15,7 +15,8 @@ public enum PrefixString {
     DELETE("delete "),
     FIND("find "),
     WELCOME("welcome"),
-    TAG("tag ");
+    TAG("tag "),
+    REMOVETAGS("remove tags ");
 
     private final String prefix;
 
