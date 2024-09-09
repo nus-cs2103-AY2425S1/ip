@@ -1,5 +1,5 @@
-D | 1 | submit homework | 2024-Aug-30 2359
-E | 0 | meet prof | 2024-Sep-30 1400 | 2024-Sep-30 1700
-D | 0 | submit project | 2024-Aug-30 2359
 E | 1 | study | 2024-Sep-22 1400 | 2024-Sep-22 1700
 D | 0 | submit assignment | 2024-Sep-30 2359
+D | 0 | submit report | 2024-Sep-30 2359
+D | 0 | buy food | 2024-Sep-09 2359
+E | 0 | meet friends | 2024-Sep-09 2359 | 2024-Sep-09 1700
