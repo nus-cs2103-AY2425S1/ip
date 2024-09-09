@@ -43,7 +43,8 @@ public class TaskEvent extends Task {
     }
 
     /**
-     * Checks if the dates are in the correct format.
+     * Checks if the dates are in the correct format and the start date is before
+     * the end date.
      * 
      * @param from The start date of the event.
      * @param to The end date of the event.

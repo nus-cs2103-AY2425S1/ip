@@ -28,6 +28,7 @@ public final class Constants {
     public static final int TO_COMMAND_LENGTH = TO_COMMAND.length();
     public static final int FIND_COMMAND_LENGTH = FIND_COMMAND.length();
 
+    // Task constants
     public static final String COMPLETED_TASK = "[X]";
     public static final String INCOMPLETE_TASK = "[ ]";
     public static final String TASK_TODO = "T";
