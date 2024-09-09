@@ -41,13 +41,17 @@ public class Storage {
      */
     public void writeFile(TaskList list) throws TalkerException {
         try {
-            if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
+            FileWriter fileWriter = new FileWriter(filePath.toString());
+            boolean isDirectoryPathValid = Files.exists(directoryPath) && !Files.isDirectory(directoryPath);
+            boolean isFilePathValid = Files.exists(filePath) && Files.isRegularFile(filePath);
+
+            if (!isDirectoryPathValid) {
                 Files.createDirectory(directoryPath);
             }
-            if (!Files.exists(filePath) || !Files.isRegularFile(filePath)) {
+            if (!isFilePathValid) {
                 Files.createFile(filePath);
             }
-            FileWriter fileWriter = new FileWriter(filePath.toString());
+
             list.writeToFile(fileWriter);
             fileWriter.close();
         } catch (IOException e) {
@@ -64,12 +68,16 @@ public class Storage {
      */
     public TaskList readFile() throws TalkerException {
         ArrayList<Task> tempList = new ArrayList<>();
+        TaskList outputList = new TaskList();
+
         try {
-            if (Files.exists(directoryPath)
-                    && Files.isDirectory(directoryPath)
-                    && Files.exists(filePath)
-                    && Files.isRegularFile(filePath)) {
+            boolean isDirectoryPathValid = Files.exists(directoryPath) && !Files.isDirectory(directoryPath);
+            boolean isFilePathValid = Files.exists(filePath) && Files.isRegularFile(filePath);
+            boolean isDirectoryAndFilePathValid = isDirectoryPathValid && isFilePathValid;
+
+            if (isDirectoryAndFilePathValid) {
                 Scanner scanner = new Scanner(filePath);
+
                 while (scanner.hasNext()) {
                     String taskString = scanner.nextLine();
                     tempList.add(Parser.parseTaskFromFile(taskString));
@@ -78,7 +86,7 @@ public class Storage {
         } catch (IOException e) {
             throw new TalkerException("Unable to read file. Error occurred: " + e.getMessage());
         }
-        TaskList outputList = new TaskList();
+
         outputList.setTasks(tempList);
         return outputList;
     }
