@@ -1,4 +1,4 @@
-package psu;
+package ps;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -76,7 +76,7 @@ public class Parser {
      * @param userInput the user's input string
      * @return a command representing the user's command that is later executed
      */
-    public Command parse(String userInput) {
+    public static Command parse(String userInput) {
         if (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
                 // if user input is "list", return the tasklist with statuses

@@ -1,4 +1,4 @@
-package psu;
+package ps;
 
 import java.io.File;
 import java.io.FileNotFoundException;
