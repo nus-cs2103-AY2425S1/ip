@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 /**
  * The {@code BottleOpener.Parser} class is responsible for interpreting and executing user commands

@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 /**
  * The {@code BottleOpener.Ui} class handles the user interface for the BottleOpener.BottleOpener chatbot.

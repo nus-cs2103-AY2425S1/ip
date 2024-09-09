@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 /**
  * Represents a BottleOpener.ToDo task.

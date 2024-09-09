@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 /**
  * Represents a task with a description and a status indicating whether it is completed.

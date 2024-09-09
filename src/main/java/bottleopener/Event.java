@@ -1,10 +1,8 @@
-package BottleOpener;
+package bottleopener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 /**
  * Represents an event with a start and end time.

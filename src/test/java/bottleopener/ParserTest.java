@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

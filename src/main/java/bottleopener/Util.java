@@ -1,4 +1,4 @@
-package BottleOpener;
+package bottleopener;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
