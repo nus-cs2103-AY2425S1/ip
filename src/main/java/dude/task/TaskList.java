@@ -1,6 +1,8 @@
 package dude.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import dude.exception.DudeDuplicatedTaskException;
 
@@ -81,13 +83,10 @@ public class TaskList {
      *     If no tasks match the keyword, an empty list is returned.
      */
     public ArrayList<Task> findAllTask(String keyword) {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
-                filteredTasks.add(task);
-            }
-        }
+        ArrayList<Task> filteredTasks = tasks.stream()
+                .filter(t -> t.description.contains(keyword))
+                .collect(Collectors
+                .toCollection(ArrayList::new));
 
         return filteredTasks;
     }
