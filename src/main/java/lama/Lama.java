@@ -9,8 +9,8 @@ import lama.command.Command;
  */
 public class Lama {
 
-    private Storage storage;
-    private Ui ui;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList taskList;
 
     /**
@@ -23,11 +23,15 @@ public class Lama {
     public Lama(String filePath) {
         this.ui = new Ui();
         storage = new Storage(filePath);
+        this.taskList = initializeTaskList();
+    }
+
+    private TaskList initializeTaskList() {
         try {
-            taskList = new TaskList(storage.loadTask());
+            return new TaskList(storage.loadTask());
         } catch (LamaException e) {
             ui.showLoadingError();
-            taskList = new TaskList();
+            return new TaskList();
         }
     }
 
@@ -40,17 +44,21 @@ public class Lama {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.run(taskList, storage, ui);
-                isExit = c.isExit();
-            } catch (LamaException e) {
-                ui.showError(e.getMessage());
-            }
+            isExit = processUserCommand();
         }
     }
 
+    private boolean processUserCommand() {
+        try {
+            String fullCommand = ui.readCommand();
+            Command command = Parser.parse(fullCommand);
+            command.run(taskList, storage, ui);
+            return command.isExit();
+        } catch (LamaException e) {
+            ui.showError(e.getMessage());
+            return false;
+        }
+    }
     /**
      * Main method and entry point of the Lama application.
      * Create a new instance of Lama object and run it.
