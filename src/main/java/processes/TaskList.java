@@ -2,6 +2,7 @@ package processes;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -155,5 +156,27 @@ public class TaskList {
     public ArrayList<Task> find(String prompt) {
         Stream<Task> stream = this.taskList.stream().filter(t -> t.getName().contains(prompt));
         return stream.collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Does not return anything.
+     * Receive the prompt from the user and searches the current list of tasks for task names that contain the prompt.
+     * After getting the list of matching tasks, print them out to the terminal
+     *
+     * @param inputs The String array of prompts provided by the user.
+     * Contains index of task to tag, as well as the tags to add
+     *
+     */
+    public void tag(String[] inputs) throws TaskOutOfBoundsError {
+        for (int i = 0; i < inputs.length; i++) {
+            inputs[i] = inputs[i].trim();
+        }
+        int index = Integer.parseInt(inputs[0]);
+        if (index < 0 || index >= taskList.size()) {
+            throw new TaskOutOfBoundsError(index);
+        }
+
+        Task taskToAddTags = taskList.get(index);
+        taskToAddTags.addTags(Arrays.copyOfRange(inputs, 1, inputs.length));
     }
 }

@@ -4,7 +4,9 @@ import static java.lang.Integer.parseInt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -35,7 +37,12 @@ public class DeadLine extends Task {
         }
 
         int index = inputString.indexOf("/by ");
-        String[] nameAndTags = inputString.substring(0, index).trim().split("#");
+
+        String[] nameAndTags = inputString.substring(0, index).split("#");
+        for (int i = 0; i < nameAndTags.length; i++) {
+            nameAndTags[i] = nameAndTags[i].trim();
+        }
+
         String taskName = nameAndTags[0];
         String byDate = inputString.substring(index + 4);
         if (taskName.isEmpty()) {
@@ -86,8 +93,9 @@ public class DeadLine extends Task {
             return;
         }
 
-        // add tags
-        tags.addAll(Arrays.asList(input).subList(3, input.length));
+        // add tags and trim
+        List<String> trimmedTags = Arrays.asList(input).subList(3, input.length).stream().map(String::trim).toList();
+        tags.addAll(trimmedTags);
     }
 
     /**
@@ -126,7 +134,7 @@ public class DeadLine extends Task {
 
         if (!tags.isEmpty()) {
             res.append("|");
-            tags.forEach(tag -> res.append(tag).append("|"));
+            tags.forEach(tag -> res.append(tag.trim()).append("|"));
         }
 
         return res.toString();

@@ -5,6 +5,7 @@ import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.List;
 
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
@@ -46,11 +47,16 @@ public class Event extends Task {
             throw new InvalidDateException("Wrong date order provided!");
         }
 
-        String[] nameAndTag = inputString.substring(0, fromIndex).trim().split("#");
-        String taskName = nameAndTag[0];
+        String[] nameAndTags = inputString.substring(0, fromIndex).split("#");
+        for (int i = 0; i < nameAndTags.length; i++) {
+            nameAndTags[i] = nameAndTags[i].trim();
+        }
+
+        String taskName = nameAndTags[0];
         if (taskName.isEmpty()) {
             throw new InvalidTaskNameException();
         }
+        this.name = taskName;
 
 
 
@@ -62,7 +68,7 @@ public class Event extends Task {
             throw new InvalidDateException("To date not provided");
         }
 
-        this.name = taskName;
+
         try {
             this.fromDate = LocalDate.parse(fromDate.trim());
         } catch (DateTimeParseException ex) {
@@ -79,10 +85,11 @@ public class Event extends Task {
             throw new InvalidDateException("To date is before from date");
         }
 
-        if (nameAndTag.length < 2) {
+        // no tags provided
+        if (nameAndTags.length < 2) {
             return;
         }
-        tags.addAll(Arrays.asList(nameAndTag).subList(1, nameAndTag.length));
+        tags.addAll(Arrays.asList(nameAndTags).subList(1, nameAndTags.length));
 
     }
 
@@ -112,7 +119,8 @@ public class Event extends Task {
         }
 
         // add tags
-        tags.addAll(Arrays.asList(input).subList(4, input.length));
+        List<String> trimmedTags = Arrays.asList(input).subList(4, input.length).stream().map(String::trim).toList();
+        tags.addAll(trimmedTags);
     }
 
     /**
@@ -158,7 +166,7 @@ public class Event extends Task {
 
         if (!tags.isEmpty()) {
             res.append("|");
-            tags.forEach(tag -> res.append(tag).append("|"));
+            tags.forEach(tag -> res.append(tag.trim()).append("|"));
         }
 
         return res.toString();

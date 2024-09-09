@@ -4,7 +4,9 @@ import static java.lang.Integer.parseInt;
 
 import exceptions.InvalidTaskNameException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -21,8 +23,13 @@ public class ToDo extends Task {
      */
     public ToDo(String inputStr) throws InvalidTaskNameException {
         String[] args = inputStr.split("#");
+
+        for (int i = 0; i < args.length; i++) {
+            args[i] = args[i].trim();
+        }
+
         String name = args[0];
-        if (name.length() == 0) {
+        if (name.isEmpty()) {
             throw new InvalidTaskNameException();
         }
         this.name = name;
@@ -34,7 +41,6 @@ public class ToDo extends Task {
 
         // adding tags
         tags.addAll(Arrays.asList(args).subList(1, args.length));
-        tags.forEach(tag -> System.out.println("tag is: " + tag));
     }
 
     /**
@@ -54,13 +60,14 @@ public class ToDo extends Task {
                     "not 1 or 0");
             System.exit(-1);
         }
-        this.name = input[1];
+        this.name = input[1].trim();
         if (input.length < 3) {
             return;
         }
 
         // adding tags
-        tags.addAll(Arrays.asList(input).subList(2, input.length));
+        List<String> trimmedTags = Arrays.asList(input).subList(2, input.length).stream().map(String::trim).toList();
+        tags.addAll(trimmedTags);
     }
 
 
@@ -96,7 +103,7 @@ public class ToDo extends Task {
 
         if (!tags.isEmpty()) {
             res.append("|");
-            tags.forEach(tag -> res.append(tag).append("|"));
+            tags.forEach(tag -> res.append(tag.trim()).append("|"));
         }
 
         return res.toString();
