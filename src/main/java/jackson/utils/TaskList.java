@@ -2,6 +2,7 @@ package jackson.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import jackson.exceptions.OutOfListException;
 import jackson.tasks.Task;
@@ -10,7 +11,18 @@ import jackson.tasks.Task;
  * Class used to store tasks.
  */
 public class TaskList {
-    /* ArrayList to store tasks */
+    /**
+     * Comparators to sort tasks by.
+     * Sorting by time alone does not make sense because dates can be out of order
+     */
+    private static Comparator<Task> comparatorByName = Comparator.comparing(Task::getName);
+    private static Comparator<Task> comparatorByStartDateTime = Comparator.comparing(Task::getStartDateTime);
+    private static Comparator<Task> comparatorByEndDateTime = Comparator.comparing(Task::getEndDateTime);
+    private static Comparator<Task> comparatorByTaskType = Comparator.comparing(Task::getTaskType);
+    private static Comparator<Task> comparatorByMarkedUnmarked = Comparator.comparing(Task::getStatus);
+    private static Comparator<Task> defaultComparator = (task1, task2) -> 0;
+
+    // Array list to store classes
     private ArrayList<Task> tasks;
 
     /**
@@ -109,6 +121,44 @@ public class TaskList {
         Task curr = this.tasks.get(index);
         curr.unmark();
         return curr;
+    }
+
+    /**
+     * Sorts list by specified category.
+     * Enums cannot be used here as we pass the argument directly as a String.
+     * @param by Task attribute to sort for.
+     * @param ascending true if sorting by ascending order, otherwise false.
+     */
+    public void sort(String by, boolean ascending) {
+        if (this.tasks.size() >= 2) {
+            Comparator<Task> selectedComparator;
+            switch (by) {
+            case "name":
+                selectedComparator = comparatorByName;
+                break;
+            case "startdatetime":
+                selectedComparator = comparatorByStartDateTime;
+                break;
+            case "enddatetime":
+                selectedComparator = comparatorByEndDateTime;
+                break;
+            case "status":
+                selectedComparator = comparatorByMarkedUnmarked;
+                break;
+            case "tasktype":
+                selectedComparator = comparatorByTaskType;
+                break;
+            default:
+                selectedComparator = defaultComparator;
+            }
+
+            // since comparators naturally sort by descending order, reverse the comparator
+            // if ascending order is specified.
+            if (ascending) {
+                selectedComparator = selectedComparator.reversed();
+            }
+            this.tasks.sort(selectedComparator);
+        }
     }
 
     /**

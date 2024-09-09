@@ -16,11 +16,11 @@ import jackson.tasks.Todo;
  * Class to handle reading and writing to save file.
  */
 public class Storage {
-    /* Regex to read tasks from text file */
+    // Regex to read tasks from text file
     private static final Pattern TASK_FORMAT = Pattern.compile("\\[([TED])]\\[([X ])] "
             + "([\\w ]+\\w)(?: \\((?:from|by): ([\\w\\d, :]+)\\)*)?(?: \\| to: ([\\w\\d, :]+)\\))?");
 
-    /* String path to save file */
+    // String path to save file
     private String path;
 
     /**
@@ -56,7 +56,7 @@ public class Storage {
         }
 
         // confirm file has been created either way
-        assert f.exists(): "Error processing file! Please check your directory and debug from there!\n";
+        assert f.exists() : "Error processing file! Please check your directory and debug from there!\n";
         return output;
     }
 
@@ -73,7 +73,7 @@ public class Storage {
         String output = "";
 
         // assertion to check if file exists
-        assert f.exists(): "Error! File does not exist!\n";
+        assert f.exists() : "Error! File does not exist!\n";
 
         try {
             Scanner sc = new Scanner(f);
