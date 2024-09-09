@@ -31,6 +31,7 @@ public class UnmarkCommand extends Command {
         if (index >= tasks.getLength() || index < 0) {
             return ui.showTaskNotFoundError();
         }
+        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
         tasks.getTask(index).markUncompleted();
         storage.overwriteFile(tasks);
         String response = "Noted. I've removed this task:\n"

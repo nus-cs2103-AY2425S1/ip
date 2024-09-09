@@ -31,11 +31,14 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Task list must not be null";
         if (index >= tasks.getLength() || index < 0) {
             ui.showTaskNotFoundError();
             return ui.showTaskNotFoundError();
         }
+        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
         Task task = tasks.removeTask(index);
+        assert task != null : "Task must not be null";
         storage.overwriteFile(tasks);
         String word = tasks.getLength() == 1 ? "task" : "tasks";
         String response = "Noted. I've removed this task:\n    "
