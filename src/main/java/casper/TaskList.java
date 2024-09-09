@@ -37,11 +37,10 @@ public class TaskList {
      * @throws CasperBotOutOfBoundsException If index is negative or >= length of task list
      */
     public Task getTask(int index) throws CasperBotOutOfBoundsException {
-        if (index >= 0 && index < this.taskList.size()) {
-            return this.taskList.get(index);
-        } else {
+        if (index < 0 || index >= this.taskList.size()) {
             throw new CasperBotOutOfBoundsException();
         }
+        return this.taskList.get(index);
     }
 
     /**
