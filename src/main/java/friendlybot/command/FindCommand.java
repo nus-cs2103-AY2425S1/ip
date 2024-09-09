@@ -1,6 +1,6 @@
 package friendlybot.command;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import friendlybot.Storage;
 import friendlybot.Ui;
@@ -34,7 +34,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Task> relatedTasks = tasks.findTasks(this.keyword);
+        List<Task> relatedTasks = tasks.findTasks(this.keyword);
         if (relatedTasks.isEmpty()) {
             Ui.print("There are no matching tasks in your list!");
             return "There are no matching tasks in your list!";
