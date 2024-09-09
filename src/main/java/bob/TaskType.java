@@ -17,5 +17,10 @@ public enum TaskType {
     /**
      * Represents an event that has a start and end time.
      */
-    EVENT;
+    EVENT,
+
+    /**
+     * Represents a task that takes a fixed amount of time to complete but does not have a fixed start/end time.
+     */
+    FIXED;
 }

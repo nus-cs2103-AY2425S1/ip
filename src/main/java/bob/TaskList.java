@@ -212,6 +212,28 @@ public class TaskList {
     }
 
     /**
+     * Adds a new fixed duration task to the TaskList.
+     *
+     * @param phrase The user input containing the description, start time, and end time of the event.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the add operation.
+     * @throws ChatBotException If the input format is incorrect or if there is an error parsing the dates.
+     */
+    public String addFixed(String phrase, Ui ui) throws ChatBotException {
+        try {
+            String[] parts = phrase.split(" /hours ");
+            String description = parts[0].substring(6);
+            int duration = Integer.parseInt(parts[1]);
+            Task newTask = new Fixed(description, duration, TaskType.FIXED);
+            tasks.add(newTask);
+            return ui.showTaskAdded(newTask, tasks.size());
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new ChatBotException("Invalid format for fixed task. "
+                    + "Correct format: fixed <description> /hours <duration in hours>");
+        }
+    }
+
+    /**
      * Retrieves tasks occurring on a specific date and returns them as a formatted string.
      *
      * @param date The date to search for tasks.
@@ -281,4 +303,3 @@ public class TaskList {
         }
     }
 }
-
