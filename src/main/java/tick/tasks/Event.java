@@ -7,20 +7,20 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task.
  */
 public class Event extends Task {
-    private LocalDate from;
-    private LocalDate to;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
 
     /**
      * Constructs an event task with the specified description, start date, and end date.
      *
      * @param description Description of the event.
-     * @param from Starting date of the event.
-     * @param to Ending date of the event.
+     * @param dateFrom Starting date of the event.
+     * @param dateTo Ending date of the event.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate dateFrom, LocalDate dateTo) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Event extends Task {
     public String toStorageFormat() {
         return String.format("E | %s | %s | %s | %s", super.getStatus() ? "1" : "0",
                 super.getDescription(),
-                this.from.toString(), this.to.toString());
+                this.dateFrom.toString(), this.dateTo.toString());
     }
 
     /**
@@ -44,7 +44,7 @@ public class Event extends Task {
      */
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
-                this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+                this.dateFrom.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
+                this.dateTo.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
 }
