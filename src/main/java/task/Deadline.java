@@ -1,6 +1,6 @@
 package task;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Deadline extends Task {
-    private LocalDateTime dueDate;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private LocalDate dueDate;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Creates a Deadline task with the specified name and deadline.
@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String dueDateString) throws DateTimeParseException {
         super(name);
-        this.dueDate = LocalDateTime.parse(dueDateString, formatter);
+        this.dueDate = LocalDate.parse(dueDateString, formatter);
     }
 
     /**
@@ -44,6 +44,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: "
-                + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+                + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

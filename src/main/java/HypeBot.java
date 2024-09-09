@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -176,7 +178,7 @@ public class HypeBot {
                 newTask = new Deadline(taskName, dueDate);
             } catch (DateTimeParseException e) {
                 System.out.println(addBufferLineError("but I couldn't catch that due date you put.\n"
-                        + "Try formatting your date in this format: yyyy-MM-dd HH:mm"));
+                        + "Try formatting your date in this format: yyyy-MM-dd"));
             }
             break;
         case "E":
@@ -288,7 +290,7 @@ public class HypeBot {
                 } catch (DateTimeParseException e) {
                     System.out.println(addBufferLineError("""
                             but I couldn't catch the due date that you put.
-                            Try formatting your due date in this format: yyyy-MM-dd HH:mm
+                            Try formatting your due date in this format: yyyy-MM-dd
                             """));
                 }
                 break;
