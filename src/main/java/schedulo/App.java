@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Schedulo using FXML.
+ * This is where the schedulo chatbot is initiated
  */
 public class App extends Application {
 
