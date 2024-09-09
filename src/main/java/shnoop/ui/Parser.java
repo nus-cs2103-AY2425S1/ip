@@ -21,6 +21,7 @@ public class Parser {
         LIST,
         TODO,
         EVENT,
+        FIND,
         DEADLINE,
         UNDEFINED
     }
@@ -142,7 +143,8 @@ public class Parser {
             return new ListCommand();
         case TODO:
             try {
-                if (!startsWithTodo(input,length) || commandParts[1].isEmpty()) {
+                if (!startsWithTodo(input,length) || input.substring(5, input.length()).trim().length() == 0
+                        || commandParts[1].isEmpty()) {
                     throw new ShnoopException(improperInput);
                 }
                 return new AddCommand(input, Commands.TODO);
@@ -152,7 +154,8 @@ public class Parser {
 
         case DEADLINE:
             try {
-                if (!startsWithDeadline(input, length) || commandParts[1].isEmpty()) {
+                if (!startsWithDeadline(input, length)  || input.substring(9, input.length()).trim().length() == 0
+                        || commandParts[1].isEmpty()) {
                     throw new ShnoopException(improperInput);
                 }
                 return new AddCommand(input, Commands.DEADLINE);
@@ -161,25 +164,35 @@ public class Parser {
         }
         case EVENT:
             try {
-                if (!startsWithEvent(input, length) || commandParts[1].isEmpty()) {
+                if (!startsWithEvent(input, length) || input.substring(6, input.length()).trim().length() == 0
+                        || commandParts[1].isEmpty()) {
                     throw new ShnoopException(improperInput);
                 }
                 return new AddCommand(input, Commands.EVENT);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ShnoopException(improperInput);
             }
+        case FIND:
+            if (length < 6 || input.substring(5, input.length()).trim().length() == 0
+                    || commandParts[1].isEmpty()) {
+                throw new ShnoopException(improperInput);
+            }
+            return new FindCommand(input);
         case DELETE:
-            if (length < 8 || commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
+            if (length < 8 || input.substring(7, input.length()).trim().length() == 0
+                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
                 throw new ShnoopException(improperInput);
             }
             return new DeleteCommand(input);
         case MARK:
-            if (length < 6 || commandParts[1].isEmpty() || !canBeInteger(input.substring(5, length))) {
+            if (length < 6 || input.substring(5, input.length()).trim().length() == 0
+                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(5, length))) {
                 throw new ShnoopException(improperInput);
             }
             return new MarkCommand(input, true);
         case UNMARK:
-            if (length < 8 ||  commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
+            if (length < 8 || input.substring(7, input.length()).trim().length() == 0
+                    ||  commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
                 throw new ShnoopException(improperInput);
             }
             return new MarkCommand(input, false);

@@ -147,4 +147,19 @@ public class Ui {
         System.out.println("✿ Shnoop ✿: I know a place, where the grass is really greener. "
                 + "I'll send this task there\n" + "Goodbye " + task + "!");
     }
+
+    /**
+     * Prints out a list of tasks that contain a given keyword.
+     *
+     * @param foundTasks Input contains String obtained from TaskList.
+     */
+    public void find(String foundTasks) {
+        if (foundTasks.isEmpty()) {
+            System.out.println("✿ Shnoop ✿: I have travelled the world, and nothing comes close "
+            + "to the words you speak of.");
+        } else {
+            System.out.println("✿ Shnoop ✿: My California gorls have found whatchu been looking for:");
+            System.out.println(foundTasks);
+        }
+    }
 }

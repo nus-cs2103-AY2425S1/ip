@@ -101,4 +101,25 @@ public class TaskList {
         tasks.remove(idx);
         return task;
     }
+
+    /**
+     * Looks for Tasks in TaskList that contain a given keyword.
+     *
+     * @param keyword String to be checked for in the Tasks.
+     * @return String representing all Tasks in TaskList containing the given keyword.
+     */
+    public String find(String keyword) {
+        if (keyword.isEmpty() || keyword.isBlank() || keyword.trim().length() <= 0) {
+            return "";
+        }
+
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            String tempTask = tasks.get(i).toString().toLowerCase();
+            if (tempTask.contains(keyword.toLowerCase())) {
+                result += tempTask + "\n";
+            }
+        }
+        return result;
+    }
 }
