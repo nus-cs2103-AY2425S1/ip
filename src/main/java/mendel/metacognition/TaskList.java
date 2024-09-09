@@ -135,19 +135,21 @@ public class TaskList extends Command {
     /**
      * Finds tasks with deadlines matching the specified date of type String.
      *
-     * @param rawDate The date to search for in the format understood by {@code DateTimeManager}.
+     * @param inputInformation The information containing
+     * date to search for in the format understood by {@code DateTimeManager}.
      * @return A message listing all tasks with deadlines on the specified date.
      */
-    public String find(String rawDate) {
+    public String find(String inputInformation) {
+        String rawDate = inputInformation.split("remind ")[1];
         String formattedDate = new DateTimeManager(rawDate).toString();
-        return String.format("Here are the tasks with deadlines on: %s", formattedDate)
+        return String.format("Here are the tasks with deadlines by %s", formattedDate)
                 + draftItemList(formattedDate);
     }
     private String draftItemList(String formattedDate) {
         String finalMessage = "";
         int increment = 0;
         for (int i = 0; i < counter; i++) {
-            if (this.messages.get(i).isTargetDueDate(formattedDate)) {
+            if (this.messages.get(i).isIncompleteWithinTargetDueDate(formattedDate)) {
                 increment++;
                 finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
             }

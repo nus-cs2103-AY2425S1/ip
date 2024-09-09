@@ -142,6 +142,22 @@ public class Event extends Task {
                 .equals(new DateTimeManager(this.to).removeTimeStamp());
     }
 
+    @Override
+    public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
+        DateTimeManager inputDate = new DateTimeManager(formattedDate);
+        DateTimeManager toDate = new DateTimeManager(this.to);
+        if (!inputDate.isValidFormat()) {
+            throw new MendelException("Invalid due date. Write in form Month Day Year such as Aug 09 2024");
+        }
+        if (!toDate.isValidFormat()) {
+            return false;
+        }
+        long timeDeadline = new DateTimeManager(inputDate.removeTimeStamp()).toEpochTime();
+        long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo;
+        return isTaskInRange && !super.getStatus();
+    }
+
     /**
      * Parses the details of this Event task into a string format suitable for storage in a database.
      *
