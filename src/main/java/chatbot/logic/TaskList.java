@@ -20,6 +20,9 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        if (tasks == null) {
+            this.tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -39,6 +42,8 @@ public class TaskList {
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
      */
     public Task get(int idx) throws InvalidIndexException {
+        assert this.tasks != null : "tasks should not be null";
+
         if (idx >= this.tasks.size() || idx < 0) {
             throw new InvalidIndexException();
         }
@@ -51,6 +56,8 @@ public class TaskList {
      * @return the String representation of the task list
      */
     public String listTasks() {
+        assert this.tasks != null : "tasks should not be null";
+
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -69,6 +76,7 @@ public class TaskList {
      */
     public String mark(int idx, boolean state) throws InvalidIndexException {
         this.get(idx).setIsDone(state);
+
         StringBuilder sb = new StringBuilder();
         if (state) {
             sb.append("Nice! I've marked this task as done:\n");
@@ -105,6 +113,8 @@ public class TaskList {
      * @return The bot's response to adding a task
      */
     public String add(Task newTask) {
+        assert this.tasks != null : "tasks should not be null";
+
         this.tasks.add(newTask);
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
@@ -121,6 +131,8 @@ public class TaskList {
      * @return The bot's response to attempting a query
      */
     public String find(String query) {
+        assert this.tasks != null : "tasks should not be null";
+
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks matching your query:\n");
         for (int i = 0; i < this.tasks.size(); i++) {

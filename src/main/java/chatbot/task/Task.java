@@ -17,6 +17,9 @@ public abstract class Task {
      * @param isDone Boolean value representing whether the task has been marked as done
      */
     public Task(String name, boolean isDone) {
+        assert name != null : "name should not be null";
+        assert !name.isEmpty() : "name should not be an empty string";
+
         this.name = name;
         this.isDone = isDone;
     }
