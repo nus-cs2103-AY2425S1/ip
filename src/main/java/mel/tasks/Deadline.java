@@ -23,6 +23,9 @@ public class Deadline extends Task {
             String s = processInput(input);
             processDateTime(s);
             assert by != null : "date/time should not be empty";
+            if (task.isEmpty()) {
+                throw new TaskException("deadline <task> /by <date> <time>");
+            }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new TaskException("deadline <task> /by <date> <time>");
         }
@@ -30,8 +33,8 @@ public class Deadline extends Task {
 
     private String processInput(String input) {
         String[] temp = input.split("/by ");
-        task = temp[0].split(" ", 2)[1];
-        String dateTime = temp[1];
+        task = temp[0].split(" ", 2)[1].trim();
+        String dateTime = temp[1].trim();
         return dateTime;
     }
 
@@ -41,8 +44,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert !task.isEmpty() : "task field should not be empty";
         String mark = super.toString();
         String deadline = by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"));
-        return "[D]" + mark + task + "(by: " + deadline + ")";
+        return "[D]" + mark + task + " (by: " + deadline + ")";
     }
 }

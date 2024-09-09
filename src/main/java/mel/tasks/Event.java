@@ -27,7 +27,10 @@ public class Event extends Task {
             processDateTime(s);
             assert (from != null) && (to != null)
                     : "date/time should not be empty";
-            if (from.isAfter(to)) {
+            if (task.isEmpty()) {
+                throw new TaskException("event <task> "
+                        + "/from <date> <time> /to <date> <time>");
+            } else if (from.isAfter(to)) {
                 throw new TaskException("event <task> "
                         + "/from <date> <time> /to <date> <time>\n"
                         + "Mel wonders if you control time..?");
@@ -41,7 +44,7 @@ public class Event extends Task {
     }
     private String[] processInput(String input) {
         String[] temp = input.split("/from ");
-        task = temp[0];
+        task = temp[0].split(" ", 2)[1].trim();
         String[] eventTimes = temp[1].split(" /to ");
         return eventTimes;
     }
@@ -53,9 +56,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert !task.isEmpty() : "task field should not be empty";
         String mark = super.toString();
         String start = from.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"));
         String end = to.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"));
-        return "[E]" + mark + task + "(from: " + start + " to: " + end + ")";
+        return "[E]" + mark + task + " (from: " + start + " to: " + end + ")";
     }
 }

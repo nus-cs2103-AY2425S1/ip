@@ -27,16 +27,16 @@ public class Parser {
         "d/M/[uu][uuuu] h.mma",
         "d/M/[uu][uuuu] hmma",
         "d/M/[uu][uuuu] ha",
-        "u-M-d HHmm",
-        "u-M-d HH:mm",
-        "u-M-d h.mma",
-        "u-M-d hmma",
-        "u-M-d ha",
-        "u/M/d HHmm",
-        "u/M/d HH:mm",
-        "u/M/d h.mma",
-        "u/M/d hmma",
-        "u/M/d ha",
+        "[uu][uuuu]-M-d HHmm",
+        "[uu][uuuu]-M-d HH:mm",
+        "[uu][uuuu]-M-d h.mma",
+        "[uu][uuuu]-M-d hmma",
+        "[uu][uuuu]-M-d ha",
+        "[uu][uuuu]/M/d HHmm",
+        "[uu][uuuu]/M/d HH:mm",
+        "[uu][uuuu]/M/d h.mma",
+        "[uu][uuuu]/M/d hmma",
+        "[uu][uuuu]/M/d ha",
     };
 
     /**
@@ -46,8 +46,8 @@ public class Parser {
     private static final String[] FORMAT_DATE = {
         "d-M-[uu][uuuu]",
         "d/M/[uu][uuuu]",
-        "u/M/d",
-        "u-M-d",
+        "[uu][uuuu]/M/d",
+        "[uu][uuuu]-M-d",
     };
 
     /**
@@ -60,6 +60,7 @@ public class Parser {
      * @see LocalDateTime
      */
     public LocalDateTime parseDateTime(String str) throws ParseException {
+        assert !str.isEmpty() : "date/time field should not be empty";
         for (String s : FORMAT_DATE) {
             try {
                 return LocalDate.parse(str, DateTimeFormatter.ofPattern(s))
