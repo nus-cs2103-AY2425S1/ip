@@ -34,9 +34,10 @@ public abstract class Command {
      */
     public static Command fromInput(String line, TaskList taskList) throws IllegalArgumentException {
         String input = line.toUpperCase();
-        if (input.startsWith(Action.TODO.name())
-                || input.startsWith(Action.DEADLINE.name())
-                || input.startsWith(Action.EVENT.name())) {
+        boolean isToDo = input.startsWith(Action.TODO.name());
+        boolean isDeadline = input.startsWith(Action.DEADLINE.name());
+        boolean isEvent = input.startsWith(Action.EVENT.name());
+        if (isToDo || isDeadline | isEvent) {
             return new AddTask(taskList);
         }
 

@@ -21,9 +21,11 @@ public class TaskParser {
         if (tokens.length != 2) {
             throw new IllegalArgumentException();
         }
-        String arguments = tokens[1].trim();
+        String tokenAfterSpace = tokens[1];
+        String arguments = tokenAfterSpace.trim();
         assert arguments.split("/", 2).length > 0;
-        return arguments.split("/", 2)[0].trim();
+        String argumentBeforeFlag = arguments.split("/", 2)[0];
+        return argumentBeforeFlag.trim();
     }
 
     /**

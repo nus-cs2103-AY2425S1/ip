@@ -41,7 +41,7 @@ public class TaskList {
      */
     public void addTask(Task task) throws IOException {
         tasks.add(task);
-        saveTasks();
+        storage.saveTasks(tasks);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskList {
     public Task deleteTask(int index) throws IOException {
         assert index < tasks.size();
         Task removedTask = tasks.remove(index);
-        saveTasks();
+        storage.saveTasks(tasks);
         return removedTask;
     }
 
@@ -68,7 +68,7 @@ public class TaskList {
     public Task markTask(int index) throws IOException {
         assert index < tasks.size();
         tasks.get(index).setCompletion(true);
-        saveTasks();
+        storage.saveTasks(tasks);
         return tasks.get(index);
     }
 
@@ -81,7 +81,7 @@ public class TaskList {
      */
     public Task unmarkTask(int index) throws IOException {
         tasks.get(index).setCompletion(false);
-        saveTasks();
+        storage.saveTasks(tasks);
         return tasks.get(index);
     }
 
@@ -110,14 +110,5 @@ public class TaskList {
             }
         }
         return results;
-    }
-
-    /**
-     * Save tasks to disk to persist data.
-     *
-     * @throws IOException if the stored file cannot be written to
-     */
-    private void saveTasks() throws IOException {
-        storage.saveTasks(tasks);
     }
 }
