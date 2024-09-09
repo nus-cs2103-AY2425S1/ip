@@ -71,10 +71,9 @@ public class TaskList {
     /**
      * Lists all the tasks in the TaskList and returns them as a formatted string.
      *
-     * @param ui The UI object used to display the list of tasks.
      * @return A string containing all tasks in the TaskList.
      */
-    public String listTasks(Ui ui) {
+    public String listTasks() {
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -216,11 +215,10 @@ public class TaskList {
      * Retrieves tasks occurring on a specific date and returns them as a formatted string.
      *
      * @param date The date to search for tasks.
-     * @param ui The UI object used to display the result of the operation.
      * @return A string containing tasks scheduled for the specified date.
      * @throws ChatBotException If the date format is invalid.
      */
-    public String printTasksOnDate(String date, Ui ui) throws ChatBotException {
+    public String printTasksOnDate(String date) throws ChatBotException {
         LocalDate searchDate;
         StringBuilder result = new StringBuilder();
         try {
