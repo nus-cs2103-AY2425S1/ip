@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(TaskList taskList, int index) {
         this.taskList = taskList;
+        assert(index >= 0);
         this.index = index;
     }
 

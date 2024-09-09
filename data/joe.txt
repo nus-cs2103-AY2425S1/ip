@@ -1,4 +1,5 @@
-D | 1 | return book | by 12/12/2019 1800
-E | 1 | project meeting | from 12/12/2019 1800 | to 12/12/2019 2100
+D | 0 | return book | by 12/12/2019 1800
+E | 0 | project meeting | from 12/12/2019 1800 | to 12/12/2019 2100
 T | 1 | join sports club
 T | 0 | read book
+D | 1 | borrow book | by 2/12/2019 1800

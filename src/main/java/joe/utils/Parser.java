@@ -1,4 +1,4 @@
-package joe.main;
+package joe.utils;
 
 import joe.commands.AddTaskCommand;
 import joe.commands.Command;
@@ -16,16 +16,60 @@ import joe.tasks.Task;
 import joe.tasks.TaskList;
 import joe.tasks.ToDo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a parser to parse user input and file input.
  */
 public class Parser {
-
+    private static final DateTimeFormatter PARSE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter PRINT_FORMATTER = DateTimeFormatter.ofPattern("MMM/d/yyyy HH:mm");
     private static final String DELIMITER = " \\| ";
     private final TaskList tasks;
 
+    /**
+     * Constructs a Parser object.
+     * @param tasks the task list
+     */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
+    }
+    /**
+     * Formats a LocalDateTime object to a String.
+     *
+     * @param dateTime the LocalDateTime object to be formatted
+     * @return a String representing the formatted LocalDateTime object
+     */
+    public static String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(PARSE_FORMATTER);
+    }
+    /**
+     * Creates a LocalDateTime object with an arbitrary time.
+     *
+     * @param date the date to be formatted
+     * @return a LocalDateTime object with an arbitrary time
+     */
+    public static LocalDateTime createLocalDateTimeWithArbitraryTime(String date) {
+        return LocalDateTime.parse(date.strip() + " 1200", PARSE_FORMATTER);
+    }
+
+    /**
+     * Parses a date and time string to a LocalDateTime object.
+     * @param dateTime the date and time string to be parsed
+     * @return a LocalDateTime object representing the date and time string
+     */
+    public static LocalDateTime parseDateTimeString(String dateTime) {
+        return LocalDateTime.parse(dateTime, PARSE_FORMATTER);
+    }
+
+    /**
+     * Prints a LocalDateTime object to a formatted string.
+     * @param dateTime the LocalDateTime object to be printed
+     * @return a formatted string representing the LocalDateTime object
+     */
+    public static String printDateTime(LocalDateTime dateTime) {
+        return dateTime.format(PRINT_FORMATTER);
     }
 
     /**
@@ -49,6 +93,12 @@ public class Parser {
             if (params.length < 2) {
                 throw new IllegalArgumentException("Deadline: You did not provide a due date/time.");
             }
+
+            if (!params[1].startsWith("by")) {
+                throw new InvalidCommandException(userCmd);
+            }
+
+            assert(params[1].startsWith("by"));
             c = new AddTaskCommand(tasks, new Deadline(params[0], params[1]));
         } else if (userCmd.startsWith("event")) {
             String[] params = userCmd.substring(5).split(DELIMITER);
@@ -57,6 +107,17 @@ public class Parser {
             } else if (params.length < 3) {
                 throw new IllegalArgumentException("Event: Did not provide end date/time");
             }
+
+            if (!params[1].startsWith("from")) {
+                throw new InvalidCommandException(userCmd);
+            }
+
+            if (!params[2].startsWith("to")) {
+                throw new InvalidCommandException(userCmd);
+            }
+
+            assert(params[1].startsWith("from"));
+            assert(params[2].startsWith("to"));
             c = new AddTaskCommand(tasks, new Event(params[0], params[1], params[2]));
         } else if (userCmd.startsWith("query")) {
             c = new QueryCommand(tasks, userCmd.substring(6));
@@ -93,7 +154,6 @@ public class Parser {
 
         return idx ;
     }
-
     /**
      * Parses the line from the joe.txt file and returns the respective Task object.
      *

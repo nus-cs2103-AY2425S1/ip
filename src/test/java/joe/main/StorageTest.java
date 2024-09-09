@@ -2,6 +2,7 @@ package joe.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import joe.utils.Storage;
 import org.junit.jupiter.api.Test;
 
 /**
