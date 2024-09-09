@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for MainWindow. Provides the layout for the other controls.
+ */
 public class MainWindow {
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -21,6 +24,9 @@ public class MainWindow {
     private Button sendButton;
     private Yapper yapper;
 
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
