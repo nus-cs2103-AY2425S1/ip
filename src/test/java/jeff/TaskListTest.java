@@ -1,9 +1,12 @@
 package jeff;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import jeff.exceptions.JeffException;
 import jeff.task.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 

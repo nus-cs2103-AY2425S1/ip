@@ -1,13 +1,17 @@
 package jeff;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import jeff.command.Command;
 import jeff.command.DeadlineCommand;
 import jeff.command.EventCommand;
 import jeff.command.ToDoCommand;
 import jeff.exceptions.JeffException;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
