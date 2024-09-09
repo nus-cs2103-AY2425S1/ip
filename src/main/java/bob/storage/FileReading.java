@@ -28,6 +28,7 @@ public class FileReading extends Storage {
     }
 
     protected static void createDirectory(String dirName) {
+        assert dirName != null : "The directory name cannot be null.";
         File directory = new File(dirName);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -35,8 +36,10 @@ public class FileReading extends Storage {
     }
 
     protected static void createFile(String filePath) throws IOException {
+        assert filePath != null : "The file path cannot be null.";
         File file = new File(filePath);
         if (!file.exists()) {
+            assert file.exists() : "The file already exist.";
             file.createNewFile(); // Creates the file if it does not exist
         }
     }
