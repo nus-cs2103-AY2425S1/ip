@@ -4,7 +4,6 @@ import exceptions.JarException;
 import storage.Storage;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -156,51 +155,45 @@ public class TaskList {
     }
 
     /**
-     * Checks if the given task already exists in the provided TaskList.
-     * <p>
-     * This method compares the task's description and specific properties such as event times
-     * or deadline dates depending on the task type (ToDo, Event, or DeadLine).
-     * </p>
+     * Checks if the given task already exists in the TaskList.
      *
-     * @param task      The task to check for duplicates.
-     * @param taskList  The list of tasks to search for duplicates.
+     * @param task The task to check for duplicates.
      * @return True if a duplicate task is found, false otherwise.
      */
-    public boolean findDuplicate(Task task, TaskList taskList) {
-        for (Task currTask: taskList.getTasks()) {
-            String todoDescription = task.getTaskContent();
-            if (task.getTaskType().equals("todo")) {
-                if (todoDescription.equals(currTask.getTaskContent())) {
-                    return true;
-                }
-            } else if (task.getTaskType().equals("event")) {
-                Event taskTemp = (Event) task;
-                String taskFrom = taskTemp.getFrom();
-                String taskTo = taskTemp.getTo();
-                if (currTask.getTaskType().equals("event")) {
-                    Event currTaskTemp = (Event) currTask;
-                    String currTaskFrom = currTaskTemp.getFrom();
-                    String currTaskTo = currTaskTemp.getTo();
-                    boolean sameDates = taskFrom.equals(currTaskFrom) && taskTo.equals(currTaskTo);
-                    if (todoDescription.equals(currTask.getTaskContent()) && sameDates) {
-                        return true;
-                    }
-                }
-            } else {
-                DeadLine taskTemp = (DeadLine) task;
-                LocalDateTime taskBy = taskTemp.getBy();
-                if (currTask.getTaskType().equals("deadline")) {
-                    DeadLine currTaskTemp = (DeadLine) currTask;
-                    LocalDateTime currTaskBy = currTaskTemp.getBy();
-                    boolean sameDate = taskBy.equals(currTaskBy);
-                    if (todoDescription.equals(currTask.getTaskContent()) && sameDate) {
-                        return true;
-                    }
-
-                }
+    public boolean findDuplicate(Task task) {
+        for (Task currTask : this.tasks) {
+            if (task.getTaskType().equals(currTask.getTaskType()) && isDuplicateTask(task, currTask)) {
+                return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Helper method to compare tasks based on their specific properties.
+     *
+     * @param task      The new task.
+     * @param currTask  The existing task.
+     * @return True if the tasks are duplicates, false otherwise.
+     */
+    private boolean isDuplicateTask(Task task, Task currTask) {
+        switch (task.getTaskType()) {
+        case "todo":
+            return task.getTaskContent().equals(currTask.getTaskContent());
+        case "event":
+            Event newEvent = (Event) task;
+            Event existingEvent = (Event) currTask;
+            return newEvent.getTaskContent().equals(existingEvent.getTaskContent())
+                    && newEvent.getFrom().equals(existingEvent.getFrom())
+                    && newEvent.getTo().equals(existingEvent.getTo());
+        case "deadline":
+            DeadLine newDeadline = (DeadLine) task;
+            DeadLine existingDeadline = (DeadLine) currTask;
+            return newDeadline.getTaskContent().equals(existingDeadline.getTaskContent())
+                    && newDeadline.getBy().equals(existingDeadline.getBy());
+        default:
+            return false;
+        }
     }
 
 }
