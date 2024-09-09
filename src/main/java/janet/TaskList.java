@@ -1,5 +1,7 @@
 package janet;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -121,6 +123,29 @@ public class TaskList {
             }
         }
         return taskList;
+    }
+
+
+    private boolean isDeadlineOrEvent(Task task) {
+        // returns true if the task is either a deadline or event.
+        return task.getSymbol().equals("D") || task.getSymbol().equals("E");
+    }
+
+
+    private boolean isScheduledTask(Task task, LocalDate schedule) {
+        return task.getScheduledDate().equals(schedule);
+    }
+
+
+    public TaskList tasksInSchedule(LocalDate schedule) {
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {     // go through all the tasks in the list
+            if (isDeadlineOrEvent(task) && isScheduledTask(task, schedule)) {
+                // if the task is deadline/event and has the same schedule, add to tasks
+                tasks.addTaskToList(task);
+            }
+        }
+        return tasks;
     }
 
 }

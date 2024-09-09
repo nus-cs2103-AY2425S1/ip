@@ -1,6 +1,6 @@
 package janet;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Represents a Task
@@ -9,17 +9,17 @@ public class Task {
     private final String description;
     private final String symbol;
     private boolean done;
-    private final LocalDateTime scheduledDateTime;
+    private final LocalDate scheduledDate;
 
-    public Task(String description, String symbol, LocalDateTime scheduledDateTime) {
+    public Task(String description, String symbol, LocalDate scheduledDate) {
         this.description = description;
         this.done = false;
         this.symbol = symbol;
-        this.scheduledDateTime = scheduledDateTime;
+        this.scheduledDate = scheduledDate;
     }
 
-    public LocalDateTime getScheduledDate() {
-        return scheduledDateTime;
+    public LocalDate getScheduledDate() {
+        return scheduledDate;
     }
 
     /**

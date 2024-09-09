@@ -20,7 +20,7 @@ public class Deadline extends ScheduledTask {
 
     Deadline(String description, String symbol, LocalDateTime dueDate) {
         // this is used inside the static method: createDeadlineCommand
-        super(description, symbol, dueDate);    // dueDate is the scheduledDate
+        super(description, symbol, dueDate.toLocalDate());    // dueDate is the scheduledDate
         this.dueDate = dueDate;
     }
 
