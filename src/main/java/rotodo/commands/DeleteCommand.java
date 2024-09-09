@@ -13,24 +13,24 @@ import rotodo.tasklist.TaskList;
  * @version CS2103T AY24/25 Semester 1
  */
 public class DeleteCommand extends Command {
-    private int idx;
+    private int index;
 
     /**
      * Initialise DeleteCommand to be executed. Accepts
      * a task index to delete.
      *
-     * @param i
+     * @param index of task to delete
      */
-    public DeleteCommand(int i) {
-        idx = i;
+    public DeleteCommand(int index) {
+        this.index = index;
     }
 
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
         try {
-            ui.addMessage(tl.deleteTask(idx));
+            gui.addMessage(tasks.deleteTask(index));
         } catch (InvalidInputException e) {
-            ui.addMessage(e.toString());
+            gui.addMessage(e.toString());
         }
     }
 }

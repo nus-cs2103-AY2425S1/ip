@@ -17,15 +17,15 @@ public class FindCommand extends Command {
     /**
      * Initialise FindCommand to be executed. Accepts
      * a keyword to be used to find tasks.
-     * 
-     * @param keyword
+     *
+     * @param keyword to search
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
-        ui.addMessage(tl.findString(keyword));
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
+        gui.addMessage(tasks.findString(keyword));
     }
 }

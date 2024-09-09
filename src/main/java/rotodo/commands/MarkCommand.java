@@ -13,31 +13,31 @@ import rotodo.tasklist.TaskList;
  * @version CS2103T AY24/25 Semester 1
  */
 public class MarkCommand extends Command {
-    private int idx;
+    private int index;
     private boolean asDone;
 
     /**
      * Initialise MarkCommand to be executed. Accepts
      * a task index and a status to mark as.
      *
-     * @param i task index
-     * @param as status
+     * @param index of task to mark
+     * @param asDone status
      */
-    public MarkCommand(int i, boolean asDone) {
-        idx = i;
+    public MarkCommand(int index, boolean asDone) {
+        this.index = index;
         this.asDone = asDone;
     }
 
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
         try {
             if (asDone) {
-                ui.addMessage(tl.markDone(idx));
+                gui.addMessage(tasks.markDone(index));
             } else {
-                ui.addMessage(tl.unmarkDone(idx));
+                gui.addMessage(tasks.unmarkDone(index));
             }
         } catch (InvalidInputException e) {
-            ui.addMessage(e.toString());
+            gui.addMessage(e.toString());
         }
     }
 }

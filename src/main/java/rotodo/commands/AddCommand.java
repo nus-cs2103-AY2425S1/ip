@@ -36,40 +36,40 @@ public class AddCommand extends Command {
      * a TaskType and performs rudimentary checks on
      * validity of values provided.
      *
-     * @param type TaskType to be added
-     * @param value values (including datetime) of task
+     * @param type of Task to be added
+     * @param values (including datetime) of task
      * @throws InvalidInputException
      */
-    public AddCommand(TaskType type, String ...value) throws InvalidInputException {
+    public AddCommand(TaskType type, String ...values) throws InvalidInputException {
         this.type = type;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
             switch (type) {
             case TODO:
-                this.value = value[0];
+                this.value = values[0];
                 break;
 
             case DEADLINE:
-                if (value.length < 2) {
+                if (values.length < 2) {
                     throw new IncompleteInputException(
                             "RoTodo can't read your mind, otherwise "
                             + "RoTodo's creator would be rich!\n"
                             + "  RoTodo needs a task description and deadline");
                 }
-                this.value = value[0];
-                this.byOrTo = LocalDateTime.parse(value[1], formatter);
+                this.value = values[0];
+                this.byOrTo = LocalDateTime.parse(values[1], formatter);
                 break;
 
             case EVENT:
-                if (value.length < 3) {
+                if (values.length < 3) {
                     throw new IncompleteInputException(
                             "RoTodo can't read your mind, otherwise "
                             + "RoTodo's creator would be rich!\n"
                             + "  RoTodo needs a task description, from and to date/time");
                 }
-                this.value = value[0];
-                LocalDateTime t1 = LocalDateTime.parse(value[1], formatter);
-                LocalDateTime t2 = LocalDateTime.parse(value[2], formatter);
+                this.value = values[0];
+                LocalDateTime t1 = LocalDateTime.parse(values[1], formatter);
+                LocalDateTime t2 = LocalDateTime.parse(values[2], formatter);
                 if (t1.isBefore(t2)) {
                     this.from = t1;
                     this.byOrTo = t2;
@@ -96,27 +96,27 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
         String msg = "";
-        tl.setNextStatus(isDone);
+        tasks.setNextStatus(isDone);
         switch (this.type) {
         case TODO:
-            msg = tl.addTask(value);
+            msg = tasks.addTask(value);
             break;
 
         case DEADLINE:
-            msg = tl.addTask(value, byOrTo);
+            msg = tasks.addTask(value, byOrTo);
             break;
 
         case EVENT:
-            msg = tl.addTask(value, from, byOrTo);
+            msg = tasks.addTask(value, from, byOrTo);
             break;
 
         default:
             break;
         }
-        if (ui != null) {
-            ui.addMessage(msg);
+        if (gui != null) {
+            gui.addMessage(msg);
         }
     }
 }

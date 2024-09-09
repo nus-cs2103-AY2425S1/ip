@@ -28,6 +28,7 @@ public class MainWindow extends AnchorPane {
     private Image rotodoImage = new Image(this.getClass().getResourceAsStream("/images/RoTodo.png"));
     private String userName = "User";
     private String rotodoName = "RoTodo";
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

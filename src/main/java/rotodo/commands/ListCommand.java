@@ -13,7 +13,7 @@ import rotodo.tasklist.TaskList;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
-        ui.addMessage(tl.toString());
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
+        gui.addMessage(tasks.toString());
     }
 }

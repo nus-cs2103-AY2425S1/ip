@@ -8,18 +8,18 @@ package rotodo.tasklist;
  * @version CS2103T AY24/25 Semester 1
  */
 public abstract class Task {
-    private String value;
+    private String description;
     private boolean isDone = false;
 
     /**
      * Initialse Task description and status.
      *
-     * @param value description of task
-     * @param status done status (for loading data only)
+     * @param description of task
+     * @param isDone status (can be true for loading data only)
      */
-    public Task(String value, boolean status) {
-        this.value = value;
-        this.isDone = status;
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
@@ -52,22 +52,23 @@ public abstract class Task {
      * @return true if match, else false
      */
     public boolean matchDescription(String keyword, boolean padding) {
+        boolean containKeyword = description.toLowerCase().equals(keyword.toLowerCase());
+        boolean containKeywordPadded = description.toLowerCase().contains(" " + keyword.toLowerCase() + " ");
+        boolean containKeywordTrailing = description.toLowerCase().startsWith(keyword.toLowerCase() + " ");
+        boolean containKeywordLeading = description.toLowerCase().endsWith(" " + keyword.toLowerCase());
         if (padding) {
-            return value.toLowerCase().contains(" " + keyword.toLowerCase() + " ")
-                || value.toLowerCase().startsWith(keyword.toLowerCase() + " ")
-                || value.toLowerCase().endsWith(" " + keyword.toLowerCase())
-                || value.toLowerCase().equals(keyword);
+            return containKeywordPadded || containKeywordTrailing || containKeywordLeading || containKeyword;
         } else {
-            return value.toLowerCase().contains(keyword.toLowerCase());
+            return containKeyword;
         }
     }
 
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + value;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
     public String saveString() {
-        return (isDone ? "1" : "0") + " | " + value;
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
