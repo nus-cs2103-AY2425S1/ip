@@ -1,8 +1,9 @@
-package bottleopener;
+package bottleopener.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bottleopener.util.Util;
 
 /**
  * Represents an event with a start and end time.
@@ -12,22 +13,21 @@ import java.time.format.DateTimeParseException;
  * </p>
  */
 public class Event extends Task {
-    private static final DateTimeFormatter OUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private LocalDateTime start;
     private LocalDateTime end;
 
     /**
-     * Constructs a new BottleOpener.Event task with the specified description, start, and end times.
+     * Constructs a new Event task with the specified description, start, and end times.
      * The task is initially marked as not done.
      * <p>
      * The start and end times are parsed from the given strings using the defined {@link #FORMATTER}.
      * </p>
      *
-     * @param description The description of the BottleOpener.Event task.
+     * @param description The description of the Event task.
      * @param start       The start time of the event as a string.
      * @param end         The end time of the event as a string.
      */
-    public Event(String description, String start, String end) throws IllegalArgumentException {
+    public Event(String description, String start, String end) {
         super(description);
         try {
             this.start = LocalDateTime.parse(start, Util.FORMATTER);
@@ -38,13 +38,13 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new BottleOpener.Event task with the specified description, status, start, and end times.
+     * Constructs a new Event task with the specified description, status, start, and end times.
      * <p>
      * The start and end times are parsed from the given strings using the defined {@link #FORMATTER}.
      * If the times are not in a valid format, the current date and time will be used.
      * </p>
      *
-     * @param description The description of the BottleOpener.Event task.
+     * @param description The description of the Event task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
      * @param start       The start time of the event as a string.
      * @param end         The end time of the event as a string.
@@ -55,16 +55,14 @@ public class Event extends Task {
             this.start = LocalDateTime.parse(start, Util.FORMATTER);
             this.end = LocalDateTime.parse(end, Util.FORMATTER);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid event format!");
-            this.start = LocalDateTime.now();
-            this.end = LocalDateTime.now();
+            throw new IllegalArgumentException();
         }
     }
 
     /**
-     * Constructs a new BottleOpener.Event task with the specified description, status, start, and end times.
+     * Constructs a new Event task with the specified description, status, start, and end times.
      *
-     * @param description The description of the BottleOpener.Event task.
+     * @param description The description of the Event task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
      * @param start       The start time of the event as a {@link LocalDateTime} object.
      * @param end         The end time of the event as a {@link LocalDateTime} object.
@@ -98,7 +96,7 @@ public class Event extends Task {
      * @return A string in the format "start|end", where both times are formatted according to {@link #OUT_FORMAT}.
      */
     public String getTime() {
-        return this.start.format(OUT_FORMAT) + "|" + this.end.format(OUT_FORMAT);
+        return this.start.format(Util.OUT_FORMAT) + "|" + this.end.format(Util.OUT_FORMAT);
     }
 
     /**
@@ -107,7 +105,7 @@ public class Event extends Task {
      * @return The start as a formatted string.
      */
     private String getStart() {
-        return this.start.format(OUT_FORMAT);
+        return this.start.format(Util.OUT_FORMAT);
     }
 
     /**
@@ -116,12 +114,11 @@ public class Event extends Task {
      * @return The end as a formatted string.
      */
     private String getEnd() {
-        return this.end.format(OUT_FORMAT);
+        return this.end.format(Util.OUT_FORMAT);
     }
 
     /**
      * Returns a string representation of the BottleOpener.Event task, including its type, status icon, description, start, and end times.
-     *
      * @return A string in the format "[type] [status icon] description (from: start to: end)".
      */
     @Override

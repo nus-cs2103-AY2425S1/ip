@@ -1,4 +1,4 @@
-package bottleopener;
+package bottleopener.task;
 
 /**
  * Represents a task with a description and a status indicating whether it is completed.
@@ -8,12 +8,12 @@ package bottleopener;
  * retrieve the task type, and get the time associated with the task (if applicable).
  * </p>
  */
-abstract class Task {
+public abstract class Task {
     protected String description;
     protected boolean status;
 
     /**
-     * Constructs a new BottleOpener.Task with the specified description.
+     * Constructs a new Task with the specified description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.
@@ -24,7 +24,7 @@ abstract class Task {
     }
 
     /**
-     * Constructs a new BottleOpener.Task with the specified description and status.
+     * Constructs a new Task with the specified description and status.
      *
      * @param description The description of the task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
@@ -35,32 +35,32 @@ abstract class Task {
     }
 
     /**
-     * Marks the task as done and returns an updated BottleOpener.Task object.
+     * Marks the task as done and returns an updated Task object.
      *
-     * @return A new BottleOpener.Task object with status set to {@code true}.
+     * @return A new Task object with status set to {@code true}.
      */
-    abstract Task markAsDone();
+    public abstract Task markAsDone();
 
     /**
-     * Marks the task as undone and returns an updated BottleOpener.Task object.
+     * Marks the task as undone and returns an updated Task object.
      *
-     * @return A new BottleOpener.Task object with status set to {@code false}.
+     * @return A new Task object with status set to {@code false}.
      */
-    abstract Task markAsUndone();
+    public abstract Task markAsUndone();
 
     /**
      * Returns the type of the task (e.g., T, D, E).
      *
      * @return The type of the task as a String.
      */
-    abstract String getType();
+    public abstract String getType();
 
     /**
      * Returns the time associated with the task, if applicable.
      *
      * @return The time associated with the task as a String.
      */
-    abstract String getTime();
+    public abstract String getTime();
 
     /**
      * Returns the completion status of the task.

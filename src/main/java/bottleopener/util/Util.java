@@ -1,9 +1,16 @@
-package bottleopener;
+package bottleopener.util;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+/**
+ * A utility class providing predefined date-time formatters for parsing and formatting date-time strings.
+ *
+ * This class contains static fields that provide various date-time formatters to accommodate different
+ * date-time string formats. These formatters can be used for parsing and formatting date-time values
+ * consistently throughout the application.
+ */
 public class Util {
     public static final DateTimeFormatter FORMATTER;
 
@@ -28,5 +35,7 @@ public class Util {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .toFormatter();
     }
+
+    public static final DateTimeFormatter OUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
 }

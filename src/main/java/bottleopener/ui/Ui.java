@@ -1,15 +1,15 @@
-package bottleopener;
+package bottleopener.ui;
 
 /**
- * The {@code BottleOpener.Ui} class handles the user interface for the BottleOpener.BottleOpener chatbot.
+ * The {@code Ui} class handles the user interface for the BottleOpener chatbot.
  * It provides methods for displaying messages to the user with consistent formatting.
  */
 public class Ui {
     private static final String SPACER = "-----------------------------------\n";
-    private String botName;
+    private final String botName;
 
     /**
-     * Constructs a new {@code BottleOpener.Ui} object with the specified bot name.
+     * Constructs a new {@code Ui} object with the specified bot name.
      *
      * @param botName The name of the chatbot.
      */
@@ -30,16 +30,6 @@ public class Ui {
         } else {
             return SPACER + message + "\n" + SPACER;
         }
-    }
-
-    /**
-     * Returns a greeting message wrapped with spacers.
-     *
-     * @return The formatted greeting message.
-     */
-    public String showGreeting() {
-        String message = "Hello! I'm " + this.botName + ".\n" + "What can I do for you?\n";
-        return wrapSpacer(message);
     }
 
     /**
@@ -105,10 +95,20 @@ public class Ui {
         return wrapSpacer("You have missing information! Please try again!\n");
     }
 
+    /**
+     * Displays a message indicating that the tasks matching the search criteria have been found.
+     *
+     * @return A string message stating that the relevant tasks have been found.
+     */
     public String showFoundTasks() {
         return "Here are all the tasks I could find!\n";
     }
 
+    /**
+     * Displays an error message indicating that the user has provided an incorrect date/time format.
+     *
+     * @return A string message requesting the user to use the correct date/time format.
+     */
     public String showInvalidDateFormatError() {
         return wrapSpacer("Please use the correct date/time format!\n");
     }
