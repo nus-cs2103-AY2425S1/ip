@@ -81,5 +81,4 @@ public class TaskList {
             new ArrayList<>(this.tasks.stream().filter(t -> t.contains(query)).toList())
         );
     }
-
 }
