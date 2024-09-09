@@ -60,7 +60,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         tasks.addTask(this.newTask);
-        String output = ui.addTask(this.newTask, tasks.getNumOfTasks());
+        String output = ui.taskAdded(this.newTask, tasks.getNumOfTasks());
         storage.save(tasks.toFile());
         return output;
     }

@@ -12,7 +12,7 @@ public class Strand {
     private static final String FILENAME = "./data/strand.txt";
     private final Storage storage;
     private final Ui ui;
-    private TaskList tasks;
+    private TaskList listOfTasks;
 
     /**
      * Constructs a new {@code Strand} instance with the specified file path for storage.
@@ -23,10 +23,10 @@ public class Strand {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            listOfTasks = new TaskList(storage.load());
         } catch (StrandException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            listOfTasks = new TaskList();
         }
     }
 
@@ -52,7 +52,7 @@ public class Strand {
             try {
                 ui.showLine();
                 Command c = Parser.parse(userInput);
-                c.execute(tasks, ui, storage);
+                c.execute(listOfTasks, ui, storage);
                 isRunning = c.isRunning();
             } catch (StrandException e) {
                 ui.showError(e.getMessage());
@@ -65,7 +65,7 @@ public class Strand {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(listOfTasks, ui, storage);
         } catch (StrandException e) {
             return ui.showError(e.getMessage());
         }
