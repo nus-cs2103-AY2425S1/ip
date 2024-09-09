@@ -68,11 +68,15 @@ public class TaskList {
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : this.tasks) {
             if (task instanceof Deadline d) {
-                if (d.by.equals(date)) {
+                boolean deadlineEqualsDate = d.by.equals(date);
+                if (deadlineEqualsDate) {
                     res.add(task);
                 }
             } else if (task instanceof Event e) {
-                if (e.from.equals(date) || e.to.equals(date) || (e.from.isBefore(date) && e.to.isAfter(date))) {
+                boolean eventBeginsOnDate = e.from.equals(date);
+                boolean eventEndsOnDate = e.to.equals(date);
+                boolean dateIsDuringEvent = e.from.isBefore(date) && e.to.isAfter(date);
+                if (eventBeginsOnDate || eventEndsOnDate || dateIsDuringEvent) {
                     res.add(task);
                 }
             }
@@ -121,9 +125,7 @@ public class TaskList {
         System.out.println(keyword);
         for (Task task : this.tasks) {
             String taskDescription = task.description;
-            System.out.println(taskDescription);
             if (taskDescription.contains(keyword)) {
-                System.out.println("yes");
                 res.add(task);
             }
         }
