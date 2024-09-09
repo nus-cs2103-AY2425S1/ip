@@ -178,8 +178,7 @@ public class Ui {
      * Represents error message for invalid commands.
      */
     public String printInvalidCommandMessage() {
-        String response = "Sorry but I do not understand you.\n"
-                + "Can you kindly repeat yourself? \n"
+        String response = "Take a look at this!\n"
                 + getListOfCommands();
         return response;
     }

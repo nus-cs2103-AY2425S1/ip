@@ -36,17 +36,15 @@ public class Parser {
      * @throws BimoException If there is an invalid command or invalid date.
      */
     public static Command parse(String input) throws BimoException {
-        String[] parsedArray = input.split(" ");
-        String userCommand = parsedArray[0].toUpperCase();
-        CommandType command = getCommand(userCommand);
+        CommandType command = getCommandType(input.split(" ")[0].toUpperCase());
         switch (command) {
         case LIST:
             return new ListCommand();
         case MARK:
-            int indexToMark = parseIndex(parsedArray);
+            int indexToMark = parseIndex(input.split(" "));
             return new MarkCommand(indexToMark);
         case UNMARK:
-            int indexToUnmark = parseIndex(parsedArray);
+            int indexToUnmark = parseIndex(input.split(" "));
             return new UnmarkCommand(indexToUnmark);
         case TODO:
             String toDodescription = parseDescription(input);
@@ -58,11 +56,11 @@ public class Parser {
             Task deadlineTask = createDeadlineTask(input);
             return new AddCommand(deadlineTask);
         case DELETE:
-            int indexToDelete = parseIndex(parsedArray);
+            int indexToDelete = parseIndex(input.split(" "));
             return new DeleteCommand(indexToDelete);
         case FIND:
-            String[] words = input.split(" ");
-            return new FindCommand(words);
+            String[] wordsToInclude = input.split(" ");
+            return new FindCommand(wordsToInclude);
         case BYE:
             return new ByeCommand();
         default:
@@ -76,7 +74,7 @@ public class Parser {
      * @param input Command user entered.
      * @return Type of command.
      */
-    public static CommandType getCommand(String input) {
+    public static CommandType getCommandType(String input) {
         try {
             return CommandType.valueOf(input);
         } catch (IllegalArgumentException e) {
@@ -165,7 +163,7 @@ public class Parser {
      * @return LocalDate instance.
      * @throws InvalidDateFormatException Thrown if date input is not given in yyyy-mm-dd.
      */
-    public static LocalDate convertDate(String date) throws InvalidDateFormatException {
+    public static LocalDate convertDateToLocalDate(String date) throws InvalidDateFormatException {
         try {
             LocalDate dateObject = LocalDate.parse(date);
             return dateObject;
@@ -186,8 +184,8 @@ public class Parser {
         String eventDescription = parseDescription(array[0]);
         String startDate = parseDate(false, false, array);
         String endDate = parseDate(false, true, array);
-        LocalDate startDateObject = convertDate(startDate);
-        LocalDate endDateObject = convertDate(endDate);
+        LocalDate startDateObject = convertDateToLocalDate(startDate);
+        LocalDate endDateObject = convertDateToLocalDate(endDate);
         Task eventTask = new Event(eventDescription, startDateObject,
                 endDateObject);
         return eventTask;
@@ -204,7 +202,7 @@ public class Parser {
         String[] arrayString = input.split("/by ");
         String description = parseDescription(arrayString[0]);
         String dueDate = parseDate(true, true, arrayString);
-        LocalDate dueDateObject = convertDate(dueDate);
+        LocalDate dueDateObject = convertDateToLocalDate(dueDate);
         Task deadlineTask = new Deadline(description, dueDateObject);
         return deadlineTask;
     }
