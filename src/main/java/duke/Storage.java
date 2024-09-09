@@ -39,18 +39,18 @@ public class Storage {
         File directory = new File("./data");
         File file = new File(path);
         if (!directory.exists()) {
-
-            System.out.println("No existing directory found. "
-                    + "Create a directory data and a file 'duke.txt' inside that directory. "
-                    + "Starting with an empty task list.");
-
-            return;
+            System.out.println("No existing directory found. Creating a 'data' directory.");
+            directory.mkdirs(); // Create the directory
         }
+
+        // Check if the file exists, if not, create it
         if (!file.exists()) {
-            System.out.println("No existing data file found. "
-                    + "Create a file 'duke.txt' in the data directory. "
-                    + "Starting with an empty task list.");
-            return;
+            System.out.println("No existing data file found. Creating the file 'duke.txt' in the data directory.");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
         }
         try {
             Scanner scanner = new Scanner(file);
