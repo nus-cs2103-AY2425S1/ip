@@ -15,6 +15,10 @@ public class Task {
      * @param isDone The status of the task.
      */
     public Task(String taskDescription, Boolean isDone) {
+        assert isDone != null : "Task completion status is null";
+        assert taskDescription != null : "Task description is null";
+
+
         this.taskDescription = taskDescription;
         this.isDone = isDone;
     }

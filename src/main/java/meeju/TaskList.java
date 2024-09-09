@@ -19,6 +19,8 @@ public class TaskList {
      * @param storage The Storage object responsible for loading and saving tasks.
      */
     public TaskList(Storage storage) {
+        assert storage != null : "Storage object is null";
+
         this.storage = storage;
         this.taskList = this.storage.initialiseList();
     }
@@ -221,6 +223,8 @@ public class TaskList {
      * @throws MeejuException If blank string is provided.
      */
     public String findTask(String keyword) throws MeejuException {
+        assert keyword != null : "Search keyword is null in findTask";
+
         if (keyword.isEmpty()) {
             throw new MeejuException("Meow! Please tell me what should i find");
         }
@@ -237,5 +241,4 @@ public class TaskList {
         }
         return taskString.toString();
     }
-
 }

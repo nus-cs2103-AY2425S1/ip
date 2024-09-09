@@ -25,6 +25,9 @@ public class Deadline extends Task {
      */
     public Deadline(String taskDescription, String taskDeadline) throws MeejuException {
         super(taskDescription, false);
+
+        assert taskDeadline != null : "Deadline task taskDeadline field is null";
+
         String[] dateAndTime = taskDeadline.split(" ");
         String exceptionMessage = "I'm having a bit of trouble understanding the task.\n"
                 + "Could you please explain it using the correct format?\n"
@@ -74,6 +77,7 @@ public class Deadline extends Task {
         String formattedDate = this.deadline.toLocalDate().format(dateFormatter);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         String formattedTime = this.deadline.toLocalTime().format(timeFormatter);
+
         return "D !- " + this.getIsDone() + "!- "
                 + this.getTaskDescription() + "!- "
                 + formattedDate + " " + formattedTime + "\n";
