@@ -21,7 +21,7 @@ public class TaskList {
      * @param storage Storage used for the chatbot.
      */
     public TaskList(Storage storage) {
-        this.list = new ArrayList(100);
+        this.list = new ArrayList<>(100);
         try {
             this.storage = storage;
             if (!this.storage.fileExists()) {
@@ -54,7 +54,7 @@ public class TaskList {
      * @param index Index of the task
      */
     public String removeTask(int index) {
-        Task task = (Task) list.get(index);
+        Task task = list.get(index);
         list.remove(index);
         String str = "Noted. I've removed this task: \n";
         str = str + "   " + task.toString() + "\n";
@@ -97,7 +97,7 @@ public class TaskList {
      * @param index Index of the task in the list to be marked.
      */
     public String markTask(int index) {
-        Task task = (Task) list.get(index);
+        Task task = list.get(index);
         return task.mark();
     }
 
@@ -106,7 +106,7 @@ public class TaskList {
      * @param index Index of the task to be unmarked.
      */
     public String unmarkTask(int index) {
-        Task task = (Task) list.get(index);
+        Task task = list.get(index);
         return task.unmark();
     }
 
@@ -125,7 +125,7 @@ public class TaskList {
         try {
             this.storage.saveData();
             for (int i = 0; i < this.listSize(); i++) {
-                Task task = (Task) this.getTask(i);
+                Task task = this.getTask(i);
                 storage.writeToFile(task);
             }
         } catch (IOException e) {
