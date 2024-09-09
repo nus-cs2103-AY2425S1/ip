@@ -19,6 +19,10 @@ public class Blue {
     public Blue() {
         this.tasklist = new TaskList();
         this.parser = new Parser();
+
+        // Use assertions to check that the tasklist and parser are initialized properly.
+        assert tasklist != null : "TaskList should be initialized.";
+        assert parser != null : "Parser should be initialized.";
     }
 
     /**
@@ -31,6 +35,8 @@ public class Blue {
     }
 
     public String getResponse(String input) {
+        // Assert that input is not null to avoid potential issues.
+        assert input != null : "Input cannot be null.";
         return parser.parse(input, tasklist);
     }
 
