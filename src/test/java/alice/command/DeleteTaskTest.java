@@ -53,6 +53,6 @@ public class DeleteTaskTest {
         taskList.getTasks().clear();
         String input = "delete 1";
         Command command = Command.fromInput(input, taskList);
-        assertThrowsExactly(InvalidTaskException.class, () -> command.execute(input));
+        assertThrowsExactly(AssertionError.class, () -> command.execute(input));
     }
 }

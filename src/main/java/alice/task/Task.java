@@ -83,8 +83,8 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String tagsString = tags.isEmpty() ? "" : String.format("(%s)", String.join(",", tags));
-        return String.format("[%s] %s %s", isCompleted ? "X" : " ", description, tagsString);
+        String tagsString = tags.isEmpty() ? "" : String.format(" (%s)", String.join(",", tags));
+        return String.format("[%s] %s%s", isCompleted ? "X" : " ", description, tagsString);
     }
 
     /**
