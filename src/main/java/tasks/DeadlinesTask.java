@@ -57,7 +57,7 @@ public class DeadlinesTask extends Task {
         case "hour" -> {
             this.deadline.pushBackTime(hoursToMinutes(durationValue));
         }
-        case "min" -> {
+        case "minute" -> {
             this.deadline.pushBackTime(durationValue);
         }
         default -> {
