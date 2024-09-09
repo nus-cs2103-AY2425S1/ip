@@ -105,17 +105,19 @@ public class TaskList {
 
 
     /**
-     * Returns a TaskList with tasks' description containing the keyword.
+     * Returns a TaskList with tasks' description containing the keyword(s).
      *
      * @param keyword The desired keyword to be matched to.
      * @return A TaskList.
      */
-    public TaskList findTasks(String keyword) {
+    public TaskList findTasks(String... keyword) {
         // returns a TaskList, where tasks have the keyword in their descriptions.
         TaskList taskList = new TaskList();
         for (Task task : listOfTasks) {
-            if (task.getDescription().contains(keyword)) {
-                taskList.addTaskToList(task);
+            for (String word : keyword) {
+                if (task.getDescription().contains(word)) {
+                    taskList.addTaskToList(task);
+                }
             }
         }
         return taskList;
