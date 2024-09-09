@@ -135,7 +135,43 @@ class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String tmp = s.nextLine();
-                addTaskToArray(tmp, arr);
+                if (tmp.startsWith("[T]")) {
+                    String[] a = tmp.split("] ", 2);
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Todo(true, a[1]));
+                    } else {
+                        arr.add(new Todo(false, a[1]));
+                    }
+                } else if (tmp.startsWith("[D]")) {
+                    //remove the [D][?] from the line
+                    String a = tmp.split("] ")[1];
+
+                    //get the important values to create the Deadline
+                    String[] b = a.split(" \\(by: |\\)");
+
+                    LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+
+
+                    //see if the task has been done or not
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Deadline(true, b[0], datetime));
+                    } else {
+                        arr.add(new Deadline(false, b[0], datetime));
+                    }
+                } else {
+                    assert tmp.startsWith("[E]") : "Error in program";
+                    String details = tmp.split("] ", 2)[1];
+                    //getting important values to create the Event
+                    String[] split_up = details.split(" \\(from: | to: |\\)");
+
+                    //see if the task has been done or not
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
+                    } else {
+                        assert Character.compare(tmp.charAt(4), ' ') == 0 : "Error in file";
+                        arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
+                    }
+                }
             }
             return arr;
         } else {
@@ -451,6 +487,37 @@ class Parser {
     public String parse(String command) throws TimoException {
         String cmd = command.split(" ", 2)[0];
         switch (cmd) {
+<<<<<<< HEAD
+=======
+        case "bye":
+            this.storage.store(this.taskList.showList());
+            return this.ui.bye();
+
+        case "list":
+            return this.ui.printList(this.taskList);
+
+        case "mark":
+            String taskNumber = String.valueOf(command.charAt(command.length() - 1));
+
+
+            //get the Task number to mark
+            int markTarget = Integer.parseInt(taskNumber);
+
+
+            //find the task to mark
+            Task markedTask = this.taskList.mark(markTarget);
+            return this.ui.printMark(markedTask);
+
+        case "unmark":
+
+            //get the Task number to unmark
+            int unmarkTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
+
+            //find the task to unmark
+            Task unmarkedTask = this.taskList.unmark(unmarkTarget);
+            return this.ui.printUnmark(unmarkedTask);
+
+>>>>>>> master
         case "todo":
             String[] todoCommands = command.split(" ", 2);
 
