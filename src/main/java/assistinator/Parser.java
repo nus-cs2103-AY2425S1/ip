@@ -48,6 +48,7 @@ public class Parser {
         case EVENT:
             return parseEvent(input);
         default:
+            assert false : "Invalid task type: " + type;
             throw new AssitinatorExceptions("Invalid task type");
         }
     }
