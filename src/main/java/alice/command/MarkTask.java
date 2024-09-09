@@ -36,6 +36,7 @@ public class MarkTask extends Command {
         try {
             int index = taskNumber - 1;
             Task markedTask = taskList.markTask(index);
+            assert markedTask != null;
             return String.format("Nice! I've marked this task as done:\n\t%s", markedTask);
         } catch (IndexOutOfBoundsException exception) {
             throw new InvalidTaskException("Task number out of bounds. Usage: mark <task number>");
