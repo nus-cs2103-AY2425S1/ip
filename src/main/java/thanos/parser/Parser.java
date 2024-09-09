@@ -35,9 +35,9 @@ public class Parser {
             throw new InvalidCommandException("No input provided. Please enter a command.");
         }
 
-        String[] inputArr = input.trim().split(" ", 2);
+        String[] inputArr = getInputArr(input);
         CommandType commandType = CommandType.getCommandType(inputArr[0].toLowerCase());
-        String argument = inputArr.length == 1 ? "" : inputArr[1].trim();
+        String argument = getArgument(inputArr);
 
         switch (commandType) {
         case BYE:
@@ -65,5 +65,25 @@ public class Parser {
                     "Oops! I don't recognise the command you entered. Please enter a valid command."
             );
         }
+    }
+
+    /**
+     * Extracts the second part of the input array as the argument.
+     *
+     * @param inputArr the input array of strings, usually split by space.
+     * @return the second element of the array as the argument, or an empty string if there is no second element.
+     */
+    private static String getArgument(String[] inputArr) {
+        return inputArr.length == 1 ? "" : inputArr[1].trim();
+    }
+
+    /**
+     * Splits the input string into an array of two elements.
+     *
+     * @param input the input string to be split.
+     * @return an array containing up to two elements: the command and the argument (if any).
+     */
+    private static String[] getInputArr(String input) {
+        return input.trim().split(" ", 2);
     }
 }
