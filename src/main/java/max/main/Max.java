@@ -3,8 +3,6 @@ package max.main;
 import max.exception.MaxException;
 import max.task.TaskList;
 
-import java.util.Scanner;
-
 /**
  * The Max class is the entry point of the application. It initializes the necessary components
  * and handles the main logic of the application.

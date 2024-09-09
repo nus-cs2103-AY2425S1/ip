@@ -1,7 +1,6 @@
 package max.task;
 
 import max.exception.MaxException;
-import max.task.Task;
 
 /**
  * The Event class represents a task that starts and ends at specific times.

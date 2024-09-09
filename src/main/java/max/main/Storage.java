@@ -1,7 +1,6 @@
 package max.main;
 
 import max.exception.MaxException;
-import max.main.Parser;
 import max.task.Deadline;
 import max.task.Event;
 import max.task.Task;
@@ -50,30 +49,7 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                Task task;
-                switch (parts[0]) {
-                case "T":
-                    task = new Todo(parts[2]);
-                    break;
-                case "D":
-                    Parser tempParser = new Parser();
-                    LocalDateTime LDT = tempParser.parseDate(parts[3]);
-                    if (LDT != null) {
-                        task = new Deadline(parts[2], LDT);
-                    } else {
-                        task = new Deadline(parts[2], parts[3]);
-                    }
-                    break;
-                case "E":
-                    task = new Event(parts[2], parts[3]);
-                    break;
-                default:
-                    throw new MaxException("Unknown task type found in file.");
-                }
-                if (parts[1].equals("1")) {
-                    task.markDone();
-                }
+                Task task = createTask(line);
                 tempList.add(task);
             }
             reader.close();
@@ -85,6 +61,34 @@ public class Storage {
 
         return tempList;
 
+    }
+
+    private static Task createTask(String line) throws MaxException {
+        String[] parts = line.split(" \\| ");
+        Task task;
+        switch (parts[0]) {
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            Parser tempParser = new Parser();
+            LocalDateTime LDT = tempParser.parseDate(parts[3]);
+            if (LDT != null) {
+                task = new Deadline(parts[2], LDT);
+            } else {
+                task = new Deadline(parts[2], parts[3]);
+            }
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3]);
+            break;
+        default:
+            throw new MaxException("Unknown task type found in file.");
+        }
+        if (parts[1].equals("1")) {
+            task.markDone();
+        }
+        return task;
     }
 
     /**

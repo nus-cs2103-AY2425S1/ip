@@ -162,7 +162,7 @@ public class Ui {
      * @param str The string to be appended to the output.
      */
     public void printToMax(String str) {
-        output.append(str + "\n");
+        output.append(str).append("\n");
     }
 
     
