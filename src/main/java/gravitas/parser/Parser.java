@@ -5,6 +5,7 @@ import gravitas.command.Command;
 import gravitas.command.DeleteCommand;
 import gravitas.command.ExitCommand;
 import gravitas.command.FindCommand;
+import gravitas.command.HelpCommand;
 import gravitas.command.ListTaskCommand;
 import gravitas.command.UpdateTaskCommand;
 import gravitas.exception.DukeException;
@@ -42,6 +43,8 @@ public class Parser {
             return new UpdateTaskCommand(input);
         case "todo", "deadline", "event":
             return new AddCommand(input);
+        case "help":
+            return new HelpCommand();
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
