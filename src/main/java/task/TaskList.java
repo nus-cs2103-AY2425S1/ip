@@ -1,6 +1,8 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List; // Add this import statement
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class manages a list of Task objects.
@@ -58,14 +60,17 @@ public class TaskList {
     }
 
     public String find(String word) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        List<Task> matchingTasks = this.taskList.stream()
+                                            .filter(task -> task.getName()
+                                            .contains(word))
+                                            .collect(Collectors.toList());
 
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task task = this.taskList.get(i);
-            if (task.getName().contains(word)) {
-                matchingTasks.add(task);
-            }
-        }
+        // for (int i = 0; i < this.taskList.size(); i++) {
+        //     Task task = this.taskList.get(i);
+        //     if (task.getName().contains(word)) {
+        //         matchingTasks.add(task);
+        //     }
+        // }
 
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
