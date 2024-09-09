@@ -19,7 +19,7 @@ public class Parser {
         String[] tmp = phrase.split(" ");
         switch (tmp[0]) {
         case "list":
-            return taskList.listTasks(ui);
+            return taskList.listTasks();
         case "mark":
             return taskList.markTask(Integer.parseInt(tmp[1]) - 1, ui);
         case "unmark":
@@ -33,7 +33,7 @@ public class Parser {
         case "delete":
             return taskList.deleteTask(Integer.parseInt(tmp[1]) - 1, ui);
         case "on":
-            return taskList.printTasksOnDate(tmp[1], ui);
+            return taskList.printTasksOnDate(tmp[1]);
         case "find":
             return taskList.searchKeyword(phrase, ui);
         default:
