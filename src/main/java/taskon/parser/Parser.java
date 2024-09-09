@@ -186,15 +186,11 @@ public class Parser {
      */
     private static Command prepareEvent(String args) throws TaskonException {
         String[] partsFrom = args.split("/from", 2);
-        if (partsFrom.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
+        checkFormatValidity(partsFrom);
 
         String description = partsFrom[0].trim();
         String[] partsTo = partsFrom[1].split("/to", 2);
-        if (partsTo.length < 2) {
-            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
+        checkFormatValidity(partsTo);
 
         String from = partsTo[0].trim();
         String to = partsTo[1].trim();
@@ -203,6 +199,12 @@ public class Parser {
             return new EventCommand(description, from, to);
         } catch (DateTimeParseException e) {
             throw new TaskonException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+    }
+
+    private static void checkFormatValidity(String[] parts) throws TaskonException {
+        if (parts.length < 2) {
+            throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
     }
 }

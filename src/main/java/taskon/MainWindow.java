@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Taskon taskon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Patrick.png"));
-    private Image taskonImage = new Image(this.getClass().getResourceAsStream("/images/Spongebob.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Patrick.png"));
+    private final Image taskonImage = new Image(this.getClass().getResourceAsStream("/images/Spongebob.png"));
 
     /**
      * Initializes the MainWindow by setting up the user interface components.

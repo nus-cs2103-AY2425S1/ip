@@ -1,5 +1,7 @@
 package taskon.commands;
 
+import static taskon.common.Messages.MESSAGE_INVALID_INTEGER;
+
 import taskon.storage.Storage;
 import taskon.task.Task;
 import taskon.task.TaskList;
@@ -56,7 +58,7 @@ public class DeleteCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             return "You only have " + taskList.size() + " tasks!\n";
         } catch (NumberFormatException e) {
-            return "Invalid Integer Input!\n";
+            return MESSAGE_INVALID_INTEGER;
         }
     }
 }
