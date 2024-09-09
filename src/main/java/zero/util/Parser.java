@@ -26,31 +26,31 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException if the command is not recognised
      */
-    public static void parseCommand(String fullCommand, TaskList tasks, Ui ui) {
+    public static String parseCommand(String fullCommand, TaskList tasks, Ui ui) {
         try {
             if (fullCommand.equals("bye")) {
-                ui.showGoodbye();
+                return ui.showGoodbye();
             } else if (fullCommand.equals("list")) {
-                ui.listTasks(tasks);
+                return ui.listTasks(tasks);
             } else if (fullCommand.startsWith("delete")) {
-                handleDelete(tasks, fullCommand, ui);
+                return handleDelete(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("mark")) {
-                handleMark(tasks, fullCommand, ui);
+                return handleMark(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("unmark")) {
-                handleUnmark(tasks, fullCommand, ui);
+                return handleUnmark(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("todo")) {
-                handleTodo(tasks, fullCommand, ui);
+                return handleTodo(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("deadline")) {
-                handleDeadline(tasks, fullCommand, ui);
+                return handleDeadline(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("event")) {
-                handleEvent(tasks, fullCommand, ui);
+                return handleEvent(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("find")) {
-                handleFind(tasks, fullCommand, ui);
+                return handleFind(tasks, fullCommand, ui);
             }   else {
                 throw new ZeroException("分かりません");
             }
         } catch (ZeroException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 
@@ -62,12 +62,12 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the task number is invalid.
      */
-    private static void handleDelete(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleDelete(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
             int index = Integer.parseInt(strArr[1]) - 1;
             Task removedTask = tasks.deleteTask(index);
-            ui.showTaskDeleted(removedTask, tasks.getSize());
+            return ui.showTaskDeleted(removedTask, tasks.getSize());
         } catch (NumberFormatException e) {
             throw new ZeroException("Please enter a valid task number to delete.");
         }
@@ -81,12 +81,12 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the task number is invalid.
      */
-    private static void handleMark(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleMark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
             int choice = Integer.parseInt(strArr[1]) - 1; // convert to zero-based index
             tasks.getTask(choice).markAsDone();
-            ui.showTaskMarked(tasks.getTask(choice));
+            return ui.showTaskMarked(tasks.getTask(choice));
         } catch (NumberFormatException e) {
             throw new ZeroException("PLease enter a valid task number to mark.");
         }
@@ -100,12 +100,12 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the task number is invalid.
      */
-    private static void handleUnmark(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleUnmark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
             int choice = Integer.parseInt(strArr[1]) - 1; // convert to zero-based index
             tasks.getTask(choice).markAsNotDone();
-            ui.showTaskUnmarked(tasks.getTask(choice));
+            return ui.showTaskUnmarked(tasks.getTask(choice));
         } catch (NumberFormatException e) {
             throw new ZeroException("Please enter a valid task number to unmark.");
         }
@@ -119,14 +119,14 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the description of the todo is empty.
      */
-    private static void handleTodo(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleTodo(TaskList tasks, String input, Ui ui) throws ZeroException {
         if (input.trim().equals("todo")) {
             throw new ZeroException("The description of a todo cannot be empty.");
         }
         String description = input.substring(5).trim(); // extract description
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
-        ui.showTaskAdded(newTodo, tasks.getSize());
+        return ui.showTaskAdded(newTodo, tasks.getSize());
     }
 
     /**
@@ -137,7 +137,7 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the description of the deadline or the date/time is empty or invalid.
      */
-    private static void handleDeadline(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleDeadline(TaskList tasks, String input, Ui ui) throws ZeroException {
         String[] parts = input.split("/by ", 2);
         if (parts.length < 2 || parts[0].trim().equals("deadline")) {
             throw new ZeroException("The description of a deadline or the date/time cannot be empty.");
@@ -147,7 +147,7 @@ public class Parser {
         LocalDateTime by = handleDate(byString);
         Deadline newDeadline = new Deadline(description, by);
         tasks.addTask(newDeadline);
-        ui.showTaskAdded(newDeadline, tasks.getSize());
+        return ui.showTaskAdded(newDeadline, tasks.getSize());
     }
 
     /**
@@ -158,7 +158,7 @@ public class Parser {
      * @param ui The UI component used to display messages to the user.
      * @throws ZeroException If the description of the event or the date/time is empty or invalid.
      */
-    private static void handleEvent(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleEvent(TaskList tasks, String input, Ui ui) throws ZeroException {
         String[] parts = input.split("/from | /to ");
         if (parts.length < 3 || parts[0].trim().equals("event")) {
             throw new ZeroException("The description of an event or the date/time cannot be empty.");
@@ -170,7 +170,7 @@ public class Parser {
         LocalDateTime to = handleDate(toString);
         Event newEvent = new Event(description, from, to);
         tasks.addTask(newEvent);
-        ui.showTaskAdded(newEvent, tasks.getSize());
+        return ui.showTaskAdded(newEvent, tasks.getSize());
     }
 
     /**
@@ -198,11 +198,11 @@ public class Parser {
         }
     }
 
-    private static void handleFind(TaskList tasks, String input, Ui ui) throws ZeroException {
+    private static String handleFind(TaskList tasks, String input, Ui ui) throws ZeroException {
 
         try {
             String keyword = input.substring(5);
-            ui.listMatchingTasks(tasks, keyword);
+            return ui.listMatchingTasks(tasks, keyword);
         } catch (Exception e) {
             throw new ZeroException("Invalid find parameters");
         }

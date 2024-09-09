@@ -21,10 +21,10 @@ public class Zero {
      * Initialises the UI, storage, and task list components. If there is an error loading the tasks from the file,
      * a new empty task list is created, and the error is displayed via the UI.
      *
-     * @param filePath The file path where the task data is stored.
      * @throws ZeroException
      */
-    public Zero(String filePath) {
+    public Zero() {
+        String filePath = "data/zero.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -40,17 +40,15 @@ public class Zero {
      * Continuously reads user commands, processes them using the {@code Parser}, updates the task list,
      * and saves the tasks to the file. The loop terminates when the user issues a command to exit.
      */
-    public void run() {
-        ui.showWelcome();
 
-        while (!ui.isDone()) {
-            try {
-                String command = ui.readCommand();
-                Parser.parseCommand(command, tasks, ui);
-                storage.save(tasks);
-            } catch (ZeroException e) {
-                ui.showError(e.getMessage());
-            }
+
+    public String getResponse(String input) {
+        try {
+            String output = Parser.parseCommand(input, tasks, ui);
+            storage.save(tasks);
+            return output;
+        } catch (ZeroException e) {
+            return ui.showError(e.getMessage());
         }
     }
 
@@ -61,6 +59,6 @@ public class Zero {
      * @param args The first line can be used to specify the file path of the storage
      */
     public static void main(String[] args) {
-        new Zero("data/zero.txt").run();
+        new Zero();
     }
 }

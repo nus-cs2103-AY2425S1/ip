@@ -1,7 +1,5 @@
 package zero.ui;
 
-import java.util.Scanner;
-
 import zero.exception.ZeroException;
 import zero.task.Task;
 import zero.task.TaskList;
@@ -11,141 +9,132 @@ import zero.task.TaskList;
  * It handles input and output operations, including displaying messages and reading user commands.
  */
 public class Ui {
-    private final Scanner scanner;
     private boolean isDone = false;
 
     /**
      * Constructs a {@code Ui} object and initialises the {@code Scanner} for reading user input.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Reads the next line of input from the user.
+     * Returns the welcome message to the user.
      *
-     * @return The command entered by the user as a {@code String}.
+     * @return The welcome message as a {@code String}.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String showWelcome() {
+        return  " Hello! I'm Zero\n"
+                + " What can I do for you?\n";
     }
 
     /**
-     * Displays the welcome message to the user.
+     * Returns the goodbye message to the user and sets the {@code isDone} flag to {@code true}.
+     *
+     * @return The goodbye message as a {@code String}.
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm zero.Zero");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays the goodbye message to the user and sets the {@code isDone} flag to {@code true}.
-     */
-    public void showGoodbye() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Baibai!");
-        System.out.println("____________________________________________________________");
+    public String showGoodbye() {
         this.isDone = true;
-    }
-
-
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+        return " Baibai!\n";
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to display.
+     * @return The formatted error message as a {@code String}.
      */
-    public void showError(String message) {
-        showLine();
-        System.out.println(" oopsie, " + message);
-        showLine();
+    public String showError(String message) {
+        return " oopsie, " + message + "\n";
     }
 
     /**
-     * Displays a message indicating that a task has been added, along with the updated task count.
+     * Returns a message indicating that a task has been added, along with the updated task count.
      *
      * @param task The task that was added.
      * @param taskCount The current number of tasks in the task list.
+     * @return The formatted message as a {@code String}.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        showLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
-        showLine();
+    public String showTaskAdded(Task task, int taskCount) {
+        return  " Got it. I've added this task:\n"
+                + "   " + task + "\n"
+                + " Now you have " + taskCount + " tasks in the list.\n";
     }
 
     /**
-     * Displays a message indicating that a task has been deleted, along with the updated task count.
+     * Returns a message indicating that a task has been deleted, along with the updated task count.
      *
      * @param task The task that was deleted.
      * @param taskCount The current number of tasks in the task list.
+     * @return The formatted message as a {@code String}.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        showLine();
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
-        showLine();
+    public String showTaskDeleted(Task task, int taskCount) {
+        return  " Noted. I've removed this task:\n"
+                + "   " + task + "\n"
+                + " Now you have " + taskCount + " tasks in the list.\n";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The formatted message as a {@code String}.
      */
-    public void showTaskMarked(Task task) {
-        showLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        showLine();
+    public String showTaskMarked(Task task) {
+        return  " Nice! I've marked this task as done:\n"
+                + "   " + task + "\n";
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked (marked as not done).
+     * Returns a message indicating that a task has been unmarked (marked as not done).
      *
      * @param task The task that was unmarked.
+     * @return The formatted message as a {@code String}.
      */
-    public void showTaskUnmarked(Task task) {
-        showLine();
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        showLine();
+    public String showTaskUnmarked(Task task) {
+        return  " OK, I've marked this task as not done yet:\n"
+                + "   " + task + "\n";
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param tasks The task list containing the tasks to display.
-     * @throws ZeroException If there is an error accessing the task list.
+     * @return The formatted list of tasks as a {@code String}.
      */
-    public void listTasks(TaskList tasks) throws ZeroException {
-        showLine();
-        System.out.println(" Here are the tasks in your list:");
+    public String listTasks(TaskList tasks) throws ZeroException {
+        StringBuilder builder = new StringBuilder();
+                builder.append(" Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            builder.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
         }
-        showLine();
+        return builder.toString();
     }
 
-    public void listMatchingTasks(TaskList tasks, String keyword) throws ZeroException {
+    /**
+     * Returns the list of tasks matching a keyword to the user.
+     *
+     * @param tasks The task list containing the tasks to display.
+     * @param keyword The keyword to match against task descriptions.
+     * @return The formatted list of matching tasks as a {@code String}.
+     */
+    public String listMatchingTasks(TaskList tasks, String keyword) throws ZeroException {
+        StringBuilder builder = new StringBuilder();
         int count = 1;
-        showLine();
-        System.out.println(" Here are the matching tasks in your list:");
+        builder.append(" Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).getDescription().contains(keyword)) {
-                System.out.println((count) + ". " + tasks.getTask(i));
+                builder.append(count).append(". ").append(tasks.getTask(i)).append("\n");
                 count++;
             }
         }
-        showLine();
+        return builder.toString();
     }
 
+    /**
+     * Checks if the session is marked as done.
+     *
+     * @return {@code true} if the session is done, {@code false} otherwise.
+     */
     public boolean isDone() {
         return this.isDone;
     }
