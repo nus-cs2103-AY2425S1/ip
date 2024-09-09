@@ -46,6 +46,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid index for retrieving a task";
         return tasks.get(index);
     }
 
@@ -155,12 +156,14 @@ public class TaskList {
      * @throws ChatBotException If the description is empty or if there is an error in the input.
      */
     public String addToDo(String phrase, Ui ui) throws ChatBotException {
-        if (phrase.length() <= 5) {
-            throw new ChatBotException("The description of a todo cannot be empty.");
-        }
+        assert phrase.length() > 5 : "To-do description cannot be empty";
+
+        int oldSize = tasks.size();
         String description = phrase.substring(5);
         Task newTask = new ToDo(description, TaskType.TODO);
         tasks.add(newTask);
+
+        assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task"; // Check size increase
         return ui.showTaskAdded(newTask, tasks.size());
     }
 
