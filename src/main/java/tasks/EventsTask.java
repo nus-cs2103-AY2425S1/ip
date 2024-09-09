@@ -44,7 +44,7 @@ public class EventsTask extends Task {
         case "hour" -> {
             this.endTime.pushBackTime(hoursToMinutes(durationValue));
         }
-        case "min" -> {
+        case "minute" -> {
             this.endTime.pushBackTime(durationValue);
         }
         default -> {
