@@ -1,9 +1,9 @@
-package bottleopener;
+package bottleopener.task;
 
 import java.util.ArrayList;
 
 /**
- * The {@code BottleOpener.Tasklist} class manages a list of tasks, allowing operations such as adding,
+ * The {@code Tasklist} class manages a list of tasks, allowing operations such as adding,
  * deleting, marking, and unmarking tasks. It provides functionality to interact with the
  * task list and retrieve information about the tasks.
  */
@@ -12,7 +12,7 @@ public class Tasklist {
     private ArrayList<Task> tasklist;
 
     /**
-     * Constructs an empty {@code BottleOpener.Tasklist} with an initial index of 0.
+     * Constructs an empty {@code Tasklist} with an initial index of 0.
      */
     public Tasklist() {
         this.index = 0;
@@ -20,7 +20,7 @@ public class Tasklist {
     }
 
     /**
-     * Constructs a {@code BottleOpener.Tasklist} with a predefined list of tasks.
+     * Constructs a {@code Tasklist} with a predefined list of tasks.
      *
      * @param tasklist The list of tasks to be managed.
      */

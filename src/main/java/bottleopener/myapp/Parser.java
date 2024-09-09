@@ -1,8 +1,15 @@
-package bottleopener;
+package bottleopener.myapp;
+
+import bottleopener.task.Deadline;
+import bottleopener.task.Event;
+import bottleopener.task.Task;
+import bottleopener.task.Tasklist;
+import bottleopener.task.ToDo;
+import bottleopener.ui.Ui;
 
 /**
- * The {@code BottleOpener.Parser} class is responsible for interpreting and executing user commands
- * in the BottleOpener.BottleOpener chatbot. It processes the user's input, determines the appropriate
+ * The {@code Parser} class is responsible for interpreting and executing user commands
+ * in the BottleOpener chatbot. It processes the user's input, determines the appropriate
  * action, and interacts with the task list and user interface to provide feedback.
  */
 public class Parser {
@@ -13,7 +20,7 @@ public class Parser {
     private final Ui ui;
 
     /**
-     * Constructs a {@code BottleOpener.Parser} object with the given user input, task list, and user interface.
+     * Constructs a {@code Parser} object with the given user input, task list, and user interface.
      *
      * @param inp The raw input provided by the user.
      * @param tasklist The current list of tasks.
@@ -38,51 +45,51 @@ public class Parser {
 
     /**
      * Executes the command based on the parsed user input. It handles commands such as "bye",
-     * "list", "mark", "unmark", "delete", and task creation commands like "todo", "deadline", and "event".
+     * "list", "mark", "unmark", "delete", "find" and task creation commands like "todo", "deadline", and "event".
      */
-    public void execute() {
+    public String execute() {
         switch (this.instruction) {
         case "bye":
             this.isExitCalled = true;
-            System.out.println(ui.showGoodbye());
-            break;
+            return ui.showGoodbye();
+
         case "list":
             String output = tasklist.showTasklist();
-            System.out.println(ui.wrapSpacer(output));
-            break;
+            return ui.wrapSpacer(output);
+
         case "mark":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.markTask(num);
-                System.out.println(ui.showMark());
+                return ui.showMark();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println(ui.showMissingInfoError());
+                return ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(ui.showAppropriateNumberError());
+                return ui.showAppropriateNumberError();
             }
-            break;
+
         case "unmark":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.unmarkTask(num);
-                System.out.println(ui.showUnmark());
+                return ui.showUnmark();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println(ui.showMissingInfoError());
+                return ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(ui.showAppropriateNumberError());
+                return ui.showAppropriateNumberError();
             }
-            break;
+
         case "delete":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.deleteTask(num);
-                System.out.println(ui.showDelete());
+                return ui.showDelete();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println(ui.showMissingInfoError());
+                return ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(ui.showAppropriateNumberError());
+                return ui.showAppropriateNumberError();
             }
-            break;
+
         case "find":
             try {
                 String keyword = this.userInput[1].trim().toLowerCase();
@@ -96,11 +103,11 @@ public class Parser {
                         count++;
                     }
                 }
-                System.out.println(ui.wrapSpacer(ui.showFoundTasks() + findOutput));
+                return ui.wrapSpacer(ui.showFoundTasks() + findOutput);
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println(ui.showMissingInfoError());
+                return ui.showMissingInfoError();
             }
-            break;
+
         default:
             try {
                 String des = this.userInput[1];
@@ -108,8 +115,8 @@ public class Parser {
                 case "todo":
                     Task newTodo = new ToDo(des);
                     this.tasklist.addTask(newTodo);
-                    System.out.println(ui.wrapSpacer(String.format("added: %s%n", newTodo)));
-                    break;
+                    return ui.wrapSpacer(String.format("added: %s%n", newTodo));
+
                 case "deadline":
                     try {
                         String[] activity = des.split(" /by ", 2);
@@ -117,13 +124,13 @@ public class Parser {
                         String due = activity[1].trim();
                         Task newDeadline = new Deadline(action, due);
                         this.tasklist.addTask(newDeadline);
-                        System.out.println(ui.wrapSpacer(String.format("added: %s%n", newDeadline)));
+                        return ui.wrapSpacer(String.format("added: %s%n", newDeadline));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(ui.showCommandFormatError());
+                        return ui.showCommandFormatError();
                     } catch (IllegalArgumentException e) {
-                        System.out.println(ui.showInvalidDateFormatError());
+                        return ui.showInvalidDateFormatError();
                     }
-                    break;
+
                 case "event":
                     try {
                         String[] activity = des.split(" /from | /to ", 3);
@@ -132,19 +139,18 @@ public class Parser {
                         String end = activity[2].trim();
                         Task newEvent = new Event(action, start, end);
                         this.tasklist.addTask(newEvent);
-                        System.out.println(ui.wrapSpacer(String.format("added: %s%n", newEvent)));
+                        return ui.wrapSpacer(String.format("added: %s%n", newEvent));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(ui.showCommandFormatError());
+                        return ui.showCommandFormatError();
                     } catch (IllegalArgumentException e) {
-                        System.out.println(ui.showInvalidDateFormatError());
+                        return ui.showInvalidDateFormatError();
                     }
-                    break;
+
                 default:
-                    System.out.println(ui.showCommandFormatError());
-                    break;
+                    return ui.showCommandFormatError();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(ui.showMissingInfoError());
+                return ui.showMissingInfoError();
             }
         }
     }
