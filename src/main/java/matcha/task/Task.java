@@ -98,6 +98,26 @@ public class Task {
     }
 
     /**
+     * Checks if the task is a duplicate of another task.
+     *
+     * @param task The task to compare with.
+     * @return Returns true if the task is a duplicate. Otherwise, returns false.
+     */
+    public boolean checkDuplicate(Task task) {
+        if (!(task instanceof Task)) {
+            return false;
+        }
+
+        if (task == this) {
+            return true;
+        }
+        //get the substring of the task description without the status icon
+        String taskSubstring = task.toString().substring(this.getStatusIcon().length());
+        String otherTaskSubstring = task.toString().substring(this.getStatusIcon().length());
+        return taskSubstring.equals(otherTaskSubstring);
+    }
+
+    /**
      * Returns the string representation of the task with its description
      * and status when printing to the user.
      *
