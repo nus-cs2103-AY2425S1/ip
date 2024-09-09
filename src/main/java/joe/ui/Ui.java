@@ -26,6 +26,12 @@ public class Ui {
         this.CHATBOT_NAME = chatbotName;
     }
 
+    /**
+     * Starts the program by displaying the main window.
+     * 
+     * @param stage The stage to display the main window on.
+     * @param parser The parser to use for parsing user input.
+     */
     public void start(Stage stage, Parser<Controller> parser) {
         mainWindow = new MainWindow();
         this.stage = stage;
@@ -46,20 +52,34 @@ public class Ui {
         delay.play();
     }
 
+    /**
+     * Prints the bot's response to the main window.
+     * 
+     * @param response The bot's response.
+     */
     public void printBotResponse(String... response) {
         String formattedResponse = String.join("\n", response);
         mainWindow.printBotResponse(formattedResponse);
     }
 
+    /**
+     * Prints a greeting message to the main window.
+     */
     public void greet() {
         String greeting = "Hello! I'm " + CHATBOT_NAME;
         printBotResponse(greeting, "What can I do for you?");
     }
 
+    /**
+     * Prints a farewell message to the main window.
+     */
     public void farewell() {
         printBotResponse("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints a help message to the main window.
+     */
     public void printHelp() {
         printBotResponse("Here are the commands you can use:",
                 "list - List all tasks",
@@ -73,25 +93,44 @@ public class Ui {
                 "bye - Exit the program");
     }
 
+    /**
+     * Prints the list of tasks to the main window.
+     * 
+     * @param list The list of tasks to print.
+     */
     public void printListMessage(ArrayList<Task> list) {
         String[] listStrings = new String[list.size() + 1];
         listStrings[0] = "Here are the tasks in your list:";
         for (int i = 1; i <= list.size(); i++) {
             listStrings[i] = i + "." + list.get(i - 1);
-            System.out.println(listStrings[i]);
         }
-        System.out.println(listStrings.toString());
         printBotResponse(listStrings);
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as done.
+     * 
+     * @param task The task that has been marked as done.
+     */
     public void printDoneMessage(Task task) {
         printBotResponse("Nice! I've marked this task as done:", task.toString());
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as not done yet.
+     * 
+     * @param task The task that has been marked as not done yet.
+     */
     public void printUndoneMessage(Task task) {
         printBotResponse("Nice! I've marked this task as not done yet:", task.toString());
     }
 
+    /**
+     * Prints a message indicating that a task has been deleted.
+     * 
+     * @param task The task that has been deleted.
+     * @param size The number of tasks remaining in the list.
+     */
     public void printDeleteMessage(Task task, int size) {
         printBotResponse(
                 "Noted. I've removed this task:",
@@ -99,6 +138,12 @@ public class Ui {
                 String.format(TASK_COUNT_MESSAGE, size));
     }
 
+    /**
+     * Prints a message indicating that a task has been added.
+     * 
+     * @param task The task that has been added.
+     * @param size The number of tasks in the list after adding the task.
+     */
     public void printTodoMessage(Task task, int size) {
         printBotResponse(
                 ADD_TASK_MESSAGE,
@@ -106,6 +151,12 @@ public class Ui {
                 String.format(TASK_COUNT_MESSAGE, size));
     }
 
+    /**
+     * Prints a message indicating that a deadline task has been added.
+     * 
+     * @param task The deadline task that has been added.
+     * @param size The number of tasks in the list after adding the task.
+     */
     public void printDeadlineMessage(Task task, int size) {
         printBotResponse(
                 ADD_TASK_MESSAGE,
@@ -113,6 +164,12 @@ public class Ui {
                 String.format(TASK_COUNT_MESSAGE, size));
     }
 
+    /**
+     * Prints a message indicating that an event task has been added.
+     * 
+     * @param task The event task that has been added.
+     * @param size The number of tasks in the list after adding the task.
+     */
     public void printEventMessage(Task task, int size) {
         printBotResponse(
                 ADD_TASK_MESSAGE,
