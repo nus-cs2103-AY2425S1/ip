@@ -1,6 +1,6 @@
 # Angel Chatbot Project 🚀
 
-Welcome to the **Angel Chatbot** project! This chatbot is designed to help you manage your tasks with ease. It supports various commands to add, mark, and delete tasks, making your life more organized.
+Welcome to the **Angel Chatbot** project! This chatbot is designed to help you manage your tasks with ease. It supports various commands to find, add, mark, and delete tasks, making your life more organized.
 
 ## Features
 
