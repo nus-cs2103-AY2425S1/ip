@@ -87,6 +87,14 @@ public class Mel {
     }
 
     /**
+     * Outputs introduction for Mel on startup.
+     * @return String introductory message.
+     */
+    public String hello() {
+        return gui.hello();
+    }
+
+    /**
      * Main method to start up Mel chatbot.
      * Not used in GUI.
      */

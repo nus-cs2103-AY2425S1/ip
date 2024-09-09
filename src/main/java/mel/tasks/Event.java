@@ -24,12 +24,14 @@ public class Event extends Task {
     public Event(String input) throws TaskException {
         try {
             String[] temp = input.split("/from ");
-            task = temp[0];
-
+            task = temp[0].split(" ", 2)[1].trim();
             String[] s = temp[1].split(" /to ");
-            from = super.parseDateTime(s[0]);
-            to = super.parseDateTime(s[1]);
-            if (from.isAfter(to)) {
+            from = super.parseDateTime(s[0].trim());
+            to = super.parseDateTime(s[1].trim());
+            if (task.isEmpty()) {
+                throw new TaskException("event <task> "
+                        + "/from <date> <time> /to <date> <time>");
+            } else if (from.isAfter(to)) {
                 throw new TaskException("event <task> "
                         + "/from <date> <time> /to <date> <time>\n"
                         + "Mel wonders if you control time..?");
@@ -42,7 +44,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + task + "(from: "
+        assert !task.isEmpty() : "task field should not be empty";
+        return "[E]" + super.toString() + task + " (from: "
                 + from.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"))
                 + " to: "
                 + to.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"))
