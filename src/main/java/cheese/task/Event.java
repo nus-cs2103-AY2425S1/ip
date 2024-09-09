@@ -2,7 +2,6 @@ package cheese.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import cheese.Parser;
 import cheese.exception.CheeseException;
@@ -10,9 +9,8 @@ import cheese.exception.CheeseException;
 /**
  * Task with 2 dates
  */
-public class Event extends Task {
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+public class Event extends Deadline {
+    private LocalDate endDate;
 
     /**
      * Creates an event
@@ -22,8 +20,7 @@ public class Event extends Task {
      * @throws CheeseException if name is blank
      */
     public Event(String name, LocalDate startDate, LocalDate endDate) throws CheeseException {
-        super(name);
-        this.startDate = startDate;
+        super(name, startDate);
         this.endDate = endDate;
     }
 
@@ -38,16 +35,20 @@ public class Event extends Task {
         if (data.length != 5) {
             throw new CheeseException("Incorrect data format");
         }
-        startDate = Parser.parseDate(data[3]);
         endDate = Parser.parseDate(data[4]);
     }
 
-    /**
-     * Calculate days till deadline
-     * @return int in days
-     */
-    public long daysLeft() {
-        return LocalDate.now().until(startDate, ChronoUnit.DAYS);
+    @Override
+    public long reschedule(LocalDate newDate) {
+        long daysDelayed = super.reschedule(newDate);
+        endDate = endDate.plusDays(daysDelayed);
+        return daysDelayed;
+    }
+
+    @Override
+    public void reschedule(long daysDelayed) {
+        super.reschedule(daysDelayed);
+        endDate = endDate.plusDays(daysDelayed);
     }
 
     /**
@@ -57,9 +58,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String s = "[E]" + super.toString() + " in " + daysLeft() + " days ";
-        s += "(" + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "-";
-        s += endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        String s = super.toString().replace("[D]", "[E]");
+        s = s.replace("by: ", "").replace(")", "");
+        s += "-" + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         return s;
     }
 
@@ -71,8 +72,7 @@ public class Event extends Task {
     @Override
     public String dataString() {
         String s = super.dataString();
-        s = s.replace("T,", "E,");
-        s += "," + startDate.toString();
+        s = s.replace("D,", "E,");
         s += "," + endDate.toString();
         return s;
     }

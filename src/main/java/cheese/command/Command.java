@@ -1,9 +1,9 @@
 package cheese.command;
 
-import cheese.exception.CheeseException;
 import cheese.Storage;
 import cheese.TaskList;
 import cheese.Ui;
+import cheese.exception.CheeseException;
 
 /**
  * Abstract parent class for all commands
