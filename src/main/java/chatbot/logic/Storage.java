@@ -63,6 +63,9 @@ public class Storage {
      * @throws FileNotFoundException Exception thrown if the file source is somehow not found (should not happen)
      */
     private Scanner getFile() throws FileNotFoundException {
+        assert this.dirPath != null : "dirPath should not be null";
+        assert this.fileName != null : "fileName should not be null";
+
         File directory = new File(this.dirPath);
         if (!directory.exists()) {
             directory.mkdir();
@@ -73,6 +76,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("IO Error in creating new file: " + e.getMessage());
         }
+
         return new Scanner(taskListFile);
     }
 
