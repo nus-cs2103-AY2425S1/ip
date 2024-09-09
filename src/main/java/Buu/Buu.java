@@ -30,6 +30,8 @@ public class Buu {
      * Processes the input command and returns the corresponding response.
      */
     public String getResponse(String input) {
+        // Assert that the input is not null
+        assert input != null : "Input cannot be null";
         try {
             // Only clear the buffer if there is an actual input (i.e., not the empty welcome message case)
             if (!input.isEmpty()) {

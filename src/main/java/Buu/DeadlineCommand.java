@@ -17,6 +17,9 @@ public class DeadlineCommand extends Command {
      * @param input The user input string containing the command to add a deadline task.
      */
     public DeadlineCommand(String input) {
+        // Precondition: input must not be null
+        assert input != null : "Input should not be null";
+
         String[] parts = input.substring(8).trim().split("/by");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             this.description = null;
@@ -38,6 +41,11 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Precondition: taskList, ui, and storage should not be null
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (description == null || by == null) {
             ui.showError(
                     "Invalid command format for deadline.\nUsage: deadline [task description] /by [date/time]\n"

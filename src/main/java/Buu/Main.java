@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Buu buu = new Buu();
-
     @Override
     public void start(Stage stage) {
         try {

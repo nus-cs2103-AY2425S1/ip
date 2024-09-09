@@ -21,6 +21,10 @@ class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, TaskType.EVENT);
+        // Precondition: Ensure description, from, and to are not null
+        assert description != null : "Description should not be null";
+        assert from != null : "Start time 'from' should not be null";
+        assert to != null : "End time 'to' should not be null";
         this.from = from;
         this.to = to;
     }
