@@ -21,36 +21,17 @@ public class Main extends Application {
     private YihuiBot yihuiBot;
 
     /**
-     * Constructor for a new Main, with parameter to specify where to read tasks info from.
-     *
-     * @param filePath the file path to read tasks info from, and store them.
-     * @throws InvalidPathException when filePath cannot be converted to a Path.
-     * @throws IOException when an I/O Error occurred.
-     * @throws IncorrectTaskFormatExceptionn when data in filePath is corrupted.
-     */
-    public Main(String filePath) throws InvalidPathException, IOException,
-            IncorrectTaskFormatException {
-        yihuiBot = new YihuiBot(filePath);
-    }
-
-    /**
-     * Constructor for a new Main, when no file path is provided.
-     *
-     * @throws InvalidPathException when filePath cannot be converted to a Path.
-     * @throws IOException when an I/O Error occurred.
-     * @throws IncorrectTaskFormatExceptionn when data in filePath is corrupted.
-     */
-    public Main() throws InvalidPathException, IOException,
-            IncorrectTaskFormatException {
-        this(DEFAULT_FILE_PATH);
-    }
-
-    /**
      * Display the GUI for YihuiBot.
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws InvalidPathException, IOException,
+            IncorrectTaskFormatException {
         try {
+            String filePath = getParameters().getRaw().isEmpty()
+                    ? DEFAULT_FILE_PATH
+                    : getParameters().getRaw().get(0);
+            yihuiBot = new YihuiBot(filePath);
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
