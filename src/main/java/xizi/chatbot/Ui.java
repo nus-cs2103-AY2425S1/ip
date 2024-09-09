@@ -153,6 +153,14 @@ public class Ui {
                 "- Assigns a tag to the specified task.",
                 "  Example: tag 2 #urgent");
 
+        printCommand("14. remove tag <task_number> #<tag>",
+                "- Removes a tag from the specified task. '#' is optional",
+                "  Example: remove tag 2 #urgent");
+
+        printCommand("15. search tag #<tag>",
+                "- Searches for all tasks with the given tag. '#' is optional",
+                "  Example: search #fun");
+
     }
 
     private void printCommand(String command, String description) {

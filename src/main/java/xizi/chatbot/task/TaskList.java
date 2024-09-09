@@ -96,6 +96,20 @@ public class TaskList {
         this.size = this.items.size();
     }
 
+    /**
+     * Returns a list of tasks with the given tag.
+     *
+     */
+    public List<Task> searchByTag(String tag) {
+        List<Task> tasksWithTag = new ArrayList<>();
+        for (Task task : items) {
+            if (task.hasTag(tag)) {
+                tasksWithTag.add(task);
+            }
+        }
+        return tasksWithTag;
+    }
+
 
 
 

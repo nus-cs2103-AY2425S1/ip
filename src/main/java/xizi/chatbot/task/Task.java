@@ -58,6 +58,14 @@ public abstract class Task {
     }
 
     /**
+     * Check if the task has a specific tag
+     *
+     */
+    public boolean hasTag(String tag) {
+        return tags.contains(tag);
+    }
+
+    /**
      * Returns true when a tag is found and removed successfully.
      */
     public boolean hasRemovedTag(String tag) {

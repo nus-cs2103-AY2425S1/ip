@@ -35,12 +35,22 @@ public enum CommandType {
      * Example: "tag 1 #fun" adds the tag "#fun" to task number 1.
      * The tag must start with a '#' character and can be alphanumeric.
      */
-    TAG("^tag (\\d+) (#\\w+)$"),
+    TAG("^tag (\\d+) (#?\\w+)$"),
 
     /**
      * Represents the "remove tag" command, which removes a tag from a specific tag.
      */
-    REMOVE_TAG("^remove tag (\\d+) (#\\w+)$"),
+    REMOVE_TAG("^remove tag (\\d+) (#?\\w+)$"),
+
+    /**
+     * Represents "search tag" command.
+     * The command searches for tasks that contain a specific tag.
+     *
+     * Example valid commands:
+     * - search tag #fun
+     * - search tag fun
+     */
+    SEARCH_TAG("^search\\s+tag\\s+#?(\\w+)$"),
 
     /**
      * Represents the "delete" command, which deletes a task.

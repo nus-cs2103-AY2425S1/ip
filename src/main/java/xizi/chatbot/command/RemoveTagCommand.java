@@ -23,15 +23,15 @@ public class RemoveTagCommand implements Command {
      * @throws XiziException If the input format is invalid or the task number cannot be parsed.
      */
     public RemoveTagCommand(String userInput) throws XiziException {
-        String[] tagParts = userInput.split(" ");
-        if (tagParts.length < 4) {
+        String[] inputParts = userInput.split(" ");
+        if (inputParts.length < 4) {
             throw new XiziException("Invalid format. Usage: remove tag <task number> <tag>");
         }
         try {
-            this.taskIndex = Integer.parseInt(tagParts[2]) - 1; // Convert to 0-based index
-            this.tag = tagParts[3].substring(1);
+            this.taskIndex = Integer.parseInt(inputParts[2]) - 1; // Convert to 0-based index
+            this.tag = inputParts[3].replace("#", "");
         } catch (NumberFormatException e) {
-            throw new XiziException(Arrays.toString(tagParts));
+            throw new XiziException(Arrays.toString(inputParts));
         }
     }
 
