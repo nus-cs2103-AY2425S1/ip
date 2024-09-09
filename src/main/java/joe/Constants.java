@@ -18,6 +18,7 @@ public final class Constants {
     public static final String FROM_COMMAND = "/from";
     public static final String TO_COMMAND = "/to";
     public static final String FIND_COMMAND = "find";
+    public static final String POSTPONE_COMMAND = "postpone";
 
     // Command lengths for parsing
     public static final int TASK_TODO_COMMAND_LENGTH = TASK_TODO_COMMAND.length();

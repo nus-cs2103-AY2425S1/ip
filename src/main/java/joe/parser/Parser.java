@@ -4,6 +4,7 @@ import joe.controller.Controller;
 import joe.ui.Ui;
 import static joe.Constants.EXIT_COMMAND;
 import static joe.Constants.LIST_COMMAND;
+import static joe.Constants.POSTPONE_COMMAND;
 import static joe.Constants.TASK_MARK_COMPLETE_COMMAND;
 import static joe.Constants.TASK_UNMARK_COMPLETE_COMMAND;
 import static joe.Constants.TASK_DELETE_COMMAND;
@@ -67,22 +68,24 @@ public class Parser<C extends Controller> {
             controller.handleHelp();
         } else if (input.startsWith(FIND_COMMAND)) {
             handleFind(input);
+        } else if (input.startsWith(POSTPONE_COMMAND)) {
+            handlePostpone(input);
         } else {
             ui.printInvalidCommandErrorMessage();
         }
         return true;
     }
 
-    public int getCommandIndex(String input) {
+    private int getCommandIndex(String input) {
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
 
-    public void handleTodo(String input) {
+    private void handleTodo(String input) {
         String parsedTodo = input.substring(TASK_TODO_COMMAND_LENGTH).strip();
         controller.handleTodo(parsedTodo);
     }
 
-    public void handleDeadline(String input) {
+    private void handleDeadline(String input) {
         int byIndex = input.indexOf(BY_COMMAND);
         if (byIndex == -1) {
             ui.printEmptyByErrorMessage();
@@ -93,7 +96,7 @@ public class Parser<C extends Controller> {
         controller.handleDeadline(task, by);
     }
 
-    public void handleEvent(String input) {
+    private void handleEvent(String input) {
         int fromIndex = input.indexOf(FROM_COMMAND);
         int toIndex = input.indexOf(TO_COMMAND);
         if (fromIndex == -1 || toIndex == -1) {
@@ -106,8 +109,15 @@ public class Parser<C extends Controller> {
         controller.handleEvent(task, from, to);
     }
 
-    public void handleFind(String input) {
+    private void handleFind(String input) {
         String keyword = input.substring(FIND_COMMAND_LENGTH).strip();
         controller.handleFind(keyword);
+    }
+
+    private void handlePostpone(String input) {
+        int taskIndex = getCommandIndex(input);
+        String daysString = input.split(" ")[2];
+        int days = Integer.parseInt(daysString);
+        controller.handlePostpone(taskIndex, days);
     }
 }

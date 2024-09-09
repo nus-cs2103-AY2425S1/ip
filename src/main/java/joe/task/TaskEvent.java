@@ -43,6 +43,16 @@ public class TaskEvent extends Task {
     }
 
     /**
+     * Postpones the event by a specified number of days.
+     * 
+     * @param days The number of days to postpone the event by.
+     */
+    public void postponeEvent(int days) {
+        from = from.plusDays(days);
+        to = to.plusDays(days);
+    }
+
+    /**
      * Checks if the dates are in the correct format and the start date is before
      * the end date.
      * 

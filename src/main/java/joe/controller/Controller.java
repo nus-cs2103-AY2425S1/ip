@@ -185,4 +185,30 @@ public class Controller {
         }
         ui.printFindMessage(foundTasks);
     }
+
+    /**
+     * Handles postpone command.
+     * Postpones the task at the specified index by the specified number of days.
+     * 
+     * @param index The index of the task to be postponed.
+     * @param days The number of days to postpone the task by.
+     */
+    public void handlePostpone(int index, int days) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
+        Task task = store.get(index);
+        if (task instanceof TaskDeadline) {
+            TaskDeadline deadline = (TaskDeadline) task;
+            deadline.postponeDeadline(days);
+            ui.printPostponeMessage(deadline, days);
+        } else if (task instanceof TaskEvent) {
+            TaskEvent event = (TaskEvent) task;
+            event.postponeEvent(days);
+            ui.printPostponeMessage(event, days);
+        } else {
+            ui.printPostponeErrorMessage();
+        }
+    }
 }

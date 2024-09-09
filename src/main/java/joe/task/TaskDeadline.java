@@ -33,6 +33,15 @@ public class TaskDeadline extends Task {
     }
 
     /**
+     * Postpones the deadline by a specified number of days.
+     * 
+     * @param days The number of days to postpone the deadline by.
+     */
+    public void postponeDeadline(int days) {
+        by = by.plusDays(days);
+    }
+
+    /**
      * Checks if the date is in the correct format.
      * 
      * @param by The date of the deadline.

@@ -89,6 +89,8 @@ public class Ui {
                 "mark <index> - Mark a task as done",
                 "unmark <index> - Mark a task as not done yet",
                 "delete <index> - Delete a task",
+                "find <keyword> - Find tasks with the keyword",
+                "postpone <index> <days> - Postpone a task by a number of days",
                 "help - Show this help message",
                 "bye - Exit the program");
     }
@@ -205,6 +207,10 @@ public class Ui {
         printBotResponse("Give me a valid command!");
     }
 
+    public void printPostponeErrorMessage() {
+        printBotResponse("Task given can't be postponed.");
+    }
+
     public void printFindMessage(ArrayList<Task> list) {
         String[] listStrings = new String[list.size() + 1];
         listStrings[0] = "Here are the matching tasks in your list:";
@@ -212,5 +218,9 @@ public class Ui {
             listStrings[i] = i + "." + list.get(i);
         }
         printBotResponse(listStrings);
+    }
+
+    public void printPostponeMessage(Task task, int days) {
+        printBotResponse("Got it. I've postponed this task by " + days + " days:", task.toString());
     }
 }
