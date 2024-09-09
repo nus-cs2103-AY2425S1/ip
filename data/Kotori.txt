@@ -1,6 +1,6 @@
-T | X | me
 D | X | CS2103T ip | 2024-09-09
-T | X | CS2103T lecture
 D |   | return book  | 2024-09-10
 D |   | do something  | 2028-08-28
+T | X | me
+T | X | CS2103T lecture
 T |   | CS2103 tp

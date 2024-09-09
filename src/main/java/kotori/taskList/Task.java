@@ -10,7 +10,7 @@ import kotori.storage.CorruptedFileException;
  * This class represents a task list.
  * */
 
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 
@@ -191,6 +191,17 @@ public abstract class Task {
         public boolean isRelatedToDate(LocalDate date) {
             return false;
         }
+        /**
+         * Compare urgency with another task
+         * */
+        @Override
+        public int compareTo(Task t) {
+            if (t instanceof DeadLine || t instanceof Event) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
 
     }
 
@@ -230,6 +241,31 @@ public abstract class Task {
             return date.isBefore(deadLine);
         }
 
+        /**
+         * Compare urgency with another task
+         * */
+        @Override
+        public int compareTo(Task t) {
+            if (t instanceof DeadLine) {
+                if (this.deadLine.isBefore(((DeadLine) t).deadLine)) {
+                    return -1;
+                } else if (((DeadLine) t).deadLine.isBefore(this.deadLine)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else if (t instanceof Event) {
+                if (this.deadLine.isBefore(((Event) t).to)) {
+                    return -1;
+                } else if (((Event) t).to.isBefore(this.deadLine)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return -1;
+            }
+        }
     }
 
     private static class Event extends Task {
@@ -271,12 +307,28 @@ public abstract class Task {
             return date.isAfter(from) && date.isBefore(to);
 
         }
-
-
-
-
-
-
+        @Override
+        public int compareTo(Task t) {
+            if (t instanceof DeadLine) {
+                if (this.to.isBefore(((DeadLine) t).deadLine)) {
+                    return -1;
+                } else if (((DeadLine) t).deadLine.isBefore(this.to)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else if (t instanceof Event) {
+                if (this.to.isBefore(((Event) t).to)) {
+                    return -1;
+                } else if (((Event) t).to.isBefore(this.to)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return -1;
+            }
+        }
     }
     @Override
     public boolean equals(Object object) {

@@ -1,6 +1,7 @@
 package kotori.taskList;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * This class represent a list of task
@@ -99,6 +100,12 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Sort the list in urgency order
+     * */
+    public void sort() {
+        taskList = taskList.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+    }
     @Override
     public String toString() {
         String result = "";

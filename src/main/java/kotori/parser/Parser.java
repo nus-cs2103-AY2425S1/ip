@@ -1,14 +1,6 @@
 package kotori.parser;
 
-import kotori.command.AddCommand;
-import kotori.command.Command;
-import kotori.command.DeleteCommand;
-import kotori.command.ExitCommand;
-import kotori.command.FindCommand;
-import kotori.command.MarkCommand;
-import kotori.command.PrintListCommand;
-import kotori.command.SearchCommand;
-import kotori.command.UnmarkCommand;
+import kotori.command.*;
 import kotori.storage.Storage;
 import kotori.taskList.TaskList;
 /**
@@ -41,6 +33,8 @@ public class Parser {
             return new ExitCommand(list);
         } else if (input.equals("list")) {
             return new PrintListCommand(list);
+        } else if (input.equals("sort")) {
+            return new SortCommand(list, storage);
         } else if (input.startsWith("mark ")) {
             int index = Integer.parseInt(input.split(" ")[1].trim());
             return new MarkCommand(storage, list, index);
