@@ -1,6 +1,7 @@
 package chatgpt.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *  The TaskList class handles the operations on list of Tasks
@@ -69,5 +70,15 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
+    }
+
+    public TaskList find(String keyword) {
+        ArrayList<Task> res = tasks.stream()
+                .filter(task -> task
+                        .toString()
+                        .contains(keyword))
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+        return new TaskList(res);
     }
 }
