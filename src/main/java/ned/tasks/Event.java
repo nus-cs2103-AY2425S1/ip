@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-<<<<<<< HEAD
     public static final String EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, this saved event task has no "
             + "task description!";
     public static final String EVENT_MISSING_FROM_DATE_ERROR_MESSAGE = "M'lord, this saved event task has no "
