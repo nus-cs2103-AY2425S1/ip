@@ -34,14 +34,18 @@ public class Storage {
         File db = new File(filePath);
         this.db = db;
         if (!db.exists()) {
-            try {
-                String[] dirLst = filePath.split("/");
-                assert dirLst.length > 0 : "directory path should not be empty";
-                new File(dirLst[0]).mkdir();
-                db.createNewFile();
-            } catch (IOException e) {
-                throw new ServerError("File cannot be created. Check data directory");
-            }
+            this.conductFileTroubleShooting();
+        }
+    }
+
+    private void conductFileTroubleShooting() {
+        try {
+            String[] dirLst = filePath.split("/");
+            assert dirLst.length > 0 : "directory path should not be empty";
+            new File(dirLst[0]).mkdir();
+            db.createNewFile();
+        } catch (IOException e) {
+            throw new ServerError("File cannot be created. Check data directory");
         }
     }
 
@@ -55,31 +59,38 @@ public class Storage {
     public void loadInto(TaskList taskStorage) throws ServerError {
         try {
             Scanner s = new Scanner(this.db);
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                String[] lineSegments = line.split(" \\| ");
-                assert lineSegments.length > 0 : "Database line is empty";
-                if (lineSegments[0].equals("T")) {
-                    assert lineSegments.length == 3 : "Database Todo task should have exactly 1 seperator";
-                    taskStorage.silencedAdd(Todo.loadOf(lineSegments[1].equals("1"), lineSegments[2]));
-                } else if (lineSegments[0].equals("D")) {
-                    assert lineSegments.length == 4 : "Database Todo task should have exactly 3 seperators";
-                    taskStorage.silencedAdd(Deadline.loadOf(lineSegments[1].equals("1"),
-                            lineSegments[2], lineSegments[3]));
-                } else if (lineSegments[0].equals("E")) {
-                    assert lineSegments.length == 5 : "Database Todo task should have exactly 4 seperators";
-                    taskStorage.silencedAdd(Event.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3],
-                            lineSegments[4]));
-                } else {
-                    throw new ServerError(String.format("Unidentifiable task type %s. Ensure correct task type",
-                            lineSegments[0]));
-                }
-
-            }
+            copyDbToTaskStorage(s, taskStorage);
         } catch (FileNotFoundException e) {
             throw new ServerError("File cannot be found. Check database is not removed");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ServerError("File data is corrupted. Check data is formatted correctly");
+        }
+    }
+
+    private void copyDbToTaskStorage(Scanner s, TaskList taskStorage) {
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] lineSegments = line.split(" \\| ");
+            assert lineSegments.length > 0 : "Database line is empty";
+            this.manageTaskLoading(lineSegments, taskStorage);
+        }
+    }
+
+    private void manageTaskLoading(String[] lineSegments, TaskList taskStorage) throws ServerError {
+        if (lineSegments[0].equals("T")) {
+            assert lineSegments.length == 3 : "Database Todo task should have exactly 1 seperator";
+            taskStorage.silencedAdd(Todo.loadOf(lineSegments[1].equals("1"), lineSegments[2]));
+        } else if (lineSegments[0].equals("D")) {
+            assert lineSegments.length == 4 : "Database Todo task should have exactly 3 seperators";
+            taskStorage.silencedAdd(Deadline.loadOf(lineSegments[1].equals("1"),
+                    lineSegments[2], lineSegments[3]));
+        } else if (lineSegments[0].equals("E")) {
+            assert lineSegments.length == 5 : "Database Todo task should have exactly 4 seperators";
+            taskStorage.silencedAdd(Event.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3],
+                    lineSegments[4]));
+        } else {
+            throw new ServerError(String.format("Unidentifiable task type %s. Ensure correct task type",
+                    lineSegments[0]));
         }
     }
 
@@ -103,6 +114,7 @@ public class Storage {
             throw new ServerError("File cannot be found. Check database is not removed");
         }
     }
+
     /**
      * Updates the database file with the current state of the TaskList. The method replaces
      * the file with the tasks stored in the provided TaskList.
@@ -110,23 +122,34 @@ public class Storage {
      * @param taskStorage the TaskList containing the tasks to be written to the file.
      * @throws ServerError if the file cannot be found or an IO error occurs during writing.
      */
-    public void update(TaskList taskStorage) {
+    public void update(TaskList taskStorage) throws ServerError {
         try {
             FileWriter fwRedo = new FileWriter(this.filePath);
             fwRedo.close();
             FileWriter fw = new FileWriter(this.filePath, true);
             int counter = 0;
-            assert counter >= 0 : "Counter needs to be non-negative to write new lines";
-            while (taskStorage.hasTask(counter)) {
-                Task task = taskStorage.getTask(counter);
-                if (counter == 0) {
-                    fw.write(task.parseDetailsForDB());
-                } else {
-                    fw.write("\n" + task.parseDetailsForDB());
-                }
-                counter++;
-            }
+            copyTaskStorageToDb(fw, taskStorage, counter);
             fw.close();
+        } catch (IOException e) {
+            throw new ServerError("File cannot be found. Check database is not removed");
+        }
+    }
+
+    private void copyTaskStorageToDb(FileWriter fw, TaskList taskStorage, int counter) throws  ServerError {
+        while (taskStorage.hasTask(counter)) {
+            Task task = taskStorage.getTask(counter);
+            if (counter == 0) {
+                handleFwWriting(fw, task.parseDetailsForDB());
+            } else {
+                handleFwWriting(fw, "\n" + task.parseDetailsForDB());
+            }
+            counter++;
+        }
+    }
+
+    private void handleFwWriting(FileWriter fw, String details) throws ServerError {
+        try {
+            fw.write(details);
         } catch (IOException e) {
             throw new ServerError("File cannot be found. Check database is not removed");
         }
