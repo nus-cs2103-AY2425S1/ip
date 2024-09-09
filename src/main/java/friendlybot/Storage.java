@@ -43,22 +43,24 @@ public class Storage {
         try {
             File f = new File(this.filePath);
             boolean directoriesCreated = new File(this.filePathWithoutFile).mkdirs();
-            if (!f.createNewFile()) {
-                Scanner fileReader = new Scanner(f);
-                while (fileReader.hasNext()) {
-                    // task is in format {type of task} | {0 if not completed, else 1} | {name of task}
-                    // | {other task attributes}
-                    String task = fileReader.nextLine();
-                    try {
-                        Task newTask = Storage.getTask(task);
-                        tasks.add(newTask);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        Ui.print("friendlybot.task.Task is not in the expected format: " + task);
-                        Ui.print("Removed from task list!");
-                    }
-                }
-                fileReader.close();
+            boolean newFileIsCreated = f.createNewFile();
+            if (newFileIsCreated) {
+                return tasks;
             }
+            Scanner fileReader = new Scanner(f);
+            while (fileReader.hasNext()) {
+                // task is in format {type of task} | {0 if not completed, else 1} | {name of task}
+                // | {other task attributes}
+                String task = fileReader.nextLine();
+                try {
+                    Task newTask = Storage.getTask(task);
+                    tasks.add(newTask);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Ui.print("friendlybot.task.Task is not in the expected format: " + task);
+                    Ui.print("Removed from task list!");
+                }
+            }
+            fileReader.close();
             return tasks;
         } catch (IOException e) {
             Ui.print("An error occurred: " + e.getMessage());

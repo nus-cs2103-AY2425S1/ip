@@ -39,20 +39,19 @@ public class MarkCommand extends Command {
         if (this.taskNumber > numTasks) {
             Ui.print("There's no such task yet!");
             return "There's no such task yet!";
-        } else {
-            Task task = tasks.getTask(taskNumber);
-            if (mark) {
-                task.markAsDone();
-                Ui.print("Nice! I've marked this task as done:");
-                sb.append("Nice! I've marked this task as done:\n");
-            } else {
-                task.markAsUndone();
-                Ui.print("OK, I've marked this task as not done yet:");
-                sb.append("OK, I've marked this task as not done yet:\n");
-            }
-            sb.append("  ").append(task.toString());
-            storage.writeToFile(tasks.formatTasksToSave());
-            return sb.toString();
         }
+        Task task = tasks.getTask(taskNumber);
+        if (mark) {
+            task.markAsDone();
+            Ui.print("Nice! I've marked this task as done:");
+            sb.append("Nice! I've marked this task as done:\n");
+        } else {
+            task.markAsUndone();
+            Ui.print("OK, I've marked this task as not done yet:");
+            sb.append("OK, I've marked this task as not done yet:\n");
+        }
+        sb.append("  ").append(task.toString());
+        storage.writeToFile(tasks.formatTasksToSave());
+        return sb.toString();
     }
 }
