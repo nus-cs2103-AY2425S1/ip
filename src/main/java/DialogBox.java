@@ -28,8 +28,8 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         dialog.setText(text);
@@ -38,9 +38,9 @@ public class DialogBox extends HBox {
 
     // public static DialogBox getAliceDialog(String text, Image img, String commandType) {
     public static DialogBox getAliceDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        return dialogBox;
     }
 
     /**
