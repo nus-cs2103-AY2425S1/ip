@@ -19,15 +19,17 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            fxmlLoader.<MainWindow>getController().setTecna(tecna); // inject Duke instance
-            fxmlLoader.<MainWindow>getController().setStage(stage);
+            MainWindow mainWindow = (MainWindow) fxmlLoader.getController();
+            mainWindow.setTecna(tecna); // inject Duke instance
+            mainWindow.setStage(stage);
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Tecna");
             stage.setResizable(false);
 
-            tecna.greet();
+            mainWindow.sendMessage(tecna.greet());
+
 
             stage.show();
         } catch (IOException e) {

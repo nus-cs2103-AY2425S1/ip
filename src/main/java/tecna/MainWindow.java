@@ -72,15 +72,21 @@ public class MainWindow extends AnchorPane {
         String response = tecna.getResponse(input);
         DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
 
-        DialogBox dukeDialogBox = DialogBox.getTecnaDialog(response, tecnaImage);
+        DialogBox tecnaDialogBox = DialogBox.getTecnaDialog(response, tecnaImage);
         dialogContainer.getChildren().addAll(
-                userDialogBox, dukeDialogBox);
+                userDialogBox, tecnaDialogBox);
         userInput.clear();
         VBox.setVgrow(userDialogBox, Priority.ALWAYS);
-        VBox.setVgrow(dukeDialogBox, Priority.ALWAYS);
+        VBox.setVgrow(tecnaDialogBox, Priority.ALWAYS);
         if (response.equals("Pleased to help you! See you again ^_^")) {
             Platform.exit();
         }
+    }
+
+    public void sendMessage(String message) {
+        DialogBox tecnaDialogBox = DialogBox.getTecnaDialog(message, tecnaImage);
+        dialogContainer.getChildren().addAll(tecnaDialogBox);
+        VBox.setVgrow(tecnaDialogBox, Priority.ALWAYS);
     }
 
 }

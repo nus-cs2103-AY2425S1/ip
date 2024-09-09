@@ -177,11 +177,14 @@ public class Tecna {
 
     /**
      * Greets the user by printing the logo.
+     *
+     * @return a greeting message.
      */
-    public void greet() {
+    public String greet() {
         ui.printLogo();
         ui.printHelloMsg();
         ui.printSectionLine();
+        return ui.printLogo() + ui.printHelloMsg();
     }
 
     /**

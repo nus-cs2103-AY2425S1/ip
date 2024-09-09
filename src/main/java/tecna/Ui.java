@@ -1,7 +1,7 @@
 package tecna;
 
 public class Ui {
-    public void printLogo() {
+    public String printLogo() {
         String logo =
                 " **          **\n" +
                 "*  *        *  *\n" +
@@ -19,6 +19,7 @@ public class Ui {
                 "    ***  ***\n";
 
         System.out.println(logo);
+        return logo;
     }
 
     public String printHelloMsg() {
