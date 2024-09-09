@@ -38,7 +38,8 @@ public class Task {
     @Override
     public String toString() {
         String status = this.status ? "X" : " ";
-        return String.format("[%s] %s", status, this.details);
+        String taskString = String.format("[%s] %s", status, this.details);
+        return taskString;
     }
 
     /**
@@ -48,7 +49,8 @@ public class Task {
      */
     public String getTaskText() {
         String state = this.status ? "1" : "0";
-        return state + "|" + this.details;
+        String taskAsText = state + "|" + this.details;
+        return taskAsText;
     }
 
     /**
