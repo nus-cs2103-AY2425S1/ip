@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Handles the loading and saving of tasks to and from a file for the Bob chatbot.
@@ -71,11 +72,11 @@ public class Storage {
                 Files.createFile(Paths.get(filePath));
             }
 
-            FileWriter fw = new FileWriter(filePath);
-            for (Task task : tasks) {
-                fw.write(task.formatToSave() + System.lineSeparator());
+            try (FileWriter fw = new FileWriter(filePath)) {
+                fw.write(tasks.stream()
+                        .map(task -> task.formatToSave() + System.lineSeparator())
+                        .collect(Collectors.joining()));
             }
-            fw.close();
         } catch (IOException e) {
             throw new ChatBotException("Save failed. Something went wrong: " + e.getMessage());
         }
