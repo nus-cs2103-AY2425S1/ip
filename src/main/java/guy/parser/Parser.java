@@ -32,6 +32,7 @@ public class Parser {
         TaskManager tm = TaskManager.getInstance();
         while (sc.hasNext()) {
             String[] input = splitCmd(sc.nextLine());
+            assert input.length > 1;
             String cmd = input[0];
             String args = input[1];
 
@@ -83,6 +84,7 @@ public class Parser {
         System.setOut(pstream);
 
         String[] temp = splitCmd(input);
+        assert temp.length > 1;
         String cmd = temp[0];
         String args = temp[1];
 
@@ -131,6 +133,7 @@ public class Parser {
      */
     private String[] splitCmd(String input) {
         String[] raw = input.split(" ", 2);
+        assert raw.length == 2;
         String[] output = {"", ""};
         for (int i = 0; i < raw.length; ++i) {
             output[i] = raw[i].trim();
