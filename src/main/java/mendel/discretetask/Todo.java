@@ -29,6 +29,7 @@ public class Todo extends Task {
      */
     public static Todo of(String rawDescription) {
         String[] descriptionLst = parseDescription(rawDescription);
+        assert descriptionLst.length == 1 : "Description has wrong format";
         return new Todo(descriptionLst[0]);
     }
 
