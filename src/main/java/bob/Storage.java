@@ -36,10 +36,15 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             String directoryPath = "./data";
-            if (Files.exists(Paths.get(directoryPath))
-                    && Files.isDirectory(Paths.get(directoryPath))
-                    && Files.exists(Paths.get(filePath))
-                    && Files.isRegularFile(Paths.get(filePath))) {
+            boolean directoryFileExists = Files.exists(Paths.get(directoryPath));
+            boolean directoryExists = Files.isDirectory(Paths.get(directoryPath));
+            boolean fileExists = Files.exists(Paths.get(filePath));
+            boolean isRegularFile = Files.isRegularFile(Paths.get(filePath));
+
+            if (directoryFileExists
+                    && directoryExists
+                    && fileExists
+                    && isRegularFile) {
                 Scanner s = new Scanner(Paths.get(filePath));
                 while (s.hasNext()) {
                     String taskString = s.nextLine();
@@ -62,13 +67,18 @@ public class Storage {
     public void save(ArrayList<Task> tasks) throws ChatBotException {
         try {
             String directoryPath = "./data";
-            if (!Files.exists(Paths.get(directoryPath))
-                    || !Files.isDirectory(Paths.get(directoryPath))) {
+            boolean directoryFileExists = Files.exists(Paths.get(directoryPath));
+            boolean directoryExists = Files.isDirectory(Paths.get(directoryPath));
+            boolean fileExists = Files.exists(Paths.get(filePath));
+            boolean isRegularFile = Files.isRegularFile(Paths.get(filePath));
+
+            if (!directoryFileExists
+                    || !directoryExists) {
                 Files.createDirectory(Paths.get(directoryPath));
             }
 
-            if (!Files.exists(Paths.get(filePath))
-                    || !Files.isRegularFile(Paths.get(filePath))) {
+            if (!fileExists
+                    || !isRegularFile) {
                 Files.createFile(Paths.get(filePath));
             }
 

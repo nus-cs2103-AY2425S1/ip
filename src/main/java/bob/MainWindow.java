@@ -68,16 +68,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
         if (userText.equals("bye")) {
-            // Display the "bye" command
             displayMessage("bye", userImage);
 
-            // Display the goodbye message
             displayMessage(bob.getUi().showGoodbyeMessage(), bobImage);
 
             // Create a PauseTransition to wait before closing the application
             PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2 seconds delay
             pause.setOnFinished(event -> {
-                // Close the application after the delay
                 Platform.exit();
             });
             pause.play();
