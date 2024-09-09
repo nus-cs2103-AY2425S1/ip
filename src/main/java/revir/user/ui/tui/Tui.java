@@ -1,13 +1,19 @@
-package revir.user;
+package revir.user.ui.tui;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import revir.tasks.TaskList;
+import revir.user.Parser;
+import revir.user.command.Command;
+import revir.user.ui.Ui;
 
 /**
  * The Ui class represents the user interface of the application.
- * It provides methods for displaying messages, reading user input, and handling errors.
+ * It provides methods for displaying messages, reading user input, and handling
+ * errors.
  */
-public class Ui {
-    private String name;
+public class Tui implements Ui {
     private Scanner scanner;
 
     /**
@@ -15,18 +21,35 @@ public class Ui {
      *
      * @param name the name of the user interface
      */
-    public Ui(String name) {
-        this.name = name;
+    public Tui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
      * Displays a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm " + this.name);
+    @Override
+    public void run(TaskList taskList) {
+        Parser parser = new Parser();
+
+        System.out.println("Hello! I'm Revir");
         System.out.println("What can I do for you?");
         this.showLine();
+        boolean exit = false;
+        while (!exit) {
+            String input = this.readInput();
+            try {
+                Command c = parser.parse(input);
+                c.execute(this, taskList);
+                exit = c.isExit();
+            } catch (NumberFormatException e) {
+                this.showError("Invalid task index. Expected a number.");
+            } catch (IOException e) {
+                this.showError("Unable to save file: " + e.getMessage());
+            } catch (Exception e) {
+                this.showError(e.getMessage());
+            }
+        }
     }
 
     /**

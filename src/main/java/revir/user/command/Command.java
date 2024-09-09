@@ -3,7 +3,7 @@ package revir.user.command;
 import java.io.IOException;
 
 import revir.tasks.TaskList;
-import revir.user.Ui;
+import revir.user.ui.Ui;
 
 /**
  * Represents a command that can be executed by the user.

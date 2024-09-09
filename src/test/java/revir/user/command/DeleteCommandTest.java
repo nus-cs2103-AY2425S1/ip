@@ -1,28 +1,23 @@
 package revir.user.command;
 
-import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.mock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import revir.system.Storage;
-import revir.tasks.Deadline;
-import revir.tasks.Event;
-import revir.tasks.TaskList;
-import revir.tasks.Todo;
-import revir.user.Ui;
+import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
+import revir.system.Storage;
+import revir.tasks.TaskList;
+import revir.tasks.Todo;
+import revir.user.ui.Ui;
+
 
 public class DeleteCommandTest {
-    Storage storageMock = mock(Storage.class);
-    Ui uiMock = mock(Ui.class);
+    private Storage storageMock = mock(Storage.class);
+    private Ui uiMock = mock(Ui.class);
 
-    LocalDateTime date = LocalDateTime.parse("1/1/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-    Todo todo = new Todo("todo");
-    Deadline deadline = new Deadline("deadline", date);
-    Event event = new Event("event", date, date);
+    private Todo todo = new Todo("todo");
 
     @Test
     public void testDeleteTask() {
