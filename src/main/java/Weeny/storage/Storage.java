@@ -32,9 +32,11 @@ public class Storage {
         try {
             if (dataDir.mkdir()) {
                 // Directory created successfully
+                assert dataDir.exists() : "Directory should be created";
             }
             if (taskFile.createNewFile()) {
                 // File created successfully
+                assert taskFile.exists() : "Task file should be created";
             }
         } catch (IOException e) {
             System.err.println("Error creating directory or file: " + e.getMessage());
@@ -55,6 +57,7 @@ public class Storage {
             lines = Files.readAllLines(
                     Paths.get(fileName),
                     StandardCharsets.UTF_8);
+            assert !lines.isEmpty() : "File should contain tasks";
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +76,7 @@ public class Storage {
                 break;
             case "E":
                 int split = processTask[3].indexOf('-');
+                assert split != -1 : "Event time format should contain a dash (-)";
                 if (split == -1) {
                     throw new IllegalArgumentException("Invalid event time format: " + processTask[3]);
                 }

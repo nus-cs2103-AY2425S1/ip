@@ -58,6 +58,7 @@ public class Weeny extends Application {
     public String executeWeeny(String input) {
 
         boolean isFarewell = false;
+        int initialSize = 0;
         while (!isFarewell) {
             String command = parser.extractFirstWord(input);
 
@@ -84,31 +85,39 @@ public class Weeny extends Application {
                     return ui.showUnmarkMessage(taskList.getTask(unmarkIndex));
 
                 case "todo":
+                    initialSize = taskList.size();
                     validateTodoInput(input);
                     Task todoTask = new Todo(input.substring(5).trim());
                     taskList.addTask(todoTask);
+                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
                     return ui.printTaskAddedMessage(todoTask, taskList.size());
 
                 case "event":
+                    initialSize = taskList.size();
                     validateEventInput(input);
                     Task eventTask = new Events(parser.extractEventName(input),
                             parser.extractEventTimes(input)[0],
                             parser.extractEventTimes(input)[1]);
                     taskList.addTask(eventTask);
+                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
                     return ui.printTaskAddedMessage(eventTask, taskList.size());
 
                 case "deadline":
+                    initialSize = taskList.size();
                     validateDeadlineInput(input);
                     Task deadlineTask = new Deadlines(parser.extractDeadlineName(input),
                             parser.extractDeadlineTime(input));
                     taskList.addTask(deadlineTask);
+                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
                     return ui.printTaskAddedMessage(deadlineTask, taskList.size());
 
                 case "delete":
+                    int initialDeleteSize = taskList.size();
                     int deleteIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(deleteIndex, taskList.size(), "delete");
                     Task removedTask = taskList.getTask(deleteIndex);
                     taskList.deleteTask(deleteIndex);
+                    assert taskList.size() == initialDeleteSize - 1 : "Task list size should decrease after deletion";
                     return ui.showTaskDeletedMessage(removedTask, taskList.size());
 
                 case "find":
