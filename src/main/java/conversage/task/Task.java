@@ -72,7 +72,7 @@ public abstract class Task {
      * @return the task created from the file format string.
      * @throws ConverSageException if the file format string is invalid.
      */
-    public static Task fromFileFormat(String fileFormatString) throws ConverSageException{
+    public static Task fromFileFormat(String fileFormatString) throws ConverSageException {
         // Note: 2 escape char used
         String[] parts = fileFormatString.split(" \\| ");
         String taskType = parts[0];

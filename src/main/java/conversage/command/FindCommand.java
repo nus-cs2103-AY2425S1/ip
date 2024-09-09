@@ -9,6 +9,12 @@ import conversage.ui.Ui;
 import java.util.List;
 
 
+
+
+
+
+
+
 public class FindCommand extends Command {
     // Find command will have the keyword using which we must match
     String keyword;
@@ -38,8 +44,10 @@ public class FindCommand extends Command {
             }
         }
         if (count == 1) {
-            ui.showMessage("The sage's wisdom reveals no tasks that align with your query. Perhaps the path you seek is yet to be trodden.");
-            toRet = toRet + "The sage's wisdom reveals no tasks that align with your query. Perhaps the path you seek is yet to be trodden.";
+            ui.showMessage("The sage's wisdom reveals no tasks that align with your query. "
+                    + "Perhaps the path you seek is yet to be trodden.");
+            toRet = toRet + "The sage's wisdom reveals no tasks that align with your query. "
+                    + "Perhaps the path you seek is yet to be trodden.";
         }
         ui.showLine();
 

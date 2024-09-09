@@ -25,7 +25,6 @@ public class Ui {
                       "| |__| (_) | | | \\ V /  __/ |   ___) | (_| | (_| |  __/\n" +
                       " \\____\\___/|_| |_|\\_/ \\___|_|  |____/ \\__,_|\\__, |\\___|\n" +
                       "                                            |___/      ";
-        
         System.out.println(logo);
         System.out.println("Greetings, I'm your Conversage.");
         System.out.println("What can I do for you?");

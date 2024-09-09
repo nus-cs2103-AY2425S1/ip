@@ -5,7 +5,6 @@ import conversage.storage.Storage;
 import conversage.task.Task;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
-import javafx.beans.binding.StringBinding;
 
 /**
  * Represents a command to mark a task as done.
@@ -34,5 +33,4 @@ public class MarkCommand extends Command {
         storage.save(tasks.getTasks());
         return "Nice! I've marked this task as done:\n" + task.toString();
     }
-    
 }

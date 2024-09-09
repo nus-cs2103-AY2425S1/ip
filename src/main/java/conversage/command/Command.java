@@ -4,7 +4,6 @@ import conversage.exception.ConverSageException;
 import conversage.storage.Storage;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
-import javafx.beans.binding.StringBinding;
 
 /**
  * Represents a command that can be executed.

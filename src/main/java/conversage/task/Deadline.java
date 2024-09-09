@@ -9,11 +9,12 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a task with a deadline.
  */
-public class Deadline extends Task{
-    protected LocalDateTime deadline;
+public class Deadline extends Task {
+
     protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
+    protected LocalDateTime deadline;
     /**
      * Constructs a Deadline task with the specified description and deadline.
      *
@@ -34,7 +35,8 @@ public class Deadline extends Task{
 
     @Override
     public String toFileFormat() {
-        return "conversage.task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + deadline.format(INPUT_FORMAT);
+        return "conversage.task.Deadline | " + (isDone ? "Done" : "Not Done")
+                + " | " + taskDesc + " | " + deadline.format(INPUT_FORMAT);
     }
 
     @Override
