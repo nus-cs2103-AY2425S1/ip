@@ -12,11 +12,11 @@ public class Todo extends Task {
     /**
      * Initialise the Todo task.
      *
-     * @param value description of task
-     * @param status done status (for loading data only)
+     * @param description of task
+     * @param isDone status (can be true for loading data only)
      */
-    public Todo(String value, boolean status) {
-        super(value, status);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override

@@ -13,7 +13,8 @@ import rotodo.tasklist.TaskList;
  */
 public class HelpCommand extends Command {
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
-        ui.help();
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert gui != null;
+        gui.help();
     }
 }

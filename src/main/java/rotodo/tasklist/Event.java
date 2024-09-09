@@ -19,13 +19,13 @@ public class Event extends Task {
     /**
      * Initialise the Event task.
      *
-     * @param value description of task
+     * @param description of task
      * @param from datetime
      * @param to datetime
-     * @param status done status (for loading data only)
+     * @param isDone status (can be true for loading data only)
      */
-    public Event(String value, LocalDateTime from, LocalDateTime to, boolean status) {
-        super(value, status);
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }

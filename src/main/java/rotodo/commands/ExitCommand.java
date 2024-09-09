@@ -15,12 +15,15 @@ import rotodo.tasklist.TaskList;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tl, Gui ui, Storage st) {
-        ui.exit();
+    public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert gui != null;
+        assert storage != null;
+        assert tasks != null;
+        gui.exit();
         try {
-            st.saveList(tl);
+            storage.saveList(tasks);
         } catch (IOException e) {
-            ui.addMessage("\nUnable to save list :(\n    RoTodo is sorry");
+            gui.addMessage("\nUnable to save list :(\nRoTodo is sorry");
         }
     }
 

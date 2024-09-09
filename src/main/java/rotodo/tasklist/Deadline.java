@@ -17,12 +17,12 @@ public class Deadline extends Task {
     /**
      * Initialise the Deadline task.
      *
-     * @param value description of task
+     * @param description of task
      * @param by datetime
-     * @param status done status (for loading data only)
+     * @param isDone status (can be true for loading data only)
      */
-    public Deadline(String value, LocalDateTime by, boolean status) {
-        super(value, status);
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
+        super(description, isDone);
         this.by = by;
     }
 

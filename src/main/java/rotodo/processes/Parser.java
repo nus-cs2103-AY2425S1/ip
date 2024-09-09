@@ -46,6 +46,7 @@ public class Parser {
      */
     public static Command process(String input) throws InvalidInputException {
         String[] token = input.split(" ", 2);
+        boolean asDone = false;
         switch (token[0]) {
         case LIST:
             return new ListCommand();
@@ -66,8 +67,8 @@ public class Parser {
                     "RoTodo need task number");
             }
             try {
-                int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new DeleteCommand(idx - 1);
+                int index = Integer.parseInt(token[1].split(" ")[0]);
+                return new DeleteCommand(index - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                         + "number RoTodo knows (and RoTodo know much numbers, "
@@ -75,18 +76,8 @@ public class Parser {
             }
 
         case MARK:
-            if (token.length < 2) {
-                throw new IncompleteInputException(
-                        "RoTodo need task number");
-            }
-            try {
-                int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new MarkCommand(idx - 1, true);
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException(String.format("'%s' not a "
-                        + "number RoTodo knows (and RoTodo know much numbers, "
-                        + "like 1s and 0s)", token[1]));
-            }
+            asDone = true;
+            // Fall through
 
         case UNMARK:
             if (token.length < 2) {
@@ -94,8 +85,8 @@ public class Parser {
                         "RoTodo need task number");
             }
             try {
-                int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new MarkCommand(idx - 1, false);
+                int index = Integer.parseInt(token[1].split(" ")[0]);
+                return new MarkCommand(index - 1, asDone);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                         + "number RoTodo knows (and RoTodo know much numbers, "

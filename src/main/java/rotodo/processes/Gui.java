@@ -26,16 +26,16 @@ public class Gui {
      * Output is wrapped by lines.
      */
     public void showMessage() {
-        System.out.println("  " + new String(new char[100]).replace("\0", "-"));
+        System.out.println("-".repeat(100) + "\n");
         System.out.println("    " + text.replace("\n", "\n    "));
-        System.out.println("  " + new String(new char[100]).replace("\0", "-") + "\n");
+        System.out.println("-".repeat(100) + "\n");
         text = "";
     }
 
     public String getMessage() {
-        String tmp = text.replace("\u001B[31m", "").replace("\u001B[0m", "");
+        String output = text.replace("\u001B[31m", "").replace("\u001B[0m", "");
         text = "";
-        return tmp;
+        return output;
     }
 
     /**
@@ -89,7 +89,7 @@ public class Gui {
     }
 
     /**
-     * Exits program after printing goodbye text.
+     * Prepare goodbye text for printing.
      */
     public void exit() {
         sc.close();
