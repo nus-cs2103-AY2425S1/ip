@@ -21,35 +21,19 @@ public class Parser {
     /**
      * Returns whether the command contains an int that can be used as an index to track tasks.
      *
-     * @param command The input string that may or may not contain a valid index.
-     * @param start The position that the integer index should be
+     * @param input The input string that may or may not be a valid index.
      * @return Whether the command has a valid integer index.
      */
-    public boolean checkValidIndex(String command, int start) {
-        String trimmed = command.substring(start).trim();
+    public boolean checkValidIndex(String input) {
+        String trimmed = input.trim();
         try {
             Integer.parseInt(trimmed);
             return true;
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }
 
 
-    /**
-     * Returns the index provided by the user.
-     * Used after checkValidIndex to ensure that there is a valid index in the command
-     *
-     * @param command The input string that should contain the index.
-     * @param start The position that the integer index should be
-     * @return The index in the command.
-     */
-    public int checkIndex(String command, int start) {
-        String trimmed = command.substring(start).trim();
-        try {
-            return Integer.parseInt(trimmed);
-        } catch (Exception ex) {
-            return Integer.MAX_VALUE;
-        }
-    }
+
 }
