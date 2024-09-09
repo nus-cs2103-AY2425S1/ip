@@ -16,14 +16,14 @@ import exception.CasperBotOutOfBoundsException;
  */
 public class CasperBot {
     private enum CommandType {
-        CREATE, TASK;
+        CREATE, TASK
     }
     private enum CreateCommand {
-        EVENT, TODO, DEADLINE;
+        EVENT, TODO, DEADLINE
     }
 
     private enum TaskCommand {
-        MARK, UNMARK, DELETE;
+        MARK, UNMARK, DELETE
     }
     private final TaskList taskList;
     private final Ui ui;
@@ -57,6 +57,7 @@ public class CasperBot {
      */
     public String getResponse(String input) {
         String[] parsedInputs = this.parser.splitInputIntoTwo(input);
+        assert parsedInputs.length == 2 : "The input should be parsed into 2 strings";
         try {
             String result = this.runSingleWordCommand(parsedInputs);
             if (!result.isEmpty()) {
