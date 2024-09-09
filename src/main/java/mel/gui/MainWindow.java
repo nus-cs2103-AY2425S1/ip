@@ -26,15 +26,23 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image melImage = new Image(this.getClass().getResourceAsStream("/images/mel.gif"));
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Mel instance. */
+    /** Injects the Mel instance and initializes Mel startup. */
     public void setMel(Mel m) {
         mel = m;
+        hello();
+    }
+
+    /** Outputs hello message. */
+    private void hello() {
+        assert melImage != null : "Missing image resource";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getMelDialog(mel.hello(), melImage)
+        );
     }
 
     /**
@@ -44,6 +52,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert (melImage != null) || (userImage != null) : "Missing image resource";
         String input = userInput.getText();
         String response = mel.getResponse(input);
         dialogContainer.getChildren().addAll(
