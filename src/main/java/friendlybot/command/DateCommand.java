@@ -1,7 +1,7 @@
 package friendlybot.command;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 import friendlybot.Storage;
 import friendlybot.Ui;
@@ -35,7 +35,7 @@ public class DateCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Task> taskList = tasks.getTasksOnDate(date);
+        List<Task> taskList = tasks.getTasksOnDate(date);
         int numTasks = taskList.size();
         for (int i = 0; i < numTasks; i++) {
             Task task = taskList.get(i);

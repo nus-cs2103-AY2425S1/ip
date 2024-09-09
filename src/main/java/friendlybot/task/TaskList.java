@@ -2,6 +2,7 @@ package friendlybot.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TaskList contains the task list, and handles operations that involve the task list.
@@ -62,20 +63,22 @@ public class TaskList {
      * @param date Date to check whether a Task happens on that date.
      * @return An ArrayList of Tasks that happens on a given date.
      */
-    public ArrayList<Task> getTasksOnDate(LocalDate date) {
-        ArrayList<Task> res = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task instanceof Deadline d) {
-                if (d.by.equals(date)) {
-                    res.add(task);
-                }
-            } else if (task instanceof Event e) {
-                if (e.from.equals(date) || e.to.equals(date) || (e.from.isBefore(date) && e.to.isAfter(date))) {
-                    res.add(task);
-                }
-            }
-        }
-        return res;
+    public List<Task> getTasksOnDate(LocalDate date) {
+        return this.tasks.stream()
+                .filter(task -> (task instanceof Deadline d && dateIsOnDeadline(date, d))
+                        || (task instanceof Event e && dateIsDuringEvent(date, e)))
+                .toList();
+    }
+
+    private boolean dateIsOnDeadline(LocalDate date, Deadline deadline) {
+        return deadline.by.equals(date);
+    }
+
+    private boolean dateIsDuringEvent(LocalDate date, Event event) {
+        boolean dateIsStartOfEvent = event.from.equals(date);
+        boolean dateIsEndOfEvent = event.to.equals(date);
+        boolean dateIsMiddleOfEvent = event.from.isBefore(date) && event.to.isAfter(date);
+        return dateIsStartOfEvent || dateIsEndOfEvent || dateIsMiddleOfEvent;
     }
 
     /**
@@ -114,17 +117,9 @@ public class TaskList {
      * @param keyword A substring of the Task description to look for.
      * @return An ArrayList of Tasks that match the keyword.
      */
-    public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> res = new ArrayList<>();
-        System.out.println(keyword);
-        for (Task task : this.tasks) {
-            String taskDescription = task.description;
-            System.out.println(taskDescription);
-            if (taskDescription.contains(keyword)) {
-                System.out.println("yes");
-                res.add(task);
-            }
-        }
-        return res;
+    public List<Task> findTasks(String keyword) {
+        return this.tasks.stream()
+                .filter(task -> task.description.contains(keyword))
+                .toList();
     }
 }
