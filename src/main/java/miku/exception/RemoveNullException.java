@@ -5,7 +5,6 @@ package miku.exception;
  * Or that the task is invalid
  */
 public class RemoveNullException extends Exception {
-
     private String desc;
 
     /**

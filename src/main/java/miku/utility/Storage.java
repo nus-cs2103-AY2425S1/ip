@@ -60,14 +60,7 @@ public class Storage {
     public void init(TaskList tasks) {
         File file = new File("src/main/resources/data.txt");
         File dir = new File("src/main/resources");
-        if (!dir.exists()) {
-            boolean dirCreated = dir.mkdirs();
-            if (dirCreated) {
-                System.out.println("Directory created\n");
-            } else {
-                System.out.println("Directory not created\n");
-            }
-        }
+        checkDir(dir);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -102,6 +95,17 @@ public class Storage {
                 System.out.println(e.getMessage() + " File not found!");
             }
 
+        }
+    }
+
+    private static void checkDir(File dir) {
+        if (!dir.exists()) {
+            boolean dirCreated = dir.mkdirs();
+            if (dirCreated) {
+                System.out.println("Directory created\n");
+            } else {
+                System.out.println("Directory not created\n");
+            }
         }
     }
 }

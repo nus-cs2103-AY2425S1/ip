@@ -33,14 +33,6 @@ public class DialogPane extends AnchorPane {
         this.box.getChildren().add(node);
     }
 
-    public VBox getBox() {
-        return box;
-    }
-
-    public AnchorPane getAnchorPane() {
-        return anchorPane;
-    }
-
     /**
      * Handle user input and update the UI
      */

@@ -76,10 +76,6 @@ public abstract class Task {
 
     public abstract String storeValue();
 
-    public void print() {
-        System.out.println("[" + done + "] " + desc);
-    }
-
     public String stringValue() {
         return ("[" + done + "] " + desc);
     }
