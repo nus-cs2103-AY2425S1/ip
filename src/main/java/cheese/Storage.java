@@ -12,8 +12,6 @@ import cheese.task.Event;
 import cheese.task.Task;
 import cheese.task.ToDo;
 
-
-
 /**
  * Manipulate file that store tasks information
  */
@@ -82,7 +80,7 @@ public class Storage {
     /**
      * Update task and save to file
      * @param idx idx of task
-     * @param tasks tasklist
+     * @param tasks TaskList
      * @param delete if delete task
      * @throws CheeseException Missing/Incorrect input
      */

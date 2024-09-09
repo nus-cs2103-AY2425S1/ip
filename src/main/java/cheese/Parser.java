@@ -2,6 +2,7 @@ package cheese;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import cheese.command.AddCommand;
 import cheese.command.Command;
@@ -9,6 +10,7 @@ import cheese.command.ExitCommand;
 import cheese.command.FindCommand;
 import cheese.command.ListCommand;
 import cheese.command.MarkCommand;
+import cheese.command.SnoozeCommand;
 import cheese.command.UpdateCommand;
 import cheese.exception.CheeseException;
 import cheese.exception.InputException;
@@ -26,6 +28,9 @@ public class Parser {
     private static final String DATE_FORMAT = "YYYY-MM-DD";
     private static final String DEADLINE_FORMAT = "deadline [name] /by [date]";
     private static final String EVENT_FORMAT = "event [name] /from [date] /to [date]";
+    private static final String RESCHEDULE_FORMAT = "reschedule [index] [date]";
+    private static final String SNOOZE_FORMAT = "snooze [index] [days to delay]";
+
     /**
      * Parse user input
      * @param input full user input
@@ -64,6 +69,10 @@ public class Parser {
             return new UpdateCommand(idx, true);
         case "find":
             return new FindCommand(cleanedInput);
+        case "reschedule":
+            return createReschedule(inputTokens, size);
+        case "snooze":
+            return createSnooze(inputTokens, size);
         default:
             return new AddCommand(new Task(input));
         }
@@ -103,6 +112,48 @@ public class Parser {
         }
         return new Event(words[0].strip(), parseDate(dates[0].strip()), parseDate(dates[1].strip()));
     }
+
+    /**
+     * Returns SnoozeCommand by parsing user input to a date to reschedule
+     * @param inputTokens User input split
+     * @param size size of TaskList
+     * @return SnoozeCommand
+     * @throws CheeseException if incorrect user inputs
+     */
+    public static SnoozeCommand createReschedule(String[] inputTokens, int size) throws CheeseException {
+        if (inputTokens.length < 3) {
+            throw new InputException(RESCHEDULE_FORMAT, "Missing argument");
+        }
+        int idx = getIdx(inputTokens, size);
+        LocalDate date = parseDate(inputTokens[2]);
+
+        //Check if the date has already passed
+        long daysFromNow = LocalDate.now().until(date, ChronoUnit.DAYS);
+        if (daysFromNow < 0) {
+            throw new InputException(RESCHEDULE_FORMAT, "Cannot reschedule to past date");
+        }
+        return new SnoozeCommand(idx, date);
+    }
+
+    /**
+     * Returns SnoozeCommand with days to delay
+     * @param inputTokens String[] of user inputs
+     * @param size of TaskList
+     * @return SnoozeCommand
+     * @throws InputException if user inputs are incorrect
+     */
+    public static SnoozeCommand createSnooze(String[] inputTokens, int size) throws InputException {
+        int idx;
+        long daysDelayed;
+        try {
+            idx = getIdx(inputTokens, size);
+            daysDelayed = convertInt(inputTokens, 2);
+        } catch (CheeseException e) {
+            throw new InputException(SNOOZE_FORMAT, e.getMessage());
+        }
+        return new SnoozeCommand(idx, daysDelayed);
+    }
+
     /**
      * Returns index of item in list requested from user input
      * @param inputTokens input from user
@@ -110,17 +161,25 @@ public class Parser {
      * @throws CheeseException Missing/Incorrect input
      */
     public static int getIdx(String[] inputTokens, int size) throws CheeseException {
-        if (inputTokens.length != 2) {
+        if (inputTokens.length < 2) {
             throw new InputException(EDIT_ITEM_FORMAT, "Need location of cheese");
+        }
+        int idx = convertInt(inputTokens, 1) - 1;
+        if (idx >= size || idx < 0) {
+            throw new CheeseException("Incorrect location of cheese");
+        }
+        return idx;
+    }
+
+    private static int convertInt(String[] inputTokens, int target) throws CheeseException {
+        if (inputTokens.length < target) {
+            throw new CheeseException("Insufficient len to find index");
         }
         int idx;
         try {
-            idx = Integer.parseInt(inputTokens[1]) - 1;
+            idx = Integer.parseInt(inputTokens[target]);
         } catch (NumberFormatException e) {
             throw new CheeseException(e.getMessage());
-        }
-        if (idx >= size || idx < 0) {
-            throw new CheeseException("Incorrect location of cheese");
         }
         return idx;
     }
