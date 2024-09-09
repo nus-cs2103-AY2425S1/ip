@@ -32,12 +32,14 @@ public class TaskManager {
      */
     public String addTask(Task task, boolean isSilent) {
         tasks.add(task);
-        if (!isSilent) {
-            return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size()
-                    + " tasks in the list.";
-        }
+        if (isSilent) {
+            return null;
 
-        return null;
+        }
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size()
+                + " tasks in the list.";
+
+
     }
     /**
      * Lists all the tasks in the task list.
