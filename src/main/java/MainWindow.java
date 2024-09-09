@@ -15,10 +15,6 @@ import javafx.stage.Stage;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-    private static final String USER_STYLE = "-fx-background-color: green;"
-            + " -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;";
-    private static final String BOT_STYLE = "-fx-background-color: blue;"
-            + "-fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;";
     @FXML
     private ScrollPane scrollPane;
     @FXML

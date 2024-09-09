@@ -50,7 +50,7 @@ public class TaskList {
      * @param isDone The status for the task to be marked as.
      * @throws HanaException if task number is invalid.
      */
-    public void markTask(int taskNumber, boolean isDone) throws HanaException {
+    public void markTaskAsDone(int taskNumber, boolean isDone) throws HanaException {
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
             Task task = tasks.get(taskNumber - 1);
             task.setDone(isDone);
