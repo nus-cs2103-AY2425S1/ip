@@ -1,3 +1,3 @@
-T | 0 | yeet
+T | 1 | yeet
 T | 0 | lmao
-T | 0 | hehe
+T | 1 | hehe

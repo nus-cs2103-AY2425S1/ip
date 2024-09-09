@@ -3,7 +3,9 @@ package yapper;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 import yapper.command.CommandType;
 import yapper.command.Parser;
 import yapper.exception.EmptyDescriptionException;
@@ -42,7 +44,7 @@ public class Yapper {
     }
 
     public static void main(String[] args) {
-        new Yapper("data/tasks.txt").run();
+        Main.main(args); 
     }
 
     /**
@@ -50,57 +52,64 @@ public class Yapper {
      * reads commands from the user, processes them, and interacts with the
      * task list and UI. The loop continues until the user issues the 'bye' command.
      */
-    public void run() {
-        ui.printWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.printLine();
-                CommandType command = Parser.parseCommand(fullCommand);
+    // public void run() {
+    //     ui.printWelcome();
+    //     boolean isExit = false;
+    //     while (!isExit) {
+    //         try {
+    //             String fullCommand = ui.readCommand();
+    //             CommandType command = Parser.parseCommand(fullCommand);
+    //             switch (command) {
+    //             case LIST:
+    //                 ui.printTasks(tasks);
+    //                 break;
+    //             case MARK:
+    //                 handleMark(fullCommand);
+    //                 break;
+    //             case UNMARK:
+    //                 handleUnmark(fullCommand);
+    //                 break;
+    //             case TODO:
+    //                 handleTodo(fullCommand);
+    //                 break;
+    //             case DEADLINE:
+    //                 handleDeadline(fullCommand);
+    //                 break;
+    //             case EVENT:
+    //                 handleEvent(fullCommand);
+    //                 break;
+    //             case DELETE:
+    //                 handleDelete(fullCommand);
+    //                 break;
+    //             case BYE:
+    //                 isExit = true;
+    //                 break;
+    //             case FIND:
+    //                 handleFind(fullCommand);
+    //                 break;
+    //             default:
+    //                 throw new UnknownCommandException();
+    //             }
 
-                switch (command) {
-                case LIST:
-                    ui.printTasks(tasks);
-                    break;
-                case MARK:
-                    handleMark(fullCommand);
-                    break;
-                case UNMARK:
-                    handleUnmark(fullCommand);
-                    break;
-                case TODO:
-                    handleTodo(fullCommand);
-                    break;
-                case DEADLINE:
-                    handleDeadline(fullCommand);
-                    break;
-                case EVENT:
-                    handleEvent(fullCommand);
-                    break;
-                case DELETE:
-                    handleDelete(fullCommand);
-                    break;
-                case BYE:
-                    isExit = true;
-                    ui.printGoodbye();
-                    break;
-                case FIND:
-                    handleFind(fullCommand);
-                    break;
-                default:
-                    throw new UnknownCommandException();
-                }
+    //             storage.save(tasks.getTasks());
+    //         } catch (YapperException | IOException e) {
+    //             ui.printError(e.getMessage());
+    //         } 
+    //     }
+    // }
 
-                storage.save(tasks.getTasks());
-            } catch (YapperException | IOException e) {
-                ui.printError(e.getMessage());
-            } finally {
-                ui.printLine();
-            }
-        }
-    }
-
+    /*
+     * The following methods handle the various commands that the user can issue.
+     * Each method takes the full command string entered by the user, processes it,
+     * and returns a response message to be displayed to the user.
+     */
+  /**
+ * Handles the "mark" command by marking a task as done.
+ *
+ * @param fullCommand The full command string entered by the user.
+ * @return A confirmation message that the task has been marked as done.
+ * @throws YapperException If the task number is invalid or no task number is provided.
+ */
     private String handleMark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -112,9 +121,17 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
-        return "Nice! I've marked this task as done:\n  " + task;
+        ui.printTaskMarked(task);
+        return "Awesome job, Boss! I've marked this task as complete:\n  " + task;
     }
 
+    /**
+     * Handles the "unmark" command by marking a task as not done.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the task has been marked as not done.
+     * @throws YapperException If the task number is invalid or no task number is provided.
+     */
     private String handleUnmark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -126,9 +143,16 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
-        return "OK, I've marked this task as not done yet:\n  " + task;
+        return "Understood, Boss! I've marked this task as not done yet:\n  " + task;
     }
 
+    /**
+     * Handles the "todo" command by adding a new Todo task.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the Todo task has been added.
+     * @throws YapperException If the task description is empty.
+     */
     private String handleTodo(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
@@ -136,9 +160,16 @@ public class Yapper {
         }
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        return "Got it, Boss! I've added this task to your list:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
     }
 
+    /**
+     * Handles the "deadline" command by adding a new Deadline task.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the Deadline task has been added.
+     * @throws YapperException If the deadline description or date is missing.
+     */
     private String handleDeadline(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /by ");
         if (parts.length < 2) {
@@ -147,9 +178,16 @@ public class Yapper {
         String description = parts[0].substring(9).trim();
         Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        return "Roger that, Boss! Deadline task added:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
     }
 
+    /**
+     * Handles the "event" command by adding a new Event task.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the Event task has been added.
+     * @throws YapperException If the event description, start time, or end time is missing.
+     */
     private String handleEvent(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /from ");
         if (parts.length < 2) {
@@ -157,14 +195,21 @@ public class Yapper {
         }
         String[] times = parts[1].split(" /to ");
         if (times.length < 2) {
-            throw new YapperException("The event command requires both a start and end time.");
+            throw new YapperException("Boss, the event command needs both a start and end time.");
         }
         String description = parts[0].substring(6).trim();
         Task task = new Event(description, times[0], times[1]);
         tasks.addTask(task);
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        return "Got it, Boss! Event added to your schedule:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
     }
 
+    /**
+     * Handles the "delete" command by removing a task from the list.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the task has been deleted.
+     * @throws YapperException If the task number is invalid or no task number is provided.
+     */
     private String handleDelete(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -176,9 +221,16 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
-        return "Noted. I've removed this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        return "Task removed, Boss! I've taken care of this:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks left on the list.";
     }
 
+    /**
+     * Handles the "find" command by searching for tasks that match the given keyword.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A list of matching tasks or a message if no tasks match the keyword.
+     * @throws YapperException If no keyword is provided for the search.
+     */
     private String handleFind(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
@@ -188,15 +240,16 @@ public class Yapper {
         List<Task> matchingTasks = tasks.findTasks(keyword);
 
         if (matchingTasks.isEmpty()) {
-            return "I couldn't find any tasks matching the keyword '" + keyword + "'.";
+            return "Sorry, Boss. I couldn't find any tasks matching the keyword '" + keyword + "'.";
         } else {
-            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:");
+            StringBuilder result = new StringBuilder("Here are the matching tasks in your list, Boss:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 result.append("\n").append(i + 1).append(". ").append(matchingTasks.get(i));
             }
             return result.toString();
         }
     }
+
 
     /**
      * Handles user input and returns the response from Bopes.
@@ -259,19 +312,13 @@ public class Yapper {
      *
      * @return The goodbye message to be displayed to the user.
      */
-    private String exitApplication() {
+private String exitApplication() {
+    String goodbyeMessage = "Bye Boss! Hope to see you again soon! Exiting in 3 Seconds!";
 
-        String goodbyeMessage = "Bye Boss! Hope to see you again soon! Exiting in 3 Secodns!";
+    PauseTransition delay = new PauseTransition(Duration.seconds(3));
+    delay.setOnFinished(event -> Platform.exit());
+    delay.play();
 
-        Platform.runLater(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            Platform.exit();
-        });
-
-        return goodbyeMessage;
-    }
+    return goodbyeMessage;
+}
 }
