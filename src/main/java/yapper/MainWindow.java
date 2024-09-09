@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 public class MainWindow {
 
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/yapper.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -17,11 +19,7 @@ public class MainWindow {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Yapper yapper;
-
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/yapper.png"));
 
     @FXML
     public void initialize() {

@@ -6,8 +6,6 @@ import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
-import yapper.command.CommandType;
-import yapper.command.Parser;
 import yapper.exception.EmptyDescriptionException;
 import yapper.exception.InvalidTaskNumberException;
 import yapper.exception.UnknownCommandException;
@@ -44,73 +42,16 @@ public class Yapper {
     }
 
     public static void main(String[] args) {
-        Main.main(args); 
+        Main.main(args);
     }
 
     /**
-     * Runs the main loop of the Yapper application. This method continuously
-     * reads commands from the user, processes them, and interacts with the
-     * task list and UI. The loop continues until the user issues the 'bye' command.
+     * Handles the "mark" command by marking a task as done.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the task has been marked as done.
+     * @throws YapperException If the task number is invalid or no task number is provided.
      */
-    // public void run() {
-    //     ui.printWelcome();
-    //     boolean isExit = false;
-    //     while (!isExit) {
-    //         try {
-    //             String fullCommand = ui.readCommand();
-    //             CommandType command = Parser.parseCommand(fullCommand);
-    //             switch (command) {
-    //             case LIST:
-    //                 ui.printTasks(tasks);
-    //                 break;
-    //             case MARK:
-    //                 handleMark(fullCommand);
-    //                 break;
-    //             case UNMARK:
-    //                 handleUnmark(fullCommand);
-    //                 break;
-    //             case TODO:
-    //                 handleTodo(fullCommand);
-    //                 break;
-    //             case DEADLINE:
-    //                 handleDeadline(fullCommand);
-    //                 break;
-    //             case EVENT:
-    //                 handleEvent(fullCommand);
-    //                 break;
-    //             case DELETE:
-    //                 handleDelete(fullCommand);
-    //                 break;
-    //             case BYE:
-    //                 isExit = true;
-    //                 break;
-    //             case FIND:
-    //                 handleFind(fullCommand);
-    //                 break;
-    //             default:
-    //                 throw new UnknownCommandException();
-    //             }
-
-    //             storage.save(tasks.getTasks());
-    //         } catch (YapperException | IOException e) {
-    //             ui.printError(e.getMessage());
-    //         } 
-    //     }
-    // }
-
-    /*
-     * The following methods handle the various commands that the user can issue.
-     * Each method takes the full command string entered by the user, processes it,
-     * and returns a response message to be displayed to the user.
-     */
-
-  /**
- * Handles the "mark" command by marking a task as done.
- *
- * @param fullCommand The full command string entered by the user.
- * @return A confirmation message that the task has been marked as done.
- * @throws YapperException If the task number is invalid or no task number is provided.
- */
     private String handleMark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -313,13 +254,13 @@ public class Yapper {
      *
      * @return The goodbye message to be displayed to the user.
      */
-private String exitApplication() {
-    String goodbyeMessage = "Bye Boss! Hope to see you again soon! Exiting in 3 Seconds!";
+    private String exitApplication() {
+        String goodbyeMessage = "Bye Boss! Hope to see you again soon! Exiting in 3 Seconds!";
 
-    PauseTransition delay = new PauseTransition(Duration.seconds(3));
-    delay.setOnFinished(event -> Platform.exit());
-    delay.play();
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
 
-    return goodbyeMessage;
-}
+        return goodbyeMessage;
+    }
 }
