@@ -9,12 +9,13 @@ public class ToDo extends Task {
 
     ToDo(String inputLine) {
         // inside the program this will be called
-        super(createToDo(inputLine).getDescription(), createToDo(inputLine).getSymbol());
+        this(createToDo(inputLine).getDescription(),
+                createToDo(inputLine).getSymbol());
     }
 
     ToDo(String description, String symbol) {
         // this is used inside the static method: createToDo
-        super(description, symbol);
+        super(description, symbol, null);
     }
 
 
