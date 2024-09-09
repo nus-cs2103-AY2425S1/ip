@@ -34,7 +34,18 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> results = new ArrayList<>();
+        this.filterTasks(results, tasks);
+        String response = ui.printFindResultsToString(results);
+        return response;
+    }
 
+    /**
+     * Filters and add specified task into empty arraylist.
+     *
+     * @param results ArrayList containing filtered tasks.
+     * @param tasks list containing all tasks.
+     */
+    public void filterTasks(ArrayList<Task> results, TaskList tasks) {
         for (int i = 1; i < this.words.length; i++) {
             for (int j = 0; j < tasks.getLength(); j++) {
                 Task task = tasks.getTask(j);
@@ -43,11 +54,5 @@ public class FindCommand extends Command {
                 }
             }
         }
-        String response = "Here are the matching tasks in your list:";
-        for (int i = 0; i < results.size(); i++) {
-            String message = String.format("\n    %d. %s", i + 1, results.get(i).toString());
-            response += message;
-        }
-        return response;
     }
 }
