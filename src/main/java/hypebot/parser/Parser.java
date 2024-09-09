@@ -16,12 +16,12 @@ import static hypebot.common.Messages.*;
 public class Parser {
     private static final int INDEX_OFFSET = 1;
 
-    private static int getIndexOffset(String line) throws NumberFormatException, IndexOutOfBoundsException {
+    private static int getIndexOffset(String line) throws NumberFormatException {
         return Integer.parseInt(line.strip()) - INDEX_OFFSET;
     }
 
     public static Command parse(String fullCommand) throws ParseException,
-            NumberFormatException, IndexOutOfBoundsException, DateTimeParseException {
+            NumberFormatException, DateTimeParseException, IndexOutOfBoundsException {
         String[] splitLineForDates = fullCommand.split(" /");
         String[] commandAndTaskName = splitLineForDates[0].split(" ");
         String command = commandAndTaskName[0];
@@ -62,8 +62,6 @@ public class Parser {
                 return new MarkCommand(idxToMark);
             } catch (NumberFormatException e) {
                 throw new NumberFormatException(TASK_NUMBER_TO_MARK_MISSING_ERROR);
-            } catch (IndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException(TASK_NUMBER_TO_MARK_OUT_OF_BOUNDS_ERROR);
             }
         case "unmark":
             try {
@@ -71,8 +69,6 @@ public class Parser {
                 return new UnmarkCommand(idxToUnmark);
             } catch (NumberFormatException e) {
                 throw new NumberFormatException(TASK_NUMBER_TO_UNMARK_MISSING_ERROR);
-            } catch (IndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException(TASK_NUMBER_TO_UNMARK_OUT_OF_BOUNDS_ERROR);
             }
         case "delete":
             try {
@@ -80,8 +76,6 @@ public class Parser {
                 return new DeleteCommand(idxToDelete);
             } catch (NumberFormatException e) {
                 throw new NumberFormatException(TASK_NUMBER_TO_DELETE_MISSING_ERROR);
-            } catch (IndexOutOfBoundsException e) {
-                throw new IndexOutOfBoundsException(TASK_NUMBER_TO_DELETE_OUT_OF_BOUNDS_ERROR);
             }
         case "happening":
             if (splitLineForDates.length < 2) {

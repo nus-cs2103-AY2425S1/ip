@@ -89,7 +89,7 @@ public class Ui {
     }
 
     public void showUnknownCommand(String command) {
-        out.println(addDividerLine(UNKNOWN_COMMAND_ERROR_INTRO + command + UNKNOWN_COMMAND_ERROR_OUTRO));
+        out.println(addDividerLineError(UNKNOWN_COMMAND_ERROR_INTRO + command + UNKNOWN_COMMAND_ERROR_OUTRO));
     }
 
     public void showGreeting() {

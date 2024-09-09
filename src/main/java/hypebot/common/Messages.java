@@ -18,7 +18,7 @@ public class Messages {
     public static final String ERROR_INTRO = "I might be tripping bro, my bad, my bad - \n";
     public static final String LOADING_TASKLIST_MESSAGE = "LOADING YOUR TASKS IN /data/tasklist.txt...\n";
     public static final String LOADING_TASKLIST_ERROR = "but I couldn't find the file with your saved tasks.\n";
-    public static final String SAVING_TASKLIST_MESSAGE = "Alright homie, saving your tasks to /data/tasklist.txt\n";
+    public static final String SAVING_TASKLIST_MESSAGE = "Alright homie, saving your tasks to /data/tasklist.txt...\n";
     public static final String SAVING_TASKLIST_ERROR = "but I couldn't find the file to save your tasks.\n";
     public static final String LIST_INTRO = "ALRIGHT, Here's that list!\n";
     public static final String HAPPENING_INTRO = "ALRIGHT, Here's everything that's going down on ";
@@ -29,16 +29,16 @@ public class Messages {
     public static final String UNMARKED_TASK_MESSAGE = "AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  ";
     public static final String NUMBER_OF_TASKS_LEFT_INTRO = "!\nYOU'VE NOW GOT ";
     public static final String NUMBER_OF_TASKS_LEFT_OUTRO = " TASKS TO GO!\n";
-    public static final String TASK_NUMBER_TO_MARK_MISSING_ERROR = "try indicating the index of the task you wanna mark "
-            + "CONQUERED as a number!\n";
+    public static final String TASK_NUMBER_TO_MARK_MISSING_ERROR = "try indicating the index of the task you wanna "
+            + "mark CONQUERED as a number!\n";
     public static final String TASK_NUMBER_TO_MARK_OUT_OF_BOUNDS_ERROR = "try indicating the index of an existing task "
             + "you wanna mark CONQUERED!\n";
-    public static final String TASK_NUMBER_TO_UNMARK_MISSING_ERROR = "try indicating the index of the task you wanna TAKE "
-            + "ON AGAIN as a number!\n";
+    public static final String TASK_NUMBER_TO_UNMARK_MISSING_ERROR = "try indicating the index of the task you wanna "
+            + "TAKE ON AGAIN as a number!\n";
     public static final String TASK_NUMBER_TO_UNMARK_OUT_OF_BOUNDS_ERROR = "try indicating the index of an existing "
             + "task you wanna TAKE ON AGAIN!\n";
-    public static final String TASK_NUMBER_TO_DELETE_MISSING_ERROR = "try indicating the index of the task you wanna delete "
-            + "as a number!\n";
+    public static final String TASK_NUMBER_TO_DELETE_MISSING_ERROR = "try indicating the index of the task you wanna "
+            + "delete as a number!\n";
     public static final String TASK_NUMBER_TO_DELETE_OUT_OF_BOUNDS_ERROR = "try indicating the index of an existing "
             + "task you wanna delete!\n";
     public static final String DUE_DATE_MISSING_ERROR = """
