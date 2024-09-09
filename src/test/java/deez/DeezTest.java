@@ -24,6 +24,7 @@ public class DeezTest {
     public void testAddTodo() throws DeezException {
         Properties props = new Properties();
         props.setProperty("name", "Buy milk");
+        props.setProperty("tags", "chore");
         deez.handleCommand(new Pair<>(Command.TODO, props));
         assertEquals(1, deez.taskList.size());
     }
@@ -34,6 +35,7 @@ public class DeezTest {
         Properties props = new Properties();
         props.setProperty("name", "Finish project");
         props.setProperty("by", "2025-01-01 1200");
+        props.setProperty("tags", "school");
         deez.handleCommand(new Pair<>(Command.DEADLINE, props));
         assertEquals(1, deez.taskList.size());
     }
@@ -45,6 +47,7 @@ public class DeezTest {
         props.setProperty("name", "Meeting");
         props.setProperty("from", "2025-01-01 1000");
         props.setProperty("to", "2025-01-01 1200");
+        props.setProperty("tags", "work");
         deez.handleCommand(new Pair<>(Command.EVENT, props));
         assertEquals(1, deez.taskList.size());
     }
@@ -55,6 +58,7 @@ public class DeezTest {
         Properties props = new Properties();
         props.setProperty("index", "1");
         props.setProperty("name", "example");
+        props.setProperty("tags", "work");
         deez.handleCommand(new Pair<>(Command.TODO, props));
         deez.handleCommand(new Pair<>(Command.MARK, props));
         assertEquals(true, deez.taskList.get(0).isDone());
@@ -68,6 +72,7 @@ public class DeezTest {
         Properties props = new Properties();
         props.setProperty("index", "1");
         props.setProperty("name", "example");
+        props.setProperty("tags", "work");
         deez.handleCommand(new Pair<>(Command.TODO, props));
         deez.handleCommand(new Pair<>(Command.DELETE, props));
         assertEquals(0, deez.taskList.size());
@@ -80,6 +85,7 @@ public class DeezTest {
         props.setProperty("name", "Meeting");
         props.setProperty("from", "2025-01-01 1200");
         props.setProperty("to", "2025-01-01 1000");
+        props.setProperty("tags", "work");
         assertThrows(DeezException.class, () -> deez.handleCommand(new Pair<>(Command.EVENT, props)));
     }
 }

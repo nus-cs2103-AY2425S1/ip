@@ -99,11 +99,18 @@ public class Deez {
      */
     private void handleAddTodo(Properties props) throws DeezException {
         String name = props.getProperty("name");
+        String tags = props.getProperty("tags");
         if (name.isBlank()) {
             throw new DeezException("Please provide a description for the todo.");
         }
         Todo t = new Todo(props.getProperty("name"));
+
+        if (!tags.isBlank()) {
+            t.setTags(tags.split(","));
+        }
+
         taskList.addTask(t);
+
         ui.say("Easy. I have added your task.", t.toString(),
             "You have " + taskList.size() + " tasks in the " + "list");
     }
@@ -119,6 +126,12 @@ public class Deez {
             LocalDateTime byDateTime = Parser.parseDateTimeString(props.getProperty("by"));
 
             Deadline d = new Deadline(props.getProperty("name"), byDateTime);
+
+            String tags = props.getProperty("tags");
+            if (!tags.isBlank()) {
+                d.setTags(tags.split(","));
+            }
+
             taskList.addTask(d);
             ui.say("Donezo. I have added your task.", d.toString(),
                 "You have " + taskList.size() + " tasks in the " + "list");
@@ -138,12 +151,16 @@ public class Deez {
         try {
             LocalDateTime startDate = Parser.parseDateTimeString(props.getProperty("from"));
             LocalDateTime endDate = Parser.parseDateTimeString(props.getProperty("to"));
+            String tags = props.getProperty("tags");
 
             if (startDate.isAfter(endDate)) {
                 throw new DeezException("Start date must be before end date.", "Usage:",
                     "event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
             }
             Event e = new Event(props.getProperty("name"), startDate, endDate);
+            if (!tags.isBlank()) {
+                e.setTags(tags.split(","));
+            }
             taskList.addTask(e);
             ui.say("Event added", e.toString(), "You have " + taskList.size() + " tasks in the " + "list");
         } catch (DateTimeParseException e) {

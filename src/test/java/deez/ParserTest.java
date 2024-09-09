@@ -46,7 +46,7 @@ public class ParserTest {
     @Test
     public void testParseEvent() {
         // Arrange
-        String input = "event project meeting /from 2019-10-15 1800 /to 2019-10-16 1900";
+        String input = "event project meeting /from 2019-10-15 1800 /to 2019-10-16 1900 #work #important";
         Pair<Command, Properties> result = Parser.parse(input);
 
         // Assert
@@ -55,12 +55,13 @@ public class ParserTest {
         assertEquals("project meeting", props.getProperty("name"));
         assertEquals("2019-10-15 1800", props.getProperty("from"));
         assertEquals("2019-10-16 1900", props.getProperty("to"));
+        assertEquals("work,important", props.getProperty("tags"));
     }
 
     @Test
     public void testParseDeadline() {
         // Arrange
-        String input = "deadline return book /by 2019-10-15 1800";
+        String input = "deadline return book /by 2019-10-15 1800 #library";
         Pair<Command, Properties> result = Parser.parse(input);
 
         // Assert
@@ -68,6 +69,7 @@ public class ParserTest {
         Properties props = (Properties) result.getValue();
         assertEquals("return book", props.getProperty("name"));
         assertEquals("2019-10-15 1800", props.getProperty("by"));
+        assertEquals("library", props.getProperty("tags"));
     }
 
     @Test
