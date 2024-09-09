@@ -24,10 +24,10 @@ public class TaskList {
      *
      * @return List of tasks in text file format.
      */
-    public String toText() {
+    public String toTextFile() {
         StringBuilder text = new StringBuilder();
         for (Task task : tasks) {
-            text.append(task.toText()).append('\n');
+            text.append(task.toTextFile()).append('\n');
         }
         return text.toString();
     }

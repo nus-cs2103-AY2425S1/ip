@@ -44,9 +44,9 @@ public class Event extends Task {
     }
 
     @Override
-    public String toText() {
+    public String toTextFile() {
         return String.format("E | %s | %s | %s",
-                super.toText(),
+                super.toTextFile(),
                 from.format(inputFormatter),
                 to.format(inputFormatter));
     }
