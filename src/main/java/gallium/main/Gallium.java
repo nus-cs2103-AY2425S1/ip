@@ -1,5 +1,6 @@
 package gallium.main;
 
+
 import gallium.command.Command;
 
 /**
@@ -10,6 +11,7 @@ public class Gallium {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private boolean isExit;
 
     /**
      * Constructs a Gallium object with the specified file path for storage.
@@ -20,6 +22,7 @@ public class Gallium {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load(ui));
+        isExit = false;
     }
 
     /**
@@ -27,9 +30,8 @@ public class Gallium {
      * until the bye command is executed.
      */
     public void run() {
-        boolean isExit = false;
         while (!isExit) {
-            String message = ui.readNextLine();
+            String message = "";
             Parser parser = new Parser(ui);
             Command c = parser.parse(message);
             try {
@@ -41,6 +43,22 @@ public class Gallium {
         }
         storage.writeFile(ui);
         ui.closeScanner();
+    }
+
+    public String getResponse(String input) {
+        if (isExit) {
+            return "";
+        }
+        try {
+            ui.resetOutput();
+            Parser parser = new Parser(ui);
+            Command c = parser.parse(input);
+            c.execute(taskList, ui, storage);
+            isExit = c.isExit();
+            return ui.getOutput();
+        } catch (GalliumException e) {
+            return e.getMessage();
+        }
     }
 
     /**

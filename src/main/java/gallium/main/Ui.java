@@ -16,29 +16,43 @@ public class Ui {
 
     private Scanner userInput;
     private static final String DIVIDER = "____________________________________________________________";
-
+    private StringBuilder output;
     /**
      * Constructs a Ui object and initializes the Scanner for user input.
      * Displays welcome message.
      */
     public Ui() {
         this.userInput = new Scanner(System.in);
-        System.out.println("Hello from \n");
-        System.out.println("  ____       _ _ _                \r\n" + //
+        this.output = new StringBuilder();
+        printHelloMessage();
+    }
+    
+    void resetOutput() {
+        this.output.setLength(0);
+    }
+
+    String getOutput() {
+        return this.output.toString();
+    }
+
+    private void append(String str) {
+        this.output.append(str);
+    }
+
+    public String printHelloMessage() {
+        this.append("Hello from \n");
+        this.append("  ____       _ _ _                \r\n" + //
                 " / ___| __ _| | (_)_   _ _ __ ___  \r\n" + //
                 "| |  _ / _` | | | | | | | '_ ` _ \\ \r\n" + //
                 "| |_| | (_| | | | | |_| | | | | | |\r\n" + //
                 " \\____|\\__,_|_|_|_|\\__,_|_| |_| |_|");
-        System.out.println("Hello! I am Gallium. What can I do for you?");
+        this.append("Hello! I am Gallium. What can I do for you?");
+        return this.getOutput();
     }
 
-    /**
-     * Reads the next line of input from the user.
-     * 
-     * @return The next line of input.
-     */
-    public String readNextLine() {
-        return userInput.nextLine();
+    public String printInputAgainMessage() {
+        this.append("What can I do for you?");
+        return this.getOutput();
     }
 
     /**
@@ -54,7 +68,7 @@ public class Ui {
      * @param message The message to be printed.
      */
     public void printAnyMessage(String message) {
-        System.out.println("    " + DIVIDER + "\n    " + message + "\n    " + DIVIDER);
+        append(message);
     }
 
     /**
@@ -63,10 +77,9 @@ public class Ui {
      * @param taskList The TaskList to be printed.
      */
     public void printList(TaskList taskList) {
-        String message = "Here are the tasks in your list:";
-        System.out.println("    " + DIVIDER + "\n    " + message);
-        System.out.println(taskList.toStringIndent());
-        System.out.println("\n    " + DIVIDER);
+        String message = "Here are the tasks in your list: \n";
+        printAnyMessage(message);
+        printAnyMessage(taskList.toStringIndent());
     }
 
     /**
@@ -76,11 +89,9 @@ public class Ui {
      * @param task   The Task that was marked or unmarked.
      */
     public void printMarkMessage(boolean isMark, Task task) {
-        System.out.println("    " + DIVIDER);
-        System.out.println("    " + (isMark ? "Nice! I've marked this task as done: "
+        append("    " + (isMark ? "Nice! I've marked this task as done: "
                 : "OK, I've marked this task as not done yet: ") + "\n" + "    "
                 + task.toString());
-        System.out.println("    " + DIVIDER + "\n    ");
     }
 
     /**
@@ -89,10 +100,9 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        System.out.println("    " + DIVIDER + "\n    " + "Got it. I've added this task: \n" + "    "
+        append("Got it. I've added this task: \n"
                 + todo.toString()
-                + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
-                + DIVIDER
+                + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
     }
 
@@ -103,11 +113,9 @@ public class Ui {
      */
     public void printAddDeadline(Deadline deadline) {
         System.out
-                .println("    " + DIVIDER + "\n    " + "Got it. I've added this task: \n"
-                        + "    " + deadline.toString()
-                        + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n"
-                        + "    "
-                        + DIVIDER
+                .println("Got it. I've added this task: \n"
+                        + deadline.toString()
+                        + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
     }
 
@@ -117,11 +125,9 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        System.out.println("    " + DIVIDER + "\n    " + "Got it. I've added this task: \n" + "    "
+        append("Got it. I've added this task: \n"
                 + event.toString()
-                + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
-                + DIVIDER
-                + "\n");
+                + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
 
     /**
@@ -130,13 +136,10 @@ public class Ui {
      * @param task The Task that was deleted.
      */
     public void printDelete(Task task) {
-        System.out.println("    " + DIVIDER);
-        System.out.println("    " + "Noted. I've removed this task:" + "\n" + "    "
+        append("Noted. I've removed this task:" + "\n"
                 + task.toString());
-        System.out.println(
-                "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
+        append("\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                         + " in the list.\n");
-        System.out.println("    " + DIVIDER + "\n    ");
     }
 
     /**
@@ -145,9 +148,8 @@ public class Ui {
      * @param tasks The tasks that match the date.
      */
     public void printMatchingDate(String tasks) {
-        System.out.println("    " + DIVIDER + "\n    Deadlines/Events that match the date: ");
-        System.out.println(tasks);
-        System.out.println("\n    " + DIVIDER);
+        append("Deadlines/Events that match the date: ");
+        append(tasks);
     }
 
     /**
@@ -159,9 +161,8 @@ public class Ui {
         if (tasks.equals("")) {
             printAnyMessage("Aw man no matching tasks :(");
         } else {
-            System.out.println("    " + DIVIDER + "\n    Matching tasks in your list: ");
-            System.out.println(tasks);
-            System.out.println("\n    " + DIVIDER);
+            append("Matching tasks in your list: ");
+            append(tasks);
         }
     }
 
@@ -206,7 +207,7 @@ public class Ui {
      */
     public void showWrongIndex() {
         printAnyMessage("Please put a number between 1 and " + (Task.count - 1)
-                + "!" + "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
+                + "!" + "\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                 + " in the list.");
     }
 

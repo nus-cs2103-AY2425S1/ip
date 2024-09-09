@@ -1,5 +1,6 @@
 package gallium.main;
 
+
 /**
  * Represents an exception specific to Gallium.
  * This exception is thrown when an error occurs within Gallium.

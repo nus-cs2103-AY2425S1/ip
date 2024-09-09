@@ -1,18 +1,25 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Gallium",
-            "request": "launch",
-            "mainClass": "Gallium",
-            "projectName": "ip_edbe7117"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "gallium.main.Gallium"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Gallium",
+      "request": "launch",
+      "mainClass": "gallium.main.java.Gallium",
+      "projectName": "ip"
+    },
+    {
+      "type": "java",
+      "name": "Gallium",
+      "request": "launch",
+      "mainClass": "Gallium",
+      "projectName": "ip_edbe7117"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "gallium.main.Gallium"
+    }
+  ]
 }

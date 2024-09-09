@@ -5,6 +5,7 @@ import gallium.command.ByeCommand;
 import gallium.command.Command;
 import gallium.command.DateCommand;
 import gallium.command.DeleteCommand;
+import gallium.command.ErrorCommand;
 import gallium.command.FindCommand;
 import gallium.command.ListCommand;
 import gallium.command.MarkCommand;
@@ -48,7 +49,6 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
-        while (!message.equals(BYE)) {
             try {
                 switch (message) {
                 case LIST:
@@ -74,6 +74,8 @@ public class Parser {
                         return new DateCommand(message);
                     } else if (message.startsWith(FIND)) {
                         return new FindCommand(message);
+                    } else if (message.startsWith(BYE)) {
+                        return new ByeCommand();
                     } else {
                         throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                     }
@@ -92,9 +94,7 @@ public class Parser {
                     ui.showWrongIndex();
                 }
             }
-            message = ui.readNextLine();
-        }
-        return new ByeCommand();
+            return new ErrorCommand();
     }
 
 }

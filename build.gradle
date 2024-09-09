@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("gallium.main.Gallium")
+    mainClass.set("gallium.main.Launcher")
 }
 
 shadowJar {
