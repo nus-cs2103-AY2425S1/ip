@@ -12,8 +12,8 @@ import bob.ui.Ui;
  * Class representing the deadline command.
  */
 public class Deadline extends Command {
-    private String description;
-    private LocalDateTime by;
+    private final String description;
+    private final LocalDateTime by;
 
     /**
      * Creates a new deadline command.
@@ -24,13 +24,6 @@ public class Deadline extends Command {
     public Deadline(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;
-    }
-
-    private static String addTask(TaskList list, Task t) {
-        String response = "Got it. I've added this task:\n" + t
-                    + "Now you have " + list.size() + (list.size() == 1 ? " task in the list."
-                    : " tasks in the list.");
-        return response;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class FileReading extends Storage {
     /**
      * Creates a new FileReading object with a given filepath.
      *
-     * @param filePath
+     * @param filePath the filepath to the file.
      */
     public FileReading(String filePath) {
         super(filePath);

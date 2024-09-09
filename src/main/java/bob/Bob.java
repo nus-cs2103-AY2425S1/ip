@@ -24,6 +24,7 @@ public class Bob {
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             tasks = new TaskList(storage.load());
         } catch (BobException e) {
