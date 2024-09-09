@@ -84,7 +84,7 @@ public class TaskList {
      *
      * @param value description of task
      * @param by datetime
-     * @return
+     * @return status to be printed by Ui
      */
     public String addTask(String value, LocalDateTime by) {
         Task toAdd = new Deadline(value, by, nextIsDoneStatus);
