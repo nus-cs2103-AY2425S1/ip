@@ -50,12 +50,17 @@ public class Fret {
     public Pair<String, Boolean> getResponse(String input) {
         Command userCommand = fretUi.processUserInput(input);
         boolean isExit = userCommand.isExitCommand();
+
+        if (isExit) {
+            storage.writeTasksToMemory(userTasks.taskListToFile());
+        }
+        
         String result = userCommand.execute(userTasks);
         return new Pair<String, Boolean>(result, isExit);
         // fretUi.printBotOutputString(result);
     }
 
-    public static void main(String[] args) {
-        new Fret("data/taskList.txt").run();
-    }
+    // public static void main(String[] args) {
+    //     new Fret("data/taskList.txt").run();
+    // }
 }

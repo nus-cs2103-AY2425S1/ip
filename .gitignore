@@ -19,4 +19,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 src/main/java/input.txt
 src/main/java/fret/Fret_og.java
 
-src/main/data
+data/

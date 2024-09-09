@@ -1,18 +1,15 @@
 import java.io.IOException;
 
 import javafx.application.Application;
-
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import fret.Fret;
 
 public class Main extends Application {
 
-    private Fret fret = new Fret("/data/tasks.txt");
+    private Fret fret = new Fret("data/taskList.txt");
 
     @Override
     public void start(Stage stage) {
