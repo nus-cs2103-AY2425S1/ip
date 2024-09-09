@@ -13,6 +13,7 @@ import meep.ui.Ui;
  * It is responsible for initializing the necessary components and handling the main program flow.
  */
 public class Meep {
+    private static final String DEFAULT_FILE_PATH = "data.txt";
     private final Storage storage;
     private TaskList taskList;
     private final Ui ui;
@@ -31,9 +32,27 @@ public class Meep {
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (MeepException e) {
-            ui.errorLoadingTask();
+            System.out.println(ui.errorLoadingTask());
             taskList = new TaskList();
         }
+    }
+
+    public Meep() {
+        this(DEFAULT_FILE_PATH);
+    }
+
+    public String getResponse(String input) {
+        try {
+            String output = this.parser.checkCommand(input, taskList);
+            storage.saveTasks(taskList);
+            return output;
+        } catch (MeepException e) {
+            return ui.error();
+        }
+    }
+
+    public String getGreeting() {
+        return ui.greeting();
     }
 
     /**
@@ -42,21 +61,20 @@ public class Meep {
      * It saves the tasks after each command is executed and handles exceptions by displaying error messages.
      */
     public void run() {
-        ui.greeting();
+        System.out.println(ui.greeting());
         Scanner scanner = new Scanner(System.in);
-        boolean isDone = false;
-        // keep scanning for user input
-        while (!isDone) {
+        while (scanner.hasNext()) {
+            String input = scanner.nextLine();
             try {
-                ui.inputWaiting();
-                String input = scanner.nextLine();
-                isDone = this.parser.checkCommand(input, taskList);
+                System.out.println(this.parser.checkCommand(input, taskList));
                 storage.saveTasks(taskList);
+                if (input.equalsIgnoreCase("bye")) {
+                    return;
+                }
             } catch (MeepException e) {
-                ui.error();
+                System.out.println(ui.error());
             }
         }
-        scanner.close();
     }
 
     public static void main(String[] args) {

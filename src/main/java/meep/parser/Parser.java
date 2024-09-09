@@ -86,43 +86,42 @@ public class Parser {
 
     /**
      * Processes the user's input, executes the corresponding command on the
-     * {@code TaskList}, and returns {@code true} if the command is "BYE", signaling
-     * the end of the program.
+     * {@code TaskList}, and returns ui responses
      *
      * @param input    The user's input string.
      * @param taskList The {@code TaskList} to perform actions on.
-     * @return {@code true} if the input command is "BYE", {@code false} otherwise.
+     * @return response from Ui class based on the user's input
      */
-    public boolean checkCommand(String input, TaskList taskList) {
+    public String checkCommand(String input, TaskList taskList) {
         if (CommandParser.checkEqualCommand(input, Command.BYE.toString())) {
-            ui.bye();
-            return true;
+            return ui.bye();
 
         } else if (CommandParser.checkCommand(input, Command.MARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
-                ui.doneTask(taskList.getTask(index));
+                return ui.doneTask(taskList.getTask(index));
             } catch (Exception e) {
-                ui.invalidMarkCommand();
+                return ui.invalidMarkCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.UNMARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
-                ui.undoneTask(taskList.getTask(index));
+                return ui.undoneTask(taskList.getTask(index));
             } catch (Exception e) {
-                ui.invalidUnmarkCommand();
+                return ui.invalidUnmarkCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.DELETE.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                ui.deleteTask(taskList.getTask(index), taskList.getSize());
+                String output = ui.deleteTask(taskList.getTask(index), taskList.getSize());
                 taskList.deleteItem(index);
+                return output;
             } catch (Exception e) {
-                ui.invalidDeleteCommand();
+                return ui.invalidDeleteCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.DEADLINE.toString())) {
@@ -131,11 +130,11 @@ public class Parser {
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
                 String by = formatDate(input.split(" /by ")[1]);
                 taskList.addItem(new Deadline(description, by));
-                ui.addTask(taskList.getLastTask(), taskList.getSize());
+                return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.invalidDeadlineCommand();
+                return ui.invalidDeadlineCommand();
             } catch (DateTimeParseException e) {
-                ui.invalidDateFormat();
+                return ui.invalidDateFormat();
             }
 
         } else if (CommandParser.checkCommand(input, Command.EVENT.toString())) {
@@ -146,34 +145,32 @@ public class Parser {
                 String from = formatDate(input.split(" /from ")[1].split(" /to ")[0]);
                 String to = formatDate(input.split(" /to ")[1]);
                 taskList.addItem(new Event(description, from, to));
-                ui.addTask(taskList.getLastTask(), taskList.getSize());
+                return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.invalidEventCommand();
+                return ui.invalidEventCommand();
             } catch (DateTimeParseException e) {
-                ui.invalidDateFormat();
+                return ui.invalidDateFormat();
             }
         } else if (CommandParser.checkCommand(input, Command.TODO.toString())) {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
-                ui.addTask(taskList.getLastTask(), taskList.getSize());
+                return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.invalidTodoCommand();
+                return ui.invalidTodoCommand();
             }
 
         } else if (CommandParser.checkEqualCommand(input, Command.LIST.toString())) {
-            ui.listTasks(taskList.getList());
+            return ui.listTasks(taskList.getList());
         } else if (CommandParser.checkCommand(input, Command.FIND.toString())) {
             try {
                 String keyword = input.split(" ", 2)[1];
-                ui.findTasks(taskList.findTasks(keyword));
+                return ui.findTasks(taskList.findTasks(keyword));
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.invalidFindCommand();
+                return ui.invalidFindCommand();
             }
-        } else {
-            // Any other command will be considered invalid
-            ui.invalidCommand();
         }
-        return false;
+        // Any other command will be considered invalid
+        return ui.invalidCommand();
     }
 }

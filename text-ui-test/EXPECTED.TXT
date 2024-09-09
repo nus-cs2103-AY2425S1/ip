@@ -1,169 +1,122 @@
------------------------------------------
 Hello! I'm Meep
 What can I do for you?
------------------------------------------
 
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with the date format.
-Please use the format: d/M/yyyy HHmm
------------------------------------------
 
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+Sorry, there is something wrong with the date format.
+Please use the format: d/M/yyyy HHmm
+
+Got it. I've added this task:
 [D][ ] return book (by: 12th of September 2021, 6:00pm)
 Now you have 2 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+
+Got it. I've added this task:
 [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
 Now you have 3 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+
+Here are the tasks in your list:
 1. [T][ ] read book
 2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
 3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
------------------------------------------
-You: -----------------------------------------
-Meep: Nice! I've marked this task as done:
+
+Nice! I've marked this task as done:
 [T][X] read book
------------------------------------------
 
-You: -----------------------------------------
-Meep: Nice! I've marked this task as done:
+Nice! I've marked this task as done:
 [D][X] return book (by: 12th of September 2021, 6:00pm)
------------------------------------------
 
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+Here are the tasks in your list:
 1. [T][X] read book
 2. [D][X] return book (by: 12th of September 2021, 6:00pm)
 3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
------------------------------------------
-You: -----------------------------------------
-Meep: OK, I've marked this task as not done yet:
-[T][ ] read book
------------------------------------------
 
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+OK, I've marked this task as not done yet:
+[T][ ] read book
+
+Here are the tasks in your list:
 1. [T][ ] read book
 2. [D][X] return book (by: 12th of September 2021, 6:00pm)
 3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
------------------------------------------
-You: -----------------------------------------
-Meep: Sorry, I don't understand that command. Please try again.
------------------------------------------
 
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your event command.
+Sorry, I don't understand that command. Please try again.
+
+Sorry, there is something wrong with your event command.
 Event command should be in the format: event <description> /from <date> /to <date>
------------------------------------------
 
-You: -----------------------------------------
-Meep: Noted. I've removed this task:
+Noted. I've removed this task:
 [T][ ] read book
 
 Now you have 2 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+
+Here are the tasks in your list:
 1. [D][X] return book (by: 12th of September 2021, 6:00pm)
 2. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
------------------------------------------
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your delete command.
+
+Sorry, there is something wrong with your delete command.
 Delete command should be in the format: delete <index>
 The index should be a number within the range of the list
------------------------------------------
 
-You: -----------------------------------------
-Meep: Noted. I've removed this task:
+Noted. I've removed this task:
 [D][X] return book (by: 12th of September 2021, 6:00pm)
 
 Now you have 1 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Noted. I've removed this task:
+
+Noted. I've removed this task:
 [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
 
 Now you have 0 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your delete command.
+
+Sorry, there is something wrong with your delete command.
 Delete command should be in the format: delete <index>
 The index should be a number within the range of the list
------------------------------------------
 
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+
+Here are the tasks in your list:
 1. [T][ ] borrow book
------------------------------------------
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your todo command.
+
+Sorry, there is something wrong with your todo command.
 Todo command should be in the format: todo <description>
------------------------------------------
 
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your deadline command.
+Sorry, there is something wrong with your deadline command.
 Deadline command should be in the format: deadline <description> /by <date>
------------------------------------------
 
-You: -----------------------------------------
-Meep: Sorry, there is something wrong with your event command.
+Sorry, there is something wrong with your event command.
 Event command should be in the format: event <description> /from <date> /to <date>
------------------------------------------
 
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+Got it. I've added this task:
 [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
 Now you have 2 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+
+Got it. I've added this task:
 [D][ ] return book (by: 12th of September 2021, 6:00pm)
 Now you have 3 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Got it. I've added this task:
+
+Got it. I've added this task:
 [T][ ] read book
 Now you have 4 tasks in the list
------------------------------------------
-You: -----------------------------------------
-Meep: Nice! I've marked this task as done:
-[T][X] borrow book
------------------------------------------
 
-You: -----------------------------------------
-Meep: Here are the tasks in your list:
+Nice! I've marked this task as done:
+[T][X] borrow book
+
+Here are the tasks in your list:
 1. [T][X] borrow book
 2. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
 3. [D][ ] return book (by: 12th of September 2021, 6:00pm)
 4. [T][ ] read book
------------------------------------------
-You: -----------------------------------------
-Meep: Here are the matching tasks in your list:
-1. [T][X] borrow book
-2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
-3. [T][ ] read book
------------------------------------------
-You: -----------------------------------------
-Meep: Here are the matching tasks in your list:
-1. [T][X] borrow book
-2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
-3. [T][ ] read book
------------------------------------------
-You: -----------------------------------------
-Meep: Bye! Have a great day!
------------------------------------------
 
+Here are the matching tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+3. [T][ ] read book
+
+Here are the matching tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+3. [T][ ] read book
+
+Bye! Have a great day!
