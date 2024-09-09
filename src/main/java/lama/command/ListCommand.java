@@ -25,15 +25,18 @@ public class ListCommand extends Command {
         ui.showListCommand(taskList);
         if (taskList.size() <= 0) {
             return "There is nothing in your list!";
-        } else {
-            StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
-                output.append((i + 1)).append(".").append(task).append("\n");
-            }
-
-            return output.toString();
         }
+
+        return generateTaskListOutput(taskList);
+    }
+
+    private String generateTaskListOutput(TaskList taskList) {
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            output.append((i + 1)).append(".").append(task).append("\n");
+        }
+        return output.toString();
     }
 
 }

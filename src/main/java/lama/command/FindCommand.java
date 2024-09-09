@@ -35,14 +35,17 @@ public class FindCommand extends Command {
         ui.showFindCommand(tasks);
         if (tasks.size() == 0) {
             return "No matching tasks found!";
-        } else {
-            StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                output.append((i + 1)).append(".").append(task).append("\n");
-            }
-
-            return output.toString();
         }
+
+        return generateTaskListOutput(tasks);
+    }
+
+    private String generateTaskListOutput(TaskList taskList) {
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            output.append((i + 1)).append(".").append(task).append("\n");
+        }
+        return output.toString();
     }
 }
