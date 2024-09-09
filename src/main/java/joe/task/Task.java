@@ -3,7 +3,7 @@ package joe.task;
 import static joe.Constants.COMPLETED_TASK;
 import static joe.Constants.INCOMPLETE_TASK;
 
-public class Task {
+abstract public class Task {
 
     private String task;
     private boolean isDone = false;
@@ -50,7 +50,5 @@ public class Task {
     /**
      * @return A string representation of the task for saving.
      */
-    public String toSaveString() {
-        return String.format("T|%d|%s", isDone() ? 1 : 0, getTask());
-    }
+    abstract public String toSaveString();
 }
