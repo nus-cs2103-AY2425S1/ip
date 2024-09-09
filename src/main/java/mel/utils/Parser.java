@@ -65,14 +65,20 @@ public class Parser {
                 return LocalDate.parse(str, DateTimeFormatter.ofPattern(s))
                         .atStartOfDay();
             } catch (DateTimeParseException e) {
-                //Fallthrough
+                /*
+                 * Fallthrough: DateTimeParseException is ignored to test
+                 * all variations of date formats.
+                 */
             }
         }
         for (String s : FORMAT_DATE_TIME) {
             try {
                 return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(s));
             } catch (DateTimeParseException e) {
-                //Fallthrough
+                /*
+                 * Fallthrough: DateTimeParseException is ignored to test
+                 * all variations of date/time formats.
+                 */
             }
         }
         throw new ParseException(str);

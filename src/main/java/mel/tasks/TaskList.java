@@ -135,6 +135,8 @@ public class TaskList {
         for (Task t : tasks) {
             if (t.isMatch(str.split(" ", 2)[1])) {
                 mel.println(t.toString());
+            } else {
+                //Fallthrough to continue iterating over all tasks.
             }
         }
     }

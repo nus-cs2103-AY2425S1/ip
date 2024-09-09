@@ -10,7 +10,7 @@ import mel.exceptions.TaskException;
  * Deadline class that represents a task with a deadlines.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by = null;
 
     /**
      * Constructs new Deadline task.
@@ -20,18 +20,29 @@ public class Deadline extends Task {
      */
     public Deadline(String input) throws TaskException {
         try {
-            String[] temp = input.split("/by ");
-            task = temp[0].split(" ", 2)[1];
-            by = super.parseDateTime(temp[1]);
+            String s = processInput(input);
+            processDateTime(s);
+            assert by != null : "date/time should not be empty";
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new TaskException("deadline <task> /by <date> <time>");
         }
     }
 
+    private String processInput(String input) {
+        String[] temp = input.split("/by ");
+        task = temp[0].split(" ", 2)[1];
+        String dateTime = temp[1];
+        return dateTime;
+    }
+
+    private void processDateTime(String input) throws ParseException {
+        by = super.parseDateTime(input);
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + task + "(by: "
-                + by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"))
-                + ")";
+        String mark = super.toString();
+        String deadline = by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"));
+        return "[D]" + mark + task + "(by: " + deadline + ")";
     }
 }
