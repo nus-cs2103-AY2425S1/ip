@@ -36,6 +36,7 @@ public class Assistinator {
                 String fullCommand = ui.readCommand();
                 Command command = parser.parseCommand(fullCommand);
                 String response = executeCommand(command, fullCommand);
+                assert response != null : "Response should not be null";
                 ui.showResponse(response);
                 if (command == Command.BYE) {
                     isRunning = false;
@@ -49,7 +50,9 @@ public class Assistinator {
     public String getResponse(String input) {
         try {
             Command command = parser.parseCommand(input);
-            return executeCommand(command, input);
+            String response = executeCommand(command, input);
+            assert response != null : "Response should not be null";
+            return response;
         } catch (AssitinatorExceptions e) {
             return e.getMessage();
         }
