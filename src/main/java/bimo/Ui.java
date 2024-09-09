@@ -166,4 +166,12 @@ public class Ui {
         return word;
     }
 
+    /**
+     * Represents a general error message.
+     */
+    public String printErrorMessage() {
+        String message = "Something went wrong.";
+        return message;
+    }
+
 }

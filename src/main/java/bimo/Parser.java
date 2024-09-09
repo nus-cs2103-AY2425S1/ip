@@ -12,14 +12,12 @@ import bimo.command.FindCommand;
 import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
 import bimo.command.UnmarkCommand;
+import bimo.exception.BimoException;
+import bimo.exception.InvalidTaskNumberException;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
-
-
-
-
 
 /**
  * Deals with making sense of the user command.
@@ -41,10 +39,10 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case MARK:
-            int indexToMark = Integer.valueOf(parsedArray[1]) - 1;
+            int indexToMark = parseIndex(parsedArray);
             return new MarkCommand(indexToMark);
         case UNMARK:
-            int indexToUnmark = Integer.valueOf(parsedArray[1]) - 1;
+            int indexToUnmark = parseIndex(parsedArray);
             return new UnmarkCommand(indexToUnmark);
         case TODO:
             String toDodescription = parseDescription(input);
@@ -67,7 +65,7 @@ public class Parser {
             Task deadlineTask = new Deadline(description, ld);
             return new AddCommand(deadlineTask);
         case DELETE:
-            int indexToDelete = Integer.valueOf(parsedArray[1]) - 1;
+            int indexToDelete = parseIndex(parsedArray);
             return new DeleteCommand(indexToDelete);
         case FIND:
             String[] words = input.split(" ");
@@ -94,6 +92,26 @@ public class Parser {
         }
         parsedArray[0] = "";
         return removeSpace(parsedArray);
+    }
+
+    /**
+     * Returns index of specified task in list.
+     *
+     * @param parsedArray Array of words specified by user.
+     * @return The index of target task in list.
+     * @throws InvalidTaskNumberException Thrown if user does not provide a task number.
+     */
+    public static int parseIndex(String[] parsedArray) throws InvalidTaskNumberException {
+        if (parsedArray.length <= 1) {
+            throw new InvalidTaskNumberException();
+        }
+        String inputNumber = parsedArray[1];
+        try {
+            int index = Integer.parseInt(inputNumber) - 1;
+            return index;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
     }
 
     /**

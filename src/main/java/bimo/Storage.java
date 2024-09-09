@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bimo.exception.BimoException;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;

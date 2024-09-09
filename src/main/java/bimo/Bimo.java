@@ -1,6 +1,8 @@
 package bimo;
 import bimo.command.ByeCommand;
 import bimo.command.Command;
+import bimo.exception.BimoException;
+import bimo.exception.InvalidTaskNumberException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
@@ -39,8 +41,10 @@ public class Bimo {
             if (c instanceof ByeCommand) {
                 closeApplication();
             }
-        } catch (BimoException e) {
+        } catch (InvalidTaskNumberException e) {
             response = e.getMessage();
+        } catch (BimoException e) {
+            response = ui.printErrorMessage();
         }
         return response;
     }
