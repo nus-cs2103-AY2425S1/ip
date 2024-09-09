@@ -1,6 +1,7 @@
 package chatbot.logic;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import chatbot.exception.InvalidIndexException;
 import chatbot.task.Task;
@@ -53,9 +54,11 @@ public class TaskList {
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1 + ". " + tasks.get(i) + "\n");
-        }
+
+        // converted for loop into stream implementation
+        IntStream.range(0, this.tasks.size())
+                .forEach(idx -> sb.append(idx + 1 + ". " + this.tasks.get(idx) + "\n"));
+
         return sb.toString();
     }
 
@@ -123,12 +126,14 @@ public class TaskList {
     public String find(String query) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks matching your query:\n");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
-            if (task.getName().toLowerCase().contains(query.toLowerCase())) {
-                sb.append(i + 1 + ". " + task + "\n");
-            }
-        }
+
+        // converted for loop into stream implementation
+        IntStream.range(0, this.tasks.size())
+                .filter(idx -> this.tasks.get(idx)
+                        .getName()
+                        .toLowerCase()
+                        .contains(query.toLowerCase()))
+                .forEach(idx -> sb.append(idx + 1 + ". " + this.tasks.get(idx) + "\n"));
         return sb.toString();
     }
 }
