@@ -36,6 +36,7 @@ public class Storage {
         if (!db.exists()) {
             try {
                 String[] dirLst = filePath.split("/");
+                assert dirLst.length > 0 : "directory path should not be empty";
                 new File(dirLst[0]).mkdir();
                 db.createNewFile();
             } catch (IOException e) {
@@ -57,12 +58,16 @@ public class Storage {
             while (s.hasNext()) {
                 String line = s.nextLine();
                 String[] lineSegments = line.split(" \\| ");
+                assert lineSegments.length > 0 : "Database line is empty";
                 if (lineSegments[0].equals("T")) {
+                    assert lineSegments.length == 3 : "Database Todo task should have exactly 1 seperator";
                     taskStorage.silencedAdd(Todo.loadOf(lineSegments[1].equals("1"), lineSegments[2]));
                 } else if (lineSegments[0].equals("D")) {
+                    assert lineSegments.length == 4 : "Database Todo task should have exactly 3 seperators";
                     taskStorage.silencedAdd(Deadline.loadOf(lineSegments[1].equals("1"),
                             lineSegments[2], lineSegments[3]));
                 } else if (lineSegments[0].equals("E")) {
+                    assert lineSegments.length == 5 : "Database Todo task should have exactly 4 seperators";
                     taskStorage.silencedAdd(Event.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3],
                             lineSegments[4]));
                 } else {
@@ -73,6 +78,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             throw new ServerError("File cannot be found. Check database is not removed");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ServerError("File data is corrupted. Check data is formatted correctly");
         }
     }
 
@@ -109,6 +116,7 @@ public class Storage {
             fwRedo.close();
             FileWriter fw = new FileWriter(this.filePath, true);
             int counter = 0;
+            assert counter >= 0 : "Counter needs to be non-negative to write new lines";
             while (taskStorage.hasTask(counter)) {
                 Task task = taskStorage.getTask(counter);
                 if (counter == 0) {

@@ -33,6 +33,7 @@ public class Deadline extends Task {
      */
     public static Deadline of(String rawDescription) {
         String[] descriptionLst = parseDescription(rawDescription);
+        assert descriptionLst.length == 2 : "Description has wrong format";
         return new Deadline(descriptionLst[0], descriptionLst[1]);
     }
 
@@ -64,6 +65,7 @@ public class Deadline extends Task {
     private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /by ");
+        assert slashSegments.length > 1 : "Description has wrong format";
         String[] mainMessage = slashSegments[0].split(" ");
         String endMsg = new DateTimeManager(slashSegments[1]).toString();
         String reformattedMsg = "";
