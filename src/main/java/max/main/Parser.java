@@ -7,12 +7,10 @@ import max.task.Task;
 import max.task.TaskList;
 import max.task.Todo;
 
-import javax.crypto.Mac;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The Parser class is responsible for interpreting and executing user commands.
@@ -68,18 +66,13 @@ public class Parser {
             } else if (text.equals("hi") || text.equals("hello")) {
                 ui.printHello();
             } else if (text.equals("list")) {
-                ui.printList(false);
-                ui.list(taskList.getTasks());
+                handleList();
             } else if (text.startsWith("mark")) {
                 int index = Integer.parseInt(text.replace("mark ", "")) - 1;
-                Task task = taskList.getTask(index);
-                task.markDone();
-                ui.printMarkDone(task);
+                handleMark(index);
             } else if (text.startsWith("unmark")) {
                 int index = Integer.parseInt(text.replace("unmark ", "")) - 1;
-                Task task = taskList.getTask(index);
-                task.markNotDone();
-                ui.printMarkNotDone(task);
+                handleUnmark(index);
             } else if (text.startsWith("deadline")) {
                 handleDeadline(text);
             } else if (text.startsWith("todo")) {
@@ -88,9 +81,7 @@ public class Parser {
                 handleEvent(text);
             } else if (text.startsWith("delete")) {
                 int index = Integer.parseInt(text.replace("delete ", "")) - 1;
-                Task task = taskList.getTask(index);
-                taskList.deleteTask(index);
-                ui.printDeleteTask(task, taskList.getSize());
+                handleDelete(index);
             } else if (text.startsWith("find")) {
                 String toFind = text.replaceFirst("find", "").trim();
                 handleFind(toFind);
@@ -105,6 +96,63 @@ public class Parser {
 
         return false;
 
+    }
+
+    /**
+     * Handles the "list" command to display all tasks.
+     * <p>
+     * Calls the Ui component to print the entire task list, showing all current tasks.
+     * </p>
+     */
+    private void handleList() {
+        ui.printList(false);
+        ui.list(taskList.getTasks());
+    }
+
+    /**
+     * Handles the "unmark" command to mark a task as not done.
+     * <p>
+     * Retrieves the task from the task list based on the provided index,
+     * marks the task as not done, and prints the updated task status using the Ui component.
+     * </p>
+     *
+     * @param index The index of the task in the task list to be marked as not done.
+     */
+    private void handleUnmark(int index) {
+        Task task = taskList.getTask(index);
+        task.markNotDone();
+        ui.printMarkNotDone(task);
+    }
+
+    /**
+     * Handles the "mark" command to mark a task as done.
+     * <p>
+     * Retrieves the task from the task list based on the provided index,
+     * marks the task as done, and prints the updated task status using the Ui component.
+     * </p>
+     *
+     * @param index The index of the task in the task list to be marked as done.
+     */
+    private void handleMark(int index) {
+        Task task = taskList.getTask(index);
+        task.markDone();
+        ui.printMarkDone(task);
+    }
+
+    /**
+     * Handles the "delete" command to remove a task from the task list.
+     * <p>
+     * Retrieves the task from the task list based on the provided index, removes it from the list,
+     * and prints a message using the Ui component to confirm the deletion and display the remaining task count.
+     * </p>
+     *
+     * @param index The index of the task in the task list to be deleted.
+     * @throws MaxException If there is an issue deleting the task.
+     */
+    private void handleDelete(int index) throws MaxException {
+        Task task = taskList.getTask(index);
+        taskList.deleteTask(index);
+        ui.printDeleteTask(task, taskList.getSize());
     }
 
     /**
@@ -190,8 +238,7 @@ public class Parser {
     public LocalDateTime parseDate(String date) throws MaxException {
         DateTimeFormatter converter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
-            LocalDateTime LDT = LocalDateTime.parse(date, converter);
-            return LDT;
+            return LocalDateTime.parse(date, converter);
         } catch (DateTimeParseException e) {
             throw new MaxException("Invalid date format! Please use d/M/yyyy HHmm. "
                     + "For example, '2/12/2024 1800'");

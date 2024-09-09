@@ -1,7 +1,5 @@
 package max.task;
 
-import max.task.Task;
-
 /**
  * The Todo class represents a task that needs to be done,
  * without any specific deadline or time frame.
