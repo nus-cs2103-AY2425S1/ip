@@ -62,6 +62,10 @@ public class Controller {
      *            The index of the task to be marked as done.
      */
     public void handleDone(int index) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         store.get(index).toggleDone();
         ui.printDoneMessage(store.get(index));
     }
@@ -74,6 +78,10 @@ public class Controller {
      *            The index of the task to be marked as undone.
      */
     public void handleUndone(int index) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         store.get(index).toggleDone();
         ui.printUndoneMessage(store.get(index));
     }
@@ -86,6 +94,10 @@ public class Controller {
      *            The index of the task to be deleted.
      */
     public void handleDelete(int index) {
+        if (index < 0 || index >= store.size()) {
+            ui.printInvalidIndexErrorMessage();
+            return;
+        }
         Task deletedTask = store.get(index);
         store.remove(index);
         ui.printDeleteMessage(deletedTask, store.size());

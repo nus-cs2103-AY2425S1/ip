@@ -136,6 +136,10 @@ public class Ui {
         printBotResponse("Invalid date format! Please use yyyy-mm-dd format.");
     }
 
+    public void printInvalidIndexErrorMessage() {
+        printBotResponse("Give me a valid index!");
+    }
+
     public void printReservedCharacterErrorMessage() {
         printBotResponse("| is a special character and cannot be used.");
     }
