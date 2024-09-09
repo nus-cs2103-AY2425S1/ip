@@ -1,7 +1,5 @@
 package bob.command;
 
-import bob.exception.BobException;
-import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.TaskList;
@@ -11,14 +9,12 @@ import bob.ui.Ui;
  * ListCommand class executes list command.
  */
 public class ListCommand extends Command {
-    private TaskList taskList;
 
     /**
      * Constructor to initalise ListCommand
      */
     public ListCommand() {
         super();
-        this.taskList = new TaskList();
     }
 
     @Override

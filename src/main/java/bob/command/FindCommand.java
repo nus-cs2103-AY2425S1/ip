@@ -1,18 +1,18 @@
 package bob.command;
 
+import java.util.ArrayList;
+
 import bob.exception.InvalidTaskException;
 import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.Ui;
 
-import java.util.ArrayList;
 
 /**
  * ListCommand class executes list command.
  */
 public class FindCommand extends Command {
-    private TaskList taskList;
 
     /**
      * Constructor to initalise FindCommand

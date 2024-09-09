@@ -1,6 +1,5 @@
 package bob.command;
 
-import bob.exception.BobException;
 import bob.exception.InvalidTaskException;
 import bob.storage.Storage;
 import bob.task.Task;
@@ -11,7 +10,6 @@ import bob.ui.Ui;
  * ListCommand class executes list command.
  */
 public class MarkCommand extends Command {
-    private TaskList taskList;
     private boolean isCompleted;
 
     /**

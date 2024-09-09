@@ -8,7 +8,6 @@ import bob.ui.Ui;
  * ListCommand class executes list command.
  */
 public class EventCommand extends Command {
-    private TaskList taskList;
 
     /**
      * Constructor to initalise EventCommand
