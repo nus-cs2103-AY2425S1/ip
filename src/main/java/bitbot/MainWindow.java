@@ -59,6 +59,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = bitbot.getResponse(input);
+
+        assert response.trim().isEmpty() : "Response should not be empty";
+
         if (input.equals("bye")) {
             // This is to display the conclusion when the user types "bye"
             dialogContainer.getChildren().add(
