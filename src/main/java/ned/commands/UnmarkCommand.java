@@ -12,6 +12,12 @@ import ned.exceptions.NedException;
  * and marks it as not done. The status change is shown to the user.
  */
 public class UnmarkCommand implements Command {
+    private static final String UNMARK_MISSING_INDEX_ERROR_MESSAGE = "Sorry m'lord, you must give me a list index with "
+            + "the mark command. No more, no less";
+    private static final String UNMARK_INDEX_NOT_NUMBER_ERROR_MESSAGE = "Sorry m'lord, your command must specify " +
+            "a valid number";
+    private static final String UNMARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, seems the item number you " +
+            "specified is not valid";
     private final String REGEX = "^unmark.*";
 
     public UnmarkCommand() {
@@ -32,8 +38,7 @@ public class UnmarkCommand implements Command {
             throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
-            throw new MissingIndexException("Sorry m'lord, you must give me a list index with the mark command. No more, no "
-                    + "less" + uiInstance.getCommandMessage());
+            throw new MissingIndexException(UNMARK_MISSING_INDEX_ERROR_MESSAGE + uiInstance.getCommandMessage());
         }
         String possibleIndex = words[1];
         try {
@@ -41,11 +46,10 @@ public class UnmarkCommand implements Command {
             taskList.markTaskAsUndone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
+            throw new InvalidIndexException(UNMARK_INDEX_NOT_NUMBER_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, seems the item number you specified is not valid"
-                    + uiInstance.getCommandMessage());
+            throw new InvalidIndexException(UNMARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE + uiInstance.getCommandMessage());
         }
     }
 
