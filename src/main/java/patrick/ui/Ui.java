@@ -14,6 +14,7 @@ import patrick.tasklist.Task;
 public class Ui {
     // Constants for displaying UI elements and messages
     public static final String THERE_IS_AN_ERROR = "There is an error: ";
+    public static final String NO_DUPLICATES = "The task is already listed";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
     private static final String TASK_MSG = "Got it. I've added this task:\n";

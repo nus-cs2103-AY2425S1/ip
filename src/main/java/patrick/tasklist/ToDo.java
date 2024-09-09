@@ -47,19 +47,24 @@ public class ToDo extends Task {
 
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Description of a todo cannot be empty!!");
-        } else {
-            Task task = new ToDo(taskDescription);
-            Storage.addList(task);
-            response = Ui.showUserMsg(task.toString());
-            try {
-                if (!Storage.getList().isEmpty()) {
-                    Storage.appendToFile("\n");
-                }
-                Storage.appendToFile(task.toString());
-            } catch (IOException e) {
-                response = Ui.showErrorMsg(Ui.THERE_IS_AN_ERROR + e.getMessage());
-            }
         }
+        Task task = new ToDo(taskDescription);
+        if (Parser.isDuplicate(task)) {
+            return Ui.NO_DUPLICATES;
+        }
+
+        Storage.addList(task);
+        response = Ui.showUserMsg(task.toString());
+
+        try {
+            if (!Storage.getList().isEmpty()) {
+                Storage.appendToFile("\n");
+            }
+            Storage.appendToFile(task.toString());
+        } catch (IOException e) {
+            response = Ui.showErrorMsg(Ui.THERE_IS_AN_ERROR + e.getMessage());
+        }
+
         return response;
     }
 }
