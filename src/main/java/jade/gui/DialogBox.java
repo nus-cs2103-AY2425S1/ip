@@ -37,7 +37,12 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        Circle clip = new Circle(49.5, 49.5, 49.5);
+
+        displayPicture.setFitWidth(64);
+        displayPicture.setFitHeight(64);
+        displayPicture.setPreserveRatio(true);
+
+        Circle clip = new Circle(32, 32, 32);
         displayPicture.setClip(clip);
     }
 
@@ -48,12 +53,17 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.BOTTOM_LEFT);
         dialog.getStyleClass().add("reply-label");
+        displayPicture.getStyleClass().add("receiver-image");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setAlignment(Pos.BOTTOM_RIGHT);
+        db.dialog.getStyleClass().add("label");
+        db.displayPicture.getStyleClass().add("user-image");
+        return db;
     }
 
     public static DialogBox getJadeDialog(String text, Image img) {
