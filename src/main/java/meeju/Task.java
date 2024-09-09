@@ -18,7 +18,6 @@ public class Task {
         assert isDone != null : "Task completion status is null";
         assert taskDescription != null : "Task description is null";
 
-
         this.taskDescription = taskDescription;
         this.isDone = isDone;
     }
