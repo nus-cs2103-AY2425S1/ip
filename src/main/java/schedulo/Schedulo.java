@@ -69,6 +69,10 @@ public class Schedulo {
         return this.run(input);
     }
 
+    /**
+     * Returns the command object.
+     * @return The command object.
+     */
     public Command getCommand() {
         return this.c;
     }
