@@ -35,8 +35,14 @@ public class ToDo extends Task {
         return "T | " + super.toFileFormat();
     }
 
+    /**
+     * Returns the type of the task as a string ("todo").
+     *
+     * @return The string "todo" representing the task type.
+     */
     @Override
     public String getTaskType() {
         return "todo";
     }
+
 }

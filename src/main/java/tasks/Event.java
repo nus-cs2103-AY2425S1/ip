@@ -40,16 +40,32 @@ public class Event extends Task {
         return "E | " + super.toFileFormat() + " | " + from + " | " + to;
     }
 
+    /**
+     * Returns the type of the task as a string ("event").
+     *
+     * @return The string "event" representing the task type.
+     */
     @Override
     public String getTaskType() {
         return "event";
     }
 
+    /**
+     * Retrieves the start time of the event.
+     *
+     * @return The start time of the event as a string.
+     */
     public String getFrom() {
         return this.from;
     }
 
+    /**
+     * Retrieves the end time of the event.
+     *
+     * @return The end time of the event as a string.
+     */
     public String getTo() {
         return this.to;
     }
+
 }

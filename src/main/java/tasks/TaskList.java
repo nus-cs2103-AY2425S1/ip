@@ -155,6 +155,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks if the given task already exists in the provided TaskList.
+     * <p>
+     * This method compares the task's description and specific properties such as event times
+     * or deadline dates depending on the task type (ToDo, Event, or DeadLine).
+     * </p>
+     *
+     * @param task      The task to check for duplicates.
+     * @param taskList  The list of tasks to search for duplicates.
+     * @return True if a duplicate task is found, false otherwise.
+     */
     public boolean findDuplicate(Task task, TaskList taskList) {
         for (Task currTask: taskList.getTasks()) {
             String todoDescription = task.getTaskContent();

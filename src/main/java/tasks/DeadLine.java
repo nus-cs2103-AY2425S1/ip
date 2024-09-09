@@ -43,11 +43,21 @@ public class DeadLine extends Task {
         return "D | " + super.toFileFormat() + " | " + by.format(formatter);
     }
 
+    /**
+     * Returns the type of the task as a string ("deadline").
+     *
+     * @return The string "deadline" representing the task type.
+     */
     @Override
     public String getTaskType() {
         return "deadline";
     }
 
+    /**
+     * Retrieves the deadline of the task as a LocalDateTime object.
+     *
+     * @return The date and time by which the task must be completed.
+     */
     public LocalDateTime getBy() {
         return this.by;
     }

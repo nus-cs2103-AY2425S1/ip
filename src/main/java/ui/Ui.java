@@ -147,9 +147,16 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Displays a message indicating that a duplicate task was found and cannot be added.
+     *
+     * @param task The task that is a duplicate.
+     * @return The duplicate task message as a string.
+     */
     public String showDuplicateMessage(Task task) {
         String message = "Duplicate found, cannot add task:\n" + task;
         System.out.println(message);
         return message;
     }
+
 }

@@ -51,12 +51,24 @@ public class Task {
         return (isDone ? "1" : "0") + " | " + taskContent;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
     public String getTaskContent() {
         return this.taskContent;
     }
 
+    /**
+     * Returns the type of the task as a string ("task").
+     * This method can be overridden by subclasses to specify the actual task type.
+     *
+     * @return The string "task" representing the task type.
+     */
     public String getTaskType() {
         return "task";
     }
+
 
 }
