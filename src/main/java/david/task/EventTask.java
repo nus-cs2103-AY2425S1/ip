@@ -25,6 +25,11 @@ public class EventTask extends Task {
         this.to = to;
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return to;
+    }
+
+
     @Override
     public String toCacheString() {
         String isCompleted = this.isCompleted() ? "1" : "0";

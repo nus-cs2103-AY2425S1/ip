@@ -1,5 +1,7 @@
 package david.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Abstract task class
  */
@@ -47,12 +49,15 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
+    public abstract LocalDateTime getLocalDateTime();
+
     /**
      * Converts the task to a string suitable for storing into the
      * cache
      * @return Parsed string in the format specified for storage in the cache
      */
     public abstract String toCacheString();
+
 
     @Override
     public String toString() {
