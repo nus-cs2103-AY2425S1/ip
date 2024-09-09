@@ -53,16 +53,19 @@ public class Storage {
                 String[] sentenceSplit = scanner.nextLine().split(" \\| ");
                 switch (sentenceSplit[0]) {
                 case "T":
-                    taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2]));
+                    taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2],
+                            Task.Priority.valueOf(sentenceSplit[3])));
                     break;
                 case "D":
                     taskList.add(new Deadline(parseBoolean(sentenceSplit[1]), sentenceSplit[2],
-                            LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER)));
+                            LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER),
+                            Task.Priority.valueOf(sentenceSplit[3])));
                     break;
                 case "E":
                     taskList.add(new Event(parseBoolean(sentenceSplit[1]), sentenceSplit[2],
-                            LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER),
-                            LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER)));
+                            LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER),
+                            LocalDateTime.parse(sentenceSplit[5], DATE_TIME_FORMATTER),
+                            Task.Priority.valueOf(sentenceSplit[3])));
                     break;
                 default:
                     throw new DrBrownException("The file provided might be corrupted since it does not "

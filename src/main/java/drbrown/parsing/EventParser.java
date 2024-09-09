@@ -35,24 +35,30 @@ public class EventParser {
             if (inputSplit.length == 1) {
                 throw new DrBrownException("Great Scott! You can't add an event without a description "
                         + "and from and to date!\nUse the format: "
-                        + "event {description} /from {date} /to {date}");
+                        + "event {description} /from {date} /to {date} /priority {priority}");
             }
-            boolean containsValidString = userInput.contains("/from") || userInput.contains("/to");
+
+            boolean containsValidString = userInput.contains("/from") || userInput.contains("/to") || userInput.contains("/priority");
             boolean correctOrderString = userInput.indexOf("/from") > userInput.indexOf("/to");
+
             if (!containsValidString || correctOrderString) {
                 throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
                         + "and you missed the date! Let's fix that event!\nUse the format: "
-                        + "event {description} /from {date} /to {date}");
+                        + "event {description} /from {date} /to {date} /priority {priority}");
             }
-            String[] eventSplit = inputSplit[1].split("/from | /to");
+
+            String[] eventSplit = inputSplit[1].split("/from | /to | /priority");
+
             Task event = new Event(false, eventSplit[0].trim(),
                     LocalDateTime.parse(eventSplit[1].trim(), FILE_DATE_TIME_FORMATTER),
-                    LocalDateTime.parse(eventSplit[2].trim(), FILE_DATE_TIME_FORMATTER));
+                    LocalDateTime.parse(eventSplit[2].trim(), FILE_DATE_TIME_FORMATTER),
+                    Task.Priority.valueOf(eventSplit[3].trim()));
+
             return new AddCommand(event);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
             throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
                     + "and you missed the date! Let's fix that event!\nUse the format: "
-                    + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm}");
+                    + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}");
         }
     }
 

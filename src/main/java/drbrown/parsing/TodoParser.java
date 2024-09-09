@@ -24,13 +24,22 @@ public class TodoParser {
         try {
             if (inputSplit[1].trim().isEmpty()) {
                 throw new DrBrownException("Great Scott! You can't add a to-do without a "
-                        + "description!\n\nUse the format: todo {description}");
+                        + "description!\n\nUse the format: todo {description} /priority {priority}");
             }
-            Task todo = new Todo(false, inputSplit[1].trim());
+
+            String[] todoSplit = inputSplit[1].split("/priority");
+
+            if (todoSplit.length == 1) {
+                throw new DrBrownException("Whoa, this priority is heavy! Set it to 1, 2, or 3 to keep the timeline intact!"
+                        + "Use the format: todo {description} /priority {priority}");
+            }
+
+            Task todo = new Todo(false, todoSplit[0].trim(), Task.Priority.valueOf(todoSplit[1].trim()));
+
             return new AddCommand(todo);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             throw new DrBrownException("Great Scott! You can't add a to-do without a description!"
-                    + "\n\nUse the format: todo {description}");
+                    + "\n\nUse the format: todo {description} /priority {priority}");
         }
     }
 

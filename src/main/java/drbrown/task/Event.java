@@ -21,8 +21,8 @@ public class Event extends Task {
      * @param startDateTime        The start date and time of the event.
      * @param endDateTime          The end date and time of the event.
      */
-    public Event(boolean isCompleted, String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        super(isCompleted, description);
+    public Event(boolean isCompleted, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, Priority priority) {
+        super(isCompleted, description, priority);
         assert startDateTime != null : "Start time should not be null";
         assert endDateTime != null : "End time should not be null";
         this.startDateTime = startDateTime;

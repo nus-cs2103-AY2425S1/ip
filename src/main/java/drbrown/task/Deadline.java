@@ -19,8 +19,8 @@ public class Deadline extends Task {
      * @param description  The description of the task.
      * @param endDateTime  The end date and time of the deadline.
      */
-    public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime) {
-        super(isCompleted, description);
+    public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime, Priority priority) {
+        super(isCompleted, description, priority);
         assert endDateTime != null : "End time should not be null";
         this.endDateTime = endDateTime;
     }

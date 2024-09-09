@@ -7,8 +7,16 @@ package drbrown.task;
  */
 public abstract class Task {
 
+    public static enum Priority {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
     private boolean isCompleted;
-    private final String description;
+    private String description;
+
+    private Priority priority;
 
     /**
      * Constructs a Task with the specified status and description.
@@ -16,11 +24,12 @@ public abstract class Task {
      * @param isCompleted  The completion status of the task (true if completed, false otherwise).
      * @param description  The description of the task.
      */
-    public Task(Boolean isCompleted, String description) {
+    public Task(Boolean isCompleted, String description, Priority priority) {
         assert isCompleted != null : "Task status should not be null";
         assert description != null : "Task description should be null";
         this.isCompleted = isCompleted;
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -30,6 +39,7 @@ public abstract class Task {
     public Task() {
         this.isCompleted = false;
         this.description = "";
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -50,6 +60,14 @@ public abstract class Task {
         return description;
     }
 
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     /**
      * Sets the completion status of the task.
      *
@@ -66,7 +84,7 @@ public abstract class Task {
      * @return A string formatted for file storage representing the task.
      */
     public String toFileString() {
-        return " | " + this.getStatus() + " | " + this.getDescription();
+        return " | " + this.getStatus() + " | " + this.getDescription() + " | " + this.priority;
     };
 
     /**
@@ -78,6 +96,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.getStatus() ? "X" : " ") + "] " + this.getDescription();
+        return "[" + (this.getStatus() ? "X" : " ") + "] " + this.getDescription() + " | " + this.priority;
     }
 }
