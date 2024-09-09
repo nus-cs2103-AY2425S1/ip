@@ -76,6 +76,9 @@ public class TaskReader {
         boolean isComplete = readIsComplete(array);
         String description = readDescription(array);
 
+        assert type.equals("T") || type.equals("D") || type.equals("E")
+                : "Incorrect task type detected";
+
         switch (type) {
         case ("T"):
             return new Todo(description, isComplete);
