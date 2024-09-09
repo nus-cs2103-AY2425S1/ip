@@ -33,28 +33,23 @@ public class DialogBox extends HBox {
      * @param image The image to be displayed alongside the text
      */
     public DialogBox(String text, Image image) {
+        loadFxml();
+        dialog.setText(text);
+        displayPicture.setImage(image);
+    }
+
+    private void loadFxml() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
+            System.err.println("Error loading DialogBox FXML: " + e.getMessage());
             e.printStackTrace();
         }
-
-        dialog.setText(text);
-        displayPicture.setImage(image);
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and the text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
-    }
 
     /**
      * Creates a DialogBox for user dialogs with the specified text and image.
@@ -79,5 +74,15 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, image);
         db.flip();
         return db;
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and the text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
     }
 }
