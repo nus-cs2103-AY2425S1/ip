@@ -34,7 +34,7 @@ public class Parser {
      */
     public static String extractFirstDate(String input) {
         String processing = input.split("/")[1];
-        processing.replace("by ", "").trim();
+        processing = processing.replace("by ", "").trim();
         return processing.replace("from ", "").trim();
     }
     
