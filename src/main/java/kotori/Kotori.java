@@ -1,9 +1,6 @@
 package kotori;
 
-import java.util.Scanner;
-
 import kotori.command.Command;
-import kotori.command.ExitCommand;
 import kotori.command.GreetCommand;
 import kotori.parser.Parser;
 import kotori.storage.Storage;
@@ -25,6 +22,7 @@ public class Kotori {
      * */
     public Kotori() {
         this.storage = new Storage("data", "Kotori.txt");
+        assert (storage.isSuccess());
         this.taskList = this.storage.load();
         this.parser = new Parser(storage, taskList);
     }
