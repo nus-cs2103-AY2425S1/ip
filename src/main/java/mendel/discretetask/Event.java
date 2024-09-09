@@ -37,6 +37,7 @@ public class Event extends Task {
      */
     public static Event of(String rawDescription) {
         String[] description = parseDescription(rawDescription);
+        assert description.length == 3 : "Description has wrong format";
         return new Event(description[0], description[1], description[2]);
     }
 
@@ -71,6 +72,7 @@ public class Event extends Task {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
+        assert slashSegments.length > 1 : "Description has wrong format";
         String startMsg = new DateTimeManager(slashSegments[1].split(" /to ")[0]).toString();
         String endMsg = new DateTimeManager(slashSegments[1].split(" /to ")[1]).toString();
         String reformattedMsg = "";
