@@ -64,11 +64,13 @@ public class DialogBox extends HBox {
 
     private void clipImageViewToCircle(ImageView imageView) {
         double radius = Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2;
+        assert radius > 0 : "Radius must be greater than 0";
         Circle clip = new Circle(radius, radius, radius);
         imageView.setClip(clip);
     }
 
     private void changeDialogStyle(String commandType) {
+        assert commandType != null : "Command type cannot be null";
         switch (commandType) {
         case "TodoCommand":
         case "DeadlineCommand":
@@ -83,7 +85,7 @@ public class DialogBox extends HBox {
             dialog.getStyleClass().add("delete-label");
             break;
         default:
-            // Do nothing
+            // Default style is used here.
         }
     }
 

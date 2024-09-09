@@ -21,19 +21,15 @@ public class TodoCommand extends Command {
      * @param tasks
      * @param ui
      * @param storage
+     *
      * @throws SigmaException
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        TodoTask toDoTask = null;
-        try {
-            if (split.length < 2 || split[1].strip() == "") {
-                Ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
-            }
-            toDoTask = new TodoTask(split[1].strip());
-        } catch (NullPointerException e) {
-            Ui.throwError("Please don't run me on null!");
+        if (split.length < 2 || split[1].strip() == "") {
+            Ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
         }
+        TodoTask toDoTask = new TodoTask(split[1].strip());
         tasks.add(toDoTask);
         return "Productive! Added: \n" + toDoTask
                 + "\nNow you have " + tasks.size() + " tasks in the list!";

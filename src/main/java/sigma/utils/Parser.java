@@ -31,6 +31,8 @@ public class Parser {
      */
     public static Command parse(String command) {
         String[] split = command.split(" ", 2);
+        assert split != null : "Split cannot be null";
+        assert split.length > 0 : "Split length cannot be 0";
         String cmd = split[0].toLowerCase();
         switch (cmd) {
         case "todo":
@@ -66,6 +68,7 @@ public class Parser {
      * @throws SigmaException If the date and time input is invalid.
      */
     public static LocalDateTime parseLocalDateTime(String timing) throws SigmaException {
+        assert timing != null : "Timing cannot be null";
         LocalDateTime dateTime;
         try {
             dateTime = LocalDateTime.parse(timing, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

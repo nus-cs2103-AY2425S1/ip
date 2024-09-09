@@ -21,7 +21,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns the date of the deadline task.
+     * Returns the date of the deadline task in MMM d yyyy, HH:mm format.
      *
      * @return Date of the deadline task.
      */

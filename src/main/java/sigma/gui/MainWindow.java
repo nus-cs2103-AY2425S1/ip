@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setSigma(Sigma s) {
         sigma = s;
+        assert sigma != null : "Sigma should not be null.";
         this.ui = sigma.getUi();
     }
 
@@ -53,8 +54,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "Input should not be null.";
         String response = sigma.getResponse(input);
+        assert response != null : "Response should not be null.";
         String commandType = sigma.getCommandType();
+        assert commandType != null : "Command type should not be null.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSigmaDialog(response, sigmaImage, commandType)

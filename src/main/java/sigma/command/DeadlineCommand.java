@@ -30,15 +30,17 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        Parser parser = new Parser();
         if (split.length < 2) {
-            throw new SigmaException("What the sigma? You're missing the task! "
-                    + "Write \"deadline <task> /by <deadline>\"!");
+            String missingTaskMessage = "What the sigma? You're missing the task! "
+                    + "Write \"deadline <task> /by <deadline>\"!";
+            throw new SigmaException(missingTaskMessage);
         }
         String[] deadlineSplit = split[1].split(" /by ");
+        assert deadlineSplit.length > 0 : "Deadline split length cannot be 0";
         if (deadlineSplit.length < 2) {
-            throw new SigmaException("What the sigma? You're missing the deadline! "
-                    + "Write \"deadline <task> /by <deadline>\"!");
+            String missingDeadlineMessage = "What the sigma? You're missing the deadline! "
+                    + "Write \"deadline <task> /by <deadline>\"!";
+            throw new SigmaException(missingDeadlineMessage);
         }
         LocalDateTime dateTime = Parser.parseLocalDateTime(deadlineSplit[1]);
         DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], dateTime);

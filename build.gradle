@@ -60,4 +60,9 @@ dependencies {
 
 run {
     standardInput = System.in
+    enableAssertions = true
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.base,javafx.controls,javafx.fxml,javafx.graphics',
+    ]
 }

@@ -33,7 +33,6 @@ import sigma.task.TodoTask;
 public class Storage {
 
     private final String filePath;
-    private final Ui ui = new Ui();
 
     /**
      * Constructor for Storage.
@@ -42,6 +41,7 @@ public class Storage {
      * @param filePath File path to store data.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         load(filePath);
     }
@@ -54,9 +54,12 @@ public class Storage {
      */
     public void write(ArrayList<Task> items) {
         File data = new File(filePath);
+        assert data != null : "File cannot be null";
         try {
             FileWriter writer = new FileWriter(data);
+            assert writer != null : "Writer cannot be null";
             for (Task item : items) {
+                assert item != null : "Item cannot be null";
                 String date = item.getDate();
                 writer.write(String.format("%s | %s | %s | %s \n",
                         item.getTaskType(), item.getStatusString(), item.getDescription(), date));
@@ -108,6 +111,7 @@ public class Storage {
             while (fileInput.hasNextLine()) {
                 // Loading from file
                 String line = fileInput.nextLine();
+                assert line != null : "Line cannot be null";
                 String[] split = line.split(" \\| ");
                 String type = split[0];
                 boolean status = split[1].equals("X");
@@ -124,6 +128,7 @@ public class Storage {
         } catch (SigmaException e) {
             System.out.println(e.getMessage());
         }
+        assert items != null : "Items cannot be null. If it is, an error occurred while reading file.";
         return items;
     }
 
@@ -154,6 +159,8 @@ public class Storage {
             break;
         case "E":
             String[] dates = date.split("-");
+            assert dates != null : "Dates cannot be null";
+            assert dates.length > 0 : "Dates length cannot be 0";
             LocalDateTime from;
             LocalDateTime to;
             try {
