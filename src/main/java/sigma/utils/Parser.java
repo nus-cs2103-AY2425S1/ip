@@ -30,33 +30,33 @@ public class Parser {
      * @return Corresponding command.
      */
     public static Command parse(String command) {
-        String[] split = command.split(" ", 2);
-        assert split != null : "Split cannot be null";
-        assert split.length > 0 : "Split length cannot be 0";
-        String cmd = split[0].toLowerCase();
+        String[] commandArray = command.split(" ", 2);
+        assert commandArray != null : "Command array cannot be null";
+        assert commandArray.length > 0 : "Command array length cannot be 0";
+        String cmd = commandArray[0].toLowerCase();
         switch (cmd) {
         case "todo":
-            return new TodoCommand(split);
+            return new TodoCommand(commandArray);
         case "deadline":
-            return new DeadlineCommand(split);
+            return new DeadlineCommand(commandArray);
         case "event":
-            return new EventCommand(split);
+            return new EventCommand(commandArray);
         case "list":
-            return new ListCommand(split);
+            return new ListCommand(commandArray);
         case "mark":
-            return new MarkCommand(split);
+            return new MarkCommand(commandArray);
         case "unmark":
-            return new UnmarkCommand(split);
+            return new UnmarkCommand(commandArray);
         case "delete":
-            return new DeleteCommand(split);
+            return new DeleteCommand(commandArray);
         case "bye":
-            return new ByeCommand(split);
+            return new ByeCommand(commandArray);
         case "find":
-            return new FindCommand(split);
+            return new FindCommand(commandArray);
         case "help":
-            return new HelpCommand(split);
+            return new HelpCommand(commandArray);
         default:
-            return new UnrecognisedCommand(split);
+            return new UnrecognisedCommand(commandArray);
         }
     }
 

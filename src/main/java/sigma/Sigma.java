@@ -51,13 +51,13 @@ public class Sigma {
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            commandType = c.toString();
+            Command command = Parser.parse(input);
+            commandType = command.toString();
             assert tasks != null : "TaskList cannot be null";
             assert storage != null : "Storage cannot be null";
             assert ui != null : "Ui cannot be null";
-            String response = c.execute(tasks, ui, storage);
-            if (c.isExit()) {
+            String response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
                 Platform.exit();
             }
             return response;

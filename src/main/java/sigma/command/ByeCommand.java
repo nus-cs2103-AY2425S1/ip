@@ -13,10 +13,10 @@ public class ByeCommand extends Command {
     /**
      * Constructs a ByeCommand object.
      *
-     * @param split
+     * @param commandArray
      */
-    public ByeCommand(String[] split) {
-        super(split);
+    public ByeCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**

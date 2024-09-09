@@ -18,7 +18,6 @@ import sigma.task.EventTask;
 import sigma.task.Task;
 import sigma.task.TodoTask;
 
-
 /**
  * Represents the storage of tasks.
  * Handles the reading and writing of tasks to a file.
@@ -76,19 +75,19 @@ public class Storage {
      * Creates a file to store data if none exists.
      *
      * @param filePath File path to store data.
+     *
      * @return Success message
      */
     private String load(String filePath) {
         // Creates a file to store data if none exists
         Path path = Paths.get(filePath);
-        if (!Files.exists(path)) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                return "What the sigma? Error creating file!";
-            }
-        } else {
+        if (Files.exists(path)) {
             return "SLAY! Loading up your saved tasks!";
+        }
+        try {
+            Files.createFile(path);
+        } catch (IOException e) {
+            return "What the sigma? Error creating file!";
         }
         return "SLAY! File created!";
     }
@@ -101,6 +100,7 @@ public class Storage {
      * Handles the case where the file is empty.
      *
      * @param data File to read from.
+     *
      * @return List of tasks read from the file.
      */
     public ArrayList<Task> read(File data) {
@@ -109,17 +109,16 @@ public class Storage {
             items = new ArrayList<>();
             Scanner fileInput = new Scanner(data);
             while (fileInput.hasNextLine()) {
-                // Loading from file
                 String line = fileInput.nextLine();
                 assert line != null : "Line cannot be null";
-                String[] split = line.split(" \\| ");
-                String type = split[0];
-                boolean status = split[1].equals("X");
-                String desc = split[2];
-                String date = split[3];
-                Task item = createTaskFromFile(type, desc, date);
-                item.setCompleted(status);
-                items.add(item);
+                String[] dataArray = line.split(" \\| ");
+                String type = dataArray[0];
+                boolean status = dataArray[1].equals("X");
+                String desc = dataArray[2];
+                String date = dataArray[3];
+                Task task = createTaskFromData(type, desc, date);
+                task.setCompleted(status);
+                items.add(task);
             }
             fileInput.close();
         } catch (IOException e) {
@@ -135,45 +134,47 @@ public class Storage {
     /**
      * Creates a task from the file.
      *
-     * @param type Task type.
-     * @param desc Task description.
-     * @param date Task date.
+     * @param type        Task type.
+     * @param description Task description.
+     * @param date        Task date.
+     *
      * @return Task created from the file.
      * @throws SigmaException If the task type is invalid, or contains invalid date format.
      */
-    private Task createTaskFromFile(String type, String desc, String date) throws SigmaException {
-        Task item;
+    private Task createTaskFromData(String type, String description, String date) throws SigmaException {
+        Task task;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         switch (type) {
         case "T":
-            item = new TodoTask(desc);
+            task = new TodoTask(description);
             break;
         case "D":
             LocalDateTime dateTime;
             try {
-                dateTime = LocalDateTime.parse(date.strip(), dateFormat);
+                String trimmedDate = date.strip();
+                dateTime = LocalDateTime.parse(trimmedDate, dateFormat);
             } catch (DateTimeParseException e) {
                 throw new SigmaException("What the sigma? File contains invalid date format!");
             }
-            item = new DeadlineTask(desc, dateTime);
+            task = new DeadlineTask(description, dateTime);
             break;
         case "E":
-            String[] dates = date.split("-");
-            assert dates != null : "Dates cannot be null";
-            assert dates.length > 0 : "Dates length cannot be 0";
+            String[] dateArray = date.split("-");
+            assert dateArray != null : "Dates cannot be null";
+            assert dateArray.length > 0 : "Dates length cannot be 0";
             LocalDateTime from;
             LocalDateTime to;
             try {
-                from = LocalDateTime.parse(dates[0].strip(), dateFormat);
-                to = LocalDateTime.parse(dates[1].strip(), dateFormat);
+                from = LocalDateTime.parse(dateArray[0].strip(), dateFormat);
+                to = LocalDateTime.parse(dateArray[1].strip(), dateFormat);
             } catch (DateTimeParseException e) {
                 throw new SigmaException("What the sigma? File not saved correctly, invalid date format!");
             }
-            item = new EventTask(desc, from, to);
+            task = new EventTask(description, from, to);
             break;
         default:
             throw new SigmaException("What the sigma? Invalid task type!");
         }
-        return item;
+        return task;
     }
 }
