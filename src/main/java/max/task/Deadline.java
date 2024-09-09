@@ -48,17 +48,21 @@ public class Deadline extends Task {
         return String.format("[D]" + super.toString() + " (by: %s)", formattedDate);
     }
 
+
     /**
-     * Converts the deadline to a string format suitable for saving to a file.
+     * Returns the task in a format suitable for saving to a file.
+     * The format includes the task type, completion status, description, due date,
+     * and any tags associated with the task.
      *
-     * @return A string in the format "D | status | description | deadline" where the deadline
-     *         is formatted as "d/M/yyyy HHmm" if a LocalDateTime object is used, or as a string otherwise.
+     * @return A string representing the task formatted for file storage.
      */
     @Override
     public String toFileFormat() {
         DateTimeFormatter converter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         String formattedDate = (date != null) ? date.format(converter) : by;
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, formattedDate);
+        String tagsString = getTagsString();
+        return String.format("D | %d | %s | %s%s", isDone ? 1 : 0, description, formattedDate,
+                tagsString.isEmpty() ? "" : " | " + tagsString);
     }
 
 }

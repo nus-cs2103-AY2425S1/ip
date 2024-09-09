@@ -3,6 +3,8 @@ package max.task;
 import max.exception.MaxException;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class manages a list of tasks, providing methods
@@ -77,6 +79,12 @@ public class TaskList {
         return storedTasks;
     }
 
+    /**
+     * Finds tasks that contain the specified string in their description.
+     *
+     * @param toFind The string to search for within task descriptions.
+     * @return An ArrayList of tasks whose descriptions contain the specified string.
+     */
     public ArrayList<Task> find(String toFind) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task t : storedTasks) {
@@ -85,5 +93,17 @@ public class TaskList {
             }
         }
         return filteredTasks;
+    }
+
+    /**
+     * Searches for tasks that are associated with the specified tag.
+     *
+     * @param tag The tag to search for within tasks.
+     * @return A list of tasks that contain the specified tag.
+     */
+    public List<Task> searchByTag(String tag) {
+        return storedTasks.stream()
+                .filter(task -> task.getTags().contains(tag))
+                .collect(Collectors.toList());
     }
 }

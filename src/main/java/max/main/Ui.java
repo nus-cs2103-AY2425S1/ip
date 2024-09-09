@@ -1,8 +1,11 @@
 package max.main;
 
+import max.exception.MaxException;
 import max.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * The Ui class handles all user interaction, printing messages and task information
@@ -98,6 +101,36 @@ public class Ui {
             printToMax("\t " + count + "." + tasks.get(i).toString());
         }
         printLine();
+    }
+
+    /**
+     * Prints the search results for tasks that match the given tag.
+     * If no tasks are found, it prints a message indicating so.
+     * If tasks are found, it prints each task along with its associated tags.
+     *
+     * @param tasks The list of tasks matching the tag search.
+     */
+    public void printTagSearchResults(List<Task> tasks) {
+        printLine();
+        if (tasks.isEmpty()) {
+            printToMax("\t  No tasks found with the given tag.");
+        } else {
+            printToMax("\t  Here are the tasks found with the given tag.");
+            for (Task task : tasks) {
+                printTaskWithTags(task);
+            }
+        }
+        printLine();
+    }
+
+    /**
+     * Prints a task along with its associated tags.
+     * Tags are displayed as hashtags.
+     *
+     * @param task The task to be printed with its tags.
+     */
+    public void printTaskWithTags(Task task) {
+        printToMax("\t " + task.toString());
     }
 
     /**
@@ -214,6 +247,18 @@ public class Ui {
 
         printToMax("'find <keyword>'");
         printToMax("    Finds tasks containing the specified keyword.");
+        printToMax("");
+
+        printToMax("'searchtag <tag>'");
+        printToMax("    Finds tasks containing the specified tag.");
+        printToMax("");
+
+        printToMax("'tag <index> <tag>'");
+        printToMax("    Adds a tag to the task at the given index.");
+        printToMax("");
+
+        printToMax("'untag <index> <tag>'");
+        printToMax("    Removes a tag from the task at the given index.");
         printToMax("");
 
         printToMax("'help'");
