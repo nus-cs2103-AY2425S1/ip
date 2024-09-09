@@ -56,19 +56,23 @@ public class Bobby {
      */
 
     public static Task constructTask(String desc) {
+        assert desc != null : "Description cannot be null";
         String[] details = desc.split("/");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         switch(SimpleType.valueOf(details[0])) {
         case T:
+            assert details.length == 3 : "Todo format incorrectly stored";
             Task task = new ToDos(details[2]);
             task.isDone = details[1].equals("1");
             return task;
         case D:
+            assert details.length == 4 : "Deadline format incorrectly stored";
             task = new Deadlines(details[2],
                     LocalDateTime.parse(details[3], formatter));
             task.isDone = details[1].equals("1");
             return task;
         case E:
+            assert details.length == 5 : "Event format incorrectly stored";
             task = new Events(details[2],
                     LocalDateTime.parse(details[3], formatter),
                     LocalDateTime.parse(details[4], formatter));
@@ -88,6 +92,7 @@ public class Bobby {
     private static String handleBye(String desc) throws Exception {
         if (desc == null) {
             Storage.writeToFile(taskList);
+            System.exit(0);
             return EXIT;
         } else {
             return RETRY;

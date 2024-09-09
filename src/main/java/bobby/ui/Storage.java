@@ -78,6 +78,7 @@ public class Storage {
             System.out.println("Your code is buggy");
         }
         try (FileWriter fw = new FileWriter(filePath, false)) {
+            assert file.length() == 0 : "File is not empty after clearing it";
         } catch (Exception e) {
             System.out.println("Your code is super buggy");
         }
