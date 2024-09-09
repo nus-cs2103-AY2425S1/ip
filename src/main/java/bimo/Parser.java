@@ -16,9 +16,6 @@ import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
 
-
-
-
 /**
  * Deals with making sense of the user command.
  */
@@ -96,6 +93,7 @@ public class Parser {
         if (parsedArray.length <= 1) {
             throw new BimoException("Please key in description for your task");
         }
+        assert parsedArray.length > 1 : "Description should be entered";
         parsedArray[0] = "";
         return removeSpace(parsedArray);
     }

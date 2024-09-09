@@ -34,10 +34,11 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> results = new ArrayList<>();
-
+        assert tasks != null : "Task list must not be null";
         for (int i = 1; i < this.words.length; i++) {
             for (int j = 0; j < tasks.getLength(); j++) {
                 Task task = tasks.getTask(j);
+                assert task != null : "Task must not be null";
                 if (task.getDetails().contains(this.words[i])) {
                     results.add(task);
                 }

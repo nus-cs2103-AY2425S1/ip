@@ -47,6 +47,7 @@ public class TaskList {
     public Task removeTask(int i) {
         Task task = this.tasks.remove(i);
         length -= 1;
+        assert length >= 0 : "Number of tasks should not be negative";
         return task;
     }
 

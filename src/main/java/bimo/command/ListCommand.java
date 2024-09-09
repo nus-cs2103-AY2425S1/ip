@@ -19,6 +19,7 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String response = "Here are the tasks in your tasks:";
+        assert tasks != null : "Task list must not be null";
         for (int i = 0; i < tasks.getLength(); i++) {
             String message = String.format("\n    %d. %s", i + 1, tasks.getTask(i).toString());
             response += message;

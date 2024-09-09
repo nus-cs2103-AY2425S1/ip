@@ -30,6 +30,8 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert task != null : "Task must not be null";
+        assert tasks != null : "Task list must not be null";
         tasks.addTask(task);
         String word = tasks.getLength() == 1 ? "task" : "tasks";
         storage.appendToFile(task);

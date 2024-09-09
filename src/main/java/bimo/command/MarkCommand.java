@@ -33,6 +33,7 @@ public class MarkCommand extends Command {
         if (index >= tasks.getLength() || index < 0) {
             return ui.showTaskNotFoundError();
         }
+        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
         tasks.getTask(index).markCompleted();
         storage.overwriteFile(tasks);
         String response = "Good job! I've marked this task as done:\n"
