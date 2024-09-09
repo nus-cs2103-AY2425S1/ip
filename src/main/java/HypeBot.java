@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +20,8 @@ import java.util.Scanner;
  * @author Youngseo Park (@youngseopark05)
  */
 public class HypeBot {
-    private static final String BUFFER_LINE = "____________________________________________________________________\n";
+    private static final String BUFFER_LINE = "____________________________________________________________________"
+            + "____________________________________________________________\n";
     private static final ArrayList<Task> TASKS = new ArrayList<>();
     private static final Scanner SCANNER = new Scanner(System.in);
     private static File tasklistTextFile;
@@ -168,13 +171,23 @@ public class HypeBot {
             newTask = new ToDo(taskName);
             break;
         case "D":
-            String dueDate = taskTextLineElements[3];
-            newTask = new Deadline(taskName, dueDate);
+            try {
+                String dueDate = taskTextLineElements[3];
+                newTask = new Deadline(taskName, dueDate);
+            } catch (DateTimeParseException e) {
+                System.out.println(addBufferLineError("but I couldn't catch that due date you put.\n"
+                        + "Try formatting your date in this format: yyyy-MM-dd HH:mm"));
+            }
             break;
         case "E":
-            String startTime = taskTextLineElements[3];
-            String endTime = taskTextLineElements[4];
-            newTask = new Event(taskName, startTime, endTime);
+            try {
+                String startTime = taskTextLineElements[3];
+                String endTime = taskTextLineElements[4];
+                newTask = new Event(taskName, startTime, endTime);
+            } catch (DateTimeParseException e) {
+                System.out.println(addBufferLineError("but I couldn't catch the dates you put.\n"
+                        + "Try formatting your dates in this format: yyyy-MM-dd HH:mm"));
+            }
             break;
         }
         return newTask;
@@ -236,7 +249,7 @@ public class HypeBot {
             If command entered is mark, unmark, delete: [{Command_Type} {Index}]
             If command entered is list, bye: [{Command_Type}]
              */
-            String[] splitLineForDates = line.split("/");
+            String[] splitLineForDates = line.split(" /");
             String[] commandAndTaskName = splitLineForDates[0].split(" ");
             String command = commandAndTaskName[0];
             StringBuilder taskNameBuilder = new StringBuilder();
@@ -262,22 +275,41 @@ public class HypeBot {
                 break;
             case "deadline":
                 if (splitLineForDates.length < 2) {
-                    System.out.println(addBufferLineError("make sure you got the due date for that SWAGGIN' "
-                            + "deadline you got!\n"));
+                    System.out.println(addBufferLineError("""
+                            make sure you got the due date for that SWAGGIN' \
+                            deadline you got!
+                            Put your due date after a '/' to indicate that you're inputting a due date!
+                            """));
                     break;
                 }
-                System.out.println(splitLineForDates[1]);
-                Deadline newDeadline = new Deadline(taskName, splitLineForDates[1]);
-                System.out.println(add(newDeadline));
+                try {
+                    Deadline newDeadline = new Deadline(taskName, splitLineForDates[1]);
+                    System.out.println(add(newDeadline));
+                } catch (DateTimeParseException e) {
+                    System.out.println(addBufferLineError("""
+                            but I couldn't catch the due date that you put.
+                            Try formatting your due date in this format: yyyy-MM-dd HH:mm
+                            """));
+                }
                 break;
             case "event":
                 if (splitLineForDates.length < 3) {
-                    System.out.println(addBufferLineError("make sure you got that start time AND end time for "
-                            + "that AWESOME event you got!\n"));
+                    System.out.println(addBufferLineError("""
+                            make sure you got that start time AND end time for \
+                            that AWESOME event you got!
+                            Put a '/' before your start time and end time to indicate you're inputting a time!
+                            """));
                     break;
                 }
-                Event newEvent = new Event(taskName, splitLineForDates[1], splitLineForDates[2]);
-                System.out.println(add(newEvent));
+                try {
+                    Event newEvent = new Event(taskName, splitLineForDates[1], splitLineForDates[2]);
+                    System.out.println(add(newEvent));
+                } catch (DateTimeException e) {
+                    System.out.println(addBufferLineError("""
+                            but I couldn't catch the times that you put.
+                            Try formatting your time in this format: yyyy-MM-dd HH:mm
+                            """));
+                }
                 break;
             case "mark":
                 try {
