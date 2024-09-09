@@ -1,3 +1,5 @@
+package main.tasks;
+
 public class ToDo extends Task{
     public ToDo(String text, boolean isDone) {
         super(text, isDone);
