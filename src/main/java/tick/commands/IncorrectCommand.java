@@ -26,7 +26,7 @@ public class IncorrectCommand extends Command {
     /**
      * Returns false as the command is not an exit command.
      *
-     * @return false
+     * @return false.
      */
     @Override
     public boolean isExit() {
