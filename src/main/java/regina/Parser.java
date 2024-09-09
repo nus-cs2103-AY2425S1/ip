@@ -42,6 +42,7 @@ public class Parser {
                 || command.startsWith("unmark")
                 || command.startsWith("delete")
                 || command.equals("bye")
-                || command.startsWith("find");
+                || command.startsWith("find")
+                || command.startsWith("snooze");
     }
 }

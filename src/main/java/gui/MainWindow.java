@@ -98,7 +98,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().toLowerCase();
         if (!input.isEmpty()) {
             String response = regina.getResponse(input);
             dialogContainer.getChildren().addAll(

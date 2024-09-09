@@ -23,6 +23,8 @@ import tasks.ToDosTask;
  */
 public class Regina {
     private static final String NAME = "regina.Regina";
+    private static final String DEFAULT_SNOOZE_TYPE = "minute";
+    private static final int DEFAULT_SNOOZE_VALUE = 30;
 
     private final Parser parser;
     private final Marker marker;
@@ -101,6 +103,22 @@ public class Regina {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Snoozes target task by duration specified
+     *
+     * @param taskIndex An integer representing the index of the targeted task in the list of tasks.
+     * @param durationType A string representing the type duration in days, hours or minutes.
+     * @param durationValue An integer representing the value of the specified type to push back the endTime.
+     *
+     * @return A string representing the message to the user of the action done.
+     */
+    public String snoozeTask(int taskIndex, String durationType, int durationValue) {
+        Task task = this.listOfTasks.get(taskIndex);
+        String message = task.snoozeTask(durationType, durationValue);
+        saveFile();
+        return message;
     }
 
     /**
@@ -251,14 +269,12 @@ public class Regina {
         if (listOfTasks.isEmpty()) {
             throw new ReginaException("HEHE no tasks for now!");
         }
-        // Utilizing Streams to construct the output string
         String taskList = IntStream.range(0, listOfTasks.size())
                 .mapToObj(i -> (i + 1) + "." + listOfTasks.get(i).toString()) // Concatenate the index with the task description
                 .collect(Collectors.joining("\n"));
 
         return ui.printMessage(taskList);
     }
-
 
     /**
      * Marks a task based on the given index.
@@ -315,7 +331,7 @@ public class Regina {
      */
     public String getResponse(String input) {
         try {
-            Optional<CommandData> commandData = parser.parse(input);
+            Optional<CommandData> commandData = parser.parse(input.toLowerCase());
             if (commandData.isPresent()) {
                 CommandData data = commandData.get();
                 switch (data.getCommandType()) {
@@ -335,18 +351,73 @@ public class Regina {
                 case "unmark":
                 case "delete":
                     String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
-                    if (haveNumber(parts)) { // Validate that there's a task number
+                    if (haveNumber(parts)) {
                         return getReplyForNumberedCommand(parts, data);
+                    } else {
+                        throw new ReginaException("Use the task index in the list lah!");
                     }
-                    break;
-                default:
+                case "snooze":
+                    return handleSnoozeCommand(data);
+                case "add":
                     return add(input); // Add a new task
+                default:
+                    throw new ReginaException("Invalid input");
                 }
             }
         } catch (ReginaException e) {
             return e.getMessage(); // Return the error messages
         }
         return "I'm not sure how to respond to that."; // Default response
+    }
+
+    private String handleSnoozeCommand(CommandData data) throws ReginaException {
+        String[] parts = data.getRawInput().split(" ");
+        // Check if custom duration is provided
+        if (parts.length == 2) {
+            // No custom duration: use the default snooze value (30 minutes)
+            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+            return snoozeTask(index, DEFAULT_SNOOZE_TYPE, DEFAULT_SNOOZE_VALUE);
+        } else if (parts.length == 5) {
+            // Custom duration format: snooze <task_number> /by <duration_value> <duration_type>
+            if (!"/by".equals(parts[2])) {
+                throw new ReginaException("Invalid format for snooze command. "
+                        + "Use: snooze <task_number> /by <duration_value> <duration_type>");
+            }
+            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+            int durationValue;
+            try {
+                durationValue = Integer.parseInt(parts[3]);
+            } catch (NumberFormatException e) {
+                throw new ReginaException("Invalid duration value. Please enter a number.");
+            }
+            String durationType = getDurationType(parts[4].toLowerCase());
+            if (!isValidDurationType(durationType)) {
+                throw new ReginaException("Invalid duration type. Use: day, hour or minute.");
+            }
+            return snoozeTask(index, durationType, durationValue);
+        } else {
+            throw new ReginaException("Invalid format for snooze command. "
+                    + "Use: snooze <task_number> [ /by <duration_value> <duration_type> ]");
+        }
+    }
+
+    private String getDurationType(String input) {
+        if (input.equals("days")) {
+            return "day";
+        }
+        if (input.equals("hours")) {
+            return "hour";
+        }
+        if (input.equals("minutes") || input.equals("min")) {
+            return "minute";
+        }
+        return input;
+    }
+
+    private boolean isValidDurationType(String type) {
+        return "day".equals(type)
+                || "hour".equals(type)
+                || "minute".equals(type);
     }
 
     private String getReplyForNumberedCommand(String[] parts, CommandData data) throws ReginaException {

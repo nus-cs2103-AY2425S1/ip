@@ -26,6 +26,37 @@ public class EventsTask extends Task {
     }
 
     /**
+     * Push back the endTime by the specified duration.
+     *
+     * @param durationType A string representing the type duration in days, hours or minutes.
+     * @param durationValue An int representing the value of the specified type to push back the endTime.
+     *
+     * @return A string representing the message to the user of the action.
+     */
+    @Override
+    public String snoozeTask(String durationType, int durationValue) {
+        String plural = durationValue > 1 ? "s" : "";
+        int quantityOfUnitsPushedBack = durationValue;
+        switch (durationType) {
+        case "day" -> {
+            this.endTime.pushBackDate(durationValue);
+        }
+        case "hour" -> {
+            this.endTime.pushBackTime(hoursToMinutes(durationValue));
+        }
+        case "min" -> {
+            this.endTime.pushBackTime(durationValue);
+        }
+        default -> {
+            this.endTime.pushBackTime(30);
+            quantityOfUnitsPushedBack = 30;
+        }
+        };
+        return String.format("Pushed back deadline of %s by %d %s%s to %s",
+                this.description, quantityOfUnitsPushedBack, durationType, plural, this.endTime.toString());
+    }
+
+    /**
      * Checks if the event is occurring at the specified date and time.
      * <p>
      * This method determines if the provided date and time falls within the

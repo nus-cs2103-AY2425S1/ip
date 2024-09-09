@@ -30,6 +30,16 @@ public abstract class Task {
      */
     public abstract String toSavedFormatting();
 
+    /**
+     * If task has a deadline, will push back the deadline by specified duration.
+     *
+     * @param durationType A string representing the type duration in days, hours or minutes.
+     * @param durationValue An int representing the value of the specified type to push back the deadline.
+     *
+     * @return A string representing the message to the user of the action.
+     */
+    public abstract String snoozeTask(String durationType, int durationValue);
+
     public abstract boolean isOccurringOn(ReginaDateAndTime dateAndTime);
 
     /**
@@ -44,6 +54,9 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    protected int hoursToMinutes(int hours) {
+        return hours * 60;
+    }
     /**
      * Unmarks the task, setting it back to not done.
      *
