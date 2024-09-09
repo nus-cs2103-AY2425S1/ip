@@ -4,6 +4,7 @@ package dook.commands;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dook.Dook;
 import dook.DookException;
 import dook.storage.Storage;
 import dook.tasks.Task;
@@ -16,6 +17,7 @@ import dook.ui.Ui;
 public class FindCommand extends Command {
 
     private String keyword;
+    private String foundWord = "Here are the matching tasks in your list: ";
 
     /**
      * Creates a FindCommand to search for tasks containing the given keyword.
@@ -39,9 +41,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
-        if (this.keyword.isEmpty()) {
-            throw new DookException("Provide a keyword");
-        }
+        exitIfNoKeyword();
 
         TaskList matches = new TaskList(new ArrayList<Task>());
 
@@ -51,17 +51,32 @@ public class FindCommand extends Command {
                 matches.add(task);
             }
         }
-        ui.separate();
-        String message = "Here are the matching tasks in your list: ";
+
+        return printMessages(matches, ui);
+    }
+
+    private void exitIfNoKeyword() throws DookException {
+        if (this.keyword.isEmpty()) {
+            throw new DookException("Provide a keyword");
+        }
+    }
+
+    private void exitIfNoMatches(TaskList matches) throws DookException {
         if (matches.isEmpty()) {
             throw new DookException("No tasks have the following keyword: \"" + this.keyword + "\"");
-        } else {
-            ui.showMessage(message);
-            for (int i = 0; i < matches.numOfTasks(); i++) {
-                ui.showMessage((i + 1) + ". " + matches.getTask(i));
-                message = message.concat("\n" + (i + 1) + ". " + matches.getTask(i));
-            }
         }
+    }
+
+    private String printMessages(TaskList matches, Ui ui) throws DookException {
+        ui.separate();
+        String message = foundWord;
+
+        ui.showMessage(message);
+        for (int i = 0; i < matches.numOfTasks(); i++) {
+            ui.showMessage((i + 1) + ". " + matches.getTask(i));
+            message = message.concat("\n" + (i + 1) + ". " + matches.getTask(i));
+        }
+
         ui.separate();
         return message;
     }
