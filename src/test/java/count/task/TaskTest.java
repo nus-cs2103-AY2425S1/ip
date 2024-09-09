@@ -19,6 +19,12 @@ public class TaskTest {
     }
 
     @Test
+    public void stringConstructorTest() {
+        Task t = new Task("test description");
+        assertEquals(" ", t.getStatusIcon());
+    }
+
+    @Test
     public void setCompletionStatusTest() {
         Task t = new Task("test description", false);
         t.setCompletion(true);

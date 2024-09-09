@@ -10,8 +10,8 @@ import count.exception.InvalidCommandException;
 
 public class ParserTest {
     private String rootFilePath = "./Count.txt";
-    private String markIncorrectFormatString = "Use a number after mark/unmark/delete to specify the task targeted!\n"
-            + "Type 'help' to see correct formatting examples";
+    private String markIncorrectFormatString = "Use a number after mark/unmark/delete/remind to specify"
+            + " the task targeted!\n Type 'help' to see correct formatting examples";
     private String deadlineIncorrectFormatString = "Invalid format for event or deadline!\n"
             + "Type 'help' to see correct formatting examples";
 
