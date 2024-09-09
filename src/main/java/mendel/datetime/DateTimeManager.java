@@ -10,6 +10,23 @@ import java.time.format.DateTimeParseException;
  */
 public class DateTimeManager {
     private String formattedDate;
+    String[] POSSIBLEFORMATTEDTIME = new String[]{
+            "dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
+            "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
+            "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
+            "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
+            "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
+            "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
+            "d MMM yyyy HHmm"
+    };
+    private final String[] POSSIBLEFORMATTEDUNTIME = new String[] {
+            "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
+            "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
+            "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
+            "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
+            "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
+            "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
+    };
 
     /**
      * Constructs a DateTimeManager object by attempting to parse a raw date string into a standard format.
@@ -22,45 +39,47 @@ public class DateTimeManager {
             LocalDateTime date = LocalDateTime.parse(rawDate);
             this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
-            boolean hasValidFormat = false;
-            String[] possibleFormatsTimed = new String[] {
-                "dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
-                "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
-                "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
-                "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-                "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
-                "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
-                "d MMM yyyy HHmm"
-            };
-            for (int i = 0; i < possibleFormatsTimed.length; i++) {
-                if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(possibleFormatsTimed[i]))) {
-                    LocalDateTime date = LocalDateTime.parse(rawDate,
-                            DateTimeFormatter.ofPattern(possibleFormatsTimed[i]));
-                    this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
-                    hasValidFormat = true;
-                    break;
-                }
-            }
-            String[] possibleFormatsUnTimed = new String[] {
-                "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
-                "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
-                "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
-                "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
-                "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
-                "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
-            };
-            for (int i = 0; i < possibleFormatsUnTimed.length; i++) {
-                if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(possibleFormatsUnTimed[i]))) {
-                    LocalDate date = LocalDate.parse(rawDate, DateTimeFormatter.ofPattern(possibleFormatsUnTimed[i]));
-                    this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                    hasValidFormat = true;
-                    break;
-                }
-            }
+            boolean hasValidFormat = this.checkFormat(rawDate);
+
             if (!hasValidFormat) {
                 this.formattedDate = rawDate;
+            } else {
+                this.formattedDate = parseDate(rawDate);
             }
         }
+    }
+
+    private boolean checkFormat(String rawDate) {
+        for (int i = 0; i < POSSIBLEFORMATTEDTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]))) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < POSSIBLEFORMATTEDUNTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String parseDate(String rawDate) {
+        for (int i = 0; i < POSSIBLEFORMATTEDTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]))) {
+                LocalDateTime date = LocalDateTime.parse(rawDate,
+                        DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDTIME[i]));
+                return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+            }
+        }
+
+        for (int i = 0; i < POSSIBLEFORMATTEDUNTIME.length; i++) {
+            if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]))) {
+                LocalDate date = LocalDate.parse(rawDate, DateTimeFormatter.ofPattern(POSSIBLEFORMATTEDUNTIME[i]));
+                return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            }
+        }
+        return rawDate;
     }
 
     /**
