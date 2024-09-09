@@ -146,4 +146,10 @@ public class Ui {
         System.out.println(message);
         return message;
     }
+
+    public String showDuplicateMessage(Task task) {
+        String message = "Duplicate found, cannot add task:\n" + task;
+        System.out.println(message);
+        return message;
+    }
 }

@@ -258,6 +258,10 @@ public class Parser {
      */
     private String handleTaskCreationCommand(String command, TaskList taskList, Ui ui) throws JarException {
         Task task = parseTask(command);
+        boolean haveDuplicate = taskList.findDuplicate(task, taskList);
+        if (haveDuplicate) {
+            return ui.showDuplicateMessage(task);
+        }
         taskList.addTask(task);
         return ui.showTaskAdded(task.toString()) + "\n" + ui.showTaskCount(taskList.getTaskCount());
     }

@@ -34,4 +34,9 @@ public class ToDo extends Task {
     public String toFileFormat() {
         return "T | " + super.toFileFormat();
     }
+
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
 }

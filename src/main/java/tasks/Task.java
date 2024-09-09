@@ -50,4 +50,13 @@ public class Task {
     public String toFileFormat() {
         return (isDone ? "1" : "0") + " | " + taskContent;
     }
+
+    public String getTaskContent() {
+        return this.taskContent;
+    }
+
+    public String getTaskType() {
+        return "task";
+    }
+
 }

@@ -39,4 +39,17 @@ public class Event extends Task {
     public String toFileFormat() {
         return "E | " + super.toFileFormat() + " | " + from + " | " + to;
     }
+
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
 }
