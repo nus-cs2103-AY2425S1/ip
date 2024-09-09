@@ -76,7 +76,7 @@ public abstract class Task {
      *
      * @return The text file format of the task.
      */
-    public String toText() {
+    public String toTextFile() {
         char status = isDone ? '1' : '0';
         return status + " | " + name;
     }

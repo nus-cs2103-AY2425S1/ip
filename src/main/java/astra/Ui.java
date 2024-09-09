@@ -36,7 +36,7 @@ public class Ui {
     /**
      * Say goodbye to the user.
      */
-    public void goodbye() {
+    public void printGoodbye() {
         String msg = " Bye. Hope to see you again soon!\n";
         display(msg);
     }

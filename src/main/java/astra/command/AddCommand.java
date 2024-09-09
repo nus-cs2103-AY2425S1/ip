@@ -72,6 +72,6 @@ public class AddCommand extends Command {
 
     @Override
     public String toString() {
-        return "ADD " + task.toText();
+        return "ADD " + task.toTextFile();
     }
 }

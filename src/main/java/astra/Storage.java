@@ -51,7 +51,7 @@ public class Storage {
      * @param tasks List of tasks to be saved.
      */
     public void save(TaskList tasks) {
-        String text = tasks.toText();
+        String text = tasks.toTextFile();
 
         try {
             // Create directory if it does not exist

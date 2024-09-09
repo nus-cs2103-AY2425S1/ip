@@ -24,10 +24,10 @@ public class TaskList {
      *
      * @return List of tasks in text file format.
      */
-    public String toText() {
+    public String toTextFile() {
         StringBuilder text = new StringBuilder();
         for (Task task : tasks) {
-            text.append(task.toText()).append('\n');
+            text.append(task.toTextFile()).append('\n');
         }
         return text.toString();
     }
@@ -46,9 +46,17 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public Task get(int index) throws AstraException {
+    private Task get(int index) throws AstraException {
         try {
             return tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AstraException("Invalid index.");
+        }
+    }
+
+    private Task remove(int index) throws AstraException {
+        try {
+            return tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new AstraException("Invalid index.");
         }
@@ -62,13 +70,7 @@ public class TaskList {
      * @throws AstraException If the index is invalid.
      */
     public Task delete(int index) throws AstraException {
-        try {
-            Task t = this.get(index);
-            tasks.remove(index - 1);
-            return t;
-        } catch (IndexOutOfBoundsException e) {
-            throw new AstraException("Invalid index.");
-        }
+        return this.remove(index);
     }
 
     /**
@@ -80,13 +82,9 @@ public class TaskList {
      * @throws AstraException If the index is invalid.
      */
     public Task markAsDone(int index, boolean done) throws AstraException {
-        try {
-            Task t = this.get(index);
-            t.setDone(done);
-            return t;
-        } catch (IndexOutOfBoundsException e) {
-            throw new AstraException("Invalid index.");
-        }
+        Task t = this.get(index);
+        t.setDone(done);
+        return t;
     }
 
     public int length() {

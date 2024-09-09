@@ -44,7 +44,7 @@ public class Astra {
             }
         }
 
-        ui.goodbye();
+        ui.printGoodbye();
         ui.stop();
     }
 

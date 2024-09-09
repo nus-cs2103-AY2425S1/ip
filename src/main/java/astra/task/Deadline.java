@@ -38,8 +38,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toText() {
-        return "D | " + super.toText() + " | " + by.format(inputFormatter);
+    public String toTextFile() {
+        return "D | " + super.toTextFile() + " | " + by.format(inputFormatter);
     }
 
     @Override
