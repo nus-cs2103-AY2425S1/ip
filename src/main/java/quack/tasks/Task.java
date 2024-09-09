@@ -81,6 +81,15 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves status of the task weather is it marked or not.
+     * @return The boolean representation of the task status.
+     */
+    protected boolean getIsChecked() {
+
+        return this.isChecked;
+    }
+
+    /**
      * Updates the task status to be marked.
      * <p>
      * The function checks if the task is already marked.

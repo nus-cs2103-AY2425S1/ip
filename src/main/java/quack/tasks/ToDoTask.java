@@ -6,7 +6,7 @@ package quack.tasks;
 public class ToDoTask extends Task {
 
     /**
-     * Creates a ToDo task object based on its description.
+     * Creates a ToDo task object with the given description.
      * @param taskName Description of the task.
      */
     public ToDoTask(String taskName) {

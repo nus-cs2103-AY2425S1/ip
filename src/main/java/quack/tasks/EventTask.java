@@ -27,6 +27,24 @@ public class EventTask extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * Retrieves start date of the event task.
+     * @return A LocalDateTime object which indicates the start date of the task.
+     */
+    protected LocalDateTime getStartDate() {
+
+        return this.startDate;
+    }
+
+    /**
+     * Retrieves end date of the event task.
+     * @return A LocalDateTime object which indicates the end date of the task.
+     */
+    protected LocalDateTime getEndDate() {
+
+        return this.endDate;
+    }
+
     @Override
     public String toCsvFormat() {
 
