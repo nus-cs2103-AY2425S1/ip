@@ -11,6 +11,9 @@ public class Taskalyn {
     private TaskManager taskManager;
     private Parser parser;
 
+    /**
+     * Constructs the Taskalyn application with UI, Database, Parser, and TaskManager objects.
+     */
     public Taskalyn() {
         this.ui = new Ui();
         this.database = new Database();

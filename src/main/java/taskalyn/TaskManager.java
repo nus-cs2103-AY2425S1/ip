@@ -32,9 +32,9 @@ public class TaskManager {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        ui.printLines("Got it, I've added this task to your list!\n" +
-                "      " + task.toString() + "\n" + "    Wah bro... " +
-                getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
+        ui.printLines("Got it, I've added this task to your list!\n"
+                + "      " + task.toString() + "\n" + "    Wah bro... "
+                + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
         return ui.showAddTaskMessage(task, this);
     }
@@ -47,9 +47,9 @@ public class TaskManager {
     public String deleteTask(int taskId) {
         Task task = tasks.get(taskId - 1);
         tasks.remove(task);
-        ui.printLines("Awesome bro! One task gone :D\n" +
-                "      " + task.toString() + "\n" + "    Wah bro... " +
-                getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
+        ui.printLines("Awesome bro! One task gone :D\n"
+                + "      " + task.toString() + "\n" + "    Wah bro... "
+                + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
         return ui.showDeleteTaskMessage(task, this);
     }
@@ -68,18 +68,9 @@ public class TaskManager {
      */
     public String listTasks() {
         String taskString = "Here are the tasks in your list:\n" + "    ";
-
         if (!tasks.isEmpty()) {
-            for (int i = 0; i < tasks.size(); i++) {
-                if (i != tasks.size() - 1) {
-                    taskString += i + 1 + "." + tasks.get(i).toString() + "\n    ";
-                }
-                else {
-                    taskString += i + 1 + "." + tasks.get(i).toString();
-                }
-            }
-        }
-        else {
+            taskString += stringBuilder(tasks);
+        } else {
             taskString += "Nothing!";
         }
 
@@ -95,8 +86,8 @@ public class TaskManager {
     public String markTaskAsComplete(int taskId) {
         Task task = tasks.get(taskId - 1);
         task.setComplete();
-        ui.printLines("Nice, I've marked this task as complete:\n" +
-                "       " + task.toString());
+        ui.printLines("Nice, I've marked this task as complete:\n"
+                + "       " + task.toString());
         updateDatabase();
         return ui.showMarkTaskAsCompleteMessage(task);
     }
@@ -109,8 +100,8 @@ public class TaskManager {
     public String markTaskAsIncomplete(int taskId) {
         Task task = tasks.get(taskId - 1);
         task.setIncomplete();
-        ui.printLines("Ok, I've marked this task as incomplete:\n" +
-                "       " + task.toString());
+        ui.printLines("Ok, I've marked this task as incomplete:\n"
+                + "       " + task.toString());
         updateDatabase();
         return ui.showMarkTaskAsIncompleteMessage(task);
     }
@@ -129,13 +120,7 @@ public class TaskManager {
         }
         if (!matchedTasks.isEmpty()) {
             String matchingTasks = "Here are the matching tasks in your list:\n" + "    ";
-            for (int i = 0; i < matchedTasks.size(); i++) {
-                if (i != matchedTasks.size() - 1) {
-                    matchingTasks += i + 1 + "." + matchedTasks.get(i).toString() + "\n    ";
-                } else {
-                    matchingTasks += i + 1 + "." + matchedTasks.get(i).toString();
-                }
-            }
+            matchingTasks += stringBuilder(matchedTasks);
             return ui.showSearchTasksByKeywordMessage(matchingTasks);
         } else {
             return ui.showSearchTasksByKeywordMessage("Aw... there are no matching tasks :(");
@@ -204,5 +189,22 @@ public class TaskManager {
             textLines.add(task.toDatabaseFormat());
         }
         database.writeToDatabase(textLines);
+    }
+
+    /**
+     * Returns a list of Task objects as a formatted String.
+     *
+     * @param tasks A list of Task objects.
+     * @return A formatted String of a list of Task objects.
+     */
+    private String stringBuilder(List<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
+            if (i != tasks.size() - 1) {
+                stringBuilder.append("\n    ");
+            }
+        }
+        return stringBuilder.toString();
     }
 }

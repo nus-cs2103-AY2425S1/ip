@@ -38,7 +38,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toDatabaseFormat() {
-        return "E | " + (this.isCompleted() ? "1" : "0") + " | " +
-                this.getTaskDescription() + " | " + this.from + " | " + this.to;
+        return "E | " + (this.isCompleted() ? "1" : "0") + " | "
+                + this.getTaskDescription() + " | " + this.from + " | " + this.to;
     }
 }

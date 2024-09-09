@@ -5,3 +5,4 @@ T | 0 | eat cake
 T | 0 | eat more
 T | 0 | go home
 T | 0 | talk to samuel
+T | 0 | go to school tmr
