@@ -39,14 +39,15 @@ public class TaskList {
 
     /**
      * Adds new item to the list of tasks
+     *
      * @param item extracted from the user input
      */
     public String addItem(Task item) {
-        Task task = item;
-        this.tasks.add(task);
+        assert item != null;
+        this.tasks.add(item);
         ++this.size;
         StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
-        sb.append(task + "\n");
+        sb.append(item + "\n");
         sb.append(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.\n");
         String response = sb.toString();
         System.out.println(response);
@@ -55,6 +56,7 @@ public class TaskList {
 
     /**
      * Deletes the specified items.
+     *
      * @param index
      */
     public String deleteItem(int index) {
@@ -70,7 +72,8 @@ public class TaskList {
     }
 
     /**
-     * Marks the index th task as done.
+     * Marks the index-th task as done.
+     *
      * @param index
      */
     public void mark(int index) {
@@ -78,7 +81,8 @@ public class TaskList {
     }
 
     /**
-     * Unmarks the index the task.
+     * Unmarks the index-th task.
+     *
      * @param index
      */
     public void unmark(int index) {
@@ -87,9 +91,11 @@ public class TaskList {
 
     /**
      * Finds and prints all the matching tasks.
+     *
      * @param keyword is one word that user enters to filter the task.
      */
     public String findTasks(String keyword) {
+        assert !keyword.isEmpty(); // handled by CommandScanner
         int counter = 0;
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : this.tasks) {

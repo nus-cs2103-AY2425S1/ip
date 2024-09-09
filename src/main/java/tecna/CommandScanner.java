@@ -94,6 +94,13 @@ public class CommandScanner {
         }
     }
 
+    /**
+     * Reads requests from GUI and return a command type.
+     * This is different from getRequest() as there is no CommandScanner used.
+     *
+     * @param input A request typed by the user.
+     * @return a CommandType value.
+     */
     public CommandType readRequest(String input) {
         this.input = input;
         String[] input_words = this.input.split(" ");

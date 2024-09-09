@@ -9,6 +9,7 @@ public class JsonLoadingException extends Exception {
 
     /**
      * Constructs a JsonLoadingException based on the type.
+     *
      * @param exceptionType type of json parsing exception.
      */
     public JsonLoadingException(JsonLoadingExceptionType exceptionType) {

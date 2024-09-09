@@ -54,13 +54,33 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Generates a dialog box for user.
+     *
+     * @param text User request entered by the user.
+     * @param img Avatar of the user.
+     * @return A DialogBox.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         var userDialog =  new DialogBox(text, img);
         userDialog.messageBox.getStyleClass().add("user-message-box");
         return userDialog;
     }
 
+    /**
+     * Generates a dialog box for Tecna.
+     *
+     * @param text Tecna's response to the user's request.
+     * @param img Tecna's avatar.
+     * @return A Dialog Box.
+     */
     public static DialogBox getTecnaDialog(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         var db = new DialogBox(text, img);
         db.flip();
         db.messageBox.getStyleClass().add("duke-message-box");

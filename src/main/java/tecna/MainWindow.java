@@ -69,7 +69,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        if (input == null || input.isEmpty()) {
+            return;
+        }
+
         String response = tecna.getResponse(input);
+
+        assert response != null || response.isEmpty() : "Tecna's response is empty.";
+
         DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
 
         DialogBox tecnaDialogBox = DialogBox.getTecnaDialog(response, tecnaImage);
@@ -84,6 +92,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void sendMessage(String message) {
+        assert message != null : "Message is null.";
         DialogBox tecnaDialogBox = DialogBox.getTecnaDialog(message, tecnaImage);
         dialogContainer.getChildren().addAll(tecnaDialogBox);
         VBox.setVgrow(tecnaDialogBox, Priority.ALWAYS);

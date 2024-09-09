@@ -20,7 +20,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             MainWindow mainWindow = (MainWindow) fxmlLoader.getController();
-            mainWindow.setTecna(tecna); // inject Duke instance
+            mainWindow.setTecna(tecna); // inject Tecna instance
             mainWindow.setStage(stage);
 
             Scene scene = new Scene(ap);

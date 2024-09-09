@@ -14,9 +14,10 @@ public class DeadlineParser {
 
     /**
      * Parses a JSONObject into a Deadline.
-     * @param jsonObject is a json object with the value of "type" is "deadline".
-     * @return a Deadline instance.
-     * @throws JsonLoadingException when there is error parsing some attributes of Deadline.
+     *
+     * @param jsonObject A json object with the value of "type" is "deadline".
+     * @return A Deadline instance.
+     * @throws JsonLoadingException When there is error parsing some attributes of Deadline.
      */
     public Deadline parse(JSONObject jsonObject) throws JsonLoadingException {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
