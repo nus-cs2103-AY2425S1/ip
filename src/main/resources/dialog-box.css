@@ -19,10 +19,18 @@
     -fx-font: 15px "Poppins", sans-serif;
 }
 
+.sender-image {
+    -fx-alignment: bottom-right;
+}
+
+.receiver-image {
+    -fx-alignment: bottom-left;
+}
+
 #displayPicture {
     /* Change size of image. */
-    -fx-scale-x: 70%;
-    -fx-scale-y: 70%;
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
 
     /* Make the image circular */
     -fx-clip: circle;
