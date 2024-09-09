@@ -1,8 +1,10 @@
 package applemazer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import commands.Command;
+import tasks.Task;
 
 /**
  * Main class that runs the Applemazer chatbot.
@@ -22,7 +24,9 @@ public class Applemazer {
     public Applemazer(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadTaskList());
+        ArrayList<Task> savedList = storage.loadTaskList();
+        assert savedList != null : "The task list is null.";
+        tasks = new TaskList(savedList);
         parser = new Parser(sc);
     }
 

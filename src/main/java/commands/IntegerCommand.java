@@ -20,6 +20,7 @@ public class IntegerCommand extends Command {
      * @param taskNumber The task number to use.
      */
     public IntegerCommand(IntegerCommands command, int taskNumber) {
+        assert isValidIntegerCommand(command) : "The integer command is invalid.";
         this.command = command;
         this.taskNumber = taskNumber;
     }
@@ -74,5 +75,14 @@ public class IntegerCommand extends Command {
     @Override
     public boolean continueProcessing() {
         return true;
+    }
+
+    private boolean isValidIntegerCommand(IntegerCommands currentCommand) {
+        for (IntegerCommands command : IntegerCommands.values()) {
+            if (currentCommand == command) {
+                return true;
+            }
+        }
+        return false;
     }
 }
