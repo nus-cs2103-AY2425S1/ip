@@ -23,7 +23,7 @@ public class EditCommand implements Command {
     private Instruction instruction;
 
     /**
-     * Constructor for EditCommand
+     * Creates a command to edit a task
      *
      * @param remaining input to tell program which task to edit
      * @param instruction tells program how to edit the task

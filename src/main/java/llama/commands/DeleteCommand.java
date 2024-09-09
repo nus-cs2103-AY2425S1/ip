@@ -14,7 +14,7 @@ public class DeleteCommand implements Command {
     private String remaining;
 
     /**
-     * Constructor for DeleteCommand
+     * Creates a command to delete task
      *
      * @param remaining input to tell program which task to delete
      */
