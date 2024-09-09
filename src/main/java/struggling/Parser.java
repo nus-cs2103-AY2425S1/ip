@@ -38,9 +38,13 @@ public class Parser {
         case list:
             return new ListCommand();
         case mark:
-            return new MarkCommand(Integer.parseInt(args[1]) - 1);
+            int markIndex = Integer.parseInt(args[1]) - 1;
+            assert markIndex >= 0 : "index should be >= 0";
+            return new MarkCommand(markIndex);
         case unmark:
-            return new UnmarkCommand(Integer.parseInt(args[1]) - 1);
+            int unmarkIndex = Integer.parseInt(args[1]) - 1;
+            assert unmarkIndex >= 0 : "index should be >= 0";
+            return new UnmarkCommand(unmarkIndex);
         case todo:
             try {
                 Task todo = new ToDo(cmd.substring(5));
@@ -60,6 +64,9 @@ public class Parser {
             int fromIndex = cmd.indexOf("/from ");
             int toIndex = cmd.indexOf("/to ");
 
+            assert fromIndex >= 0 : "index should be >= 0";
+            assert toIndex >= 0 : "index should be >= 0";
+
             String eDescription = cmd.substring(6, fromIndex).trim();
             String eFrom = cmd.substring(fromIndex + 6, toIndex).trim();
             String eTo = cmd.substring(toIndex + 4);
@@ -67,7 +74,9 @@ public class Parser {
             Task event = new Event(eDescription, eFrom, eTo);
             return new AddCommand(event);
         case delete:
-            return new DeleteCommand(Integer.parseInt(args[1]) - 1);
+            int deleteIndex = Integer.parseInt(args[1]) - 1;
+            assert deleteIndex >= 0 : "index should be >= 0";
+            return new DeleteCommand(deleteIndex);
         case find:
             return new FindCommand(args[1]);
         default:
