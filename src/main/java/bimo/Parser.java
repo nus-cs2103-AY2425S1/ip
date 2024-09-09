@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import bimo.command.AddCommand;
 import bimo.command.ByeCommand;
 import bimo.command.Command;
+import bimo.command.CommandType;
 import bimo.command.DeleteCommand;
 import bimo.command.FindCommand;
 import bimo.command.ListCommand;
@@ -15,6 +16,7 @@ import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
+
 
 
 
@@ -33,52 +35,46 @@ public class Parser {
      */
     public static Command parse(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
-        String cmd = parsedArray[0].toLowerCase();
-        if (cmd.equals("list")) {
+        String userCommand = parsedArray[0].toUpperCase();
+        CommandType command = CommandType.valueOf(userCommand);
+        switch (command) {
+        case LIST:
             return new ListCommand();
-
-        } else if (cmd.equals("mark")) {
-            int index = Integer.valueOf(parsedArray[1]) - 1;
-            return new MarkCommand(index);
-
-        } else if (cmd.equals("unmark")) {
-            int index = Integer.valueOf(parsedArray[1]) - 1;
-            return new UnmarkCommand(index);
-
-        } else if (cmd.equals("todo")) {
-            String description = parseDescription(input);
-            return new AddCommand(new ToDo(description));
-
-        } else if (cmd.equals("event")) {
+        case MARK:
+            int indexToMark = Integer.valueOf(parsedArray[1]) - 1;
+            return new MarkCommand(indexToMark);
+        case UNMARK:
+            int indexToUnmark = Integer.valueOf(parsedArray[1]) - 1;
+            return new UnmarkCommand(indexToUnmark);
+        case TODO:
+            String toDodescription = parseDescription(input);
+            return new AddCommand(new ToDo(toDodescription));
+        case EVENT:
             String[] array = input.split("/from ");
-            String description = parseDescription(array[0]);
+            String eventDescription = parseDescription(array[0]);
             String start = parseDate(false, false, array);
             String end = parseDate(false, true, array);
             LocalDate startDate = convertDate(start);
             LocalDate endDate = convertDate(end);
-            Task task = new Event(description, startDate,
-                   endDate);
-            return new AddCommand(task);
-
-        } else if (cmd.equals("deadline")) {
-            String[] array = input.split("/by ");
-            String description = parseDescription(array[0]);
-            String dueDate = parseDate(true, true, array);
+            Task eventTask = new Event(eventDescription, startDate,
+                    endDate);
+            return new AddCommand(eventTask);
+        case DEADLINE:
+            String[] arrayString = input.split("/by ");
+            String description = parseDescription(arrayString[0]);
+            String dueDate = parseDate(true, true, arrayString);
             LocalDate ld = convertDate(dueDate);
-            Task task = new Deadline(description, ld);
-            return new AddCommand(task);
-
-        } else if (cmd.equals("delete")) {
-            int index = Integer.valueOf(parsedArray[1]) - 1;
-            return new DeleteCommand(index);
-
-        } else if (cmd.equals("bye")) {
-            return new ByeCommand();
-        } else if (cmd.equals("find")) {
+            Task deadlineTask = new Deadline(description, ld);
+            return new AddCommand(deadlineTask);
+        case DELETE:
+            int indexToDelete = Integer.valueOf(parsedArray[1]) - 1;
+            return new DeleteCommand(indexToDelete);
+        case FIND:
             String[] words = input.split(" ");
             return new FindCommand(words);
-
-        } else {
+        case BYE:
+            return new ByeCommand();
+        default:
             throw new BimoException("Sorry, I do not understand you \n"
                     + "as this is not a valid command");
         }
