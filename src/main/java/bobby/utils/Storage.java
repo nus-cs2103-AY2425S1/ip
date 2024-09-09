@@ -91,12 +91,14 @@ public class Storage {
 
         if (f.createNewFile()) {
             System.out.println(filePath + " not found, allow me to create it for you");
+            assert f.exists() : "File does not exist!";
             return tasks;
         } else {
             Scanner s = new Scanner(f);
-            while(s.hasNextLine()) {
+            while (s.hasNextLine()) {
                 processFileLines(tasks, s.nextLine());
             }
+            assert f.exists() : "File does not exist!";
             return tasks;
         }
     }

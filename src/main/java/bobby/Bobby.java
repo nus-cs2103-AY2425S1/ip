@@ -14,6 +14,9 @@ import bobby.utils.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main class for Bobby chatbot.
+ */
 public class Bobby {
     private static String filePath = "data.txt";
     private Storage storage;
@@ -36,7 +39,7 @@ public class Bobby {
     }
 
     /**
-     * The method that is run when Bobby is launched
+     * The method that is run when Bobby is launched.
      */
     public void run() {
         ui.showGreeting();
