@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
      * Executes the command to exit the program.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
         setExit(true);
         return BYE;
     }

@@ -18,7 +18,7 @@ public class ListTaskCommand extends Command {
      * Executes the command to list all tasks in the task list.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
         return taskList.printTaskList();
     }
 }

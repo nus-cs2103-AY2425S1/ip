@@ -25,7 +25,7 @@ public class FindCommand extends Command {
      * Executes the command to find tasks in the task list.
      */
     @Override
-    public String execute(TaskList tasklist, Storage storage) throws DukeException {
+    public String executeCommand(TaskList tasklist, Storage storage) throws DukeException {
         String[] msgFrag = userInput.split(" ", 2);
 
         if (msgFrag.length <= 1) {
