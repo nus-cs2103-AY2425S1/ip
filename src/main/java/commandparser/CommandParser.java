@@ -143,7 +143,10 @@ public class CommandParser {
      * @param isSilent If true, suppress output messages.
      */
     public String handleEvent(String input, boolean isSilent) {
-        if (!input.contains("/from ") || !input.contains("/to ")) {
+        boolean withoutFrom = !input.contains("/from ");
+        boolean withoutTo = !input.contains("/to ");
+        boolean isNotEvent = withoutFrom || withoutTo;
+        if (isNotEvent) {
             return "You need a starting and ending date to add this task!";
 
         }
