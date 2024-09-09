@@ -136,6 +136,14 @@ public class Ui {
         printBotResponse("Invalid date format! Please use yyyy-mm-dd format.");
     }
 
+    public void printReservedCharacterErrorMessage() {
+        printBotResponse("| is a special character and cannot be used.");
+    }
+
+    public void printInvalidCommandErrorMessage() {
+        printBotResponse("Give me a valid command!");
+    }
+
     public void printFindMessage(ArrayList<Task> list) {
         String[] listStrings = new String[list.size() + 1];
         listStrings[0] = "Here are the matching tasks in your list:";
