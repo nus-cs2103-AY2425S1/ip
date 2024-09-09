@@ -26,6 +26,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         assert !task.isEmpty() : "task field should not be empty";
-        return "[T]" + super.toString() + task;
+        String mark = super.toString();
+        return "[T]" + mark + task;
     }
 }

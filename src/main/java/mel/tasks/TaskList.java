@@ -134,18 +134,21 @@ public class TaskList {
      */
     private void findTask(String str) {
         try {
+            mel.println("Mel brain rattles in recollection...");
             String foundTasks = "";
             String s = str.split(" ", 2)[1].trim();
-            mel.println("Mel brain rattles in recollection...");
             for (Task t : tasks) {
                 if (t.isMatch(s)) {
                     foundTasks += t + "\n";
+                } else {
+                    //Fallthrough to continue iterating over all tasks.
                 }
             }
             if (foundTasks.isEmpty()) {
                 mel.println("Mel recalls nothing of the sort :)");
+            } else {
+                mel.println(foundTasks);
             }
-            mel.println(foundTasks);
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
@@ -181,7 +184,7 @@ public class TaskList {
             mel.println("Mel remembers all your stuff~");
             int i = 0;
             for (Task t : tasks) {
-                mel.println(++i + "." + t);
+                mel.println(++i + ". " + t);
             }
         }
     }

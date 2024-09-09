@@ -10,7 +10,7 @@ import mel.exceptions.TaskException;
  * Deadline class that represents a task with a deadlines.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by = null;
 
     /**
      * Constructs new Deadline task.
@@ -20,9 +20,9 @@ public class Deadline extends Task {
      */
     public Deadline(String input) throws TaskException {
         try {
-            String[] temp = input.split("/by ");
-            task = temp[0].split(" ", 2)[1].trim();
-            by = super.parseDateTime(temp[1].trim());
+            String s = processInput(input);
+            processDateTime(s);
+            assert by != null : "date/time should not be empty";
             if (task.isEmpty()) {
                 throw new TaskException("deadline <task> /by <date> <time>");
             }
@@ -31,11 +31,22 @@ public class Deadline extends Task {
         }
     }
 
+    private String processInput(String input) {
+        String[] temp = input.split("/by ");
+        task = temp[0].split(" ", 2)[1].trim();
+        String dateTime = temp[1].trim();
+        return dateTime;
+    }
+
+    private void processDateTime(String input) throws ParseException {
+        by = super.parseDateTime(input);
+    }
+
     @Override
     public String toString() {
         assert !task.isEmpty() : "task field should not be empty";
-        return "[D]" + super.toString() + task + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"))
-                + ")";
+        String mark = super.toString();
+        String deadline = by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma"));
+        return "[D]" + mark + task + " (by: " + deadline + ")";
     }
 }
