@@ -35,7 +35,7 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> results = new ArrayList<>();
         this.filterTasks(results, tasks);
-        String response = ui.printFindResultsToString(results);
+        String response = ui.printResultsList(results);
         return response;
     }
 

@@ -55,13 +55,29 @@ public class Ui {
     }
 
     /**
+     * Creates String representation of list of tasks.
+     *
+     * @param tasks List of tasks.
+     * @return String representation of tasks with ordering.
+     */
+    public String printListOfTasks(TaskList tasks) {
+        String response = "Have a look at the list of tasks:";
+        for (int i = 0; i < tasks.getLength(); i++) {
+            String message = String.format("\n    %d. %s", i + 1,
+                    tasks.getTask(i).toString());
+            response += message;
+        }
+        return response;
+    }
+
+    /**
      * Creates String representation of list of tasks containing
      * specified words.
      *
      * @param results List of specified tasks.
      * @return String representation of tasks with numbering.
      */
-    public String printFindResultsToString(ArrayList<Task> results) {
+    public String printResultsList(ArrayList<Task> results) {
         String response = "These are the matching tasks in your list:";
         for (int i = 0; i < results.size(); i++) {
             String taskMessage = String.format("\n    %d. %s", i + 1,
@@ -70,6 +86,7 @@ public class Ui {
         }
         return response;
     }
+
 
     /**
      *  Checks if task exists in the list.

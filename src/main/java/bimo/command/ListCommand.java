@@ -18,11 +18,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String response = "Here are the tasks in your tasks:";
-        for (int i = 0; i < tasks.getLength(); i++) {
-            String message = String.format("\n    %d. %s", i + 1, tasks.getTask(i).toString());
-            response += message;
-        }
+        String response = ui.printListOfTasks(tasks);
         return response;
     }
 }
