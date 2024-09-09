@@ -24,81 +24,92 @@ public class MrIncredible {
     private static final Parser parser = new Parser();
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Command command = parser.parseCommand(input);
+        return handleCommand(command, input);
     }
-    public static void main(String[] args) {
-        ui.greet();
 
-        while (true) {
-            String input = scanner.nextLine().trim();
-            Command command = parser.parseCommand(input);
-
-            switch (command) {
-                case BYE:
-                    ui.sayBye();
-                    return;
-                case LIST:
-                    listTasks();
-                    break;
-                case MARK:
-                    markTask(input);
-                    break;
-                case TODO:
-                    if (input.length() > 5) {
-                        addToDoTask(input.substring(5).trim());
-                    } else {
-                        ui.handleError("The description of a todo cannot be empty.");
-                    }
-                    break;
-                case DEADLINE:
-                    if (input.length() > 9 && input.contains(" /by ")) {
-                        addDeadlineTask(input.substring(9).trim());
-                    } else {
-                        ui.handleError("The deadline description or date is missing or improperly formatted. Use: deadline <description> /by <time>");
-                    }
-                    break;
-                case EVENT:
-                    if (input.length() > 6 && input.contains(" /from ") && input.contains(" /to ")) {
-                        addEventTask(input.substring(6).trim());
-                    } else {
-                        ui.handleError("The event description, start, or end time is missing or improperly formatted. Use: event <description> /from <start> /to <end>");
-                    }
-                    break;
-                case DELETE:
-                    deleteTask(input);
-                    break;
-                case FIND:
-                    findTask(input);
-                    break;
-                default:
-                    ui.handleError("Sorry, I don't recognize that command. Please try again.");
-                    break;
+    private static String handleCommand(Command command, String input) {
+        switch (command) {
+            case BYE -> {
+                return handleBye();
+            }
+            case LIST -> {
+                return listTasks();
+            }
+            case MARK -> {
+                return markTask(input);
+            }
+            case TODO -> {
+                return handleToDoCommand(input);
+            }
+            case DEADLINE -> {
+                return handleDeadlineCommand(input);
+            }
+            case EVENT -> {
+                return handleEventCommand(input);
+            }
+            case DELETE -> {
+                return deleteTask(input);
+            }
+            case FIND -> {
+                return findTask(input);
+            }
+            default -> {
+                return ui.handleError("Sorry, I don't recognize that command. Please try again.");
             }
         }
     }
 
-    public static void deleteTask(String input) {
+    private static String handleBye() {
+        return ui.sayBye();
+    }
+
+    private static String handleToDoCommand(String input) {
+        String description = extractDescription(input, 5, "todo");
+        if (description != null) {
+            return addToDoTask(description);
+        }
+        return ui.handleError("The description of a todo cannot be empty.");
+    }
+
+    private static String handleDeadlineCommand(String input) {
+        if (input.length() > 9 && input.contains(" /by ")) {
+            return addDeadlineTask(input.substring(9).trim());
+        } else {
+            return ui.handleError("Invalid deadline command. Use: deadline <description> /by <time>");
+        }
+    }
+
+    private static String handleEventCommand(String input) {
+        if (input.length() > 6 && input.contains(" /from ") && input.contains(" /to ")) {
+            return addEventTask(input.substring(6).trim());
+        } else {
+            return ui.handleError("Invalid event command. Use: event <description> /from <start> /to <end>");
+        }
+    }
+
+    public static String deleteTask(String input) {
         try {
             int taskId = Integer.parseInt(input.substring(7).trim());
             Task removedTask = taskStorage.getTask(taskId);
             if (removedTask != null) {
                 taskStorage.deleteTask(taskId);
-                ui.showTaskRemoved(removedTask, taskStorage.getTaskCount());
+                return ui.showTaskRemoved(removedTask, taskStorage.getTaskCount());
             } else {
-                ui.showInvalidTaskIdError();
+                return ui.showInvalidTaskIdError();
             }
         } catch (NumberFormatException e) {
-            ui.showInvalidTaskIdError();
+            return ui.showInvalidTaskIdError();
         }
     }
 
-    public static void addToDoTask(String description) {
+    public static String addToDoTask(String description) {
         ToDo task = new ToDo(description);
         taskStorage.addTask(task);
-        ui.showTaskAdded(task, taskStorage.getTaskCount());
+        return ui.showTaskAdded(task, taskStorage.getTaskCount());
     }
 
-    public static void addDeadlineTask(String input) {
+    public static String addDeadlineTask(String input) {
         try {
             String[] parts = input.split(" /by ");
             String description = parts[0];
@@ -108,13 +119,13 @@ public class MrIncredible {
 
             Deadline task = new Deadline(description, byDateTime);
             taskStorage.addTask(task);
-            ui.showTaskAdded(task, taskStorage.getTaskCount());
+            return ui.showTaskAdded(task, taskStorage.getTaskCount());
         } catch (DateTimeParseException e) {
-            ui.showDateTimeParseError();
+            return ui.showDateTimeParseError();
         }
     }
 
-    public static void addEventTask(String input) {
+    public static String addEventTask(String input) {
         try {
             String[] parts = input.split(" /from | /to ");
             String description = parts[0];
@@ -126,26 +137,43 @@ public class MrIncredible {
 
             Event task = new Event(description, fromDateTime, toDateTime);
             taskStorage.addTask(task);
-            ui.showTaskAdded(task, taskStorage.getTaskCount());
+            return ui.showTaskAdded(task, taskStorage.getTaskCount());
         } catch (DateTimeParseException e) {
-            ui.showDateTimeParseError();
+            return ui.showDateTimeParseError();
         }
     }
 
-    public static void markTask(String input) {
-        int numberToUpdate = Integer.parseInt(input.substring(5));
-        taskStorage.markTask(numberToUpdate);
-        ui.showTaskMarked(taskStorage.getTask(numberToUpdate));
+    public static String markTask(String input) {
+        try {
+            int numberToUpdate = Integer.parseInt(input.substring(5).trim());
+            taskStorage.markTask(numberToUpdate);
+            return ui.showTaskMarked(taskStorage.getTask(numberToUpdate));
+        } catch (NumberFormatException e) {
+            return ui.showInvalidTaskIdError();
+        }
     }
 
-    public static void listTasks() {
-        ui.showTaskList(taskStorage);
+    public static String listTasks() {
+        return ui.showTaskList(taskStorage);
     }
 
-    public static void findTask(String input) {
-        String[] parts = input.split(" ", 2);
-        String keyword = parts[1];
+    public static String findTask(String input) {
+        String keyword = extractKeyword(input);
         Map<Integer, Task> foundTasks = taskStorage.findTasks(keyword);
-        ui.showFoundTasks(foundTasks);
+        return ui.showFoundTasks(foundTasks);
     }
+
+    private static String extractDescription(String input, int commandLength, String commandName) {
+        if (input.length() > commandLength) {
+            return input.substring(commandLength).trim();
+        } else {
+            return ui.handleError("The description of a " + commandName + " cannot be empty.");
+        }
+    }
+
+    private static String extractKeyword(String input) {
+        String[] parts = input.split(" ", 2);
+        return parts.length > 1 ? parts[1] : "";
+    }
+
 }
