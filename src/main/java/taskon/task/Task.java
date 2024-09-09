@@ -67,7 +67,8 @@ public class Task {
      */
     public void markAsUndone() throws TaskonException {
         if (!isDone) {
-            throw new TaskonException("Hmm... it looks like you've already left this task unchecked.\n" + this + "\n");
+            throw new TaskonException("Hmm... it looks like you've already left this task unchecked.\n"
+                    + this + "\n");
         }
         this.isDone = false;
     }

@@ -15,6 +15,12 @@ public class Main extends Application {
 
     private Taskon taskon = new Taskon();
 
+    /**
+     * Starts the JavaFX application by loading the FXML layout and
+     * initializing the primary stage.
+     *
+     * @param stage the primary stage for the application
+     */
     @Override
     public void start(Stage stage) {
         try {

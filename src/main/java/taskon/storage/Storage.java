@@ -142,7 +142,8 @@ public class Storage {
             taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription();
         } else if (task instanceof Deadline) {
             taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
-                    + SEPARATOR + ((Deadline) task).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    + SEPARATOR
+                    + ((Deadline) task).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
             taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
                     + SEPARATOR + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))

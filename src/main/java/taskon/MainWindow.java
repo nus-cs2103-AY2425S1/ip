@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Taskon taskon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Patrick.png"));
+    private Image taskonImage = new Image(this.getClass().getResourceAsStream("/images/Spongebob.png"));
 
     /**
      * Initializes the MainWindow by setting up the user interface components.
@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getTaskonDialog(MESSAGE_GREETING, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getTaskonDialog(MESSAGE_GREETING, taskonImage));
     }
 
     /** Injects the Taskon instance */
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing TaskOn's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = taskon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTaskonDialog(response, dukeImage)
+                DialogBox.getTaskonDialog(response, taskonImage)
         );
         userInput.clear();
     }

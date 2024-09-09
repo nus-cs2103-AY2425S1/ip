@@ -80,7 +80,7 @@ public class Parser {
             return prepareEvent(arguments);
 
         case OnCommand.COMMAND_WORD:
-            return new OnCommand(arguments);
+            return new OnCommand(arguments.trim());
 
         case FindCommand.COMMAND_WORD:
             return new FindCommand(arguments.trim());
