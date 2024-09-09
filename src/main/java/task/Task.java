@@ -14,7 +14,7 @@ public class Task {
      * Constructs a new Task with the specified name.
      * The task is initially marked as not done.
      *
-     * @param name The name or description of the task.
+     * @param name The name or description of the new task.
      */
     protected Task(String name) {
         this.isCompleted = false;
