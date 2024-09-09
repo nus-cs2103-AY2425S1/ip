@@ -197,3 +197,5 @@ Bye. Hope to see you again soon!
 Schedulo is a straightforward yet effective tool to help you manage your tasks. With features like adding different
 types of tasks, marking them as done, and finding tasks by keywords, Schedulo is designed to help you stay organized and
 on top of your work. We hope you find it useful!
+
+---
