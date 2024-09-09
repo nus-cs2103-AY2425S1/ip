@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import bruno.Bruno;
+import bruno.Parser;
 import bruno.Storage;
 import bruno.exceptions.BrunoException;
 import bruno.exceptions.EmptyTaskException;
@@ -21,7 +22,6 @@ import bruno.exceptions.UnknownCommandException;
  * Interacts with the Storage class to load and save tasks from and to a file.
  */
 public class TaskList {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private ArrayList<Task> tasks;
     private Storage storage;
 
@@ -91,19 +91,19 @@ public class TaskList {
 
         String description = str.substring(0, str.indexOf("/from")).trim();
         String fromString = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
-        String toString = str.substring(str.indexOf("/to") + 4).trim();
+        String toString = str.substring(str.indexOf("/to") + 3).trim();
         LocalDateTime from;
         LocalDateTime to;
 
-        try {
-            from = LocalDateTime.parse(fromString, formatter);
-            to = LocalDateTime.parse(toString, formatter);
-        } catch (DateTimeParseException e) {
-            throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
-        }
-
         if (description.isEmpty()) {
             throw new EmptyTaskException();
+        }
+
+        try {
+            from = Parser.parseNaturalDateTime(fromString);
+            to = Parser.parseNaturalDateTime(toString);
+        } catch (BrunoException e) {
+            throw new BrunoException("Invalid date format.");
         }
 
         return new Event(description, from, to);
@@ -118,14 +118,14 @@ public class TaskList {
         String byString = str.substring(str.indexOf("/by") + 3).trim();
         LocalDateTime by;
 
-        try {
-            by = LocalDateTime.parse(byString, formatter);
-        } catch (DateTimeParseException e) {
-            throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
-        }
-
         if (description.isEmpty()) {
             throw new EmptyTaskException();
+        }
+
+        try {
+            by = Parser.parseNaturalDateTime(byString);
+        } catch (BrunoException e) {
+            throw new BrunoException("Invalid date format.");
         }
 
         return new Deadline(description, by);

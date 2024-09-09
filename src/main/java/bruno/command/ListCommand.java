@@ -4,6 +4,8 @@ import bruno.Ui;
 import bruno.task.Task;
 import bruno.task.TaskList;
 
+import java.util.ArrayList;
+
 /**
  * Represents a command to list all tasks in the task list.
  * This command retrieves and displays all tasks currently stored in the task list.
@@ -30,9 +32,10 @@ public class ListCommand extends Command {
 
     @Override
     public String toString() {
+        ArrayList<Task> tasks = getTaskList().getTasks();
         String tasksAsString = "";
-        for (Task task : getTaskList().getTasks()) {
-            tasksAsString += task + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            tasksAsString += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return "Here are the tasks in your list:\n" + tasksAsString;
     }
