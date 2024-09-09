@@ -1,6 +1,7 @@
 package count.gui;
 
 import count.Count;
+import count.action.Greet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        DialogBox countGreet = DialogBox.getCountDialog("Hello! I'm Count!\nWhat can I do for you?", countImage);
+        DialogBox countGreet = DialogBox.getCountDialog(new Greet().run(), countImage);
         dialogContainer.getChildren().add(countGreet);
 
     }
@@ -45,7 +46,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Count's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
