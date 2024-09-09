@@ -46,16 +46,6 @@ public class Todo extends Task {
     }
 
     /**
-     * Saves the Todo task as a string for storage.
-     *
-     * @return The Todo task as a string.
-     */
-    @Override
-    public String saveAsString() {
-        return super.saveAsString();
-    }
-
-    /**
      * Returns the string representation of the Todo task.
      *
      * @return The string representation of the Todo task.

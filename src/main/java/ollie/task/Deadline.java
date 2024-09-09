@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Validates the description of the Deadline task.
+     * Validates the description of the Deadline task by throwing an exception for incomplete commands.
      *
      * @param command The command entered by the user.
      * @throws OllieException If the description is empty or the deadline is not provided.
