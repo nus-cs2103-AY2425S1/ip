@@ -55,6 +55,9 @@ public class Deadline extends Task {
      */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
+        assert arguments.containsKey("description");
+        assert arguments.containsKey("by");
+
         String inputLine = String.format(
             "deadline %s /by %s",
             arguments.get("description"),

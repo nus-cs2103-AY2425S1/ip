@@ -65,6 +65,10 @@ public class Event extends Task {
      */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
+        assert arguments.containsKey("description");
+        assert arguments.containsKey("from");
+        assert arguments.containsKey("to");
+
         String inputLine = String.format(
             "event %s /from %s /to %s",
             arguments.get("description"),

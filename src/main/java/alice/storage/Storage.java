@@ -40,6 +40,7 @@ public class Storage {
         if (!dataDirectory.exists()) {
             dataDirectory.mkdir();
         }
+        assert dataDirectory.exists();
 
         List<Task> tasks = new ArrayList<>();
         File tasksFile = new File(String.format("%s/%s", dataDirectoryPath, tasksFileName));
@@ -68,6 +69,7 @@ public class Storage {
         if (!dataDirectory.exists()) {
             dataDirectory.mkdir();
         }
+        assert dataDirectory.exists();
 
         File tasksFile = new File(String.format("%s/%s", dataDirectoryPath, tasksFileName));
         // overwrite file

@@ -43,6 +43,8 @@ public abstract class Task {
      */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
+        assert arguments.containsKey("taskType");
+
         switch (TaskType.valueOf(arguments.get("taskType").toUpperCase())) {
         case TODO:
             return ToDo.fromJsonString(jsonString);

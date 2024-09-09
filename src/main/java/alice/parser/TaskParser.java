@@ -23,6 +23,7 @@ public class TaskParser {
         }
         String tokenAfterSpace = tokens[1];
         String arguments = tokenAfterSpace.trim();
+        assert arguments.split("/", 2).length > 0;
         String argumentBeforeFlag = arguments.split("/", 2)[0];
         return argumentBeforeFlag.trim();
     }

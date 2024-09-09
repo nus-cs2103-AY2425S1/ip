@@ -52,6 +52,7 @@ public class TaskList {
      * @throws IOException if the tasks cannot be saved
      */
     public Task deleteTask(int index) throws IOException {
+        assert index < tasks.size();
         Task removedTask = tasks.remove(index);
         storage.saveTasks(tasks);
         return removedTask;
@@ -65,6 +66,7 @@ public class TaskList {
      * @throws IOException if the tasks cannot be saved
      */
     public Task markTask(int index) throws IOException {
+        assert index < tasks.size();
         tasks.get(index).setCompletion(true);
         storage.saveTasks(tasks);
         return tasks.get(index);
