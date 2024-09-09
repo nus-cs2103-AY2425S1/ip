@@ -7,9 +7,9 @@ then
 fi
 
 # delete output from previous run
-if [ -e "./ACTUAL1.TXT" ]
+if [ -e "./ACTUAL_1.TXT" ]
 then
-    rm ACTUAL1.TXT
+    rm ACTUAL_1.TXT
 fi
 
 # delete save from previous run
