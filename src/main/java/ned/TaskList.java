@@ -58,6 +58,7 @@ public class TaskList {
      * @param uiInstance - The Ui instance which is used to print out the addition's success to the user
      */
     public void addTask(Task newTask, Ui uiInstance) {
+        assert this.listOfTasks != null : "List of tasks cannot be null!";
         this.listOfTasks.add(newTask);
         uiInstance.addTasksToNedDialogue(newTask, this.listOfTasks.size());
     }
@@ -68,6 +69,7 @@ public class TaskList {
      * @param uiInstance - The Ui instance used to print out the list of tasks
      */
     public void listTasks(Ui uiInstance) {
+        assert this.listOfTasks != null : "List of tasks cannot be null!";
         for (int i = 0; i < listOfTasks.size(); i++) {
             String task = Ui.INDENTATIONS + String.format("%d.%s \n", i + 1, listOfTasks.get(i));
             uiInstance.addToNedDialogue(task);
@@ -83,6 +85,7 @@ public class TaskList {
      */
     public void markTaskAsDone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
+        assert selectedTask != null : "Null should not have been added to the list!";
         selectedTask.markAsDone();
         uiInstance.addToNedDialogue("Good work. One down, more to go!");
         uiInstance.addToNedDialogue(selectedTask.toString());
@@ -97,6 +100,7 @@ public class TaskList {
      */
     public void markTaskAsUndone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
+        assert selectedTask != null : "Null should not have been added to the list!";
         selectedTask.markAsNotDone();
         uiInstance.addToNedDialogue("Oh no. One back up, more to go!");
         uiInstance.addToNedDialogue(selectedTask.toString());
@@ -108,6 +112,7 @@ public class TaskList {
      * @return - The size of the current list of tasks
      */
     public int getSize() {
+        assert this.listOfTasks != null : "List of tasks cannot be null!";
         return this.listOfTasks.size();
     }
 
@@ -119,7 +124,9 @@ public class TaskList {
      * @throws NedException - Thrown if the index provided does not belong to any task on the list of tasks
      */
     public String getTaskTextForm(int index) throws NedException {
-        return getTask(index).toTextForm();
+        Task selectedTask = getTask(index);
+        assert selectedTask != null : "Null should not have been added to the list!";
+        return selectedTask.toTextForm();
     }
 
     /**
@@ -129,6 +136,8 @@ public class TaskList {
      * @return - Filtered task list
      */
     public TaskList findRelatedTasks(String searchTerm) {
+        assert searchTerm != null : "search term cannot be null!";
+        assert !(searchTerm.isEmpty()) : "search term cannot be empty!";
         String regexSearchPattern = ".*" + searchTerm + ".*";
         int sizeOfArray = this.listOfTasks.size();
         int index = 1;

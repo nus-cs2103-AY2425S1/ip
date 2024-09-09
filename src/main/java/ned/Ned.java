@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ned.commands.Command;
 import ned.exceptions.NedException;
+import ned.tasks.Task;
 
 /**
  * Represents the chatbot, Ned, which will read and react to user commands.
@@ -26,7 +27,8 @@ public class Ned {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filePath);
-            this.tasks = new TaskList(this.storage.load());
+            ArrayList<Task> loadedTaskList = this.storage.load();
+            this.tasks = new TaskList(loadedTaskList);
         } catch (NedException e) {
             ui.showLoadingError();
             this.tasks = new TaskList(new ArrayList<>());
