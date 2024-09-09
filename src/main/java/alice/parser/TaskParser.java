@@ -22,6 +22,7 @@ public class TaskParser {
             throw new IllegalArgumentException();
         }
         String arguments = tokens[1].trim();
+        assert arguments.split("/", 2).length > 0;
         return arguments.split("/", 2)[0].trim();
     }
 

@@ -38,6 +38,8 @@ public class ToDo extends Task {
      */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
+        assert arguments.containsKey("description");
+
         String inputLine = String.format("toDo %s", arguments.get("description"));
         ToDo toDo = new ToDo(inputLine);
         toDo.isCompleted = arguments.get("isCompleted").compareTo("true") == 0;
