@@ -13,6 +13,10 @@ import jackbean.task.TaskList;
 public class JackBean {
     private TaskList taskList;
 
+    /**
+     * Constructs a JackBean chatbot.
+     * This JavaDoc was written by GitHub Copilot.
+     */
     public JackBean() {
         taskList = new TaskList();
         Storage.fetchStorage(taskList);
@@ -38,6 +42,8 @@ public class JackBean {
             return "Leo is the BEST BOSS EVER!";
         case "lose to you":
             return "NAH HOMIE, LOSE TO YOU";
+        default:
+            break;
         }
 
         // handle other input

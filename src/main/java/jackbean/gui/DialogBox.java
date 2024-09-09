@@ -1,4 +1,4 @@
-package jackbean.GUI;
+package jackbean.gui;
 
 import java.io.IOException;
 import java.util.Collections;

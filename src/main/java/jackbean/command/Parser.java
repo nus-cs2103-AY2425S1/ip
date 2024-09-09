@@ -132,7 +132,8 @@ public class Parser {
                     + taskList.getTask(taskList.getSize()) + "\n" + taskList.howManyTasks();
         } else if (input.toLowerCase().startsWith("find")) {
             String keyword = input.substring(5).toLowerCase();
-            StringBuilder reply = new StringBuilder("Yo homie! Here are the tasks in your list that match your keyword:");
+            StringBuilder reply = new StringBuilder("Yo homie!"
+                    + "Here are the tasks in your list that match your keyword:");
             int count = 0; // keep track of how many tasks match the keyword
             for (int i = 1; i <= taskList.getSize(); i++) {
                 if (taskList.getTask(i).toString().toLowerCase().contains(keyword)) {

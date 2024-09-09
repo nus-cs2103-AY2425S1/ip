@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("jackbean/GUI/Launcher")
+    mainClass.set("jackbean/gui/Launcher")
 }
 
 shadowJar {

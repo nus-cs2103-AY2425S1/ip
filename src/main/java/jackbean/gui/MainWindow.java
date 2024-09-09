@@ -1,4 +1,4 @@
-package jackbean.GUI;
+package jackbean.gui;
 
 import jackbean.command.JackBean;
 import javafx.fxml.FXML;
