@@ -46,6 +46,7 @@ public class TaskList {
      * Gets the task at the specified index.
      *
      * @param i The index of the task to get.
+     *
      * @return The task at the specified index.
      */
     public Task get(int i) {
@@ -74,15 +75,16 @@ public class TaskList {
      * Finds tasks that contain the specified keyword.
      *
      * @param keyword The keyword to search for in the tasks.
+     *
      * @return An array list of tasks that contain the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        tasks.stream()
+                .filter((task) -> (task.getDescription().contains(keyword)))
+                .forEachOrdered((task) -> {
+                    matchingTasks.add(task);
+                });
         return matchingTasks;
     }
 
@@ -93,9 +95,12 @@ public class TaskList {
      */
     public StringBuilder buildList() {
         StringBuilder s = new StringBuilder();
-        for (int i = 1; i <= tasks.size(); i++) {
-            s.append(i + ". " + tasks.get(i - 1).toString() + "\n");
-        }
+        tasks.stream()
+                .map((task) -> tasks.indexOf(task) + 1)
+                .map((i) -> i + ". " + tasks.get(i - 1).toString() + "\n")
+                .forEachOrdered((taskString) -> {
+                    s.append(taskString);
+                });
         return s;
     }
 
