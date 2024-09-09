@@ -18,6 +18,7 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task to add cannot be null";
         this.toAdd = task;
     }
 
@@ -31,6 +32,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {
+        assert tasks != null : "TaskList cannot be null.";
         tasks.addTask(this.toAdd);
         ui.showTaskAdded(this.toAdd, tasks.getSize());
         storage.saveData(tasks.getAllTasks());
