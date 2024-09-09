@@ -34,6 +34,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        this.getStylesheets().add(getClass().getResource("/css/dialog-box.css").toExternalForm());
     }
 
     private void flip() {
@@ -41,6 +42,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        this.dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String s, Image i) {

@@ -21,16 +21,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gopher.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/vue.png"));
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     public void sendBotMessage(String message) {
-        dialogContainer.getChildren().addAll(DialogBox.getBotDialog(message, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getBotDialog(message, botImage));
     }
 
     /**

@@ -38,7 +38,10 @@ public class VueweeGui extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(VueweeGui.class.getResource("/views/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
             stage.setScene(scene);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             VueweeGui.window = fxmlLoader.<MainWindow>getController();
             stage.show();
             VueweeGui.sendMessage("Hello! I'm Vuewee\nWhat can I do for you?");
