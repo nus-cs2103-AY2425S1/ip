@@ -30,7 +30,8 @@ public class ProcessTasks {
     /**
      * Processes the user input.
      *
-     * @param input The user input.
+     * @param input
+     * @return added task message or error message
      */
     public String processUserInput(String input) {
         Task.TaskType taskType = parser.parseUserInput(input);
@@ -88,6 +89,7 @@ public class ProcessTasks {
      * Marks or deletes a task.
      *
      * @param input The user input.
+     * @return mark, unmark, or delete message
      */
     public String markOrDelete(String input) {
         String[] parsedInput = Parser.parseMarkUnmarkDelete(input);
@@ -166,6 +168,7 @@ public class ProcessTasks {
      *
      * @param input The user input.
      * @param taskList The list of tasks.
+     * @return The tasks that contain the keyword.
      */
     public String findTask(String input, ArrayList<Task> taskList) {
         String[] inputAsList = input.split(" ");

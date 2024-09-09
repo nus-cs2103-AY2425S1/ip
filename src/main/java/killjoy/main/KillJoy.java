@@ -12,7 +12,6 @@ import killjoy.task.Todo;
 
 /**
  * Represents the main class of the KillJoy application.
- * Contains the main method to run the application.
  */
 public class KillJoy {
     private ProcessTasks processTasks;
@@ -96,12 +95,18 @@ public class KillJoy {
     }
 
     /**
-     * Starts the KillJoy application.
+     * Loads tasks from the save file.
      */
     public void loadTasks() {
         saveAndLoad.loadTasks();
     }
 
+    /**
+     * Returns the response to the user input.
+     *
+     * @param input
+     * @return The response to the user input.
+     */
     public String getResponse(String input) {
         if (input.equals("")) {
             return ui.displayNoStringMessage();

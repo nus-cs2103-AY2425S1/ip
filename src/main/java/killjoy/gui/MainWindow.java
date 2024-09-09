@@ -11,7 +11,7 @@ import killjoy.main.KillJoy;
 import killjoy.main.UserInterface;
 
 /**
- * Controller for the main GUI.
+ * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -28,7 +28,6 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
     private Image killjoyImage = new Image(this.getClass().getResourceAsStream("/images/killjoy.png"));
     private Image logo = new Image(this.getClass().getResourceAsStream("/images/killjoy.gif"));
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -50,6 +49,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays the welcome message when the GUI is launched.
+     */
     @FXML
     public void welcomeMessage() {
         String greetings = UserInterface.getWelcomeString();
@@ -58,6 +60,9 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Displays the logo when GUI is launched.
+     */
     @FXML
     public void logo() {
         dialogContainer.getChildren().addAll(

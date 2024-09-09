@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import killjoy.main.KillJoy;
 
+/**
+ * A Main class that launches that sets the stage for the GUI and launches the GUI.
+ */
 public class Main extends Application {
 
     private KillJoy kj = new KillJoy();
