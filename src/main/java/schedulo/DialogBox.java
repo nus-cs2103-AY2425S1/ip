@@ -59,7 +59,7 @@ public class DialogBox extends HBox {
     }
 
     private void changeDialogStyle(Command commandType) {
-        if (commandType instanceof AddCommand){
+        if (commandType instanceof AddCommand) {
             dialog.getStyleClass().add("add-label");
         } else if (commandType instanceof MarkCommand || commandType instanceof UnmarkCommand) {
             dialog.getStyleClass().add("marked-label");

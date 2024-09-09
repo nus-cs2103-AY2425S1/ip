@@ -1,13 +1,13 @@
 package util;
 
-import task.Task;
-import task.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import task.Task;
+import task.TaskList;
 
 
 /**

@@ -2,9 +2,9 @@ package command;
 
 import java.io.IOException;
 
-import task.TaskList;
-import task.Task;
 import exception.ScheduloException;
+import task.Task;
+import task.TaskList;
 import util.Storage;
 
 /**
@@ -28,7 +28,6 @@ public class AddCommand extends Command {
      * Executes the AddCommand by adding the task to the task list and saving the updated list to storage.
      *
      * @param tasks   The TaskList to which the task will be added.
-     * @param ui      The Ui instance used to interact with the user.
      * @param storage The Storage instance used to save the updated task list.
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs while saving the task list.

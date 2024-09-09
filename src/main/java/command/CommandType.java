@@ -1,7 +1,8 @@
 package command;
 
 /**
- * The CommandType enum defines the different types of commands that can be recognized and executed in the Schedulo application.
+ * The CommandType enum defines the different types of commands that can be recognized and
+ * executed in the Schedulo application.
  * Each constant represents a specific command type that the user can input.
  */
 public enum CommandType {

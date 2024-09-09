@@ -1,12 +1,13 @@
 package schedulo;
 
+import java.io.IOException;
+
 import command.Command;
 import exception.ScheduloException;
+import javafx.application.Application;
 import task.TaskList;
 import util.Parser;
 import util.Storage;
-import javafx.application.Application;
-import java.io.IOException;
 
 /**
  * The main class for the Schedulo application.
@@ -42,7 +43,7 @@ public class Schedulo {
         // boolean isExit = false;
         try {
             this.c = Parser.parse(fullCommand);
-            return  this.c.execute(tasks, storage);
+            return this.c.execute(tasks, storage);
             // isExit = c.isExit();
         } catch (ScheduloException | IOException e) {
             return e.getMessage();

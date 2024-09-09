@@ -4,11 +4,14 @@
 
 ## Introduction
 
-**Schedulo** is a simple yet powerful task management application that helps you keep track of your to-dos, deadlines, and events. It offers an intuitive gui interface where you can manage your tasks efficiently. Schedulo allows you to add, delete, find, and list tasks, making it easier to stay organized and focused.
+**Schedulo** is a simple yet powerful task management application that helps you keep track of your to-dos, deadlines,
+and events. It offers an intuitive gui interface where you can manage your tasks efficiently. Schedulo allows you to
+add, delete, find, and list tasks, making it easier to stay organized and focused.
 
 ## Features
 
 ### 1. Adding Tasks
+
 Schedulo allows you to add various types of tasks to your task list:
 
 - **To-Do:** A task without a specific date/time.
@@ -16,6 +19,7 @@ Schedulo allows you to add various types of tasks to your task list:
 - **Event:** A task that occurs within a specific time frame.
 
 #### Adding a To-Do
+
 To add a simple to-do task:
 
 ```bash
@@ -37,6 +41,7 @@ Now you have 1 task in the list.
 ```
 
 #### Adding a Deadline
+
 To add a task with a specific deadline:
 
 ```bash
@@ -58,6 +63,7 @@ Now you have 2 tasks in the list.
 ```
 
 #### Adding an Event
+
 To add a task that spans a specific time frame:
 
 ```bash
@@ -79,6 +85,7 @@ Now you have 3 tasks in the list.
 ```
 
 ### 2. Listing All Tasks
+
 To display all tasks in your list:
 
 ```bash
@@ -95,6 +102,7 @@ Here are the tasks in your list:
 ```
 
 ### 3. Marking Tasks as Done
+
 To mark a task as done:
 
 ```bash
@@ -115,6 +123,7 @@ Nice! I've marked this task as done:
 ```
 
 ### 4. Unmarking Tasks as Not Done
+
 To unmark a task:
 
 ```bash
@@ -135,6 +144,7 @@ OK, I've marked this task as not done yet:
 ```
 
 ### 5. Deleting Tasks
+
 To delete a task:
 
 ```bash
@@ -156,6 +166,7 @@ Now you have 2 tasks in the list.
 ```
 
 ### 6. Finding Tasks by Keyword
+
 To find tasks that contain a specific keyword:
 
 ```bash
@@ -183,4 +194,6 @@ Bye. Hope to see you again soon!
 
 ## Conclusion
 
-Schedulo is a straightforward yet effective tool to help you manage your tasks. With features like adding different types of tasks, marking them as done, and finding tasks by keywords, Schedulo is designed to help you stay organized and on top of your work. We hope you find it useful!
+Schedulo is a straightforward yet effective tool to help you manage your tasks. With features like adding different
+types of tasks, marking them as done, and finding tasks by keywords, Schedulo is designed to help you stay organized and
+on top of your work. We hope you find it useful!

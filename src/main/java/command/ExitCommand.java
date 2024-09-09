@@ -14,7 +14,6 @@ public class ExitCommand extends Command {
      * This command does not modify the task list or storage.
      *
      * @param tasks   The TaskList, which remains unchanged by this command.
-     * @param ui      The Ui instance used to interact with the user.
      * @param storage The Storage instance, which remains unchanged by this command.
      */
     @Override

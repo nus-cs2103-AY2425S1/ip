@@ -1,12 +1,13 @@
 package util;
 
-import command.Command;
-import command.AddCommand;
-import exception.ScheduloException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import command.AddCommand;
+import command.Command;
+import exception.ScheduloException;
 
 /**
  * Unit test for the Parser class.

@@ -1,10 +1,10 @@
 package command;
 
-import java.io.IOException;
-
-import task.TaskList;
 import exception.ScheduloException;
+import task.TaskList;
 import util.Storage;
+
+import java.io.IOException;
 
 
 /**
@@ -36,7 +36,8 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
         String message;
         try {
-            message = tasks.unmark(this.index - 1);;
+            message = tasks.unmark(this.index - 1);
+            ;
         } catch (IndexOutOfBoundsException e) {
             throw new ScheduloException("The task index provided is invalid.");
         }

@@ -24,7 +24,8 @@ public class App extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSchedulo(schedulo);  // inject the schedulo instance
+            fxmlLoader.<MainWindow>getController().setSchedulo(schedulo);
+            // inject the schedulo instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

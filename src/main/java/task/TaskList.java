@@ -1,7 +1,7 @@
 package task;
 
 import java.util.ArrayList;
-import java.util.List; // Add this import statement
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -37,14 +37,14 @@ public class TaskList {
      */
     public String add(Task task) {
         taskList.add(task);
-        return  "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     public String addMultipleTodos(ArrayList<Task> todos) {
-        for (Task task: todos) {
+        for (Task task : todos) {
             taskList.add(task);
         }
-        return  "Got it. I've added the todos";
+        return "Got it. I've added the todos";
     }
 
     /**
@@ -61,9 +61,9 @@ public class TaskList {
 
     public String find(String word) {
         List<Task> matchingTasks = this.taskList.stream()
-                                            .filter(task -> task.getName()
-                                            .contains(word))
-                                            .collect(Collectors.toList());
+                .filter(task -> task.getName()
+                        .contains(word))
+                .collect(Collectors.toList());
 
         // for (int i = 0; i < this.taskList.size(); i++) {
         //     Task task = this.taskList.get(i);

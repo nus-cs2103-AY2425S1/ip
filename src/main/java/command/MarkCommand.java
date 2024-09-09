@@ -2,10 +2,9 @@ package command;
 
 import java.io.IOException;
 
-import task.TaskList;
 import exception.ScheduloException;
+import task.TaskList;
 import util.Storage;
-
 
 
 /**
@@ -25,10 +24,10 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the MarkCommand by marking the task at the specified index as done and saving the updated list to storage.
+     * Executes the MarkCommand by marking the task at the specified index as done
+     * and saving the updated list to storage.
      *
      * @param tasks   The TaskList containing the task to be marked as done.
-     * @param ui      The Ui instance used to interact with the user.
      * @param storage The Storage instance used to save the updated task list.
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs while saving the task list.

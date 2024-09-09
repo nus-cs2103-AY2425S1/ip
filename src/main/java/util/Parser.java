@@ -1,5 +1,9 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import command.AddCommand;
 import command.AddMultipleTodosCommand;
 import command.Command;
@@ -16,10 +20,6 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 
 /**
@@ -56,7 +56,7 @@ public class Parser {
         case UNMARK:
             return parseUnmarkCommand(splitWords);
         case DELETE:
-            return parseDeleteCommand(splitWords); 
+            return parseDeleteCommand(splitWords);
         case TODO:
             if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
                 throw new InvalidCommandException();
@@ -91,6 +91,7 @@ public class Parser {
 
     /**
      * Parses the details of a mark command and returns the corresponding Command object.
+     *
      * @param splitWords
      * @return
      * @throws ScheduloException
@@ -109,6 +110,7 @@ public class Parser {
 
     /**
      * Parses the details of an unmark command and returns the corresponding Command object.
+     *
      * @param splitWords
      * @return
      * @throws ScheduloException
@@ -128,6 +130,7 @@ public class Parser {
 
     /**
      * Parses the details of a delete command and returns the corresponding Command object.
+     *
      * @param splitWords
      * @return
      * @throws ScheduloException
@@ -173,14 +176,15 @@ public class Parser {
                 }
                 return new AddCommand(new Deadline(taskParts[0], deadlineDateTime));
             } else {
-                throw new ScheduloException("The /by of a deadline should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+                throw new ScheduloException("The /by of a deadline should be in the format "
+                        + "yyyy-MM-dd or yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm' for date and time.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or "
+                    + "'yyyy-MM-dd HH:mm' for date and time.");
         }
     }
-    
-    
+
 
     /**
      * Parses the details of an event command and returns the corresponding Command object.
@@ -233,10 +237,12 @@ public class Parser {
                 }
                 return new AddCommand(new Event(taskParts[0], from, to));
             } else {
-                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or "
+                        + "yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm'.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or "
+                    + "'yyyy-MM-dd HH:mm'.");
         }
     }
 

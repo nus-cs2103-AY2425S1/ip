@@ -26,7 +26,6 @@ public class FindCommand extends Command {
      * Executes the command to find and display tasks containing the specified word.
      *
      * @param tasks   The TaskList to search in.
-     * @param ui      The Ui instance for interacting with the user.
      * @param storage The Storage instance for saving and loading tasks.
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs while saving the task list.

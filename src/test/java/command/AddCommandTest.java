@@ -1,14 +1,15 @@
 package command;
 
-import exception.ScheduloException;
-import org.junit.jupiter.api.Test;
-import task.TaskList;
-import task.Todo;
-import util.Storage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import exception.ScheduloException;
+import task.TaskList;
+import task.Todo;
+import util.Storage;
 
 /**
  * Unit test for the AddCommand class.
@@ -18,8 +19,8 @@ public class AddCommandTest {
     /**
      * Tests the execution of the AddCommand by adding a Todo task to the TaskList.
      *
-     * @throws IOException        If an I/O error occurs during the execution of the command.
-     * @throws ScheduloException  If an application-specific error occurs during the execution of the command.
+     * @throws IOException       If an I/O error occurs during the execution of the command.
+     * @throws ScheduloException If an application-specific error occurs during the execution of the command.
      */
     @Test
     public void testAddCommand() throws IOException, ScheduloException {

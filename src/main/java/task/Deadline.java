@@ -1,7 +1,7 @@
 package task;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -17,7 +17,7 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline with a name and a LocalDateTime deadline.
      *
-     * @param name The name or description of the task.
+     * @param name     The name or description of the task.
      * @param deadline The deadline as a LocalDateTime.
      */
     public Deadline(String name, LocalDateTime deadline) {
@@ -28,7 +28,7 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline with a name and a LocalDate deadline.
      *
-     * @param name The name or description of the task.
+     * @param name     The name or description of the task.
      * @param deadline The deadline as a LocalDate.
      */
     public Deadline(String name, LocalDate deadline) {
@@ -39,9 +39,9 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline with a name, a LocalDateTime deadline, and a completion status.
      *
-     * @param name The name or description of the task.
+     * @param name     The name or description of the task.
      * @param deadline The deadline as a LocalDateTime.
-     * @param isDone Whether the task is marked as completed.
+     * @param isDone   Whether the task is marked as completed.
      */
     public Deadline(String name, LocalDateTime deadline, boolean isDone) {
         super(name, isDone);
@@ -51,9 +51,9 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline with a name, a LocalDate deadline, and a completion status.
      *
-     * @param name The name or description of the task.
+     * @param name     The name or description of the task.
      * @param deadline The deadline as a LocalDate.
-     * @param isDone Whether the task is marked as completed.
+     * @param isDone   Whether the task is marked as completed.
      */
     public Deadline(String name, LocalDate deadline, boolean isDone) {
         super(name, isDone);

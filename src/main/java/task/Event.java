@@ -21,7 +21,7 @@ public class Event extends Task {
      *
      * @param name The name or description of the event.
      * @param from The start date of the event.
-     * @param to The end date of the event.
+     * @param to   The end date of the event.
      */
     public Event(String name, LocalDate from, LocalDate to) {
         super(name);
@@ -32,9 +32,9 @@ public class Event extends Task {
     /**
      * Constructs an Event with a name, a date range, and a completion status.
      *
-     * @param name The name or description of the event.
-     * @param from The start date of the event.
-     * @param to The end date of the event.
+     * @param name   The name or description of the event.
+     * @param from   The start date of the event.
+     * @param to     The end date of the event.
      * @param isDone Whether the event is marked as completed.
      */
     public Event(String name, LocalDate from, LocalDate to, boolean isDone) {
@@ -48,7 +48,7 @@ public class Event extends Task {
      *
      * @param name The name or description of the event.
      * @param from The start date and time of the event.
-     * @param to The end date and time of the event.
+     * @param to   The end date and time of the event.
      */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
@@ -59,9 +59,9 @@ public class Event extends Task {
     /**
      * Constructs an Event with a name, a date-time range, and a completion status.
      *
-     * @param name The name or description of the event.
-     * @param from The start date and time of the event.
-     * @param to The end date and time of the event.
+     * @param name   The name or description of the event.
+     * @param from   The start date and time of the event.
+     * @param to     The end date and time of the event.
      * @param isDone Whether the event is marked as completed.
      */
     public Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
@@ -75,7 +75,7 @@ public class Event extends Task {
      *
      * @param name The name or description of the event.
      * @param from The start date of the event.
-     * @param to The end date and time of the event.
+     * @param to   The end date and time of the event.
      */
     public Event(String name, LocalDate from, LocalDateTime to) {
         super(name);
@@ -86,9 +86,9 @@ public class Event extends Task {
     /**
      * Constructs an Event with a name, a start date, an end date-time, and a completion status.
      *
-     * @param name The name or description of the event.
-     * @param from The start date of the event.
-     * @param to The end date and time of the event.
+     * @param name   The name or description of the event.
+     * @param from   The start date of the event.
+     * @param to     The end date and time of the event.
      * @param isDone Whether the event is marked as completed.
      */
     public Event(String name, LocalDate from, LocalDateTime to, boolean isDone) {
@@ -102,7 +102,7 @@ public class Event extends Task {
      *
      * @param name The name or description of the event.
      * @param from The start date and time of the event.
-     * @param to The end date of the event.
+     * @param to   The end date of the event.
      */
     public Event(String name, LocalDateTime from, LocalDate to) {
         super(name);
@@ -113,9 +113,9 @@ public class Event extends Task {
     /**
      * Constructs an Event with a name, a start date-time, an end date, and a completion status.
      *
-     * @param name The name or description of the event.
-     * @param from The start date and time of the event.
-     * @param to The end date of the event.
+     * @param name   The name or description of the event.
+     * @param from   The start date and time of the event.
+     * @param to     The end date of the event.
      * @param isDone Whether the event is marked as completed.
      */
     public Event(String name, LocalDateTime from, LocalDate to, boolean isDone) {
