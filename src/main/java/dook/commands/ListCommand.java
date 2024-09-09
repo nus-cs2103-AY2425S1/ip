@@ -25,17 +25,27 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
-        ui.separate();
-        String message = "";
+        exitIfEmpty(tasks);
+        return printMessages(tasks, ui);
+    }
+
+    private void exitIfEmpty(TaskList tasks) throws DookException {
         if (tasks.isEmpty()) {
             throw new DookException("No tasks");
-        } else {
-            for (int i = 0; i < tasks.numOfTasks(); i++) {
-                ui.showMessage((i + 1) + ". " + tasks.getTask(i));
-                message = message.concat((i + 1) + ". " + tasks.getTask(i) + "\n");
-            }
         }
+    }
+
+    private String printMessages(TaskList tasks, Ui ui) throws DookException {
         ui.separate();
+        String message = "";
+
+        for (int i = 0; i < tasks.numOfTasks(); i++) {
+            ui.showMessage((i + 1) + ". " + tasks.getTask(i));
+            message = message.concat((i + 1) + ". " + tasks.getTask(i) + "\n");
+        }
+
+        ui.separate();
+
         return message;
     }
 }

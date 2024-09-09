@@ -14,6 +14,7 @@ import dook.ui.Ui;
 public class DeleteCommand extends Command {
 
     private int taskNumber;
+    private String removedTaskString = "Noted. I've removed this task";
 
     /**
      * Creates a DeleteCommand.
@@ -40,18 +41,23 @@ public class DeleteCommand extends Command {
         Task removed = tasks.delete(taskNumber - 1);
         storage.write(tasks);
 
+        return printMessages(tasks, ui, removed);
+    }
+
+    private String printMessages(TaskList tasks, Ui ui, Task removed) {
         ui.separate();
-        ui.showMessage("Noted. I've removed this task");
+        ui.showMessage(removedTaskString);
         ui.showMessage(removed.toString());
         String numOfTasksLeft;
         if (tasks.numOfTasks() == 1) {
-            numOfTasksLeft = "Now you have " + tasks.numOfTasks() + " task in the list";
+            numOfTasksLeft = String.format("Now you have %d task in the list", tasks.numOfTasks());
             ui.showMessage(numOfTasksLeft);
         } else {
-            numOfTasksLeft = "Now you have " + tasks.numOfTasks() + " tasks in the list";
+            numOfTasksLeft = String.format("Now you have %d tasks in the list", tasks.numOfTasks());
             ui.showMessage(numOfTasksLeft);
         }
         ui.separate();
-        return "Noted. I've removed this task\n" + removed.toString() + "\n" + numOfTasksLeft;
+
+        return removedTaskString + "\n" + removed.toString() + "\n" + numOfTasksLeft;
     }
 }

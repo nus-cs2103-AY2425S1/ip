@@ -16,6 +16,9 @@ public class MarkingCommands extends Command {
     private int taskNumber;
     private boolean isMarked;
 
+    private String markDoneMessage = "Nice! I've marked this task as done:";
+    private String unmarkDoneMessage = "Ok, I've marked this task as not done yet:";
+
     /**
      * Creates a MarkingCommands object to mark or unmark a task.
      *
@@ -44,21 +47,29 @@ public class MarkingCommands extends Command {
         assert taskNumber >= 0 && taskNumber < tasks.numOfTasks() : "Task number out of range: " + taskNumber;
 
         Task task = tasks.getTask(taskNumber - 1);
+
+        if (this.isMarked) {
+            task.markAsDone();
+        } else {
+            task.unmark();
+        }
+        storage.write(tasks);
+
+        return printMessages(ui, task);
+    }
+
+    private String printMessages(Ui ui, Task task) {
         ui.separate();
         String message;
         if (this.isMarked) {
-            task.markAsDone();
-            message = "Nice! I've marked this task as done:";
+            message = markDoneMessage;
             ui.showMessage(message);
         } else {
-            task.unmark();
-            message = "Ok, I've marked this task as not done yet:";
+            message = unmarkDoneMessage;
             ui.showMessage(message);
         }
-        storage.write(tasks);
         message = message.concat("\n" + task.toString());
         ui.showMessage(task.toString());
         ui.separate();
-        return message;
     }
 }

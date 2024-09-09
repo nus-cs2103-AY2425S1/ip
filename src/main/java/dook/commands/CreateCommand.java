@@ -74,13 +74,7 @@ public class CreateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
-        if (this.description.isEmpty()) {
-            throw new DookException("Need a description for your task");
-        } else if (type == TaskType.DEADLINE && this.by.isEmpty()) {
-            throw new DookException("Need a due date for your deadline");
-        } else if (type == TaskType.EVENT && (this.start.isEmpty() || this.end.isEmpty())) {
-            throw new DookException("Need a start and end time for your event");
-        }
+        exitIfException();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
@@ -106,17 +100,32 @@ public class CreateCommand extends Command {
             tasks.add(task);
             storage.write(tasks);
 
-            ui.separate();
-            ui.showMessage("Got it. I've added this task:");
-            ui.showMessage(task.toString());
-            ui.showMessage("Now you have " + tasks.numOfTasks() + " tasks in the list");
-            ui.separate();
+            return printMessages(tasks, ui, task);
 
-            return "Got it. I've added this task:\n" + task.toString() + "\nNow you have"
-                    + tasks.numOfTasks() + " tasks in the list";
         } catch (DateTimeParseException e) {
             throw new DookException("Invalid date format. Enter your date in dd/MM/yyyy HH:mm format");
         }
+    }
+
+    private void exitIfException() throws DookException {
+        if (this.description.isEmpty()) {
+            throw new DookException("Need a description for your task");
+        } else if (type == TaskType.DEADLINE && this.by.isEmpty()) {
+            throw new DookException("Need a due date for your deadline");
+        } else if (type == TaskType.EVENT && (this.start.isEmpty() || this.end.isEmpty())) {
+            throw new DookException("Need a start and end time for your event");
+        }
+    }
+
+    private String printMessages(TaskList tasks, Ui ui, Task task) {
+        ui.separate();
+        ui.showMessage("Got it. I've added this task:");
+        ui.showMessage(task.toString());
+        ui.showMessage(String.format("Now you have %d tasks in the list", tasks.numOfTasks()));
+        ui.separate();
+
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list",
+                task.toString(), tasks.numOfTasks());
     }
 
 }
