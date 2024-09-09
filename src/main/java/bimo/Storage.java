@@ -38,12 +38,13 @@ public class Storage {
         } else if (task instanceof Deadline) {
             //safe to cast since type checking is done
             text = "D|" + description + ((Deadline) task).getDateAsText();
-        } else {
+        } else if (task instanceof Event) {
             text = "E|" + description + ((Event) task).getDatesAsText();
+        } else {
+            throw new IllegalArgumentException("Invalid task type");
         }
         return text;
     }
-
 
     /**
      * Converts text to its corresponding Task object.
@@ -60,10 +61,13 @@ public class Storage {
         if (type.equals("T")) {
             task = new ToDo(details[2]);
         } else if (type.equals("D")) {
-            task = new Deadline(details[2], LocalDate.parse(details[3]));
+            LocalDate dueDateObject = LocalDate.parse(details[3]);
+            task = new Deadline(details[2], dueDateObject);
         } else if (type.equals("E")) {
             String[] dates = details[3].split("/");
-            task = new Event(details[2], LocalDate.parse(dates[0]), LocalDate.parse(dates[1]));
+            LocalDate startDateObject = LocalDate.parse(dates[0]);
+            LocalDate endDateObject = LocalDate.parse(dates[1]);
+            task = new Event(details[2], startDateObject, endDateObject);
         }
         if (status) {
             task.markCompleted();
@@ -82,9 +86,8 @@ public class Storage {
             FileWriter writer = new FileWriter("data/Bimo.txt", true);
             writer.write(text);
             writer.close();
-
         } catch (IOException e) {
-            System.out.println("Unable to write to file for task " + task.toString());
+            System.out.println("Unable to write to file for task " + task);
         }
     }
 
@@ -130,10 +133,9 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            throw new BimoException("File not found");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Unable to create new file");
+            throw new BimoException("Unable to create new file");
         }
         return tasks;
     }

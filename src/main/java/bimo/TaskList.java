@@ -8,8 +8,6 @@ import bimo.tasks.Task;
  * Contains the list of tasks.
  */
 public class TaskList {
-    private static int length = 0;
-
     private ArrayList<Task> tasks;
     /**
      * Instantiates a TaskList object with elements.
@@ -18,7 +16,6 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        length = tasks.size();
     }
 
     /**
@@ -35,7 +32,6 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-        length += 1;
     }
 
     /**
@@ -46,7 +42,6 @@ public class TaskList {
      */
     public Task removeTask(int i) {
         Task task = this.tasks.remove(i);
-        length -= 1;
         return task;
     }
 
@@ -56,7 +51,7 @@ public class TaskList {
      * @return Number of tasks in list.
      */
     public int getLength() {
-        return length;
+        return this.tasks.size();
     }
 
     /**

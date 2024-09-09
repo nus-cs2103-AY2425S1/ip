@@ -42,7 +42,8 @@ public class Ui {
      * Displays error message for invalid tasks index.
      */
     public String showTaskNotFoundError() {
-        return ("Task not found in list...");
+        String message = "Task not found in list...";
+        return message;
     }
 
     /**
@@ -149,7 +150,9 @@ public class Ui {
      * @return True if task is inside list.
      */
     public boolean findTaskInList(int index, TaskList tasks) {
-        if (index >= tasks.getLength() || index < 0) {
+        boolean isExceedSize = index >= tasks.getLength();
+        boolean isNegative = index < 0;
+        if (isExceedSize || isNegative) {
             return false;
         }
         return true;
