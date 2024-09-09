@@ -3,21 +3,22 @@ package bimo.command;
 import bimo.Storage;
 import bimo.TaskList;
 import bimo.Ui;
+import bimo.tasks.Task;
 
 /**
  * Creates a command to set task as completed.
  */
 public class MarkCommand extends Command {
 
-    private int index;
+    private int indexToMark;
 
     /**
      * Instantiates object to set task as completed.
      *
-     * @param index Index of task inside list.
+     * @param indexToMark Index of task inside list.
      */
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(int indexToMark) {
+        this.indexToMark = indexToMark;
     }
 
     /**
@@ -30,13 +31,13 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= tasks.getLength() || index < 0) {
+        if (!ui.findTaskInList(this.indexToMark, tasks)) {
             return ui.showTaskNotFoundError();
         }
-        tasks.getTask(index).markCompleted();
+        tasks.getTask(this.indexToMark).markCompleted();
         storage.overwriteFile(tasks);
-        String response = "Good job! I've marked this task as done:\n"
-                + "    " + tasks.getTask(index).toString();
+        Task markedTask = tasks.getTask(this.indexToMark);
+        String response = ui.printTaskMarked(markedTask);
         return response;
     }
 }
