@@ -1,6 +1,5 @@
 package Dawn.Gui;
 
-import Dawn.Dawn;
 import javafx.application.Application;
 
 /**
@@ -8,7 +7,7 @@ import javafx.application.Application;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Dawn.class, args);
+        Application.launch(UserInterface.class, args);
     }
 }
 
