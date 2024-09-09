@@ -1,6 +1,7 @@
 package jackson.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import jackson.tasks.Task;
 
@@ -135,7 +136,7 @@ public class Ui {
      * @return String response.
      */
     public String printUnknownError(Exception e) {
-        return String.format("Oops! Something went wrong!\n%s\n", e.toString());
+        return String.format("Oops! Something went wrong!\n%s\n", Arrays.toString(e.getStackTrace()));
     }
 
     /**

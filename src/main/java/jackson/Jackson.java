@@ -160,7 +160,11 @@ public class Jackson {
                 this.commandType = Commands.CommandType.TASKS;
                 break;
             case SORT:
-                isAscending = matcher.group(1).equals("a");
+                if (matcher.group(2) == null) {
+                    isAscending = true;
+                } else {
+                    isAscending = matcher.group(2).equals("/a");
+                }
                 this.taskList.sort(matcher.group(1), isAscending);
                 output = this.ui.printSortedList(this.taskList);
                 this.commandType = Commands.CommandType.MODIFY;

@@ -53,7 +53,9 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
 
     @Override
     public int compareTo(CustomDateTime other) {
-        if (other.hasTime() == this.hasTime()) {
+        if (other == null) {
+            return -1;
+        } else if (other.hasTime() == this.hasTime()) {
             return other.hasTime()
                     ? this.localDateTime.compareTo(other.localDateTime)
                     : this.localDate.compareTo(other.localDate);

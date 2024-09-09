@@ -13,14 +13,20 @@ import jackson.tasks.Task;
 public class TaskList {
     /**
      * Comparators to sort tasks by.
-     * Sorting by time alone does not make sense because dates can be out of order
+     * Sorting by time alone does not make sense because dates can be out of order.
+     * Reverse the status comparator as unmarked status ([ ]) is placed before marked status [X] usually.
      */
-    private static Comparator<Task> comparatorByName = Comparator.comparing(Task::getName);
-    private static Comparator<Task> comparatorByStartDateTime = Comparator.comparing(Task::getStartDateTime);
-    private static Comparator<Task> comparatorByEndDateTime = Comparator.comparing(Task::getEndDateTime);
-    private static Comparator<Task> comparatorByTaskType = Comparator.comparing(Task::getTaskType);
-    private static Comparator<Task> comparatorByMarkedUnmarked = Comparator.comparing(Task::getStatus);
     private static Comparator<Task> defaultComparator = (task1, task2) -> 0;
+    private static Comparator<Task> comparatorByName =
+            Comparator.comparing(Task::getName, Comparator.nullsLast(Comparator.naturalOrder()));
+    private static Comparator<Task> comparatorByStartDateTime =
+            Comparator.comparing(Task::getStartDateTime, Comparator.nullsLast(Comparator.naturalOrder()));;
+    private static Comparator<Task> comparatorByEndDateTime =
+            Comparator.comparing(Task::getEndDateTime, Comparator.nullsLast(Comparator.naturalOrder()));;
+    private static Comparator<Task> comparatorByTaskType =
+            Comparator.comparing(Task::getTaskType, Comparator.nullsLast(Comparator.naturalOrder()));;
+    private static Comparator<Task> comparatorByMarkedUnmarked =
+            Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.reverseOrder()));;
 
     // Array list to store classes
     private ArrayList<Task> tasks;
@@ -130,6 +136,7 @@ public class TaskList {
      * @param ascending true if sorting by ascending order, otherwise false.
      */
     public void sort(String by, boolean ascending) {
+        System.out.printf("%s %b\n", by, ascending);
         if (this.tasks.size() >= 2) {
             Comparator<Task> selectedComparator;
             switch (by) {
@@ -154,7 +161,7 @@ public class TaskList {
 
             // since comparators naturally sort by descending order, reverse the comparator
             // if ascending order is specified.
-            if (ascending) {
+            if (!ascending) {
                 selectedComparator = selectedComparator.reversed();
             }
             this.tasks.sort(selectedComparator);
