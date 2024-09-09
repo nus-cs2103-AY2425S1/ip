@@ -24,6 +24,7 @@ public class Storage {
     private static final String FILE_PATH = "./data/hana.txt";
     private static final Path FILE = Paths.get(FILE_PATH);
     private static final Path DIR = Paths.get("./data");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static ArrayList<Task> tasks;
 
     /**
@@ -65,18 +66,17 @@ public class Storage {
             String line = br.readLine();
             while (line != null) {
                 String[] parts = line.split(" \\| ");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                 Task task;
                 switch (parts[0]) {
                 case "T":
                     task = new ToDo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
+                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3], FORMATTER));
                     break;
                 case "E":
-                    task = new Event(parts[2], LocalDateTime.parse(parts[3], formatter),
-                            LocalDateTime.parse(parts[3], formatter));
+                    task = new Event(parts[2], LocalDateTime.parse(parts[3], FORMATTER),
+                            LocalDateTime.parse(parts[3], FORMATTER));
                     break;
                 default:
                     System.out.println("Failed to read saved task. File may be corrupted. Skipping line");

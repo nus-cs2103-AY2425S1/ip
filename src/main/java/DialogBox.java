@@ -17,16 +17,14 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
-
-    @FXML
-    private Label dialog;
-    @FXML
-    private ImageView displayPicture;
-
     private static final String USER_STYLE = "-fx-background-color: lightgreen;"
             + "-fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 5;";
     private static final String BOT_STYLE = "-fx-background-color: lightblue;"
             + "-fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 5;";
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
 
     /**
      * Constructs a DialogBox with the specified text and image.

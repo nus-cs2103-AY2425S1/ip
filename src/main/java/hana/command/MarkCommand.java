@@ -38,7 +38,7 @@ public class MarkCommand extends Command {
         if (taskList.isEmpty()) {
             throw new HanaException("No tasks added yet. Add a task first!");
         }
-        taskList.markTask(taskNumber, true);
+        taskList.markTaskAsDone(taskNumber, true);
         ui.printMarked(taskList.getTasks().get(taskNumber - 1), true);
         storage.save();
     }
