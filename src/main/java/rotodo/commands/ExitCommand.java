@@ -16,6 +16,9 @@ import rotodo.tasklist.TaskList;
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert gui != null;
+        assert storage != null;
+        assert tasks != null;
         gui.exit();
         try {
             storage.saveList(tasks);

@@ -30,6 +30,8 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert gui != null;
+        assert tasks != null;
         try {
             if (asDone) {
                 gui.addMessage(tasks.markDone(index));

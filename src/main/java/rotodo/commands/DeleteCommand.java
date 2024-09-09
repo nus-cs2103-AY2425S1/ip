@@ -27,6 +27,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert gui != null;
+        assert tasks != null;
         try {
             gui.addMessage(tasks.deleteTask(index));
         } catch (InvalidInputException e) {

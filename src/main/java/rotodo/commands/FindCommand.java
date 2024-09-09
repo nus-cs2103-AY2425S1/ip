@@ -18,14 +18,20 @@ public class FindCommand extends Command {
      * Initialise FindCommand to be executed. Accepts
      * a keyword to be used to find tasks.
      *
+<<<<<<< HEAD
      * @param keyword to search
+=======
+     * @param keyword
+>>>>>>> master
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;
+        assert this.keyword != null : "Keyword cannot be null";
     }
 
     @Override
     public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert tasks != null;
         gui.addMessage(tasks.findString(keyword));
     }
 }

@@ -62,9 +62,17 @@ public class RoTodo {
         return gui.getMessage();
     }
 
+    /**
+     * Retrieve output text for GUI based on input.
+     *
+     * @param input to parse and execute
+     * @return output text to be displayed
+     */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
         try {
             Command c = Parser.process(input);
+            assert c != null : "Command should not be null";
             c.execute(tasks, gui, storage);
             hasExited = c.isExit();
         } catch (InvalidInputException e) {

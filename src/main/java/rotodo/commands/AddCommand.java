@@ -42,7 +42,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(TaskType type, String ...values) throws InvalidInputException {
         this.type = type;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
             switch (type) {
             case TODO:
@@ -97,6 +97,7 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Gui gui, Storage storage) {
+        assert tasks != null;
         String msg = "";
         tasks.setNextStatus(isDone);
         switch (this.type) {
