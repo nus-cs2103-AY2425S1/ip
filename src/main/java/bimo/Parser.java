@@ -9,6 +9,7 @@ import bimo.command.Command;
 import bimo.command.CommandType;
 import bimo.command.DeleteCommand;
 import bimo.command.FindCommand;
+import bimo.command.HelpCommand;
 import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
 import bimo.command.UnmarkCommand;
@@ -34,7 +35,7 @@ public class Parser {
     public static Command parse(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
         String userCommand = parsedArray[0].toUpperCase();
-        CommandType command = CommandType.valueOf(userCommand);
+        CommandType command = getCommand(userCommand);
         switch (command) {
         case LIST:
             return new ListCommand();
@@ -73,8 +74,21 @@ public class Parser {
         case BYE:
             return new ByeCommand();
         default:
-            throw new BimoException("Sorry, I do not understand you \n"
-                    + "as this is not a valid command");
+            return new HelpCommand();
+        }
+    }
+
+    /**
+     * Creates the corresponding enum type for user commands.
+     *
+     * @param input Command user entered.
+     * @return Type of command.
+     */
+    public static CommandType getCommand(String input) {
+        try {
+            return CommandType.valueOf(input);
+        } catch (IllegalArgumentException e) {
+            return CommandType.HELP;
         }
     }
 

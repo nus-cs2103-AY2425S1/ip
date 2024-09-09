@@ -23,18 +23,18 @@ public class Ui {
     }
 
     /**
-     * Retrieves the list of  commands currently available.
+     * Retrieves the list of commands currently available.
      *
      * @return list of commands.
      */
-    private String getListOfCommands() {
+    public String getListOfCommands() {
         String list = "Available commands:\n\n"
                 + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
                 + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
                 + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. list\n\n"
-                + "9. bye\n";
+                + "9. bye\n\n10.help\n";
         return list;
     }
 
@@ -172,6 +172,16 @@ public class Ui {
     public String printErrorMessage() {
         String message = "Something went wrong.";
         return message;
+    }
+
+    /**
+     * Represents error message for invalid commands.
+     */
+    public String printInvalidCommandMessage() {
+        String response = "Sorry but I do not understand you.\n"
+                + "Can you kindly repeat yourself? \n"
+                + getListOfCommands();
+        return response;
     }
 
 }
