@@ -54,8 +54,10 @@ public class Storage {
         String text = tasks.toText();
 
         try {
+            // Create directory if it does not exist
             File dir = new File(path);
             dir.mkdirs();
+            assert dir.exists() : "Directory should exist";
             FileWriter fw = new FileWriter(path + FILENAME);
             fw.write(text);
             fw.close();
