@@ -28,7 +28,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageFormat() {
-        return String.format("D | %s | %s | %s", super.getStatus() ? "1" : "0", super.getDescription(),
+        return String.format("D | %s | %s | %s", super.getStatus() ? "1" : "0",
+                super.getDescription(),
                 this.dueBy.toString());
     }
 
