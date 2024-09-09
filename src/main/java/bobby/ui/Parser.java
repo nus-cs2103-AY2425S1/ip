@@ -27,7 +27,13 @@ public class Parser {
             return Bobby.ActionType.valueOf("retry");
         }
     }
-
+    /**
+     * Extracts the description part from the user's input string.
+     * This method assumes the input is composed of an action followed by a description.
+     *
+     * @param input The user's input string, which may contain both an action and a description.
+     * @return The description part of the input, or null if there is no description.
+     */
     public static String getDesc(String input) {
         try {
             String[] stringArr = input.split(" ", 2);
