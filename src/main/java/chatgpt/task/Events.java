@@ -8,10 +8,26 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ *  The Events class represents a task that has a start and end datetime and
+ *  contains the task description/task name, start datetime and end datetime.
+ */
 public class Events extends Task {
+    /** Represents the start datetime of the task **/
     private LocalDateTime startDate;
+    /** Represents the end datetime of the task **/
     private LocalDateTime endDate;
 
+    /**
+     * Constructor of a new event that has the description/name,
+     * start and end datetime of the given event.
+     *
+     * @param task is the description/task name
+     * @param startDate is the start date of the given event
+     * @param endDate is the end date of the given event
+     * @throws ChatBotException if start and end date is not given or
+     * given in the wrong format
+     */
     public Events(String task, String startDate, String endDate)
             throws ChatBotException {
         super(task);
@@ -40,6 +56,16 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * Constructor of an event that may have been completed and has
+     * the description/name, start and end datetime of the given event.
+     *
+     * @param task is the description/task name
+     * @param startDate is the start date of the given event
+     * @param endDate is the end date of the given event
+     * @throws ChatBotException if start and end date is not given or
+     * given in the wrong format
+     */
     public Events(String task, String startDate, String endDate,
                   boolean isCompleted) throws ChatBotException {
         super(task, isCompleted);

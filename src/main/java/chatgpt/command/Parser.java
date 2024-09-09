@@ -2,7 +2,11 @@ package chatgpt.command;
 
 import chatgpt.exception.ChatBotException;
 
+/**
+ *  The Parser class handles user inputs and returns the respective command.
+ */
 public abstract class Parser {
+    /** Enum of the possible Command types **/
     private enum Commands {
         BYE,
         LIST,
@@ -14,6 +18,15 @@ public abstract class Parser {
         DELETE;
     }
 
+    /**
+     *
+     * Returns the respective Command subclass with the necessary arguments
+     * from the user input.
+     *
+     * @param fullCommand including the command and arguments of the command
+     * @return Command subclass based on the user input
+     * @throws ChatBotException when there is an invalid command or missing argument after command
+     */
     public static Command parse(String fullCommand) throws ChatBotException {
         try {
             String[] inputs = fullCommand.split(" ", 2);

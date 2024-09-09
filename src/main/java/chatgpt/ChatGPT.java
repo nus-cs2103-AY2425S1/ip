@@ -13,6 +13,12 @@ public class ChatGPT {
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructor for the chatbot, initialised with the given filePath as the path
+     * to the save file. Save file is also read and stored to the TaskList.
+     *
+     * @param filePath
+     */
     public ChatGPT(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +30,10 @@ public class ChatGPT {
         }
     }
 
+    /**
+     * Runs the application in a loop and checks on whether the application
+     * should terminate or continue;
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,6 +53,11 @@ public class ChatGPT {
         }
     }
 
+    /**
+     * Main function where the chatbot is initialised and the program is set to run.
+     *
+     * @param args passed to run the program (but is not set up)
+     */
     public static void main(String[] args) {
         new ChatGPT("\\data\\data1.txt").run();
     }
