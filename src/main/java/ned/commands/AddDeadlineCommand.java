@@ -45,7 +45,6 @@ public class AddDeadlineCommand implements Command {
                     + uiInstance.getCommandMessage());
         } else if (parsedInputsLen == 1) {
             throw new MissingTaskDueDateException(DEADLINE_MISSING_DUE_DATE_ERROR_MESSAGE
-
                     + uiInstance.getCommandMessage());
         }
         Task newTask = Deadline.createDeadline(parsedInputs[1].strip(), parsedInputs[2].strip(), false);

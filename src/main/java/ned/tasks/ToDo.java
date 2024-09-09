@@ -15,7 +15,11 @@ public class ToDo extends Task {
 
     public static ToDo createToDo(String taskDescription, boolean taskStatus) throws NedException {
         if (taskDescription.isBlank()) {
+<<<<<<< HEAD
             throw new MissingTaskDescriptionException(TODO_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE);
+=======
+            throw new MissingTaskDescriptionException("M'lord, this saved todo task has no task description!");
+>>>>>>> master
         }
         return new ToDo(taskDescription, taskStatus);
     }
