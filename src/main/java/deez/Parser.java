@@ -48,26 +48,7 @@ public class Parser {
         Properties props = new Properties();
 
         // Parse properties
-        Matcher propsMatcher = PROPS_REGEX.matcher(propString);
-        Matcher nameMatcher = NAME_REGEX.matcher(propString);
-        Matcher tagsMatcher = TAGS_REGEX.matcher(propString);
-
-        while (propsMatcher.find()) {
-            props.setProperty(propsMatcher.group(2).strip(), propsMatcher.group(3).strip());
-        }
-        if (nameMatcher.find()) {
-            props.setProperty("name", nameMatcher.group(0).strip());
-        }
-
-        String tags = "";
-        while (tagsMatcher.find()) {
-            tags += tagsMatcher.group(1).strip() + ",";
-        }
-        if (!tags.isBlank()) {
-            tags = tags.substring(0, tags.length() - 1);
-        }
-
-        props.setProperty("tags", tags);
+        parseProps(props, propString);
 
         // Validate properties
         switch (cmd) {
@@ -89,6 +70,31 @@ public class Parser {
 
         return new Pair<>(cmd, props);
     }
+
+    private static void parseProps(Properties props, String propString) {
+        // Parse properties
+        Matcher propsMatcher = PROPS_REGEX.matcher(propString);
+        Matcher nameMatcher = NAME_REGEX.matcher(propString);
+        Matcher tagsMatcher = TAGS_REGEX.matcher(propString);
+
+        while (propsMatcher.find()) {
+            props.setProperty(propsMatcher.group(2).strip(), propsMatcher.group(3).strip());
+        }
+        if (nameMatcher.find()) {
+            props.setProperty("name", nameMatcher.group(0).strip());
+        }
+
+        String tags = "";
+        while (tagsMatcher.find()) {
+            tags += tagsMatcher.group(1).strip() + ",";
+        }
+        if (!tags.isBlank()) {
+            tags = tags.substring(0, tags.length() - 1);
+        }
+
+        props.setProperty("tags", tags);
+    }
+
     /**
      * This method checks if the properties do not contain certain keys.
      *
