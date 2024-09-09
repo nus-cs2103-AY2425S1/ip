@@ -1,5 +1,7 @@
 package astra;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -100,12 +102,10 @@ public class TaskList {
      * @return A TaskList containing tasks that contain the keyword.
      */
     public TaskList find(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.hasKeyword(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return new TaskList(matchingTasks);
+        return new TaskList(
+                tasks.stream()
+                .filter(task -> task.hasKeyword(keyword))
+                .collect(toList())
+        );
     }
 }
