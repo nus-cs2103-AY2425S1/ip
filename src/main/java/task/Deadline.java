@@ -24,6 +24,11 @@ public class Deadline extends Task {
         this.dueDate = LocalDate.parse(dueDateString, formatter);
     }
 
+    @Override
+    public boolean isHappeningOn(LocalDate date) {
+        return dueDate.isEqual(date);
+    }
+
     /**
      * Returns the String description of the task to append to /data/tasklist.txt.
      * Should be in this form: "D , {0 if not complete, 1 if complete} , {name} , {dueDate}".

@@ -12,9 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -69,6 +70,102 @@ public class HypeBot {
     }
 
     /**
+     * Greets the user goodbye upon the command 'bye'.
+     */
+    private static void exit() {
+        SCANNER.close();
+        saveTasksToLocalDisk();
+        System.out.println(addBufferLine("""
+                Alright homie, it's been a BLAST hanging out with you. \
+                Have a wonderful
+                day, and catch you soon again you ABSOLUTE BALLER!
+                """));
+    }
+
+    /**
+     * Prints out all the tasks user has saved in TASKS.
+     *
+     * @return String message showing all tasks saved in TASKS in user-entered order.
+     */
+    private static String list() {
+        StringBuilder listMessage = new StringBuilder("ALRIGHT, Here's that list!\n");
+        for (int i = 0; i < TASKS.size(); i++) {
+            listMessage.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
+        }
+        return addBufferLine(listMessage.toString());
+    }
+
+    /**
+     * Adds task requested by user to TASKS.
+     * Informs user how many total tasks saved.
+     *
+     * @param task Task to add to TASKS.
+     * @return String message confirming task has been added to TASKS list.
+     */
+    private static String add(Task task) {
+        TASKS.add(task);
+        return addBufferLine("HECK YEAH, ADDED: " + task + "!\nYOU'VE NOW GOT " + TASKS.size() + " TASKS TO GO!\n");
+    }
+
+    /**
+     * Takes in task number and marks corresponding task as incomplete.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx Task number to mark incomplete.
+     * @return String message confirming task has been marked incomplete.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
+    private static String unmark(int idx) throws IndexOutOfBoundsException {
+        TASKS.get(idx).unmark();
+        return addBufferLine("AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  " + TASKS.get(idx) + "\n");
+    }
+
+    /**
+     * Takes in task number and marks corresponding task as complete.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx Task number to mark complete.
+     * @return String message confirming task has been marked complete.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
+    private static String mark(int idx) throws IndexOutOfBoundsException {
+        TASKS.get(idx).mark();
+        return addBufferLine("AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  " + TASKS.get(idx) + "\n");
+    }
+
+    /**
+     * Takes in task number and deletes corresponding task from TASKS.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx task.Task number to delete.
+     * @return String message confirming task has been deleted from TASKS.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
+    private static String delete(int idx) throws IndexOutOfBoundsException {
+        Task removed = TASKS.remove(idx);
+        return addBufferLine("Say no more, BABY BYE BYE BYE to this task:\n " + removed + "!\nYOU'VE NOW GOT "
+                + TASKS.size() + " TASKS TO GO!\n");
+    }
+
+    /**
+     * Takes in a LocalDate object and searches for deadlines and events happening on that date.
+     *
+     * @param date LocalDate entered by user in yyyy-MM-dd format to search for tasks happening.
+     * @return String message showing all tasks saved in TASKS that happen on given date.
+     */
+    private static String findHappeningOn(LocalDate date) {
+        List<Task> tasksOnDate = TASKS.stream().filter(task -> task.isHappeningOn(date)).toList();
+
+        StringBuilder listMessage = new StringBuilder("ALRIGHT, Here's everything that's going down on ")
+                .append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append("!\n");
+        for (int i = 0; i < tasksOnDate.size(); i++) {
+            listMessage.append(i + 1).append(". ").append(tasksOnDate.get(i)).append("\n");
+        }
+        return addBufferLine(listMessage.toString());
+    }
+
+    /**
      * Saves tasks stored in TASKS to /data/tasklist.txt in text form.
      * If file /data/tasklist.txt not found, informs user tasks couldn't be saved.
      */
@@ -84,78 +181,6 @@ public class HypeBot {
         } catch (IOException e) {
             System.out.println(addBufferLineError("but I couldn't save your tasks to the drive.\n"));
         }
-    }
-
-    /**
-     * Greets the user goodbye upon the command 'bye'.
-     */
-    private static void exit() {
-        SCANNER.close();
-        saveTasksToLocalDisk();
-        System.out.println(addBufferLine("""
-                Alright homie, it's been a BLAST hanging out with you. \
-                Have a wonderful
-                day, and catch you soon again you ABSOLUTE BALLER!
-                """));
-    }
-
-    /**
-     * Prints out all the tasks user has saved in TASKS.
-     */
-    private static String list() {
-        StringBuilder list = new StringBuilder("ALRIGHT, Here's that list!\n");
-        for (int i = 0; i < TASKS.size(); i++) {
-            list.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
-        }
-        return addBufferLine(list.toString());
-    }
-
-    /**
-     * Adds task requested by user to TASKS.
-     * Informs user how many total tasks saved.
-     *
-     * @param task task.Task to add to TASKS.
-     */
-    private static String add(Task task) {
-        TASKS.add(task);
-        return addBufferLine("HECK YEAH, ADDED: " + task + "!\nYOU'VE NOW GOT " + TASKS.size() + " TASKS TO GO!\n");
-    }
-
-    /**
-     * Takes in task number and marks corresponding task as incomplete.
-     * If task number not found in list, throws IndexOutOfBoundsException.
-     *
-     * @param idx task.Task number to mark incomplete.
-     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
-     */
-    private static String unmark(int idx) throws IndexOutOfBoundsException {
-        TASKS.get(idx).unmark();
-        return addBufferLine("AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  " + TASKS.get(idx) + "\n");
-    }
-
-    /**
-     * Takes in task number and marks corresponding task as complete.
-     * If task number not found in list, throws IndexOutOfBoundsException.
-     *
-     * @param idx task.Task number to mark complete.
-     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
-     */
-    private static String mark(int idx) throws IndexOutOfBoundsException {
-        TASKS.get(idx).mark();
-        return addBufferLine("AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  " + TASKS.get(idx) + "\n");
-    }
-
-    /**
-     * Takes in task number and deletes corresponding task from TASKS.
-     * If task number not found in list, throws IndexOutOfBoundsException.
-     *
-     * @param idx task.Task number to delete.
-     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
-     */
-    private static String delete(int idx) throws IndexOutOfBoundsException {
-        Task removed = TASKS.remove(idx);
-        return addBufferLine("Say no more, BABY BYE BYE BYE to this task:\n " + removed + "!\nYOU'VE NOW GOT "
-                + TASKS.size() + " TASKS TO GO!\n");
     }
 
     /**
@@ -347,6 +372,25 @@ public class HypeBot {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(addBufferLineError("try indicating the index of an existing task you wanna "
                             + "delete!\n"));
+                }
+                break;
+            case "happening":
+                if (splitLineForDates.length < 2) {
+                    System.out.println(addBufferLineError("""
+                            make sure you got the date you're searching for!
+                            Put your due date after a '/' to indicate that you're inputting a search date!
+                            """));
+                    break;
+                }
+                try {
+                    LocalDate searchDate = LocalDate.parse(splitLineForDates[1],
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println(findHappeningOn(searchDate));
+                } catch (DateTimeParseException e) {
+                    System.out.println(addBufferLineError("""
+                            but I couldn't catch the search date that you put.
+                            Try formatting your due date in this format: yyyy-MM-dd
+                            """));
                 }
                 break;
             default:

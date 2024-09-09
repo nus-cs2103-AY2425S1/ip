@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Task which all the different types of tasks inherit from.
  *
@@ -38,6 +40,10 @@ public class Task {
      */
     public void unmark() {
         this.isComplete = false;
+    }
+
+    public boolean isHappeningOn(LocalDate date) {
+        return false;
     }
 
     /**
