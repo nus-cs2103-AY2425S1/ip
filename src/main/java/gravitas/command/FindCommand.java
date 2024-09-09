@@ -15,7 +15,7 @@ public class FindCommand extends Command {
     /**
      * Constructor for FindCommand.
      *
-     * @param userInput User input to be used by the command.
+     * @param userInput User input is used to find tasks in the task list.
      */
     public FindCommand(String userInput) {
         this.userInput = userInput;
@@ -32,6 +32,7 @@ public class FindCommand extends Command {
             throw new DukeException(EMPTY_FIND);
         }
         String keyword = msgFrag[1];
+        assert !keyword.isEmpty() : "Keyword should not be empty";
         return tasklist.printFindTask(keyword);
     }
 }

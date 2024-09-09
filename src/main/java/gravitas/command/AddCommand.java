@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     private static final String EMPTY_TODO = "OOPS!!! The description of a todo cannot be empty.";
     private static final String EMPTY_EVENT = "OOPS!!! The description of a event cannot be empty "
             + "and must contain /from and /to.";
-    private static final String EMPTY_DEADLINE = "OOPS!!! The description of a deadline"
+    private static final String EMPTY_DEADLINE = "OOPS!!! The description of a deadline "
             + "cannot be empty and must contain /by ";
     private static final String ADDED = "Got it. I've added this task:";
     private String userInput;
@@ -45,6 +45,7 @@ public class AddCommand extends Command {
             String[] deadline = userInput.split("/by ", 2);
             //description format: [deadline, description]
             String[] description = deadline[0].split(" ", 2);
+            assert description.length == 2 : "Description should not be empty";
             task = new Deadline(description[1], deadline[1]);
         } else if (msgFrag[0].equals("event")) {
             if (msgFrag.length <= 1 || !userInput.contains("/from ") || !userInput.contains("/to ")) {
