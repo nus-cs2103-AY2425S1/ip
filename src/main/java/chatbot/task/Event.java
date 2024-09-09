@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * Represents the concept of an Event task that the user adds into his todolist
  * The Event class extends the abstract class of Task
  */
-public class Event extends Task {
+public class Event extends TimeTask {
     /** Date time that the event starts */
     private LocalDateTime from;
     /** Date time that the event ends */
@@ -39,6 +39,16 @@ public class Event extends Task {
      */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         this(name, from, to, false);
+    }
+
+    /**
+     * Gets the start time of the event in the form of a LocalDateTime
+     *
+     * @return LocalDateTime object representing the start time of the event
+     */
+    @Override
+    public LocalDateTime getTime() {
+        return this.from;
     }
 
     /**

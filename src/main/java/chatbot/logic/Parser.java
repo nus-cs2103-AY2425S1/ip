@@ -5,14 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import chatbot.exception.DeadlineArgsException;
-import chatbot.exception.EmptyArgsException;
-import chatbot.exception.EventArgsException;
-import chatbot.exception.InputException;
-import chatbot.exception.InvalidCommandException;
-import chatbot.exception.MissingDeadlineByException;
-import chatbot.exception.MissingEventFromException;
-import chatbot.exception.MissingEventToException;
+import chatbot.exception.*;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
 import chatbot.task.Task;
@@ -57,55 +50,50 @@ public class Parser {
         // splits the command into 2 strings - The command string, and the arguments string
         String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
+
+        String response;
+
         switch (command) {
         case "bye" -> {
-            return "Bye. Hope to see you again soon!";
+            response = "Bye. Hope to see you again soon!";
         }
         case "list" -> {
-            return taskList.listTasks();
+            response = taskList.listTasks();
         }
         case "mark" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            String str = taskList.mark(idx, true);
-            storage.writeToFile(taskList);
-            return str;
+            response = taskList.mark(idx, true);
         }
         case "unmark" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            String str = taskList.mark(idx, false);
-            storage.writeToFile(taskList);
-            return str;
+            response = taskList.mark(idx, false);
         }
         case "find" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             String query = inputArr[1];
-            return taskList.find(query);
+            response = taskList.find(query);
         }
         case "delete" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            String str = taskList.remove(idx);
-            storage.writeToFile(taskList);
-            return str;
+            response = taskList.remove(idx);
         }
         case "todo" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             Task newTask = new Todo(inputArr[1]);
-            String str = taskList.add(newTask);
-            storage.writeToFile(taskList);
-            return str;
+            response = taskList.add(newTask);
         }
         case "deadline" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
@@ -126,11 +114,9 @@ public class Parser {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 Task newTask = new Deadline(name, LocalDateTime.parse(deadline, formatter));
-                String str = taskList.add(newTask);
-                storage.writeToFile(taskList);
-                return str;
+                response = taskList.add(newTask);
             } catch (DateTimeParseException e) {
-                return "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
+                response = "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
             }
         }
         case "event" -> {
@@ -166,15 +152,29 @@ public class Parser {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 Task newTask = new Event(name, LocalDateTime.parse(from, formatter),
                         LocalDateTime.parse(to, formatter));
-                String str = taskList.add(newTask);
-
-                storage.writeToFile(taskList);
-                return str;
+                response = taskList.add(newTask);
             } catch (DateTimeParseException e) {
-                return "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
+                response = "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
+            }
+        }
+        case "sort" -> {
+            // Error handling
+            if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
+                throw new EmptyArgsException();
+            }
+            String arg = inputArr[1].trim().toLowerCase();
+            if (arg.equals("asc")) {
+                response = taskList.sort(TaskList.SortOrder.ASC);
+            } else if (arg.equals("desc")) {
+                response = taskList.sort(TaskList.SortOrder.DESC);
+            } else {
+                throw new InvalidArgsException();
             }
         }
         default -> throw new InvalidCommandException();
         }
+
+        storage.writeToFile(taskList);
+        return response;
     }
 }

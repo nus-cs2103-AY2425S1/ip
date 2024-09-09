@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import chatbot.exception.InvalidIndexException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
 import chatbot.task.Task;
+import chatbot.task.TimeTask;
 
 /**
  * Represents the task list, and contains methods that manipulate the task list
@@ -13,6 +16,11 @@ import chatbot.task.Task;
 public class TaskList {
     /** ArrayList of tasks encapsulated by TaskList */
     private ArrayList<Task> tasks;
+
+    public enum SortOrder {
+        ASC,
+        DESC
+    }
 
     /**
      * Constructor for the TaskList object
@@ -153,5 +161,49 @@ public class TaskList {
                 .forEach(idx -> sb.append(idx + 1 + ". " + this.tasks.get(idx) + "\n"));
 
         return sb.toString();
+    }
+
+    public String sort(SortOrder order) {
+        if (order == SortOrder.ASC) {
+            this.tasks.sort((t1, t2) -> {
+                if ((t1 instanceof TimeTask newT1) && (t2 instanceof TimeTask newT2)) {
+                    if (newT2.getTime().isBefore(newT1.getTime())) {
+                        return 1; // move t2 up in the list
+                    } else if (newT1.getTime().isBefore(newT2.getTime())) {
+                        return -1; // move t1 up in the list
+                    } else {
+                        return 0; // order can stay the same
+                    }
+                } else if (t1 instanceof TimeTask) { // t2 is not a TimeTask
+                    return 1; // move t2 up in the list
+                } else if (t2 instanceof TimeTask) {
+                    return -1; // move t1 up in the list
+                } else {
+                    return 0; // order can stay the same
+                }
+            });
+            return "List has been sorted in ascending order!";
+        } else if (order == SortOrder.DESC) {
+            this.tasks.sort((t1, t2) -> {
+                if ((t1 instanceof TimeTask newT1) && (t2 instanceof TimeTask newT2)) {
+                    if (newT2.getTime().isBefore(newT1.getTime())) {
+                        return -1; // move t1 up the list
+                    } else if (newT1.getTime().isBefore(newT2.getTime())) {
+                        return 1; // move t2 up the list
+                    } else {
+                        return 0; // order can stay the same
+                    }
+                } else if (t1 instanceof TimeTask) { // t2 is not a TimeTask
+                    return 1; // move t2 up in the list
+                } else if (t2 instanceof TimeTask) {
+                    return -1; // move t1 up in the list
+                } else {
+                    return 0; // order can stay the same
+                }
+            });
+            return "List has been sorted in descending order!";
+        } else {
+            return "Invalid ordering!"; // this line should be unreachable
+        }
     }
 }
