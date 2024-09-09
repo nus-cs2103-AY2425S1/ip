@@ -1,5 +1,7 @@
 package blitz;
 
+import java.util.Arrays;
+
 /**
  * Represents the various commands that the Blitz application can process.
  */
@@ -13,13 +15,8 @@ public enum Instruction {
      * @return True if the command matches any of the enum constant, false otherwise.
      */
     private static boolean contains(String command) {
-        for (Instruction c : Instruction.values()) {
-            if (c.name().equals(command.toUpperCase())) {
-                return true;
-            }
-        }
-
-        return false;
+        return Arrays.stream(Instruction.values())
+                .anyMatch(cmd -> cmd.name().equalsIgnoreCase(command.toUpperCase()));
     }
 
     /**
