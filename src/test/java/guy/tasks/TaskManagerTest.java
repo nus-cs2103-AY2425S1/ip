@@ -50,7 +50,7 @@ public class TaskManagerTest {
     public void fieldlessTest() {
         Parser p = new Parser(new Scanner(new ByteArrayInputStream("event".getBytes())));
         outContent.reset();
-        p.cmd();
+        p.handleCliInput();
         assertEquals("You really think I can add an EMPTY TASK!?", outContent.toString().trim());
     }
 }

@@ -28,7 +28,7 @@ public class Parser {
      *
      * @return false if the user requests to quit, true otherwise
      */
-    public boolean cmd() {
+    public boolean handleCliInput() {
         TaskManager tm = TaskManager.getInstance();
         while (sc.hasNext()) {
             String[] input = splitCmd(sc.nextLine());
@@ -75,7 +75,7 @@ public class Parser {
      * @param input string
      * @return string
      */
-    public String guiInput(String input) throws GuyException {
+    public String handleGuiInput(String input) throws GuyException {
         TaskManager tm = TaskManager.getInstance();
         ByteArrayOutputStream bstream = new ByteArrayOutputStream();
         PrintStream pstream = new PrintStream(bstream);

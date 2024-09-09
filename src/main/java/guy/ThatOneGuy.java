@@ -6,7 +6,6 @@ import guy.exception.GuyException;
 import guy.gui.Launcher;
 import guy.parser.Parser;
 import guy.storage.Storage;
-import guy.tasks.TaskManager;
 import guy.ui.Ui;
 
 /**
@@ -14,7 +13,6 @@ import guy.ui.Ui;
  * It initialises a list of tasks, the UI, and storage, and handles the main logic.
  */
 public class ThatOneGuy {
-    private TaskManager tm;
     private Ui ui;
     private Storage storage;
     private Parser parser;
@@ -28,8 +26,7 @@ public class ThatOneGuy {
         isRunning = true;
         ui = new Ui();
         storage = new Storage();
-        tm = new TaskManager();
-        this.parser = new Parser(new Scanner(System.in));
+        parser = new Parser(new Scanner(System.in));
         storage.readData();
     }
 
@@ -54,7 +51,7 @@ public class ThatOneGuy {
 
     public String getResponse(String input) {
         try {
-            String response = parser.guiInput(input);
+            String response = parser.handleGuiInput(input);
             if (response.equals("Whatever. Hope you never come back.")) {
                 isRunning = false;
             }
@@ -70,7 +67,7 @@ public class ThatOneGuy {
     private void keepGoing() {
         Parser p = new Parser(new Scanner(System.in));
         while (isRunning) {
-            isRunning = p.cmd();
+            isRunning = p.handleCliInput();
         }
     }
 
