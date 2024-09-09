@@ -2,11 +2,10 @@ package bimo.command;
 
 import java.util.ArrayList;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
 import bimo.tasks.Task;
-
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command to find tasks by word.

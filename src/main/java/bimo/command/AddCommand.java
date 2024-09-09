@@ -1,9 +1,9 @@
 package bimo.command;
 
-import bimo.Storage;
-import bimo.TaskList;
-import bimo.Ui;
 import bimo.tasks.Task;
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 
 /**
  * Creates a command that add tasks to list.

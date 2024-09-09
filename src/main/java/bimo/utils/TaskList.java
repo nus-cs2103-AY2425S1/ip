@@ -1,4 +1,4 @@
-package bimo;
+package bimo.utils;
 
 import java.util.ArrayList;
 

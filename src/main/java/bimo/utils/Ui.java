@@ -1,4 +1,4 @@
-package bimo;
+package bimo.utils;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,8 @@ public class Ui {
      */
     public String printUserIntroduction(String name) {
         String introduction = String.format("Hello! I'm %s.", name)
-                + " What can I do for you? \n \n" + getListOfCommands();
+                + " What can I do for you? \n \n"
+                + "(Type help to see the list of available commands)";
         return introduction;
     }
 
