@@ -107,9 +107,11 @@ public class ProcessTasks {
         if (inputCommand.equals("mark")) {
             task.changeStatus();
             String str = ui.getMarkString() + "\n" + task + "\n";
+            return str;
         } else if (inputCommand.equals("unmark")) {
             task.changeStatus();
             String str = ui.getUnmarkString() + "\n" + task + "\n";
+            return str;
         } else if (inputCommand.equals("delete")) {
             kj.removeTask(taskIndex);
             String str = ui.getDeleteString() + "\n" + task + "\n";

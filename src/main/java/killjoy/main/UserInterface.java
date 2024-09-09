@@ -88,11 +88,11 @@ public class UserInterface {
      */
     public String displayAddedTaskMessage() {
         String str = "Yo Dawgg!! Added this task:\n";
-        str += killJoy.getTask(killJoy.getTaskCount() - 1);
+        str += killJoy.getTask(killJoy.getTaskCount() - 1) + "\n";
         if (killJoy.getTaskCount() == 1) {
             str += "Now you have " + killJoy.getTaskCount() + " task in the list.";
         } else {
-            str += "    Now you have " + killJoy.getTaskCount() + " tasks in the list.";
+            str += "Now you have " + killJoy.getTaskCount() + " tasks in the list.";
         }
         return str;
     }
