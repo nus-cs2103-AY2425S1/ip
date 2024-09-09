@@ -24,4 +24,8 @@ public class DeleteCommand extends Command {
         }
     }
 
+    public boolean isTerminateProgram() {
+        return false;
+    }
+
 }

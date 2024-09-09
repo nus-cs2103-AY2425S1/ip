@@ -46,4 +46,8 @@ public class DeadlineCommand extends Command {
         tasks.addTask(task);
         return ui.addTaskMessage(task, tasks.getSize());
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }

@@ -15,4 +15,8 @@ public class ByeCommand extends Command {
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         return ui.byeMessage();
     }
+
+    public boolean isTerminateProgram() {
+        return true;
+    }
 }

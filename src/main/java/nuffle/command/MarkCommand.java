@@ -29,4 +29,8 @@ public class MarkCommand extends Command {
         }
         return response;
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }

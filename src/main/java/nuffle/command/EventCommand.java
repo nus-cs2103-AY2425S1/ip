@@ -53,4 +53,8 @@ public class EventCommand extends Command {
         tasks.addTask(task);
         return ui.addTaskMessage(task, tasks.getSize());
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }

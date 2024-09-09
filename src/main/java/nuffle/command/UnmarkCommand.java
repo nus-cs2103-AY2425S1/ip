@@ -25,4 +25,8 @@ public class UnmarkCommand extends Command {
             return ui.unmarkTaskError();
         }
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }

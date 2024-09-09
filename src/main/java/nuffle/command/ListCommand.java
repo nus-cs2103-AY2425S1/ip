@@ -27,4 +27,8 @@ public class ListCommand extends Command {
         }
         return output.toString();
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }

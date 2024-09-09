@@ -18,4 +18,8 @@ public class FindCommand extends Command {
         String desc = userInput.substring(4).trim();
         return ui.displayFoundTasks(tasks.findTasksByKeyword(desc));
     }
+
+    public boolean isTerminateProgram() {
+        return false;
+    }
 }
