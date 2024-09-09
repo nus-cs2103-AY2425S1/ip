@@ -71,10 +71,9 @@ public class TaskList {
     /**
      * Lists all the tasks in the TaskList and returns them as a formatted string.
      *
-     * @param ui The UI object used to display the list of tasks.
      * @return A string containing all tasks in the TaskList.
      */
-    public String listTasks(Ui ui) {
+    public String listTasks() {
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -163,7 +162,7 @@ public class TaskList {
         Task newTask = new ToDo(description, TaskType.TODO);
         tasks.add(newTask);
 
-        assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task"; // Check size increase
+        assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task";
         return ui.showTaskAdded(newTask, tasks.size());
     }
 
@@ -216,11 +215,10 @@ public class TaskList {
      * Retrieves tasks occurring on a specific date and returns them as a formatted string.
      *
      * @param date The date to search for tasks.
-     * @param ui The UI object used to display the result of the operation.
      * @return A string containing tasks scheduled for the specified date.
      * @throws ChatBotException If the date format is invalid.
      */
-    public String printTasksOnDate(String date, Ui ui) throws ChatBotException {
+    public String printTasksOnDate(String date) throws ChatBotException {
         LocalDate searchDate;
         StringBuilder result = new StringBuilder();
         try {
@@ -276,7 +274,6 @@ public class TaskList {
             }
         }
 
-        // Display the found tasks or an error message
         if (found) {
             return ui.showTasksFound(tasksWithKey.toArray(new Task[0]));
         } else {
