@@ -23,6 +23,15 @@ public class DeadlineTask extends Task {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Retrieves due date of the deadline task.
+     * @return A LocalDateTime object which indicates the due date of the task.
+     */
+    protected LocalDateTime getDueDate() {
+
+        return this.dueDate;
+    }
+
     @Override
     public String toCsvFormat() {
 
