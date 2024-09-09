@@ -1,5 +1,7 @@
 package sigma.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task.
  * A task has a description and a status.
@@ -48,7 +50,9 @@ public abstract class Task {
 
     public abstract String getTaskType();
 
-    public abstract String getDate();
+    public abstract LocalDateTime getStartDate();
+
+    public abstract String getDateString();
 
     @Override
     public String toString() {

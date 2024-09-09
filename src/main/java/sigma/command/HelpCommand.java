@@ -24,7 +24,13 @@ public class HelpCommand extends Command {
                 + "6. unmark <task number> - Unmark a task (mark it as not done) \n"
                 + "7. delete <task number> - Delete a task\n"
                 + "8. find <query> - Find tasks with the query\n"
-                + "9. help - Show all commands\n"
-                + "10. bye - Exit Sigma";
+                + "9. sort <parameter> - Sort tasks by a parameter: \n"
+                + "   - desc/description: Sort by task description\n"
+                + "   - date: Sort by task date\n"
+                + "   - todo (t): Sort by todo tasks\n"
+                + "   - deadline (d): Sort by deadline tasks\n"
+                + "   - event (e): Sort by event tasks\n"
+                + "10. help - Show all commands\n"
+                + "11. bye - Exit Sigma";
     }
 }

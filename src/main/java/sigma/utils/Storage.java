@@ -49,19 +49,19 @@ public class Storage {
      * Writes the tasks to the file.
      * Uses inheritance to get Date string.
      *
-     * @param items List of tasks to write to the file.
+     * @param tasks List of tasks to write to the file.
      */
-    public void write(ArrayList<Task> items) {
+    public void write(ArrayList<Task> tasks) {
         File data = new File(filePath);
         assert data != null : "File cannot be null";
         try {
             FileWriter writer = new FileWriter(data);
             assert writer != null : "Writer cannot be null";
-            for (Task item : items) {
-                assert item != null : "Item cannot be null";
-                String date = item.getDate();
+            for (Task task : tasks) {
+                assert task != null : "Item cannot be null";
+                String date = task.getDateString();
                 writer.write(String.format("%s | %s | %s | %s \n",
-                        item.getTaskType(), item.getStatusString(), item.getDescription(), date));
+                        task.getTaskType(), task.getStatusString(), task.getDescription(), date));
             }
             writer.close();
         } catch (IOException e) {
