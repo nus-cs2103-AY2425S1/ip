@@ -1,4 +1,4 @@
-package bimo;
+package bimo.exception;
 
 /**
  * Represents a custom Checked Exception.

@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * */
     public void setBimo(Bimo bimo) {
         this.bimo = bimo;
-        greetUser();
+        handleIntroduction();
     }
 
     /**
@@ -52,6 +52,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bimo.getResponse(input);
+        assert userImage != null : "User image must exist";
+        assert bimoImage != null : "Bot image must exist";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBimoDialog(response, bimoImage)
@@ -63,9 +65,9 @@ public class MainWindow extends AnchorPane {
      * Creates a dialogbox with user greeting and list of commands.
      */
     @FXML
-    private void greetUser() {
-        String input = bimo.greetUser();
+    private void handleIntroduction() {
+        String introduction = bimo.greetUser();
         dialogContainer.getChildren().addAll(
-                DialogBox.getBimoDialog(input, bimoImage));
+                DialogBox.getBimoDialog(introduction, bimoImage));
     }
 }

@@ -30,7 +30,9 @@ public class Event extends Task {
      * @return Start and end time as text separated by |.
      */
     public String getDatesAsText() {
-        return "|" + this.startDate.toString() + "/" + this.endDate.toString();
+        String dateAsText = "|" + this.startDate.toString() + "/"
+                + this.endDate.toString();
+        return dateAsText;
     }
 
     /**
@@ -41,8 +43,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+        String eventString = String.format("[E]%s (from: %s to: %s)", super.toString(),
                 this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
                 this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        return eventString;
     }
 }

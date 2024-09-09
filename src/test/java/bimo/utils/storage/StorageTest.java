@@ -1,4 +1,4 @@
-package bimo.storage;
+package bimo.utils.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,9 +6,10 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import bimo.Storage;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
+import bimo.utils.Storage;
+
 
 
 public class StorageTest {

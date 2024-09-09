@@ -1,6 +1,18 @@
 package bimo;
+
+import java.io.File;
+
 import bimo.command.ByeCommand;
 import bimo.command.Command;
+import bimo.exception.BimoException;
+import bimo.exception.InvalidDateFormatException;
+import bimo.exception.InvalidTaskNumberException;
+import bimo.exception.MissingDateException;
+import bimo.exception.MissingDescriptionException;
+import bimo.utils.Parser;
+import bimo.utils.Storage;
+import bimo.utils.TaskList;
+import bimo.utils.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
@@ -21,6 +33,7 @@ public class Bimo {
      */
     public Bimo(String filePath) {
         this.ui = new Ui();
+        assert new File(filePath).exists() : "File must not be missing";
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.loadFile());
@@ -39,37 +52,28 @@ public class Bimo {
             if (c instanceof ByeCommand) {
                 closeApplication();
             }
-        } catch (BimoException e) {
+        } catch (InvalidTaskNumberException e) {
             response = e.getMessage();
+        } catch (InvalidDateFormatException e) {
+            response = e.getMessage();
+        } catch (MissingDescriptionException e) {
+            response = e.getMessage();
+        } catch (MissingDateException e) {
+            response = e.getMessage();
+        } catch (BimoException e) {
+            response = ui.printErrorMessage();
         }
         return response;
     }
-
     /**
      * Displays introduction to users.
      */
     public String greetUser() {
-        return String.format("Hello! I'm %s.", NAME)
-                + " What can I do for you? \n \n" + getListOfCommands();
+        String introduction = this.ui.printUserIntroduction(NAME);
+        return introduction;
     }
-
     /**
-     * Retrieves the list of  commands currently available.
-     *
-     * @return list of commands.
-     */
-    private String getListOfCommands() {
-        return "Available commands:\n\n"
-                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
-                + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
-                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
-                + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
-                + "8. bye\n";
-    }
-
-    /**
-     * Creates a pause and then closes the javafx window
-     *
+     * Creates a pause and then closes the javafx window.
      */
     private void closeApplication() {
         //Solution below adapted from
