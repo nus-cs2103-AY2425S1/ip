@@ -9,8 +9,8 @@ import sigma.utils.Ui;
  */
 public class ListCommand extends Command {
 
-    public ListCommand(String[] split) {
-        super(split);
+    public ListCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**

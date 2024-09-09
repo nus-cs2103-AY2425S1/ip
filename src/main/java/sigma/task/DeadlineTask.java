@@ -12,11 +12,11 @@ public class DeadlineTask extends Task {
     /**
      * Creates a deadline task with the given description and date.
      *
-     * @param desc Description of the deadline task.
+     * @param description Description of the deadline task.
      * @param date Date of the deadline task.
      */
-    public DeadlineTask(String desc, LocalDateTime date) {
-        super(desc);
+    public DeadlineTask(String description, LocalDateTime date) {
+        super(description);
         this.date = date;
     }
 

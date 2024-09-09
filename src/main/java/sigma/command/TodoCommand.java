@@ -11,8 +11,8 @@ import sigma.utils.Ui;
  */
 public class TodoCommand extends Command {
 
-    public TodoCommand(String[] split) {
-        super(split);
+    public TodoCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**
@@ -26,10 +26,18 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        if (split.length < 2 || split[1].strip() == "") {
-            Ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
+        String message = "???? You're missing the task! Write \"todo <task>\"!";
+        if (commandArray == null) {
+            throw new SigmaException("Why is commandArray null? Sigma is confused.");
         }
-        TodoTask toDoTask = new TodoTask(split[1].strip());
+        if (commandArray.length < 2) {
+            throw new SigmaException(message);
+        }
+        String description = commandArray[1].strip();
+        if (description == "") {
+            throw new SigmaException(message);
+        }
+        TodoTask toDoTask = new TodoTask(description);
         tasks.add(toDoTask);
         return "Productive! Added: \n" + toDoTask
                 + "\nNow you have " + tasks.size() + " tasks in the list!";

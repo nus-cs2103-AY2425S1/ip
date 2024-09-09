@@ -10,8 +10,8 @@ import sigma.utils.Ui;
  */
 public class UnrecognisedCommand extends Command {
 
-    public UnrecognisedCommand(String[] split) {
-        super(split);
+    public UnrecognisedCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**

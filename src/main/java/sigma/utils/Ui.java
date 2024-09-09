@@ -1,7 +1,5 @@
 package sigma.utils;
 
-import java.util.Scanner;
-
 import sigma.exception.SigmaException;
 
 /**
@@ -9,8 +7,6 @@ import sigma.exception.SigmaException;
  * Contains methods to read user input and print messages.
  */
 public class Ui {
-
-    private final Scanner input = new Scanner(System.in);
 
     /**
      * Prints the welcome message.

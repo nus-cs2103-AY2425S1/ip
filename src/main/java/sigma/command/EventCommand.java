@@ -14,8 +14,8 @@ import sigma.utils.Ui;
  */
 public class EventCommand extends Command {
 
-    public EventCommand(String[] split) {
-        super(split);
+    public EventCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**
@@ -30,19 +30,19 @@ public class EventCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         final String eventMessage = "Write \"event <task> /from <start time> /to <end time>\"!";
-        if (split.length < 2) {
+        if (commandArray.length < 2) {
             throw new SigmaException("What the sigma? You're missing the task! " + eventMessage);
         }
-        String[] eventSplit = split[1].split(" /from ");
+        String[] eventSplit = commandArray[1].split(" /from ");
         if (eventSplit.length < 2) {
             throw new SigmaException("What the sigma? You're missing the timing! " + eventMessage);
         }
-        String[] timing = eventSplit[1].split(" /to ");
-        if (timing.length < 2) {
+        String[] timingArray = eventSplit[1].split(" /to ");
+        if (timingArray.length < 2) {
             throw new SigmaException("What the sigma? You're missing the end timing! " + eventMessage);
         }
-        LocalDateTime from = Parser.parseLocalDateTime(timing[0]);
-        LocalDateTime to = Parser.parseLocalDateTime(timing[1]);
+        LocalDateTime from = Parser.parseLocalDateTime(timingArray[0]);
+        LocalDateTime to = Parser.parseLocalDateTime(timingArray[1]);
         EventTask eventTask = new EventTask(eventSplit[0], from, to);
         tasks.add(eventTask);
         return "You're a busy bee! Added: \n" + eventTask
