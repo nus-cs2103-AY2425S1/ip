@@ -97,9 +97,8 @@ public class Janet {
                 response = ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
                 break;
             case FIND:
-                String keyword = String.join(" ",
-                        Arrays.copyOfRange(commandDetails, 1, commandDetails.length));
-                response = ui.showFindMessage(tasks.findTasks(keyword));
+                String[] keywords = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
+                response = ui.showFindMessage(tasks.findTasks(keywords));
                 break;
             }
         } catch (JanetException e) {

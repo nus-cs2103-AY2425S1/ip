@@ -66,7 +66,7 @@ public class Parser {
      * @throws JanetException If command is invalid, task number is not properly specified, task description omitted.
      */
     public static void checkInaccurateCommand(String[] commandDetails, int numOfTasksInlist) throws JanetException {
-        if (emptyCommand(commandDetails) || unknownCommand(commandDetails)) {
+        if (emptyCommand(commandDetails) || unknownCommand(commandDetails) || notFoundCommand(commandDetails)) {
             // when the command is gibberish OR is an empty command
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (notByeOrListCommand(commandDetails)) {
@@ -86,6 +86,20 @@ public class Parser {
 
 
     /**
+     * Returns true if command is 'find' and there is no keyword(s) specified,
+     * false otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean notFoundCommand(String[] commandDetails) {
+        boolean isFoundCommand = commandDetails[0].equals("find");
+        boolean noKeywordSpecified = commandDetails.length == 1;
+        return isFoundCommand && noKeywordSpecified;
+    }
+
+
+    /**
      * Returns true if the command is empty, just whitespaces (eg. '    ').
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
@@ -96,6 +110,14 @@ public class Parser {
     }
 
 
+    /**
+     * Returns true if it's a task command (todo, deadline or event),
+     * and task description is not provided.
+     * False otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
     private static boolean taskDescriptionOmitted(String[] commandDetails) {
         boolean noDescriptionProvided = commandDetails.length == 1;
         return noDescriptionProvided && isTaskCommand(commandDetails);
