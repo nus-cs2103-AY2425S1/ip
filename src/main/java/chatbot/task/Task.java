@@ -1,5 +1,8 @@
 package chatbot.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents the concept of a task that the user adds into his todolist
  * task is implemented as an abstract class to prevent instantiation
@@ -22,6 +25,18 @@ public abstract class Task {
 
         this.name = name;
         this.isDone = isDone;
+    }
+
+    /**
+     * Class method that formats a LocalDateTime object in the
+     * desired format of LLL dd yyyy HH:mm
+     *
+     * @param date the LocalDateTime object to be formatted
+     * @return the String representation of the LocalDateTime object
+     */
+    public static String formatDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLL dd yyyy HH:mm");
+        return formatter.format(date);
     }
 
     /**

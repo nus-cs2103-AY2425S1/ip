@@ -60,9 +60,11 @@ public class TaskList {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
+
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1 + ". " + tasks.get(i) + "\n");
         }
+
         return sb.toString();
     }
 
@@ -84,6 +86,7 @@ public class TaskList {
             sb.append("Ok, I've marked this task as not done yet:\n");
         }
         sb.append(this.get(idx) + "\n");
+
         return sb.toString();
     }
 
@@ -99,10 +102,12 @@ public class TaskList {
             throw new InvalidIndexException();
         }
         Task deleted = this.tasks.remove(idx);
+
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've removed this task:\n");
         sb.append(deleted + "\n");
         sb.append("Now you have " + this.tasks.size() + " tasks in the list\n");
+
         return sb.toString();
     }
 
@@ -116,10 +121,12 @@ public class TaskList {
         assert this.tasks != null : "tasks should not be null";
 
         this.tasks.add(newTask);
+
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
         sb.append(newTask);
         sb.append("Now you have " + tasks.size() + " tasks in the list\n");
+
         return sb.toString();
     }
 
@@ -135,12 +142,14 @@ public class TaskList {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks matching your query:\n");
+
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getName().toLowerCase().contains(query.toLowerCase())) {
                 sb.append(i + 1 + ". " + task + "\n");
             }
         }
+
         return sb.toString();
     }
 }

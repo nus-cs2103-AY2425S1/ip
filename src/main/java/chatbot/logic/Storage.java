@@ -40,17 +40,14 @@ public class Storage {
         try {
             Scanner fileScanner = this.getFile();
             while (fileScanner.hasNextLine()) {
-                // I don't really like this nested try block
-                try {
-                    Task newTask = Parser.parseFileLine(fileScanner.nextLine());
-                    existingTasks.add(newTask);
-                } catch (IOException e) {
-                    System.out.println("File format corrupted");
-                }
+                Task newTask = Parser.parseFileLine(fileScanner.nextLine());
+                existingTasks.add(newTask);
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("File format corrupted");
         }
         return existingTasks;
     }
