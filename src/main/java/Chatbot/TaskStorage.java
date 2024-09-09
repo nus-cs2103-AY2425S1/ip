@@ -100,10 +100,12 @@ public class TaskStorage {
     /**
      * Prints a list of all tasks currently stored, along with their IDs.
      */
-    public void listTasks() {
+    public String listTasks() {
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
-            System.out.println("     " + entry.getKey() + ". " + entry.getValue());
+            sb.append("     ").append(entry.getKey()).append(". ").append(entry.getValue()).append("\n");
         }
+        return sb.toString();
     }
 
     /**
