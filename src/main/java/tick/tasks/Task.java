@@ -65,13 +65,14 @@ public abstract class Task {
      *
      * @return A string representation of the task that can be saved to a file.
      */
-    public abstract String toFileString();
+    public abstract String toStorageFormat();
 
     /**
      * Returns a string representation of the task.
      *
      * @return A string representation of the task.
      */
+    @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }

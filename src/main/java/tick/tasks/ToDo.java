@@ -20,7 +20,8 @@ public class ToDo extends Task {
      *
      * @return A string representation of the ToDo task for file storage.
      */
-    public String toFileString() {
+    @Override
+    public String toStorageFormat() {
         return String.format("T | %s | %s", super.getStatus() ? "1" : "0", super.getDescription());
     }
 
@@ -30,6 +31,7 @@ public class ToDo extends Task {
      *
      * @return A string representation of the ToDo task.
      */
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }

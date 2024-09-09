@@ -26,7 +26,8 @@ public class Deadline extends Task {
      *
      * @return A string representation of the deadline task for file storage.
      */
-    public String toFileString() {
+    @Override
+    public String toStorageFormat() {
         return String.format("D | %s | %s | %s", super.getStatus() ? "1" : "0", super.getDescription(),
                 this.by.toString());
     }
@@ -36,6 +37,7 @@ public class Deadline extends Task {
      *
      * @return A string representation of the deadline task in the format "[D][status] description (by: deadline)".
      */
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
                 this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")));

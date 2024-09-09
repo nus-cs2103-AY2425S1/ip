@@ -38,7 +38,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             for (Task task : taskList) {
-                fileWriter.write(task.toFileString() + "\n");
+                fileWriter.write(task.toStorageFormat() + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {
