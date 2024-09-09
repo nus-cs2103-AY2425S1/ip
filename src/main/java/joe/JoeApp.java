@@ -1,15 +1,7 @@
 package joe;
 
-import java.io.IOException;
-
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import joe.controller.Controller;
-import joe.parser.Parser;
-import joe.ui.MainWindow;
 import joe.ui.Ui;
 
 /**

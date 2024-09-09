@@ -4,9 +4,6 @@ import joe.controller.Controller;
 import joe.parser.Parser;
 import joe.ui.Ui;
 
-import java.util.Scanner;
-import javafx.application.Application;
-
 public class Joe {
     public static final String CHATBOT_NAME = "Joe";
 
@@ -34,6 +31,9 @@ public class Joe {
 
     /**
      * Generates a response for the user's chat message.
+     * 
+     * @param input
+     *            The user's chat message.
      */
     public String getResponse(String input) {
         return "Joe heard: " + input;

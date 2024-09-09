@@ -1,15 +1,11 @@
 package joe.ui;
 
 import java.util.ArrayList;
-import java.io.IOException;
 
 import javafx.animation.PauseTransition;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import joe.JoeApp;
 import joe.controller.Controller;
 import joe.parser.Parser;
 import joe.task.Task;
@@ -31,13 +27,6 @@ public class Ui {
     }
 
     public void start(Stage stage, Parser<Controller> parser) {
-//        this.stage = stage;
-//        this.stage.setTitle(CHATBOT_NAME);
-//        mainWindow = new MainWindow();
-//        mainWindow.setParser(parser);
-//        Scene scene = new Scene(mainWindow);
-//        this.stage.setScene(scene);
-//        this.stage.show();
         mainWindow = new MainWindow();
         this.stage = stage;
         Scene scene = new Scene(mainWindow);
