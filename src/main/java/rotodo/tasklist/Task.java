@@ -15,7 +15,7 @@ public abstract class Task {
      * Initialse Task description and status.
      *
      * @param description of task
-     * @param isDone status (can be true for loading data only)
+     * @param isDone status (for loading data only)
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -47,17 +47,18 @@ public abstract class Task {
     /**
      * Checks if task match given keyword (with/without padding).
      *
-     * @param keyword
+     * @param keyword to search for
      * @param padding indicate to match with padding
      * @return true if match, else false
      */
     public boolean matchDescription(String keyword, boolean padding) {
-        boolean containKeyword = description.toLowerCase().equals(keyword.toLowerCase());
+        boolean equalKeyword = description.toLowerCase().equals(keyword.toLowerCase());
         boolean containKeywordPadded = description.toLowerCase().contains(" " + keyword.toLowerCase() + " ");
-        boolean containKeywordTrailing = description.toLowerCase().startsWith(keyword.toLowerCase() + " ");
-        boolean containKeywordLeading = description.toLowerCase().endsWith(" " + keyword.toLowerCase());
+        boolean startWithKeyword = description.toLowerCase().startsWith(keyword.toLowerCase() + " ");
+        boolean endWithKeyword = description.toLowerCase().endsWith(" " + keyword.toLowerCase());
+        boolean containKeyword = description.toLowerCase().contains(keyword.toLowerCase());
         if (padding) {
-            return containKeywordPadded || containKeywordTrailing || containKeywordLeading || containKeyword;
+            return containKeywordPadded || startWithKeyword || endWithKeyword || equalKeyword;
         } else {
             return containKeyword;
         }

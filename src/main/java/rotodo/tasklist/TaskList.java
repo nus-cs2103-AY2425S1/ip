@@ -148,7 +148,7 @@ public class TaskList {
                 unpaddedSearch += "%d." + t.toString() + "\n";
             }
         }
-        if (count == 1) {
+        if (count == 1 && !unpaddedSearch.equals("")) {
             return "Rotodo worked hard, but unable to find matching tasks...";
         }
         unpaddedSearch = String.format(unpaddedSearch,

@@ -18,11 +18,7 @@ public class FindCommand extends Command {
      * Initialise FindCommand to be executed. Accepts
      * a keyword to be used to find tasks.
      *
-<<<<<<< HEAD
      * @param keyword to search
-=======
-     * @param keyword
->>>>>>> master
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;

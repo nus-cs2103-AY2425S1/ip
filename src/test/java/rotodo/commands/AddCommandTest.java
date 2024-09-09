@@ -53,10 +53,10 @@ public class AddCommandTest {
     @Test
     public void initialise_wrongDateTimeFormat_throwsInvalidInputException() {
         // Arrange
-        String expected = "RoTodo.Error: Invalid Input\n"
+        String expected = "\u001B[31mRoTodo.Error: Invalid Input\n"
                 + "  Whaaaatt? RoTodo has no idea what date that is\n"
                 + "RoTodo needs valid date/time in the form:\n"
-                + "  dd/MM/yyyy HHmm\n"
+                + "  dd/MM/yyyy HHmm\u001B[0m\n"
                 + "type 'help' to see guide";
 
         // Act
@@ -72,11 +72,11 @@ public class AddCommandTest {
     @Test
     public void initialise_insufficientInputParams_throwsIncompleteInputException() {
         // Arrange
-        String expected = "RoTodo.Error: Invalid Input\n"
+        String expected = "\u001B[31mRoTodo.Error: Invalid Input\n"
                 + "  RoTodo can't read your mind, otherwise "
                 + "RoTodo's creator would be rich!\n"
                 + "  RoTodo needs a task description, from and to date/time"
-                + "\n" + "type 'help' to see guide";
+                + "\u001B[0m\n" + "type 'help' to see guide";
 
         // Act
         InvalidInputException exception = assertThrows(InvalidInputException.class, () ->
