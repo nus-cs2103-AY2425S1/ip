@@ -54,9 +54,9 @@ public class Event extends Task {
     }
 
     @Override
-    public String getFile() {
+    public String convertToFileFormat() {
         return String.format("E | %s | %s | %s",
-                super.getFile(),
+                super.convertToFileFormat(),
                 this.startDate != null ? this.startDate : this.stringStartDate,
                 this.endDate != null ? this.endDate : this.stringEndDate);
     }

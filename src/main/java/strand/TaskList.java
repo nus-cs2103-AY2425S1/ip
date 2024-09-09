@@ -16,20 +16,30 @@ import strand.task.Task;
 public class TaskList {
     private final ArrayList<Task> strandList;
 
+    /**
+     * Constructs an empty {@code TaskList} with no initial tasks.
+     */
     public TaskList() {
         this.strandList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a {@code TaskList} initialized with an existing list of tasks.
+     *
+     * @param strandList The list of tasks to initialize the TaskList with.
+     */
     public TaskList(ArrayList<Task> strandList) {
         this.strandList = strandList;
+        assert strandList != null : "TaskList cannot be initialized with a null list";
     }
 
     /**
-     * Adds a new task to the strandList based on the input command.
+     * Adds a new task to the list of tasks.
      *
-     * @param newTask Task to be added.
+     * @param newTask The task to be added to the list.
      */
     public void addTask(Task newTask) {
+        assert newTask != null : "Cannot add a null task";
         strandList.add(newTask);
     }
 
@@ -54,6 +64,7 @@ public class TaskList {
      * @param mark  Whether task is to be marked or unmarked.
      */
     public Task mark(Integer index, Boolean mark) throws StrandException {
+        assert index != null : "Index cannot be null";
         if (index > strandList.size() || index < 1) {
             throw new StrandWrongIndexException(strandList.size());
         }
@@ -83,8 +94,8 @@ public class TaskList {
     /**
      * Return file representation of strandList to be saved in file
      */
-    public String toFile() {
-        return strandList.stream().map((x) -> x.getFile() + "\n").reduce((a, b) -> a + b).orElse("");
+    public String convertToFileFormat() {
+        return strandList.stream().map((x) -> x.convertToFileFormat() + "\n").reduce((a, b) -> a + b).orElse("");
     }
 
     /**
