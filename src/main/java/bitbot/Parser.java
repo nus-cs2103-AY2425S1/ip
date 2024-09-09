@@ -25,6 +25,8 @@ public class Parser {
     static final String TODO_DESCRIPTION_MISSING = "OOPS!!! Need to add a description for a todo activity\n "
             + "         For example: todo borrow book";
 
+    static final String LENGTH_OF_INPUT_TOO_SMALL = "OOPS!! Add a string of words you want to find.\n"
+            + "          Please do not leave it blank.";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -41,6 +43,12 @@ public class Parser {
     static void handleErrorForWrongLength(String message, String[] partsOfInput) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException(message);
+        }
+    }
+
+    static void handleErrorForNoFurtherInput(String... inputString) throws BitBotException {
+        if (inputString == null || inputString.length == 0) {
+            throw new BitBotException(LENGTH_OF_INPUT_TOO_SMALL);
         }
     }
 

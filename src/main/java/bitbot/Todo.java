@@ -1,15 +1,9 @@
 package bitbot;
 
-import java.time.format.DateTimeFormatter;
-
 /**
  * This is the ToDos class which creates new ToDos objects.
  */
 public class Todo extends Task {
-
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     public Todo(String description) {
         super(description);
     }
@@ -29,6 +23,6 @@ public class Todo extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + "NIL" + "|" + " NIL";
+        return "T|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + "NIL" + "|" + " NIL" + "|" + tag;
     }
 }

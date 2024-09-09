@@ -149,8 +149,10 @@ public class Storage {
                 if (partsOfLineFromFile[1].trim().equals("X")) {
                     task.markAsDone();
                 }
+                if (!partsOfLineFromFile[partsOfLineFromFile.length - 1].trim().equals("")) {
+                    task.markAsTagged(partsOfLineFromFile[partsOfLineFromFile.length - 1]);
+                }
                 listFromFile.add(task);
-
             }
 
             scanner.close();
