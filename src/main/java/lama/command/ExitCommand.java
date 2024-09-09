@@ -20,6 +20,10 @@ public class ExitCommand extends Command {
      */
     @Override
     public String run(TaskList taskList, Storage storage, Ui ui) {
+        assert taskList != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+        assert ui != null : "UI should not be null";
+
         ui.showExitCommand();
         Platform.exit();
         return "Bye. Hope to see you again soon!";

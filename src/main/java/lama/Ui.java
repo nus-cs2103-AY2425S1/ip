@@ -2,9 +2,6 @@ package lama;
 
 import java.util.Scanner;
 
-import lama.task.Task;
-
-
 /**
  * Handles interactions with the user.
  * Provides methods to display messages and take input from the user.
