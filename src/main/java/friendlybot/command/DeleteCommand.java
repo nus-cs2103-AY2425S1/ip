@@ -39,6 +39,7 @@ public class DeleteCommand extends Command {
         } else {
             Task task = tasks.deleteTask(this.taskNumber);
             numTasks--;
+            assert numTasks >= 0 : "There should not be a negative number of tasks in your list!";
             Ui.print("Noted. I've removed this task:");
             sb.append("Noted. I've removed this task:\n");
             Ui.print("  " + task.toString());

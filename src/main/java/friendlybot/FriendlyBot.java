@@ -23,6 +23,8 @@ public class FriendlyBot {
      *                            (Used to create relevant directories if they do not exist.)
      */
     public FriendlyBot(String filePath, String filePathWithoutFile) {
+        assert !filePath.isEmpty() : "filePath should not be empty!";
+        assert !filePathWithoutFile.isEmpty() : "filePathWithoutFile should not be empty!";
         this.ui = new Ui();
         this.storage = new Storage(filePath, filePathWithoutFile);
         this.tasks = new TaskList(this.storage.load());
