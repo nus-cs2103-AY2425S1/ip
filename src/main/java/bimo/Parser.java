@@ -14,6 +14,7 @@ import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
 import bimo.command.UnmarkCommand;
 import bimo.exception.BimoException;
+import bimo.exception.InvalidDateFormatException;
 import bimo.exception.InvalidTaskNumberException;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
@@ -49,21 +50,10 @@ public class Parser {
             String toDodescription = parseDescription(input);
             return new AddCommand(new ToDo(toDodescription));
         case EVENT:
-            String[] array = input.split("/from ");
-            String eventDescription = parseDescription(array[0]);
-            String start = parseDate(false, false, array);
-            String end = parseDate(false, true, array);
-            LocalDate startDate = convertDate(start);
-            LocalDate endDate = convertDate(end);
-            Task eventTask = new Event(eventDescription, startDate,
-                    endDate);
+            Task eventTask = createEventTask(input);
             return new AddCommand(eventTask);
         case DEADLINE:
-            String[] arrayString = input.split("/by ");
-            String description = parseDescription(arrayString[0]);
-            String dueDate = parseDate(true, true, arrayString);
-            LocalDate ld = convertDate(dueDate);
-            Task deadlineTask = new Deadline(description, ld);
+            Task deadlineTask = createDeadlineTask(input);
             return new AddCommand(deadlineTask);
         case DELETE:
             int indexToDelete = parseIndex(parsedArray);
@@ -170,14 +160,49 @@ public class Parser {
      *
      * @param date Date user keys in.
      * @return LocalDate instance.
-     * @throws BimoException If invalid date input is given.
+     * @throws InvalidDateFormatException Thrown if date input is not given in yyyy-mm-dd.
      */
-    public static LocalDate convertDate(String date) throws BimoException {
+    public static LocalDate convertDate(String date) throws InvalidDateFormatException {
         try {
-            LocalDate ld = LocalDate.parse(date);
-            return ld;
+            LocalDate dateObject = LocalDate.parse(date);
+            return dateObject;
         } catch (DateTimeParseException e) {
-            throw new BimoException("Unable to parse date, please use yyyy-mm-dd");
+            throw new InvalidDateFormatException();
         }
+    }
+
+    /**
+     * Creates a Event task with start and due date.
+     *
+     * @param input User input String.
+     * @return EventTask object.
+     * @throws BimoException if no error.
+     */
+    public static Task createEventTask(String input) throws BimoException {
+        String[] array = input.split("/from ");
+        String eventDescription = parseDescription(array[0]);
+        String startDate = parseDate(false, false, array);
+        String endDate = parseDate(false, true, array);
+        LocalDate startDateObject = convertDate(startDate);
+        LocalDate endDateObject = convertDate(endDate);
+        Task eventTask = new Event(eventDescription, startDateObject,
+                endDateObject);
+        return eventTask;
+    }
+
+    /**
+     * Creates a Event task with start and due date.
+     *
+     * @param input User input String.
+     * @return Deadline task object
+     * @throws BimoException
+     */
+    public static Task createDeadlineTask(String input) throws BimoException {
+        String[] arrayString = input.split("/by ");
+        String description = parseDescription(arrayString[0]);
+        String dueDate = parseDate(true, true, arrayString);
+        LocalDate dueDateObject = convertDate(dueDate);
+        Task deadlineTask = new Deadline(description, dueDateObject);
+        return deadlineTask;
     }
 }

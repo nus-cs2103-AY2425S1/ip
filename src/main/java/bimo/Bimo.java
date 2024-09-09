@@ -2,6 +2,7 @@ package bimo;
 import bimo.command.ByeCommand;
 import bimo.command.Command;
 import bimo.exception.BimoException;
+import bimo.exception.InvalidDateFormatException;
 import bimo.exception.InvalidTaskNumberException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -42,6 +43,8 @@ public class Bimo {
                 closeApplication();
             }
         } catch (InvalidTaskNumberException e) {
+            response = e.getMessage();
+        } catch (InvalidDateFormatException e) {
             response = e.getMessage();
         } catch (BimoException e) {
             response = ui.printErrorMessage();

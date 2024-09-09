@@ -9,7 +9,7 @@ import bimo.Ui;
  */
 public class HelpCommand extends Command {
     /**
-     * Returns the list of commands available
+     * Returns the list of commands available.
      *
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
