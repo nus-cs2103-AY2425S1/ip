@@ -5,11 +5,11 @@ import java.io.IOException;
 /**
  * Represents a Command to add a particular instance of an event.
  */
-public class AddCommand extends Command {
+public class AddTaskCommand extends Command {
     protected int type;
     protected String details;
 
-    public AddCommand(int type, String details) {
+    public AddTaskCommand(int type, String details) {
         this.type = type;
         this.details = details;
     }

@@ -99,23 +99,23 @@ public class TaskList {
      * @return A list of all entries which match the query.
      */
     public String query(String q) {
-        TaskList match = new TaskList();
+        TaskList matches = new TaskList();
         for (Task t: this.tasks) {
             if (t.toString().contains(q)) {
-                match.add(t);
+                matches.add(t);
             }
         }
-        if (match.tasks.isEmpty()) {
+        if (matches.tasks.isEmpty()) {
             return "No matches found";
         } else {
             String results = "";
-            int numMatches = match.tasks.size();
+            int numMatches = matches.tasks.size();
             if (numMatches > 2) {
-                for (int i = 0; i < match.tasks.size() - 1; i++) {
-                    results += (i + 1) + ". " + match.tasks.get(i).toString()+ "\n";
+                for (int i = 0; i < matches.tasks.size() - 1; i++) {
+                    results += (i + 1) + ". " + matches.tasks.get(i).toString()+ "\n";
                 }
             }
-            results += numMatches + ". " + match.tasks.get(numMatches - 1).toString();
+            results += numMatches + ". " + matches.tasks.get(numMatches - 1).toString();
             return "Here are the matches:\n" + results;
         }
     }

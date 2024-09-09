@@ -1,26 +1,28 @@
 package twilight;
 
 public class Event extends Task {
-    protected String starttime;
-    protected String endtime;
+    protected String startTime;
+    protected String endTime;
 
-    public Event(String description, String starttime, String endtime) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
-        this.starttime = starttime;
-        this.endtime = endtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public Event(boolean isDone, String description, String starttime, String endtime) {
+    public Event(boolean isDone, String description, String startTime, String endTime) {
         super(description, isDone);
-        this.starttime = starttime;
-        this.endtime = endtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + " from: " + this.starttime + " to: " + this.endtime;
+        return "[E]" + super.toString() + " from: " + this.startTime + " to: " + this.endTime;
     }
 
-    public String toStorage() {
-        return "E," + super.toStorage() + "," + starttime + "," + endtime;
+    @Override
+    public String toStorageString() {
+        return "E," + super.toStorageString() + "," + startTime + "," + endTime;
     }
 }

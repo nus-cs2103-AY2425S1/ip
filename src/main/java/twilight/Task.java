@@ -42,7 +42,7 @@ public class Task {
      * Returns a string format of the task when storing tasklist in a text file.
      * 1 and 0 indicate the completion of the task with 1 being complete.
      */
-    public String toStorage() {
+    public String toStorageString() {
         if (isDone) {
             return "1," + this.description;
         } else {

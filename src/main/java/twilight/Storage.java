@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
- * Handles creation of, reading from, and writing to textfile which stores the tasklist.
+ * Handles creation of, reading from, and writing to text file which stores the task list.
  */
 public class Storage {
     private final String filePath;
@@ -24,14 +24,15 @@ public class Storage {
     }
 
     /**
-     * Overrides old file and saves the data stored in the tasklist.
+     * Overrides old file and saves the data stored in the task list.
+     *
      * @param Tasks Tasklist to be stored.
      * @throws IOException When there is an issue with the file preventing saving.
      */
     public void saveData(ArrayList<Task> Tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : Tasks) {
-            fw.write(task.toStorage());
+            fw.write(task.toStorageString());
             fw.write(System.getProperty( "line.separator" ));
         }
         fw.close();
@@ -57,6 +58,7 @@ public class Storage {
 
     /**
      * Converts the String format of the tasks in file to Arraylist</tasks>.
+     *
      * @return Arraylist to be stored in TaskList
      */
     public ArrayList<Task> getStoredTasks() {

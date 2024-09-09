@@ -2,7 +2,6 @@ package twilight;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a deadline to be stored in a task list with a particular description and date.
@@ -39,7 +38,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toStorage() {
-        return "D," + super.toStorage() + "," + deadline;
+    public String toStorageString() {
+        return "D," + super.toStorageString() + "," + deadline;
     }
 }
