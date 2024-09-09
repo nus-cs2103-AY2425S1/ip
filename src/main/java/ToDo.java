@@ -10,4 +10,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo();
     }
+
+    @Override
+    public String toFileFormat() {
+        return "T | " + (getStatus() == TaskStatus.DONE ? "1" : "0") + " | " + getInfo();
+    }
 }
