@@ -3,8 +3,8 @@ package weeny;
 
 import weeny.ui.Ui;
 import weeny.task.Todo;
-import weeny.task.Events;
-import weeny.task.Deadlines;
+import weeny.task.Event;
+import weeny.task.Deadline;
 import weeny.task.TaskList;
 import weeny.task.Task;
 import weeny.storage.Storage;
@@ -15,12 +15,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 
-
 /**
  * Main class for the Weeny task management application.
  * Manages user commands and handles tasks.
  */
 public class Weeny extends Application {
+    public static final int TODO_LENGTH = 5;
+    public static final int DEADLINE_LENGTH = 9;
+    public static final int EVENT_LENGTH = 6;
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
@@ -42,6 +44,12 @@ public class Weeny extends Application {
         }
     }
 
+    /**
+     * Call start method in WeenyGui
+     * Overrides start method in Application to start GUI
+     *
+     * @param stage Parsed by javafx.Application
+     */
     @Override
     public void start(Stage stage) {
         WeenyGui weenyGui = new WeenyGui();
@@ -53,7 +61,8 @@ public class Weeny extends Application {
      * Starts the Weeny application.
      * Initializes UI, storage, parser, and task list. Processes user commands.
      *
-     * @param input Command-line arguments (not used).
+     * @param input User input into textbox
+     * @return Returns string from calls to different scenarios
      */
     public String executeWeeny(String input) {
 
@@ -95,7 +104,7 @@ public class Weeny extends Application {
                 case "event":
                     initialSize = taskList.size();
                     validateEventInput(input);
-                    Task eventTask = new Events(parser.extractEventName(input),
+                    Task eventTask = new Event(parser.extractEventName(input),
                             parser.extractEventTimes(input)[0],
                             parser.extractEventTimes(input)[1]);
                     taskList.addTask(eventTask);
@@ -105,7 +114,7 @@ public class Weeny extends Application {
                 case "deadline":
                     initialSize = taskList.size();
                     validateDeadlineInput(input);
-                    Task deadlineTask = new Deadlines(parser.extractDeadlineName(input),
+                    Task deadlineTask = new Deadline(parser.extractDeadlineName(input),
                             parser.extractDeadlineTime(input));
                     taskList.addTask(deadlineTask);
                     assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
@@ -156,7 +165,7 @@ public class Weeny extends Application {
      * @throws IllegalArgumentException if the input is too short.
      */
     private static void validateTodoInput(String input) {
-        if (input.length() <= 5) {
+        if (input.length() <= TODO_LENGTH) {
             throw new IllegalArgumentException("To-Do description is too short.");
         }
     }
@@ -168,7 +177,7 @@ public class Weeny extends Application {
      * @throws IllegalArgumentException if the input lacks necessary details.
      */
     private static void validateEventInput(String input) {
-        if (input.length() <= 6 || !input.contains("/from") || !input.contains("/to")) {
+        if (input.length() <= EVENT_LENGTH || !input.contains("/from") || !input.contains("/to")) {
             throw new IllegalArgumentException("Event details are incomplete.");
         }
     }
@@ -180,7 +189,7 @@ public class Weeny extends Application {
      * @throws IllegalArgumentException if the input lacks necessary details.
      */
     private static void validateDeadlineInput(String input) {
-        if (input.length() <= 9 || !input.contains("/by")) {
+        if (input.length() <= DEADLINE_LENGTH || !input.contains("/by")) {
             throw new IllegalArgumentException("Deadline details are incomplete.");
         }
     }

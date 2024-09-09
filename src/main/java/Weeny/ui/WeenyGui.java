@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * GUI for Weeny application
+ * Manages all GUI elements and actions
+ *
+ */
 public class WeenyGui extends AnchorPane {
     // Other class instances
     private final Ui ui = new Ui();
@@ -41,6 +45,13 @@ public class WeenyGui extends AnchorPane {
         userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
         weenyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     }
+
+    /**
+     * Start the Application with stage
+     * Initialise Scene and GUI elements
+     *
+     * @param stage Parsed from javafx.Application
+     */
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Weeny.class.getResource("/view/WeenyGui.fxml"));
@@ -54,16 +65,29 @@ public class WeenyGui extends AnchorPane {
         }
     }
 
+    /**
+     *  Injects weeny into the Application
+     *
+     * @param weeny Instance of weeny
+     */
     public void setWeeny(Weeny weeny) {
         weenyApp = weeny;
     }
 
+    /**
+     * Initialise welcome text and GUI frame
+     * Displays initial look of GUI
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(DialogBox.getWeenyDialog(ui.showWelcomeMessage(), weenyImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Display output based on user input
+     * Parse userText into Weeny to get reply
+     */
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
