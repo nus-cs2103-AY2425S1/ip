@@ -11,6 +11,12 @@ import ned.exceptions.NedException;
  * Represents the delete command, which when executed, causes the selected task to be removed from the list of tasks.
  */
 public class DeleteCommand implements Command {
+    private static final String DELETE_MISSING_INDEX_ERROR_MESSAGE = "Sorry m'lord, you must give me a list index "
+            + "with the delete command. No more, no less";
+    private static final String DELETE_INDEX_NOT_NUMBER_ERROR_MESSAGE = "Sorry m'lord, your command must specify a "
+            + "valid number";
+    private static final String DELETE_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, your command must specify an "
+            + "index within the bounds of the list size";
     private final String REGEX = "^delete.*";
 
     /**
@@ -37,8 +43,8 @@ public class DeleteCommand implements Command {
         String[] words = userInput.split(" ");
         try {
             if (words.length != 2) {
-                throw new MissingIndexException("Sorry m'lord, you must give me a list index with the delete command. No more,"
-                        + " no less" + uiInstance.getCommandMessage());
+                throw new MissingIndexException(DELETE_MISSING_INDEX_ERROR_MESSAGE
+                        + uiInstance.getCommandMessage());
             } else {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
@@ -46,11 +52,10 @@ public class DeleteCommand implements Command {
                 storageInstance.save(taskList);
             }
         } catch (NumberFormatException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
+            throw new InvalidIndexException(DELETE_INDEX_NOT_NUMBER_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list "
-                    + "size" + uiInstance.getCommandMessage());
+            throw new InvalidIndexException(DELETE_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE + uiInstance.getCommandMessage());
         }
     }
 

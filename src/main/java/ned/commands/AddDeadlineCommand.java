@@ -13,6 +13,10 @@ import ned.tasks.Task;
  * Represents the deadline command, which when executed, adds a new deadline to the list of tasks.
  */
 public class AddDeadlineCommand implements Command {
+    private static final String DEADLINE_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create a "
+            + "deadline task with no description";
+    private static final String DEADLINE_MISSING_DUE_DATE_ERROR_MESSAGE = "M'lord, you cannot create a deadline task "
+            + "with no due date";
     private final String REGEX = "^deadline.*";
 
     /**
@@ -37,10 +41,11 @@ public class AddDeadlineCommand implements Command {
         String[] parsedInputs = userInput.split("deadline|/by", 3);
         int parsedInputsLen = Task.checkSizeOfInput(parsedInputs);
         if (parsedInputs[1].strip().isBlank()) {
-            throw new MissingTaskDescriptionException("M'lord, you cannot create a deadline task with no description"
+            throw new MissingTaskDescriptionException(DEADLINE_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         } else if (parsedInputsLen == 1) {
-            throw new MissingTaskDueDateException("M'lord, you cannot create a deadline task with no due date"
+            throw new MissingTaskDueDateException(DEADLINE_MISSING_DUE_DATE_ERROR_MESSAGE
+
                     + uiInstance.getCommandMessage());
         }
         Task newTask = Deadline.createDeadline(parsedInputs[1].strip(), parsedInputs[2].strip(), false);

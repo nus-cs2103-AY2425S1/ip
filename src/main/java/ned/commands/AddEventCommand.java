@@ -16,6 +16,10 @@ import ned.tasks.Task;
  * Represents the event command, which when executed, adds a new event to the list of tasks.
  */
 public class AddEventCommand implements Command {
+    private static final String EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create an event "
+            + "task with no description";
+    private static final String EVENT_MISSING_TO_DATE_ERROR_MESSAGE = "M'lord, you cannot create an event task with no 'to' date."
+            + " Gods be good, fill both up!";
     private final String REGEX = "^event.*";
     private String eventRegexWithoutTo = "^event (.+) /from (.+)";
     private String eventRegexWithEmptyTo = "^event (.+) /from (.+) /to\\s";
@@ -44,12 +48,12 @@ public class AddEventCommand implements Command {
         String[] parsed_inputs = userInput.split("event|/from|/to", 4);
         int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
         if (parsed_inputs[1].strip().isBlank()) {
-            throw new MissingTaskDescriptionException("M'lord, you cannot create an event task with no description"
+            throw new MissingTaskDescriptionException(EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE
                     + uiInstance.getCommandMessage());
         } else if (parsed_inputs_len <= 2) {
             if (Pattern.matches(eventRegexWithoutTo, userInput) || Pattern.matches(eventRegexWithEmptyTo, userInput)) {
-                throw new MissingTaskToDateException("M'lord, you cannot create an event task with no 'to' date."
-                        + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
+                throw new MissingTaskToDateException(EVENT_MISSING_TO_DATE_ERROR_MESSAGE
+                        + uiInstance.getCommandMessage());
             } else if (Pattern.matches(eventRegexWithoutFrom, userInput)
                     || Pattern.matches(eventRegexWithEmptyFrom, userInput)) {
                 throw new MissingTaskFromDateException("M'lord, you cannot create an event task with no 'from' date."
