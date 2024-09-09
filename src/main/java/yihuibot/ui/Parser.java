@@ -264,6 +264,8 @@ public class Parser {
             throw new MissingDeadlineException(sample);
         }
 
+        assert idx > 0 && idx < arguments.length - 1 : "Unexpected value of idx";
+
         String description = sliceAndJoinAt(arguments, 0, idx, " ");
         String s = sliceAndJoinAt(arguments, idx + 1, arguments.length, " ");
         try {
@@ -324,6 +326,9 @@ public class Parser {
         if (toIdx == arguments.length - 1) {
             throw new MissingEndTimeException(sample);
         }
+
+        assert fromIdx > 0 && fromIdx < toIdx : "Unexpected value of fromIdx";
+        assert toIdx > fromIdx && toIdx < arguments.length - 1 : "Unexpected value of fromIdx";
 
         String description = sliceAndJoinAt(arguments, 0, fromIdx, " ");
         String s = sliceAndJoinAt(arguments, fromIdx + 1, toIdx, " ");
