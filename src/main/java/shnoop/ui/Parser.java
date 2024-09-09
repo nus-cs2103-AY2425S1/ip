@@ -1,9 +1,13 @@
 package shnoop.ui;
 
-import shnoop.command.*;
-import shnoop.exceptions.*;
-
-import java.io.IOException;
+import shnoop.command.AddCommand;
+import shnoop.command.Command;
+import shnoop.command.DeleteCommand;
+import shnoop.command.ExitCommand;
+import shnoop.command.FindCommand;
+import shnoop.command.ListCommand;
+import shnoop.command.MarkCommand;
+import shnoop.exceptions.ShnoopException;
 
 /**
  * Reads and understands user input in the UI, and processes the relevant commands to be executed by Shnoop.
@@ -66,7 +70,7 @@ public class Parser {
      * @param str User input to be read.
      * @return Enum representing the Task type.
      */
-    public Commands getTaskType(String str){
+    public Commands getTaskType(String str) {
         int length = str.length();
         if (startsWithTodo(str, length)) {
             return Commands.TODO;
@@ -127,8 +131,9 @@ public class Parser {
      */
     public static Command parse(String input) throws ShnoopException {
         String improperInput =
-                "✿ Shnoop ✿: You could travel the world, but nothing comes close to choosing a task type.\n" +
-                "✿ Shnoop ✿: Try typing 'todo', 'event' or 'deadline' followed by stating the task description.";
+                "✿ Shnoop ✿: You could travel the world, but nothing comes close to choosing a task type.\n"
+                        + "✿ Shnoop ✿: Try typing 'todo', 'event' or 'deadline' "
+                        + "followed by stating the task description.";
         String[] commandParts = input.split(" ");
         int length = input.length();
 
@@ -143,7 +148,7 @@ public class Parser {
             return new ListCommand();
         case TODO:
             try {
-                if (!startsWithTodo(input,length) || input.substring(5, input.length()).trim().length() == 0
+                if (!startsWithTodo(input, length) || input.substring(5, input.length()).trim().length() == 0
                         || commandParts[1].isEmpty()) {
                     throw new ShnoopException(improperInput);
                 }
@@ -154,14 +159,14 @@ public class Parser {
 
         case DEADLINE:
             try {
-                if (!startsWithDeadline(input, length)  || input.substring(9, input.length()).trim().length() == 0
+                if (!startsWithDeadline(input, length) || input.substring(9, input.length()).trim().length() == 0
                         || commandParts[1].isEmpty()) {
                     throw new ShnoopException(improperInput);
                 }
                 return new AddCommand(input, Commands.DEADLINE);
             } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ShnoopException(improperInput);
-        }
+                throw new ShnoopException(improperInput);
+            }
         case EVENT:
             try {
                 if (!startsWithEvent(input, length) || input.substring(6, input.length()).trim().length() == 0
@@ -192,7 +197,7 @@ public class Parser {
             return new MarkCommand(input, true);
         case UNMARK:
             if (length < 8 || input.substring(7, input.length()).trim().length() == 0
-                    ||  commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
+                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
                 throw new ShnoopException(improperInput);
             }
             return new MarkCommand(input, false);

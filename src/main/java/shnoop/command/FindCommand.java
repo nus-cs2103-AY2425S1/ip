@@ -1,18 +1,15 @@
 package shnoop.command;
 
-import shnoop.Shnoop;
-import shnoop.exceptions.*;
+import shnoop.exceptions.ShnoopException;
 import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
-import java.io.IOException;
+import shnoop.tasks.TaskList;
+import shnoop.ui.Ui;
 
 /**
  * Encapsulates all the relevant actions to be taken when a List Command is issued.
  */
 public class FindCommand extends Command {
-    String keyword;
+    private String keyword;
 
     /**
      * Constructs a FindCommand with the Command Line input and extracts the keyword to be found.

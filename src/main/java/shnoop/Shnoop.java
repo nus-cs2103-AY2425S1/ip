@@ -1,28 +1,25 @@
 package shnoop;
 
-import shnoop.command.*;
-import shnoop.exceptions.*;
-import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.IOException;
+
+import shnoop.command.Command;
+import shnoop.exceptions.IncompleteEventOrDeadlineException;
+import shnoop.exceptions.ShnoopException;
+import shnoop.storage.Storage;
+import shnoop.tasks.TaskList;
+import shnoop.ui.Parser;
+import shnoop.ui.Ui;
+
 
 /**
  * Represents the main Chatbot which utilizes multiple packages to create a cohesive experience.
  */
 public class Shnoop {
+    private static java.nio.file.Path path;
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-    private static java.nio.file.Path path;
 
     /**
      * Creates a Shnoop instance with a specified filepath referring to where information will be saved in.

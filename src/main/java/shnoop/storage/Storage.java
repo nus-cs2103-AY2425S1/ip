@@ -1,8 +1,5 @@
 package shnoop.storage;
 
-import shnoop.exceptions.*;
-import shnoop.tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +7,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import shnoop.exceptions.EmptyDescriptionException;
+import shnoop.exceptions.ImproperFileTypeException;
+import shnoop.exceptions.ShnoopException;
+import shnoop.tasks.Deadline;
+import shnoop.tasks.Event;
+import shnoop.tasks.Task;
+import shnoop.tasks.TaskList;
+import shnoop.tasks.Todo;
 
 /**
  * Represents class that interacts with the text file containing all the relevant information used by the ChatBot.
@@ -53,7 +59,7 @@ public class Storage {
         boolean taskIsCompleted = false;
         if (line.substring(0, 1).equals("1")) {
             taskIsCompleted = true;
-        } else if (!(line.substring(0,1).equals("0"))) {
+        } else if (!(line.substring(0, 1).equals("0"))) {
             throw new ImproperFileTypeException();
         }
         String taskType = line.substring(1, 4);
@@ -74,12 +80,13 @@ public class Storage {
                 desc = line.substring(4, line.indexOf("/by/"));
                 String by = line.substring(line.indexOf("/by/") + 4, line.length());
                 return new Deadline(desc, by, taskIsCompleted);
+            default:
+                throw new RuntimeException();
             }
         } catch (StringIndexOutOfBoundsException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        return null;
     }
 
     // @@author CS2103T Website
@@ -163,7 +170,7 @@ public class Storage {
      */
     public void save(TaskList tasks, Task task) throws IOException {
         clearFile();
-        for (int i = 0; i < tasks.size() - 1; i ++) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
             try {
                 writeToFile(tasks.get(i).toUniqueFileString() + "\n");
             } catch (IOException e) {
@@ -183,7 +190,7 @@ public class Storage {
      */
     public void save(TaskList tasks) throws IOException {
         clearFile();
-        for (int i = 0; i < tasks.size(); i ++) {
+        for (int i = 0; i < tasks.size(); i++) {
             try {
                 writeToFile(tasks.get(i).toUniqueFileString() + "\n");
             } catch (IOException e) {

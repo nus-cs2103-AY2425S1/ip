@@ -1,11 +1,12 @@
 package shnoop.command;
 
-import shnoop.exceptions.*;
-import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
 import java.io.IOException;
+
+import shnoop.exceptions.IncompleteEventOrDeadlineException;
+import shnoop.exceptions.ShnoopException;
+import shnoop.storage.Storage;
+import shnoop.tasks.TaskList;
+import shnoop.ui.Ui;
 
 /**
  * Encapsulates all the relevant actions to be taken when a Command is issued.
@@ -21,7 +22,8 @@ public abstract class Command {
      * @throws ShnoopException If any ChatBot specific issue arise during execution.
      * @throws IncompleteEventOrDeadlineException If there was an incomplete input when creating an Event or Deadline
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ShnoopException, IncompleteEventOrDeadlineException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException,
+            ShnoopException, IncompleteEventOrDeadlineException;
 
     public boolean isExit() {
         return false;

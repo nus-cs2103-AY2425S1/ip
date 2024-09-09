@@ -1,11 +1,13 @@
 package shnoop.command;
 
-import shnoop.exceptions.*;
-import shnoop.storage.Storage;
-import shnoop.tasks.*;
-import shnoop.ui.*;
-
 import java.io.IOException;
+
+import shnoop.exceptions.ShnoopException;
+import shnoop.storage.Storage;
+import shnoop.tasks.Task;
+import shnoop.tasks.TaskList;
+import shnoop.ui.Ui;
+
 
 /**
  * Encapsulates all the relevant actions to be taken when a Delete Command is issued.

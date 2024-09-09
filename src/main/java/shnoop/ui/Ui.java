@@ -1,13 +1,20 @@
 package shnoop.ui;
 
-import shnoop.tasks.*;
 import java.util.Scanner;
+
+import shnoop.tasks.Task;
 
 /**
  * Manages the interface and all visual elements that the user will see.
  */
 public class Ui {
-    Scanner scanner;
+    private Scanner scanner;
+    /**
+     * Represents the quote bank to select quotes from.
+     */
+    private String[] quotes = new String[] { "You're unforgettable.", "Coded, tanned, fit and ready.",
+        "You're undeniable."
+    };
 
     /**
      * Initializes the UI and creates a scanner object for future use.
@@ -16,20 +23,14 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
-    /**
-     * Represents the quote bank to select quotes from.
-     */
-    private String[] quotes = new String[] {
-        "You're unforgettable.",
-                "Coded, tanned, fit and ready.",
-                "You're undeniable."
-    };
+
 
     /**
      * Prints out introductory speech at start of application.
      */
     public void showWelcome() {
-        System.out.println("\n ... Greetings loved one ʚ♡ɞ Let's take a journey ... \n\n\n ✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-"
+        System.out.println("\n ... Greetings loved one ʚ♡ɞ Let's take a journey ... "
+                + "\n\n\n ✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-"
                 + "✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿ \n"
                 + " ✿ It's Shnoop, my dawg. I'm all up on ya. Whatchu need? ✿ \n"
                 + " ✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿ \n");
@@ -156,7 +157,7 @@ public class Ui {
     public void find(String foundTasks) {
         if (foundTasks.isEmpty()) {
             System.out.println("✿ Shnoop ✿: I have travelled the world, and nothing comes close "
-            + "to the words you speak of.");
+                    + "to the words you speak of.");
         } else {
             System.out.println("✿ Shnoop ✿: My California gorls have found whatchu been looking for:");
             System.out.println(foundTasks);
