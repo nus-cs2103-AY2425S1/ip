@@ -7,7 +7,7 @@ package task;
  */
 public class Task {
 
-    private boolean done;
+    private boolean isCompleted;
     private String taskName;
 
     /**
@@ -17,7 +17,7 @@ public class Task {
      * @param name The name or description of the task.
      */
     protected Task(String name) {
-        this.done = false;
+        this.isCompleted = false;
         this.taskName = name.trim();
     }
 
@@ -28,7 +28,7 @@ public class Task {
      * @param isDone Whether the task is marked as completed.
      */
     protected Task(String name, boolean isDone) {
-        this.done = isDone;
+        this.isCompleted = isDone;
         this.taskName = name.trim();
     }
 
@@ -38,7 +38,7 @@ public class Task {
      * @return True if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isCompleted;
     }
 
     /**
@@ -64,14 +64,14 @@ public class Task {
      * Marks the task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void unmark() {
-        this.done = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -81,6 +81,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (this.done ? "[X] " : "[ ] ") + this.taskName;
+        return (this.isCompleted ? "[X] " : "[ ] ") + this.taskName;
     }
 }
