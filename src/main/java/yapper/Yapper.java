@@ -29,7 +29,12 @@ public class Yapper {
     private final Ui ui;
     private TaskList tasks;
 
-
+    /**
+     * Constructs a new Yapper instance that initializes the task list and storage
+     * with the provided file path.
+     *
+     * @param filePath The path to the file used for storing the tasks.
+     */
     public Yapper(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -64,7 +69,8 @@ public class Yapper {
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
         ui.printTaskMarked(task);
-        return "Awesome job, Boss! I've marked this task as complete:\n  " + task;
+        return "Awesome job, Boss! I've marked this task as complete:\n  "
+               + task;
     }
 
     /**
@@ -85,7 +91,8 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
-        return "Understood, Boss! I've marked this task as not done yet:\n  " + task;
+        return "Understood, Boss! I've marked this task as not done yet:\n  "
+               + task;
     }
 
     /**
@@ -102,7 +109,8 @@ public class Yapper {
         }
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
-        return "Got it, Boss! I've added this task to your list:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
+        return "Got it, Boss! I've added this task to your list:\n  "
+               + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
     }
 
     /**
@@ -120,7 +128,8 @@ public class Yapper {
         String description = parts[0].substring(9).trim();
         Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
-        return "Roger that, Boss! Deadline task added:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
+        return "Roger that, Boss! Deadline task added:\n  "
+               + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
     }
 
     /**
@@ -142,7 +151,8 @@ public class Yapper {
         String description = parts[0].substring(6).trim();
         Task task = new Event(description, times[0], times[1]);
         tasks.addTask(task);
-        return "Got it, Boss! Event added to your schedule:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
+        return "Got it, Boss! Event added to your schedule:\n  "
+               + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
     }
 
     /**
@@ -163,7 +173,8 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
-        return "Task removed, Boss! I've taken care of this:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks left on the list.";
+        return "Task removed, Boss! I've taken care of this:\n  "
+               + task + "\nNow you have " + tasks.getSize() + " tasks left on the list.";
     }
 
     /**
@@ -191,7 +202,6 @@ public class Yapper {
             return result.toString();
         }
     }
-
 
     /**
      * Handles user input and returns the response from Bopes.
