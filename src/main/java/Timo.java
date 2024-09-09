@@ -135,48 +135,56 @@ class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String tmp = s.nextLine();
-                if (tmp.startsWith("[T]")) {
-                    String[] a = tmp.split("] ", 2);
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Todo(true, a[1]));
-                    } else {
-                        arr.add(new Todo(false, a[1]));
-                    }
-                } else if (tmp.startsWith("[D]")) {
-                    //remove the [D][?] from the line
-                    String a = tmp.split("] ")[1];
-
-                    //get the important values to create the Deadline
-                    String[] b = a.split(" \\(by: |\\)");
-
-                    LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-
-
-                    //see if the task has been done or not
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Deadline(true, b[0], datetime));
-                    } else {
-                        arr.add(new Deadline(false, b[0], datetime));
-                    }
-                } else {
-                    //removing the [E][?] from the line
-                    String details = tmp.split("] ", 2)[1];
-                    //getting important values to create the Event
-                    String[] split_up = details.split(" \\(from: | to: |\\)");
-
-                    //see if the task has been done or not
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
-                    } else {
-                        arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
-                    }
-                }
+                addTaskToArray(tmp, arr);
             }
             return arr;
         } else {
             throw new FileNotFoundException("file not found!");
         }
 
+    }
+
+    /**
+     * create the relevant Task and add it to the array
+     * @param tmp the Task read from one line in text file
+     * @param arr the array that will store all tasks
+     */
+    public void addTaskToArray(String tmp, List<Task> arr) {
+        if (tmp.startsWith("[T]")) {
+            String[] a = tmp.split("] ", 2);
+            if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                arr.add(new Todo(true, a[1]));
+            } else {
+                arr.add(new Todo(false, a[1]));
+            }
+        } else if (tmp.startsWith("[D]")) {
+            //remove the [D][?] from the line
+            String a = tmp.split("] ")[1];
+
+            //get the important values to create the Deadline
+            String[] b = a.split(" \\(by: |\\)");
+
+            LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+
+            //see if the task has been done or not
+            if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                arr.add(new Deadline(true, b[0], datetime));
+            } else {
+                arr.add(new Deadline(false, b[0], datetime));
+            }
+        } else {
+            //removing the [E][?] from the line
+            String details = tmp.split("] ", 2)[1];
+            //getting important values to create the Event
+            String[] split_up = details.split(" \\(from: | to: |\\)");
+
+            //see if the task has been done or not
+            if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
+            } else {
+                arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
+            }
+        }
     }
 
     /**
@@ -197,6 +205,7 @@ class Storage {
 
         try {
             boolean filecreated = file.createNewFile();
+
             //delete all contents in the file
             FileWriter fil = new FileWriter(this.filepath);
             fil.write("");
@@ -283,15 +292,6 @@ class TaskList {
 class UI {
 
     /**
-     * greets the user
-     */
-    public String greet() {
-        return "----------------------------\n"
-            + "Hello! I'm Timo.\nWhat can I do for you?\n"
-            + "----------------------------";
-    }
-
-    /**
      * says goodbye to the user
      */
     public String bye() {
@@ -308,26 +308,18 @@ class UI {
      */
     public String printList(TaskList lst) {
 
-        StringBuilder listInString = new StringBuilder();
+        StringBuilder listString = new StringBuilder();
 
         for (int i = 1; i <= lst.showList().size(); i++) {
             Task chosen = lst.showList().get(i - 1);
-            listInString.append(i).append(". ").append(chosen).append("\n");
+            listString.append(i).append(". ").append(chosen).append("\n");
         }
         return "----------------------------\n"
             + "Here are the tasks in your list:\n"
-            + listInString
+            + listString
             + "----------------------------";
     }
 
-    /**
-     * reads user input, and returns it
-     * @return String
-     */
-    public String readCommand() {
-        Scanner echo = new Scanner(System.in);
-        return echo.nextLine();
-    }
 
     /**
      * given Task, prints out that the Task is marked
@@ -459,37 +451,14 @@ class Parser {
     public String parse(String command) throws TimoException {
         String cmd = command.split(" ", 2)[0];
         switch (cmd) {
-        case "bye":
-            this.storage.store(this.taskList.showList());
-            return this.ui.bye();
-
-        case "list":
-            return this.ui.printList(this.taskList);
-
-        case "mark":
-            String taskNumber = String.valueOf(command.charAt(command.length() - 1));
-
-            //get the Task number to mark
-            int markTarget = Integer.parseInt(taskNumber);
-
-            //find the task to mark
-            Task markedTask = this.taskList.mark(markTarget);
-            return this.ui.printMark(markedTask);
-
-        case "unmark":
-
-            //get the Task number to unmark
-            int unmarkTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
-
-            //find the task to unmark
-            Task unmarkedTask = this.taskList.unmark(unmarkTarget);
-            return this.ui.printUnmark(unmarkedTask);
-
         case "todo":
             String[] todoCommands = command.split(" ", 2);
+
+            //checks if todo command is correct
             if (todoCommands.length != 2) {
                 throw new TimoException("Usage todo: todo <task> (need argument)");
             }
+
             Todo task = new Todo(false, todoCommands[1]);
             this.taskList.add(task);
             return this.ui.printTodo(task, this.taskList.showList().size());
@@ -498,22 +467,47 @@ class Parser {
             String[] deadlineCommands = command.split("deadline |/by ");
             String todo = deadlineCommands[1];
             String datetime = deadlineCommands[2].trim();
-            DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
             try {
-                LocalDateTime date = LocalDateTime.parse(datetime, a);
-                System.out.println(date);
+                LocalDateTime date = LocalDateTime.parse(datetime, inputFormat);
                 Deadline deadline = new Deadline(false, todo, date);
                 this.taskList.add(deadline);
                 return this.ui.printDeadline(deadline, this.taskList.showList().size());
             } catch (DateTimeException e) {
                 return this.ui.printDeadlineError();
             }
+
         case "event":
             String[] eventCommands = command.split("event |/from |/to ");
             Event event = new Event(false, eventCommands[1], eventCommands[2], eventCommands[3]);
             this.taskList.add(event);
             return this.ui.printEvent(event, this.taskList.showList().size());
+
+        case "mark":
+            String taskNumberToMark = String.valueOf(command.charAt(command.length() - 1));
+
+            //get the Task number to mark
+            int markTarget = Integer.parseInt(taskNumberToMark);
+
+            //find the task to mark
+            Task markedTask = this.taskList.mark(markTarget);
+            return this.ui.printMark(markedTask);
+
+        case "unmark":
+
+            String taskNumberToUnmark = String.valueOf(command.charAt(command.length() - 1));
+
+            //get the Task number to unmark
+            int unmarkTarget = Integer.parseInt(taskNumberToUnmark);
+
+            //find the task to unmark
+            Task unmarkedTask = this.taskList.unmark(unmarkTarget);
+            return this.ui.printUnmark(unmarkedTask);
+
+        case "list":
+            return this.ui.printList(this.taskList);
+
         case "delete":
             //get the Task number to delete
             int deleteTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
@@ -526,14 +520,19 @@ class Parser {
             String phrase = command.split(" ", 2)[1];
 
             // TaskList to print out
-            TaskList temporaryLst = new TaskList();
+            TaskList temporaryList = new TaskList();
 
             for (Task currentTask: this.taskList.showList()) {
                 if (currentTask.toString().contains(phrase)) {
-                    temporaryLst.add(currentTask);
+                    temporaryList.add(currentTask);
                 }
             }
-            return this.ui.printList(temporaryLst);
+            return this.ui.printList(temporaryList);
+
+        case "bye":
+            this.storage.store(this.taskList.showList());
+            return this.ui.bye();
+
         default:
             return this.ui.printUnknownCommandError(new TimoException("I'm sorry, I do not know what that means"));
         }
@@ -566,29 +565,6 @@ public class Timo {
         parser = new Parser(ui, storage, tasks);
     }
 
-    /**
-     * run method which runs the entire program
-     */
-    public void run() {
-        //welcome
-        ui.greet();
-
-        //print list initially
-        ui.printList(this.tasks);
-
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                if (fullCommand.equals("bye")) {
-                    isExit = true;
-                }
-                parser.parse(fullCommand);
-            } catch (TimoException e) {
-                this.ui.printUnknownCommandError(e);
-            }
-        }
-    }
 
     /**
      * get parser
