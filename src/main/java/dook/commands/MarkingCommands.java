@@ -71,5 +71,6 @@ public class MarkingCommands extends Command {
         message = message.concat("\n" + task.toString());
         ui.showMessage(task.toString());
         ui.separate();
+        return message;
     }
 }
