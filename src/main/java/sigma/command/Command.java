@@ -10,10 +10,10 @@ import sigma.utils.Ui;
  */
 public abstract class Command {
 
-    protected String[] split;
+    protected String[] commandArray;
 
-    public Command(String[] split) {
-        this.split = split;
+    public Command(String[] commandArray) {
+        this.commandArray = commandArray;
     }
 
     /**

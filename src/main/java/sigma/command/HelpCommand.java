@@ -9,8 +9,8 @@ import sigma.utils.Ui;
  */
 public class HelpCommand extends Command {
 
-    public HelpCommand(String[] split) {
-        super(split);
+    public HelpCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     @Override

@@ -5,8 +5,8 @@ package sigma.task;
  */
 public class TodoTask extends Task {
 
-    public TodoTask(String desc) {
-        super(desc);
+    public TodoTask(String description) {
+        super(description);
     }
 
     public String getTaskType() {

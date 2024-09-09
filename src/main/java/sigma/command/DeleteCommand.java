@@ -11,8 +11,8 @@ import sigma.utils.Ui;
  */
 public class DeleteCommand extends Command {
 
-    public DeleteCommand(String[] split) {
-        super(split);
+    public DeleteCommand(String[] commandArray) {
+        super(commandArray);
     }
 
     /**
@@ -25,10 +25,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        if (split.length < 2) {
+        if (commandArray.length < 2) {
             throw new SigmaException("What the sigma? You're missing the task! " + "Write \"delete <task>\"!");
         }
-        int index = Integer.parseInt(split[1]);
+        int index = Integer.parseInt(commandArray[1]);
         if (index > 0 && index <= tasks.size()) {
             Task item = tasks.get(index - 1);
             tasks.remove(index - 1);

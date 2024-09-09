@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
  * the speaker.
  */
 public class DialogBox extends HBox {
+    public static final String LOCATION = "/view/DialogBox.fxml";
     @FXML
     private Label dialog;
     @FXML
@@ -26,7 +27,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(LOCATION));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -39,11 +40,26 @@ public class DialogBox extends HBox {
         clipImageViewToCircle(displayPicture);
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image.
+     *
+     * @param s The text to be displayed in the dialog box.
+     * @param i The image to be displayed in the dialog box.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
-    // ...
+    /**
+     * Returns a DialogBox with the specified text, image and command type.
+     * This DialogBox will be flipped.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @param commandType The type of command that the dialog box is displaying.
+     * @return A DialogBox with the specified text, image and command type.
+     */
     public static DialogBox getSigmaDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();

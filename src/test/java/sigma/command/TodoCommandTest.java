@@ -105,7 +105,7 @@ public class TodoCommandTest {
         try {
             tc.execute(tl, null, null);
         } catch (SigmaException thrown) {
-            assertEquals("Please don't run me on null!", thrown.getMessage());
+            assertEquals("Why is commandArray null? Sigma is confused.", thrown.getMessage());
         }
     }
 }
