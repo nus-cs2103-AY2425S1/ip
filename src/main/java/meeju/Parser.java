@@ -15,7 +15,10 @@ public class Parser {
      * @return A String representing the result of the parsing
      */
     public String parse(TaskList taskList, String instruction) {
-        if (instruction.equals("bye")) {
+        
+        if (instruction.trim().equals("")) {
+            return "Empty Command!";
+        } else if (instruction.equals("bye")) {
             return " Bye. Hope to see you again soon!";
         } else if (instruction.equalsIgnoreCase("hi")) {
             return "Meow! Hello There! How can i help you?";
