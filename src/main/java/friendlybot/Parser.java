@@ -10,6 +10,7 @@ import friendlybot.command.DateCommand;
 import friendlybot.command.DeleteCommand;
 import friendlybot.command.ExitCommand;
 import friendlybot.command.FindCommand;
+import friendlybot.command.HelpCommand;
 import friendlybot.command.ListCommand;
 import friendlybot.command.MarkCommand;
 
@@ -39,6 +40,7 @@ public class Parser {
         case "event" -> parseEventCommand(arguments);
         case "date" -> parseDateCommand(arguments);
         case "find" -> parseFindCommand(arguments);
+        case "help" -> parseHelpCommand(arguments);
         default -> {
             Ui.print("OOPS!! I'm sorry, that's not a command :-(");
             yield new BadCommand();
@@ -136,5 +138,12 @@ public class Parser {
             return new BadCommand("Please enter a keyword!");
         }
         return new FindCommand(arguments);
+    }
+
+    private static Command parseHelpCommand(String arguments) {
+        if (arguments.isEmpty()) {
+            return new HelpCommand();
+        }
+        return new HelpCommand(arguments);
     }
 }

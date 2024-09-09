@@ -24,6 +24,11 @@ public class MarkCommand extends Command {
     }
 
     /**
+     * An empty constructor for MarkCommand, used to display the command format.
+     */
+    public MarkCommand() {};
+
+    /**
      * Marks / Unmarks the Task upon execution.
      *
      * @param tasks An instance of TaskList where the new task is added to.
@@ -54,5 +59,12 @@ public class MarkCommand extends Command {
         sb.append("  ").append(task.toString());
         storage.writeToFile(tasks.formatTasksToSave());
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return """
+                mark <task_number> - Marks the specified task as completed.
+                unmark <task_number> - Marks the specified task as incomplete.""";
     }
 }

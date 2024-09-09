@@ -51,6 +51,9 @@ public class FriendlyBot {
             cmd.execute(friendlyBot.tasks, friendlyBot.ui, friendlyBot.storage);
             isExit = cmd.isExit();
             friendlyBot.ui.printHorizontalBar();
+            if (isExit) {
+
+            }
         }
         reader.close();
     }

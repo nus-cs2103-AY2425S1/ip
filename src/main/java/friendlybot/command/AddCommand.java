@@ -60,6 +60,12 @@ public class AddCommand extends Command {
     }
 
     /**
+     * An empty constructor for AddCommand, used to display the format of the AddCommand.
+     */
+    public AddCommand() {
+    }
+
+    /**
      * Executes the AddCommand and adds the respective task to the task list.
      *
      * @param tasks An instance of TaskList where the new task is added to.
@@ -97,5 +103,13 @@ public class AddCommand extends Command {
         }
         storage.writeToFile(tasks.formatTasksToSave());
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return """
+                todo <task_description> - Adds a new ToDo task.
+                deadline <task_description> /by <date> - Adds a new Deadline task.
+                event <task_description> /from <date> /to <date> - Adds a new Event task.""";
     }
 }

@@ -23,6 +23,12 @@ public class FindCommand extends Command {
     }
 
     /**
+     * An empty constructor for FindCommand, used to display the command format.
+     */
+    public FindCommand() {
+    }
+
+    /**
      * Prints the corresponding tasks that contains the keyword upon execution.
      *
      * @param tasks An instance of TaskList where the new task is added to.
@@ -52,5 +58,10 @@ public class FindCommand extends Command {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "find <keyword> - Finds tasks whose description contains the provided keyword.";
     }
 }

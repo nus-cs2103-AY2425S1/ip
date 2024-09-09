@@ -21,6 +21,11 @@ public class DeleteCommand extends Command {
     }
 
     /**
+     * An empty constructor for the DeleteCommand, used to display the command format.
+     */
+    public DeleteCommand() {};
+
+    /**
      * Deletes a task that corresponds to the task number upon execution.
      *
      * @param tasks An instance of TaskList where the new task is added to.
@@ -56,5 +61,10 @@ public class DeleteCommand extends Command {
         }
         storage.writeToFile(tasks.formatTasksToSave());
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "delete <task_number> - Deletes the task corresponding to the given task number.";
     }
 }
