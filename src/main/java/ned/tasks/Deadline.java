@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import ned.Ui;
+import ned.exceptions.InvalidTimeFormatException;
+import ned.exceptions.MissingTaskDescriptionException;
+import ned.exceptions.MissingTaskDueDateException;
 import ned.exceptions.NedException;
 
 public class Deadline extends Task {
@@ -14,7 +17,7 @@ public class Deadline extends Task {
         try {
             this.deadlineTiming = LocalDate.parse(deadlineTiming);
         } catch (DateTimeParseException e) {
-            throw new NedException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here "
+            throw new InvalidTimeFormatException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here "
                     + "are examples of valid timings:\n" + Ui.INDENTATIONS + "2015-08-04\n"
                     + Ui.INDENTATIONS + "2015-08-04T10:11:30");
         }
@@ -33,9 +36,9 @@ public class Deadline extends Task {
     public static Deadline createDeadline(String taskDescription, String deadlineTiming, boolean taskStatus)
             throws NedException {
         if (taskDescription.isBlank()) {
-            throw new NedException("M'lord, this saved deadline task has no task description!");
+            throw new MissingTaskDescriptionException("M'lord, this saved deadline task has no task description!");
         } else if (deadlineTiming.isBlank()) {
-            throw new NedException("M'lord, this saved deadline task has no due date!");
+            throw new MissingTaskDueDateException("M'lord, this saved deadline task has no due date!");
         }
         return new Deadline(taskDescription, deadlineTiming, taskStatus);
     }
@@ -52,10 +55,22 @@ public class Deadline extends Task {
             return true;
         } else if (obj instanceof Deadline) {
             Deadline typeCastedObj = (Deadline) obj;
-            return (this.taskDescription.equals(typeCastedObj.taskDescription)
-                    && this.deadlineTiming.equals(typeCastedObj.deadlineTiming)
-                    && (this.isDone == typeCastedObj.isDone));
+            return (isTaskDescriptionEqual(typeCastedObj)
+                    && isDeadlineTimingEqual(typeCastedObj)
+                    && isStatusEqual(typeCastedObj));
         }
         return false;
+    }
+
+    private boolean isStatusEqual(Deadline typeCastedObj) {
+        return this.isDone == typeCastedObj.isDone;
+    }
+
+    private boolean isDeadlineTimingEqual(Deadline typeCastedObj) {
+        return this.deadlineTiming.equals(typeCastedObj.deadlineTiming);
+    }
+
+    private boolean isTaskDescriptionEqual(Deadline typeCastedObj) {
+        return this.taskDescription.equals(typeCastedObj.taskDescription);
     }
 }

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ned.exceptions.CacheFileNotFoundException;
+import ned.exceptions.CacheFileNotUsableException;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 
@@ -46,7 +48,7 @@ public class Storage {
                 newListOfTasks.add(newTask);
             }
         } catch (FileNotFoundException e) {
-            throw new NedException("M'lord, do not be alarmed, but it appears that there was no previous saved task "
+            throw new CacheFileNotFoundException("M'lord, do not be alarmed, but it appears that there was no previous saved task "
                     + "file. Not to worry, we'll sort this out yet...");
         }
         return newListOfTasks;
@@ -70,10 +72,10 @@ public class Storage {
             }
             fw.close();
         } catch (FileNotFoundException e) {
-            throw new NedException("M'lord, it appears that the cache file cannot be accessed, ensure that it is in a "
+            throw new CacheFileNotUsableException("M'lord, it appears that the cache file cannot be accessed, ensure that it is in a "
                     + "writable " + "place");
         } catch (IOException e) {
-            throw new NedException("M'lord, it appears there was an error accessing the cached file, please check "
+            throw new CacheFileNotUsableException("M'lord, it appears there was an error accessing the cached file, please check "
                     + "that I am able to access it");
         }
     }

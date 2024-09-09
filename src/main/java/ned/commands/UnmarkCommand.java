@@ -3,6 +3,8 @@ package ned.commands;
 import ned.Storage;
 import ned.TaskList;
 import ned.Ui;
+import ned.exceptions.InvalidIndexException;
+import ned.exceptions.MissingIndexException;
 import ned.exceptions.NedException;
 
 /**
@@ -30,7 +32,7 @@ public class UnmarkCommand implements Command {
             throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
-            throw new NedException("Sorry m'lord, you must give me a list index with the mark command. No more, no "
+            throw new MissingIndexException("Sorry m'lord, you must give me a list index with the mark command. No more, no "
                     + "less" + uiInstance.getCommandMessage());
         }
         String possibleIndex = words[1];
@@ -39,10 +41,10 @@ public class UnmarkCommand implements Command {
             taskList.markTaskAsUndone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
-            throw new NedException("Sorry m'lord, your command must specify a valid number"
+            throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, seems the item number you specified is not valid"
+            throw new InvalidIndexException("Sorry m'lord, seems the item number you specified is not valid"
                     + uiInstance.getCommandMessage());
         }
     }

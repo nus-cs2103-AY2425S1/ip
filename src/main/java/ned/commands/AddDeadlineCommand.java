@@ -3,6 +3,8 @@ package ned.commands;
 import ned.Storage;
 import ned.TaskList;
 import ned.Ui;
+import ned.exceptions.MissingTaskDescriptionException;
+import ned.exceptions.MissingTaskDueDateException;
 import ned.exceptions.NedException;
 import ned.tasks.Deadline;
 import ned.tasks.Task;
@@ -35,10 +37,10 @@ public class AddDeadlineCommand implements Command {
         String[] parsedInputs = userInput.split("deadline|/by", 3);
         int parsedInputsLen = Task.checkSizeOfInput(parsedInputs);
         if (parsedInputs[1].strip().isBlank()) {
-            throw new NedException("M'lord, you cannot create a deadline task with no description"
+            throw new MissingTaskDescriptionException("M'lord, you cannot create a deadline task with no description"
                     + uiInstance.getCommandMessage());
         } else if (parsedInputsLen == 1) {
-            throw new NedException("M'lord, you cannot create a deadline task with no due date"
+            throw new MissingTaskDueDateException("M'lord, you cannot create a deadline task with no due date"
                     + uiInstance.getCommandMessage());
         }
         Task newTask = Deadline.createDeadline(parsedInputs[1].strip(), parsedInputs[2].strip(), false);

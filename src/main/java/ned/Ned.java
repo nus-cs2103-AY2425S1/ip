@@ -11,9 +11,11 @@ import ned.exceptions.NedException;
  */
 public class Ned {
     public static final String CACHED_TASKS_PATH = Paths.get("src", "data", "cachedTasks.txt").toString();
+    private static final String EXIT_MESSAGE = "EXIT MESSAGE";
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
+
 
     /**
      * Creates an instance of the Ned chatbot.
@@ -40,7 +42,7 @@ public class Ned {
             Command c = Parser.parse(input);
             c.execute(tasks,ui, storage, input);
             if (c.isExit()) {
-                return "EXIT MESSAGE";
+                return EXIT_MESSAGE;
             }
             return ui.getAllBuiltUpDialogue();
         } catch (NedException e) {

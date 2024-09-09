@@ -1,5 +1,6 @@
 package ned.tasks;
 
+import ned.exceptions.MissingTaskDescriptionException;
 import ned.exceptions.NedException;
 
 public class ToDo extends Task {
@@ -11,7 +12,7 @@ public class ToDo extends Task {
 
     public static ToDo createToDo(String taskDescription, boolean taskStatus) throws NedException {
         if (taskDescription.isBlank()) {
-            throw new NedException("M'lord, this saved todo task has no task description!");
+            throw new MissingTaskDescriptionException("M'lord, this saved todo task has no task description!");
         }
         return new ToDo(taskDescription, taskStatus);
     }

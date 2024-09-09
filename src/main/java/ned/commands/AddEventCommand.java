@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 import ned.Storage;
 import ned.TaskList;
+import ned.exceptions.MissingTaskDescriptionException;
+import ned.exceptions.MissingTaskFromDateException;
+import ned.exceptions.MissingTaskToDateException;
 import ned.exceptions.NedException;
 import ned.Ui;
 import ned.tasks.Event;
@@ -41,18 +44,18 @@ public class AddEventCommand implements Command {
         String[] parsed_inputs = userInput.split("event|/from|/to", 4);
         int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
         if (parsed_inputs[1].strip().isBlank()) {
-            throw new NedException("M'lord, you cannot create an event task with no description"
+            throw new MissingTaskDescriptionException("M'lord, you cannot create an event task with no description"
                     + uiInstance.getCommandMessage());
         } else if (parsed_inputs_len <= 2) {
             if (Pattern.matches(eventRegexWithoutTo, userInput) || Pattern.matches(eventRegexWithEmptyTo, userInput)) {
-                throw new NedException("M'lord, you cannot create an event task with no 'to' date."
+                throw new MissingTaskToDateException("M'lord, you cannot create an event task with no 'to' date."
                         + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
             } else if (Pattern.matches(eventRegexWithoutFrom, userInput)
                     || Pattern.matches(eventRegexWithEmptyFrom, userInput)) {
-                throw new NedException("M'lord, you cannot create an event task with no 'from' date."
+                throw new MissingTaskFromDateException("M'lord, you cannot create an event task with no 'from' date."
                         + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
             } else {
-                throw new NedException("M'lord, you cannot create an event task with no 'from' date " +
+                throw new MissingTaskToDateException("M'lord, you cannot create an event task with no 'from' date " +
                         "or no 'to' date. Gods be good, fill both up!" + uiInstance.getCommandMessage());
             }
         }
