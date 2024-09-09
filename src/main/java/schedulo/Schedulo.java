@@ -60,6 +60,11 @@ public class Schedulo {
         Application.launch(App.class, args);
     }
 
+    /**
+     * Returns the response to the user input.
+     * @param input
+     * @return The response to the user input.
+     */
     public String getResponse(String input) {
         return this.run(input);
     }
