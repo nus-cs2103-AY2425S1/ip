@@ -1,6 +1,7 @@
 package quack;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import quack.exception.FailedUpdateException;
 import quack.tasks.Task;
@@ -150,13 +151,11 @@ public class TaskList {
             return "The list is empty, why not add something!";
         } else {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < this.toDoList.size(); i++) {
-                if (i == 0) {
-                    sb.append((i + 1) + ". " + this.toDoList.get(i).toString());
-                } else {
-                    sb.append("\n" + (i + 1) + ". " + this.toDoList.get(i).toString());
-                }
-            }
+
+            IntStream.range(0, this.getLength())
+                .mapToObj(i -> (i + 1) + ") " + this.toDoList.get(i).toString() + "\n")
+                .forEach(sb::append);
+
             return sb.toString();
         }
     }
