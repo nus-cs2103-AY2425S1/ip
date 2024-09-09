@@ -19,4 +19,18 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date! Please use yyyy-MM-dd HHmm format!\n";
     public static final String MESSAGE_INVALID_INTEGER = "Invalid task number!\n";
     public static final String MESSAGE_EMPTY_FIND = "No matching tasks found!\n";
+    public static final String MESSAGE_HELP = """
+            Taskon Commands Guide:
+             1. Add Task:
+                - todo [description]
+                - deadline [description] /by [date] (Format: yyyy-MM-dd HHmm)
+                - event [description] /from [start date] /to [end date] (Format: yyyy-MM-dd HHmm)
+             2. List Tasks: list
+             3. Mark Task: mark [task number]
+             4. Unmark Task: unmark [task number]
+             5. Delete Task: delete [task number]
+             6. Find Tasks: find [keyword]
+             7. On Date: on [date] (Format: yyyy-MM-dd)
+             8. Exit: bye
+             Ensure task numbers and dates are correct.""";
 }

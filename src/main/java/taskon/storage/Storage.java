@@ -30,6 +30,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.path = filePath;
+        assert filePath != null : "File path should not be null";
     }
 
     /**
@@ -38,10 +39,13 @@ public class Storage {
      * @param tasks The TaskList containing tasks to be saved.
      */
     public void saveTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
+
         try {
             FileWriter fw = new FileWriter(this.path);
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.getTask(i);
+                assert task != null : "Task should not be null";
                 fw.write(taskToFileString(task) + System.lineSeparator());
             }
             fw.close();
@@ -135,9 +139,11 @@ public class Storage {
      * @return A formatted string representing the Task.
      */
     private static String taskToFileString(Task task) {
+        assert task != null : "Task should not be null";
+
         String taskStatus = task.getIsDone() ? "1" : "0";
 
-        String taskDescription = "";
+        String taskDescription;
         if (task instanceof Todo) {
             taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription();
         } else if (task instanceof Deadline) {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static taskon.common.Messages.MESSAGE_DATE_MISSING;
 import static taskon.common.Messages.MESSAGE_DESCRIPTION_MISSING;
+import static taskon.common.Messages.MESSAGE_HELP;
 import static taskon.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -87,7 +88,7 @@ public class ParserTest {
         TaskonException exception = assertThrows(TaskonException.class, () -> {
             Parser.parse("event project meeting /from 2024-09-01 2pm");
         });
-        assertEquals(MESSAGE_INVALID_COMMAND_FORMAT, exception.getMessage());
+        assertEquals(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP, exception.getMessage());
     }
 
     @Test
