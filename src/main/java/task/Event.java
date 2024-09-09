@@ -1,41 +1,41 @@
 package task;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents an Event type Task with a start time and an end time.
+ * Represents an Event type Task with a LocalDateTime type start time and an end time.
  *
  * @author Youngseo Park (@youngseopark05)
  */
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Creates an Event task with the specified name, start time, and end time.
+     * If due date entered by user does not follow specific format, throws DateTimeException.
      *
      * @param name The name of the event.
-     * @param startTime The start time of the event.
-     * @param endTime The end time of the event.
+     * @param startTimeString The start time of the event.
+     * @param endTimeString The end time of the event.
+     * @throws DateTimeException Thrown if due date entered by user does not follow format 'yyyy-MM-dd HH:mm'.
      */
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, String startTimeString, String endTimeString) throws DateTimeException {
         super(name);
+        startTime = LocalDateTime.parse(startTimeString, formatter);
+        endTime = LocalDateTime.parse(endTimeString, formatter);
+    }
 
-        String[] startParts = startTime.split(" ");
-        StringBuilder startSB = new StringBuilder(startParts[0]).append(" ");
-        for (int i = 1; i < startParts.length; i++) {
-            startSB.append(startParts[i]).append(" ");
-        }
-        this.startTime = startSB.toString();
-
-        String[] endParts = endTime.split(" ");
-        StringBuilder endSB = new StringBuilder(endParts[0]).append(" ");
-        for (int i = 1; i < endParts.length - 1; i++) {
-            endSB.append(endParts[i]).append(" ");
-        }
-        if (endParts.length > 1) {
-            endSB.append(endParts[endParts.length - 1]);
-        }
-
-        this.endTime = endSB.toString();
+    @Override
+    public boolean isHappeningOn(LocalDate date) {
+        LocalDate startDate = startTime.toLocalDate();
+        LocalDate endDate = endTime.toLocalDate();
+        return (date.isEqual(startDate) || date.isAfter(startDate))
+                && (date.isEqual(endDate) || date.isBefore(endDate));
     }
 
     /**
@@ -46,7 +46,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E , " + (isComplete() ? 1 : 0) + " , " + getName() + " , " + startTime + " , " + endTime + "\n";
+        return "E , " + (isComplete() ? 1 : 0) + " , " + getName() + " , "
+                + startTime.format(formatter) + " , " + endTime.format(formatter) + "\n";
     }
 
     /**
@@ -57,6 +58,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + "(from: "
+                + startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + " to: "
+                + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 }

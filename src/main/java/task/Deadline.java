@@ -1,30 +1,32 @@
 package task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
- * Represents a Deadline type Task with a due date.
+ * Represents a Deadline type Task with a LocalDateTime type due date.
  *
  * @author Youngseo Park (@youngseopark05)
  */
 public class Deadline extends Task {
-    private String dueDate;
+    private LocalDate dueDate;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Creates a Deadline task with the specified name and deadline.
      *
      * @param name The name of the deadline.
-     * @param dueDate The due date of the deadline.
+     * @param dueDateString The due date of the deadline in String form.
      */
-    public Deadline(String name, String dueDate) {
+    public Deadline(String name, String dueDateString) throws DateTimeParseException {
         super(name);
-        String[] dateParts = dueDate.split(" ");
-        StringBuilder dateSB = new StringBuilder(dateParts[0]).append(" ");
-        for (int i = 1; i < dateParts.length - 1; i++) {
-            dateSB.append(dateParts[i]).append(" ");
-        }
-        if (dateParts.length > 1) {
-            dateSB.append(dateParts[dateParts.length - 1]);
-        }
-        this.dueDate = dateSB.toString();
+        this.dueDate = LocalDate.parse(dueDateString, formatter);
+    }
+
+    @Override
+    public boolean isHappeningOn(LocalDate date) {
+        return dueDate.isEqual(date);
     }
 
     /**
@@ -35,7 +37,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D , " + (isComplete() ? 1 : 0) + " , " + getName() + " , " + dueDate + "\n";
+        return "D , " + (isComplete() ? 1 : 0) + " , " + getName() + " , " + dueDate.format(formatter) + "\n";
     }
 
     /**
@@ -46,6 +48,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + dueDate + ")";
+        return "[D]" + super.toString() + "(by: "
+                + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
