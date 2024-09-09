@@ -47,7 +47,7 @@ public class ParserTest {
     public void invalidTest() {
         Parser p = new Parser(new Scanner(new ByteArrayInputStream("nutmeg".getBytes())));
         outContent.reset();
-        p.cmd();
+        p.handleCliInput();
         assertEquals("Maybe put in an actual command next time, shitass.", outContent.toString().trim());
     }
 
@@ -58,7 +58,7 @@ public class ParserTest {
     public void exitTest() {
         Parser p = new Parser(new Scanner(new ByteArrayInputStream("bye".getBytes())));
         outContent.reset();
-        p.cmd();
+        p.handleCliInput();
         assertEquals("", outContent.toString().trim());
     }
 }

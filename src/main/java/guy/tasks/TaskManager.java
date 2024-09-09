@@ -42,14 +42,15 @@ public class TaskManager {
      */
     public void loadData(String data) {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             String[] line = data.split("\\s*\\|\\s*");
             String type = line[0];
 
             Task task = switch(type) {
             case "T" -> new ToDo(line[2]);
-            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
-            case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
+            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], formatter));
+            case "E" -> new Event(line[2], LocalDateTime.parse(line[3], formatter),
+                                           LocalDateTime.parse(line[4], formatter));
             default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
             };
 

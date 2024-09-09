@@ -12,14 +12,4 @@ public class GuyException extends Exception {
     public GuyException(String e) {
         super(e);
     }
-
-    /**
-     * Returns the detail message of the exception.
-     *
-     * @return detail message of this instance
-     */
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
 }

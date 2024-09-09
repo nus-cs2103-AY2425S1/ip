@@ -3,7 +3,6 @@ package guy.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,7 +50,6 @@ public class Storage {
             }
 
             Scanner read = new Scanner(f);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             TaskManager tm = TaskManager.getInstance();
             while (read.hasNext()) {
                 tm.loadData(read.nextLine());
