@@ -11,7 +11,6 @@ import tick.ui.Ui;
  */
 public class DeleteCommand extends Command {
     private int toDelete;
-    private CommandType type = CommandType.DELETE;
 
     /**
      * Constructs an DeleteCommand with a given index.

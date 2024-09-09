@@ -12,7 +12,6 @@ import tick.ui.Ui;
  */
 public class FindCommand extends Command {
     private String keyword;
-    private CommandType type = CommandType.FIND;
 
     /**
      * Constructs a FindCommand object with the specified keyword.

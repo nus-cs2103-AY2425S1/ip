@@ -9,7 +9,6 @@ import tick.ui.Ui;
  * Represents a command that can be executed by the user.
  */
 public abstract class Command {
-    private CommandType type;
 
     /**
      * Executes the command.
@@ -27,13 +26,4 @@ public abstract class Command {
      * @return True if the command is an exit command, false otherwise.
      */
     public abstract boolean isExit();
-
-    /**
-     * Returns the type of the command.
-     *
-     * @return The type of the command.
-     */
-    public CommandType getCommandType() {
-        return this.type;
-    }
 }

@@ -9,7 +9,6 @@ import tick.ui.Ui;
  * Represents a command that is not recognised by Tick.
  */
 public class IncorrectCommand extends Command {
-    private CommandType type = null;
 
     /**
      * Throws a TickException to inform the user that the command is not recognised.
