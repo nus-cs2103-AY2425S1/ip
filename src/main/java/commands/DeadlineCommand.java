@@ -38,13 +38,13 @@ public class DeadlineCommand extends Command {
         try {
             Task task = new Deadline(desc, deadline);
             tasks.add(task);
-            storage.save();
+            storage.saveTaskList();
             return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
             return """
                    OOPS!!! The description of deadline is wrong.
                    Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
-                        'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
+                         'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
                    It is not necessary to input the time!
                    """;
         }

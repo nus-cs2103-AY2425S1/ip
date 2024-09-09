@@ -24,14 +24,14 @@ public class Applemazer {
     public Applemazer(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        ArrayList<Task> savedList = storage.load();
+        ArrayList<Task> savedList = storage.loadTaskList();
         assert savedList != null : "The task list is null.";
         tasks = new TaskList(savedList);
         parser = new Parser(sc);
     }
 
     /**
-     * Main processing loop for the Applemazer chatbot.
+     * Main processing loop for the text-based version of the Applemazer chatbot.
      * <p>
      * Executes commands based on user input.
      */
@@ -68,16 +68,23 @@ public class Applemazer {
         }
     }
 
+    /**
+     * @return {@code Ui} object currently being used by the chatbot.
+     */
     public Ui getUi() {
         return this.ui;
     }
 
+    /**
+     * @return Returns {@code true} if the chatbot should shut down after
+     *         executing a particular command.
+     */
     public boolean shouldExit() {
         return !this.isProcessing;
     }
 
     /**
-     * Entry point of the Applemazer chatbot program.
+     * Entry point of the text-based version of the Applemazer chatbot program.
      * @param args Unused CLI arguments.
      */
     public static void main(String[] args) {

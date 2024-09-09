@@ -7,11 +7,6 @@ import tasks.Task;
  */
 public class Ui {
     /**
-     * Constructor for the Ui object.
-     */
-    public Ui() {}
-
-    /**
      * Greeting message printed when starting up the chatbot.
      */
     public String greeting() {
@@ -53,33 +48,33 @@ public class Ui {
      * Message printed when task is marked as done.
      */
     public String getTaskSetDoneMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" +
-               "    " + task.getStatusIcon() + task + "\n";
+        return "Nice! I've marked this task as done:\n"
+               + "    " + task.getStatusIcon() + task + "\n";
     }
 
     /**
      * Message printed when task is marked as undone.
      */
     public String getTaskSetUndoneMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n" +
-               "    " + task.getStatusIcon() + task + "\n";
+        return "OK, I've marked this task as not done yet:\n"
+               + "    " + task.getStatusIcon() + task + "\n";
     }
 
     /**
      * Message printed when task is added to the task list.
      */
     public String getTaskAddedMessage(Task task, int size) {
-        return "Got it. I've added this task:\n" +
-               "    " + task.getStatusIcon() + task + "\n" +
-               "Now you have " + size + " tasks in the list.\n";
+        return "Got it. I've added this task:\n"
+               + "    " + task.getStatusIcon() + task + "\n"
+               + "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
      * Message printed when task is deleted from the task list.
      */
     public String getTaskDeletedMessage(Task task, int size) {
-        return "Noted. I've removed this task:\n" +
-               "    " + task.getStatusIcon() + task + "\n" +
-               "Now you have " + size + " tasks in the list. \n";
+        return "Noted. I've removed this task:\n"
+               + "    " + task.getStatusIcon() + task + "\n"
+               + "Now you have " + size + " tasks in the list. \n";
     }
 }

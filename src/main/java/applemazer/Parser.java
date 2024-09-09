@@ -127,7 +127,7 @@ public class Parser {
             String errorMessage = """
                                   OOPS!!! The description of deadline is wrong.
                                   Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
-                                      'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
+                                        'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
                                   It is not necessary to input the time!
                                   """;
             throw new IndexOutOfBoundsException(errorMessage);

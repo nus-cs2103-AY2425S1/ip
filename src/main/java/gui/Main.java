@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import applemazer.Applemazer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -13,12 +14,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import applemazer.Applemazer;
 /**
  * A GUI for Applemazer using FXML.
  */
 public class Main extends Application {
-    Applemazer applemazer = new Applemazer("./data/Applemazer.ser");
+    private final Applemazer applemazer = new Applemazer("./data/Applemazer.ser");
 
     @Override
     public void start(Stage stage) {
