@@ -34,8 +34,10 @@ public class TaskList {
      * </p>
      *
      * @param storage the {@code IStorage} instance used for loading and saving tasks.
+     * @throws AssertionError if the {@code storage} provided is null and assertions are enabled.
      */
     public TaskList(IStorage storage) {
+        assert storage != null : "Storage provided to TaskList should not be null";
         this.tasks = storage.load();
         this.storage = storage;
     }
