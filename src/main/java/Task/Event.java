@@ -93,11 +93,12 @@ public class Event extends Task {
         }
 
         Event event = (Event) o;
+        boolean isTypeSame = this.type.equals(event.type);
+        boolean isDescriptionSame = super.getDescription().equals(event.getDescription());
+        boolean isStartDateTimeSame = this.startDateTime.equals(event.startDateTime);
+        boolean isEndDateTimeSame = this.endDateTime.equals(event.endDateTime);
+        boolean isStatusSame = super.isDone() == event.isDone();
 
-        return this.type.equals(event.type)
-                && super.getDescription().equals(event.getDescription())
-                && this.startDateTime.equals(event.startDateTime)
-                && this.endDateTime.equals(event.endDateTime)
-                && (super.isDone() == event.isDone());
+        return isTypeSame && isDescriptionSame && isStartDateTimeSame && isEndDateTimeSame && isStatusSame;
     }
 }

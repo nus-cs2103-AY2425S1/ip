@@ -12,18 +12,18 @@ import exception.BlitzNumberFormatException;
 import task.Task;
 
 /**
- * Represents a "unmark" command in the Blitz application.
+ * Represents a "mark" command in the Blitz application.
  */
-public class CommandUnmark extends Command {
+public class MarkCommand extends Command {
     private String parameter;
 
     /**
-     * Constructs a new CommandUnmark object with specified command String and a parameter String.
+     * Constructs a new CommandMark object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
      * @param parameter String containing the parameter for this command.
      */
-    public CommandUnmark(String command, String parameter) {
+    public MarkCommand(String command, String parameter) {
         super(command);
         this.parameter = parameter;
     }
@@ -31,9 +31,9 @@ public class CommandUnmark extends Command {
     /**
      * Executes the command.
      *
-     * @param list TaskList to be used if required.
-     * @param ui Ui to be used if required.
-     * @param storage Storage to be used if required.
+     * @param list TaskList to get the Task to be marked.
+     * @param ui Ui to print the required text.
+     * @param storage Storage to write to the file to update the marked Task.
      * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
      */
@@ -47,10 +47,10 @@ public class CommandUnmark extends Command {
             }
 
             Task task = list.getTask(index);
-            task.setDone(false);
+            task.setDone(true);
             storage.writeAllToFile(list);
 
-            return ui.getStringForTaskUnmarked(task);
+            return ui.getStringForTaskMarked(task);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

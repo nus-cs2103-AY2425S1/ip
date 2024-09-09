@@ -48,6 +48,7 @@ public abstract class Command {
         }
 
         Command c = (Command) o;
+
         return this.command.equals((c.command));
     }
 }

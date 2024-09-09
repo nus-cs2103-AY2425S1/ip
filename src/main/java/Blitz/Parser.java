@@ -4,15 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import command.Command;
-import command.CommandBye;
-import command.CommandDeadline;
-import command.CommandDelete;
-import command.CommandEvent;
-import command.CommandFind;
-import command.CommandList;
-import command.CommandMark;
-import command.CommandTodo;
-import command.CommandUnmark;
+import command.ByeCommand;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
 
 import exception.BlitzCommandDoesNotExistException;
 import exception.BlitzException;
@@ -32,10 +32,10 @@ public class Parser {
      * @throws BlitzException If the command String is invalid or command does not exist.
      */
     public static Command parse(String command) throws BlitzException {
-        if (isRegexMatched("^list\\s*$", command)) {
-            return new CommandList("list");
-        } else if (isRegexMatched("^bye\\s*$", command)) {
-            return new CommandBye("bye");
+        if (isRegexMatchedForList(command)) {
+            return new ListCommand("list");
+        } else if (isRegexMatchedForBye(command)) {
+            return new ByeCommand("bye");
         } else {
             String[] commandParts = command.split(" ", 2);
             String commandName = commandParts[0];
@@ -56,7 +56,7 @@ public class Parser {
                     throw new BlitzInvalidParameterMoreThanOneException("mark [Integer]");
                 }
 
-                return new CommandMark(command, markParameters[0]);
+                return new MarkCommand(command, markParameters[0]);
             case "unmark":
                 String[] unmarkParameters = commandParts[1].split(" ");
 
@@ -64,27 +64,19 @@ public class Parser {
                     throw new BlitzInvalidParameterMoreThanOneException("unmark [Integer]");
                 }
 
-                return new CommandUnmark(command, unmarkParameters[0]);
+                return new UnmarkCommand(command, unmarkParameters[0]);
             case "todo":
-                return new CommandTodo(command, commandParts[1]);
+                return new TodoCommand(command, commandParts[1]);
             case "deadline":
-                if (!isRegexMatched(
-                        "^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
-                                + " (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
-                        command)) {
+                if (!isRegexMatchedForDeadline(command)) {
                     throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
                 }
 
                 String[] deadlineParameters = commandParts[1].split(" /by ");
 
-                return new CommandDeadline(command, deadlineParameters[0], deadlineParameters[1]);
+                return new DeadlineCommand(command, deadlineParameters[0], deadlineParameters[1]);
             case "event":
-                if (!isRegexMatched(
-                        "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
-                                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]"
-                                + " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
-                                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
-                        command)) {
+                if (!isRegexMatchedForEvent(command)) {
                     throw new BlitzInvalidParameterRegexException(
                             "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
                 }
@@ -92,17 +84,17 @@ public class Parser {
                 String[] fromParameters = commandParts[1].split(" /from ");
                 String[] toParameters = fromParameters[1].split(" /to ");
 
-                return new CommandEvent(command, fromParameters[0], toParameters[0], toParameters[1]);
+                return new EventCommand(command, fromParameters[0], toParameters[0], toParameters[1]);
             case "delete":
                 String[] deleteParameters = commandParts[1].split(" ");
 
                 if (deleteParameters.length > 1) {
-                    throw new BlitzInvalidParameterMoreThanOneException("Delete [Integer]");
+                    throw new BlitzInvalidParameterMoreThanOneException("delete [Integer]");
                 }
 
-                return new CommandDelete(command, deleteParameters[0]);
+                return new DeleteCommand(command, deleteParameters[0]);
             case "find":
-                return new CommandFind(command, commandParts[1]);
+                return new FindCommand(command, commandParts[1]);
             default:
                 throw new BlitzCommandDoesNotExistException();
             }
@@ -121,5 +113,49 @@ public class Parser {
         Matcher matcher = pattern.matcher(inp);
 
         return matcher.find();
+    }
+
+    /**
+     * Checks if given String (command) matches the regex pattern for command list.
+     *
+     * @param command The String to be matched with the regex pattern.
+     * @return True if input String matches the regex pattern, false otherwise.
+     */
+    private static boolean isRegexMatchedForList(String command) {
+        return isRegexMatched("^list\\s*$", command);
+    }
+
+    /**
+     * Checks if given String (command) matches the regex pattern for command bye.
+     *
+     * @param command The String to be matched with the regex pattern.
+     * @return True if input String matches the regex pattern, false otherwise.
+     */
+    private static boolean isRegexMatchedForBye(String command) {
+        return isRegexMatched("^bye\\s*$", command);
+    }
+
+    /**
+     * Checks if given String (command) matches the regex pattern for command deadline.
+     *
+     * @param command The String to be matched with the regex pattern.
+     * @return True if input String matches the regex pattern, false otherwise.
+     */
+    private static boolean isRegexMatchedForDeadline(String command) {
+        return isRegexMatched("^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
+                + " (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command);
+    }
+
+    /**
+     * Checks if given String (command) matches the regex pattern for command event.
+     *
+     * @param command The String to be matched with the regex pattern.
+     * @return True if input String matches the regex pattern, false otherwise.
+     */
+    private static boolean isRegexMatchedForEvent(String command) {
+        return isRegexMatched("^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
+                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]"
+                + " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
+                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command);
     }
 }

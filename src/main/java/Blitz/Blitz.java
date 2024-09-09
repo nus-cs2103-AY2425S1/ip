@@ -31,11 +31,11 @@ public class Blitz {
      */
     public String getResponse(String inp) {
         try {
-            Command c = Parser.parse(inp);
+            Command command = Parser.parse(inp);
 
             this.taskList = storage.readFromFile();
 
-            return c.execute(this.taskList, this.ui, this.storage);
+            return command.execute(this.taskList, this.ui, this.storage);
         } catch (BlitzException e) {
             return e.toString();
         }

@@ -85,11 +85,12 @@ public class Deadline extends Task {
         }
 
         Deadline deadline = (Deadline) o;
+        boolean isTypeSame = this.type.equals(deadline.type);
+        boolean isDescriptionSame = super.getDescription().equals(deadline.getDescription());
+        boolean isDateTimeSame = this.dateTime.equals(deadline.dateTime);
+        boolean isStatusSame = super.isDone() == deadline.isDone();
 
-        return this.type.equals(deadline.type)
-                && super.getDescription().equals(deadline.getDescription())
-                && this.dateTime.equals(deadline.dateTime)
-                && (super.isDone() == deadline.isDone());
+        return isTypeSame && isDescriptionSame && isDateTimeSame && isStatusSame;
     }
 }
 

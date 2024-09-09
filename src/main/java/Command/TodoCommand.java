@@ -6,24 +6,24 @@ import blitz.Ui;
 
 import exception.BlitzException;
 
-import task.Deadline;
 import task.Task;
+import task.Todo;
 
 /**
- * Represents a "deadline" command in the Blitz application.
+ * Represents a "todo" command in the Blitz application.
  */
-public class CommandDeadline extends Command {
-    private String[] parameters;
+public class TodoCommand extends Command {
+    private String parameter;
 
     /**
-     * Constructs a new CommandDeadline object with specified command String and parameters as Array of String.
+     * Constructs a new CommandTodo object with specified command String and a parameter String.
      *
-     * @param values A variable number of String arguments associated with this Command object..
+     * @param command Command String to be associated with this Command object.
+     * @param parameter String containing the parameter for this command.
      */
-    public CommandDeadline(String... values) {
-        super(values[0]);
-        this.parameters = new String[values.length - 1];
-        System.arraycopy(values, 1, parameters, 0, parameters.length);
+    public TodoCommand(String command, String parameter) {
+        super(command);
+        this.parameter = parameter;
     }
 
     /**
@@ -37,7 +37,7 @@ public class CommandDeadline extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task taskToAdd = new Deadline(parameters[0], "D", Task.convertStringToLocalDateTime(parameters[1]), false);
+        Task taskToAdd = new Todo(this.parameter, "T", false);
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);
