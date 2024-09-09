@@ -12,7 +12,7 @@ import bob.ui.Ui;
  * Class representing the on command.
  */
 public class On extends Command {
-    private LocalDate date;
+    private final LocalDate date;
     public On(LocalDate date) {
         this.date = date;
     }

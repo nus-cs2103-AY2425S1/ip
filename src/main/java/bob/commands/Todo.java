@@ -10,7 +10,7 @@ import bob.ui.Ui;
  * Class representing the todo command.
  */
 public class Todo extends Command {
-    private String description;
+    private final String description;
     public Todo(String description) {
         this.description = description;
     }

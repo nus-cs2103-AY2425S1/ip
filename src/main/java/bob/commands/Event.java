@@ -12,9 +12,9 @@ import bob.ui.Ui;
  * Class representing an event command.
  */
 public class Event extends Command {
-    private String description;
-    private LocalDateTime from;
-    private String to;
+    private final String description;
+    private final LocalDateTime from;
+    private final String to;
 
     /**
      * Creates an event command.

@@ -12,8 +12,8 @@ import bob.ui.Ui;
  * Class representing the deadline command.
  */
 public class Deadline extends Command {
-    private String description;
-    private LocalDateTime by;
+    private final String description;
+    private final LocalDateTime by;
 
     /**
      * Creates a new deadline command.
