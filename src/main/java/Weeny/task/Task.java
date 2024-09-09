@@ -4,6 +4,10 @@ package weeny.task;
  * Represents a task with a description and completion status.
  */
 public class Task {
+    public final String WRITE_TIME_PATTERN = "H:mm a";
+    public final String WRITE_DATE_PATTERN = "MMM d yyyy";
+    public final String READ_TIME_PATTERN = "HHmm";
+    public final String READ_DATE_PATTERN = "dd/MM/yyyy";
     protected String description;
     protected boolean isDone;
     protected TaskType type;
@@ -33,8 +37,6 @@ public class Task {
             return false;
         }
     }
-
-
 
     /**
      * Returns the status icon for the task.

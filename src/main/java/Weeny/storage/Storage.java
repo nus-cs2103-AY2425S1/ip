@@ -12,8 +12,8 @@ import java.util.List;
 
 import weeny.task.Task;
 import weeny.task.Todo;
-import weeny.task.Events;
-import weeny.task.Deadlines;
+import weeny.task.Event;
+import weeny.task.Deadline;
 
 /**
  * Handles reading from and writing to files, as well as creating necessary files and directories.
@@ -72,7 +72,7 @@ public class Storage {
                 currentTask = new Todo(description);
                 break;
             case "D":
-                currentTask = new Deadlines(description, processTask[3]);
+                currentTask = new Deadline(description, processTask[3]);
                 break;
             case "E":
                 int split = processTask[3].indexOf('-');
@@ -82,7 +82,7 @@ public class Storage {
                 }
                 String startDatestring = processTask[3].substring(0, split).trim();
                 String endDatestring = processTask[3].substring(split + 1).trim();
-                currentTask = new Events(description, startDatestring, endDatestring);
+                currentTask = new Event(description, startDatestring, endDatestring);
                 break;
             default:
                 // Invalid task type

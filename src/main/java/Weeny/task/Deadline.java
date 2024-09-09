@@ -8,9 +8,9 @@ import weeny.parser.Parser;
 /**
  * Represents a deadline task with a description and due date/time.
  */
-public class Deadlines extends Task {
-    private LocalDate endDate;
-    private LocalTime endTime;
+public class Deadline extends Task {
+    private final LocalDate endDate;
+    private final LocalTime endTime;
     private Parser parser = new Parser();
 
     /**
@@ -19,7 +19,7 @@ public class Deadlines extends Task {
      * @param description The task description.
      * @param date The due date and time in "yyyy-MM-dd HH:mm" format.
      */
-    public Deadlines(String description, String date) {
+    public Deadline(String description, String date) {
         super(description, TaskType.DEADLINE);
         String[] splitDate = date.split(" ");
         this.endDate = parser.convertDate(splitDate[0]);
@@ -34,8 +34,8 @@ public class Deadlines extends Task {
     public String toOutput() {
         int checkMark = this.isDone ? 1 : 0;
         return "D | " + checkMark + " | " + this.description + " | "
-                + this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
-                + this.endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+                + this.endDate.format(DateTimeFormatter.ofPattern(READ_DATE_PATTERN)) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern(READ_TIME_PATTERN));
     }
 
     /**
@@ -46,7 +46,7 @@ public class Deadlines extends Task {
     @Override
     public String toString() {
         return "[D]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " (by: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " "
-                + this.endTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+                + " (by: " + this.endDate.format(DateTimeFormatter.ofPattern(WRITE_DATE_PATTERN)) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern(WRITE_TIME_PATTERN)) + ")";
     }
 }

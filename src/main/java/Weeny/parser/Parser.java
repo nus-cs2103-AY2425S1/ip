@@ -3,6 +3,7 @@ package weeny.parser;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Parses and converts date and time information from strings.
@@ -16,7 +17,13 @@ public class Parser {
      * @return The corresponding LocalDate object.
      */
     public LocalDate convertDate(String date) {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            System.err.println("Invalid date format: " + date);
+            throw new IllegalArgumentException("Date must be in the format dd/MM/yyyy", e);
+        }
     }
 
     /**
@@ -26,7 +33,13 @@ public class Parser {
      * @return The corresponding LocalTime object.
      */
     public LocalTime convertTime(String time) {
-        return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+        try {
+            return LocalTime.parse(time, formatter);
+        } catch (DateTimeParseException e) {
+            System.err.println("Invalid time format: " + time);
+            throw new IllegalArgumentException("Time must be in the format HHmm", e);
+        }
     }
 
     /**

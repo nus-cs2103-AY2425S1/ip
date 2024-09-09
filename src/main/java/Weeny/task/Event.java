@@ -8,11 +8,11 @@ import weeny.parser.Parser;
 /**
  * Represents an event task with a description, start, and end date/time.
  */
-public class Events extends Task {
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+public class Event extends Task {
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private Parser parser = new Parser();
 
     /**
@@ -22,7 +22,7 @@ public class Events extends Task {
      * @param start The start date and time in "yyyy-MM-dd HH:mm" format.
      * @param end The end date and time in "yyyy-MM-dd HH:mm" format.
      */
-    public Events(String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description, TaskType.EVENT);
         String[] splitStart = start.split(" ");
         String[] splitEnd = end.split(" ");
@@ -40,10 +40,10 @@ public class Events extends Task {
     public String toOutput() {
         int checkMark = this.isDone ? 1 : 0;
         return "E | " + checkMark + " | " + this.description + " | "
-                + this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
-                + this.startTime.format(DateTimeFormatter.ofPattern("HHmm")) + "-"
-                + this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
-                + this.endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+                + this.startDate.format(DateTimeFormatter.ofPattern(READ_DATE_PATTERN)) + " "
+                + this.startTime.format(DateTimeFormatter.ofPattern(READ_TIME_PATTERN)) + "-"
+                + this.endDate.format(DateTimeFormatter.ofPattern(READ_DATE_PATTERN)) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern(READ_TIME_PATTERN));
     }
 
     /**
@@ -54,9 +54,9 @@ public class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " "
-                + this.startTime.format(DateTimeFormatter.ofPattern("h:mm a"))
-                + " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " "
-                + this.endTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+                + " (from: " + this.startDate.format(DateTimeFormatter.ofPattern(WRITE_DATE_PATTERN)) + " "
+                + this.startTime.format(DateTimeFormatter.ofPattern(WRITE_TIME_PATTERN))
+                + " to: " + this.endDate.format(DateTimeFormatter.ofPattern(WRITE_DATE_PATTERN)) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern(WRITE_TIME_PATTERN)) + ")";
     }
 }
