@@ -48,11 +48,11 @@ checkstyle {
 }
 
 application {
-    mainClass.set("mendel.frontend.Launcher")
+    mainClass.set("mendel.main.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "mendel-1-a"
+    archiveBaseName = "mendel-2-a"
     archiveClassifier = null
 }
 
