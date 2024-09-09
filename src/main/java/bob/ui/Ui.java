@@ -75,6 +75,14 @@ public class Ui {
     }
 
     /**
+     * Prints the results found that match with the find function.
+     * @param resultsFound
+     */
+    public void showFindResults(String resultsFound) {
+        Ui.printLines(resultsFound);
+    }
+
+    /**
      * Prints Error message when there is no successful records matching keyword.
      */
     public static void showEmptySearchResults() {
