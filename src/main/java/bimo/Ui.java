@@ -99,6 +99,18 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Creates response for unmarking tasks.
+     *
+     * @param task Task marked as uncompleted.
+     * @return Response to Unmark command.
+     */
+    public String printTaskUnmarked(Task task) {
+        String response = "OOPS! I've unticked this task for you :(\n"
+                + "    " + task.toString();
+        return response;
+    }
+
 
     /**
      *  Checks if task exists in the list.
