@@ -30,11 +30,13 @@ public class Parser {
      */
     public static Command parse(String userInput) throws NedException {
         CommandTypes command = CommandTypes.findMatchingCommand(userInput);
+        assert command != null : "command cannot be null";
         switch (command) {
-        case UNKNOWN:
-            throw new UnknownCommandException(PARSER_UNKNOWN_COMMAND_ERROR_MESSAGE);
-        default:
+        case MARK, UNMARK, LIST, DELETE, TODO, DEADLINE, EVENT, BYE, FIND:
             return command.getCommand();
+        case UNKNOWN:
+        default:
+            throw new UnknownCommandException(PARSER_UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 
@@ -50,6 +52,7 @@ public class Parser {
     public static Task parseSavedTask(String savedLine) throws NedException {
         // uses CSV
         String[] splitLine = savedLine.split("\\|");
+        assert splitLine.length >= 1: "Task command should have matched at least 1 word!";
         String taskType = splitLine[0];
         try {
             int taskStatus = Integer.parseInt(splitLine[1]);

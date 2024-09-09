@@ -27,6 +27,7 @@ public class Storage {
      * @param filePath The path of the cached list of tasks
      */
     public Storage(String filePath) {
+        assert filePath != null : "filePath cannot be null";
         this.cacheFilePath = filePath;
         File f = new File(filePath);
         this.cacheFile = f;
@@ -64,6 +65,7 @@ public class Storage {
      */
 
     public void save(TaskList listOfTasks) throws NedException {
+        assert listOfTasks != null : "Task list cannot be null!";
         int sizeOfList = listOfTasks.getSize();
         try {
             FileWriter fw = new FileWriter(this.cacheFilePath);
