@@ -1,8 +1,10 @@
-package king;
+package king.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import king.KingException;
+import king.TaskList;
 import king.task.Task;
 
 /**
@@ -29,25 +31,24 @@ public class Ui {
     /**
      * Displays the goodbye message when the application is exiting.
      */
-    public void showGoodbye() {
-        System.out.println("You are dismissed, my humble servant.");
-        showLine();
+    public String showGoodbye() {
+        return "You are dismissed, my humble servant.";
     }
 
     /**
      * Displays a horizontal line to visually separate sections of the output.
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________";
     }
 
     /**
      * Displays an error message.
      *
-     * @param message the error message to be displayed
+     * @param error the exception message to be displayed
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showErrorAsString(KingException error) {
+        return error.toString();
     }
 
     /**
@@ -55,11 +56,12 @@ public class Ui {
      *
      * @param taskList the list of tasks to be displayed
      */
-    public void showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) {
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + taskList.getTask(i).toString());
+            builder.append(" ").append(i + 1).append(". ").append(taskList.getTask(i).toString()).append("\n");
         }
-        showLine();
+        return builder.toString();
     }
 
     /**
@@ -77,9 +79,8 @@ public class Ui {
      *
      * @param task the task that was marked as done
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Good job on the completion, my minion!\n" + task.toString());
-        showLine();
+    public String showTaskMarked(Task task) {
+        return "Good job on the completion, my minion!\n" + task.toString();
     }
 
     /**
@@ -87,9 +88,8 @@ public class Ui {
      *
      * @param task the task that was unmarked
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("Better get to work before I execute you!\n" + task.toString());
-        showLine();
+    public String showTaskUnmarked(Task task) {
+        return "Better get to work before I execute you!\n" + task.toString();
     }
 
     /**
@@ -98,11 +98,9 @@ public class Ui {
      * @param task the task that was added
      * @param size the current number of tasks in the list
      */
-    public void showTaskAdded(Task task, int size) {
-        showLine();
-        System.out.println("Approved. I've added this to your list of duties:\n" + task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
-        showLine();
+    public String showTaskAdded(Task task, int size) {
+        return "Approved. I've added this to your list of duties:\n"
+                + task.toString() + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -110,9 +108,8 @@ public class Ui {
      *
      * @param keyword The keyword used to search for tasks.
      */
-    public void showNoTaskFound(String keyword) {
-        System.out.println("No tasks found containing the keyword: " + keyword);
-        showLine();
+    public String showNoTaskFound(String keyword) {
+        return "No tasks found containing the keyword: " + keyword;
     }
 
     /**
@@ -120,11 +117,12 @@ public class Ui {
      *
      * @param tasks The list of tasks that were found to match the search keyword.
      */
-    public void showTasksFound(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showTasksFound(ArrayList<Task> tasks) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            builder.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
-        showLine();
+        return builder.toString();
     }
 }

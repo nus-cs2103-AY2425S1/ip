@@ -3,7 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 import king.task.Todo;
 
 /**
@@ -31,11 +31,11 @@ public class TodoCommand extends Command {
      * @throws KingException If there is an issue saving the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         Todo todo = new Todo(description);
         tasks.add(todo);
-        ui.showTaskAdded(todo, tasks.size());
         storage.save(tasks.getTaskList());
+        return ui.showTaskAdded(todo, tasks.size());
     }
 
     /**

@@ -3,7 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents a command that marks a specific task as done.
@@ -30,11 +30,11 @@ public class MarkCommand extends Command {
      * @throws KingException If the task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         try {
             tasks.markTaskAsDone(taskIndex);
-            ui.showTaskMarked(tasks.getTask(taskIndex));
             storage.save(tasks.getTaskList());
+            return ui.showTaskMarked(tasks.getTask(taskIndex));
         } catch (IndexOutOfBoundsException e) {
             throw new KingException("Invalid list number entered!");
         }

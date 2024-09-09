@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 import king.task.Event;
 
 /**
@@ -36,7 +36,7 @@ public class EventCommand extends Command {
      * @throws KingException If the input format is incorrect or the date format is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         String[] parts = input.split(" /from | /to ");
         if (parts.length == 3) {
             String description = parts[0].trim();
@@ -47,13 +47,13 @@ public class EventCommand extends Command {
                 LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 Event event = new Event(description, fromDate, toDate);
                 tasks.add(event);
-                ui.showTaskAdded(event, tasks.size());
                 storage.save(tasks.getTaskList());
+                return ui.showTaskAdded(event, tasks.size());
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid event date format. Please use yyyy-MM-dd HHmm.");
+                return "Invalid event date format. Please use yyyy-MM-dd HHmm.";
             }
         } else {
-            System.out.println("Invalid event date format. Please use yyyy-MM-dd HHmm.");
+            return "Invalid event date format. Please use yyyy-MM-dd HHmm.";
         }
     }
 

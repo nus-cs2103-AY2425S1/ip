@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 import king.task.Task;
 
 /**
@@ -25,18 +25,17 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         if (this.keyword.isEmpty()) {
             throw new KingException("Search keyword cannot be empty!");
         }
         ArrayList<Task> matchingTasks = tasks.getTaskList().stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
-
         if (matchingTasks.isEmpty()) {
-            ui.showNoTaskFound(keyword);
+            return ui.showNoTaskFound(keyword);
         } else {
-            ui.showTasksFound(matchingTasks);
+            return ui.showTasksFound(matchingTasks);
         }
     }
 

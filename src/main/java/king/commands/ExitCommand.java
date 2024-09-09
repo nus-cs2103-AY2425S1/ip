@@ -2,7 +2,7 @@ package king.commands;
 
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

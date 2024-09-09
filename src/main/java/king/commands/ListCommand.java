@@ -2,7 +2,7 @@ package king.commands;
 
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents a command that displays the list of tasks to the user.
@@ -18,8 +18,8 @@ public class ListCommand extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTaskList(tasks);
     }
 
     /**

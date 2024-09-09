@@ -3,7 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents an abstract command in the King application.
@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The storage to save or load tasks.
      * @throws KingException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws KingException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws KingException;
 
     /**
      * Returns whether this command signals the application to exit.

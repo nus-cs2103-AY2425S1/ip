@@ -3,7 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents a command that marks a task as undone in the task list.
@@ -30,11 +30,11 @@ public class UnmarkCommand extends Command {
      * @throws KingException If the task index is invalid or there is an issue saving the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         try {
             tasks.markTaskAsUndone(taskIndex);
-            ui.showTaskUnmarked(tasks.getTask(taskIndex));
             storage.save(tasks.getTaskList());
+            return ui.showTaskUnmarked(tasks.getTask(taskIndex));
         } catch (IndexOutOfBoundsException e) {
             throw new KingException("Invalid list number entered!");
         }

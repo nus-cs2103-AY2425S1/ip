@@ -3,7 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -30,13 +30,13 @@ public class DeleteCommand extends Command {
      * @throws KingException If the task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.remove(taskIndex);
             storage.save(tasks.getTaskList());
-            ui.showTaskList(tasks);
+            return ui.showTaskList(tasks);
         } else {
-            ui.showError("Invalid task number.");
+            return ui.showErrorAsString(new KingException("Enter a valid task number!"));
         }
     }
 

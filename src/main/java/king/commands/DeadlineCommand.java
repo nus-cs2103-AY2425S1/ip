@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.Ui;
+import king.ui.Ui;
 import king.task.Deadline;
 
 /**
@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
      * @throws KingException If the input format is incorrect or an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         String[] parts = this.input.split(" /by ");
         if (parts.length == 2) {
             String description = parts[0].trim();
@@ -44,8 +44,8 @@ public class DeadlineCommand extends Command {
                 LocalDateTime byDate = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 Deadline deadline = new Deadline(description, byDate);
                 tasks.add(deadline);
-                ui.showTaskAdded(deadline, tasks.size());
                 storage.save(tasks.getTaskList());
+                return ui.showTaskAdded(deadline, tasks.size());
             } catch (DateTimeParseException e) {
                 throw new KingException("Invalid deadline date format. Please use yyyy-MM-dd HHmm.");
             }
