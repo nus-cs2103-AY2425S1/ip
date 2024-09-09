@@ -63,6 +63,32 @@ public class Deadline extends Task {
         return "[D] " + super.toString() + " (by: " + by + ")";
     }
 
+    // @@author GeeksForGeeks
+    // Reused from https://www.geeksforgeeks.org/overriding-equals-method-in-java/
+    // with minor modifications
+    @Override
+    public boolean equals(Object o) {
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Deadline or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+
+        // typecast o to Deadline so that we can compare data members
+        Deadline c = (Deadline) o;
+
+        // Compare the data members and return accordingly
+        return CharSequence.compare(description, c.description) == 0
+                && CharSequence.compare(by, c.by) == 0
+                && Boolean.compare(isDone, c.isDone) == 0;
+    }
+    // @@author GeeksForGeeks
+
     @Override
     public String toUniqueFileString() {
         String s = super.toUniqueFileString();
