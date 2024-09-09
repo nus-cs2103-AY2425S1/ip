@@ -1,4 +1,4 @@
-[T][ ] water flowers
-[T][ ] go to school
 [E][X] convention (from: 15:30, 14 Dec 2006 | to: 15:29, 14 Jan 2007)
 [T][ ] buy books
+[T][X] go to school
+[T][ ] water flowers
