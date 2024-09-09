@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * This class is to test the functionality of the DeadlineTask class.
+ */
 public class DeadlineTaskTest {
 
     /** Description of the deadline task */
@@ -26,9 +29,9 @@ public class DeadlineTaskTest {
     }
 
     /**
-     * Tests if the class constructor can create a todo task with the correct information.
+     * Tests if the class constructor can create a deadline task with the correct information.
      * <p>
-     * The todo task must have the same desciription,
+     * The deadline task must have the same description,
      * the same due date as the input and the task must be unmarked.
      *
      */
@@ -97,7 +100,7 @@ public class DeadlineTaskTest {
     }
 
     /**
-     * Tests if the toCsvFormat function converts a todo task into the proper csv format.
+     * Tests if the toCsvFormat function converts a deadline task into the proper csv format.
      * <p>
      * For this test the task will be unmarked.
      */
@@ -114,7 +117,7 @@ public class DeadlineTaskTest {
     }
 
     /**
-     * Tests if the toCsvFormat function converts a todo task into the proper csv format.
+     * Tests if the toCsvFormat function converts a deadline task into the proper csv format.
      * <p>
      * For this test the task will be marked.
      */
@@ -132,7 +135,7 @@ public class DeadlineTaskTest {
     }
 
     /**
-     * Tests if the toString function converts a todo task into the proper string format.
+     * Tests if the toString function converts a deadline task into the proper string format.
      * <p>
      * For this test the task will be marked.
      */
@@ -149,7 +152,7 @@ public class DeadlineTaskTest {
     }
 
     /**
-     * Tests if the toString function converts a todo task into the proper string format.
+     * Tests if the toString function converts a deadline task into the proper string format.
      * <p>
      * For this test the task will be marked.
      */
