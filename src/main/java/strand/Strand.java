@@ -49,9 +49,11 @@ public class Strand {
         Scanner scan = new Scanner(System.in);
         while (isRunning) {
             String userInput = scan.nextLine();
+            assert userInput != null : "User input should not be null";
             try {
                 ui.showLine();
                 Command c = Parser.parse(userInput);
+                assert c != null : "Parsed command should not be null";
                 c.execute(listOfTasks, ui, storage);
                 isRunning = c.isRunning();
             } catch (StrandException e) {
@@ -63,8 +65,10 @@ public class Strand {
     }
 
     public String getResponse(String input) {
+        assert input != null : "Input for getResponse should not be null";
         try {
             Command c = Parser.parse(input);
+            assert c != null : "Parsed command in getResponse should not be null";
             return c.execute(listOfTasks, ui, storage);
         } catch (StrandException e) {
             return ui.showError(e.getMessage());

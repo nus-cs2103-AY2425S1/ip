@@ -96,6 +96,7 @@ public class Storage {
      * @throws StrandException If there is an error creating or writing to the file.
      */
     public void save(String listOfTasks) throws StrandException {
+        assert listOfTasks != null : "Cannot save null list of tasks";
         try {
             File file = new File(this.filepath);
             if (!file.exists()) {

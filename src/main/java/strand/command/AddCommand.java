@@ -61,7 +61,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         tasks.addTask(this.newTask);
         String output = ui.taskAdded(this.newTask, tasks.getNumOfTasks());
-        storage.save(tasks.toFile());
+        storage.save(tasks.convertToFileFormat());
         return output;
     }
 }

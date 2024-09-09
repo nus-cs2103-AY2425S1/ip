@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         Task task = tasks.mark(this.index, this.mark);
         String output = ui.taskMarked(task, this.mark);
-        storage.save(tasks.toFile());
+        storage.save(tasks.convertToFileFormat());
         return output;
     }
 }

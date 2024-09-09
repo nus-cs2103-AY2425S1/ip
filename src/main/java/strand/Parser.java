@@ -19,7 +19,6 @@ import strand.exception.StrandWrongCommandException;
  * This class may throw exceptions if the input is invalid or unrecognized.
  * </p>
  */
-
 public class Parser {
 
     /**
@@ -30,6 +29,7 @@ public class Parser {
      * @throws StrandException If the input is invalid or the command is not recognized.
      */
     static Command parse(String input) throws StrandException {
+        assert input != null : "Input cannot be null";
         String[] split = input.trim().split("\\s+", 2);
         if (split.length == 0) {
             throw new StrandWrongCommandException();
@@ -53,6 +53,7 @@ public class Parser {
      * @throws StrandWrongCommandException If the command is not recognized.
      */
     private static CommandEnums getCommand(String input) throws StrandWrongCommandException {
+        assert input != null : "Command input cannot be null";
         try {
             return CommandEnums.valueOf(input);
         } catch (IllegalArgumentException e) {
@@ -70,6 +71,7 @@ public class Parser {
      */
     private static Command parseIndex(
             CommandEnums command, String[] split) throws StrandException {
+        assert command != null : "Command cannot be null";
         if (split.length < 2) {
             throw new StrandNumberNotFoundException(split[0]);
         }
@@ -95,6 +97,7 @@ public class Parser {
      * @throws StrandDescNotFoundException If the description or other task details are missing.
      */
     private static Command parseDescription(CommandEnums command, String[] split) throws StrandException {
+        assert command != null : "Command cannot be null";
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new StrandDescNotFoundException("Description");
         }
@@ -116,6 +119,7 @@ public class Parser {
      * @throws StrandDescNotFoundException If the deadline details are missing or invalid.
      */
     private static Command parseDeadlineCommand(String desc) throws StrandException {
+        assert desc != null : "Description for deadline cannot be null";
         if (!desc.contains(" /by ")) {
             throw new StrandDescNotFoundException("Deadline");
         }
@@ -132,6 +136,7 @@ public class Parser {
      * @throws StrandDescNotFoundException If the start or end time details are missing or invalid.
      */
     private static Command parseEventCommand(String desc) throws StrandException {
+        assert desc != null : "Description for event cannot be null";
         if (!desc.contains(" /from ") || !desc.contains(" /to ")) {
             throw new StrandDescNotFoundException("Event times");
         }
@@ -141,6 +146,9 @@ public class Parser {
         return new AddCommand(description, start, end);
     }
 
+    /**
+     * Enumeration of possible command types.
+     */
     enum CommandEnums {
         TODO,
         DEADLINE,

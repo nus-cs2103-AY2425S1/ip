@@ -1,21 +1,20 @@
 package strand;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import strand.exception.StrandException;
 import strand.exception.StrandWrongIndexException;
 import strand.task.Task;
 
 /**
- * The {@code TaskList} class manages a list of tasks and provides methods to
- * manipulate the list according to the commands.
+ * The {@code TaskList} class interacts keeps track of the list of tasks and
+ * edits it according to the commands.
  * <p>
- * This class can throw exceptions if the index of the task is invalid.
+ * This class may throw exceptions if the index of the task is invalid.
  * </p>
  */
 public class TaskList {
-    private final List<Task> listOfTasks;
+    private final ArrayList<Task> listOfTasks;
 
     /**
      * Constructs a new {@code TaskList} instance with an empty task list.
@@ -29,7 +28,7 @@ public class TaskList {
      *
      * @param listOfTasks The list of tasks to initialize the TaskList with.
      */
-    public TaskList(List<Task> listOfTasks) {
+    public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = new ArrayList<>(listOfTasks);
     }
 
@@ -39,6 +38,7 @@ public class TaskList {
      * @param newTask The task to be added.
      */
     public void addTask(Task newTask) {
+        assert newTask != null : "Cannot add a null task";
         listOfTasks.add(newTask);
     }
 
@@ -49,11 +49,13 @@ public class TaskList {
      * @return The removed task.
      * @throws StrandException If the index is invalid.
      */
-    public Task deleteTask(int index) throws StrandException {
-        if (index < 1 || index > listOfTasks.size()) {
-            throw new StrandWrongIndexException(listOfTasks.size());
+    public Task deleteTask(Integer index) throws StrandException {
+        if (index > this.listOfTasks.size() || index < 1) {
+            throw new StrandWrongIndexException(this.listOfTasks.size());
         }
-        return listOfTasks.remove(index - 1);
+        Task t = this.listOfTasks.get(index - 1);
+        this.listOfTasks.remove(index - 1);
+        return t;
     }
 
     /**
@@ -64,8 +66,9 @@ public class TaskList {
      * @return The updated task.
      * @throws StrandException If the index is invalid.
      */
-    public Task mark(int index, boolean mark) throws StrandException {
-        if (index < 1 || index > listOfTasks.size()) {
+    public Task mark(Integer index, Boolean mark) throws StrandException {
+        assert index != null : "Index cannot be null";
+        if (index > listOfTasks.size() || index < 1) {
             throw new StrandWrongIndexException(listOfTasks.size());
         }
         Task task = listOfTasks.get(index - 1);
@@ -82,8 +85,8 @@ public class TaskList {
      *
      * @return The number of tasks.
      */
-    public int getNumOfTasks() {
-        return listOfTasks.size();
+    public Integer getNumOfTasks() {
+        return this.listOfTasks.size();
     }
 
     @Override
@@ -100,10 +103,10 @@ public class TaskList {
      *
      * @return The file representation of the tasks.
      */
-    public String toFile() {
+    public String convertToFileFormat() {
         StringBuilder sb = new StringBuilder();
         for (Task task : listOfTasks) {
-            sb.append(task.getFile()).append("\n");
+            sb.append(task.convertToFileFormat()).append("\n");
         }
         return sb.toString();
     }
