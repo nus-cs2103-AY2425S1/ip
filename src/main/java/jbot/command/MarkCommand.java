@@ -25,19 +25,23 @@ public class MarkCommand implements JBotCommand {
 
     /**
      * Executes the Mark command using the provided input string.
-     * Marks the task at the specified index as done and prints a confirmation message.
+     * Marks the task at the specified index as done and returns a confirmation message.
      *
      * @param input The user input string containing the command and the task index.
      *              The index is expected to be the second part of the input string.
+     * @return A string containing the confirmation message and the marked task.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
 
         Task task = TaskList.get(taskIndex);
         task.markAsDone();
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("  %1$s\n", task);
+        StringBuilder result = new StringBuilder();
+        result.append("Nice! I've marked this task as done:\n");
+        result.append(String.format("  %1$s\n", task));
+
+        return result.toString();
     }
 }

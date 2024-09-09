@@ -16,8 +16,8 @@ public abstract class AddCommand implements JBotCommand {
      * @param input The user input string containing the command and its arguments.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         int count = TaskList.size();
-        System.out.printf("Now you have %1$s tasks in the list.\n", count);
+        return String.format("Now you have %1$s tasks in the list.\n", count);
     }
 }
