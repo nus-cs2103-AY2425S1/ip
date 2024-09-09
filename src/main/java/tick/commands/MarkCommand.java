@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {
+        assert tasks != null : "TaskList cannot be null.";
         Task doneTask = tasks.markTaskAsDone(this.toMark);
         ui.showTaskMarked(doneTask);
         storage.saveData(tasks.getAllTasks());

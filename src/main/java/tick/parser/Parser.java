@@ -76,6 +76,7 @@ public class Parser {
             throw new TickException("Please specify the deadline task in this format:"
                     + " <description> /by <deadline>.");
         }
+        assert parts.length == 2 : "Deadline task should have exactly 2 arguments.";
         try {
             LocalDate by = LocalDate.parse(parts[1]);
             Deadline task = new Deadline(parts[0], by);
@@ -91,6 +92,7 @@ public class Parser {
             throw new TickException("Please specify the event task in this format:"
                     + " <description> /from <start> /to <end>.");
         }
+        assert parts.length == 3 : "Event task should have exactly 3 arguments.";
         try {
             LocalDate from = LocalDate.parse(parts[1]);
             LocalDate to = LocalDate.parse(parts[2]);

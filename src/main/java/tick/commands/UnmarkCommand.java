@@ -31,6 +31,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {
+        assert tasks != null : "TaskList cannot be null.";
         Task undoneTask = tasks.markTaskAsUndone(this.toUnmark);
         ui.showTaskUnmarked(undoneTask);
         storage.saveData(tasks.getAllTasks());
