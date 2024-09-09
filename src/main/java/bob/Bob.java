@@ -54,6 +54,9 @@ public class Bob {
             String[] inputWords = input.split("\s+");
             String keyword = inputWords[0];
 
+            // Command command = Parser.parseCommand(input); //get the specific command type
+            // String output = command.execute() //executes the command, will print out the string along the way
+
             switch (keyword) {
             case "list":
                 taskList.listRecords();

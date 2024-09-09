@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import bob.command.*;
+import bob.ui.Ui;
+
 /**
  * Handles user commands.
  */
@@ -39,4 +42,34 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses the input given by user.
+     * @param input Input by user.
+     * @return Command to be executed.
+     */
+    public static Command parseCommand(String input) {
+        String[] inputWordsList = input.split("\s+");
+        String keyword = inputWordsList[0];
+        switch (keyword) {
+        case "list":
+            return new ListCommand(input);
+        case "mark":
+            return new MarkCommand(input);
+        case "unmark":
+            return new UnMarkCommand(input);
+        case "delete":
+            return new DeleteCommand(input);
+        case "event":
+            return new EventCommand(input);
+        case "deadline":
+            return new DeadlineCommand(input);
+        case "todo":
+            return new TodoCommand(input);
+        case "find":
+            return new FindCommand(input);
+        default:
+            Ui.requestValidCommand();
+            return new Command(input);
+        }
+    }
 }
