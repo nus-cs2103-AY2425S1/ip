@@ -22,7 +22,7 @@ public class DateHandler {
     };
 
     /**
-     * Parses an input string into a c if possible.
+     * Parses an input string into a {@code LocalDateTime} if possible.
      * <p>
      * Otherwise, returns a null {@code LocalDateTime}.
      * @param date The input string to parse.

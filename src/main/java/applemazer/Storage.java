@@ -29,7 +29,7 @@ public class Storage {
      * <p>
      * A new filepath will be created if the stored filepath does not exist.
      */
-    public void save() {
+    public void saveTaskList() {
         System.out.println("Saving data...");
         String directoryPath = "./data";
         File directory = new File(directoryPath);
@@ -70,7 +70,7 @@ public class Storage {
      * If the stored filepath does not exist, a new task list will be returned.
      */
     @SuppressWarnings("unchecked")
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadTaskList() {
         String directoryPath = "./data";
         File directory = new File(directoryPath);
         File file = new File(filePath);

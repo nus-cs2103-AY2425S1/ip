@@ -43,7 +43,7 @@ public class EventCommand extends Command {
         try {
             Task task = new Event(desc, from, to);
             tasks.add(task);
-            storage.save();
+            storage.saveTaskList();
             return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
             return """
