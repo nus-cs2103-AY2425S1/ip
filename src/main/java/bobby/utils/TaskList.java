@@ -1,15 +1,16 @@
 package bobby.utils;
 
-import bobby.tasks.Task;
-import bobby.exception.BobbyException;
-
 import java.util.ArrayList;
+
+import bobby.exception.BobbyException;
+import bobby.tasks.Task;
+
 
 /**
  * The TaskList class manages the Task operations.
  */
 public class TaskList {
-    private ArrayList<Task> listOfTasks;
+    private final ArrayList<Task> listOfTasks;
 
     /**
      * Constructs a TaskList with the specified ArrayList of Task.

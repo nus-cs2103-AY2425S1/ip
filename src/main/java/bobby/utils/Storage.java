@@ -1,18 +1,16 @@
 package bobby.utils;
 
-import bobby.tasks.Deadline;
-import bobby.tasks.Event;
-import bobby.tasks.Task;
-import bobby.tasks.Todo;
-import bobby.exception.BobbyException;
-import bobby.exception.EmptyDescriptionException;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bobby.exception.BobbyException;
+import bobby.tasks.Deadline;
+import bobby.tasks.Event;
+import bobby.tasks.Task;
+import bobby.tasks.Todo;
 
 /**
  * The Storage class a storage where users can store their tasks.
@@ -20,7 +18,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage instance
@@ -52,8 +50,9 @@ public class Storage {
      * @param listOfTasks The list of task that is in Bobby.
      * @param line Each line in the file.
      */
-    public void processFileLines(ArrayList<Task> listOfTasks, String line) throws EmptyDescriptionException {
+    public void processFileLines(ArrayList<Task> listOfTasks, String line) throws BobbyException {
         String[] lineParts = line.split(" \\| ");
+
         switch (lineParts[0]) {
         case "T":
             Task t = Todo.createTodo("todo" + lineParts[2]);
@@ -76,6 +75,8 @@ public class Storage {
             }
             listOfTasks.add(e);
             break;
+        default:
+            throw new BobbyException("Error has occurred!");
         }
     }
 

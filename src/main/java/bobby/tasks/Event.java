@@ -7,11 +7,11 @@ import bobby.exception.EmptyDescriptionException;
  * It represents a task with a description, a starting and ending period.
  */
 public class Event extends Task {
-    String start;
-    String end;
+    private final String start;
+    private final String end;
 
     /**
-     *Constructs an Event task with a description, start period and end period.
+     * Constructs an Event task with a description, start period and end period.
      *
      * @param description Description of the task.
      * @param start Start period of the task.
@@ -37,7 +37,7 @@ public class Event extends Task {
         }
         String eventName = eventDescription.split(" /")[0];
         String eventStart = eventDescription.split(" /")[1].substring(5);
-        String eventEnd = eventDescription.split (" /")[2].substring(3);
+        String eventEnd = eventDescription.split(" /")[2].substring(3);
         return new Event(eventName, eventStart, eventEnd);
     }
 
