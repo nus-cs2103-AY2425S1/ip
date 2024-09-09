@@ -27,7 +27,6 @@ public class Parser {
             remaining = input.substring(input.indexOf(" ") + 1);
         }
 
-        // Return command based on input given
         if (command.equals("todo")) {
             return new AddCommand(remaining, AddCommand.TaskType.TODO);
         } else if (command.equals("deadline")) {

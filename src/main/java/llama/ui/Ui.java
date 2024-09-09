@@ -1,7 +1,6 @@
 package llama.ui;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * Deals with interactions with the user
@@ -12,6 +11,8 @@ public class Ui {
     private static final String hr = "____________________________________________________________";
     /**
      * Displays welcome message to user
+     *
+     * @return welcome message with proper formatting
      */
     public String displayWelcome() {
         String response = "";
@@ -24,15 +25,18 @@ public class Ui {
 
     /**
      * Displays end program message to user
+     *
+     * @return end program message with proper formatting
      */
     public String displayBye() {
         return displayString("Baaaaaa byeeee. Come baaaaack soon!");
     }
 
     /**
-     * Displays custom message to user with right formatting
+     * Displays in CLI program message to user and returns message
      *
-     * @param str string to be displayed to user
+     * @param str string to be displayed
+     * @return message with proper formatting
      */
     public String displayString(String str) {
         System.out.println("\t" + str);
@@ -44,18 +48,5 @@ public class Ui {
      */
     public void displayLine() {
         this.displayString(hr);
-    }
-
-    /**
-     * Gets user input from terminal
-     *
-     * @param sc scanner used to get user input
-     * @return string of user input
-     */
-    public String getUserInput(Scanner sc) {
-        this.displayLine();
-        String input = sc.nextLine();
-        this.displayLine();
-        return input;
     }
 }

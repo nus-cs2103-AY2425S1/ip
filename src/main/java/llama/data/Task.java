@@ -8,7 +8,7 @@ public abstract class Task {
     private String description;
 
     /**
-     * Constructor for Task
+     * Creates a Task Object
      *
      * @param description description for task to be done
      * @param isDone true if task is done; else false
@@ -23,21 +23,21 @@ public abstract class Task {
     }
 
     /**
-     * Method to mark the task as done
+     * Marks the task as done
      */
     public void markDone() {
         this.isComplete = true;
     }
 
     /**
-     * Method to mark the task as not done
+     * Marks the task as not done
      */
     public void markNotDone() {
         this.isComplete = false;
     }
 
     /**
-     * Method that converts Task into a string that can be saved in a file
+     * Converts Task into a string that can be saved in a file
      *
      * @return String in the correct format for file saving
      */
@@ -60,7 +60,7 @@ public abstract class Task {
 
     /**
      * Search task description to see if it contains given keyword
-     * Ignores case
+     * Ignores case of search string
      *
      * @param searchStr keyword to search task description with
      * @return true if keyword found; else false

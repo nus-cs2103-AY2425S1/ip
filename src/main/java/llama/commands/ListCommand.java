@@ -17,7 +17,7 @@ public class ListCommand implements Command {
     }
 
     /**
-     * Constructor for ListCommand
+     * Creates the command to list out all tasks
      *
      * @param remaining keyword used to search for tasks to list
      */

@@ -7,7 +7,7 @@ import llama.data.TaskList;
 import llama.ui.Ui;
 
 /**
- * Represents to command to exit the program
+ * Represents the command to exit the program
  */
 public class ExitCommand implements Command {
     @Override
