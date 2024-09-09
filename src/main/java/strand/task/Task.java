@@ -124,7 +124,7 @@ public abstract class Task {
      *
      * @return A string formatted for file storage.
      */
-    public String getFile() {
+    public String convertToFileFormat() {
         return String.format("%s | %s", this.isDone ? "1" : "0", this.description);
     }
 

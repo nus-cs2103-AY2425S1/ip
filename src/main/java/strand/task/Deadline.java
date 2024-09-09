@@ -48,8 +48,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getFile() {
-        return String.format("D | %s | %s", super.getFile(),
+    public String convertToFileFormat() {
+        return String.format("D | %s | %s", super.convertToFileFormat(),
                 this.deadline != null ? this.deadline : this.stringDeadline);
     }
 }
