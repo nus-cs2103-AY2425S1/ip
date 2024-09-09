@@ -37,13 +37,6 @@ public class Ui {
     }
 
     /**
-     * Displays the message when the user exits the program.
-     */
-    public String receiveCommand() {
-        return reader.nextLine().strip();
-    }
-
-    /**
      * Responds to the user's command.
      *
      * @param userCmd the user's command
