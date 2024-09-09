@@ -1,5 +1,6 @@
 package jeff;
 
+import javafx.scene.layout.VBox;
 import jeff.command.Command;
 import jeff.exceptions.JeffException;
 
@@ -25,18 +26,10 @@ public class Jeff {
         this.storage = new Storage(DIR_PATH, FILE_PATH);
     }
 
-    public static void main(String[] args) {
-        new Jeff().run();
-    }
-
     /**
      * Runs the JEFF application, handling user input and executing commands.
      */
     public void run() {
-        // Load saved files (if any)
-        tasks = new TaskList(storage.loadData());
-        ui.showWelcome();
-        ui.showLine();
         boolean exitChat = false;
         while (!exitChat) {
             try {
@@ -50,5 +43,29 @@ public class Jeff {
                 ui.showLine();
             }
         }
+    }
+
+    /**
+     * Initialises the JEFF Chatbot to load saved tasks.
+     */
+    public void init() {
+        // Load saved files (if any)
+        tasks = new TaskList(storage.loadData());
+    }
+
+    public void getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (JeffException e) {
+            ui.showError(e.getMessage());
+        } finally {
+            ui.showLine();
+        }
+    }
+
+    public void setDialogContainer(VBox vBox) {
+        ui.setDialogContainer(vBox);
+        ui.showWelcome();
     }
 }

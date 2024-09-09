@@ -2,6 +2,10 @@ package jeff;
 
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import jeff.guis.DialogBox;
+
 /**
  * Handles interactions with the user.
  *
@@ -15,6 +19,8 @@ public class Ui {
     // Regular Colors
     public static final String RED = "\033[0;31m"; // RED
 
+    // Scanner
+    private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
     // UI Elements
     private static final String LINE = "--------------------------------------------";
     private static final String LOGO =
@@ -27,28 +33,39 @@ public class Ui {
                           \\/\\/           \\/     \\/      \\/     \\/                    \\/      \\/         \\/    |
                     """;
 
-    // Scanner
-    private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
+    // Dialog
+    private VBox dialogContainer;
+
+    // Jeff Image
+    private Image jeffImage = new Image(this.getClass().getResourceAsStream("/images/crack_yoda.jpg"));
 
     /**
      * Displays a welcome message to the user at the start of the application.
      */
     public void showWelcome() {
-        System.out.println("Hello there!");
+        showMessage("Hello there!");
         System.out.println(LOGO);
-        System.out.println("What can I do for you?");
+        showMessage("What can I do for you?");
+        this.showLine();
     }
 
     public void showLine() {
         System.out.println(LINE);
     }
 
+    /**
+     * Adds a message to be displayed to the user
+     * @param msg
+     */
     public void showMessage(String msg) {
         System.out.println(msg);
+        dialogContainer.getChildren().add(
+                DialogBox.getJeffDialog(msg, jeffImage)
+        );
     }
 
     public void showError(String error) {
-        System.out.println(RED + "ERROR!" + RESET + " " + error);
+        showMessage(RED + "ERROR!" + RESET + " " + error);
     }
 
     public String readCommand() {
@@ -56,6 +73,10 @@ public class Ui {
     }
 
     public void showExit() {
-        System.out.println("Bye for now...");
+        showMessage("Bye for now...");
+    }
+
+    public void setDialogContainer(VBox dCont) {
+        this.dialogContainer = dCont;
     }
 }
