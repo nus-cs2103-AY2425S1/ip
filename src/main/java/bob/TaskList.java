@@ -162,7 +162,7 @@ public class TaskList {
         Task newTask = new ToDo(description, TaskType.TODO);
         tasks.add(newTask);
 
-        assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task"; // Check size increase
+        assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task";
         return ui.showTaskAdded(newTask, tasks.size());
     }
 
@@ -273,8 +273,7 @@ public class TaskList {
                 found = true;
             }
         }
-
-        // Display the found tasks or an error message
+        
         if (found) {
             return ui.showTasksFound(tasksWithKey.toArray(new Task[0]));
         } else {
