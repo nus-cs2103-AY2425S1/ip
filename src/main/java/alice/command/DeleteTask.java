@@ -37,6 +37,7 @@ public class DeleteTask extends Command {
         try {
             int index = taskNumber - 1;
             removedTask = taskList.deleteTask(index);
+            assert removedTask != null;
             return String.format("Noted. I've removed this task:\n\t%s", removedTask);
         } catch (IndexOutOfBoundsException exception) {
             throw new InvalidTaskException("Task number out of bounds. Usage: delete <task number>");

@@ -36,6 +36,7 @@ public class UnmarkTask extends Command {
         try {
             int index = taskNumber - 1;
             Task unmarkedTask = taskList.unmarkTask(index);
+            assert unmarkedTask != null;
             return String.format("OK, I've marked this task as not done yet:", unmarkedTask);
         } catch (IndexOutOfBoundsException exception) {
             throw new InvalidTaskException("Task number out of bounds. Usage: unmark <task number>");

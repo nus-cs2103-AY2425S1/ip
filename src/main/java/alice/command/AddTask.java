@@ -25,18 +25,22 @@ public class AddTask extends Command {
      */
     @Override
     public String execute(String input) throws InvalidTaskException {
+        assert input.split(" ").length > 0;
         Task.TaskType taskType = Task.TaskType.valueOf(input.split(" ")[0].toUpperCase());
         Task task;
         try {
             switch (taskType) {
             case TODO:
                 task = new ToDo(input);
+                assert task instanceof ToDo;
                 break;
             case DEADLINE:
                 task = new Deadline(input);
+                assert task instanceof Deadline;
                 break;
             case EVENT:
                 task = new Event(input);
+                assert task instanceof Event;
                 break;
             default:
                 // not possible
