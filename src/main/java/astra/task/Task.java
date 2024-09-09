@@ -7,7 +7,7 @@ import astra.AstraException;
 /**
  * Represents a task.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /**
      * Represents the types of a task.
      */

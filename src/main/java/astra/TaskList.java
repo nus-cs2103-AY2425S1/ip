@@ -102,8 +102,22 @@ public class TaskList {
     public TaskList find(String keyword) {
         return new TaskList(
                 tasks.stream()
-                .filter(task -> task.hasKeyword(keyword))
-                .collect(toList())
+                        .filter(task -> task.hasKeyword(keyword))
+                        .collect(toList())
+        );
+    }
+
+    /**
+     * Sorts the tasks by their deadline.
+     * Tasks without a deadline are placed at the end.
+     *
+     * @return A TaskList containing the sorted tasks.
+     */
+    public TaskList sortByDeadline() {
+        return new TaskList(
+                tasks.stream()
+                        .sorted()
+                        .collect(toList())
         );
     }
 }
