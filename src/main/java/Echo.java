@@ -40,11 +40,11 @@ public class Echo {
     /**
      * Runs the main loop of the Echo application, processing user commands and interacting with the user interface.
      */
-    public void run() {
-        ui.showWelcomeMessage();
+    public String run(String input) {
+        //ui.showWelcomeMessage();
 
-        while (true) {
-            String input = ui.readCommand();
+        //while (true) {
+            //String input = ui.readCommand();
             String[] parts = Parser.parseCommand(input);
             String command = parts[0];
 
@@ -53,47 +53,49 @@ public class Echo {
                 switch (command) {
                 case "bye":
                     storage.save(tasks.getTasks());
-                    ui.showGoodbyeMessage();
-                    return;
+                    return ui.showGoodbyeMessage();
+                    //return;
                 case "list":
-                    ui.showTaskList(tasks.getTasks());
-                    break;
+                    return ui.showTaskList(tasks.getTasks());
+                    //break;
                 case "mark":
                     tasks.markTask(Integer.parseInt(parts[1]));
-                    ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-                    break;
+                    return ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                    //break;
                 case "unmark":
                     tasks.unmarkTask(Integer.parseInt(parts[1]));
-                    ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-                    break;
+                    return ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                    //break;
                 case "todo":
                     Task todo = tasks.addTodo(parts[1]);
-                    ui.showTaskAdded(todo, tasks.getTasks().size());
-                    break;
+                    return ui.showTaskAdded(todo, tasks.getTasks().size());
+                    //break;
                 case "deadline":
                     Deadline deadline = tasks.addDeadline(parts[1]);
-                    ui.showTaskAdded(deadline, tasks.getTasks().size());
-                    break;
+                    return ui.showTaskAdded(deadline, tasks.getTasks().size());
+                    //break;
                 case "event":
                     Events event = tasks.addEvent(parts[1]);
-                    ui.showTaskAdded(event, tasks.getTasks().size());
-                    break;
+                    return ui.showTaskAdded(event, tasks.getTasks().size());
+                    //break;
                 case "delete":
                     Task removedTask = tasks.deleteTask(Integer.parseInt(parts[1]));
-                    ui.showTaskRemoved(removedTask, tasks.getTasks().size());
-                    break;
+                    return ui.showTaskRemoved(removedTask, tasks.getTasks().size());
+                    //break;
                 case "find":
                     String toFind = parts[1];
                     tasks.find(toFind);
                     break;
                 default:
-                    ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
+                    return ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
                 }
             } catch (EchoException | IOException e) {
-                ui.showErrorMessage(e.getMessage());
+                return ui.showErrorMessage(e.getMessage());
             }
 
-        }
+        //}
+
+        return command; //should not reach this
     }
 
 
@@ -104,7 +106,7 @@ public class Echo {
      */
     public static void main(String[] args) {
         Echo echo = new Echo(DOCS_TASKS_TXT);
-        echo.run();
+        //echo.run();
     }
 
 
