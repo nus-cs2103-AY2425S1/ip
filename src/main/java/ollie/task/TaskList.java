@@ -19,6 +19,7 @@ public class TaskList {
      * Constructs a ollie.task.TaskList instance.
      */
     public TaskList() {
+        assert tasks != null : "Oops! Task list cannot be null.";
         this.tasks = new ArrayList<>();
         this.taskCount = 0;
     }
@@ -43,16 +44,6 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
-    }
-
-    /**
-     * Returns the task at the specified index.
-     *
-     * @param index The index of the task to retrieve.
-     * @return The task at the specified index.
-     */
-    public Task getTask(int index) {
-        return tasks.get(index);
     }
 
     /**
@@ -104,6 +95,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public String addTask(Task task) {
+        assert task != null : "Oops! Task cannot be null.";
         tasks.add(task);
         taskCount = tasks.size();
         if (storage != null) {
@@ -118,6 +110,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTaskWihoutMessage(Task task) {
+        assert task != null : "Oops! Task cannot be null.";
         tasks.add(task);
         taskCount = tasks.size();
         if (storage != null) {

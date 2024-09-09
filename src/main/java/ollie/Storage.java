@@ -56,7 +56,7 @@ public class Storage {
      * @return task object.
      */
     private Task parseTask(String taskData) throws OllieException {
-        assert taskData != null : "Oops! ollie.task.Task data string cannot be empty.";
+        assert taskData != null : "Oops! Task data string cannot be empty.";
 
         try {
             // Split the taskData by " | "
@@ -134,7 +134,7 @@ public class Storage {
 
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
-                assert isCreated : "Oops! Failed to create a new file for the list of tasks.";
+                assert isCreated : "Oops! A file should be created for the task list.";
                 return this.taskList.getTasks();
             }
 
