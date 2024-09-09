@@ -1,5 +1,7 @@
 package david.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Todo task class
  */
@@ -12,6 +14,11 @@ public class TodoTask extends Task {
      */
     public TodoTask(String eventName, boolean isCompleted) {
         super(eventName, isCompleted);
+    }
+
+    @Override
+    public LocalDateTime getLocalDateTime() {
+        return null;
     }
 
     @Override

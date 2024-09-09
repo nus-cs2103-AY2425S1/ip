@@ -20,6 +20,11 @@ public class DeadlineTask extends Task {
         super(eventName, isCompleted);
         this.by = by;
     }
+
+    public LocalDateTime getLocalDateTime() {
+        return by;
+    }
+
     @Override
     public String toCacheString() {
         String isCompleted = this.isCompleted() ? "1" : "0";

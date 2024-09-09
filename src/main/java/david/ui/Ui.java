@@ -47,6 +47,18 @@ public class Ui {
     }
 
     /**
+     * Displays a successful sorting message
+     * @param tasks TaskList of tasks
+     * @return Formatted string response
+     */
+    public String displaySuccessfulSortMessage(TaskList tasks) {
+        return "Got it. I have sorted your tasks as specified.\n"
+                + "This is your new list of tasks\n"
+                + tasks.toString();
+    }
+
+
+    /**
      * Displays the task details
      * @param t Task to display
      * @param noOfTasks Current size of arraylist

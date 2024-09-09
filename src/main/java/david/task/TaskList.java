@@ -2,6 +2,7 @@ package david.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -90,6 +91,21 @@ public class TaskList {
 
         return events;
     }
+
+    /**
+     * Sorts the tasks in ascending order, placing Todos first
+     */
+    public void sortAscending() {
+        tasks.sort(Comparator.comparing(x -> x.getLocalDateTime(), Comparator.nullsFirst(Comparator.naturalOrder())));
+    }
+
+    /**
+     * Sorts the tasks in descending order, placing Todos first
+     */
+    public void sortDescending() {
+        tasks.sort(Comparator.comparing(x -> x.getLocalDateTime(), Comparator.nullsFirst(Comparator.reverseOrder())));
+    }
+
     @Override
     public String toString() {
         if (tasks.size() == 0) {

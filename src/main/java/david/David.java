@@ -76,6 +76,8 @@ public class David {
                 return deleteTask(inputString);
             case "FIND":
                 return findEvent(inputString);
+            case "SORT":
+                return sortEvent(inputString);
             default:
                 throw new DavidUnknownActionException();
             }
@@ -83,6 +85,28 @@ public class David {
             //The actual error message thrown depends on the runtime type of the exception thrown. (Polymorphism)
             return ui.displayErrorMessage(e);
         }
+    }
+
+    /**
+     * Sorts the existing tasks in increasing or decreasing order
+     * @param s String representing the sort order
+     */
+    public String sortEvent(String s) throws DavidInvalidArgumentsException {
+        String sortOrder = StringParser.parseStringToArguments(s);
+        sortOrder = sortOrder.toUpperCase();
+
+        switch (sortOrder) {
+        case "ASC":
+            tasks.sortAscending();
+            break;
+        case "DESC":
+            tasks.sortDescending();
+            break;
+        default:
+            System.out.println("printing");
+        }
+
+        return ui.displaySuccessfulSortMessage(tasks);
     }
 
     /**
