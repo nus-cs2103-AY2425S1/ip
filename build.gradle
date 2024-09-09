@@ -33,11 +33,12 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("Buu.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "Buu"
+    archiveFileName = 'Buu.jar'
     archiveClassifier = null
 }
 
