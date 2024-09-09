@@ -1,5 +1,8 @@
 package joe.task;
 
+import static joe.Constants.COMPLETED_TASK;
+import static joe.Constants.INCOMPLETE_TASK;
+
 public class Task {
 
     private String task;
@@ -11,7 +14,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String status = isDone ? "[X]" : "[ ]";
+        String status = isDone ? COMPLETED_TASK : INCOMPLETE_TASK;
         return String.format("%s %s", status, this.task);
     }
 
@@ -19,7 +22,7 @@ public class Task {
      * Prints the task with its status.
      */
     public void printTask() {
-        String status = isDone ? "[X]" : "[ ]";
+        String status = isDone ? COMPLETED_TASK : INCOMPLETE_TASK;
         System.out.printf("%s %s", status, this.task);
     }
 
