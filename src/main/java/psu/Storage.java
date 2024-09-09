@@ -20,9 +20,13 @@ import task.Task;
 import task.Todo;
 
 public class Storage {
-    private static final Pattern TODO_PATTERN = Pattern.compile("\\[T\\]\\[( |X)\\] (.+)");
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("\\[D\\]\\[( |X)\\] (.+) \\(by: (.+)\\)");
-    private static final Pattern EVENT_PATTERN = Pattern.compile("\\[E\\]\\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
+    private static final Pattern TODO_PATTERN
+            = Pattern.compile("\\[T\\]\\[( |X)\\] (.+)");
+    private static final Pattern DEADLINE_PATTERN
+            = Pattern.compile("\\[D\\]\\[( |X)\\] (.+) \\(by: (.+)\\)");
+    private static final Pattern EVENT_PATTERN
+            = Pattern.compile("\\[E\\]\\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
+
     private File taskFile;
 
     public Storage(String filePath) {
@@ -122,6 +126,7 @@ public class Storage {
             FileWriter taskFileWriter = new FileWriter(this.taskFile);
             taskFileWriter.write(taskList);
             taskFileWriter.close();
+            assert this.taskFile.exists() : "File does not exist but it still wrote the tasks somewhere";
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Oops! There was an error when trying to store your tasks.");
