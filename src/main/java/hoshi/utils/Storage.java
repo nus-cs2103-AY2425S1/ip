@@ -27,6 +27,8 @@ public class Storage {
      * @param filePath String path of where Hoshi txt file is relatively located from root
      */
     public Storage(String filePath) {
+        // assert filePath is not null and not empty
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -106,7 +108,8 @@ public class Storage {
      * @param taskList TaskList of 3 types of tasks to be written to hoshi txt file.
      */
     public void save(TaskList taskList) throws IOException {
-
+        // assert taskList is not null
+        assert taskList != null : "TaskList cannot be null";
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
 
@@ -123,6 +126,7 @@ public class Storage {
                     isDone = "D";
                 }
                 String description = task.getDesc();
+                assert description != null && !description.isEmpty() : "Task description cannot be null or empty";
 
                 String additionalFields = "";
 

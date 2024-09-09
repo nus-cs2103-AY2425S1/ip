@@ -64,15 +64,21 @@ public class Parser {
      */
     public String handleMark(String input, TaskList taskList, Ui ui) {
 
+        // assert input is not null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty";
         if (input.trim().length() < 5) {
             return ui.displayTaskToMark();
         }
+
         // get task number from input
         String trimmedInput = input.trim();
         char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
         // get only the number from the 2nd half of the splitInput
         int markIndex = Character.getNumericValue(taskNo) - 1;
+
+        // assert retrieved index is not out of bounds
+        assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for taskList";
 
         try {
             // if specified index is not out of bounds
@@ -101,6 +107,8 @@ public class Parser {
      */
     public String handleUnmark(String input, TaskList taskList, Ui ui) {
 
+        // assert input is not null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty.";
         if (input.trim().length() < 7) {
             return ui.displayTaskToMark();
         }
@@ -111,6 +119,8 @@ public class Parser {
         // get only the number from the 2nd half of the splitInput
         int markIndex = Character.getNumericValue(taskNo) - 1;
 
+        // assert retrieved index is not out of bounds
+        assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for taskList";
         try {
             // if specified index is not out of bounds
             if (markIndex <= taskList.size() - 1) {
@@ -138,6 +148,8 @@ public class Parser {
      */
     public String handleDelete(String input, TaskList taskList, Ui ui) {
 
+        // assert input is not null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty.";
         if (input.trim().length() < 7) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
@@ -149,6 +161,8 @@ public class Parser {
         // get only the number from the 2nd half of the splitInput
         int markIndex = Character.getNumericValue(taskNo) - 1;
 
+        // assert retrieved index is not out of bounds
+        assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for taskList";
         try {
 
             // if specified index is not out of bounds
@@ -180,6 +194,9 @@ public class Parser {
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
     public String handleAdd(String input, TaskList taskList, Ui ui) {
+
+        // assert input is not null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty.";
         if (input.trim().length() < 4) {
             return ui.displayTaskAdd();
         }
@@ -189,6 +206,9 @@ public class Parser {
 
         try {
             String desc = getDescription(splitInput);
+            // assert description is not empty
+            assert !desc.isEmpty() : "Task description should not empty";
+
             switch (taskType) {
             case "todo":
                 return handleAddTask(new Todo(desc), taskList, ui, desc);
