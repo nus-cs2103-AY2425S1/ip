@@ -3,6 +3,8 @@ package regina;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
@@ -246,19 +248,17 @@ public class Regina {
      * @throws ReginaException If there are no tasks to display.
      */
     public String list() throws ReginaException {
-        int length = listOfTasks.size();
-        if (length == 0) {
+        if (listOfTasks.isEmpty()) {
             throw new ReginaException("HEHE no tasks for now!");
         }
-        StringBuilder inputList = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            inputList.append(i + 1)
-                    .append(".")
-                    .append(listOfTasks.get(i).toString())
-                    .append("\n"); // get task
-        }
-        return ui.printMessage(inputList.toString());
+        // Utilizing Streams to construct the output string
+        String taskList = IntStream.range(0, listOfTasks.size())
+                .mapToObj(i -> (i + 1) + "." + listOfTasks.get(i).toString()) // Concatenate the index with the task description
+                .collect(Collectors.joining("\n"));
+
+        return ui.printMessage(taskList);
     }
+
 
     /**
      * Marks a task based on the given index.
@@ -338,6 +338,7 @@ public class Regina {
                     if (haveNumber(parts)) { // Validate that there's a task number
                         return getReplyForNumberedCommand(parts, data);
                     }
+                    break;
                 default:
                     return add(input); // Add a new task
                 }

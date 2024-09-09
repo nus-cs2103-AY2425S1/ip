@@ -1,6 +1,7 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import dateandtime.ReginaDateAndTime;
 
@@ -32,13 +33,9 @@ public class TaskList extends ArrayList<Task> {
      * @return A new TaskList containing the tasks that occur at the specified date and time.
      */
     public TaskList findTasksOccurringOn(ReginaDateAndTime dateAndTime) {
-        TaskList list = new TaskList();
-        for (Task task : this) {
-            if (task.isOccurringOn(dateAndTime)) {
-                list.add(task);
-            }
-        }
-        return list;
+        return this.stream()
+                .filter(task -> task.isOccurringOn(dateAndTime))
+                .collect(Collectors.toCollection(TaskList::new));
     }
 
     /**
@@ -50,15 +47,10 @@ public class TaskList extends ArrayList<Task> {
      * @return A string representation of all tasks in the list formatted for saving.
      */
     public String toSavedFormatting() {
-        StringBuilder tasksRepresentation = new StringBuilder();
-
-        for (Task task : this) {
-            tasksRepresentation
-                    .append(task.toSavedFormatting()) // Calls the toString of Task.
-                    .append("\n"); // New line for each task.
-        }
-
-        return tasksRepresentation.toString(); // Returns the final string representation.
+        // Using streams for building the string representation
+        return this.stream()
+                .map(Task::toSavedFormatting) // Calls toSavedFormatting of each task
+                .collect(Collectors.joining("\n")); // Joins each task with new line
     }
 
     /**
@@ -74,13 +66,10 @@ public class TaskList extends ArrayList<Task> {
      *         or an empty TaskList if no matches are found.
      */
     public TaskList findTasksWithKeyword(String keyword) {
-        TaskList list = new TaskList();
-        for (Task task : this) {
-            if (task.toString().contains(keyword)) {
-                list.add(task);
-            }
-        }
-        return list;
+        // Using streams to filter tasks based on keyword
+        return this.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toCollection(TaskList::new));
     }
 
     /**
