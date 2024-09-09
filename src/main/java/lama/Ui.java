@@ -2,9 +2,6 @@ package lama;
 
 import java.util.Scanner;
 
-import lama.task.Task;
-
-
 /**
  * Handles interactions with the user.
  * Provides methods to display messages and take input from the user.
@@ -36,10 +33,10 @@ public class Ui {
      * Display a welcome message to the user.
      */
     public void showWelcome() {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Hello! I'm lama.Lama");
         System.out.println("What can I do for you?");
-        System.out.println(BAR + "\n");
+        showBarFooter();
     }
 
     /**
@@ -49,18 +46,18 @@ public class Ui {
      * @param taskList Task list after the task being added.
      */
     public void showAddCommand(TaskList taskList) {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList.get(taskList.size() - 1));
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(BAR + "\n");
+        showTaskCount(taskList);
+        showBarFooter();
     }
 
     /**
      * Display the header message when a task is deleted.
      */
     public void showDeleteCommandHeader() {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Noted. I've removed this task:");
     }
 
@@ -71,43 +68,43 @@ public class Ui {
      * @param taskList Task list after the task being deleted.
      */
     public void showDeleteCommandFooter(TaskList taskList) {
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(BAR + "\n");
+        showTaskCount(taskList);
+        showBarFooter();
     }
 
     /**
      * Display a message to user when user exit the application.
      */
     public void showExitCommand() {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(BAR);
+        showBar();
     }
 
     /**
      * Display a message indicating which task being marked.
      *
-     * @param taskList Task list containing marked task.
+     * @param taskList    Task list containing marked task.
      * @param indexOfMark Integer index of the task that was marked.
      */
     public void showMarkCommand(TaskList taskList, int indexOfMark) {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + taskList.get(indexOfMark));
-        System.out.println(BAR + "\n");
+        showBarFooter();
     }
 
     /**
      * Display a message indicating which task being unmarked.
      *
-     * @param taskList Task list containing unmarked task.
+     * @param taskList      Task list containing unmarked task.
      * @param indexOfUnmark Integer index of the task that was unmarked.
      */
     public void showUnmarkCommand(TaskList taskList, int indexOfUnmark) {
-        System.out.println(BAR);
+        showBar();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + taskList.get(indexOfUnmark));
-        System.out.println(BAR + "\n");
+        showBarFooter();
     }
 
     /**
@@ -116,22 +113,20 @@ public class Ui {
      * @param taskList Task list that will be displayed.
      */
     public void showListCommand(TaskList taskList) {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i));
-        }
-        System.out.println(BAR + "\n");
+        showTaskList(taskList);
+        showBarFooter();
     }
 
     /**
      * Displays an error message indicating there was a problem loading the file.
      */
     public void showLoadingError() {
-        System.out.println(BAR);
+        showBar();
         System.out.println("Sorry, there's error loading the file!");
         System.out.println("Please Try Again!");
-        System.out.println(BAR + "\n");
+        showBarFooter();
     }
 
     /**
@@ -140,9 +135,9 @@ public class Ui {
      * @param error The error message to be displayed.
      */
     public void showError(String error) {
-        System.out.println(BAR);
+        showBar();
         System.out.println(error);
-        System.out.println(BAR + "\n");
+        showBarFooter();
     }
 
     /**
@@ -151,19 +146,31 @@ public class Ui {
      * @param filteredList TaskList that contains the matched tasks.
      */
     public void showFindCommand(TaskList filteredList) {
+        showBar();
         if (filteredList.size() == 0) {
-            System.out.println(BAR);
             System.out.println("No matching tasks found!");
-            System.out.println(BAR + "\n");
         } else {
-            System.out.println(BAR);
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < filteredList.size(); i++) {
-                Task task = filteredList.get(i);
-                System.out.println((i + 1) + "." + task);
-            }
-            System.out.println(BAR + "\n");
+            showTaskList(filteredList);
+        }
+        showBarFooter();
+    }
+
+    private void showBar() {
+        System.out.println(BAR);
+    }
+
+    private void showBarFooter() {
+        System.out.println(BAR + "\n");
+    }
+
+    private void showTaskList(TaskList taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + "." + taskList.get(i));
         }
     }
 
+    private void showTaskCount(TaskList taskList) {
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
 }

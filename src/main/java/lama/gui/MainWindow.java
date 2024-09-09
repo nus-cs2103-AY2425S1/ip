@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Lama lama;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image lamaImage = new Image(this.getClass().getResourceAsStream("/images/lama.png"));
+    private Image userImage;
+    private Image lamaImage;
 
     /**
      * Initializes the MainWindow by binding the vertical scroll value of the scroll pane
@@ -37,8 +37,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        initializeImages();
+        addInitialLamaDialog();
+    }
+
+    private void initializeImages() {
+        userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+        lamaImage = new Image(this.getClass().getResourceAsStream("/images/lama.png"));
+    }
+
+    private void addInitialLamaDialog() {
         DialogBox dialogBox = DialogBox.getLamaDialog("Hello! I'm Lama\nWhat can I do for you?", lamaImage);
-        dialogContainer.getChildren().addAll(dialogBox);
+        dialogContainer.getChildren().add(dialogBox);
     }
 
     /**

@@ -27,15 +27,23 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            AnchorPane anchorPane = loadMainWindow();
+            Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setLama(lama);
             stage.show();
         } catch (IOException e) {
+            System.err.println("Failed to load the main window layout.");
             e.printStackTrace();
         }
     }
+
+    private AnchorPane loadMainWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+        MainWindow controller = fxmlLoader.<MainWindow>getController();
+        controller.setLama(lama);
+        return anchorPane;
+    }
+
 
 }

@@ -43,13 +43,17 @@ public class DeleteCommand extends Command {
             System.out.println("  " + task);
             ui.showDeleteCommandFooter(taskList);
             storage.saveTasks(taskList);
-            String output = "Noted. I've removed this task:\n"
-                    + "  " + task + "\n"
-                    + "Now you have " + taskList.size() + " tasks in the list.";
-            return output;
+
+            return generateOutput(task, taskList);
 
         } catch (IndexOutOfBoundsException e) {
             throw new LamaException("Sorry, the number given exceed the bound of list");
         }
+    }
+
+    private String generateOutput(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.";
     }
 }

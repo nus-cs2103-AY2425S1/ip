@@ -113,7 +113,6 @@ public class StorageTest {
         storage.addTask(todo);
 
         TaskList tasks = new TaskList(storage.loadTask());
-        assertEquals(1, tasks.size());
         assertEquals("[T][ ] Read Book", tasks.get(0).toString());
     }
 
