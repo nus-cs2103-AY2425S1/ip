@@ -25,6 +25,9 @@ public class GuiUi {
      * Constructor to initialize the required members.
      */
     public GuiUi(Parser parser, TaskList taskList, Storage storage) {
+        assert parser != null : "Parser cannot be null";
+        assert taskList != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
         this.parser = parser;
         this.taskList = taskList;
         this.storage = storage;
@@ -42,11 +45,13 @@ public class GuiUi {
             return INDENT + "Here are the tasks in your list:\n" + taskList.toString();
         }
         case "mark" -> {
-            Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).markTask();
+            int taskIndex = parser.retrieveNextInt() - 1;
+            Task task = taskList.retrieveTask(taskIndex).markTask();
             return INDENT + "Nice! I've marked this task as done:\n" + INDENT + " " + task;
         }
         case "unmark" -> {
-            Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).unmarkTask();
+            int taskIndex = parser.retrieveNextInt() - 1;
+            Task task = taskList.retrieveTask(taskIndex).unmarkTask();
             return INDENT
                     + "OK, I've marked this task as not done yet:\n"
                     + INDENT
