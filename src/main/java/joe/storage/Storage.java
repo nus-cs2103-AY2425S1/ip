@@ -1,5 +1,9 @@
 package joe.storage;
 
+import static joe.Constants.TASK_DEADLINE;
+import static joe.Constants.TASK_EVENT;
+import static joe.Constants.TASK_TODO;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -83,12 +87,12 @@ public class Storage {
         boolean isDone = parts[1].equals("1");
         String taskDescription = parts[2];
         Task task;
-        if (type.equals("T")) {
+        if (type.equals(TASK_TODO)) {
             task = new TaskTodo(taskDescription);
-        } else if (type.equals("D")) {
+        } else if (type.equals(TASK_DEADLINE)) {
             String by = parts[3];
             task = new TaskDeadline(taskDescription, by);
-        } else if (type.equals("E")) {
+        } else if (type.equals(TASK_EVENT)) {
             String from = parts[3];
             String to = parts[4];
             task = new TaskEvent(taskDescription, from, to);

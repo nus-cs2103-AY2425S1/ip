@@ -30,4 +30,7 @@ public final class Constants {
 
     public static final String COMPLETED_TASK = "[X]";
     public static final String INCOMPLETE_TASK = "[ ]";
+    public static final String TASK_TODO = "T";
+    public static final String TASK_DEADLINE = "D";
+    public static final String TASK_EVENT = "E";
 }

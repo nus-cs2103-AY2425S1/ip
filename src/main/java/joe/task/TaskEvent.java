@@ -1,7 +1,10 @@
 package joe.task;
 
+import static joe.Constants.TASK_EVENT;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class TaskEvent extends Task {
     private LocalDate from;
@@ -17,12 +20,12 @@ public class TaskEvent extends Task {
     public String toString() {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), formattedFrom, formattedTo);
+        return String.format("[%s]%s (from: %s to: %s)", TASK_EVENT, super.toString(), formattedFrom, formattedTo);
     }
 
     @Override
     public String toSaveString() {
-        return String.format("E|%d|%s|%s|%s", isDone() ? 1 : 0, getTask(), from, to);
+        return String.format("%s|%d|%s|%s|%s", TASK_EVENT, isDone() ? 1 : 0, getTask(), from, to);
     }
 
     /**
@@ -41,6 +44,7 @@ public class TaskEvent extends Task {
 
     /**
      * Checks if the dates are in the correct format.
+     * 
      * @param from The start date of the event.
      * @param to The end date of the event.
      * @return True if the dates are in the correct format, false otherwise.
@@ -49,8 +53,11 @@ public class TaskEvent extends Task {
         try {
             LocalDate.parse(from);
             LocalDate.parse(to);
+            if (LocalDate.parse(from).isAfter(LocalDate.parse(to))) {
+                return false;
+            }
             return true;
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
