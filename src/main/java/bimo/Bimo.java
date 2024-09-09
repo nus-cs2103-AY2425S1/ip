@@ -4,6 +4,7 @@ import bimo.command.Command;
 import bimo.exception.BimoException;
 import bimo.exception.InvalidDateFormatException;
 import bimo.exception.InvalidTaskNumberException;
+import bimo.exception.MissingDateException;
 import bimo.exception.MissingDescriptionException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -48,6 +49,8 @@ public class Bimo {
         } catch (InvalidDateFormatException e) {
             response = e.getMessage();
         } catch (MissingDescriptionException e) {
+            response = e.getMessage();
+        } catch (MissingDateException e) {
             response = e.getMessage();
         } catch (BimoException e) {
             response = ui.printErrorMessage();

@@ -16,6 +16,7 @@ import bimo.command.UnmarkCommand;
 import bimo.exception.BimoException;
 import bimo.exception.InvalidDateFormatException;
 import bimo.exception.InvalidTaskNumberException;
+import bimo.exception.MissingDateException;
 import bimo.exception.MissingDescriptionException;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
@@ -136,24 +137,25 @@ public class Parser {
     /**
      * Retrieves date from user input in the form yyyy-mm-dd.
      *
-     * @param isDeadline Determines if there is two dates.
-     * @param isEnd Determines if an end date is needed.
+     * @param isDeadlineTask Determines if there are two dates.
+     * @param isEventDueDate Determines if an Event task end date is needed.
      * @param array Array of Strings containing date.
      * @return Date in the format yyyy-mm-dd.
-     * @throws BimoException If no date is provided.
+     * @throws MissingDateException If no date is provided.
      */
-    public static String parseDate(boolean isDeadline, boolean isEnd,
-            String[] array) throws BimoException {
-        if (array.length <= 1) {
-            String type = isDeadline ? " /by" : " /from .... /to";
-            throw new BimoException("Please provide a date using" + type);
-        } else if (!isDeadline) {
-            array = array[1].split(" /to ");
-            if (array.length <= 1) {
-                throw new BimoException("Please provide a deadline using /to");
+    public static String parseDate(boolean isDeadlineTask, boolean isEventDueDate,
+            String[] array) throws MissingDateException {
+        String [] splitArrayByKey = array;
+        if (splitArrayByKey.length <= 1) {
+            String type = isDeadlineTask ? "/by  yyyy-mm-dd" : "/from yyyy-mm-dd /to  yyyy-mm-dd";
+            throw new MissingDateException("Please provide a date using " + type);
+        } else if (!isDeadlineTask) {
+            splitArrayByKey = splitArrayByKey[1].split(" /to ");
+            if (splitArrayByKey.length <= 1) {
+                throw new MissingDateException("Please provide a deadline using /to yyyy-mm-dd");
             }
         }
-        return isEnd ? array[1] : array[0];
+        return isEventDueDate ? splitArrayByKey[1] : splitArrayByKey[0];
     }
 
     /**
