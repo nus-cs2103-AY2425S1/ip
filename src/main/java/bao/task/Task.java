@@ -1,6 +1,8 @@
 package bao.task;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import bao.main.Bao;
 
@@ -11,6 +13,7 @@ import bao.main.Bao;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected Set<String> tags;
 
     /**
      * Constructs a new Task with the given description and sets it as not done.
@@ -21,6 +24,7 @@ public abstract class Task {
         assert description != null : "Description should not be null";
         this.description = description;
         this.isDone = false;
+        this.tags = new HashSet<>();
     }
 
     public String getDescription() {
@@ -29,6 +33,32 @@ public abstract class Task {
 
     public boolean isDone() {
         return this.isDone;
+    }
+
+    /**
+     * Tags the Task object with a string input.
+     *
+     * @param tag String to tag the task object with.
+     */
+    public void addTag(String tag) {
+        assert tag != null : "Tag should not be null";
+        String trimmedTag = tag.trim();
+        tags.add(trimmedTag);
+    }
+
+    /**
+     * Removes the tag on the Task object.
+     *
+     * @param tag String of the target tag to be removed from the task object.
+     */
+    public boolean removeTag(String tag) {
+        assert tag != null : "Tag should not be null";
+        String trimmedTag = tag.trim();
+        return tags.remove(trimmedTag);
+    }
+
+    public Set<String> getTags() {
+        return this.tags;
     }
 
     /**
@@ -48,22 +78,28 @@ public abstract class Task {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
+        Task task;
+
         switch (type) {
         case "T" -> {
-            ToDo todo = new ToDo(description);
-            if (isDone) {
-                todo.mark();
+            task = new ToDo(description);
+            if (parts.length >= 4 && parts[3].contains("Tags:")) {
+                String[] tags = parts[3].replace("Tags: ", "").split(", ");
+                for (String tag : tags) {
+                    task.addTag(tag);
+                }
             }
-            return todo;
         }
         case "D" -> {
             assert parts.length >= 4 : "Invalid deadline task format";
             LocalDateTime dateAndTime = LocalDateTime.parse(parts[3].trim(), Bao.getFileDateFormat());
-            Deadline deadline = new Deadline(description, dateAndTime);
-            if (isDone) {
-                deadline.mark();
+            task = new Deadline(description, dateAndTime);
+            if (parts.length >= 5 && parts[4].contains("Tags:")) {
+                String[] tags = parts[4].replace("Tags: ", "").split(", ");
+                for (String tag : tags) {
+                    task.addTag(tag);
+                }
             }
-            return deadline;
         }
         case "E" -> {
             assert parts.length >= 4 : "Invalid event task format";
@@ -71,16 +107,23 @@ public abstract class Task {
             assert duration.length == 2 : "Invalid event duration format";
             LocalDateTime from = LocalDateTime.parse(duration[0].trim(), Bao.getFileDateFormat());
             LocalDateTime to = LocalDateTime.parse(duration[1].trim(), Bao.getFileDateFormat());
-            Event event = new Event(description, from, to);
-            if (isDone) {
-                event.mark();
+            task = new Event(description, from, to);
+            if (parts.length >= 5 && parts[4].contains("Tags:")) {
+                String[] tags = parts[4].replace("Tags: ", "").split(", ");
+                for (String tag : tags) {
+                    task.addTag(tag);
+                }
             }
-            return event;
         }
         default -> {
             throw new IllegalArgumentException("Bao doesn't know what this task type is");
         }
         }
+
+        if (isDone) {
+            task.mark();
+        }
+        return task;
     }
 
     /**
@@ -91,10 +134,23 @@ public abstract class Task {
     }
 
     /**
-     * Un-arks the task as not done.
+     * Un-marks the task.
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns a string representation of the tags on the task.
+     *
+     * @return String representation of the tags on the task.
+     */
+    protected String getTagsAsString() {
+        if (tags.isEmpty()) {
+            return "";
+        } else {
+            return " | Tags: " + String.join(", ", tags);
+        }
     }
 
     /**

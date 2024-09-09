@@ -48,6 +48,8 @@ public class Parser {
         case "delete" -> response.append(handleDelete(args, tasks, storage));
         case "on" -> response.append(handleOn(args, tasks));
         case "find" -> response.append(handleFind(args, tasks));
+        case "tag" -> response.append(handleTag(args, tasks, storage));
+        case "untag" -> response.append(handleRemoveTag(args, tasks, storage));
         default -> response.append("Bao needs a proper command :(");
         }
         return response.toString();
@@ -200,6 +202,42 @@ public class Parser {
                 }
                 return response.toString();
             }
+        }
+    }
+
+    private static String handleTag(String args, TaskList tasks, Storage storage) {
+        String[] argParts = args.split(" ", 2);
+        if (argParts.length < 2) {
+            return "Bao needs a task number and a tag to assign!";
+        }
+        try {
+            int index = Integer.parseInt(argParts[0]) - 1;
+            String tag = argParts[1];
+            tasks.getTask(index).addTag(tag);
+            storage.save(tasks.getTasks());
+            return "Bao has added the tag #" + tag + " to this task!\n" + tasks.getTask(index);
+        } catch (Exception e) {
+            return "Bao needs a valid task number and a valid tag!";
+        }
+    }
+
+    private static String handleRemoveTag(String args, TaskList tasks, Storage storage) {
+        String[] argParts = args.split(" ", 2);
+        if (argParts.length < 2) {
+            return "Bao needs a task number and a tag to remove!";
+        }
+        try {
+            int index = Integer.parseInt(argParts[0]) - 1;
+            String tag = argParts[1];
+            boolean removed = tasks.getTask(index).removeTag(tag);
+            storage.save(tasks.getTasks());
+            if (removed) {
+                return "Bao has removed the tag #" + tag + " from this task!\n" + tasks.getTask(index);
+            } else {
+                return "Bao could not find the tag #" + tag + " from this task!\n" + tasks.getTask(index);
+            }
+        } catch (Exception e) {
+            return "Bao needs a valid task number and a valid tag!";
         }
     }
 }
