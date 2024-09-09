@@ -25,6 +25,9 @@ public class GuiUi {
      * Constructor to initialize the required members.
      */
     public GuiUi(Parser parser, TaskList taskList, Storage storage) {
+        assert parser != null : "Parser cannot be null";
+        assert taskList != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
         this.parser = parser;
         this.taskList = taskList;
         this.storage = storage;
@@ -34,16 +37,16 @@ public class GuiUi {
         return "Hello! I'm Tissue\n" + "What can I do for you?";
     }
 
-    public String listResponse() {
+    private String listResponse() {
         return INDENT + "Here are the tasks in your list:\n" + taskList.toString();
     }
 
-    public String markResponse() {
+    private String markResponse() {
         Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).markTask();
         return INDENT + "Nice! I've marked this task as done:\n" + INDENT + " " + task;
     }
 
-    public String unmarkResponse() {
+    private String unmarkResponse() {
         Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).unmarkTask();
         return INDENT
                 + "OK, I've marked this task as not done yet:\n"
@@ -52,7 +55,7 @@ public class GuiUi {
                 + task;
     }
 
-    public String deleteResponse() {
+    private String deleteResponse() {
         int line = parser.retrieveNextInt();
         Task task = taskList.deleteTask(line);
         storage.delete(line);
@@ -68,7 +71,7 @@ public class GuiUi {
                 + " tasks in the list.";
     }
 
-    public String findResponse() {
+    private String findResponse() {
         ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
         String s = INDENT + "Here are the matching tasks!\n";
         for (Task task : matches) {
