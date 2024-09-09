@@ -1,12 +1,7 @@
 package monique.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-
-import monique.exception.IllegalDateFormatException;
-
 
 /**
  * The <code>Event</code> class represents a task with a specific time range.
@@ -14,56 +9,10 @@ import monique.exception.IllegalDateFormatException;
  */
 public class Event extends Task {
     private static final String FORMATSTRING = "[E][%s] %s (from:%s to: %s)";
-    private final LocalDate from;
-    private final LocalDate to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
-    /**
-     * Constructs a new <code>Event</code> object with the specified description,
-     * completion status, start date, and end date in string format. The dates are parsed
-     * from the strings using multiple acceptable formats.
-     *
-     * @param description The description of the event.
-     * @param isComplete The completion status of the event.
-     * @param from The start date of the event in string format.
-     * @param to The end date of the event in string format.
-     * @throws IllegalDateFormatException If any of the date strings do not match any of the accepted formats.
-     */
-    public Event(String description, boolean isComplete, String from, String to) throws IllegalDateFormatException {
-        super(description , isComplete);
 
-        LocalDate parsedFromDate = null;
-        LocalDate parsedToDate = null;
-        List<DateTimeFormatter> formatters = List.of(
-                DateTimeFormatter.ofPattern("M/d/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("M/d/yyyy"),
-                DateTimeFormatter.ofPattern("M-d-yyyy HHmm"),
-                DateTimeFormatter.ofPattern("M-d-yyyy")
-        );
-        for (DateTimeFormatter formatter: formatters) {
-            try {
-                parsedFromDate = LocalDate.parse(from, formatter);
-                break;
-            } catch (DateTimeParseException e) {
-                //continue to next formatter
-            }
-        }
-        for (DateTimeFormatter formatter: formatters) {
-            try {
-                parsedToDate = LocalDate.parse(to, formatter);
-                break;
-            } catch (DateTimeParseException e) {
-                //continue to next formatter
-            }
-        }
-
-        if (parsedFromDate == null || parsedToDate == null) {
-            throw new IllegalDateFormatException();
-        }
-
-        this.from = parsedFromDate;
-        this.to = parsedToDate;
-
-    }
 
     /**
      * Constructs a new <code>Event</code> object with the specified description,
@@ -74,22 +23,11 @@ public class Event extends Task {
      * @param from The start date of the event.
      * @param to The end date of the event.
      */
-    public Event(String description, boolean isComplete, LocalDate from, LocalDate to) {
+    public Event(String description, boolean isComplete, LocalDateTime from, LocalDateTime to) {
         super(description, isComplete);
         this.from = from;
         this.to = to;
     }
-
-    /**
-     * Constructs a new <code>Event</code> object with default values: an empty description,
-     * the event marked as complete, and empty date strings.
-     *
-     * @throws IllegalDateFormatException If the default date strings are invalid (which they will be in this case).
-     */
-    public Event() throws IllegalDateFormatException {
-        this("", true, "", "");
-    }
-
     /**
      * Returns a string representation of the <code>Event</code> task.
      * The format is: "[E][status] description (from: start_date to: end_date)" where status is "X" if the
@@ -101,8 +39,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format(FORMATSTRING, this.isComplete() ? "X" : " " , this.getDescription(),
-                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hhmm")),
+                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hhmm")));
     }
 
     /**
@@ -132,7 +70,7 @@ public class Event extends Task {
      *
      * @return The start date of the event.
      */
-    public LocalDate getFrom() {
+    public LocalDateTime getFrom() {
         return this.from;
     }
 
@@ -141,7 +79,7 @@ public class Event extends Task {
      *
      * @return The end date of the event.
      */
-    public LocalDate getTo() {
+    public LocalDateTime getTo() {
         return this.to;
     }
 }
