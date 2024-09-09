@@ -4,21 +4,46 @@ import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
+/**
+ * Represents deadline task. The Deadline class extends the Task class
+ * and includes additional attributes to handle the description and the due date.
+ */
 public class Deadline extends Task {
     private final String description;
     private final String by;
 
+    /**
+     * Constructs a Deadline object with description and due date.
+     *
+     * @param description The description of the deadline task.
+     * @param by The due date of the task of type string.
+     */
     private Deadline(String description, String by) {
         super(String.format("%s (by: %s)", description, by));
         this.description = description;
         this.by = by;
     }
 
+    /**
+     * Factory method to create a new Deadline object by parsing
+     * raw input for task description and the due date.
+     *
+     * @param rawDescription The raw description string containing the task description and due date.
+     * @return A new Deadline object with the parsed description and due date.
+     */
     public static Deadline of(String rawDescription) {
         String[] descriptionLst = parseDescription(rawDescription);
         return new Deadline(descriptionLst[0], descriptionLst[1]);
     }
 
+    /**
+     * Factory method to load a Deadline object from stored data.
+     *
+     * @param mark A boolean indicating whether the database task was marked as done.
+     * @param description The database description of the task.
+     * @param by The database due date of the task.
+     * @return A Deadline object initialized with the provided parameters.
+     */
     public static Deadline loadOf(boolean mark, String description, String by) {
         Deadline initObj = new Deadline(description, by);
         if (mark) {
@@ -29,6 +54,13 @@ public class Deadline extends Task {
         return initObj;
     }
 
+    /**
+     * Parses the raw description string to extract the task description and the due date.
+     *
+     * @param rawDescription The raw description string containing the task description and due date.
+     * @return A String array where the first element is the task description and the second element is the due date.
+     * @throws MendelException if there are issues with the format or content of the raw description.
+     */
     private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /by ");
@@ -45,6 +77,12 @@ public class Deadline extends Task {
         return new String[]{reformattedMsg, endMsg};
     }
 
+    /**
+     * Validates the raw description string and handles various error conditions.
+     *
+     * @param rawDescription The raw description string to be validated.
+     * @throws MendelException if there are issues such as missing description missing due date, or incorrect formatting
+     */
     private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
         String[] misplacedSegments = rawDescription.split("/by");
@@ -65,14 +103,36 @@ public class Deadline extends Task {
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
     }
 
+    /**
+     * Checks if the given date matches the due date of this Deadline task.
+     *
+     * @param formattedDate The date to be compared in a formatted string.
+     * @return true if the formattedDate matches the task's due date, ignoring the time component; false otherwise.
+     */
     @Override
     public boolean isTargetDueDate(String formattedDate) {
-        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.by).removeTimeStamp());
+        return new DateTimeManager(formattedDate).removeTimeStamp()
+                .equals(new DateTimeManager(this.by).removeTimeStamp());
     }
 
+    /**
+     * Parses the details of this Deadline task into a string format suitable for storage in database.
+     *
+     * @return A string containing the task type, status, description, and due date.
+     */
     @Override
     public String parseDetailsForDB() {
         return String.format("D | %d | %s | %s", super.getStatus() ? 1 : 0, this.description, this.by);
+    }
+
+    /**
+     * Returns a string representation of the Deadline task, including its type and status.
+     *
+     * @return A string representing the Deadline task.
+     */
+    @Override
+    public boolean isMatchingDescription(String matchingString) {
+        return this.description.contains(matchingString);
     }
 
     @Override

@@ -1,4 +1,4 @@
-# Mendel User Guide
+# mendel.main.Mendel User Guide
 
 // Update the title above to match the actual product name
 
