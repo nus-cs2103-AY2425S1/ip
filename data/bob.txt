@@ -6,3 +6,5 @@ E | 0 | read books | 2024-08-28 1500 | 2024-08-28 1700
 T | 1 | testing
 E | 0 | go to class | 2024-09-01 0800 | 2024-09-01 1000
 D | 0 | assignment | 2024-09-01 2359
+T | 0 | assert
+T | 0 | asser2
