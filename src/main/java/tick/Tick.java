@@ -37,6 +37,8 @@ public class Tick {
         } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (TickException e) {
+            ui.showError(e.getMessage());
         }
     }
 
