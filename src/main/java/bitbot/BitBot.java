@@ -51,7 +51,7 @@ public class BitBot {
 
                 switch (keyWord) {
                 case "mark":
-                    numberPart = TaskHandler.checkAndThrowException(partsOfInput, arrayList);
+                    numberPart = TaskHandler.checkAndThrowExceptionForMarkUnmarkDelete(partsOfInput, arrayList);
 
                     arrayList.get(numberPart - 1).markAsDone();
                     finalResponse = "          ____________________________________\n          "
@@ -61,7 +61,7 @@ public class BitBot {
                             + "          ____________________________________\n";
                     break;
                 case "unmark":
-                    numberPart = TaskHandler.checkAndThrowException(partsOfInput, arrayList);
+                    numberPart = TaskHandler.checkAndThrowExceptionForMarkUnmarkDelete(partsOfInput, arrayList);
 
                     arrayList.get(numberPart - 1).markAsUndone();
                     finalResponse = "          ____________________________________\n          "
@@ -71,7 +71,7 @@ public class BitBot {
                             + "          ____________________________________\n";
                     break;
                 case "delete":
-                    numberPart = TaskHandler.checkAndThrowException(partsOfInput, arrayList);
+                    numberPart = TaskHandler.checkAndThrowExceptionForMarkUnmarkDelete(partsOfInput, arrayList);
 
                     Task task1 = arrayList.remove(numberPart - 1);
                     finalResponse = "          ____________________________________\n          "
@@ -81,16 +81,17 @@ public class BitBot {
                             + "          ____________________________________";
                     break;
                 case "find":
-                    finalResponse = TaskHandler.handleFind(arrayList, Arrays.copyOfRange(partsOfInput, 1, partsOfInput.length));
+                    finalResponse = TaskHandler.handleFind(arrayList,
+                            Arrays.copyOfRange(partsOfInput, 1, partsOfInput.length));
                     break;
                 case "event":
                     // this is to check if the keyword is "event".
                     // if so, get the different parts accurately.
-                    finalResponse = TaskHandler.handleEvent(arrayList, textPart, partsOfInput, indexFrom, from, to, sb, task);
+                    finalResponse = TaskHandler.handleEvent(arrayList, partsOfInput, task);
                     break;
                 case "deadline":
                     // the same concept as above for the keyword "deadline"
-                    finalResponse = TaskHandler.handleDeadline(arrayList, textPart, partsOfInput, indexBy, by, sb, task);
+                    finalResponse = TaskHandler.handleDeadline(arrayList, partsOfInput, task);
                     break;
                 case "todo":
                     // the same concept as above for the keyword "todo"
