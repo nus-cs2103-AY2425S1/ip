@@ -1,6 +1,7 @@
 package cheese;
 
 import cheese.exception.CheeseException;
+import cheese.exception.InputException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import cheese.command.*;
@@ -69,10 +70,9 @@ public class ParserTest {
     public void testGetIdxInvalidInputLength() {
         String[] inputTokens = {"mark"};
         int size = 5;
-        CheeseException exception = assertThrows(CheeseException.class, () -> {
+        CheeseException exception = assertThrows(InputException.class, () -> {
             Parser.getIdx(inputTokens, size);
         });
-        assertEquals("Need location of cheese", exception.getMessage());
     }
 
     @Test

@@ -11,7 +11,7 @@ import cheese.exception.CheeseException;
  * Task with a dateline
  */
 public class Deadline extends Task {
-    private final LocalDate date;
+    private LocalDate date;
 
     /**
      * Creates Deadline from name and LocalDate
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      */
     public Deadline(String[] data) throws CheeseException {
         super(data);
-        if (data.length != 4) {
+        if (data.length < 4) {
             throw new CheeseException("Incorrect data format");
         }
         date = Parser.parseDate(data[3]);
@@ -43,6 +43,25 @@ public class Deadline extends Task {
      */
     public long daysLeft() {
         return LocalDate.now().until(date, ChronoUnit.DAYS);
+    }
+
+    /**
+     * Changes date of deadline, returns no. of days delayed
+     * @param newDate LocalDate
+     * @return long of days delayed
+     */
+    public long reschedule(LocalDate newDate) {
+        long daysDelayed = date.until(newDate, ChronoUnit.DAYS);
+        date = newDate;
+        return daysDelayed;
+    }
+
+    /**
+     * Changes date of deadline, returns nothing
+     * @param daysDelayed no. of days to delay
+     */
+    public void reschedule(long daysDelayed) {
+        date = date.plusDays(daysDelayed);
     }
 
     /**
