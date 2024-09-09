@@ -17,6 +17,6 @@ import java.io.IOException;
  * @author Choi Yi Hao
  */
 public abstract class Command {
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException;
     public abstract boolean isExit();
 }

@@ -24,10 +24,12 @@ public class FindCommand extends Command {
      * @param storage stores the data
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String keyword = info.substring(4).trim();
         String tasks = taskList.matchesDescription(keyword);
-        ui.showOutput("Here are the matching tasks in your list:" + tasks);
+        String output = "Here are the matching tasks in your list:" + tasks;
+        ui.showOutput(output);
+        return output;
     }
 
     @Override

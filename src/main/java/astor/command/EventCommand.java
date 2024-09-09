@@ -27,7 +27,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
         String s2 = info.substring(5).trim();
         if (s2.isEmpty()) {
             throw new EmptyTaskInfoException();
@@ -42,8 +42,10 @@ public class EventCommand extends Command {
             }
             Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
             String s3 = taskList.addTask(task, storage);
-            ui.showOutput("Got it. I've added this astor.task:\n  " +
-                    s3 + "\nNow you have " + taskList.size() + " tasks in the list.");
+            String output = "Got it. I've added this astor.task:\n  " +
+                    s3 + "\nNow you have " + taskList.size() + " tasks in the list.";
+            ui.showOutput(output);
+            return output;
         }
     }
 

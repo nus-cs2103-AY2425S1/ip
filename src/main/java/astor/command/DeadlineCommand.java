@@ -27,7 +27,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
         String s = info.substring(8).trim();
         if (s.isEmpty()) {
             throw new EmptyTaskInfoException();
@@ -40,6 +40,8 @@ public class DeadlineCommand extends Command {
             String s1 = taskList.addTask(task, storage);
             ui.showOutput("Got it. I've added this task:\n  "
                     + s1 + "\nNow you have " + taskList.size() + " tasks in the list.");
+            return "Got it. I've added this task:\n  "
+                    + s1 + "\nNow you have " + taskList.size() + " tasks in the list.";
         }
     }
 
