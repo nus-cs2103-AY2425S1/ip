@@ -115,7 +115,7 @@ public class Storage {
         FileWriter fileWrite = new FileWriter(filePath);
         BufferedWriter buffer = new BufferedWriter(fileWrite);
         for (Task eachTask : tasks) {
-            String output = eachTask.saveFormat();
+            String output = eachTask.printSaveFormat();
             System.out.println(output);
             buffer.write(output);
             buffer.newLine();

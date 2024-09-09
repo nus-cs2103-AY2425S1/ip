@@ -34,7 +34,7 @@ public class Todo extends Task {
      *
      * @return A string representation of the to-do task suitable for saving to a file.
      */
-    public String saveFormat() {
+    public String printSaveFormat() {
         String temp;
         if (isDone) {
             temp = "1";

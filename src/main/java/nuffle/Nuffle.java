@@ -112,7 +112,7 @@ public class Nuffle {
     }
 
     public String greetUser() {
-        return ui.welcomeMessage();
+        return ui.printWelcomeMessage();
     }
 
     public String getResponse(String input) throws IOException {

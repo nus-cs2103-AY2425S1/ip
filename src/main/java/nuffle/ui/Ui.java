@@ -25,7 +25,7 @@ public class Ui {
     /**
      * Displays the welcome message when the application starts.
      */
-    public String welcomeMessage() {
+    public String printWelcomeMessage() {
         // Greeting the users
         return printLine() +
                 "Nuffle > Good day! I'm Nuffle.\n" +

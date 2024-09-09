@@ -37,7 +37,7 @@ public class Event extends Task {
      * and the event's start and end times in the "yyyy-MMM-dd HHmm" format.
      * @return A string representation of the event task suitable for saving to a file.
      */
-    public String saveFormat() {
+    public String printSaveFormat() {
         String temp;
         if (isDone) {
             temp = "1";

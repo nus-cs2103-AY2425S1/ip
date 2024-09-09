@@ -65,7 +65,7 @@ public abstract class Task {
      *
      * @return A string representation of the task suitable for saving to a file.
      */
-    public abstract String saveFormat();
+    public abstract String printSaveFormat();
 
 }
 

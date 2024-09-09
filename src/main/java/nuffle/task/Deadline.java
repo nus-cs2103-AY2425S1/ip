@@ -59,7 +59,7 @@ public class Deadline extends Task {
      *
      * @return A string representation of the deadline task suitable for saving to a file.
      */
-    public String saveFormat() {
+    public String printSaveFormat() {
         String temp;
         if (isDone) {
             temp = "1";
