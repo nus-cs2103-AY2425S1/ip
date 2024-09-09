@@ -44,7 +44,7 @@ public class Astra {
             }
         }
 
-        ui.goodbye();
+        ui.printGoodbye();
         ui.stop();
     }
 
@@ -57,6 +57,7 @@ public class Astra {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert c != null : "Command should not be null";
             return c.execute(tasks, storage);
         } catch (AstraException e) {
             return e.getMessage();

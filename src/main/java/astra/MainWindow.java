@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Astra astra;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image astraImage = new Image(this.getClass().getResourceAsStream("/images/Astra.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image astraImage = new Image(this.getClass().getResourceAsStream("/images/Astra.png"));
 
     /**
      * Initializes the main window.
@@ -33,9 +33,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         // Greet the user
-        dialogContainer.getChildren().add(
-                DialogBox.getAstraDialog("Hello! I'm Astra. How can I help you today?", astraImage)
-        );
+        sendUserMessage("Hello! I'm Astra. How can I help you today?");
     }
 
     /** Injects the Duke instance */
@@ -51,10 +49,20 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = astra.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAstraDialog(response, astraImage)
-        );
+        sendUserMessage(input);
+        sendAstraMessage(response);
         userInput.clear();
+    }
+
+    private void sendUserMessage(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getUserDialog(message, userImage)
+        );
+    }
+
+    private void sendAstraMessage(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getAstraDialog(message, astraImage)
+        );
     }
 }

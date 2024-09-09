@@ -28,8 +28,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toText() {
-        return "T | " + super.toText();
+    public String toTextFile() {
+        return "T | " + super.toTextFile();
     }
 
     @Override

@@ -46,9 +46,12 @@ public class Parser {
         String key = "main";
         for (int i = 1; i < len; i++) {
             String word = words[i];
-            if (!word.isEmpty() && word.charAt(0) == '/') {
+            boolean isNotEmpty = !word.isEmpty();
+            boolean isKey = isNotEmpty && word.charAt(0) == '/';
+            if (isKey) {
                 key = word.substring(1);
             } else {
+                // Append word to existing key or create new key
                 if (args.containsKey(key)) {
                     args.put(key, args.get(key) + " " + word);
                 } else {

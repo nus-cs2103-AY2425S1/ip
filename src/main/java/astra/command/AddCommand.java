@@ -38,7 +38,7 @@ public class AddCommand extends Command {
                 this.task = new Event(args.getOrDefault("main", ""), args.get("from"), args.get("to"));
                 break;
             default:
-                throw new AstraException("Invalid task type.");
+                throw new AssertionError("Invalid task type.");
             }
         } catch (NullPointerException e) {
             throw new AstraException("Please supply dates.");
@@ -72,6 +72,6 @@ public class AddCommand extends Command {
 
     @Override
     public String toString() {
-        return "ADD " + task.toText();
+        return "ADD " + task.toTextFile();
     }
 }
