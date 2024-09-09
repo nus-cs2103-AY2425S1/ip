@@ -101,7 +101,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Enable to write to file");
+            System.out.println("Unable to write to file");
         }
     }
 
@@ -114,6 +114,14 @@ public class Storage {
     public ArrayList<Task> loadFile() throws BimoException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            File dataFolder = dataFile.getParentFile();
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs();
+            }
+            File file = this.dataFile;
+            if (!dataFile.exists()) {
+                file.createNewFile();
+            }
             Scanner fileReader = new Scanner(this.dataFile);
             while (fileReader.hasNext()) {
                 String text = fileReader.nextLine();
@@ -122,7 +130,9 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-            throw new BimoException("File not found, tasks cannot be loaded");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Unable to create new file");
         }
         return tasks;
     }
