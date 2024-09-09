@@ -25,6 +25,7 @@ public class Schedulo {
      * @param filePath The file path where tasks are stored.
      */
     public Schedulo(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());

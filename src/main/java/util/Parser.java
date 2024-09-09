@@ -42,6 +42,7 @@ public class Parser {
 
         try {
             splitWords = fullCommand.trim().split(" ", 2);
+            assert splitWords.length > 0 : "Split words should not be empty";
             commandType = CommandType.valueOf(splitWords[0].toUpperCase());
         } catch (Exception e) {
             throw new InvalidCommandException();
