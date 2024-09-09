@@ -14,7 +14,7 @@ public class TaskListTest {
     private TaskList taskList;
 
     @BeforeEach
-    public void setUp() {
+    public void initialiseTaskListTest() {
         System.setOut(new PrintStream(outputStreamCaptor));
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Code"));
