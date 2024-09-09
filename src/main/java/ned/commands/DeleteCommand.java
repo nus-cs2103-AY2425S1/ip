@@ -3,6 +3,8 @@ package ned.commands;
 import ned.Storage;
 import ned.TaskList;
 import ned.Ui;
+import ned.exceptions.InvalidIndexException;
+import ned.exceptions.MissingIndexException;
 import ned.exceptions.NedException;
 
 /**
@@ -35,7 +37,7 @@ public class DeleteCommand implements Command {
         String[] words = userInput.split(" ");
         try {
             if (words.length != 2) {
-                throw new NedException("Sorry m'lord, you must give me a list index with the delete command. No more,"
+                throw new MissingIndexException("Sorry m'lord, you must give me a list index with the delete command. No more,"
                         + " no less" + uiInstance.getCommandMessage());
             } else {
                 String possibleIndex = words[1];
@@ -44,10 +46,10 @@ public class DeleteCommand implements Command {
                 storageInstance.save(taskList);
             }
         } catch (NumberFormatException e) {
-            throw new NedException("Sorry m'lord, your command must specify a valid number"
+            throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list "
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list "
                     + "size" + uiInstance.getCommandMessage());
         }
     }

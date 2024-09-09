@@ -3,7 +3,7 @@ package ned.exceptions;
 /**
  * Represents a generic exception, used to wrap other types of exceptions from method calls involved in running Ned
  */
-public class NedException extends Exception {
+public abstract class NedException extends Exception {
     /**
      * A generic exception, used to wrap other types of exceptions from method calls involved in running Ned.
      *

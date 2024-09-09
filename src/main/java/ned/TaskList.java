@@ -2,6 +2,7 @@ package ned;
 
 import java.util.ArrayList;
 
+import ned.exceptions.InvalidIndexException;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 
@@ -30,7 +31,7 @@ public class TaskList {
             this.listOfTasks.remove(index);
             uiInstance.removeTasksToNedDialogue(selectedTask, this.listOfTasks.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list " +
                     "size");
         }
     }
@@ -45,7 +46,7 @@ public class TaskList {
         try {
             return this.listOfTasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list " +
                     "size");
         }
     }

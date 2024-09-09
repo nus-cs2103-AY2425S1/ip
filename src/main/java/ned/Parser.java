@@ -1,7 +1,9 @@
 package ned;
 
 import ned.commands.Command;
+import ned.exceptions.InvalidCacheLineException;
 import ned.exceptions.NedException;
+import ned.exceptions.UnknownCommandException;
 import ned.tasks.Deadline;
 import ned.tasks.Event;
 import ned.tasks.Task;
@@ -26,7 +28,7 @@ public class Parser {
         CommandTypes command = CommandTypes.findMatchingCommand(userInput);
         switch (command) {
         case UNKNOWN:
-            throw new NedException("M'lord, you seem to have given me a nonsensical command."
+            throw new UnknownCommandException("M'lord, you seem to have given me a nonsensical command."
                     + " Input a correct command, for we have little time! Winter is coming....");
         default:
             return command.getCommand();
@@ -57,14 +59,14 @@ public class Parser {
             case "event":
                 return Event.createEvent(splitLine[2], splitLine[3], splitLine[4], isTaskDone);
             default:
-                throw new NedException(String.format("M'lord, it appears that this line: %s is an unknown task type.",
+                throw new UnknownCommandException(String.format("M'lord, it appears that this line: %s is an unknown task type.",
                         savedLine));
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException(String.format("M'lord, it appears that this line: %s is saved in the wrong format.",
+            throw new InvalidCacheLineException(String.format("M'lord, it appears that this line: %s is saved in the wrong format.",
                     savedLine));
         } catch (NumberFormatException e) {
-            throw new NedException(
+            throw new InvalidCacheLineException(
                     String.format("M'lord, it appears that this line: %s is saved with an invalid status number."
                             , savedLine));
         }

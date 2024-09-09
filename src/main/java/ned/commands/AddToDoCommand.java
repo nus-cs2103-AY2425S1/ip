@@ -2,6 +2,7 @@ package ned.commands;
 
 import ned.Storage;
 import ned.TaskList;
+import ned.exceptions.MissingTaskDescriptionException;
 import ned.exceptions.NedException;
 import ned.Ui;
 import ned.tasks.Task;
@@ -33,7 +34,7 @@ public class AddToDoCommand implements Command {
             throws NedException {
         String[] parsedInputs = userInput.split("todo", 2);
         if (parsedInputs[1].strip().isBlank()) {
-            throw new NedException("M'lord, you cannot create a todo task with no description"
+            throw new MissingTaskDescriptionException("M'lord, you cannot create a todo task with no description"
                     + uiInstance.getCommandMessage());
         }
         Task newTask = ToDo.createToDo(parsedInputs[1].strip(), false);

@@ -28,14 +28,13 @@ public abstract class Task {
                 count += 1;
             }
         }
-        ;
         return count;
-    };
+    }
     @Override
     public String toString() {
         String marker = this.isDone ? "X" : " ";
         return String.format("[%s][%s] %s",this.taskType, marker, this.taskDescription);
-    };
+    }
 
     public boolean isMatchingPattern(String searchPattern) {
         return Pattern.matches(searchPattern, this.taskDescription);

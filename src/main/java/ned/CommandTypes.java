@@ -52,10 +52,14 @@ public enum CommandTypes {
         for (CommandTypes commandType : CommandTypes.values()) {
             if (commandType == CommandTypes.UNKNOWN) {
                 break;
-            } else if (Pattern.matches(commandType.getCommand().getRegex(), userInput)) {
+            } else if (isInputMatchingPattern(userInput, commandType)) {
                 return commandType;
             }
         }
         return CommandTypes.UNKNOWN;
+    }
+
+    private static boolean isInputMatchingPattern(String userInput, CommandTypes commandType) {
+        return Pattern.matches(commandType.getCommand().getRegex(), userInput);
     }
 }
