@@ -43,6 +43,7 @@ public class Storage {
             }
         }
 
+        assert filePath != null : "The file path is null.";
         File file = new File(filePath);
         if (!file.exists()) {
             System.out.println("File ./data/Applemazer.ser does not exist.\n"
