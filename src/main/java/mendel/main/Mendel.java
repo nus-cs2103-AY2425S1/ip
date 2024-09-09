@@ -33,7 +33,8 @@ public class Mendel {
         Scanner sc = new Scanner(System.in);
         String currAction = "hello";
 
-        ui.showWelcome();
+        ui.showWelcome(this.taskManager);
+//        ui.autoRemindDeadlines(this.taskManager);
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
             try {

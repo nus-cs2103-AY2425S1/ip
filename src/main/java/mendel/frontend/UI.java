@@ -1,5 +1,8 @@
 package mendel.frontend;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The class handles all interactions with the user by displaying messages to the console.
  * It provides methods for displaying a welcome message and printing formatted output
@@ -16,8 +19,15 @@ public class UI {
     /**
      * Displays first message to the user.
      */
-    public void showWelcome() {
-        System.out.println(this.wrapLines("Hello! I'm Mendel \n" + "What can I do for you?"));
+    public void showWelcome(Parser taskManager) {
+        String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String message = "Hello! I'm Mendel \n"
+                + "What can I do for you?\n"
+                + "\n"
+                + "Pssssssst..... BTW\n"
+                + "\n"
+                + taskManager.manage("remind " + date);
+        System.out.println(this.wrapLines(message));
     }
 
     /**
