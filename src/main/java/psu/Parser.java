@@ -37,6 +37,8 @@ public class Parser {
             Integer year = Integer.parseInt(datetimeMatcher.group(3));
             year = year > 999 ? year : year + 2000; // check if the user used 2 digits or 4 digits for the year
 
+            assert year > 999 : "Year is incorrectly parsed: " + year;
+
             int hours = 0;
             int minutes = 0;
             String[] hoursMinutes = datetimeMatcher.group(4).split(":");
@@ -44,6 +46,7 @@ public class Parser {
                 // if minutes are provided, get those
                 minutes = Integer.parseInt(hoursMinutes[1]);
             }
+
             hours = Integer.parseInt(hoursMinutes[0]);
             String timeOfDay = datetimeMatcher.group(5);
             // convert hours to 24 hour clock by checking for am/pm
@@ -76,7 +79,7 @@ public class Parser {
      * @param userInput the user's input string
      * @return a command representing the user's command that is later executed
      */
-    public Command parse(String userInput) {
+    public static Command parse(String userInput) {
         if (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
                 // if user input is "list", return the tasklist with statuses

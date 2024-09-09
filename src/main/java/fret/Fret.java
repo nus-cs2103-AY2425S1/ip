@@ -5,40 +5,37 @@ import javafx.util.Pair;
 import command.Command;
 
 import psu.Storage;
-import psu.Ui;
+import psu.Parser;
 
 import task.TaskList;
 
 public class Fret {
     private Storage storage;
-    private Ui fretUi;
     private TaskList userTasks;
 
     public Fret(String filepath) {
         this.storage = new Storage(filepath);
-        this.fretUi = new Ui();
         this.userTasks = new TaskList(storage.loadTasksFromMemory());
     }
 
-    public String welcomeUser() {
-        return fretUi.welcomeUser();
-    }
-
     /**
-     * Runs the Fret chatbot program.
+     * Welcomes the user with ASCII art and a greeting.
+     * 
+     * @return the greeting.
      */
-    public void run() {
-        fretUi.welcomeUser();
-        boolean isExit = false;
-        while (!isExit) {
-            // // Command userCommand = fretUi.processUserInput();
-            // isExit = userCommand.isExitCommand();
-            // String result = userCommand.execute(userTasks);
-            // fretUi.printBotOutputString(result);
-        }
-
-        fretUi.closeUi();
-        storage.writeTasksToMemory(userTasks.taskListToFile());
+    public String welcomeUser() {
+        // String logo = "________                ___ \n"
+        //         + "| _____|             ___| |___ \n"
+        //         + "| |___  __   _   ___ |__   __|\n"
+        //         + "| ___|  | |/ /  / _ \\   | |\n"
+        //         + "| |     |   /  <  __/   | |__\n"
+        //         + "|_|     |__|    \\___|   |___|\n";
+        String logo = "F R E T \n";
+        
+        String welcomeString = "Initiating...\n" + logo 
+                + "\nPersonal AI Fret, coming online!\nHey, how can I be of assistance?";
+        
+        return welcomeString;
     }
 
     /**
@@ -48,7 +45,7 @@ public class Fret {
      * @return Fret's reply to the user.
      */
     public Pair<String, Boolean> getResponse(String input) {
-        Command userCommand = fretUi.processUserInput(input);
+        Command userCommand = Parser.parse(input);
         boolean isExit = userCommand.isExitCommand();
 
         if (isExit) {
@@ -57,10 +54,5 @@ public class Fret {
         
         String result = userCommand.execute(userTasks);
         return new Pair<String, Boolean>(result, isExit);
-        // fretUi.printBotOutputString(result);
     }
-
-    // public static void main(String[] args) {
-    //     new Fret("data/taskList.txt").run();
-    // }
 }
