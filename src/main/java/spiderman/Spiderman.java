@@ -4,6 +4,7 @@ public class Spiderman {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit = false;
 
     public Spiderman(String filePath) {
         ui = new Ui();
@@ -37,5 +38,27 @@ public class Spiderman {
 
     public static void main(String[] args) {
         new Spiderman("tasks.txt").run();
+    }
+
+    public String getWelcome() {
+        return "Hello! This is your friendly neighbourhood Spiderman.\n"
+                + "What can I do for you?";
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        String response = Parser.parseInput(input, tasks);
+        boolean isBye = Parser.isExit();
+        if (isBye) {
+            storage.saveTasksToStorage(tasks.getTasks());
+            this.isExit = true;
+        }
+        return response;
+    }
+
+    public boolean checkIsExit() {
+        return this.isExit;
     }
 }
