@@ -28,7 +28,23 @@ public class EventTask extends Task {
      *
      * @return Start time of the event task.
      */
-    public String getFrom() {
+    public LocalDateTime getStartDate() {
+        return this.from;
+    }
+    /**
+     * Returns the end time of the event task.
+     *
+     * @return End time of the event task.
+     */
+    public LocalDateTime getEndDate() {
+        return this.to;
+    }
+    /**
+     * Returns the start time of the event task in MMM d yyyy, HH:mm format.
+     *
+     * @return Start time of the event task.
+     */
+    public String getStartDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         return from.format(formatter);
     }
@@ -38,7 +54,7 @@ public class EventTask extends Task {
      *
      * @return End time of the event task.
      */
-    public String getTo() {
+    public String getEndDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         return to.format(formatter);
     }
@@ -60,7 +76,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)",
-                getStatusString(), getDescription(), getFrom(), getTo());
+                getStatusString(), getDescription(), getStartDateString(), getEndDateString());
     }
 
     /**
@@ -69,8 +85,8 @@ public class EventTask extends Task {
      * @return Date of the event task.
      */
     @Override
-    public String getDate() {
-        return getFrom() + " - " + getTo();
+    public String getDateString() {
+        return getStartDateString() + " - " + getEndDateString();
     }
 
 }

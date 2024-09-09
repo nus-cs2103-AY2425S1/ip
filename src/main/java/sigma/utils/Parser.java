@@ -4,18 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import sigma.command.ByeCommand;
-import sigma.command.Command;
-import sigma.command.DeadlineCommand;
-import sigma.command.DeleteCommand;
-import sigma.command.EventCommand;
-import sigma.command.FindCommand;
-import sigma.command.HelpCommand;
-import sigma.command.ListCommand;
-import sigma.command.MarkCommand;
-import sigma.command.TodoCommand;
-import sigma.command.UnmarkCommand;
-import sigma.command.UnrecognisedCommand;
+import sigma.command.*;
 import sigma.exception.SigmaException;
 
 /**
@@ -55,6 +44,8 @@ public class Parser {
             return new FindCommand(commandArray);
         case "help":
             return new HelpCommand(commandArray);
+        case "sort":
+            return new SortCommand(commandArray);
         default:
             return new UnrecognisedCommand(commandArray);
         }

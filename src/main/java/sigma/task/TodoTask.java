@@ -1,5 +1,7 @@
 package sigma.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a to-do task.
  */
@@ -19,7 +21,12 @@ public class TodoTask extends Task {
     }
 
     @Override
-    public String getDate() {
+    public LocalDateTime getStartDate() {
+        return null;
+    }
+
+    @Override
+    public String getDateString() {
         return "";
     }
 

@@ -1,8 +1,10 @@
 package sigma.utils;
 
-import java.util.ArrayList;
-
+import sigma.exception.SigmaException;
 import sigma.task.Task;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents a list of tasks.
@@ -102,6 +104,62 @@ public class TaskList {
                     s.append(taskString);
                 });
         return s;
+    }
+
+    /**
+     * Sorts the list of tasks based on the specified parameter.
+     *
+     * @param parameter The parameter to sort the tasks by.
+     *
+     * @return A new TaskList object containing the sorted tasks.
+     */
+    public ArrayList<Task> filterTasksByParameter(String parameter) throws SigmaException {
+        ArrayList<Task> copyOfTasks = new ArrayList<>(tasks);
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        if (parameter.equalsIgnoreCase("description")
+                || parameter.equalsIgnoreCase("desc")
+                || parameter.equalsIgnoreCase("date")) {
+            return sortTasksByParameter(parameter);
+        }
+        switch (parameter) {
+        case "todo":
+        case "t":
+            copyOfTasks.stream()
+                    .filter((task) -> task.getTaskType().equals("T"))
+                    .forEachOrdered((task) -> filteredTasks.add(task));
+            break;
+        case "deadline":
+        case "d":
+            copyOfTasks.stream()
+                    .filter((task) -> task.getTaskType().equals("D"))
+                    .forEachOrdered((task) -> filteredTasks.add(task));
+            break;
+        case "event":
+        case "e":
+            copyOfTasks.stream()
+                    .filter((task) -> task.getTaskType().equals("E"))
+                    .forEachOrdered((task) -> filteredTasks.add(task));
+            break;
+        default:
+            throw new SigmaException("What the sigma? I can't sort by that parameter!");
+        }
+        return filteredTasks;
+    }
+
+    private ArrayList<Task> sortTasksByParameter(String parameter) {
+        ArrayList<Task> sortedTasks = new ArrayList<>(tasks);
+        switch (parameter) {
+        case "description":
+        case "desc":
+            sortedTasks.sort(Comparator.comparing(Task::getDescription));
+            break;
+        case "date":
+            sortedTasks.sort(Comparator.comparing(Task::getStartDate, Comparator.nullsLast(Comparator.naturalOrder())));
+            break;
+        default:
+            break;
+        }
+        return sortedTasks;
     }
 
 }
