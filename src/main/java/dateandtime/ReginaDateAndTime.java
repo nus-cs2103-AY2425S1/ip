@@ -17,9 +17,9 @@ public class ReginaDateAndTime {
     private static final String OUTPUT_DATE_PATTERN = "MMM dd yyyy";
     private static final String OUTPUT_TIME_PATTERN = "h.mm a";
 
-    private final LocalDate date;
-    private final LocalTime time;
-    private final String savedFormat;
+    private LocalDate date;
+    private LocalTime time;
+    private String savedFormat;
 
     /**
      * Constructs a ReginaDateAndTime instance with the specified date and time.
@@ -74,6 +74,41 @@ public class ReginaDateAndTime {
      */
     public LocalTime getTime() {
         return this.time;
+    }
+
+    /**
+     * Adds minutes to the time value.
+     *
+     * @param min The value of the number of minutes to add to the time.
+     */
+    public void pushBackTime(int min) {
+        LocalTime originalTime = this.time;
+        this.time = this.time.plusMinutes(min);
+
+        // Check if pushing the time back crosses midnight
+        if (this.time.isBefore(originalTime)) {
+            this.pushBackDate(1); // Push the date back if we've crossed midnight
+        }
+        updateSavedFormat();
+    }
+
+    /**
+     * Adds days to the date value.
+     *
+     * @param days The value of the number of days to add to the date.
+     */
+    public void pushBackDate(int days) {
+        this.date = this.date.plusDays(days);
+        updateSavedFormat();
+    }
+
+    /**
+     * Updates the savedFormat to reflect the current date and time in the input pattern format.
+     */
+    private void updateSavedFormat() {
+        String formattedDate = this.date.format(DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN));
+        String formattedTime = this.time.format(DateTimeFormatter.ofPattern(INPUT_TIME_PATTERN));
+        this.savedFormat = formattedDate + " " + formattedTime; // Update savedFormat to the new pattern
     }
 
     /**

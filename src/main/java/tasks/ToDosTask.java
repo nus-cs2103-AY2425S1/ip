@@ -19,6 +19,21 @@ public class ToDosTask extends Task {
     }
 
     /**
+     * Tells the user that this task type does not need to be snoozed.
+     *
+     * @param durationType A string representing the type duration in days, hours or minutes.
+     * @param durationValue An int representing the value of the specified type to push back the deadline.
+     *
+     * @return A string representing the message to the user of the action.
+     */
+    @Override
+    public String snoozeTask(String durationType, int durationValue) {
+        return "The task, "
+                + this.description
+                + ". has no deadline lah. You can do whenever you want, don't need to snooze.";
+    }
+
+    /**
      * Checks if the to-do task is occurring on the specified date and time.
      * Since to-do tasks do not have specific start or end times, this method
      * will always return true.

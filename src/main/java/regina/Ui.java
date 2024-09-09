@@ -54,9 +54,14 @@ public class Ui {
                 4. List tasks: type 'list' to see all your tasks
                 5. Delete all current tasks: type 'clear'
                 6. Find out current date and time: type 'now'
-                7. List out all tasks occurring at a specified date and time: occurring <date_and_time>
+                7. To snooze the deadline by
+                      default value of 30 minutes: snooze <task_number>
+                      custom value: snooze <task_number> /by <duration_value> <duration_type>
+                      The 3 duration types are: day, hour and minute
+                   Example: snooze 1 /by 3 hours
+                8. List out all tasks occurring at a specified date and time: occurring <date_and_time>
                    Example: occurring 2/12/2024 1800
-                8. For help: type 'help'
+                9. For help: type 'help'
                 What can I do for you?
                 """, name
         );
@@ -86,6 +91,7 @@ public class Ui {
                   Example: delete 1
                 - To view your tasks: list
                 - To delete all current tasks: clear
+                - To snooze a task: snooze <task_number> /by <duration_value> <duration_type>
                 - For current date and time: now
                 - To view tasks occurring on a specified date and time: occurring <date_and_time>
                   Example: occurring 2/12/2024 1800

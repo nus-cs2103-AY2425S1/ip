@@ -39,6 +39,36 @@ public class DeadlinesTask extends Task {
     }
 
     /**
+     * Push back the deadline by the specified duration.
+     *
+     * @param durationType A string representing the type duration in days, hours or minutes.
+     * @param durationValue An int representing the value of the specified type to push back the deadline.
+     *
+     * @return A string representing the message to the user of the action.
+     */
+    @Override
+    public String snoozeTask(String durationType, int durationValue) {
+        String message = "";
+        String plural = durationValue > 1 ? "s" : "";
+        switch (durationType) {
+        case "day" -> {
+            this.deadline.pushBackDate(durationValue);
+        }
+        case "hour" -> {
+            this.deadline.pushBackTime(hoursToMinutes(durationValue));
+        }
+        case "min" -> {
+            this.deadline.pushBackTime(durationValue);
+        }
+        default -> {
+            this.deadline.pushBackTime(30);
+        }
+        };
+        message = String.format("Pushed back deadline of %s by %d %s%s to %s",
+                this.description, durationValue, durationType, plural, this.deadline.toString());
+        return message;
+    }
+    /**
      * Returns a string representation of the event task in a format suitable for saving.
      * The format includes the task type, completion status, description and deadline.
      *
