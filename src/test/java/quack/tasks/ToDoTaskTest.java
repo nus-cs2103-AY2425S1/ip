@@ -1,17 +1,23 @@
 package quack.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is to test the functionality of the ToDoTask class.
  */
 public class ToDoTaskTest {
 
+    /** Description of the event task */
     private String taskDescription;
+    /** ToDo task object */
     private ToDoTask dummyToDoTask;
 
+    /**
+     * Initializes and sets all variables to its default value after each test.
+     */
     @BeforeEach
     public void initializeVariables() {
         this.taskDescription = "Dummy todo task";
@@ -26,7 +32,7 @@ public class ToDoTaskTest {
      */
     @Test
     public void testConstructor() {
-        
+
         this.dummyToDoTask = new ToDoTask(this.taskDescription);
 
         assertEquals(this.taskDescription, this.dummyToDoTask.getDescription(),
@@ -43,7 +49,7 @@ public class ToDoTaskTest {
      */
     @Test
     public void testMark() {
-        
+
         this.dummyToDoTask = new ToDoTask(this.taskDescription);
 
         this.dummyToDoTask.mark();
@@ -51,7 +57,7 @@ public class ToDoTaskTest {
         assertEquals(true, this.dummyToDoTask.getIsChecked(),
             "The mark function did not mark the task as its instructed to");
 
-            this.dummyToDoTask.mark();
+        this.dummyToDoTask.mark();
 
         assertEquals(true, this.dummyToDoTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
@@ -64,7 +70,7 @@ public class ToDoTaskTest {
      */
     @Test
     public void testUnmark() {
-        
+
         this.dummyToDoTask = new ToDoTask(this.taskDescription);
 
         // We need to ensure that the mark function works before testing the unmark function
@@ -82,7 +88,6 @@ public class ToDoTaskTest {
 
         assertEquals(false, this.dummyToDoTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
-        
     }
 
     /**
@@ -99,7 +104,7 @@ public class ToDoTaskTest {
         String actualTaskCsvFormat = this.dummyToDoTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -117,7 +122,7 @@ public class ToDoTaskTest {
         String actualTaskCsvFormat = this.dummyToDoTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -134,7 +139,7 @@ public class ToDoTaskTest {
         String actualTaskStringFormat = this.dummyToDoTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 
     /**
@@ -152,6 +157,6 @@ public class ToDoTaskTest {
         String actualTaskStringFormat = this.dummyToDoTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 }

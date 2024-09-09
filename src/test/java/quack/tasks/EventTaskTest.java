@@ -1,17 +1,20 @@
 package quack.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is to test the functionality of the EventTask class.
  */
 public class EventTaskTest {
 
+    /** Date time format for LocalDateTime objects */
+    protected DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** Description of the event task */
     private String taskDescription;
     /** Start date of the event task */
@@ -20,14 +23,15 @@ public class EventTaskTest {
     private LocalDateTime taskEndDate;
     /** Event task object */
     private EventTask dummyEventTask;
-    /** Date time format for LocalDateTime objects */
-    protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
+    /**
+     * Initializes and sets all variables to its default value after each test.
+     */
     @BeforeEach
     public void initializeVariables() {
         this.taskDescription = "Dummy event task";
-        this.taskStartDate = LocalDateTime.parse("10/05/2024 10:00:30", Task.DATE_FORMAT);
-        this.taskEndDate = LocalDateTime.parse("15/06/2024 12:30:00", Task.DATE_FORMAT);
+        this.taskStartDate = LocalDateTime.parse("10/05/2024 10:00:30", this.dateFormat);
+        this.taskEndDate = LocalDateTime.parse("15/06/2024 12:30:00", this.dateFormat);
         this.dummyEventTask = null;
     }
 
@@ -36,11 +40,10 @@ public class EventTaskTest {
      * <p>
      * The event task must have the same description,
      * the same start and end date as the input and the task must be unmarked.
-     *
      */
     @Test
     public void testConstructor() {
-        
+
         this.dummyEventTask = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
 
         assertEquals(taskDescription, this.dummyEventTask.getDescription(),
@@ -48,7 +51,7 @@ public class EventTaskTest {
 
         assertEquals(false, this.dummyEventTask.getIsChecked(),
             "The constructor created a new deadline task that is originally marked");
-        
+
         assertEquals(this.taskStartDate, this.dummyEventTask.getStartDate(),
             "The constructor did not create a deadline task with the same start date");
 
@@ -63,7 +66,7 @@ public class EventTaskTest {
      */
     @Test
     public void testMark() {
-        
+
         this.dummyEventTask = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
 
         this.dummyEventTask.mark();
@@ -71,7 +74,7 @@ public class EventTaskTest {
         assertEquals(true, this.dummyEventTask.getIsChecked(),
             "The mark function did not mark the task as its instructed to");
 
-            this.dummyEventTask.mark();
+        this.dummyEventTask.mark();
 
         assertEquals(true, this.dummyEventTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
@@ -84,7 +87,7 @@ public class EventTaskTest {
      */
     @Test
     public void testUnmark() {
-        
+
         this.dummyEventTask = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
 
         // We need to ensure that the mark function works before testing the unmark function
@@ -102,7 +105,6 @@ public class EventTaskTest {
 
         assertEquals(false, this.dummyEventTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
-        
     }
 
     /**
@@ -119,7 +121,7 @@ public class EventTaskTest {
         String actualTaskCsvFormat = this.dummyEventTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -137,7 +139,7 @@ public class EventTaskTest {
         String actualTaskCsvFormat = this.dummyEventTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -155,7 +157,7 @@ public class EventTaskTest {
         String actualTaskStringFormat = this.dummyEventTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 
     /**
@@ -174,6 +176,6 @@ public class EventTaskTest {
         String actualTaskStringFormat = this.dummyEventTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 }

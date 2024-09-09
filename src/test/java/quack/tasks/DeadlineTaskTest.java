@@ -1,30 +1,34 @@
 package quack.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is to test the functionality of the DeadlineTask class.
  */
 public class DeadlineTaskTest {
 
+    /** Date time format for LocalDateTime objects */
+    protected DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** Description of the deadline task */
     private String taskDescription;
     /** Due date of the deadline task */
     private LocalDateTime taskDueDate;
     /** Deadline task object */
     private DeadlineTask dummyDeadlineTask;
-    /** Date time format for LocalDateTime objects */
-    protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
+    /**
+     * Initializes and sets all variables to its default value after each test.
+     */
     @BeforeEach
     public void initializeVariables() {
         this.taskDescription = "Dummy deadline task";
-        this.taskDueDate = LocalDateTime.parse("10/05/2024 10:00:30", Task.DATE_FORMAT);
+        this.taskDueDate = LocalDateTime.parse("10/05/2024 10:00:30", this.dateFormat);
         this.dummyDeadlineTask = null;
     }
 
@@ -33,11 +37,10 @@ public class DeadlineTaskTest {
      * <p>
      * The deadline task must have the same description,
      * the same due date as the input and the task must be unmarked.
-     *
      */
     @Test
     public void testConstructor() {
-        
+
         this.dummyDeadlineTask = new DeadlineTask(this.taskDescription, this.taskDueDate);
 
         assertEquals(taskDescription, this.dummyDeadlineTask.getDescription(),
@@ -45,7 +48,7 @@ public class DeadlineTaskTest {
 
         assertEquals(false, this.dummyDeadlineTask.getIsChecked(),
             "The constructor created a new deadline task that is originally marked");
-        
+
         assertEquals(this.taskDueDate, this.dummyDeadlineTask.getDueDate(),
             "The constructor did not create a deadline task with the same due date");
     }
@@ -57,7 +60,7 @@ public class DeadlineTaskTest {
      */
     @Test
     public void testMark() {
-        
+
         this.dummyDeadlineTask = new DeadlineTask(this.taskDescription, this.taskDueDate);
 
         this.dummyDeadlineTask.mark();
@@ -65,7 +68,7 @@ public class DeadlineTaskTest {
         assertEquals(true, this.dummyDeadlineTask.getIsChecked(),
             "The mark function did not mark the task as its instructed to");
 
-            this.dummyDeadlineTask.mark();
+        this.dummyDeadlineTask.mark();
 
         assertEquals(true, this.dummyDeadlineTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
@@ -78,7 +81,7 @@ public class DeadlineTaskTest {
      */
     @Test
     public void testUnmark() {
-        
+
         this.dummyDeadlineTask = new DeadlineTask(this.taskDescription, this.taskDueDate);
 
         // We need to ensure that the mark function works before testing the unmark function
@@ -96,7 +99,6 @@ public class DeadlineTaskTest {
 
         assertEquals(false, this.dummyDeadlineTask.getIsChecked(),
             "The mark function unmarked task even through it was already marked");
-        
     }
 
     /**
@@ -113,7 +115,7 @@ public class DeadlineTaskTest {
         String actualTaskCsvFormat = this.dummyDeadlineTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -131,7 +133,7 @@ public class DeadlineTaskTest {
         String actualTaskCsvFormat = this.dummyDeadlineTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
-        "The toCsvFormat function did not convert the task properly to its csv format");
+            "The toCsvFormat function did not convert the task properly to its csv format");
     }
 
     /**
@@ -148,7 +150,7 @@ public class DeadlineTaskTest {
         String actualTaskStringFormat = this.dummyDeadlineTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 
     /**
@@ -166,6 +168,6 @@ public class DeadlineTaskTest {
         String actualTaskStringFormat = this.dummyDeadlineTask.toString();
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
-        "The toString function did not convert the task properly to its string format");
+            "The toString function did not convert the task properly to its string format");
     }
 }
