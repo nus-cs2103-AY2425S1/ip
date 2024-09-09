@@ -230,6 +230,10 @@ public class Jackson {
         return this.ui.printGoodbye();
     }
 
+    /**
+     * Returns last executed commandType for chatbot text box drawing.
+     * @return {@code Commands.CommandType} of last executed command.
+     */
     public Commands.CommandType getCommandType() {
         return this.commandType;
     }

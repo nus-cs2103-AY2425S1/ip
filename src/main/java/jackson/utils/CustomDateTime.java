@@ -51,6 +51,13 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
         return localDateTime != null;
     }
 
+    /**
+     * Overrides {@code compareTo} and compares CustomDateTime objects.
+     * If other/this is null, return the non-null object.
+     * If both are not null, compare both localDates.
+     * @param other the object to be compared.
+     * @return < 0 if this < other, == 0 if this == other, > 1 if this > other.
+     */
     @Override
     public int compareTo(CustomDateTime other) {
         if (other == null) {
