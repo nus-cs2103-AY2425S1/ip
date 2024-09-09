@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.ui.Ui;
 import king.task.Deadline;
+import king.ui.Ui;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -39,10 +39,12 @@ public class DeadlineCommand extends Command {
         String[] parts = this.input.split(" /by ");
         if (parts.length == 2) {
             String description = parts[0].trim();
-            String by = parts[1].trim();
+            String deadlineDate = parts[1].trim();
             try {
-                LocalDateTime byDate = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                Deadline deadline = new Deadline(description, byDate);
+                LocalDateTime parsedDeadlineDate = LocalDateTime.parse(
+                        deadlineDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
+                );
+                Deadline deadline = new Deadline(description, parsedDeadlineDate);
                 tasks.add(deadline);
                 storage.save(tasks.getTaskList());
                 return ui.showTaskAdded(deadline, tasks.size());

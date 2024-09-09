@@ -3,8 +3,8 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.ui.Ui;
 import king.task.Todo;
+import king.ui.Ui;
 
 /**
  * Represents a command that adds a new to-do task to the task list.

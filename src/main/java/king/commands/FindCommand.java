@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.ui.Ui;
 import king.task.Task;
+import king.ui.Ui;
 
 /**
  * Represents a command to find tasks containing a keyword in their description.

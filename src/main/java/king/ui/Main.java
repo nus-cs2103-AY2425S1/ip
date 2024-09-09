@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import king.King;
 
 /**
@@ -24,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKing(king);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setKing(king); // inject the King instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

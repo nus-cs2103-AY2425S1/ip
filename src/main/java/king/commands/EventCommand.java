@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
-import king.ui.Ui;
 import king.task.Event;
+import king.ui.Ui;
 
 /**
  * Represents a command to create an event and add it to the task list.
@@ -40,12 +40,16 @@ public class EventCommand extends Command {
         String[] parts = input.split(" /from | /to ");
         if (parts.length == 3) {
             String description = parts[0].trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
+            String fromDate = parts[1].trim();
+            String toDate = parts[2].trim();
             try {
-                LocalDateTime fromDate = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                Event event = new Event(description, fromDate, toDate);
+                LocalDateTime parsedFromDate = LocalDateTime.parse(
+                        fromDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
+                );
+                LocalDateTime parsedToDate = LocalDateTime.parse(
+                        toDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
+                );
+                Event event = new Event(description, parsedFromDate, parsedToDate);
                 tasks.add(event);
                 storage.save(tasks.getTaskList());
                 return ui.showTaskAdded(event, tasks.size());
