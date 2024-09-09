@@ -60,13 +60,16 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            try {
-                File file = new File(filePath);
-                file.createNewFile();
-            } catch (IOException ioException) {
-                throw new CasperBotIoException();
-            }
+            createNewFile(filePath);
         } catch (IOException e) {
+            throw new CasperBotIoException();
+        }
+    }
+    private void createNewFile(String filePath) throws CasperBotIoException {
+        try {
+            File file = new File(filePath);
+            file.createNewFile();
+        } catch (IOException ioException) {
             throw new CasperBotIoException();
         }
     }
@@ -115,11 +118,8 @@ public class Storage {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
 
-            if (line >= 0 && line < lines.size()) {
-                lines.remove(line);
-            } else {
-                throw new CasperBotOutOfBoundsException();
-            }
+
+            lines.remove(line);
             Files.write(path, lines);
         } catch (IOException e) {
             throw new CasperBotIoException();
@@ -137,17 +137,14 @@ public class Storage {
         try {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
-
-            if (line >= 0 && line < lines.size()) {
-                // Retrieve the line and update the done status
-                String previous = lines.remove(line);
-                String[] previousParts = previous.split("\\|");
-                previousParts[1] = String.valueOf(isDone);
-                String updated = String.join("|", previousParts);
-                lines.add(line, updated);
-            } else {
+            if (line < 0 || line >= lines.size()) {
                 throw new CasperBotOutOfBoundsException();
             }
+            String previous = lines.remove(line);
+            String[] previousParts = previous.split("\\|");
+            previousParts[1] = String.valueOf(isDone);
+            String updated = String.join("|", previousParts);
+            lines.add(line, updated);
             Files.write(path, lines);
         } catch (IOException e) {
             throw new CasperBotIoException();
