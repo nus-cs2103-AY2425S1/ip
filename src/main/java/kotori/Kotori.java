@@ -26,10 +26,6 @@ public class Kotori {
         this.taskList = this.storage.load();
         this.parser = new Parser(storage, taskList);
     }
-
-
-
-
     /**
      * Return a string for Ui.
      *
