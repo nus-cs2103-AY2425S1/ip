@@ -8,7 +8,7 @@ import revir.tasks.Event;
 import revir.tasks.Task;
 import revir.tasks.TaskList;
 import revir.tasks.Todo;
-import revir.user.Ui;
+import revir.user.ui.Ui;
 
 /**
  * Represents a command to create a new task and add it to the task list.

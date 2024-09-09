@@ -1,7 +1,7 @@
 package revir.user.command;
 
 import revir.tasks.TaskList;
-import revir.user.Ui;
+import revir.user.ui.Ui;
 
 /**
  * Represents a Nop command.

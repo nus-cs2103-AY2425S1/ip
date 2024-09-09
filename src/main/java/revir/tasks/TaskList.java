@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import revir.system.Storage;
-import revir.user.Ui;
+import revir.user.ui.Ui;
 
 /**
  * Represents a list of tasks.
