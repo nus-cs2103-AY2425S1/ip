@@ -9,6 +9,10 @@ import dook.storage.Storage;
 import dook.tasks.TaskList;
 import dook.ui.Ui;
 
+/**
+ * The main entry point for the Dook application.
+ * Manages the overall flow of the application, including user interaction and task management.
+ */
 public class Dook {
 
     private static Ui ui = new Ui();
@@ -16,6 +20,12 @@ public class Dook {
     private static TaskList tasks;
     private static Parser parser = new Parser();
 
+    /**
+     * The main method that runs the Dook application.
+     * Initializes the storage, loads tasks, and starts the user interface loop.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
 
         try {
@@ -45,6 +55,10 @@ public class Dook {
         }
     }
 
+    /**
+     * Initializes the Dook application.
+     * Sets up storage, loads tasks, and greets the user.
+     */
     public void initialize() {
         try {
             storage.setup();
@@ -55,6 +69,12 @@ public class Dook {
         }
     }
 
+    /**
+     * Processes the user input and returns the response.
+     *
+     * @param input The user input string.
+     * @return The response from executing the command parsed from the input.
+     */
     public String getResponse(String input) {
         try {
             return parser.parse(input).execute(tasks, ui, storage);
@@ -65,6 +85,11 @@ public class Dook {
         }
     }
 
+    /**
+     * Greets the user.
+     *
+     * @return The greeting message from the UI.
+     */
     public String greet() {
         return ui.greet();
     }

@@ -33,6 +33,8 @@ public class TaskList {
      * @throws IOException If an I/O error occurs (not expected in this method).
      */
     public Task delete(int taskNumber) throws DookException, IOException {
+        assert taskNumber >= 0 && taskNumber < numOfTasks() : "Task number out of range: " + taskNumber;
+
         if (taskNumber < 0 || taskNumber > numOfTasks()) {
             throw new DookException("You don't have that many tasks");
         }
@@ -47,6 +49,7 @@ public class TaskList {
     }
 
     public Task getTask(int index) throws DookException {
+        assert index >= 0 && index < numOfTasks() : "Index out of range: " + index;
         if (index > numOfTasks()) {
             throw new DookException("You don't have that many tasks");
         }
