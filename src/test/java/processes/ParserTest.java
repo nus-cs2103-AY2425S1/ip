@@ -10,14 +10,14 @@ public class ParserTest {
     @Test
     public void checkValidIndex_validInput_success() {
         Parser pc = new Parser();
-        assertTrue(pc.checkValidIndex("mark 5 ", 5));
-        assertTrue(pc.checkValidIndex("unmark 5 ", 7));
+        assertTrue(pc.checkValidIndex("5 "));
+        assertTrue(pc.checkValidIndex("  57 "));
     }
 
     @Test
     public void checkValidIndex_invalidInput_success() {
         Parser pc = new Parser();
-        assertFalse(pc.checkValidIndex("marking 5 ", 5));
-        assertFalse(pc.checkValidIndex("mark 5 ", 7));
+        assertFalse(pc.checkValidIndex("helloWorld"));
+        assertFalse(pc.checkValidIndex("test 57 test"));
     }
 }
