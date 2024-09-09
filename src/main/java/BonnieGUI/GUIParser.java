@@ -16,6 +16,7 @@ public class GUIParser {
      * @throws UnknownCommandException   If the command is unknown.
      */
     public static String parseInput(String input) throws DeadlineFormatException, EmptyTodoException, UnknownCommandException {
+        assert input != "";
         String output = "";
         if (input.equals("list")) {
             String list = "Your current tasks are\n";
@@ -42,6 +43,7 @@ public class GUIParser {
             output = String.format("Task %d has been successfully deleted!", taskNum);
         } else if (checkFindCommand(input)) {
             String[] arr = input.split(" ", 2);
+            assert arr.length == 2; // Ensure the find command has find keyword and another string
             String stringToFindBy = arr[1];
             ArrayList<Task> foundTasks = GUITaskList.findTasks(stringToFindBy);
             // Does not use the TaskList, we are manipulating a new ArrayList of tasks here
@@ -67,13 +69,8 @@ public class GUIParser {
         if ((arr[0].equals("mark") || arr[0].equals("unmark")) && arr.length == 2) {
             try {
                 Integer taskNum = Integer.valueOf(arr[1]);
-                if (taskNum <=GUITaskList.getSize() && taskNum >= 1) {
-                    return true;
-                } else {
-                    System.out.println("You might have tried to mark or unmark a task that does not exist.\n" +
-                            "If so, please delete this wrongly added task using the delete command.\n");
-                    return false;
-                }
+                assert taskNum >= 1 && taskNum <= GUITaskList.getSize();
+                return true;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -87,12 +84,8 @@ public class GUIParser {
         if (arr[0].equals("delete") && arr.length == 2) {
             try {
                 Integer taskNum = Integer.valueOf(arr[1]);
-                if (taskNum <= GUITaskList.getSize() && taskNum >= 1) {
-                    return true;
-                } else {
-                    System.out.println("You might have tried to delete a task that does not exist.\n");
-                    return false;
-                }
+                assert taskNum >= 1 && taskNum <= GUITaskList.getSize();
+                return true;
             } catch (NumberFormatException e) {
                 return false;
             }
