@@ -1,4 +1,7 @@
 package bimo;
+
+import java.io.File;
+
 import bimo.command.ByeCommand;
 import bimo.command.Command;
 import bimo.exception.BimoException;
@@ -30,6 +33,7 @@ public class Bimo {
      */
     public Bimo(String filePath) {
         this.ui = new Ui();
+        assert new File(filePath).exists() : "File must not be missing";
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.loadFile());

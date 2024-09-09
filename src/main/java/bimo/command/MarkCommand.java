@@ -34,6 +34,8 @@ public class MarkCommand extends Command {
         if (!ui.findTaskInList(this.indexToMark, tasks)) {
             return ui.showTaskNotFoundError();
         }
+        assert indexToMark >= 0 && indexToMark < tasks.getLength()
+                : "Index must not be out of bounds";
         tasks.getTask(this.indexToMark).markCompleted();
         storage.overwriteFile(tasks);
         Task markedTask = tasks.getTask(this.indexToMark);

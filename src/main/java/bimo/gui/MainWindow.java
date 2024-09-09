@@ -52,6 +52,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bimo.getResponse(input);
+        assert userImage != null : "User image must exist";
+        assert bimoImage != null : "Bot image must exist";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBimoDialog(response, bimoImage)

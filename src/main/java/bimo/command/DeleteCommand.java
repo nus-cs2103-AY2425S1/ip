@@ -34,6 +34,9 @@ public class DeleteCommand extends Command {
             return ui.showTaskNotFoundError();
         }
         Task taskRemoved = tasks.removeTask(index);
+        assert tasks != null : "Task list must not be null";
+        assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
+        assert taskRemoved != null : "Task must not be null";
         storage.overwriteFile(tasks);
         int length = tasks.getLength();
         String response = ui.sendDeleteTaskMessage(length, taskRemoved);

@@ -48,6 +48,7 @@ public class FindCommand extends Command {
         for (int i = 1; i < this.specifiedWords.length; i++) {
             for (int j = 0; j < tasks.getLength(); j++) {
                 Task task = tasks.getTask(j);
+                assert task != null : "Task must not be null";
                 if (task.getDetails().contains(this.specifiedWords[i])) {
                     results.add(task);
                 }
