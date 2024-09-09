@@ -37,6 +37,10 @@ public class DateCommand extends Command {
         StringBuilder sb = new StringBuilder();
         ArrayList<Task> taskList = tasks.getTasksOnDate(date);
         int numTasks = taskList.size();
+        if (numTasks == 0) {
+            Ui.print("I couldn't find any tasks on this date!");
+            return "I couldn't find any tasks on this date!";
+        }
         for (int i = 0; i < numTasks; i++) {
             Task task = taskList.get(i);
             sb.append(task.toString());

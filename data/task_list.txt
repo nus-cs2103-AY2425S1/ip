@@ -6,5 +6,5 @@ E | 0 | project meeting | 2024-08-26 | 2024-08-26
 T | 0 | borrow book
 D | 0 | return book | 2024-08-25
 E | 1 | project meeting | 2024-08-23 | 2024-08-25
-T | 1 | hi
+T | 0 | hi
 E | 1 | study | 2024-09-19 | 2024-09-25
