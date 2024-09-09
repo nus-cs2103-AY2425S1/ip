@@ -7,7 +7,6 @@ import exception.AlphaException;
 import java.util.ArrayList;
 
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * The {@code TaskList} class manages a list of tasks, providing functionality to
@@ -44,6 +43,7 @@ public class TaskList {
      * @param newTask the task to be added to the list
      */
     public void storeTask(Task newTask) {
+        System.out.println("New Task here");
         this.tasks.add(newTask);
     }
     
@@ -54,11 +54,7 @@ public class TaskList {
      */
     public Task lastTask() {
         if (!this.tasks.isEmpty()) {
-            if (this.tasks.get(this.tasks.size() - 1).getDescription().equals("bye"))
-                return null;
-            else {
-                return this.tasks.get(this.tasks.size() - 1);
-            }
+            return this.tasks.get(this.tasks.size() - 1);
         }
         else {
             return null;
@@ -139,7 +135,6 @@ public class TaskList {
      * @return an {@code ArrayList} of tasks that match the search criteria
      */
     public ArrayList<Task> findLists(String searchParameter) {
-        System.out.println(searchParameter);
         Pattern pattern = Pattern.compile(searchParameter.trim(), Pattern.CASE_INSENSITIVE);
         ArrayList<Task> result = new ArrayList<Task>();
         for (Task task : this.tasks) {
