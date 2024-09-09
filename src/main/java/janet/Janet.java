@@ -2,6 +2,7 @@ package janet;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -101,7 +102,12 @@ public class Janet {
             case VIEW:
                 // view schedules
                 String dateAndTime = commandDetails[1];
-                LocalDate schedule = LocalDate.parse(dateAndTime);
+                LocalDate schedule = null;
+                try {
+                    schedule = LocalDate.parse(dateAndTime);
+                } catch (DateTimeParseException e) {
+                    throw new JanetException("WHOOPS! Please ensure date is in yyyy-MM-dd format!");
+                }
                 response = ui.showScheduledTasksMessage(tasks.tasksInSchedule(schedule), dateAndTime);
             }
         } catch (JanetException e) {
