@@ -25,10 +25,12 @@ public class Task {
     }
     @Override
     public String toString() {
+        assert description != null:"empty description";
         return "[" + getStatusIcon() + "]" + description;
     }
 
     public String save() {
+        assert description != null:"empty description";
         return (isDone ? "1" : "0") + " | " + description;
     }
 }

@@ -32,6 +32,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         //return "[E]" + super.toString() + " (from: " + from + " to: " +  to + ")";
+        assert description != null : "empty description";
+        assert dateFrom != null : "empty dateFrom";
+        assert dateTo != null : "empty dateTo";
         return "[E]" + super.toString() + " (from: "
                 + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH))
                         + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";
@@ -43,6 +46,8 @@ public class Event extends Task {
      */
     @Override
     public String save() {
+        assert from != null : "empty from time";
+        assert to != null : "empty to time";
         return "E | " + super.save() + " | " + from + " | " + to;
     }
 }
