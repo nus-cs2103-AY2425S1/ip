@@ -40,47 +40,55 @@ public class Parser {
             return this.taskStorage.speak();
         } else {
             String[] segments = currAction.split(" ");
-            if (segments[0].equals("mark") || segments[0].equals("unmark") || segments[0].equals("delete")) {
-                ConditionalExceptionHandler.of()
-                        .conditionTriggerException(segments.length < 2, "OOPS! No serial given.\nSpecify serial.")
-                        .conditionTriggerException(segments.length > 2, "OOPS! Too much stuff.\nSpecify only serial.");
-                try {
-                    Integer.parseInt(segments[1]);
-                } catch (NumberFormatException e) {
-                    throw new MendelException("OOPS! That is invalid serial\nSpecify integer serial");
-                }
-            }
-
-            String message;
-            if (segments[0].equals("mark")) {
-                message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
-                this.dbContoller.update(this.taskStorage);
-            } else if (segments[0].equals("unmark")) {
-                message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
-                this.dbContoller.update(this.taskStorage);
-            } else if (segments[0].equals("delete")) {
-                message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
-                this.dbContoller.update(this.taskStorage);
-            } else if (segments[0].equals("todo")) {
-                Todo task = Todo.of(currAction);
-                message = taskStorage.add(task);
-                this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if (segments[0].equals("deadline")) {
-                Deadline task = Deadline.of(currAction);
-                message = taskStorage.add(task);
-                this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if (segments[0].equals("event")) {
-                Event task = Event.of(currAction);
-                message = taskStorage.add(task);
-                this.dbContoller.create(task, taskStorage.isFirstTask());
-            } else if (segments[0].equals("findeventon")) {
-                message = taskStorage.find(segments[1]);
-            } else if (segments[0].equals("find")) {
-                message = taskStorage.findDescription(currAction);
-            } else {
-                throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
-            }
-            return message;
+            return handleMultiWordCommands(segments, currAction);
         }
     }
+
+    private String handleMultiWordCommands(String[] segments, String currAction) {
+        String message;
+        if (segments[0].equals("mark")) {
+            handleSequenceNumberSizeError(segments);
+            message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
+            this.dbContoller.update(this.taskStorage);
+        } else if (segments[0].equals("unmark")) {
+            handleSequenceNumberSizeError(segments);
+            message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+            this.dbContoller.update(this.taskStorage);
+        } else if (segments[0].equals("delete")) {
+            handleSequenceNumberSizeError(segments);
+            message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
+            this.dbContoller.update(this.taskStorage);
+        } else if (segments[0].equals("todo")) {
+            Todo task = Todo.of(currAction);
+            message = taskStorage.add(task);
+            this.dbContoller.create(task, taskStorage.isFirstTask());
+        } else if (segments[0].equals("deadline")) {
+            Deadline task = Deadline.of(currAction);
+            message = taskStorage.add(task);
+            this.dbContoller.create(task, taskStorage.isFirstTask());
+        } else if (segments[0].equals("event")) {
+            Event task = Event.of(currAction);
+            message = taskStorage.add(task);
+            this.dbContoller.create(task, taskStorage.isFirstTask());
+        } else if (segments[0].equals("findeventon")) {
+            message = taskStorage.find(segments[1]);
+        } else if (segments[0].equals("find")) {
+            message = taskStorage.findDescription(currAction);
+        } else {
+            throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
+        }
+        return message;
+    }
+
+    private void handleSequenceNumberSizeError(String[] segments) {
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(segments.length < 2, "OOPS! No serial given.\nSpecify serial.")
+                .conditionTriggerException(segments.length > 2, "OOPS! Too much stuff.\nSpecify only serial.");
+        try {
+            Integer.parseInt(segments[1]);
+        } catch (NumberFormatException e) {
+            throw new MendelException("OOPS! That is invalid serial\nSpecify integer serial");
+        }
+    }
+
 }
