@@ -10,6 +10,7 @@ import joe.commands.SaveCommand;
 import joe.exceptions.InvalidCommandException;
 import joe.exceptions.InvalidIndexException;
 import joe.tasks.TaskList;
+import joe.utils.Parser;
 
 /**
  * Represents the user interface of the programme.
@@ -34,13 +35,6 @@ public class Ui {
      */
     public void setTasks(TaskList tasks) {
         this.tasks = tasks;
-    }
-
-    /**
-     * Displays the message when the user exits the program.
-     */
-    public String receiveCommand() {
-        return reader.nextLine().strip();
     }
 
     /**

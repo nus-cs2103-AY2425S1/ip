@@ -22,7 +22,6 @@ public class QueryCommand extends Command {
 
     @Override
     public String execute() {
-
         return tasks.queryTasksByDate(date);
     }
 }

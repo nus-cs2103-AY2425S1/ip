@@ -3,7 +3,7 @@ package joe.tasks;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import joe.utils.Formatter;
+import joe.utils.Parser;
 
 /**
  * Represents an Event task.
@@ -21,8 +21,9 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description.strip());
-        this.start = Formatter.parseDateTimeString(start.strip().substring(5));
-        this.end = Formatter.parseDateTimeString(end.strip().substring(3));
+        assert(!description.isEmpty());
+        this.start = Parser.parseDateTimeString(start.strip().substring(5));
+        this.end = Parser.parseDateTimeString(end.strip().substring(3));
     }
 
     /**
@@ -44,8 +45,8 @@ public class Event extends Task {
     public String saveRepr() {
         return String.format("E | %s | from %s | to %s",
                 super.saveRepr(),
-                Formatter.formatDateTime(start),
-                Formatter.formatDateTime(end));
+                Parser.formatDateTime(start),
+                Parser.formatDateTime(end));
     }
 
     /**
@@ -56,6 +57,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), Formatter.printDateTime(start), Formatter.printDateTime(end));
+                super.toString(), Parser.printDateTime(start), Parser.printDateTime(end));
     }
 }
