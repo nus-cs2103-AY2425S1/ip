@@ -42,4 +42,23 @@ public class Event extends Task {
         return "\t[E]" + super.toString() + " (from: " + this.from.format(Task.getOutputFormat()) + " to: "
                 + this.to.format(Task.getOutputFormat()) + ")";
     }
+    /**
+     * Checks if the Event is a duplicate of another Event.
+     *
+     * @param task The task to compare with.
+     * @return Returns true if the task is a duplicate. Otherwise, returns false.
+     */
+    @Override
+    public boolean checkDuplicate(Task task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        if (task == this) {
+            return true;
+        }
+        //get the substring of the task description without the status icon
+        String taskSubstring = task.toString().substring(this.getStatusIcon().length());
+        String otherTaskSubstring = task.toString().substring(this.getStatusIcon().length());
+        return taskSubstring.equals(otherTaskSubstring);
+    }
 }

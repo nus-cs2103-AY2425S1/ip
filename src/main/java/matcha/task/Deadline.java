@@ -38,4 +38,23 @@ public class Deadline extends Task {
     public String toString() {
         return "\t[D]" + super.toString() + " (by: " + this.by.format(Task.getOutputFormat()) + ")";
     }
+    /**
+     * Checks if the Deadline is a duplicate of another Deadline.
+     *
+     * @param task The task to compare with.
+     * @return Returns true if the task is a duplicate. Otherwise, returns false.
+     */
+    @Override
+    public boolean checkDuplicate(Task task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        if (task == this) {
+            return true;
+        }
+        //get the substring of the task description without the status icon
+        String taskSubstring = task.toString().substring(this.getStatusIcon().length());
+        String otherTaskSubstring = task.toString().substring(this.getStatusIcon().length());
+        return taskSubstring.equals(otherTaskSubstring);
+    }
 }

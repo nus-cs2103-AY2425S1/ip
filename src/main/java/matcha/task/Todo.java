@@ -33,4 +33,23 @@ public class Todo extends Task {
     public String toString() {
         return "\t[T]" + super.toString();
     }
+    /**
+     * Checks if the Todo is a duplicate of another Todo.
+     *
+     * @param task The task to compare with.
+     * @return Returns true if the task is a duplicate. Otherwise, returns false.
+     */
+    @Override
+    public boolean checkDuplicate(Task task) {
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+        if (task == this) {
+            return true;
+        }
+        //get the substring of the task description without the status icon
+        String taskSubstring = task.toString().substring(this.getStatusIcon().length());
+        String otherTaskSubstring = task.toString().substring(this.getStatusIcon().length());
+        return taskSubstring.equals(otherTaskSubstring);
+    }
 }

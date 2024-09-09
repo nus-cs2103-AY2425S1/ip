@@ -2,6 +2,7 @@ package matcha.tasklist;
 
 import java.util.ArrayList;
 
+import matcha.exception.MatchaException;
 import matcha.task.Task;
 
 /**
@@ -37,12 +38,17 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list of tasks.
+     * Adds a task to the list of tasks. Checks if the task already exists in the list
+     * before adding it.
      *
      * @param task Task to be added.
      */
-    public void addTask(Task task) {
-        this.tasks.add(task);
+    public void addTask(Task task) throws MatchaException {
+        if (checkDuplicates(task)) {
+            throw new MatchaException("This task already exists in the list! Task not added.");
+        } else {
+            this.tasks.add(task);
+        }
     }
 
     /**
@@ -108,6 +114,21 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Check if there is any duplicate task of the given task in the list.
+     *
+     * @param task Task to check for duplicates.
+     * @return True if there is a duplicate, false otherwise.
+     */
+    public boolean checkDuplicates(Task task) {
+        for (Task t : tasks) {
+            if (t.checkDuplicate(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
