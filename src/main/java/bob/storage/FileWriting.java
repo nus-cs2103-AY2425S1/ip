@@ -41,12 +41,12 @@ public class FileWriting extends Storage {
         String description = t.getDescription();
         String formatted = type + SEPARATOR + status + SEPARATOR + description;
 
-        if (type.equals("D")) {
+        if (type == "D") {
             String by = t.getBy();
             formatted = formatted + SEPARATOR + by;
         }
 
-        if (type.equals("E")) {
+        if (type == "E") {
             String from = t.getFrom();
             String to = t.getTo();
             formatted = formatted + SEPARATOR + from + SEPARATOR + to;

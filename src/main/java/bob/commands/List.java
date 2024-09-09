@@ -16,11 +16,12 @@ public class List extends Command {
 
         String response = "Here are the tasks in your list:";
 
-        StringBuilder tasksResponse = new StringBuilder();
+        StringBuilder tasklistResponse = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            tasksResponse.append((i + 1) + ". " + list.get(i) + "\n");
+            tasklistResponse.append((i + 1) + ". " + list.get(i) + "\n");
         }
-        return response + "\n" + tasksResponse.toString().trim();
+
+        return response + "\n" + tasklistResponse.toString().trim();
     }
 
     @Override

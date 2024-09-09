@@ -29,13 +29,6 @@ public class Event extends Command {
         this.to = to;
     }
 
-    private static String addTask(TaskList list, Task t) {
-        String response = "Got it. I've added this task:\n" + t
-                    + "Now you have " + list.size() + (list.size() == 1 ? " task in the list."
-                    : " tasks in the list.");
-        return response;
-    }
-
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
         Task t = new EventTask(description, from, to);

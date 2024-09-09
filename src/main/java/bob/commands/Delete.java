@@ -15,11 +15,11 @@ public class Delete extends Command {
     }
 
     private String deleteTask(TaskList list) {
-        String response = "Noted. I've removed this task:\n" + list.get(index);
+        String removeTaskResponse = "Noted. I've removed this task:\n" + list.get(index);
         list.remove(index);
-        String response2 = "Now you have " + list.size() + (list.isEmpty() ? " task in the list."
+        String taskCounterResponse = "Now you have " + list.size() + (list.isEmpty() ? " task in the list."
                 : " tasks in the list.");
-        return response + "\n" + response2;
+        return removeTaskResponse + "\n" + taskCounterResponse;
     }
 
     @Override

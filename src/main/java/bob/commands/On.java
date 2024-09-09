@@ -18,10 +18,10 @@ public class On extends Command {
     }
 
     private String listTasksOnDate(TaskList list) {
-        int count = 0;
         String dateFormatted = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         StringBuilder taskOnDate = new StringBuilder("Here are the tasks on " + dateFormatted + ":");
 
+        int count = 0;
         for (Task t : list) {
             LocalDate taskDate = t.getDate();
             if (t.getDate() != (null) && taskDate.equals(date)) {
@@ -32,6 +32,7 @@ public class On extends Command {
         if (count == 0) {
             return "There are no tasks on " + dateFormatted + ".";
         }
+
         return taskOnDate.toString();
     }
 
