@@ -23,9 +23,9 @@ public class InvalidInputException extends Exception {
      * @param arg error message
      */
     public InvalidInputException(String arg) {
-        super("\u001B[31m" + (count < 3 ? error[0]
+        super((count < 3 ? error[0]
                 : (count < 8 ? error[1] : error[2]))
-                + "\n  " + arg + "\u001B[0m\n"
+                + "\n  " + arg + "\n"
                 + "type 'help' to see guide");
         count += 1;
     }
