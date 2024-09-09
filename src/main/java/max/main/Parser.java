@@ -57,7 +57,10 @@ public class Parser {
      */
     public boolean parseText(String text) throws MaxException {
 
-            //String text = scanner.nextLine().trim();
+        assert taskList != null : "Task list is not initialized.";
+        assert ui != null : "UI is not initialized.";
+        assert storage != null : "Storage is not initialized.";
+
         try {
             if (text.equals("bye")) {
                 ui.printBye();

@@ -43,6 +43,8 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public void printTaskTypeAdded(Task task, int size) {
+        assert size >= 0 : "Task list size cannot be negative.";
+
         printLine();
         printToMax("\t Got it. I've added this task:");
         printToMax("\t   " + task.toString());
@@ -89,6 +91,8 @@ public class Ui {
      * @param tasks The list of tasks to be printed.
      */
     public void list(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list cannot be null.";
+
         for (int i = 0; i < tasks.size(); i++) {
             int count = i + 1;
             printToMax("\t " + count + "." + tasks.get(i).toString());
@@ -125,6 +129,8 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public void printDeleteTask(Task removedTask, int size) {
+        assert size >= 0 : "Task list size cannot be negative after deletion.";
+
         printLine();
         printToMax("\t Noted. I've removed this task:");
         printToMax("\t   " + removedTask.toString());
@@ -138,6 +144,8 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void printMarkDone(Task task) {
+        assert task != null : "Task cannot be null when marked as done.";
+
         printLine();
         printToMax("\t Nice! I've marked this task as done:");
         printToMax("\t   " + task.toString());
@@ -150,6 +158,8 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void printMarkNotDone(Task task) {
+        assert task != null : "Task cannot be null when marked as not done.";
+
         printLine();
         printToMax("\t OK, I've marked this task as not done yet:");
         printToMax("\t   " + task.toString());

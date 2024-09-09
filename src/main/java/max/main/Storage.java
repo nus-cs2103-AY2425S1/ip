@@ -75,6 +75,7 @@ public class Storage {
                     task.markDone();
                 }
                 tempList.add(task);
+                assert tempList.size() <= 100 : "Task list exceeds the maximum size of 100.";
             }
             reader.close();
         } catch (IOException e) {
