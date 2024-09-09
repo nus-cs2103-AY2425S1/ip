@@ -1,17 +1,23 @@
-public class deadlineTask extends Task {
-    private String dl;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    deadlineTask(String status, String dl) {
+public class deadlineTask extends Task {
+    private Date dl;
+    private static final SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private static final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+
+    deadlineTask(String status, String dl) throws ParseException {
         super(status, TaskType.DEADLINE);
-        this.dl = dl;
+        this.dl = inputFormat.parse(dl);
     }
-    String getDeadline() {
-        return dl;
+   String getDeadline() {
+        return outputFormat.format(dl);
     }
 
     @Override
     public String toString() {
         String icon = "[D]";
-        return icon + super.toString() + " (by: " + dl + ")";
+        return icon + super.toString() + " (by: " + outputFormat.format(dl) + ")";
     }
 }
