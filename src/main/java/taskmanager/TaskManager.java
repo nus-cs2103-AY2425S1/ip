@@ -107,9 +107,8 @@ public class TaskManager {
      */
 
     private boolean isValidIndex(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            return false;
-        }
-        return true;
+        assert index >= 0 : "Index should not be negative!";
+        assert index < tasks.size() : "Index should be less than the size of the tasks list!";
+        return index >= 0 && index < tasks.size();
     }
 }
