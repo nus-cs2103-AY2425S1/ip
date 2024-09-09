@@ -9,6 +9,15 @@ import friendlybot.task.TaskList;
  * correspond with any methods.
  */
 public class BadCommand extends Command {
+    private String errorString;
+
+    public BadCommand(String errorString) {
+        this.errorString = errorString;
+    }
+
+    public BadCommand() {
+    }
+
     /**
      * Does nothing upon execution.
      *
@@ -20,6 +29,6 @@ public class BadCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return "OOPS!! I'm sorry, that's not a command :-(";
+        return errorString == null ? "OOPS!! I'm sorry, that's not a command :-(" : errorString;
     }
 }

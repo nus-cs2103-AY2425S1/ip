@@ -36,25 +36,25 @@ public class DeleteCommand extends Command {
         if (this.taskNumber > numTasks) {
             Ui.print("There's no such task yet!");
             return "There's no such task yet!";
-        } else {
-            Task task = tasks.deleteTask(this.taskNumber);
-            numTasks--;
-            Ui.print("Noted. I've removed this task:");
-            sb.append("Noted. I've removed this task:\n");
-            Ui.print("  " + task.toString());
-            sb.append("  ").append(task.toString()).append("\n");
-            if (numTasks == 1) {
-                Ui.print("Now you have 1 task in the list.");
-                sb.append("Now you have 1 task in the list.");
-            } else if (numTasks == 0) {
-                Ui.print("You have no more tasks!");
-                sb.append("You have no more tasks!");
-            } else {
-                Ui.print("Now you have " + numTasks + " tasks in the list.");
-                sb.append("Now you have ").append(numTasks).append(" tasks in the list.");
-            }
-            storage.writeToFile(tasks.formatTasksToSave());
-            return sb.toString();
         }
+        Task task = tasks.deleteTask(this.taskNumber);
+        numTasks--;
+        assert numTasks >= 0 : "There should not be a negative number of tasks in your list!";
+        Ui.print("Noted. I've removed this task:");
+        sb.append("Noted. I've removed this task:\n");
+        Ui.print("  " + task.toString());
+        sb.append("  ").append(task.toString()).append("\n");
+        if (numTasks == 1) {
+            Ui.print("Now you have 1 task in the list.");
+            sb.append("Now you have 1 task in the list.");
+        } else if (numTasks == 0) {
+            Ui.print("You have no more tasks!");
+            sb.append("You have no more tasks!");
+        } else {
+            Ui.print("Now you have " + numTasks + " tasks in the list.");
+            sb.append("Now you have ").append(numTasks).append(" tasks in the list.");
+        }
+        storage.writeToFile(tasks.formatTasksToSave());
+        return sb.toString();
     }
 }

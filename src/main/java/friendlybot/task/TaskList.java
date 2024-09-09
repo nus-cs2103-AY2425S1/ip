@@ -35,6 +35,7 @@ public class TaskList {
      * @return Task that was deleted.
      */
     public Task deleteTask(int taskNumber) {
+        assert taskNumber <= this.tasks.size() : "Input should be less than or equal to the number of tasks.";
         return this.tasks.remove(taskNumber - 1);
     }
 
@@ -54,6 +55,7 @@ public class TaskList {
      * @return Task that corresponds to the taskMumber.
      */
     public Task getTask(int taskNumber) {
+        assert taskNumber <= this.tasks.size() : "Input should be less than or equal to the number of tasks.";
         return this.tasks.get(taskNumber - 1);
     }
 

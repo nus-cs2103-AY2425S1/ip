@@ -35,10 +35,16 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         List<Task> relatedTasks = tasks.findTasks(this.keyword);
+        if (relatedTasks.isEmpty()) {
+            Ui.print("There are no matching tasks in your list!");
+            return "There are no matching tasks in your list!";
+        }
         Ui.print("Here are the matching tasks in your list:");
         sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < relatedTasks.size(); i++) {
             int taskNumber = i + 1;
+            assert taskNumber <= tasks.getNumTasks()
+                    : "Task number should be less than or equal to the number of tasks.";
             Ui.print(taskNumber + "." + relatedTasks.get(i).toString());
             sb.append(taskNumber).append(".").append(relatedTasks.get(i).toString());
             if (i != relatedTasks.size() - 1) {
