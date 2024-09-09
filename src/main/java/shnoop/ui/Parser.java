@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Parser {
 
     /**
-     * Enums representing all the possible command keywords as well as Task types.
+     * Enums representing all the possible command keywords as well as available Task types.
      */
     public enum Commands {
         DELETE,
