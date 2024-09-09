@@ -33,6 +33,7 @@ public class AddCommand extends Command {
         tasks.addTask(this.task);
         storage.appendToFile(this.task);
         int length = tasks.getLength();
-        return ui.sendAddTaskMessage(length, task);
+        String response = ui.sendAddTaskMessage(length, task);
+        return response;
     }
 }

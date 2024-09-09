@@ -31,16 +31,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= tasks.getLength() || index < 0) {
-            ui.showTaskNotFoundError();
+        if (!ui.findTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
-        Task task = tasks.removeTask(index);
+        Task taskRemoved = tasks.removeTask(index);
         storage.overwriteFile(tasks);
-        String word = tasks.getLength() == 1 ? "task" : "tasks";
-        String response = "Noted. I've removed this task:\n    "
-                + task.toString() + String.format("\nNow you have %d %s in the tasks.",
-                tasks.getLength(), word);
+        int length = tasks.getLength();
+        String response = ui.sendDeleteTaskMessage(length, taskRemoved);
         return response;
     }
 }
