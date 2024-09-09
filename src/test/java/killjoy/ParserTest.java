@@ -1,14 +1,18 @@
-package killjoy.processing;
+package killjoy;
 
-import killjoy.main.KillJoy;
-import killjoy.main.UserInterface;
-import killjoy.task.Task;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import killjoy.main.KillJoy;
+import killjoy.main.UserInterface;
+import killjoy.processing.Parser;
+import killjoy.task.Task;
 
 public class ParserTest {
 
