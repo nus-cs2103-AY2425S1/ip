@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {
+        assert tasks != null : "TaskList cannot be null.";
         Task deletedTask = tasks.deleteTask(this.toDelete);
         ui.showTaskDeleted(deletedTask, tasks.getSize());
         storage.saveData(tasks.getAllTasks());

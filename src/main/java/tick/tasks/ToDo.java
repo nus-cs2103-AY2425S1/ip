@@ -22,7 +22,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageFormat() {
-        return String.format("T | %s | %s", super.getStatus() ? "1" : "0", super.getDescription());
+        return String.format("T | %s | %s", super.getStatus() ? "1" : "0",
+                super.getDescription());
     }
 
     /**

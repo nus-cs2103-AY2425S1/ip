@@ -52,7 +52,7 @@ public class Storage {
      * @return The list of tasks loaded from the file.
      * @throws IOException If an error occurs while loading data from file.
      */
-    public ArrayList<Task> loadData() throws IOException {
+    public ArrayList<Task> loadData() throws IOException, TickException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(this.filePath);
         if (!file.exists()) {
@@ -64,12 +64,13 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String taskString = scanner.nextLine();
+
             String[] parts = taskString.split(" \\| ");
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            Task task;
 
+            Task task;
             switch (taskType) {
             case "T":
                 task = new ToDo(description);
@@ -84,8 +85,9 @@ public class Storage {
                 task = new Event(description, from, to);
                 break;
             default:
-                continue;
+                throw new TickException("Invalid task type detected!");
             }
+
             if (isDone) {
                 task.markAsDone();
             }
