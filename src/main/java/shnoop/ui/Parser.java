@@ -6,7 +6,7 @@ import shnoop.exceptions.*;
 import java.io.IOException;
 
 /**
- * Reads and understands user input in the UI, and processes the relevant commands to be executed.
+ * Reads and understands user input in the UI, and processes the relevant commands to be executed by Shnoop.
  */
 public class Parser {
 
