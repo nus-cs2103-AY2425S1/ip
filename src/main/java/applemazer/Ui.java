@@ -54,7 +54,7 @@ public class Ui {
      */
     public String getTaskSetDoneMessage(Task task) {
         return "Nice! I've marked this task as done:\n" +
-                "    " + task.getStatusIcon() + task + "\n";
+               "    " + task.getStatusIcon() + task + "\n";
     }
 
     /**
@@ -62,7 +62,7 @@ public class Ui {
      */
     public String getTaskSetUndoneMessage(Task task) {
         return "OK, I've marked this task as not done yet:\n" +
-                "    " + task.getStatusIcon() + task + "\n";
+               "    " + task.getStatusIcon() + task + "\n";
     }
 
     /**
@@ -70,8 +70,8 @@ public class Ui {
      */
     public String getTaskAddedMessage(Task task, int size) {
         return "Got it. I've added this task:\n" +
-                "    " + task.getStatusIcon() + task + "\n" +
-                "Now you have " + size + " tasks in the list.\n";
+               "    " + task.getStatusIcon() + task + "\n" +
+               "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -79,7 +79,7 @@ public class Ui {
      */
     public String getTaskDeletedMessage(Task task, int size) {
         return "Noted. I've removed this task:\n" +
-                "    " + task.getStatusIcon() + task + "\n" +
-                "Now you have " + size + " tasks in the list. \n";
+               "    " + task.getStatusIcon() + task + "\n" +
+               "Now you have " + size + " tasks in the list. \n";
     }
 }
