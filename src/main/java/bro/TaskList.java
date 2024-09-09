@@ -19,6 +19,7 @@ public class TaskList {
      * @return A confirmation message stating the task is marked.
      */
     public String markTask(int i) {
+        assert (i > 0) : "task number to mark must be above 0";
         list.get(i - 1).mark();
         return ui.printMark(i, this);
     }
@@ -30,6 +31,7 @@ public class TaskList {
      * @return A confirmation message stating the task is unmarked.
      */
     public String unmarkTask(int i) {
+        assert (i > 0) : "task number to unmark must be above 0";
         list.get(i - 1).unmark();
         return ui.printUnmark(i, this);
     }
@@ -41,6 +43,7 @@ public class TaskList {
      * @return A confirmation message stating the task is deleted.
      */
     public String deleteTask(int i) {
+        assert (i > 0) : "task number to delete must be above 0";
         String s = ui.printDelete(i, this);
         list.remove(i - 1);
         return s;
