@@ -1,12 +1,21 @@
 package bitbot;
+
+import static bitbot.Parser.BY_TIME_MISSING;
+import static bitbot.Parser.FROM_TO_TIME_MISSING;
+import static bitbot.Parser.TODO_DESCRIPTION_MISSING;
+import static bitbot.Parser.buildTaskMessage;
+import static bitbot.Parser.extractDescription;
+import static bitbot.Parser.extractTimeDetail;
+import static bitbot.Parser.handleErrorForNoFurtherInput;
+import static bitbot.Parser.handleErrorForWrongLength;
+import static bitbot.Parser.parseDate;
+import static bitbot.Parser.parseDateTime;
+import static bitbot.Parser.parseTime;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
-import static bitbot.Parser.*;
 
 /**
  * This is the TaskHandling class which deals with the different types of tasks present.
@@ -170,10 +179,7 @@ public class TaskHandler {
      * @throws BitBotException when the user does not key in any text after "find"
      */
     public static String handleFind(ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
-        if (wordsToSearch == null || wordsToSearch.length == 0) {
-            throw new BitBotException("OOPS!! Add a string of words you want to find.\n"
-                    + "          Please do not leave it blank.");
-        }
+        handleErrorForNoFurtherInput(wordsToSearch);
 
         String textToBeFound;
         StringBuilder sb1 = new StringBuilder();
@@ -209,6 +215,120 @@ public class TaskHandler {
             result.append("          ____________________________________\n");
         }
         return result.toString();
+    }
+
+    /**
+     * Handles the tagging and tags corresponding to the user's input
+     *
+     * @param arrayList the list of tasks
+     * @param input the String[] of the split input
+     * @return a String
+     * @throws BitBotException when the user keys in no text after tag
+     */
+    public static String handleTag(ArrayList<Task> arrayList, String[] input) throws BitBotException {
+        handleErrorForNoFurtherInput(input);
+        try {
+            int index = Integer.parseInt(input[1]);
+
+            if (index < 1 || index > arrayList.size()) {
+                throw new BitBotException("OOPS!! The index you want to tag has to be "
+                        + "within the size of the list.");
+            }
+
+            String tag = input[2];
+            if (!tag.startsWith("#")) {
+                throw new BitBotException("OOPS!! Tags should start with #");
+            }
+
+            tag = tag.substring(1);
+
+            Task task = arrayList.get(index - 1);
+            task.markAsTagged(tag);
+
+            return "          ____________________________________\n          "
+                    + "Nice! I've tagged this task:\n"
+                    + "             " + arrayList.get(index - 1).finalString()
+                    + "\n"
+                    + "             with #" + tag
+                    + "\n"
+                    + "          ____________________________________\n";
+
+        } catch (NumberFormatException e) {
+            throw new BitBotException("OOPS!! Invalid number, key in a proper positive number!!");
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new BitBotException("OOPS!! Exceeding the range of the list.\n"
+                    + "          Please key in a number within the size of the list");
+        }
+
+    }
+
+    /**
+     * Untags the given task
+     *
+     * @param arrayList the list of tasks
+     * @param input the String[] of the split input
+     * @param index the index in which the task is meant to be untagged
+     * @return a String
+     * @throws BitBotException if there is no integer input by the user
+     */
+    public static String handleUntag(ArrayList<Task> arrayList, String[] input, int index) throws BitBotException {
+        checkAndThrowExceptionForMarkUnmarkDelete(input, arrayList);
+
+        arrayList.get(index - 1).markAsNotTagged();
+        return "          ____________________________________\n          "
+                + "OK, I've untagged this task:\n"
+                + "             " + arrayList.get(index - 1).finalString()
+                + "\n"
+                + "          ____________________________________\n";
+    }
+
+    /**
+     * Marks a task as done
+     *
+     * @param arrayList the list of tasks
+     * @param index the index in which the task is meant to be marked as done
+     * @return a String
+     */
+    public static String handleMark(ArrayList<Task> arrayList, int index) {
+        arrayList.get(index - 1).markAsDone();
+        return "          ____________________________________\n          "
+                + "Nice! I've marked this task as done:\n"
+                + "             " + arrayList.get(index - 1).finalString()
+                + "\n"
+                + "          ____________________________________\n";
+    }
+
+    /**
+     * Unmarks a task as done
+     *
+     * @param arrayList the list of tasks
+     * @param index the index in which the task is meant to be unmarked
+     * @return a String
+     */
+    public static String handleUnmark(ArrayList<Task> arrayList, int index) {
+        arrayList.get(index - 1).markAsUndone();
+        return "          ____________________________________\n          "
+                + "OK, I've marked this task as not done yet:"
+                + "             " + arrayList.get(index - 1).finalString()
+                + "\n"
+                + "          ____________________________________\n";
+    }
+
+    /**
+     * Deletes a task from the list when user does not want it anymore
+     *
+     * @param arrayList the list of tasks
+     * @param index the index in which the task is meant to be deleted
+     * @param task whether the word is supposed to be "task" or "tasks"
+     * @return a String
+     */
+    public static String handleDelete(ArrayList<Task> arrayList, int index, String task) {
+        Task task1 = arrayList.remove(index - 1);
+        return "          ____________________________________\n          "
+                + "Noted. I've removed this task:\n"
+                + "             " + task1.finalString() + "\n"
+                + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
+                + "          ____________________________________";
     }
     /**
      * Checks if the string is a string or whether it is an integer wrapped in a string.

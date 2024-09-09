@@ -91,18 +91,17 @@ public class Deadline extends Task {
         String byOrDateTimeString;
         if (localDateTime != null) {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localDateTime.format(dateTimeFormatter) + "|" + "NIL";
+                    + localDateTime.format(dateTimeFormatter) + "|" + "NIL" + "|" + tag;
         } else if (localDate != null) {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localDate.format(dateFormatter) + "|" + "NIL";
+                    + localDate.format(dateFormatter) + "|" + "NIL" + "|" + tag;
         } else if (localTime != null) {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localTime.format(timeFormatter) + "|" + "NIL";
+                    + localTime.format(timeFormatter) + "|" + "NIL" + "|" + tag;
         } else {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + by + "|" + "NIL";
+                    + by + "|" + "NIL" + "|" + tag;
         }
-
         return byOrDateTimeString;
     }
 

@@ -7,6 +7,8 @@ package bitbot;
 public abstract class Task {
     protected String taskDescription;
     protected boolean isDone;
+    protected boolean isTagged;
+    protected String tag;
 
     /**
      * This is a Task constructor that takes in a description.
@@ -16,6 +18,8 @@ public abstract class Task {
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         this.isDone = false;
+        this.isTagged = false;
+        this.tag = "";
     }
 
     /**
@@ -24,9 +28,10 @@ public abstract class Task {
      * @return a String
      */
     public String finalString() {
-        return isDone
+        String statusOfTag = isTagged ? "[#" + tag + "]" : "";
+        return statusOfTag + (isDone
                 ? "[X] " + taskDescription
-                : "[ ] " + taskDescription;
+                : "[ ] " + taskDescription);
     }
 
     /**
@@ -50,6 +55,24 @@ public abstract class Task {
      */
     public String toFileFormat() {
         return " ";
+    }
+
+    /**
+     * Tags a task according to the user's input
+     *
+     * @param tag the user's input of the tagging message
+     */
+    public void markAsTagged(String tag) {
+        this.isTagged = true;
+        this.tag = tag;
+    }
+
+    /**
+     * Untags a task
+     */
+    public void markAsNotTagged() {
+        this.isTagged = false;
+        this.tag = "";
     }
 
 }
