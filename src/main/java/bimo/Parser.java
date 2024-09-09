@@ -16,6 +16,7 @@ import bimo.command.UnmarkCommand;
 import bimo.exception.BimoException;
 import bimo.exception.InvalidDateFormatException;
 import bimo.exception.InvalidTaskNumberException;
+import bimo.exception.MissingDescriptionException;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
@@ -89,10 +90,10 @@ public class Parser {
      * @return String value of task description.
      * @throws BimoException If there is no description typed in.
      */
-    public static String parseDescription(String input) throws BimoException {
+    public static String parseDescription(String input) throws MissingDescriptionException {
         String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 1) {
-            throw new BimoException("Please key in description for your task");
+            throw new MissingDescriptionException();
         }
         parsedArray[0] = "";
         return removeSpace(parsedArray);
