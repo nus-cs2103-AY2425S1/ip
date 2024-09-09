@@ -1,5 +1,6 @@
 package monique.parser;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -136,7 +137,8 @@ public class Parser {
                     if (parts.length <= 1) {
                         throw new ParseException();
                     }
-                    String by = parts[1].trim();
+                    String byString = parts[1].trim();
+                    LocalDateTime by = DateParser.getDateTimeString(byString);
                     String[] commandAndDescription = parts[0].trim().split(" ", 2);
                     String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
                     Task taskToAdd = new Deadline(description, false, by);
@@ -160,8 +162,10 @@ public class Parser {
                     }
                     String[] commandAndDescription = fromSplit[0].trim().split(" ", 2);
                     String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
-                    String fromDate = toSplit[0].trim();
-                    String toDate = toSplit[1].trim();
+                    String fromDateString = toSplit[0].trim();
+                    LocalDateTime fromDate = DateParser.getDateTimeString(fromDateString);
+                    String toDateString = toSplit[1].trim();
+                    LocalDateTime toDate = DateParser.getDateTimeString(toDateString);
                     Task taskToAdd = new Event(description, false, fromDate, toDate);
                     command = new AddCommand(taskToAdd);
                     break;
