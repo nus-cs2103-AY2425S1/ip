@@ -33,20 +33,24 @@ public class DeadlineParser {
         try {
             if (inputSplit.length == 1) {
                 throw new DrBrownException("Great Scott! You can't add a deadline without a "
-                        + "description and date!\nUse the format: deadline {description} /by {date}");
+                        + "description and date!\nUse the format: deadline {description} /by {date} /priority {priority}");
             }
-            String[] deadlineSplit = inputSplit[1].split("/by");
-            if (deadlineSplit[0].isEmpty()) {
+
+            String[] deadlineSplit = inputSplit[1].split("/by | /priority");
+            if (deadlineSplit.length == 1) {
                 throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing "
-                        + "here!\nUse the format: deadline {description} /by {date}");
+                        + "here!\nUse the format: deadline {description} /by {date} /priority {priority}");
             }
+
             Task deadline = new Deadline(false, deadlineSplit[0].trim(),
-                    LocalDateTime.parse(deadlineSplit[1].trim(), FILE_DATE_TIME_FORMATTER));
+                    LocalDateTime.parse(deadlineSplit[1].trim(), FILE_DATE_TIME_FORMATTER),
+                    Task.Priority.valueOf(deadlineSplit[2].trim()));
+
             return new AddCommand(deadline);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
             throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
                     + "and you missed the date! Let's fix that deadline!\nUse the format: deadline "
-                    + "{description} /by {MMM dd yyyy HH:mm}");
+                    + "{description} /by {MMM dd yyyy HH:mm} /priority {priority}");
         }
     }
 
