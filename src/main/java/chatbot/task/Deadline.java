@@ -1,7 +1,6 @@
 package chatbot.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the concept of an Event task that the user adds into his todolist
