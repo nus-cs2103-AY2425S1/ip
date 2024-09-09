@@ -1,7 +1,5 @@
 package edith;
 
-import java.util.Objects;
-
 import edith.exception.InvalidCommandException;
 import edith.exception.InvalidTaskNumberException;
 import edith.exception.MissingDeadlineException;
@@ -31,31 +29,34 @@ public class Ui {
      * @return Chatbot response.
      */
     public static String handleUserInput(String userInput, ToDoList toDoList) {
-        String command = Parser.getCommand(userInput);
-
-        if (Objects.equals(command, "list")) { // check if user wants the todo list
-            System.out.println("tasks in your todo list!" + LINEBREAK + toDoList);
-            return "tasks in your todo list!" + LINEBREAK + toDoList;
-        } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) {
+        Parser.Command command = Parser.getCommand(userInput);
+        switch (command) {
+        case LIST:
+            return printList(toDoList);
+        case MARK:
+        case UNMARK:
             return changeTaskStatus(userInput, toDoList);
-        } else if (Objects.equals(command, "todo") || Objects.equals(command, "deadline")
-                || Objects.equals(command, "event")) {
+        case TODO:
+        case DEADLINE:
+        case EVENT:
             return addTask(userInput, toDoList);
-        } else if (Objects.equals(command, "delete")) {
+        case DELETE:
             return delete(userInput, toDoList);
-        } else if (Objects.equals(command, "find")) {
+        case FIND:
             return find(userInput, toDoList);
-        } else if (Objects.equals(command, "bye")) {
+        case BYE:
             return bidFarewell();
-        } else {
+        case INVALID:
             try {
                 otherCommand();
             } catch (InvalidCommandException e) {
                 showError(e.getMessage());
                 return e.getMessage();
             }
+            break;
+        default:
         }
-        return null;
+        return userInput;
     }
 
     /**
@@ -79,6 +80,16 @@ public class Ui {
     }
 
     /**
+     * Prints and returns to do list.
+     * @param toDoList To-do list.
+     * @return To-do list.
+     */
+    public static String printList(ToDoList toDoList) {
+        System.out.println("tasks in your todo list!" + LINEBREAK + toDoList);
+        return "tasks in your todo list!" + LINEBREAK + toDoList;
+    }
+
+    /**
      * Changes the task status of a task. Prints error message when task number is missing in user input or task number
      * is invalid.
      * @param userInput User input.
@@ -89,9 +100,9 @@ public class Ui {
         String returnStatement;
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
-            String command = Parser.getCommand(userInput);
-            assert command.equals("mark") || command.equals("unmark");
-            if (Objects.equals(command, "mark")) { // check if user wants to mark a task
+            Parser.Command command = Parser.getCommand(userInput);
+            assert command.equals(Parser.Command.MARK) || command.equals(Parser.Command.UNMARK);
+            if (command.equals(Parser.Command.MARK)) { // check if user wants to mark a task
                 toDoList.markTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK
                         + "   " + toDoList.getTask(taskNumber) + LINEBREAK);
@@ -120,17 +131,18 @@ public class Ui {
      * @return Chatbot's reply indicating success or error.
      */
     public static String addTask(String userInput, ToDoList toDoList) {
-        String taskType = Parser.getCommand(userInput);
-        assert taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event");
+        Parser.Command taskType = Parser.getCommand(userInput);
+        assert taskType.equals(Parser.Command.TODO) || taskType.equals(Parser.Command.DEADLINE)
+                || taskType.equals(Parser.Command.EVENT);
         try {
             String taskDetails = Parser.getTaskDetails(userInput, taskType);
-            if (Objects.equals(taskType, "todo")) {
+            if (taskType.equals(Parser.Command.TODO)) {
                 return addToDoTask(taskDetails, toDoList);
             }
-            if (Objects.equals(taskType, "deadline")) {
-                return addDeadlineTask(taskDetails, taskType, toDoList);
+            if (taskType.equals(Parser.Command.DEADLINE)) {
+                return addDeadlineTask(taskDetails, toDoList);
             }
-            return addEventTask(taskDetails, taskType, toDoList);
+            return addEventTask(taskDetails, toDoList);
         } catch (MissingTaskNameException e) {
             showError(e.getMessage());
             return e.getMessage();
@@ -155,13 +167,12 @@ public class Ui {
     /**
      * Adds task of type DeadlineTask to user's to-do list.
      * @param taskDetails Task's details including task name and deadline.
-     * @param taskType Task's type: "deadline".
      * @param toDoList User's to-do list.
      * @return Chatbot's reply indicating success or error.
      */
-    public static String addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
+    public static String addDeadlineTask(String taskDetails, ToDoList toDoList) {
         try {
-            String taskName = Parser.getTaskName(taskDetails, taskType);
+            String taskName = Parser.getTaskName(taskDetails, "deadline");
             String taskDeadline = Parser.getTaskDeadline(taskDetails);
             DeadlineTask task = new DeadlineTask(taskName, taskDeadline);
             toDoList.add(task);
@@ -178,13 +189,12 @@ public class Ui {
     /**
      * Adds task of type EventTask to user's to-do list.
      * @param taskDetails Task's details including task name and duration.
-     * @param taskType Task's type: "duration".
      * @param toDoList User's to-do list.
      * @return Chatbot's reply indicating success or error.
      */
-    public static String addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
+    public static String addEventTask(String taskDetails, ToDoList toDoList) {
         try {
-            String taskName = Parser.getTaskName(taskDetails, taskType);
+            String taskName = Parser.getTaskName(taskDetails, "event");
             String taskDuration = Parser.getTaskDuration(taskDetails);
             String taskStart = Parser.getTaskStart(taskDuration);
             String taskEnd = Parser.getTaskEnd(taskDuration);
