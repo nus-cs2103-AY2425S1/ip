@@ -62,13 +62,4 @@ public class Ui {
         return tasks.buildList();
     }
 
-    /**
-     * Reads the user input.
-     *
-     * @return User input.
-     */
-    public String readCommand() {
-        return input.nextLine();
-    }
-
 }

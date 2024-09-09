@@ -21,6 +21,8 @@ public class ByeCommand extends Command {
 
     /**
      * Exits the program.
+     * Writes the tasks to the file.
+     * Assertions to ensure that the TaskList and Storage objects are not null.
      *
      * @param tasks
      * @param ui

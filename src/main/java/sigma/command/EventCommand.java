@@ -29,7 +29,6 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        Parser parser = new Parser();
         final String eventMessage = "Write \"event <task> /from <start time> /to <end time>\"!";
         if (split.length < 2) {
             throw new SigmaException("What the sigma? You're missing the task! " + eventMessage);

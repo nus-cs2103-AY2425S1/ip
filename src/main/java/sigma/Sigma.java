@@ -53,6 +53,9 @@ public class Sigma {
         try {
             Command c = Parser.parse(input);
             commandType = c.toString();
+            assert tasks != null : "TaskList cannot be null";
+            assert storage != null : "Storage cannot be null";
+            assert ui != null : "Ui cannot be null";
             String response = c.execute(tasks, ui, storage);
             if (c.isExit()) {
                 Platform.exit();

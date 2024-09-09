@@ -29,6 +29,7 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(split[1]);
             if (index > 0 && index <= tasks.size()) {
                 Task item = tasks.get(index - 1);
+                assert item != null : "Task cannot be null";
                 if (item.getStatusString() == "X") {
                     throw new SigmaException("What the sigma? Task already marked!");
                 }
