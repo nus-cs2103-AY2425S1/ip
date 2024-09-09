@@ -12,7 +12,23 @@ public class Messages {
                 |  | |  | `-./  /.__) |  |      |  `---.| '--'  /   `'  '-'  '   |  |  \s
                 `--' `--'   `--'      `--'      `------'`------'      `-----'    `--'  \s
                 """;
-    public static final String HELP_MESSAGE = "";
+    public static final String HELP_MESSAGE = """
+            YOU CAN LEAN ON ME! Lemme show you around the ropes bro:
+            
+            • Type 'todo {Enter name here}' to add a TERRIFIC todo with no date or time associated with it!
+            • Type 'deadline {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
+            to add a DELIGHTFUL deadline task with a due date!
+            • Type 'event {Enter name here} /{Enter start time in yyyy-MM-dd HH:mm format here} \
+            /{Enter end time in yyyy-MM-dd HH:mm format here}' 
+              to add an EXCITING event with start and end times!
+            • Type 'list' to see ALL YOUR SWEET TASKS in ADDED ORDER (earliest to latest)!
+            • Type 'mark {Enter task number here}' to mark a task as CONQUERED!
+            • Type 'unmark {Enter task number here}' to unmark a task and TAKE IT ON AGAIN!
+            • Type 'delete {Enter task number here}' to ANNIHILATE a task from your list!
+            • Type 'happening /{Enter date in yyyy-MM-dd format here}' to search any deadlines or events \
+            happening on that day!
+            • Type 'bye' if you're all set!
+            """;
     public static final String GREET_INTRO = "AYO WHAT'S UP IT'S ME YOUR\n\n";
     public static final String GREET_OUTRO = "\nWhat can I do for you, my wonderful homie?\n";
     public static final String ERROR_INTRO = "I might be tripping bro, my bad, my bad - \n";
