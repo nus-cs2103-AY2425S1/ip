@@ -35,5 +35,13 @@ public class Deadlines extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return "D/" + super.getStatus() + "/" + description + "/" + by.format(formatter);
     }
+    @Override
+    public LocalDateTime getBy() {
+        return by;
+    }
+    @Override
+    public LocalDateTime getFrom() {
+        return null;
+    }
 
 }

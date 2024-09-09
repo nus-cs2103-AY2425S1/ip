@@ -45,4 +45,12 @@ public class Events extends Task {
         return "E/" + super.getStatus() + "/" + description + "/"
                 + start.format(formatter) + "/" + end.format(formatter);
     }
+    @Override
+    public LocalDateTime getBy() {
+        return end;
+    }
+    @Override
+    public LocalDateTime getFrom() {
+        return start;
+    }
 }

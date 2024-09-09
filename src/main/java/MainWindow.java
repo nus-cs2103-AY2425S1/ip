@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
-    private Image userImage = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
-    private Image bobbyImage = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
+    private final Image bobbyImage = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = Bobby.check_action(Parser.getActionType(input), Parser.getDesc(input));
+        String response = Bobby.checkAction(Parser.getActionType(input), Parser.getDesc(input));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBotDialog(response, bobbyImage)

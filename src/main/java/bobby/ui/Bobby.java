@@ -27,6 +27,12 @@ public class Bobby {
             + "You can try: todo xxx, event xxx /from xxx /to xxx, "
             + "deadline xxx /by xxx, unmark x, mark x, list, bye\n";
     /**
+     * A {@link DateTimeFormatter} used to format and parse date-time strings
+     * in the pattern "yyyy-MM-dd HHmm".
+     */
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /**
      * TaskList instance to manage the list of task
      */
     private static TaskList taskList;
@@ -92,6 +98,60 @@ public class Bobby {
         }
     }
     /**
+     * Checks if a todo task with the given description and due date already exists in the task list.
+     * It compares both the description (case-insensitive).
+     *
+     * @param description The description of the todo task to search for.
+     * @return {@code true} if a task with the same description, {@code false} otherwise.
+     */
+    private static boolean isDuplicateToDo(String description) {
+        for (int x = 0; x < TaskList.getSize(); x++) {
+            Task t = TaskList.get(x);
+            if (t.description.equalsIgnoreCase(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if a deadline task with the given description and due date already exists in the task list.
+     * It compares both the description (case-insensitive) and the due date.
+     *
+     * @param description The description of the deadline task to search for.
+     * @param by The due date of the deadline task in string format.
+     * @return {@code true} if a task with the same description and due date is found, {@code false} otherwise.
+     */
+    private static boolean isDuplicateDeadline(String description, LocalDateTime by) {
+        for (int x = 0; x < TaskList.getSize(); x++) {
+            Task t = TaskList.get(x);
+            if (t.description.equalsIgnoreCase(description)
+                    && t.getBy().isEqual(by)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if a Event task with the given description and due date already exists in the task list.
+     * It compares both the description (case-insensitive) and the duration.
+     *
+     * @param description The description of the deadline task to search for.
+     * @param from The start date of the event task in string format.
+     * @param by The end date of the event task in string format.
+     * @return {@code true} if a task with the same description and duration is found, {@code false} otherwise.
+     */
+    private static boolean isDuplicateEvent(String description, LocalDateTime from, LocalDateTime by) {
+        for (int x = 0; x < TaskList.getSize(); x++) {
+            Task t = TaskList.get(x);
+            if (t.description.equalsIgnoreCase(description)
+                    && t.getBy().isEqual(by)
+                    && t.getFrom().isEqual(from)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * Handles the "bye" command by saving tasks and returning the exit message.
      *
      * @param desc The user input after the "bye" command.
@@ -144,11 +204,10 @@ public class Bobby {
      * @return The response after finding matching tasks or a retry message.
      */
     private static String handleFind(String desc) {
-        String keyword = desc;
-        if (keyword == null) {
+        if (desc == null) {
             return RETRY;
         } else {
-            return TaskList.findTask(keyword);
+            return TaskList.findTask(desc.trim());
         }
     }
 
@@ -210,12 +269,16 @@ public class Bobby {
         if (desc == null || desc.trim().isEmpty()) {
             return "OOPS!!! The description of a todo is empty. (todo xxx)\n";
         }
-        ToDos currToDo = new ToDos(desc.trim());
-        TaskList.add_task(currToDo);
-        Storage.writeToFile(taskList);
-        return "Got it. I've added this task:\n"
-                + currToDo.toString() + "\n"
-                + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+        if (isDuplicateToDo(desc.trim())) {
+            return "It seems like this task has already been added.";
+        } else {
+            ToDos currToDo = new ToDos(desc.trim());
+            TaskList.add_task(currToDo);
+            Storage.writeToFile(taskList);
+            return "Got it. I've added this task:\n"
+                    + currToDo + "\n"
+                    + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+        }
     }
 
     /**
@@ -234,15 +297,18 @@ public class Bobby {
         if (details.length < 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
             return errorMsg;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            LocalDateTime by = LocalDateTime.parse(details[1].trim(), formatter);
-            Deadlines currDeadline = new Deadlines(details[0].trim(), by);
-            TaskList.add_task(currDeadline);
-            Storage.writeToFile(taskList);
-            return "Got it. I've added this task:\n"
-                    + currDeadline.toString() + "\n"
-                    + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+            LocalDateTime by = LocalDateTime.parse(details[1].trim(), FORMATTER);
+            if (isDuplicateDeadline(details[0].trim(), by)) {
+                return "It seems like this task has already been added.";
+            } else {
+                Deadlines currDeadline = new Deadlines(details[0].trim(), by);
+                TaskList.add_task(currDeadline);
+                Storage.writeToFile(taskList);
+                return "Got it. I've added this task:\n"
+                        + currDeadline + "\n"
+                        + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+            }
         } catch (DateTimeParseException e) {
             return errorMsg;
         }
@@ -269,16 +335,19 @@ public class Bobby {
                 || duration[1].trim().isEmpty()) {
             return errorMsg;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            LocalDateTime from = LocalDateTime.parse(duration[0].trim(), formatter);
-            LocalDateTime to = LocalDateTime.parse(duration[1].trim(), formatter);
-            Events currEvent = new Events(details[0].trim(), from, to);
-            TaskList.add_task(currEvent);
-            Storage.writeToFile(taskList);
-            return "Got it. I've added this task:\n"
-                    + currEvent.toString() + "\n"
-                    + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+            LocalDateTime from = LocalDateTime.parse(duration[0].trim(), FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(duration[1].trim(), FORMATTER);
+            if (isDuplicateEvent(details[0].trim(), from, to)) {
+                return "It seems like this task has already been added.";
+            } else {
+                Events currEvent = new Events(details[0].trim(), from, to);
+                TaskList.add_task(currEvent);
+                Storage.writeToFile(taskList);
+                return "Got it. I've added this task:\n"
+                        + currEvent + "\n"
+                        + "Now you have " + TaskList.getSize() + " tasks in the list.\n";
+            }
         } catch (DateTimeParseException e) {
             return errorMsg;
         }
@@ -291,7 +360,7 @@ public class Bobby {
      * @param desc The user input for the command.
      * @return The response after executing the action.
      */
-    public static String check_action(ActionType action, String desc) {
+    public static String checkAction(ActionType action, String desc) {
         switch (action) {
         case bye:
             return handleBye(desc);
