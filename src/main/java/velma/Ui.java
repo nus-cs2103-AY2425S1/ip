@@ -37,6 +37,7 @@ public class Ui {
      * @param taskCount - specify count of tasks
      */
     public String showTaskAdded(Task task, int taskCount) {
+        assert task != null : "Task cannot be null";
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -46,6 +47,7 @@ public class Ui {
      * @param taskCount - specify count of tasks
      */
     public String showTaskDeleted(Task task, int taskCount) {
+        assert task != null : "Task cannot be null";
         return "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -54,6 +56,7 @@ public class Ui {
      * @param tasks - the tasks in the list
      */
     public String showAllTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks cannot be null";
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
@@ -67,6 +70,8 @@ public class Ui {
      * @param date - specified date
      */
     public String showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        assert tasks != null : "Tasks cannot be null";
+        assert date != null : "Date cannot be null";
         StringBuilder sb = new StringBuilder("Here are the tasks on " + date + ":\n");
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
@@ -91,6 +96,7 @@ public class Ui {
      * @param isMarked - whether the task is marked
      */
     public String showMarkUnmarkTask(Task task, boolean isMarked) {
+        assert task != null : "Task cannot be null";
         StringBuilder sb = new StringBuilder();
         if (isMarked) {
             sb.append("Nice! I have marked this task as done:\n");
@@ -106,6 +112,7 @@ public class Ui {
      * @param message - the error message to show
      */
     public String showError(String message) {
+        assert message != null : "Error message cannot be null";
         return message;
     }
 
@@ -114,6 +121,7 @@ public class Ui {
      * @param tasks - the tasks found
      */
     public String showFoundTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks cannot be null";
         if (tasks.isEmpty()) {
             return "No tasks found.";
         } else {
