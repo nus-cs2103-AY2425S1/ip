@@ -1,6 +1,7 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents the general form of a task.
@@ -60,10 +61,10 @@ public abstract class Task {
      * Adds all tags to task.
      * Returns whether the tags were successfully added to task or not
      *
-     * @param tags The string array of tags to add to the task.
-     * @return Boolean value to indicate success of method
+
+     * @param tagsArr The string array of tags to add to the task.
      */
-    public boolean addTags(String[] tags) {
-        return false;
+    public void addTags(String[] tagsArr) {
+        Collections.addAll(tags, tagsArr);
     }
 }

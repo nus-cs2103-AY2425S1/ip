@@ -151,6 +151,7 @@ public class TaskList {
      * After getting the list of matching tasks, print them out to the terminal
      *
      * @param prompt The prompt provided by the user.
+     * @return The output array of tasks that contains the prompt in their names.
      *
      */
     public ArrayList<Task> find(String prompt) {
@@ -159,24 +160,26 @@ public class TaskList {
     }
 
     /**
-     * Does not return anything.
-     * Receive the prompt from the user and searches the current list of tasks for task names that contain the prompt.
-     * After getting the list of matching tasks, print them out to the terminal
+     * Receive the prompt from the user and adds tag to the target task.
+     *
      *
      * @param inputs The String array of prompts provided by the user.
-     * Contains index of task to tag, as well as the tags to add
+     * Contains index of task to tag, as well as the tags to add.
      *
+     * @return The target task that the tags were added to
      */
-    public void tag(String[] inputs) throws TaskOutOfBoundsError {
+    public Task tag(String[] inputs) throws TaskOutOfBoundsError {
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
         }
         int index = Integer.parseInt(inputs[0]);
-        if (index < 0 || index >= taskList.size()) {
+
+        if (index < 1 || index > taskList.size()) {
             throw new TaskOutOfBoundsError(index);
         }
-
+        index--;
         Task taskToAddTags = taskList.get(index);
         taskToAddTags.addTags(Arrays.copyOfRange(inputs, 1, inputs.length));
+        return taskToAddTags;
     }
 }

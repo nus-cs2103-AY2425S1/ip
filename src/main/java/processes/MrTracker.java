@@ -155,7 +155,8 @@ public class MrTracker {
                 break;
             }
             try {
-                taskList.tag(inputs);
+                Task taskToAddTags = taskList.tag(inputs);
+                res = ui.showTaskTags(taskToAddTags);
             } catch(TaskOutOfBoundsError e) {
                 res = ui.showMessage(e.getMessage());
             }
