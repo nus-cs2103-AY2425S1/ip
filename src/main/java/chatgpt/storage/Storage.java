@@ -1,6 +1,7 @@
 package chatgpt.storage;
 
 import chatgpt.exception.ChatBotException;
+
 import chatgpt.task.TaskList;
 import chatgpt.task.Task;
 import chatgpt.task.ToDos;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +44,8 @@ public class Storage {
             Scanner fileReader = new Scanner(dataFile);
             while (fileReader.hasNext()) {
                 String taskType = fileReader.next();
-                String[] inputs = fileReader.nextLine().split("\\|");
+                String[] inputs = fileReader.nextLine()
+                        .split("\\|");
 
                 String taskName;
                 boolean isCompleted;
@@ -50,6 +53,7 @@ public class Storage {
                 case T:
                     taskName = inputs[2];
                     isCompleted = inputs[1].equals("1");
+
                     data.add(new ToDos(taskName, isCompleted));
                     break;
 
