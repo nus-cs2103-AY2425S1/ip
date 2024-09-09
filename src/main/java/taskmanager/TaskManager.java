@@ -24,6 +24,10 @@ public class TaskManager {
         return this.tasks;
     }
 
+    private boolean isDuplicate(Task task) {
+        return tasks.stream()
+                .anyMatch(existingTask -> existingTask.getDescription().equals(task.getDescription()));
+    }
 
     /**
      * Adds a task to the task list.
@@ -32,6 +36,9 @@ public class TaskManager {
      * @param isSilent If true, suppress output messages.
      */
     public String addTask(Task task, boolean isSilent) {
+        if (isDuplicate(task)) {
+            return "This task already exists in the list.";
+        }
         tasks.add(task);
         if (isSilent) {
             return null;
