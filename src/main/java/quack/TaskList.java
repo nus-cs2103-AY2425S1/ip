@@ -92,6 +92,9 @@ public class TaskList {
      */
     public void addTask(Task task) {
 
+        // Ensures that the task being added to the list is not null
+        assert(task != null);
+
         this.toDoList.add(task);
         length = this.toDoList.size();
     }

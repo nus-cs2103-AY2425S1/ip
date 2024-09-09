@@ -43,6 +43,9 @@ public class DeleteTaskCommand extends Command {
     @Override
     public void execute(String input) {
 
+        // Ensures that the input is not null as if it is null then Quack is not getting the input from the user
+        assert(input != null);
+
         try {
             // Convert the input into a integer
             int index = Integer.parseInt(input);
