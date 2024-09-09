@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
 import count.exception.IncorrectFormatException;
+import count.exception.InvalidTimelineException;
 import count.task.Deadline;
 import count.task.Event;
 import count.task.Task;
@@ -44,7 +45,7 @@ public class Storage {
      * @throws IncorrectFormatException if the String format of the read file does not match the format reader
      * @throws FileNotFoundException if no Count.txt file can be found
      */
-    public ArrayList<Task> load() throws IncorrectFormatException, FileNotFoundException {
+    public ArrayList<Task> load() throws IncorrectFormatException, FileNotFoundException, InvalidTimelineException {
         this.sc = new Scanner(this.file);
         ArrayList<Task> listOfTasksRead = new ArrayList<>();
         while (sc.hasNextLine()) {

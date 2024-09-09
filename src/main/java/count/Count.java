@@ -6,6 +6,7 @@ import count.action.Action;
 import count.action.Deactivate;
 import count.exception.CountException;
 import count.exception.IncorrectFormatException;
+import count.exception.InvalidTimelineException;
 
 /**
  * Count is a lightweight helper with an inbuilt to-do list
@@ -28,7 +29,7 @@ public class Count {
 
         try {
             this.ls = new TaskList(this.storage.load());
-        } catch (FileNotFoundException | IncorrectFormatException e) {
+        } catch (FileNotFoundException | IncorrectFormatException | InvalidTimelineException e) {
             this.ls = new TaskList();
         }
         this.parser = new Parser(this.ls, filePath);
