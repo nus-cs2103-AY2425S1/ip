@@ -112,13 +112,20 @@ public class Dude {
     public String addToDo(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("todo");
+<<<<<<< HEAD
+=======
         } else {
             Task newTask = new ToDo(taskDes);
             taskList.addTask(newTask);
 
             assert isRunning;
             return ui.showAdd(newTask, taskList);
+>>>>>>> master
         }
+
+        Task newTask = new ToDo(taskDes);
+        taskList.addTask(newTask);
+        return ui.showAdd(newTask, taskList);
     }
 
     /**
@@ -131,6 +138,8 @@ public class Dude {
     public String addDeadline(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("deadline");
+<<<<<<< HEAD
+=======
         } else {
             String[] splitDes = taskDes.split("/", 2);
             if (splitDes.length < 2) {
@@ -150,7 +159,25 @@ public class Dude {
 
             assert isRunning;
             return ui.showAdd(newTask, taskList);
+>>>>>>> master
         }
+
+        String[] splitDes = taskDes.split("/", 2);
+        if (splitDes.length < 2) {
+            throw new DudeNullDateTimeException("deadline");
+        }
+
+        String[] splitBy = splitDes[1].split(" ", 2);
+        if (!splitBy[0].equals("by")) {
+            throw new DudeInvalidArgumentException("deadline", splitBy[0], "by");
+        } else if (splitBy.length == 1) {
+            throw new DudeNullDateTimeException("deadline");
+        }
+
+        LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
+        Task newTask = new Deadline(splitDes[0].strip(), by);
+        taskList.addTask(newTask);
+        return ui.showAdd(newTask, taskList);
     }
 
     /**
@@ -163,6 +190,8 @@ public class Dude {
     public String addEvent(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("event");
+<<<<<<< HEAD
+=======
         } else {
             String[] splitDes = taskDes.split("/", 3);
             if (splitDes.length < 3) {
@@ -194,7 +223,37 @@ public class Dude {
 
             assert isRunning;
             return ui.showAdd(newTask, taskList);
+>>>>>>> master
         }
+
+        String[] splitDes = taskDes.split("/", 3);
+        if (splitDes.length < 3) {
+            throw new DudeNullDateTimeException("event");
+        }
+
+        String[] splitFrom = splitDes[1].split(" ", 2);
+        if (!splitFrom[0].equals("from")) {
+            throw new DudeInvalidArgumentException("event", splitFrom[0], "from");
+        } else if (splitFrom.length == 1) {
+            throw new DudeNullDateTimeException("event");
+        }
+
+        String[] splitTo = splitDes[2].split(" ", 2);
+        if (!splitTo[0].equals("to")) {
+            throw new DudeInvalidArgumentException("event", splitTo[0], "to");
+        } else if (splitTo.length == 1) {
+            throw new DudeNullDateTimeException("event");
+        }
+
+        LocalDateTime from = Parser.stringToDateTime(splitFrom[1].strip());
+        LocalDateTime to = Parser.stringToDateTime(splitTo[1].strip());
+        if (!from.isBefore(to)) {
+            throw new DudeDateTimeFormatException();
+        }
+
+        Task newTask = new Event(splitDes[0].strip(), from, to);
+        taskList.addTask(newTask);
+        return ui.showAdd(newTask, taskList);
     }
 
     /**
@@ -291,10 +350,15 @@ public class Dude {
 
         if (filteredList.isEmpty()) {
             throw new DudeTaskNotFoundException();
+<<<<<<< HEAD
+=======
         } else {
             assert isRunning;
             return ui.showFind(filteredList);
+>>>>>>> master
         }
+
+        return ui.showFind(filteredList);
     }
 
     /**
