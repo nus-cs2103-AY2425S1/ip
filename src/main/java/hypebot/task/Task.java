@@ -1,4 +1,4 @@
-package task;
+package hypebot.task;
 
 import java.time.LocalDate;
 
@@ -12,9 +12,9 @@ public class Task {
     private final String name;
 
     /**
-     * Creates a task with the specified name.
+     * Creates a hypebot.task with the specified name.
      *
-     * @param name The name of the task.
+     * @param name The name of the hypebot.task.
      */
     public Task(String name) {
         this.name = name;
@@ -29,14 +29,14 @@ public class Task {
     }
 
     /**
-     * Marks task as complete by changing isComplete to true.
+     * Marks hypebot.task as complete by changing isComplete to true.
      */
     public void mark() {
         this.isComplete = true;
     }
 
     /**
-     * Marks task as incomplete by changing isComplete to false.
+     * Marks hypebot.task as incomplete by changing isComplete to false.
      */
     public void unmark() {
         this.isComplete = false;
@@ -47,20 +47,20 @@ public class Task {
     }
 
     /**
-     * Returns the String description of the task to append to /data/tasklist.txt.
+     * Returns the String description of the hypebot.task to append to /data/tasklist.txt.
      * Should not be accessed at runtime.
      *
-     * @return String description of task to append to /data/tasklist.txt.
+     * @return String description of hypebot.task to append to /data/tasklist.txt.
      */
     public String toFileString() {
         return "N , 0 , T\n";
     }
 
     /**
-     * Returns the String representation of the task as shown to the user on the HypeBot UI.
+     * Returns the String representation of the hypebot.task as shown to the user on the hypebot.HypeBot UI.
      * Should be in this form: "[{X only if complete}] {name}".
      *
-     * @return String representation of task as shown on HypeBot UI.
+     * @return String representation of hypebot.task as shown on hypebot.HypeBot UI.
      */
     @Override
     public String toString() {

@@ -1,9 +1,11 @@
-package task;
+package hypebot.task;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import static hypebot.common.Messages.EVENT_TIME_PARSE_ERROR;
 
 /**
  * Represents an Event type Task with a LocalDateTime type start time and an end time.
@@ -22,12 +24,16 @@ public class Event extends Task {
      * @param name The name of the event.
      * @param startTimeString The start time of the event.
      * @param endTimeString The end time of the event.
-     * @throws DateTimeException Thrown if due date entered by user does not follow format 'yyyy-MM-dd HH:mm'.
+     * @throws EventTimeDateParseException Thrown if due date entered by user does not follow format 'yyyy-MM-dd HH:mm'.
      */
-    public Event(String name, String startTimeString, String endTimeString) throws DateTimeException {
+    public Event(String name, String startTimeString, String endTimeString) throws EventTimeDateParseException {
         super(name);
-        startTime = LocalDateTime.parse(startTimeString, formatter);
-        endTime = LocalDateTime.parse(endTimeString, formatter);
+        try {
+            startTime = LocalDateTime.parse(startTimeString, formatter);
+            endTime = LocalDateTime.parse(endTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new EventTimeDateParseException(EVENT_TIME_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+        }
     }
 
     @Override
@@ -42,7 +48,7 @@ public class Event extends Task {
      * Returns the String description of the task to append to /data/tasklist.txt.
      * Should be in this form: "E , {0 if not complete, 1 if complete} , {name} , {startTime} , {endTime}".
      *
-     * @return String description of task to append to /data/tasklist.txt.
+     * @return String description of Event task to append to /data/tasklist.txt.
      */
     @Override
     public String toFileString() {
@@ -54,7 +60,7 @@ public class Event extends Task {
      * Returns the String representation of the Deadline task as shown to the user on the HypeBot UI.
      * Should be in this form: "[E][{X only if complete}] {name} (from: {startTime} to: {endTime})".
      *
-     * @return String representation of task as shown on HypeBot UI.
+     * @return String representation of Event task as shown on HypeBot UI.
      */
     @Override
     public String toString() {

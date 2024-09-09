@@ -1,8 +1,10 @@
-package task;
+package hypebot.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import static hypebot.common.Messages.DUE_DATE_PARSE_ERROR;
 
 /**
  * Represents a Deadline type Task with a LocalDateTime type due date.
@@ -18,10 +20,15 @@ public class Deadline extends Task {
      *
      * @param name The name of the deadline.
      * @param dueDateString The due date of the deadline in String form.
+     * @throws DueDateParseException
      */
-    public Deadline(String name, String dueDateString) throws DateTimeParseException {
+    public Deadline(String name, String dueDateString) throws DueDateParseException {
         super(name);
-        this.dueDate = LocalDate.parse(dueDateString, formatter);
+        try {
+            this.dueDate = LocalDate.parse(dueDateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DueDateParseException(DUE_DATE_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+        }
     }
 
     @Override
@@ -33,7 +40,7 @@ public class Deadline extends Task {
      * Returns the String description of the task to append to /data/tasklist.txt.
      * Should be in this form: "D , {0 if not complete, 1 if complete} , {name} , {dueDate}".
      *
-     * @return String description of task to append to /data/tasklist.txt.
+     * @return String description of Deadline task to append to /data/tasklist.txt.
      */
     @Override
     public String toFileString() {
@@ -44,7 +51,7 @@ public class Deadline extends Task {
      * Returns the String representation of the Deadline task as shown to the user on the HypeBot UI.
      * Should be in this form: "[D][{X only if complete}] {name} (by: {dueDate})".
      *
-     * @return String representation of task as shown on HypeBot UI.
+     * @return String representation of Deadline task as shown on HypeBot UI.
      */
     @Override
     public String toString() {
