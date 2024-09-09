@@ -2,6 +2,7 @@ package ned;
 
 import java.util.ArrayList;
 
+import ned.exceptions.DuplicateTaskException;
 import ned.exceptions.InvalidIndexException;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
@@ -31,8 +32,8 @@ public class TaskList {
             this.listOfTasks.remove(index);
             uiInstance.removeTasksToNedDialogue(selectedTask, this.listOfTasks.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list " +
-                    "size");
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of "
+                    + "the list size");
         }
     }
 
@@ -46,8 +47,8 @@ public class TaskList {
         try {
             return this.listOfTasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list " +
-                    "size");
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of "
+                    + "the list size");
         }
     }
 
@@ -57,9 +58,17 @@ public class TaskList {
      * @param newTask - The task which is to be added
      * @param uiInstance - The Ui instance which is used to print out the addition's success to the user
      */
-    public void addTask(Task newTask, Ui uiInstance) {
+    public void addTask(Task newTask, Ui uiInstance) throws NedException {
+        if (isTaskADuplicate(newTask)) {
+            throw new DuplicateTaskException(String.format("Sorry m'lord, it seems that this task, %s, already "
+                    + "appears in the task list.\n", newTask) + "Use the list command to confirm this error m'lord.");
+        }
         this.listOfTasks.add(newTask);
         uiInstance.addTasksToNedDialogue(newTask, this.listOfTasks.size());
+    }
+
+    private boolean isTaskADuplicate(Task newTask) {
+        return this.listOfTasks.contains(newTask);
     }
 
     /**

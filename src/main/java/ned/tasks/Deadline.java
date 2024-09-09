@@ -17,8 +17,8 @@ public class Deadline extends Task {
         try {
             this.deadlineTiming = LocalDate.parse(deadlineTiming);
         } catch (DateTimeParseException e) {
-            throw new InvalidTimeFormatException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here "
-                    + "are examples of valid timings:\n" + Ui.INDENTATIONS + "2015-08-04\n"
+            throw new InvalidTimeFormatException("M'lord, the time formatting in /by does not follow ISO 8601 "
+                    + "(yyyy-mm-dd). Here are examples of valid timings:\n" + Ui.INDENTATIONS + "2015-08-04\n"
                     + Ui.INDENTATIONS + "2015-08-04T10:11:30");
         }
         this.taskType = "D";
@@ -53,13 +53,12 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (obj instanceof Deadline) {
-            Deadline typeCastedObj = (Deadline) obj;
-            return (isTaskDescriptionEqual(typeCastedObj)
-                    && isDeadlineTimingEqual(typeCastedObj)
-                    && isStatusEqual(typeCastedObj));
+        } else if (!(obj instanceof Deadline)) {
+            return false;
         }
-        return false;
+        Deadline typeCastedObj = (Deadline) obj;
+        return (isTaskDescriptionEqual(typeCastedObj)
+                && isDeadlineTimingEqual(typeCastedObj));
     }
 
     private boolean isStatusEqual(Deadline typeCastedObj) {
@@ -71,6 +70,6 @@ public class Deadline extends Task {
     }
 
     private boolean isTaskDescriptionEqual(Deadline typeCastedObj) {
-        return this.taskDescription.equals(typeCastedObj.taskDescription);
+        return this.taskDescription.equalsIgnoreCase(typeCastedObj.taskDescription);
     }
 }

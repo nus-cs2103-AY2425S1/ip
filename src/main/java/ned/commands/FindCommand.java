@@ -29,7 +29,8 @@ public class FindCommand implements Command {
             throws NedException {
         String[] splitInput = userInput.split(" ");
         if (splitInput.length < 1) {
-            throw new MissingSearchTermException("Sorry m'lord, it seems that your find command is missing a search term.");
+            throw new MissingSearchTermException("Sorry m'lord, it seems that your find command is missing a "
+                    + "search term.");
         }
         String parsedInput = splitInput[1];
         TaskList listOfRelatedTasks = taskList.findRelatedTasks(parsedInput);

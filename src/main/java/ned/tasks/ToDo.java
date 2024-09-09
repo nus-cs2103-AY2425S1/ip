@@ -27,10 +27,10 @@ public class ToDo extends Task {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (obj instanceof ToDo) {
-            ToDo typeCastedObj = (ToDo) obj;
-            return (typeCastedObj.taskDescription.equals(this.taskDescription) && typeCastedObj.isDone == this.isDone);
+        } else if (!(obj instanceof ToDo)) {
+            return false;
         }
-        return false;
+        ToDo typeCastedObj = (ToDo) obj;
+        return typeCastedObj.taskDescription.equalsIgnoreCase(this.taskDescription);
     }
 }

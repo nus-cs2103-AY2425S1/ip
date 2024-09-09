@@ -37,8 +37,8 @@ public class DeleteCommand implements Command {
         String[] words = userInput.split(" ");
         try {
             if (words.length != 2) {
-                throw new MissingIndexException("Sorry m'lord, you must give me a list index with the delete command. No more,"
-                        + " no less" + uiInstance.getCommandMessage());
+                throw new MissingIndexException("Sorry m'lord, you must give me a list index with the delete command. "
+                        + "No more, no less" + uiInstance.getCommandMessage());
             } else {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
@@ -49,8 +49,8 @@ public class DeleteCommand implements Command {
             throw new InvalidIndexException("Sorry m'lord, your command must specify a valid number"
                     + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of the list "
-                    + "size" + uiInstance.getCommandMessage());
+            throw new InvalidIndexException("Sorry m'lord, your command must specify an index within the bounds of "
+                    + "the list size" + uiInstance.getCommandMessage());
         }
     }
 

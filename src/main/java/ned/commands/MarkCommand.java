@@ -33,8 +33,8 @@ public class MarkCommand implements Command {
             throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
-            throw new MissingIndexException("Sorry m'lord, you must give me a list index with the mark command. No more, no " +
-                    "less" + uiInstance.getCommandMessage());
+            throw new MissingIndexException("Sorry m'lord, you must give me a list index with the mark command. "
+                    + "No more, no less" + uiInstance.getCommandMessage());
         }
         String possibleIndex = words[1];
         try {

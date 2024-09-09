@@ -32,7 +32,8 @@ public class ByeCommand implements Command {
      *                      to the user
      */
     @Override
-    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
+    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
+            throws NedException {
         uiInstance.getByeMessage();
     }
 

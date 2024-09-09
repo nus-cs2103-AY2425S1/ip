@@ -40,8 +40,6 @@ public class Ui {
      * @param line - String to be printed with 1 tab indentation.
      */
     public void addToNedDialogue(String line) {
-        // adds indentation to any printed lines
-        // changes the box
         builtUpNedDialogue.add(INDENTATIONS + line + "\n");
     }
 

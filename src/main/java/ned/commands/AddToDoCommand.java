@@ -2,9 +2,9 @@ package ned.commands;
 
 import ned.Storage;
 import ned.TaskList;
+import ned.Ui;
 import ned.exceptions.MissingTaskDescriptionException;
 import ned.exceptions.NedException;
-import ned.Ui;
 import ned.tasks.Task;
 import ned.tasks.ToDo;
 

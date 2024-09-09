@@ -33,7 +33,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String marker = this.isDone ? "X" : " ";
-        return String.format("[%s][%s] %s",this.taskType, marker, this.taskDescription);
+        return String.format("[%s][%s] %s", this.taskType, marker, this.taskDescription);
     }
 
     public boolean isMatchingPattern(String searchPattern) {

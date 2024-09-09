@@ -48,7 +48,6 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String userInput, Image userImage) {
         DialogBox userDialogBox = new DialogBox(userInput, userImage);
         userDialogBox.setPadding(new Insets(40, 10, 10, 10));
-//        userDialogBox.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
         return userDialogBox;
     }
 
