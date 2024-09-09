@@ -11,4 +11,8 @@ public class Deadline extends Task {
         return "[D]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo() + " (by: " + deadline + ")";
     }
 
+    public String toFileFormat() {
+        return "D | " + (getStatus() == TaskStatus.DONE ? "1" : "0") + " | " + getInfo() + " | " + deadline;
+    }
 }
+////
