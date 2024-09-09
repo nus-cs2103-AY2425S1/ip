@@ -54,30 +54,19 @@ public class Parser {
             throw new BobException(getInvalidCommandComment());
         }
 
-        switch (commandType) {
-        case LIST:
-            return prepareList();
-        case MARK:
-            return prepareMark(fullCommand);
-        case UNMARK:
-            return prepareUnmark(fullCommand);
-        case ON:
-            return prepareOn(fullCommand);
-        case DELETE:
-            return prepareDelete(fullCommand);
-        case FIND:
-            return prepareFine(fullCommand);
-        case TODO:
-            return prepareTodo(fullCommand);
-        case DEADLINE:
-            return prepareDeadline(fullCommand);
-        case EVENT:
-            return prepareEvent(fullCommand);
-        case BYE:
-            return new Bye();
-        default:
-            throw new BobException(getInvalidCommandComment());
-        }
+        return switch (commandType) {
+            case LIST -> prepareList();
+            case MARK -> prepareMark(fullCommand);
+            case UNMARK -> prepareUnmark(fullCommand);
+            case ON -> prepareOn(fullCommand);
+            case DELETE -> prepareDelete(fullCommand);
+            case FIND -> prepareFine(fullCommand);
+            case TODO -> prepareTodo(fullCommand);
+            case DEADLINE -> prepareDeadline(fullCommand);
+            case EVENT -> prepareEvent(fullCommand);
+            case BYE -> new Bye();
+            default -> throw new BobException(getInvalidCommandComment());
+        };
     }
 
     private static String getInvalidCommandComment() {
