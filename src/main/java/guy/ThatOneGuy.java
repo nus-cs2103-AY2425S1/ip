@@ -52,6 +52,7 @@ public class ThatOneGuy {
     public String getResponse(String input) {
         try {
             String response = parser.handleGuiInput(input);
+            assert !response.isEmpty();
             if (response.equals("Whatever. Hope you never come back.")) {
                 isRunning = false;
             }
