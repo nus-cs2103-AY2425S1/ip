@@ -39,10 +39,11 @@ public class Parser<C extends Controller> {
     /**
      * Parses the input and calls the appropriate controller method.
      * 
-     * @param input
-     *            The input from the user.
+     * @param input The input from the user
+     *            .
      */
     public boolean parse(String input) {
+        assert input != null : "Input is null";
         if (input.equals(EXIT_COMMAND)) {
             controller.endProgram();
             return false;

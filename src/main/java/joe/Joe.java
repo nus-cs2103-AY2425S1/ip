@@ -32,8 +32,8 @@ public class Joe {
     /**
      * Generates a response for the user's chat message.
      * 
-     * @param input
-     *            The user's chat message.
+     * @param input The user's chat message.
+     * 
      */
     public String getResponse(String input) {
         return "Joe heard: " + input;
