@@ -27,7 +27,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTaskTest() {
+    public void addTaskTest() throws TickException {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDo("homework"));
         assertEquals(1, taskList.getSize());
