@@ -24,6 +24,9 @@ public class Storage {
      * @param myList The list of tasks to populate from the file.
      */
     public static void loadFromFile(ArrayList<Task> myList) {
+        // Ensure that myList is not null
+        assert myList != null : "Task list (myList) should not be null";
+
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             return;
@@ -46,6 +49,10 @@ public class Storage {
      * @param myList The list of tasks to save to the file.
      */
     public static void saveToFile(ArrayList<Task> myList) {
+
+        // Ensure that myList is not null
+        assert myList != null : "Task list (myList) should not be null";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : myList) {
                 writer.write(task.toFileString());
