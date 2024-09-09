@@ -1,10 +1,8 @@
 package janet;
 
-import javafx.application.Platform;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Represents the entry point of Janet.
@@ -100,6 +98,11 @@ public class Janet {
                 String[] keywords = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
                 response = ui.showFindMessage(tasks.findTasks(keywords));
                 break;
+            case VIEW:
+                // view schedules
+                String dateAndTime = commandDetails[1];
+                LocalDate schedule = LocalDate.parse(dateAndTime);
+                response = ui.showScheduledTasksMessage(tasks.tasksInSchedule(schedule), dateAndTime);
             }
         } catch (JanetException e) {
             response  = e.getMessage();     // returns a message for any invalid user command
