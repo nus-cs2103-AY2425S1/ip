@@ -25,7 +25,17 @@ public class DeadlineTask extends Task {
      *
      * @return Date of the deadline task.
      */
-    public String getDate() {
+    public LocalDateTime getStartDate() {
+        return this.date;
+    }
+
+    /**
+     * String format of the date object, for the start date.
+     *
+     * @return Date of the deadline task.
+     */
+    @Override
+    public String getDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         return date.format(formatter);
     }
@@ -46,7 +56,6 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", getStatusString(), getDescription(), getDate());
+        return String.format("[D][%s] %s (by: %s)", getStatusString(), getDescription(), getDateString());
     }
-
 }

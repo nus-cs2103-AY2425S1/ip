@@ -16,6 +16,7 @@ public class Ui {
                 + "Type \"help\" to see the list of commands!\n"
                 + "Otherwise, "
                 + "enter \"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\", \"find\" or \"bye\"!\n"
+                + "Type \"sort <parameter>\" to sort tasks by a parameter!\n"
                 + "Sigma, sigma, on the wall, who is the skibidiest of them all?";
     }
 
