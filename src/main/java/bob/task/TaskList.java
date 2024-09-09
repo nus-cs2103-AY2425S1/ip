@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bob.exception.BobException;
 import bob.exception.InvalidTaskException;
 import bob.parser.Parser;
 import bob.storage.Storage;
@@ -328,5 +329,31 @@ public class TaskList {
                 Ui.showEmptySearchResults();
             }
         }
+    }
+
+    /**
+     * Returns the size of records.
+     *
+     * @return
+     */
+    public int getRecordSize() {
+        return this.records.size();
+    }
+
+    /**
+     * Returns the Task of the indicated index in records.
+     *
+     * @param index index of task seend by user in the current records,
+     * @return
+     */
+    public Task getIndexedTask(int index) {
+        return this.records.get(index - 1);
+    }
+
+    /**
+     * Returns an arraylist of records.
+     */
+    public ArrayList<Task> getAllRecords() {
+        return this.records;
     }
 }

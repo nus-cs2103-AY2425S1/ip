@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import bob.command.*;
+import bob.exception.BobException;
 import bob.ui.Ui;
 
 /**
@@ -52,11 +53,11 @@ public class Parser {
         String keyword = inputWordsList[0];
         switch (keyword) {
         case "list":
-            return new ListCommand(input);
+            return new ListCommand();
         case "mark":
-            return new MarkCommand(input);
+            return new MarkCommand(input, true);
         case "unmark":
-            return new UnMarkCommand(input);
+            return new MarkCommand(input, false);
         case "delete":
             return new DeleteCommand(input);
         case "event":
@@ -67,6 +68,8 @@ public class Parser {
             return new TodoCommand(input);
         case "find":
             return new FindCommand(input);
+        case "bye":
+            return new ByeCommand(input);
         default:
             Ui.requestValidCommand();
             return new Command(input);

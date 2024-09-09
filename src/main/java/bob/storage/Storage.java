@@ -8,10 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.Todo;
+import bob.task.*;
 
 
 /**
@@ -65,6 +62,33 @@ public class Storage {
         }
         return null;
     };
+
+    /**
+     * Reads file and updates taskList for the next instruction given by user.
+     *
+     * @return Updated TaskList.
+     */
+    public TaskList loadUpdatedTaskList() {
+        try {
+            File file = new File(filePath);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+
+            ArrayList<Task> tempRecords = new ArrayList<>();
+
+            while (line != null && !line.equals("")) {
+                Task task = this.loadTask(line);
+                tempRecords.add(task);
+                line = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+            return new TaskList(tempRecords);
+        } catch (IOException e) {
+            super.toString();
+        }
+        return new TaskList();
+    }
 
     /**
      * Parses the content from a line in the saved file to return the corresponding Task object.

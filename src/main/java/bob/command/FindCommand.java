@@ -1,16 +1,14 @@
 package bob.command;
 
-import java.util.ArrayList;
-
-import bob.task.Task;
+import bob.storage.Storage;
+import bob.task.TaskList;
+import bob.ui.Ui;
 
 /**
  * ListCommand class executes list command.
  */
 public class FindCommand extends Command {
-    private String input;
-    private ArrayList<Task> tempRecords;
-
+    private TaskList taskList;
 
     /**
      * Constructor to initalise FindCommand
@@ -22,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(ArrayList<Task> records) {
+    public String execute(TaskList taskList, Storage storage, Ui ui) {
         return "FindCommand";
     }
 }

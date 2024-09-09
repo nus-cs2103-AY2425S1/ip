@@ -1,16 +1,15 @@
 package bob.command;
 
-import java.util.ArrayList;
-
+import bob.storage.Storage;
 import bob.task.Task;
+import bob.task.TaskList;
+import bob.ui.Ui;
 
 /**
  * ListCommand class executes list command.
  */
 public class DeleteCommand extends Command {
-    private String input;
-    private ArrayList<Task> tempRecords;
-
+    private TaskList taskList;
 
     /**
      * Constructor to initalise DeleteCommand
@@ -22,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(ArrayList<Task> records) {
+    public String execute(TaskList taskList, Storage storage, Ui ui) {
         return "DeleteCommand";
     }
 }

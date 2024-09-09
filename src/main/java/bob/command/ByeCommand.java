@@ -7,20 +7,21 @@ import bob.ui.Ui;
 /**
  * ListCommand class executes list command.
  */
-public class DeadlineCommand extends Command {
+public class ByeCommand extends Command {
     private TaskList taskList;
 
     /**
-     * Constructor to initalise DeadlineCommand
+     * Constructor to initalise ByeCommand
      *
      * @param input
      */
-    public DeadlineCommand(String input) {
+    public ByeCommand(String input) {
         super(input);
     }
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        return "DeadlineCommand";
+        this.updateIsExitToTrue();
+        return "ByeCommand";
     }
 }

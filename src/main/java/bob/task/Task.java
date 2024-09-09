@@ -67,6 +67,42 @@ public class Task {
         }
     }
 
+    /**
+     * Marks 1 task as completed or not completed.
+     */
+    public void mark1Task(boolean isCompleted) {
+        if (isCompleted) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
+        }
+    }
+
+    /**
+     * Returns the string representation of the output that will be displayed for the user.
+     *
+     * @param isCompleted whether the task is completed.
+     */
+    public String getMarkedTask(boolean isCompleted) {
+        if (isCompleted) {
+            String finishedMarking = "OK, I've marked this task as done:\n\t"
+                    + "["
+                    + getTaskLetter()
+                    + "]"
+                    + "[X] "
+                    + this.description;
+            return finishedMarking;
+        } else {
+            String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
+                    + "["
+                    + getTaskLetter()
+                    + "]"
+                    + "[ ] "
+                    + this.description;
+            return finishedUnmarking;
+        }
+    }
+
     public String getTaskLetter() {
         return " ";
     }
