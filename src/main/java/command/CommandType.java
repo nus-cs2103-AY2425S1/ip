@@ -51,6 +51,10 @@ public enum CommandType {
      */
     ADDMULTIPLETODOS,
 
+    /**
+     * Help command to display available commands.
+     */
+    HELP,
 
     /**
      * Represents the command to exit the application.

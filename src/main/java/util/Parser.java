@@ -11,6 +11,7 @@ import command.CommandType;
 import command.DeleteCommand;
 import command.ExitCommand;
 import command.FindCommand;
+import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
@@ -82,6 +83,8 @@ public class Parser {
                 throw new InvalidCommandException();
             }
             return new AddMultipleTodosCommand(splitWords[1].split(","));
+        case HELP:
+                return new HelpCommand();
         case BYE:
             return new ExitCommand();
         default:
