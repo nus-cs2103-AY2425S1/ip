@@ -13,7 +13,7 @@ public class Ui {
     public String printStatus(Task t, int i) {
         return "   Got it. I've added this task:\n" +
                 "   " + t + "\n" +
-        "   Now you have " + i + " tasks in the list\n";
+                "   Now you have " + i + " tasks in the list\n";
     }
 
     /**
@@ -81,14 +81,7 @@ public class Ui {
      */
     public String printErrorSize(int i) {
         return "   Input a valid number\n" +
-        "   You only have " + i + " tasks in the list\n";
-    }
-
-    /**
-     * Prints an exit message, signaling the end of the user's session with the chatbot.
-     */
-    public void printExit() {
-        System.out.println(line + "   Bye. Hope to see you again soon!\n" + line);
+               "   You only have " + i + " tasks in the list\n";
     }
 
     /**
