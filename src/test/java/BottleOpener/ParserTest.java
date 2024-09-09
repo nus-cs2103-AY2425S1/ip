@@ -50,7 +50,7 @@ public class ParserTest {
 
     @Test
     void testExecute_deadlineCommand_validInput() {
-        parser = new Parser("deadline Submit report /by 31-12-2023", tasklist, ui);
+        parser = new Parser("deadline Submit report /by 31/12/2023", tasklist, ui);
         parser.execute();
         assertEquals(1, tasklist.getSize());
         assertInstanceOf(Deadline.class, tasklist.getTask(0));
@@ -58,7 +58,7 @@ public class ParserTest {
 
     @Test
     void testExecute_eventCommand_validInput() {
-        parser = new Parser("event Meeting /from 31-12-2023 /to 01-01-2024", tasklist, ui);
+        parser = new Parser("event Meeting /from 31/12/2023 /to 01/01/2024", tasklist, ui);
         parser.execute();
         assertEquals(1, tasklist.getSize());
         assertInstanceOf(Event.class, tasklist.getTask(0));

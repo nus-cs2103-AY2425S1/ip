@@ -7,10 +7,10 @@ package BottleOpener;
  */
 public class Parser {
     private boolean isExitCalled;
-    private String[] userInput;
-    private String instruction;
-    private Tasklist tasklist;
-    private Ui ui;
+    private final String[] userInput;
+    private final String instruction;
+    private final Tasklist tasklist;
+    private final Ui ui;
 
     /**
      * Constructs a {@code BottleOpener.Parser} object with the given user input, task list, and user interface.
