@@ -1,13 +1,16 @@
+help
 read book
 todo
 todo read book
 deadline
 deadline return book
 deadline return book /by June 6th
+deadline return book /2024-06-01
 event
 event project meeting
-event project meeting /from Mon 2PM
-event project meeting /from Mon 2PM /to 5PM
+event project meeting /2024-09-15
+event project meeting /2024-09-15 09:00
+event project meeting /2024-09-15 09:00 /2024-09-15 11:00
 mark
 mark 5
 mark 1
@@ -18,5 +21,8 @@ unmark 2
 delete
 delete 5
 delete 2
+happening
+happening /Sunday
+happening /2024-09-15
 list
 bye
