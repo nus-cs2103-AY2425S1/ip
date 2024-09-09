@@ -88,8 +88,6 @@ public class Parser {
             break;
         }
 
-        System.out.println(props);
-
         return new Pair<>(cmd, props);
     }
     /**
