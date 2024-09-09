@@ -84,7 +84,7 @@ public class Parser {
             }
             return new AddMultipleTodosCommand(splitWords[1].split(","));
         case HELP:
-                return new HelpCommand();
+            return new HelpCommand();
         case BYE:
             return new ExitCommand();
         default:

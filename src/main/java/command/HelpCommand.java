@@ -31,16 +31,16 @@ public class HelpCommand extends Command {
      * @return A string containing the list of available commands.
      */
     private String getHelpMessage() {
-        return "Here are the available commands:\n" +
-                "1. todo <task> - Adds a Todo task\n" +
-                "2. deadline <task> /by <date> - Adds a Deadline task\n" +
-                "3. event <task> /from <start_date> /to <end_date> - Adds an Event task\n" +
-                "4. list - Shows the list of tasks\n" +
-                "5. mark <index> - Marks a task as done\n" +
-                "6. unmark <index> - Unmarks a task as not done\n" +
-                "7. delete <index> - Deletes a task\n" +
-                "8. find <keyword> - Finds tasks containing the keyword\n" +
-                "9. help - Shows this help message\n" +
-                "10. bye - Exits the application";
+        return "Here are the available commands:\n"
+                + "1. todo <task> - Adds a Todo task\n"
+                + "2. deadline <task> /by <date> - Adds a Deadline task\n"
+                + "3. event <task> /from <start_date> /to <end_date> - Adds an Event task\n"
+                + "4. list - Shows the list of tasks\n"
+                + "5. mark <index> - Marks a task as done\n"
+                + "6. unmark <index> - Unmarks a task as not done\n"
+                + "7. delete <index> - Deletes a task\n"
+                + "8. find <keyword> - Finds tasks containing the keyword\n"
+                + "9. help - Shows this help message\n"
+                + "10. bye - Exits the application";
     }
 }
