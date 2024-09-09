@@ -18,7 +18,7 @@ public class List extends Command {
 
         StringBuilder tasklistResponse = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            tasklistResponse.append((i + 1) + ". " + list.get(i) + "\n");
+            tasklistResponse.append((i + 1)).append(". ").append(list.get(i)).append("\n");
         }
 
         return response + "\n" + tasklistResponse.toString().trim();
