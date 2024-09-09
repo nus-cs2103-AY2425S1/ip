@@ -86,6 +86,21 @@ public class TaskList {
     }
 
     /**
+     * Marks a task as incomplete and saves to disk.
+     *
+     * @param  index          the 0-based index of the task to unmark
+     * @param  tagDescription thedescription of the tag
+     * @return                the marked task
+     * @throws IOException    if the tasks cannot be saved
+     */
+    public Task tagTask(int index, String tagDescription) throws IOException {
+        tasks.get(index).addTag(tagDescription);
+        storage.saveTasks(tasks);
+        return tasks.get(index);
+    }
+
+
+    /**
      * Loads stored tasks from disk.
      *
      * @return                      the list of stored tasks

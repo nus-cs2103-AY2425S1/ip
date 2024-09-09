@@ -1,5 +1,7 @@
 package alice.task;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import alice.parser.TaskParser;
@@ -8,6 +10,7 @@ import alice.parser.TaskParser;
 public abstract class Task {
     protected String description;
     protected boolean isCompleted;
+    protected List<String> tags;
 
     /** Types of tasks. */
     public enum TaskType {
@@ -24,6 +27,7 @@ public abstract class Task {
     public Task(String line) throws InvalidTaskException {
         this.description = TaskParser.parseDescription(line);
         this.isCompleted = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -34,6 +38,16 @@ public abstract class Task {
     public void setCompletion(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    /**
+     * Sets the completion status of a task.
+     *
+     * @param tagDescription thedescription of the tag
+     */
+    public void addTag(String tagDescription) {
+        tags.add(tagDescription);
+    }
+
 
     /**
      * Parses a JSON string into a task.
@@ -69,7 +83,8 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", isCompleted ? "X" : " ", description);
+        String tagsString = tags.isEmpty() ? "" : String.format("(%s)", String.join(",", tags));
+        return String.format("[%s] %s %s", isCompleted ? "X" : " ", description, tagsString);
     }
 
     /**

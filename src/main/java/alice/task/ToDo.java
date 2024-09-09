@@ -3,6 +3,7 @@ package alice.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import alice.parser.TaskParser;
 
@@ -28,6 +29,7 @@ public class ToDo extends Task {
         keyValuePairs.add("\"taskType\": \"toDo\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
+        keyValuePairs.add(String.format("\"tags\": \"[%s]\"", String.join(",", tags)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
@@ -43,6 +45,11 @@ public class ToDo extends Task {
         String inputLine = String.format("toDo %s", arguments.get("description"));
         ToDo toDo = new ToDo(inputLine);
         toDo.isCompleted = arguments.get("isCompleted").compareTo("true") == 0;
+        String tagsArraysString = arguments.getOrDefault("tags", "");
+        if (tagsArraysString.length() > 2) {
+            Stream.of(tagsArraysString.substring(1, tagsArraysString.length() - 1).split(","))
+                    .forEach((tag) -> toDo.addTag(tag));
+        }
         return toDo;
     }
 }

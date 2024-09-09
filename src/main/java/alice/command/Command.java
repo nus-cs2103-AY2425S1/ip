@@ -15,6 +15,7 @@ public abstract class Command {
         DEADLINE,
         EVENT,
         FIND,
+        TAG,
     }
 
     protected final TaskList taskList;
@@ -59,6 +60,10 @@ public abstract class Command {
 
         if (input.startsWith(Action.FIND.name())) {
             return new FindTask(taskList);
+        }
+
+        if (input.startsWith(Action.TAG.name())) {
+            return new TagTask(taskList);
         }
 
         throw new IllegalArgumentException("Unsupported command.");

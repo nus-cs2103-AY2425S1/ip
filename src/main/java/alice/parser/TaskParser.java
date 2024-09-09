@@ -60,7 +60,7 @@ public class TaskParser {
      */
     public static Map<String, String> parseJsonString(String jsonString) {
         Map<String, String> arguments = new HashMap<>();
-        Pattern keyValuePairPattern = Pattern.compile("(\\\"\\w+\\\"): (\\\"[\\w\\s:-]+\\\")");
+        Pattern keyValuePairPattern = Pattern.compile("(\\\"\\w+\\\"): (\\\"[\\w\\s:\\-\\\\,\\[\\]]+\\\")");
         Matcher matcher = keyValuePairPattern.matcher(jsonString);
         while (matcher.find()) {
             // remove string quotes from json

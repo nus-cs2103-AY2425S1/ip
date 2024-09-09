@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import alice.parser.DateParser;
 import alice.parser.TaskParser;
@@ -45,6 +46,7 @@ public class Deadline extends Task {
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
         keyValuePairs.add(String.format("\"by\": \"%s\"", DateParser.toDateString(by)));
+        keyValuePairs.add(String.format("\"tags\": \"[%s]\"", String.join(",", tags)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
@@ -65,6 +67,11 @@ public class Deadline extends Task {
         );
         Deadline deadline = new Deadline(inputLine);
         deadline.isCompleted = arguments.get("isCompleted").compareTo("true") == 0;
+        String tagsArraysString = arguments.getOrDefault("tags", "");
+        if (tagsArraysString.length() > 2) {
+            Stream.of(tagsArraysString.substring(1, tagsArraysString.length() - 1).split(","))
+                    .forEach((tag) -> deadline.addTag(tag));
+        }
         return deadline;
     }
 }
