@@ -41,7 +41,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "tecna-v0.1"
+    archiveBaseName = "tecna-v0.2"
     archiveClassifier = null
 
     // Include all compiled classes and resources in the root of the JAR
