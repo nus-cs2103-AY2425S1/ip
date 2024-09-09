@@ -26,6 +26,8 @@ public class Storage {
      * Constructor to determine the name and file path to store and read from.
      */
     public Storage(String path, String fileName) {
+        assert path != null : "Path cannot be null";
+        assert fileName != null : "File name cannot be null";
         this.path = Paths.get(path);
         this.file = Paths.get(path + fileName);
     }
@@ -51,7 +53,6 @@ public class Storage {
      *
      * @return The tasks stored in an array.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
