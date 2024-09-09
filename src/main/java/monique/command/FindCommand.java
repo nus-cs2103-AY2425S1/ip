@@ -28,6 +28,7 @@ public class FindCommand extends Command {
     //Overloaded Constructor
     public FindCommand(String ...searchKeys) {
         super();
+        assert searchKeys.length > 0;
         this.searchKeys = searchKeys;
     }
 

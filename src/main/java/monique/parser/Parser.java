@@ -3,7 +3,16 @@ package monique.parser;
 import java.util.Arrays;
 import java.util.Set;
 
-import monique.command.*;
+import monique.command.AddCommand;
+import monique.command.ByeCommand;
+import monique.command.Command;
+import monique.command.DeleteCommand;
+import monique.command.FindCommand;
+import monique.command.GuideCommand;
+import monique.command.ListCommand;
+import monique.command.MarkCommand;
+import monique.command.UnknownCommand;
+import monique.command.UnmarkCommand;
 import monique.exception.IllegalDateFormatException;
 import monique.exception.ParseException;
 import monique.task.Deadline;
