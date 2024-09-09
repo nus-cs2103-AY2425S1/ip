@@ -1,5 +1,7 @@
 package bobby.ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a generic task with a description and a completion status.
  * Provides methods to mark the task as done or not done,
@@ -96,4 +98,16 @@ public abstract class Task {
      * @return A string representation of the task for storage purposes.
      */
     public abstract String toStore();
+    /**
+     * Retrieves the deadline or due date associated with the task.
+     *
+     * @return A {@link LocalDateTime} representing the deadline of the task.
+     */
+    public abstract LocalDateTime getBy();
+    /**
+     * Retrieves the start date and time associated with the task.
+     *
+     * @return A {@link LocalDateTime} representing the start date and time of the task.
+     */
+    public abstract LocalDateTime getFrom();
 }

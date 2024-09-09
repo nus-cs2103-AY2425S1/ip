@@ -1,5 +1,7 @@
 package bobby.ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a ToDo task, which is a type of task with only a description.
  * This class extends the {@link Task} class and provides specific formatting
@@ -22,5 +24,13 @@ public class ToDos extends Task {
     @Override
     public String toStore() {
         return "T/" + super.getStatus() + "/" + description;
+    }
+    @Override
+    public LocalDateTime getBy() {
+        return null;
+    }
+    @Override
+    public LocalDateTime getFrom() {
+        return null;
     }
 }
