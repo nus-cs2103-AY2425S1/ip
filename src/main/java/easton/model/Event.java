@@ -11,23 +11,23 @@ import easton.exception.DateTimeFormatException;
  */
 public class Event extends Task {
 
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     /**
      * Constructs a new event task with the specified description, date & time from and to.
      * If the date & time format is wrong, an exception is thrown.
      *
      * @param description Description of the task.
-     * @param from Date & time the task begins.
-     * @param to Date & time the task ends.
+     * @param startDate Date & time the task begins.
+     * @param endDate Date & time the task ends.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
      */
-    public Event(String description, String from, String to) throws DateTimeFormatException {
+    public Event(String description, String startDate, String endDate) throws DateTimeFormatException {
         super(description);
         try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+            this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+            this.endDate = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
         } catch (DateTimeParseException e) {
             throw new DateTimeFormatException();
         }
@@ -36,13 +36,13 @@ public class Event extends Task {
     @Override
     public String getCsvFormat() {
         return "E," + super.getCsvFormat()
-                + "," + from.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
-                + "," + to.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+                + "," + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
+                + "," + endDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm")) + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
+                + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm")) + ")";
     }
 }
