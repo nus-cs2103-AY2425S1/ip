@@ -5,11 +5,16 @@ package bobby.tasks;
  * A Task has a description and completion status.
  */
 public abstract class Task {
-    private boolean completed;
-    private String description;
+    private boolean isCompleted;
+    private final String description;
 
+    /**
+     * Constructs a Task.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
-        this.completed = false;
+        this.isCompleted = false;
         this.description = description;
     }
 
@@ -20,7 +25,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return String.format("[X] %s", this.description);
         } else {
             return String.format("[ ] %s", this.description);
@@ -40,14 +45,14 @@ public abstract class Task {
      * Indicates a task as completed.
      */
     public void indComplete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Indicates a task as incomplete
      */
     public void indIncomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -56,7 +61,7 @@ public abstract class Task {
      * @return "X" is task is completed "" if incomplete.
      */
     public String getStatusIcon() {
-        if(this.completed) {
+        if (this.isCompleted) {
             return "X";
         }
         return "";

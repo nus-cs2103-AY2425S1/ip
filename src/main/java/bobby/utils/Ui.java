@@ -1,8 +1,8 @@
 package bobby.utils;
 
-import bobby.tasks.Task;
-
 import java.util.ArrayList;
+
+import bobby.tasks.Task;
 
 /**
  * The Ui class deals with any user interaction.
@@ -97,9 +97,10 @@ public class Ui {
      * @param matchingTaskList The list of tasks containing matching tasks.
      */
     public String showFindTasks(ArrayList<Task> matchingTaskList) {
-        String output = "";
+        String output;
         if (matchingTaskList.isEmpty()) {
-            return "There are no matching tasks!";
+            output = "There are no matching tasks!";
+            return output;
         } else {
             output = "Here are the matching tasks:\n";
             output += showTaskList(matchingTaskList);
