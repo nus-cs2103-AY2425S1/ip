@@ -53,6 +53,7 @@ public class Storage {
 
             sr.forEach(x -> {
                 String[] token = x.split(" \\| ", 3);
+                // Identify task type
                 AddCommand.TaskType type = token[0].equals("T") ? AddCommand.TaskType.TODO
                     : token[0].equals("D") ? AddCommand.TaskType.DEADLINE : AddCommand.TaskType.EVENT;
                 boolean isDone = token[1].equals("1");
