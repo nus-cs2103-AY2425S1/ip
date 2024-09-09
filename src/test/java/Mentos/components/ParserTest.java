@@ -11,28 +11,40 @@ public class ParserTest {
 
     @Test
     void testListCommand() {
-        ActionTaskIndexTuple result = parser.taskHandler("list");
-        assertNotNull(result);
-        assertEquals("list", result.getAction());
-        assertNull(result.getTask());
-        assertEquals(-1, result.getIndex());
+        try {
+            ActionTaskIndexTuple result = parser.taskHandler("list");
+            assertNotNull(result);
+            assertEquals("list", result.getAction());
+            assertNull(result.getTask());
+            assertEquals(-1, result.getIndex());
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void testMarkCommandValid() {
-        ActionTaskIndexTuple result = parser.taskHandler("mark 1");
-        assertNotNull(result);
-        assertEquals("mark", result.getAction());
-        assertNull(result.getTask());
-        assertEquals(1, result.getIndex());
+        try {
+            ActionTaskIndexTuple result = parser.taskHandler("mark 1");
+            assertNotNull(result);
+            assertEquals("mark", result.getAction());
+            assertNull(result.getTask());
+            assertEquals(1, result.getIndex());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void testDeleteCommandValid() {
-        ActionTaskIndexTuple result = parser.taskHandler("delete 3");
-        assertNotNull(result);
-        assertEquals("delete", result.getAction());
-        assertNull(result.getTask());
-        assertEquals(3, result.getIndex());
+        try {
+            ActionTaskIndexTuple result = parser.taskHandler("delete 3");
+            assertNotNull(result);
+            assertEquals("delete", result.getAction());
+            assertNull(result.getTask());
+            assertEquals(3, result.getIndex());
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -21,6 +21,7 @@ public class Mentos {
         } catch (MentosException error) {
             this.tasks = new TaskList();
         }
+        assert this.tasks != null : "TaskList should be initialized.";
     }
 
     /**
@@ -69,6 +70,8 @@ public class Mentos {
      */
     public void unmarkTask(int index) throws MentosException {
         if (checkIndex(index)) {
+            // Assert that the task exists before marking
+            assert this.tasks.get(index - 1) != null : "Task to mark as undone should exist.";
             this.tasks.get(index - 1).markAsNotDone();
         }
     }
@@ -86,6 +89,8 @@ public class Mentos {
     public Task deleteTask(int index) throws MentosException {
         if (checkIndex(index)) {
             Task task = this.tasks.get(index - 1);
+            // Assert that the task exists before marking
+            assert task != null : "Task to mark as done should exist.";
             this.tasks.remove(index - 1);
             return task;
         }
@@ -106,6 +111,7 @@ public class Mentos {
         int index = 0;
         StringBuilder res = new StringBuilder();
         for (Task t : this.tasks.getTasks()) {
+            assert t != null : "Tasks in TaskList should not be null.";
             if (t.getDescription().contains(description)) {
                 index++;
                 res.append(gui.printEvent(index, t));
