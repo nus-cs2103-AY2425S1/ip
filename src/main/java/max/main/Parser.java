@@ -67,6 +67,8 @@ public class Parser {
                 ui.printHello();
             } else if (text.equals("list")) {
                 handleList();
+            } else if (text.equals("help")) {
+                handleHelp();
             } else if (text.startsWith("mark")) {
                 int index = Integer.parseInt(text.replace("mark ", "")) - 1;
                 handleMark(index);
@@ -96,6 +98,13 @@ public class Parser {
 
         return false;
 
+    }
+
+    /**
+     * Handles the "help" command to display help information.
+     */
+    private void handleHelp() {
+        ui.printHelp();
     }
 
     /**

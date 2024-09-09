@@ -175,5 +175,51 @@ public class Ui {
         output.append(str).append("\n");
     }
 
-    
+    /**
+     * Prints the help information to guide users on how to use the application.
+     */
+    public void printHelp() {
+        printLine();
+        printToMax("Welcome to Max Help Page!");
+        printToMax("Here are some commands you can use:");
+        printToMax("");
+
+        printToMax("'todo <description>'");
+        printToMax("    Adds a new todo item.");
+        printToMax("");
+
+        printToMax("'deadline <description> /by <date>'");
+        printToMax("    Adds a new deadline item.");
+        printToMax("");
+
+        printToMax("'event <description> /from <start> /to <end>'");
+        printToMax("    Adds a new event item.");
+        printToMax("");
+
+        printToMax("'mark <index>'");
+        printToMax("    Marks the task at the given index as done.");
+        printToMax("");
+
+        printToMax("'unmark <index>'");
+        printToMax("    Marks the task at the given index as not done.");
+        printToMax("");
+
+        printToMax("'delete <index>'");
+        printToMax("    Deletes the task at the given index.");
+        printToMax("");
+
+        printToMax("'list'");
+        printToMax("    Lists all tasks.");
+        printToMax("");
+
+        printToMax("'find <keyword>'");
+        printToMax("    Finds tasks containing the specified keyword.");
+        printToMax("");
+
+        printToMax("'help'");
+        printToMax("    Shows this help page.");
+        printToMax("");
+
+        printLine();
+    }
 }
