@@ -35,7 +35,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + deadline.format(Bao.getOutputDateFormat());
+        return "D | " + super.toString() + " | " + deadline.format(Bao.getOutputDateFormat())
+                + getTagsAsString();
     }
 
     /**
@@ -47,6 +48,6 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description.trim() + " | "
-                + deadline.format(Bao.getFileDateFormat());
+                + deadline.format(Bao.getFileDateFormat()) + getTagsAsString();
     }
 }

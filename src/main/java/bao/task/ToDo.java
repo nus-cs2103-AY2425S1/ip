@@ -21,7 +21,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "T | " + super.toString();
+        return "T | " + super.toString() + getTagsAsString();
     }
 
     /**
@@ -31,6 +31,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description.trim();
+        return "T | " + (isDone ? "1" : "0") + " | " + description.trim() + getTagsAsString();
     }
 }

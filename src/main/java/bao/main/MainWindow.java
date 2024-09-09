@@ -26,6 +26,10 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image baoImage = new Image(this.getClass().getResourceAsStream("/images/bao.png"));
 
+    /**
+     * Initializes the dialogue container and scroll pane
+     *
+     * */
     @FXML
     public void initialize() {
         assert scrollPane != null : "ScrollPane should not be null";
