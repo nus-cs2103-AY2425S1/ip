@@ -53,7 +53,7 @@ public class TaskList {
     }
 
     public boolean isValid(int taskId) {
-        return 0 <= taskId && taskId <= this.tasks.size();
+        return 1 <= taskId && taskId <= this.tasks.size();
     }
 
     public String find(String keyword) {

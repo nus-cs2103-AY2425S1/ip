@@ -18,7 +18,7 @@ public abstract class Task {
     }
 
     public boolean hasMatch(String keyword) {
-        return this.name.contains(keyword);
+        return this.name.toLowerCase().contains(keyword.toLowerCase());
     }
 
     public String getStatusIcon() {
