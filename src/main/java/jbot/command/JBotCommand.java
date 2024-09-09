@@ -11,5 +11,5 @@ public interface JBotCommand {
      *
      * @param input The user input string containing the command and its arguments.
      */
-    void run(String input);
+    String run(String input);
 }

@@ -25,20 +25,20 @@ public class ListCommand implements JBotCommand {
 
     /**
      * Executes the List command using the provided input string.
-     * Prints all tasks in the task list, each with its index and details.
+     * Returns all tasks in the task list, each with its index and details.
      *
      * @param input The user input string containing the command (not used in this implementation).
+     * @return A string containing the list of all tasks in the task list.
      */
     @Override
-    public void run(String input) {
-        System.out.println("Here are the tasks in your list:");
+    public String run(String input) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < TaskList.size(); i++) {
-            System.out.printf(
-                    "%1$s. %2$s%n",
-                    i + 1,
-                    TaskList.get(i)
-            );
+            result.append(String.format("%1$s. %2$s%n", i + 1, TaskList.get(i)));
         }
+
+        return result.toString();
     }
 }

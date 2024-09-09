@@ -30,21 +30,29 @@ public class ToDoCommand extends AddCommand {
     /**
      * Executes the ToDo command using the provided input string.
      * Creates a new {@link ToDoTask} from the input, adds it to the task list,
-     * and prints a confirmation message with the added task. If the description is empty,
-     * prints an error message instead.
+     * and returns a confirmation message with the added task. If the description is empty,
+     * returns an error message instead.
      *
      * @param input The user input string containing the command and its arguments.
+     * @return A string containing the confirmation message and the added task,
+     * or an error message if the task description is empty.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         try {
             Task task = new ToDoTask(input);
             TaskList.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.printf("  %1$s\n", task);
-            super.run(input);
+
+            StringBuilder result = new StringBuilder();
+            result.append("Got it. I've added this task:\n");
+            result.append(String.format("  %1$s\n", task));
+
+            String superResult = super.run(input);
+            result.append(superResult);
+
+            return result.toString();
         } catch (EmptyToDoDescriptionException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

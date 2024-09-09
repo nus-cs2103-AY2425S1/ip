@@ -29,16 +29,26 @@ public class EventCommand extends AddCommand {
     /**
      * Executes the Event command using the provided input string.
      * Creates a new {@link EventTask} from the input, adds it to the task list,
-     * and prints a confirmation message with the added task.
+     * and returns a confirmation message with the added task and total task count.
      *
      * @param input The user input string containing the command and its arguments.
+     * @return A string containing the confirmation message and the added task, followed by the total task count.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         Task task = new EventTask(input);
         TaskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("  %1$s\n", task);
-        super.run(input);
+
+        // Prepare the result message
+        StringBuilder result = new StringBuilder();
+        result.append("Got it. I've added this task:\n");
+        result.append(String.format("  %1$s\n", task));
+
+        // Append the result from the superclass's run method
+        String superResult = super.run(input);
+        result.append(superResult);
+
+        // Return the final result
+        return result.toString();
     }
 }

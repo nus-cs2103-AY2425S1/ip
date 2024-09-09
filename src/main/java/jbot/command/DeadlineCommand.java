@@ -32,11 +32,20 @@ public class DeadlineCommand extends AddCommand {
      * @param input The user input string containing the command and its arguments.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         Task task = new DeadlineTask(input);
         TaskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("  %1$s\n", task);
-        super.run(input);
+
+        // Prepare the response string
+        StringBuilder result = new StringBuilder();
+        result.append("Got it. I've added this task:\n");
+        result.append(String.format("  %1$s\n", task));
+
+        // Call the superclass method and append its result to the string
+        String superResult = super.run(input);
+        result.append(superResult);
+
+        // Return the final result as a string
+        return result.toString();
     }
 }

@@ -25,19 +25,23 @@ public class UnmarkCommand implements JBotCommand {
 
     /**
      * Executes the Unmark command using the provided input string.
-     * Unmarks the task at the specified index as not done and prints a confirmation message.
+     * Unmarks the task at the specified index as not done and returns a confirmation message.
      *
      * @param input The user input string containing the command and the task index.
      *              The index is expected to be the second part of the input string.
+     * @return A string containing the confirmation message and the unmarked task.
      */
     @Override
-    public void run(String input) {
+    public String run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
 
         Task task = TaskList.get(taskIndex);
         task.unmarkAsDone();
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.printf("  %1$s\n", task);
+        StringBuilder result = new StringBuilder();
+        result.append("OK, I've marked this task as not done yet:\n");
+        result.append(String.format("  %1$s\n", task));
+
+        return result.toString();
     }
 }

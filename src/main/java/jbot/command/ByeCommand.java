@@ -25,13 +25,12 @@ public class ByeCommand implements JBotCommand {
 
     /**
      * Executes the Bye command using the provided input string.
-     * Prints a farewell message and invokes {@link JBot#close()} to terminate the application.
+     * Prints a farewell message
      *
      * @param input The user input string. This parameter is not used in this implementation.
      */
     @Override
-    public void run(String input) {
-        System.out.println("Bye. Hope to see you again soon!");
-        JBot.close();
+    public String run(String input) {
+        return "Bye. Hope to see you again soon!";
     }
 }
