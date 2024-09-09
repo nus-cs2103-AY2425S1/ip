@@ -1,6 +1,8 @@
 package tick.storage;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import tick.exceptions.TickException;
 import tick.tasks.Task;
@@ -129,12 +131,9 @@ public class TaskList {
      * @return An ArrayList of tasks that contain the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task.getDescription().contains(keyword)) {
-                tasksWithKeyword.add(task);
-            }
-        }
+        Stream<Task> taskStream = this.tasks.stream();
+        ArrayList<Task> tasksWithKeyword = taskStream.filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
         return tasksWithKeyword;
     }
 
