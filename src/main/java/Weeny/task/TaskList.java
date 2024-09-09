@@ -1,8 +1,8 @@
 package weeny.task;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Manages a list of tasks, allowing addition, deletion, and status updates.
@@ -59,15 +59,9 @@ public class TaskList {
      * @param keyWord String that we are looking for in a task
      * @return ArrayList of tasks that contains keyWord
      */
-    public ArrayList<Task> findTask(String keyWord) {
-        Iterator<Task> itr = tasks.iterator();
-        ArrayList<Task> searchResult = new ArrayList<>();
-        while (itr.hasNext()) {
-            Task task = itr.next();
-            if (task.containString(keyWord)) {
-                searchResult.add(task);
-            }
-        }
+    public List<Task> findTask(String keyWord) {
+        List<Task> searchResult = getTasks().stream().filter(task -> task.containString(keyWord))
+                .collect(Collectors.toList());
         return searchResult;
     }
 
