@@ -15,7 +15,6 @@ public class Bonnie {
     }
 
     public String getInitialisationResponse(String input) {
-        String response = String.format("Nice to meet you %s, my name is Bonnie! Let's be friends forever!", input);
-        return response;
+        return String.format("Nice to meet you %s, my name is Bonnie! Let's be friends forever!", input);
     }
 }
