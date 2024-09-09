@@ -40,17 +40,14 @@ public class Storage {
         try {
             Scanner fileScanner = this.getFile();
             while (fileScanner.hasNextLine()) {
-                // I don't really like this nested try block
-                try {
-                    Task newTask = Parser.parseFileLine(fileScanner.nextLine());
-                    existingTasks.add(newTask);
-                } catch (IOException e) {
-                    System.out.println("File format corrupted");
-                }
+                Task newTask = Parser.parseFileLine(fileScanner.nextLine());
+                existingTasks.add(newTask);
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("File format corrupted");
         }
         return existingTasks;
     }
@@ -63,6 +60,9 @@ public class Storage {
      * @throws FileNotFoundException Exception thrown if the file source is somehow not found (should not happen)
      */
     private Scanner getFile() throws FileNotFoundException {
+        assert this.dirPath != null : "dirPath should not be null";
+        assert this.fileName != null : "fileName should not be null";
+
         File directory = new File(this.dirPath);
         if (!directory.exists()) {
             directory.mkdir();
@@ -73,6 +73,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("IO Error in creating new file: " + e.getMessage());
         }
+
         return new Scanner(taskListFile);
     }
 

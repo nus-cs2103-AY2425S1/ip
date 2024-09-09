@@ -24,6 +24,8 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert this.bobby != null : "bobby should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

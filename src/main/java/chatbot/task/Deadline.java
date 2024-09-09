@@ -20,6 +20,9 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDateTime deadline, boolean isDone) {
         super(name, isDone);
+
+        assert deadline != null : "deadline should not be null";
+
         this.deadline = deadline;
     }
 
@@ -41,7 +44,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String str = String.format("[D]%s (by: %s)", super.toString(),
-                DateTimeFormatter.ofPattern("LLL dd yyyy HH:mm").format(this.deadline));
+                Task.formatDate(this.deadline));
         return str;
     }
 

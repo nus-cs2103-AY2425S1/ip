@@ -23,6 +23,10 @@ public class Event extends Task {
      */
     public Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(name, isDone);
+
+        assert from != null : "from should not be null";
+        assert to != null : "to should not be null";
+
         this.from = from;
         this.to = to;
     }
@@ -45,9 +49,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLL dd yyyy HH:mm");
         String str = String.format("[E]%s (from: %s to: %s)", super.toString(),
-                formatter.format(this.from), formatter.format(this.to));
+                Task.formatDate(this.from), Task.formatDate(this.to));
         return str;
     }
 

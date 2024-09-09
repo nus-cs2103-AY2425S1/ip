@@ -32,6 +32,7 @@ public class Parser {
      */
     public static Task parseFileLine(String taskString) throws IOException {
         // TODO error handling for if data file is corrupted
+        // splits the taskString into an array of token string based on the | character
         String[] tokens = taskString.split("\\|");
         boolean isDone = Integer.parseInt(tokens[1]) == 1;
         String title = tokens[2];
@@ -53,6 +54,7 @@ public class Parser {
      * @throws InputException Exception thrown if instruction is not of the correct format
      */
     public static String processInput(String s, TaskList taskList, Storage storage) throws InputException {
+        // splits the command into 2 strings - The command string, and the arguments string
         String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
         switch (command) {
@@ -132,6 +134,7 @@ public class Parser {
             }
         }
         case "event" -> {
+            // Error handling
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
@@ -145,21 +148,26 @@ public class Parser {
             if (args.length <= 1) {
                 throw new EventArgsException();
             }
+
             String name = args[0];
             String[] fromTo = args[1].split(" /to ", 2);
             if (fromTo.length <= 1) {
                 throw new EventArgsException();
             }
+
             String from = fromTo[0];
             String to = fromTo[1];
+
             if (name.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
+
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 Task newTask = new Event(name, LocalDateTime.parse(from, formatter),
                         LocalDateTime.parse(to, formatter));
                 String str = taskList.add(newTask);
+
                 storage.writeToFile(taskList);
                 return str;
             } catch (DateTimeParseException e) {

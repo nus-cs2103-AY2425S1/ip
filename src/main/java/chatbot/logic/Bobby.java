@@ -32,6 +32,9 @@ public class Bobby {
      * @return The bot's reponse to the user's entered string
      */
     public String getResponse(String command) {
+        assert this.storage != null : "storage should not be null";
+        assert this.taskList != null : "taskList should not be null";
+
         try {
             return Parser.processInput(command, this.taskList, this.storage);
         } catch (InputException e) {
