@@ -52,12 +52,13 @@ shadowJar {
     archiveBaseName = "korolev.DukeKorolev"
     archiveClassifier = null
     archiveFileName = "korolev.DukeKorolev.jar"
+    mergeServiceFiles()
 }
 
 run{
     standardInput = System.in
-    jvmArgs = [
-            '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls,javafx.fxml'
-    ]
+    doFirst {
+        jvmArgs += ['--module-path', classpath.asPath]
+        jvmArgs += ['--add-modules', 'javafx.controls,javafx.fxml']
+    }
 }
