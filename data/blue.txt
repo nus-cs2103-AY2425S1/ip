@@ -1,6 +1,6 @@
 D | 1 | CS2105 Assignment | 2/12/2024 1800
 D | 0 | Submit homework | 2/12/2024 1730
-D | 1 | return book | 12/9/2024 1800
 D | 1 | homework | 12/5/2023 1800
-T | 0 | run 5km
 E | 0 | testing | monday 4pm | monday 7pm
+T | 0 | homework
+D | 0 | CS2103T TP | 9/10/2024 2359

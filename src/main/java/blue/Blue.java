@@ -1,5 +1,6 @@
 package blue;
 
+import java.util.Scanner;
 import blue.task.TaskList;
 
 /**
@@ -30,7 +31,16 @@ public class Blue {
      */
     public void run() {
         UI.greet();
-        parser.parse(tasklist);
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+            String response = parser.parse(input, tasklist);
+            System.out.println(response);
+            if (input.equalsIgnoreCase("bye")) {
+                break;
+            }
+        }
         UI.farewell();
     }
 
