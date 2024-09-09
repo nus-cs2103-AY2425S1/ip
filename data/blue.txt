@@ -1,4 +1,4 @@
-D | 1 | CS2105 Assignment | 2/12/2024 1800
+D | 0 | CS2105 Assignment | 2/12/2024 1800
 D | 0 | Submit homework | 2/12/2024 1730
 D | 1 | return book | 12/9/2024 1800
 D | 1 | homework | 12/5/2023 1800
