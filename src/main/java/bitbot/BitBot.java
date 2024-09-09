@@ -25,12 +25,6 @@ public class BitBot {
         StringBuilder sb = new StringBuilder();
 
         int numberPart = -1;
-        // to store the index when /from is present so that
-        // it aids me in getting the description
-        int indexFrom = -1;
-        // to store the index when /by is present so that
-        // it aids be in getting the description
-        int indexBy = -1;
 
         // this is to help check if the size is more than 1 or not
         // so that I can use the correct term (either "task" or "tasks")
@@ -39,13 +33,6 @@ public class BitBot {
         try {
             String[] partsOfInput = input.split(" ");
 
-            /* this is to check if there is any number in the input.
-             * I am splitting the input into parts, and then
-             * I am doing a check. If the last element is an integer,
-             * I will go ahead and save it as an integer. If not,
-             * it will be made into a string using StringBuilder.
-             * The .trim() is used to remove the trailing spaces.
-             */
             if (partsOfInput.length > 0) {
                 keyWord = partsOfInput[0];
 
