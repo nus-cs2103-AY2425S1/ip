@@ -46,6 +46,7 @@ public class Storage {
             dbFile.getParentFile().mkdirs();
             dbFile.createNewFile();
         }
+        assert dbFile.exists();
         return dbFile;
     }
 
@@ -57,12 +58,12 @@ public class Storage {
      */
     public void save(ArrayList<Task> taskList) {
         try {
-            FileOutputStream fos = new FileOutputStream(this.getDbFile());
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            FileOutputStream fileOutputStream = new FileOutputStream(this.getDbFile());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             for (Task task : taskList) {
-                oos.writeObject(task);
+                objectOutputStream.writeObject(task);
             }
-            oos.close();
+            objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,14 +79,14 @@ public class Storage {
     public ArrayList<Task> loadData() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
-            FileInputStream fin = new FileInputStream(this.getDbFile());
-            ObjectInputStream ois = new ObjectInputStream(fin);
-            Object o;
+            FileInputStream fileInputStream = new FileInputStream(this.getDbFile());
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Object obj;
             while (true) {
                 try {
-                    o = ois.readObject();
-                    if (o instanceof Task) {
-                        taskList.add((Task) o);
+                    obj = objectInputStream.readObject();
+                    if (obj instanceof Task) {
+                        taskList.add((Task) obj);
                     } else {
                         System.err.println("Unexpected objects found in database");
                     }

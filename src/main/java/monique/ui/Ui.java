@@ -15,8 +15,7 @@ import monique.tasklist.TaskList;
  * on the actions performed on tasks.
  */
 public class Ui {
-
-    public static final String HORIZONTAL_LINE = "_____________________________________________\n";
+    public static final int INDEX_OFFSET = 1;
     private final BufferedReader br;
 
     /**
@@ -45,7 +44,7 @@ public class Ui {
      * @return A confirmation message including the deleted task and the updated task count.
      */
     public String deleteMessage(Task task, TaskList tasks) {
-        return "deleted: " + task + ".\nYou now have " + (tasks.getNumItems() - 1) + " tasks in the list";
+        return "deleted: " + task + ".\nYou now have " + (tasks.getNumItems() - INDEX_OFFSET) + " tasks in the list";
     }
 
     /**
@@ -111,7 +110,7 @@ public class Ui {
         } else {
             sb.append("Here are the matching tasks on your list:\n");
             for (int i = 0; i < resultList.size(); i++) {
-                sb.append(String.valueOf(i + 1)).append(". ").append(resultList.get(i)).append("\n");
+                sb.append(String.valueOf(i + INDEX_OFFSET)).append(". ").append(resultList.get(i)).append("\n");
             }
         }
         return sb.toString();
