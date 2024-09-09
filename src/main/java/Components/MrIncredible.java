@@ -1,3 +1,4 @@
+package Components;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -14,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 
-
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
     private static final HarddiskStorage harddiskStorage = new HarddiskStorage("./data/duke.txt");
@@ -23,6 +23,9 @@ public class MrIncredible {
     private static final Ui ui = new Ui();
     private static final Parser parser = new Parser();
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
     public static void main(String[] args) {
         ui.greet();
 
