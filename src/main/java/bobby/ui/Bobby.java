@@ -340,7 +340,10 @@ public class Bobby {
             LocalDateTime to = LocalDateTime.parse(duration[1].trim(), FORMATTER);
             if (isDuplicateEvent(details[0].trim(), from, to)) {
                 return "It seems like this task has already been added.";
+            } else if (from.isAfter(to)) {
+                return "Please ensure the start date & time is before the end date & time!";
             } else {
+                assert(from.isBefore(to) || from.isEqual(to));
                 Events currEvent = new Events(details[0].trim(), from, to);
                 TaskList.add_task(currEvent);
                 Storage.writeToFile(taskList);
