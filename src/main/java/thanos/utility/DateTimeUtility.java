@@ -65,6 +65,32 @@ public class DateTimeUtility {
      */
     public static LocalDateTime parse(String s) throws InvalidDateException {
         // Try parsing as LocalDateTime
+        LocalDateTime dateTime = parseStringAsDateTime(s);
+        if (dateTime != null) {
+            return dateTime;
+        }
+
+        // If LocalDateTime parsing fails, try parsing as LocalDate
+        LocalDateTime date = parseStringAsDate(s);
+        if (date != null) {
+            return date;
+        }
+
+        // If all parsing attempts fail, throw an InvalidDateException
+        throw new InvalidDateException("Invalid datetime format: " + s);
+    }
+
+    /**
+     * Attempts to parse the given string into a {@code LocalDateTime} using predefined
+     * {@code DateTimeFormatter} instances for date-time formats. If the string can be parsed
+     * as a {@code LocalDateTime}, it returns the corresponding value.
+     *
+     * <p>If none of the formatters can parse the string, this method returns {@code null}.
+     *
+     * @param s the string to parse, expected to be in a date-time format.
+     * @return the parsed {@code LocalDateTime} or {@code null} if no matching format is found.
+     */
+    private static LocalDateTime parseStringAsDateTime(String s) {
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
                 return LocalDateTime.parse(s, formatter);
@@ -72,8 +98,22 @@ public class DateTimeUtility {
                 // Continue to the next formatter
             }
         }
+        return null;
+    }
 
-        // If LocalDateTime parsing fails, try parsing as LocalDate
+    /**
+     * Attempts to parse the given string into a {@code LocalDateTime} using predefined
+     * {@code DateTimeFormatter} instances for date formats. If the string can be parsed
+     * as a {@code LocalDate}, it returns the corresponding {@code LocalDateTime} set at
+     * the start of the day.
+     *
+     * <p>If none of the formatters can parse the string, this method returns {@code null}.
+     *
+     * @param s the string to parse, expected to be in a date format.
+     * @return the parsed {@code LocalDateTime} representing the start of the day, or {@code null}
+     *         if no matching format is found.
+     */
+    private static LocalDateTime parseStringAsDate(String s) {
         for (DateTimeFormatter formatter : dateFormatters) {
             try {
                 return LocalDate.parse(s, formatter).atStartOfDay();
@@ -81,9 +121,7 @@ public class DateTimeUtility {
                 // Continue to the next formatter
             }
         }
-
-        // If all parsing attempts fail, throw an InvalidDateException
-        throw new InvalidDateException("Invalid datetime format: " + s);
+        return null;
     }
 
     /**
