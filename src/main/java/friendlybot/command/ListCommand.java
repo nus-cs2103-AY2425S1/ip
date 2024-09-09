@@ -21,9 +21,13 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
+        int numTasks = tasks.getNumTasks();
+        if (numTasks == 0) {
+            Ui.print("You do not have any tasks in your list!");
+            return "You do not have any tasks in your list!";
+        }
         Ui.print("Here are the tasks in your list:");
         sb.append("Here are the tasks in your list:\n");
-        int numTasks = tasks.getNumTasks();
         for (int i = 1; i <= numTasks; i++) {
             Task task = tasks.getTask(i);
             Ui.print(i + "." + task.toString());
