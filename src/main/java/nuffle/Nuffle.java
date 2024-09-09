@@ -62,7 +62,6 @@ public class Nuffle {
             Command userCommand = Parser.parseCommand(userInput);
             response = userCommand.execute(inputList, storage, ui);
         } catch (NuffleException e) {
-            System.out.println("hi");
             response = ui.exceptionErrorMessage(e);
         }
 
