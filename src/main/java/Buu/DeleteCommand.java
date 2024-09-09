@@ -13,7 +13,13 @@ public class DeleteCommand extends Command {
      * @param input The user input string containing the command to delete a task.
      */
     public DeleteCommand(String input) {
+        // Preconditions: Ensure input is valid and index can be parsed
+        assert input != null : "Input cannot be null";
+        assert input.split(" ").length > 1 : "Input should contain a task index";
+
         this.index = Integer.parseInt(input.split(" ")[1]) - 1;
+        // Postcondition: Ensure index is not negative
+        assert this.index >= 0 : "Index should not be negative";
     }
 
     /**
@@ -27,7 +33,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Preconditions: Ensure taskList, ui, and storage are not null
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+
         try {
+            assert index < taskList.getTasks().size() : "Index out of bounds";
             Task removedTask = taskList.getTasks().get(index);
             taskList.deleteTask(index);
             storage.saveTasks(taskList.getTasks());

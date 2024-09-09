@@ -19,6 +19,9 @@ public class EventCommand extends Command {
      * @param input The user input string containing the command to add an event task.
      */
     public EventCommand(String input) {
+        // Precondition: Ensure input is not null and correctly formatted
+        assert input != null : "Input should not be null";
+
         String[] parts = input.substring(5).trim().split("/from|/to");
         if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             this.description = null;
@@ -42,6 +45,11 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Preconditions: Ensure taskList, ui, and storage are not null
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (description == null || from == null || to == null) {
             ui.showError(
                     "Invalid command format for event.\nUsage: event [task description] /from [start date/time] "
@@ -53,7 +61,6 @@ public class EventCommand extends Command {
 
         LocalDateTime fromDateTime = Parser.parseDateTime(from);
         LocalDateTime toDateTime = Parser.parseDateTime(to);
-
         if (fromDateTime != null && toDateTime != null) {
             Task newTask = new Event(description, fromDateTime, toDateTime);
             taskList.addTask(newTask);
