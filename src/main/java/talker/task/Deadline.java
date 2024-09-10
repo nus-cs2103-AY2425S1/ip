@@ -39,9 +39,13 @@ public class Deadline extends Task {
      * @param description description of task
      * @param by deadline for task
      * @param isComplete status of task
+     * @param priorityType priority of task
      */
-    public Deadline(String description, String by, boolean isComplete) throws TalkerException {
-        super(description, TaskType.DEADLINE, isComplete);
+    public Deadline(String description,
+                    String by,
+                    boolean isComplete,
+                    PriorityType priorityType) throws TalkerException {
+        super(description, TaskType.DEADLINE, isComplete, priorityType);
         try {
             this.by = LocalDateTime.parse(by, INPUT_FORMAT);
         } catch (DateTimeException e) {

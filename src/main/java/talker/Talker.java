@@ -73,7 +73,7 @@ public class Talker {
     /**
      * Returns the command type
      *
-     * @return String prepresenting command type
+     * @return String representing command type
      */
     public String getCommandType() {
         return commandType;

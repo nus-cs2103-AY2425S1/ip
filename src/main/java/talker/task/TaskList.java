@@ -67,6 +67,7 @@ public class TaskList {
     public String printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
         StringBuilder output = new StringBuilder();
+        int count = 0;
 
         try {
             String[] parsed = date.split(" ");
@@ -89,9 +90,15 @@ public class TaskList {
                 assert (task instanceof ToDo) : "task should be of type ToDo";
             }
 
+            if (toAppend != "") {
+                count++;
+            }
             output.append(toAppend);
         }
-        return output.toString();
+
+        return (count == 0)
+                ? ui.printNoTasksOn(targetDate.format(OUTPUT_FORMAT))
+                : output.toString();
     }
 
     /**

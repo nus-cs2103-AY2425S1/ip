@@ -23,6 +23,7 @@ public class Task {
         this.description = description;
         this.complete = false;
         this.taskType = type;
+        this.priorityType = PriorityType.LOW;
     }
 
     /**
@@ -31,11 +32,13 @@ public class Task {
      * @param description description of task
      * @param type type of task
      * @param isComplete status of task completion
+     * @param priorityType priority of task
      */
-    public Task(String description, TaskType type, boolean isComplete) {
+    public Task(String description, TaskType type, boolean isComplete, PriorityType priorityType) {
         this.description = description;
         this.complete = isComplete;
         this.taskType = type;
+        this.priorityType = priorityType;
     }
 
     /**
@@ -172,6 +175,6 @@ public class Task {
      * @return String showing status and description
      */
     public String toString() {
-        return String.format("[%s] [%s] %s", this.getComplete(), this.getPriorityToPrint(), this.description);
+        return String.format("[%s][%s] %s", this.getComplete(), this.getPriorityToPrint(), this.description);
     }
 }

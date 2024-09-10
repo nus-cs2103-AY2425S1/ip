@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import talker.task.Deadline;
 import talker.task.Event;
+import talker.task.PriorityType;
 
 public class ParserTest {
 
@@ -62,20 +63,22 @@ public class ParserTest {
 
     @Test
     public void parseTaskFromFile_eventTask_exceptionThrown() throws TalkerException {
-        String inputString = "E | X | test | 20-12-2024 22:00 | 31-12-2024 22:00";
+        String inputString = "E | X | L | test | 20-12-2024 22:00 | 31-12-2024 22:00";
         assertEquals(new Event("test",
                         "20-12-2024 22:00",
                         "31-12-2024 22:00",
-                        true).toString(),
+                        true,
+                         PriorityType.LOW).toString(),
                 Parser.parseTaskFromFile(inputString).toString());
     }
 
     @Test
     public void parseTaskFromFile_deadlineTask_exceptionThrown() throws TalkerException {
-        String inputString = "D | X | test | 20-12-2024 22:00";
+        String inputString = "D | X | L | test | 20-12-2024 22:00";
         assertEquals(new Deadline("test",
                         "20-12-2024 22:00",
-                        true).toString(),
+                        true,
+                         PriorityType.LOW).toString(),
                 Parser.parseTaskFromFile(inputString).toString());
     }
 

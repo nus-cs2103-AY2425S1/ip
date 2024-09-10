@@ -64,8 +64,7 @@ public class MainWindow extends AnchorPane {
         String commandType = talker.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getTalkerDialog(talkerText, talkerImage, commandType)
-        );
+                DialogBox.getTalkerDialog(talkerText, talkerImage, commandType));
         userInput.clear();
     }
 

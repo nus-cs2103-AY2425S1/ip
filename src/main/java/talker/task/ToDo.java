@@ -19,9 +19,10 @@ public class ToDo extends Task {
      *
      * @param description description of task
      * @param isComplete status of task
+     * @param priorityType priority of task
      */
-    public ToDo(String description, boolean isComplete) {
-        super(description, TaskType.TODO, isComplete);
+    public ToDo(String description, boolean isComplete, PriorityType priorityType) {
+        super(description, TaskType.TODO, isComplete, priorityType);
     }
 
     /**

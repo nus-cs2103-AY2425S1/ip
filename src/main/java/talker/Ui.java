@@ -140,6 +140,16 @@ public class Ui {
     }
 
     /**
+     * Returns representation of having no tasks on target date
+     *
+     * @param date target date
+     * @return String showing that there are no tasks on target date
+     */
+    public String printNoTasksOn(String date) {
+        return "There are no tasks on " + date + "!";
+    }
+
+    /**
      * Returns representation of marking of task as complete
      *
      * @param mark String representation of marking event
