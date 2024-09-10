@@ -23,7 +23,8 @@ import java.util.List;
  */
 public class Storage {
     private String filePath;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -108,7 +109,6 @@ public class Storage {
         }
         return task;
     }
-
 
     /**
      * Saves the current list of tasks to the specified file.
