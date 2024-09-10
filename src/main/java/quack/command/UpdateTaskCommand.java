@@ -1,10 +1,11 @@
 package quack.command;
 
-import quack.TaskList;
-import quack.Ui;
 import quack.exception.FailedUpdateException;
+import quack.exception.InvalidCommandException;
 import quack.exception.InvalidIndexException;
 import quack.tasks.Task;
+import quack.util.TaskList;
+import quack.util.Ui;
 
 /**
  * This class is responsible for updating of tasks in the task list.
@@ -33,15 +34,8 @@ public class UpdateTaskCommand extends Command {
 
     @Override
     public void prompt() {
-
-        Command listCommand = new ListCommand(taskList, ui);
-        listCommand.prompt();
-
-        if (taskList.getLength() == 0) {
-            this.completeCommand();
-            return;
-        }
-
+        this.listTasks();
+        this.checkEmptyList();
         ui.requestIndexFromUser(command);
     }
 
@@ -49,7 +43,6 @@ public class UpdateTaskCommand extends Command {
     public void execute(String input) {
 
         try {
-            // Convert the input into a integer
             int index = Integer.parseInt(input);
             Task task = taskList.updateTask(index, this.command);
             ui.printUpdateSuccessfulMessage(task, command, taskList);
@@ -59,8 +52,31 @@ public class UpdateTaskCommand extends Command {
             ui.printExceptionMessage(indexError);
         } catch (FailedUpdateException failUpdateError) {
             ui.printExceptionMessage(failUpdateError);
+        } catch (InvalidCommandException commandError) {
+            ui.printExceptionMessage(commandError);
         } finally {
             this.completeCommand();
+        }
+    }
+
+    /**
+     * Lists all the tasks currently in the task list.
+     */
+    private void listTasks() {
+        Command listCommand = new ListCommand(taskList, ui);
+        listCommand.prompt();
+    }
+
+    /**
+     * Checks if the task list is empty.
+     * <p>
+     * If the task list is empty then set the status of the command to be completed
+     * since there is nothing to delete.
+     */
+    private void checkEmptyList() {
+        if (taskList.getLength() == 0) {
+            this.completeCommand();
+            return;
         }
     }
 }

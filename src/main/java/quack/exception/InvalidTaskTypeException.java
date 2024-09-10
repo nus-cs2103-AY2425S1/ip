@@ -7,11 +7,11 @@ public class InvalidTaskTypeException extends Exception {
 
     /**
      * Creates the InvalidTaskException exception object.
-     * @param message The error message to be displayed to the user.
+     * @param taskType The task type keyed in by the user.
      */
-    public InvalidTaskTypeException(String message) {
+    public InvalidTaskTypeException(String taskType) {
 
-        super("Im sorry the task type " + message + " does not exist. These are the available tasks types : "
+        super("Im sorry the task type " + taskType + " does not exist. These are the available tasks types : "
             + "\n 1. ToDo \n 2. Deadline \n 3. Event");
     }
 }

@@ -1,6 +1,4 @@
-package quack;
-
-import java.util.Scanner;
+package quack.util;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -29,8 +27,6 @@ public class Ui {
     private String farewellMessage = "Bye. Hope to see you again soon!";
     /** Greeting message for Quack */
     private String greetingMessage = "Hello! I'm " + this.botName + "\nWhat can I do for you?";
-    /** Scanner to read user inputs*/
-    private Scanner scanner = new Scanner(System.in);
     /** Output stream to display response to user */
     private VBox dialogContainer;
     /** Image of the Quack chatbot */
@@ -45,14 +41,6 @@ public class Ui {
 
         this.dialogContainer = dialogContainer;
         this.quackImage = quackImage;
-    }
-
-    /**
-     * Closes the scanner object.
-     */
-    public void closeScanner() {
-
-        this.scanner.close();
     }
 
     /**
@@ -124,17 +112,6 @@ public class Ui {
 
         this.outputToScreen("Success! I have " + command + "ed this task: " + task.toString() + "\n"
             + "You now have " + taskList.getLength() + " tasks in your list right now!");
-    }
-
-    /**
-     * Requests the user to input a command.
-     * @return A string representation of the search prompt the user entered.
-     */
-    public String requestUserCommand() {
-
-        System.out.print("What would you like me to do next: ");
-        String input = this.scanner.nextLine();
-        return input;
     }
 
     /**

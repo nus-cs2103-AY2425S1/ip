@@ -1,8 +1,9 @@
-package quack;
+package quack.util;
 
 import java.util.ArrayList;
 
 import quack.exception.FailedUpdateException;
+import quack.exception.InvalidCommandException;
 import quack.tasks.Task;
 
 /**
@@ -20,7 +21,7 @@ public class TaskList {
     /**
      * Creates a empty TaskList object.
      */
-    TaskList() {
+    public TaskList() {
 
         this.toDoList = new ArrayList<Task>();
         length = 0;
@@ -37,7 +38,7 @@ public class TaskList {
 
     /**
      * Retrieves the list of tasks stored by Quack.
-     * @return A list of tasks.
+     * @return How many tasks are in the task list.
      */
     public int getLength() {
 
@@ -55,32 +56,31 @@ public class TaskList {
      *
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
-     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
+     * @throws FailedUpdateException When the task cannot be updated.
+     * @throws FailedUpdateException When the command given is invalid.
      */
-    public Task updateTask(int idx, String command) throws IndexOutOfBoundsException, FailedUpdateException {
+    public Task updateTask(int idx, String command) throws FailedUpdateException, InvalidCommandException {
 
+        boolean signal;
         // Minus 1 because of 0 indexing
         idx = idx - 1;
 
-        // Check if the index if out of bounds
-        if (idx < 0 || idx >= length) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
-                + " entered is out of bounds!");
-        }
+        this.checkIndexInBounds(idx);
 
         Task task = toDoList.get(idx);
 
-        // Run the correct function base on the command given by the user
+        // We need to determine which of the function to call based on the input
         if (command.equals("mark")) {
-            boolean result = task.mark();
-            if (!result) {
-                throw new FailedUpdateException(task, command);
-            }
+            signal = task.mark();
+        } else if (command.equals("unmark")) {
+            signal = task.unmark();
         } else {
-            boolean result = task.unmark();
-            if (!result) {
-                throw new FailedUpdateException(task, command);
-            }
+            throw new InvalidCommandException(command);
+        }
+
+        // If for any reason the task did not update then we will need to update the user
+        if (!signal) {
+            throw new FailedUpdateException(task, command);
         }
 
         return task;
@@ -158,6 +158,18 @@ public class TaskList {
                 }
             }
             return sb.toString();
+        }
+    }
+
+    /**
+     * Checks if the index is out of bounds or not.
+     * @param idx The index keyed in by the user.
+     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
+     */
+    private void checkIndexInBounds(int idx) throws IndexOutOfBoundsException {
+        if (idx < 0 || idx >= length) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
+                + " entered is out of bounds!");
         }
     }
 }

@@ -1,4 +1,4 @@
-package quack;
+package quack.util;
 
 import quack.command.AddTaskCommand;
 import quack.command.Command;
