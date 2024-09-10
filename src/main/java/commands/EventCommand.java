@@ -5,8 +5,7 @@ import storage.Storage;
 import task.Event;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents an event command entered by the user.
@@ -84,10 +83,10 @@ public class EventCommand extends Command {
             throw new BrockException("Both start and end dates must either include or exclude a time!");
         }
 
-        String[] startDateTimeValues = Utility.validateDateTime(startDateTime.toString(),
-                startDateTimeWords, Utility.Context.START);
-        String[] endDateTimeValues = Utility.validateDateTime(endDateTime.toString(),
-                endDateTimeWords, Utility.Context.END);
+        String[] startDateTimeValues = CommandUtility.validateDateTime(startDateTime.toString(),
+                startDateTimeWords, CommandUtility.Context.START);
+        String[] endDateTimeValues = CommandUtility.validateDateTime(endDateTime.toString(),
+                endDateTimeWords, CommandUtility.Context.END);
         if (startDateTimeWords == 1) {
             return new Event(description.toString(),
                     startDateTimeValues[0],
@@ -108,34 +107,23 @@ public class EventCommand extends Command {
      * Chatbot checks if event command is valid.
      * If so, it creates a {@code Event} object.
      * Adds it to {@code tasks}, writes it to save file.
-     * Displays a response indicating it has added the event task.
+     * Returns a response indicating it has added the event task.
      * </p>
      *
      * @throws BrockException If event command is invalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
-        Task eventTask = createEvent();
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
+        Task eventTask = this.createEvent();
         tasks.addToList(eventTask);
-        ui.displayResponse("Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(eventTask)
-                + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
-        storage.writeToFile(tasks.numTasks()
-                + ". "
-                + tasks.getTaskDetails(eventTask)
-                + '\n',
+        storage.writeToFile(tasks.numTasks() + ". "
+                + tasks.getTaskDetails(eventTask) + '\n',
                 true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + "  " + tasks.getTaskDetails(eventTask) + '\n'
+                + tasks.getTasksSummary();
     }
 }

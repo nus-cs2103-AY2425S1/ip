@@ -28,7 +28,7 @@ public class Deadline extends Task {
         try {
             this.dueTime = LocalTime.MAX; // dummy value for time
             this.dueDate = LocalDate.parse(dueDateString);
-            validateDateTime();
+            this.validateDateTime();
         } catch (DateTimeParseException e) {
             throw new BrockException("Values in due date string are not valid!");
         }
@@ -46,9 +46,9 @@ public class Deadline extends Task {
     public Deadline(String description, String dueDateString, String dueTimeString) throws BrockException {
         super(description);
         try {
-            this.dueTime = parseTime(dueTimeString);
+            this.dueTime = this.parseTime(dueTimeString);
             this.dueDate = LocalDate.parse(dueDateString);
-            validateDateTime();
+            this.validateDateTime();
         } catch (DateTimeParseException e) {
             throw new BrockException("Values in due date string are not valid!");
         }

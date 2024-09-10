@@ -38,31 +38,31 @@ public class Parser {
      * @throws BrockException If user command is invalid.
      */
     public Command handleCommand(String command) throws BrockException {
-        if (isCommand(command, "bye")) {
+        if (this.isCommand(command, "bye")) {
             return new ByeCommand(command);
 
-        } else if (isCommand(command, "list")) {
+        } else if (this.isCommand(command, "list")) {
             return new ListCommand(command);
 
-        } else if (isCommand(command, "mark")) {
+        } else if (this.isCommand(command, "mark")) {
             return new MarkCommand(command);
 
-        } else if (isCommand(command, "unmark")) {
+        } else if (this.isCommand(command, "unmark")) {
             return new UnmarkCommand(command);
 
-        } else if (isCommand(command, "delete")) {
+        } else if (this.isCommand(command, "delete")) {
             return new DeleteCommand(command);
 
-        } else if (isCommand(command, "todo")) {
+        } else if (this.isCommand(command, "todo")) {
             return new TodoCommand(command);
 
-        } else if (isCommand(command, "deadline")) {
+        } else if (this.isCommand(command, "deadline")) {
             return new DeadlineCommand(command);
 
-        } else if (isCommand(command, "event")) {
+        } else if (this.isCommand(command, "event")) {
             return new EventCommand(command);
 
-        } else if (isCommand(command, "find")) {
+        } else if (this.isCommand(command, "find")) {
             return new FindCommand(command);
         } else {
             throw new BrockException("Invalid command!");

@@ -3,7 +3,6 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a find command entered by the user.
@@ -42,14 +41,14 @@ public class FindCommand extends Command {
      *
      * <p>
      * Chatbot iterates through the list of tasks, finding matching tasks that contain the keyword.
-     * It then displays these matching tasks, if any.
+     * It then returns these matching tasks, if any.
      * </p>
      *
      * @throws BrockException If the find command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
-        String keyword = validateFindCommand();
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
+        String keyword = this.validateFindCommand();
 
         String[] result = tasks.findMatchingTasks(keyword);
         String resultString = result[0];
@@ -61,15 +60,6 @@ public class FindCommand extends Command {
         String responseBody = numMatching == 0
                 ? "No matching tasks!"
                 : resultString;
-        ui.displayResponse(responseHeader + responseBody);
+        return responseHeader + responseBody;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

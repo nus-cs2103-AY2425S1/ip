@@ -3,8 +3,7 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents a delete command entered by the user.
@@ -35,7 +34,7 @@ public class DeleteCommand extends Command {
         if (commandLength == 1) {
             throw new BrockException("Missing task number!");
         }
-        if (commandLength > 2 || Utility.isNotInteger(commandWords[1])) {
+        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
             throw new BrockException("Delete command is in the form delete <task-number>!");
         }
 
@@ -52,35 +51,27 @@ public class DeleteCommand extends Command {
      * <p>
      * Chatbot checks if delete command is valid.
      * If so, it deletes the corresponding task from {@code tasks}, updates the save file.
-     * As well as displays a response indicating successful deletion.
+     * As well as return a response indicating successful deletion.
      * </p>
      *
      * @throws BrockException If delete command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
-        validateDelete(tasks);
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
+        this.validateDelete(tasks);
 
         String command = super.getCommand();
-        int taskIndex = Utility.getTaskIndex(command);
+        int taskIndex = CommandUtility.getTaskIndex(command);
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
-
-        ui.displayResponse("Noted. I've removed this task:\n"
-                + "  " + deletedTaskDetails + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
         String remainingTasks = tasks.listTasks();
         storage.writeToFile("", false);
         storage.writeToFile(remainingTasks, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Noted. I've removed this task:\n"
+                + "  " + deletedTaskDetails + '\n'
+                + tasks.getTasksSummary();
     }
 }

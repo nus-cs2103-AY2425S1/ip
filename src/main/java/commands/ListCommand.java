@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a list command entered by the user.
@@ -22,11 +21,11 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      *
      * <p>
-     * Chatbot reads from task list, displaying all the existing tasks.
+     * Chatbot reads from task list, returns all the existing tasks.
      * </p>
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) {
+    public String execute(Storage storage, TaskList tasks) {
         String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
 
@@ -37,17 +36,9 @@ public class ListCommand extends Command {
             responseBody = tasksString;
         }
 
-        ui.displayResponse((totalTasks == 1
+        return (totalTasks == 1
                 ? "Here is the task in your list:\n"
                 : "Here are the tasks in your list:\n")
-                + responseBody);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+                + responseBody;
     }
 }

@@ -5,8 +5,7 @@ import storage.Storage;
 import task.Deadline;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents a deadline command entered by the user.
@@ -63,8 +62,8 @@ public class DeadlineCommand extends Command {
             throw new BrockException("Missing due date! Remember it is specified after /by!");
         }
 
-        String[] dateTimeValues = Utility.validateDateTime(dateTime.toString(),
-                dateTimeWords, Utility.Context.DUE);
+        String[] dateTimeValues = CommandUtility.validateDateTime(dateTime.toString(),
+                dateTimeWords, CommandUtility.Context.DUE);
         if (dateTimeWords == 1) {
             return new Deadline(description.toString(),
                     dateTimeValues[0]);
@@ -82,34 +81,23 @@ public class DeadlineCommand extends Command {
      * Chatbot checks if deadline command is valid.
      * If so, it creates a {@code Deadlines} object.
      * Adds it to {@code tasks}, writes it to save file.
-     * Displays a response indicating it has added the deadline task.
+     * Returns a response indicating it has added the deadline task.
      * </p>
      *
      * @throws BrockException If deadline command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
-        Task deadlineTask = createDeadline();
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
+        Task deadlineTask = this.createDeadline();
         tasks.addToList(deadlineTask);
-        ui.displayResponse("Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(deadlineTask)
-                + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
-        storage.writeToFile(tasks.numTasks()
-                        + ". "
-                        + tasks.getTaskDetails(deadlineTask)
-                        + '\n',
+        storage.writeToFile(tasks.numTasks() + ". "
+                + tasks.getTaskDetails(deadlineTask) + '\n',
                 true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
+                + tasks.getTasksSummary();
     }
 }
