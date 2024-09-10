@@ -14,7 +14,8 @@ public enum CommandType {
     DELETE(DeleteCommand.class),
     TODO(TodoCommand.class),
     DEADLINE(DeadlineCommand.class),
-    EVENT(EventCommand.class);
+    EVENT(EventCommand.class),
+    SCHEDULE(ScheduleCommand.class);
 
     private final Class<? extends Command> commandClass;
 

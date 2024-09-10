@@ -62,6 +62,17 @@ public class DeadlineTask extends Task {
         this.byDate = TaskLocalDate.deserialize(parts[2]);
     }
 
+    /**
+     * Checks if the date is within the task's date range.
+     *
+     * @param date The date to check.
+     * @return True if the date is within the task's date range, false otherwise.
+     */
+    @Override
+    public boolean isWithinDateRange(TaskLocalDate date) {
+        return this.byDate.equals(date);
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + this.byDate.toString() + ")";

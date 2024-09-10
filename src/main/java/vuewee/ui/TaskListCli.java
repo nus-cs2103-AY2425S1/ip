@@ -9,6 +9,7 @@ import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.Task;
 import vuewee.task.TaskList;
+import vuewee.task.TaskLocalDate;
 
 /**
  * The TaskListCli class represents the user interface for Vuewee. It contains
@@ -98,6 +99,20 @@ public class TaskListCli extends TaskListUi {
             throw new IllegalCommandException("No tasks found.");
         }
 
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println("  " + (i + 1) + ". " + task.toString());
+        }
+    }
+
+    @Override
+    public void displaySchedule(TaskLocalDate date) {
+        TaskList tasks = this.taskList.getTasksOnDate(date);
+        if (tasks.size() == 0) {
+            System.out.println("No tasks scheduled for " + date.toString());
+            return;
+        }
+        System.out.println("Here are the tasks scheduled for " + date.toString() + ":");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println("  " + (i + 1) + ". " + task.toString());

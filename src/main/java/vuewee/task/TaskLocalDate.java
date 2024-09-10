@@ -81,6 +81,28 @@ public class TaskLocalDate {
         return TaskLocalDate.parse(text);
     }
 
+    /**
+     * Checks if dates are equal.
+     *
+     * @param other Date to compare to
+     */
+    public boolean equals(TaskLocalDate other) {
+        return this.date.isEqual(other.date);
+    }
+
+    /**
+     * Checks if the date is after the given date.
+     *
+     * @param from the start date to compare to
+     * @param to   the end date to compare to
+     *
+     * @return true if the given date is between the task from and to dates, false
+     *         otherwise
+     */
+    public boolean isBetween(TaskLocalDate from, TaskLocalDate to) {
+        return this.date.isAfter(from.date) && this.date.isBefore(to.date);
+    }
+
     @Override
     public String toString() {
         return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));

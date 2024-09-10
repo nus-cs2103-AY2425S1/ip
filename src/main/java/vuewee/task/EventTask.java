@@ -71,6 +71,17 @@ public class EventTask extends Task {
         this.toDate = TaskLocalDate.deserialize(parts[3]);
     }
 
+    /**
+     * Checks if the date is within the task's date range (includeisve).
+     *
+     * @param date The date to check.
+     * @return True if the date is within the task's date range, false otherwise.
+     */
+    @Override
+    public boolean isWithinDateRange(TaskLocalDate date) {
+        return date.equals(this.fromDate) || date.equals(this.toDate) || date.isBetween(this.fromDate, this.toDate);
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";

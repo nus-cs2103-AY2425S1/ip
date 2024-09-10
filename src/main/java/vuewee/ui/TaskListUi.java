@@ -4,6 +4,7 @@ import vuewee.TasksStorage;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.Task;
 import vuewee.task.TaskList;
+import vuewee.task.TaskLocalDate;
 
 /**
  * The TaskListUI interface represents the user interface for Vuewee. It
@@ -93,6 +94,13 @@ public abstract class TaskListUi {
      * @throws IllegalCommandException
      */
     public abstract void displayTasks(TaskList tasks);
+
+    /**
+     * Display all tasks in the list that are scheduled for the specified date.
+     *
+     * @param date
+     */
+    public abstract void displaySchedule(TaskLocalDate date);
 
     /**
      * Marks a task as done or not done.

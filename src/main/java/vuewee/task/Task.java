@@ -35,6 +35,14 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the date is within the task's date range.
+     *
+     * @param date
+     * @return true if the date is within the task's date range, false otherwise
+     */
+    public abstract boolean isWithinDateRange(TaskLocalDate date);
+
+    /**
      * Marks the task as completed.
      *
      * @return true if the task value was changed, false otherwise
