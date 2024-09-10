@@ -22,8 +22,8 @@ public class TaskList {
         this.tasks.add(task);
         this.writeToFile();
         return "Got it. I've added this task:\n" +
-                "       " + task + "\n" +
-                "       Now you have " + this.tasks.size() + " tasks in the list.";
+                task + "\n" +
+                "Now you have " + this.tasks.size() + " tasks in the list.";
     }
 
      public String view() {
@@ -48,8 +48,8 @@ public class TaskList {
         this.tasks.remove(taskId - 1);
         this.writeToFile();
         return "Got it. I've removed this task:\n" +
-                "       " + task + "\n" +
-                "       Now you have " + this.tasks.size() + " tasks in the list.";
+                task + "\n" +
+                "Now you have " + this.tasks.size() + " tasks in the list.";
     }
 
     public boolean isValid(int taskId) {

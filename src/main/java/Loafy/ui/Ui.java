@@ -3,26 +3,23 @@ package loafy.ui;
 import loafy.loafyexception.LoafyException;
 
 public class Ui {
-    public void reply(String str) {
-        System.out.println("Loafy: " + str + "\n");
+
+    public String showError(LoafyException exception) {
+        return "Hmm...\n" +
+                exception.getMessage() + "\n" +
+                "Try again!";
     }
 
-    public void showError(LoafyException exception) {
-        this.reply("Hmm...\n" +
-                exception.getMessage() +
-                "\n   Try again!");
+    public String showGreeting() {
+        return "Hellooo, I'm Loafy! \n" +
+                "What can I do for you? :D";
     }
 
-    public void showGreeting() {
-        this.reply("Hellooo, I'm Loafy!");
-        this.reply("What can I do for you? :D");
+    public String showExit() {
+        return "Byeee see you soon! ;)";
     }
 
-    public void showExit() {
-        this.reply("Byeee see you soon! ;)");
-    }
-
-    public void showStartError(LoafyException exception) {
-        System.out.println(exception.getMessage() + "\n");
+    public String showStartError(LoafyException exception) {
+        return exception.getMessage() + "\n";
     }
 }

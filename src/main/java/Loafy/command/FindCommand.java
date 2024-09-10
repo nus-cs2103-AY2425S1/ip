@@ -11,7 +11,7 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList taskList, Ui ui) {
-        ui.reply(taskList.find(this.keyword));
+    public String execute(TaskList taskList, Ui ui) {
+        return taskList.find(this.keyword);
     }
 }
