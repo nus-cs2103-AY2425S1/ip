@@ -85,7 +85,7 @@ public class Storage {
                 String date = parsedDateDesc[1];
 
                 return new Deadline(descDeadline, date, isDone);
-            } else {
+            } else if (taskType.equals("E")) {
                 String[] parsedFromToDesc = taskDesc.split(" \\| ", 2);
                 String descEvent = parsedFromToDesc[0];
                 String fromTo = parsedFromToDesc[1];
@@ -95,6 +95,8 @@ public class Storage {
                 String to = parsedDate[1];
 
                 return new Event(descEvent, from, to, isDone);
+            } else {
+                throw new AiException("Unexpected input, oh dearr");
             }
         } catch (Exception e) {
             throw new AiException("Ahh dearr, I think your lines might be a teeny tiny buggyyy :p");
