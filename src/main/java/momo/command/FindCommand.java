@@ -7,6 +7,9 @@ import momo.task.TaskList;
 
 public class FindCommand extends Command {
     public static void run(String input, TaskList tasks, Ui ui) throws InvalidCommandException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+
         StringBuilder matchingTasks = new StringBuilder();
         String desc = input.substring(4).trim().toLowerCase();
 
