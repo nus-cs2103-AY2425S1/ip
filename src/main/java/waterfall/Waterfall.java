@@ -52,6 +52,9 @@ public class Waterfall {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert tasks != null : "tasks before command cannot be null";
+            assert ui != null : "ui before command cannot be null";
+            assert storage != null : "storage before command cannot be null";
             return c.execute(tasks, ui, storage);
         } catch (WaterfallException e) {
             return e.getMessage();
