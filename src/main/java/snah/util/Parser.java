@@ -5,57 +5,48 @@ package snah.util;
  */
 public class Parser {
 
+    /**
+     * Enum to represent the commands that the chatbot can handle
+     */
     public enum Command {
-        BYE,
-        LIST,
-        MARK,
-        UNMARK,
-        DEADLINE,
-        EVENT,
-        TODO,
-        DELETE,
-        CLEAR,
-        INVALID,
-        FIND
+        BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, CLEAR, INVALID, FIND
     }
 
     /**
      * Returns the command from the user input
-     * 
      * @param input User input
      * @return Command from the user input
      */
     public static Command getCommand(String input) {
         String commandSymbol = input.split(" ", 2)[0].toUpperCase();
         switch (commandSymbol) {
-            case "LIST":
-                return Command.LIST;
-            case "CLEAR":
-                return Command.CLEAR;
-            case "MARK":
-                return Command.MARK;
-            case "UNMARK":
-                return Command.UNMARK;
-            case "DEADLINE":
-                return Command.DEADLINE;
-            case "EVENT":
-                return Command.EVENT;
-            case "TODO":
-                return Command.TODO;
-            case "DELETE":
-                return Command.DELETE;
-            case "BYE":
-                return Command.BYE;
-            case "FIND":
-                return Command.FIND;
-            default:
-                return Command.INVALID;
+        case "LIST":
+            return Command.LIST;
+        case "CLEAR":
+            return Command.CLEAR;
+        case "MARK":
+            return Command.MARK;
+        case "UNMARK":
+            return Command.UNMARK;
+        case "DEADLINE":
+            return Command.DEADLINE;
+        case "EVENT":
+            return Command.EVENT;
+        case "TODO":
+            return Command.TODO;
+        case "DELETE":
+            return Command.DELETE;
+        case "BYE":
+            return Command.BYE;
+        case "FIND":
+            return Command.FIND;
+        default:
+            return Command.INVALID;
         }
     }
 
     /**
      * Returns the raw command from the user input
-     * 
      * @param input User input
      * @return Raw command from the user input
      */
@@ -65,7 +56,6 @@ public class Parser {
 
     /**
      * Returns the payload from the user input
-     * 
      * @param input User input
      * @return Payload from the user input
      */
@@ -83,7 +73,6 @@ public class Parser {
 
     /**
      * Returns the deadline payload from the user input
-     * 
      * @param input User input
      * @return Deadline payload from the user input
      */
@@ -101,7 +90,6 @@ public class Parser {
 
     /**
      * Returns the event payload from the user input
-     * 
      * @param input User input
      * @return Event payload from the user input
      */
@@ -123,7 +111,6 @@ public class Parser {
 
     /**
      * Returns the task index from the user input
-     * 
      * @param input User input
      * @return Task index from the user input
      */
