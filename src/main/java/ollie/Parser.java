@@ -51,6 +51,10 @@ public class Parser {
      * @return The response by Ollie.
      */
     public static String parseUserCommand(String userInput, TaskList taskList, Ui ui) {
+        assert userInput != null : "User input cannot be null.";
+        assert taskList != null : "Task list cannot be null.";
+        assert ui != null : "Ui object cannot be null.";
+
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
 

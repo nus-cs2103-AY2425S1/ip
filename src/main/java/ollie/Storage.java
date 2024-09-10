@@ -134,7 +134,7 @@ public class Storage {
 
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
-                assert isCreated : "Oops! Failed to create a new file for the list of tasks.";
+                assert isCreated : "Oops! A file should be created for the task list.";
                 return this.taskList.getTasks();
             }
 
