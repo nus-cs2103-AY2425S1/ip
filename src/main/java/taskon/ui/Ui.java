@@ -5,6 +5,7 @@ import static taskon.common.Messages.MESSAGE_EXIT;
 import static taskon.common.Messages.MESSAGE_GREETING;
 import static taskon.common.Messages.MESSAGE_MARK;
 import static taskon.common.Messages.MESSAGE_NO_TASKS;
+import static taskon.common.Messages.MESSAGE_SUCCESSFUL_EDIT;
 import static taskon.common.Messages.MESSAGE_UNMARK;
 
 import java.io.InputStream;
@@ -87,6 +88,15 @@ public class Ui {
      */
     public String unmark(Task task) {
         return MESSAGE_UNMARK + task;
+    }
+
+    /**
+     * Returns a message indicating that a task has been edited.
+     *
+     * @param task The task that has been edited.
+     */
+    public String editTask(Task task) {
+        return MESSAGE_SUCCESSFUL_EDIT + task;
     }
 
     /**

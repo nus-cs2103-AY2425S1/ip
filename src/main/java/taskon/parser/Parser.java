@@ -5,6 +5,7 @@ import static taskon.common.Messages.MESSAGE_DESCRIPTION_MISSING;
 import static taskon.common.Messages.MESSAGE_HELP;
 import static taskon.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static taskon.common.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static taskon.common.Messages.MESSAGE_INVALID_EDIT;
 import static taskon.common.Messages.MESSAGE_INVALID_INTEGER;
 
 import java.time.format.DateTimeParseException;
@@ -15,6 +16,7 @@ import taskon.commands.ByeCommand;
 import taskon.commands.Command;
 import taskon.commands.DeadlineCommand;
 import taskon.commands.DeleteCommand;
+import taskon.commands.EditCommand;
 import taskon.commands.EventCommand;
 import taskon.commands.FindCommand;
 import taskon.commands.IncorrectCommand;
@@ -90,6 +92,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommand(arguments.trim());
+
+        case EditCommand.COMMAND_WORD:
+            return prepareEditTask(arguments.trim());
 
         default:
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
@@ -218,6 +223,31 @@ public class Parser {
     private static void checkFormatValidity(String[] parts) throws TaskonException {
         if (parts.length < 2) {
             throw new TaskonException(MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_HELP);
+        }
+    }
+
+    /**
+     * Prepares the edit command by parsing the user input.
+     *
+     * @param args User input for the edit command.
+     * @return The edit command.
+     * @throws TaskonException If the command format is incorrect.
+     */
+    private static Command prepareEditTask(String args) throws TaskonException {
+        String[] details = args.split("\\s+", 3);
+
+        if (details.length < 3) {
+            throw new TaskonException(MESSAGE_INVALID_EDIT);
+        }
+
+        try {
+            int index = Integer.parseInt(details[0].trim()) - 1;
+            String fieldToEdit = details[1].trim();
+            String newValue = details[2].trim();
+
+            return new EditCommand(index, fieldToEdit, newValue);
+        } catch (NumberFormatException e) {
+            throw new TaskonException(MESSAGE_INVALID_INTEGER);
         }
     }
 }

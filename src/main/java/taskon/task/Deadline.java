@@ -19,7 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date) {
         super(description);
-        this.date = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.date = getLocalDateTime(date);
     }
 
     /**
@@ -39,6 +39,31 @@ public class Deadline extends Task {
     @Override
     public boolean occursOn(LocalDate date) {
         return this.date.toLocalDate().equals(date);
+    }
+
+    /**
+     * Edits the description or date of task based on user input.
+     *
+     * @param description The new description for the task.
+     * @param date The new date for the task.
+     */
+    public void editTask(String description, String date) {
+        if (!description.isEmpty()) {
+            super.editDescription(description);
+        }
+        if (!date.isEmpty()) {
+            this.date = getLocalDateTime(date);
+        }
+    }
+
+    /**
+     * Converts the date from String representation to a LocalDateTime object.
+     *
+     * @param date The date to convert to a LocalDateTime object from a String.
+     * @return LocalDateTime object
+     */
+    private static LocalDateTime getLocalDateTime(String date) {
+        return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
