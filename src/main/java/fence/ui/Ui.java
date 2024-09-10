@@ -38,8 +38,7 @@ public class Ui {
      * @param size Size of the task list.
      */
     public void count(int size) {
-        System.out.println("Now you have " + size +
-                ((size == 1) ? " item " : " items ") + "in the list.");
+        System.out.println("Now you have " + size + ((size == 1) ? " item " : " items ") + "in the list.");
     }
 
     /**
