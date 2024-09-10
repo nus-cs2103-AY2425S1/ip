@@ -133,17 +133,19 @@ public class Command {
     private void handleMarkCommand(String[] inputParts) {
         if (inputParts.length < 2) {
             System.out.println(" Please specify the task number to mark as done.");
-        } else {
-            int taskNumber = Integer.parseInt(inputParts[1]) - 1;
-            if (taskNumber < tasks.size() && taskNumber >= 0) {
-                tasks.get(taskNumber).markAsDone();
-                Storage.saveTasksToFile(tasks);
-                System.out.println(" Great! I've marked this task as done:");
-                System.out.println("   " + tasks.get(taskNumber));
-            } else {
-                System.out.println(" Oops! That task number doesn't exist.");
-            }
+            return;
         }
+
+        int taskNumber = Integer.parseInt(inputParts[1]) - 1;
+        if (taskNumber < tasks.size() && taskNumber >= 0) {
+            tasks.get(taskNumber).markAsDone();
+            Storage.saveTasksToFile(tasks);
+            System.out.println(" Great! I've marked this task as done:");
+            System.out.println("   " + tasks.get(taskNumber));
+            return;
+        }
+
+        System.out.println(" Oops! That task number doesn't exist.");
     }
 
     /**
@@ -154,17 +156,19 @@ public class Command {
     private void handleUnmarkCommand(String[] inputParts) {
         if (inputParts.length < 2) {
             System.out.println(" Please specify the task number to unmark.");
-        } else {
-            int taskNumber = Integer.parseInt(inputParts[1]) - 1;
-            if (taskNumber < tasks.size() && taskNumber >= 0) {
-                tasks.get(taskNumber).markAsNotDone();
-                Storage.saveTasksToFile(tasks);
-                System.out.println(" OK! I've marked this task as not done yet:");
-                System.out.println("   " + tasks.get(taskNumber));
-            } else {
-                System.out.println(" Oops! That task number doesn't exist.");
-            }
+            return;
         }
+
+        int taskNumber = Integer.parseInt(inputParts[1]) - 1;
+        if (taskNumber < tasks.size() && taskNumber >= 0) {
+            tasks.get(taskNumber).markAsNotDone();
+            Storage.saveTasksToFile(tasks);
+            System.out.println(" OK! I've marked this task as not done yet:");
+            System.out.println("   " + tasks.get(taskNumber));
+            return;
+        }
+
+        System.out.println(" Oops! That task number doesn't exist.");
     }
 
     /**
@@ -175,12 +179,13 @@ public class Command {
     private void handleTodoCommand(String[] inputParts) {
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
             System.out.println(" The description of a todo cannot be empty.");
-        } else {
-            tasks.addTask(new Todo(inputParts[1]));
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + tasks.get(tasks.size() - 1));
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            return;
         }
+
+        tasks.addTask(new Todo(inputParts[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -191,17 +196,20 @@ public class Command {
     private void handleDeadlineCommand(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/by ")) {
             System.out.println(" The description of a deadline must include a due date.");
-        } else {
-            String[] details = inputParts[1].split(" /by ");
-            if (details.length < 2 || details[0].trim().isEmpty()) {
-                System.out.println(" The description of a deadline cannot be empty.");
-            } else {
-                tasks.addTask(new Deadline(details[0], details[1]));
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks.get(tasks.size() - 1));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            }
+            return;
         }
+
+        String[] details = inputParts[1].split(" /by ");
+
+        if (details.length < 2 || details[0].trim().isEmpty()) {
+            System.out.println(" The description of a deadline cannot be empty.");
+            return;
+        }
+
+        tasks.addTask(new Deadline(details[0], details[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -212,17 +220,20 @@ public class Command {
     private void handleEventCommand(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/from ") || !inputParts[1].contains("/to ")) {
             System.out.println(" The description of an event must include start and end times.");
-        } else {
-            String[] details = inputParts[1].split(" /from | /to ");
-            if (details.length < 3 || details[0].trim().isEmpty()) {
-                System.out.println(" The description of an event cannot be empty.");
-            } else {
-                tasks.addTask(new Event(details[0], details[1], details[2]));
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks.get(tasks.size() - 1));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            }
+            return;
         }
+
+        String[] details = inputParts[1].split(" /from | /to ");
+
+        if (details.length < 3 || details[0].trim().isEmpty()) {
+            System.out.println(" The description of an event cannot be empty.");
+            return;
+        }
+
+        tasks.addTask(new Event(details[0], details[1], details[2]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -233,21 +244,21 @@ public class Command {
     private void handleDeleteCommand(String[] inputParts) {
         if (inputParts.length < 2) {
             System.out.println(" Please specify the task number to delete.");
-        } else {
-            try {
-                int taskNumber = Integer.parseInt(inputParts[1]) - 1;
-                if (taskNumber < tasks.size() && taskNumber >= 0) {
-                    Task removedTask = tasks.removeTask(taskNumber);
-                    System.out.println(" Noted. I've removed this task:");
-                    System.out.println("   " + removedTask);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                } else {
-                    System.out.println(" Oops! That task number doesn't exist.");
+            return;
+        }
+        try {
+            int taskNumber = Integer.parseInt(inputParts[1]) - 1;
+            if (taskNumber < tasks.size() && taskNumber >= 0) {
+                Task removedTask = tasks.removeTask(taskNumber);
+                System.out.println(" Noted. I've removed this task:");
+                System.out.println("   " + removedTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                return;
                 }
-            } catch (NumberFormatException e) {
+            System.out.println(" Oops! That task number doesn't exist.");
+        } catch (NumberFormatException e) {
                 System.out.println("Please enter an item number to delete!");
             }
-        }
     }
 
     /**
