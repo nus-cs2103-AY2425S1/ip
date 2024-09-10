@@ -36,6 +36,9 @@ public class Ui {
      * @param message the message to display
      */
     public void showMessage(String message) {
+        assert message != null : "Message should not be null";
+        assert dialogContainer != null : "Dialog container must be initialized";
+
         DialogBox proYapperDialog = DialogBox.getProYapperDialog(message, proYapperImage);
         dialogContainer.getChildren().add(proYapperDialog);
     }
@@ -46,6 +49,9 @@ public class Ui {
      * @param message the error message to display
      */
     public void showError(String message) {
+        assert message != null : "Error message should not be null";
+        assert dialogContainer != null : "Dialog container must be initialized";
+
         DialogBox errorDialog = new DialogBox(message, proYapperImage, false);
         errorDialog.setStyle("-fx-text-fill: red;");
         dialogContainer.getChildren().add(errorDialog);
@@ -57,6 +63,8 @@ public class Ui {
      * @param taskList the {@code TaskList} containing tasks to be displayed
      */
     public void showTasks(TaskList taskList) {
+        assert dialogContainer != null : "Dialog container should be initialized";
+
         if (taskList.size() == 0) {
             showMessage("No tasks in your list.");
             return;
@@ -71,6 +79,8 @@ public class Ui {
     }
 
     public void showFound(TaskList taskList) {
+        assert dialogContainer != null : "Dialog container should be initialized";
+
         if (taskList.size() == 0) {
             showMessage("No tasks in your list.");
             return;

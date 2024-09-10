@@ -19,6 +19,9 @@ public class Parser {
      * @return the command corresponding to the user input
      */
     public static Command parseCommand(String userInput) {
+        assert userInput != null : "User input should not be null";
+        assert !userInput.trim().isEmpty() : "User input should not be empty";
+
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0];
 
