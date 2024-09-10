@@ -23,7 +23,9 @@ public class FindCommand extends Command {
      * @return The list of matched tasks in the bot's GUI after command execution.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showFind(tasks, this.predicate);
+        String wordToSearch = this.predicate;
+        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch));
+        String matchedTaskListInString = filteredTasks.toString();
+        return ui.showFind(matchedTaskListInString);
     }
-    ;
 }

@@ -28,6 +28,7 @@ public class Parser {
         final String COMMAND_UNMARK_INPUT = "unmark";
         final String COMMAND_DELETE_INPUT = "delete";
         final String COMMAND_FIND_INPUT = "find";
+        final String COMMAND_SORT_INPUT = "sort";
         final String COMMAND_BYE_INPUT = "bye";
 
         try {
@@ -48,11 +49,13 @@ public class Parser {
                 return new ModifyCommand(CommandVerb.DELETE, commandArray[1]);
             case COMMAND_FIND_INPUT:
                 return new FindCommand(CommandVerb.FIND, commandArray[1]);
+            case COMMAND_SORT_INPUT:
+                return new SortCommand();
             case COMMAND_BYE_INPUT:
                 return new ByeCommand();
             default:
                 throw new InvalidCommandException("Invalid Commands. Only valid command verbs are "
-                        + "list, todo, deadline, event, mark, unmark, delete, find");
+                        + "list, todo, deadline, event, mark, unmark, delete, find, sort, bye");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidCommandException("There's an issue in the instruction format."

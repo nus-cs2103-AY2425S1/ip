@@ -17,6 +17,11 @@ public class TodoTask extends Task {
     }
 
     @Override
+    public TaskType showTaskType() {
+        return TaskType.TODO;
+    }
+
+    @Override
     public String toStringInFile() {
         return String.format("%s %s", TODO_IDENTIFIER, super.toStringInFile());
     }

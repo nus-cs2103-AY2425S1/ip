@@ -67,7 +67,6 @@ public class Knight2103 {
         } catch (InvalidCommandException e) { // Exceptions from commands
             return "Failed to execute Command:\n" + e.getMessage();
         }
-
         // welcome message - state all commands that can be used.
     }
 }

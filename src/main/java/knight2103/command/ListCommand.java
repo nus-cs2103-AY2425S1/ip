@@ -21,8 +21,7 @@ public class ListCommand extends Command {
      * @return The list of tasks stored after command execution in the bot's GUI.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showList(tasks);
+        String tasksInString = tasks.toString();
+        return ui.showList(tasksInString);
     }
-
-    ;
 }

@@ -24,6 +24,15 @@ public class DeadlineTask extends Task {
         this.deadline = LocalDate.parse(deadline);
     }
 
+    public LocalDate getDeadline() {
+        return this.deadline;
+    }
+
+    @Override
+    public TaskType showTaskType() {
+        return TaskType.DEADLINE;
+    }
+
     @Override
     public String toStringInFile() {
         return String.format("%s %s | %s", DEADLINE_IDENTIFIER, super.toStringInFile(), this.deadline);

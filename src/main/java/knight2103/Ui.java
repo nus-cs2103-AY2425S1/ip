@@ -4,7 +4,8 @@ import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
 
 /**
- * User interface of the bot.
+ * User interface of the bot. Primarily contains methods of the various messages the bot will show in the
+ * interface.
  */
 public class Ui {
     /**
@@ -60,25 +61,32 @@ public class Ui {
 
     /**
      * Shows the message of the bot which is the full list of tasks the bot has.
-     * @param tasks The object storing the list of tasks found in the bot.
+     * @param listToShow The list of tasks to be shown in the GUI in the correct formatting style.
      * @return The message including the full list of tasks.
      */
-    public String showList(TaskList tasks) {
-        return "Here's the list of tasks:\n" + formatToFullList(tasks);
+    public String showList(String listToShow) {
+        return "Here's the list of tasks:\n" + listToShow;
     }
 
     /**
      * Shows the message of the bot after finding tasks that have their description
      * matched with the key word. The message includes the list of matched tasks.
-     * @param tasks The object storing the list of tasks found in the bot.
-     * @param searchWord The key word to be checked for if it is in the task description.
+     * @param listToShow The list of matched tasks to be shown in the GUI in the correct formatting style.
      * @return The message including the list of tasks that matches the search word.
      */
-    public String showFind(TaskList tasks, String searchWord) {
-        String listString = formatToMatchedList(tasks, searchWord);
-        return listString.isEmpty()
+    public String showFind(String listToShow) {
+        return listToShow.isEmpty()
                 ? "NIL: There is no matching tasks.\n"
-                : "Here are the matching tasks in your list:\n" + listString;
+                : "Here are the matching tasks in your list:\n" + listToShow;
+    }
+
+    /**
+     * Shows the message of the bot containing the sorted list after the list of tasks are sorted.
+     * @param listToShow The sorted list of tasks to be shown in the GUI in the correct formatting style.
+     * @return The message including the sorted list of tasks.
+     */
+    public String showSorted(String listToShow) {
+        return "Here's the sorted list of tasks:\n" + listToShow;
     }
 
     /**
@@ -88,27 +96,5 @@ public class Ui {
      */
     public String showBye() {
         return "Bye. Hope to see you again soon!";
-    }
-
-    private String formatToMatchedList(TaskList tasks, String wordSearch) {
-        return formatToList(tasks, wordSearch);
-    }
-
-    private String formatToFullList(TaskList tasks) {
-        return formatToList(tasks);
-    }
-
-    private String formatToList(TaskList tasks, String... filterWords) {
-        String stringToReturn = "";
-        int bulletPoint = 0;
-        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
-            Task currentTask = tasks.getTask(i);
-            if (!(filterWords.length == 0 || currentTask.getDescription().contains(filterWords[0]))) {
-                continue;
-            }
-            bulletPoint = i + 1;
-            stringToReturn += bulletPoint + ". " + currentTask + "\n";
-        }
-        return stringToReturn;
     }
 }

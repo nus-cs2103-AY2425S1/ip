@@ -5,6 +5,7 @@ import knight2103.tasks.Task;
 import knight2103.tasks.TodoTask;
 import knight2103.tasks.DeadlineTask;
 import knight2103.tasks.EventTask;
+import knight2103.tasks.TaskType;
 import knight2103.Pair;
 
 import java.util.ArrayList;
@@ -60,33 +61,25 @@ public class Storage {
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
-        tasksWriter.write(formatToFileList(tasks));
+        tasksWriter.write(tasks.toStringInFile());
         tasksWriter.close();
     }
 
-    private String formatToFileList(TaskList tasks) {
-        String stringToWrite = "";
-        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
-            stringToWrite += tasks.getTask(i).toStringInFile() + "\n";
-        }
-        return stringToWrite;
-    }
 
     /**
      * Returns a pair of values: the list of tasks the function is able to generate and any error messages
      * that came during the generation.
-     * Reads the file that stores all the tasks and load them into an
-     * ArrayList<Task>. This ArrayList<Task> instance is needed to be stored in the bot's list of tasks,
-     * which is a TaskList instance. If there are any errors in the line formatting in the storage files,
-     * these error messages generated are accumulated and stored as well. The function will not be
-     * terminated prematurely due to an error in the formatting of file contents, it will fully process the
-     * file contents and stores all possible Task objects so long as the task in the file is formatted
-     * correctly. Hence, if all the file contents are formatted wrongly, an empty ArrayList<Task> object
-     * will be instantiated to be used in the bot's TaskList instance, containing all the error messages
-     * regarding each line of file contents. Likewise, if only some of the file contents are formatted
-     * wrongly, error messages regarding those and an ArrayList<<Task> that is successfully generated are
-     * returned. Blank empty lines in the file storage are not ignored and are not detected as formatting
-     * errors.
+     * Reads the file that stores all the tasks and load them into an ArrayList<Task>. This ArrayList<Task>
+     * instance is needed to be stored in the bot's list of tasks, which is a TaskList instance. If there
+     * are any errors in the line formatting in the storage files, these error messages generated are
+     * accumulated and stored as well. The function will not be terminated prematurely due to an error in
+     * the formatting of file contents, it will fully process the file contents and stores all possible
+     * Task objects so long as the task in the file is formatted correctly. Hence, if all the file contents
+     * are formatted wrongly, an empty ArrayList<Task> object will be instantiated to be used in the bot's
+     * TaskList instance, containing all the error messages regarding each line of file contents. Likewise,
+     * if only some of the file contents are formatted wrongly, error messages regarding those and an
+     * ArrayList<<Task> that is successfully generated are returned. Blank empty lines in the file storage
+     * are not ignored and are not detected as formatting errors.
      *
      * @return A Pair object containing an ArrayList of valid tasks objects tobe stored in the
      * bot's list of tasks, and any error messages that came when generating the ArrayList of tasks.
@@ -98,6 +91,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<Task>();
         String errorMessage = "";
         int lineInFileCount = 0; // not item count, because .txt file can see line number easily
+
         Scanner scanner = new Scanner(this.taskFile);
         while (scanner.hasNextLine()) {
             lineInFileCount++;
@@ -105,6 +99,7 @@ public class Storage {
             if (lineInFocus.isEmpty()) {
                 continue;
             }
+
             Pair<Optional<Task>, String> taskAndErrorMsgPair = convertLineToTask(lineInFocus);
             taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
             if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {
@@ -120,74 +115,112 @@ public class Storage {
         String errorMessage = "";
         Task taskToAdd = null;
 
+        try {
+            TaskType taskType = checkTaskType(lineArray);
+            checkArrayLength(taskType, lineArray.length);
+            taskToAdd = addTask(taskType, lineArray);
+            checkMarkStatus(lineArray, taskToAdd);
+            return new Pair<Optional<Task>, String>(Optional.of(taskToAdd), "");
+        } catch (InvalidFileContentsException e) {
+            errorMessage += e.getMessage();
+        }
+        return new Pair<Optional<Task>, String>(Optional.empty(), "Errors found: " + errorMessage);
+    }
+
+    private TaskType checkTaskType(String[] lineArray) throws InvalidFileContentsException {
         final int TASK_TYPE_INDEX = 0;
-        final int IS_TASK_MARKED_INDEX = 1;
+        TaskType taskType;
+
+        switch (lineArray[TASK_TYPE_INDEX]) {
+        case "T" -> taskType = TaskType.TODO;
+        case "D" -> taskType = TaskType.DEADLINE;
+        case "E" -> taskType = TaskType.EVENT;
+        default -> throw new InvalidFileContentsException("Only T, E, D accepted but others found in 1st " +
+                "column");
+        }
+        return taskType;
+    }
+
+    private void checkArrayLength(TaskType taskType, int lineArrayLength) throws InvalidFileContentsException {
+        assert (taskType == TaskType.TODO || taskType == TaskType.DEADLINE || taskType == TaskType.EVENT);
+
+        final int EXPECTED_TODO_ARRAY_LENGTH = 3;
+        final int EXPECTED_DEADLINE_ARRAY_LENGTH = 4;
+        final int EXPECTED_EVENT_ARRAY_LENGTH = 5;
+        final int ERROR_ARRAY_LENGTH = -1;
+
+        int expectedArrayLength;
+        String taskTypeName;
+
+        switch (taskType) {
+        case TODO:
+            expectedArrayLength = EXPECTED_TODO_ARRAY_LENGTH;
+            taskTypeName = "Todo";
+            break;
+        case DEADLINE:
+            expectedArrayLength = EXPECTED_DEADLINE_ARRAY_LENGTH;
+            taskTypeName = "Deadline";
+            break;
+        case EVENT:
+            expectedArrayLength = EXPECTED_EVENT_ARRAY_LENGTH;
+            taskTypeName = "Event";
+            break;
+        default:
+            expectedArrayLength = ERROR_ARRAY_LENGTH;
+            taskTypeName = "ERROR";
+        }
+
+        assert expectedArrayLength != ERROR_ARRAY_LENGTH;
+
+        if (lineArrayLength != expectedArrayLength) {
+            throw new InvalidFileContentsException(
+                    String.format("Number of columns mismatch. %d columns for %s expected",
+                            expectedArrayLength, taskTypeName));
+        }
+    }
+
+    private Task addTask(TaskType taskType, String[] lineArray) throws InvalidFileContentsException {
+        assert (taskType == TaskType.TODO || taskType == TaskType.DEADLINE || taskType == TaskType.EVENT);
+
         final int TASK_DESCRIPTION_INDEX = 2;
         final int DEADLINE_INDEX = 3;
         final int EVENT_START_TIME_INDEX = 3;
         final int EVENT_END_TIME_INDEX = 4;
 
-        final int EXPECTED_TODO_ARRAY_LENGTH = 3;
-        final int EXPECTED_DEADLINE_ARRAY_LENGTH = 4;
-        final int EXPECTED_EVENT_ARRAY_LENGTH = 5;
+        Task taskToAdd = null;
+
+        try {
+            switch (taskType) {
+            case TODO -> taskToAdd = new TodoTask(lineArray[TASK_DESCRIPTION_INDEX]);
+            case DEADLINE ->
+                    taskToAdd = new DeadlineTask(lineArray[TASK_DESCRIPTION_INDEX], lineArray[DEADLINE_INDEX]);
+            case EVENT ->
+                    taskToAdd = new EventTask(lineArray[TASK_DESCRIPTION_INDEX],
+                            lineArray[EVENT_START_TIME_INDEX], lineArray[EVENT_END_TIME_INDEX]);
+            default -> {
+                assert taskToAdd != null;
+            }
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidFileContentsException("\nDate format is wrong in the file contents."
+                    + " For Deadline task, it should be yyyy-MM-dd format."
+                    + " For Events task, it should be yyyy-MM-ddThh:mm format");
+        }
+        return taskToAdd;
+    }
+
+    private void checkMarkStatus(String[] lineArray, Task taskToAdd) throws InvalidFileContentsException {
+        final int IS_TASK_MARKED_INDEX = 1;
 
         final String TASK_UNMARKED_STATUS = "0";
         final String TASK_MARKED_STATUS = "1";
 
-        try {
-            switch (lineArray[TASK_TYPE_INDEX]) {
-            case "T":
-                if (lineArray.length != EXPECTED_TODO_ARRAY_LENGTH) {
-                    throw new InvalidFileContentsException(
-                            "Number of columns mismatch. 3 columns for Todo task");
-                }
-                taskToAdd = new TodoTask(lineArray[TASK_DESCRIPTION_INDEX]);
-                break;
-            case "D":
-                if (lineArray.length != EXPECTED_DEADLINE_ARRAY_LENGTH) {
-                    throw new InvalidFileContentsException(
-                            "Number of columns mismatch. 4 columns for Deadline task");
-                }
-                try {
-                    taskToAdd = new DeadlineTask(lineArray[TASK_DESCRIPTION_INDEX],
-                            lineArray[DEADLINE_INDEX]);
-                } catch (DateTimeParseException e) {
-                    errorMessage += "\nDate format is wrong in the file contents."
-                            + " For Deadline task, it should be yyyy-MM-dd format.";
-                }
-                break;
-            case "E":
-                if (lineArray.length != EXPECTED_EVENT_ARRAY_LENGTH) {
-                    throw new InvalidFileContentsException(
-                            "Number of columns mismatch. 5 columns for Event task");
-                }
-                try {
-                    taskToAdd = new EventTask(lineArray[TASK_DESCRIPTION_INDEX],
-                            lineArray[EVENT_START_TIME_INDEX], lineArray[EVENT_END_TIME_INDEX]);
-                } catch (DateTimeParseException e) {
-                    errorMessage += "\nDate & Time format is wrong in the file contents."
-                            + " For Events task, it should be yyyy-MM-ddThh:mm format";
-                }
-                break;
-            default:
-                throw new InvalidFileContentsException(
-                        "Only T, E, D accepted but others found in 1st column");
-            }
-
-            assert taskToAdd != null;
-            assert lineArray.length > 2;
-
-            if (lineArray[IS_TASK_MARKED_INDEX].equals(TASK_MARKED_STATUS)) {
-                taskToAdd.markDone();
-            } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // invalid status
-                throw new InvalidFileContentsException(
-                        String.format("the value of the 2nd column should only be %s or %s",
-                                TASK_MARKED_STATUS, TASK_UNMARKED_STATUS));
-            }
-            return new Pair<Optional<Task>, String>(Optional.of(taskToAdd), errorMessage);
-        } catch (InvalidFileContentsException e) {
-            errorMessage += e.getMessage();
+        if (lineArray[IS_TASK_MARKED_INDEX].equals(TASK_MARKED_STATUS)) {
+            taskToAdd.markDone();
+        } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // invalid status
+            throw new InvalidFileContentsException(
+                    String.format("the value of the 2nd column should only be %s or %s",
+                            TASK_MARKED_STATUS, TASK_UNMARKED_STATUS));
         }
-        return new Pair<Optional<Task>, String>(Optional.empty(), "Errors found: " + errorMessage);
     }
 }
