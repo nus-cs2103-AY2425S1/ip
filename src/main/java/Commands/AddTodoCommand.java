@@ -39,6 +39,9 @@ public class AddTodoCommand extends Command {
         // Add the new Todo task to the task list
         t.addTask(newTodo); // Note: This will be removed once addTask is simplified to just add to the list
 
+        //assert that the task was added
+        assert t.getSize() > 0 : "TaskList should not be empty";
+
         // Write the updated task list to storage
         s.writeToHardDisk(t.getTasks());
 

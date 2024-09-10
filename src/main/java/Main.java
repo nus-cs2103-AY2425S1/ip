@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import UI.Delphi;
 import UI.MainWindow;
 import javafx.application.Application;
@@ -6,14 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private Delphi delphi = new Delphi("../ip/src/main/HardDisk.txt");
+    private final Delphi delphi = new Delphi("../ip/src/main/HardDisk.txt");
 
     @Override
     public void start(Stage stage) {
@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setScene(scene);
 
             //line to help with closing application
-            fxmlLoader.<MainWindow>getController().setDelphi(delphi);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setDelphi(delphi);  // inject the Delphi instance
 
             stage.show();
         } catch (IOException e) {

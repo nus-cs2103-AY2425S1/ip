@@ -43,6 +43,9 @@ public class AddDeadlineCommand extends Command {
         // Add the new Deadline task to the task list
         t.addTask(newDeadline);
 
+        //assert that the task was added
+        assert t.getSize() > 0 : "TaskList should not be empty";
+
         // Write the updated task list to storage
         s.writeToHardDisk(t.getTasks());
 

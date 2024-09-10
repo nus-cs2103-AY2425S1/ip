@@ -2,6 +2,7 @@ package Tasks;
 
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
+import Exceptions.InvalidInputException;
 import Parser.DateParser;
 
 /**
@@ -18,13 +19,16 @@ public class Deadline extends Task {
      */
     public Deadline(String description, DateParser d) throws DelphiException {
         super(description);
-        int slashIndex = description.indexOf("/");
-
+        int slashIndex = description.indexOf("/by");
+        if (slashIndex == -1) {
+            throw new InvalidInputException();
+        }
+        //remove whitespace to ensure correct formatting
         this.name = description.substring(0, slashIndex).trim();
 
         // Extract the substring after the slash and trim it
-        String temp = description.substring(slashIndex + 1).trim();
-        String date = d.parseAndFormatDateTime(temp.substring(3).trim());
+        String temp = description.substring(slashIndex + 3).trim();
+        String date = d.parseAndFormatDateTime(temp.substring(0).trim());
         if (date != null) {
             deadline = "(by: " + date + ")";
         } else {

@@ -2,8 +2,8 @@ package Commands;
 
 import Exceptions.InvalidListItemException;
 import Storage.Storage;
-import Tasks.Task;
 import TaskList.TaskList;
+import Tasks.Task;
 import UI.Ui;
 
 /**

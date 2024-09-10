@@ -1,7 +1,7 @@
 package TaskList;
 
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.DelphiException;
@@ -51,44 +51,55 @@ public class TaskList {
             int counter = 0;
             while (counter < readTasks.size()) {
                 String line = readTasks.get(counter);
+
+                //ensure that the stored tasks are formatted correcly as strings before converting
+                //them to tasks
+                assert line.charAt(0) == '[' : "Task incorrectly formatted";
+                assert line.charAt(2) == ']' : "Task incorrectly formatted";
+                assert line.charAt(3) == '[' : "Task incorrectly formatted";
+                assert line.charAt(5) == ']' : "Task incorrectly formatted";
+                assert (line.charAt(4) == 'X' || line.charAt(4) == ' ') : "Task incorrectly formatted";
+                assert line.charAt(1) == 'T' || line.charAt(1) == 'D' || line.charAt(1) == 'E'
+                        : "Task incorrectly formatted";
+
                 if (helperParser.checkStringPrefix(line, 6, "[T][ ]")) {
                     try {
                         tasks.add(new Todo(line.substring(7)));
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[T][X]")) {
                     try {
                         tasks.add(new Todo(line.substring(7)));
-                        markTaskAsDone(tasks.size());
+                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
                     try {
                         tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
                     try {
                         tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
-                        markTaskAsDone(tasks.size());
+                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
                     try {
                         tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
                     try {
                         tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
-                        markTaskAsDone(tasks.size());
+                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                     } catch (DelphiException e) {
-                        //empty
+                        //empty because the assertions should make sure that the task is of the correct format
                     }
                 }
                 counter++;
@@ -177,7 +188,6 @@ public class TaskList {
     public String printTasks() {
         String res = "";
         for (int i = 0; i < tasks.size(); i++) {
-            //System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
             res += "    " + (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
         return res;

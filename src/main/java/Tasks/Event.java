@@ -18,6 +18,7 @@ public class Event extends Task {
      * @throws EmptyInputException if the description is empty.
      */
     public Event(String description, DateParser d) throws DelphiException {
+        // chatGPT was used here to help write this
         super(description);
 
         int fromIndex = description.indexOf("/from");
@@ -37,6 +38,7 @@ public class Event extends Task {
         // Extract the end time
         String toPart = description.substring(toIndex + "/to".length()).trim();
 
+        // Reformat the output
         String formattedFromPart = d.parseAndFormatDateTime(fromPart);
         if (formattedFromPart != null) {
             fromPart = "from: " + formattedFromPart;
@@ -50,7 +52,7 @@ public class Event extends Task {
         } else {
             toPart = "to: " + toPart;
         }
-        // Reformat the output
+
         window = "(" + fromPart + " " + toPart + ")";
     }
 

@@ -40,6 +40,9 @@ public class AddEventCommand extends Command {
         // Add the new Event task to the task list
         t.addTask(newEvent);
 
+        //assert that the task was added
+        assert t.getSize() > 0 : "TaskList should not be empty";
+
         // Write the updated task list to storage
         s.writeToHardDisk(t.getTasks());
 
