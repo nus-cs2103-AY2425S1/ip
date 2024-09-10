@@ -1,5 +1,10 @@
 package fanny.ui;
 
+import fanny.task.Task;
+import fanny.task.TaskList;
+
+import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,7 +29,7 @@ public class Ui {
      */
     public void printBye() {
         showHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Fanny:\nBye. Hope to see you again soon!");
         showHorizontalLine();
     }
 
@@ -60,4 +65,38 @@ public class Ui {
     public void close() {
         scanner.close();
     }
+
+    public void showAddTaskMsg(Task task, TaskList list) {
+        System.out.println("Fanny:\nGot it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+    }
+
+    public void showDeleteTaskMsg(int taskId, TaskList list) {
+        System.out.println("Fanny:\nNoted. I've removed this task:");
+        System.out.println(list.delete(taskId));
+        System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+    }
+
+    public void showMarkTaskMsg(int taskId, TaskList list) {
+        System.out.println("Fanny:\nNice! I've marked this task as done:");
+        System.out.println(list.markAsDone(taskId));
+    }
+
+    public void showUnmarkTaskMsg(int taskId, TaskList list) {
+        System.out.println("Fanny:\nOK, I've marked this task as not done yet:");
+        System.out.println(list.markAsNotDone(taskId));
+    }
+
+    public void showFindTaskMsg(List<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("Fanny:\nNo matching tasks found.");
+        } else {
+            System.out.println("Fanny:\nHere are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + "." + list.get(i).toString());
+            }
+        }
+    }
+
 }

@@ -16,6 +16,8 @@ public class EventCommand extends Command {
     /** String representation of the description of the event task. */
     private String description;
 
+    private Event event;
+
     /**
      * Constructs an {@code EventCommand} with the specified description.
      *
@@ -29,33 +31,38 @@ public class EventCommand extends Command {
 
     /**
      * Executes the command to add an event task to the task list.
-     * Parses the description to extract the event information and duration.
      * Handles any errors that may occur during parsing.
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
+    public void executeCmd(TaskList list, Ui ui) {
         ui.showHorizontalLine();
         try {
-            String[] cmdEvent = description.split("/from ", 2);
-            String info = cmdEvent[0];
-            String[] duration = cmdEvent[1].split(" /to ", 2);
-            LocalDateTime from = LocalDateTime.parse(duration[0], formatter);
-            LocalDateTime to = LocalDateTime.parse(duration[1], formatter);
-            Task event = new Event(info, from, to);
-            list.add(event);
-            ui.showMessage("Fanny:\nGot it. I've added this task:");
-            ui.showMessage(event.toString());
-            ui.showMessage("Now you have " + list.getLength() + " tasks in the list.");
+            generateEvent();
+            list.add(this.event);
+            ui.showAddTaskMsg(this.event, list);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showMessage("Event description and duration cannot be empty");
         } catch (DateTimeParseException e) {
-            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
+            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {
             ui.showHorizontalLine();
         }
+    }
+
+    /**
+     * Parses the description to extract the event information and duration.
+     * Generate an event based on the extracted information.
+     */
+    public void generateEvent() {
+        String[] cmdEvent = this.description.split("/from ", 2);
+        String info = cmdEvent[0];
+        String[] duration = cmdEvent[1].split(" /to ", 2);
+        LocalDateTime startTime = LocalDateTime.parse(duration[0], formatter);
+        LocalDateTime endTime = LocalDateTime.parse(duration[1], formatter);
+        this.event = new Event(info, startTime, endTime);
     }
 
     /**
@@ -64,7 +71,7 @@ public class EventCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 

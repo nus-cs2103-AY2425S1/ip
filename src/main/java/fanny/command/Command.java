@@ -21,7 +21,7 @@ public abstract class Command {
      * @param list The task list to be modified by the command.
      * @param ui The user interface to interact with the user.
      */
-    public abstract void actionable(TaskList list, Ui ui);
+    public abstract void executeCmd(TaskList list, Ui ui);
 
     /**
      * An abstract method that indicates whether this command
@@ -30,5 +30,5 @@ public abstract class Command {
      * @return {@code true} if the command should cause the application to exit,
      *     {@code false} otherwise.
      */
-    public abstract boolean isExit();
+    public abstract boolean shouldExit();
 }

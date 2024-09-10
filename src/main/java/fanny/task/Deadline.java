@@ -24,6 +24,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs an {@code Deadline} with deadline as a string.
+     *
+     * @param deadline The deadline date in string format.
+     * @param description The description of the task.
+     */
+    public Deadline(String description, String deadline) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+        this.deadline = LocalDateTime.parse(deadline, formatter);
+    }
+
+    /**
      * Returns a string representation of the deadline task, including its status,
      * description, and due date and time.
      *
