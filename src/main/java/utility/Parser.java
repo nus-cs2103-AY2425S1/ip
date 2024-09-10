@@ -1,13 +1,11 @@
 package utility;
 
-import exceptions.LukeException;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * A class used for parsing command
- */
+import exceptions.LukeException;
+
+/** A class used for parsing command */
 public class Parser {
     private Command command;
     private String description;
@@ -61,6 +59,7 @@ public class Parser {
         case todo -> description = line.substring(4).trim();
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
+        default -> { }
         }
     }
 

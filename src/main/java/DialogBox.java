@@ -1,4 +1,7 @@
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,15 +13,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
-
+/**
+ * A class that display user image and text.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor for DialogBox class.
+     *
+     * @param s Is the text user sent.
+     * @param i Is the user's photo.
+     */
     public DialogBox(String s, Image i) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("view/DialogBox.fxml"));

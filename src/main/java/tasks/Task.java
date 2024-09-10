@@ -2,15 +2,29 @@ package tasks;
 
 import java.util.Objects;
 
+/**
+ * Abstract class for all task type.
+ */
 public abstract class Task {
     private boolean isComplete;
     private final String description;
 
+    /**
+     * Sets the description for all task type.
+     *
+     * @param description Is the description of the task.
+     */
     public Task(String description) {
         this.isComplete = false;
         this.description = description;
     }
 
+    /**
+     * Sets the description and complete flag for all task type.
+     *
+     * @param description Is the description of the task.
+     * @param completed Is the complete flag.
+     */
     public Task(String description, boolean isComplete) {
         this.isComplete = isComplete;
         this.description = description;
@@ -32,6 +46,12 @@ public abstract class Task {
         this.isComplete = false;
     }
 
+
+    /**
+     * To represents completion status.
+     *
+     * @return X if completed and an empty space otherwise.
+     */
     public String getCompletedStringRepresentation() {
         return !isComplete ? " " : "X";
     }
@@ -53,8 +73,12 @@ public abstract class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Task task = (Task) o;
         return isComplete == task.isComplete && Objects.equals(description, task.description);
     }

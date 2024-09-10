@@ -1,15 +1,16 @@
 package utility;
 
-import org.junit.jupiter.api.Test;
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 class StorageTest {
     @Test

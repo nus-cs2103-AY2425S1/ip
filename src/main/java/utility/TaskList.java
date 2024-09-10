@@ -1,9 +1,9 @@
 package utility;
 
-import tasks.Task;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /** Wrapper class for tasks recorded by Luke. */
 public class TaskList {
@@ -13,7 +13,7 @@ public class TaskList {
     public int getTaskListSize() {
         return tasks.size();
     }
-
+  
     /**
      * Returns an instance of TaskList object.
      * @param storage Where tasks are stored.
@@ -23,8 +23,9 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    /** Returns the size of tasks. */
+    public int getTasksSize() {
+        return tasks.size();
     }
 
     /**
@@ -56,6 +57,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find tasks matching the given description.
+     *
+     * @param description Is description of a task.
+     * @return A list of task matching the description.
+     */
     public ArrayList<Task> findTasks(String description) {
         ArrayList<Task> findings = new ArrayList<>();
         for (Task t: tasks) {
