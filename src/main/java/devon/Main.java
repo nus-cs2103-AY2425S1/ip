@@ -38,7 +38,7 @@ public class Main extends Application {
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        stage.setTitle("Duke");
+        stage.setTitle("Devon");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
