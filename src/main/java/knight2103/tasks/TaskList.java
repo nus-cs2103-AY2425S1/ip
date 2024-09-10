@@ -1,6 +1,7 @@
 package knight2103.tasks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Models a list of tasks.
@@ -61,8 +62,8 @@ public class TaskList {
      * of the taskList.
      */
     public Task mark(int index) throws IndexOutOfBoundsException { // modify Command
-        tasks.get(index).markDone();
-        return tasks.get(index); // must be after markDone to return the newly updated one
+        this.tasks.get(index).markDone();
+        return this.tasks.get(index); // must be after markDone to return the newly updated one
     }
 
     /**
@@ -75,8 +76,8 @@ public class TaskList {
      * of the taskList.
      */
     public Task unmark(int index) throws IndexOutOfBoundsException {
-        tasks.get(index).unmarkDone();
-        return tasks.get(index); // must be after unmarkDone to return the newly updated one
+        this.tasks.get(index).unmarkDone();
+        return this.tasks.get(index); // must be after unmarkDone to return the newly updated one
     }
 
     /**
@@ -89,8 +90,24 @@ public class TaskList {
      * of the taskList.
      */
     public Task delete(int index) throws IndexOutOfBoundsException {
-        Task taskToDelete = tasks.get(index);
-        tasks.remove(index);
+        Task taskToDelete = this.tasks.get(index);
+        this.tasks.remove(index);
         return taskToDelete;
+    }
+
+    /**
+     * Sorts the list of task where tasks not marked as done are shown first, tasks marked as done are
+     * shown at the bottom. Within the marked or unmarked task category, the tasks are shwon in the order of
+     * TodoTask, DeadlineTask then EventTask. Within the TodoTask, tasks are sorted alphabetically. Within
+     * DeadlineTask, tasks are sorted based on deadlines. Within EventTask, tasks are sorted based on
+     * StartTimes. If the start times are the same, tasks are further sorted based on end times. For both
+     * deadline and event tasks, if the date and times are the same between the different tasks, these
+     * tasks will be sorted based on alphabetical order.
+     *
+     * @param compareLogic The Comparator class that contains the logic behind the sorting of Task objects.
+     * @return The list of tasks after being sorted.
+     */
+    public Task sort(compareLogic) {
+        return this.tasks.sort(compareLogic); // mmmm. What other exceptions will there be?
     }
 }

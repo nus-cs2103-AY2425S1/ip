@@ -4,7 +4,8 @@ import knight2103.tasks.TaskList;
 import knight2103.tasks.Task;
 
 /**
- * User interface of the bot.
+ * User interface of the bot. Primarily contains methods of the various messages the bot will show in the
+ * interface.
  */
 public class Ui {
     /**
@@ -79,6 +80,20 @@ public class Ui {
         return listString.isEmpty()
                 ? "NIL: There is no matching tasks.\n"
                 : "Here are the matching tasks in your list:\n" + listString;
+    }
+
+    /**
+     * Shows the message of the bot containing the sorted list after the list of tasks are sorted.
+     * @param tasks The object storing the list of tasks found in the bot.
+     * @param sortLogic The Comparator class that contains the logic behind the sorting of Task objects.
+     * @return The message including the sorted list of tasks.
+     */
+    public String showSorted(TaskList tasks, Comparable<T> sortLogic) {
+        TaskList sortedTasks = tasks.sort(sortLogic); // hmm
+        String listString = formatToFullList(sortedTasks);
+        return listString.isEmpty()
+                ? "The list is already sorted. Well done!\n"
+                : "Share with me what you think wrong";
     }
 
     /**
