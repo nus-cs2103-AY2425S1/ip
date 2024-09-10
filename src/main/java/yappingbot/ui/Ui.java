@@ -14,14 +14,14 @@ public interface Ui {
      *
      * @param s String to be outputted.
      */
-    public abstract void print(String s);
+    void print(String s);
 
     /**
      * Prints a String line to output, followed by a newline.
      *
      * @param s String to be outputted as single line.
      */
-    public abstract void println(String s);
+    void println(String s);
 
     /**
      * Prints a String line, with formatting support.
@@ -29,14 +29,21 @@ public interface Ui {
      * @param formattedString String that uses `String.format()` style formatting.
      * @param o Objects that will be formatted into the format string before printing.
      */
-    public abstract void printf(String formattedString, Object ... o);
+    void printf(String formattedString, Object ... o);
 
     /**
      * Prints a String error to output.
      *
      * @param e String error to be outputted.
      */
-    public abstract void printError(String e);
+    void printError(String e);
+
+    /**
+     * Prints an error to output.
+     *
+     * @param e YappingBotException error to be outputted.
+     */
+    void printError(YappingBotException e);
 
     /**
      * Prints a String error, with formatting support.
@@ -44,14 +51,8 @@ public interface Ui {
      * @param formattedString String that uses `String.format()` style formatting.
      * @param o Objects that will be formatted into the format string before printing.
      */
-    public abstract void printfError(String formattedString, Object ... o);
+    void printfError(String formattedString, Object ... o);
 
-    /**
-     * Prints an error to output.
-     *
-     * @param e YappingBotException error to be outputted.
-     */
-    public abstract void printError(YappingBotException e);
 
     /**
      * Peeks into input buffer and returns true if a next line is available, or <b>blocks</b>
@@ -59,7 +60,7 @@ public interface Ui {
      *
      * @return boolean true if line is available, or false if input is closed.
      */
-    public abstract boolean hasInputLines();
+    boolean hasInputLines();
 
 
     /**
@@ -67,7 +68,7 @@ public interface Ui {
      *
      * @return String of next line in input buffer.
      */
-    public abstract String getNextInputLine();
+    String getNextInputLine();
 
 
     /**
@@ -75,7 +76,7 @@ public interface Ui {
      *
      * @return String to be outputted or printed:
      */
-    public abstract String getNextOutputLine() throws YappingBotIoException;
+    String getNextOutputLine() throws YappingBotIoException;
 
     /**
      * Peeks into output buffer and returns true if a next line is available, or <b>blocks</b>
@@ -83,6 +84,6 @@ public interface Ui {
      *
      * @return boolean true if line is available, or false if output is closed.
      */
-    public abstract boolean hasOutputLines();
+    boolean hasOutputLines();
 }
 

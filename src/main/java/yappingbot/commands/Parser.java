@@ -2,10 +2,10 @@ package yappingbot.commands;
 
 import java.util.HashMap;
 
-import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 /**
  * Parser class to aid in parsing command text and arguments.
@@ -78,6 +78,15 @@ public class Parser {
         return i;
     }
 
+    /**
+     * Asserts if the number of slices in the String array given <b>at least</b> the minimum
+     * number of arguments required according to the interger i.
+     *
+     * @param userInputSlices String array of input command, including the command verb and its
+     *                        arguments
+     * @param i integer of how many arguements are required for this command.
+     * @throws YappingBotOobException Exception if there is not enough arguments.
+     */
     public static void checkMinimumArgsAvailable(String[] userInputSlices, int i)
     throws YappingBotOobException {
         if ((userInputSlices.length - 1) < i) {

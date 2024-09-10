@@ -2,7 +2,6 @@ package yappingbot.ui;
 
 import java.util.Scanner;
 
-import jdk.jshell.spi.ExecutionControl;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
 

@@ -8,24 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import yappingbot.TestHelper;
 
-class UiTest {
+class UiCliTest {
 
-    @Test
-    void testQuoteSinglelineText() {
-        StringBuilder sb = new StringBuilder();
-        Ui.quoteSinglelineText("Test", sb);
-        Ui.quoteSinglelineText("Test2", sb);
-        Ui.quoteSinglelineText("", sb);
-        Ui.quoteSinglelineText("multiline\naccident", sb);
-        final String expected =
-                """
-               |  Test
-               |  Test2
-               |
-               |  multilineaccident
-               """;
-        assertEquals(expected, sb.toString());
-    }
+    UiCli ui = new UiCli();
 
     @Test
     void testPrintError() throws IOException {
@@ -36,7 +21,7 @@ class UiTest {
                 """;
         TestHelper h = new TestHelper();
         h.captureStdOut();
-        Ui.printError("Error message here!\nMultiline Error Message");
+        ui.printError("Error message here!\nMultiline Error Message");
         h.stopCapture();
         assertEquals(expected, h.toString());
     }
@@ -52,9 +37,9 @@ class UiTest {
                         """;
         TestHelper h = new TestHelper();
         h.captureStdOut();
-        Ui.print("test 1");
-        Ui.print("");
-        Ui.print("multiline\nAllowed");
+        ui.print("test 1");
+        ui.print("");
+        ui.print("multiline\nAllowed");
         h.stopCapture();
         assertEquals(expected, h.toString());
     }
@@ -69,9 +54,9 @@ class UiTest {
                         """;
         TestHelper h = new TestHelper();
         h.captureStdOut();
-        Ui.println("test 1");
-        Ui.println("");
-        Ui.println("multiline\nprevented");
+        ui.println("test 1");
+        ui.println("");
+        ui.println("multiline\nprevented");
         h.stopCapture();
         assertEquals(expected, h.toString());
     }

@@ -276,7 +276,7 @@
         <property name="sortImportsInGroupAlphabetically" value="true"/>
         <property name="separateLineBetweenGroups" value="true"/>
         <property name="customImportOrderRules"
-                  value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###SAME_PACKAGE(1)"/>
+                  value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
         <property name="standardPackageRegExp" value="^(java|javax)\."/>
         <property name="specialImportsRegExp" value="^org\."/>
         <property name="thirdPartyPackageRegExp" value="^com\."/>

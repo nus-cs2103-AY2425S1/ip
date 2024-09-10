@@ -3,8 +3,8 @@ package yappingbot;
 import java.util.Arrays;
 
 import yappingbot.storage.Storage;
-import yappingbot.ui.gui.MainGuiApplication;
 import yappingbot.ui.UiCli;
+import yappingbot.ui.gui.MainGuiApplication;
 
 /**
  * A launcher class to workaround classpath issues.
