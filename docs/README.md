@@ -22,7 +22,6 @@ If you can type fast, Jackson can get it done faster.
   - [Task Names](#task-names)
   - [Colour Coding](#colour-coding)
 - [FAQ](#faq)
-- [Known issues](#known-issues)
 - [Command Summary](#command-summary)
 
 # Quick Start
@@ -35,10 +34,13 @@ If you can type fast, Jackson can get it done faster.
 <div style="text-align: -webkit-center;"><img src="start-up-img.png" alt="help-1" width="301"></div>
 
 - To input, type in the text box and either hit Enter or click on the send button.
-- Try a few commands! You can view the list of supported commands with `help`
+
+> [!TIP]
+> Try a few commands! You can view the list of supported commands with `help`
 
 # Features and Commands
-> [!NOTE] Notes about the syntax format:
+> [!NOTE]
+> Notes about the syntax format:
 > - `[NAME OF ARGUMENT]` denotes a mandatory argument for a command.
 > - `NAME OF ARGUMENT` denotes a mandatory argument for a format.
 > - `(NAME OF ARGUMENT)` denotes an optional argument for either a command or format.
@@ -141,12 +143,18 @@ Exits the program.
 Format: `bye`
 
 ## Saving and Loading
+Jackson uses active saving in a save file in `/src/main/resources/texts/data.txt`.
+
 The task list is always saved after **any modification to itself**, so there is no need to
 use a save command. If the save file does not exist, the program will create a new save file in the path
 specified in `Jackson.java`.
 
 During initialisation, Jackson will read from the save file and load all previously loaded tasks
 into the current task list.
+
+> [!CAUTION]
+> In case of file instability and permissions, it might be safer to store an extra copy
+> of `data.txt` when transfering the save file across devices.
 
 ## Task Names
 Jackson enforces a strict _no-conflict naming_ system. If the user wishes to create tasks of the 
@@ -158,13 +166,15 @@ delete the pre-existing task in the list.
 > as only one-to-one String comparison is used
 
 ## Colour Coding
-Generally, the GUI employs colour coding as such:
-- User input: Light blue `#`
-- Errors: Red
-- List operations: Yellow
-- Task operations: Green
-- Initialisation and Shutdown: Blue-Green gradient
-- Other Jackson responses: Purple
+Generally, the GUI employs textbox background colour coding as such:
+|Type of Message     |Colour of textbox background|
+|:------------------:|:-------------------:|
+|User input          | Light blue `#87CEFA`|
+|Errors              |Red `#F19595`        |
+|List operations     |Orange `#f1cfa2`     |
+|Task operations     |Green `90EE90`       |
+|Startup and Shutdown|Blue-Green gradient `#96e4d9` and `#c2f3c2`|
+|Other Jackson responses|Purple `CBC3E3`|
 
 # FAQ
 **Q**: How do I transfer my data to another computer?\
