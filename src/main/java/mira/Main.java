@@ -25,7 +25,7 @@ public class Main extends Application {
             stage.setTitle("Mira Chatbot");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setMira(mira);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMira(mira); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

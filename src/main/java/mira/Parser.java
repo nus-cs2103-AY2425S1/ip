@@ -1,5 +1,6 @@
 package mira;
 
+import mira.command.AddExpenseCommand;
 import mira.command.Command;
 import mira.command.DeadlineCommand;
 import mira.command.DeleteCommand;
@@ -7,6 +8,7 @@ import mira.command.EventCommand;
 import mira.command.ExitCommand;
 import mira.command.FindCommand;
 import mira.command.ListCommand;
+import mira.command.ListExpenseCommand;
 import mira.command.MarkCommand;
 import mira.command.TodoCommand;
 import mira.command.UnmarkCommand;
@@ -37,6 +39,9 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "list":
+            if (arguments.equals("expenses")) {
+                return new ListExpenseCommand();
+            }
             return new ListCommand();
         case "mark":
             int markIdx = Integer.parseInt(arguments);
@@ -66,6 +71,17 @@ public class Parser {
             String from = eventParts[1].trim();
             String to = eventParts[2].trim();
             return new EventCommand(eventDesc, from, to);
+        case "expense":
+            String[] expenseParts = arguments.split("/category|/amount");
+            if (expenseParts.length != 3) {
+                throw new MiraException("Invalid format. Use: expense <description> /category <category> "
+                        + "/amount <amount>");
+            }
+            String expenseDesc = expenseParts[0].trim();
+            String category = expenseParts[1].trim();
+            String amountStr = expenseParts[2].trim();
+            double amount = Double.parseDouble(amountStr);
+            return new AddExpenseCommand(category, amount, expenseDesc);
         case "find":
             return new FindCommand(arguments);
         default:

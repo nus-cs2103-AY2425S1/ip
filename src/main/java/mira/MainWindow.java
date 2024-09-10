@@ -26,6 +26,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image miraImage = new Image(this.getClass().getResourceAsStream("/images/DaMira.png"));
 
+    /**
+     * Initializes the UI components and sets up necessary bindings.
+     * <p>
+     * This method is called automatically when the associated FXML file is loaded.
+     * It binds the vertical scroll position of the {@code scrollPane} to the height of the {@code dialogContainer}
+     * so that the scroll view automatically scrolls to the bottom when new messages are added.
+     * <p>
+     * Additionally, this method displays a welcome message from Mira in the dialog container
+     * and sets a placeholder prompt text for the user input field.
+     * </p>
+     *
+     * @implNote The welcome message is added to the {@code dialogContainer} using the {@code DialogBox} utility,
+     *     and it includes an image representing Mira.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

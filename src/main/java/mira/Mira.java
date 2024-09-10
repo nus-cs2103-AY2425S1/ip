@@ -12,6 +12,7 @@ import mira.command.Command;
 public class Mira {
     private final Storage storage; // storage for saving, loading tasks
     private TaskList tasks; // Manages tasks
+    private ExpenseList expenses;
 
     /**
      * Constructs a new {@code Mira} instance, initializing the storage, and task list.
@@ -28,9 +29,10 @@ public class Mira {
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.loadTasks());
-        } catch (MiraException | SecurityException | IOException e){
+        } catch (MiraException | SecurityException | IOException e) {
             this.tasks = new TaskList();
         }
+        this.expenses = new ExpenseList();
     }
 
     /**
@@ -39,10 +41,10 @@ public class Mira {
     public String getResponse(String userInput) {
         Command command = null;
         try {
-            assert userInput != null: "user input should not be null";
+            assert userInput != null : "user input should not be null";
             command = Parser.parse(userInput);
             assert tasks != null : "tasks should not be null";
-            command.setTaskList(tasks);
+            command.setTaskList(tasks, expenses);
             String commandResult = command.execute();
             if (command instanceof Savable savable) { // if command is Savable
                 savable.save(storage);
