@@ -32,7 +32,7 @@ public class Parser {
     public static List<Task> parseFromStorage(Storage storage) throws MizzException {
         assert storage != null : "Storage must not be null";
 
-        List<Task> result = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         String[] entries = storage.toArray();
 
         for (String entry : entries) {
@@ -94,14 +94,14 @@ public class Parser {
                 throw new MizzException("Invalid entry found in file!: " + taskType);
             }
             assert t != null : "Task must not be null";
-            result.add(t);
+            tasks.add(t);
 
             if (entry.charAt(4) == 'X') {
                 t.markDone();
             }
         }
 
-        return result;
+        return tasks;
     }
 
     /**
@@ -120,63 +120,63 @@ public class Parser {
     public static String[] parseStringInput(String inputString) throws MizzException {
         assert inputString != null : "Input must not be null";
 
-        String[] result = new String[4];
+        String[] parsedParts = new String[4];
         String[] parts = inputString.split("\\s+");
-        result[0] = parts[0].toLowerCase();
+        parsedParts[0] = parts[0].toLowerCase();
 
-        if (result[0].equals("mark") || result[0].equals("unmark")) {
+        if (parsedParts[0].equals("mark") || parsedParts[0].equals("unmark")) {
             Validator.verifyMarkUnmark(parts);
-            result[1] = parts[1];
-            return result;
+            parsedParts[1] = parts[1];
+            return parsedParts;
         }
 
-        if (result[0].equals("delete")) {
+        if (parsedParts[0].equals("delete")) {
             Validator.verifyDelete(parts);
-            result[1] = parts[1];
-            return result;
+            parsedParts[1] = parts[1];
+            return parsedParts;
         }
 
-        if (result[0].equals("find")) {
-            Parser.parseFind(parts, result);
-            return result;
+        if (parsedParts[0].equals("find")) {
+            Parser.parseFind(parts, parsedParts);
+            return parsedParts;
         }
 
-        if (result[0].equals("list") || result[0].equals("bye")) {
-            return result;
+        if (parsedParts[0].equals("list") || parsedParts[0].equals("bye")) {
+            return parsedParts;
         }
 
-        switch (result[0]) {
+        switch (parsedParts[0]) {
         case "todo":
-            Parser.parseTodo(parts, result);
-            return result;
+            Parser.parseTodo(parts, parsedParts);
+            return parsedParts;
         case "deadline":
-            Parser.parseDeadline(parts, result);
-            return result;
+            Parser.parseDeadline(parts, parsedParts);
+            return parsedParts;
         case "event":
-            Parser.parseEvent(parts, result);
-            return result;
+            Parser.parseEvent(parts, parsedParts);
+            return parsedParts;
         default:
             break;
         }
 
-        return result;
+        return parsedParts;
     }
 
     /**
      * Helper method to parse a todo command.
      *
      * @param parts Split input string.
-     * @param result Extra details inside the input string.
+     * @param parsedParts Extra details inside the input string.
      * @return An array of strings containing the broken up and cleaned command.
      * @throws ToDoException if verification of the command fails.
      */
-    private static String[] parseTodo(String[] parts, String[] result) throws ToDoException {
+    private static String[] parseTodo(String[] parts, String[] parsedParts) throws ToDoException {
         Validator.verifyTodo(parts);
-        result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-        return result;
+        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        return parsedParts;
     }
 
-    private static String[] parseDeadline(String[] parts, String[] result)
+    private static String[] parseDeadline(String[] parts, String[] parsedParts)
             throws DeadlineException {
         int byIdx = -1;
         for (int i = 1; i < parts.length; i++) {
@@ -187,12 +187,12 @@ public class Parser {
         }
 
         Validator.verifyDeadline(parts, byIdx);
-        result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
-        result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
-        return result;
+        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
+        parsedParts[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
+        return parsedParts;
     }
 
-    private static String[] parseEvent(String[] parts, String[] result) throws EventException {
+    private static String[] parseEvent(String[] parts, String[] parsedParts) throws EventException {
         int fromIdx = -1;
         int toIdx = -1;
 
@@ -204,15 +204,15 @@ public class Parser {
             }
         }
         Validator.verifyEvent(parts, fromIdx, toIdx);
-        result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
-        result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
-        result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
-        return result;
+        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
+        parsedParts[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
+        parsedParts[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
+        return parsedParts;
     }
 
-    private static String[] parseFind(String[] parts, String[] result) throws FindException {
-        Validator.verifyFind(result);
-        result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-        return result;
+    private static String[] parseFind(String[] parts, String[] parsedParts) throws FindException {
+        Validator.verifyFind(parsedParts);
+        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        return parsedParts;
     }
 }
