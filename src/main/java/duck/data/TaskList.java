@@ -24,6 +24,7 @@ public class TaskList extends ArrayList<Task> {
     private static final String MESSAGE_ADD_TASK = "Got it. I've added this task:\n";
     private static final String MESSAGE_TASK_LIST_SIZE = " tasks in the list now.\n";
     private static final String MESSAGE_REMOVE_TASK = "Noted. I've removed this task:\n";
+    private static final String INVALID_COMPARATOR = "Quack! Error occurred when sorting task! Comparator is null.";
 
     /**
      * Adds a task to the task list and updates the storage system.
@@ -111,24 +112,38 @@ public class TaskList extends ArrayList<Task> {
      * @param target The type of tasks to prioritize (todo, deadline, event).
      */
     public void sortTasks(Comparator<Task> comparator, String target) throws DuckException {
+        if (comparator == null) {
+            throw new DuckException(INVALID_COMPARATOR);
+        }
+
         TaskList sortedTasks = new TaskList();
         TaskList remainingTasks = new TaskList();
 
+        partitionTasksBasedOnTarget(target, sortedTasks, remainingTasks);
+        sortedTasks.sort(comparator);
+        updateList(sortedTasks, remainingTasks);
+
+    }
+
+    /**
+     * Places the sorted tasks on top of the remaining tasks.
+     *
+     * @param sortedTasks the sorted task list
+     * @param remainingTasks the remaining task list
+     */
+    private void updateList(TaskList sortedTasks, TaskList remainingTasks) {
+        this.clear();
+        this.addAll(sortedTasks);
+        this.addAll(remainingTasks);
+    }
+
+    private void partitionTasksBasedOnTarget(String target, TaskList sortedTasks, TaskList remainingTasks) {
         for (Task task : this) {
             if (isOfTargetType(task, target)) {
                 sortedTasks.add(task);
             } else {
                 remainingTasks.add(task);
             }
-        }
-
-        if (comparator != null) {
-            sortedTasks.sort(comparator);
-
-            // Clear the list and re-add sorted + remaining tasks
-            this.clear();
-            this.addAll(sortedTasks);
-            this.addAll(remainingTasks);
         }
     }
 

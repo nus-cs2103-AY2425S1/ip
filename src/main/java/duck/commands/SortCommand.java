@@ -60,12 +60,16 @@ public class SortCommand extends Command {
         super.execute(tasks, storage, ui);
 
         String[] splitString = splitMessage(message);
-
         validateMessage(splitString);
 
+        // Extract keywords of the target and by parameters from the input message
         String target = getTarget(splitString);
         String by = getBy(splitString);
 
+        sortRelevantTasks(tasks, storage, target, by);
+    }
+
+    private void sortRelevantTasks(TaskList tasks, Storage storage, String target, String by) throws DuckException {
         Comparator<Task> comp = getComparator(target, by);
 
         tasks.sortTasks(comp, target);
@@ -95,7 +99,7 @@ public class SortCommand extends Command {
      * @param message The parsed input message as a string array.
      * @throws DuckException If the message format is invalid.
      */
-    private void validateMessage(String[] message) throws DuckException {
+    private void validateMessage(String... message) throws DuckException {
         if (message.length < 4) {
             throw new DuckException(ERROR_MESSAGE_SORT_COMMAND);
         }
@@ -108,7 +112,7 @@ public class SortCommand extends Command {
      * @return The target specified in the input message.
      * @throws DuckException If the target is missing or invalid.
      */
-    private String getTarget(String[] message) throws DuckException {
+    private String getTarget(String... message) throws DuckException {
         for (int i = 0; i < message.length - 1; i++) {
             if (message[i].equals(PARAMETER_TARGET)) {
                 return message[i + 1];
@@ -124,7 +128,7 @@ public class SortCommand extends Command {
      * @return The sorting criterion specified in the input message.
      * @throws DuckException If the sorting criterion is missing or invalid.
      */
-    private String getBy(String[] message) throws DuckException {
+    private String getBy(String... message) throws DuckException {
         for (int i = 0; i < message.length - 1; i++) {
             if (message[i].equals(PARAMETER_BY)) {
                 return message[i + 1];
