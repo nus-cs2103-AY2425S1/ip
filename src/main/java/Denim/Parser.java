@@ -46,8 +46,7 @@ public class Parser {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-
-            return new InvalidCommand("Command", "Command for help: help");
+            return new InvalidCommand("Unknown Command", "Command for help: help");
         }
 
         final String commandWord = matcher.group("commandWord").trim();

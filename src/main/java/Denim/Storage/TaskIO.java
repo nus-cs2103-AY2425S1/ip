@@ -113,6 +113,7 @@ public class TaskIo {
             }
             break;
         case "n":
+            //Fallthrough
         default:
             throw new DenimException("Terminating Program. Have a nice day.");
         }

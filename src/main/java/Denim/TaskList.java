@@ -11,13 +11,14 @@ import denim.tasks.Task;
  * from the task list, as well as to check for valid task indices.
  */
 public class TaskList {
+    private static final int INITIAL_CAPACITY = 100;
     private final ArrayList<Task> taskList;
 
     /**
      * Constructs a new TaskList with an initial capacity of 100 tasks.
      */
     public TaskList() {
-        taskList = new ArrayList<>(100);
+        taskList = new ArrayList<>(INITIAL_CAPACITY);
     }
 
     /**

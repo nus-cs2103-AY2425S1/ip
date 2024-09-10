@@ -29,7 +29,7 @@ public class Main extends Application {
             Scene scene = new Scene(mainWindow);
             stage.setTitle("Denim");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDenim(denim); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setDenim(denim); // inject the Denim instance
             denim.start();
             stage.show();
         } catch (IOException e) {
