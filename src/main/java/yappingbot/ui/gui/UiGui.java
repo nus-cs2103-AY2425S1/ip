@@ -19,17 +19,17 @@ public class UiGui implements Ui {
 
     @Override
     public void print(String s) {
-        outputBuffer.push(s);
+        outputBuffer.add(s);
     }
 
     @Override
     public void println(String s) {
-        outputBuffer.push(s);
+        outputBuffer.add(s);
     }
 
     @Override
     public void printf(String formattedString, Object... o) {
-        outputBuffer.push(String.format(formattedString, o));
+        outputBuffer.add(String.format(formattedString, o));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class UiGui implements Ui {
      * @param input String to be inputted
      */
     public void pushInputLine(String input) {
-        inputBuffer.push(input);
+        inputBuffer.add(input);
     }
 
 
