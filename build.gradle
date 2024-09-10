@@ -4,7 +4,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'}
 
-mainClassName = "LunaBot.LunaBot"
+mainClassName = "lunabot.LunaBot"
 
 repositories {
     mavenCentral()
