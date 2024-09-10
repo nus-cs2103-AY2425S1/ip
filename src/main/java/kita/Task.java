@@ -4,23 +4,23 @@ package kita;
  * Overall parent Task class - Deadline, Event and ToDo inherits from this class
  */
 public class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private final String name;
 
     /**
      * Initialises a Task, should not be called directly by developers
      */
     public Task(String name) {
-        this.completed = false;
+        this.isCompleted = false;
         this.name = name;
     }
 
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
     public boolean getCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     public String getName() {
