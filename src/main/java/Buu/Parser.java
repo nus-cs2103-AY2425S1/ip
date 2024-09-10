@@ -1,4 +1,5 @@
 package Buu;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +18,6 @@ public class Parser {
      * @return The corresponding Command object based on the input.
      * @throws GPTException If the input cannot be parsed into a valid command.
      */
-
     public static Command parseCommand(String input) throws GPTException {
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
@@ -35,7 +35,7 @@ public class Parser {
             return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new EventCommand(input);
-        } else if (input.startsWith("find")) { // Added "find" command
+        } else if (input.startsWith("find")) {
             return new FindCommand(input);
         } else {
             return new HelpCommand(); // Return a HelpCommand when an unrecognized input is entered
@@ -51,36 +51,62 @@ public class Parser {
      * @return A LocalDateTime object representing the parsed date and time, or null if the input is invalid.
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
-        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
-        DateTimeFormatter formatter5 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime dateTime = parseWithDateTimeFormatter(dateTimeStr, "yyyy-MM-dd HHmm");
+        if (dateTime != null) {
+            return dateTime;
+        }
 
+        dateTime = parseWithDateTimeFormatter(dateTimeStr, "d/M/yyyy HHmm");
+        if (dateTime != null) {
+            return dateTime;
+        }
+
+        dateTime = parseWithDateTimeFormatter(dateTimeStr, "yyyy-M-d HHmm");
+        if (dateTime != null) {
+            return dateTime;
+        }
+
+        LocalDate date = parseWithDateFormatter(dateTimeStr, "d/M/yyyy");
+        if (date != null) {
+            return date.atStartOfDay();
+        }
+
+        date = parseWithDateFormatter(dateTimeStr, "yyyy-MM-dd");
+        if (date != null) {
+            return date.atStartOfDay();
+        }
+
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, d/M/yyyy HHmm, or yyyy-MM-dd format.");
+        return null;
+    }
+
+    /**
+     * Attempts to parse a date-time string with the given format.
+     * @param dateTimeStr The date-time string to parse.
+     * @param pattern The date-time pattern to use.
+     * @return A LocalDateTime object if parsing is successful, or null if an exception occurs.
+     */
+    private static LocalDateTime parseWithDateTimeFormatter(String dateTimeStr, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         try {
-            return LocalDateTime.parse(dateTimeStr, formatter1);
+            return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException e) {
-            try {
-                return LocalDateTime.parse(dateTimeStr, formatter2);
-            } catch (DateTimeParseException ex) {
-                try {
-                    return LocalDateTime.parse(dateTimeStr, formatter3);
-                } catch (DateTimeParseException exc) {
-                    try {
-                        LocalDate date = LocalDate.parse(dateTimeStr, formatter4);
-                        return date.atStartOfDay();
-                    } catch (DateTimeParseException exc2) {
-                        try {
-                            LocalDate date = LocalDate.parse(dateTimeStr, formatter5);
-                            return date.atStartOfDay();
-                        } catch (DateTimeParseException exc3) {
-                            System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, "
-                                    + "d/M/yyyy HHmm, or yyyy-MM-dd format.");
-                            return null;
-                        }
-                    }
-                }
-            }
+            return null; // Return null to indicate a parsing failure
+        }
+    }
+
+    /**
+     * Attempts to parse a date string with the given format.
+     * @param dateStr The date string to parse.
+     * @param pattern The date pattern to use.
+     * @return A LocalDate object if parsing is successful, or null if an exception occurs.
+     */
+    private static LocalDate parseWithDateFormatter(String dateStr, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        try {
+            return LocalDate.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
+            return null; // Return null to indicate a parsing failure
         }
     }
 }
