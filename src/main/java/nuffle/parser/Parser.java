@@ -73,6 +73,9 @@ public class Parser {
         } else if (userInput.startsWith("find")) {
             // get the description and parse as argument to the find function
             return new FindCommand(userInput);
+        } else if (userInput.startsWith("loan")) {
+            // Program will add a loan task to the list
+            return new LoanCommand(userInput);
         } else {
             throw NuffleException.unknown();
         }

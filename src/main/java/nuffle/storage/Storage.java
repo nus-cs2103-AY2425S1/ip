@@ -1,9 +1,6 @@
 package nuffle.storage;
 
-import nuffle.task.Deadline;
-import nuffle.task.Event;
-import nuffle.task.Task;
-import nuffle.task.Todo;
+import nuffle.task.*;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -93,9 +90,25 @@ public class Storage {
                 } else {
                     event.markNotDone();
                 }
-
                 tasks.add(event);
                 eachLine = buffer.readLine();
+            } else if (Objects.equals(category, "L")) {
+                System.out.println(components[5]);
+                LocalDateTime dueDate = LocalDateTime.parse(components[5].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+                System.out.println("here2");
+                double amount = Double.parseDouble(components[4].trim());
+                System.out.println(amount);
+                Loan loan = new Loan(components[2], components[3], amount, dueDate);
+                if (components[1].trim().equals("1")) {
+                    loan.markAsDone();
+                } else {
+                    loan.markNotDone();
+                }
+
+                tasks.add(loan);
+                eachLine = buffer.readLine();
+
+
             }
         }
         // close the BufferedReader

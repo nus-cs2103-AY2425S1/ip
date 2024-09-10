@@ -31,4 +31,12 @@ public class NuffleException extends Exception {
     public static NuffleException checkDateTimeFormat() {
         return new NuffleException("Please check the date time format for your input [format: yyyy-mm-dd hhmm.");
     }
+
+    public static NuffleException checkLoanParams() {
+        return new NuffleException("There is missing input after /B /L /amt or /due.");
+    }
+
+    public static NuffleException checkLoanFormat() {
+        return new NuffleException("There is missing /B /L /amt or /due in your command.");
+    }
 }
