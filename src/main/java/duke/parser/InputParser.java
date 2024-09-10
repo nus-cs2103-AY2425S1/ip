@@ -2,6 +2,7 @@ package duke.parser;
 
 import java.time.LocalDateTime;
 
+import duke.commands.SetPriorityCommand;
 import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
@@ -10,6 +11,7 @@ import duke.commands.FindTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.MarkTaskCommand;
 import duke.exceptions.InvalidInputException;
+import duke.exceptions.InvalidPriorityException;
 
 /**
  * The {@code InputParser} class is responsible for parsing user input and
@@ -64,7 +66,18 @@ public class InputParser {
         case "deadline":
         case "event":
             return new AddTaskCommand(userInput);
-
+        case "priority":
+            String[] taskIndexAndPriority = InputParser.parseCommandArgument(userInput,
+                    "Invalid priority command format").split(" ", 2);;
+            try {
+                int taskIndex = Integer.parseInt(taskIndexAndPriority[0]) - 1;
+                int priority = Integer.parseInt(taskIndexAndPriority[1]);
+                return new SetPriorityCommand(taskIndex, priority);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidInputException("wrong number of inputs to priority command!");
+            } catch (InvalidPriorityException e) {
+                throw new InvalidInputException(e.getMessage());
+            }
         default:
             throw new InvalidInputException("The command you entered does not exist!");
         }

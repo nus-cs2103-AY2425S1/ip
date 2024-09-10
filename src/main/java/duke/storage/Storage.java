@@ -35,20 +35,20 @@ public class Storage {
      * @return The corresponding Task object, or null if there is an error converting the task.
      */
     private static Task convertStateToTask(String state) {
-        // Assert that the state string is valid and not empty
         assert state != null && !state.trim().isEmpty() : "Invalid state string provided";
 
         String[] taskInformation = state.split(" \\| ");
-        assert taskInformation.length >= 3 : "Malformed state string, expected at least 3 parts";
+        assert taskInformation.length >= 4 : "Malformed state string, expected at least 4 parts";
 
-        String description = taskInformation[2];
+        String description = taskInformation[3];
+        int priority = Integer.parseInt(taskInformation[2]); // Read the priority field
         Task task;
 
         if (taskInformation[0].equals("T")) {
             task = new ToDos(description);
         } else if (taskInformation[0].equals("D")) {
-            assert taskInformation.length >= 4 : "Malformed deadline state, expected 4 parts";
-            String by = taskInformation[3];
+            assert taskInformation.length >= 5 : "Malformed deadline state, expected 5 parts";
+            String by = taskInformation[4];
 
             try {
                 task = new Deadline(description, by);
@@ -57,8 +57,8 @@ public class Storage {
                 return null;
             }
         } else if (taskInformation[0].equals("E")) {
-            assert taskInformation.length >= 4 : "Malformed event state, expected 4 parts";
-            String[] times = taskInformation[3].split("-");
+            assert taskInformation.length >= 5 : "Malformed event state, expected 5 parts";
+            String[] times = taskInformation[4].split("-");
             assert times.length == 2 : "Malformed event times, expected 'from-to' format";
             String from = times[0];
             String to = times[1];
@@ -76,6 +76,8 @@ public class Storage {
         if (taskInformation[1].equals("1")) {
             task.setDone();
         }
+
+        task.setPriority(priority); // Set priority for the task
 
         return task;
     }
@@ -122,20 +124,21 @@ public class Storage {
         assert task != null : "Task cannot be null";
 
         StringBuilder str = new StringBuilder();
-        str.append(task.getStatusIcon().equals("X") ? "| 1 " : "| 0 ");
-        str.append("| ");
+        str.append(task.getStatusIcon().equals("X") ? "1" : "0");
+        str.append(" | ");
+        str.append(task.getPriority()); // Append the priority field
+        str.append(" | ");
         str.append(task.getDescription());
-        str.append(" ");
 
         if (task instanceof ToDos) {
-            str.insert(0, "T ");
+            str.insert(0, "T | ");
         } else if (task instanceof Deadline deadline) {
-            str.insert(0, "D ");
-            str.append("| ");
+            str.insert(0, "D | ");
+            str.append(" | ");
             str.append(deadline.getBy());
         } else if (task instanceof Event event) {
-            str.insert(0, "E ");
-            str.append("| ");
+            str.insert(0, "E | ");
+            str.append(" | ");
             str.append(event.getFrom());
             str.append("-");
             str.append(event.getTo());

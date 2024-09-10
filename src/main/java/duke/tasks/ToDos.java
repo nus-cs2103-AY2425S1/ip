@@ -23,6 +23,6 @@ public class ToDos extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + " [" + this.getStatusIcon() + "] " + super.toString();
+        return "[T]" + " [" + this.getStatusIcon() + "] " + "[Priority: " + this.priority + "] " + super.toString();
     }
 }
