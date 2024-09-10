@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 
 import kita.exceptions.KitaMissingIndex;
+import kita.exceptions.KitaOutOfBounds;
 
 /**
  * Commands executor class
@@ -107,7 +108,7 @@ public class Commands {
     }
 
     /**
-     * Marks a Task as "completed"
+     * Marks >= 1 Tasks as "completed"
      * Also writes to Storage
      *
      * @param command The String command that was entered in the form of "mark `task_id`"
@@ -119,13 +120,28 @@ public class Commands {
             throw new KitaMissingIndex();
         }
 
-        int numberToMark = Integer.parseInt(splitCommand[1]);
-        Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, true);
+        StringBuilder finalOutput = new StringBuilder();
         StringBuilder output = new StringBuilder();
-        printAndAppend(output, "Nice! I've marked this task as done:");
-        printAndAppend(output, "  " + theTask);
+        StringBuilder errorOutput = new StringBuilder();
+        output.append("Nice! I've marked theses tasks as done: \n");
+        for (int i = 1; i < splitCommand.length; i++) {
+            int numberToMark = Integer.parseInt(splitCommand[i]);
+            try {
+                Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, true);
+                output.append("  " + theTask + "\n");
+            }
+            catch (KitaOutOfBounds e) {
+                if (errorOutput.isEmpty()) {
+                    errorOutput.append("However, I had errors marking the following tasks: \n");
+                }
+                errorOutput.append("  " + e.toString() + "\n");
+            }
+        }
+        finalOutput.append(output);
+        finalOutput.append(errorOutput);
+        System.out.println(finalOutput);
         this.saveSystem.writeTasksToFile(this.tasks.getAllTasks());
-        return output.toString();
+        return finalOutput.toString();
     }
 
     /**
@@ -141,13 +157,28 @@ public class Commands {
             throw new KitaMissingIndex();
         }
 
-        int numberToMark = Integer.parseInt(splitCommand[1]);
-        Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, false);
+        StringBuilder finalOutput = new StringBuilder();
         StringBuilder output = new StringBuilder();
-        printAndAppend(output, "OK, I've marked this task as not done yet:");
-        printAndAppend(output, "  " + theTask);
-        saveSystem.writeTasksToFile(this.tasks.getAllTasks());
-        return output.toString();
+        StringBuilder errorOutput = new StringBuilder();
+        output.append("I've marked theses tasks as not done yet: \n");
+        for (int i = 1; i < splitCommand.length; i++) {
+            int numberToMark = Integer.parseInt(splitCommand[i]);
+            try {
+                Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, false);
+                output.append("  " + theTask + "\n");
+            }
+            catch (KitaOutOfBounds e) {
+                if (errorOutput.isEmpty()) {
+                    errorOutput.append("However, I had errors marking the following tasks: \n");
+                }
+                errorOutput.append("  " + e.toString() + "\n");
+            }
+        }
+        finalOutput.append(output);
+        finalOutput.append(errorOutput);
+        System.out.println(finalOutput);
+        this.saveSystem.writeTasksToFile(this.tasks.getAllTasks());
+        return finalOutput.toString();
     }
 
     /**
@@ -163,13 +194,29 @@ public class Commands {
             throw new KitaMissingIndex();
         }
 
-        int numberToDelete = Integer.parseInt(splitCommand[1]);
-        Task theTask = this.tasks.removeTask(numberToDelete - 1);
+        StringBuilder finalOutput = new StringBuilder();
         StringBuilder output = new StringBuilder();
-        printAndAppend(output, "Noted. I've removed this task:");
-        printAndAppend(output, "  " + theTask);
-        printAndAppend(output, "Now you have " + this.tasks.size() + " tasks in the list.");
+        StringBuilder errorOutput = new StringBuilder();
+        printAndAppend(output, "Noted. I've removed these tasks:");
+        for (int i = 1; i < splitCommand.length; i++) {
+            int numberToMark = Integer.parseInt(splitCommand[i]);
+            try {
+                Task theTask = this.tasks.removeTask(numberToMark - 1);
+                output.append("  " + theTask + "\n");
+            }
+            catch (KitaOutOfBounds e) {
+                if (errorOutput.isEmpty()) {
+                    errorOutput.append("However, I encountered errors deleting the following tasks: \n");
+                }
+                errorOutput.append("  " + e.toString() + "\n");
+            }
+        }
+        finalOutput.append(output);
+        finalOutput.append("Now you have " + this.tasks.size() + " tasks in the list." + "\n");
+        finalOutput.append(errorOutput);
+        System.out.println(finalOutput);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
+
         return output.toString();
     }
 

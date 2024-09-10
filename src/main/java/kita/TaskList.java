@@ -46,7 +46,7 @@ public class TaskList {
      */
     public Task getTask(Integer index) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutOfBounds();
+            throw new KitaOutOfBounds(index);
         }
 
         return this.tasks.get(index);
@@ -61,7 +61,7 @@ public class TaskList {
      */
     public Task removeTask(int index) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutOfBounds();
+            throw new KitaOutOfBounds(index);
         }
 
         return this.tasks.remove(index);
@@ -86,7 +86,7 @@ public class TaskList {
      */
     public Task setTaskCompleted(Integer index, boolean status) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutOfBounds();
+            throw new KitaOutOfBounds(index);
         }
 
         Task theTask = this.tasks.get(index);
@@ -101,13 +101,11 @@ public class TaskList {
      * @return TaskList A TaskList containing the tasks that match the search query.
      */
     public TaskList find(String searchQuery) {
-        TaskList returnTasks = new TaskList(new ArrayList<>());
-        this.tasks.parallelStream().forEachOrdered((Task task) -> {
-            if (task.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                returnTasks.addTask(task);
-            }
-        });
-        return returnTasks;
+        ArrayList<Task> returnList = new ArrayList<>(
+                this.tasks.parallelStream().filter((Task task) ->
+                        task.getName().toLowerCase().contains(searchQuery.toLowerCase())
+        ).toList());
+        return new TaskList(returnList);
     }
 
     @Override

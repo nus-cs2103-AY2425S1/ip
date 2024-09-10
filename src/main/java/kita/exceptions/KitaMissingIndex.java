@@ -6,6 +6,6 @@ package kita.exceptions;
 public class KitaMissingIndex extends KitaError {
     @Override
     public String toString() {
-        return "Please specify what index this action should be carried out on (E.g unmark <index>) :c";
+        return "Please specify index(es) this action should be carried out on (E.g unmark <index> <index?>) :c";
     }
 }
