@@ -12,6 +12,16 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /** A class to store the Task data */
 public class Storage {
     private final String storagePath;
@@ -62,30 +72,22 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         File saveFile = new File(storagePath);
-        ArrayList<Task> tasks = new ArrayList<>();
         if (!saveFile.exists()) {
-            return tasks;
+            return new ArrayList<>();
         }
 
-        Scanner sc = new Scanner(saveFile);
-        String line;
-        while (sc.hasNextLine()) {
-            line = sc.nextLine();
-            switch (line.charAt(0)) {
-            case 'T':
-                tasks.add(Todo.load(line));
-                break;
-            case 'D':
-                tasks.add(DeadLine.load(line));
-                break;
-            case 'E':
-                tasks.add(Event.load(line));
-                break;
-            default:
-                break;
-            }
-        }
-        sc.close();
-        return tasks;
+        return Files.lines(Path.of(storagePath))
+                .map(this::lineToTask)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private Task lineToTask(String line) {
+        return switch (line.charAt(0)) {
+        case 'T' -> Todo.load(line);
+        case 'D' -> DeadLine.load(line);
+        case 'E' -> Event.load(line);
+        default -> null;
+        };
     }
 }
