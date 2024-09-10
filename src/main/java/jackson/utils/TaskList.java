@@ -177,7 +177,7 @@ public class TaskList {
         if (this.tasks.isEmpty()) {
             return "Nothing in list lah!";
         } else {
-            StringBuilder output = new StringBuilder("Your list here leh!\n");
+            StringBuilder output = new StringBuilder();
             Task curr;
             for (int i = 0; i < tasks.size(); i++) {
                 curr = tasks.get(i);
