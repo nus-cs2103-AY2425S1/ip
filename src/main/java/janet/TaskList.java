@@ -2,6 +2,7 @@ package janet;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -126,18 +127,49 @@ public class TaskList {
     }
 
 
+    /**
+     * Returns true if the task is a deadline or event type,
+     * false otherwise.
+     *
+     * @param task A Task object.
+     * @return A boolean value.
+     */
     private boolean isDeadlineOrEvent(Task task) {
         // returns true if the task is either a deadline or event.
         return task.getSymbol().equals("D") || task.getSymbol().equals("E");
     }
 
 
+    /**
+     * Returns true if the task's scheduledDate is equal to the schedule.
+     * 1. if task is a deadline, its scheduledDate will be the dueDate.
+     * 2. if task is an event, its scheduledDate will be the startDate.
+     * Returns false otherwise.
+     *
+     * @param task A Task object.
+     * @param schedule A LocalDate, representing the date the user inputs.
+     * @return A boolean value.
+     */
     private boolean isScheduledTask(Task task, LocalDate schedule) {
         return task.getScheduledDate().equals(schedule);
     }
 
 
-    public TaskList tasksInSchedule(LocalDate schedule) {
+    /**
+     * Returns a TaskList, where each task in the TaskList is
+     * either a deadline or an event,
+     * and has a dueDate/startDate equals to the schedule.
+     *
+     * @param dateAndTime A String, representing the date the user inputs (yyyy-MM-dd).
+     * @return A TaskList.
+     */
+    public TaskList viewScheduledTasks(String dateAndTime) throws JanetException {
+        LocalDate schedule = null;
+        try {
+            schedule = LocalDate.parse(dateAndTime);
+        } catch (DateTimeParseException e) {
+            throw new JanetException("WHOOPS! Please ensure date is in yyyy-MM-dd format!");
+        }
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {     // go through all the tasks in the list
             if (isDeadlineOrEvent(task) && isScheduledTask(task, schedule)) {

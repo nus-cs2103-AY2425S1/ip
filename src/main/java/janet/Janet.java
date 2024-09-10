@@ -102,13 +102,7 @@ public class Janet {
             case VIEW:
                 // view schedules
                 String dateAndTime = commandDetails[1];
-                LocalDate schedule = null;
-                try {
-                    schedule = LocalDate.parse(dateAndTime);
-                } catch (DateTimeParseException e) {
-                    throw new JanetException("WHOOPS! Please ensure date is in yyyy-MM-dd format!");
-                }
-                response = ui.showScheduledTasksMessage(tasks.tasksInSchedule(schedule), dateAndTime);
+                response = ui.showScheduledTasksMessage(tasks.viewScheduledTasks(dateAndTime), dateAndTime);
             }
         } catch (JanetException e) {
             response  = e.getMessage();     // returns a message for any invalid user command
