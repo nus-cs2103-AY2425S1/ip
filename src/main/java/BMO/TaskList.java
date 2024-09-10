@@ -89,11 +89,16 @@ public class TaskList {
      * Adds a todo task to the list.
      *
      * @param description of the todo task.
+     * @return boolean indicating if the task was added successfully.
      */
-    public void addTodo(String description) {
+    public boolean addTodo(String description) {
         assert description != "" : "Description cannot be empty";
         Task todo = new ToDo(description);
-        this.addTask(todo);
+        if (hasNoDuplicates(todo)) {
+            this.addTask(todo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -101,12 +106,17 @@ public class TaskList {
      *
      * @param description of the deadline task.
      * @param by the deadline of the task. Format: "dd/MM/yyyy"
+     * @return boolean indicating if the task was added successfully.
      */
-    public void addDeadline(String description, String by) {
+    public boolean addDeadline(String description, String by) {
         assert description != "" : "Description cannot be empty";
         assert by != "" : "Deadline cannot be empty";
         Task deadline = new Deadline(description, by);
-        this.addTask(deadline);
+        if (hasNoDuplicates(deadline)) {
+            this.addTask(deadline);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -115,13 +125,18 @@ public class TaskList {
      * @param description of the event task.
      * @param from the start date of the event. Format: "dd/MM/yyyy"
      * @param to the end date of the event. Format: "dd/MM/yyyy"
+     * @return boolean indicating if the task was added successfully.
      */
-    public void addEvent(String description, String from, String to) throws IOException {
+    public boolean addEvent(String description, String from, String to) throws IOException {
         assert description != "" : "Description cannot be empty";
         assert from != "" : "Start date cannot be empty";
         assert to != "" : "End date cannot be empty";
         Task event = new Event(description, from, to);
-        this.addTask(event);
+        if (hasNoDuplicates(event)) {
+            this.addTask(event);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -139,5 +154,14 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    public boolean hasNoDuplicates(Task task) {
+        for (Task t : this.tasks) {
+            if (task.equals(t)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

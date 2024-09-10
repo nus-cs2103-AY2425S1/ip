@@ -46,4 +46,18 @@ public class Deadline extends Task {
         return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | "
             + this.getStorageDeadline() + "\n";
     }
+
+    public LocalDate getBy() {
+        return this.by;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            return super.getDescription().equals(other.getDescription()) 
+                && this.by.equals(other.getBy());
+        }
+        return false;
+    }
 }

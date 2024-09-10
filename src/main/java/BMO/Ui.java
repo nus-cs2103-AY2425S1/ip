@@ -96,4 +96,12 @@ public class Ui {
         }
         return str;
     }
+
+    /*
+     * Prints the message when the user tries to add a task that already exists in the list.
+     */
+    public String printUnsuccessfulAddTask() {
+        return "Oh no! The task you specified already exists in the list:\n"
+            + "Please add a different task.";
+    }
 }

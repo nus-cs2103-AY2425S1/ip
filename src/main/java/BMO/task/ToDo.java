@@ -18,4 +18,13 @@ public class ToDo extends Task {
     public String getSavedFormat() {
         return "T | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + "\n";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ToDo) {
+            ToDo other = (ToDo) obj;
+            return super.getDescription().equals(other.getDescription());
+        }
+        return false;
+    }
 }

@@ -47,6 +47,8 @@ public class Bmo {
         storage.readStorageFile(taskList, filePath);
         assert userInput != null : "User input cannot be null";
 
+        boolean wasAdded;
+
         while (true) {
             String[] input = parser.parse(userInput);
             assert input.length > 0 : "User input cannot be empty";
@@ -83,22 +85,34 @@ public class Bmo {
 
             //Adds a todo task (no deadline) to the list
             case "todo":
-                taskList.addTodo(input[1]);
-                storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                wasAdded = taskList.addTodo(input[1]);
+                if (wasAdded) {
+                    storage.saveTask(taskList.getTask(taskList.getSize() - 1));
+                    return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                } else {
+                    return ui.printUnsuccessfulAddTask();
+                }
+
 
             //Adds a deadline task (with deadline) to the list
             case "deadline":
-                taskList.addDeadline(input[1], input[2]);
-                storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                wasAdded = taskList.addDeadline(input[1], input[2]);
+                if (wasAdded) {
+                    storage.saveTask(taskList.getTask(taskList.getSize() - 1));
+                    return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                } else {
+                    return ui.printUnsuccessfulAddTask();
+                }
 
             //Adds an event task (with start and end timings) to the list
             case "event":
-                //Splits the description into task description and event timings
-                taskList.addEvent(input[1], input[2], input[3]);
-                storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                wasAdded = taskList.addEvent(input[1], input[2], input[3]);
+                if (wasAdded) {
+                    storage.saveTask(taskList.getTask(taskList.getSize() - 1));
+                    return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
+                } else {
+                    return ui.printUnsuccessfulAddTask();
+                }
 
             //Deletes a task from the list
             case "delete":
