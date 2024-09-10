@@ -1,13 +1,13 @@
 package command;
 import task.Task;
 import task.TaskList;
-import utilities.Parser;
 
 /**
  * ListCommand class is used to list and print all tasks in given task list.
  */
 public class ListCommand extends Command {
     private TaskList taskList;
+    private String lString;
 
     /**
      * Constructor for ListCommand.
@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute() {
-        String lString = "";
+        lString = "";
         int index = 1;
         for (Task task : taskList) {
             lString += String.valueOf(index) + "."  + task;
@@ -32,7 +32,10 @@ public class ListCommand extends Command {
             lString += "\n";
             index++;
         }
-        lString = Parser.addHorizontalLinesAndIndentation(lString);
-        System.out.println(lString);
+    }
+
+    @Override
+    public String toString() {
+        return lString;
     }
 }

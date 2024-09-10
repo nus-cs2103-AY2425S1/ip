@@ -2,7 +2,6 @@ package command;
 
 import task.Task;
 import task.TaskList;
-import utilities.Parser;
 
 /**
  * DeleteCommand class is used to delete a task from the task list.
@@ -10,7 +9,7 @@ import utilities.Parser;
 public class DeleteCommand extends Command {
     private int index;
     private TaskList taskList;
-
+    private Task deletedTask;
     /**
      * Constructor for DeleteCommand.
      * @param index The index of the taskList to be deleted, starting from 1.
@@ -26,12 +25,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute() {
-        Task task = taskList.remove(index - 1);
-        System.out.println(Parser
-                .addHorizontalLinesAndIndentation(
-                        String.format("Noted. I've removed this task:\n"
-                                + task + " Now you have %d tasks in the list.",
-                                taskList.size())));
+        deletedTask = taskList.remove(index - 1);
     }
-
+    
+    @Override
+    public String toString() {
+        return String.format("Noted. I've removed this task:\n"
+                    + deletedTask + " Now you have %d tasks in the list.",
+                    taskList.size());
+    }
 }

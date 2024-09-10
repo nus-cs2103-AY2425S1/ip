@@ -1,6 +1,6 @@
 package command;
 import task.TaskList;
-import utilities.Parser;
+import utilities.Storage;
 
 /**
  * UnmarkCommand class is used to mark a task as undone.
@@ -8,6 +8,7 @@ import utilities.Parser;
 public class UnmarkCommand extends Command {
     private int index;
     private TaskList taskList;
+    private String message;
 
     /**
      * Constructor for UnmarkCommand.
@@ -25,6 +26,12 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute() {
         taskList.markTaskAsUndone(index);
-        System.out.println(Parser.addHorizontalLinesAndIndentation("Nice! I've marked this task as undone:\n" + taskList.get(index)));
+        new Storage("./data/duke.txt").save(taskList);
+        message = "Nice! I've marked this task as undone:\n" + taskList.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }
