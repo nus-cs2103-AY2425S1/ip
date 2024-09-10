@@ -72,14 +72,14 @@ public class Storage {
             if (taskLine[0].equals("T")) {
                 Task task = new ToDo(taskLine[2]);
                 if (taskLine[1].equals("1")) {
-                    task.completeTask();
+                    task.markAsComplete();
                 }
                 taskList.add(task);
             } else if (taskLine[0].equals("D")) {
                 LocalDateTime by = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 Task task = new Deadline(taskLine[2], by);
                 if (taskLine[1].equals("1")) {
-                    task.completeTask();
+                    task.markAsComplete();
                 }
                 taskList.add(task);
             } else if (taskLine[0].equals("E")) {
@@ -88,7 +88,7 @@ public class Storage {
 
                 Task task = new Event(taskLine[2], from, to);
                 if (taskLine[1].equals("1")) {
-                    task.completeTask();
+                    task.markAsComplete();
                 }
                 taskList.add(task);
             }

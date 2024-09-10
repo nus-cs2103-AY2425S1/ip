@@ -20,7 +20,7 @@ public class FindCommand extends Command {
         return ui.showFilterMessage(filteredList);
     }
 
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

@@ -50,9 +50,9 @@ public class TaskList {
      */
     public Task markTask(int i, Storage storage) {
         Task task = this.taskList.get(i);
-        String oldLine = task.toStringinFile();
-        task.completeTask();
-        String newLine = task.toStringinFile();
+        String oldLine = task.toStringInFile();
+        task.markAsComplete();
+        String newLine = task.toStringInFile();
         storage.editTask(oldLine, newLine);
         return task;
     }
@@ -66,9 +66,9 @@ public class TaskList {
      */
     public Task unmarkTask(int i, Storage storage) {
         Task task = this.taskList.get(i);
-        String oldLine = task.toStringinFile();
-        task.incompleteTask();
-        String newLine = task.toStringinFile();
+        String oldLine = task.toStringInFile();
+        task.markAsIncomplete();
+        String newLine = task.toStringInFile();
         storage.editTask(oldLine, newLine);
 
         return task;
@@ -83,7 +83,7 @@ public class TaskList {
      */
     public Task delTask(int i, Storage storage) {
         Task task = this.taskList.remove(i);
-        storage.delTaskFromStorage(task.toStringinFile());
+        storage.delTaskFromStorage(task.toStringInFile());
         return task;
     }
 

@@ -9,7 +9,7 @@ public class HelpCommand extends Command {
         return ui.showHelpMessage();
     }
 
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

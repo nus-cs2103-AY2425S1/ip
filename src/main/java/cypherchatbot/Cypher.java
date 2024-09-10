@@ -1,5 +1,8 @@
 package cypherchatbot;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import java.io.FileNotFoundException;
 
 import cypherchatbot.command.Command;
@@ -8,7 +11,6 @@ import cypherchatbot.util.CommandReader;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
-
 
 
 /**
@@ -42,26 +44,15 @@ public class Cypher {
         }
     }
 
-
-    /**
-     *  Main event loop of the Cypher Chat Bot Application.
-     *  Event loops runs until the last command given has an exit status of true
-     */
-
-
-
-    /**
-     *  Initializes the Cypher class with the preferred file path. Executes the run
-     *  method in order to start up the Cypher Chat Bot Application
-     */
-
-    public static void main(String[] args) {
-        // No More CLI function
-    }
-
     public void getResponse(String fullCommand) {
         try {
             Command c = CommandReader.parse(fullCommand);
+            if (c.showExitStatus()) {
+                // The application closes after 3 seconds
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished((e) -> Platform.exit());
+                delay.play();
+            }
             this.sendDialog(c.execute(tasks, ui, storage));
         } catch (CypherException e) {
             this.sendDialog(ui.showError(e.getMessage()));
@@ -71,6 +62,7 @@ public class Cypher {
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
+
     private void sendDialog(String response) {
         // assert this.mainWindow != null : "Main Window does not exist for cypher";
         this.mainWindow.addDialogFromCypher(response);

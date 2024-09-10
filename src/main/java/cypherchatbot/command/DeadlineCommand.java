@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Deadline;
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
@@ -39,12 +40,24 @@ public class DeadlineCommand extends Command {
      * @param storage The Storage file where the task data will be saved.
      * @return
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
         try {
-            LocalDateTime by = LocalDateTime.parse(command[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            Task deadline = new Deadline(command[0], by);
+            String[] deadlineSplit = command[1].split("/by", 2);
+
+            if (deadlineSplit[0].isEmpty()) {
+                throw new CypherException("No task is given. The format of the deadline command is:"
+                        + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
+            } else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
+                throw new CypherException("No deadline is given. The format of the deadline command is:"
+                        + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
+            }
+
+            LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            Task deadline = new Deadline(deadlineSplit[0], by);
+
             tasks.addToList(deadline);
-            storage.addToStorage(deadline.toStringinFile());
+            storage.addToStorage(deadline.toStringInFile());
+
             return ui.showAddMessage(deadline,tasks.size());
 
         } catch (DateTimeException e) {
@@ -56,7 +69,7 @@ public class DeadlineCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

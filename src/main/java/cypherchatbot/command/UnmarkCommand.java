@@ -46,7 +46,7 @@ public class UnmarkCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 

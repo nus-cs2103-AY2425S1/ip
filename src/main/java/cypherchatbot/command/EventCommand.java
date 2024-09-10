@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Event;
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
@@ -38,29 +39,40 @@ public class EventCommand extends Command {
      * @param tasks   The TaskList to which the new Event task should be added.
      * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
-     * @return
+     * @return String returns the dialog message to be displayed to the User
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
         try {
+            String[] eventSplit = command[1].split("/from|/to ", 3);
+
+            if (eventSplit[0].isEmpty()) {
+                throw new CypherException("No task is given. The format of the event command is:"
+                        + "\n event <Description of task> /from yyyy-MM-dd HH:mm> /to yyyy-MM-dd HH:mm");
+            } else if (eventSplit.length != 3 || eventSplit[1].trim().isEmpty() || eventSplit[2].trim().isEmpty()) {
+                throw new CypherException("To/from is not given properly. The format of the deadline command is:"
+                        + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
+            }
+
             LocalDateTime from = LocalDateTime.parse(command[1].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             LocalDateTime to = LocalDateTime.parse(command[2].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
             Task event = new Event(command[0], from, to);
             tasks.addToList(event);
 
-            storage.addToStorage(event.toStringinFile());
-            ui.showAddMessage(event,tasks.size());
+            storage.addToStorage(event.toStringInFile());
+            return ui.showAddMessage(event,tasks.size());
+
         } catch (DateTimeException e) {
-            ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
+            return ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
         }
-        return null;
     };
 
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

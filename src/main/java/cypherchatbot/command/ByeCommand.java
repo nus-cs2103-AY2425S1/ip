@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
         return ui.goodBye();
     }
 
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return true;
     }
 }

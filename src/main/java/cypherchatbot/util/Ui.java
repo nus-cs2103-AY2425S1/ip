@@ -1,13 +1,9 @@
 package cypherchatbot.util;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import cypherchatbot.Cypher;
 import cypherchatbot.task.Task;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.util.Duration;
+
 
 /**
  *  The UI class handles all interactions with the user for the Cypher Chat Bot Application such as
@@ -22,19 +18,6 @@ public class Ui {
     public Ui() {
     }
 
-    /**
-     * Outputs a message to the user with a custom line divider before and after the message.
-     *
-     * @param s The String message to be displayed to the user.
-     */
-    public String output(String s) {
-        return s;
-    }
-
-
-    /**
-     * Displays a greeting message to the user.
-     */
     public String greet() {
         return "Hello! I am Cypher\nWhat can I do for you!";
     }
@@ -44,9 +27,6 @@ public class Ui {
      * that the application has ended and the scanner is closed.
      */
     public String goodBye() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished((e) -> Platform.exit());
-        delay.play();
         return "Bye! See you again. This application will close in 3 seconds";
     }
 
@@ -55,7 +35,6 @@ public class Ui {
      *
      * @param filePath The file path that could not be loaded/found/created.
      */
-
     public String showLoadingError(String filePath) {
         return String.format("Given filepath [%s] does not work. Please try again", filePath);
     }
@@ -65,7 +44,6 @@ public class Ui {
      *
      * @param e The String error message to be displayed.
      */
-
     public String showError(String e) {
        return e;
     }

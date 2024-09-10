@@ -16,19 +16,15 @@ import cypherchatbot.command.UnmarkCommand;
 public class CommandReader {
 
     private static enum Commands {
-
         LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP, DELETE, FIND
-
     }
 
     /**
-     * Parses through the given input by user and instantiates a new Command Class through the use
-     * of enums and switch case statements.
-     *
+     * Parses through the given input by user and instantiates a new Command Class
      *
      * @param input The string input given by the user
      * @return A Command Object depending on the input given by the user
-     * @throws CypherException Throws a custom exception if an invalid input is given by the user
+     * @throws CypherException if an invalid input is given by the user
      */
     public static Command parse(String input) throws CypherException {
         String[] command = input.split(" ", 2);
@@ -37,41 +33,15 @@ public class CommandReader {
             case LIST:
                 return new ListCommand();
             case TODO:
-                if (command.length != 2 || command[1].trim().isEmpty()) {
-                    throw new CypherException("No task is given. "
-                            + "The format of the todo command is:\n todo <Description of task>");
-                }
                 return new ToDoCommand(command);
-
             case DEADLINE:
-                String[] deadlineSplit = command[1].split("/by", 2);
-
-                if (deadlineSplit[0].isEmpty()) {
-                    throw new CypherException("No task is given. The format of the deadline command is:"
-                            + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
-                } else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
-                    throw new CypherException("No deadline is given. The format of the deadline command is:"
-                            + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
-                }
-                return new DeadlineCommand(deadlineSplit);
-
+                return new DeadlineCommand(command);
             case EVENT:
-                String[] eventSplit = command[1].split("/from|/to ", 3);
-                if (eventSplit[0].isEmpty()) {
-                    throw new CypherException("No task is given. The format of the event command is:"
-                            + "\n event <Description of task> /from yyyy-MM-dd HH:mm> /to yyyy-MM-dd HH:mm");
-                } else if (eventSplit.length != 3 || eventSplit[1].trim().isEmpty() || eventSplit[2].trim().isEmpty()) {
-                    throw new CypherException("To/from is not given properly. The format of the deadline command is:"
-                            + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
-                }
-                return new EventCommand(eventSplit);
-
+                return new EventCommand(command);
             case MARK:
-                // Need check if that is number
                 int markVal = Integer.parseInt(command[1]) - 1;
                 return new MarkCommand(markVal);
             case UNMARK:
-                // Need check if that is number
                 int unmarkVal = Integer.parseInt(command[1]) - 1;
                 return new UnmarkCommand(unmarkVal);
             case BYE:
