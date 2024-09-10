@@ -15,6 +15,11 @@ import hoshi.ui.Ui;
 public class Parser {
 
     private static final String INPUT_ERROR_MESSAGE = "Hoshi doesn't understand, try a different input?";
+    private static final int MIN_MARK_LENGTH = 5;
+    private static final int MIN_UNMARK_LENGTH = 7;
+    private static final int MIN_DELETE_LENGTH = 7;
+
+
 
     private final Storage storage = new Storage("./data/Hoshi.txt");
 
@@ -45,7 +50,7 @@ public class Parser {
         case "list":
             return ui.displayTasks(taskList);
         case "mark":
-            if (input.trim().length() < 5) {
+            if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
             int markIndex = Integer.parseInt(splitInput[1]) - 1;
@@ -56,7 +61,7 @@ public class Parser {
             command = new MarkCommand(markIndex);
             break;
         case "unmark":
-            if (input.trim().length() < 7) {
+            if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
             int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
@@ -67,7 +72,7 @@ public class Parser {
             command = new UnmarkCommand(unmarkIndex);
             break;
         case "delete":
-            if (input.trim().length() < 7) {
+            if (input.trim().length() < MIN_DELETE_LENGTH) {
                 return ui.displayError(INPUT_ERROR_MESSAGE);
             }
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
