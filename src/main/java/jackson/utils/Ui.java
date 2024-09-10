@@ -29,7 +29,7 @@ public class Ui {
      * @return String representation of goodbye.
      */
     public String printGoodbye() {
-        return "K k bye lah!\n";
+        return "K k bye, see you!\n";
     }
 
     /**
