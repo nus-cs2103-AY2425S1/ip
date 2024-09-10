@@ -13,10 +13,20 @@ import monique.ui.Ui;
 public class UnknownCommand extends Command {
     private final MoniqueException moniqueException;
 
+    /**
+     * Constructs an {@code UnknownCommand} with the default {@link UnknownCommandException}.
+     * This is used when an unknown command is encountered, triggering a default exception.
+     */
     public UnknownCommand() {
         super();
         this.moniqueException = new UnknownCommandException();
     }
+    /**
+     * Constructs an {@code UnknownCommand} with a specified {@link MoniqueException}.
+     * This allows customization of the exception when an unknown command is encountered.
+     *
+     * @param moniqueException The specific {@link MoniqueException} to be thrown.
+     */
     public UnknownCommand(MoniqueException moniqueException) {
         super();
         this.moniqueException = moniqueException;

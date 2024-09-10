@@ -2,9 +2,6 @@ package monique.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.jupiter.api.Test;
 
 import monique.command.AddCommand;
@@ -12,6 +9,7 @@ import monique.command.ByeCommand;
 import monique.command.Command;
 import monique.command.ListCommand;
 import monique.command.UnknownCommand;
+import monique.exception.IllegalDateFormatException;
 import monique.task.Deadline;
 import monique.task.Event;
 import monique.task.ToDo;
@@ -47,23 +45,25 @@ public class ParserTest {
     }
 
     @Test
-    void testParseAddDeadlineCommand() {
-        Command command = Parser.parse("deadline return book /by 8/28/2024");
+    void testParseAddDeadlineCommand() throws IllegalDateFormatException {
+        Command command = Parser.parse("deadline return book /by mon");
         assertTrue(command instanceof AddCommand);
         assertTrue(((AddCommand) command).getTask() instanceof Deadline);
         assertEquals(((AddCommand) command).getTask().getDescription(), "return book");
         assertEquals(((Deadline) ((AddCommand) command).getTask()).getBy(),
-                LocalDate.parse("8/28/2024", DateTimeFormatter.ofPattern("M/d/yyyy")));
+                DateParser.getDateTimeString("mon"));
     }
 
     @Test
-    void testParseAddEventCommand() {
-        Command command = Parser.parse("event project meeting /from 8/28/2024 /to 8/29/2024");
+    void testParseAddEventCommand() throws IllegalDateFormatException {
+        Command command = Parser.parse("event project meeting /from tomorrow 5pm /to tomorrow 6pm");
         assertTrue(command instanceof AddCommand);
         assertTrue(((AddCommand) command).getTask() instanceof Event);
         assertEquals(((AddCommand) command).getTask().getDescription(), "project meeting");
-        assertEquals(((Event) ((AddCommand) command).getTask()).getFrom(), LocalDate.parse("8/28/2024", DateTimeFormatter.ofPattern("M/d/yyyy")));
-        assertEquals(((Event) ((AddCommand) command).getTask()).getTo(), LocalDate.parse("8/29/2024", DateTimeFormatter.ofPattern("M/d/yyyy")));
+        assertEquals(((Event) ((AddCommand) command).getTask()).getFrom(),
+                DateParser.getDateTimeString("tomorrow 5pm"));
+        assertEquals(((Event) ((AddCommand) command).getTask()).getTo(),
+                DateParser.getDateTimeString("tomorrow 6pm"));
     }
 
     @Test

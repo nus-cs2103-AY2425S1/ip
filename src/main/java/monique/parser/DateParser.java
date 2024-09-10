@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import monique.exception.IllegalDateFormatException;
+//probably need to fix some errors related to parsing of dates of this format "deadline description /by 11/9/2024 6pm"
 
 /**
  * The <code>DateParser</code> class provides functionality to parse and interpret date and time
@@ -18,8 +19,9 @@ public class DateParser {
     public static final String DATE_PATTERN = "\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4}( \\d{4})?";
     public static final String DAY_PATTERN = "(?i)(mon|tue|wed|thu|fri|sat|sun|monday|tuesday|wednesday|"
                                              + "thursday|friday|saturday|sunday)( \\d{4})?( \\d{1,2}(am|pm))?";
-    public static final String TIME_PATTERN = "(\\b\\d{1,2}:\\d{2}(am|pm)?\\b|\\b\\d{1,2}(am|pm)\\b|"
-                                              + "\\b\\d{3,4}(am|pm)?\\b)";
+    public static final String TIME_PATTERN = "(\\b\\d{1,2}:\\d{2}(am|pm)?\\b|\\b\\d{1,2}(am|pm)\\b|\\b\\d{3,4}"
+                                              + "(am|pm)?\\b)\\b";
+
 
     public static final int WEEK_OFFSET = 7;
 
@@ -27,8 +29,8 @@ public class DateParser {
      * Enum for supported date formats.
      */
     public enum DateFormatType {
-        TYPE1_SLASH("M/d/yyyy[ HHmm]"),
-        TYPE1_DASH("M-d-yyyy[ HHmm]");
+        TYPE1_SLASH("M[/]d[/]yyyy[ HHmm]"),
+        TYPE1_DASH("M[-]d[-]yyyy[ HHmm]");
 
         private final String pattern;
 
@@ -144,10 +146,16 @@ public class DateParser {
 
     private static LocalDateTime parseType1(String originalString) throws IllegalDateFormatException {
         DateFormatType dateFormatType = DateFormatType.getType(originalString);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatType.getPattern());
 
-        // Parse date using the determined pattern and extract the LocalDateTime
-        return LocalDateTime.parse(originalString, formatter);
+        // If the input string contains time, include time format in the pattern
+        if (hasTime(originalString)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatType.getPattern() + " HHmm");
+            return LocalDateTime.parse(originalString, formatter);
+        }
+
+        // Otherwise just parse the date and default to start of day
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatType.getPattern());
+        return LocalDate.parse(originalString, formatter).atStartOfDay();
     }
 
     private static LocalDateTime parseType2(String originalString) throws IllegalDateFormatException {
@@ -249,5 +257,4 @@ public class DateParser {
         // Use regular expression to check if the string contains the time part
         return originalString.toLowerCase().matches(".*" + TIME_PATTERN + ".*");
     }
-
 }
