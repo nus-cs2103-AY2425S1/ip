@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = parseDate(by); // Parse the string into a LocalDate
+        this.by = parseDate(by);
     }
 
     /**
