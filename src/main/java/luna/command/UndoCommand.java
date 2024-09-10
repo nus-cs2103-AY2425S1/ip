@@ -4,7 +4,7 @@ import luna.LunaException;
 import luna.Storage;
 import luna.TaskList;
 
-public class UndoCommand extends Command {
+public class UndoCommand implements Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws LunaException {

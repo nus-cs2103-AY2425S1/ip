@@ -6,7 +6,7 @@ import luna.TaskList;
 /**
  * Represents a command to list all tasks in list.
  */
-public class ListCommand extends Command {
+public class ListCommand implements Command {
     private final Command previousCommand;
 
     public ListCommand(Command previousCommand) {

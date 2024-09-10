@@ -9,7 +9,7 @@ import luna.task.Task;
 /**
  * Represents a command to add task with deadline to list of tasks.
  */
-public class DeadlineCommand extends Command {
+public class DeadlineCommand implements Command {
     private final Deadline deadline;
     private final Command previousCommand;
 

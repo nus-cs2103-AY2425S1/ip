@@ -8,7 +8,7 @@ import luna.task.Task;
 /**
  * Represents a command to mark task as completed.
  */
-public class MarkCommand extends Command {
+public class MarkCommand implements Command {
     private final int taskToMark;
     private final Command previousCommand;
     private Task markedTask;

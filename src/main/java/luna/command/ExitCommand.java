@@ -6,7 +6,7 @@ import luna.TaskList;
 /**
  * Represents a command to end the chatbot session.
  */
-public class ExitCommand extends Command {
+public class ExitCommand implements Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {

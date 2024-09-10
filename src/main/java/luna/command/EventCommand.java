@@ -9,7 +9,7 @@ import luna.task.Task;
 /**
  * Represents a command to add event to list of tasks.
  */
-public class EventCommand extends Command {
+public class EventCommand implements Command {
     private final Event event;
     private final Command previousCommand;
 

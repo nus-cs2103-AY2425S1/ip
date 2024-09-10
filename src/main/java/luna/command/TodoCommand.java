@@ -9,7 +9,7 @@ import luna.task.Todo;
 /**
  * Represents a command to add task without deadline to list of tasks.
  */
-public class TodoCommand extends Command {
+public class TodoCommand implements Command {
     private final Todo todo;
     private final Command previousCommand;
 

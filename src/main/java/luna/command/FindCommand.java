@@ -6,7 +6,7 @@ import luna.TaskList;
 /**
  * Represents a command to find tasks from current list of tasks.
  */
-public class FindCommand extends Command {
+public class FindCommand implements Command {
     private final String query;
     private final Command previousCommand;
 

@@ -8,7 +8,7 @@ import luna.task.Task;
 /**
  * Represents a command to unmark task as not completed.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand implements Command {
     private final int taskToUnmark;
     private final Command previousCommand;
     private Task unmarkedTask;

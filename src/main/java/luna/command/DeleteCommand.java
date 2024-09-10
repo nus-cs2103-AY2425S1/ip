@@ -8,7 +8,7 @@ import luna.task.Task;
 /**
  * Represents a command to delete task from list of tasks.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand implements Command {
     private final int taskToDelete;
     private final Command previousCommand;
     private Task deletedTask;

@@ -88,7 +88,7 @@ public class Parser {
             int taskToMark;
 
             try {
-                taskToMark = Integer.parseInt(commands[1]) - 1;
+                taskToMark = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
@@ -104,7 +104,7 @@ public class Parser {
             int taskToUnmark;
 
             try {
-                taskToUnmark = Integer.parseInt(commands[1]) - 1;
+                taskToUnmark = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
@@ -120,7 +120,7 @@ public class Parser {
             int taskToDelete;
 
             try {
-                taskToDelete = Integer.parseInt(commands[1]) - 1;
+                taskToDelete = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
