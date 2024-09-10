@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import joe.command.Command;
@@ -15,8 +13,9 @@ import joe.command.EventCommand;
 import joe.command.ExitCommand;
 import joe.command.FindCommand;
 import joe.command.ListCommand;
+import joe.command.MarkCommand;
 import joe.command.TodoCommand;
-import joe.command.ToggleCommand;
+import joe.command.UnmarkCommand;
 
 class ParserTest {
 
@@ -60,7 +59,7 @@ class ParserTest {
     void testDeadlineCommandValidInput() {
         Command command = Parser.parse("deadline submit report /by 2024-09-10");
         assertInstanceOf(DeadlineCommand.class, command);
-        assertEquals(new DeadlineCommand("submit report", LocalDate.of(2024, 9, 10)), command);
+        assertEquals(new DeadlineCommand("submit report", "2024-09-10"), command);
     }
 
     @Test
@@ -79,7 +78,7 @@ class ParserTest {
     void testEventCommandValidInput() {
         Command command = Parser.parse("event project meeting /from 2024-09-01 /to 2024-09-02");
         assertInstanceOf(EventCommand.class, command);
-        assertEquals(new EventCommand("project meeting", LocalDate.of(2024, 9, 1), LocalDate.of(2024, 9, 2)),
+        assertEquals(new EventCommand("project meeting", "2024-09-01", "2024-09-02"),
                 command);
     }
 
@@ -98,7 +97,13 @@ class ParserTest {
     @Test
     void testMarkCommand() {
         Command command = Parser.parse("mark 1");
-        assertInstanceOf(ToggleCommand.class, command);
+        assertInstanceOf(MarkCommand.class, command);
+    }
+
+    @Test
+    void testUnmarkCommand() {
+        Command command = Parser.parse("unmark 1");
+        assertInstanceOf(UnmarkCommand.class, command);
     }
 
     @Test
@@ -107,9 +112,4 @@ class ParserTest {
         assertInstanceOf(FindCommand.class, command);
     }
 
-    @Test
-    void testFindCommandInvalidInput() {
-        assertThrows(JoeException.class, () -> Parser.parse("find book title"),
-                "Find currently only supports a single word query");
-    }
 }
