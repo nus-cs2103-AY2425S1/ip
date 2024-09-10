@@ -4,13 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Deadline} class represents a task with a specific deadline.
+ * It extends the {@code Task} class and includes methods for managing the deadline date and time.
+ */
 public class Deadline extends Task {
-
-    /** The end date and time */
-    private LocalDateTime end;
 
     /** Indicates whether the deadline includes a specific end time or just a date. */
     private static boolean withTime;
+
+    /** The end date and time */
+    private LocalDateTime end;
 
     /**
      * Private constructor for creating a {@code Deadline} instance.
@@ -95,12 +99,12 @@ public class Deadline extends Task {
                     withTime = false;
                     return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
                 } else {
-                    throw new BigdogException("Invalid date format: " + str +
-                            "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
+                    throw new BigdogException("Invalid date format: " + str
+                            + "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
                 }
             } catch (DateTimeParseException e) {
-                throw new BigdogException("Invalid date format :" + str +
-                        "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
+                throw new BigdogException("Invalid date format :" + str
+                        + "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
             }
 
         }
@@ -125,11 +129,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (withTime) {
-            return "[D]" + super.toString() + " (by: " +
-                    this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
         } else {
-            return "[D]" + super.toString() + " (by: " +
-                    this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
         }
     }
 

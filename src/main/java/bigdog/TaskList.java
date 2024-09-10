@@ -2,6 +2,10 @@ package bigdog;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class manages a list of tasks.
+ * It provides methods to add, delete, mark, unmark, find, and display tasks.
+ */
 public class TaskList {
 
     /** The list of tasks managed by this TaskList. */

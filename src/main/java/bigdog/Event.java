@@ -4,16 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+/**
+ * The {@code Event} class represents a task with a start and end date/time.
+ * It extends the {@code Task} class and includes additional information about the event's schedule.
+ */
+public class Event extends Task {
+
+    /** Indicates whether the event includes specific start and end times or just dates. */
+    private static boolean withTime;
 
     /** The start date and time of the event. */
     private LocalDateTime start;
 
     /** The end date and time of the event. */
     private LocalDateTime end;
-
-    /** Indicates whether the event includes specific start and end times or just dates. */
-    private static boolean withTime;
 
     /**
      * Private constructor for creating an Event instance.
@@ -75,19 +79,19 @@ public class Event extends Task{
             throw new BigdogException("data file corrupted! Cause: " + s);
         }
 
-            for (int j = s.length() - 1; j > 3; j--) {
-                if (s.charAt(j) != '|') {
-                    continue;
-                }
-                LocalDateTime end = LocalDateTime.parse(s.substring(j + 2));
-                for (int i = 5; i < s.length(); i++) {
-                    if (s.charAt(i) == '|') {
-                        return new Event(s.substring(4, i - 1), LocalDateTime.parse(s.substring(i + 2, j - 1)),
-                                end, marked);
-                    }
-                }
-
+        for (int j = s.length() - 1; j > 3; j--) {
+            if (s.charAt(j) != '|') {
+                continue;
             }
+            LocalDateTime end = LocalDateTime.parse(s.substring(j + 2));
+            for (int i = 5; i < s.length(); i++) {
+                if (s.charAt(i) == '|') {
+                    return new Event(s.substring(4, i - 1), LocalDateTime.parse(s.substring(i + 2, j - 1)),
+                            end, marked);
+                }
+            }
+
+        }
         throw new BigdogException("data file corrupted! Cause: " + s);
     }
 
@@ -118,13 +122,14 @@ public class Event extends Task{
                     withTime = false;
                     return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "23:59"));
                 } else {
-                    throw new BigdogException("Invalid date format: " + str +
-                            "\nExample correct format: event meeting with John " +
-                            "/from 02/07/2019 18:00 /to 02/07/2019 20:00");
+                    throw new BigdogException("Invalid date format: " + str
+                            + "\nExample correct format: event meeting with John "
+                            + "/from 02/07/2019 18:00 /to 02/07/2019 20:00");
                 }
             } catch (DateTimeParseException e) {
-            throw new BigdogException("Invalid date format: " + str +
-                    "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
+                throw new BigdogException("Invalid date format: " + str
+                        + "\nExample correct format: event meeting with John /from 02/07/2019 18:00 "
+                        + "/to 02/07/2019 20:00");
             }
         }
     }

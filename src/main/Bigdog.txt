@@ -1,2 +1,0 @@
-O | T | read a book
-O | E | meet Andy | 2024-09-03T16:00 | 2024-09-03T20:00

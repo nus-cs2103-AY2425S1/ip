@@ -1,13 +1,18 @@
 package bigdog;
 
-import java.util.ArrayList;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.util.ArrayList;
 
+/**
+ * The Storage class handles saving and loading of tasks from a file.
+ * It reads tasks from a file and converts them into Task objects,
+ * and also saves the current tasks in the TaskList to the file.
+ */
 public class Storage {
 
     /** The file path where the tasks are stored and loaded from. */
@@ -71,7 +76,8 @@ public class Storage {
      * Each line in the file is converted into a Task object and added to the list.
      *
      * @return an ArrayList of tasks loaded from the file.
-     * @throws BigdogException if there is an error during the loading process, such as file corruption or file not found.
+     * @throws BigdogException if there is an error during the loading process,
+     *     such as file corruption or file not found.
      */
     public ArrayList<Task> load() throws BigdogException {
         ArrayList<Task> list = new ArrayList<>();
@@ -102,5 +108,5 @@ public class Storage {
             throw new BigdogException("Storage Error: Corrupted data in file.");
         }
     }
-    
+
 }

@@ -1,13 +1,15 @@
 package bigdog;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class TaskListTest {
     private TaskList taskList;
@@ -126,10 +128,10 @@ class TaskListTest {
         String resultMeeting = taskList.find("meeting");
 
         // Expected results
-        String expectedBook = "Here are the tasks in your list:\n" +
-                "3. [T][ ] Read a book\n";
-        String expectedMeeting = "Here are the tasks in your list:\n" +
-                "5. [E][ ] Attend meeting (from: 12 Sep 2024 18:00 to: 12 Sep 2024 20:00)\n";
+        String expectedBook = "Here are the tasks in your list:\n"
+                + "3. [T][ ] Read a book\n";
+        String expectedMeeting = "Here are the tasks in your list:\n"
+                + "5. [E][ ] Attend meeting (from: 12 Sep 2024 18:00 to: 12 Sep 2024 20:00)\n";
 
         assertEquals(expectedBook, resultBook);
         assertEquals(expectedMeeting, resultMeeting);

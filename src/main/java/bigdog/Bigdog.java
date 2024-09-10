@@ -2,6 +2,10 @@ package bigdog;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Bigdog} class represents the main application that manages tasks.
+ * It handles user input, processes commands, interacts with storage, and manages the task list.
+ */
 public class Bigdog {
 
     /** Storage for tasks into external file */
@@ -37,46 +41,44 @@ public class Bigdog {
 
         while (toContinue) {
             try {
-
-                    String userInput = ui.readInput();
-                    String[] commands = Parser.parse(userInput);
-                    switch (commands[0]) {
-                        case "bye":
-                            toContinue = false;
-                            ui.bye();
-                            break;
-                        case "list":
-                            this.tasks.show();
-                            break;
-                        case "mark":
-                            ui.print(this.tasks.mark(Integer.parseInt(commands[1])));
-                            break;
-                        case "unmark":
-                            ui.print(this.tasks.unmark(Integer.parseInt(commands[1])));
-                            break;
-                        case "delete":
-                            ui.print(this.tasks.delete(Integer.parseInt(commands[1])));
-                            break;
-                        case "todo":
-                            ui.print(this.tasks.add(Todo.of(commands[1])));
-                            break;
-                        case "deadline":
-                            ui.print(this.tasks.add(Deadline.of(commands[1])));
-                            break;
-                        case "event":
-                            ui.print(this.tasks.add(Event.of(commands[1])));
-                            break;
-                        case "find":
-                            ui.print(this.tasks.find(commands[1]));
-                            break;
-                        default:
-                            ui.print("Unknown command. Please try again.");
-
+                String userInput = ui.readInput();
+                String[] commands = Parser.parse(userInput);
+                switch (commands[0]) {
+                case "bye":
+                    toContinue = false;
+                    ui.bye();
+                    break;
+                case "list":
+                    this.tasks.show();
+                    break;
+                case "mark":
+                    ui.print(this.tasks.mark(Integer.parseInt(commands[1])));
+                    break;
+                case "unmark":
+                    ui.print(this.tasks.unmark(Integer.parseInt(commands[1])));
+                    break;
+                case "delete":
+                    ui.print(this.tasks.delete(Integer.parseInt(commands[1])));
+                    break;
+                case "todo":
+                    ui.print(this.tasks.add(Todo.of(commands[1])));
+                    break;
+                case "deadline":
+                    ui.print(this.tasks.add(Deadline.of(commands[1])));
+                    break;
+                case "event":
+                    ui.print(this.tasks.add(Event.of(commands[1])));
+                    break;
+                case "find":
+                    ui.print(this.tasks.find(commands[1]));
+                    break;
+                default:
+                    ui.print("Unknown command. Please try again.");
                 }
-            } catch (BigdogException |
-                     DateTimeParseException |
-                     NumberFormatException |
-                     IndexOutOfBoundsException e) {
+            } catch (BigdogException
+                     | DateTimeParseException
+                     | NumberFormatException
+                     | IndexOutOfBoundsException e) {
                 ui.print(e.getMessage());
             } finally {
                 storage.save(this.tasks.get());
