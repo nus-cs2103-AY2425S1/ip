@@ -34,7 +34,6 @@ public class Tina {
      * @return The chatbot's response based on the input.
      * @throws IllegalArgumentException if input is null.
      */
-
     public String getResponse(String input) {
         assert input != null : "Input should not be null";
         assert ui != null : "UI should be initialized before getting a response";

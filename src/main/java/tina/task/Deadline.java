@@ -28,7 +28,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new <code>Deadline</code> object with the specified description,
-     * completion status, and end time, when parsed from storage
+     * completion status, and end time, when parsed from storage.
      *
      * @param des The description of the task.
      * @param isMark The completion status of the task.
@@ -46,7 +46,6 @@ public class Deadline extends Task {
      *
      * @return A string of the task description.
      */
-
     @Override
     public String getDes() {
         return "[D]" + super.getDes() + " (by: " + Parser.formatDate(end) + ")";

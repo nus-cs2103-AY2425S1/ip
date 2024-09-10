@@ -15,16 +15,16 @@ import tina.task.Task;
  * It provides methods to write tasks to the file and read tasks from the file.
  */
 public class Storage {
-    private final String filename;
+    private final String fileName;
 
     /**
      * Constructs a new <code>Storage</code> object with the specified filename.
      *
-     * @param filename The name of the file where tasks will be stored.
+     * @param fileName The name of the file where tasks will be stored.
      */
-    public Storage(String filename) {
-        this.filename = filename;
-        File file = new File(filename);
+    public Storage(String fileName) {
+        this.fileName = fileName;
+        File file = new File(fileName);
         File directory = file.getParentFile(); // Get the parent directory
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
@@ -39,7 +39,7 @@ public class Storage {
      */
     public void write(ArrayList<Task> list) throws TinaException {
         try {
-            FileWriter writer = new FileWriter(filename);
+            FileWriter writer = new FileWriter(fileName);
             for (Task task : list) {
                 writer.write(task.toString() + "\n");
             }
@@ -58,11 +58,11 @@ public class Storage {
     public ArrayList<Task> read() {
         ArrayList<Task> list = new ArrayList<>();
         try {
-            File file = new File(filename);
+            File file = new File(fileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = Parser.parseLine(line);
