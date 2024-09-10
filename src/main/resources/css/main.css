@@ -45,3 +45,12 @@
     -fx-opacity: 0;
 }
 
+.transparent-button {
+    -fx-background-color: rgba(119, 161, 230, 0.2);
+    -fx-font: italic 15px bold "Arial";
+}
+
+.transparent-button:hover {
+    -fx-background-color: rgba(119, 161, 230, 0.7);
+    -fx-font-size: 14px bold "Arial";
+}
