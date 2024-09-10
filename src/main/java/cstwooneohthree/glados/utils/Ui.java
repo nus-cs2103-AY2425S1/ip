@@ -1,6 +1,8 @@
 package cstwooneohthree.glados.utils;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import cstwooneohthree.glados.enums.UiType;
 import cstwooneohthree.glados.tasks.Task;
@@ -113,9 +115,11 @@ public class Ui {
         String findMatchingString = shouldFindMatching ? " that matches input..." : "...";
         StringBuilder message = new StringBuilder("\nGLaDOS: Here is the list" + findMatchingString + "\n");
 
-        for (int i = 0; i < taskList.size(); i++) {
-            message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
-        }
+        message.append(
+                IntStream.range(0, taskList.size())
+                        .mapToObj(i -> (i + 1) + ". " + taskList.get(i).toString() + "\n")
+                        .collect(Collectors.joining())
+        );
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
             System.out.println(HORIZONTAL_LINE + message.toString() + HORIZONTAL_LINE);
