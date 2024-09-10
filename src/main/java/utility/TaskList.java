@@ -13,7 +13,7 @@ public class TaskList {
     public int getTaskListSize() {
         return tasks.size();
     }
-  
+
     /**
      * Returns an instance of TaskList object.
      * @param storage Where tasks are stored.

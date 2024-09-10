@@ -10,5 +10,7 @@ public enum Command {
     todo,
     event,
     deadline,
+    note,
+    deleteNote,
     bye,
 }

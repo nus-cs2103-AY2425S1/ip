@@ -4,10 +4,7 @@ import java.io.InputStreamReader;
 
 import exceptions.LukeException;
 import presentation.Ui;
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 import utility.Parser;
 import utility.Storage;
 import utility.TaskList;
@@ -56,48 +53,48 @@ public class Luke {
             if (!parseLine(br)) {
                 continue;
             }
-
             switch (parser.getCommand()) {
             case list -> {
                 ui.listTaskDialog();
                 this.taskList.listTasks();
             }
-
             case find -> ui.findDialog(taskList.findTasks(parser.getDescription()));
-
+            case note -> {
+                Note n = new Note(parser.getDescription());
+                this.taskList.addTask(n);
+                ui.addNoteDialog(n);
+            }
+            case deleteNote -> {
+                Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
+                ui.addNoteDialog(n);
+            }
             case mark -> {
                 Task t = taskList.markTask(parser.getIndex() - 1);
                 ui.markDialog(t);
             }
-
             case unmark -> {
                 Task t = taskList.unMarkTask(parser.getIndex() - 1);
                 ui.unMarkDialog(t);
             }
-
             case delete -> {
                 Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
                 ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
             }
-
             case todo -> {
                 Task t = new Todo(parser.getDescription());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
-
             case event -> {
                 Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
-
             case deadline -> {
                 Task t = new DeadLine(parser.getDescription(), parser.getBy());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
-
             case bye -> isRunning = false;
 
             default -> { }

@@ -2,6 +2,7 @@ package presentation;
 
 import java.util.ArrayList;
 
+import tasks.Note;
 import tasks.Task;
 
 /** A class that display to the user */
@@ -30,6 +31,16 @@ public class Ui {
      */
     public void closeDialog() {
         System.out.println("Aight, Cya later.");
+    }
+
+    public void addNoteDialog(Note t) {
+        System.out.println("Aight, I've added the note:");
+        System.out.println(t);
+    }
+
+    public void deleteNoteDialog(Note n) {
+        System.out.println("Aight, this note is removed:");
+        System.out.println(n);
     }
 
     /**
