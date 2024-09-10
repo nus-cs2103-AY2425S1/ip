@@ -56,6 +56,7 @@ public class Broski {
         } else if (reply.length() > 5 && reply.startsWith("find")) {
             ui.find(taskList, reply);
         } else {
+            assert !reply.startsWith("list") : "reply should not start with list";
             ui.mainResponse(taskList, parser, reply, dateTimeParser);
             this.save();
         }
