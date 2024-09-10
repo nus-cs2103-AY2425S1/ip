@@ -27,6 +27,9 @@ public class Parser {
      * @throws GladosException If arguments cannot be parsed correctly.
      */
     public static ParsedInfo parseTask(TaskType taskType, String input) throws GladosException {
+
+        assert taskType == TaskType.TODO || taskType == TaskType.DEADLINE || taskType == TaskType.EVENT;
+
         switch (taskType) {
         case TODO:
             String todoDescription = input.trim();

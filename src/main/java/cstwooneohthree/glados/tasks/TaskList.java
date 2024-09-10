@@ -48,6 +48,9 @@ public class TaskList {
      * @throws GladosException If there is a parsing or task list error.
      */
     public String[] add(TaskType taskType, String input) throws GladosException {
+
+        assert taskType == TaskType.TODO || taskType == TaskType.DEADLINE || taskType == TaskType.EVENT;
+
         switch (taskType) {
         case TODO:
             ParsedInfo parsedTodoInputs = Parser.parseTask(taskType, input);
@@ -87,6 +90,9 @@ public class TaskList {
      * @throws TaskNotFoundException If index is outside of array list.
      */
     public String[] delete(int index) throws TaskNotFoundException {
+
+        assert listIndex == tasks.size();
+
         if (index - 1 < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
@@ -114,6 +120,9 @@ public class TaskList {
      * @throws TaskNotFoundException If index is not in array.
      */
     public String mark(int index) throws TaskNotFoundException {
+
+        assert listIndex == tasks.size();
+
         if (index < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
@@ -134,6 +143,9 @@ public class TaskList {
      * @throws TaskNotFoundException If index is not in array.
      */
     public String unmark(int index) throws TaskNotFoundException {
+
+        assert listIndex == tasks.size();
+        
         if (index < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }

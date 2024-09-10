@@ -65,7 +65,6 @@ public class Storage {
                 String taskType = inputs[0];
                 boolean isDone = inputs[1].equals("1");
                 Task task = null;
-
                 switch (taskType) {
                 case "[T]":
                     task = new Todo(inputs[2]);
