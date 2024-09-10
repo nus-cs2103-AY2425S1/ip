@@ -6,6 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import talker.TalkerException;
 import talker.Ui;
@@ -43,9 +44,9 @@ public class TaskList {
      */
     public void writeToFile(FileWriter fileWriter) throws TalkerException {
         try {
-            for (Task task: list) {
-                fileWriter.write(task.getSaveFormat() + System.lineSeparator());
-            }
+            fileWriter.write(list.stream()
+                    .map(task -> task.getSaveFormat() + System.lineSeparator())
+                    .collect(Collectors.joining()));
         } catch (IOException e) {
             throw new TalkerException("Unable to write to file. Error occurred: " + e.getMessage());
         }

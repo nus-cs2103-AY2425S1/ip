@@ -78,7 +78,7 @@ public class Event extends Task {
      * @return String formatted by Task including start and end date/time
      */
     @Override
-    public String getSaveFormat() throws TalkerException {
+    public String getSaveFormat() {
         return super.getSaveFormat() + " | " + from.format(INPUT_FORMAT)
                 + " | " + to.format(INPUT_FORMAT);
     }
