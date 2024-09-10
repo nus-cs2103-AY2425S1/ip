@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
@@ -106,11 +107,9 @@ public class TaskList {
      */
     public TaskList findTasks(String name) {
         TaskList matchingTasks = new TaskList();
-        for (Task task : this.tasks) {
-            if (task.getName().equals(name)) {
-                matchingTasks.addTask(task);
-            }
-        }
+        matchingTasks.tasks = this.tasks.stream()
+                .filter(task -> task.getName().equals(name))
+                .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
     }
 
@@ -122,16 +121,10 @@ public class TaskList {
      */
     public TaskList findAllTasksOn(LocalDate localDate) {
         TaskList taskList = new TaskList();
-
-        for (Task task : this.tasks) {
-            if (task instanceof TaskWithDate) {
-                TaskWithDate taskWithDate = (TaskWithDate) task;
-                if (taskWithDate.overlapsWith(localDate)) {
-                    taskList.addTask(taskWithDate);
-                }
-            }
-        }
-
+        taskList.tasks = this.tasks.stream()
+                .filter(task -> task instanceof TaskWithDate)
+                .filter(task -> ((TaskWithDate) task).overlapsWith(localDate))
+                .collect(Collectors.toCollection(ArrayList::new));
         return taskList;
     }
 
