@@ -19,7 +19,7 @@ public class UserInterface extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(650);
-            stage.setMinWidth(400);
+            stage.setMinWidth(420);
             fxmlLoader.<MainWindow>getController().setDawn(dawn);
             stage.show();
         } catch (IOException e) {

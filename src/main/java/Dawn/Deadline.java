@@ -12,9 +12,14 @@ public class Deadline extends Task {
      * @param desc
      * @param deadline
      */
-    public Deadline(String desc, String deadline) {
+    public Deadline(String desc, String deadline) throws DawnException {
         super(desc);
         String[] strings = deadline.split(" "); // in the format of by, date, time
+        if (strings.length < 3) {
+            throw new DawnException("Make sure you include both the task description and the deadline in this " +
+                    "format:\n deadline [task name] /by [date yyyy-mm-dd] [time]\n" +
+                    "For example: deadline submit assignment1 /by 2024-09-16 2pm");
+        }
         this.deadline = strings[2];
         this.date = LocalDate.parse(strings[1]);
     }

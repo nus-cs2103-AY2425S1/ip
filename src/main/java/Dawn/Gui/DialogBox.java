@@ -66,4 +66,17 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    /**
+     * Returns a new dialog box which contains the greeting
+     *
+     * @param i Profile picture of Dawn
+     */
+    public static DialogBox greet(Image i) {
+        String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
+        String s = "Bunny🐰 speaking, what can I do for you? \n" + logo;
+        var db =  new DialogBox(s, i);
+        db.flip();
+        return db;
+    }
 }

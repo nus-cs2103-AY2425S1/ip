@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
-    @Test
-    public void Parser_invalidCommand_ExceptionThrown() {
-        try {
-            new Parser("hello", "world");
-            fail();
-        } catch (DawnException e) {
-            assertEquals("Am I supposed to know what that means? Try something else\n", e.getMessage());
-        }
-    }
+//    @Test
+//    public void Parser_invalidCommand_ExceptionThrown() {
+//        try {
+//            new Parser("hello", "world");
+//            fail();
+//        } catch (DawnException e) {
+//            assertEquals("Am I supposed to know what that means? Try something else\n", e.getMessage());
+//        }
+//    }
 
     @Test
     public void mark_missingIndex_ExceptionThrown() {

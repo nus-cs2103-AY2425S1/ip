@@ -35,7 +35,7 @@ public class TaskList {
      * @param input Details of the tasks e.g. description, date, time etc
      * @throws DawnException
      */
-    public static void addTask(String command, String input) throws DawnException {
+    public static String addTask(String command, String input) throws DawnException {
         Command cmd = Command.valueOf(command);
         if (input.isBlank()) {
             throw new DawnException("You might be missing the task description, please check again\n");
@@ -44,27 +44,34 @@ public class TaskList {
         Task t = null;
         String[] s = input.split("/");
 
+        if (s[0].isBlank()) {
+            throw new DawnException("You might be missing the task description, please check again\n");
+        }
+
         switch (cmd) {
             case TODO:
                 t = new ToDo(s[0]);
                 break;
             case DEADLINE:
                 if (s.length < 2) {
-                    throw new DawnException("Make sure you include both the task description and the deadline!\n");
+                    throw new DawnException("Make sure you include both the task description and the deadline in this" +
+                            " format:\n deadline [task name] /by [date yyyy-mm-dd] [time]\n" +
+                            "For example: deadline submit assignment1 /by 2024-09-16 2pm");
                 }
                 t = new Deadline(s[0], s[1]);
                 break;
             case EVENT:
                 if (s.length < 3) {
                     throw new DawnException("Make sure you include the task description, start, and end times for " +
-                            "your event!\n");
+                            "your event in this format:\nevent [task name] /from [date yyyy-mm-dd] [time] / " +
+                            "to [time]\nFor example: event party /from 2024-09-01 5pm /to 9pm");
                 }
                 t = new Event(s[0], s[1], s[2]);
                 break;
         }
         tasks.add(t);
-        System.out.println("  Gotcha! I've added this task: \n" + tasks.size() + "." + t);
-        System.out.printf("  Now you have %d task(s) in the list \n", tasks.size());
+        return "Gotcha! I've added this task: \n" + tasks.size() + "." + t +
+                "\nNow you have " + tasks.size() + " task(s) in the list \n";
     }
 
     /**
@@ -73,7 +80,7 @@ public class TaskList {
      * @param index Task index
      * @throws DawnException
      */
-    public static void delete(String index) throws DawnException {
+    public static String delete(String index) throws DawnException {
         int ind;
         try {
             ind = Integer.parseInt(index);
@@ -81,12 +88,15 @@ public class TaskList {
                 throw new DawnException("Task specified does not exist!\n");
             }
         } catch (NumberFormatException e){
-            throw new DawnException("Please specify the index of the task to be deleted!\n");
+            throw new DawnException("Please specify the index of the task to be deleted in this format: " +
+                    "delete [index]\n For example: to delete the first task in the list, you can type <delete 1>");
         }
+        StringBuilder s = new StringBuilder();
         Task t = tasks.get(ind - 1); // to account for index starting at 0
-        System.out.println("  OK! I have removed this task for you: \n" + t);
+        s.append("OK! I have removed this task for you: \n" + t);
         tasks.remove(ind - 1);
-        System.out.printf("  Now you have %d task(s) in the list \n", tasks.size());
+        s.append(String.format("Now you have %d task(s) in the list \n", tasks.size()));
+        return String.valueOf(s);
     }
 
     /**
@@ -94,10 +104,9 @@ public class TaskList {
      *
      * @param index Task index
      */
-    public static void markAsDone(int index) {
+    public static String markAsDone(int index) {
         tasks.get(index - 1).markAsDone(); // account for index starting at 0
-        System.out.println("  i've marked this task as done!: ");
-        System.out.println("  " + index + "." + tasks.get(index - 1));
+        return "Ok, I've marked this task as done! \n" + "  " + index + "." + tasks.get(index - 1);
     }
 
     /**
@@ -105,10 +114,9 @@ public class TaskList {
      *
      * @param index Task index
      */
-    public static void markAsNotDone(int index) {
+    public static String markAsNotDone(int index) {
         tasks.get(index - 1).markAsNotDone(); // account for index starting at 0
-        System.out.println("  ok, I've unmarked this task :( ");
-        System.out.println("  " + index + "." + tasks.get(index - 1));
+        return "Ok, I've marked this task as not done :( \n" + "  " + index + "." + tasks.get(index - 1);
     }
 
     /**
@@ -130,40 +138,44 @@ public class TaskList {
     /**
      * Prints all the events and deadlines that are happening today
      */
-    public static void doByToday() {
-        System.out.println("Deadlines and events happening today: ");
-        Boolean haveTasks = false;
+    public static String doByToday() {
+        StringBuilder s = new StringBuilder();
+        s.append("Deadlines and events happening today:\n");
+        boolean haveTasks = false;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
                 Deadline d = (Deadline) tasks.get(i);
                 if (d.getDate().equals(LocalDate.now())) {
-                    System.out.println(d);
+                    s.append(d);
                     haveTasks = true;
                 }
             } else if (tasks.get(i) instanceof Event) {
                 Event e = (Event) tasks.get(i);
                 if (e.getDate().equals(LocalDate.now())) {
-                    System.out.println(e);
+                    s.append(e);
                     haveTasks = true;
                 }
             }
         }
         if (!haveTasks) {
-            System.out.println("There are no deadlines and events happening today!");
+            s.append("Yipee! There are no deadlines and events happening today!");
         }
+        return String.valueOf(s);
     }
 
     /**
      * Prints all the tasks currently in the task list
      */
-    public static void list() {
-        System.out.println("listing all tasks...");
+    public static String list() {
+        StringBuilder s = new StringBuilder();
+        s.append("listing all tasks...\n");
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in the list... \nPlease feed me some tasks!");
+            s.append("There are no tasks in the list... \nPlease feed me some tasks!");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s  \n", i + 1, tasks.get(i));
+                s.append(String.format("%d. %s \n", i + 1, tasks.get(i)));
             }
         }
+        return String.valueOf(s);
     }
 }

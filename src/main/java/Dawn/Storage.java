@@ -1,5 +1,6 @@
 package Dawn;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import static Dawn.TaskList.numOfTasks;
 
 public class Storage {
     private ArrayList<Task> savedTasks;
-    String filePath;
+    private String filePath;
 
     /**
      * Creates a new instance of a storage which will load previously saved tasks and store current tasks
@@ -53,7 +54,7 @@ public class Storage {
             }
             return this.savedTasks;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DawnException("Unable to load previously saved tasks: " + e.getMessage());
         }
     }
 
@@ -125,12 +126,12 @@ public class Storage {
         } else if (task instanceof Deadline) {
             // We can safely typecast here since we already checked that task is an instance of Deadline
             Deadline t = (Deadline) task;
-            deadline = t.getDate() + " " + (t).getDeadline();
+            deadline = "by " + t.getDate() + " " + (t).getDeadline();
             textToAdd = "D" + separator + isDone + separator + desc + separator + deadline;
         } else { // task instanceof Event
             Event t = (Event) task;
-            from = t.getDate() + " " + t.getFromTime();
-            to = t.getToTime();
+            from = "from " + t.getDate() + " " + t.getFromTime();
+            to = "to " + t.getToTime();
             textToAdd = "E" + separator + isDone + separator + desc + separator + from + separator + to;
         }
         fw.write(textToAdd + System.lineSeparator());

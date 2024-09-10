@@ -14,11 +14,16 @@ public class Event extends Task {
      * @param start
      * @param end
      */
-    public Event(String desc, String start, String end) {
+    public Event(String desc, String start, String end) throws DawnException {
         super(desc);
         int indexOfFrom = start.indexOf(" ") + 1;
         int indexOfEnd = end.indexOf(" ") + 1;
         String [] s = start.substring(indexOfFrom).split(" ");
+        if (s.length < 2) {
+            throw new DawnException("Make sure you include the task description, start, and end times for " +
+                    "your event in this format:\nevent [task name] /from [date yyyy-mm-dd] [time] / " +
+                    "to [time]\n For example: event party /from 2024-09-01 5pm /to 9pm");
+        }
         this.date = LocalDate.parse(s[0]);
         this.start = s[1];
         this.end = end.substring(indexOfEnd).trim();
