@@ -251,6 +251,22 @@ public class WansBot {
         return ui.handleLearnQuestions();
     }
 
+    public String matchQuestion(String userInput) {
+
+        Question qn = questionBank.getQuestion(userInput.split("answer ")[1]);
+
+        if (qn == null) {
+            return "I don't have an answer for your question! Make sure you input 'answer' followed by your question"
+                    + "including the ?";
+        }
+
+        if (qn.toString().equalsIgnoreCase(userInput.split("answer ")[1])) {
+            return qn.getAnswer();
+        }
+
+        return "";
+    }
+
     /**
      * Takes in userInput and returns WansBot's response as a String.
      */
@@ -299,7 +315,7 @@ public class WansBot {
             response += learnQuestions(userInput);
             break;
         case "answer":
-            response += questionBank.matchQuestion(userInput);
+            response += matchQuestion(userInput);
             break;
         default:
             return ui.handleUnrecognisedInput(userInput);
