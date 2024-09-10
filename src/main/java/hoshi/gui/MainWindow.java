@@ -2,8 +2,8 @@ package hoshi.gui;
 
 import java.util.Objects;
 
-import hoshi.ui.Ui;
 import hoshi.Hoshi;
+import hoshi.ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
