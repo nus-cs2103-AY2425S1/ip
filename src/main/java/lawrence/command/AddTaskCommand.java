@@ -15,14 +15,15 @@ import lawrence.utils.DateParser;
  * Represents the user command to create new tasks.
  */
 public class AddTaskCommand extends Command {
-    private String input;
+    private final String input;
 
     /**
      * Default constructor.
      *
      * @param input the user input associated with this command
      */
-    public AddTaskCommand(String input) {
+    public AddTaskCommand(CommandType type, String input) {
+        super(type);
         this.input = input;
     }
 
@@ -57,16 +58,15 @@ public class AddTaskCommand extends Command {
             int numberOfTasks = tasks.getSize();
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";
-            ui.showMessage(String.format("Alright, added task:%n%s%nto the list.%n"
-                    + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
+            this.response = String.format("Alright, added task:%n%s%nto the list.%n"
+                    + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural);
         } catch (DateTimeParseException e) {
-            ui.showMessage(
-                    String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
-                            DateParser.FORMAT_STRING_FOR_USER_INPUT));
+            this.response = String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
+                    DateParser.FORMAT_STRING_FOR_USER_INPUT);
         } catch (IllegalArgumentException e) {
-            ui.showMessage(e.getMessage());
+            this.response = e.getMessage();
         } catch (IOException e) {
-            ui.showMessage("Failed to save tasks to file. Please try again.");
+            this.response = "Failed to save tasks to file. Please try again.";
         }
     }
 }

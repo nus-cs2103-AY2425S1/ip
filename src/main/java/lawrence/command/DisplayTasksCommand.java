@@ -11,8 +11,8 @@ public class DisplayTasksCommand extends Command {
     /**
      * Default constructor.
      */
-    public DisplayTasksCommand() {
-        // Empty constructor
+    public DisplayTasksCommand(CommandType type) {
+        super(type);
     }
 
     /**
@@ -30,10 +30,10 @@ public class DisplayTasksCommand extends Command {
     @Override
     public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         if (tasks.getSize() < 1) {
-            ui.showMessage("You have no tasks at the moment.");
+            this.response = "You have no tasks at the moment.";
             return;
         }
 
-        ui.showMessage(String.format("Here's your laundry list:%n%s", tasks));
+        this.response = String.format("Here's your laundry list:%n%s", tasks);
     }
 }

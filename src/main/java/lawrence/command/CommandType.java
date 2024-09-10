@@ -14,7 +14,7 @@ public enum CommandType {
     MARK_COMPLETE("mark"),
     MARK_INCOMPLETE("unmark");
 
-    private String commandType;
+    private final String commandType;
 
     /**
      * Default constructor.

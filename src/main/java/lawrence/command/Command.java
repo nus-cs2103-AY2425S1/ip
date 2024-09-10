@@ -15,6 +15,12 @@ import lawrence.ui.UserInterface;
  * </p>
  */
 public abstract class Command {
+    protected String response = "";
+    private final CommandType type;
+
+    protected Command(CommandType type) {
+        this.type = type;
+    }
     /**
      * Executes the specified user command.
      *
@@ -52,5 +58,26 @@ public abstract class Command {
      */
     protected void saveTasks(TaskList tasks, TaskFileManager manager) throws IOException {
         manager.saveTasksToFile(tasks.getTasks());
+    }
+
+    /**
+     * Returns the generated response after executing the command.
+     * <p>
+     * If {@link #execute(TaskList, TaskFileManager, UserInterface)} has not been called prior,
+     * an empty string is returned.
+     * </p>
+     * @return a string containing the response after the execution of the command
+     */
+    public String getResponse() {
+        return response;
+    }
+
+    /**
+     * Returns the type of the current command.
+     *
+     * @return the command type
+     */
+    public CommandType getType() {
+        return type;
     }
 }

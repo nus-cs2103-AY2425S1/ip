@@ -11,14 +11,15 @@ import lawrence.ui.UserInterface;
  * Represents the user command to mark existing tasks as incomplete.
  */
 public class UncompleteTaskCommand extends Command {
-    private String input;
+    private final String input;
 
     /**
      * Default constructor.
      *
      * @param input the user input associated with this command
      */
-    public UncompleteTaskCommand(String input) {
+    public UncompleteTaskCommand(CommandType type, String input) {
+        super(type);
         this.input = input;
     }
 
@@ -42,7 +43,7 @@ public class UncompleteTaskCommand extends Command {
     public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
-            ui.showMessage("Please specify the task you want to mark as incomplete.");
+            this.response = "Please specify the task you want to mark as incomplete.";
             return;
         }
 
@@ -52,14 +53,14 @@ public class UncompleteTaskCommand extends Command {
             Task incompleteTask = tasks.uncompleteTask(taskNumber);
             saveTasks(tasks, manager);
 
-            ui.showMessage(String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
+            this.response = String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask);
         } catch (NumberFormatException e) {
-            ui.showMessage("Please specify a number to select a task.");
+            this.response = "Please specify a number to select a task.";
         } catch (IllegalArgumentException | IllegalStateException e) {
-            ui.showMessage(String.format("%s Please try again.", e.getMessage()));
+            this.response = String.format("%s Please try again.", e.getMessage());
         } catch (IOException e) {
-            ui.showMessage(String.format("Failed to mark task %s as incomplete. Please try again later.",
-                    rawTaskNumber));
+            this.response = String.format("Failed to mark task %s as incomplete. Please try again later.",
+                    rawTaskNumber);
         }
     }
 }
