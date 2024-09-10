@@ -21,6 +21,7 @@ public class FileManagement {
 
     public FileManagement() {
         String home = System.getProperty("user.dir");
+        final String FILE_NAME = "echobot.txt";
 
         Path directory = Paths.get(home, "src", "main", "data");
         if (!Files.exists(directory)) {
@@ -30,7 +31,7 @@ public class FileManagement {
                 e.printStackTrace();
             }
         }
-        this.path = Paths.get(directory.toString(), "echobot.txt");
+        this.path = Paths.get(directory.toString(), FILE_NAME);
         if (!Files.exists(path)) {
             try {
                 File file = new File(String.valueOf(path));
@@ -47,7 +48,8 @@ public class FileManagement {
     public void save() {
         try {
             FileWriter fw = new FileWriter(String.valueOf(this.path));
-            fw.write(this.taskList.save());
+            final String listToBeWritten = this.taskList.save();
+            fw.write(listToBeWritten);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,11 +63,12 @@ public class FileManagement {
      */
     public TaskList load() {
         TaskList taskList = new TaskList();
+        final String SPLIT_KEYWORD = " \\| ";
         try {
             Scanner fr = new Scanner(new File(String.valueOf(this.path)));
             while (fr.hasNextLine()) {
                 String taskString = fr.nextLine();
-                String[] taskStringArray = taskString.split(" \\| ");
+                String[] taskStringArray = taskString.split(SPLIT_KEYWORD);
                 if ("T".equals(taskStringArray[0])) {
                     taskList.addTask(new ToDo("1".equals(taskStringArray[1]), taskStringArray[2]));
                 } else if ("D".equals(taskStringArray[0])) {

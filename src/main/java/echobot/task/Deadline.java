@@ -20,7 +20,9 @@ public class Deadline extends ScheduledTask {
 
     @Override
     public boolean isTaskWithinThisDate(LocalDate date) {
-        return this.deadline.toLocalDate().isAfter(date) || this.deadline.toLocalDate().isEqual(date);
+        boolean isDeadlineAfterDate = this.deadline.toLocalDate().isAfter(date);
+        boolean isDeadlineEqualDate = this.deadline.toLocalDate().isEqual(date);
+        return isDeadlineAfterDate || isDeadlineEqualDate;
     }
 
     @Override
