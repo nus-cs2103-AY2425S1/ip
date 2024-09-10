@@ -76,4 +76,8 @@ public abstract class Tasks {
      * @return a String representing the saved format of the task
      */
     public abstract String saveFormat();
+
+    public String getDescription() {
+        return description;
+    }
 }

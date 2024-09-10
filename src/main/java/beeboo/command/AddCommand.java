@@ -42,19 +42,28 @@ public class AddCommand extends Command {
         switch(type) {
         case "e":
             Events event = Events.createEvent(command);
-            tasks.addList(event);
-            storage.saveItem(tasks);
-            return ui.addList(event, tasks.getSize());
+            if(tasks.addList(event)) {
+                storage.saveItem(tasks);
+                return ui.addList(event, tasks.getSize());
+            } else {
+                return ui.duplicateTaskError();
+            }
         case "t":
             ToDos todo = ToDos.createToDo(command);
-            tasks.addList(todo);
-            storage.saveItem(tasks);
-            return ui.addList(todo, tasks.getSize());
+            if(tasks.addList(todo)) {
+                storage.saveItem(tasks);
+                return ui.addList(todo, tasks.getSize());
+            } else {
+                return ui.duplicateTaskError();
+            }
         case "d":
             Deadlines deadline = Deadlines.createDeadline(command);
-            tasks.addList(deadline);
-            storage.saveItem(tasks);
-            return ui.addList(deadline, tasks.getSize());
+            if(tasks.addList(deadline)) {
+                storage.saveItem(tasks);
+                return ui.addList(deadline, tasks.getSize());
+            } else {
+                return ui.duplicateTaskError();
+            }
         default:
             return "";
         }
