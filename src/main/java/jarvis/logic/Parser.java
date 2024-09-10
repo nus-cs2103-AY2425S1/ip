@@ -13,9 +13,7 @@ public class Parser {
      * @param tasklist the {@code TaskList} object on which the commands will be executed.
      */
     public static void parse(String input, TaskList tasklist) {
-        if (input.equals("list")) {
-            tasklist.list();
-        } else if (!input.equals("bye")) {
+        if (!input.equals("bye")) {
             // Only print if it's not "bye"
             if (input.startsWith("mark") || input.startsWith("unmark") ||
                     input.startsWith("delete")) {
@@ -38,19 +36,7 @@ public class Parser {
             } else if (input.startsWith("find")) {
                 String toFind = input.substring(5);
                 tasklist.find(toFind);
-            } //else {
-//                try {
-//                    tasklist.add(input);
-//                    String result = tasklist.acknowledge();
-//                } catch (ArrayIndexOutOfBoundsException e) {
-//                    System.out.println("bad input: invalid format " + input);
-//                } catch (IndexOutOfBoundsException e) {
-//                    System.out.println("bad input: invalid format " + input);
-//                } catch (IllegalArgumentException e) {
-//                } catch (Exception e) {
-//                    System.out.println("error");
-//                }
-//            }
+            }
         }
     }
 
