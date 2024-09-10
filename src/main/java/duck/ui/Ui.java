@@ -1,8 +1,9 @@
 package duck.ui;
 
-import java.util.Scanner;
 
-import duck.data.exception.DuckException;
+
+import duck.data.exception.DuckException;import java.util.Scanner;
+
 
 
 
@@ -11,6 +12,28 @@ import duck.data.exception.DuckException;
  * and reading user input from the console.
  */
 public class Ui {
+    public static final String MESSAGE_START_UP = "Initializing Duck...";
+    public static final String MESSAGE_START_UP_COMPLETE = """
+            Quack. Duck is up!
+            If you need Duck's guidance, type 'help'!
+            """;
+    public static final String MESSAGE_LOGO = """
+                    ,---,                                  ,-.
+                  .'  .' `\\                            ,--/ /|
+                ,---.'     \\          ,--,           ,--. :/ |
+                |   |  .`\\  |       ,'_ /|           :  : ' /
+                :   : |  '  |  .--. |  | :    ,---.  |  '  /
+                |   ' '  ;  :,'_ /| :  . |   /     \\ '  |  :
+                '   | ;  .  ||  ' | |  . .  /    / ' |  |   \\
+                |   | :  |  '|  | ' |  | | .    ' /  '  : |. \\
+                '   : | /  ; :  | : ;  ; | '   ; :__ |  | ' \\ \\
+                |   | '` ,/  '  :  `--'   \\'   | '.'|'  : |--'
+                ;   :  .'    :  ,      .-./|   :    :;  |,'
+                |   ,.'       `--`----'     \\   \\  / '--'
+                '---'                        `----'
+            """;
+    public static final String MESSAGE_GOODBYE = "Quack! Duck is going to sleep now. Goodbye!";
+    public static final String WORD_BYE = "bye";
     private Scanner in;
 
     /**
@@ -24,40 +47,21 @@ public class Ui {
      * Displays the startup message indicating that Duck is being initialized.
      */
     public void showStartUpMessage() {
-        System.out.println("Initializing Duck...");
+        System.out.println(MESSAGE_START_UP);
     }
 
     /**
      * Displays a message indicating that Duck has started up successfully.
      */
     public void showStartUpCompleteMessage() {
-        System.out.println("""
-                Quack. Duck is up!
-                If you need Duck's guidance, type 'help'!
-                """);
+        System.out.println(MESSAGE_START_UP_COMPLETE);
     }
 
     /**
      * Displays the greeting message along with an ASCII logo and a prompt for user interaction.
      */
     public void sayHi() {
-        String logo = """
-                        ,---,                                  ,-.
-                      .'  .' `\\                            ,--/ /|
-                    ,---.'     \\          ,--,           ,--. :/ |
-                    |   |  .`\\  |       ,'_ /|           :  : ' /
-                    :   : |  '  |  .--. |  | :    ,---.  |  '  /
-                    |   ' '  ;  :,'_ /| :  . |   /     \\ '  |  :
-                    '   | ;  .  ||  ' | |  . .  /    / ' |  |   \\
-                    |   | :  |  '|  | ' |  | | .    ' /  '  : |. \\
-                    '   : | /  ; :  | : ;  ; | '   ; :__ |  | ' \\ \\
-                    |   | '` ,/  '  :  `--'   \\'   | '.'|'  : |--'
-                    ;   :  .'    :  ,      .-./|   :    :;  |,'
-                    |   ,.'       `--`----'     \\   \\  / '--'
-                    '---'                        `----'
-                """;
-
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + MESSAGE_LOGO);
         System.out.println("Hello! I'm Duck.");
         System.out.println("What can I do for you, QUACK?\n");
     }
@@ -71,14 +75,14 @@ public class Ui {
         if (in.hasNextLine()) {
             return in.nextLine().trim();
         }
-        return "bye";
+        return WORD_BYE;
     }
 
     /**
      * Displays a message indicating that Duck is shutting down.
      */
     public void showGoodbyeMessage() {
-        System.out.println("Quack! Duck is going to sleep now. Goodbye!");
+        System.out.println(MESSAGE_GOODBYE);
     }
 
     /**
@@ -90,14 +94,6 @@ public class Ui {
         System.out.println(de.getMessage());
     }
 
-    /**
-     * Displays a message indicating that the user provided an invalid instruction.
-     *
-     * @param iae The IllegalArgumentException associated with the invalid instruction.
-     */
-    public void displayIllegalArgumentMessage(IllegalArgumentException iae) {
-        System.out.println("Quack, that's not a valid instruction! I don't know how to respond to that.");
-    }
 
     public void showHelpMessage(String helpString) {
         System.out.println(helpString);

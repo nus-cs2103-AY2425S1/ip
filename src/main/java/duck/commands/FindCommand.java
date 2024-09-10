@@ -1,7 +1,5 @@
 package duck.commands;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
@@ -13,6 +11,11 @@ import duck.ui.Ui;
  * returns tasks that match the keyword.
  */
 public class FindCommand extends Command {
+
+    private static final String ERROR_MESSAGE_FIND_COMMAND = "Quack, you need to provide a keyword to search for!\n";
+    private static final String TASKS_NOT_FOUND = "Quack, there are no tasks matching that keyword!";
+    private static final String TASKS_FOUND = "Quack, I found these related tasks for you!";
+
 
     /**
      * Constructs a FindCommand object with the specified message.
@@ -37,22 +40,29 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         super.execute(tasks, storage, ui);
 
-        if (message.length() <= 5) {
-            throw new DuckException("Quack, you need to provide a keyword to search for!\n");
-        }
-
-        String keyword = message.substring(5);
+        String keyword = getKeyword();
         TaskList matchingTasks = tasks.findTasks(keyword);
+        printFindResult(matchingTasks);
+    }
 
+    private void printFindResult(TaskList matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("Quack, there are no tasks matching that keyword!");
+            System.out.println(TASKS_NOT_FOUND);
         } else {
-            System.out.println("Quack, I found these related tasks for you!");
-            AtomicInteger idx = new AtomicInteger(1);
-            matchingTasks.forEach(task -> System.out.println(idx.getAndIncrement() + "." + task.toString()));
+            System.out.println(TASKS_FOUND);
+            matchingTasks.printTasks();
         }
+    }
 
-        System.out.println();
+    private boolean isCorrectFindFormat() {
+        return message.length() > 5;
+    }
+
+    private String getKeyword() throws DuckException {
+        if (!isCorrectFindFormat()) {
+            throw new DuckException(ERROR_MESSAGE_FIND_COMMAND);
+        }
+        return message.substring(5);
     }
 
     /**
@@ -64,4 +74,5 @@ public class FindCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

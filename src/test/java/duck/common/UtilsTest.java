@@ -1,4 +1,4 @@
-package duck.util;
+package duck.common;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

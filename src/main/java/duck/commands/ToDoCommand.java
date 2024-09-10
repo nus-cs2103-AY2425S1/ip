@@ -12,6 +12,10 @@ import duck.ui.Ui;
  */
 public class ToDoCommand extends Command {
 
+    private static final String TODO_COMMAND_ERROR_MESSAGE = "What are you trying \"to do\", mate? "
+            + "Give me a valid description instead of an empty one.\n"
+            + "todo {description}\n";
+
     /**
      * Constructs a ToDoCommand with the specified message.
      *
@@ -50,20 +54,21 @@ public class ToDoCommand extends Command {
 
     /**
      * Parses the input message to extract the description of the ToDo task.
-     * The method normalizes the input by removing the "todo" keyword and trimming the result.
      *
-     * @param input The input message containing the ToDo task description.
-     * @return A new ToDo task with the extracted description.
-     * @throws DuckException If the description is empty or invalid.
+     * @param input The message containing the description of the ToDo task.
+     * @return A ToDo task with the specified description.
+     * @throws DuckException If the description is empty.
      */
     private ToDo parseToDo(String input) throws DuckException {
-        // Normalize to lowercase and remove the todo keyword
-        String description = input.replaceFirst("(?i)^todo\\s*", "").trim();
-        if (description.isEmpty()) {
-            throw new DuckException("What are you trying \"to do\", mate? "
-                    + "Give me a valid description instead of an empty one.\n"
-                    + "todo {description}\n");
-        }
+        String description = getDescription(input);
         return new ToDo(description);
+    }
+
+    private String getDescription(String input) throws DuckException {
+        String description = input.replaceFirst("(?i)^todo\\s*", "");
+        if (description.isEmpty()) {
+            throw new DuckException(TODO_COMMAND_ERROR_MESSAGE);
+        }
+        return description;
     }
 }

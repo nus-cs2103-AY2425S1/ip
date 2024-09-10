@@ -128,7 +128,9 @@ public class Duck {
         // Ensure all output is flushed
         System.out.flush();
 
-        // Convert the captured output to a string
+        // Reset the standard output
+        System.setOut(originalOut);
+
         return baos.toString();
     }
     /**

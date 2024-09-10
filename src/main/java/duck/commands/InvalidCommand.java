@@ -11,6 +11,9 @@ import duck.ui.Ui;
  */
 public class InvalidCommand extends Command {
 
+    private static final String MESSAGE_INVALID_COMMAND =
+            "Hey, that's not a valid instruction! I don't know how to respond to that.\n";
+
     /**
      * Constructs an InvalidCommand with the specified message.
      *
@@ -31,8 +34,7 @@ public class InvalidCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         super.execute(tasks, storage, ui);
-
-        System.out.println("Hey, that's not a valid instruction! I don't know how to respond to that.\n");
+        System.out.println(MESSAGE_INVALID_COMMAND);
     }
 
     /**

@@ -1,10 +1,11 @@
 package duck.commands;
 
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
+
 
 /**
  * Represents a command to delete a task from the task list.
@@ -12,6 +13,12 @@ import duck.util.Utils;
  * and deletes the specified task from the task list.
  */
 public class DeleteCommand extends Command {
+
+
+    private static final String ERROR_MESSAGE_DELETE_COMMAND = """
+            Delete tasks with correct format please >:(
+            delete {index of task to delete}
+            """;
 
     /**
      * Constructs a DeleteCommand with the specified message.
@@ -24,7 +31,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command by deleting the specified task from the task list.
-     * If the message is in the wrong format or if the index is invalid, it throws a DuckException.
      *
      * @param tasks The list of tasks from which the task will be deleted.
      * @param storage The storage system for saving and loading tasks.
@@ -37,19 +43,11 @@ public class DeleteCommand extends Command {
         super.execute(tasks, storage, ui);
 
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException("Delete tasks with correct format please >:(\n"
-                    + "delete {index of task to delete}\n");
+            throw new DuckException(ERROR_MESSAGE_DELETE_COMMAND);
         }
 
-        String[] words = message.split(" ");
-
-        try {
-            tasks.deleteTask(Integer.parseInt(words[1]) - 1, storage);
-        } catch (NumberFormatException e) {
-            throw new DuckException("Oops! you have to indicate a valid task index!\n");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
-        }
+        int taskIndex = Utils.getTaskIndex(message);
+        tasks.deleteTask(taskIndex, storage);
     }
 
     /**
@@ -61,4 +59,6 @@ public class DeleteCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+
 }

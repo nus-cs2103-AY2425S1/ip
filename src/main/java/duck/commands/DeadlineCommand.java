@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
+
 
 /**
  * Represents a command to add a Deadline task to the task list.
@@ -17,6 +18,14 @@ import duck.util.Utils;
  * the command message and adds a new Deadline task to the task list.
  */
 public class DeadlineCommand extends Command {
+
+    private static final String ERROR_MESSAGE_DEADLINE_COMMAND = """
+            Hey, a deadline instruction should be of the following format:
+            deadline {description} /by {deadline}
+            {deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm
+            """;
+
+    private static final String DEADLINE_COMMAND_PATTERN = "(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$";
 
     /**
      * Constructs a DeadlineCommand with the specified message.
@@ -66,18 +75,23 @@ public class DeadlineCommand extends Command {
      */
     private Deadline parseDeadline(String input) throws DuckException {
         // Regular expression to match the pattern for deadline
-        Pattern pattern = Pattern.compile("(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$");
+        Pattern pattern = Pattern.compile(DEADLINE_COMMAND_PATTERN);
         Matcher matcher = pattern.matcher(input);
+        return createDeadline(matcher);
+    }
 
+    private Deadline createDeadline(Matcher matcher) throws DuckException {
         if (matcher.matches()) {
             String description = matcher.group(1);
             String deadlineStr = matcher.group(2);
+
             LocalDateTime deadline = Utils.convertToDateTime(deadlineStr);
+
             return new Deadline(description, deadline);
         } else {
-            throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
-                    + "deadline {description} /by {deadline}\n"
-                    + "{deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm\n");
+            throw new DuckException(ERROR_MESSAGE_DEADLINE_COMMAND);
         }
     }
+
+
 }

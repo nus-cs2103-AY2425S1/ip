@@ -1,16 +1,19 @@
 package duck.commands;
 
+import duck.common.Utils;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import duck.util.Utils;
 
 /**
  * Represents a command to mark a task as done in the task list.
  * When executed, it marks the specified task as completed and updates the storage.
  */
 public class MarkCommand extends Command {
+
+    private static final String ERROR_MESSAGE_MARK_COMMAND = "Update tasks with correct format please >:(\n"
+            + "mark/unmark {index of task to update}";
 
     /**
      * Constructs a MarkCommand with the specified message.
@@ -23,8 +26,6 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command by marking the specified task as done.
-     * It validates the input format and checks if the task index
-     * is valid before marking it as done and updating the storage.
      *
      * @param tasks The list of tasks from which a task will be marked as done.
      * @param storage The storage system where the updated task list will be saved.
@@ -36,20 +37,12 @@ public class MarkCommand extends Command {
         super.execute(tasks, storage, ui);
 
         if (!Utils.isCorrectUpdateFormat(message)) {
-            throw new DuckException("Update tasks with correct format please >:(\n"
-                    + "mark/unmark {index of task to update}");
+            throw new DuckException(ERROR_MESSAGE_MARK_COMMAND);
         }
 
-        String[] words = message.split(" ");
-
-        try {
-            tasks.get(Integer.parseInt(words[1]) - 1).markAsDone();
-            storage.writeTasks(tasks);
-        } catch (NumberFormatException e) {
-            throw new DuckException("Oops! you have to indicate a valid task index!\n");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
-        }
+        int taskIndex = Utils.getTaskIndex(message);
+        tasks.updateTaskStatus(taskIndex, true);
+        storage.writeTasks(tasks);
     }
 
     /**
