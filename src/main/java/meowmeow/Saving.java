@@ -22,7 +22,7 @@ public class Saving {
         this.taskList = new TaskList();
     }
 
-    private void load(String filePath) throws FileNotFoundException {
+    public void load(String filePath) throws FileNotFoundException {
         this.file = new File(filePath);
         Scanner s = new Scanner(this.file);
         while (s.hasNextLine()) {
