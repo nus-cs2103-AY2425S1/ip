@@ -31,6 +31,10 @@ public class Kita {
         }
 
         commandsExecutor = new Commands(tasks, saveSystem);
+
+        assert saveSystem != null;
+        assert tasks != null;
+        assert commandsExecutor != null;
     }
 
     /**

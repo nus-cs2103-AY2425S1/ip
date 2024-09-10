@@ -25,7 +25,7 @@ public class Storage {
      * @throws FileSystemException if there is an error with the file system.
      * @throws IOException         if an I/O error occurs.
      */
-    public Storage() throws FileSystemException, IOException {
+    public Storage() throws IOException {
         this.saveFile = new File(LOCATION);
         if (!this.saveFile.exists() || !this.saveFile.isFile()) {
             System.out.println("Save file does not exist, creating one now at " + LOCATION);
@@ -64,10 +64,12 @@ public class Storage {
      */
     public ArrayList<Task> readTasksFromFile() throws IOException {
         try {
+            assert saveFilePath != null;
             List<String> lines = Files.readAllLines(this.saveFilePath);
             ArrayList<Task> savedTasks = new ArrayList<>();
             for (String line : lines) {
                 String[] splitLine = line.split(",");
+                assert splitLine.length >= 1;
                 Task taskToAdd;
                 if (splitLine[0].equals("E")) {
                     taskToAdd = new Event(splitLine[2], splitLine[3], splitLine[4]);
@@ -113,6 +115,7 @@ public class Storage {
 
             taskStrings.add(type + "," + checked + "," + name + additionalProperties);
         }
+        assert saveFilePath != null;
         Files.write(saveFilePath, taskStrings);
     }
 }

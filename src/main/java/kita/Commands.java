@@ -20,6 +20,9 @@ public class Commands {
      * @returns void
      */
     public Commands(TaskList tasks, Storage saveSystem) {
+        assert tasks != null;
+        assert saveSystem != null;
+
         this.tasks = tasks;
         this.saveSystem = saveSystem;
     }

@@ -30,6 +30,9 @@ public class Parser {
      * @returns boolean - Whether the "bye" command was entered
      */
     public static ParserMessage parse(String command, Commands commandsExecutor) throws KitaError, IOException {
+        assert commandsExecutor != null;
+        assert command.length() > 0 && command != null;
+
         if (command.equals("bye")) {
             return new ParserMessage(commandsExecutor.bye(), true);
         } else if (command.equals("list")) {
