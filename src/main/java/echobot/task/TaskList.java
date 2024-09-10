@@ -108,6 +108,7 @@ public class TaskList implements Saveable {
      * @return A list of tasks that contain the keyword as description.
      */
     public List<Task> findTasksByKeyword(String keyword) {
+        assert !keyword.isBlank() && !keyword.contains(" ");
         return this.taskList.stream().filter(task -> task.isKeywordContained(keyword)).toList();
     }
 

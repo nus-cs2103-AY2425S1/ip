@@ -19,6 +19,7 @@ public class ListByDateCommand extends ListCommand {
 
     @Override
     public CommandResponse execute() throws EchoBotException {
+        assert !this.on.isBlank();
         String pattern = "dd-MM-yyyy";
 
         try {
