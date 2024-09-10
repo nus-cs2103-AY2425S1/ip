@@ -118,8 +118,11 @@ public class Parser {
         }
     }
 
-    private static String extractDescription(String[] commands) {
+    private static String extractDescription(String[] commands) throws IncompleteCommandException {
         int endIndex = findFirstFlagIndex(commands).orElse(commands.length);
+        if (endIndex <= 1) {
+            throw new IncompleteCommandException("Command needs a description");
+        }
         return String.join(" ", Arrays.copyOfRange(commands, 1, endIndex));
     }
 
