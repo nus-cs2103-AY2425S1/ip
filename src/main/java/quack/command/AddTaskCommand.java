@@ -58,7 +58,7 @@ public class AddTaskCommand extends Command {
 
     @Override
     public void prompt() {
-        this.execute(null);
+        this.execute("");
     }
 
     @Override
