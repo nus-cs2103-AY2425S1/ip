@@ -56,6 +56,7 @@ public class Beeboo {
                 String fullCommand = ui.handleCommand();
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
+                assert c.isExit() != null : "isExit should not be null";
                 isExit = c.isExit();
             } catch (InvalidCommandException e) {
                 ui.chatBox("Invalid Command! Me no understand");
@@ -74,6 +75,7 @@ public class Beeboo {
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input);
+            assert c != null : "Command should not be null";
             return c.execute(tasks, ui, storage);
         } catch (InvalidCommandException e) {
             return "Invalid Command! Me no understand";

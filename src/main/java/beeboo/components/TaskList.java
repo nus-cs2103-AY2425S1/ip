@@ -96,6 +96,7 @@ public class TaskList {
      * @return the size of the task list
      */
     public int getSize() {
+        assert list.size() >= 0 : "Size of list should be non-negative";
         return list.size();
     }
 

@@ -1,10 +1,4 @@
-E | 1 | meeting | 2024-02-28T06:00 | 2024-02-28T08:00
 T | 0 | read book
-D | 0 | return book | 2024-09-20T00:00
+D | 1 | return book | 2024-09-20T00:00
 T | 0 | work
-T | 0 | work
-T | 0 | work
-T | 0 | work
-T | 0 | work
-T | 0 | work
-T | 0 | work
+D | 0 | meeting | 2024-08-24T18:00

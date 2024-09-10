@@ -95,6 +95,7 @@ public class Ui {
      * @return a message indicating the task has been added
      */
     public String addList(Tasks task, int size) {
+        assert size >= 0 : "Size of list should be non-negative";
         return "added: " + task + "\n" + "You have " + size + " tasks in the list";
     }
 
