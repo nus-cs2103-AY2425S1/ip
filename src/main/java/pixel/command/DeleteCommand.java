@@ -8,8 +8,7 @@ import pixel.task.TaskList;
 
 /**
  * Represents a command to delete a task from the list. When executed, it
- * deletes the task from the
- * list.
+ * deletes the task from the list.
  */
 public class DeleteCommand extends Command {
     private int taskListIndex;
@@ -47,8 +46,8 @@ public class DeleteCommand extends Command {
                 : "Task list index should within index of task list";
         Task task = taskList.getTaskAtIndex(taskListIndex);
         taskList.deleteTask(task);
-        ui.pixelSays("Noted. I've removed this task:", "  " + task,
-                "Now you have " + taskList.size() + " tasks in the list.");
+        ui.pixelSays("Noted. I've removed this task:", "  " + task, "Now you have " + taskList.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -69,7 +68,7 @@ public class DeleteCommand extends Command {
         }
         Task task = taskList.getTaskAtIndex(taskListIndex);
         taskList.deleteTask(task);
-        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
-                task, taskList.size());
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", task,
+                taskList.size());
     }
 }

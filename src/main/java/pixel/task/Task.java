@@ -1,8 +1,9 @@
 package pixel.task;
 
 /**
- * The Task class represents a task with a description and completion status. It is an abstract
- * class that provides common functionality for different types of tasks.
+ * The Task class represents a task with a description and completion status. It
+ * is an abstract class that provides common functionality for different types
+ * of tasks.
  */
 public abstract class Task {
     protected String description;
@@ -22,7 +23,8 @@ public abstract class Task {
      * Constructs a Task object with the given description and completion status.
      *
      * @param description The description of the task.
-     * @param done The completion status of the task ("1" for done, any other value for not done).
+     * @param done        The completion status of the task ("1" for done, any other
+     *                    value for not done).
      */
     public Task(String description, String done) {
         this.description = description;
@@ -55,8 +57,8 @@ public abstract class Task {
     /**
      * Returns a string representation of the task.
      *
-     * @return A string representation of the task, including its type, status icon, and
-     *         description.
+     * @return A string representation of the task, including its type, status icon,
+     *         and description.
      */
     @Override
     public String toString() {
@@ -73,8 +75,8 @@ public abstract class Task {
     /**
      * Returns the data representation of the task.
      *
-     * @return The data representation of the task, including its type, completion status, and
-     *         description.
+     * @return The data representation of the task, including its type, completion
+     *         status, and description.
      */
     public String getData() {
         int isDoneData = this.isDone ? 1 : 0;

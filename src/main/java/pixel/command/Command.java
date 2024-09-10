@@ -14,7 +14,8 @@ public abstract class Command {
     /**
      * Constructs a Command object that can be used to execute commands.
      *
-     * @param isExit a boolean indicating whether the command should exit the application.
+     * @param isExit a boolean indicating whether the command should exit the
+     *               application.
      */
     public Command(boolean isExit) {
         this.isExit = isExit;
@@ -24,8 +25,8 @@ public abstract class Command {
      * Executes the command.
      *
      * @param taskList the TaskList object that stores the tasks.
-     * @param ui the Ui object for user interaction.
-     * @param storage the Storage object for data persistence.
+     * @param ui       the Ui object for user interaction.
+     * @param storage  the Storage object for data persistence.
      * @throws PixelException if there is an error executing the command.
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException;
@@ -40,7 +41,8 @@ public abstract class Command {
      * @throws PixelException if there is an error executing the command.
      */
 
-    public abstract String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage) throws PixelException;
+    public abstract String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage)
+            throws PixelException;
 
     /**
      * Checks if the command should exit the application.

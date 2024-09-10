@@ -6,8 +6,7 @@ import pixel.task.TaskList;
 
 /**
  * The Ui class represents the user interface of the Pixel application. It
- * handles user input and
- * output.
+ * handles user input and output.
  */
 public class Ui {
     private String name = "Pixel";

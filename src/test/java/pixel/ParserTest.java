@@ -1,17 +1,16 @@
 package pixel;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
-
 import pixel.command.AddCommand;
 import pixel.command.Command;
 import pixel.command.DeleteCommand;
 import pixel.command.ExitCommand;
 import pixel.command.ListCommand;
 import pixel.command.MarkCommand;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class contains unit tests for the Parser class.

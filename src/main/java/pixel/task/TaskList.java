@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 /**
  * The TaskList class represents a list of tasks. It provides methods to add,
- * delete, and retrieve
- * tasks from the list.
+ * delete, and retrieve tasks from the list.
  */
 public class TaskList {
     private ArrayList<Task> list;

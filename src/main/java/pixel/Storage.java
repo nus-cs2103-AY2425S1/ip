@@ -13,7 +13,6 @@ import pixel.task.TaskList;
 import pixel.task.TaskType;
 import pixel.task.Todo;
 
-
 /**
  * The Storage class handles the loading and writing of tasks to a file.
  */
@@ -30,7 +29,8 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file and returns a TaskList object containing the loaded tasks.
+     * Loads tasks from the file and returns a TaskList object containing the loaded
+     * tasks.
      *
      * @return A TaskList object containing the loaded tasks.
      * @throws IOException If an I/O error occurs while reading the file.

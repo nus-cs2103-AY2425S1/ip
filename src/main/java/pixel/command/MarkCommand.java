@@ -8,8 +8,7 @@ import pixel.task.TaskList;
 
 /**
  * Represents a command to mark a task as done in the task list, or mark a task
- * as not done in the
- * task list.
+ * as not done in the task list.
  */
 public class MarkCommand extends Command {
     private int taskListIndex;
@@ -42,8 +41,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command by marking the specified task as either done or not
-     * done in the
-     * task list.
+     * done in the task list.
      *
      * @param taskList The task list containing the tasks.
      * @param ui       The user interface for displaying messages.

@@ -7,8 +7,7 @@ import pixel.task.TaskList;
 
 /**
  * The Pixel class represents the main class of the Pixel application. It
- * handles the initialization
- * of the application and the execution of commands.
+ * handles the initialization of the application and the execution of commands.
  */
 public class Pixel {
     private Storage storage;
@@ -17,10 +16,9 @@ public class Pixel {
 
     /**
      * Constructs a Pixel object with the specified file path. It initializes the
-     * user interface,
-     * storage, and task list. If the file specified by the file path exists, it
-     * loads the tasks
-     * from the file. If the file does not exist, it creates a new file.
+     * user interface, storage, and task list. If the file specified by the file
+     * path exists, it loads the tasks from the file. If the file does not exist, it
+     * creates a new file.
      *
      * @param filePath The file path of the storage file.
      */
@@ -37,8 +35,8 @@ public class Pixel {
 
     /**
      * Runs the Pixel application. It displays the welcome message and prompts for
-     * user commands. It
-     * executes the commands and saves the tasks to the storage file.
+     * user commands. It executes the commands and saves the tasks to the storage
+     * file.
      */
     public void run() {
         ui.printLine();
@@ -65,8 +63,7 @@ public class Pixel {
 
     /**
      * The entry point of the Pixel application. It creates a new instance of Pixel
-     * and runs the
-     * application.
+     * and runs the application.
      *
      * @param input The input command.
      * @return The response message from the Pixel application.
