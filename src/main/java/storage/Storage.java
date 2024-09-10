@@ -5,14 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * The Storage class handles file operations for task management,
+ * including reading from, writing to, and modifying a file that stores tasks.
+ * It provides methods to create, read, write, update, and delete lines in the file.
+ */
 public class Storage {
 
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     private final String PATH = "src/main/data/task_list.txt";
-    File file;
-    Scanner scanner;
-    FileWriter fileWriterAmend;
-    FileWriter fileWriterReplace;
+    private File file;
+    private Scanner scanner;
+    private FileWriter fileWriterAmend;
+    private FileWriter fileWriterReplace;
 
     public Storage() throws IOException {
         file = new File(PATH);
@@ -57,22 +62,22 @@ public class Storage {
         int count = 1;
 
         scanner = new Scanner(file);
-        fileWriterAmend = new FileWriter(PATH,true);
-        StringBuilder updated_text = new StringBuilder();
-        while(scanner.hasNextLine()) {
+        fileWriterAmend = new FileWriter(PATH, true);
+        StringBuilder updatedText = new StringBuilder();
+        while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (count == lineNo) {
                 String[] tokens = s.split("\\[_]");
-                String new_line = tokens[0] + "[X]" + tokens[1];
-                updated_text.append(new_line).append("\n");
+                String newLine = tokens[0] + "[X]" + tokens[1];
+                updatedText.append(newLine).append("\n");
             } else {
-                updated_text.append(s).append("\n");
+                updatedText.append(s).append("\n");
             }
             count++;
         }
 
         clear();
-        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.write(updatedText.toString());
         fileWriterAmend.close();
     }
 
@@ -88,23 +93,23 @@ public class Storage {
         int count = 1;
 
         scanner = new Scanner(file);
-        fileWriterAmend = new FileWriter(PATH,true);
+        fileWriterAmend = new FileWriter(PATH, true);
 
-        StringBuilder updated_text = new StringBuilder();
-        while(scanner.hasNextLine()) {
+        StringBuilder updatedText = new StringBuilder();
+        while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (count == lineNo) {
                 String[] tokens = s.split("\\[X]");
-                String new_line = tokens[0] + "[_]" + tokens[1];
-                updated_text.append(new_line).append("\n");
+                String newLine = tokens[0] + "[_]" + tokens[1];
+                updatedText.append(newLine).append("\n");
             } else {
-                updated_text.append(s).append("\n");
+                updatedText.append(s).append("\n");
             }
             count++;
         }
 
         clear();
-        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.write(updatedText.toString());
         fileWriterAmend.close();
     }
 
@@ -121,20 +126,20 @@ public class Storage {
         int lineNumber = 1;
 
         scanner = new Scanner(file);
-        fileWriterAmend = new FileWriter(PATH,true);
-        StringBuilder updated_text = new StringBuilder();
-        while(scanner.hasNextLine()) {
+        fileWriterAmend = new FileWriter(PATH, true);
+        StringBuilder updatedText = new StringBuilder();
+        while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             String[] tokens = s.split("\\.");
             if (count != lineNo) {
-                updated_text.append(lineNumber).append(".").append(tokens[1]).append("\n");
+                updatedText.append(lineNumber).append(".").append(tokens[1]).append("\n");
                 lineNumber++;
             }
             count++;
         }
 
         clear();
-        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.write(updatedText.toString());
         fileWriterAmend.close();
     }
 
@@ -145,7 +150,6 @@ public class Storage {
      * @param text Text to be appended to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-
     public void write(String text) throws IOException {
         fileWriterAmend = new FileWriter(PATH, true);
         fileWriterAmend.write(text + "\n");

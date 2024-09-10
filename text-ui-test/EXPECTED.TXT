@@ -1,5 +1,5 @@
 ========================================
-Hello! I'm TanjiroBot.Tanjiro!
+Hello! I'm tanjirobot.Tanjiro!
 What can I do for you?
 ========================================
 Got it. I've added this task:

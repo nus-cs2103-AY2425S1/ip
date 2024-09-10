@@ -8,19 +8,31 @@ import java.util.ArrayList;
 import storage.Storage;
 import system.DateTimeSystem;
 import system.Ui;
-
+/**
+ * Represents an abstract task that can be managed in a task management system.
+ * This class provides methods to initialize, add, delete, find, mark, unmark, and list tasks.
+ * It also defines the common properties and
+ * behaviors for different types of tasks such as ToDos, Deadlines, and Events.
+ * Tasks have a name, status, and a tag.
+ */
 public abstract class Task {
+    @SuppressWarnings("checkstyle:VisibilityModifier")
+    public static Ui ui = new Ui();
+    @SuppressWarnings("checkstyle:VisibilityModifier")
+    public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
+    @SuppressWarnings("checkstyle:VisibilityModifier")
+    public static Storage storage;
     private String name;
 
+    /**
+     * Represents the status of a task.
+     */
     public enum Status {
         MARKED, UNMARKED
     }
-
     private Status currentStatus;
-    public static Ui ui = new Ui();
     private String tag;
-    public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
-    public static Storage storage;
+
 
     static {
         try {
@@ -29,13 +41,23 @@ public abstract class Task {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Constructs a new Task with the specified name and tag.
+     * The task is initialised with the status UNMARKED.
+     *
+     * @param name Name of the task.
+     * @param tag Tag of the task.
+     */
     public Task(String name, String tag) {
         this.name = name;
         currentStatus = Status.UNMARKED;
         this.tag = tag;
     }
-
+    /**
+     * Initialises the task list by reading from storage and populating the task list with tasks.
+     *
+     * @throws IOException If an I/O error occurs while reading from storage.
+     */
     public static void init_list() throws IOException {
         TaskList.tasks.clear();
         StringBuilder sb = storage.read();
@@ -117,17 +139,21 @@ public abstract class Task {
                     }
                 }
 
-                String[] full_date_token_start = start.toString().split(" ");
-                String[] date_token_start = full_date_token_start[0].split("-");
-                String[] time_token_start = full_date_token_start[1].split(":");
+                String[] fullDateTokenStart = start.toString().split(" ");
+                String[] dateTokenStart = fullDateTokenStart[0].split("-");
+                String[] timeTokenStart = fullDateTokenStart[1].split(":");
 
-                LocalDateTime ldtStart = dateTimeSystem.createDate(date_token_start[0], date_token_start[1], date_token_start[2], time_token_start[0], time_token_start[1]);
+                LocalDateTime ldtStart =
+                        dateTimeSystem.createDate(dateTokenStart[0], dateTokenStart[1], dateTokenStart[2],
+                                timeTokenStart[0], timeTokenStart[1]);
 
-                String[] full_date_token_end = end.toString().split(" ");
-                String[] date_token_end = full_date_token_end[0].split("-");
-                String[] time_token_end = full_date_token_end[1].split(":");
+                String[] fullDateTokenEnd = end.toString().split(" ");
+                String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
+                String[] timeTokenEnd = fullDateTokenEnd[1].split(":");
 
-                LocalDateTime ldtEnd = dateTimeSystem.createDate(date_token_end[0], date_token_end[1], date_token_end[2], time_token_end[0], time_token_end[1]);
+                LocalDateTime ldtEnd =
+                        dateTimeSystem.createDate(dateTokenEnd[0], dateTokenEnd[1], dateTokenEnd[2],
+                                timeTokenEnd[0], timeTokenEnd[1]);
 
                 Task e = new Events(name.toString(), ldtStart, ldtEnd);
                 if (s.contains("[X]")) {
@@ -140,7 +166,13 @@ public abstract class Task {
             }
         }
     }
-
+    /**
+     * Deletes a task at the specified index from the task list.
+     *
+     * @param index Index of the task to be deleted (1-based).
+     * @return Response message indicating the result of the deletion.
+     * @throws IOException If an I/O error occurs while accessing the storage.
+     */
     public static String delete_task(int index) throws IOException {
         String response = "";
         ArrayList<Task> temporaryTaskList = TaskList.tasks;
@@ -159,7 +191,13 @@ public abstract class Task {
 
         return response;
     }
-
+    /**
+     * Finds tasks that match the specified input string.
+     *
+     * @param input String to search for in task names.
+     * @return String containing the matched tasks.
+     * @throws FileNotFoundException If the storage file is not found.
+     */
     public static String findTask(String input) throws FileNotFoundException {
         StringBuilder sb = storage.read();
         String temp = sb.toString();
@@ -184,12 +222,23 @@ public abstract class Task {
 
         return ui.findTaskMessage(finalSb);
     }
-
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @return String containing all tasks.
+     * @throws FileNotFoundException If the storage file is not found.
+     */
     public static String list_task() throws FileNotFoundException {
         StringBuilder temp = storage.read();
         return ui.list_task_message(String.valueOf(temp));
     }
-
+    /**
+     * Marks the task at the specified index as completed.
+     *
+     * @param index Index of the task to be marked (1-based).
+     * @return Response message indicating the result of the operation.
+     * @throws IOException If an I/O error occurs while accessing the storage.
+     */
     public static String mark_task(int index) throws IOException {
         String response = "";
         ArrayList<Task> temporaryTaskList = TaskList.tasks;
@@ -213,7 +262,13 @@ public abstract class Task {
 
         return response;
     }
-
+    /**
+     * Marks the task at the specified index as completed.
+     *
+     * @param index Index of the task to be marked (1-based).
+     * @return Response message indicating the result of the operation.
+     * @throws IOException If an I/O error occurs while accessing the storage.
+     */
     public static String unmark_task(int index) throws IOException {
         String response = "";
         ArrayList<Task> temporaryTaskList = TaskList.tasks;

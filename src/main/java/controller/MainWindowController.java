@@ -1,6 +1,6 @@
 package controller;
+import java.io.IOException;
 
-import TanjiroBot.Tanjiro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,12 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import tanjirobot.Tanjiro;
 
-import java.io.IOException;
 
 /**
  * Controller for the main GUI.
- */public class MainWindowController extends AnchorPane {
+ */
+public class MainWindowController extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,7 +25,9 @@ import java.io.IOException;
     private Button sendButton;
     private Tanjiro tanjiro;
 
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/nezuko.png"));
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     private final Image TANJIRO_IMAGE = new Image(this.getClass().getResourceAsStream("/images/tanjiro.png"));
     @FXML
     public void initialize() {
@@ -38,10 +41,10 @@ import java.io.IOException;
     }
 
     @FXML
-    private void greetMessage(){
+    private void greetMessage() {
         String response = tanjiro.onStartup();
         dialogContainer.getChildren().addAll(
-                DialogBoxController.getTanjiroDialog(response,TANJIRO_IMAGE)
+                DialogBoxController.getTanjiroDialog(response, TANJIRO_IMAGE)
         );
     }
 
