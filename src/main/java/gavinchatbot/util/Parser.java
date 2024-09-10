@@ -6,6 +6,7 @@ import gavinchatbot.command.AddDeadlineCommand;
 import gavinchatbot.command.AddEventCommand;
 import gavinchatbot.command.AddToDoCommand;
 import gavinchatbot.command.Command;
+import gavinchatbot.command.CountCommand;
 import gavinchatbot.command.DeleteCommand;
 import gavinchatbot.command.ExitCommand;
 import gavinchatbot.command.FindCommand;
@@ -57,6 +58,8 @@ public class Parser {
         } else if (input.startsWith("find")) {
             String find = input.substring(5).trim();
             return new FindCommand(find);
+        } else if (input.equalsIgnoreCase("count")) {
+            return new CountCommand();
         } else {
             throw new GavinException("Invalid input!!! \n"
                     + "\n"
@@ -73,6 +76,8 @@ public class Parser {
                     + "To mark/unmark the tasks, please type 'mark' or 'unmark' , followed by the index of the task. \n"
                     + "\n"
                     + "To delete an existing task, please type 'delete' , followed by the index of the task. \n"
+                    + "\n"
+                    + "To get the count of the number of tasks that are marked as done, please type 'count'. \n"
                     + "\n"
                     + "To exit, please type 'bye'. ");
         }
