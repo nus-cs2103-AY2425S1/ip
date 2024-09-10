@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import joe.main.Parser;
 import joe.exceptions.InvalidIndexException;
+import joe.main.Parser;
 import joe.utils.Formatter;
 
 /**
@@ -139,17 +139,16 @@ public class TaskList {
      * @return the message to be displayed to the user
      */
     public String saveTasks() {
-        int taskCount = taskList.size();
         StringBuilder botMessage = new StringBuilder();
         botMessage.append("Saving your tasks......\n");
         try {
             StringBuilder fileData = new StringBuilder();
-            for (int i = 0; i < taskCount; i++) {
-                Task t = taskList.get(i);
-                fileData.append(t.saveRepr());
-                botMessage.append(t).append(" (saved)\n");
-                fileData.append(System.lineSeparator());
-            }
+            taskList.stream()
+                    .map(Task::saveRepr)
+                    .forEach(taskString -> {
+                        fileData.append(taskString).append(System.lineSeparator());
+                        botMessage.append(Parser.parseTask(taskString)).append(" (saved)\n");
+                    });
 
             FileWriter fw = new FileWriter("data/joe.txt");
             fw.write(fileData.toString());
@@ -173,14 +172,12 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         int tasksFound = 0;
         for (Task t : taskList) {
-            if (t instanceof Deadline) {
-                Deadline d = (Deadline) t;
+            if (t instanceof Deadline d) {
                 long days = d.daysTillDeadline(targetDate);
                 if (days == 0L) {
                     sb.append(String.format("%d.%s\n", ++tasksFound, d));
                 }
-            } else if (t instanceof Event) {
-                Event e = (Event) t;
+            } else if (t instanceof Event e) {
                 long days = e.daysTillEvent(targetDate);
                 if (days == 0L) {
                     sb.append(String.format("%d.%s\n", ++tasksFound, e));
