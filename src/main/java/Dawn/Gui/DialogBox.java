@@ -1,6 +1,8 @@
 package Dawn.Gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,29 +10,38 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+import java.util.Collections;
+
 public class DialogBox extends HBox {
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
 
-    private Label text;
-    private ImageView profilePic;
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    public DialogBox(String s, Image i) {
-        text = new Label(s);
-        profilePic = new ImageView(i);
-
-        //Styling the dialog box
-        text.setWrapText(true);
-        profilePic.setFitWidth(100.0);
-        profilePic.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
-
-        this.getChildren().addAll(text, profilePic);
+        dialog.setText(text);
+        displayPicture.setImage(img);
     }
 
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
+        Collections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        this.setAlignment(Pos.TOP_LEFT);
     }
 
     /**
@@ -55,4 +66,3 @@ public class DialogBox extends HBox {
         return db;
     }
 }
-
