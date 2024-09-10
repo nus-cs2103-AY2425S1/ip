@@ -216,6 +216,19 @@ public class UI {
         }
     }
 
+    public String handleLearnQuestions() {
+        return "I have successfully learnt how to answer your question!";
+    }
+
+    public String handleWrongQuestionFormat() {
+        return "You need to input question followed by your question and then an answer after the ?";
+    }
+
+    public String handleWrongAnswerFormat() {
+        return "I don't have an answer for your question! Make sure you input 'answer' followed by your question"
+                + "including the ?";
+    }
+
     /**
      * Prints to console Goodbye message when user inputs bye
      */
