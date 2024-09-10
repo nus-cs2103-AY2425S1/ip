@@ -118,53 +118,16 @@ public class Storage {
      *
      * @param tasks TaskList of 3 types of tasks to be written to hoshi txt file.
      */
-<<<<<<< HEAD
-    public void save(TaskList taskList) throws IOException {
-        // assert taskList is not null
-        assert taskList != null : "TaskList cannot be null";
-        try {
-            FileWriter fileWriter = new FileWriter(this.filePath);
-
-            for (int i = 0; i < taskList.size(); i++) {
-
-                Task task = taskList.get(i);
-
-                // Deadline(TaskType), T(D = Done/ ND = Not Done), Description, endTime, startTime
-                String taskType = task.getClass().getSimpleName();
-                String isDone = task.getStatusIcon();
-                if (Objects.equals(isDone, " ")) {
-                    isDone = "ND";
-                } else {
-                    isDone = "D";
-                }
-                String description = task.getDesc();
-                assert description != null && !description.isEmpty() : "Task description cannot be null or empty";
-
-                String additionalFields = "";
-
-                if (taskType.equals("Deadline")) {
-
-                    Deadline deadline = ((Deadline) task);
-                    additionalFields = ", " + deadline.getEndTime();
-
-                } else if (taskType.equals("Event")) {
-
-                    Event event = ((Event) task);
-                    additionalFields = ", " + event.getEndTime() + ", " + event.getStartTime();
-
-                }
-
-                String textToAdd = taskType + ", " + isDone + ", " + description + additionalFields + "\n";
-                fileWriter.write(textToAdd);
-=======
     public void save(TaskList tasks) throws IOException {
+        // assert taskList is not null
+        assert tasks != null : "TaskList cannot be null";
         try (FileWriter fileWriter = new FileWriter(this.filePath)) {
             for (int i = 0; i < tasks.size(); i++) {
                 // get, format and store task
                 Task task = tasks.get(i);
                 String taskData = formatTask(task);
                 fileWriter.write(taskData);
->>>>>>> master
+
             }
         }
     }
