@@ -28,7 +28,10 @@ public class TaskList {
      *
      * @param task the task
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws InputException {
+        if (tasks.contains(task)) {
+            throw new InputException("duplicate");
+        }
         tasks.add(task);
         assert tasks.contains(task) : "tasks should contain task";
     }

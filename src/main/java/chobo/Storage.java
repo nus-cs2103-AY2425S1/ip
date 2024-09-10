@@ -40,6 +40,8 @@ public class Storage {
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String name = parts[2];
+                assert taskType.equals("T") || taskType.equals("D") 
+                || taskType.equals("E") : "Task type should be one of those";
 
                 switch (taskType) {
                 case "T":
@@ -56,9 +58,11 @@ public class Storage {
                     break;
                 }
             }
+            scanner.close();
         } catch (IOException e) {
             System.out.println("Error loading tasks");
         }
+        
         return tasks;
     }
 
