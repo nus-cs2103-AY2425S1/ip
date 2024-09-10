@@ -1,6 +1,5 @@
 package hoshi.command;
 
-import hoshi.exception.HoshiException;
 import hoshi.task.Task;
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
