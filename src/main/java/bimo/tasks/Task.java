@@ -39,10 +39,7 @@ public class Task {
     @Override
     public String toString() {
         String status = this.status ? "X" : " ";
-        String priorityLevel = this.priority.equals("")
-                               ? ""
-                               : String.format("<%s>", this.priority);
-        String taskString = String.format("%s [%s] %s", priorityLevel,
+        String taskString = String.format("[%s] %s",
                 status, this.details);
         return taskString;
     }
@@ -81,7 +78,7 @@ public class Task {
      * @return Representation of priority in text file.
      */
     public String priorityToText() {
-        String priorityLevel = this.priority.equals("")
+        String priorityLevel = this.priority.isEmpty()
                 ? ""
                 : this.priority + "~";
         return priorityLevel;

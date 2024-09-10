@@ -12,6 +12,8 @@ import bimo.command.FindCommand;
 import bimo.command.HelpCommand;
 import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
+import bimo.command.Priority;
+import bimo.command.SetCommand;
 import bimo.command.UnmarkCommand;
 import bimo.exception.BimoException;
 import bimo.exception.InvalidDateFormatException;
@@ -37,14 +39,15 @@ public class Parser {
      */
     public static Command parse(String input) throws BimoException {
         CommandType command = getCommandType(input.split(" ")[0].toUpperCase());
+        String [] parsedArray = input.split(" ");
         switch (command) {
         case LIST:
             return new ListCommand();
         case MARK:
-            int indexToMark = parseIndex(input.split(" "));
+            int indexToMark = parseIndex(parsedArray);
             return new MarkCommand(indexToMark);
         case UNMARK:
-            int indexToUnmark = parseIndex(input.split(" "));
+            int indexToUnmark = parseIndex(parsedArray);
             return new UnmarkCommand(indexToUnmark);
         case TODO:
             String toDodescription = parseDescription(input);
@@ -56,11 +59,15 @@ public class Parser {
             Task deadlineTask = createDeadlineTask(input);
             return new AddCommand(deadlineTask);
         case DELETE:
-            int indexToDelete = parseIndex(input.split(" "));
+            int indexToDelete = parseIndex(parsedArray);
             return new DeleteCommand(indexToDelete);
         case FIND:
             String[] wordsToInclude = input.split(" ");
             return new FindCommand(wordsToInclude);
+        case SET:
+            int index = parseIndex(parsedArray);
+            Priority priority = parsePriority(parsedArray);
+            return new SetCommand(priority, index);
         case BYE:
             return new ByeCommand();
         default:
@@ -205,5 +212,26 @@ public class Parser {
         LocalDate dueDateObject = convertDateToLocalDate(dueDate);
         Task deadlineTask = new Deadline(description, dueDateObject);
         return deadlineTask;
+    }
+
+    /**
+     * Retrieves the priority level from user input.
+     *
+     * @param parsedArray Array of User input split by " ".
+     * @return Priority object.
+     * @throws BimoException If no priority is given or invalid priority given.
+     */
+    public static Priority parsePriority(String[] parsedArray) throws BimoException {
+        if (parsedArray.length <= 2) {
+            throw new BimoException("Missing priority");
+        }
+        String priorityLevel = parsedArray[2];
+        try {
+            Priority priority = Priority.valueOf(priorityLevel.toUpperCase());
+            return priority;
+        } catch (IllegalArgumentException e) {
+            throw new BimoException("Please choose either HIGH, MEDIIUM or LOW priority only"
+                    + "\n e.g set 2 high");
+        }
     }
 }
