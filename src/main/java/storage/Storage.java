@@ -108,6 +108,8 @@ public class Storage {
      * @param taskList the list of tasks to save
      */
     public void saveTasks(List<Task> taskList) {
+        assert taskList != null : "Task list should not be null";
+
         File file = new File(this.filepath);
         file.getParentFile().mkdirs();
 
