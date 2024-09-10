@@ -62,18 +62,21 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws IOException, SecurityException, MiraException {
         ArrayList<Task> tasks = new ArrayList<>();
         Path path = Paths.get(filePath);
-        if (Files.exists(path)) {
-            List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                String[] parts = line.split(" \\| ");
-                Task task = createTaskFromFile(parts);
-                tasks.add(task);
-            }
-        } else {
+
+        if (!Files.exists(path)) {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
             file.createNewFile();
+            return tasks;
         }
+
+        List<String> lines = Files.readAllLines(path);
+        for (String line : lines) {
+            String[] parts = line.split(" \\| ");
+            Task task = createTaskFromFile(parts);
+            tasks.add(task);
+        }
+
         return tasks;
     }
 
