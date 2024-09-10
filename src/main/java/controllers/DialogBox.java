@@ -10,9 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * Controller class for the DialogBox GUI.
@@ -40,8 +43,13 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+        this.dialog.setText(text);
+
+        // Approach was adapted from https://stackoverflow.com/questions/42116313/how-to-set-an-image-in-a-circle
+        Circle circle = new Circle(49, 49, 47);
+        circle.setEffect(new DropShadow(+5d, +0d, +3d, Color.SLATEGREY));
         displayPicture.setImage(img);
+        displayPicture.setClip(circle);
     }
 
     /**

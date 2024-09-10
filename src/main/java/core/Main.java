@@ -6,6 +6,7 @@ import controllers.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import task.TaskList;
@@ -64,6 +65,13 @@ public class Main extends Application {
 
             // Finish setup
             Scene scene = new Scene(ap);
+
+            // Set program title and icon
+            stage.setTitle("Brock Chatbot");
+            Image programIcon = new Image("images/ProgramIcon.jpg");
+            stage.getIcons().add(programIcon);
+
+            // Set & show stage
             stage.setScene(scene);
             stage.setMinHeight(555);
             stage.setMinWidth(777);

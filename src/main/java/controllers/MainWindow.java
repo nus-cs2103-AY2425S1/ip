@@ -35,10 +35,10 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage =
             new Image(Objects.requireNonNull(this.getClass()
-                    .getResourceAsStream("/images/DaUser.png")));
+                    .getResourceAsStream("/images/DaUser.jpg")));
     private final Image brockImage =
             new Image(Objects.requireNonNull(this.getClass()
-                    .getResourceAsStream("/images/DaDuke.png")));
+                    .getResourceAsStream("/images/DaBrock.jpg")));
 
     /**
      * Initializes the controller class.
@@ -46,8 +46,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         // Ensures scroll is always to the very end
-        scrollPane.vvalueProperty()
-                .bind(dialogContainer.heightProperty());
+        this.scrollPane.vvalueProperty()
+                .bind(this.dialogContainer.heightProperty());
+
+        // Set text input placeholder
+        this.userInput.setPromptText("Enter your command here!");
     }
 
     /**
@@ -111,7 +114,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(rawCommand, userImage),
                 DialogBox.getBrockDialog(brockResponse, brockImage)
         );
-        userInput.clear();
+        this.userInput.clear();
         if (isExit) {
             this.exitProgram();
         }
