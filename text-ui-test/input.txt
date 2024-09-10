@@ -1,0 +1,13 @@
+todos read book
+list
+deadline bathe /by tomorrow
+list
+event eat lunch /from 1pm /to 1pm
+list
+mark 1
+list
+unmark 1
+list
+remove 1
+list
+bye
