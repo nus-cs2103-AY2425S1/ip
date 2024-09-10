@@ -190,7 +190,7 @@ public class TaskList {
     }
 
     /**
-     * Returns String representation of the Task's description only.
+     * Returns String representation of the Task's description.
      * This description includes the task specific details.
      *
      * @param input original input given by the user.
@@ -328,5 +328,87 @@ public class TaskList {
                 Ui.showEmptySearchResults();
             }
         }
+    }
+
+    /**
+     * Returns the size of records.
+     *
+     * @return
+     */
+    public int getRecordSize() {
+        return this.records.size();
+    }
+
+    /**
+     * Returns the Task of the indicated index in records.
+     *
+     * @param index index of task seend by user in the current records,
+     * @return
+     */
+    public Task getIndexedTask(int index) {
+        return this.records.get(index - 1);
+    }
+
+    /**
+     * Returns an arraylist of records.
+     */
+    public ArrayList<Task> getAllRecords() {
+        return this.records;
+    }
+
+    /**
+     * Removes the task at the index specified by the user.
+     *
+     * @param index Index that corresponds to the task visible to the user.
+     */
+    public void removeRecord(int index) {
+        this.records.remove(index - 1);
+        this.latestRecordedIndex -= 1;
+    }
+
+    /**
+     * Returns the String representation of the task at specified index when task is deleted.
+     *
+     * @param index Index of the task as viewed displayed using the list command.
+     * @return
+     */
+    public String getDeletedTaskString(int index) {
+        String deletedTaskString = "Noted. I've removed this task:\n\t"
+                + records.get(index - 1).getTaskListItem()
+                + "\n\t"
+                + "Now you have "
+                + (String.valueOf(latestRecordedIndex - 1))
+                + " tasks in the list.";
+        return deletedTaskString;
+    }
+
+    /**
+     * Returns the String representation of the task at specified index when task is added.
+     *
+     * @return
+     */
+    public String getAddedTaskString() {
+        Task addedTask = this.getIndexedTask(this.getLatestRecordedIndex());
+        String commandString = "Got it. I've added this task:\n\t"
+                + addedTask.getTaskListItem()
+                + "\n\t"
+                + "Now you have "
+                + (String.valueOf(this.getLatestRecordedIndex()))
+                + " tasks in the list.";
+        return commandString;
+    }
+
+    /**
+     * Increments the latest recorded index by 1.
+     */
+    public void incrementLatestRecordedIndex() {
+        this.latestRecordedIndex++;
+    }
+
+    /**
+     * Returns the latest recorded index in the current task list from the viewer's perspective.
+     */
+    public int getLatestRecordedIndex() {
+        return this.latestRecordedIndex;
     }
 }

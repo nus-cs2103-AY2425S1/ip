@@ -1,10 +1,10 @@
 package bob.ui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import bob.parser.Parser;
 import bob.task.Task;
-
 
 /**
  * Class that handles interactions with the user.
@@ -56,7 +56,7 @@ public class Ui {
      */
     public static void requestValidCommand() {
         String loadingError = "Please input a valid command\n"
-                + "Valid Commands: list|mark|unmark|delete|event|deadline|todo|find";
+                + "Valid Commands: list|mark|unmark|delete|event|deadline|todo|find|bye";
         Ui.printLines(loadingError);
     }
 
@@ -74,10 +74,62 @@ public class Ui {
     }
 
     /**
+     * Prints the results found that match with the find function.
+     * @param resultsFound
+     */
+    public void showFindResults(String resultsFound) {
+        Ui.printLines(resultsFound);
+    }
+
+    /**
      * Prints Error message when there is no successful records matching keyword.
      */
     public static void showEmptySearchResults() {
         System.out.println("No matching results are found:(\n"
                 + "Please search for exact keyword");
+    }
+
+    /**
+     * Returns the String represented of the user's input.
+     *
+     * @return
+     */
+    public String readCommand() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().trim();
+        return input;
+    }
+
+    public String showLine() {
+        return "\t____________________________________________________________\n";
+    }
+
+    public void showList(String allRecords) {
+        Ui.printLines(allRecords);
+    }
+
+    /**
+     * Prints whether a task is marked or not.
+     *
+     * @param currTask task that has been marked or unmarked.
+     * @param isCompleted whether task has been completed.
+     */
+    public void showMarkedTask(Task currTask, boolean isCompleted) {
+        if (isCompleted) {
+            String finishedMarking = "OK, I've marked this task as done:\n\t"
+                    + currTask.getTaskListItem();
+            Ui.printLines(finishedMarking);
+        } else {
+            String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
+                    + currTask.getTaskListItem();
+            Ui.printLines(finishedUnmarking);
+        }
+    }
+
+    /**
+     * Prints the deleted Task String.
+     */
+    public void showDeletedTask(String deletedTaskString) {
+        Ui.printLines(deletedTaskString);
     }
 }

@@ -5,6 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import bob.command.ByeCommand;
+import bob.command.Command;
+import bob.command.DeadlineCommand;
+import bob.command.DeleteCommand;
+import bob.command.EventCommand;
+import bob.command.FindCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.TodoCommand;
+import bob.ui.Ui;
+
 /**
  * Handles user commands.
  */
@@ -12,6 +23,7 @@ public class Parser {
 
     /**
      * Parses string format of date and returns a LocalDate object.
+     *
      * @param date String format of date.
      * @return LocalDate object.
      */
@@ -32,11 +44,45 @@ public class Parser {
                 dateTimeParseException = e;
             }
         }
-        if (dateTimeParseException != null) {
-            System.err.println("Invalid date format: " + date);
-            System.out.println("Supported date formats are: yyyy-MM-dd, dd-MM-yyyy, dd/MM/yyyy, MMM dd yyyy");
-        }
         return null;
     }
 
+
+    /**
+     * Parses the input given by user.
+     * @param input Input by user.
+     * @return Command to be executed.
+     */
+    public static Command parseCommand(String input) {
+        System.out.println("parseCommand - 1");
+        String[] inputWordsList = input.split("\s+");
+        String keyword = inputWordsList[0];
+        System.out.println("parseCommand - 2");
+
+        switch (keyword) {
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(input, true);
+        case "unmark":
+            return new MarkCommand(input, false);
+        case "delete":
+            return new DeleteCommand(input);
+        case "event":
+            return new EventCommand(input);
+        case "deadline":
+            return new DeadlineCommand(input);
+        case "todo":
+            return new TodoCommand(input);
+        case "find":
+            return new FindCommand(input);
+        case "bye":
+            return new ByeCommand(input);
+        default:
+            System.out.println("parseCommand - when none keyed correctly");
+
+            Ui.requestValidCommand();
+            return new Command(input);
+        }
+    }
 }
