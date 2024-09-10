@@ -55,6 +55,7 @@ public class IoHandler {
      * @throws PonderPikaException if an I/O error occurs while writing to the file
      */
     public void saveData(TaskList tasks) throws PonderPikaException {
+        assert tasks != null;
         try {
             if (!FILE.exists()) {
                 create();

@@ -55,6 +55,7 @@ public class TaskList {
         if (index < 1 || index > tasks.size()) {
             throw new PonderPikaException("No task available at given index!");
         }
+        assert index > 0;
         tasks.get(index - 1).markDone();
         return "Task " + index + " has been marked as done";
     }
@@ -71,6 +72,7 @@ public class TaskList {
         if (index < 1 || index > tasks.size()) {
             throw new PonderPikaException("No task available at given index!");
         }
+        assert index > 0;
         tasks.get(index - 1).markUndone();
     }
 

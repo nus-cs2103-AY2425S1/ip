@@ -2,11 +2,12 @@ package ponderpika.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import ponderpika.Command;
+import ponderpika.exception.PonderPikaException;
 import ponderpika.task.Deadline;
 import ponderpika.task.Event;
-import ponderpika.exception.PonderPikaException;
 
 /**
  * Parses user input commands and converts them into Command objects.
@@ -43,6 +44,7 @@ public class Parser {
             if (commands.length < 2) {
                 throw new PonderPikaException("Missing Description for Todo task!");
             }
+            assert !Objects.equals(commands[1], "");
             return new Command(Command.Action.TODO, commands[1]);
 
         case "deadline":
@@ -108,12 +110,13 @@ public class Parser {
      */
     private Command parseEventCommand(String details) throws PonderPikaException {
         String[] desc = details.split("/from");
-        if (desc.length < 2) {
-            throw new PonderPikaException("Missing \"From\" and \"To\" times for Event task!");
-        }
         if (desc[0].trim().isEmpty()) {
             throw new PonderPikaException("Missing Description for Event task!");
         }
+        if (desc.length < 2) {
+            throw new PonderPikaException("Missing \"From\" and \"To\" times for Event task!");
+        }
+        assert desc.length > 1;
 
         String[] time = desc[1].split("/to");
         if (time.length < 2) {
