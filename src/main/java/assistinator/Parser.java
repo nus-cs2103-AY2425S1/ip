@@ -4,6 +4,9 @@ package assistinator;
  * Parses input and creates respective command
  */
 public class Parser {
+    static final int DEADLINE_INPUT_LENGTH = 2;
+    static final int EVENT_INPUT_LENGTH = 3;
+
     /**
      * Parses command from user input
      * @param input User input from UI
@@ -48,7 +51,6 @@ public class Parser {
         case EVENT:
             return parseEvent(input);
         default:
-            assert false : "Invalid task type: " + type;
             throw new AssitinatorExceptions("Invalid task type");
         }
     }
@@ -63,7 +65,7 @@ public class Parser {
 
     private Deadline parseDeadline(String input) throws AssitinatorExceptions {
         String[] parts = input.split(" /");
-        if (parts.length != 2 || parts[1].equals("by")) {
+        if (parts.length != DEADLINE_INPUT_LENGTH || parts[1].equals("by")) {
             throw new AssitinatorExceptions("Please follow format: deadline {task description} /by {deadline}");
         }
         String description = parts[0].substring(parts[0].indexOf(' ') + 1);
@@ -73,7 +75,7 @@ public class Parser {
 
     private Event parseEvent(String input) throws AssitinatorExceptions {
         String[] parts = input.split(" /");
-        if (parts.length != 3 || parts[1].equals("from") || parts[2].equals("to")) {
+        if (parts.length != EVENT_INPUT_LENGTH || parts[1].equals("from") || parts[2].equals("to")) {
             throw new AssitinatorExceptions("Please follow format: event {task description} /from {start} /to {end}");
         }
         String description = parts[0].substring(parts[0].indexOf(' ') + 1);
