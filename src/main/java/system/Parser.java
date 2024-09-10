@@ -3,10 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import task.Deadlines;
-import task.Events;
-import task.Task;
-import task.ToDos;
+import task.*;
 
 
 /**
@@ -148,10 +145,15 @@ public class Parser {
      */
     public String performMark(String input) throws IOException {
         int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
-        if (containUnmark(input)) {
-            return Task.unmark_task(listNo);
+        if (listNo <= TaskList.tasks.size() && listNo > 0) {
+            assert listNo <= TaskList.tasks.size() && listNo > 0;
+            if (containUnmark(input)) {
+                return Task.unmark_task(listNo);
+            } else {
+                return Task.mark_task(listNo);
+            }
         } else {
-            return Task.mark_task(listNo);
+            return ui.indexOutOfBounds();
         }
     }
 
@@ -214,13 +216,22 @@ public class Parser {
 
                     if (year.length() == 4 && !month.isEmpty()
                             && month.length() <= 2 && !day.isEmpty() && day.length() <= 2) {
+
                         if (time.length() == 4) {
                             String hour = time.substring(0, 2);
                             String minute = time.substring(2);
 
                             LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
-                            Deadlines tempDeadline = new Deadlines(name, ldt);
-                            response = tempDeadline.addTask(tempDeadline);
+                            boolean isBefore = dateTimeSystem.compareDateTime(ldt);
+                            if (isBefore) {
+                                Deadlines tempDeadline = new Deadlines(name, ldt);
+                                response = tempDeadline.addTask(tempDeadline);
+                                assert Integer.parseInt(year) >= 2024;
+                                assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
+                                assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
+                            } else {
+                                response = ui.dateBeforeCurrent();
+                            }
                         } else {
                             response = ui.twentyFourHourClock();
                         }
@@ -298,8 +309,24 @@ public class Parser {
                             LocalDateTime ldtEnd =
                                     dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
 
-                            Events tempEvent = new Events(name, ldtStart, ldtEnd);
-                            response = tempEvent.addTask(tempEvent);
+                            boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
+                            boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
+                            boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
+
+                            if (isBeforeEnd && isBeforeStart && !isEndBeforeStart) {
+                                assert Integer.parseInt(startYear) >= 2024;
+                                assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
+                                assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
+
+                                assert Integer.parseInt(endYear) >= 2024;
+                                assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
+                                assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
+
+                                Events tempEvent = new Events(name, ldtStart, ldtEnd);
+                                response = tempEvent.addTask(tempEvent);
+                            } else {
+                                response = ui.dateBeforeCurrent();
+                            }
                         } else {
                             response = ui.twentyFourHourClock();
                         }
@@ -326,6 +353,11 @@ public class Parser {
      */
     public String performDelete(String input) throws IOException {
         int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
-        return Task.delete_task(listNo);
+        if (listNo <= TaskList.tasks.size() && listNo > 0) {
+            assert listNo <= TaskList.tasks.size() && listNo > 0;
+            return Task.delete_task(listNo);
+        } else {
+            return ui.indexOutOfBounds();
+        }
     }
 }
