@@ -1,6 +1,7 @@
 package vuewee.command;
 
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.IntegerDescriptionParser;
 import vuewee.task.TaskList;
 import vuewee.ui.TaskListUi;
 
@@ -16,12 +17,12 @@ class DeleteCommand extends Command {
      * @param parser   The command parser for parsing user input.
      */
     @Override
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         assert ui != null : "UI cannot be null";
         assert taskList != null : "Task list cannot be null";
         assert parser != null : "Parser cannot be null";
 
-        parser.parse(true, true);
-        ui.deleteTask(parser.getIntParam());
+        Integer index = parser.<Integer>parse(new IntegerDescriptionParser());
+        ui.deleteTask(index);
     }
 }

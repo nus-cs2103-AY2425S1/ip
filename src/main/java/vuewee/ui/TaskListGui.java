@@ -119,7 +119,7 @@ public class TaskListGui extends TaskListUi {
             CommandParser parser = new CommandParser(userInput);
             CommandType commandType = parser.getCommandType();
             Command command = commandType.createCommand();
-            command.execute(this, taskList, parser);
+            command.executeCommand(this, taskList, parser);
         } catch (IndexOutOfBoundsException | IllegalCommandException e) {
             VueweeGui.sendMessage(e.getMessage());
         } catch (EndProgramException e) {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 
 public class FindTaskTest {
 
@@ -21,8 +22,7 @@ public class FindTaskTest {
         TaskList taskList = generateTaskList();
 
         CommandParser parser = new CommandParser("find 2");
-        parser.parse(true);
-        TaskList matchingTasks = taskList.findTasks(parser.getDescription());
+        TaskList matchingTasks = taskList.findTasks(parser.parse(new StringDescriptionParser()));
         assertEquals(1, matchingTasks.size());
         assertEquals("T | 0 | task2\n", matchingTasks.serialize());
     }
@@ -32,8 +32,7 @@ public class FindTaskTest {
         TaskList taskList = generateTaskList();
 
         CommandParser parser = new CommandParser("find asdf");
-        parser.parse(true);
-        TaskList matchingTasks = taskList.findTasks(parser.getDescription());
+        TaskList matchingTasks = taskList.findTasks(parser.parse(new StringDescriptionParser()));
         assertEquals(0, matchingTasks.size());
     }
 
@@ -42,8 +41,7 @@ public class FindTaskTest {
         TaskList taskList = generateTaskList();
 
         CommandParser parser = new CommandParser("find TASK");
-        parser.parse(true);
-        TaskList matchingTasks = taskList.findTasks(parser.getDescription());
+        TaskList matchingTasks = taskList.findTasks(parser.parse(new StringDescriptionParser()));
         assertEquals(3, matchingTasks.size());
         assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", matchingTasks.serialize());
     }

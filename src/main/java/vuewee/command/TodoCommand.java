@@ -1,6 +1,7 @@
 package vuewee.command;
 
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
 import vuewee.ui.TaskListUi;
@@ -18,12 +19,12 @@ class TodoCommand extends Command {
      * @param parser   the command parser for parsing the input
      */
     @Override
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         assert ui != null : "UI cannot be null";
         assert taskList != null : "Task list cannot be null";
         assert parser != null : "Parser cannot be null";
 
-        parser.parse(true);
-        ui.addTask(new TodoTask(parser.getDescription()));
+        String desc = parser.<String>parse(new StringDescriptionParser());
+        ui.addTask(new TodoTask(desc));
     }
 }

@@ -1,6 +1,7 @@
 package vuewee.command;
 
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 import vuewee.task.TaskList;
 import vuewee.ui.TaskListUi;
 
@@ -16,13 +17,12 @@ class FindCommand extends Command {
      * @param parser   the command parser for parsing user input
      */
     @Override
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         assert ui != null : "UI cannot be null";
         assert taskList != null : "Task list cannot be null";
         assert parser != null : "Parser cannot be null";
 
-        parser.parse(true);
-        String keyword = parser.getDescription();
+        String keyword = parser.parse(new StringDescriptionParser());
         TaskList matchingTasks = taskList.findTasks(keyword);
         ui.displayTasks(matchingTasks);
     }

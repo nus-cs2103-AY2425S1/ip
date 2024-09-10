@@ -1,6 +1,7 @@
 package vuewee.parser;
 
 import vuewee.command.CommandType;
+import vuewee.parser.description.DescriptionParser;
 
 /**
  * The CommandParser class is responsible for parsing and extracting information
@@ -11,10 +12,6 @@ public class CommandParser {
     private String argument; // Input text after command title
 
     private CommandType commandType;
-
-    // Only description or integer description is allowed
-    private String description;
-    private int intParam;
 
     /**
      * Creates a new CommandParser object with the given input string. Parses the
@@ -32,39 +29,28 @@ public class CommandParser {
     /**
      * Parses the input string to extract the String description.
      *
-     * @param hasDescription Whether the command has a description.
-     */
-    public void parse(boolean hasDescription) {
-        this.parse(hasDescription, false);
-    }
-
-    /**
-     * Parses the input string to extract the description as an integer parameter
-     * when isIntegerDescription is set to true.
+     * @param descriptionParser The description parser to use.
      *
-     * @param hasDescription       Whether the command has a description.
-     * @param isIntegerDescription Whether the description is an integer.
+     * @return The parsed description of type T.
      */
-    public void parse(boolean hasDescription, boolean isIntegerDescription) {
-        this.parse(hasDescription, isIntegerDescription, new CommandOption[0]);
+    public <T> T parse(DescriptionParser<T> descriptionParser) {
+        return this.parse(descriptionParser, new CommandOption[0]);
     }
 
     /**
      * Parses the input string and extracts the description. Uses expectedOptions to
      * parse the options in the input string.
      *
-     * @param hasDescription       Whether the command has a description.
-     * @param isIntegerDescription Whether the description is an integer.
-     * @param expectedOptions      The expected options to parse as a CommandOption
-     *                             type.
+     * @param descriptionParser The description parser to use.
+     * @param expectedOptions   The expected options to parse as a CommandOption
+     *                          type.
+     *
+     * @return The parsed description of type T.
      */
-    public void parse(boolean hasDescription, boolean isIntegerDescription, CommandOption<?>... expectedOptions) {
-        // Reset states
-        this.description = "";
-
-        if (hasDescription && this.argument.length() == 0) {
-            throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
-                    expectedOptions);
+    public <T> T parse(DescriptionParser<T> descriptionParser, CommandOption<?>... expectedOptions) {
+        assert descriptionParser != null;
+        if (this.argument.length() == 0) {
+            throw new IllegalCommandArgumentException(this.commandType, descriptionParser, expectedOptions);
         }
 
         // Create a pattern to match all options and end of string
@@ -87,38 +73,25 @@ public class CommandParser {
             } catch (IllegalCommandException e) {
                 throw e;
             } catch (IllegalArgumentException e) {
-                throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
-                        expectedOptions);
+                throw new IllegalCommandArgumentException(this.commandType, descriptionParser, expectedOptions);
             }
         }
 
         // Get description
         String description = this.argument.substring(0, minStartMatch).trim();
-        if (hasDescription && description.length() == 0) {
-            throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
-                    expectedOptions);
+        if (description.length() == 0) {
+            throw new IllegalCommandArgumentException(this.commandType, descriptionParser, expectedOptions);
         }
-        this.description = description;
 
-        if (isIntegerDescription) {
-            try {
-                this.intParam = Integer.parseInt(this.description);
-            } catch (NumberFormatException e) {
-                throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
-                        expectedOptions);
-            }
+        try {
+            return descriptionParser.parse(description);
+        } catch (Exception e) {
+            // Handle parsing exceptions by re-throwing as IllegalCommandArgumentException
+            throw new IllegalCommandArgumentException(this.commandType, descriptionParser, expectedOptions);
         }
     }
 
     public CommandType getCommandType() {
         return this.commandType;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public int getIntParam() {
-        return this.intParam;
     }
 }
