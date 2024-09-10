@@ -1,15 +1,17 @@
 package hypebot.storage;
 
-import hypebot.task.*;
-import hypebot.tasklist.Tasklist;
+import hypebot.task.Deadline;
+import hypebot.task.Event;
+import hypebot.task.Task;
+import hypebot.task.TaskDateTimeParseException;
+import hypebot.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static hypebot.common.Messages.LOADING_TASKLIST_ERROR;
+import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
 
 public class TasklistDecoder {
     private File tasklistFile;
@@ -41,7 +43,7 @@ public class TasklistDecoder {
 
     public ArrayList<Task> decode() throws FileNotFoundException {
         if (!tasklistFile.exists()) {
-            throw new FileNotFoundException(LOADING_TASKLIST_ERROR);
+            throw new FileNotFoundException(ERROR_LOAD_TASKLIST);
         }
         Scanner scanner = new Scanner(tasklistFile);
         ArrayList<Task> tasks = new ArrayList<>();

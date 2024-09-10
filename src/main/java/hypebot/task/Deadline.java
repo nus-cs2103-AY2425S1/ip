@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static hypebot.common.Messages.DUE_DATE_PARSE_ERROR;
-import static hypebot.common.Messages.DUE_DATE_PASSED_ERROR;
+import static hypebot.common.Messages.ERROR_DEADLINE_DATE_WRONG_FORMAT;
+import static hypebot.common.Messages.ERROR_DEADLINE_DATE_PASSED;
 
 /**
  * Represents a Deadline type Task with a LocalDateTime type due date.
@@ -28,11 +28,11 @@ public class Deadline extends Task {
         try {
             LocalDate tempDate = LocalDate.parse(dueDateString, formatter);
             if (tempDate.isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException(DUE_DATE_PASSED_ERROR);
+                throw new IllegalArgumentException(ERROR_DEADLINE_DATE_PASSED);
             }
             dueDate = tempDate;
         } catch (DateTimeParseException e) {
-            throw new DueDateParseException(DUE_DATE_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+            throw new DueDateParseException(ERROR_DEADLINE_DATE_WRONG_FORMAT, e.getParsedString(), e.getErrorIndex());
         }
     }
 

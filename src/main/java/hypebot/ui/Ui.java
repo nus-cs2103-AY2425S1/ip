@@ -8,7 +8,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import static hypebot.common.Messages.*;
+import static hypebot.common.Messages.MESSAGE_ADDED_TASK;
+import static hypebot.common.Messages.MESSAGE_DELETED_TASK;
+import static hypebot.common.Messages.ERROR_INTRO;
+import static hypebot.common.Messages.MESSAGE_EXIT;
+import static hypebot.common.Messages.MESSAGE_GREET_INTRO;
+import static hypebot.common.Messages.MESSAGE_GREET_OUTRO;
+import static hypebot.common.Messages.MESSAGE_HAPPENING;
+import static hypebot.common.Messages.MESSAGE_HELP;
+import static hypebot.common.Messages.MESSAGE_LIST;
+import static hypebot.common.Messages.MESSAGE_LOAD_TASKLIST;
+import static hypebot.common.Messages.LOGO;
+import static hypebot.common.Messages.MESSAGE_MARKED_TASK;
+import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_INTRO;
+import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_OUTRO;
+import static hypebot.common.Messages.MESSAGE_SAVE_TASKLIST;
+import static hypebot.common.Messages.MESSAGE_UNKNOWN_INTRO;
+import static hypebot.common.Messages.MESSAGE_UNKNOWN_OUTRO;
+import static hypebot.common.Messages.MESSAGE_UNMARKED_TASK;
 
 public class Ui {
     private final String DIVIDER_LINE = "____________________________________________________________________"
@@ -41,64 +58,60 @@ public class Ui {
         return DIVIDER_LINE + ERROR_INTRO + message + DIVIDER_LINE;
     }
 
-    private boolean shouldIgnore(String userEnteredCommand) {
-        return userEnteredCommand.trim().isEmpty();
-    }
-
     public void showDividerLine() {
         out.println(DIVIDER_LINE);
     }
 
     public void showLoadingTasks() {
-        out.println(addDividerLine(LOADING_TASKLIST_MESSAGE));
+        out.println(addDividerLine(MESSAGE_LOAD_TASKLIST));
     }
 
     public void showSavingTasks() {
-        out.println(addDividerLine(SAVING_TASKLIST_MESSAGE));
+        out.println(addDividerLine(MESSAGE_SAVE_TASKLIST));
     }
 
     public void showHelpMessage() {
-        out.println(addDividerLine(HELP_MESSAGE));
+        out.println(addDividerLine(MESSAGE_HELP));
     }
 
     public void showListingTasks(Tasklist tasks) {
-        out.println(addDividerLine(LIST_INTRO + tasks.toString()));
+        out.println(addDividerLine(MESSAGE_LIST + tasks.toString()));
     }
 
     public void showAddedTask(Task addedTask, Tasklist tasks) {
-        out.println(addDividerLine(ADDED_TASK_MESSAGE + addedTask
-                + NUMBER_OF_TASKS_LEFT_INTRO + tasks.size() + NUMBER_OF_TASKS_LEFT_OUTRO));
+        out.println(addDividerLine(MESSAGE_ADDED_TASK + addedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO));
     }
 
     public void showDeletedTask(Task removedTask, Tasklist tasks) {
-        out.println(addDividerLine(DELETED_TASK_MESSAGE + removedTask
-                + NUMBER_OF_TASKS_LEFT_INTRO + tasks.size() + NUMBER_OF_TASKS_LEFT_OUTRO));
+        out.println(addDividerLine(MESSAGE_DELETED_TASK + removedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO));
     }
 
     public void showMarkedTask(Task taskToMark) {
-        out.println(addDividerLine(MARKED_TASK_MESSAGE + taskToMark + "\n"));
+        out.println(addDividerLine(MESSAGE_MARKED_TASK + taskToMark + "\n"));
     }
 
     public void showUnmarkedTask(Task taskToUnmark) {
-        out.println(addDividerLine(UNMARKED_TASK_MESSAGE + taskToUnmark + "\n"));
+        out.println(addDividerLine(MESSAGE_UNMARKED_TASK + taskToUnmark + "\n"));
     }
 
     public void showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
-        out.println(addDividerLine(HAPPENING_INTRO + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        out.println(addDividerLine(MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + "!\n" + tasksHappeningOnDate.toString()));
     }
 
     public void showUnknownCommand(String command) {
-        out.println(addDividerLineError(UNKNOWN_COMMAND_ERROR_INTRO + command + UNKNOWN_COMMAND_ERROR_OUTRO));
+        out.println(addDividerLineError(MESSAGE_UNKNOWN_INTRO + command + MESSAGE_UNKNOWN_OUTRO));
     }
 
     public void showGreeting() {
-        out.println(addDividerLine(GREET_INTRO + LOGO + GREET_OUTRO));
+        out.println(addDividerLine(MESSAGE_GREET_INTRO + LOGO + MESSAGE_GREET_OUTRO));
     }
 
     public void showExit() {
         in.close();
-        out.println(addDividerLine(EXIT_MESSAGE));
+        out.println(addDividerLine(MESSAGE_EXIT));
     }
 
     public void showError(String errorMessage) {

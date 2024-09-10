@@ -2,8 +2,8 @@ package hypebot.task;
 
 import org.junit.jupiter.api.Test;
 
-import static hypebot.common.Messages.EVENT_TIMES_NOT_IN_ORDER_ERROR;
-import static hypebot.common.Messages.EVENT_TIME_PASSED_ERROR;
+import static hypebot.common.Messages.ERROR_EVENT_TIMES_INORDERED;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_PASSED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -26,7 +26,7 @@ public class EventTest {
         try {
             Event temp1 = new Event("temp1", "2019-09-15 18:00", "2021-09-15 18:00");
         } catch (Exception e) {
-            assertEquals(EVENT_TIME_PASSED_ERROR, e.getMessage());
+            assertEquals(ERROR_EVENT_TIME_PASSED, e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class EventTest {
         try {
             Event temp1 = new Event("temp1", "2024-09-15 18:00", "2024-09-15 16:00");
         } catch (Exception e) {
-            assertEquals(EVENT_TIMES_NOT_IN_ORDER_ERROR, e.getMessage());
+            assertEquals(ERROR_EVENT_TIMES_INORDERED, e.getMessage());
         }
     }
 }
