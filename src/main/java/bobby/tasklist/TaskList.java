@@ -36,6 +36,7 @@ public class TaskList {
      * @param task the task to be added
      */
     public void add(Task task) {
+        assert task != null : "Cannot add a null task";
         tasks.add(task);
     }
 
@@ -47,6 +48,7 @@ public class TaskList {
      * @throws InvalidTaskNumberException if the index is out of bounds
      */
     public Task get(int index) throws InvalidTaskNumberException {
+        assert index >= 0 : "Index cannot be less than 0: " + index;
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
@@ -63,6 +65,7 @@ public class TaskList {
      * @throws InvalidTaskNumberException if the index is out of bounds
      */
     public Task remove(int index) throws InvalidTaskNumberException {
+        assert index >= 0 : "Index cannot be less than 0: " + index;
         try {
             return tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
@@ -105,6 +108,7 @@ public class TaskList {
      * @return An ArrayList of tasks that match the date.
      */
     public ArrayList<Task> findTasksByDate(LocalDate date) {
+        assert date != null : "Date must not be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline && task.isOnDate(date)) {
@@ -123,6 +127,7 @@ public class TaskList {
      * @return An ArrayList of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null : "Keyword must not be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().equals(keyword.toLowerCase())) {
