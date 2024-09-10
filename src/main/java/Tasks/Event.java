@@ -20,7 +20,7 @@ public class Event extends Task {
      */
     @Override
     public String getWriteTaskInfo() {
-        return this.startPeriod.format(PATTERN_READ) + "," + this.endPeriod.format(PATTERN_READ);
+        return this.startPeriod.format(PATTERN_READ) + ", " + this.endPeriod.format(PATTERN_READ);
     }
 
     @Override

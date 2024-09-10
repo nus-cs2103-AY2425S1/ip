@@ -32,13 +32,19 @@ public class Storage {
                 String[] splits = line.split(",");
                 switch (splits[0]) {
                 case "T":
-                    tasks.add(new ToDos(splits[2]));
+                    Task t = new ToDos(splits[2]);
+                    t.setTag(splits[3].strip());
+                    tasks.add(t);
                     break;
                 case "D":
-                    tasks.add(new Deadlines(splits[2], splits[3].strip()));
+                    Task t2 = new Deadlines(splits[2], splits[3].strip());
+                    t2.setTag(splits[4].strip());
+                    tasks.add(t2);
                     break;
                 case "E":
-                    tasks.add(new Event(splits[2], splits[3].strip(), splits[4].strip()));
+                    Task t3 = new Event(splits[2], splits[3].strip(), splits[4].strip());
+                    t3.setTag(splits[5].strip());
+                    tasks.add(t3);
                     break;
                 default:
                     break;
@@ -69,7 +75,7 @@ public class Storage {
      * @param index Index of task to be updated.
      * @param status Status of isDone to determine update information.
      */
-    public void updateFileStatus(int index, boolean status) {
+    public void updateTaskStatus(int index, boolean status) {
         ArrayList<String> fileContents = new ArrayList<>();
 
         try {
@@ -82,6 +88,34 @@ public class Storage {
             String s = fileContents.get(index);
             String replacement = status ? "1" : "0";
             fileContents.set(index, s.replaceFirst("0|1", replacement));
+            FileWriter fw = new FileWriter(this.file);
+            for (String line : fileContents) {
+                fw.write(line + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(Ui.updateUserOnError(e));
+        }
+    }
+
+    /**
+     * Updates tag for specific task in the file.
+     *
+     * @param index Index of task to be updated.
+     * @param tag Tag to be updated.
+     */
+    public void updateTaskTag(int index, String tag) {
+        ArrayList<String> fileContents = new ArrayList<>();
+
+        try {
+            Scanner fileScanner = new Scanner(this.file);
+            while (fileScanner.hasNextLine()) {
+                fileContents.add(fileScanner.nextLine());
+            }
+            fileScanner.close();
+
+            String s = fileContents.get(index);
+            fileContents.set(index, s + tag);
             FileWriter fw = new FileWriter(this.file);
             for (String line : fileContents) {
                 fw.write(line + "\n");

@@ -3,10 +3,12 @@ package tasks;
 public abstract class Task {
     protected String name;
     protected Boolean isDone;
+    protected String tag;
 
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.tag = "";
     }
 
     /**
@@ -28,6 +30,17 @@ public abstract class Task {
      */
     public String getTaskStatus() {
         return (isDone ? "X" : " ");
+    }
+
+    public void setTag(String input) {
+        this.tag = input;
+    }
+
+    /**
+     * Returns string representation of the tag.
+     */
+    public String getTag() {
+        return this.tag.isEmpty() ? "" : "#" + this.tag;
     }
 
     /**

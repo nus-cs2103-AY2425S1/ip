@@ -1,4 +1,4 @@
-T, 1, borrow book
-D, 0, return book, 2024-12-30 18:30
-E, 0, project meeting, 2024-12-29 12:00,2024-12-29 17:00
-T, 1, borrow notes
+T, 1, borrow book, fun
+D, 0, return book, 2024-12-30 18:30, 
+E, 0, project meeting, 2024-12-29 12:00, 2024-12-29 17:00, 
+T, 1, borrow notes, lame
