@@ -41,7 +41,8 @@ public class TaskTest {
                     new Event("Test Event", "20/12/2023 1800", "40/12/2023 1900").toString());
             fail();
         } catch (MeejuException e) {
-            String message = "Meow! Please recheck date and time you have entered \n"
+            String message = "I'm having a bit of trouble understanding the task.\n"
+                    + "Could you please explain it using the correct format?\n"
                     + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM";
             assertEquals(message, e.getMessage());
         }
