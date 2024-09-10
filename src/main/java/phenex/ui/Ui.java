@@ -46,25 +46,30 @@ public class Ui {
      * @return String of the task list printed.
      */
     public String printTaskList(TaskList taskList) {
+        String stringToPrint = generateTaskListString(taskList);
+        System.out.println(stringToPrint);
+        return stringToPrint;
+    }
+
+    /**
+     * Generates a string which represents a given task list.
+     * @param taskList the task list to have its string representation.
+     * @return a string which is the string representation of the task list.
+     */
+    public String generateTaskListString(TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
         int size = taskList.getTasks().size();
-        String stringToReturn;
         if (size == 0) {
-            stringToReturn = "\t No scheduled missions. Rest up for the next battle, soldier!";
-            System.out.println("\t No scheduled missions. Rest up for the next battle, soldier!");
-            return stringToReturn;
+            stringBuilder.append("\t No scheduled missions. Rest up for the next battle, soldier!");
+            return stringBuilder.toString();
         }
 
-        System.out.println("\t Outstanding missions:");
-        stringToReturn = "\t Outstanding missions:\n";
+        stringBuilder.append("\t Outstanding missions:\n");
         for (int i = 0; i < size; i++) {
-            String row = "\t "
-                    + (i + 1)
-                    + "."
-                    + taskList.getTaskByIdx(i);
-            System.out.println(row);
-            stringToReturn += row + "\n";
+            String row = "\t " + (i + 1) + ". " + taskList.getTaskByIdx(i) + "\n";
+            stringBuilder.append(row);
         }
-        return stringToReturn;
+        return stringBuilder.toString();
     }
 
     /**
@@ -85,11 +90,21 @@ public class Ui {
      * @return string that represents a task is marked as complete.
      */
     public String printTaskMarkedCompleteMessage(Task taskMarked) {
-        String stringToReturn = "\t Mission marked as complete. Good job, soldier!" + "\n";
-        stringToReturn += "\t\t" + taskMarked + "\n";
-        System.out.println("\t Mission marked as complete. Good job, soldier!");
-        System.out.println("\t\t" + taskMarked);
-        return stringToReturn;
+        String stringToPrint = generateTaskMarkedCompleteMessage(taskMarked);
+        System.out.println(stringToPrint);
+        return stringToPrint;
+    }
+
+    /**
+     * Generates a task marked complete message.
+     * @param taskMarked the task which was marked complete.
+     * @return string which represents the message.
+     */
+    public String generateTaskMarkedCompleteMessage(Task taskMarked) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t Mission marked as complete. Good job, soldier!\n");
+        stringBuilder.append("\t\t" + taskMarked + "\n");
+        return stringBuilder.toString();
     }
 
     /**
@@ -99,11 +114,21 @@ public class Ui {
      * @return string that represents a task is marked as incomplete.
      */
     public String printTaskMarkedIncompleteMessage(Task taskMarked) {
-        String stringToReturn = "\t Mission marked as incomplete." + "\n";
-        stringToReturn += "\t\t" + taskMarked + "\n";
-        System.out.println("\t Mission marked as incomplete.");
-        System.out.println("\t\t" + taskMarked);
-        return stringToReturn;
+        String stringToPrint = generateTaskMarkedIncompleteMessage(taskMarked);
+        System.out.println(stringToPrint);
+        return stringToPrint;
+    }
+
+    /**
+     * Generates a task marked incomplete message.
+     * @param taskMarked the task which was marked incomplete.
+     * @return string which represents the message.
+     */
+    public String generateTaskMarkedIncompleteMessage(Task taskMarked) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t Mission marked as incomplete.\n");
+        stringBuilder.append("\t\t" + taskMarked + "\n");
+        return stringBuilder.toString();
     }
 
     /**
@@ -111,16 +136,26 @@ public class Ui {
      *
      * @param taskDeleted task which was deleted.
      * @param taskListSize current size of the task list.
-     * @return string that represents a successful deletion of a task
+     * @return string that represents a successful deletion of a task.
      */
     public String printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
-        String stringToReturn = "\t OK. Mission aborted, retreat!" + "\n";
-        stringToReturn += "\t  " + taskDeleted + "\n";
-        stringToReturn += "\t " + taskListSize + " missions remaining. Destroy the enemy!" + "\n";
-        System.out.println("\t OK. Mission aborted, retreat!");
-        System.out.println("\t  " + taskDeleted);
-        System.out.println("\t " + taskListSize + " missions remaining. Destroy the enemy!");
-        return stringToReturn;
+        String stringToPrint = generateTaskDeletedMessage(taskDeleted, taskListSize);
+        System.out.println(stringToPrint);
+        return stringToPrint;
+    }
+
+    /**
+     * Generates a task deleted message.
+     * @param taskDeleted the task which was deleted.
+     * @param taskListSize the current size of task list.
+     * @return string that represents a successful deletion of a task.
+     */
+    public String generateTaskDeletedMessage(Task taskDeleted, int taskListSize) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t OK. Mission aborted, retreat!\n");
+        stringBuilder.append("\t  " + taskDeleted + "\n");
+        stringBuilder.append("\t " + taskListSize + " missions remaining. Destroy the enemy!\n");
+        return stringBuilder.toString();
     }
 
     /**
@@ -131,13 +166,23 @@ public class Ui {
      * @return string that represents a successful addition of a task.
      */
     public String printTaskAddedMessage(Task taskAdded, int taskListSize) {
-        String stringToReturn = "\t Mission " + taskAdded.getName() + " added:" + "\n";
-        stringToReturn += "\t   " + taskAdded + "\n";
-        stringToReturn += "\t Total upcoming missions: " + taskListSize + "\n";
-        System.out.println("\t Mission " + taskAdded.getName() + " added:");
-        System.out.println("\t   " + taskAdded);
-        System.out.println("\t Total upcoming missions: " + taskListSize);
-        return stringToReturn;
+        String stringToPrint = generateTaskAddedMessage(taskAdded, taskListSize);
+        System.out.println(stringToPrint);
+        return stringToPrint;
+    }
+
+    /**
+     * Generates a task added message.
+     * @param taskAdded the task which was added.
+     * @param taskListSize the current size of task list.
+     * @return string that represents a successful addition of a task.
+     */
+    public String generateTaskAddedMessage(Task taskAdded, int taskListSize) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t Mission " + taskAdded.getName() + " added:\n");
+        stringBuilder.append("\t   " + taskAdded + "\n");
+        stringBuilder.append("\t Total upcoming missions: " + taskListSize + "\n");
+        return stringBuilder.toString();
     }
 
     /**
