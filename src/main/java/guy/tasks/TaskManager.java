@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import guy.exception.GuyException;
 import guy.storage.Storage;
@@ -41,27 +43,29 @@ public class TaskManager {
      * @param data string representation of the task
      */
     public void loadData(String data) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            String[] line = data.split("\\s*\\|\\s*");
-            String type = line[0];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        Arrays.stream(data.split("\n"))
+                .map(line -> line.split("\\s*\\|\\s*"))
+                .forEach(parts -> {
+                    try {
+                        String type = parts[0];
+                        Task task = switch(type) {
+                        case "T" -> new ToDo(parts[2]);
+                        case "D" -> new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
+                        case "E" -> new Event(parts[2], LocalDateTime.parse(parts[3], formatter),
+                                    LocalDateTime.parse(parts[4], formatter));
+                        default -> throw new GuyException("Why did "
+                                + "you give me a file with an invalid line, you dingus...");
+                        };
 
-            Task task = switch(type) {
-            case "T" -> new ToDo(line[2]);
-            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], formatter));
-            case "E" -> new Event(line[2], LocalDateTime.parse(line[3], formatter),
-                                           LocalDateTime.parse(line[4], formatter));
-            default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
-            };
-
-            if (line[1].equals("1")) {
-                task.markComplete();
-            }
-            tasks.add(task);
-
-        } catch (GuyException e) {
-            System.out.println(e.getMessage());
-        }
+                        if (parts[1].equals("1")) {
+                            task.markComplete();
+                        }
+                        tasks.add(task);
+                    } catch (GuyException e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
     }
 
     /**
@@ -245,19 +249,13 @@ public class TaskManager {
      * @throws GuyException if no task matches the input
      */
     public void findTask(String input) throws GuyException {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.toString().contains(input)) {
-                matchingTasks.add(t);
-            }
-        }
-        if (matchingTasks.isEmpty()) {
-            throw new GuyException("You really tried to give me keywords that match NONE of your tasks. Shame on you.");
-        } else {
-            System.out.println("These are your damned tasks, that actually match the keywords:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.printf("%d.%s\n", i + 1, matchingTasks.get(i).toString());
-            }
+        List<Task> matchingTasks = tasks.stream()
+                        .filter(t -> t.toString().contains(input))
+                                .toList();
+
+        System.out.println("These are your damned tasks, that actually match the keywords:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, matchingTasks.get(i).toString());
         }
     }
 
