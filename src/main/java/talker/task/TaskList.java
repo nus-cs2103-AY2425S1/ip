@@ -52,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Prints a list of tasks that are occuring on a certain date
+     * Prints a list of tasks that are occurring on a certain date
      * ToDo tasks are not printed
      * Deadline tasks where the deadline has not yet passed are printed
      * Event tasks where the start date has already passed but the end date
@@ -85,6 +85,7 @@ public class TaskList {
                 toAppend = getEventOnTargetDate((Event) task, targetDate, ui);
             } else {
                 toAppend = "";
+                assert (task instanceof ToDo) : "task should be of type ToDo";
             }
 
             output.append(toAppend);
@@ -144,6 +145,7 @@ public class TaskList {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
+        assert !list.isEmpty() : "list should not be empty";
         return ui.printTaskList(list.toArray(new Task[0]));
     }
 
