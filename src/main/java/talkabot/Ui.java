@@ -2,6 +2,7 @@ package talkabot;
 
 import java.util.Scanner;
 
+import talkabot.exceptions.UnknownInputException;
 import talkabot.exceptions.WrongTaskTypeException;
 import talkabot.task.Deadline;
 import talkabot.task.Event;
@@ -35,16 +36,16 @@ public class Ui {
     /**
      * Prints out goodbye line.
      */
-    public void goodbye() {
-        System.out.println(GOODBYE);
+    public String goodbye() {
+        return GOODBYE;
     }
 
     /**
      * Prints out the task being added, as well as current total tasks.
      */
-    public void echo(Task task, int total) {
-        System.out.println(String.format("Got it. I've added this task:\n%s\nto your list!"
-                        + "\nYou now have " + total + " tasks.", task));
+    public String echo(Task task, int total) {
+        return String.format("Got it. I've added this task:\n%s\nto your list!"
+                + "\nYou now have " + total + " tasks.", task);
     }
 
     /**
@@ -59,41 +60,41 @@ public class Ui {
     /**
      * Prints out the current list of tasks.
      */
-    public void displayList(TaskList taskList) {
+    public String displayList(TaskList taskList) {
         String output = "Here's your to-do list:";
         for (int i = 0; i < taskList.size(); i++) {
             output += String.format("\n%d. ", i + 1) + taskList.get(i);
         }
-        System.out.println(output);
+        return output;
     }
 
     /**
      * Prints out the task being marked.
      */
-    public void mark(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+    public String mark(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
      * Prints out the task being unmarked.
      */
-    public void unmark(Task task) {
-        System.out.println("No problem! I've marked this task as not done yet:\n" + task);
+    public String unmark(Task task) {
+        return "No problem! I've marked this task as not done yet:\n" + task;
     }
 
     /**
      * Prints out the task being deleted and the new total number of tasks.
      */
-    public void delete(Task task, int total) {
-        System.out.println("Got it! I've removed this task:\n" + task
-                + "\nYou now have " + total + " tasks in total!");
+    public String delete(Task task, int total) {
+        return "Got it! I've removed this task:\n" + task
+                + "\nYou now have " + total + " tasks in total!";
     }
 
     /**
      * Prints out the error message.
      */
-    public void error(String message) {
-        System.out.println(message);
+    public String error(String message) {
+        return message;
     }
 
     /**
@@ -101,16 +102,17 @@ public class Ui {
      *
      * @throws WrongTaskTypeException If task is a ToDo.
      */
-    public void getDay(Task task) {
+    public String getDay(Task task) {
         if (task instanceof ToDo) {
             throw new WrongTaskTypeException("does not have a deadline!");
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            System.out.println("This task is due on a " + d.getDay() + "!");
+            return "This task is due on a " + d.getDay() + "!";
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            System.out.println("This task occurs from " + e.getDay() + "!");
+            return "This task occurs from " + e.getDay() + "!";
         }
+        throw new UnknownInputException("Huh");
     }
 
     /**
@@ -129,12 +131,12 @@ public class Ui {
      *
      * @param taskList list of matching tasks
      */
-    public static void returnMatches(TaskList taskList) {
+    public String returnMatches(TaskList taskList) {
         String output = "Here are the matching tasks in your to-do list:";
         for (int i = 0; i < taskList.size(); i++) {
             output += String.format("\n%d. ", i + 1) + taskList.get(i);
         }
-        System.out.println(output);
+        return output;
     }
 
 }

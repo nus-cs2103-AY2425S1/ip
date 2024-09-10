@@ -1,7 +1,8 @@
-1 | hihihihihih
 0 | bathe | 2002-04-03
 0 | grow | 2004-03-05 | 2024-03-05
 0 | yes
 0 | eat
 0 | eat ham | 2040-11-12
-0 | eat nothing | 2024-11-11 | 2024-12-12
+1 | eat nothing | 2024-11-11 | 2024-12-12
+0 | eat
+0 | sleep
