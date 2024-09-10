@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * a list of actions represented by an arraylist.
  */
 public class TaskList {
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> tasks) {
         this.list = tasks;
@@ -22,7 +22,8 @@ public class TaskList {
 
     /**
     * Displays the list of tasks when commanded by the user.
-    */
+     * @return string to be displayed to user
+     */
     public String handleList() {
         String reply = "";
         reply = "Here are the tasks in your list: ";
@@ -35,11 +36,15 @@ public class TaskList {
      * Displays the desired task as marked when commanded by the user.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleMark(String input) {
         String reply = "";
         int index = Integer.parseInt(input.substring(5)) - 1;
-        if (index >= 0 && index < list.size()) {
+        boolean isLessThanSizeOfList = index < list.size();
+        boolean isGreaterThanZero = index >= 0;
+        boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
+        if (isValidIndex) {
             Task task = list.get(index);
             task.markAsDone();
             reply = "Nice! I've marked this task as done: \n" +
@@ -53,11 +58,15 @@ public class TaskList {
      * Displays the desired task as unmarked when commanded by the user.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleUnmark(String input) {
         String reply = "";
         int index = Integer.parseInt(input.substring(7)) - 1;
-        if (index >= 0 && index < list.size()) {
+        boolean isLessThanSizeOfList = index < list.size();
+        boolean isGreaterThanZero = index >= 0;
+        boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
+        if (isValidIndex) {
             Task task = list.get(index);
             task.unmark();
             reply = "OK, I've marked this task as not done yet: \n" +
@@ -73,6 +82,7 @@ public class TaskList {
      * If there is no description of the task, it will ask user to try again.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleTodo(String input) {
         String reply = "";
@@ -94,6 +104,7 @@ public class TaskList {
      * If the date entered by the user is invalid, it will ask user to try again.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleDeadline(String input) {
         String reply = "";
@@ -127,6 +138,7 @@ public class TaskList {
      * If the date(s) entered by the user is invalid, it will ask user to try again.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleEvent(String input) {
         String reply = "";
@@ -161,11 +173,15 @@ public class TaskList {
      * If the index entered by the user is < -1 or > size of list, it will ask user to try again.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleDelete(String input) {
         String reply = "";
         int index = Integer.parseInt(input.substring(7)) - 1;
-        if (index >= 0 && index < list.size()) {
+        boolean isLessThanSizeOfList = index < list.size();
+        boolean isGreaterThanZero = index >= 0;
+        boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
+        if (isValidIndex) {
             Task task = list.get(index);
             list.remove(index);
             reply = "OK, I've deleted this task: \n" + task.toString() +
@@ -180,6 +196,7 @@ public class TaskList {
      * If the date entered by the user is invalid, it will ask user to try again.
      *
      * @param input input entered by the user
+     * @return string to be displayed to user
      */
     public String handleDate(String input) {
         String reply = "";
@@ -203,6 +220,7 @@ public class TaskList {
      * Finds the tasks in the list of tasks that contain the keyword entered by the user.
      *
      * @param input input entered by user.
+     * @return string to be displayed to user
      */
     public String handleFind(String input) {
         String reply = "";
@@ -210,7 +228,8 @@ public class TaskList {
         @SuppressWarnings("unchecked")
         ArrayList<Task> newList = (ArrayList<Task>) list.clone();
         newList.removeIf(task -> !task.description.toLowerCase().contains(keyword.toLowerCase()));
-        int index = 1;
+        int startingIndex = 1;
+        int index = startingIndex;
         if (newList.isEmpty()) {
             reply = "No tasks found matching the keyword: " + keyword;
         } else {

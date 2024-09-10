@@ -12,7 +12,9 @@ import javafx.scene.Node;
 import java.io.IOException;
 import java.util.Collections;
 
-
+/**
+ * Controller for the dialogBox.css GUI
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -32,6 +34,9 @@ public class DialogBox extends HBox {
         dialog.setText(s);
         displayPicture.setImage(i);
     }
+    /**
+     * flips the orientation of the user interface for Alex's response
+     */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -40,11 +45,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a dialogBox for the user
+     *
+     * @param s string that will be displayed in the dialogBox
+     * @param i image that will be displayed beside the text
+     * @return dialogBox created with params s and i
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
-    public static DialogBox getDukeDialog(String s, Image i) {
+    /**
+     * Creates a dialogBox for Alex
+     *
+     * @param s string that will be displayed in the dialogBox
+     * @param i image that will be displayed beside the text
+     * @return dialogBox created with params s and i
+     */
+    public static DialogBox getAlexDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();
         return db;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * an inventory represented by strings referring to the directory and the data file.
  */
 public class Storage {
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public Storage(String directory, String file) {
         createDirectory(directory);
@@ -50,7 +50,6 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String desc;
             while ((desc = reader.readLine()) != null) {
-
                 Task task;
                 if (desc.startsWith("[T]")) {
                     String details = desc.substring(6).trim();
