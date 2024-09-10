@@ -26,9 +26,14 @@ public class Ui {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
-            
+
     private UiType uiType;
 
+    /**
+     * Constructor for creating a new UI object.
+     *
+     * @param uiType UI Type to be displayed.
+     */
     public Ui(UiType uiType) {
 
         assert uiType == UiType.COMMAND_LINE_INTERFACE || uiType == UiType.GRAPHICAL_USER_INTERFACE;
@@ -40,7 +45,7 @@ public class Ui {
      * Prints or returns greeting statement.
      */
     public String greet() {
-        String message = "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is: " 
+        String message = "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is: "
                          + LOGO + "What task would you like me to perform today?" + "\n";
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
@@ -75,8 +80,8 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String add(String task, String index) {
-        String message = "\nGLaDOS: I have added the following task to the list...\n" 
-                        + task + "\n" 
+        String message = "\nGLaDOS: I have added the following task to the list...\n"
+                        + task + "\n"
                         + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.")
                         + "\n";
 
@@ -84,7 +89,7 @@ public class Ui {
             System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I have added the following task to the list: " 
+            return "I have added the following task to the list: "
                    + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
         }
     }
@@ -105,7 +110,7 @@ public class Ui {
             System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I have removed the following task from the list: " 
+            return "I have removed the following task from the list: "
                    + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
         }
     }
@@ -183,7 +188,7 @@ public class Ui {
         }
     }
 
-     /**
+    /**
      * Prints appropriate statement during taskList initialization.
      *
      * @param str Statement to be printed.

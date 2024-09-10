@@ -145,7 +145,7 @@ public class TaskList {
     public String unmark(int index) throws TaskNotFoundException {
 
         assert listIndex == tasks.size();
-        
+
         if (index < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
