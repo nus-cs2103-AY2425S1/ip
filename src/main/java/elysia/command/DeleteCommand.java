@@ -5,6 +5,7 @@ import elysia.storage.Storage;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
@@ -15,12 +16,17 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
         Task task = tasks.get(index);
         tasks.remove(index);
 
         Ui ui = new Ui();
+        try {
+            storage.saveFile();
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
+        }
 
-        ui.showDeleteTaskMessage(tasks, task);
+        return ui.getDeleteTaskMessage(tasks, task);
     }
 }

@@ -4,6 +4,7 @@ import elysia.exception.EmptyDescriptionException;
 import elysia.storage.Storage;
 import elysia.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -21,5 +22,5 @@ public abstract class Command {
     /**
      * Executes the Command.
      */
-    public abstract void execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException;
+    public abstract String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException, IOException;
 }

@@ -5,6 +5,7 @@ import elysia.storage.Storage;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MarkCommand extends Command {
@@ -15,11 +16,16 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
         Task curr = tasks.get(this.index);
         curr.markAsDone();
 
         Ui ui = new Ui();
-        ui.showMarkAsDoneMessage(curr);
+        try {
+            storage.saveFile();
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
+        }
+        return ui.getMarkAsDoneMessage(curr);
     }
 }
