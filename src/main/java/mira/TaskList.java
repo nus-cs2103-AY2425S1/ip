@@ -98,16 +98,17 @@ public class TaskList {
 
         if (matchingTasks.isEmpty()) {
             return "No tasks found with the keyword: " + keyword;
-        } else {
-            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                result.append(i + 1).append(".").append(matchingTasks.get(i));
-                if (i < matchingTasks.size() - 1) {
-                    result.append("\n"); // Add newline only if it is not the last task
-                }
-            }
-            return result.toString();
         }
+
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            result.append(i + 1).append(".").append(matchingTasks.get(i));
+            if (i < matchingTasks.size() - 1) {
+                result.append("\n"); // Add newline only if it is not the last task
+            }
+        }
+
+        return result.toString();
     }
 
     /**
