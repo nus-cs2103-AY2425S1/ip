@@ -16,10 +16,9 @@ public class StorageManager {
     public StorageManager(String filePath) {
         tasklistFile = new File(filePath);
         try {
-            if (tasklistFile.createNewFile()) {
-                System.out.println("Tasks file created!");
-            } else {
-                System.out.println("Tasklist file already exists, loading tasks...");
+            if (!tasklistFile.exists()) {
+                tasklistFile.getParentFile().mkdirs();
+                tasklistFile.createNewFile();
             }
         } catch (IOException e) {
             throw new RuntimeException("Could not create tasklist file", e);

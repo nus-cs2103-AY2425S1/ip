@@ -47,10 +47,6 @@ public class HypeBot {
     }
 
     public static void main(String[] args) {
-        try {
-            new HypeBot("./src/main/data/tasks.txt").run();
-        } catch (Exception e) {
-            new HypeBot("../../src/main/data/tasks.txt").run();
-        }
+        new HypeBot("./src/main/data/tasks.txt").run();
     }
 }
