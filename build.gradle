@@ -33,12 +33,14 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "talker"
+    archiveFileName = 'gavinchatbot.jar'
+    archiveBaseName = "gavinchatbot"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
