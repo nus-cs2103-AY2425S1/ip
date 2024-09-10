@@ -22,6 +22,21 @@ public class Parser {
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println((i + 1) + "." + list.get(i));
                 }
+            } else if (initInput.startsWith("find ")) {
+                //System.out.println(list.size());
+                String keyword = initInput.substring(5);
+                System.out.println(keyword);
+                TaskList matchingTasks = new TaskList();
+                for (Task task : list) {
+                    System.out.println(task.getDescription());
+                    if (task.getDescription().contains(keyword)) {
+                        matchingTasks.add(task);
+                    }
+                }
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    System.out.println((i + 1) + "." + matchingTasks.get(i));
+                }
             } else if (initInput.startsWith("mark ")) {
                 // Mark a task as done
                 int taskNumber = Integer.parseInt(initInput.substring(5)) - 1;

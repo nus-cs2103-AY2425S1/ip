@@ -8,5 +8,4 @@ public class TaskList extends ArrayList<Task> {
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
-
 }
