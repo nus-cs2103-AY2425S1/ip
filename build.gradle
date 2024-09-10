@@ -5,6 +5,12 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'hypebot.HypeBot'
+
+shadowJar {
+    archiveFileName = 'hypebot.jar'
+}
+
 checkstyle {
     toolVersion = '10.2'
 }
@@ -41,6 +47,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

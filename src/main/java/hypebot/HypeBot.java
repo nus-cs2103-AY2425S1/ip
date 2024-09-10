@@ -7,6 +7,7 @@ import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * The chatbot which the user interacts with.
@@ -46,6 +47,10 @@ public class HypeBot {
     }
 
     public static void main(String[] args) {
-        new HypeBot("src/main/data/tasks.txt").run();
+        try {
+            new HypeBot("./src/main/data/tasks.txt").run();
+        } catch (Exception e) {
+            new HypeBot("../../src/main/data/tasks.txt").run();
+        }
     }
 }
