@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import joe.exceptions.InvalidIndexException;
-import joe.main.Parser;
-import joe.utils.Formatter;
+import joe.utils.Parser;
 
 /**
  * Represents the list of tasks.
@@ -18,13 +17,13 @@ public class TaskList {
 
     private static final String line =
             "____________________________________________________________";
-    private final List<Task> taskList;
+    private final List<Task> tasks;
 
     /**
      * Default Constructor for TaskList.
      */
     public TaskList() {
-        taskList = new ArrayList<>();
+        tasks = new ArrayList<>();
         System.out.println("New task list created.");
         System.out.println(line);
     }
@@ -36,13 +35,13 @@ public class TaskList {
      * @param lines the lines of tasks to be loaded
      */
     public TaskList(String[] lines) {
-        taskList = new ArrayList<>();
+        tasks = new ArrayList<>();
 
         for (String line : lines) {
             if (line == null) {
                 break;
             }
-            taskList.add(Parser.parseTask(line));
+            tasks.add(Parser.parseTask(line));
         }
 
         System.out.println("Data loaded successfully");
@@ -55,11 +54,11 @@ public class TaskList {
      * @return the message to be displayed to the user
      */
     public String addTask(Task t) {
-        taskList.add(t);
+        tasks.add(t);
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
         sb.append("  ").append(t).append("\n");
-        sb.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
         return sb.toString();
     }
 
@@ -70,15 +69,15 @@ public class TaskList {
      * @throws InvalidIndexException if the index is invalid
      */
     public String deleteTask(int index) throws InvalidIndexException {
-        if (index - 1 >= taskList.size() || index - 1 < 0) {
+        if (index - 1 >= tasks.size() || index - 1 < 0) {
             throw new InvalidIndexException(index);
         }
 
         StringBuilder sb = new StringBuilder();
-        Task t = taskList.remove(index - 1);
+        Task t = tasks.remove(index - 1);
         sb.append("Noted. I've removed this task:\n");
         sb.append("  ").append(t).append("\n");
-        sb.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
         return sb.toString();
     }
 
@@ -89,10 +88,10 @@ public class TaskList {
      * @throws InvalidIndexException if the index is invalid
      */
     public String markDone(int index) throws InvalidIndexException {
-        if (index - 1 >= taskList.size() || index - 1 < 0) {
+        if (index - 1 >= tasks.size() || index - 1 < 0) {
             throw new InvalidIndexException(index);
         }
-        Task t = taskList.get(index - 1);
+        Task t = tasks.get(index - 1);
         t.setDone(true);
 
         StringBuilder sb = new StringBuilder();
@@ -108,10 +107,10 @@ public class TaskList {
      * @throws InvalidIndexException if the index is invalid
      */
     public String unmark(int index) throws InvalidIndexException {
-        if (index - 1 >= taskList.size() || index - 1 < 0) {
+        if (index - 1 >= tasks.size() || index - 1 < 0) {
             throw new InvalidIndexException(index - 1);
         }
-        Task t = taskList.get(index - 1);
+        Task t = tasks.get(index - 1);
         t.setDone(false);
 
         StringBuilder sb = new StringBuilder();
@@ -127,8 +126,8 @@ public class TaskList {
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < taskList.size(); i++) {
-            sb.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
 
         return sb.toString();
@@ -143,7 +142,7 @@ public class TaskList {
         botMessage.append("Saving your tasks......\n");
         try {
             StringBuilder fileData = new StringBuilder();
-            taskList.stream()
+            tasks.stream()
                     .map(Task::saveRepr)
                     .forEach(taskString -> {
                         fileData.append(taskString).append(System.lineSeparator());
@@ -168,10 +167,10 @@ public class TaskList {
      */
     public String queryTasksByDate(String date) {
         // The arbitrary 1200 time here will not affect the output
-        LocalDateTime targetDate = Formatter.createLocalDateTimeWithArbitraryTime(date);
+        LocalDateTime targetDate = Parser.createLocalDateTimeWithArbitraryTime(date);
         StringBuilder sb = new StringBuilder();
         int tasksFound = 0;
-        for (Task t : taskList) {
+        for (Task t : tasks) {
             if (t instanceof Deadline d) {
                 long days = d.daysTillDeadline(targetDate);
                 if (days == 0L) {
@@ -198,7 +197,7 @@ public class TaskList {
      * @return the number of tasks in the user's list
      */
     public int size() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -208,7 +207,7 @@ public class TaskList {
      * @return the task at the index
      */
     public Task getTask(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -221,7 +220,7 @@ public class TaskList {
         sb.append("Here are the matching tasks in the list:\n");
 
         int foundStrings = 0;
-        for (Task t : taskList) {
+        for (Task t : tasks) {
             String description = t.getDescription();
             if (description.contains(keyword)) {
                 sb.append(String.format("%d. %s\n", ++foundStrings, t));

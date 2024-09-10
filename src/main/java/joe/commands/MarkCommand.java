@@ -17,6 +17,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
+        assert(index >= 0);
         this.index = index;
     }
 

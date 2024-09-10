@@ -3,7 +3,7 @@ package joe.tasks;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import joe.utils.Formatter;
+import joe.utils.Parser;
 
 /**
  * Represents a Deadline task.
@@ -19,7 +19,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String due) {
         super(description.strip());
-        this.due = Formatter.parseDateTimeString(due.strip().substring(3));
+        assert(!description.isEmpty());
+        this.due = Parser.parseDateTimeString(due.strip().substring(3));
     }
 
     /**
@@ -41,7 +42,7 @@ public class Deadline extends Task {
     public String saveRepr() {
         return String.format("D | %s | by %s",
                 super.saveRepr(),
-                Formatter.formatDateTime(due)
+                Parser.formatDateTime(due)
         );
     }
 
@@ -53,6 +54,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)",
-                super.toString(), Formatter.printDateTime(due));
+                super.toString(), Parser.printDateTime(due));
     }
 }

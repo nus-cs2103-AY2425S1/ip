@@ -17,6 +17,7 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
+        assert(index >= 0);
         this.index = index;
     }
 

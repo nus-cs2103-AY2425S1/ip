@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import joe.exceptions.CorruptedFileException;
 import joe.tasks.TaskList;
+import joe.utils.Storage;
 
 /**
  * Represents the main class of the programme.
@@ -22,13 +23,17 @@ public class Joe {
     public Joe(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        generateTaskList();
+        ui.setTasks(tasks);
+    }
+
+    private void generateTaskList() {
         try {
             tasks = initializeTasks();
         } catch (FileNotFoundException | CorruptedFileException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
         }
-        ui.setTasks(tasks);
     }
 
     /**
