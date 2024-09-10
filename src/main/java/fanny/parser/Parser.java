@@ -1,16 +1,7 @@
 package fanny.parser;
 
 import fanny.FannyException;
-import fanny.command.ByeCommand;
-import fanny.command.Command;
-import fanny.command.DeadlineCommand;
-import fanny.command.DeleteCommand;
-import fanny.command.EventCommand;
-import fanny.command.FindCommand;
-import fanny.command.ListCommand;
-import fanny.command.MarkCommand;
-import fanny.command.ToDoCommand;
-import fanny.command.UnmarkCommand;
+import fanny.command.*;
 
 /**
  * Parses user input and returns the matching command to execute.
@@ -48,6 +39,8 @@ public class Parser {
             return new DeleteCommand(arguments);
         case "find":
             return new FindCommand(arguments);
+        case "remind":
+            return new RemindCommand();
         default:
             throw new FannyException("Sorry, I'm confused! Please try again.");
         }

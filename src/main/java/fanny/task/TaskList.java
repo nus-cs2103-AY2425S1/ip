@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import fanny.storage.Storage;
 
@@ -131,6 +133,24 @@ public class TaskList {
         assert keyword != null : "Keyword is null.";
         return list.stream()
                 .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+    }
+
+    /**
+     * Gets a list of tasks with upcoming deadlines.
+     *
+     * @return List of tasks with deadlines within the next 24 hours.
+     */
+    public List<Deadline> getUpcomingDeadlines() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextDay = now.plusDays(1);
+
+        // Filter tasks that are deadlines and due within 24 hours
+        return list.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .filter(deadline -> deadline.getDeadlineTime().isAfter(now) &&
+                        deadline.getDeadlineTime().isBefore(nextDay))
                 .toList();
     }
 

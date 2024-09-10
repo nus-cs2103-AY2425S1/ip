@@ -1,5 +1,6 @@
 package fanny.ui;
 
+import fanny.task.Deadline;
 import fanny.task.Task;
 import fanny.task.TaskList;
 
@@ -96,6 +97,19 @@ public class Ui {
             for (int i = 0; i < list.size(); i++) {
                 System.out.println((i + 1) + "." + list.get(i).toString());
             }
+        }
+    }
+
+    public void showReminders(TaskList list) {
+        List<Deadline> upcomingDeadlines = list.getUpcomingDeadlines();
+
+        if (!upcomingDeadlines.isEmpty()) {
+            System.out.println("You have the following tasks due soon:");
+            for (Deadline deadline : upcomingDeadlines) {
+                System.out.println(deadline.toString());
+            }
+        } else {
+            System.out.println("Congrats, you have no upcoming deadlines!");
         }
     }
 
