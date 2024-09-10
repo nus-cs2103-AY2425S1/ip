@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import bob.command.Command;
-import bob.exception.BobException;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.task.Task;

@@ -389,13 +389,13 @@ public class TaskList {
      */
     public String getAddedTaskString() {
         Task addedTask = this.getIndexedTask(this.getLatestRecordedIndex());
-        String CommandString = "Got it. I've added this task:\n\t"
+        String commandString = "Got it. I've added this task:\n\t"
                 + addedTask.getTaskListItem()
                 + "\n\t"
                 + "Now you have "
                 + (String.valueOf(this.getLatestRecordedIndex()))
                 + " tasks in the list.";
-        return CommandString;
+        return commandString;
     }
 
     /**

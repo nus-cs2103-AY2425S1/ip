@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 import bob.parser.Parser;
 import bob.task.Task;
-import bob.task.TaskList;
-
 
 /**
  * Class that handles interactions with the user.

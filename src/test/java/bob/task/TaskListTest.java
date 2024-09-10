@@ -1,13 +1,17 @@
 package bob.task;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.PrintStream;
-import java.io.ByteArrayOutputStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+
 
 public class TaskListTest {
     private ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -29,8 +33,8 @@ public class TaskListTest {
                 + "\t"
                 + "Here are the tasks in your list:\n\t"
                 + "1.[T][ ] Code\n\t"
-                + "2.[D][ ] Submit quiz\n\t"
-                + "3.[E][ ] Birthday\n\t"
+                + "2.[D][ ] Submit quiz (by: 10 Sep 2024)\n\t"
+                + "3.[E][ ] Birthday (from: Monday 5pm to: 9pm)\n\t"
                 + "____________________________________________________________";
         taskList.listRecords();
         String actual = outputStreamCaptor.toString().replaceAll("\\s+$", "");

@@ -1,8 +1,10 @@
 package bob.parser;
 
-import bob.task.Todo;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import bob.task.Todo;
 public class ParserTest {
     @Test
     public void validFileFormat() {

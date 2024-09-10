@@ -8,8 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import bob.task.*;
-
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.TaskList;
+import bob.task.Todo;
 
 /**
  * Handles operations relating to saving or loading tasks in the file.

@@ -2,7 +2,6 @@ package bob.command;
 
 import bob.exception.InvalidTaskException;
 import bob.storage.Storage;
-import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.Ui;
 
