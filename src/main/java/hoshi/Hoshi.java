@@ -15,54 +15,73 @@ import hoshi.utils.Storage;
 public class Hoshi {
 
     private Storage storage;
-    private TaskList taskList;
+    private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
     /**
-     * Hoshi method
+     * Hoshi method that sets up relevant dependencies for Hoshi chatbot
      */
     public Hoshi() {
 
-        String filePath = "data/Hoshi.txt";
+        // initialize required objects to run Hoshi
+        initializeComponents();
+        // get tasks from storage
+        loadTaskList();
+    }
 
-        ui = new Ui();
+    /**
+     * Runs the main flow of Hoshi
+     */
+    public String run(String input) {
 
-        storage = new Storage(filePath);
+        String response = handleCommand(input);
+        // save tasks to storage
+        saveTaskList();
+        return response;
+    }
 
-        taskList = new TaskList();
-
-        parser = new Parser();
-
+    /**
+     * Loads tasks from storage
+     */
+    private void loadTaskList() {
         try {
-            storage.load(taskList);
+            storage.load(tasks);
         } catch (FileNotFoundException e) {
             ui.displayLoadingError(e.getMessage());
         }
     }
 
     /**
-     * Run method - main flow of Hoshi
+     * Saves tasks to storage
      */
-    public String run(String input) {
-
-        String response = "";
-
-        response = parser.parseCommand(input, taskList, ui);
-
-        //ui.displayWelcome();
-        //Scanner scanner = new Scanner(System.in);
-
-        //ui.displayPrompt();
-        //input = scanner.nextLine();
-
+    private void saveTaskList() {
         try {
-            storage.save(taskList);
+            storage.save(tasks);
         } catch (IOException e) {
             ui.displaySavingError(e.getMessage());
-            response = e.getMessage();
         }
-        return response;
+    }
+
+    /**
+     * Handles the user command by parsing it and returning a response
+     *
+     * @param input by the user
+     * @return the response string output by parseCommand
+     */
+    private String handleCommand(String input) {
+        return parser.parseCommand(input, tasks, ui);
+    }
+
+    /**
+     * Initializes the necessary components for Hoshi
+     */
+    private void initializeComponents() {
+        String filePath = "data/Hoshi.txt";
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+        parser = new Parser();
     }
 
 }

@@ -1,15 +1,12 @@
 package hoshi.utils;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
-import hoshi.exception.HoshiException;
-import hoshi.task.Deadline;
-import hoshi.task.Event;
-import hoshi.task.Task;
+import hoshi.command.AddCommand;
+import hoshi.command.Command;
+import hoshi.command.DeleteCommand;
+import hoshi.command.FindCommand;
+import hoshi.command.MarkCommand;
+import hoshi.command.UnmarkCommand;
 import hoshi.task.TaskList;
-import hoshi.task.Todo;
 import hoshi.ui.Ui;
 
 /**
@@ -21,7 +18,6 @@ public class Parser {
 
     private final Storage storage = new Storage("./data/Hoshi.txt");
 
-
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
      * program terminates
@@ -29,11 +25,15 @@ public class Parser {
      * @param input    the input that the user entered which is used to check which command to execute
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles all user interaction
-     * @return
+     * @return response corresponding to the function that was called depending on user input
      */
     public String parseCommand(String input, TaskList taskList, Ui ui) {
 
-        switch (input.split(" ")[0].toLowerCase()) {
+        String[] splitInput = input.split(" ");
+        String commandInput = splitInput[0].toLowerCase();
+        Command command;
+        // switch case for parsing commands
+        switch (commandInput) {
         case "initialize":
             return ui.initialize();
         case "bye":
@@ -41,18 +41,37 @@ public class Parser {
         case "list":
             return ui.displayTasks(taskList);
         case "mark":
-            return handleMark(input, taskList, ui);
+            if (input.trim().length() < 5) {
+                return ui.displayTaskToMark();
+            }
+            int markIndex = Integer.parseInt(splitInput[1]) - 1;
+            command = new MarkCommand(markIndex);
+            break;
         case "unmark":
-            return handleUnmark(input, taskList, ui);
+            if (input.trim().length() < 7) {
+                return ui.displayTaskToMark();
+            }
+            int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
+            command = new UnmarkCommand(unmarkIndex);
+            break;
         case "delete":
-            return handleDelete(input, taskList, ui);
+            if (input.trim().length() < 7) {
+                return ui.displayError(INPUT_ERROR_MESSAGE);
+            }
+            int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
+            command = new DeleteCommand(deleteIndex);
+            break;
         case "add":
-            return handleAdd(input, taskList, ui);
+            command = new AddCommand(splitInput);
+            break;
         case "find":
-            return handleFind(input, taskList, ui);
+            String keyword = splitInput[1];
+            command = new FindCommand(keyword);
+            break;
         default:
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
+<<<<<<< HEAD
     }
 
     /**
@@ -344,6 +363,9 @@ public class Parser {
         // call ui class to display matching tasks list
         return ui.displayFoundTasks(matchingTasks);
 
+=======
+        return command.execute(taskList, ui, storage);
+>>>>>>> master
     }
 
 
