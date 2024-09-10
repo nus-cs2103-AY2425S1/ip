@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import guy.exception.GuyException;
+import guy.help.Help;
 import guy.storage.Storage;
 
 /**
@@ -264,5 +265,51 @@ public class TaskManager {
      */
     public void clearTasks() {
         tasks.clear();
+    }
+
+    /**
+     * Prints a description for the provided command, showing its proper usage.
+     * If no command is provided, instead pull up the syntax for every command.
+     * @param input The command to get help with, may be omitted to show syntax for each command.
+     */
+    public void getHelp(String input) throws GuyException {
+        if (input.isEmpty()) {
+            Help.helpAll();
+        } else {
+            switch(input) {
+            case ("help"):
+                Help.helpHelp();
+                break;
+            case ("list"):
+                Help.helpList();
+                break;
+            case("todo"):
+                Help.helpToDo();
+                break;
+            case("deadline"):
+                Help.helpDeadline();
+                break;
+            case("event"):
+                Help.helpEvent();
+                break;
+            case("find"):
+                Help.helpFind();
+                break;
+            case("delete"):
+                Help.helpDelete();
+                break;
+            case("mark"):
+                Help.helpMark();
+                break;
+            case("unmark"):
+                Help.helpUnmark();
+                break;
+            case("bye"):
+                Help.helpBye();
+                break;
+            default:
+                throw new GuyException("You expect me to help with THAT!?");
+            }
+        }
     }
 }
