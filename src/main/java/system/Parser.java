@@ -3,6 +3,7 @@ package system;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import task.*;
 
@@ -226,11 +227,14 @@ public class Parser {
             String month = dateTokens[1];
             String day = dateTokens[2];
 
+            boolean isMonthDayValid = Arrays.asList(month, day).stream()
+                    .allMatch(this::isValidMonthDay);
+
             boolean isYearValid = year.length() == 4;
             boolean isMonthValid = !month.isEmpty() && month.length() <= 2;
             boolean isDayValid = !day.isEmpty() && day.length() <= 2;
 
-            if (!isYearValid || !isMonthValid || !isDayValid) {
+            if (!isMonthDayValid || !isYearValid || !isMonthValid || !isDayValid) {
                 response = ui.invalidDate();
                 return response;
             }
@@ -261,6 +265,10 @@ public class Parser {
             response = ui.empty_deadline();
         }
         return response;
+    }
+
+    private boolean isValidMonthDay(String dateTime) {
+        return dateTime != null && !dateTime.isEmpty() && dateTime.length() <= 2;
     }
 
     /**
@@ -323,7 +331,14 @@ public class Parser {
             boolean isEndMonthValid = !endMonth.isEmpty() && endMonth.length() <= 2;
             boolean isEndDayValid = !endDay.isEmpty() && endDay.length() <= 2;
 
-            if (!isStartYearValid || !isStartMonthValid || !isStartDayValid
+            boolean isStartMonthDayValid = Arrays.asList(startMonth, startDay).stream()
+                    .allMatch(this::isValidMonthDay);
+
+            boolean isEndMonthDayValid = Arrays.asList(endMonth, endDay).stream()
+                    .allMatch(this::isValidMonthDay);
+
+            if (!isStartMonthDayValid || !isEndMonthDayValid
+                    || !isStartYearValid || !isStartMonthValid || !isStartDayValid
                     || !isEndYearValid || !isEndMonthValid || !isEndDayValid) {
                 response = ui.invalidDate();
                 return response;
