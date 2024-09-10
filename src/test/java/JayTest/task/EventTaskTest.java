@@ -29,13 +29,13 @@ public class EventTaskTest {
     public void testSimpleFormat() {
         try {
             EventTask eventTask = new EventTask("test", false, "24-08-2021", "1200", "1400");
-            assertEquals("E | 0 | test | 24-08-2021 | 1200 | 1400", eventTask.simpleFormat());
+            assertEquals("E | 0 | test | 24-08-2021 | 1200 | 1400", eventTask.getSimpleFormat());
 
             eventTask.markAsDone();
-            assertEquals("E | 1 | test | 24-08-2021 | 1200 | 1400", eventTask.simpleFormat());
+            assertEquals("E | 1 | test | 24-08-2021 | 1200 | 1400", eventTask.getSimpleFormat());
 
             eventTask.markAsNotDone();
-            assertEquals("E | 0 | test | 24-08-2021 | 1200 | 1400", eventTask.simpleFormat());
+            assertEquals("E | 0 | test | 24-08-2021 | 1200 | 1400", eventTask.getSimpleFormat());
         } catch (InvalidDateException | InvalidTimeException e) {
             fail();
         }

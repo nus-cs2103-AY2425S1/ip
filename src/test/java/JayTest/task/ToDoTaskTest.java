@@ -21,12 +21,12 @@ public class ToDoTaskTest {
     @Test
     public void testSimpleFormat() {
         ToDoTask task = new ToDoTask("read book", false);
-        assertEquals("T | 0 | read book", task.simpleFormat());
+        assertEquals("T | 0 | read book", task.getSimpleFormat());
 
         task.markAsDone();
-        assertEquals("T | 1 | read book", task.simpleFormat());
+        assertEquals("T | 1 | read book", task.getSimpleFormat());
 
         task.markAsNotDone();
-        assertEquals("T | 0 | read book", task.simpleFormat());
+        assertEquals("T | 0 | read book", task.getSimpleFormat());
     }
 }

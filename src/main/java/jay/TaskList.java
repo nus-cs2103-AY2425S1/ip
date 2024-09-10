@@ -137,11 +137,11 @@ public class TaskList {
         StringBuilder tasksStr = new StringBuilder();
 
         for (int i = 0; i < this.taskCount; i++) {
-            if (i == this.taskCount - 1) {
-                tasksStr.append((i + 1)).append(". ").append(this.tasks.get(i));
-            } else {
-                tasksStr.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
-            }
+            tasksStr.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
+        }
+
+        if (this.taskCount > 0) {
+            tasksStr.deleteCharAt(tasksStr.length() - 1);
         }
 
         return tasksStr.toString();
@@ -165,11 +165,11 @@ public class TaskList {
         StringBuilder tasksStr = new StringBuilder();
 
         for (int i = 0; i < this.taskCount; i++) {
-            if (i == this.taskCount - 1) {
-                tasksStr.append(this.tasks.get(i).getSimpleFormat());
-            } else {
-                tasksStr.append(this.tasks.get(i).getSimpleFormat()).append("\n");
-            }
+            tasksStr.append(this.tasks.get(i).getSimpleFormat()).append("\n");
+        }
+
+        if (this.taskCount > 0) {
+            tasksStr.deleteCharAt(tasksStr.length() - 1);
         }
 
         return tasksStr.toString();

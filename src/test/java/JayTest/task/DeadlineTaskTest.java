@@ -28,13 +28,13 @@ public class DeadlineTaskTest {
     public void testSimpleFormat() {
         try {
             DeadlineTask deadlineTask = new DeadlineTask("return book", false, "21-08-2021");
-            assertEquals("D | 0 | return book | 21-08-2021", deadlineTask.simpleFormat());
+            assertEquals("D | 0 | return book | 21-08-2021", deadlineTask.getSimpleFormat());
 
             deadlineTask.markAsDone();
-            assertEquals("D | 1 | return book | 21-08-2021", deadlineTask.simpleFormat());
+            assertEquals("D | 1 | return book | 21-08-2021", deadlineTask.getSimpleFormat());
 
             deadlineTask.markAsNotDone();
-            assertEquals("D | 0 | return book | 21-08-2021", deadlineTask.simpleFormat());
+            assertEquals("D | 0 | return book | 21-08-2021", deadlineTask.getSimpleFormat());
         } catch (InvalidDateException e) {
             fail();
         }

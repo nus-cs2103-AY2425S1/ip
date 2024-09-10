@@ -21,12 +21,12 @@ public class TaskTest {
     @Test
     public void testSimpleFormat() {
         Task task = new Task("test", false);
-        assertEquals("0 | test", task.simpleFormat());
+        assertEquals("0 | test", task.getSimpleFormat());
 
         task.markAsDone();
-        assertEquals("1 | test", task.simpleFormat());
+        assertEquals("1 | test", task.getSimpleFormat());
 
         task.markAsNotDone();
-        assertEquals("0 | test", task.simpleFormat());
+        assertEquals("0 | test", task.getSimpleFormat());
     }
 }
