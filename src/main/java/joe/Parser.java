@@ -30,6 +30,7 @@ public class Parser {
      * @throws JoeException if the command is unknown or if the input is invalid.
      */
     public static Command parse(String rawInput) {
+        assert rawInput != null : "rawInput should not be null";
         if (rawInput.isEmpty()) {
             throw new JoeException("\tOOPS! You did not enter anything");
         }

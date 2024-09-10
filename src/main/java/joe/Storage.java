@@ -48,6 +48,7 @@ public class Storage {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 String[] lineArr = line.split("\\|");
+                assert lineArr.length >= 3 : "Invalid task format in file";
                 String taskType = lineArr[0];
                 boolean isDone = Boolean.parseBoolean(lineArr[1]);
                 String taskDesc = lineArr[2];
