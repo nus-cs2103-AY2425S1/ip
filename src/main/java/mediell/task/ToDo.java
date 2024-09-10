@@ -1,4 +1,4 @@
-package mediell;
+package mediell.task;
 
 /** Represents a Task as a ToDo. */
 public class ToDo extends Task{

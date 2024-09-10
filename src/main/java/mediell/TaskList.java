@@ -1,5 +1,13 @@
 package mediell;
 
+import mediell.exception.IncorrectIndexException;
+import mediell.task.Deadline;
+import mediell.task.Event;
+import mediell.task.Task;
+import mediell.task.ToDo;
+
+import java.util.Objects;
+
 /** Represents an array of Task. */
 public class TaskList {
     private Task[] listItems;
@@ -22,6 +30,9 @@ public class TaskList {
     }
 
     public String displayFoundList(String keyword) {
+        if (Objects.equals(keyword, "")) {
+            return displayList();
+        }
         String output = "";
         int j = 0;
         for (int i = 0; i < size; i++) {
@@ -34,79 +45,56 @@ public class TaskList {
     }
 
     /**
-     * Informs the user that the item has been added and increases the size of the list.
+     * Adds a task to the list.
+     * @param item the format of the task
      */
-    private String addTaskProcessing() {
-        String output = "Got it! I've added this task: \n" + listItems[size];
+    public void addTask(Task item) {
+        listItems[size] = item;
         size++;
-        return output;
     }
 
-    /**
-     * Adds a ToDo task to the list.
-     * @param item the format of the task
-     */
-    public String addToDo(String item) {
-        listItems[size] = new ToDo(item);
-        return addTaskProcessing();
-    }
-
-    /**
-     * Adds an Event task to the list.
-     * @param item the format of the task
-     */
-    public String addEvent(String item) {
-        listItems[size] = new Event(item);
-        return addTaskProcessing();
-    }
-
-    /**
-     * Adds a Deadline task to the list.
-     * @param item the format of the task
-     */
-    public String addDeadline(String item) {
-        listItems[size] = new Deadline(item);
-        return addTaskProcessing();
+    public Task getTask(int index) throws IncorrectIndexException {
+        if (index >= size || index < 0) {
+            throw new IncorrectIndexException();
+        }
+        return listItems[index];
     }
 
     /**
      * Marks a task in the list as completed.
      * @param index the index to mark
      */
-    public String markItem(int index) {
-        if (index >= size) {
-            return "OOPS!! please enter a valid number";
+    public void markItem(int index) throws IncorrectIndexException {
+        if (index >= size || index < 0) {
+            throw new IncorrectIndexException();
         }
         listItems[index].markCompleted();
-        return "Nice! I've marked this task as done:\n" + listItems[index];
     }
 
     /**
      * Marks a task in the list as uncompleted.
      * @param index the index to unmark
      */
-    public String unmarkItem(int index) {
-        if (index >= size) {
-            return "OOPS!! please enter a valid number";
+    public void unmarkItem(int index) throws IncorrectIndexException {
+        if (index >= size || index < 0) {
+            throw new IncorrectIndexException();
         }
         listItems[index].markUncompleted();
-        return "Ok, I've marked this task as not done yet:\n" + listItems[index];
+
     }
 
     /**
      * Deletes a task from the list.
      * @param index the index to delete
      */
-    public String deleteTask(int index) {
-        if (index >= size) {
-            return "OOPS!! please enter a valid number";
+    public void deleteTask(int index) throws IncorrectIndexException {
+        if (index >= size || index < 0) {
+            throw new IncorrectIndexException();
         }
-        String output = "Ok, I will remove the task:\n" + listItems[index];
         for (int i = index; i < size - 1; i++) {
             listItems[i] = listItems[i + 1];
         }
         size--;
-        return output;
     }
 
     /**

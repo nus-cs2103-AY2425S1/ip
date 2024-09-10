@@ -1,4 +1,4 @@
-package mediell;
+package mediell.task;
 
 import java.time.LocalDate;
 
@@ -11,12 +11,10 @@ public class Event extends Task{
         super("");
     }
 
-    public Event(String taskName) {
-        super(taskName.split("/from", 2)[0]);
-        String temp = taskName.split("/from", 2)[1];
-        String[] tempArray = temp.split("/to", 2);
-        from = LocalDate.parse(tempArray[0].strip());
-        to = LocalDate.parse(tempArray[1].strip());
+    public Event(String taskName, LocalDate from, LocalDate to) {
+        super(taskName);
+        this.from = from;
+        this.to = to;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package mediell;
+package mediell.task;
 
 import java.time.LocalDate;
 
@@ -10,9 +10,9 @@ public class Deadline extends Task{
         super("");
     }
 
-    public Deadline(String taskName) {
-        super(taskName.split("/by", 2)[0]);
-        by = LocalDate.parse(taskName.split("/by", 2)[1].strip());
+    public Deadline(String taskName, LocalDate by) {
+        super(taskName);
+        this.by = by;
     }
 
     @Override

@@ -1,32 +1,31 @@
 package mediell;
 
-import javafx.application.Application;
-
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Scanner;
-
 /** The main class Mediell. */
 public class Mediell {
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
+    private Parser parser;
+    private Executor executor;
 
-    public Mediell() throws IOException {
+    public Mediell() {
         storage = new Storage();
         taskList = storage.loadData();
-        ui = new Ui(taskList);
+        ui = new Ui();
+        parser = new Parser();
+        executor = new Executor();
     }
 
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) throws IOException {
-        String response = ui.main(input);
-        if (Objects.equals(response, "")) {
-            return ui.printFarewell();
+    public String getResponse(String input) {
+        try {
+            Instruction instruction = parser.getInstruction(input);
+            executor.executeInstruction(instruction, taskList);
+            return ui.getMessage(instruction, taskList);
+        } catch (Exception e) {
+            return ui.handleError(e);
         }
-        storage.saveData(ui.getTasks());
-        return response;
     }
 }

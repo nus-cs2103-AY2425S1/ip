@@ -1,4 +1,4 @@
-package mediell;
+package mediell.task;
 
 import java.util.Objects;
 

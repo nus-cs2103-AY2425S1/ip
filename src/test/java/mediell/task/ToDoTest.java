@@ -1,4 +1,4 @@
-package mediell;
+package mediell.task;
 
 import org.junit.jupiter.api.Test;
 
