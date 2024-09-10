@@ -1,11 +1,8 @@
 package utilities;
-import java.util.Scanner;
 
 import command.Command;
-import command.ExitCommand;
 import exception.FormatException;
 import exception.NoInputException;
-import task.Task;
 import task.TaskList;
 
 /**
@@ -41,24 +38,6 @@ public class Ui {
     }
 
     /**
-     * Method to display the list of tasks.
-     */
-    public void displayList() {
-        String listString = "";
-        int index = 1;
-        for (Task task : taskList) {
-            listString += String.valueOf(index) + "."  + task.toString();
-            if (index == taskList.size()) {
-                break;
-            }
-            listString += "\n";
-            index++;
-        }
-        listString = Parser.addHorizontalLinesAndIndentation(listString);
-        System.out.println(listString);
-    }
-
-    /**
      * Method to show the loading error.
      */
     public void showLoadingError() {
@@ -85,22 +64,6 @@ public class Ui {
         return command;
     }
 
-    /**
-     * Method to start the interaction with the user and only exit when the user 
-     * inputs "bye".
-     */
-    public void startInteraction() {
-        Scanner sc = new Scanner(System.in);
-        printWelcomeMessage();
-
-        while (true) {
-            String dialog = sc.nextLine();
-            Command command = interactWithUser(dialog);
-            if (command instanceof ExitCommand) {
-                break;
-            }
-        }
-        sc.close();
-    }
+    
 
 }

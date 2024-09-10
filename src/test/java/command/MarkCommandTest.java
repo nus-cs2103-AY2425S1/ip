@@ -17,7 +17,7 @@ public class MarkCommandTest {
         MarkCommand markCommand = new MarkCommand(1, taskList);
         markCommand.execute();
 
-        assertEquals(taskList.get(1).isDone(), true);
+        assertEquals(taskList.get(0).isDone(), true);
     }
 
     @Test

@@ -1,7 +1,6 @@
 package command;
 import task.Task;
 import task.TaskList;
-import utilities.Parser;
 import utilities.Storage;
 
 /**
@@ -10,6 +9,7 @@ import utilities.Storage;
 public class TaskCommand extends Command {
     private String dialog;
     private TaskList taskList;
+    private String message;
 
     /**
      * Constructor for TaskCommand.
@@ -29,10 +29,13 @@ public class TaskCommand extends Command {
     public void execute() {
         taskList.add(Task.of(dialog));
         new Storage("./data/duke.txt").save(taskList);
-
-        String message = "Got it. I've added this task: \n" 
+        message = "Got it. I've added this task: \n" 
                 + taskList.get(taskList.size() - 1) + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
-        System.out.println(Parser.addHorizontalLinesAndIndentation(message));
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }

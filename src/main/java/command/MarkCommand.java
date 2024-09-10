@@ -1,6 +1,5 @@
 package command;
 import task.TaskList;
-import utilities.Parser;
 import utilities.Storage;
 
 /**
@@ -9,6 +8,7 @@ import utilities.Storage;
 public class MarkCommand extends Command {
     private int index;
     private TaskList taskList;
+    private String message;
 
     /**
      * Constructor for MarkCommand.
@@ -27,6 +27,11 @@ public class MarkCommand extends Command {
     public void execute() {
         taskList.markTaskAsDone(index);
         new Storage("data/duke.txt").save(taskList);
-        System.out.println(Parser.addHorizontalLinesAndIndentation("Nice! I've marked this task as done:\n" + taskList.get(index)));
+        message = "Nice! I've marked this task as done:\n" + taskList.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }

@@ -1,9 +1,9 @@
 package command;
 import task.TaskList;
-import utilities.Parser;
 public class FindCommand extends Command {
     private String keyword;
     private TaskList taskList;
+    private String message;
 
     public FindCommand(String keyword, TaskList taskList) {
         this.keyword = keyword;
@@ -13,11 +13,14 @@ public class FindCommand extends Command {
     @Override
     public void execute() {
         TaskList filteredTaskList = taskList.findTasks(keyword);
-        String message = "Here are the matching tasks in your list:\n";
+        message = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < filteredTaskList.size(); i++) {
             message += (i + 1) + ". " + filteredTaskList.get(i) + "\n";
         }
-        System.out.println(Parser.addHorizontalLinesAndIndentation(message));
     }
-    
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

@@ -1,10 +1,11 @@
 package task;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import exception.DukeException;
 import exception.FormatException;
 import exception.NoInputException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Task class is used to represent a task in Duke.
@@ -14,7 +15,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Abstract method toFileString is used to convert the task to string 
+     * Abstract method toFileString is used to convert the task to string
      * for storage in file with Storage class.
      * @return The file string representation of the task.
      */
@@ -60,7 +61,7 @@ public abstract class Task {
     }
 
     /**
-     * Static method of is used to create a task from a string 
+     * Static method of is used to create a task from a string
      * for giving task creation instructions.
      * @param s User's instruction for task creation.
      * @return The task object.
@@ -147,7 +148,7 @@ public abstract class Task {
         }
 
         /**
-         * Method toFileString is used to convert the todo task to string 
+         * Method toFileString is used to convert the todo task to string
          * for storage in file with Storage class.
          * @return The file string representation of the todo task.
          */
@@ -176,7 +177,7 @@ public abstract class Task {
         }
 
         /**
-         * Method toFileString is used to convert the deadline task to string 
+         * Method toFileString is used to convert the deadline task to string
          * for storage in file with Storage class.
          * @return The file string representation of the deadline task.
          */
@@ -208,7 +209,7 @@ public abstract class Task {
         }
 
         /**
-         * Method toFileString is used to convert the event task to string 
+         * Method toFileString is used to convert the event task to string
          * for storage in file with Storage class.
          * @return The file string representation of the event task.
          */

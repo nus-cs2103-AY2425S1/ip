@@ -19,12 +19,11 @@ public class DPlusPlusE {
         ui = new Ui(tasks);
     }
 
-    public static void main(String[] args) {
+    public DPlusPlusE() {
+        this("./data/duke.txt");
+    }
 
-        Storage storage = new Storage("data/duke.txt");
-        TaskList tasks = storage.load();
-        Ui ui = new Ui(tasks);
-        ui.startInteraction();
-
+    public String getResponse(String input) {
+        return ui.interactWithUser(input).toString();
     }
 }
