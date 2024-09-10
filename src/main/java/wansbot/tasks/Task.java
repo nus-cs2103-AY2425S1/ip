@@ -14,6 +14,7 @@ public class Task {
     public Task(String name) {
         this.name = name;
         this.finished = false;
+        assert name != null : "Your task needs a name"; // asserts that all instances need to have a name
     }
 
     /**

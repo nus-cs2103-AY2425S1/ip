@@ -55,7 +55,8 @@ public class Storage {
                     loadEvent(taskList, line);
                     break;
                 default:
-                    return null;
+                    assert false : "Your tasklist.txt is wrong. Delete it.";
+                    // asserts internal invariant that txt file should be formatted in a certain way
                 }
                 line = reader.readLine();
             }

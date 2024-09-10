@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the WansBot instance */
     public void setWansBot(WansBot w) {
         wansBot = w;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(wansBot.getResponse("hello"), wansImage)
+        );
     }
 
     /**
