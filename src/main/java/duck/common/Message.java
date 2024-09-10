@@ -1,7 +1,7 @@
 package duck.common;
 
 /**
- * Contains messages to be used across multiple classes.
+ * Contains constants to be used across multiple classes.
  */
 public class Message {
 
