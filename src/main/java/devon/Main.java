@@ -19,7 +19,8 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image devonImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Devon devon = new Devon();
 
     @Override
     public void start(Stage stage) {
@@ -76,11 +77,24 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //More code to be added here later
+        devon.start();
+        dialogContainer.getChildren().add(DialogBox.getDevonDialog(devon.introduction(), devonImage));
     }
 
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = devon.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDevonDialog(dukeText, devonImage)
+        );
         userInput.clear();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
