@@ -122,8 +122,8 @@ public class Commands {
         int numberToMark = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, true);
         StringBuilder output = new StringBuilder();
-        printAndAppend(output,"Nice! I've marked this task as done:");
-        printAndAppend(output,"  " + theTask);
+        printAndAppend(output, "Nice! I've marked this task as done:");
+        printAndAppend(output, "  " + theTask);
         this.saveSystem.writeTasksToFile(this.tasks.getAllTasks());
         return output.toString();
     }
@@ -144,8 +144,8 @@ public class Commands {
         int numberToMark = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, false);
         StringBuilder output = new StringBuilder();
-        printAndAppend(output,"OK, I've marked this task as not done yet:");
-        printAndAppend(output,"  " + theTask);
+        printAndAppend(output, "OK, I've marked this task as not done yet:");
+        printAndAppend(output, "  " + theTask);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
         return output.toString();
     }
@@ -166,9 +166,9 @@ public class Commands {
         int numberToDelete = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.removeTask(numberToDelete - 1);
         StringBuilder output = new StringBuilder();
-        printAndAppend(output,"Noted. I've removed this task:");
-        printAndAppend(output,"  " + theTask);
-        printAndAppend(output,"Now you have " + this.tasks.size() + " tasks in the list.");
+        printAndAppend(output, "Noted. I've removed this task:");
+        printAndAppend(output, "  " + theTask);
+        printAndAppend(output, "Now you have " + this.tasks.size() + " tasks in the list.");
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
         return output.toString();
     }
@@ -180,7 +180,7 @@ public class Commands {
      */
     public String list() {
         StringBuilder output = new StringBuilder();
-        printAndAppend(output,"Here are the tasks in your list:");
+        printAndAppend(output, "Here are the tasks in your list:");
         printAndAppend(output, this.tasks.toString());
         return output.toString();
     }
@@ -193,8 +193,8 @@ public class Commands {
     public String hello() {
         StringBuilder output = new StringBuilder();
         this.printLine();
-        printAndAppend(output," Hello! I'm Kita!");
-        printAndAppend(output," What can I do for you?");
+        printAndAppend(output, " Hello! I'm Kita!");
+        printAndAppend(output, " What can I do for you?");
         this.printLine();
         return output.toString();
     }
@@ -206,7 +206,7 @@ public class Commands {
      */
     public String bye() {
         StringBuilder output = new StringBuilder();
-        printAndAppend(output," Bye. Hope to see you again soon!\n");
+        printAndAppend(output, " Bye. Hope to see you again soon!\n");
         this.printLine();
         return output.toString();
     }
@@ -221,7 +221,7 @@ public class Commands {
         StringBuilder output = new StringBuilder();
         String[] splitCommand = command.split(" ");
 
-        printAndAppend(output,"Here are the matching tasks in your list:");
+        printAndAppend(output, "Here are the matching tasks in your list:");
         TaskList foundTasks = this.tasks.find(splitCommand[1]);
         printAndAppend(output, foundTasks.toString());
         return output.toString();

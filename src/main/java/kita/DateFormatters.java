@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import kita.exceptions.KitaIllegalDateFormat;
 
-
 /**
  * Class containing utility functions for formatting dates
  * */

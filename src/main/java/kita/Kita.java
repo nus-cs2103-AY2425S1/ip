@@ -40,7 +40,7 @@ public class Kita {
     /**
      * For getting the output as a String given an inputStr (for use with the GUI)
      * @param inputStr
-     * @return
+     * @return ParserMessage
      * @throws IOException
      */
     public ParserMessage getOutput(String inputStr) throws IOException {
@@ -77,6 +77,4 @@ public class Kita {
             commandsExecutor.printLine();
         }
     }
-
-
 }

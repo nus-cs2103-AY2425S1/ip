@@ -23,7 +23,6 @@ public class CommandsTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-
     @BeforeEach
     public void setUp() {
         Storage saveSys;

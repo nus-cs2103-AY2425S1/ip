@@ -8,15 +8,19 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-
+/**
+ * Initialises a MainWindow for rendering the main GUI window with all elements (root node)
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox chatArea;
+
     @FXML
     private TextField inputBox;
+
     @FXML
     private Button sendBtn;
 
@@ -28,15 +32,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(chatArea.heightProperty());
-
     }
 
     /** Injects the Duke instance */
     public void setKita(Kita k) {
         kitaInstance = k;
-        chatArea.getChildren().addAll(
-                ChatBubble.getDukeDialog(k.getCommandsExecutor().hello(), kitaImage)
-        );
+        chatArea.getChildren()
+                .addAll(ChatBubble.getDukeDialog(k.getCommandsExecutor().hello(), kitaImage));
     }
 
     /**
@@ -52,14 +54,11 @@ public class MainWindow extends AnchorPane {
             ParserMessage msgReturned = kitaInstance.getOutput(userText);
             output = msgReturned.getMsg();
             shouldEnd = msgReturned.getEnd();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             output = e.toString();
         }
-        chatArea.getChildren().addAll(
-                ChatBubble.getUserDialog(userText, userImage),
-                ChatBubble.getDukeDialog(output, kitaImage)
-        );
+        chatArea.getChildren()
+                .addAll(ChatBubble.getUserDialog(userText, userImage), ChatBubble.getDukeDialog(output, kitaImage));
         inputBox.clear();
         if (shouldEnd) {
             System.exit(0);

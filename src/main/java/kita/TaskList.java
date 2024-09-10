@@ -102,12 +102,11 @@ public class TaskList {
      */
     public TaskList find(String searchQuery) {
         TaskList returnTasks = new TaskList(new ArrayList<>());
-        this.tasks.parallelStream()
-                .forEachOrdered((Task task) -> {
-                    if (task.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                        returnTasks.addTask(task);
-                    }
-                });
+        this.tasks.parallelStream().forEachOrdered((Task task) -> {
+            if (task.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                returnTasks.addTask(task);
+            }
+        });
         return returnTasks;
     }
 

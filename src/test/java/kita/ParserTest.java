@@ -33,15 +33,17 @@ public class ParserTest {
     @Test
     @DisplayName("Invalid command entered")
     public void notFoundCommand() {
-        assertThrows(KitaNotFound.class, ()
-                        -> Parser.parse("moshi moshi", commandsExecutor),
+        assertThrows(
+                KitaNotFound.class, () ->
+                        Parser.parse("moshi moshi", commandsExecutor),
                 "Expected to throw KitaNotFound when unknown command entered");
     }
 
     @Test
     @DisplayName("Re-ordered arguments should still work")
     public void missingArguments() {
-        assertDoesNotThrow(() -> Parser.parse("event hello world /to 2022-08-02 /from 2021-08-02", commandsExecutor),
+        assertDoesNotThrow(() ->
+                        Parser.parse("event hello world /to 2022-08-02 /from 2021-08-02", commandsExecutor),
                 "Expected to create an Event successfully even with re-ordered parameters");
     }
 }

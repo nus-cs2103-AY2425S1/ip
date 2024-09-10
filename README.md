@@ -66,3 +66,10 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
   - ```
     .\gradlew spotlessApply
     ```
+
+- **<u>Run a Full Check</u>**
+
+    - This runs `checkstyle` and unit tests in our case
+    - ```
+    .\gradlew check
+    ```
