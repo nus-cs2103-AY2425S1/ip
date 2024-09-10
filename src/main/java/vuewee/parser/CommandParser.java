@@ -41,10 +41,9 @@ public class CommandParser {
      * Parses the input string and extracts the description. Uses expectedOptions to
      * parse the options in the input string.
      *
-     * @param descriptionParser    The description parser to use.
-     * @param isIntegerDescription Whether the description is an integer.
-     * @param expectedOptions      The expected options to parse as a CommandOption
-     *                             type.
+     * @param descriptionParser The description parser to use.
+     * @param expectedOptions   The expected options to parse as a CommandOption
+     *                          type.
      *
      * @return The parsed description of type T.
      */

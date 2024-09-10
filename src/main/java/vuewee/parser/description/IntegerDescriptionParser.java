@@ -14,7 +14,7 @@ public class IntegerDescriptionParser extends DescriptionParser<Integer> {
     }
 
     /**
-     * Returns <value> instead to better represent the expected input.
+     * Override getUsageFieldName to better represent the expected integer input.
      */
     @Override
     public String getUsageFieldName() {

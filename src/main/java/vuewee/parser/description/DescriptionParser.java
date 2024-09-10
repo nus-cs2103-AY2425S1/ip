@@ -1,5 +1,8 @@
 package vuewee.parser.description;
 
+/**
+ * Converts String description to a specific type.
+ */
 public abstract class DescriptionParser<T> {
 
     /**
