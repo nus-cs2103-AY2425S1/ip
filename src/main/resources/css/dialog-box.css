@@ -1,41 +1,41 @@
 .label {
-    -fx-background-color: navy;
+    -fx-background-color: linear-gradient(lightskyblue, #d8ebf6);
     -fx-border-color: navy;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 0 1em 1em;
     -fx-border-radius: 1em 0 1em 1em;
 }
 
 .jackson-label {
-    -fx-background-color: purple;
+    -fx-background-color: linear-gradient(#CBC3E3, #E6E6FA); /* light purple to lavender */
     -fx-border-color: purple;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-border-width: 2px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }
 
 .modify-label {
-    -fx-background-color: darkgreen;
+    -fx-background-color: linear-gradient(lightgreen, #ccf6cc);
     -fx-border-color: darkgreen;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-border-width: 2px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }
 
 .error-label {
-    -fx-background-color: maroon;
-    -fx-border-color: maroon;
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#f19595, #f4d6d6);
+    -fx-border-color: red;
+    -fx-text-fill: black;
     -fx-border-width: 2px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }
 
 .task-label {
-    -fx-background-color: orange;
+    -fx-background-color: linear-gradient(#f1cfa2, #f4ecc2);
     -fx-border-color: orange;
     -fx-text-fill: black;
     -fx-border-width: 2px;
@@ -44,16 +44,7 @@
 }
 
 .intro-exit-label {
-    -fx-background-color: black;
-    -fx-border-color: black;
-    -fx-text-fill: white;
-    -fx-border-width: 2px;
-    -fx-background-radius: 0 1em 1em 1em;
-    -fx-border-radius: 0 1em 1em 1em;
-}
-
-.secret-label {
-    -fx-background-color: linear-gradient(red, red, red, white, white, white);
+    -fx-background-color: linear-gradient(#96e4d9, #c2f3c2);
     -fx-border-color: black;
     -fx-text-fill: black;
     -fx-border-width: 2px;
@@ -61,7 +52,11 @@
     -fx-border-radius: 0 1em 1em 1em;
 }
 
-.reply-label {
+.secret-label {
+    -fx-background-color: linear-gradient(red, white 65%);
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 2px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }

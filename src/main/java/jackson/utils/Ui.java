@@ -29,7 +29,7 @@ public class Ui {
      * @return String representation of goodbye.
      */
     public String printGoodbye() {
-        return "K k bye lah!\n";
+        return "K k bye, see you!\n";
     }
 
     /**
@@ -38,70 +38,102 @@ public class Ui {
      */
     public String printCommandList() {
         return """
-            Harh? What you talking about?
-            Try entering a recognized command:
-            1. todo [task-name]
-            2. deadline [task-name] /by [due-date]
-            3. event [task-name] /from [start-date] /to [end-date]
-            4. mark [index]
-            5. unmark [index]
-            6. list
-            7. find
-            8. sort [attribute] [/a or /d]
-            8. bye
-            """;
+                Harh? What you talking about?
+                Try entering a recognized command:
+                1. todo [task-name]
+                2. deadline [task-name] /by [due-date]
+                3. event [task-name] /from [start-date] /to [end-date]
+                4. mark [index]
+                5. unmark [index]
+                6. list
+                7. find
+                8. sort [attribute] [/a or /d]
+                9. bye
+                You can enter 'help [command]' for more details!""";
     }
 
     /**
      * Returns format of command based on which command user incorrectly enters.
+     * Unlike printFormatGuide, this is only if user enters command in incorrect format.
      * @param category Command category that is entered incorrectly.
      * @return String response.
      */
-    public String printFormatGuide(String category) {
+    public String printWrongFormat(String category) {
         String output = """
-            Wrong format leh...
-            Try formatting your command as such:
-            """;
+                Wrong format leh...
+                """;
+        return output + printFormatGuide(category);
+    }
+
+    /**
+     * Returns format of command when user requests for help.
+     * @param category Command category that is requested
+     * @return String response.
+     */
+    public String printFormatGuide(String category) {
+        String output = String.format("More about %s:\n", category);
 
         // category is the type of command that the user incorrectly enters the format of
         // print the correct command format based on the user input
         switch (category) {
         case "todo":
-            output += "todo [task-name]";
+            output += """
+                        --> todo [task-name]
+                    Creates a todo task.
+                    No dates allowed at all.""";
             break;
         case "deadline":
             output += """
-            deadline [task-name] /by [due-date]
-            All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
+                        --> deadline [task-name] /by [due-date]
+                    Creates a deadline task.
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
             break;
         case "event":
             output += """
-            event [task-name] /from [start-date] /to [end-date]
-            All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
+                        --> event [task-name] /from [start-date] /to [end-date]
+                    Creates an event class.
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
             break;
         case "list":
-            output += "list";
+            output += """
+                        --> list
+                    Lists all tasks.""";
             break;
         case "mark":
-            output += "mark [index]";
+            output += """
+                        --> mark [index]
+                    Marks task at index [index] as complete.""";
             break;
         case "unmark":
-            output += "unmark [index]";
+            output += """
+                        --> unmark [index]
+                    Marks task at index [index] as incomplete.""";
             break;
         case "delete":
-            output += "delete [index]";
+            output += """
+                        --> delete [index]
+                    Deletes task at index [index].""";
             break;
         case "find":
-            output += "find [keywords]";
+            output += """
+                        --> find [keywords]
+                    Finds tasks that contain the keyword(s) in their names.""";
+            break;
+        case "help":
+            output += """
+                        --> help [command]
+                    Display usage help for [command]""";
             break;
         case "bye":
-            output += "bye";
+            output += """
+                        --> bye
+                    Exits the chatbot.""";
             break;
         case "sort":
             output += """
-                    sort [attribute] [/a or /d]
-                    where attribute is one of: name, startdatetime, enddatetime, tasktype, status""" + """
-                    d /a is ascending, whilst /d is for descending""";
+                        --> sort [attribute] [/a or /d]
+                    where attribute is one of: 'name', 'startdatetime', 'enddatetime', 'tasktype', 'status'""" + """
+                    and /a is ascending, whilst /d is for descending""";
             break;
         default:
             output += "Unknown error...";
@@ -137,6 +169,19 @@ public class Ui {
      */
     public String printUnknownError(Exception e) {
         return String.format("Oops! Something went wrong!\n%s\n", Arrays.toString(e.getStackTrace()));
+    }
+
+    /**
+     * Returns response from Jackson to deconflict identical task names.
+     * @param taskName String of task name that clashes with pre-existing one in task list.
+     * @return String response.
+     */
+    public String printDeconflictAdvice(String taskName) {
+        return String.format("""
+                Eh I think you already got this task name already right???
+                    --> %s already exists
+                To deconflict, consider deleting the respective task in the task list"""
+                + "or renaming the current task before adding!", taskName);
     }
 
     /**
@@ -216,7 +261,7 @@ public class Ui {
      * @return String response.
      */
     public String printList(TaskList taskList) {
-        return "Nah, here's your list\n" + taskList.toString();
+        return "Ya la wait la, here's your list!\n" + taskList.toString();
     }
 
     /**
@@ -225,6 +270,6 @@ public class Ui {
      * @return String response.
      */
     public String printSortedList(TaskList taskList) {
-        return "Super troublesome but sort your list liao\n" + taskList.toString();
+        return "Super troublesome but sort your list liao!\n" + taskList.toString();
     }
 }

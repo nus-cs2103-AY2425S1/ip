@@ -26,6 +26,8 @@ public class Parser {
     private static final Pattern FIND = Pattern.compile("^find ([\\w\\d ]+)$");
     private static final Pattern SORT =
             Pattern.compile("^sort (name|startdatetime|enddatetime|status|tasktype)(?: (/[ad]))?$");
+    private static final Pattern HELP =
+            Pattern.compile("^help (todo|deadline|event|mark|unmark|list|delete|find|sort|bye|help)$");
     private static final Pattern SECRET = Pattern.compile("^secret$");
     private static final Pattern BYE = Pattern.compile("^bye$");
 
@@ -106,6 +108,12 @@ public class Parser {
                 throw new SyntaxException("bye");
             }
             a = Actions.ActionType.BYE;
+        } else if (query.startsWith("help")) {
+            m = HELP.matcher(query);
+            if (!m.find()) {
+                throw new SyntaxException("help");
+            }
+            a = Actions.ActionType.HELP;
         } else if (SECRET.matcher(query).find()) {
             a = Actions.ActionType.SECRET;
         } else {
