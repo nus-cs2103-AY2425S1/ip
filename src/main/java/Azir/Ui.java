@@ -7,13 +7,6 @@ import java.util.Scanner;
  */
 public class Ui {
     /**
-     * Outputs the divider line
-     */
-    public void showLine() {
-        System.out.println("----------------------------------");
-    }
-
-    /**
      * Outputs the chatbot welcome message
      */
     public static String showWelcome() {
@@ -31,17 +24,6 @@ public class Ui {
     }
 
     /**
-     * Reads the user input
-     *
-     * @param obj Scanner object for reading user input
-     * @return User input
-     */
-    public String readCommand(Scanner obj) {
-        String command = obj.nextLine();
-        return command;
-    }
-
-    /**
      * Outputs message for list and find command
      */
     public String showCommandEndMessage(String command) {
@@ -53,6 +35,7 @@ public class Ui {
             return "Here are the matching tasks in your list:\n";
 
         default:
+            assert false: command;
             return "";
         }
     }
@@ -97,6 +80,7 @@ public class Ui {
             return botOutput;
 
         default:
+            assert false: command;
             return "";
         }
     }

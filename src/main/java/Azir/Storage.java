@@ -21,6 +21,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    private static void addSavedTasks(Task currTask, String isCompleted, ArrayList<Task> taskList) {
+        if (isCompleted.equals("Complete")) {
+            currTask.setDone();
+        } else {
+            currTask.setNotDone();
+        }
+        taskList.add(currTask);
+    }
+
     /**
      * Reads tasks from the hard disk
      *
@@ -30,35 +39,20 @@ public class Storage {
      */
     public static ArrayList<Task> readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
-        System.out.println("This is your current list:");
         Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<Task>();
         while (s.hasNextLine()) {
             String[] arr = s.nextLine().split(" \\| ");
             if (arr[0].equals("T")) {
                 Task currTask = new Todo(arr[2]);
-                if (arr[1].equals("Complete")) {
-                    currTask.setDone();
-                } else {
-                    currTask.setNotDone();
-                }
-                taskList.add(currTask);
+                addSavedTasks(currTask, arr[1], taskList);
             } else if (arr[0].equals("D")) {
-                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("MMM d yyyy")));
-                if (arr[1].equals("Complete")) {
-                    currTask.setDone();
-                } else {
-                    currTask.setNotDone();
-                }
-                taskList.add(currTask);
+                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3],
+                        DateTimeFormatter.ofPattern("MMM d yyyy")));
+                addSavedTasks(currTask, arr[1], taskList);
             } else {
                 Task currTask = new Event(arr[2], arr[3], arr[4]);
-                if (arr[1].equals("Complete")) {
-                    currTask.setDone();
-                } else {
-                    currTask.setNotDone();
-                }
-                taskList.add(currTask);
+                addSavedTasks(currTask, arr[1], taskList);
             }
         }
         return taskList;
