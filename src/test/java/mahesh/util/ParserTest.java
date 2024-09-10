@@ -2,14 +2,12 @@ package mahesh.util;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import mahesh.command.AddCommand;
 import mahesh.command.Command;
 import mahesh.command.DeleteCommand;
-import mahesh.command.ExitCommand;
 import mahesh.command.MarkCommand;
 import mahesh.command.PrintCommand;
 import mahesh.task.Todo;
@@ -31,12 +29,6 @@ public class ParserTest {
     public void testParseListCommand() throws MaheshException {
         Command command = parser.parse("list");
         assertTrue(command instanceof PrintCommand);
-    }
-
-    @Test
-    public void testParseByeCommand() throws MaheshException {
-        Command command = parser.parse("bye");
-        assertTrue(command instanceof ExitCommand);
     }
 
     @Test

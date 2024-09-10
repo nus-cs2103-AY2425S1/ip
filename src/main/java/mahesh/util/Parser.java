@@ -6,8 +6,8 @@ import mahesh.command.AddCommand;
 import mahesh.command.Command;
 import mahesh.command.CommandNames;
 import mahesh.command.DeleteCommand;
-import mahesh.command.ExitCommand;
 import mahesh.command.FindCommand;
+import mahesh.command.IncompleteCommand;
 import mahesh.command.MarkCommand;
 import mahesh.command.PrintCommand;
 import mahesh.task.Deadline;
@@ -47,8 +47,6 @@ public class Parser {
         switch (command) {
         case LIST:
             return new PrintCommand(list);
-        case BYE:
-            return new ExitCommand();
         case MARK:
             try {
                 return new MarkCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1, true);
@@ -62,50 +60,44 @@ public class Parser {
             try {
                 return new MarkCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1, false);
             } catch (NumberFormatException err) {
-                Ui.printIncompleteCommandErr(
-                    new MaheshException("Please follow the given format: unmark <index>, index must be an integer")
+                return new IncompleteCommand(
+                    "Please follow the given format: unmark <index>, index must be an integer"
                 );
-                return null;
             }
         case TODO:
             try {
                 Todo todo = Todo.parseTodo(tokenizedInput);
                 return new AddCommand(list, store, todo);
             } catch (MaheshException err) {
-                Ui.printIncompleteCommandErr(err);
-                return null;
+                return new IncompleteCommand(err.getMessage());
             }
         case DEADLINE:
             try {
                 Deadline deadline = Deadline.parseDeadline(tokenizedInput);
                 return new AddCommand(list, store, deadline);
             } catch (MaheshException err) {
-                Ui.printIncompleteCommandErr(err);
-                return null;
+                return new IncompleteCommand(err.getMessage());
             }
         case EVENT:
             try {
                 Event event = Event.parseEvent(tokenizedInput);
                 return new AddCommand(list, store, event);
             } catch (MaheshException err) {
-                Ui.printIncompleteCommandErr(err);
-                return null;
+                return new IncompleteCommand(err.getMessage());
             }
         case DELETE:
             try {
                 return new DeleteCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1);
             } catch (NumberFormatException err) {
-                Ui.printIncompleteCommandErr(
-                    new MaheshException("Please follow the given format: delete <index>, index must be an integer")
+                return new IncompleteCommand(
+                    "Please follow the given format: delete <index>, index must be an integer"
                 );
-                return null;
             }
         case FIND:
             try {
                 return new FindCommand(list, tokenizedInput.nextToken());
             } catch (NumberFormatException err) {
-                Ui.printIncompleteCommandErr(new MaheshException("Please follow the given format: find <search_term>"));
-                return null;
+                return new IncompleteCommand("Please follow the given format: find <search_term>");
             }
         default:
             return null;

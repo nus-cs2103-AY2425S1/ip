@@ -1,5 +1,7 @@
 package mahesh.command;
 
+import java.io.IOException;
+
 import mahesh.util.Storage;
 import mahesh.util.TaskList;
 
@@ -7,9 +9,9 @@ import mahesh.util.TaskList;
  * Represents a command to delete a task from the TaskList and update the Storage.
  */
 public class DeleteCommand extends Command {
-    private TaskList list;
-    private Storage store;
-    private int index;
+    private final TaskList list;
+    private final Storage store;
+    private final int index;
 
     /**
      * Constructs a DeleteCommand with the specified TaskList, Storage, and task index.
@@ -27,17 +29,14 @@ public class DeleteCommand extends Command {
     /**
      * Executes the DeleteCommand by deleting the task from the TaskList and updating the Storage.
      */
-    public void execute() {
-        list.deleteFromList(index);
-        store.updateData(list);
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false as DeleteCommand is not an exit command
-     */
-    public boolean isExit() {
-        return false;
+    @Override
+    public String execute() {
+        String response = list.deleteFromList(index);
+        try {
+            store.updateData(list);
+            return response;
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 }

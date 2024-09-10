@@ -6,8 +6,8 @@ import mahesh.util.TaskList;
  * Represents a command to find tasks in the TaskList that match a given search term.
  */
 public class FindCommand extends Command {
-    private TaskList list;
-    private String searchTerm;
+    private final TaskList list;
+    private final String searchTerm;
 
     /**
      * Constructs a FindCommand with the specified TaskList and search term.
@@ -23,16 +23,8 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand by searching for tasks in the TaskList that match the search term.
      */
-    public void execute() {
-        list.findTaskInList(searchTerm);
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false as FindCommand is not an exit command
-     */
-    public boolean isExit() {
-        return false;
+    @Override
+    public String execute() {
+        return list.findTaskInList(searchTerm);
     }
 }

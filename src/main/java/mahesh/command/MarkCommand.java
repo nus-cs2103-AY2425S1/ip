@@ -1,5 +1,7 @@
 package mahesh.command;
 
+import java.io.IOException;
+
 import mahesh.util.Storage;
 import mahesh.util.TaskList;
 
@@ -7,10 +9,10 @@ import mahesh.util.TaskList;
  * Represents a command to mark or unmark a task as done in the TaskList and update the Storage.
  */
 public class MarkCommand extends Command {
-    private TaskList list;
-    private Storage store;
-    private int index;
-    private boolean isMark;
+    private final TaskList list;
+    private final Storage store;
+    private final int index;
+    private final boolean isMark;
 
     /**
      * Constructs a MarkCommand with the specified TaskList, Storage, task index, and mark status.
@@ -30,13 +32,20 @@ public class MarkCommand extends Command {
     /**
      * Executes the MarkCommand by marking or unmarking the task as done in the TaskList and updating the Storage.
      */
-    public void execute() {
+    @Override
+    public String execute() {
+        String response;
         if (this.isMark) {
-            list.markTaskAsDone(index);
+            response = list.markTaskAsDone(index);
         } else {
-            list.unmarkTaskAsDone(index);
+            response = list.unmarkTaskAsDone(index);
         }
-        store.updateData(list);
+        try {
+            store.updateData(list);
+            return response;
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 
     /**

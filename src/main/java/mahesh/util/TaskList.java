@@ -9,7 +9,7 @@ import mahesh.task.Task;
  * Provides methods to add, delete, mark, unmark, find, and print tasks.
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Constructs an empty TaskList.
@@ -32,9 +32,9 @@ public class TaskList {
      *
      * @param task the task to be added to the list
      */
-    public void addToList(Task task) {
+    public String addToList(Task task) {
         this.list.add(task);
-        Ui.printTaskAdded(task, this.list.size());
+        return Ui.printTaskAdded(task, this.list.size());
     }
 
     /**
@@ -43,13 +43,13 @@ public class TaskList {
      * @param index the index of the task to be removed from the list
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
-    public void deleteFromList(int index) {
+    public String deleteFromList(int index) {
         try {
             Task task = this.list.get(index);
             this.list.remove(index);
-            Ui.printTaskDeleted(task, this.list.size());
+            return Ui.printTaskDeleted(task, this.list.size());
         } catch (IndexOutOfBoundsException err) {
-            Ui.printNoSuchTaskErr(this.list.size());
+            return Ui.printNoSuchTaskErr(this.list.size());
         }
     }
 
@@ -59,13 +59,13 @@ public class TaskList {
      * @param index the index of the task to be marked as done
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
-    public void markTaskAsDone(int index) {
+    public String markTaskAsDone(int index) {
         try {
             Task task = this.list.get(index);
             task.markAsDone();
-            Ui.printMarkedAsDone(task);
+            return Ui.printMarkedAsDone(task);
         } catch (IndexOutOfBoundsException err) {
-            Ui.printNoSuchTaskErr(index);
+            return Ui.printNoSuchTaskErr(index);
         }
     }
 
@@ -75,13 +75,13 @@ public class TaskList {
      * @param index the index of the task to be unmarked as done
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
-    public void unmarkTaskAsDone(int index) {
+    public String unmarkTaskAsDone(int index) {
         try {
             Task task = this.list.get(index);
             task.unmarkAsDone();
-            Ui.printUnmarkedAsDone(task);
+            return Ui.printUnmarkedAsDone(task);
         } catch (IndexOutOfBoundsException err) {
-            Ui.printNoSuchTaskErr(index);
+            return Ui.printNoSuchTaskErr(index);
         }
     }
 
@@ -91,10 +91,9 @@ public class TaskList {
      *
      * @param searchTerm the term to search for in the task descriptions
      */
-    public void findTaskInList(String searchTerm) {
-        if (this.list.size() == 0) {
-            Ui.printEmptyListErr();
-            return;
+    public String findTaskInList(String searchTerm) {
+        if (this.list.isEmpty()) {
+            return Ui.printEmptyListErr();
         }
         StringBuilder result = new StringBuilder();
         int count = 0;
@@ -105,32 +104,32 @@ public class TaskList {
             }
         }
         if (count == 0) {
-            System.out.println("No matching tasks found!");
-            Ui.printDivider();
+            return "No matching tasks found!";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.print(result);
-            Ui.printDivider();
+            StringBuilder response =  new StringBuilder();
+            response.append("Here are the matching tasks in your list:\n");
+            response.append(result);
+            return response.toString();
         }
     }
 
     /**
      * Prints all tasks in the list. Prints an error message if the list is empty.
      */
-    public void printList() {
-        if (this.list.size() == 0) {
-            Ui.printEmptyListErr();
-            return;
+    public String printList() {
+        if (this.list.isEmpty()) {
+            return Ui.printEmptyListErr();
         }
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
         int count = 1;
         for (Task task : this.list) {
             if (task == null) {
                 break;
             }
-            System.out.println(count++ + "." + task);
+            response.append(String.format("%d. %s\n", count++, task));
         }
-        Ui.printDivider();
+        return response.toString();
     }
 
     /**
