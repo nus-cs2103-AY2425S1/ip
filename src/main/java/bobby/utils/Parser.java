@@ -44,6 +44,12 @@ public class Parser {
         if (splitInput[0].equalsIgnoreCase("find")) {
             return Command.FIND;
         }
+        if (splitInput[0].equalsIgnoreCase(("archive"))) {
+            return Command.ARCHIVE;
+        }
+        if (splitInput[0].equalsIgnoreCase("listarchive")) {
+            return Command.LISTARCHIVE;
+        }
         throw new UnknownCommandException();
     }
 

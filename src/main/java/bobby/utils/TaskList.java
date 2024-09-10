@@ -11,14 +11,16 @@ import bobby.tasks.Task;
  */
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
+    private final ArrayList<Task> listOfArchivedTasks;
 
     /**
      * Constructs a TaskList with the specified ArrayList of Task.
      *
      * @param taskList The list of tasks in Bobby.
      */
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList, ArrayList<Task> archivedList) {
         this.listOfTasks = taskList;
+        this.listOfArchivedTasks = archivedList;
     }
 
     /**
@@ -49,12 +51,30 @@ public class TaskList {
     }
 
     /**
+     * Returns the list of archived tasks.
+     *
+     * @return List of archived tasks.
+     */
+    public ArrayList<Task> getListOfArchivedTasks() {
+        return this.listOfArchivedTasks;
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @param t Task to be added to the list.
      */
     public void addTask(Task t) {
         this.listOfTasks.add(t);
+    }
+
+    /**
+     * Archives a task.
+     *
+     * @param t Task to be archived.
+     */
+    public void archiveTask(Task t) {
+        this.listOfArchivedTasks.add(t);
     }
 
     /**

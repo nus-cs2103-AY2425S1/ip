@@ -107,4 +107,35 @@ public class Ui {
             return output;
         }
     }
+
+    /**
+     * Prints the task that is archived
+     *
+     * @param taskList The list of tasks.
+     */
+    public String showArchiveTask(Task t, ArrayList<Task> taskList) {
+        String output = "";
+        output += "As you wish, I will archive this task: " + t.toString() + "\n";
+        return output;
+    }
+
+    /**
+     * Prints the list of archived tasks.
+     *
+     * @param taskList The list of archived tasks.
+     */
+    public String showArchiveList(ArrayList<Task> taskList) {
+        String output = "";
+        int numberOfTasks = taskList.size();
+
+        if (taskList.isEmpty()) {
+            return "Sire/Madam, you have no archived tasks.";
+        } else {
+            for (int i = 0; i < numberOfTasks; i++) {
+                int number = i + 1;
+                output += (number + ". " + taskList.get(i).toString() + "\n");
+            }
+            return output;
+        }
+    }
 }
