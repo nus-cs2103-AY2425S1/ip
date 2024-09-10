@@ -29,9 +29,10 @@ public class Parser {
      */
     public String parseCommand(String input, TaskList taskList, Ui ui) {
 
-        // assert input is not null or empty
-        assert input != null && !input.isEmpty() : "Input should not be null or empty";
-
+        // check if input is empty
+        if (input.isEmpty()) {
+            return ui.displayError(INPUT_ERROR_MESSAGE);
+        }
         String[] splitInput = input.split(" ");
         String commandInput = splitInput[0].toLowerCase();
         Command command;
