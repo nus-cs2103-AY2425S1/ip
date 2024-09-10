@@ -2,7 +2,7 @@ package kita;
 
 import java.util.ArrayList;
 
-import kita.exceptions.KitaOutofBounds;
+import kita.exceptions.KitaOutOfBounds;
 
 /**
  * The TaskList class manages a list of Task objects.
@@ -42,11 +42,11 @@ public class TaskList {
      *
      * @param index The index of the Task to return.
      * @return Task The task at the specified index.
-     * @throws KitaOutofBounds If the given index is out of bounds.
+     * @throws KitaOutOfBounds If the given index is out of bounds.
      */
     public Task getTask(Integer index) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutofBounds();
+            throw new KitaOutOfBounds();
         }
 
         return this.tasks.get(index);
@@ -57,11 +57,11 @@ public class TaskList {
      *
      * @param index The index of the Task to remove.
      * @return Task The task that was removed.
-     * @throws KitaOutofBounds If the given index is out of bounds.
+     * @throws KitaOutOfBounds If the given index is out of bounds.
      */
     public Task removeTask(int index) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutofBounds();
+            throw new KitaOutOfBounds();
         }
 
         return this.tasks.remove(index);
@@ -82,11 +82,11 @@ public class TaskList {
      * @param index The index of the task to update.
      * @param status The completed status to set.
      * @return Task The updated task.
-     * @throws KitaOutofBounds If the given index is out of bounds.
+     * @throws KitaOutOfBounds If the given index is out of bounds.
      */
     public Task setTaskCompleted(Integer index, boolean status) {
         if (index >= this.tasks.size() || index < 0) {
-            throw new KitaOutofBounds();
+            throw new KitaOutOfBounds();
         }
 
         Task theTask = this.tasks.get(index);
