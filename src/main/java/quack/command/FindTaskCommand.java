@@ -34,6 +34,9 @@ public class FindTaskCommand extends Command {
     @Override
     public void execute(String input) {
 
+        // Ensures that the input is not null as if it is null then Quack is not getting the input from the user
+        assert(input != null);
+
         TaskList filteredTask = taskList.filterTasks(input);
         ui.printSearchResult(filteredTask);
         this.completeCommand();

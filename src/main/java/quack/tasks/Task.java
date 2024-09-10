@@ -38,6 +38,9 @@ public abstract class Task {
      */
     public static Task createTask(String ... taskDetails) throws InvalidDateTimeException, InvalidTaskTypeException {
 
+        // Ensures that tasks details should not be null
+        assert(taskDetails != null);
+
         Task task;
         LocalDateTime startDate;
         LocalDateTime endDate;
