@@ -18,6 +18,7 @@ public class Storage {
      * @param storagePath Where data is stored.
      */
     public Storage(String storagePath) {
+        assert storagePath != null && !storagePath.isEmpty() ;
         this.storagePath = storagePath;
     }
 
