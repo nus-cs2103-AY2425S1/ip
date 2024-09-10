@@ -1,8 +1,10 @@
 package stan;
 
-import stan.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import stan.tasks.Task;
 
 /**
  * The TaskList class manages the list of tasks.
@@ -93,14 +95,14 @@ public class TaskList {
     public List<Task> findTasks(String keyword) {
         // Assert that the keyword is not null
         assert keyword != null : "Search keyword should not be null";
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            // Assert that each task is not null
-            assert task != null : "Task in the list should not be null";
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+
+        // Use stream to filter tasks based on the keyword
+        return tasks.stream()
+                .filter(task -> {
+                    // Assert that each task is not null
+                    assert task != null : "Task in the list should not be null";
+                    return task.getDescription().toLowerCase().contains(keyword.toLowerCase());
+                })
+                .collect(Collectors.toList());
     }
 }
