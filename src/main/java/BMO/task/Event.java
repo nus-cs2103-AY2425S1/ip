@@ -65,4 +65,22 @@ public class Event extends Task {
         return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | "
             + this.getStorageStartDate() + " | " + this.getStorageStartDate() + "\n";
     }
+
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    public LocalDate getTo() {
+        return this.to;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event other = (Event) obj;
+            return super.getDescription().equals(other.getDescription()) 
+                && this.from.equals(other.getFrom()) && this.to.equals(other.getTo());
+        }
+        return false;
+    }
 }
