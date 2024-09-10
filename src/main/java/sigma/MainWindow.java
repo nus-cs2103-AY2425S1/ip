@@ -30,9 +30,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Sigma sigma;
-
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/Sigma.jpg"));
     private final Font font = new Font("Open Sans", 12);

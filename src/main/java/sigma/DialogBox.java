@@ -23,7 +23,6 @@ import sigma.command.CommandType;
  * The dialog box can be flipped to change the layout of the ImageView and text.
  */
 public class DialogBox extends HBox {
-
     @FXML
     private Label dialog;
     @FXML

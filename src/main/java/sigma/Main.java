@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  * and sets up the scene for user interaction.
  */
 public class Main extends Application {
+    private static final int MINHEIGHT = 220;
+    private static final int MINWIDTH = 417;
     private Sigma sigma = new Sigma();
 
     /**
@@ -30,8 +32,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(MINHEIGHT);
+            stage.setMinWidth(MINWIDTH);
             fxmlLoader.<MainWindow>getController().setSigma(sigma);
             stage.show();
         } catch (IOException e) {

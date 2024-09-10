@@ -6,7 +6,6 @@ import sigma.exception.SigmaException;
 import sigma.task.Task;
 import sigma.task.TaskList;
 
-
 /**
  * The {@code Ui} class handles all interactions with the user.
  * It is responsible for displaying messages, receiving user input, and
