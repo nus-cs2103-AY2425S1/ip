@@ -50,13 +50,26 @@ public class TaskList {
     }
 
     /**
+     * Validates if the provided index is within bounds of the TaskList.
+     *
+     * @param index The index to validate.
+     * @throws GavinException If the index is out of bounds.
+     */
+    private void validateTaskIndex(int index) throws GavinException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new GavinException("Task number is invalid!!!");
+        }
+    }
+
+    /**
      * Marks a task in the TaskList as done based on its index.
      *
      * @param index The index of the task to mark as done.
      * @throws GavinException If the index is out of bounds.
      */
     public void markTask(int index) throws GavinException {
-        getTask(index).markAsDone();
+        validateTaskIndex(index);
+        tasks.get(index).markAsDone();
     }
 
     /**
@@ -66,7 +79,8 @@ public class TaskList {
      * @throws GavinException If the index is out of bounds.
      */
     public void unmarkTask(int index) throws GavinException {
-        getTask(index).markAsNotDone();
+        validateTaskIndex(index);
+        tasks.get(index).markAsNotDone();
     }
 
     /**
@@ -77,6 +91,7 @@ public class TaskList {
      * @throws GavinException If the index is out of bounds.
      */
     public Task deleteTask(int index) throws GavinException {
+        validateTaskIndex(index);
         return tasks.remove(index);
     }
 
