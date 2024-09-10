@@ -100,14 +100,16 @@ public class CommandManager {
      * @see Command
      */
     public enum CommandType {
-        LIST("list", "^list\\s*$", ListCommand.class), MARK("mark", "^mark\\s+\\d+\\s*$", MarkCommand.class, "index"),
-        UNMARK("unmark", "^unmark\\s+\\d+\\s*", UnmarkCommand.class, "index"),
-        TODO("todo", "^todo\\s+.+\\s*", TodoCommand.class, "description"),
-        DEADLINE("deadline", "^deadline\\s+.+\\s+/by\\s+.+\\s*$", DeadlineCommand.class, "description", "by"),
-        EVENT("event", "^event\\s+.+\\s+/from\\s+.+\\s+/to\\s+.+\\s*$", EventCommand.class, "description", "from",
+        LIST("list", ListCommand.class),
+        MARK("mark", MarkCommand.class, "index"),
+        UNMARK("unmark", UnmarkCommand.class, "index"),
+        TODO("todo", TodoCommand.class, "description"),
+        DEADLINE("deadline", DeadlineCommand.class, "description", "by"),
+        EVENT("event", EventCommand.class, "description", "from",
                 "to"),
-        DELETE("delete", "^delete\\s+\\d+\\s*$", DeleteCommand.class, "index"),
-        FIND("find", "^find\\s+.+\\s*$", FindCommand.class, "keyword"), BYE("bye", "^bye\\s*$", EndCommand.class);
+        DELETE("delete", DeleteCommand.class, "index"),
+        FIND("find", FindCommand.class, "keyword"),
+        BYE("bye", EndCommand.class);
 
         public final String commandStr;
         public final String commandRegex;
@@ -118,15 +120,22 @@ public class CommandManager {
          * Represents a type of command.
          *
          * @param description a brief description of the command type
-         * @param rgx         a regular expression used to match the command type
          * @param command     the class representing the command type
          * @param args        the arguments required for the command type
          */
-        CommandType(String description, String rgx, Class<? extends Command> command, String... args) {
+        CommandType(String description, Class<? extends Command> command, String... args) {
             this.commandStr = description;
-            this.commandRegex = rgx;
             this.commandClass = command;
             this.commandArgs = args;
+            StringBuilder regex = new StringBuilder("^" + description);
+            if (args.length > 0) {
+                regex.append("\\s+.+");
+            }
+            for (int i = 1; i < args.length; i++) {
+                regex.append("/").append(args[i]).append("\\s+.+");
+            }
+            regex.append("\\s*$");
+            this.commandRegex = regex.toString();
         }
 
         /**
