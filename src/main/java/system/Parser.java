@@ -393,7 +393,7 @@ public class Parser {
         int listNo = Integer.parseInt(input.substring(7));
         if (listNo <= TaskList.tasks.size() && listNo > 0) {
             assert listNo <= TaskList.tasks.size() && listNo > 0;
-            return Task.delete_task(listNo);
+            return Task.deleteTask(listNo);
         } else {
             return ui.indexOutOfBounds();
         }
