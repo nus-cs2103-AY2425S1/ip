@@ -49,6 +49,7 @@ public class Pixel {
                 String fullCommand = ui.readCommand();
                 ui.printLine();
                 Command c = Parser.parser(fullCommand);
+                assert c != null : "Command should not be null";
                 c.execute(taskList, ui, storage);
                 storage.writeFile(taskList);
                 isExit = c.isExit();
