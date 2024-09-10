@@ -27,6 +27,10 @@ public class EventCommand implements Command {
      * @param endTime The end time of the event.
      */
     public EventCommand(String taskDescription, LocalDateTime startTime, LocalDateTime endTime) {
+        assert taskDescription != null : "Task description cannot be null.";
+        assert startTime != null : "Task startTime cannot be null.";
+        assert endTime != null : "Task endTime cannot be null.";
+
         this.taskDescription = taskDescription;
         this.startTime = startTime;
         this.endTime = endTime;

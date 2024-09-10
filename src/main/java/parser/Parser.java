@@ -38,6 +38,7 @@ public class Parser {
      *                        {@code InvalidFormatException}, and {@code MissingArgumentException}.
      */
     public static Command parse(String fullCommand) throws DownyException {
+        assert fullCommand != null : "Command cannot be null.";
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
         switch (command) {

@@ -22,6 +22,7 @@ public class MarkCommand implements Command {
      * @param taskNumber The task number to be marked as complete, as a string.
      */
     public MarkCommand(String taskNumber) {
+        assert taskNumber != null : "Task number cannot be null.";
         this.taskNumber = taskNumber;
     }
 

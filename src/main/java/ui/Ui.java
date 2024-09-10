@@ -32,6 +32,7 @@ public class Ui {
      * Displays an exit message to the user and closes the scanner.
      */
     public String showExitMessage() {
+        assert this.scanner != null : "Scanner should not be null when closing.";
         this.scanner.close();
         return "Bye! Yippee!";
     }
@@ -42,6 +43,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public static String showErrorMessage(String message) {
+        assert message != null && !message.isBlank() : "Error message should not be null or empty.";
         return "Error: " + message + "\n";
     }
 
@@ -51,6 +53,7 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public static String showMessage(String message) {
+        assert message != null && !message.isBlank() : "Message should not be null or empty.";
         return message + "\n";
     }
 
@@ -60,6 +63,7 @@ public class Ui {
      * @param tasks The task list containing the tasks to be displayed.
      */
     public String displayTasks(TaskList tasks) {
+        assert tasks != null : "Task list should not be null.";
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list:\n");
 
@@ -79,6 +83,7 @@ public class Ui {
      * @param keyword The keyword to search for within the task names.
      */
     public String displayMatchingTasks(TaskList tasks, String keyword) {
+        assert tasks != null : "Task list should not be null.";
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list that match the keyword:\n");
 
@@ -107,6 +112,7 @@ public class Ui {
      * @param t The task that is complete.
      */
     public String displayCompletedTask(Task t) {
+        assert t != null : "Task should not be null.";
         return "Nice! You've completed this task:\n  " + t + "\n";
     }
 
@@ -116,6 +122,7 @@ public class Ui {
      * @param t The task that is not complete.
      */
     public String displayIncompleteTask(Task t) {
+        assert t != null : "Task should not be null.";
         return "Ok! This task is not complete:\n  " + t + "\n";
     }
 
@@ -125,6 +132,7 @@ public class Ui {
      * @param t The task that has been deleted.
      */
     public String displayDeletedTask(Task t) {
+        assert t != null : "Task should not be null.";
         return "Ok! This task has been removed:\n  " + t + "\n";
     }
 

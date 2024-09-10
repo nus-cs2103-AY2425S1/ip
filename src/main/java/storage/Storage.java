@@ -37,6 +37,7 @@ public class Storage {
      * @param filePath The file path where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isBlank() : "File path cannot be null or blank.";
         this.filePath = filePath;
     }
 
@@ -116,6 +117,7 @@ public class Storage {
      * @param t The task to be marked as complete.
      */
     public void markComplete(Task t) {
+        assert t != null : "Task cannot be null.";
         try {
             List<String> lines = Files.readAllLines(Paths.get(this.filePath));
             List<String> updatedLines = lines.stream().map(line -> {
@@ -147,6 +149,7 @@ public class Storage {
      * @param t The task to be marked as incomplete.
      */
     public void markIncomplete(Task t) {
+        assert t != null : "Task cannot be null.";
         try {
             List<String> lines = Files.readAllLines(Paths.get(this.filePath));
             List<String> updatedLines = lines.stream().map(line -> {
@@ -177,6 +180,7 @@ public class Storage {
      * @param t The task to be deleted from the storage file.
      */
     public void deleteTask(Task t) {
+        assert t != null : "Task cannot be null.";
         try {
             // Read all lines from the file
             List<String> lines = Files.readAllLines(Paths.get(this.filePath));
@@ -208,6 +212,7 @@ public class Storage {
      * @param t The Todo task to be written to the storage file.
      */
     public void writeTodoToFile(Todo t) {
+        assert t != null : "Task cannot be null.";
         try {
             File dataFolder = new File(FOLDER_NAME);
 
@@ -230,6 +235,7 @@ public class Storage {
      * @param t The Deadline task to be written to the storage file.
      */
     public void writeDeadlineToFile(Deadline t) {
+        assert t != null : "Task cannot be null.";
         try {
             File dataFolder = new File(FOLDER_NAME);
 
@@ -252,6 +258,7 @@ public class Storage {
      * @param t The Event task to be written to the storage file.
      */
     public void writeEventToFile(Event t) {
+        assert t != null : "Task cannot be null.";
         try {
             File dataFolder = new File(FOLDER_NAME);
 
