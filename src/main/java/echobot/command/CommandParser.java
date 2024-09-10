@@ -35,8 +35,16 @@ public class CommandParser {
             case DeleteCommand.COMMAND -> this.getDeleteCommand(arguments);
             case FindCommand.COMMAND -> this.getFindCommand(arguments);
             case ExitCommand.COMMAND -> this.getExitCommand();
+            case UndoCommand.COMMAND -> this.getUndoCommand(arguments);
             default -> throw new UnknownCommandException(command);
         };
+    }
+
+    private UndoCommand getUndoCommand(String arguments) throws EchoBotException {
+        if (!arguments.isBlank()) {
+            throw new UnknownCommandException();
+        }
+        return new UndoCommand();
     }
 
     private AddCommand getAddCommand(String arguments) throws EchoBotException {

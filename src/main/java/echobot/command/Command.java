@@ -4,9 +4,13 @@ import echobot.exception.EchoBotException;
 import echobot.io.FileManagement;
 import echobot.task.TaskList;
 
+import java.util.Stack;
+
 public class Command {
     protected FileManagement fileManagement;
     protected TaskList taskList;
+    protected Stack<Undoable> commandHistoryList;
+
     public enum CommandType {
         ADD,
         LIST,
@@ -14,7 +18,8 @@ public class Command {
         MARK,
         EXIT,
         FIND,
-        GREETING
+        GREETING,
+        UNDO
     }
 
     public void setTaskList(TaskList taskList) {
@@ -23,6 +28,10 @@ public class Command {
 
     public void setFileManagement(FileManagement fileManagement) {
         this.fileManagement = fileManagement;
+    }
+
+    public void setCommandHistoryList(Stack<Undoable> commandHistoryList) {
+        this.commandHistoryList = commandHistoryList;
     }
 
     /**
