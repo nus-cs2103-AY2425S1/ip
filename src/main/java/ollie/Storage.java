@@ -5,7 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import ollie.exception.OllieException;
 import ollie.task.Deadline;
@@ -59,39 +62,33 @@ public class Storage {
         assert taskData != null : "Oops! Task data string cannot be empty.";
 
         try {
-            // Split the taskData by " | "
-            String[] parts = taskData.trim().split(" \\| ");
+            // Split the taskData by " | " and collect parts into a list
+            List<String> parts = Arrays.stream(taskData.trim().split(" \\| "))
+                    .map(String::trim)
+                    .toList();
 
-            // Extract information: task type, status, description, by or from, and end
-            String taskType = parts[0].trim();
-            String status = parts[1].trim();
-            String description = parts[2].trim();
-            String date = parts.length > 3 ? parts[3].trim() : "";
-            String end = parts.length > 4 ? parts[4].trim() : "";
+            // Extract information from parts
+            String taskType = parts.get(0);
+            String status = parts.get(1);
+            String description = parts.get(2);
+            String date = parts.size() > 3 ? parts.get(3) : "";
+            String end = parts.size() > 4 ? parts.get(4) : "";
 
             boolean isDone = status.equals("[X]");
 
-            Task task = null;
-
-            switch (taskType) {
-            case "TODO":
-                task = new Todo(description);
-                break;
-            case "DEADLINE":
-                task = new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
-                break;
-            case "EVENT":
-                task = new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
+            // Map task type to task creation function
+            Function<List<String>, Task> taskCreator = switch (taskType) {
+                case "TODO" -> p -> new Todo(description);
+                case "DEADLINE" -> p -> new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
+                case "EVENT" -> p -> new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
                         LocalDateTime.parse(end, Task.getFormatDate()));
-                break;
-            default:
-                throw new OllieException("Oops! Invalid task type detected: " + taskType);
-            }
+                default -> throw new OllieException("Oops! Invalid task type detected: " + taskType);
+            };
 
-            if (task != null) {
-                task.markAsDone(isDone);
-                taskList.addTaskWihoutMessage(task);
-            }
+            // Create the task using the mapped function
+            Task task = taskCreator.apply(parts);
+            task.markAsDone(isDone);
+            taskList.addTaskWihoutMessage(task);
 
             return task;
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
