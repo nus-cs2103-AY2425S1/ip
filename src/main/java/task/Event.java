@@ -22,55 +22,26 @@ public class Event extends Task {
      * Sets the event task status to be uncompleted.
      *
      * @param description Task description.
-     * @param startDateString Task start date.
-     * @param endDateString Task end date.
+     * @param dateTimeStrings {@code String[]} of date time strings
      * @throws BrockException If start and end dates are not valid.
      */
-    public Event(String description, String startDateString, String endDateString) throws BrockException {
+    public Event(String description, String ...dateTimeStrings) throws BrockException {
         super(description);
         boolean isParseStartDateSuccessful = false;
         try {
             // Dummy values for time
-            this.startTime = LocalTime.MAX;
-            this.endTime = LocalTime.MAX;
+            this.startTime = dateTimeStrings.length == 2
+                    ? LocalTime.MAX
+                    : this.parseTime(dateTimeStrings[1]);
+            this.endTime = dateTimeStrings.length == 2
+                    ? LocalTime.MAX
+                    : this.parseTime(dateTimeStrings[3]);
 
-            this.startDate = LocalDate.parse(startDateString);
+            this.startDate = LocalDate.parse(dateTimeStrings[0]);
             isParseStartDateSuccessful = true;
-            this.endDate = LocalDate.parse(endDateString);
-
-            this.validateDateTime();
-
-        } catch (DateTimeParseException e) {
-            if (isParseStartDateSuccessful) {
-                throw new BrockException("End date string is not valid!");
-            } else {
-                throw new BrockException("Start date string is not valid!");
-            }
-        }
-    }
-
-    /**
-     * Sets the event task description, start & end dates, start & end times.
-     * Sets the event task status to be uncompleted.
-     *
-     * @param description Task description.
-     * @param startDateString Task start date.
-     * @param startTimeString Task start time.
-     * @param endDateString Task end date.
-     * @param endTimeString Task end time.
-     * @throws BrockException If start & end datetimes are not valid.
-     */
-    public Event(String description, String startDateString, String startTimeString,
-                 String endDateString, String endTimeString) throws BrockException {
-        super(description);
-        boolean isParseStartDateSuccessful = false;
-        try {
-            this.startTime = this.parseTime(startTimeString);
-            this.endTime = this.parseTime(endTimeString);
-
-            this.startDate = LocalDate.parse(startDateString);
-            isParseStartDateSuccessful = true;
-            this.endDate = LocalDate.parse(endDateString);
+            this.endDate = dateTimeStrings.length == 2
+                    ? LocalDate.parse(dateTimeStrings[1])
+                    : LocalDate.parse(dateTimeStrings[2]);
 
             this.validateDateTime();
 

@@ -20,34 +20,16 @@ public class Deadline extends Task {
      * Sets the deadline task status to be uncompleted.
      *
      * @param description Task description.
-     * @param dueDateString Task due date.
+     * @param dateTimeStrings {@code String[]} of date time strings
      * @throws BrockException If due date is invalid.
      */
-    public Deadline(String description, String dueDateString) throws BrockException {
+    public Deadline(String description, String ...dateTimeStrings) throws BrockException {
         super(description);
         try {
-            this.dueTime = LocalTime.MAX; // dummy value for time
-            this.dueDate = LocalDate.parse(dueDateString);
-            this.validateDateTime();
-        } catch (DateTimeParseException e) {
-            throw new BrockException("Values in due date string are not valid!");
-        }
-    }
-
-    /**
-     * Sets the deadline task description, due date and time.
-     * Sets the deadline task status to be uncompleted.
-     *
-     * @param description Task description.
-     * @param dueDateString Task due date.
-     * @param dueTimeString Task due time.
-     * @throws BrockException If due date or time is invalid.
-     */
-    public Deadline(String description, String dueDateString, String dueTimeString) throws BrockException {
-        super(description);
-        try {
-            this.dueTime = this.parseTime(dueTimeString);
-            this.dueDate = LocalDate.parse(dueDateString);
+            this.dueTime = dateTimeStrings.length == 1
+                    ? LocalTime.MAX
+                    : this.parseTime(dateTimeStrings[1]);
+            this.dueDate = LocalDate.parse(dateTimeStrings[0]);
             this.validateDateTime();
         } catch (DateTimeParseException e) {
             throw new BrockException("Values in due date string are not valid!");
@@ -82,7 +64,7 @@ public class Deadline extends Task {
         }
         if (this.dueTime != LocalTime.MAX) {
             LocalTime now = LocalTime.now();
-            if (this.dueTime.isBefore(now)) {
+            if (this.dueDate.isEqual(today) && this.dueTime.isBefore(now)) {
                 throw new BrockException("Due time cannot be earlier than now!");
             }
         }

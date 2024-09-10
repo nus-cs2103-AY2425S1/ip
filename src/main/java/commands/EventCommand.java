@@ -40,7 +40,6 @@ public class EventCommand extends Command {
             description.append(commandWords[i])
                     .append(" ");
         }
-        description.deleteCharAt(description.length() - 1);
 
         StringBuilder startDateTime = new StringBuilder();
         StringBuilder endDateTime = new StringBuilder();

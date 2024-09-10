@@ -1,5 +1,8 @@
 package utility;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 import exceptions.BrockException;
 import task.TaskList;
 
@@ -120,14 +123,13 @@ public class CommandUtility {
                 throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
                         + label + "time is not a number!");
             } else {
-                int time = Integer.parseInt(timeString);
-                if (time < 0 || time > 2359) {
-                    throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
-                            + label + "time must be between 0000 - 2359!");
+                try {
+                    LocalTime time = LocalTime.parse(timeString,
+                            java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+                } catch (DateTimeParseException e) {
+                    throw new BrockException("Time must be in HHmm format and between 0000 and 2359!");
                 }
-                // Convert to string
-                // Force length == 4 with 0s as front-padding
-                timeStringFinal = String.format("%04d", time);
+                timeStringFinal = timeString;
             }
             dateStringFinal = dateString;
         }

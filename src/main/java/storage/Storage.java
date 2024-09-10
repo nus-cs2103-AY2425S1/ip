@@ -96,7 +96,7 @@ public class Storage {
      *                        (They should already be validated)
      */
     private Task handleDeadline(String taskBody, char taskStatus) throws BrockException {
-        String[] parts = taskBody.split(" \\(by: ", 2);
+        String[] parts = taskBody.split("\\(by: ", 2);
         if (parts.length < 2) {
             this.resetSaveFile("Invalid deadline entry - missing due date!");
         }
@@ -136,7 +136,7 @@ public class Storage {
      *                        (They should already be validated)
      */
     private Task handleEvent(String taskBody, char taskStatus) throws BrockException {
-        String[] parts = taskBody.split(" \\(from: ", 2);
+        String[] parts = taskBody.split("\\(from: ", 2);
         if (parts.length < 2) {
             this.resetSaveFile("Invalid event entry - missing start date!");
         }
