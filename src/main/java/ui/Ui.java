@@ -31,20 +31,6 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message to the user.
-     */
-    public void showWelcome() {
-        showMessage("Hello! I am Pro Yapper!\nWhat can I do for you?");
-    }
-
-    /**
-     * Displays a goodbye message to the user.
-     */
-    public void showGoodbye() {
-        showMessage("Hope to see you again soon!");
-    }
-
-    /**
      * Displays a general message to the user.
      *
      * @param message the message to display
