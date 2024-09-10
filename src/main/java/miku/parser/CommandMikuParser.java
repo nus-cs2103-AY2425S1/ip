@@ -1,18 +1,11 @@
 package miku.parser;
 
-import miku.command.AddCommand;
-import miku.command.Command;
-import miku.command.ExitCommand;
-import miku.command.FindCommand;
-import miku.command.InvalidCommand;
-import miku.command.MarkCommand;
-import miku.command.RemoveCommand;
-import miku.command.ShowListCommand;
-import miku.command.UnmarkCommand;
+import miku.command.*;
 import miku.exception.InvalidCommandException;
 import miku.task.Deadline;
 import miku.task.Event;
 import miku.task.Todo;
+import miku.utility.Priority;
 
 /**
  * Parses the input command strings
@@ -25,6 +18,7 @@ public class CommandMikuParser extends MikuParser {
     private static String regexEvent = "event .* /.* /.*";
     private static String regexRemove = "delete \\d+";
     private static String regexFind = "find .*";
+    private static String regexSetPriority = "set priority \\d+ (HIGH|MEDIUM|LOW)";
 
     public CommandMikuParser() {
     }
@@ -58,6 +52,9 @@ public class CommandMikuParser extends MikuParser {
                 return new RemoveCommand(Integer.parseInt(input.split(" ")[1]));
             } else if (input.matches(regexFind)) {
                 return new FindCommand(input.substring(5));
+            } else if (input.matches(regexSetPriority)) {
+                String[] strs = input.split(" ");
+                return new SetPriorityCommand(Integer.parseInt(strs[2]), Priority.parsePriority(strs[3]));
             } else {
                 System.out.println("すみません、わかりません！\nEnter a valid command please, 39!");
                 throw new InvalidCommandException(input);

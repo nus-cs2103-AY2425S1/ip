@@ -74,12 +74,16 @@ public class Storage {
                     String[] dataLine = sc.nextLine().split(" \\| ");
                     try {
                         if (dataLine[0].equals("D")) {
-                            tasks.initAdd(new Deadline(dataLine[2], dataLine[3], Boolean.parseBoolean(dataLine[1])));
+                            tasks.initAdd(new Deadline(dataLine[2],
+                                    dataLine[3],
+                                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[4])));
                         } else if (dataLine[0].equals("T")) {
-                            tasks.initAdd(new Todo(dataLine[2], Boolean.parseBoolean(dataLine[1])));
+                            tasks.initAdd(new Todo(dataLine[2],
+                                    Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[3])));
                         } else if (dataLine[0].equals("E")) {
                             tasks.initAdd(new Event(dataLine[2], dataLine[3],
-                                    dataLine[4], Boolean.parseBoolean(dataLine[1])));
+                                    dataLine[4],
+                                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[5])));
                         } else {
                             throw new DataCorruptionException("The file is corrupted,"
                                     + " the file would be deleted...\nA empty tasklist will be created.");

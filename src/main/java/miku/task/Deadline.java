@@ -3,6 +3,8 @@ package miku.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import miku.utility.Priority;
+
 /**
  * Represents a deadline with a date.
  */
@@ -29,8 +31,8 @@ public class Deadline extends Task {
      * @param date   date of the deadline
      * @param isDone is the task finished
      */
-    public Deadline(String desc, String date, boolean isDone) {
-        super(desc, isDone);
+    public Deadline(String desc, String date, boolean isDone, Priority priority) {
+        super(desc, isDone, priority);
         this.date = date;
         localDate = LocalDate.parse(date);
     }
@@ -42,7 +44,8 @@ public class Deadline extends Task {
      */
     public String storeValue() {
         return this.stringValue().substring(1, 2) + " | "
-                + this.isTaskDone() + " | " + this.getDesc() + " | " + date + "\n";
+                + this.isTaskDone()
+                    + " | " + this.getDesc() + " | " + date + " | " + this.getPriority().toString() + "\n";
     }
 
     @Override

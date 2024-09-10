@@ -3,6 +3,7 @@ package miku.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import miku.utility.Priority;
 /**
  * Represents an event object.
  */
@@ -15,13 +16,13 @@ public class Event extends Task {
     /**
      * Overloads the even constructor with an extra isDone field.
      *
-     * @param desc a
-     * @param dateTime1 a
-     * @param dateTime2 a
-     * @param isDone a.
+     * @param desc      Descriptions of the event.
+     * @param dateTime1 String value of the first date.
+     * @param dateTime2 String value of the second date.
+     * @param isDone Import is done value
      */
-    public Event(String desc, String dateTime1, String dateTime2, boolean isDone) {
-        super(desc, isDone);
+    public Event(String desc, String dateTime1, String dateTime2, boolean isDone, Priority priority) {
+        super(desc, isDone, priority);
         this.dateTime1 = dateTime1.trim();
         this.dateTime2 = dateTime2.trim();
         startDateTime = LocalDateTime.parse(this.dateTime1);
@@ -68,7 +69,9 @@ public class Event extends Task {
      */
     public String storeValue() {
         return this.stringValue().substring(1, 2)
-                + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + dateTime1 + " | " + dateTime2 + "\n";
+                + " | " + this.isTaskDone()
+                    + " | " + this.getDesc()
+                        + " | " + dateTime1 + " | " + dateTime2 + " | " + this.getPriority().toString() + "\n";
     }
 
 }

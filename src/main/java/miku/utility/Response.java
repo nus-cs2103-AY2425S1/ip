@@ -102,4 +102,7 @@ public class Response {
         }
         return result;
     }
+    public String setPrioritySuccessful(int index, Priority priority) {
+        return "Successfully set item " + (index + 1) + "'s priority to " + priority;
+    }
 }
