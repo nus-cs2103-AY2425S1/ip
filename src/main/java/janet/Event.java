@@ -1,8 +1,6 @@
 package janet;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -10,20 +8,21 @@ import java.util.Arrays;
 /**
  * Represents an Event, with a description, symbol, start date and end date.
  */
-public class Event extends Task {
+public class Event extends ScheduledTask {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
     Event(String inputLine) throws JanetException {
         // inside the program this will be called
-        super(createEventCommand(inputLine).getDescription(), createEventCommand(inputLine).getSymbol());
-        this.startDate = createEventCommand(inputLine).startDate;
-        this.endDate = createEventCommand(inputLine).endDate;
+        this(createEventCommand(inputLine).getDescription(),
+                createEventCommand(inputLine).getSymbol(),
+                createEventCommand(inputLine).getStartDateAndTime(),
+                createEventCommand(inputLine).getEndDateAndTime());
     }
 
     Event(String description, String symbol, LocalDateTime startDate, LocalDateTime endDate) {
         // this is used inside the static method: createEventCommand
-        super(description, symbol);
+        super(description, symbol, startDate.toLocalDate());  // startDate is the scheduledDate.
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -64,11 +63,13 @@ public class Event extends Task {
 
             // converts start date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts start time from (hh:mm) to (hh:mm a)
-            startDateAndTime = Task.DateAndTimeFormatter(commandDetails[indexOfFrom + 1], commandDetails[indexOfFrom + 2]);
+            startDateAndTime = ScheduledTask.DateAndTimeFormatter(commandDetails[indexOfFrom + 1],
+                    commandDetails[indexOfFrom + 2]);
 
             // converts end date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts end time from (hh:mm) to (hh:mm a)
-            endDateAndTime = DateAndTimeFormatter(commandDetails[indexOfTo + 1], commandDetails[indexOfTo + 2]);
+            endDateAndTime = ScheduledTask.DateAndTimeFormatter(commandDetails[indexOfTo + 1],
+                    commandDetails[indexOfTo + 2]);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd hh:mm (24hr)");
         }
@@ -88,7 +89,7 @@ public class Event extends Task {
         String[] eventDetails = findEventDetails(commandDetails);
         DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");    // format the date and time
         String startDateAndTimeString = eventDetails[1];
-        LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime); // format String to LocalDateTime
+        LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime); // convert String to LocalDateTime
 
         String endDateAndTimeString = eventDetails[2];
         LocalDateTime endDateAndTime = LocalDateTime.parse(endDateAndTimeString, stringToDateTime);
@@ -112,6 +113,14 @@ public class Event extends Task {
         String time = this.endDate.format(DateTimeFormatter.ofPattern("HH:mm a"));
         String date = this.endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date + " " + time;
+    }
+
+    public LocalDateTime getStartDateAndTime() {
+        return this.startDate;
+    }
+
+    public LocalDateTime getEndDateAndTime() {
+        return this.endDate;
     }
 
     @Override

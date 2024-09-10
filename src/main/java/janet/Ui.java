@@ -160,4 +160,10 @@ public class Ui {
                 + String.format("    %s\nNow you have %d tasks in your list\n",
                 deletedTask, numberOfTasks);
     }
+
+
+    public String showScheduledTasksMessage(TaskList scheduledTaskList, String date) {
+        return "\nHere are your tasks on " + date + ":\n"
+                + displayTasksInList(scheduledTaskList) + "\n";
+    }
 }

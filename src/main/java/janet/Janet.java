@@ -1,10 +1,7 @@
 package janet;
 
-import javafx.application.Platform;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Represents the entry point of Janet.
@@ -100,6 +97,12 @@ public class Janet {
                 String[] keywords = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
                 response = ui.showFindMessage(tasks.findTasks(keywords));
                 break;
+            case VIEW:
+                String dateAndTime = commandDetails[1];
+                response = ui.showScheduledTasksMessage(tasks.viewScheduledTasks(dateAndTime), dateAndTime);
+                break;
+            default:
+                throw new JanetException("Huge glitch detected! Press the big red button to reset Janet!");
             }
         } catch (JanetException e) {
             response  = e.getMessage();     // returns a message for any invalid user command

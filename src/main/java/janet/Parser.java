@@ -1,5 +1,7 @@
 package janet;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -66,8 +68,9 @@ public class Parser {
      * @throws JanetException If command is invalid, task number is not properly specified, task description omitted.
      */
     public static void checkInaccurateCommand(String[] commandDetails, int numOfTasksInlist) throws JanetException {
-        if (emptyCommand(commandDetails) || unknownCommand(commandDetails) || notFoundCommand(commandDetails)) {
-            // when the command is gibberish OR is an empty command
+        if (emptyCommand(commandDetails) || unknownCommand(commandDetails)
+                || notFoundCommand(commandDetails) || invalidViewCommand(commandDetails)) {
+            // when the command is gibberish, empty command, invalid Found command, invalid View command
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (notByeOrListCommand(commandDetails)) {
             if (taskDescriptionOmitted(commandDetails)) {
@@ -82,6 +85,56 @@ public class Parser {
                 throw new JanetException("WHOOPS! You don't have a task of this number!");
             }
         }
+    }
+
+
+    /**
+     * Returns true if the command is a view command and,
+     * 1. no date is provided OR more than one date is provided.
+     * 2. a single date is provided but cannot be parsed into a LocalDate object.
+     * False otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     * @throws JanetException If the date (String) provided cannot be parsed into a LocalDate object.
+     */
+    private static boolean invalidViewCommand(String[] commandDetails) throws JanetException {
+        boolean isViewCommand = commandDetails[0].equals("view");
+        if (isViewCommand) {
+            if (viewNoDateProvided(commandDetails) || viewMoreThanOneDateProvided(commandDetails)) {
+                return true;
+            } else {
+                try {
+                    LocalDate.parse(commandDetails[1]);
+                } catch (DateTimeParseException e) {
+                    throw new JanetException("WHOOPS! Please ensure date is in yyyy-MM-dd format!");
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns a true if there is no date provided for the view command (eg. 'view').
+     * False otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean viewNoDateProvided(String[] commandDetails) {
+        return commandDetails.length == 1;
+    }
+
+    /**
+     * Returns true if there is more than one date provided for the view command (eg. 'view 2024-09-10 ...'),
+     * where '...' represents some text after the date provided.
+     * False otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean viewMoreThanOneDateProvided(String[] commandDetails) {
+        return commandDetails.length > 2;
     }
 
 

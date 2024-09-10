@@ -1,5 +1,8 @@
 package janet;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -121,6 +124,42 @@ public class TaskList {
             }
         }
         return taskList;
+    }
+
+
+    /**
+     * Returns true if the task's scheduledDate is equal to the schedule.
+     * 1. if task is a deadline, its scheduledDate will be the dueDate.
+     * 2. if task is an event, its scheduledDate will be the startDate.
+     * Returns false otherwise.
+     *
+     * @param task A Task object.
+     * @param schedule A LocalDate, representing the date the user inputs.
+     * @return A boolean value.
+     */
+    private boolean isScheduledTask(Task task, LocalDate schedule) {
+        return task.getScheduledDate().equals(schedule);
+    }
+
+
+    /**
+     * Returns a TaskList, where each task in the TaskList is
+     * either a deadline or an event,
+     * and has a dueDate/startDate equals to the schedule.
+     *
+     * @param dateAndTime A String, representing the date the user inputs (yyyy-MM-dd).
+     * @return A TaskList.
+     */
+    public TaskList viewScheduledTasks(String dateAndTime) throws JanetException {
+        LocalDate schedule = LocalDate.parse(dateAndTime);
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {     // go through all the tasks in the list
+            if (task.getScheduledDate() != null && isScheduledTask(task, schedule)) {
+                // if the task is a ScheduledTask and has the same schedule, add to tasks
+                tasks.addTaskToList(task);
+            }
+        }
+        return tasks;
     }
 
 }
