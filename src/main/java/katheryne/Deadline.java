@@ -17,6 +17,7 @@ public class Deadline extends Task{
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateObj = LocalDate.parse(by, inputFormatter);
         this.time = dateObj;
+        assert this.time != null : "Time should be specified.";
     }
 
     public String toString() {

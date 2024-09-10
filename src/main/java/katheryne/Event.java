@@ -13,6 +13,8 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        assert this.from != null : "Time should be specified.";
+        assert this.to != null : "Time should be specified.";
     }
 
     public String toString() {
