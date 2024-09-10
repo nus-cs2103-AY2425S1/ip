@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import tecna.collection.TaskList;
+import tecna.command.CommandScanner;
+import tecna.command.CommandType;
 import tecna.exception.JsonLoadingException;
 import tecna.storage.Storage;
 import tecna.ui.Ui;

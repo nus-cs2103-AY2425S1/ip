@@ -1,4 +1,4 @@
-package tecna;
+package tecna.command;
 
 /**
  * Represents different types of command including valid and invalid ones.

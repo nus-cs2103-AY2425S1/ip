@@ -1,4 +1,4 @@
-package tecna;
+package tecna.command;
 
 import java.util.Scanner;
 
