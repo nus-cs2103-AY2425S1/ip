@@ -6,6 +6,9 @@ import nextgpt.task.Deadline;
 import nextgpt.task.Event;
 import nextgpt.task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Class to understand User Input when using bot.
  */
@@ -85,6 +88,17 @@ public class Parser {
                 throw new NextGPTException("Please input the keyword for me to find!");
             }
             return new FindCommand(split[1].trim());
+        case "schedule":
+            try {
+                LocalDate specificDate = LocalDate.parse(split[1]);
+                return new ScheduleCommand(specificDate);
+            } catch (DateTimeParseException e) {
+                throw new NextGPTException("Please input the date in the correct format!\n"
+                        + "schedule <yyyy-mm-dd>\n"
+                );
+            } catch (IndexOutOfBoundsException e) {
+                throw new NextGPTException("Please input the date of the schedule!");
+            }
         default:
             throw new NextGPTException("Sorry, I do not understand what that means.");
         }

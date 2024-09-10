@@ -11,7 +11,9 @@ import nextgpt.Storage;
  */
 public class ListCommand extends Command {
     /**
-     * Displays content of task list.
+     * Outputs list of events that user has saved
+     *
+     * @return String message with list of events that user has saved
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
