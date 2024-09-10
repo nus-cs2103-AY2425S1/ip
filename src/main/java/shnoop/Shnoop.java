@@ -20,6 +20,7 @@ public class Shnoop {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
+    private String commandType;
 
     /**
      * Creates a Shnoop instance with a specified filepath referring to where information will be saved in.
@@ -39,6 +40,10 @@ public class Shnoop {
             ui.showError(efile.getMessage());
             throw new RuntimeException();
         }
+    }
+
+    public Shnoop() {
+        this(java.nio.file.Paths.get(System.getProperty("user.home"), "my", "apps", "dir"));
     }
 
     /**
@@ -68,6 +73,25 @@ public class Shnoop {
             }
         }
         // @@author CS2103T Website
+    }
+
+
+    public String getCommandType() {
+        return commandType;
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String output = c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return output;
+        } catch (ShnoopException | IOException | IncompleteEventOrDeadlineException e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
     /**

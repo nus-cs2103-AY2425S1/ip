@@ -32,7 +32,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, IncompleteEventOrDeadlineException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, IncompleteEventOrDeadlineException {
         Task task = null;
         switch (taskType) {
         case TODO:
@@ -48,7 +48,8 @@ public class AddCommand extends Command {
             throw new IOException();
         }
         tasks.add(task);
-        ui.addTask(task, tasks.size());
+        String result = ui.addTask(task, tasks.size());
         storage.save(tasks, task);
+        return result;
     }
 }

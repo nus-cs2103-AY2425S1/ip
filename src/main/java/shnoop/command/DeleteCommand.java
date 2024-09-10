@@ -31,12 +31,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ShnoopException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ShnoopException {
         if (idx >= tasks.size() || tasks.size() == 0 || idx <= -1) {
             throw new ShnoopException("✿ Shnoop ✿: Don't break your neck tryna creep a little sneak mark"
                     + ", there's no task with that number.");
         }
         Task temp = tasks.get(idx);
-        ui.delete(tasks.delete(idx));
+        return ui.delete(tasks.delete(idx));
     }
 }

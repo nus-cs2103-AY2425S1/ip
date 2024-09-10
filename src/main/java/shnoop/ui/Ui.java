@@ -28,8 +28,8 @@ public class Ui {
     /**
      * Prints out introductory speech at start of application.
      */
-    public void showWelcome() {
-        System.out.println("\n ... Greetings loved one ʚ♡ɞ Let's take a journey ... "
+    public String showWelcome() {
+        return ("\n ... Greetings loved one ʚ♡ɞ Let's take a journey ... "
                 + "\n\n\n ✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-"
                 + "✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿-✿ \n"
                 + " ✿ It's Shnoop, my dawg. I'm all up on ya. Whatchu need? ✿ \n"
@@ -39,8 +39,8 @@ public class Ui {
     /**
      * Prints out a loading error to inform the user.
      */
-    public void showLoadingError() {
-        System.out.println(" ✿ Shnoop is currently experiencing some difficulties, let's have a fresh start. ✿ \n");
+    public String showLoadingError() {
+        return (" ✿ Shnoop is currently experiencing some difficulties, let's have a fresh start. ✿ \n");
     }
 
     /**
@@ -56,8 +56,8 @@ public class Ui {
     /**
      * Prints out the exit message when closing the bot.
      */
-    public void goodbye() {
-        System.out.println("\n✿ Shnoop ✿: I'll check ya later, cause you represent. Don't worry we got it on lock. ♡");
+    public String goodbye() {
+        return ("\n✿ Shnoop ✿: I'll check ya later, cause you represent. Don't worry we got it on lock. ♡");
     }
 
     /**
@@ -65,15 +65,15 @@ public class Ui {
      *
      * @param string Error message to be printed.
      */
-    public void showError(String string) {
-        System.out.println("✿ Shnoop ✿: My homie, listen when I say: " + string);
+    public String showError(String string) {
+        return ("✿ Shnoop ✿: My homie, listen when I say: " + string);
     }
 
     /**
      * Prints out divider between user input and Shnoop output.
      */
-    public void showLine() {
-        System.out.println("\n✿-✿-✿-✿-✿-✿-✿-✿-✿ Say what you gotta say ✿-✿-✿-✿-✿-✿-✿-✿-✿");
+    public String showLine() {
+        return ("\n✿-✿-✿-✿-✿-✿-✿-✿-✿ Say what you gotta say ✿-✿-✿-✿-✿-✿-✿-✿-✿");
     }
 
     /**
@@ -82,13 +82,14 @@ public class Ui {
      * @param b Boolean value indicating if task was successfully marked.
      * @param task Specific task that user tried to mark.
      */
-    public void mark(boolean b, Task task) {
+    public String mark(boolean b, Task task) {
+        String temp = "";
         if (b) {
-            System.out.println("✿ Shnoop ✿: Warm, wet and wild! I've marked this task as done: ");
+            temp += ("✿ Shnoop ✿: Warm, wet and wild! I've marked this task as done: \n");
         } else {
-            System.out.println("✿ Shnoop ✿: Daisy dukes! This task was already done my love: ");
+            temp += ("✿ Shnoop ✿: Daisy dukes! This task was already done my love: \n");
         }
-        System.out.println(task);
+        return (temp + task);
     }
 
     /**
@@ -97,13 +98,14 @@ public class Ui {
      * @param b Boolean value indicating if task was successfully unmarked.
      * @param task Specific task that user tried to unmark.
      */
-    public void unmark(boolean b, Task task) {
+    public String unmark(boolean b, Task task) {
+        String temp = "";
         if (b) {
-            System.out.println("✿ Shnoop ✿: Melted this popsicle! I've unmarked this task as done: ");
+            temp += ("✿ Shnoop ✿: Melted this popsicle! I've unmarked this task as done: \n");
         } else {
-            System.out.println("✿ Shnoop ✿: Daisy dukes! This task was never done my love: ");
+            temp += ("✿ Shnoop ✿: Daisy dukes! This task was never done my love: \n");
         }
-        System.out.println(task);
+        return (temp + task);
     }
 
     /**
@@ -122,11 +124,12 @@ public class Ui {
      * @param task Task that was added.
      * @param size Current number of tasks in task list.
      */
-    public void addTask(Task task, int size) {
-
-        System.out.println("✿ Shnoop ✿: "
+    public String addTask(Task task, int size) {
+        String temp = "";
+        temp += ("✿ Shnoop ✿: "
                 + getRandomQuote(size % 3) + " I'll add that in for ya. \nTask Added: " + task);
-        System.out.println("✿ Shnoop ✿: You've got " + size + " doggy-dogs on the stereo.");
+        temp += ("\n✿ Shnoop ✿: You've got " + size + " doggy-dogs on the stereo.");
+        return temp;
     }
 
     /**
@@ -134,9 +137,11 @@ public class Ui {
      *
      * @param string String to be printed after the list command (typically reserved for task list).
      */
-    public void list(String string) {
-        System.out.println("✿ Shnoop ✿: Find, fresh, fierce and ready.");
-        System.out.println(string);
+    public String list(String string) {
+        String temp = "";
+        temp += ("✿ Shnoop ✿: Find, fresh, fierce and ready.\n");
+        temp += (string);
+        return temp;
     }
 
     /**
@@ -144,8 +149,8 @@ public class Ui {
      *
      * @param task Task that user deleted.
      */
-    public void delete(Task task) {
-        System.out.println("✿ Shnoop ✿: I know a place, where the grass is really greener. "
+    public String delete(Task task) {
+        return ("✿ Shnoop ✿: I know a place, where the grass is really greener. "
                 + "I'll send this task there\n" + "Goodbye " + task + "!");
     }
 
@@ -154,13 +159,15 @@ public class Ui {
      *
      * @param foundTasks Input contains String obtained from TaskList.
      */
-    public void find(String foundTasks) {
+    public String find(String foundTasks) {
+        String temp = "";
         if (foundTasks.isEmpty()) {
-            System.out.println("✿ Shnoop ✿: I have travelled the world, and nothing comes close "
+            temp += ("✿ Shnoop ✿: I have travelled the world, and nothing comes close "
                     + "to the words you speak of.");
         } else {
-            System.out.println("✿ Shnoop ✿: My California gorls have found whatchu been looking for:");
-            System.out.println(foundTasks);
+            temp += ("✿ Shnoop ✿: My California gorls have found whatchu been looking for:\n");
+            temp += (foundTasks);
         }
+        return temp;
     }
 }
