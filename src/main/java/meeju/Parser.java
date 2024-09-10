@@ -40,8 +40,6 @@ public class Parser {
             return taskList.addEventTask(instruction.substring(6));
         } else {
             return "I'm sorry, I did not understand that =^..^=";
-
         }
-
     }
 }
