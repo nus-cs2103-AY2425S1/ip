@@ -56,8 +56,14 @@ jobs:
     - name: build Jar file
       run: ./gradlew shadowJar
       
-    - name: Generate Changelog
-      run: echo "# Automated config changelog!" > ${{ github.workspace }}-CHANGELOG.txt
+    - name: Get Changes between Tags
+        id: changes
+        uses: simbo/changes-between-tags-action@v1
+
+    - name: 📣 Output Data
+      run: |
+        echo "tag: ${{ steps.changes.outputs.tag }}"
+        echo "changes: ${{ steps.changes.outputs.changes }}"
 
     - name: Release Jar file
       uses: phuonghuynh/action-ghrelease@v1.1.0
