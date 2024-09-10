@@ -39,7 +39,9 @@ public class Mira {
     public String getResponse(String userInput) {
         Command command = null;
         try {
+            assert userInput != null: "user input should not be null";
             command = Parser.parse(userInput);
+            assert tasks != null : "tasks should not be null";
             command.setTaskList(tasks);
             String commandResult = command.execute();
             if (command instanceof Savable savable) { // if command is Savable
