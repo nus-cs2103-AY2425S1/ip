@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toStringinFile() {
+    public String toStringInFile() {
         int val = this.completed ? 1 : 0;
         return String.format("D|%d|%s|%s", val, this.description,
                 this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));

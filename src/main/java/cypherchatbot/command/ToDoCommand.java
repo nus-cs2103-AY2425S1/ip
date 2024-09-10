@@ -1,5 +1,6 @@
 package cypherchatbot.command;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Task;
 import cypherchatbot.task.ToDo;
 import cypherchatbot.util.Storage;
@@ -29,23 +30,30 @@ public class ToDoCommand extends Command {
      * outputting the result to the user via the Ui output method, and then finally
      * saving the task to storage.
      *
-     * @param tasks The TaskList to which the new ToDo task should be added.
-     * @param ui The Ui interface used to interact with the user.
+     * @param tasks   The TaskList to which the new ToDo task should be added.
+     * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
+     * @return
      */
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
+        if (command.length != 2 || command[1].trim().isEmpty()) {
+            throw new CypherException("No task is given. "
+                    + "The format of the todo command is:\n todo <Description of task>");
+        }
         assert this.command.length == 2 : "Command error checking not done properly";
+
         Task todo = new ToDo(command[1]);
-        String output = tasks.addToList(todo);
-        ui.output(output);
-        storage.addToStorage(todo.toStringinFile());
+        tasks.addToList(todo);
+        storage.addToStorage(todo.toStringInFile());
+
+        return  ui.showAddMessage(todo, tasks.size());
     }
 
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 

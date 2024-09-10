@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Deadline;
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
@@ -34,28 +35,42 @@ public class DeadlineCommand extends Command {
      * outputting the result to the user via the Ui output method, and then finally
      * saving the task to storage.
      *
-     * @param tasks The TaskList to which the new Deadline task should be added.
-     * @param ui The Ui interface used to interact with the user.
+     * @param tasks   The TaskList to which the new Deadline task should be added.
+     * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
+     * @return
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
         try {
-            assert this.command.length == 2 : "Command error checking not done properly";
-            LocalDateTime by = LocalDateTime.parse(command[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            Task deadline = new Deadline(command[0], by);
-            String output = tasks.addToList(deadline);
-            ui.output(output);
-            storage.addToStorage(deadline.toStringinFile());
+
+            String[] deadlineSplit = command[1].split("/by", 2);
+
+            if (deadlineSplit[0].isEmpty()) {
+                throw new CypherException("No task is given. The format of the deadline command is:"
+                        + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
+            } else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
+                throw new CypherException("No deadline is given. The format of the deadline command is:"
+                        + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
+            }
+            assert deadlineSplit.length == 2 : "Command error checking not done properly";
+            LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            Task deadline = new Deadline(deadlineSplit[0], by);
+
+            tasks.addToList(deadline);
+            storage.addToStorage(deadline.toStringInFile());
+
+            return ui.showAddMessage(deadline,tasks.size());
 
         } catch (DateTimeException e) {
-            ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
+            return ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
         }
+
     };
 
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

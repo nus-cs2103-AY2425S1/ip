@@ -7,7 +7,6 @@ public class CypherException extends Exception {
         this.message = msg;
     }
 
-
     public String getMessage() {
         return this.message;
     }

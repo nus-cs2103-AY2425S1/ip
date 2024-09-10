@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -8,7 +9,7 @@
 
 <fx:root alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="CENTER" style="-fx-background-color: #f88379;  -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2; -fx-border-width: 2px; -fx-background-radius: 1em 1em 0 1em; -fx-border-radius: 1em 1em 0 1em;" text="Default checker" wrapText="true" HBox.hgrow="ALWAYS">
+        <Label fx:id="dialog" alignment="CENTER" ellipsisString="" minHeight="-Infinity" style="-fx-background-color: #f88379;  -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2; -fx-border-width: 2px; -fx-background-radius: 1em 1em 0 1em; -fx-border-radius: 1em 1em 0 1em;" text="sfsd" wrapText="true" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </HBox.margin>
@@ -16,9 +17,12 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
          <font>
-            <Font name="Times New Roman" size="13.0" />
-         </font></Label>
-        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: red; -fx-border-width: 5; -fx-border-style: solid;">
+            <Font name="Apple Braille" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></Label>
+        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: red; -fx-border-width: 5; -fx-border-style: solid;" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </HBox.margin></ImageView>
