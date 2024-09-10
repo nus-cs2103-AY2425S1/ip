@@ -1,12 +1,16 @@
 package arts.command;
 
 import arts.ArtsException;
+import arts.task.Task;
 import arts.task.TaskList;
 
 /**
  * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand implements Command {
+    private static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks found.";
+    private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:\n";
+
     private final TaskList tasks;
     private final String keyword;
 
@@ -31,16 +35,14 @@ public class FindCommand implements Command {
     public String execute() throws ArtsException {
         StringBuilder sb = new StringBuilder();
         int count = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            String task = tasks.getTask(i).toString();
-            if (task.contains(keyword)) {
-                sb.append(++count).append(". ").append(task).append("\n");
+
+        for (Task task : tasks.getTasks()) {
+            String taskString = task.toString();
+            if (taskString.contains(keyword)) {
+                sb.append(++count).append(". ").append(taskString).append("\n");
             }
         }
-        if (count == 0) {
-            return "No matching tasks found.";
-        } else {
-            return "Here are the matching tasks in your list:\n" + sb.toString();
-        }
+
+        return count == 0 ? NO_MATCHING_TASKS_MESSAGE : MATCHING_TASKS_HEADER + sb.toString();
     }
 }

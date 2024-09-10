@@ -10,6 +10,8 @@ import arts.util.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand implements Command {
+    private static final String INVALID_TASK_INDEX_ERROR_MESSAGE = "Invalid task index.";
+
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -44,9 +46,10 @@ public class MarkCommand implements Command {
             Task task = tasks.getTask(index);
             task.markAsDone();
             storage.save(tasks.getTasks());
-            return "Nice! I've marked this task as done:\n " + task;
+            return String.format("Nice! I've marked this task as done:\n %s", task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new ArtsException("Invalid task index.");
+            // Handle invalid task index or parsing error
+            throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
 }

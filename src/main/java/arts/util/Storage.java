@@ -17,6 +17,7 @@ import arts.task.Task;
  */
 public class Storage {
     private final String filePath;
+    private static final String NO_TASK_FILE_MESSAGE = "No existing task file found. Starting fresh.";
 
     /**
      * Constructs a Storage object with the specified file path for storing tasks.
@@ -35,10 +36,11 @@ public class Storage {
      * @throws ArtsException If there is an error reading the file or parsing tasks.
      */
     public ArrayList<Task> load() throws ArtsException {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        ArrayList<Task> tasks = new ArrayList<>();
+
         if (!file.exists()) {
-            System.out.println("No existing task file found. Starting fresh.");
+            System.out.println(NO_TASK_FILE_MESSAGE);
             return tasks;
         }
 

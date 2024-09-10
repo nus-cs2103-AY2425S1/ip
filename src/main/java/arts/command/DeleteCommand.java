@@ -10,6 +10,8 @@ import arts.util.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand implements Command {
+    private static final String INVALID_TASK_INDEX_ERROR_MESSAGE = "Invalid task index.";
+
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -43,11 +45,11 @@ public class DeleteCommand implements Command {
             int index = Integer.parseInt(taskIndex) - 1;
             Task task = tasks.removeTask(index);
             storage.save(tasks.getTasks());
-            return "Noted. I've removed this task:\n " + task
-                    + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                    + " in the list.";
+            return String.format("Noted. I've removed this task:\n %s\nNow you have %d %s in the list.",
+                    task, tasks.size(), tasks.size() == 1 ? "task" : "tasks");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new ArtsException("Invalid task index.");
+            // Handle invalid task index or parsing error
+            throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
 }

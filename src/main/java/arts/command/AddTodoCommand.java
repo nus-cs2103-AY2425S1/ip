@@ -6,11 +6,12 @@ import arts.task.Todo;
 import arts.util.Storage;
 import arts.util.Ui;
 
-
 /**
  * Represents a command to add a todo task to the task list.
  */
 public class AddTodoCommand implements Command {
+    private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description of a todo cannot be empty.";
+
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -40,12 +41,13 @@ public class AddTodoCommand implements Command {
     @Override
     public String execute() throws ArtsException {
         if (description == null || description.trim().isEmpty()) {
-            throw new ArtsException("The description of a todo cannot be empty.");
+            throw new ArtsException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
         tasks.addTask(new Todo(description));
         storage.save(tasks.getTasks());
-        return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
-                + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                + " in the list.";
+        return String.format("Got it. I've added this task:\n %s\nNow you have %d %s in the list.",
+                tasks.getTask(tasks.size() - 1),
+                tasks.size(),
+                tasks.size() == 1 ? "task" : "tasks");
     }
 }
