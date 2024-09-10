@@ -18,6 +18,8 @@ public class UserInterface extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinHeight(650);
+            stage.setMinWidth(400);
             fxmlLoader.<MainWindow>getController().setDawn(dawn);
             stage.show();
         } catch (IOException e) {
