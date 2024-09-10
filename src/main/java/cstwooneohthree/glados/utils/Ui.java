@@ -113,9 +113,10 @@ public class Ui {
      * Prints or returns all elements inside the tasklist.
      *
      * @param taskList Task list to be printed.
+     * @param isFilteredList Whether or not list has been filtered after find command.
      */
-    public String list(ArrayList<Task> taskList, boolean shouldFindMatching) {
-        String findMatchingString = shouldFindMatching ? " that matches input..." : "...";
+    public String list(ArrayList<Task> taskList, boolean isFilteredList) {
+        String findMatchingString = isFilteredList ? " that matches input..." : "...";
         StringBuilder message = new StringBuilder("\nGLaDOS: Here is the list" + findMatchingString + "\n");
 
         message.append(
