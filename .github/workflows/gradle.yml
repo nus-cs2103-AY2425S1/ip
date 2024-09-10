@@ -56,12 +56,12 @@ jobs:
     - name: build Jar file
       run: ./gradlew shadowJar
       
-    - name: Get Changes between Tags
-      id: changes
-      uses: simbo/changes-between-tags-action@v1
+    - name: Build Changelog
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v5
       
     - name: Output changelog
-      run: echo "tag = ${{ steps.changes.outputs.tag }}, changes = ${{ steps.changes.outputs.changes }}"
+      run: echo "tag = ${{ steps.github_release.outputs.changelog }}"
       
     - name: Release Jar file
       uses: phuonghuynh/action-ghrelease@v1.1.0
