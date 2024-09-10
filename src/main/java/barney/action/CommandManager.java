@@ -38,24 +38,15 @@ public class CommandManager {
     private HashMap<String, String> parseArgument(CommandType commandType, String line) {
         HashMap<String, String> commandMap = new HashMap<String, String>();
         commandMap.put("command", commandType.toString());
-        switch (commandType) {
-        case LIST, BYE -> {
+        for (int argIndex = commandType.commandArgs.length - 1; argIndex >= 1; argIndex--) {
+            String[] splitLine = line.split("/" + commandType.commandArgs[argIndex]);
+            commandMap.put(commandType.commandArgs[argIndex], splitLine[1].trim());
+            line = splitLine[0].trim();
         }
-        case MARK, UNMARK, DELETE, TODO, FIND -> commandMap.put(commandType.commandArgs[0], line);
-        case DEADLINE -> {
-            String[] deadlineArgs = line.split("/by");
-            commandMap.put(commandType.commandArgs[0], deadlineArgs[0].trim());
-            commandMap.put(commandType.commandArgs[1], deadlineArgs[1].trim());
+        if (commandType.commandArgs.length > 0) {
+            commandMap.put(commandType.commandArgs[0], line.trim());
         }
-        case EVENT -> {
-            String[] eventArgs = line.split("/from");
-            String[] timeArgs = eventArgs[1].split("/to");
-            commandMap.put(commandType.commandArgs[0], eventArgs[0].trim());
-            commandMap.put(commandType.commandArgs[1], timeArgs[0].trim());
-            commandMap.put(commandType.commandArgs[2], timeArgs[1].trim());
-        }
-        default -> throw new IllegalArgumentException("Invalid command type");
-        }
+
         return commandMap;
     }
 
@@ -105,8 +96,7 @@ public class CommandManager {
         UNMARK("unmark", UnmarkCommand.class, "index"),
         TODO("todo", TodoCommand.class, "description"),
         DEADLINE("deadline", DeadlineCommand.class, "description", "by"),
-        EVENT("event", EventCommand.class, "description", "from",
-                "to"),
+        EVENT("event", EventCommand.class, "description", "from", "to"),
         DELETE("delete", DeleteCommand.class, "index"),
         FIND("find", FindCommand.class, "keyword"),
         BYE("bye", EndCommand.class);
