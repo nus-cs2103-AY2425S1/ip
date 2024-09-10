@@ -130,6 +130,7 @@ public class ChatBotLogic {
 			}
 		}
 		if (eventChainType == EventChainType.LIST) {    // state DEFAULT -> LIST
+			assert (taskList != null);  // taskList should not be null
 			switch (userMessage) {
 			case "view" -> {
 				eventChainType = EventChainType.VIEW;
@@ -349,7 +350,7 @@ public class ChatBotLogic {
 				return "back to main";
 			}
 			case "mark" -> {
-				assert (flaggedTask != null);
+				assert (flaggedTask != null);   // flaggedTask should not be null
 				if (flaggedTask.isDone()) {
 					return flaggedTask.getName() + " is already marked done";
 				} else {
@@ -361,7 +362,7 @@ public class ChatBotLogic {
 				}
 			}
 			case "unmark" -> {
-				assert (flaggedTask != null);
+				assert (flaggedTask != null);   // flaggedTask should not be null
 				if (!flaggedTask.isDone()) {
 					return flaggedTask.getName() + " is already marked undone";
 				} else {
