@@ -26,9 +26,20 @@ public class Command {
      * @param tasks The list of tasks to be manipulated by this command.
      */
     public Command(String[] inputParts, TaskList tasks) {
+        // Assert that inputParts is not null and has at least one element
+        assert inputParts != null && inputParts.length > 0
+                : "Input parts should not be null and must contain at least one element.";
+
         this.inputParts = inputParts;
         this.command = inputParts[0];
         this.tasks = tasks;
+
+        // Assert that command is not null or empty
+        assert this.command != null && !this.command.trim().isEmpty()
+                : "Command should not be null or empty.";
+
+        // Assert that tasks is not null
+        assert this.tasks != null : "Task list should not be null.";
     }
 
     /**
@@ -54,6 +65,9 @@ public class Command {
      * The command may modify the task list or provide feedback to the user.
      */
     public void run() {
+        // Assert that the command is a valid one
+        assert this.command != null : "Command should not be null.";
+
         switch (this.command) {
         case "bye":
             break;
