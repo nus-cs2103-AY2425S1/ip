@@ -286,6 +286,13 @@ public class Elsa {
                 String[] parts = userInput.split(" /by ", 2);
                 String description = parts[0].replace("deadline ", "").trim();
                 String by = parts[1].trim();
+                // Handle the case where the 'by' variable is not in the correct format of yyyy-mm-dd hhmm (time)
+                if (by.length() != 16 || !by.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}")) {
+                    addLine();
+                    System.out.println("Please follow the yyyy-mm-dd hh:mm format for this task with a deadline.");
+                    addLine();
+                    continue;
+                }
                 addDeadline(tasks, description, by);
             } else if (userInput.startsWith("event")) {
                 String[] parts = userInput.split(" /from | /to ");
