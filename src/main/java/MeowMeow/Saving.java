@@ -1,4 +1,4 @@
-package meowmeow;
+package MeowMeow;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package meowmeow;
+package MeowMeow;
 
 public class Task {
     protected String description;

@@ -1,14 +1,14 @@
-package meowmeow;
+package MeowMeow;
 
 import java.io.IOException;
 
-public class meowmeow {
+public class MeowMeow {
     private Saving saver;
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
-    public meowmeow(String filePath) {
+    public MeowMeow(String filePath) {
         this.saver = new Saving(filePath);
         this.ui = new Ui();
     }
@@ -22,6 +22,6 @@ public class meowmeow {
     }
 
     public static void main(String[] args) throws IOException {
-        new meowmeow("./data/duke.txt").run();
+        new MeowMeow("./data/duke.txt").run();
     }
 }

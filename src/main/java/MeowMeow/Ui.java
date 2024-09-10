@@ -1,4 +1,4 @@
-package meowmeow;
+package MeowMeow;
 
 import java.util.Scanner;
 

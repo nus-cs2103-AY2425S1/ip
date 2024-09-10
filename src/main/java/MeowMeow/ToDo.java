@@ -1,4 +1,4 @@
-package meowmeow;
+package MeowMeow;
 
 class ToDo extends Task {
     public ToDo(String description) {
