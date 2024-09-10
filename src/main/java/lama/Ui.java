@@ -156,6 +156,37 @@ public class Ui {
         showBarFooter();
     }
 
+    /**
+     * Display the alias command added.
+     *
+     * @param alias The alias to set.
+     * @param command The command the alias should map to.
+     */
+    public void showAliasCommand(String alias, String command) {
+        showBar();
+        System.out.println("Alias set: " + alias + " -> " + command);
+        showBarFooter();
+    }
+
+    /**
+     * Display the list of aliases.
+     */
+    public void showAliasListCommand() {
+        showBar();
+        System.out.println("Here are the aliases in your list:");
+        AliasManager.showAliases();
+        showBarFooter();
+    }
+
+    /**
+     * Display the aliases deleted
+     */
+    public void showDeleteAliasCommand(String alias) {
+        showBar();
+        System.out.println("Alias '" + alias + "' has been deleted");
+        showBarFooter();
+    }
+
     private void showBar() {
         System.out.println(BAR);
     }

@@ -61,7 +61,7 @@ public class MarkCommandTest {
         TaskList taskList = new TaskList();
         taskList.add(todo);
         Ui ui = new Ui();
-        Storage storage = new Storage("./testAdd.txt");
+        Storage storage = new Storage("./testAdd.txt", "./testAliasList.txt");
 
         Command markCommand = new MarkCommand(0);
 

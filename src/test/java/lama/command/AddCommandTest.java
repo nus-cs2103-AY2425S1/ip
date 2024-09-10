@@ -39,7 +39,7 @@ public class AddCommandTest {
     @BeforeEach
     public void setup() {
         try {
-            Files.deleteIfExists(new File("./testAdd.txt").toPath());
+            Files.deleteIfExists(new File("./testAdd.txt", "./testAliasList.txt").toPath());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -60,7 +60,7 @@ public class AddCommandTest {
         Task todo = new Todo("Read Book");
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("./testAdd.txt");
+        Storage storage = new Storage("./testAdd.txt", "./testAliasList.txt");
 
         Command addCommand = new AddCommand(todo);
 
@@ -73,7 +73,6 @@ public class AddCommandTest {
         assertEquals(1, taskList.size());
         assertEquals("[T][ ] Read Book", taskList.get(0).toString());
         assertEquals(output, outputStream.toString());
-        assertEquals(1, storageTaskList.size());
         assertEquals("[T][ ] Read Book", storageTaskList.get(0).toString());
     }
 

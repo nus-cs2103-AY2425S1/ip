@@ -1,0 +1,13 @@
+a=alias
+b=bye
+d=deadline
+e=event
+f=find
+del=delete
+al=aliases
+l=list
+m=mark
+r=remove
+t=todo
+u=unmark
+rm=remove

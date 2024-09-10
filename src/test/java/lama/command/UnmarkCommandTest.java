@@ -60,7 +60,7 @@ public class UnmarkCommandTest {
         todo.markAsDone();
         taskList.add(todo);
         Ui ui = new Ui();
-        Storage storage = new Storage("./testAdd.txt");
+        Storage storage = new Storage("./testAdd.txt", "./testAliasList.txt");
 
         assertEquals(1, taskList.size());
         assertEquals("[T][X] Read Book", taskList.get(0).toString());

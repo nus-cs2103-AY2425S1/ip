@@ -35,7 +35,7 @@ public class FindCommandTest {
     public void runTest() throws LamaException {
         System.setOut(new PrintStream(outputStream));
         Ui ui = new Ui();
-        Storage storage = new Storage("./testing.txt");
+        Storage storage = new Storage("./testing.txt", "./testAliasList.txt");
         TaskList taskList = new TaskList();
         Task task = new Todo("Read Book");
         Task task2 = new Todo("Sleep");
@@ -61,7 +61,7 @@ public class FindCommandTest {
     public void runNoneTest() throws LamaException {
         System.setOut(new PrintStream(outputStream));
         Ui ui = new Ui();
-        Storage storage = new Storage("./testing.txt");
+        Storage storage = new Storage("./testing.txt", "./testAliasList.txt");
         TaskList taskList = new TaskList();
         Task task = new Todo("Read Book");
         Task task2 = new Todo("Sleep");

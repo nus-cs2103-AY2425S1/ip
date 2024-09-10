@@ -18,14 +18,24 @@ public class Lama {
      * Initialises the UI, storage and task list.
      * If loading task fail, it creates a new one.
      *
-     * @param filePath String file path where tasks will be stored.
+     * @param tasksFilePath String file path where tasks will be stored.
+     * @param aliasFilePath String file path where alias will be stored.
      */
-    public Lama(String filePath) {
+    public Lama(String tasksFilePath, String aliasFilePath) {
         this.ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(tasksFilePath, aliasFilePath);
+        initializeAliasesList();
         this.taskList = initializeTaskList();
     }
 
+    private void initializeAliasesList() {
+        try {
+            AliasManager.setStorage(storage);
+            AliasManager.loadAliases();
+        } catch (LamaException e) {
+            ui.showError(e.getMessage());
+        }
+    }
     private TaskList initializeTaskList() {
         try {
             return new TaskList(storage.loadTask());
@@ -66,7 +76,7 @@ public class Lama {
      * @param args not used.
      */
     public static void main(String[] args) {
-        new Lama("./data/lama.txt").run();
+        new Lama("./data/lama.txt", "./data/alias.txt").run();
     }
 
     /**

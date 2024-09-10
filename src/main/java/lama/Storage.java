@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import lama.task.Deadline;
@@ -24,18 +26,22 @@ public class Storage {
     private static final String DATE_FORMAT = "yyyy-MM-dd HHmm";
     private static final String DONE = "1";
 
-    private final String path;
-
+    private final String taskFilePath;
+    private final String aliasFilePath;
 
     /**
      * Construct a Storage object with the specified file path given.
      *
-     * @param path String of file path where tasks will be saved and loaded from.
+     * @param taskFilePath String of file path where tasks will be saved and loaded from.
+     * @param aliasFilePath String of the file path where alias will be saved.
      */
-    public Storage(String path) {
-        assert path != null : "File path should not be null";
-        assert !path.trim().isEmpty() : "File path should not be empty";
-        this.path = path;
+    public Storage(String taskFilePath, String aliasFilePath) {
+        assert taskFilePath != null : "Task file path should not be null";
+        assert aliasFilePath != null : "Alias file path should not be null";
+        assert !taskFilePath.trim().isEmpty() : "Task file path should not be empty";
+        assert !aliasFilePath.trim().isEmpty() : "Alias file path should not be empty";
+        this.taskFilePath = taskFilePath;
+        this.aliasFilePath = aliasFilePath;
     }
 
     /**
@@ -48,7 +54,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTask() throws LamaException {
 
-        File file = new File(path);
+        File file = new File(taskFilePath);
         if (!file.exists()) {
             createNewFile(file);
         }
@@ -66,6 +72,34 @@ public class Storage {
         }
 
         return list;
+    }
+
+    /**
+     * Load aliases from the alias file.
+     *
+     * @return Map containing alias-command mappings.
+     * @throws LamaException Thrown if an error occurs while reading the file.
+     */
+    public Map<String, String> loadAliases() throws LamaException {
+        File aliasFile = new File(aliasFilePath);
+        if (!aliasFile.exists()) {
+            createNewFile(aliasFile);
+        }
+
+        Map<String, String> aliasMap = new HashMap<>();
+        try (Scanner scanner = new Scanner(aliasFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("=", 2);
+                if (parts.length == 2) {
+                    aliasMap.put(parts[0], parts[1]);
+                }
+            }
+        } catch (IOException e) {
+            throw new LamaException("Error reading alias file: " + e.getMessage());
+        }
+
+        return aliasMap;
     }
 
     private void createNewFile(File file) throws LamaException {
@@ -138,7 +172,7 @@ public class Storage {
     public void saveTasks(TaskList taskList) throws LamaException {
         assert taskList != null : "Task list should not be null";
         try {
-            FileWriter fileWriter = new FileWriter(path);
+            FileWriter fileWriter = new FileWriter(taskFilePath);
 
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
@@ -160,11 +194,28 @@ public class Storage {
     public void addTask(Task task) throws LamaException {
         assert task != null : "Task should not be null";
         try {
-            FileWriter fileWriter = new FileWriter(path, true);
+            FileWriter fileWriter = new FileWriter(taskFilePath, true);
             fileWriter.write(task.toFileFormat() + "\n");
             fileWriter.close();
         } catch (IOException e) {
             throw new LamaException("Error writing file: " + e.getMessage());
         }
     }
+
+    /**
+     * Save aliases to the alias file.
+     *
+     * @param aliasMap Map containing alias-command mappings to be saved.
+     * @throws LamaException Thrown if an error occurs while writing the file.
+     */
+    public void saveAliases(Map<String, String> aliasMap) throws LamaException {
+        try (FileWriter fileWriter = new FileWriter(aliasFilePath)) {
+            for (Map.Entry<String, String> entry : aliasMap.entrySet()) {
+                fileWriter.write(entry.getKey() + "=" + entry.getValue() + "\n");
+            }
+        } catch (IOException e) {
+            throw new LamaException("Error writing alias file: " + e.getMessage());
+        }
+    }
+
 }
