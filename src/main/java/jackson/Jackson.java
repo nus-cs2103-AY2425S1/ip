@@ -57,10 +57,6 @@ public class Jackson {
         this.ui = new Ui();
         this.storage = new Storage(PATH);
         this.commandType = Commands.CommandType.INTRO;
-
-        // Code to test if asserts enabled
-        // Should be the case since build.gradle explicitly enables it
-        // assert false: "Asserts enabled!";
     }
 
     /**
@@ -218,6 +214,7 @@ public class Jackson {
 
     /**
      * Returns welcome message.
+     * Used for GUI.
      * @return String representation of welcome message.
      */
     public String start() {
@@ -226,6 +223,7 @@ public class Jackson {
 
     /**
      * Loads task list from save file (if it exists).
+     * Used for GUI.
      * @return String representation of success or failure of loading.
      */
     public String load() {
@@ -234,6 +232,7 @@ public class Jackson {
 
     /**
      * Returns goodbye String.
+     * Used for GUI.
      * @return String representation of goodbye.
      */
     public String sayGoodbye() {
@@ -242,6 +241,7 @@ public class Jackson {
 
     /**
      * Returns last executed commandType for chatbot text box drawing.
+     * Used for GUI.
      * @return {@code Commands.CommandType} of last executed command.
      */
     public Commands.CommandType getCommandType() {

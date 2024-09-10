@@ -1,48 +1,50 @@
 package jackson.utils;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.OutOfListException;
 import jackson.tasks.Todo;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
     @Test
-    public void addTask_invalidIndex_DuplicatedTaskExceptionThrown() {
+    public void addTask_invalidIndex_duplicatedTaskExceptionThrown() {
         TaskList taskList = new TaskList(new Todo("lambda"));
 
-        assertThrows(DuplicatedTaskException.class, () -> {taskList.addTask(new Todo("lambda"));});
+        assertThrows(DuplicatedTaskException.class, () -> taskList.addTask(new Todo("lambda")));
     }
 
     @Test
-    public void deleteTask_invalidIndex_OutOfListExceptionThrown() {
+    public void deleteTask_invalidIndex_outOfListExceptionThrown() {
         TaskList taskList = new TaskList(new Todo("lambda"));
 
-        assertThrows(OutOfListException.class, () -> {taskList.deleteTask(2);});
-        assertThrows(OutOfListException.class, () -> {taskList.deleteTask(-1);});
+        assertThrows(OutOfListException.class, () -> taskList.deleteTask(2));
+        assertThrows(OutOfListException.class, () -> taskList.deleteTask(-1));
     }
 
     @Test
-    public void deleteTask_validIndex_NoExceptionThrown() {
+    public void deleteTask_validIndex_noExceptionThrown() {
         TaskList taskList = new TaskList(new Todo("lambda"));
 
-        assertDoesNotThrow(() -> {taskList.deleteTask(0);});
+        assertDoesNotThrow(() -> taskList.deleteTask(0));
     }
 
     @Test
-    public void mark_invalidIndex_OutOfListExceptionThrown() {
+    public void mark_invalidIndex_outOfListExceptionThrown() {
         TaskList taskList = new TaskList(new Todo("lambda"));
 
-        assertThrows(OutOfListException.class, () -> {taskList.mark(2);});
-        assertThrows(OutOfListException.class, () -> {taskList.mark(-1);});
+        assertThrows(OutOfListException.class, () -> taskList.mark(2));
+        assertThrows(OutOfListException.class, () -> taskList.mark(-1));
     }
 
     @Test
-    public void unmark_invalidIndex_OutOfListExceptionThrown() {
+    public void unmark_invalidIndex_outOfListExceptionThrown() {
         TaskList taskList = new TaskList(new Todo("lambda"));
 
-        assertThrows(OutOfListException.class, () -> {taskList.unmark(2);});
-        assertThrows(OutOfListException.class, () -> {taskList.unmark(-1);});
+        assertThrows(OutOfListException.class, () -> taskList.unmark(2));
+        assertThrows(OutOfListException.class, () -> taskList.unmark(-1));
     }
 }
