@@ -49,6 +49,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert this.bot != null : "bot should be non-null";
         this.bot.executeCommand(userInput.getText());
         userInput.clear();
     }
