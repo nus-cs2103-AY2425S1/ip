@@ -33,7 +33,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException, AiException {
         Path path = Paths.get(filePath);
-        Path directoryPath = path.getParent();
+        Path directory = path.getParent();
 
         File dir = new File(directory.toString());
 
