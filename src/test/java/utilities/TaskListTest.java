@@ -11,6 +11,7 @@ public class TaskListTest {
     private static final String ACTUAL_STRING = "1.[T][ ]  borrow book \n"
             + "2.[E][X]  project meeting from: Dec 29 2024 12:00 to: Dec 29 2024 17:00 \n"
             + "3.[T][ ]  borrow notes";
+
     private Storage store = new Storage(FILE_PATH);
 
     @Test

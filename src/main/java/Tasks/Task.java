@@ -17,7 +17,7 @@ public abstract class Task {
     }
 
     /**
-     * Toggles isDone as true.
+     * Toggles isDone as false.
      */
     public void markAsNotDone() {
         this.isDone = false;
@@ -30,6 +30,9 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns generated write format for the specific task.
+     */
     public abstract String getWriteTaskInfo();
 
     @Override
