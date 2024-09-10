@@ -3,15 +3,16 @@ package nextgpt.command;
 import java.io.IOException;
 
 import nextgpt.NextGPTException;
-import nextgpt.task.Task;
+
+import nextgpt.Storage;
 import nextgpt.TaskList;
 import nextgpt.Ui;
-import nextgpt.Storage;
+import nextgpt.task.Task;
 
 /**
  * Subclass of Command that adds tasks to task list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     protected Task todo;
 
     public AddCommand(Task todo){
@@ -31,10 +32,14 @@ public class AddCommand extends Command{
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
 
         try {
+            assert ui != null: "Storage cannot be NULL!";
+            assert tasks != null: "Ui cannot be NULL!";
+            assert storage != null: "Task list cannot be NULL!";
+
             tasks.add(todo);
             storage.add_to_memory(tasks);
             return ui.addTask(todo, tasks.size());
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new NextGPTException("There was an error saving the file. Please try again.");
         }
     }

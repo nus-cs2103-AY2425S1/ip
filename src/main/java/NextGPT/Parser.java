@@ -1,5 +1,6 @@
 package nextgpt;
 
+
 import nextgpt.command.*;
 import nextgpt.task.Deadline;
 import nextgpt.task.Event;
@@ -16,15 +17,15 @@ public class Parser {
      * @return Command that contains the properties of user input.
      * @throws NextGPTException If user input is invalid.
      */
-    static Command parse(String fullCommand) throws NextGPTException{
-        String[] split = fullCommand.trim().split(" ",2);
+    static Command parse(String fullCommand) throws NextGPTException {
+        String[] split = fullCommand.trim().split(" ", 2);
         String keyword = split[0];
 
         switch(keyword.toLowerCase()) {
         case "todo":
             if (split.length != 2) {
-                throw new NextGPTException("Task name missing! Please include the task to be done! \n" +
-                        "ie Todo <task name>\n");
+                throw new NextGPTException("Task name missing! Please include the task to be done! \n"
+                        + "ie Todo <task name>\n");
             }
             return new AddCommand(new Todo(split[1].trim()));
         case "deadline":
@@ -84,8 +85,10 @@ public class Parser {
                 throw new NextGPTException("Please input the keyword for me to find!");
             }
             return new FindCommand(split[1].trim());
+        default:
+            throw new NextGPTException("Sorry, I do not understand what that means.");
         }
-        throw new NextGPTException("Sorry, I do not understand what that means.");
+
     }
 }
 

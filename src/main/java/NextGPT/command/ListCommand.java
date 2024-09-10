@@ -9,7 +9,7 @@ import nextgpt.Storage;
 /**
  * Subclass of Command that displays content of task list.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Displays content of task list.
      */

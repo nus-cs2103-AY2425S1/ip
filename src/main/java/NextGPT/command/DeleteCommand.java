@@ -1,5 +1,6 @@
 package nextgpt.command;
 
+
 import java.io.IOException;
 
 import nextgpt.NextGPTException;
@@ -9,13 +10,12 @@ import nextgpt.Ui;
 import nextgpt.Storage;
 
 
-
 /**
  * Subclass of Command that deletes tasks from task list
  */
+
 public class DeleteCommand extends Command{
     private int index;
-
     public DeleteCommand(int index) {
         this.index = index;
     }
@@ -32,6 +32,10 @@ public class DeleteCommand extends Command{
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException {
         try {
+            assert ui != null: "Storage cannot be NULL!";
+            assert tasks != null: "Ui cannot be NULL!";
+            assert storage != null: "Task list cannot be NULL!";
+
             Task deletedTask = tasks.remove(index);
             storage.add_to_memory(tasks);
             return ui.delete(deletedTask, tasks.size());

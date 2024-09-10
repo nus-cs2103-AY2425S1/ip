@@ -14,7 +14,9 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
-    public LocalDate getBy() {return this.by;}
+    public LocalDate getBy() {
+        return this.by;
+    }
 
     @Override
     public String toString() {

@@ -1,9 +1,10 @@
 package nextgpt.command;
 
+import nextgpt.NextGPTException;
 import nextgpt.TaskList;
 import nextgpt.Ui;
 import nextgpt.Storage;
-import nextgpt.NextGPTException;
+
 
 /**
  * Abstract command class that can be executed.

@@ -8,14 +8,16 @@ import nextgpt.TaskList;
 import nextgpt.task.Task;
 import nextgpt.Ui;
 
-
 /**
  * Subclass of Command that edits tasks from task list
  */
-public class EditCommand extends Command{
+public class EditCommand extends Command {
     protected boolean isMark;
     protected int index;
 
+    /**
+     * Constructor of Command that edits tasks from task list
+     */
     public EditCommand(Boolean isMark, int index) {
         this.isMark = isMark;
         this.index = index;
@@ -31,8 +33,12 @@ public class EditCommand extends Command{
      * @throws NextGPTException If error occurs while saving new task list.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException {
         try {
+            assert ui != null: "Storage cannot be NULL!";
+            assert tasks != null: "Ui cannot be NULL!";
+            assert storage != null: "Task list cannot be NULL!";
+
             Task task = tasks.get(index);
             if (isMark) {
                 task.mark();
@@ -51,6 +57,7 @@ public class EditCommand extends Command{
         }
 
     }
+
     @Override
     public boolean isExit() {
         return false;
