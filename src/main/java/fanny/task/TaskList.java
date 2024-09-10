@@ -116,7 +116,7 @@ public class TaskList {
     }
 
     /**
-     * Finds the list of task that matches the keyword provided.
+     * Finds the list of task that matches the keyword provided using Streams.
      *
      * @param keyword The keyword to search for.
      * @return A list of filtered tasks that contains the keyword.
