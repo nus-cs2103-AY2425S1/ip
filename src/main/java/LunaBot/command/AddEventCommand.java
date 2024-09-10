@@ -28,7 +28,7 @@ public class AddEventCommand extends Command {
      *                          or wrong date/time format.
      */
     public AddEventCommand(String input) throws LunaBotException {
-        this.parts = input.substring(6).split(" /from | /to");
+        this.parts = input.substring(6).split(" /from | /to ");
         if (parts.length < 3) {
             throw new LunaBotException("Invalid event format");
         }
