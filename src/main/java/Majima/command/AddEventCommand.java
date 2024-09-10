@@ -33,6 +33,7 @@ public class AddEventCommand extends Command {
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask);
         storage.save(tasks.getTasks());
+        assert newTask != null : "Assertion Failed: Event object cannot be equal to null";
     }
 
     @Override

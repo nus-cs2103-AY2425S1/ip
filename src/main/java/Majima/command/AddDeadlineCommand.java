@@ -30,6 +30,7 @@ public class AddDeadlineCommand extends Command {
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask);
         storage.save(tasks.getTasks());
+        assert newTask != null : "Assertion Failed: Deadline object cannot be equal to null";
     }
 
     @Override

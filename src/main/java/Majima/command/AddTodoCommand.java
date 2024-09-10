@@ -21,12 +21,17 @@ public class AddTodoCommand extends Command {
     }
 
 
+    /**
+     * The assertion should never come true as an empty/invalid command
+     * is caught by other classes
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MajimaException {
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask);
         storage.save(tasks.getTasks());
+        assert newTask != null : "Assertion Failed: Todo object cannot be equal to null";
     }
 
     @Override
