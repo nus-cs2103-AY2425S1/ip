@@ -38,17 +38,21 @@ public class ListManager {
      * @param index The index of the task in the itemList (1-based index).
      */
     public void setDone(boolean done, int index) {
-        assert index > 0 && index <= itemList.size() : "Index out of range";
+        boolean isValidIndex = index > 0 && index <= itemList.size();
 
-        if (index > 0 && index <= itemList.size()) {
+        assert isValidIndex : "Index out of range";
+
+        if (isValidIndex) {
             itemList.get(index - 1).setDone(done);
         }
     }
 
     public void delete(int index) {
-        assert index > 0 && index <= itemList.size() : "Index out of range";
+        boolean isValidIndex = index > 0 && index <= itemList.size();
 
-        if (index > 0 && index <= itemList.size()) {
+        assert isValidIndex : "Index out of range";
+
+        if (isValidIndex) {
             itemList.remove(index-1);
         }
     }
@@ -64,8 +68,10 @@ public class ListManager {
      * @return The string representation of the task, or an empty string if the index is invalid.
      */
     public String getItem(int index) {
+        boolean isValidIndex = index > 0 && index <= itemList.size();
+
         assert index >= 0:"Index for getItem is negative!";
-        if (index > 0 && index <= itemList.size()) {
+        if (isValidIndex) {
             Task task = itemList.get(index - 1);
             return task.toString();
         }
