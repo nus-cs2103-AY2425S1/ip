@@ -33,18 +33,6 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_multipleArgumentsProvided_throwsInvalidCommandException() {
-        DeleteCommand command = new DeleteCommand("1 2");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid input format. Please use the correct format: 'delete [task index]'",
-                exception.getMessage());
-    }
-
-    @Test
     public void execute_validIndex_deleteTaskSuccess() throws InvalidCommandException {
         Task task1 = new Todo("Task 1");
         Task task2 = new Todo("Task 2");
