@@ -10,10 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import fanny.ui.Ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Controller for the main GUI.
@@ -63,26 +59,12 @@ public class MainWindow extends AnchorPane {
      * Displays the startup message from the Ui class in the dialog container.
      */
     private void showStartupMessage() {
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos);
-        PrintStream old = System.out;
-
-        System.setOut(ps);
-
-        Ui ui = new Ui();
-        ui.printHello();
-
-        System.out.flush();
-        System.setOut(old);
-
-        String welcomeMessage = baos.toString();
-        String filteredMessage = Arrays.stream(welcomeMessage.split(System.lineSeparator()))
-                .filter(line -> !line.matches("[-_]+"))
-                .collect(Collectors.joining(System.lineSeparator()));
+        String welcomeMessage = fanny.captureCliMsg(() -> new Ui().printHello());
+        String filteredMessage = fanny.filterLines(welcomeMessage);
 
         dialogContainer.getChildren().add(
                 DialogBox.getFannyDialog(filteredMessage, dukeImage)
         );
     }
+
 }
