@@ -1,13 +1,7 @@
 package dook.parser;
 
 import dook.DookException;
-import dook.commands.Command;
-import dook.commands.CreateCommand;
-import dook.commands.DeleteCommand;
-import dook.commands.ExitCommand;
-import dook.commands.FindCommand;
-import dook.commands.ListCommand;
-import dook.commands.MarkingCommands;
+import dook.commands.*;
 import dook.tasks.TaskType;
 
 /**
@@ -49,6 +43,8 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(components[1]));
             case "find":
                 return new FindCommand(components[1]);
+            case "help":
+                return new HelpCommand();
             default:
                 throw new DookException("Invalid command");
             }
