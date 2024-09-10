@@ -83,6 +83,7 @@ public class CommandOption<T> {
      *                                  string
      */
     public int parse(String input, String endDelimeter) throws IllegalArgumentException {
+        // Match option format: /option1 value1 /option2 value2 ...
         Pattern pattern = Pattern.compile("/" + this.option + " (.+?)" + endDelimeter);
         Matcher matcher = pattern.matcher(input);
         if (!matcher.find()) {

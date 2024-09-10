@@ -152,7 +152,7 @@ public class TaskListCli extends TaskListUi {
                     CommandParser parser = new CommandParser(input);
                     CommandType commandType = parser.getCommandType();
                     Command command = commandType.createCommand();
-                    command.execute(this, taskList, parser);
+                    command.executeCommand(this, taskList, parser);
 
                 } catch (IndexOutOfBoundsException | IllegalCommandException e) {
                     System.out.println(e.getMessage());

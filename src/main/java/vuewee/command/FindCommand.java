@@ -15,7 +15,7 @@ class FindCommand extends Command {
      * @param taskList the task list to perform operations on
      * @param parser   the command parser for parsing user input
      */
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         parser.parse(true);
         String keyword = parser.getDescription();
         TaskList matchingTasks = taskList.findTasks(keyword);

@@ -21,11 +21,11 @@ public class FindCommandTest {
 
         FindCommand command = new FindCommand();
 
-        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
-                "find xxx")));
+        assertThrows(IllegalCommandException.class, () -> command.executeCommand(taskListUI, taskList,
+                new CommandParser("find xxx")));
 
         // Can only test successful execution
-        command.execute(taskListUI, taskList, new CommandParser("find task2"));
+        command.executeCommand(taskListUI, taskList, new CommandParser("find task2"));
 
         taskListUI.close();
     }

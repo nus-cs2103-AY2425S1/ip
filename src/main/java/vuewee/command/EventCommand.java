@@ -20,7 +20,7 @@ class EventCommand extends Command {
      * @param taskList The task list to add the event task to.
      * @param parser   The command parser for parsing command options.
      */
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
                 TaskLocalDate::parse);
         CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",

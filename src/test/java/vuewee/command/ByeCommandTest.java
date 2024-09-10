@@ -11,6 +11,6 @@ public class ByeCommandTest {
     @Test
     public void testByeCommand() {
         ByeCommand byeCommand = new ByeCommand();
-        assertThrows(EndProgramException.class, () -> byeCommand.execute(null, null, null));
+        assertThrows(EndProgramException.class, () -> byeCommand.executeCommand(null, null, null));
     }
 }

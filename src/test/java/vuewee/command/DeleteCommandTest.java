@@ -22,18 +22,18 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand();
 
         // Test edge case deletion (1-index)
-        assertThrows(IndexOutOfBoundsException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
-                "delete 0")));
+        assertThrows(IndexOutOfBoundsException.class, () -> command.executeCommand(taskListUI, taskList,
+                new CommandParser("delete 0")));
         assertEquals(3, taskList.size());
-        assertThrows(IndexOutOfBoundsException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
-                "delete 4")));
+        assertThrows(IndexOutOfBoundsException.class, () -> command.executeCommand(taskListUI, taskList,
+                new CommandParser("delete 4")));
         assertEquals(3, taskList.size());
 
-        command.execute(taskListUI, taskList, new CommandParser("delete 3"));
+        command.executeCommand(taskListUI, taskList, new CommandParser("delete 3"));
         assertEquals(2, taskList.size());
         assertEquals("T | 0 | task1\nT | 0 | task2\n", taskList.serialize());
 
-        command.execute(taskListUI, taskList, new CommandParser("delete 1"));
+        command.executeCommand(taskListUI, taskList, new CommandParser("delete 1"));
         assertEquals(1, taskList.size());
         assertEquals("T | 0 | task2\n", taskList.serialize());
 

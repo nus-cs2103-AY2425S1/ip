@@ -15,7 +15,7 @@ class UnmarkCommand extends Command {
      * @param taskList The task list containing the tasks.
      * @param parser   The command parser for parsing user input.
      */
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         parser.parse(true, true);
         ui.markTask(parser.getIntParam(), false);
     }

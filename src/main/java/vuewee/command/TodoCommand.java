@@ -17,7 +17,7 @@ class TodoCommand extends Command {
      * @param taskList the task list to add the todo task to
      * @param parser   the command parser for parsing the input
      */
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         parser.parse(true);
         ui.addTask(new TodoTask(parser.getDescription()));
     }

@@ -20,7 +20,7 @@ class DeadlineCommand extends Command {
      * @param taskList The task list to add the task to.
      * @param parser   The command parser for parsing command options.
      */
-    public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+    public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         CommandOption<TaskLocalDate> byOption = new CommandOption<TaskLocalDate>("by", "date yyyy-mm-dd",
                 TaskLocalDate::parse);
         parser.parse(true, false, byOption);
