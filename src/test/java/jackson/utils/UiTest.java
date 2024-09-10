@@ -2,10 +2,11 @@ package jackson.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jackson.exceptions.DuplicatedTaskException;
-import jackson.tasks.Todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import jackson.exceptions.DuplicatedTaskException;
+import jackson.tasks.Todo;
 
 public class UiTest {
 
@@ -14,56 +15,56 @@ public class UiTest {
         Ui ui = new Ui();
 
         assertEquals("""
-                    More about bye:
-                        --> bye
-                    Exits the chatbot.""", ui.printFormatGuide("bye"));
+                More about bye:
+                    --> bye
+                Exits the chatbot.""", ui.printFormatGuide("bye"));
 
         assertEquals("""
-                    More about delete:
-                        --> delete [index]
-                    Deletes task at index [index].""", ui.printFormatGuide("delete"));
+                        More about delete:
+                            --> delete [index]
+                        Deletes task at index [index].""", ui.printFormatGuide("delete"));
 
-        assertEquals( """
+        assertEquals("""
                     More about unmark:
                         --> unmark [index]
                     Marks task at index [index] as incomplete.""", ui.printFormatGuide("unmark"));
 
-        assertEquals( """
+        assertEquals("""
                     More about mark:
                         --> mark [index]
                     Marks task at index [index] as complete.""", ui.printFormatGuide("mark"));
 
-        assertEquals( """
+        assertEquals("""
                     More about list:
                         --> list
                     Lists all tasks.""", ui.printFormatGuide("list"));
 
-        assertEquals( """
+        assertEquals("""
                     More about find:
                         --> find [keywords]
                     Finds tasks that contain the keyword(s) in their names.""", ui.printFormatGuide("find"));
 
-        assertEquals( """
+        assertEquals("""
                     More about event:
                         --> event [task-name] /from [start-date] /to [end-date]
                     Creates an event class.
                     All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
                 ui.printFormatGuide("event"));
 
-        assertEquals( """
+        assertEquals("""
                     More about deadline:
                         --> deadline [task-name] /by [due-date]
                     Creates a deadline task.
                     All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
                 ui.printFormatGuide("deadline"));
 
-        assertEquals( """
+        assertEquals("""
                     More about todo:
                         --> todo [task-name]
                     Creates a todo task.
                     No dates allowed at all.""", ui.printFormatGuide("todo"));
 
-        assertEquals( """
+        assertEquals("""
                     More about sort:
                         --> sort [attribute] [/a or /d]
                     where attribute is one of: 'name', 'startdatetime', 'enddatetime', 'tasktype', 'status'""" + """

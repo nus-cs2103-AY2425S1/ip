@@ -15,6 +15,7 @@ import java.time.format.DateTimeParseException;
 public class CustomDateTime implements Comparable<CustomDateTime> {
     // DateTimeFormatters for reading (first 2) from save file and user input
     // and writing (last 2) to save file
+    // ChatGPT assisted with the formulation of this DateTimeFormatterBuilder.
     private static final DateTimeFormatter dateOnly = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy"))

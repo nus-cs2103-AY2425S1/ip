@@ -157,7 +157,8 @@ public class Ui {
         } else if (size == 1) {
             output += "    --> Enter 1 to mark/unmark/delete the task in the list!";
         } else {
-            output += String.format("    --> Enter a number between 1 and %d when marking/unmarking/deleting tasks!", size);
+            output += String.format("    --> Enter a number between 1 and %d when marking/unmarking/deleting tasks!",
+                    size);
         }
         return output;
     }
