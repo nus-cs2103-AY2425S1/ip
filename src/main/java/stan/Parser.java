@@ -26,7 +26,13 @@ public class Parser {
      * @throws StanException If the command is invalid or has missing/invalid arguments.
      */
     public static Command parse(String fullCommand) throws StanException {
+        // Assert that the fullCommand is not null and not empty
+        assert fullCommand != null : "fullCommand should not be null";
+        assert !fullCommand.trim().isEmpty() : "fullCommand should not be empty";
+
         String[] words = fullCommand.split(" ", 2);
+        // Assert that words array is not empty
+        assert words.length > 0 : "words array should contain at least one element";
         CommandType commandType = getCommandType(words[0]);
 
         switch (commandType) {

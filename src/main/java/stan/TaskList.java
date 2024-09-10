@@ -26,6 +26,8 @@ public class TaskList {
      * @param tasks The list of tasks to initialize with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        // Assert that tasks is not null
+        assert tasks != null : "tasks list should not be null";
         this.tasks = tasks;
     }
 
@@ -35,6 +37,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        // Assert that the task being added is not null
+        assert task != null : "task to be added should not be null";
         tasks.add(task);
     }
 
@@ -45,6 +49,8 @@ public class TaskList {
      * @return The removed task.
      */
     public Task remove(int index) {
+        // Assert that index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.remove(index);
     }
 
@@ -55,6 +61,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        // Assert that index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 
@@ -83,8 +91,12 @@ public class TaskList {
      * @return A list of tasks that match the keyword.
      */
     public List<Task> findTasks(String keyword) {
+        // Assert that the keyword is not null
+        assert keyword != null : "Search keyword should not be null";
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
+            // Assert that each task is not null
+            assert task != null : "Task in the list should not be null";
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
