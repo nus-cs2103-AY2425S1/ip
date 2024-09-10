@@ -5,9 +5,10 @@ import java.io.IOException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
-import quack.Storage;
-import quack.TaskList;
-import quack.Ui;
+
+import quack.util.Storage;
+import quack.util.TaskList;
+import quack.util.Ui;
 
 /**
  * This class is responsible for handling the stopping of Quack.
@@ -49,15 +50,23 @@ public class ExitCommand extends Command {
         } catch (IOException IoError) {
             ui.printExceptionMessage(IoError);
         } finally {
-
-            ui.printFarewell();
-
-            // Set a delay to exit the program
-            PauseTransition exitDelay = new PauseTransition(Duration.seconds(3));
-            exitDelay.setOnFinished(event -> Platform.exit());
-
-            // Start the countdown
-            exitDelay.play();
+            this.endQuack();
         }
+    }
+
+    /**
+     * Ends the chatbot application.
+     * <p>
+     */
+    private void endQuack() {
+
+        ui.printFarewell();
+
+        // Set a delay to exit the program
+        PauseTransition exitDelay = new PauseTransition(Duration.seconds(3));
+        exitDelay.setOnFinished(event -> Platform.exit());
+
+        // Start the countdown
+        exitDelay.play();
     }
 }

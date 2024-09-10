@@ -1,4 +1,4 @@
-package quack;
+package quack.util;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class TaskList {
     /**
      * Creates a empty TaskList object.
      */
-    TaskList() {
+    public TaskList() {
 
         this.toDoList = new ArrayList<Task>();
         length = 0;

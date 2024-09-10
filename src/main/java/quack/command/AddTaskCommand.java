@@ -2,12 +2,11 @@ package quack.command;
 
 import java.time.format.DateTimeParseException;
 
-import quack.TaskList;
-import quack.Ui;
 import quack.exception.InvalidDateTimeException;
 import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
-
+import quack.util.TaskList;
+import quack.util.Ui;
 
 /**
  * This class is responsible for handling addition of tasks to the task list,
@@ -58,64 +57,154 @@ public class AddTaskCommand extends Command {
 
     @Override
     public void prompt() {
-        this.execute(null);
+        this.execute("");
     }
 
     @Override
     public void execute(String input) {
 
         if (this.nextPrompt == PromptTypes.TASKTYPE) {
-            ui.requestTaskType();
-            this.nextPrompt = PromptTypes.DESCRIPTION;
+            this.getTaskTypeFromUser();
         } else if (this.nextPrompt == PromptTypes.DESCRIPTION) {
-            try {
-                this.checkTaskType(input);
-                this.ui.requestTaskDescription(this.taskType.toString());
-            } catch (InvalidTaskTypeException taskTypeError) {
-                ui.printExceptionMessage(taskTypeError);
-                this.completeCommand();
-                return;
-            }
-
-            switch (this.taskType) {
-            case DEADLINE:
-                this.nextPrompt = PromptTypes.ENDDATE;
-                break;
-            case EVENT:
-                this.nextPrompt = PromptTypes.STARTDATE;
-                break;
-            default:
-                this.nextPrompt = PromptTypes.DONE;
-                break;
-            }
+           this.getTaskDescriptionFromUser(input);
 
         } else if (this.nextPrompt == PromptTypes.STARTDATE) {
-
-            this.taskDescription = input;
-            ui.requestStartDate(this.taskType.toString());
-            this.nextPrompt = PromptTypes.ENDDATE;
-
+            this.getStartDateFromUser(input);
         } else if (this.nextPrompt == PromptTypes.ENDDATE) {
-
-            if (this.taskType == TaskTypes.DEADLINE) {
-                this.taskDescription = input;
-                System.out.println(input);
-            } else if (this.taskType == TaskTypes.EVENT) {
-
-                this.startDate = input;
-            }
-
-            ui.requestEndDate(this.taskType.toString());
-            this.nextPrompt = PromptTypes.DONE;
+            this.getEndDateFromUser(input);
+        } else if(this.nextPrompt == PromptTypes.DONE) {
+            this.finaliseCommand(input);
+            this.createTask();
         } else {
 
-            if (this.taskType == TaskTypes.TODO) {
+        }
+    }
 
-                this.taskDescription = input;
-            } else {
-                this.endDate = input;
+    /**
+     * Checks if the task type given by the user is a valid one.
+     * @param taskType The type of tasks to be created.
+     * @throws InvalidTaskTypeException If the user inputs a invalid task type.
+     */
+    private void checkTaskType(String taskType) throws InvalidTaskTypeException {
+
+        String upperCasedTaskType = taskType.toUpperCase();
+        for (TaskTypes tasktypes : TaskTypes.values()) {
+            if (tasktypes.name().equals(upperCasedTaskType)) {
+                this.taskType = tasktypes;
+                return;
             }
-            createTask();
+        }
+        throw new InvalidTaskTypeException(taskType);
+    }
+
+    /**
+     * Requests the type of task the user wants to add into their tasklist.
+     * <p>
+     * Progress the state of the command to retrieve the task description
+     * on the next execution.
+     */
+    private void getTaskTypeFromUser() {
+        ui.requestTaskType();
+        this.nextPrompt = PromptTypes.DESCRIPTION;
+    }
+
+    /**
+     * Requests for the description of the task.
+     * <p>
+     * Depending on the task type the next state will differ.
+     * <p>
+     * For todo tasks the next state will be the finished state.
+     * <p>
+     * For deadline tasks the next state will be to request for a end date.
+     * <p>
+     * For event tasks the next state will be to request for a start date.
+     * @param input The task type the user inputed.
+     */
+    private void getTaskDescriptionFromUser(String input) {
+
+        try {
+            this.checkTaskType(input);
+            this.ui.requestTaskDescription(this.taskType.toString());
+        } catch (InvalidTaskTypeException taskTypeError) {
+            // Since the input is invalid we need to mark the task as complete to
+            // remove it from the command queue in the MainWindow class
+            ui.printExceptionMessage(taskTypeError);
+            this.completeCommand();
+            return;
+        }
+
+        // Not all tasks require the same additional information
+        // thus depends on the task type the next promot is decided
+        switch (this.taskType) {
+        case DEADLINE:
+            this.nextPrompt = PromptTypes.ENDDATE;
+            break;
+        case EVENT:
+            this.nextPrompt = PromptTypes.STARTDATE;
+            break;
+        case TODO:
+            this.nextPrompt = PromptTypes.DONE;
+            break;
+        default:
+            // TODO: Think of what to output an error here
+        }
+    }
+
+     /**
+     * Requests the start date for the task.
+     * <p>
+     * Progress the state of the command to retrieve the end date
+     * on the next execution.
+     * @param input The description of the task.
+     */
+    private void getStartDateFromUser(String input) {
+
+        this.taskDescription = input;
+        ui.requestStartDate(this.taskType.toString());
+        this.nextPrompt = PromptTypes.ENDDATE;
+    }
+
+    /**
+     * Requests the end date for the task.
+     * <p>
+     * Progress the state of the command to be in a finished state to create and add the task.
+     * <p>
+     * For deadline task the input will be a description.
+     * <p>
+     * For event task the input will be a start date.
+     * @param input The input to the next field.
+     */
+    private void getEndDateFromUser(String input) {
+
+        // We need to know if the task is a event or a deadline task
+        // to correctly assign the input to the correct field
+        if (this.taskType == TaskTypes.DEADLINE) {
+            this.taskDescription = input;
+            System.out.println(input);
+        } else if (this.taskType == TaskTypes.EVENT) {
+
+            this.startDate = input;
+        }
+
+        ui.requestEndDate(this.taskType.toString());
+        this.nextPrompt = PromptTypes.DONE;
+    }
+
+    /**
+     * Saves the final input into the correct field.
+     * <p>
+     * For todo task the input will be a description.
+     * <p>
+     * For deadline or event the input will be a end date.
+     * <p>
+     * @param input The input to the next field.
+     */
+    private void finaliseCommand(String input) {
+
+        if (this.taskType == TaskTypes.TODO) {
+            this.taskDescription = input;
+        } else {
+            this.endDate = input;
         }
     }
 
@@ -140,7 +229,7 @@ public class AddTaskCommand extends Command {
                 newTask = Task.createTask(taskType.toString(), taskDescription, startDate, endDate);
                 break;
             default:
-                break;
+                // TODO: Think of what to output an error here
             }
 
             if (newTask != null) {
@@ -155,22 +244,5 @@ public class AddTaskCommand extends Command {
         } finally {
             this.completeCommand();
         }
-    }
-
-    /**
-     * Checks if the task type given by the user is a valid one.
-     * @param taskType The type of tasks to be created.
-     * @throws InvalidTaskTypeException If the user inputs a invalid task type.
-     */
-    private void checkTaskType(String taskType) throws InvalidTaskTypeException {
-
-        String upperCasedTaskType = taskType.toUpperCase();
-        for (TaskTypes tasktypes : TaskTypes.values()) {
-            if (tasktypes.name().equals(upperCasedTaskType)) {
-                this.taskType = tasktypes;
-                return;
-            }
-        }
-        throw new InvalidTaskTypeException(taskType);
     }
 }

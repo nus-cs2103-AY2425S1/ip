@@ -3,6 +3,10 @@ package quack;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import quack.command.Command;
+import quack.util.Parser;
+import quack.util.Storage;
+import quack.util.TaskList;
+import quack.util.Ui;
 
 /**
  * The Quack chatbot program implements the functionality needed

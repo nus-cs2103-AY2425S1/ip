@@ -1,4 +1,4 @@
-package quack;
+package quack.util;
 
 import java.util.Scanner;
 
