@@ -13,6 +13,14 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter SAVE_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER = DateTimeFormatter
+            .ofPattern("MMM dd yyyy h:mm a");
+    private static final DateTimeFormatter DISPLAY_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
     private LocalDateTime byDateTime;
     private LocalDate byDate;
     private boolean isDateTimeFormat;
@@ -27,22 +35,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws YapperBotException {
         super(description);
-        this.byDate = null;
-        this.byDateTime = null;
-        this.isDateTimeFormat = false;
-
-        try {
-            this.byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            this.isDateTimeFormat = true;
-        } catch (DateTimeParseException e1) {
-            try {
-                this.byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                this.isDateTimeFormat = false;
-            } catch (DateTimeParseException e2) {
-                throw new YapperBotException("Invalid date format! Please use either 'd/M/yyyy HHmm' "
-                        + "or 'yyyy-MM-dd'.");
-            }
-        }
+        parseDate(by);
     }
 
     /**
@@ -56,17 +49,23 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) throws YapperBotException {
         super(description);
-        this.byDate = null;
-        this.byDateTime = null;
-        this.isDateTimeFormat = false;
         this.isDone = isDone;
+        parseDate(by);
+    }
 
+    /**
+     * Parses the due date from a string and sets the appropriate fields.
+     *
+     * @param by Due date of the deadline in either "d/M/yyyy HHmm" or "yyyy-MM-dd" format.
+     * @throws YapperBotException If the date format is invalid.
+     */
+    private void parseDate(String by) throws YapperBotException {
         try {
-            this.byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            this.byDateTime = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
             this.isDateTimeFormat = true;
         } catch (DateTimeParseException e1) {
             try {
-                this.byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                this.byDate = LocalDate.parse(by, DATE_FORMATTER);
                 this.isDateTimeFormat = false;
             } catch (DateTimeParseException e2) {
                 throw new YapperBotException("Invalid date format! Please use either 'd/M/yyyy HHmm' "
@@ -85,10 +84,10 @@ public class Deadline extends Task {
     public String toString() {
         if (isDateTimeFormat) {
             return "[D]" + super.toString() + " (by: "
-                    + this.byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
+                    + this.byDateTime.format(DISPLAY_DATE_TIME_FORMATTER) + ")";
         } else {
             return "[D]" + super.toString() + " (by: "
-                    + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                    + this.byDate.format(DISPLAY_DATE_FORMATTER) + ")";
         }
     }
 
@@ -102,10 +101,10 @@ public class Deadline extends Task {
     public String toSaveFormat() {
         if (this.isDateTimeFormat) {
             return "D | " + (this.isDone ? 1 : 0) + " | " + this.description
-                    + " | " + this.byDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    + " | " + this.byDateTime.format(SAVE_DATE_TIME_FORMATTER);
         } else {
             return "D | " + (this.isDone ? 1 : 0) + " | " + this.description
-                    + " | " + this.byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    + " | " + this.byDate.format(SAVE_DATE_FORMATTER);
         }
     }
 }
