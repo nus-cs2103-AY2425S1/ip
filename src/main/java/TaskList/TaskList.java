@@ -51,6 +51,17 @@ public class TaskList {
             int counter = 0;
             while (counter < readTasks.size()) {
                 String line = readTasks.get(counter);
+
+                //ensure that the stored tasks are formatted correcly as strings before converting
+                //them to tasks
+                assert line.charAt(0) == '[' : "Task incorrectly formatted";
+                assert line.charAt(2) == ']' : "Task incorrectly formatted";
+                assert line.charAt(3) == '[' : "Task incorrectly formatted";
+                assert line.charAt(5) == ']' : "Task incorrectly formatted";
+                assert (line.charAt(4) == 'X' || line.charAt(4) == ' ') : "Task incorrectly formatted";
+                assert line.charAt(1) == 'T' || line.charAt(1) == 'D' || line.charAt(1) == 'E'
+                        : "Task incorrectly formatted";
+
                 if (helperParser.checkStringPrefix(line, 6, "[T][ ]")) {
                     try {
                         tasks.add(new Todo(line.substring(7)));
