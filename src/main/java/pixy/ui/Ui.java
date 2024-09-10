@@ -11,11 +11,13 @@ public class Ui {
 
     /**
      * Shows the welcome message from chatbot at the beginning.
+     *
+     * @return Welcome message.
      */
-    public void showWelcomeMessage() {
-        System.out.println("____________________________________________________________\n"
+    public String showWelcomeMessage() {
+        return "____________________________________________________________\n"
                 + " Hello! I'm Pixy.\n" + " What can I do for you?\n"
-                + "____________________________________________________________\n");
+                + "____________________________________________________________\n";
     }
 
     /**
@@ -23,58 +25,68 @@ public class Ui {
      *
      * @param task The task that has been added.
      * @param size The size of the task list.
+     * @return Task added message.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Got it. I've added this task:\n " + task);
-        System.out.println("Now you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n");
+    public String showTaskAdded(Task task, int size) {
+        return "____________________________________________________________\n"
+                + "Got it. I've added this task:\n " + task
+                + "\nNow you have " + size + " tasks in the list."
+                + "\n____________________________________________________________\n";
     }
 
     /**
      * Displays message when task list is empty.
+     *
+     * @return List empty message.
      */
-    public void showListEmpty() {
-        System.out.println("____________________________________________________________\n"
+    public String showListEmpty() {
+        return "____________________________________________________________\n"
                 + "List is Empty! Add tasks to list.\n"
-                + "\n____________________________________________________________\n");
+                + "\n____________________________________________________________\n";
     }
 
     /**
      * Prints the tasks sequentially from the task list.
      *
      * @param list The Task list.
+     * @return List of tasks message.
      */
-    public void showTasks(List<Task> list) {
-        System.out.println("____________________________________________________________\n"
-                + "Here are the tasks in your list:");
+    public String showTasks(List<Task> list) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n")
+                .append("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            System.out.println((i + 1) + ". " + task.toString());
+            sb.append((i + 1) + ". " + task.toString() + "\n");
         }
-        System.out.println("____________________________________________________________\n");
+        sb.append("____________________________________________________________\n");
+        return sb.toString();
     }
 
     /**
      * Displays the task with appropriate message after it has been marked.
+     *
      * @param task The task to mark.
+     * @return Task marked message.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString()
-                + "\n____________________________________________________________\n");
+    public String showTaskMarked(Task task) {
+        return "____________________________________________________________\n"
+                + "Nice! I've marked this task as done:\n"
+                + task.toString()
+                + "\n____________________________________________________________\n";
     }
 
     /**
      * Displays the task with appropriate message after it has been unmarked.
+     *
      * @param task The task to unmark.
+     * @return Task unmarked message.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString()
-                + "\n____________________________________________________________\n");
+    public String showTaskUnmarked(Task task) {
+        return "____________________________________________________________\n"
+                + "OK, I've marked this task as not done yet:\n"
+                + task.toString()
+                + "\n____________________________________________________________\n";
     }
 
     /**
@@ -82,47 +94,56 @@ public class Ui {
      *
      * @param task The task to delete.
      * @param size The size of the task list.
+     * @return Task deleted message.
      */
-    public void showTaskRemoved(Task task, int size) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n");
+    public String showTaskRemoved(Task task, int size) {
+        return "____________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + size + " tasks in the list."
+                + "\n____________________________________________________________\n";
     }
 
     /**
      * Displays the tasks which match the keyword inputted by user.
      *
      * @param matchedTasks List of matched Tasks.
+     * @return Matched tasks message.
      */
-    public void showMatchedTasks(List<Task> matchedTasks) {
-        System.out.println("____________________________________________________________\n");
+    public String showMatchedTasks(List<Task> matchedTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
         if (matchedTasks.isEmpty()) {
-            System.out.println("No tasks found with matching description.");
+            sb.append("No tasks found with matching description.\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchedTasks.size(); i++) {
                 Task task = matchedTasks.get(i);
-                System.out.println((i + 1) + ". " + task.toString());
+                sb.append((i + 1) + ". " + task.toString() + "\n");
             }
         }
-        System.out.println("____________________________________________________________\n");
-    }
-    /**
-     * Displays the goodbye message.
-     */
-    public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n");
+        sb.append("____________________________________________________________\n");
+        return sb.toString();
     }
 
     /**
-     * Displays the appropriate message when error is encountered..
+     * Displays the goodbye message.
+     *
+     * @return Goodbye message.
      */
-    public void showError(String message) {
-        System.out.println(message);
-        System.out.println("____________________________________________________________\n");
+    public String showGoodbyeMessage() {
+        return "____________________________________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
+    }
+
+    /**
+     * Displays the appropriate message when an error is encountered.
+     *
+     * @param message Error message.
+     * @return Error message.
+     */
+    public String showError(String message) {
+        return message + "\n____________________________________________________________\n";
     }
 }
