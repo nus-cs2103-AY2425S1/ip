@@ -5,4 +5,5 @@
         "config_loc": "${workspaceFolder}/config/checkstyle/"
     },
     "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.configuration.updateBuildConfiguration": "automatic",
 }
