@@ -2,7 +2,6 @@ package duke.parser;
 
 import java.time.LocalDateTime;
 
-import duke.commands.SetPriorityCommand;
 import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
@@ -10,6 +9,7 @@ import duke.commands.FilterTaskCommand;
 import duke.commands.FindTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.MarkTaskCommand;
+import duke.commands.SetPriorityCommand;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidPriorityException;
 
