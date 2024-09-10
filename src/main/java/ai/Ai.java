@@ -37,9 +37,9 @@ public class Ai {
      * Obtains user reply using a scanner. Repeat the process until "bye" command is issued.
      */
     public void run() {
-        System.out.println(ui.showGreetings());
+        System.out.println(ui.showGreeting());
 
-        Scanner scanner = new Scanner(System.in); //Create a Scanner object
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object
         String reply;
 
         while (!isExit) {

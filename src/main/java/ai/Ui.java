@@ -17,7 +17,7 @@ public class Ui {
     /**
      * Prints the first line user sees when booting up Ai.
      */
-    public String showGreetings() {
+    public String showGreeting() {
         return returnLine() + "Hi, I'm your favourite idol, Ai!!!\n"
                 + "What shall we do today? Teehee o(◠u◠)o\n"
                 + returnLine();

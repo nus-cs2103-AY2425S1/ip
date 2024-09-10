@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Ai ai;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Ai.png"));
+    private Image aiImage = new Image(this.getClass().getResourceAsStream("/images/Ai.png"));
 
     @FXML
     public void initialize() {
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = ai.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
+                DialogBox.getAiDialog(response, aiImage));
         userInput.clear();
     }
 }

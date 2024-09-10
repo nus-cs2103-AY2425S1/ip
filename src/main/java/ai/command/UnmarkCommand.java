@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
 
         Task temp = tasks.get(i);
         temp.unmark();
-        return "Donzo, task unmarked! Let me know if you need anything else :3"
+        return "Donzo, task unmarked! Let me know if you need anything else :3\n"
                 + temp + "\n";
     }
 
