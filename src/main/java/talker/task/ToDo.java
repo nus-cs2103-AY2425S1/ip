@@ -1,5 +1,10 @@
 package talker.task;
 
+import talker.TalkerException;
+
+/**
+ * Represents a ToDo task
+ */
 public class ToDo extends Task {
 
     /**
@@ -27,7 +32,7 @@ public class ToDo extends Task {
      * @return String formatted by Task class
      */
     @Override
-    public String getSaveFormat() {
+    public String getSaveFormat() throws TalkerException {
         return super.getSaveFormat();
     }
 

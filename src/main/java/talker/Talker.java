@@ -3,26 +3,36 @@ package talker;
 import talker.command.Command;
 import talker.task.TaskList;
 
+/**
+ * Represents a chatbot object
+ */
 public class Talker {
     private static final String NAME = "Talker";
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH ="./data/talker.txt";
+    private static final String FILE_PATH = "./data/talker.txt";
 
     private Ui ui;
     private Storage storage;
     private TaskList list;
+    private String commandType;
 
+    /**
+     * Constructor for new Talker object
+     */
     public Talker() {
         ui = new Ui(NAME);
         storage = new Storage(DIRECTORY_PATH, FILE_PATH);
         list = new TaskList();
         try {
-            list.setTasks(storage.readFile());
+            list = storage.readFile();
         } catch (TalkerException e) {
             ui.printError(e);
         }
     }
 
+    /**
+     * Runs the chatbot processes
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
@@ -39,6 +49,31 @@ public class Talker {
                 ui.printLine();
             }
         }
+    }
+
+    /**
+     * Generates response for user's chat messages
+     * @param input user input into chat bot
+     * @return String reponse depending on user's input
+     */
+    public String getResponse(String input) {
+        String output;
+        try {
+            Command c = Parser.parseInput(input);
+            output = c.execute(list, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return output;
+        } catch (TalkerException e) {
+            return ui.printError(e);
+        }
+    }
+
+    /**
+     * Returns the command type
+     * @return String prepresenting command type
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     public static void main(String[] args) {

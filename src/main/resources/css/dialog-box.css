@@ -1,0 +1,30 @@
+.label {
+    -fx-background-color: rgb(164, 176, 211);
+    -fx-background-radius: 10px 10px 0 10px;
+    -fx-border-radius: 10px 10px 0 10px;
+
+}
+
+.reply-label {
+    -fx-background-color: rgb(217, 164, 224);
+    -fx-background-radius: 10px 10px 10px 0;
+    -fx-border-radius: 10px 10px 10px 0;
+}
+
+.add-label {
+    -fx-background-color: rgb(224, 195, 164);
+}
+
+.delete-label {
+    -fx-background-color: rgb(224, 195, 164);
+}
+
+.marked-label {
+    -fx-background-color: rgb(164, 224, 164);
+}
+
+.unmarked-label {
+    -fx-background-color: rgb(224, 164, 164);
+}
+
+

@@ -6,17 +6,19 @@ import java.time.format.DateTimeFormatter;
 
 import talker.TalkerException;
 
+/**
+ * Represents an Event task with a start and end date/time
+ */
 public class Event extends Task {
-
-    // start date/time
-    private LocalDateTime from;
-    // end date/time
-    private LocalDateTime to;
     // input formatter
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     // output formatter
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
+    // start date/time
+    private LocalDateTime from;
+    // end date/time
+    private LocalDateTime to;
     /**
      * Constructor for Event
      *
@@ -76,9 +78,9 @@ public class Event extends Task {
      * @return String formatted by Task including start and end date/time
      */
     @Override
-    public String getSaveFormat() {
-        return super.getSaveFormat() + " | " + from.format(INPUT_FORMAT) +
-                " | " + to.format(INPUT_FORMAT);
+    public String getSaveFormat() throws TalkerException {
+        return super.getSaveFormat() + " | " + from.format(INPUT_FORMAT)
+                + " | " + to.format(INPUT_FORMAT);
     }
 
     /**
@@ -88,8 +90,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) +
-                " to: "+ to.format(OUTPUT_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT)
+                + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 
 }

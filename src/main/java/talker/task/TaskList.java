@@ -1,8 +1,5 @@
 package talker.task;
 
-import talker.TalkerException;
-import talker.Ui;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -10,21 +7,40 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import talker.TalkerException;
+import talker.Ui;
+
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ArrayList<Task> list;
 
+    /**
+     * Constructor for a new TaskList object
+     */
     public TaskList() {
         this.list = new ArrayList<>();
     }
 
-
+    /**
+     * Sets the list of tasks as provided
+     *
+     * @param list representing the list of tasks
+     */
     public void setTasks(ArrayList<Task> list) {
         this.list = list;
     }
 
+    /**
+     * Writes the list of tasks using fileWriter object
+     *
+     * @param fileWriter fileWriter to write tasks into file
+     * @throws TalkerException if unable to write to file
+     */
     public void writeToFile(FileWriter fileWriter) throws TalkerException {
         try {
             for (Task task: list) {
@@ -35,21 +51,34 @@ public class TaskList {
         }
     }
 
-    public void printTasksOn(String date, Ui ui) throws TalkerException {
+    /**
+     * Prints a list of tasks that are occurring on a certain date
+     * ToDo tasks are not printed
+     * Deadline tasks where the deadline has not yet passed are printed
+     * Event tasks where the start date has already passed but the end date
+     * has not yet passed are printed
+     *
+     * @param date string representing target date
+     * @param ui ui object to print output
+     * @return String representing tasks on certain date
+     * @throws TalkerException if incorrect date format
+     */
+    public String printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
+        StringBuilder output = new StringBuilder();
         try {
             String[] parsed = date.split(" ");
             targetDate = LocalDate.parse(parsed[1], INPUT_FORMAT);
         } catch (DateTimeException e) {
             throw new TalkerException("Incorrect date format. Try again with: yyyy/MM/dd");
         }
-        ui.printTasksOn(targetDate.format(OUTPUT_FORMAT));
+        output.append(ui.printTasksOn(targetDate.format(OUTPUT_FORMAT)));
         for (Task task: list) {
             if (task instanceof Deadline) {
                 LocalDate deadline = ((Deadline) task).getDeadline().toLocalDate();
                 if (targetDate.isBefore(deadline) || targetDate.isEqual(deadline)) {
                     if (!task.isComplete()) {
-                        ui.printTask(task);
+                        output.append(ui.printTask(task));
                     }
                 }
             } else if (task instanceof Event) {
@@ -59,24 +88,43 @@ public class TaskList {
                 if ((targetDate.isAfter(start) || targetDate.isEqual(start))
                         && (targetDate.isBefore(end) || targetDate.isEqual(end))) {
                     if (!task.isComplete()) {
-                        ui.printTask(task);
+                        output.append(ui.printTask(task));
                     }
                 }
+            } else {
+                assert (task instanceof ToDo) : "task should be of type ToDo";
             }
         }
+        return output.toString();
     }
 
-    public void listTasks(Ui ui) throws TalkerException {
+    /**
+     * Prints the list of current tasks
+     *
+     * @param ui ui object to print output
+     * @return String list of current tasks
+     * @throws TalkerException if list is empty
+     */
+    public String listTasks(Ui ui) throws TalkerException {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
-        ui.printTaskList(list);
+        assert !list.isEmpty() : "list should not be empty";
+        return ui.printTaskList(list.toArray(new Task[0]));
     }
 
-    public void markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
+    /**
+     * Marks target task as complete
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no corresponding task found
+     */
+    public String markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            ui.printTaskMarked(list.get(index).mark());
+            return ui.printTaskMarked(list.get(index).mark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -84,10 +132,18 @@ public class TaskList {
         }
     }
 
-    public void unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
+    /**
+     * Marks target task as incomplete
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no corresponding task found
+     */
+    public String unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            ui.printTaskUnmarked(list.get(index).unmark());
+            return ui.printTaskUnmarked(list.get(index).unmark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -95,11 +151,19 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(String[] parsed, Ui ui) throws TalkerException {
+    /**
+     * Deletes target task from list
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no corresponding task found
+     */
+    public String deleteTask(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
             Task removed = list.remove(index);
-            ui.printTaskDelete(removed, list.size());
+            return ui.printTaskDelete(removed, list.size());
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -107,18 +171,34 @@ public class TaskList {
         }
     }
 
-    public void createToDo(String input, Ui ui) throws TalkerException {
+    /**
+     * Creates a new ToDo object and adds it into list
+     *
+     * @param input string representing ToDo task
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if incorrect input format
+     */
+    public String createToDo(String input, Ui ui) throws TalkerException {
         try {
             String desc = input.substring(5);
             Task newTask = new ToDo(desc);
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException("ToDo format wrong. Try again with: todo <description>");
         }
     }
 
-    public void createDeadline(String input, Ui ui) throws TalkerException {
+    /**
+     * Creates new Deadline object and adds it into list
+     *
+     * @param input string representing Deadline task
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if incorrect input format
+     */
+    public String createDeadline(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(9);
 
@@ -128,14 +208,22 @@ public class TaskList {
 
             Task newTask = new Deadline(desc, by);
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Deadline format wrong. Try again with: deadline <description> /by <dd-MM-yyyy HH:mm>");
         }
     }
 
-    public void createEvent(String input, Ui ui) throws TalkerException {
+    /**
+     * Creates new Event object and adds it into list
+     *
+     * @param input string representing Event task
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if incorrect input format
+     */
+    public String createEvent(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(6);
 
@@ -148,11 +236,29 @@ public class TaskList {
             Task newTask = new Event(desc, from, to);
 
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
-                    "Event format wrong. Try again with: event <description> " +
-                            "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
+                    "Event format wrong. Try again with: event <description> "
+                            + "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
         }
+    }
+
+    /**
+     * Finds certain keyword amongst descriptions of tasks
+     *
+     * @param keyword keyword to be searched through descriptions
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if nothing found
+     */
+    public String findTask(String keyword, Ui ui) throws TalkerException {
+        ArrayList<Task> outputList = new ArrayList<>();
+        for (Task task: list) {
+            if (task.getDescription().contains(keyword)) {
+                outputList.add(task);
+            }
+        }
+        return ui.printMatchingTasks(outputList.toArray(new Task[0]));
     }
 }

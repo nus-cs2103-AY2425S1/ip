@@ -6,27 +6,28 @@ import talker.Ui;
 import talker.task.TaskList;
 
 /**
- * Represents mark command to mark task as complete
+ * Represents a find command to find certain keywords in task descriptions
  */
-public class MarkCommand extends Command {
-    // string representing task number to be marked
+public class FindCommand extends Command {
+    // string representing keyword
     private String[] parsed;
 
-    public MarkCommand(String[] parsed) {
+    public FindCommand(String[] parsed) {
         this.parsed = parsed;
     }
 
     /**
-     * Executes mark command
+     * Executes find command
      *
-     * @param list list of tasks where target task is located in
+     * @param list list of tasks to be searched through
      * @param ui ui object to print output
      * @param storage storage object to read/write file
      * @return String representing outcome of this event
-     * @throws TalkerException if unable to mark task as complete
+     * @throws TalkerException if no tasks found
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
-        return list.markTaskComplete(parsed, ui);
+        return list.findTask(parsed[1], ui);
     }
+
 }
