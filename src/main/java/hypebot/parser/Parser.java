@@ -39,6 +39,8 @@ public class Parser {
         String taskName = taskNameBuilder.toString();
 
         switch (command) {
+        case "start":
+            return new GreetCommand();
         case "help":
             return new HelpCommand();
         case "bye":

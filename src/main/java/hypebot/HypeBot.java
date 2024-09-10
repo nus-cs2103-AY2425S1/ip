@@ -23,6 +23,7 @@ public class HypeBot {
         try {
             ui.showLoadingTasks();
             tasks = new Tasklist(storage.load());
+            ui.showGreeting();
         } catch (FileNotFoundException e) {
             ui.showError(e.getMessage());
             tasks = new Tasklist();
@@ -30,7 +31,6 @@ public class HypeBot {
     }
 
     public void run() {
-        ui.showGreeting();
         boolean isExit = false;
         while (!isExit) {
             try {

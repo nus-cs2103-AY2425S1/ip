@@ -106,8 +106,8 @@ public class Ui {
     }
 
     public String readCommand() {
-        String userEnteredCommand = in.nextLine();
-        while (shouldIgnore(userEnteredCommand)) {
+        String userEnteredCommand = "start";
+        if (in.hasNextLine()) {
             userEnteredCommand = in.nextLine();
         }
         return userEnteredCommand;
