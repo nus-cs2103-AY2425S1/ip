@@ -34,17 +34,17 @@ public class Event extends Task {
         this.endTime = LocalDateTime.parse(endTime, inputFormatter);
     }
 
-    public String getFromTime() {
+    public String getFromTimeString() {
         return this.startTime.format(outputFormatter);
     }
 
-    public String getToTime() {
+    public String getToTimeString() {
         return this.endTime.format(outputFormatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getFromTime() + " to: "
-                + this.getToTime() + ")";
+        return "[E]" + super.toString() + " (from: " + this.getFromTimeString() + " to: "
+                + this.getToTimeString() + ")";
     }
 }

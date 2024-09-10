@@ -35,109 +35,133 @@ public class Parser {
 
         StringBuilder output = new StringBuilder();
         String[] inputs = text.split(" ", 2);
+        String command = inputs[0];
 
-        switch (inputs[0]) {
+        switch (command) {
         case "list" -> {
-            if (inputs.length == 1) {
-                output.append("Here are the following items in your list:\n");
-                int index = 1;
-                for (Task t : taskList.getTaskList()) {
-                    output.append(index).append(".").append(t.toString()).append("\n");
-                    index++;
-                }
-            } else {
+            if (inputs.length != 1) {
                 throw new IncorrectInputException("You should not have anything after your request. "
                         + "(e.g. \"list\")");
             }
+
+            output.append("Here are the following items in your list:\n");
+            int index = 1;
+            for (Task t : taskList.getTaskList()) {
+                output.append(index).append(".").append(t).append("\n");
+                index++;
+            }
         }
         case "mark" -> {
-            if (inputs.length == 2) {
-                output.append("Nice! I've marked this task as done:\n");
-                output.append(taskList.markTask(Integer.parseInt(inputs[1]) - 1).toString()).append("\n");
-            } else {
+            if (inputs.length != 2) {
                 throw new IncorrectInputException("You should have only 1 number after your request. "
                         + "(e.g. \"mark 1\")");
             }
+
+            int indexOfTask = Integer.parseInt(inputs[1]) - 1;
+            Task currTask = taskList.markTask(indexOfTask);
+
+            output.append("Nice! I've marked this task as done:\n");
+            output.append(currTask).append("\n");
         }
         case "unmark" -> {
-            if (inputs.length == 2) {
-                output.append("Dgpt> OK, I've marked this task as not done yet:\n");
-                output.append(taskList.unmarkTask(Integer.parseInt(inputs[1]) - 1)).append("\n");
-            } else {
+            if (inputs.length != 2) {
                 throw new IncorrectInputException("You should have only 1 number after your request. "
                         + "(e.g. \"unmark 1\")");
             }
+
+            int indexOfTask = Integer.parseInt(inputs[1]) - 1;
+            Task currTask = taskList.unmarkTask(indexOfTask);
+
+            output.append("Dgpt> OK, I've marked this task as not done yet:\n");
+            output.append(currTask).append("\n");
         }
         case "todo" -> {
-            if (inputs.length == 2) {
-                output.append("Got it. I've added this task:\n");
-                output.append(taskList.addToDoToList(inputs[1]).toString()).append("\n");
-                output.append("Now you have ").append(taskList.getSize()).append(" tasks in the list.\n");
-            } else {
+            if (inputs.length != 2) {
                 throw new IncorrectInputException("You should have a description after your request. "
                         + "(e.g. \"todo your_description\")");
             }
+
+            String description = inputs[1];
+            Task addedTask = taskList.addToDoToList(description);
+            int sizeOfList = taskList.getSize();
+
+            output.append("Got it. I've added this task:\n");
+            output.append(addedTask).append("\n");
+            output.append("Now you have ").append(sizeOfList).append(" tasks in the list.\n");
         }
         case "deadline" -> {
-            try {
-                if (inputs.length == 2) {
-                    String[] parts = inputs[1].split(" /by ");
+            if (inputs.length != 2) {
+                throw new IncorrectInputException("You should have a description after your request. "
+                        + "(e.g. \"todo your_description /by your_deadline\")");
+            }
 
-                    output.append("Got it. I've added this task:\n");
-                    output.append(taskList.addDeadlineToList(parts[0], parts[1]).toString()).append("\n");
-                    output.append("Now you have ").append(taskList.getSize()).append(" tasks in the list.\n");
-                } else {
-                    throw new IncorrectInputException("You should have a description after your request. "
-                            + "(e.g. \"todo your_description /by your_deadline\")");
-                }
+            try {
+                String[] parts = inputs[1].split(" /by ");
+                String description = parts[0];
+                String deadline = parts[1];
+
+                Task addedTask = taskList.addDeadlineToList(description, deadline);
+                int sizeOfList = taskList.getSize();
+
+                output.append("Got it. I've added this task:\n");
+                output.append(addedTask).append("\n");
+                output.append("Now you have ").append(sizeOfList).append(" tasks in the list.\n");
             } catch (DateTimeParseException e) {
                 output.append(e.getMessage()).append("\n");
             }
         }
         case "event" -> {
+            if (inputs.length != 2) {
+                throw new IncorrectInputException("You should have a description after your request. "
+                        + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+            }
             try {
-                if (inputs.length == 2) {
-                    String[] parts = inputs[1].split(" /");
+                String[] parts = inputs[1].split(" /");
+                String description = parts[0];
+                String startTime = parts[1].substring(5);
+                String endTime = parts[2].substring(3);
 
-                    output.append("Got it. I've added this task:\n");
-                    output.append(taskList.addEventToList(parts[0], parts[1].substring(5),
-                            parts[2].substring(3))).append("\n");
-                    output.append("Now you have ").append(taskList.getSize()).append(" tasks in the list.\n");
-                } else {
-                    throw new IncorrectInputException("You should have a description after your request. "
-                            + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
-                }
+                Task addedTask = taskList.addEventToList(description, startTime, endTime);
+                int sizeOfList = taskList.getSize();
+
+
+                output.append("Got it. I've added this task:\n");
+                output.append(addedTask).append("\n");
+                output.append("Now you have ").append(sizeOfList).append(" tasks in the list.\n");
             } catch (DateTimeParseException e) {
                 output.append(e.getMessage()).append("\n");
             }
         }
         case "delete" -> {
-            if (inputs.length == 2) {
-                int size = taskList.getSize();
-
-                output.append("OK, I've removed this task from the list:\n");
-                output.append(taskList.deleteTask(Integer.parseInt(inputs[1]) - 1)).append("\n");
-                output.append("Now you have ").append(taskList.getSize()).append(" tasks in the list.\n");
-            } else {
+            if (inputs.length != 2) {
                 throw new IncorrectInputException("You should have only 1 number after your request. "
                         + "(e.g. \"delete 1\")");
             }
+
+            int indexOfTask = Integer.parseInt(inputs[1]) - 1;
+            Task deletedTask = taskList.deleteTask(indexOfTask);
+            int size = taskList.getSize();
+
+            output.append("OK, I've removed this task from the list:\n");
+            output.append(deletedTask).append("\n");
+            output.append("Now you have ").append(size).append(" tasks in the list.\n");
         }
 
         case "find" -> {
-            if (inputs.length == 2) {
-                List<Task> tasks = taskList.findTasks(inputs[1]);
-                int index = 1;
-
-                output.append("Here are the matching tasks in your list:\n");
-
-                for (Task t : tasks) {
-                    output.append(index).append(".").append(t.toString()).append("\n");
-                    index++;
-                }
-            } else {
+            if (inputs.length != 2) {
                 throw new IncorrectInputException("You should input what you're searching for after \"find\""
                         + " (e.g. \"find task\")");
+            }
+
+            String keyword = inputs[1];
+            List<Task> matchingTasks = taskList.findTasks(keyword);
+            int index = 1;
+
+            output.append("Here are the matching tasks in your list:\n");
+
+            for (Task t : matchingTasks) {
+                output.append(index).append(".").append(t.toString()).append("\n");
+                index++;
             }
         }
 

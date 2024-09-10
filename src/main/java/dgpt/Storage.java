@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dgpt.exception.DgptFileNotFoundException;
+import dgpt.exception.TaskNotFoundException;
 import dgpt.task.Deadline;
 import dgpt.task.Event;
 import dgpt.task.Task;
@@ -53,40 +54,39 @@ public class Storage {
 
             while (s.hasNext()) {
                 String curr = s.nextLine();
-                String[] parts = curr.split(" \\| ");
-
-                switch (parts[0]) {
-                case "T" -> {
-                    ToDo i = new ToDo(parts[2]);
-                    if (parts[1].equals("1")) {
-                        i.mark();
-                    }
-                    res.add(i);
-                }
-                case "D" -> {
-                    Deadline i = new Deadline(parts[2], parts[3]);
-                    if (parts[1].equals("1")) {
-                        i.mark();
-                    }
-                    res.add(i);
-                }
-                case "E" -> {
-                    Event i = new Event(parts[2], parts[3], parts[4]);
-                    if (parts[1].equals("1")) {
-                        i.mark();
-                    }
-                    res.add(i);
-                }
-                default -> {
-                    throw new IOException("File format is invalid");
-                }
-                }
+                Task i = createTasks(curr);
+                res.add(i);
             }
         } catch (FileNotFoundException e) {
             throw new DgptFileNotFoundException("Could not find existing data");
         }
 
         return res;
+    }
+
+    private Task createTasks(String curr) throws IOException {
+        String[] parts = curr.split(" \\| ");
+        Task i;
+
+        switch (parts[0]) {
+        case "T" -> {
+            i = new ToDo(parts[2]);
+        }
+        case "D" -> {
+            i = new Deadline(parts[2], parts[3]);
+        }
+        case "E" -> {
+            i = new Event(parts[2], parts[3], parts[4]);
+        }
+        default -> {
+            throw new IOException("File format is invalid");
+        }
+        }
+
+        if (parts[1].equals("1")) {
+            i.mark();
+        }
+        return i;
     }
 
     /**
@@ -132,10 +132,12 @@ public class Storage {
                             .append(t.getIsDone() ? "1 | " : "0 | ")
                             .append(t.getDescription())
                             .append(" | ")
-                            .append(((Event) t).getFromTime())
+                            .append(((Event) t).getFromTimeString())
                             .append(" | ")
-                            .append(((Event) t).getToTime())
+                            .append(((Event) t).getToTimeString())
                             .append("\n");
+                } else {
+                    throw new RuntimeException("Unfamiliar Task Type found");
                 }
             }
 
