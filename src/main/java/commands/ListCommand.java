@@ -17,7 +17,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Prints tasks.
+     * Lists tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

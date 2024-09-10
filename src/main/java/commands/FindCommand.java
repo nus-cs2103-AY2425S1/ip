@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds task containing the keyword and prints them.
+     * Finds task containing the keyword and lists them.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

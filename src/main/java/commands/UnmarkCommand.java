@@ -8,7 +8,7 @@ import cook.Ui;
 import exceptions.InvalidInputException;
 
 /**
- * UnmarkCommand class to process mark commands.
+ * UnmarkCommand class to process unmark commands.
  */
 public class UnmarkCommand extends Command {
     protected int taskNumber;
