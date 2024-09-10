@@ -172,8 +172,8 @@ public class TaskList {
     /**
      * Helper method to compare tasks based on their specific properties.
      *
-     * @param task      The new task.
-     * @param currTask  The existing task.
+     * @param task     The new task.
+     * @param currTask The existing task.
      * @return True if the tasks are duplicates, false otherwise.
      */
     private boolean isDuplicateTask(Task task, Task currTask) {

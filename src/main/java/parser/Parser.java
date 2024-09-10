@@ -91,7 +91,8 @@ public class Parser {
      */
     private Task parseDeadlineTask(String command) throws JarException {
         String[] deadlineParts = command.substring(8).split("/by", 2);
-        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()
+                || deadlineParts[1].trim().isEmpty()) {
             throw new JarException("Invalid deadline format. Use: deadline <description> /by <date>");
         }
         String deadlineDescription = deadlineParts[0].trim();
@@ -258,8 +259,8 @@ public class Parser {
      */
     private String handleTaskCreationCommand(String command, TaskList taskList, Ui ui) throws JarException {
         Task task = parseTask(command);
-        boolean haveDuplicate = taskList.findDuplicate(task);
-        if (haveDuplicate) {
+        boolean hasDuplicate = taskList.findDuplicate(task);
+        if (hasDuplicate) {
             return ui.showDuplicateMessage(task);
         }
         taskList.addTask(task);
