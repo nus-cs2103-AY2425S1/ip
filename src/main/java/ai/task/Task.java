@@ -13,6 +13,7 @@ public class Task {
 
     /**
      * Creates a new Task object.
+     *
      * @param description String to be stored as description.
      * @param isDone whether the task is done.
      */
@@ -59,7 +60,7 @@ public class Task {
     /**
      * Formats the Task for writing into the .txt file.
      *
-     * @return String.
+     * @return String in the format of "1/0 | {description}".
      */
     public String stringData() {
         int isDoneNum = isDone ? 1 : 0;
