@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Priority?>
+
+<VBox spacing="15.0" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ui.ChatBotController" style="-fx-background-color: #F7F7F7;">
+
+    <!-- Chat area (ScrollPane with VBox for messages) -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: transparent;">
+        <VBox fx:id="chatArea" spacing="10.0" style="-fx-padding: 10; -fx-background-color: #FFFFFF; -fx-border-color: #D3D3D3; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Input field and Send button -->
+    <HBox spacing="10.0" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #FFFFFF; -fx-border-color: #D3D3D3; -fx-border-radius: 10; -fx-background-radius: 10;">
+        <TextField fx:id="inputField" promptText="Type your message..." HBox.hgrow="ALWAYS" style="-fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+        <Button text="Send" onAction="#handleSend" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+    </HBox>
+
+</VBox>

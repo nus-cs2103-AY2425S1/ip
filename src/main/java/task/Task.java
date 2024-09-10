@@ -1,4 +1,4 @@
-package sigmabot.task;
+package task;
 
 /**
  * The {@code Task} class is an abstract base class that represents a generic task.

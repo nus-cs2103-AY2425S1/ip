@@ -1,4 +1,4 @@
-package sigmabot.util;
+package util;
 
 /**
  * The Reader class serves as an abstract base class for reading files in the application.

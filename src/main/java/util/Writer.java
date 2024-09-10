@@ -1,4 +1,4 @@
-package sigmabot.util;
+package util;
 
 /**
  * The Writer class serves as an abstract base class for writing data to files in the application.
