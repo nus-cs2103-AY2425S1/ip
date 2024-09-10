@@ -2,6 +2,7 @@ package pixel.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 import pixel.DateTimeParser;
 import pixel.PixelException;
@@ -11,6 +12,7 @@ import pixel.PixelException;
  */
 public class Event extends Task {
     private String type = "E";
+    private LocalDate fromDate;
 
     /**
      * Constructs a new Event object with the given description.
@@ -21,6 +23,7 @@ public class Event extends Task {
      */
     public Event(String description) throws PixelException {
         super(modifyDescription(description));
+        this.extractFromDate(this.description);
     }
 
     /**
@@ -29,8 +32,9 @@ public class Event extends Task {
      * @param description the description of the event
      * @param done        the done status of the event
      */
-    public Event(String description, String done) {
+    public Event(String description, String done) throws PixelException {
         super(description, done);
+        this.extractFromDate(this.description);
     }
 
     /**
@@ -57,6 +61,23 @@ public class Event extends Task {
         } else {
             throw new PixelException("Event should be of this format: {description} /from {date} /to {date}");
         }
+    }
+
+    private void extractFromDate(String des) throws PixelException {
+        String regex = "\\(from: (.*?) to:";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(des);
+        System.out.println(des);
+        if (matcher.find()) {
+            this.fromDate = new DateTimeParser(matcher.group(1)).getDateTime();
+        } else {
+            throw new PixelException("Unable to extract from Date");
+        }
+
+    }
+
+    public LocalDate getFromDate() {
+        return this.fromDate;
     }
 
     /**

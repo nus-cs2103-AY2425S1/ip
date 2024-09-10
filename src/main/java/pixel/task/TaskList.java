@@ -82,4 +82,37 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public void sortByDeadline() {
+        // list.sort((task1, task2) -> task1.toString().compareTo(task2.toString()));
+        list.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getDeadline().compareTo(((Deadline) task2).getDeadline());
+            } else if (task1 instanceof Deadline) {
+                return -1;
+            } else if (task2 instanceof Deadline) {
+                return 1;
+            } else {
+                return task1.toString().compareTo(task2.toString());
+            }
+        });
+    }
+
+    public void sortByName() {
+        list.sort((task1, task2) -> task1.toString().compareTo(task2.toString()));
+    }
+
+    public void sortByEvent() {
+        list.sort((task1, task2) -> {
+            if (task1 instanceof Event && task2 instanceof Event) {
+                return ((Event) task1).getFromDate().compareTo(((Event) task2).getFromDate());
+            } else if (task1 instanceof Event) {
+                return -1;
+            } else if (task2 instanceof Event) {
+                return 1;
+            } else {
+                return task1.toString().compareTo(task2.toString());
+            }
+        });
+    }
 }

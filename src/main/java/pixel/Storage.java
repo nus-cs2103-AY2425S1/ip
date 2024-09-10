@@ -35,7 +35,7 @@ public class Storage {
      * @return A TaskList object containing the loaded tasks.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public TaskList load() throws IOException {
+    public TaskList load() throws IOException, PixelException {
         TaskList taskList = new TaskList();
         BufferedReader br = new BufferedReader(new FileReader(this.filePath));
         String line = br.readLine();

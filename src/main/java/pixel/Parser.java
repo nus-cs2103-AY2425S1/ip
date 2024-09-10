@@ -8,6 +8,7 @@ import pixel.command.FindCommand;
 import pixel.command.ListCommand;
 import pixel.command.MarkCommand;
 import pixel.command.PixelCommandEnum;
+import pixel.command.SortCommand;
 import pixel.task.Deadline;
 import pixel.task.Event;
 import pixel.task.Todo;
@@ -37,8 +38,7 @@ public class Parser {
             }
         }
         if (!valid) {
-            throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!",
-                    cmdString));
+            throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!", cmdString));
         }
 
         cmd = PixelCommandEnum.valueOf(cmdString.toUpperCase());
@@ -67,6 +67,8 @@ public class Parser {
             return new DeleteCommand(input.strip());
         case FIND:
             return new FindCommand(input.strip());
+        case SORT:
+            return new SortCommand(input.strip());
         default:
             throw new PixelException("OH NO!!! I don't understand this! Try Again!");
         }
