@@ -21,17 +21,17 @@ public class TaskListStub implements MaxineList {
     }
 
 
-    public void addTodo(String[] string) {
+    public void addTodo(String input) {
         Todo task = new Todo("homework");
         list.add(task);
     }
 
-    public void addDeadline(String[] arr) {
+    public void addDeadline(String input) {
         Deadline task = new Deadline("description", "tomorrow");
         list.add(task);
     }
 
-    public void addEvent(String[] arr) throws MaxineException {
+    public void addEvent(String input) throws MaxineException {
         Event task = new Event("test", "today", "tomorrow");
         list.add(task);
     }

@@ -6,13 +6,13 @@ import seedu.maxine.task.Task;
 public interface MaxineList extends Iterable<Task> {
     //TODO: Change these to java docs
     // Method to add a Todo task
-    void addTodo(String[] arr);
+    void addTodo(String input);
 
     // Method to add a Deadline task
-    void addDeadline(String[] arr) throws MaxineException;
+    void addDeadline(String input) throws MaxineException;
 
     // Method to add an Event task
-    void addEvent(String[] arr) throws MaxineException;
+    void addEvent(String input) throws MaxineException;
 
     // Method to delete a task
     void delete(int task);

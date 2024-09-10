@@ -31,6 +31,7 @@ public class Parser {
      */
     public String parse(String input) {
         try {
+            input = input.toLowerCase();
             String[] answer = input.split(" ");
             switch (answer[0]) {
             case ("bye"):
@@ -46,15 +47,15 @@ public class Parser {
                 storage.refreshStorage(list);
                 return ui.changeMark(curr);
             case ("todo"):
-                list.addTodo(answer);
+                list.addTodo(input);
                 storage.refreshStorage(list);
                 return "todo task added!";
             case ("deadline"):
-                list.addDeadline(answer);
+                list.addDeadline(input);
                 storage.refreshStorage(list);
                 return "deadline task added!";
             case ("event"):
-                list.addEvent(answer);
+                list.addEvent(input);
                 storage.refreshStorage(list);
                 return "event added!";
             case ("delete"):

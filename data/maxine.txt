@@ -1,2 +1,16 @@
-T / 0 / homeowkr
+T / 0 / cs2103t assignment
+D / 0 / finish crying /  today
+T / 1 / project meeting
+E / 0 / regain hope /  today /  tomorrow
+T / 0 / cs2100 assignment
+T / 0 / 2101 presentation
+T / 0 / try to relax
+T / 0 / gea1k quiz
+D / 0 / project / today
+D / 0 / project work / today
+T / 0 / project
+D / 0 / project garder / today
 T / 0 / garden
+T / 1 / project
+E / 0 / project / today / tomorrow
+D / 0 / project / today

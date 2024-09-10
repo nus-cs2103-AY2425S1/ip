@@ -9,6 +9,8 @@ import seedu.maxine.task.Todo;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList implements MaxineList {
     private ArrayList<Task> list;
@@ -22,66 +24,38 @@ public class TaskList implements MaxineList {
         this.list = storage.load();
     }
 
-
-    /**
-     * Adds todo task to the tasklist
-     * @param arr Array of Strings containing user's input
-     */
-    public void addTodo(String[] arr) {
+    public void addTodo(String input) {
         try {
-            StringBuilder sb = new StringBuilder();
-            sb.append(arr[1]);
-            if (arr.length >= 3) {
-                for (int i = 2; i < arr.length; i++) {
-                    String word = " " + arr[i];
-                    sb.append(word);
-                }
+            String[] answer = input.split("todo ");
+            String regex = "todo";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 2 || !matcher.find()) {
+                throw new MaxineException("Please follow this "
+                        + "format: todo [enter maxine.task]");
             }
-            Todo task = new Todo(sb.toString());
+            String description = answer[1];
+            Todo task = new Todo(description);
             list.add(task);
         } catch (Exception e) {
             System.out.println("Please follow this format: todo [enter maxine.task]");
         }
-        
     }
 
-
-    /**
-     * Adds deadline task to the tasklist.
-     * Exception is thrown if the user does not follow 
-     * the format for deadline task
-     * @param arr Array of Strings containing user's input
-     * @throws MaxineException Exception if the user does not follow format
-     */
-    public void addDeadline(String[] arr) throws MaxineException {
+    
+    public void addDeadline(String input) throws MaxineException {
         try {
-            StringBuilder desc = new StringBuilder();
-            StringBuilder ddl = new StringBuilder();
-            desc.append(arr[1]);
-            boolean isChecked = false;
-            for (int i = 1; i < (arr.length - 1); i++) {
-                if (arr[i].equals("/by")) {
-                    isChecked = true;
-                    break;
-                }
+            String[] answer = input.split("deadline | /by ");
+            String regex = "deadline.*?/by";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 3 || !matcher.find()) {
+                throw new MaxineException("Please follow this format: deadline "
+                        + "[enter maxine.task] /by [enter deadline]");
             }
-            if (!isChecked || arr[1].equals("/by")) {
-                throw new MaxineException("Please follow this format: deadline [enter maxine.task] /by [enter deadline]");
-            }
-            boolean hasBy = false;
-            for (int i = 2; i < arr.length; i++) {
-                if (arr[i].equals("/by")) {
-                    hasBy = true;
-                }
-                else if (hasBy) {
-                    String word = " " + arr[i];
-                    ddl.append(word);
-                } else {
-                    String word = " " + arr[i];
-                    desc.append(word);
-                }
-            }
-            Deadline task = new Deadline(desc.toString(), ddl.toString());
+            String description = answer[1];
+            String deadline = answer[2];
+            Deadline task = new Deadline(description, deadline);
             list.add(task);
         } catch (Exception e) {
             System.out.println("Please follow this format: deadline "
@@ -91,58 +65,27 @@ public class TaskList implements MaxineList {
 
 
     /**
-     * Adds event task to the tasklist.
-     * Exception is thrown if the user does not follow 
-     * the format for event task
-     * @param arr Array of Strings containing user's input
-     * @throws MaxineException Exception if the user does not follow format
+     * 
+     * @param input
+     * @throws MaxineException
      */
-    public void addEvent(String[] arr) throws MaxineException {
+    public void addEvent(String input) throws MaxineException {
         try {
-            StringBuilder desc = new StringBuilder();
-            StringBuilder start = new StringBuilder();
-            StringBuilder end = new StringBuilder();
-            desc.append(arr[1]);
-            boolean hasFrom = false;
-            boolean hasTo = false;
-            for (int i = 2; i < (arr.length - 1); i++) {
-                if (arr[i].equals("/from")) {
-                    hasFrom = true;
-                }
-                if (arr[i].equals("/to")) {
-                    hasTo = true;
-                }
+            String[] answer = input.split("event | /from | /to ");
+            String regex = "event.*?/from.*?/to";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 4 || !matcher.find()) {
+                throw new MaxineException("Please follow this format: event [enter event] "
+                        + "/from [start date] /to [end date]");
             }
-
-            if (!hasFrom || !hasTo || arr[1].equals("/from")) {
-                throw new MaxineException("Please follow this format: "
-                        + "event [enter event] /from [start date] /to [end date]");
-            }
-            boolean isAfterFrom = false;
-            boolean isAfterTo = false;
-            for (int i = 2; i < arr.length; i++) {
-                if (arr[i].equals("/from")) {
-                    isAfterFrom = true;
-                }
-                else if (arr[i].equals("/to")) {
-                    isAfterFrom = false;
-                    isAfterTo = true;
-                } else if (isAfterFrom) {
-                    String word = " " + arr[i];
-                    start.append(word);
-                } else if (isAfterTo) {
-                    String word = " " + arr[i];
-                    end.append(word);
-                } else {
-                    String word = " " + arr[i];
-                    desc.append(word);
-                }
-            }
-            Event task = new Event(desc.toString(), start.toString(), end.toString());
+            String description = answer[1];
+            String startTime = answer[2];
+            String endTime = answer[3];
+            Event task = new Event(description, startTime, endTime);
             list.add(task);
-        } catch (Exception e) {
-            System.out.println("Please follow this format: event [enter event] " +
-                    "/from [start date] /to [end date]");
+        } catch (MaxineException e) {
+            System.out.println(e.getMessage());
         }
     }
 
