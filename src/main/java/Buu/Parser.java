@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The Parser class is responsible for interpreting user input and converting it
@@ -43,7 +45,7 @@ public class Parser {
     }
 
     /**
-     * Parses a date and time string into a LocalDateTime object.
+     * Parses a date and time string into a LocalDateTime object using Streams.
      * This method attempts to parse the input string using several predefined date and time formats.
      * If the input matches one of the formats, a corresponding LocalDateTime object is returned.
      *
@@ -51,62 +53,63 @@ public class Parser {
      * @return A LocalDateTime object representing the parsed date and time, or null if the input is invalid.
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
-        LocalDateTime dateTime = parseWithDateTimeFormatter(dateTimeStr, "yyyy-MM-dd HHmm");
-        if (dateTime != null) {
-            return dateTime;
+        DateTimeFormatter[] dateTimeFormatters = new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm")
+        };
+
+        DateTimeFormatter[] dateFormatters = new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        };
+
+        // Use Streams to try parsing with dateTimeFormatters first
+        Optional<LocalDateTime> parsedDateTime = Stream.of(dateTimeFormatters)
+                .map(formatter -> parseWithDateTimeFormatter(dateTimeStr, formatter))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst();
+
+        if (parsedDateTime.isPresent()) {
+            return parsedDateTime.get();
         }
 
-        dateTime = parseWithDateTimeFormatter(dateTimeStr, "d/M/yyyy HHmm");
-        if (dateTime != null) {
-            return dateTime;
-        }
+        // Use Streams to try parsing with dateFormatters if no LocalDateTime match
+        Optional<LocalDate> parsedDate = Stream.of(dateFormatters)
+                .map(formatter -> parseWithDateFormatter(dateTimeStr, formatter))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst();
 
-        dateTime = parseWithDateTimeFormatter(dateTimeStr, "yyyy-M-d HHmm");
-        if (dateTime != null) {
-            return dateTime;
-        }
-
-        LocalDate date = parseWithDateFormatter(dateTimeStr, "d/M/yyyy");
-        if (date != null) {
-            return date.atStartOfDay();
-        }
-
-        date = parseWithDateFormatter(dateTimeStr, "yyyy-MM-dd");
-        if (date != null) {
-            return date.atStartOfDay();
-        }
-
-        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, d/M/yyyy HHmm, or yyyy-MM-dd format.");
-        return null;
+        return parsedDate.map(LocalDate::atStartOfDay).orElse(null);
     }
 
     /**
-     * Attempts to parse a date-time string with the given format.
+     * Attempts to parse a date-time string with the given formatter.
      * @param dateTimeStr The date-time string to parse.
-     * @param pattern The date-time pattern to use.
-     * @return A LocalDateTime object if parsing is successful, or null if an exception occurs.
+     * @param formatter The date-time formatter to use.
+     * @return An Optional of LocalDateTime if parsing is successful, or an empty Optional if an exception occurs.
      */
-    private static LocalDateTime parseWithDateTimeFormatter(String dateTimeStr, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+    private static Optional<LocalDateTime> parseWithDateTimeFormatter(String dateTimeStr, DateTimeFormatter formatter) {
         try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
+            return Optional.of(LocalDateTime.parse(dateTimeStr, formatter));
         } catch (DateTimeParseException e) {
-            return null; // Return null to indicate a parsing failure
+            return Optional.empty();
         }
     }
 
     /**
-     * Attempts to parse a date string with the given format.
+     * Attempts to parse a date string with the given formatter.
      * @param dateStr The date string to parse.
-     * @param pattern The date pattern to use.
-     * @return A LocalDate object if parsing is successful, or null if an exception occurs.
+     * @param formatter The date formatter to use.
+     * @return An Optional of LocalDate if parsing is successful, or an empty Optional if an exception occurs.
      */
-    private static LocalDate parseWithDateFormatter(String dateStr, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+    private static Optional<LocalDate> parseWithDateFormatter(String dateStr, DateTimeFormatter formatter) {
         try {
-            return LocalDate.parse(dateStr, formatter);
+            return Optional.of(LocalDate.parse(dateStr, formatter));
         } catch (DateTimeParseException e) {
-            return null; // Return null to indicate a parsing failure
+            return Optional.empty();
         }
     }
 }
