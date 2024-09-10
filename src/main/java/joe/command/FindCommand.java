@@ -25,4 +25,8 @@ public class FindCommand extends Command {
         String msg = "Here are the matching tasks in your list:";
         ui.printResponse(msg, matchingArr);
     }
+
+    public static String getHelp() {
+        return "To find a task, try: find {query}";
+    }
 }

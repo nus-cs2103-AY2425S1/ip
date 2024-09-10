@@ -6,5 +6,5 @@ package joe;
  * command that the application can recognize and execute.
  */
 public enum Commands {
-   LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, DELETE, FIND
+   LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, DELETE, FIND, HELP
 }

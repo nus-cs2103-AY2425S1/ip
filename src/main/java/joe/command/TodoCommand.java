@@ -52,4 +52,7 @@ public class TodoCommand extends Command {
         return description != null ? description.hashCode() : 0;
     }
 
+    public static String getHelp() {
+        return "To add a new todo, try: todo {desc}";
+    }
 }

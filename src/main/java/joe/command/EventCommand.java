@@ -64,4 +64,8 @@ public class EventCommand extends Command {
     public int hashCode() {
         return Objects.hash(description, from, to);
     }
+
+    public static String getHelp() {
+        return "To add a new event, try: event {desc} /from {start} /to {end}";
+    }
 }

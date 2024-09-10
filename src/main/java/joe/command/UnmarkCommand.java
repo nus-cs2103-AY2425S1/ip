@@ -32,4 +32,8 @@ public class UnmarkCommand extends Command {
         }
         taskList.unmarkTask(idx);
     }
+
+    public static String getHelp() {
+        return "To unmark a complete task, try: unmark {index}";
+    }
 }
