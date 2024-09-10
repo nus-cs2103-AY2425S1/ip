@@ -26,7 +26,7 @@ public class ListCommand extends Command {
      * </p>
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) {
+    public String execute(Ui ui, Storage storage, TaskList tasks) {
         String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
 
@@ -37,17 +37,9 @@ public class ListCommand extends Command {
             responseBody = tasksString;
         }
 
-        ui.displayResponse((totalTasks == 1
+        return (totalTasks == 1
                 ? "Here is the task in your list:\n"
                 : "Here are the tasks in your list:\n")
-                + responseBody);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+                + responseBody;
     }
 }

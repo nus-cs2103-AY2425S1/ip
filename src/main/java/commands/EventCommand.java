@@ -114,14 +114,9 @@ public class EventCommand extends Command {
      * @throws BrockException If event command is invalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task eventTask = createEvent();
         tasks.addToList(eventTask);
-        ui.displayResponse("Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(eventTask)
-                + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
         storage.writeToFile(tasks.numTasks()
@@ -129,13 +124,11 @@ public class EventCommand extends Command {
                 + tasks.getTaskDetails(eventTask)
                 + '\n',
                 true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + "  "
+                + tasks.getTaskDetails(eventTask)
+                + '\n'
+                + tasks.getTasksSummary();
     }
 }

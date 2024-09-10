@@ -48,7 +48,7 @@ public class FindCommand extends Command {
      * @throws BrockException If the find command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         String keyword = validateFindCommand();
 
         String[] result = tasks.findMatchingTasks(keyword);
@@ -61,15 +61,6 @@ public class FindCommand extends Command {
         String responseBody = numMatching == 0
                 ? "No matching tasks!"
                 : resultString;
-        ui.displayResponse(responseHeader + responseBody);
+        return responseHeader + responseBody;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

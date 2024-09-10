@@ -31,32 +31,24 @@ public class MarkCommand extends Command {
      * @throws BrockException If mark command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
         Utility.validateStatus(command, Utility.Action.MARK, tasks);
 
         int taskIndex = Utility.getTaskIndex(command);
         boolean isSuccessful = tasks.markTask(taskIndex);
-        if (!isSuccessful) {
-            ui.displayResponse("Task has been marked already!");
-            return;
-        }
-
-        ui.displayResponse("Nice! I've marked this task as done:\n"
-                + "  "
-                + tasks.getTaskDetails(taskIndex));
 
         // Update the save file
         String tasksString = tasks.listTasks();
         storage.writeToFile("", false);
         storage.writeToFile(tasksString, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        if (!isSuccessful) {
+            return "Task has been marked already!";
+        }
+
+        return "Nice! I've marked this task as done:\n"
+                + "  "
+                + tasks.getTaskDetails(taskIndex);
     }
 }

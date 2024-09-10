@@ -88,14 +88,9 @@ public class DeadlineCommand extends Command {
      * @throws BrockException If deadline command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task deadlineTask = createDeadline();
         tasks.addToList(deadlineTask);
-        ui.displayResponse("Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(deadlineTask)
-                + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
         storage.writeToFile(tasks.numTasks()
@@ -103,13 +98,11 @@ public class DeadlineCommand extends Command {
                         + tasks.getTaskDetails(deadlineTask)
                         + '\n',
                 true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + "  "
+                + tasks.getTaskDetails(deadlineTask)
+                + '\n'
+                + tasks.getTasksSummary();
     }
 }

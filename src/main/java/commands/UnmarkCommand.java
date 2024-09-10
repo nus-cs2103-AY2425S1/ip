@@ -31,32 +31,24 @@ public class UnmarkCommand extends Command {
      * @throws BrockException If unmark command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
         Utility.validateStatus(command, Utility.Action.UNMARK, tasks);
 
         int taskIndex = Utility.getTaskIndex(command);
         boolean isSuccessful = tasks.unmarkTask(taskIndex);
-        if (!isSuccessful) {
-            ui.displayResponse("Task has not been marked yet!");
-            return;
-        }
-
-        ui.displayResponse("OK, I've marked this task as not done yet:\n"
-                + "  "
-                + tasks.getTaskDetails(taskIndex));
 
         // Update the save file
         String tasksString = tasks.listTasks();
         storage.writeToFile("", false);
         storage.writeToFile(tasksString, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        if (!isSuccessful) {
+            return "Task has not been marked yet!";
+        }
+
+        return "OK, I've marked this task as not done yet:\n"
+                + "  "
+                + tasks.getTaskDetails(taskIndex);
     }
 }

@@ -31,6 +31,7 @@ public abstract class Command {
     }
 
 
+    // TODO change this JAVADOC!
     /**
      * Runs the user command.
      *
@@ -39,13 +40,6 @@ public abstract class Command {
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @throws BrockException If there are any issues with running the command.
      */
-    public abstract void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException;
+    public abstract String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException;
 
-
-    /**
-     * Checks the exit status associated with the user command.
-     *
-     * @return Exit status, either true or false.
-     */
-    public abstract boolean isExit();
 }

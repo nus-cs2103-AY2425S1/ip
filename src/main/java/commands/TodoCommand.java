@@ -57,28 +57,21 @@ public class TodoCommand extends Command {
      * @throws BrockException If todo command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task todoTask = createTodo();
         tasks.addToList(todoTask);
-        ui.displayResponse("Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(todoTask)
-                + '\n'
-                + tasks.getTasksSummary());
 
         // Update the save file
         storage.writeToFile(tasks.numTasks()
-                + ". "
-                + tasks.getTaskDetails(todoTask)
-                + '\n',
+                        + ". "
+                        + tasks.getTaskDetails(todoTask)
+                        + '\n',
                 true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + "  "
+                + tasks.getTaskDetails(todoTask)
+                + '\n'
+                + tasks.getTasksSummary();
     }
 }

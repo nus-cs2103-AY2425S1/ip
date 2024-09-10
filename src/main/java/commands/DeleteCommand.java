@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
      * @throws BrockException If delete command is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         validateDelete(tasks);
 
         String command = super.getCommand();
@@ -66,21 +66,13 @@ public class DeleteCommand extends Command {
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 
-        ui.displayResponse("Noted. I've removed this task:\n"
-                + "  " + deletedTaskDetails + '\n'
-                + tasks.getTasksSummary());
-
         // Update the save file
         String remainingTasks = tasks.listTasks();
         storage.writeToFile("", false);
         storage.writeToFile(remainingTasks, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Noted. I've removed this task:\n"
+                + "  " + deletedTaskDetails + '\n'
+                + tasks.getTasksSummary();
     }
 }
