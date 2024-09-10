@@ -76,6 +76,7 @@ public class Storage {
                     task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
                     break;
                 default:
+                    throw new IllegalArgumentException("Invalid task type: " + taskType);
                 }
 
                 if (task != null) {
@@ -86,12 +87,15 @@ public class Storage {
                 }
             }
             return taskList;
+
         } catch (DateTimeParseException e) {
             Ui.initialise("File corrupted. Starting fresh...");
             return new ArrayList<>();
+
         } catch (FileNotFoundException e) {
             Ui.initialise("No saved tasks found. Starting fresh...");
             return new ArrayList<>();
+            
         } catch (IOException e) {
             Ui.initialise("Unable to access data. Starting fresh...");
             return new ArrayList<>();
