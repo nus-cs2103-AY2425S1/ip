@@ -31,6 +31,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image optimusImage = new Image(this.getClass().getResourceAsStream("/images/optimus.png"));
 
+    /**
+     * Initializes the MainWindow and send the greeting message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
