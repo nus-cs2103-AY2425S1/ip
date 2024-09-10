@@ -1,6 +1,8 @@
 # Arona User Guide
 
+Arona is a desktop app for managing tasks, it is stylised like a chat bot that you can talk to and receive replies from.
 
+The design is inspired by [Arona from Blue Archive](https://bluearchive.fandom.com/wiki/Arona).
 ## Installation
 
 1. Ensure you have Java 17 or above installed in your Computer.
@@ -11,13 +13,12 @@
 
 4. Open a command terminal, `cd` into the folder you put the jar file in
 
-5. Use this command to run the application:
+5. Use this command to run the application, a GUI should appear in a few seconds.
 ```
 java -jar Arona.jar
 ``` 
-A GUI similar to the below should appear in a few seconds.
 
-5. Type the command in the command box and press Enter to execute it.
+6. Type the command in the command box and press Enter to execute it.
 
 Some example commands you can try:
 - `todo homework` : Adds a todo called homework to the task list.
@@ -32,13 +33,13 @@ Refer to the Features below for details of each command.
 
 ### `list` : List all tasks
 
-Lists all tasks in `data.txt` (the default storage file)
+Lists all tasks in `data.txt` (the default storage file).
 
 Format: `list`
 
 ### `todo` : Add a new todo
 
-Adds a new task without any date attached to it
+Adds a new task without any date attached to it.
 
 Format: `todo DESCRIPTION`
 
@@ -48,27 +49,27 @@ Examples:
 
 ### `deadline `: Add a new deadline
 
-Adds a new task that need to be done before a specific date
+Adds a new task that need to be done before a specific date.
 
 Format: `deadline DESCRIPTION /by YYYY-MM-DD`
 
 Examples:
 - `deadline math assignment /by 2024-01-01`
-- `deadline `
+- `deadline report /by 2024-06-06`
 
 ### `event` : Add a new event
 
-Adds a new task that start at a specific date and ends at a specific date
+Adds a new task that start at a specific date and ends at a specific date.
 
 Format: `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD`
 
 Examples:
 - `event orientation week /from 2024-03-14 /to 2024-03-21`
-- `event Halloween /from 2023-10-31 /to 2023-10-31`
+- `event Halloween /from 2024-10-31 /to 2024-10-31`
 
 ### `mark` : Mark a task as done
 
-Mark the specified task as done [X]
+Mark the specified task as done [X].
 
 Format: `mark INDEX`
 
@@ -78,7 +79,7 @@ Examples:
 
 ### `unmark` : Unmark a task
 
-Mark the specified task as not done [ ]
+Mark the specified task as not done [ ].
 
 Format: `unmark INDEX`
 
@@ -88,7 +89,7 @@ Examples:
 
 ### `delete` : Delete a task
 
-Deletes the specified task from the list of tasks
+Deletes the specified task from the list of tasks.
 
 Format: `delete INDEX`
 
@@ -98,9 +99,9 @@ Examples:
 
 ### `find` : Find a task
 
-Finds a task which has a description that contains the specified keyword
+Finds a task which has a description that contains the specified keyword.
 
-Note: the keyword is not case sensitive but it is whitespace sensitive
+Note: the keyword is not case sensitive but it is whitespace sensitive.
 
 Format: `find KEYWORD`
 
@@ -111,9 +112,9 @@ Examples:
 
 ### `archive` : Archive current tasks
 
-Saves current task list into specified file name and clears current task list of all tasks
+Saves current task list into specified file name and clears current task list.
 
-(Note: the archived file is in the same location as data.txt)
+Note: the archived file is in the same location as data.txt.
 
 Format: `archive FILENAME`
 
@@ -121,3 +122,9 @@ Examples:
 
 - `archive school work` saves tasks into `school work.txt`
 - `archive archive.exe` saves tasks into `archive.exe.txt` (note this is still a text file)
+
+### `bye` : Closes the app
+
+Saves all tasks and closes the app.
+
+Format: `bye`
