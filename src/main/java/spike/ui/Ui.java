@@ -11,6 +11,7 @@ import spike.tasks.Task;
 public class Ui {
     private static final String LINE = "    _________________________________________________________";
     private final Scanner scanner;
+    private String response;
 
     /**
      * Constructor for Ui.
@@ -31,7 +32,8 @@ public class Ui {
      * Shows the error message when loading from file fails.
      */
     public void showLoadingError() {
-        System.out.println("     An error occurred while reading from file!\nStarting with a new task list.");
+        this.response = "     An error occurred while reading from file!\nStarting with a new task list.";
+        System.out.println(this.response);
     }
 
     /**
@@ -47,7 +49,8 @@ public class Ui {
      * Shows the goodbye message.
      */
     public void showBye() {
-        System.out.println("     Bye. Hope to see you again soon!");
+        this.response = "     Bye. Hope to see you again soon!";
+        System.out.println(this.response);
     }
 
     /**
@@ -73,15 +76,16 @@ public class Ui {
      */
     public void showTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("     Your list is empty!");
+            this.response = "     Your list is empty!";
         } else {
-            System.out.println("     Here are the tasks in your list:\n");
+            this.response = "     Here are the tasks in your list:\n";
             int counter = 0;
             for (Task item : tasks) {
                 counter++;
-                System.out.println("      " + counter + ". " + item.toString());
+                this.response = this.response + "\n      " + counter + ". " + item.toString();
             }
         }
+        System.out.println(this.response);
     }
 
     /**
@@ -91,9 +95,9 @@ public class Ui {
      * @param size The size of the list after adding the task.
      */
     public void showTaskAdded(Task task, int size) {
-        System.out.println("     Got it. I've added this task:\n");
-        System.out.println("      " + task.toString());
-        System.out.println("     Now you have " + size + " tasks in the list.");
+        this.response = "     Got it. I've added this task:\n" + "      " + task.toString() + "\n"
+                + "     Now you have " + size + " tasks in the list.";
+        System.out.println(this.response);
     }
 
     /**
@@ -103,9 +107,9 @@ public class Ui {
      * @param size The size of the list after deleting the task.
      */
     public void showTaskDeleted(Task task, int size) {
-        System.out.println("     Noted. I've removed this task:\n");
-        System.out.println("      " + task.toString());
-        System.out.println("     Now you have " + size + " tasks in the list.");
+        this.response = "     Noted. I've removed this task:\n" + "      " + task.toString() + "\n"
+                + "     Now you have " + size + " tasks in the list.";
+        System.out.println(this.response);
     }
 
     /**
@@ -114,8 +118,8 @@ public class Ui {
      * @param taskString The string representation of the task that was marked.
      */
     public void showTaskMarked(String taskString) {
-        System.out.println("     Nice! I've marked this task as done:\n");
-        System.out.println("      " + taskString);
+        this.response = "     Nice! I've marked this task as done:\n" + "      " + taskString;
+        System.out.println(this.response);
     }
 
     /**
@@ -124,8 +128,8 @@ public class Ui {
      * @param taskString The string representation of the task that was unmarked.
      */
     public void showTaskUndone(String taskString) {
-        System.out.println("     I've marked this task as not done yet:\n");
-        System.out.println("      " + taskString);
+        this.response = "     I've marked this task as not done yet:\n" + "      " + taskString;
+        System.out.println(this.response);
     }
 
     /**
@@ -134,6 +138,11 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showExceptionMessage(String message) {
-        System.out.println("     " + "ERROR: " + message);
+        this.response = "     " + "ERROR: " + message;
+        System.out.println(this.response);
+    }
+
+    public String getStringToDisplay() {
+        return this.response;
     }
 }
