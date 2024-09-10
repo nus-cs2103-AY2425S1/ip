@@ -21,7 +21,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        String todoString = "[T]" + super.toString();
+        String todoString = priorityString() + "[T]" + super.toString();
         return todoString;
     }
 }
