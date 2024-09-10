@@ -106,12 +106,21 @@ public class TaskList {
      * @return task list containing all tasks with given name.
      */
     public TaskList findTasks(String name) {
-        assert !name.equals("") : "Error: invalid task name!";
+        assert name.isEmpty() : "Error: invalid task name!";
         TaskList matchingTasks = new TaskList();
         matchingTasks.tasks = this.tasks.stream()
                 .filter(task -> task.getName().equals(name))
                 .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
+    }
+
+    /**
+     * Checks whether task list contains a given task.
+     * @param task the task to check.
+     * @return a boolean representing whether the task list contains the task.
+     */
+    public boolean containsTask(Task task) {
+        return this.tasks.stream().anyMatch(t -> t.equals(task));
     }
 
     /**
@@ -157,7 +166,7 @@ public class TaskList {
      * @throws PhenexException if invalid line.
      */
     private void addTaskFromMemoryLine(String data) throws PhenexException {
-        assert !data.equals("") : "Error: invalid input when reading data.";
+        assert data.isEmpty() : "Error: invalid input when reading data.";
         String[] taskDetails = data.split(", ");
         if (taskDetails.length <= 1) {
             throw new PhenexException("Error, corrupted memory.");

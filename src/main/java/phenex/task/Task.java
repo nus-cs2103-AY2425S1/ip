@@ -50,4 +50,13 @@ public abstract class Task {
                 + "] "
                 + this.name;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Task) {
+            Task compared = (Task) object;
+            return this.name.equals(compared.name);
+        }
+        return false;
+    }
 }

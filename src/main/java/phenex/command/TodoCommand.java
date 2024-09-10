@@ -22,6 +22,9 @@ public class TodoCommand extends CreateTaskCommand {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         ToDo toDo = new ToDo(super.name);
+        if (taskList.containsTask(toDo)) {
+            throw new PhenexException("Error: Duplicate Mission. Aborting!");
+        }
         taskList.addTask(toDo);
         return ui.printTaskAddedMessage(toDo, taskList.getTasks().size());
     }
