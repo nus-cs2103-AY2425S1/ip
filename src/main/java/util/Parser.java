@@ -22,6 +22,11 @@ import tasks.ToDo;
  * Utility class to parse data.
  */
 public class Parser {
+    private static final int CMD_IDX = 0;
+    private static final int DESCRIPTION_IDX = 1;
+    private static final int FIRST_DATE_IDX = 2;
+    private static final int SEC_DATE_IDX = 3;
+
     /**
      * Method to read the items in the Storage class.
      *
@@ -122,30 +127,30 @@ public class Parser {
 
         String[] parsedParts = new String[4];
         String[] parts = inputString.split("\\s+");
-        parsedParts[0] = parts[0].toLowerCase();
+        parsedParts[CMD_IDX] = parts[CMD_IDX].toLowerCase();
 
-        if (parsedParts[0].equals("mark") || parsedParts[0].equals("unmark")) {
+        if (parsedParts[CMD_IDX].equals("mark") || parsedParts[CMD_IDX].equals("unmark")) {
             Validator.verifyMarkUnmark(parts);
-            parsedParts[1] = parts[1];
+            parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
             return parsedParts;
         }
 
-        if (parsedParts[0].equals("delete")) {
+        if (parsedParts[CMD_IDX].equals("delete")) {
             Validator.verifyDelete(parts);
-            parsedParts[1] = parts[1];
+            parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
             return parsedParts;
         }
 
-        if (parsedParts[0].equals("find")) {
+        if (parsedParts[CMD_IDX].equals("find")) {
             Parser.parseFind(parts, parsedParts);
             return parsedParts;
         }
 
-        if (parsedParts[0].equals("list") || parsedParts[0].equals("bye")) {
+        if (parsedParts[CMD_IDX].equals("list") || parsedParts[CMD_IDX].equals("bye")) {
             return parsedParts;
         }
 
-        switch (parsedParts[0]) {
+        switch (parsedParts[CMD_IDX]) {
         case "todo":
             Parser.parseTodo(parts, parsedParts);
             return parsedParts;
@@ -172,7 +177,8 @@ public class Parser {
      */
     private static String[] parseTodo(String[] parts, String[] parsedParts) throws ToDoException {
         Validator.verifyTodo(parts);
-        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
         return parsedParts;
     }
 
@@ -187,8 +193,10 @@ public class Parser {
         }
 
         Validator.verifyDeadline(parts, byIdx);
-        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
-        parsedParts[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, byIdx));
+        parsedParts[FIRST_DATE_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
         return parsedParts;
     }
 
@@ -204,15 +212,19 @@ public class Parser {
             }
         }
         Validator.verifyEvent(parts, fromIdx, toIdx);
-        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
-        parsedParts[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
-        parsedParts[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, fromIdx));
+        parsedParts[FIRST_DATE_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
+        parsedParts[SEC_DATE_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
         return parsedParts;
     }
 
     private static String[] parseFind(String[] parts, String[] parsedParts) throws FindException {
         Validator.verifyFind(parsedParts);
-        parsedParts[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
         return parsedParts;
     }
 }
