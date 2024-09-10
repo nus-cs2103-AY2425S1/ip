@@ -5,23 +5,14 @@ package monique.exception;
  * when an invalid date format is encountered. It extends from <code>MoniqueException</code>.
  */
 public class IllegalDateFormatException extends MoniqueException {
+    public static final String DEFAULT_MESSAGE = "You have tried to create a task without using proper date"
+                                                 + "-time formats. Please try again, with the correct input format";
     /**
      * Constructs a new <code>IllegalDateFormatException</code> with a default detail message.
      * The message indicates that the date format provided is illegal.
      */
     public IllegalDateFormatException() {
-        super("Illegal Date Format");
+        super(DEFAULT_MESSAGE);
     }
 
-    /**
-     * Provides advice on how to handle an illegal date format exception.
-     *
-     * @return a string containing advice for handling the exception, indicating that the date-time format used is incorrect and providing guidance to use the correct format.
-     */
-    @Override
-    public String advice() {
-        return "You have tried to create an Event without using proper "
-                + "date-time formats. Please try again, with the correct input format";
-
-    }
 }

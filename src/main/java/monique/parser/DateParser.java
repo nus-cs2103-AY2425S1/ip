@@ -18,6 +18,8 @@ public class DateParser {
     public static final String DATE_PATTERN = "\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4}( \\d{4})?";
     public static final String DAY_PATTERN = "(?i)(mon|tue|wed|thu|fri|sat|sun|monday|tuesday|wednesday|"
                                              + "thursday|friday|saturday|sunday)( \\d{4})?( \\d{1,2}(am|pm))?";
+    public static final String TIME_PATTERN = "(\\b\\d{1,2}:\\d{2}(am|pm)?\\b|\\b\\d{1,2}(am|pm)\\b|"
+                                              + "\\b\\d{3,4}(am|pm)?\\b)";
 
     public static final int WEEK_OFFSET = 7;
 
@@ -175,14 +177,77 @@ public class DateParser {
     }
 
     private static LocalDateTime parseTime(LocalDate date, String timeString) throws IllegalDateFormatException {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h[mm]a");
         LocalDateTime dateTime;
+        LocalTime localTime;
+
         try {
-            LocalTime localTime = LocalTime.parse(timeString.toLowerCase(), timeFormatter);
+            // 12-hour format with "am" or "pm"
+            if (timeString.toLowerCase().contains("am") || timeString.toLowerCase().contains("pm")) {
+                if (timeString.matches("\\d{1,2}[ap]m")) {
+                    // Handle times like "5pm", "12pm"
+                    DateTimeFormatter formatter12Hour = DateTimeFormatter.ofPattern("ha");
+                    localTime = LocalTime.parse(timeString.toLowerCase(), formatter12Hour);
+
+                } else if (timeString.matches("\\d{3}[ap]m")) {
+                    // Handle 3-digit times like "515pm" (pad the hour to 2 digits)
+                    String paddedTimeString = "0" + timeString;
+                    DateTimeFormatter formatter12HourWithMinutes = DateTimeFormatter.ofPattern("hhmma");
+                    localTime = LocalTime.parse(paddedTimeString.toLowerCase(), formatter12HourWithMinutes);
+
+                } else if (timeString.matches("\\d{4}[ap]m")) {
+                    // Handle 4-digit times like "1215pm"
+                    DateTimeFormatter formatter12HourWithFullMinutes = DateTimeFormatter.ofPattern("hhmma");
+                    localTime = LocalTime.parse(timeString.toLowerCase(), formatter12HourWithFullMinutes);
+
+                } else {
+                    throw new IllegalDateFormatException(); // Invalid time format
+                }
+
+            } else if (timeString.matches("\\d{1,4}")) {
+                // Handle 24-hour format (e.g., 1700, 520)
+                if (timeString.length() <= 2) {
+                    // If it's just an hour (e.g., "5" -> "0500"), assume it's HH00
+                    timeString = String.format("%02d00", Integer.parseInt(timeString));
+                } else if (timeString.length() == 3) {
+                    // If it's 3 digits (e.g., 520 -> 0520)
+                    timeString = String.format("%04d", Integer.parseInt(timeString));
+                }
+                DateTimeFormatter formatter24Hour = DateTimeFormatter.ofPattern("HHmm");
+                localTime = LocalTime.parse(timeString, formatter24Hour);
+            } else {
+                throw new IllegalDateFormatException(); // Invalid time format
+            }
+
+            // Attach time to the date and return LocalDateTime
             dateTime = date.atTime(localTime);
+
         } catch (DateTimeParseException e) {
             throw new IllegalDateFormatException();
         }
+
         return dateTime;
     }
+    /**
+     * Checks if the given string contains a time component.
+     * <p>
+     * This method identifies time formats such as:
+     * <ul>
+     *   <li>Standard 12-hour format with "am" or "pm", e.g., "5pm", "12:15am", "520pm".</li>
+     *   <li>Shorthand time formats without "am/pm", e.g., "520" or "1720".</li>
+     *   <li>24-hour military time format, e.g., "0500", "1720".</li>
+     * </ul>
+     * <p>
+     * The method uses regular expressions to detect the presence of these time patterns in the input string.
+     *
+     * @param originalString the input string to check for a time component
+     * @return {@code true} if the string contains a valid time component, otherwise {@code false}
+     */
+    public static boolean hasTime(String originalString) {
+        // Regular expression to match various time patterns
+        // Matches "5pm", "520pm", "12:15pm", "1700", "0500", "515pm", "12pm", etc.
+
+        // Use regular expression to check if the string contains the time part
+        return originalString.toLowerCase().matches(".*" + TIME_PATTERN + ".*");
+    }
+
 }

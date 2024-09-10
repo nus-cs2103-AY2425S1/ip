@@ -6,23 +6,15 @@ package monique.exception;
  * class and provides specific advice related to unknown commands.
  */
 public class UnknownCommandException extends MoniqueException {
-
+    public static final String DEFAULT_MESSAGE = "You have entered an unknown command. Please find out available "
+                                                 + "commands by using '/commands'";
     /**
      * Constructs a new <code>UnknownCommandException</code> with a default detail message.
      */
-    public UnknownCommandException() {
-        super("Unknown Command Exception");
+    public UnknownCommandException(String errorMessage) {
+        super(errorMessage);
     }
-
-    /**
-     * Provides advice on how to handle the exception.
-     * In this case, it advises the user that an unknown command was entered
-     * and suggests using '/commands' to find out the available commands.
-     *
-     * @return a string containing advice on handling the unknown command exception.
-     */
-    @Override
-    public String advice() {
-        return "You have entered an unknown command. Please find out available commands by using '/commands'";
+    public UnknownCommandException() {
+        super(DEFAULT_MESSAGE);
     }
 }

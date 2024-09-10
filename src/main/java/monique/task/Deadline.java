@@ -9,9 +9,13 @@ import java.time.format.DateTimeFormatter;
  * It extends the <code>Task</code> class and includes a due date for the task.
  */
 public class Deadline extends Task {
-
+    public static final DateTimeFormatter DATE_TIME_FORMAT_DATE_ONLY = DateTimeFormatter.ofPattern("MMM d yyyy");
+    public static final DateTimeFormatter DATE_TIME_FORMAT_DATE_AND_TIME =
+            DateTimeFormatter.ofPattern("MMM d yyyy h:[mm]a");
     private static final String FORMAT_STRING = "[D][%s] %s (by: %s)";
     private final LocalDateTime by;
+    private final boolean hasTime;
+
 
     /**
      * Constructs a new <code>Deadline</code> object with the specified description,
@@ -21,9 +25,10 @@ public class Deadline extends Task {
      * @param isComplete The completion status of the task.
      * @param by The due date of the task.
      */
-    public Deadline(String description, boolean isComplete, LocalDateTime by) {
+    public Deadline(String description, boolean isComplete, LocalDateTime by, boolean hasTime) {
         super(description , isComplete);
         this.by = by;
+        this.hasTime = hasTime;
     }
     /**
      * Returns a string representation of the <code>Deadline</code> task.
@@ -35,7 +40,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format(FORMAT_STRING, this.isComplete() ? "X" : " ",
-                    this.getDescription() , this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                    this.getDescription() ,
+                    this.hasTime ? this.by.format(DATE_TIME_FORMAT_DATE_AND_TIME)
+                            : this.by.format(DATE_TIME_FORMAT_DATE_ONLY));
     }
 
     /**
@@ -46,7 +53,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline mark() {
-        return new Deadline(this.getDescription(), true, this.by);
+        return new Deadline(this.getDescription(), true, this.by, this.hasTime);
     }
 
     /**
@@ -57,7 +64,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline unmark() {
-        return new Deadline(this.getDescription(), false, this.by);
+        return new Deadline(this.getDescription(), false, this.by, this.hasTime);
     }
 
 

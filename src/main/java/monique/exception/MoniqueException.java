@@ -6,13 +6,14 @@ package monique.exception;
  * This class is used to represent errors specific to the Monique application.
  */
 public abstract class MoniqueException extends Exception {
-
+    private final String errorMessage;
     /**
      * Constructs a new <code>MoniqueException</code> with the specified detail message.
      *
-     * @param message The detail message to be associated with this exception.
+     * @param errorMessage The detail message to be associated with this exception.
      */
-    public MoniqueException(String message) {
+    public MoniqueException(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /**
@@ -22,5 +23,7 @@ public abstract class MoniqueException extends Exception {
      *
      * @return a string containing advice on handling the exception.
      */
-    public abstract String advice();
+    public String advice() {
+        return this.errorMessage;
+    }
 }

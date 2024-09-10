@@ -16,6 +16,7 @@ import monique.command.UnknownCommand;
 import monique.command.UnmarkCommand;
 import monique.exception.IllegalDateFormatException;
 import monique.exception.ParseException;
+import monique.exception.UnknownCommandException;
 import monique.task.Deadline;
 import monique.task.Event;
 import monique.task.Task;
@@ -26,6 +27,13 @@ import monique.task.ToDo;
  * It handles various commands and task types, parsing the input to create appropriate command objects.
  */
 public class Parser {
+    public static final String NUMBER_FORMAT_ERROR_MESSAGE = "you have tried to use an invalid number";
+    public static final String MISSING_ARGUMENT_ERROR_MESSAGE = "you have not provided any arguments";
+    public static final String MISSING_DESCRIPTION_ERROR_MESSAGE = "you have not provided any description";
+    public static final String MISSING_SEARCH_KEYS_ERROR_MESSAGE = "you have not provided any search keys";
+    public static final String INVALID_DEADLINE_FORMAT_ERROR_MESSAGE = "invalid format for Deadline command";
+    public static final String INVALID_EVENT_FORMAT_ERROR_MESSAGE = "invalid format for Event command";
+    public static final String UNEXPECTED_VALUE_ERROR_MESSAGE = "Unexpected value: ";
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete", "find");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
     private static final int INDEX_OFFSET = 1;
@@ -52,7 +60,6 @@ public class Parser {
                 break;
             }
             case "mark": {
-                //minus one bc 0-based indexing
                 try {
                     if (!hasSecondWord) {
                         throw new ParseException();
@@ -61,9 +68,10 @@ public class Parser {
                     command = new MarkCommand(taskNum);
                     break;
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException());
+                    break;
                 } catch (NumberFormatException nfe) {
-                    System.out.println("you have tried to use an invalid number");
+                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
                 }
                 break;
             }
@@ -75,9 +83,10 @@ public class Parser {
                     int taskNum = Integer.parseInt(fullCommand.split("unmark ")[1]) - INDEX_OFFSET;
                     command = new UnmarkCommand(taskNum);
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE));
+                    break;
                 } catch (NumberFormatException nfe) {
-                    System.out.println("you have tried to use an invalid number");
+                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
                 }
                 break;
             }
@@ -93,9 +102,10 @@ public class Parser {
                     int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) - INDEX_OFFSET;
                     command = new DeleteCommand(taskNum);
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE));
+                    break;
                 } catch (NumberFormatException nfe) {
-                    System.out.println("you have tried to use an invalid number");
+                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
                 }
                 break;
             }
@@ -107,12 +117,12 @@ public class Parser {
                     String[] searchKeys = fullCommand.split("find ")[1].split(" ");
                     command = new FindCommand(searchKeys);
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(MISSING_SEARCH_KEYS_ERROR_MESSAGE));
                 }
             }
             break;
             default:
-                throw new IllegalStateException("Unexpected value: " + firstWord);
+                command = new UnknownCommand(new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord));
             }
         } else if (taskTypes.contains(firstWord)) {
             //add to taskList
@@ -123,11 +133,12 @@ public class Parser {
                     if (words.length <= 1) {
                         throw new ParseException();
                     }
+                    assert words.length >= 1;
                     String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
                     Task taskToAdd = new ToDo(description);
                     command = new AddCommand(taskToAdd);
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(MISSING_DESCRIPTION_ERROR_MESSAGE));
                 }
                 break;
             }
@@ -141,12 +152,13 @@ public class Parser {
                     LocalDateTime by = DateParser.getDateTimeString(byString);
                     String[] commandAndDescription = parts[0].trim().split(" ", 2);
                     String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
-                    Task taskToAdd = new Deadline(description, false, by);
+                    Task taskToAdd = new Deadline(description, false, by, DateParser.hasTime(byString));
                     command = new AddCommand(taskToAdd);
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(INVALID_DEADLINE_FORMAT_ERROR_MESSAGE));
+                    break;
                 } catch (IllegalDateFormatException idee) {
-                    idee.advice();
+                    command = new UnknownCommand(new IllegalDateFormatException());
                 }
                 break;
             }
@@ -166,18 +178,19 @@ public class Parser {
                     LocalDateTime fromDate = DateParser.getDateTimeString(fromDateString);
                     String toDateString = toSplit[1].trim();
                     LocalDateTime toDate = DateParser.getDateTimeString(toDateString);
-                    Task taskToAdd = new Event(description, false, fromDate, toDate);
+                    Task taskToAdd = new Event(description, false, fromDate, toDate,
+                            DateParser.hasTime(fromDateString));
                     command = new AddCommand(taskToAdd);
                     break;
                 } catch (ParseException pe) {
-                    pe.advice();
+                    command = new UnknownCommand(new ParseException(INVALID_EVENT_FORMAT_ERROR_MESSAGE));
                 } catch (IllegalDateFormatException idee) {
-                    idee.advice();
+                    command = new UnknownCommand(new IllegalDateFormatException());
                 }
             }
             break;
             default:
-                throw new IllegalStateException("Unexpected value: " + firstWord);
+                command = new UnknownCommand(new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord));
             }
         }
         return command != null ? command : new UnknownCommand();

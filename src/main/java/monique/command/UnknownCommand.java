@@ -11,7 +11,16 @@ import monique.ui.Ui;
  * This command is used when the input command does not match any recognized commands.
  */
 public class UnknownCommand extends Command {
+    private final MoniqueException moniqueException;
 
+    public UnknownCommand() {
+        super();
+        this.moniqueException = new UnknownCommandException();
+    }
+    public UnknownCommand(MoniqueException moniqueException) {
+        super();
+        this.moniqueException = moniqueException;
+    }
     /**
      * Returns whether this chatbot will be active after the command executes.
      * @return true since bot should remain active after the Unknown Command
@@ -32,7 +41,7 @@ public class UnknownCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MoniqueException {
-        throw new UnknownCommandException();
+        throw this.moniqueException;
     }
 
     /**
@@ -61,6 +70,6 @@ public class UnknownCommand extends Command {
      */
     @Override
     public String getResponse(Ui ui) {
-        return new UnknownCommandException().advice();
+        return this.moniqueException.advice();
     }
 }
