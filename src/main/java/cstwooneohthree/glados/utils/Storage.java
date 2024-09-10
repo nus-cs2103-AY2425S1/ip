@@ -87,12 +87,15 @@ public class Storage {
                 }
             }
             return taskList;
+
         } catch (DateTimeParseException e) {
             Ui.initialise("File corrupted. Starting fresh...");
             return new ArrayList<>();
+
         } catch (FileNotFoundException e) {
             Ui.initialise("No saved tasks found. Starting fresh...");
             return new ArrayList<>();
+            
         } catch (IOException e) {
             Ui.initialise("Unable to access data. Starting fresh...");
             return new ArrayList<>();
