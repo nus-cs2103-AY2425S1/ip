@@ -1,0 +1,5 @@
+todo read book
+todo borrow book
+deadline return book /by Tue 2pm
+event do homework /from Tomorrow 2pm /to Friday 6pm
+bye
