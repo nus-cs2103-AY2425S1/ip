@@ -6,12 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import xbot.XBot;
+
 /**
- * A GUI for Duke using FXML.
+ * A GUI for XBot using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private XBot xbot = new XBot();
 
     @Override
     public void start(Stage stage) {
@@ -20,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setXBot(xbot);  // inject the XBot instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -45,4 +45,7 @@ public class XBot {
         ui.showBye();
         ui.close();
     }
+    public String getResponse(String input) {
+        return "XBot heard: " + input;
+    }
 }
