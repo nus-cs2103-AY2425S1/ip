@@ -113,11 +113,11 @@ public class Velma {
             case LIST:
                 parts = input.split(" ");
                 if (parts.length == 2) {
-                    String dateString = parts[1];
+                    String dateInString = parts[1];
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate date;
                     try {
-                        date = LocalDate.parse(dateString, dateFormatter);
+                        date = LocalDate.parse(dateInString, dateFormatter);
                     } catch (DateTimeParseException e) {
                         throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
                     }
@@ -136,9 +136,9 @@ public class Velma {
                 if (parts.length < 2) {
                     throw new VelmaException("Sorry boss! Please specify which task.");
                 }
-                int taskNumber = Integer.parseInt(parts[1]) - 1;
-                Task task = tasks.getTask(taskNumber);
-                task.changeIsDone();
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                Task task = tasks.getTask(taskIndex);
+                task.changeIsDoneStatus();
                 if (command == Command.MARK) {
                     response.append("Nice! I have marked this task as done:\n");
                 } else {
@@ -153,11 +153,11 @@ public class Velma {
                 if (parts.length < 2) {
                     throw new VelmaException("Sorry boss! Please specify which task to delete.");
                 }
-                taskNumber = Integer.parseInt(parts[1]) - 1;
-                Task deletedTask = tasks.getTask(taskNumber);
-                tasks.deleteTask(taskNumber);
+                taskIndex = Integer.parseInt(parts[1]) - 1;
+                Task taskToDelete = tasks.getTask(taskIndex);
+                tasks.deleteTask(taskIndex);
                 response.append("Noted. I've removed this task:\n")
-                        .append(deletedTask)
+                        .append(taskToDelete)
                         .append("\nNow you have ")
                         .append(tasks.getSize())
                         .append(" tasks in the list.");

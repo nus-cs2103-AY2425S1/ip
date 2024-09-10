@@ -26,7 +26,6 @@ public class VelmaTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-
         velma.run();
 
         ArrayList<Task> tasks = velma.getTasks().getTasks();

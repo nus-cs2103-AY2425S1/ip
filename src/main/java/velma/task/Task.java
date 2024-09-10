@@ -28,7 +28,7 @@ public class Task {
      * Changes task status to done or undone.
      * @return
      */
-    public void changeIsDone() {
+    public void changeIsDoneStatus() {
         this.isDone = !this.isDone;
     }
 
