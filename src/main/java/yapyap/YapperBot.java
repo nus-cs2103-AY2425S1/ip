@@ -23,10 +23,15 @@ public class YapperBot {
 
         try {
             tasks = new TaskList(storage.loadTasks());
+            assert tasks.size() >= 0 : "Task list size should be non-negative";
         } catch (YapperBotException e) {
             ui.printLoadingError();
             tasks = new TaskList();
         }
+
+        assert ui != null : "UI should be initialized";
+        assert storage != null : "Storage should be initialized";
+        assert parser != null : "Parser should be initialized";
     }
 
     /**
@@ -36,6 +41,7 @@ public class YapperBot {
      * @return The response string generated based on the input command.
      */
     public String getResponse(String input) {
+        assert input != null && !input.trim().isEmpty() : "Input should not be null or empty";
         return parser.executeCommandAndGetResponse(input, tasks, ui, storage);
     }
 }

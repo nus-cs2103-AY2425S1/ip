@@ -49,8 +49,14 @@ public class MainWindow extends VBox {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput should not be null";
+
         String input = userInput.getText();
+        assert input != null : "User input text should not be null";
+
         String response = yapperBot.getResponse(input);
+        assert response != null : "Response from YapperBot should not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getYapperBotDialog(response, yapperBotImage)
