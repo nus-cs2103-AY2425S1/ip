@@ -1,6 +1,5 @@
 package quack.command;
 
-import quack.exception.FailedUpdateException;
 import quack.exception.InvalidCommandException;
 import quack.exception.InvalidIndexException;
 import quack.tasks.Task;
@@ -8,26 +7,22 @@ import quack.util.TaskList;
 import quack.util.Ui;
 
 /**
- * This class is responsible for updating status of tasks in the task list.
+ * This class is responsible for removing the tag from a task.
  */
-public class UpdateTaskCommand extends Command {
+public class RemoveTagCommand extends Command {
 
     /** List to store all tasks by Quack */
     private TaskList taskList;
     /** Ui to handle all user display interactions */
     private Ui ui;
-    /** Update command that the user wants to execute */
-    private String command;
 
     /**
-     * Creates a UpdateTaskCommand object.
-     * @param command What the user wants to update.
+     * Creates a UnTagCommand object.
      * @param taskList A list that stores all the tasks tracked by Quack.
      * @param ui The ui object that handles user interface requests.
      */
-    public UpdateTaskCommand(String command, TaskList taskList, Ui ui) {
+    public RemoveTagCommand(TaskList taskList, Ui ui) {
         super();
-        this.command = command;
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -36,25 +31,22 @@ public class UpdateTaskCommand extends Command {
     public void prompt() {
         this.listTasks();
         this.checkEmptyList();
-        ui.requestIndexFromUser(command);
+        ui.requestIndexFromUser("un-tag");
     }
 
     @Override
     public void execute(String input) {
 
-        // Ensures that the input is not null as if it is null then Quack is not getting the input from the user
         assert(input != null);
 
         try {
             int index = Integer.parseInt(input);
-            Task task = taskList.updateTask(index, this.command);
-            ui.printUpdateSuccessfulMessage(task, command, taskList);
+            Task task = this.taskList.updateTag(index, "removeTag");
+            ui.printUpdateSuccessfulMessage(task, "un-tag", taskList);
         } catch (NumberFormatException invalidIdxError) {
             ui.printExceptionMessage(new InvalidIndexException(input));
         } catch (IndexOutOfBoundsException indexError) {
             ui.printExceptionMessage(indexError);
-        } catch (FailedUpdateException failUpdateError) {
-            ui.printExceptionMessage(failUpdateError);
         } catch (InvalidCommandException commandError) {
             ui.printExceptionMessage(commandError);
         } finally {

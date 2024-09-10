@@ -2,7 +2,6 @@ package quack.util;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import quack.exception.InvalidTaskTypeException;
 import quack.gui.DialogBox;
 import quack.tasks.Task;
 
@@ -115,7 +114,7 @@ public class Ui {
     }
 
     /**
-     * Requests a search prompt from the user to begin searching
+     * Displays prompt to request a search prompt from the user to begin searching
      * for tasks that matches the prompt.
      */
     public void requestSearchPrompt() {
@@ -124,7 +123,7 @@ public class Ui {
     }
 
     /**
-     * Requests the user to provide a index input.
+     * Displays prompt to request the user to provide a index input.
      * @param command The command the user has entered.
      */
     public void requestIndexFromUser(String command) {
@@ -134,8 +133,7 @@ public class Ui {
     }
 
     /**
-     * Requests the user to input a task type.
-     * @throws InvalidTaskTypeException If the user inputs a invalid task type.
+     * Displays prompt to request the user to input a task type.
      */
     public void requestTaskType() {
 
@@ -143,7 +141,7 @@ public class Ui {
     }
 
     /**
-     * Requests the user to input a task description.
+     * Displays prompt to request the user to input a task description.
      * @param taskType The task type the user has entered.
      */
     public void requestTaskDescription(String taskType) {
@@ -152,7 +150,7 @@ public class Ui {
     }
 
     /**
-     * Requests the user to input a task description.
+     * Displays prompt to request the user to input a task description.
      * @param taskType The task type the user has entered.
      */
     public void requestStartDate(String taskType) {
@@ -161,12 +159,20 @@ public class Ui {
     }
 
     /**
-     * Requests the user to input a task description.
+     * Displays prompt to request the user to input a task description.
      * @param taskType The task type the user has entered.
      */
     public void requestEndDate(String taskType) {
 
         this.outputToScreen("When is the end date for the " + taskType + " task (Format: DD/MM/YYYY HH:MM:SS)?");
+    }
+
+    /**
+     * Displays prompt to request the user to input a tag label.
+     */
+    public void requestTagLabel() {
+
+        this.outputToScreen("What tag label do you want to assign to this task?");
     }
 
     /**

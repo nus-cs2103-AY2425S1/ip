@@ -58,7 +58,7 @@ public class TaskList {
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
      * @throws FailedUpdateException When the task cannot be updated.
-     * @throws FailedUpdateException When the command given is invalid.
+     * @throws InvalidCommandException When the command given is invalid.
      */
     public Task updateTask(int idx, String command) throws FailedUpdateException, InvalidCommandException {
 
@@ -113,11 +113,8 @@ public class TaskList {
 
         // Minus 1 because of 0 indexing
         idx = idx - 1;
-        // Check if the index if out of bounds
-        if (idx < 0 || idx >= toDoList.size()) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
-                + " entered is out of bounds!");
-        }
+
+        this.checkIndexInBounds(idx);
 
         // Remove the task from the list
         Task removedTask = this.toDoList.remove(idx);
@@ -146,6 +143,40 @@ public class TaskList {
         }
 
         return filteredTasks;
+    }
+
+    /**
+     * Updates the tags on a task.
+     * <p>
+     * If the user inputs tag, then it will tag the task with a label.
+     * <p>
+     * If the user inputs untag, then it will remove the tag from the task.
+     *
+     * @param idx Index of the task inside the task list.
+     * @param command To state weather to tag or untag the task.
+     * @param tag The tag label to be assigned to the task.
+     * @return The task object that has been updated
+     * @throws InvalidCommandException When the command given is invalid.
+     */
+    public Task updateTag(int idx, String command, String ... tag)
+            throws InvalidCommandException {
+
+        Task task;
+        // Minus 1 because of 0 indexing
+        idx = idx - 1;
+        this.checkIndexInBounds(idx);
+
+        if (command.equals("addTag")) {
+            task = this.toDoList.get(idx);
+            task.tag(tag[0]);
+        } else if (command.equals("removeTag")) {
+            task = this.toDoList.get(idx);
+            task.unTag();
+        } else {
+            throw new InvalidCommandException(command);
+        }
+
+        return task;
     }
 
     @Override

@@ -100,7 +100,7 @@ public class ToDoTaskTest {
 
         this.dummyToDoTask = new ToDoTask(this.taskDescription);
 
-        String expectedTaskCsvFormat = "TODO,Dummy todo task,false";
+        String expectedTaskCsvFormat = "TODO,Dummy todo task,false,THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyToDoTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
@@ -118,7 +118,7 @@ public class ToDoTaskTest {
         this.dummyToDoTask = new ToDoTask(this.taskDescription);
         this.dummyToDoTask.mark();
 
-        String expectedTaskCsvFormat = "TODO,Dummy todo task,true";
+        String expectedTaskCsvFormat = "TODO,Dummy todo task,true,THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyToDoTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,

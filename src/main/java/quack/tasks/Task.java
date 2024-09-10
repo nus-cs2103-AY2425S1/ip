@@ -15,15 +15,19 @@ public abstract class Task {
     protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** Description of the task */
     protected String description;
+    /** The tag allocated to this task */
+    protected String tag;
     /** Determine if the task is marked or not */
     protected boolean isChecked;
+
 
     /**
      * Creates a Task object with the given description.
      */
     Task(String description) {
         this.description = description;
-        isChecked = false;
+        this.tag = null;
+        this.isChecked = false;
     }
 
     /**
@@ -110,6 +114,36 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves the tag of the task.
+     * @return The tag label assigned to the task.
+     */
+    protected String getTag() {
+
+        if (this.tag == null) {
+            return "THERE-IS-NO-TAG";
+        } else {
+            return this.tag;
+        }
+    }
+
+    /**
+     * Sets a tag to the corrosponding task.
+     * @param tag The tag label the task will be associated to.
+     */
+    public void tag(String tag) {
+
+        this.tag = tag;
+    }
+
+    /**
+     * Removes the tag from the task.
+     */
+    public void unTag() {
+
+        this.tag = null;
+    }
+
+    /**
      * Updates the task status to be marked.
      * <p>
      * The function checks if the task is already marked.
@@ -159,9 +193,9 @@ public abstract class Task {
     @Override
     public String toString() {
         if (isChecked) {
-            return "[X] " + this.description;
+            return "[X] " + this.description + (this.tag != null ? " (Tag: #" + this.tag + ")" : "");
         } else {
-            return "[ ] " + this.description;
+            return "[ ] " + this.description + (this.tag != null ? " (Tag: #" + this.tag + ")" : "");
         }
     }
 }

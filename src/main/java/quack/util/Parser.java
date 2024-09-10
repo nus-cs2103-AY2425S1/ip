@@ -1,11 +1,13 @@
 package quack.util;
 
+import quack.command.AddTagCommand;
 import quack.command.AddTaskCommand;
 import quack.command.Command;
 import quack.command.DeleteTaskCommand;
 import quack.command.ExitCommand;
 import quack.command.FindTaskCommand;
 import quack.command.ListCommand;
+import quack.command.RemoveTagCommand;
 import quack.command.UpdateTaskCommand;
 import quack.exception.InvalidCommandException;
 
@@ -65,6 +67,14 @@ public class Parser {
 
         case "find":
             command = new FindTaskCommand(taskList, ui);
+            return command;
+
+        case "tag":
+            command = new AddTagCommand(taskList, ui);
+            return command;
+
+        case "untag":
+            command = new RemoveTagCommand(taskList, ui);
             return command;
 
         default:

@@ -49,7 +49,7 @@ public class EventTask extends Task {
     public String toCsvFormat() {
 
         return "EVENT," + super.toCsvFormat() + "," + this.startDate.format(Task.DATE_FORMAT)
-            + "," + this.endDate.format(Task.DATE_FORMAT) + "," + this.isChecked;
+            + "," + this.endDate.format(Task.DATE_FORMAT) + "," + this.isChecked + "," + this.getTag();
     }
 
     @Override

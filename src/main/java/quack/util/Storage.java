@@ -25,6 +25,10 @@ public class Storage {
     private static String DEFAULT_PATH = "./data";
     /** Default save file name */
     private static String DEFAULT_FILE_NAME = "./data/savedData.csv";
+    /** Index offset for task status */
+    private static int OFFSET_STATUS = 2;
+    /** Index offset for tag*/
+    private static int OFFSET_TAG = 1;
 
     /**
      * Creates a storage object.
@@ -114,13 +118,16 @@ public class Storage {
     private Task parseCsvToTask(String dataLine) {
 
         String[] data = dataLine.split(",");
-
+        int length = data.length;
         Task task = null;
 
         try {
             task = Task.createTask(data);
-            if (Boolean.parseBoolean(data[data.length - 1])) {
+            if (Boolean.parseBoolean(data[length - Storage.OFFSET_STATUS])) {
                 task.mark();
+            }
+            if (!data[length - Storage.OFFSET_TAG].equals("THERE-IS-NO-TAG")) {
+                task.tag(data[length - Storage.OFFSET_TAG]);
             }
         } catch (InvalidDateTimeException dateTimeError) {
             System.out.println(dateTimeError.getMessage());

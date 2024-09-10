@@ -111,7 +111,7 @@ public class DeadlineTaskTest {
 
         this.dummyDeadlineTask = new DeadlineTask(this.taskDescription, this.taskDueDate);
 
-        String expectedTaskCsvFormat = "DEADLINE,Dummy deadline task,10/05/2024 10:00:30,false";
+        String expectedTaskCsvFormat = "DEADLINE,Dummy deadline task,10/05/2024 10:00:30,false,THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyDeadlineTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
@@ -129,7 +129,7 @@ public class DeadlineTaskTest {
         this.dummyDeadlineTask = new DeadlineTask(this.taskDescription, this.taskDueDate);
         this.dummyDeadlineTask.mark();
 
-        String expectedTaskCsvFormat = "DEADLINE,Dummy deadline task,10/05/2024 10:00:30,true";
+        String expectedTaskCsvFormat = "DEADLINE,Dummy deadline task,10/05/2024 10:00:30,true,THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyDeadlineTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,

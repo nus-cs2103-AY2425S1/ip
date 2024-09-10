@@ -15,7 +15,7 @@ public class ToDoTask extends Task {
 
     @Override
     public String toCsvFormat() {
-        return "TODO," + super.toCsvFormat() + "," + this.isChecked;
+        return "TODO," + super.toCsvFormat() + "," + this.isChecked + "," + this.getTag();
     }
 
     @Override
