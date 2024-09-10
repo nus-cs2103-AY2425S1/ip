@@ -1,5 +1,5 @@
 package daniel;
-import java.util.Scanner;
+
 import java.util.ArrayList;
 import java.io.File;
 import Storage.Storage;
@@ -11,9 +11,7 @@ public class Daniel {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Boolean isInitialised;
     public Daniel(String filePath) {
-        isInitialised = true;
         ui = new Ui();
         storage = new Storage(filePath);
         File folder = new File("./data");
@@ -26,16 +24,6 @@ public class Daniel {
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
-    /*public void run() {
-        ui.uiGreet();
-        Scanner scanner = new Scanner(System.in);
-        boolean val = true;
-        while(val){
-            String input = scanner.nextLine();
-            val = Parse.initialParse(input, ui, tasks, storage);
-        }
-        storage.writeFile(tasks.getArray());
-    }*/
     public String getWelcomeMessage() {
         return ui.uiGreet();
     }
