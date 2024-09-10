@@ -1,6 +1,6 @@
 package PHamBot.command;
 
-import PHambot.command.ToDoCommand;
+import Johnson.command.ToDoCommand;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package PHamBot.parser;
 
-import PHambot.command.ToDoCommand;
-import PHambot.parser.Parser;
+import Johnson.command.ToDoCommand;
+import Johnson.parser.Parser;
 
 import org.junit.jupiter.api.Test;
 

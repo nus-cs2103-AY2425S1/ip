@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("PHambot.PHamBot")
+    mainClass.set("Johnson.GUI.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "PHamBot"
+    archiveBaseName = "Johnson"
     archiveClassifier = null
 }
 
