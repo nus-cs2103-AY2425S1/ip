@@ -40,17 +40,19 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Meeju instance */
     public void setMeeju(Meeju m) {
         meeju = m;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Meeju's reply and then appends them to
      * the dialog container. Clears the user input after processing.
+     * Upon entering "bye", the program is terminated
      */
     @FXML
     private void handleUserInput() {
+        String exitString = "bye";
         String input = userInput.getText();
         String response = meeju.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -58,7 +60,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getMeejuDialog(response, meejuImage)
         );
         userInput.clear();
-        if (input.equals("bye")) {
+        if (input.equals(exitString)) {
             System.exit(0);
         }
     }

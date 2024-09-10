@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
-
     private Storage storage;
 
     /**
@@ -25,12 +24,11 @@ public class TaskList {
         this.taskList = this.storage.initialiseList();
     }
 
-    public Task getTask(int index) {
+    private Task getTask(int index) {
         return this.taskList.get(index);
     }
 
-
-    public int getNumberOfTask() {
+    private int getNumberOfTasks() {
         return this.taskList.size();
     }
 
@@ -67,6 +65,7 @@ public class TaskList {
         if (taskToMark.getIsDone()) {
             throw new MeejuException("The task is already marked!");
         }
+
         taskToMark.setIsDone(true);
         this.storage.updateFile(taskList);
         return "Meow! I've marked this task as done:\n"
@@ -94,6 +93,7 @@ public class TaskList {
         if (!taskToUnmark.getIsDone()) {
             throw new MeejuException("The task is not marked yet!");
         }
+
         taskToUnmark.setIsDone(false);
         this.storage.updateFile(taskList);
         return "Meow! I've marked this task as not done yet:\n"
@@ -111,11 +111,12 @@ public class TaskList {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
+
         Todo task = new Todo(taskInstruction);
         this.taskList.add(task);
         this.storage.updateFile(taskList);
         return "Meow! I've added this task:\n"
-                + "\t" + task + "\nNow you have " + getNumberOfTask()
+                + "\t" + task + "\nNow you have " + getNumberOfTasks()
                 + " tasks in the list.";
     }
 
@@ -130,6 +131,7 @@ public class TaskList {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
+
         String taskDescription;
         String taskDeadline;
         try {
@@ -140,15 +142,17 @@ public class TaskList {
                     + "Could you please explain it using the correct format?\n"
                     + "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
         }
+
         if (taskDescription.isEmpty() || taskDeadline.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
         }
+
         Deadline task = new Deadline(taskDescription, taskDeadline);
         this.taskList.add(task);
         this.storage.updateFile(taskList);
         return "Meow! I've added this task:\n"
                 + "\t" + task + "\nNow you have "
-                + getNumberOfTask() + " tasks in the list.";
+                + getNumberOfTasks() + " tasks in the list.";
 
     }
 
@@ -163,6 +167,7 @@ public class TaskList {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
+
         String taskDescription;
         String taskStart;
         String taskEnd;
@@ -176,6 +181,7 @@ public class TaskList {
                     + "Could you please explain it using the correct format?\n"
                     + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
         }
+
         if (taskDescription.isEmpty() || taskStart.isEmpty() || taskEnd.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
         }
@@ -184,7 +190,7 @@ public class TaskList {
         this.taskList.add(task);
         this.storage.updateFile(taskList);
         return "Meow! I've added this task:\n"
-                + "\t" + task + "\nNow you have " + getNumberOfTask()
+                + "\t" + task + "\nNow you have " + getNumberOfTasks()
                 + " tasks in the list.";
 
     }
@@ -211,7 +217,7 @@ public class TaskList {
         this.storage.updateFile(taskList);
         return "Meow! I've removed this task:\n"
                 + "\t" + taskToDelete
-                + "\nNow you have " + getNumberOfTask() + " tasks in the list.";
+                + "\nNow you have " + getNumberOfTasks() + " tasks in the list.";
 
     }
 

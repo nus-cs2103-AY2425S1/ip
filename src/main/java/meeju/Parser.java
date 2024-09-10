@@ -13,8 +13,10 @@ public class Parser {
      * @param taskList    The task list on which the operations are performed.
      * @param instruction The user instruction to be parsed and executed.
      * @return A String representing the result of the parsing
+     * @throws MeejuException If the input string could not be parsed
      */
-    public String parse(TaskList taskList, String instruction) {
+
+    public String parse(TaskList taskList, String instruction) throws MeejuException {
         assert taskList != null : "TaskList object is null";
         assert instruction != null : "instruction is null";
 
@@ -27,47 +29,19 @@ public class Parser {
         } else if (instruction.equals("list")) {
             return taskList.printList();
         } else if (instruction.startsWith("find ")) {
-            try {
-                return taskList.findTask(instruction.substring(5));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.findTask(instruction.substring(5));
         } else if (instruction.startsWith("mark ")) {
-            try {
-                return taskList.markTask(instruction.substring(5));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.markTask(instruction.substring(5));
         } else if (instruction.startsWith("unmark ")) {
-            try {
-                return taskList.unmarkTask(instruction.substring(7));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.unmarkTask(instruction.substring(7));
         } else if (instruction.startsWith("delete ")) {
-            try {
-                return taskList.deleteTask(instruction.substring(7));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.deleteTask(instruction.substring(7));
         } else if (instruction.startsWith("todo ")) {
-            try {
-                return taskList.addTodoTask(instruction.substring(5));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.addTodoTask(instruction.substring(5));
         } else if (instruction.startsWith("deadline ")) {
-            try {
-                return taskList.addDeadlineTask(instruction.substring(9));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.addDeadlineTask(instruction.substring(9));
         } else if (instruction.startsWith("event ")) {
-            try {
-                return taskList.addEventTask(instruction.substring(6));
-            } catch (MeejuException e) {
-                return e.getMessage();
-            }
+            return taskList.addEventTask(instruction.substring(6));
         } else {
             return "I'm sorry, I did not understand that =^..^=";
         }

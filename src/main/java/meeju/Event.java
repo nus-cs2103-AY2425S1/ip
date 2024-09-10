@@ -11,8 +11,11 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     private static final String TASK_ICON = "[E]";
+    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    private static final String TIME_PATTERN = "HHmm";
     private LocalDateTime from;
     private LocalDateTime to;
+
 
     /**
      * Constructor for an event task.
@@ -44,8 +47,8 @@ public class Event extends Task {
         String timeRawFrom = dateAndTimeFrom[1];
         String dateRawTo = dateAndTimeTo[0];
         String timeRawTo = dateAndTimeTo[1];
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_PATTERN);
         LocalDate fromDate;
         LocalTime fromTime;
         LocalDate toDate;
@@ -57,8 +60,7 @@ public class Event extends Task {
             toDate = LocalDate.parse(dateRawTo, dateFormatter);
             toTime = LocalTime.parse(timeRawTo, timeFormatter);
         } catch (DateTimeParseException e) {
-            throw new MeejuException("Meow! Please recheck date and time you have entered \n"
-                    + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
+            throw new MeejuException(exceptionMessage);
         }
 
         this.from = LocalDateTime.of(fromDate, fromTime);
@@ -72,16 +74,21 @@ public class Event extends Task {
      * @return A string representing the serialized details of the task.
      */
     public String serializeDetails() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        String fileDelimiter = "!-";
+        String taskCharacter = "E";
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_PATTERN);
+
         String formattedDateFrom = this.from.toLocalDate().format(dateFormatter);
         String formattedTimeFrom = this.from.toLocalTime().format(timeFormatter);
         String formattedDateTo = this.to.toLocalDate().format(dateFormatter);
         String formattedTimeTo = this.to.toLocalTime().format(timeFormatter);
 
-        return "E !- " + this.getIsDone() + "!- "
-                + this.getTaskDescription() + "!- "
-                + formattedDateFrom + " " + formattedTimeFrom + "!- "
+
+        return taskCharacter + fileDelimiter + this.getIsDone() + fileDelimiter
+                + this.getTaskDescription() + fileDelimiter
+                + formattedDateFrom + " " + formattedTimeFrom + fileDelimiter
                 + formattedDateTo + " " + formattedTimeTo + "\n";
     }
 

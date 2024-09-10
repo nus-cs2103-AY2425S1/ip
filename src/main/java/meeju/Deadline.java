@@ -12,7 +12,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private static final String TASK_ICON = "[D]";
-
+    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    private static final String TIME_PATTERN = "HHmm";
     private LocalDateTime deadline;
 
     /**
@@ -37,16 +38,16 @@ public class Deadline extends Task {
         }
         String dateRaw = dateAndTime[0];
         String timeRaw = dateAndTime[1];
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_PATTERN);
+
         LocalDate date;
         LocalTime time;
         try {
             date = LocalDate.parse(dateRaw, dateFormatter);
             time = LocalTime.parse(timeRaw, timeFormatter);
         } catch (DateTimeParseException e) {
-            throw new MeejuException("Meow! Please recheck date and time you have entered \n"
-                    + "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
+            throw new MeejuException(exceptionMessage);
         }
 
         this.deadline = LocalDateTime.of(date, time);
@@ -73,13 +74,15 @@ public class Deadline extends Task {
      */
     @Override
     public String serializeDetails() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fileDelimiter = "!-";
+        String taskCharacter = "D";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         String formattedDate = this.deadline.toLocalDate().format(dateFormatter);
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_PATTERN);
         String formattedTime = this.deadline.toLocalTime().format(timeFormatter);
 
-        return "D !- " + this.getIsDone() + "!- "
-                + this.getTaskDescription() + "!- "
+        return taskCharacter + fileDelimiter + this.getIsDone() + fileDelimiter
+                + this.getTaskDescription() + fileDelimiter
                 + formattedDate + " " + formattedTime + "\n";
     }
 
