@@ -14,6 +14,7 @@ public class Storage {
     private String PATH;
 
     public Storage(String PATH) {
+        assert PATH != null && !PATH.isEmpty() : "File path cannot be null or empty";
         this.PATH = PATH;
     }
 

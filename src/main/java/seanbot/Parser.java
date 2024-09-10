@@ -11,6 +11,11 @@ import seanbot.Tasks.Todo;
 public class Parser {
 
     public void parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws SeanBotException, IOException {
+        assert userInput != null : "User Input cannot be null";
+        assert tasks != null : "Tasks  cannot be null";
+        assert ui != null : "Ui object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+
         String[] part = userInput.split(" ", 2);
         String first = part[0];
 
