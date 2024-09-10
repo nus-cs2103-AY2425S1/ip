@@ -13,8 +13,9 @@ import utility.Storage;
 import utility.TaskList;
 
 
-
-/** Main class of the application. */
+/**
+ * Main class of the application.
+ */
 public class Luke {
     private final Storage storage;
     private final Parser parser;
@@ -23,6 +24,7 @@ public class Luke {
 
     /**
      * Returns an instance of Luke object.
+     *
      * @param filePath Where data is stored.
      * @throws IOException If filePath direct to a non *.txt file.
      */
@@ -43,7 +45,9 @@ public class Luke {
         }
     }
 
-    /** Runs the Luke application */
+    /**
+     * Runs the Luke application
+     */
     public void run() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ui.greetDialog();
@@ -58,37 +62,44 @@ public class Luke {
                 ui.listTaskDialog();
                 this.taskList.listTasks();
             }
-            case find -> {
-                ui.findDialog(taskList.findTasks(parser.getDescription()));
-            }
+
+            case find -> ui.findDialog(taskList.findTasks(parser.getDescription()));
+
             case mark -> {
                 Task t = taskList.markTask(parser.getIndex() - 1);
                 ui.markDialog(t);
             }
+
             case unmark -> {
                 Task t = taskList.unMarkTask(parser.getIndex() - 1);
                 ui.unMarkDialog(t);
             }
+
             case delete -> {
                 Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
                 ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
             }
+
             case todo -> {
                 Task t = new Todo(parser.getDescription());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
+
             case event -> {
                 Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
+
             case deadline -> {
                 Task t = new DeadLine(parser.getDescription(), parser.getBy());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTaskListSize());
             }
+
             case bye -> isRunning = false;
+
             default -> { }
             }
 
@@ -97,6 +108,7 @@ public class Luke {
         ui.closeDialog();
         br.close();
     }
+
     public static void main(String[] args) throws IOException {
         new Luke("./data/Luke.txt").run();
     }

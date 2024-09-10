@@ -44,7 +44,7 @@ public class Storage {
                 throw new FileNotFoundException("Could not create file " + file.getAbsolutePath());
             }
         }
-        assert (saveFile.exists());
+        assert (file.exists());
     }
 
     private void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
