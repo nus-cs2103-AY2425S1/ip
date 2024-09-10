@@ -10,8 +10,8 @@ public class Commands {
      * Only for GUI style logic.
      */
     public enum CommandType {
-        TASKS,
-        MODIFY,
+        LIST,
+        TASK,
         ERROR,
         INTRO,
         EXIT,

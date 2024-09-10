@@ -92,8 +92,8 @@ public class DialogBox extends HBox {
      */
     private void changeDialogStyle(Commands.CommandType commandType) {
         switch(commandType) {
-        case MODIFY:
-            dialog.getStyleClass().add("modify-label");
+        case LIST:
+            dialog.getStyleClass().add("list-label");
             break;
         case ERROR:
             dialog.getStyleClass().add("error-label");
@@ -101,7 +101,7 @@ public class DialogBox extends HBox {
         case INTRO, EXIT:
             dialog.getStyleClass().add("intro-exit-label");
             break;
-        case TASKS:
+        case TASK:
             dialog.getStyleClass().add("task-label");
             break;
         case SECRET:

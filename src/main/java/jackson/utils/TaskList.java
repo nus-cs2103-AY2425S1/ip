@@ -27,7 +27,7 @@ public class TaskList {
     private static Comparator<Task> comparatorByTaskType =
             Comparator.comparing(Task::getTaskType, Comparator.nullsLast(Comparator.naturalOrder()));;
     private static Comparator<Task> comparatorByMarkedUnmarked =
-            Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.reverseOrder()));;
+            Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.naturalOrder()));;
 
     // ArrayList to store tasks and their names
     private ArrayList<Task> tasks;
@@ -149,7 +149,6 @@ public class TaskList {
      * @param ascending true if sorting by ascending order, otherwise false.
      */
     public void sort(String by, boolean ascending) {
-        System.out.printf("%s %b\n", by, ascending);
         if (this.tasks.size() >= 2) {
             Comparator<Task> selectedComparator;
             switch (by) {
@@ -173,7 +172,7 @@ public class TaskList {
             }
 
             // since comparators naturally sort by descending order, reverse the comparator
-            // if ascending order is specified.
+            // if descending order is specified.
             if (!ascending) {
                 selectedComparator = selectedComparator.reversed();
             }

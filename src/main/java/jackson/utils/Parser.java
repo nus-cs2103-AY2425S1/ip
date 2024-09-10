@@ -25,9 +25,9 @@ public class Parser {
     private static final Pattern DELETE = Pattern.compile("^delete (\\d+)$");
     private static final Pattern FIND = Pattern.compile("^find ([\\w\\d ]+)$");
     private static final Pattern SORT =
-            Pattern.compile("^sort (name|startdatetime|enddatetime|status|tasktype)(?: (/[ad]))?$");
+            Pattern.compile("^sort (name|startdate|enddate|status|tasktype)(?: (/[ad]))?$");
     private static final Pattern HELP =
-            Pattern.compile("^help (todo|deadline|event|mark|unmark|list|delete|find|sort|bye|help)$");
+            Pattern.compile("^help(?: (todo|deadline|event|mark|unmark|list|delete|find|sort|bye|help))?$");
     private static final Pattern SECRET = Pattern.compile("^secret$");
     private static final Pattern BYE = Pattern.compile("^bye$");
 

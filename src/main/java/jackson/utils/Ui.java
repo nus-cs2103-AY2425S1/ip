@@ -33,13 +33,12 @@ public class Ui {
     }
 
     /**
-     * Returns command list during an unrecognised command.
+     * Display a list of available commands and basic formats.
      * @return String response.
      */
     public String printCommandList() {
         return """
-                Harh? What you talking about?
-                Try entering a recognized command:
+                Here's the list of supported commands:
                 1. todo [task-name]
                 2. deadline [task-name] /by [due-date]
                 3. event [task-name] /from [start-date] /to [end-date]
@@ -50,6 +49,16 @@ public class Ui {
                 8. sort [attribute] [/a or /d]
                 9. bye
                 You can enter 'help [command]' for more details!""";
+    }
+
+    /**
+     * Returns command list during an unrecognised command.
+     * @return String response.
+     */
+    public String printUnrecognizedMessage() {
+        return """
+                Harh? What you talking about?
+                """ + printCommandList();
     }
 
     /**
@@ -84,15 +93,16 @@ public class Ui {
             break;
         case "deadline":
             output += """
-                        --> deadline [task-name] /by [due-date]
+                        --> deadline [task-name] /by [by-date]
                     Creates a deadline task.
                     All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
             break;
         case "event":
             output += """
-                        --> event [task-name] /from [start-date] /to [end-date]
+                        --> event [task-name] /from [from-date] /to [to-date]
                     Creates an event class.
-                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)
+                    [from-date] must be after [to-date]""";
             break;
         case "list":
             output += """
@@ -132,7 +142,7 @@ public class Ui {
         case "sort":
             output += """
                         --> sort [attribute] [/a or /d]
-                    where attribute is one of: 'name', 'startdatetime', 'enddatetime', 'tasktype', 'status'""" + """
+                    where attribute is one of: 'name', 'startdate', 'enddate', 'tasktype', 'status'""" + """
                     and /a is ascending, whilst /d is for descending""";
             break;
         default:
@@ -164,15 +174,6 @@ public class Ui {
     }
 
     /**
-     * Returns generic error message when other Exceptions occur.
-     * @param e {@code Exception} encountered during runtime.
-     * @return String response.
-     */
-    public String printUnknownError(Exception e) {
-        return String.format("Oops! Something went wrong!\n    --> %s\n", Arrays.toString(e.getStackTrace()));
-    }
-
-    /**
      * Returns response from Jackson to deconflict identical task names.
      * @param taskName String of task name that clashes with pre-existing one in task list.
      * @return String response.
@@ -183,6 +184,23 @@ public class Ui {
                     --> %s already exists
                 To deconflict, consider deleting the respective task in the task list"""
                 + "or renaming the current task before adding!", taskName);
+    }
+
+    /**
+     * Returns response from Jackson when inputted from date is after the inputted to date for the event task.
+     * @return String response.
+     */
+    public String printInvalidDates() {
+        return "[from-date] cannot be after [to-date]}!\n" + printFormatGuide("event");
+    }
+
+    /**
+     * Returns generic error message when other Exceptions occur.
+     * @param e {@code Exception} encountered during runtime.
+     * @return String response.
+     */
+    public String printUnknownError(Exception e) {
+        return String.format("Oops! Something went wrong!\n    --> %s\n", Arrays.toString(e.getStackTrace()));
     }
 
     /**
