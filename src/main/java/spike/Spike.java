@@ -13,10 +13,11 @@ import spike.ui.Ui;
  * Initializes the application and starts the interaction with the user.
  */
 public class Spike {
-
+    private static final String DEFAULT_FILE_PATH = "data/spike.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructs a Spike object with the specified file path.
@@ -33,6 +34,28 @@ public class Spike {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public Spike() {
+        this(DEFAULT_FILE_PATH);
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return ui.getStringToDisplay();
+        } catch (SpikeException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     /**
