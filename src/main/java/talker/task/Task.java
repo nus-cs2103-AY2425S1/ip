@@ -83,6 +83,7 @@ public class Task {
      */
     public String getSaveFormat() throws TalkerException {
         String type = "";
+
         switch (taskType) {
         case TODO:
             type = "T";
@@ -96,6 +97,7 @@ public class Task {
         default:
             throw new TalkerException("Invalid task type.");
         }
+
         return String.format("%s | %s | %s", type, this.getComplete(), this.description);
     }
 

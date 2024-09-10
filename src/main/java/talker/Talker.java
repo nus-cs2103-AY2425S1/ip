@@ -53,23 +53,26 @@ public class Talker {
 
     /**
      * Generates response for user's chat messages
-     * @param input user input into chat bot
+     *
+     * @param input user input into chatbot
      * @return String reponse depending on user's input
      */
     public String getResponse(String input) {
         String output;
+
         try {
             Command c = Parser.parseInput(input);
             output = c.execute(list, ui, storage);
             commandType = c.getClass().getSimpleName();
-            return output;
         } catch (TalkerException e) {
             return ui.printError(e);
         }
+        return output;
     }
 
     /**
      * Returns the command type
+     *
      * @return String prepresenting command type
      */
     public String getCommandType() {
