@@ -7,5 +7,5 @@ import mryapper.ui.Ui;
 @FunctionalInterface
 public interface Command {
 
-    public boolean execute(TaskList tasks, Ui ui, StorageManager storageManager);
+    public String execute(TaskList tasks, Ui ui, StorageManager storageManager);
 }

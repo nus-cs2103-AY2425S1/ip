@@ -11,6 +11,6 @@ public class InvalidSyntaxException extends Exception {
 
     @Override
     public String getMessage() {
-        return " Your syntax is incorrect!\n" + super.getMessage();
+        return "Your syntax is incorrect!\n" + super.getMessage();
     }
 }
