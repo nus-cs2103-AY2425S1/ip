@@ -1,4 +1,4 @@
-T | 1 | eat
 T | 0 | drink
 T | 0 | eat
-D | 0 | eat |Apr 04, 2021 19:00
+D | 0 | eat|Apr 04, 2021 19:00
+T | 0 | eat

@@ -95,7 +95,7 @@ public class Fanny {
      * @param msg The message to be printed on cli.
      * @return The captured output as a string.
      */
-    public String captureCliMsg(Runnable msg) {
+    public static String captureCliMsg(Runnable msg) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         PrintStream old = System.out;
@@ -117,7 +117,7 @@ public class Fanny {
      * @param message The message to filter.
      * @return The filtered message.
      */
-    public String filterLines(String message) {
+    public static String filterLines(String message) {
         return Arrays.stream(message.split(System.lineSeparator()))
                 .filter(line -> !line.matches("[-_]+"))
                 .collect(Collectors.joining(System.lineSeparator()));
