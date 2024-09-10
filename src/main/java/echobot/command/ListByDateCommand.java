@@ -19,14 +19,15 @@ public class ListByDateCommand extends ListCommand {
 
     @Override
     public CommandResponse execute() throws EchoBotException {
-        String pattern = "dd-MM-yyyy";
+        assert !this.on.isBlank();
+        final String PATTERN = "dd-MM-yyyy";
 
         try {
-            LocalDate dateTime = LocalDate.parse(this.on, DateTimeFormatter.ofPattern(pattern));
+            LocalDate dateTime = LocalDate.parse(this.on, DateTimeFormatter.ofPattern(PATTERN));
             List<Task> tasksOccurringOn = taskList.getTasksOccurringOn(dateTime);
             return super.getTaskListResponse(tasksOccurringOn);
         } catch (DateTimeParseException e) {
-            throw new InvalidDeadlineFormatException(pattern);
+            throw new InvalidDeadlineFormatException(PATTERN);
         }
     }
 }

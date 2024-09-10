@@ -24,7 +24,9 @@ public class Event extends ScheduledTask {
     public boolean isTaskWithinThisDate(LocalDate date) {
         LocalDate from = this.from.toLocalDate();
         LocalDate to = this.to.toLocalDate();
-        return (from.isBefore(date) || from.isEqual(date)) && (to.isAfter(date) || to.isEqual(date));
+        boolean isAfterFrom = from.isBefore(date) || from.isEqual(date);
+        boolean isBeforeTo = to.isAfter(date) || to.isEqual(date);
+        return isAfterFrom && isBeforeTo;
     }
 
     @Override

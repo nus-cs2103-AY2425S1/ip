@@ -90,15 +90,22 @@ public class TaskList implements Saveable {
      * @return A list of tasks that occur on that date.
      */
     public List<Task> getTasksOccurringOn(LocalDate date) {
-        List<Task> taskList1 = new ArrayList<>();
+        List<Task> filteredTaskList = new ArrayList<>();
 
         for (Task task : this.taskList) {
-            if ((task instanceof echobot.task.ScheduledTask) && !task.isDone() && ((echobot.task.ScheduledTask) task).isTaskWithinThisDate(date)) {
-                taskList1.add(task);
+            if (!(task instanceof ScheduledTask)) {
+                continue;
             }
+            if (task.isDone()) {
+                continue;
+            }
+            if (!((ScheduledTask) task).isTaskWithinThisDate(date)) {
+                continue;
+            }
+            filteredTaskList.add(task);
         }
 
-        return taskList1;
+        return filteredTaskList;
     }
 
     /**
@@ -108,6 +115,7 @@ public class TaskList implements Saveable {
      * @return A list of tasks that contain the keyword as description.
      */
     public List<Task> findTasksByKeyword(String keyword) {
+        assert !keyword.isBlank() && !keyword.contains(" ");
         return this.taskList.stream()
                 .filter(task -> task.isKeywordContained(keyword))
                 .toList();
