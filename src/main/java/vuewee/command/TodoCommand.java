@@ -18,7 +18,12 @@ class TodoCommand extends Command {
      * @param taskList the task list to add the todo task to
      * @param parser   the command parser for parsing the input
      */
+    @Override
     public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
+        assert ui != null : "UI cannot be null";
+        assert taskList != null : "Task list cannot be null";
+        assert parser != null : "Parser cannot be null";
+
         String desc = parser.<String>parse(new StringDescriptionParser());
         ui.addTask(new TodoTask(desc));
     }

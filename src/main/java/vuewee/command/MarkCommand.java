@@ -16,7 +16,12 @@ class MarkCommand extends Command {
      * @param taskList The list of tasks.
      * @param parser   The command parser for parsing user input.
      */
+    @Override
     public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
+        assert ui != null : "UI cannot be null";
+        assert taskList != null : "Task list cannot be null";
+        assert parser != null : "Parser cannot be null";
+
         Integer index = parser.<Integer>parse(new IntegerDescriptionParser());
         ui.markTask(index, true);
     }
