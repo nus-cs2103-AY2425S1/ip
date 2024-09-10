@@ -5,10 +5,8 @@ import controller.MainWindow;
 import fridayException.FridayException;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -18,11 +16,7 @@ import ui.Ui;
 import ui.UiGui;
 
 import java.io.IOException;
-import java.lang.reflect.Executable;
 import java.time.format.DateTimeParseException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Represents the Friday application that manages tasks for the user.
@@ -51,7 +45,8 @@ public class Friday extends Application {
     }
 
     /**
-     * Runs the Friday application, displaying the welcome message and reading commands from the user.
+     * Runs the CLI for the Friday application,
+     * displaying the welcome message and reading commands from the user.
      * The application continues to run until the user enters the "bye" command.
      */
     public void run() {
@@ -75,7 +70,12 @@ public class Friday extends Application {
         Platform.exit();
     }
 
-    public void runGui(Stage stage, Thread cliThread) {
+    /**
+     * Runs the Graphical User Interface for the Friday application.
+     *
+     * @param stage The stage to display the GUI.
+     */
+    public void runGui(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Friday.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -88,22 +88,15 @@ public class Friday extends Application {
         }
     }
 
+    /**
+     * Starts the Friday application.
+     *
+     * @param stage The stage to display the GUI.
+     */
     @Override
     public void start(Stage stage) {
         Thread thread = new Thread(this::run);
         thread.start();
-        runGui(stage, thread);
+        runGui(stage);
     }
-
-//    /**
-//     * The main method that starts the Friday application.
-//     *
-//     * @param args Command-line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Friday("data/fridayTaskList.txt").run();
-//
-//    }
-
-
 }

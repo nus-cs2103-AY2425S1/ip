@@ -15,14 +15,14 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a user interface.
+     * Constructs a CLI UI.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Reads the command entered by the user.
+     * Reads the command entered by the user from the CLI.
      *
      * @return The command entered by the user.
      */
@@ -31,14 +31,14 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner.
+     * Closes the scanner used to read user input.
      */
     public void closeScanner() {
         scanner.close();
     }
 
     /**
-     * Shows the welcome message.
+     * Shows the welcome message on the CLI.
      */
     public void showWelcome() {
         System.out.println("___________________________________________________________");
@@ -48,7 +48,7 @@ public class Ui {
     }
 
     /**
-     * Shows the goodbye message.
+     * Shows the goodbye message on the CLI.
      */
     public void showGoodbye() {
         System.out.println("___________________________________________________________");
@@ -57,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Shows the list of tasks.
+     * Shows the list of tasks on the CLI.
      *
      * @param tasks The list of tasks.
      */
@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task added message.
+     * Shows the task added message on the CLI.
      *
      * @param task The task added.
      * @param size The size of the task list.
@@ -85,7 +85,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task removed message.
+     * Shows the task removed message on the CLI.
      *
      * @param task The task removed.
      * @param size The size of the task list.
@@ -99,7 +99,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task marked message.
+     * Shows the task marked message on the CLI.
      *
      * @param task The task marked.
      */
@@ -111,7 +111,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task unmarked message.
+     * Shows the task unmarked message on the CLI.
      *
      * @param task The task unmarked.
      */
@@ -123,7 +123,7 @@ public class Ui {
     }
 
     /**
-     * Shows the general error message.
+     * Shows the general error message on the CLI.
      */
     public void showError(String message) {
         System.out.println("    _______________________________________________________");
@@ -132,7 +132,7 @@ public class Ui {
     }
 
     /**
-     * Shows the loading error message.
+     * Shows the loading error message on the CLI.
      */
     public void showLoadingError() {
         System.out.println("    _______________________________________________________");
@@ -141,7 +141,7 @@ public class Ui {
     }
 
     /**
-     * Shows the search list.
+     * Shows the search list on the CLI.
      *
      * @param tasks The list of tasks.
      * @param searchDate The search date.
@@ -166,6 +166,12 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the find list on the CLI.
+     *
+     * @param tasks The list of tasks.
+     * @param keyword The keyword to search for.
+     */
     public void showFindList(List<Task> tasks, String keyword) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Here are the matching tasks in your list:");

@@ -39,21 +39,39 @@ public class MainWindow extends AnchorPane {
 //    private Ui ui;
 //    private Thread cliThread;
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the storage for the main window.
+     * @param storage The storage to save the task list to file.
+     * @return The main window object for easy chaining of the other setter methods
+     */
     public MainWindow setStorage(Storage storage) {
         this.storage = storage;
         return this;
     }
 
+    /**
+     * Sets the GUI for the main window.
+     * @param gui The GUI to display messages to the user.
+     * @return The main window object for easy chaining of the other setter methods
+     */
     public MainWindow setGui(UiGui gui) {
         this.gui = gui;
         return this;
     }
 
+    /**
+     * Sets the task list for the main window.
+     * @param tasks The task list to be modified by the commands.
+     * @return The main window object for easy chaining of the other setter methods
+     */
     public MainWindow setTasks(TaskList tasks){
         this.tasks = tasks;
         return this;

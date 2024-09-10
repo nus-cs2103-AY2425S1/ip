@@ -13,13 +13,13 @@ import java.util.List;
 public class UiGui {
 
     /**
-     * Constructs a user interface.
+     * Constructs the GUI UI.
      */
     public UiGui() {
     }
 
     /**
-     * Shows the welcome message.
+     * Shows the welcome message on the GUI.
      *
      * @return The welcome message as a string.
      */
@@ -31,7 +31,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the goodbye message.
+     * Shows the goodbye message on the GUI.
      *
      * @return The goodbye message as a string.
      */
@@ -42,7 +42,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the list of tasks.
+     * Shows the list of tasks on the GUI.
      *
      * @param tasks The list of tasks.
      * @return The task list message as a string.
@@ -59,7 +59,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the task added message.
+     * Shows the task added message on the GUI.
      *
      * @param task The task added.
      * @param size The size of the task list.
@@ -74,7 +74,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the task removed message.
+     * Shows the task removed messagem on the GUI.
      *
      * @param task The task removed.
      * @param size The size of the task list.
@@ -89,7 +89,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the task marked message.
+     * Shows the task marked message on the GUI.
      *
      * @param task The task marked.
      * @return The task marked message as a string.
@@ -102,7 +102,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the task unmarked message.
+     * Shows the task unmarked message on the GUI.
      *
      * @param task The task unmarked.
      * @return The task unmarked message as a string.
@@ -115,7 +115,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the general error message.
+     * Shows the general error message on the GUI.
      *
      * @return The error message as a string.
      */
@@ -126,7 +126,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the loading error message.
+     * Shows the loading error message on the GUI.
      *
      * @return The loading error message as a string.
      */
@@ -137,7 +137,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the search list.
+     * Shows the search list on the GUI.
      *
      * @param tasks The list of tasks.
      * @param searchDate The search date.
@@ -166,7 +166,7 @@ public class UiGui {
     }
 
     /**
-     * Shows the find list.
+     * Shows the find list on the GUI.
      *
      * @param tasks The list of tasks.
      * @param keyword The keyword to search for.

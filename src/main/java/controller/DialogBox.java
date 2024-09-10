@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.Collections;
 
-import command.Command;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a dialog box with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,10 +54,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets a dialog box for the user with the specified text and image.
+     *
+     * @param img The image to be displayed in the dialog box.
+     * @param text The text to be displayed in the dialog box.
+     * @return The dialog box for the user.
+     */
     public static DialogBox getUserDialog(Image img, String... text) {
         return new DialogBox(text[0], img);
     }
 
+    /**
+     * Gets a dialog box for Friday chatbot with the specified text and image.
+     *
+     * @param img The image to be displayed in the dialog box.
+     * @param text The text to be displayed in the dialog box.
+     * @return The dialog box for Friday.
+     */
     public static DialogBox getFridayDialog(Image img, String... text) {
         var db = new DialogBox(text[0], img);
         db.flip();

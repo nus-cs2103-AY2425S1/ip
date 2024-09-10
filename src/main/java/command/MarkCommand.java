@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Marks the task as completed, displays a message to the user, and saves the task list to file.
+     * Marks the task as completed, displays a message to the user on the CLI, and saves the task list to file.
      *
      * @param tasks The task list to be modified by the command.
      * @param ui The user interface to display messages to the user.
@@ -49,6 +49,15 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Marks the task as completed, displays a message to the user on the GUI, and saves the task list to file.
+     *
+     * @param tasks The task list to be modified by the command.
+     * @param gui The GUI to display messages to the user.
+     * @param storage The storage to save the task list to file.
+     * @return The result of the command execution.
+     * @throws FridayException If an error occurs during execution of the command.
+     */
     @Override
     public String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException {
         Task taskToMark = tasks.getTask(taskIndex); // Get the task to be marked
