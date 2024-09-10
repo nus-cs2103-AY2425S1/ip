@@ -57,13 +57,11 @@ jobs:
       run: ./gradlew shadowJar
       
     - name: Get Changes between Tags
-        id: changes
-        uses: simbo/changes-between-tags-action@v1
+      id: changes
+      uses: simbo/changes-between-tags-action@v1
 
-    - name: 📣 Output Data
-      run: |
-        echo "tag: ${{ steps.changes.outputs.tag }}"
-        echo "changes: ${{ steps.changes.outputs.changes }}"
+    - name: Output changelog
+      run: echo "tag: ${{ steps.changes.outputs.tag }}, changes: ${{ steps.changes.outputs.changes }}"
 
     - name: Release Jar file
       uses: phuonghuynh/action-ghrelease@v1.1.0
