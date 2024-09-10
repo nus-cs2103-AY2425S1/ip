@@ -17,4 +17,9 @@ public class ExitCommand extends Command {
     public String undo(TaskList tasks, Storage storage) {
         return "Nothing to undo for 'exit' command";
     }
+
+    @Override
+    public Command getPreviousCommand() {
+        return null;
+    }
 }

@@ -20,4 +20,6 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Storage storage) throws LunaException;
 
     public abstract String undo(TaskList tasks, Storage storage) throws LunaException;
+
+    public abstract Command getPreviousCommand();
 }

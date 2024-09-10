@@ -10,13 +10,14 @@ public class Luna {
 
     private Storage storage;
     private TaskList tasks;
-    private Command lastCommand;
+    private Command previousCommand;
 
     /**
      * Creates a chatbot session.
      */
     public Luna() {
         this.storage = new Storage();
+        previousCommand = null;
 
         try {
             this.tasks = new TaskList(storage.loadTasks());
@@ -34,15 +35,17 @@ public class Luna {
      */
     public String run(String input) {
         try {
-            Command command = Parser.parse(input);
+            Command command = Parser.parse(input, previousCommand);
             if (command instanceof UndoCommand) {
-                if (lastCommand == null) {
+                if (previousCommand == null) {
                     return "No command to undo";
                 } else {
-                    return lastCommand.undo(tasks, storage);
+                    String response = previousCommand.undo(tasks, storage);
+                    previousCommand = previousCommand.getPreviousCommand();
+                    return response;
                 }
             } else {
-                lastCommand = command;
+                previousCommand = command;
                 return command.execute(tasks, storage);
             }
         } catch (LunaException e) {

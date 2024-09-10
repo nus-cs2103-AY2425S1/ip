@@ -8,14 +8,16 @@ import luna.TaskList;
  */
 public class FindCommand extends Command {
     private final String query;
+    private final Command previousCommand;
 
     /**
      * Creates command to search list of tasks.
      *
      * @param query Description of task to search for.
      */
-    public FindCommand(String query) {
+    public FindCommand(String query, Command previousCommand) {
         this.query = query;
+        this.previousCommand = previousCommand;
     }
 
     @Override
@@ -31,5 +33,10 @@ public class FindCommand extends Command {
     @Override
     public String undo(TaskList tasks, Storage storage) {
         return "Nothing to undo for 'find' command";
+    }
+
+    @Override
+    public Command getPreviousCommand() {
+        return previousCommand;
     }
 }

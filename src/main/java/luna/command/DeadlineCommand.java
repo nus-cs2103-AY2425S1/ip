@@ -11,14 +11,16 @@ import luna.task.Task;
  */
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
+    private final Command previousCommand;
 
     /**
      * Creates a command to add task with deadline to list.
      *
      * @param deadline Deadline of task.
      */
-    public DeadlineCommand(Deadline deadline) {
+    public DeadlineCommand(Deadline deadline, Command previousCommand) {
         this.deadline = deadline;
+        this.previousCommand = previousCommand;
     }
 
     @Override
@@ -34,5 +36,10 @@ public class DeadlineCommand extends Command {
                 + "I've removed this task:\n"
                 + "  " + deleted + "\n"
                 + "Now you have " + tasks.getTasks().size() + " tasks in the list.";
+    }
+
+    @Override
+    public Command getPreviousCommand() {
+        return previousCommand;
     }
 }

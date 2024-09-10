@@ -16,5 +16,10 @@ public class UndoCommand extends Command {
         return "undo command";
     }
 
+    @Override
+    public Command getPreviousCommand() {
+        return null;
+    }
+
 
 }

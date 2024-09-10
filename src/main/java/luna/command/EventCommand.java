@@ -11,14 +11,16 @@ import luna.task.Task;
  */
 public class EventCommand extends Command {
     private final Event event;
+    private final Command previousCommand;
 
     /**
      * Creates a command to add event to list.
      *
      * @param event Event to be added to list.
      */
-    public EventCommand(Event event) {
+    public EventCommand(Event event, Command previousCommand) {
         this.event = event;
+        this.previousCommand = previousCommand;
     }
 
     @Override
@@ -34,5 +36,10 @@ public class EventCommand extends Command {
                 + "I've removed this task:\n"
                 + "  " + deleted + "\n"
                 + "Now you have " + tasks.getTasks().size() + " tasks in the list.";
+    }
+
+    @Override
+    public Command getPreviousCommand() {
+        return previousCommand;
     }
 }

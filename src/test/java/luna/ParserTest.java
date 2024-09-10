@@ -12,7 +12,7 @@ public class ParserTest {
     @Test
     public void parse_emptyInput_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse(""));
+            assertEquals(new ListCommand(null), Parser.parse("", null));
             fail();
         } catch (LunaException e) {
             assertEquals("""
@@ -31,7 +31,7 @@ public class ParserTest {
     @Test
     public void parse_invalidCommand_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("create event"));
+            assertEquals(new ListCommand(null), Parser.parse("create event", null));
             fail();
         } catch (LunaException e) {
             assertEquals("""
@@ -51,7 +51,7 @@ public class ParserTest {
     @Test
     public void parse_markCommandWithNonIntegerInput_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("mark task 1"));
+            assertEquals(new ListCommand(null), Parser.parse("mark task 1", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task reference. Use integers only.", e.getMessage());
@@ -61,7 +61,7 @@ public class ParserTest {
     @Test
     public void parse_markCommandWithoutTaskNumber_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("mark"));
+            assertEquals(new ListCommand(null), Parser.parse("mark", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Indicate the task number to mark as done\n"
@@ -72,7 +72,7 @@ public class ParserTest {
     @Test
     public void parse_unmarkCommandWithNonIntegerInput_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("unmark task 1"));
+            assertEquals(new ListCommand(null), Parser.parse("unmark task 1", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task reference. Use integers only.", e.getMessage());
@@ -82,7 +82,7 @@ public class ParserTest {
     @Test
     public void parse_unmarkCommandWithoutTaskNumber_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("unmark"));
+            assertEquals(new ListCommand(null), Parser.parse("unmark", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Indicate the task number to unmark\n"
@@ -93,7 +93,7 @@ public class ParserTest {
     @Test
     public void parse_deleteCommandWithNonIntegerInput_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("delete task 1"));
+            assertEquals(new ListCommand(null), Parser.parse("delete task 1", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task reference. Use integers only.", e.getMessage());
@@ -103,7 +103,7 @@ public class ParserTest {
     @Test
     public void parse_deleteCommandWithoutTaskNumber_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("delete"));
+            assertEquals(new ListCommand(null), Parser.parse("delete", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Indicate the task number to delete\n"
@@ -114,7 +114,7 @@ public class ParserTest {
     @Test
     public void parse_todoCommandWithoutDescription_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("todo  "));
+            assertEquals(new ListCommand(null), Parser.parse("todo  ", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Enter description for todo\n"
@@ -125,7 +125,7 @@ public class ParserTest {
     @Test
     public void parse_deadlineCommandWithoutDescription_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("deadline  "));
+            assertEquals(new ListCommand(null), Parser.parse("deadline  ", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Enter description for deadline\n"
@@ -136,7 +136,7 @@ public class ParserTest {
     @Test
     public void parse_deadlineCommandWithoutDeadline_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("deadline return book "));
+            assertEquals(new ListCommand(null), Parser.parse("deadline return book ", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Enter deadline for task\n"
@@ -147,7 +147,7 @@ public class ParserTest {
     @Test
     public void parse_deadlineCommandWithInvalidDeadlineFormat_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("deadline return book /by Sunday"));
+            assertEquals(new ListCommand(null), Parser.parse("deadline return book /by Sunday", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Enter deadline using format: [dd/MM/yyyy HH:mm]\n"
@@ -158,7 +158,7 @@ public class ParserTest {
     @Test
     public void parse_eventCommandWithoutDescription_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("event  "));
+            assertEquals(new ListCommand(null), Parser.parse("event  ", null));
             fail();
         } catch (LunaException e) {
             assertEquals("Enter description for event\n"
@@ -170,7 +170,7 @@ public class ParserTest {
     @Test
     public void parse_eventCommandWithoutStartTime_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("event Meeting /to 12/12/2025 13:00"));
+            assertEquals(new ListCommand(null), Parser.parse("event Meeting /to 12/12/2025 13:00", null));
         } catch (LunaException e) {
             assertEquals("Enter start and end time for event\n"
                     + "e.g. event [task] /from [startTime] /to [endTime]", e.getMessage());
@@ -180,8 +180,8 @@ public class ParserTest {
     @Test
     public void parse_eventCommandStartAfterEnd_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("event Meeting /from 12/12/2025 14:00 "
-                    + "/to 12/12/2025 13:00"));
+            assertEquals(new ListCommand(null), Parser.parse("event Meeting /from 12/12/2025 14:00 "
+                    + "/to 12/12/2025 13:00", null));
         } catch (LunaException e) {
             assertEquals("Invalid Event: Start is after End", e.getMessage());
         }
@@ -190,8 +190,8 @@ public class ParserTest {
     @Test
     public void parse_eventCommandInvalidTimeFormat_exceptionThrown() {
         try {
-            assertEquals(new ListCommand(), Parser.parse("event Meeting /from 12/12/2024 2pm "
-                    + "/to 12/12/2025 13:00"));
+            assertEquals(new ListCommand(null), Parser.parse("event Meeting /from 12/12/2024 2pm "
+                    + "/to 12/12/2025 13:00", null));
         } catch (LunaException e) {
             assertEquals("Enter start and end time using format: [dd/MM/yyyy HH:mm]\n"
                     + "eg. 14/02/2024 14:30", e.getMessage());

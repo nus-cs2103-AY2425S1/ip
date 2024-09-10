@@ -76,10 +76,10 @@ public class TaskList {
      * Marks a task as completed in the current list of tasks.
      *
      * @param task Task to be marked.
-     * @return List of tasks after marking task.
+     * @return Task marked as completed.
      * @throws LunaException If task number is invalid.
      */
-    public String markTaskAsDone(int task, Storage storage) throws LunaException {
+    public Task markTaskAsDone(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
@@ -88,19 +88,17 @@ public class TaskList {
         assert taskToMark != null;
         taskToMark.markAsDone();
         storage.saveTasks(tasks);
-
-        return "Nice! I've marked this task as done:\n"
-                + "  " + taskToMark;
+        return taskToMark;
     }
 
     /**
-     * Unmark task from the current list of tasks.
+     * Unmarks task from the current list of tasks.
      *
-     * @param task Task to unmark.
-     * @return List of tasks after unmarking task.
+     * @param task Task to mark as uncompleted.
+     * @return Task marked as uncompleted.
      * @throws LunaException If task number is invalid.
      */
-    public String unmarkTask(int task, Storage storage) throws LunaException {
+    public Task unmarkTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
@@ -109,13 +107,11 @@ public class TaskList {
         assert taskToUnmark != null;
         taskToUnmark.unmark();
         storage.saveTasks(tasks);
-
-        return "OK, I've marked this task as not done yet:\n"
-                + "  " + taskToUnmark;
+        return taskToUnmark;
     }
 
     /**
-     * Search for task from the current list of tasks.
+     * Finds task with matching description from the current list of tasks.
      *
      * @param query Description of task to find within tasks.
      * @return List of tasks matching query.
@@ -134,6 +130,11 @@ public class TaskList {
         return matched;
     }
 
+    /**
+     * Returns current list of task.
+     *
+     * @return
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }

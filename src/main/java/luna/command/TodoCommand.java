@@ -11,9 +11,11 @@ import luna.task.Todo;
  */
 public class TodoCommand extends Command {
     private final Todo todo;
+    private final Command previousCommand;
 
-    public TodoCommand(Todo todo) {
+    public TodoCommand(Todo todo, Command previousCommand) {
         this.todo = todo;
+        this.previousCommand = previousCommand;
     }
 
     @Override
@@ -29,5 +31,10 @@ public class TodoCommand extends Command {
                 + "I've removed this task:\n"
                 + "  " + deleted + "\n"
                 + "Now you have " + tasks.getTasks().size() + " tasks in the list.";
+    }
+
+    @Override
+    public Command getPreviousCommand() {
+        return previousCommand;
     }
 }

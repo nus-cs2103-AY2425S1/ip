@@ -10,6 +10,7 @@ import luna.task.Task;
  */
 public class DeleteCommand extends Command {
     private final int taskToDelete;
+    private final Command previousCommand;
     private Task deletedTask;
 
     /**
@@ -17,8 +18,9 @@ public class DeleteCommand extends Command {
      *
      * @param taskToDelete Index of task to delete.
      */
-    public DeleteCommand(int taskToDelete) {
+    public DeleteCommand(int taskToDelete, Command previousCommand) {
         this.taskToDelete = taskToDelete;
+        this.previousCommand = previousCommand;
     }
 
     @Override
@@ -34,5 +36,10 @@ public class DeleteCommand extends Command {
     public String undo(TaskList tasks, Storage storage) {
         return ">>> undo 'delete' command\n"
                 + tasks.addTask(deletedTask, storage);
+    }
+
+    @Override
+    public Command getPreviousCommand() {
+        return previousCommand;
     }
 }
