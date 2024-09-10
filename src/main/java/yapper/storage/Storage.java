@@ -1,11 +1,6 @@
 package yapper.storage;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import yapper.exception.YapperException;
@@ -36,41 +31,75 @@ public class Storage {
      * @throws IOException If there is an error reading from the file.
      */
     public ArrayList<Task> load() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    Task task = null;
-                    try {
-                        switch (parts[0]) {
-                        case "T":
-                            task = new Todo(parts[2]);
-                            break;
-                        case "D":
-                            task = new Deadline(parts[2], parts[3]);
-                            break;
-                        case "E":
-                            task = new Event(parts[2], parts[3], parts[4]);
-                            break;
-                        default:
-                            // Add default case to handle unexpected input
-                            System.out.println("Unknown task type: " + parts[0]);
-                        }
-                        if (task != null && parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                    } catch (YapperException e) {
-                        System.out.println("Error loading task from file: " + e.getMessage());
-                        // Continue loading other tasks even if this one fails
-                    }
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+
+        return readTasksFromFile(file);
+    }
+
+    /**
+     * Reads tasks from the file.
+     *
+     * @param file The file to read the tasks from.
+     * @return A list of tasks parsed from the file.
+     * @throws IOException If there is an error reading from the file.
+     */
+    private ArrayList<Task> readTasksFromFile(File file) throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    Task task = parseTask(line);
+                    tasks.add(task);
+                } catch (YapperException e) {
+                    System.out.println("Error loading task: " + e.getMessage());
                 }
             }
         }
+
         return tasks;
+    }
+
+    /**
+     * Parses a task from a string.
+     *
+     * @param line The line to parse.
+     * @return The Task object parsed from the line.
+     * @throws YapperException If the task cannot be parsed.
+     */
+    private Task parseTask(String line) throws YapperException {
+        String[] parts = line.split(" \\| ");
+
+        Task task = createTaskFromParts(parts);
+        if (task != null && parts[1].equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Creates a Task object from the split parts of a line.
+     *
+     * @param parts The parts of the task line.
+     * @return The corresponding Task object.
+     * @throws YapperException If the task type is invalid or parts are missing.
+     */
+    private Task createTaskFromParts(String[] parts) throws YapperException {
+        switch (parts[0]) {
+            case "T":
+                return new Todo(parts[2]);
+            case "D":
+                return new Deadline(parts[2], parts[3]);
+            case "E":
+                return new Event(parts[2], parts[3], parts[4]);
+            default:
+                throw new YapperException("Unknown task type: " + parts[0]);
+        }
     }
 
     /**
@@ -82,6 +111,18 @@ public class Storage {
     public void save(ArrayList<Task> tasks) throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
+
+        writeTasksToFile(file, tasks);
+    }
+
+    /**
+     * Writes tasks to the file.
+     *
+     * @param file  The file to write tasks to.
+     * @param tasks The list of tasks to be written.
+     * @throws IOException If there is an error writing to the file.
+     */
+    private void writeTasksToFile(File file, ArrayList<Task> tasks) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat());
