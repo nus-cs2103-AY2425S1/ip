@@ -119,4 +119,13 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    /**
+     * Counts the number of tasks that are marked as done.
+     *
+     * @return The number of tasks that are done.
+     */
+    public long countDoneTasks() {
+        return tasks.stream().filter(Task::isDone).count();
+    }
 }

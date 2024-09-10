@@ -11,29 +11,39 @@ import javafx.scene.layout.VBox;
  */
 public class Ui {
     private VBox dialogContainer;
+    private final String horizontalLine =
+            "_________________________________________________________________________________\n";
+
 
     public Ui(VBox dialogContainer) {
         this.dialogContainer = dialogContainer;
     }
+
+    /**
+     * Returns the horizontal line string.
+     * @return the horizontal line string.
+     */
+    public String getHorizontalLine() {
+        return horizontalLine;
+    }
+
     /**
      * Returns a welcome message to the user.
      */
     public String showWelcome() {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Hello! I'm Gavin's Chat Bot!\n"
                 + "What can I do for you?\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
      * Returns a goodbye message to the user.
      */
     public String showGoodbye() {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Bye. Hope to see you again soon!\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -44,14 +54,13 @@ public class Ui {
      * @throws GavinException If there is an error while retrieving the tasks.
      */
     public String showList(TaskList tasks) throws GavinException {
-        String horizontalLine = "_________________________________________________________________________________\n";
         StringBuilder sb = new StringBuilder();
-        sb.append(horizontalLine);
+        sb.append(getHorizontalLine());
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.getTask(i) + "\n");
         }
-        sb.append(horizontalLine);
+        sb.append(getHorizontalLine());
         return sb.toString();
     }
 
@@ -63,11 +72,10 @@ public class Ui {
      * @throws GavinException If there is an error while marking the task.
      */
     public String showMarkedTask(Task task) throws GavinException {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Nice! I've marked this task as done:\n"
                 + " " + task + "\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -78,11 +86,10 @@ public class Ui {
      * @throws GavinException If there is an error while unmarking the task.
      */
     public String showUnmarkedTask(Task task) throws GavinException {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "OK, I've marked this task as not done yet:\n"
                 + " " + task + "\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -94,12 +101,11 @@ public class Ui {
      * @throws GavinException If there is an error while adding the task.
      */
     public String showAddedTask(Task task, int size) throws GavinException {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Got it. I've added this task:\n"
                 + " " + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -110,12 +116,11 @@ public class Ui {
      * @return The formatted message.
      */
     public String showDeletedTask(Task task, int size) {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Noted. I've removed this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -125,10 +130,9 @@ public class Ui {
      * @return The formatted error message.
      */
     public String showError(String message) {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "!!!ERROR!!! " + message + "\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
 
     /**
@@ -138,10 +142,9 @@ public class Ui {
      * @return The formatted loading error message.
      */
     public String showLoadingError(String message) {
-        String horizontalLine = "_________________________________________________________________________________\n";
-        return horizontalLine
+        return getHorizontalLine()
                 + "Error loading tasks from file: " + message + "\n"
-                + horizontalLine;
+                + getHorizontalLine();
     }
     /**
      * Returns tasks in the list that match the user task input as a formatted string.
@@ -150,15 +153,26 @@ public class Ui {
      * @return The formatted list of found tasks.
      */
     public String showFoundTasks(ArrayList<Task> tasks) {
-        String horizontalLine = "_________________________________________________________________________________\n";
         StringBuilder sb = new StringBuilder();
-        sb.append(horizontalLine);
+        sb.append(getHorizontalLine());
         sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
-        sb.append(horizontalLine);
+        sb.append(getHorizontalLine());
         return sb.toString();
+    }
+
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to display.
+     * @return The formatted message with horizontal lines.
+     */
+    public String showDoneCount(String message) {
+        return getHorizontalLine()
+                + message + "\n"
+                + getHorizontalLine();
     }
 
     // Removed the readCommand() method as input is now handled via the GUI.
