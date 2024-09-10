@@ -71,6 +71,9 @@ public class WansBot {
         }
     }
 
+    /**
+     * checks the format of user input when asking WansBot to learn a question.
+     */
     private static void checkFormatQuestion(String userInput) {
         String[] splitUser = userInput.split("question ");
         String[] splitAns = splitUser[1].split("\\?");
@@ -251,13 +254,15 @@ public class WansBot {
         return ui.handleLearnQuestions();
     }
 
+    /**
+     * Returns the answer to the matching question. Returns empty string if no matching questions.
+     */
     public String matchQuestion(String userInput) {
 
         Question qn = questionBank.getQuestion(userInput.split("answer ")[1]);
 
         if (qn == null) {
-            return "I don't have an answer for your question! Make sure you input 'answer' followed by your question"
-                    + "including the ?";
+            return ui.handleWrongAnswerFormat();
         }
 
         if (qn.toString().equalsIgnoreCase(userInput.split("answer ")[1])) {
