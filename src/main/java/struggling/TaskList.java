@@ -3,6 +3,7 @@ package struggling;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import struggling.task.Deadline;
 import struggling.task.Event;
@@ -109,13 +110,10 @@ public class TaskList {
      * representation of each Task in TaskList.
      */
     public ArrayList<String> getTasksString() {
-        ArrayList<String> arr = new ArrayList<>();
-
-        for (Task t : tasks) {
-            arr.add(t.toString());
-        }
-
-        return arr;
+        return tasks
+                .stream()
+                .map(Task::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -123,13 +121,10 @@ public class TaskList {
      * the state of each Task in TaskList.
      */
     public ArrayList<String> getTasksState() {
-        ArrayList<String> arr = new ArrayList<>();
-
-        for (Task t : tasks) {
-            arr.add(t.getState());
-        }
-
-        return arr;
+        return tasks
+                .stream()
+                .map(Task::getState)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -146,14 +141,12 @@ public class TaskList {
      * @param keyword The string to find in task description.
      */
     public ArrayList<String> findTask(String keyword) {
-        ArrayList<String> arr = new ArrayList<>();
-
-        for (Task t : tasks) {
-            if (t.getDescription().contains(keyword)) {
-                arr.add(t.toString());
-            }
-        }
-
-        return arr;
+        return tasks
+                .stream()
+                .filter(task -> task
+                        .getDescription()
+                        .contains(keyword))
+                .map(Task::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
