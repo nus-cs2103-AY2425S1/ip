@@ -5,11 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimus.exceptions.InvalidDateFormatException;
 import optimus.tasks.DeadlineTask;
 import optimus.tasks.EventTask;
 import optimus.tasks.Task;
@@ -98,7 +97,7 @@ public class Storage {
                     break;
                 }
                 case "D" -> {
-                    data.add(new DeadlineTask(values[2], LocalDate.parse(values[3]), values[1]));
+                    data.add(new DeadlineTask(values[2], values[3], values[1]));
                     break;
                 }
                 case "E" -> {
@@ -112,7 +111,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the file: " + e.getMessage());
-        } catch (DateTimeParseException e) {
+        } catch (InvalidDateFormatException e) {
             System.out.println("The data stored in the storage file is outdated and incompatible. "
                     + "Please delete store.txt and try again");
         }

@@ -3,8 +3,6 @@ package optimus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import optimus.commands.AddTaskCommand;
@@ -43,7 +41,7 @@ public class ParserTest {
     public void successfulDeadlineTest() {
         try {
             AddTaskCommand addTaskCommand = (AddTaskCommand) Parser.parse("deadline test /by 2024-08-28");
-            DeadlineTask testCommand = new DeadlineTask("test", LocalDate.parse("2024-08-28"));
+            DeadlineTask testCommand = new DeadlineTask("test", "2024-08-28");
             assertEquals(addTaskCommand.getTask(), testCommand);
         } catch (OptimusExceptions e) {
             fail(e.getMessage());

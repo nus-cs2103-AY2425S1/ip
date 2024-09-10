@@ -1,8 +1,7 @@
 package optimus;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import optimus.commands.AddTaskCommand;
@@ -13,6 +12,7 @@ import optimus.commands.LeaveCommand;
 import optimus.commands.ListCommand;
 import optimus.commands.MarkCommand;
 import optimus.commands.UnmarkCommand;
+import optimus.commands.UpdateTaskCommand;
 import optimus.exceptions.IncompleteCommandException;
 import optimus.exceptions.InvalidCommandException;
 import optimus.exceptions.InvalidDateFormatException;
@@ -27,7 +27,7 @@ import optimus.tasks.ToDoTask;
  */
 public class Parser {
 
-    private static final String[] FLAGS = {"/from", "/to", "/by"};
+    private static final String[] FLAGS = {"/from", "/to", "/by", "/desc"};
     private static final String TASK_NOT_SPECIFIED_MSG = "The task number is not specified";
     private static final String NO_DESCRIPTION_MSG = "This task requires a description";
 
@@ -53,6 +53,7 @@ public class Parser {
         case "todo", "deadline", "event" -> addTask(commands);
         case "delete" -> new DeleteTaskCommand(parseTaskNumber(commands));
         case "find" -> new FindCommand(extractDescription(commands));
+        case "update" -> updateTask(commands);
         default -> throw new InvalidCommandException("This command does not exist.");
         };
     }
@@ -97,20 +98,15 @@ public class Parser {
             return new AddTaskCommand(new ToDoTask(description));
         }
         case "deadline" -> {
-            endTime = extractDateAfterFlag(commands, "/by")
+            endTime = extractInfoAfterFlag(commands, "/by")
                     .orElseThrow(() -> new IncompleteCommandException("Deadline Tasks must have a deadline specified"));
-            LocalDate deadline;
-            try {
-                deadline = LocalDate.parse(endTime);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
-            }
-            return new AddTaskCommand(new DeadlineTask(description, deadline));
+
+            return new AddTaskCommand(new DeadlineTask(description, endTime));
         }
         case "event" -> {
-            startTime = extractDateAfterFlag(commands, "/from")
+            startTime = extractInfoAfterFlag(commands, "/from")
                     .orElseThrow(() -> new IncompleteCommandException("Events must have a start specified"));
-            endTime = extractDateAfterFlag(commands, "/to")
+            endTime = extractInfoAfterFlag(commands, "/to")
                     .orElseThrow(() -> new IncompleteCommandException("Events must have an end specified"));
             return new AddTaskCommand(new EventTask(description, startTime, endTime));
         }
@@ -118,8 +114,22 @@ public class Parser {
         }
     }
 
-    private static String extractDescription(String[] commands) throws IncompleteCommandException {
+    private static Command updateTask(String[] commands) throws OptimusExceptions {
+        int taskNum = parseTaskNumber(commands);
+        String desc = extractInfoAfterFlag(commands, "/desc").orElse("");
+        Optional<String> fromDate = extractInfoAfterFlag(commands, "/from");
+        Optional<String> byDate = extractInfoAfterFlag(commands, "/by");
+        String secondDate = extractInfoAfterFlag(commands, "/to").orElse("");
+
+        return new UpdateTaskCommand(taskNum, desc, fromDate.orElseGet(() -> byDate.orElse("")), secondDate);
+    }
+
+    private static String extractDescription(String[] commands) throws IncompleteCommandException,
+            InvalidCommandException {
         int endIndex = findFirstFlagIndex(commands).orElse(commands.length);
+        if (Objects.equals(commands[endIndex], "/desc")) {
+            throw new InvalidCommandException("Command does not support /desc tag");
+        }
         if (endIndex <= 1) {
             throw new IncompleteCommandException("Command needs a description");
         }
@@ -135,7 +145,7 @@ public class Parser {
         return Optional.empty();
     }
 
-    private static Optional<String> extractDateAfterFlag(String[] commands, String flag) {
+    private static Optional<String> extractInfoAfterFlag(String[] commands, String flag) {
         int index = Arrays.asList(commands).indexOf(flag);
         if (index == -1 || index + 1 >= commands.length) {
             return Optional.empty();

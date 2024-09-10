@@ -1,13 +1,14 @@
 package optimus.tasks;
 
 import optimus.Storage;
+import optimus.exceptions.OptimusExceptions;
 
 /**
  * Tasks to be tracked by the user
  */
 public class Task {
     private boolean isDone;
-    private final String taskDesc;
+    private String taskDesc;
 
     /**
      * Constructor assigns task as incomplete
@@ -60,6 +61,14 @@ public class Task {
         return this.isDone ? 1 : 0;
     }
 
+    public void updateDescription(String desc) {
+        this.taskDesc = desc;
+    }
+
+    public String getTaskType() {
+        return "";
+    }
+
     /**
      * Returns string representation of tasks for UI
      * @return task string
@@ -84,5 +93,11 @@ public class Task {
         s += getTaskDesc();
         s += Storage.SPECIAL_CHAR;
         return s;
+    }
+
+    public void updateFirstDate(String firstDate) throws OptimusExceptions {
+    }
+
+    public void updateSecondDate(String firstDate) {
     }
 }
