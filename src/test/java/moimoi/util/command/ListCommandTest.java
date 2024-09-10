@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class ListCommandTest {
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         ListCommand listCommand = new ListCommand();
         assertFalse(listCommand.isExit());
     }

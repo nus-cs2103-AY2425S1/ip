@@ -11,27 +11,28 @@ import moimoi.util.exception.InvalidDateTimeRangeException;
  */
 public class Event extends Task {
 
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     /**
      * Constructs an event task of the specified description, starting date-time and ending date-time.
      *
      * @param description Task description.
-     * @param from Task's starting date-time.
-     * @param to Task's ending date-time.
+     * @param start Task's starting date-time.
+     * @param end Task's ending date-time.
      * @throws InvalidDateTimeRangeException If the specified starting date-time is later
      *                                       than the ending date-time.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to)
+    public Event(String description, LocalDateTime start, LocalDateTime end)
             throws InvalidDateTimeRangeException {
         super(TaskEnum.E, description);
-        if (from.isAfter(to)) {
+
+        if (start.isAfter(end)) {
             throw new InvalidDateTimeRangeException();
-        } else {
-            this.from = from;
-            this.to = to;
         }
+
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -42,11 +43,9 @@ public class Event extends Task {
      */
     @Override
     public boolean occursOn(LocalDate date) {
-        if (!this.from.toLocalDate().isAfter(date) && !this.to.toLocalDate().isBefore(date)) {
-            return true;
-        } else {
-            return false;
-        }
+        boolean isStartOnOrBefore = !this.start.toLocalDate().isAfter(date);
+        boolean isEndOnOrAfter = !this.end.toLocalDate().isBefore(date);
+        return isStartOnOrBefore && isEndOnOrAfter;
     }
 
     /**
@@ -57,8 +56,8 @@ public class Event extends Task {
     @Override
     public String stringUI() {
         return super.stringUI() + " (from: "
-                + this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " to: "
-                + this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")";
+                + this.start.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " to: "
+                + this.end.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")";
     }
 
     /**
@@ -69,8 +68,8 @@ public class Event extends Task {
     @Override
     public String stringStorage() {
         return super.stringStorage() + " | "
-                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
-                + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
+                + this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }

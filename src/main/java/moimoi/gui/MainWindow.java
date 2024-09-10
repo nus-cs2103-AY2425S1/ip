@@ -83,8 +83,7 @@ public class MainWindow extends Stage {
         } else {
             this.dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, this.userImage),
-                    DialogBox.getMoiMoiDialog(response, this.moiMoiImage)
-            );
+                    DialogBox.getMoiMoiDialog(response, this.moiMoiImage));
             this.userInput.clear();
         }
     }

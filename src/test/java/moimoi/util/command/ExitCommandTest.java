@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class ExitCommandTest {
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         ExitCommand exitCommand = new ExitCommand();
         assertTrue(exitCommand.isExit());
     }

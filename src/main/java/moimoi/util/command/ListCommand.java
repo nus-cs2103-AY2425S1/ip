@@ -27,8 +27,8 @@ public class ListCommand extends Command {
     public String execute(Storage storage, TaskList tasks) {
 
         StringBuilder completionMessage = new StringBuilder("Here's your list of tasks!");
-
         boolean isEmpty = true;
+
         for (int i = 1; i <= tasks.getSize(); i = i + 1) {
             isEmpty = false;
             Task task = tasks.get(i);

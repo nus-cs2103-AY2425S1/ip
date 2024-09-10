@@ -33,8 +33,8 @@ public class FindCommand extends Command {
 
         StringBuilder completionMessage = new StringBuilder("Here's your list of tasks, containing '"
                 + this.keyword + "' in their descriptions!");
-
         boolean isEmpty = true;
+
         for (int i = 1; i <= tasks.getSize(); i = i + 1) {
             Task task = tasks.get(i);
             if (task.hasKeyword(this.keyword)) {

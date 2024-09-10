@@ -15,10 +15,13 @@ public class InvalidDateTimeException extends MoiMoiException {
      */
     public InvalidDateTimeException(String type) {
         this.type = type;
+
         if (this.type.equals("date-time")) {
             this.formatter = "yyyy-MM-dd HH:mm";
         } else if (this.type.equals("date")) {
             this.formatter = "yyyy-MM-dd";
+        } else {
+            this.formatter = null;
         }
     }
 

@@ -37,6 +37,7 @@ public class UnmarkCommand extends Command {
         try {
             int index = Integer.parseInt(this.indexString);
             Task task = tasks.get(index);
+
             task.unmark();
             storage.save(tasks);
             return "Oof, it's OK! Let's get it done soon ;)\n" + task.stringUI();

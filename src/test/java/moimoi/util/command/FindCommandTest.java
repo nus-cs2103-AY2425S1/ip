@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class FindCommandTest {
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         FindCommand findCommand = new FindCommand("dummy");
         assertFalse(findCommand.isExit());
     }

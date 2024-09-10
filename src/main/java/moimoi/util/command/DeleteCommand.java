@@ -37,6 +37,7 @@ public class DeleteCommand extends Command {
         try {
             int index = Integer.parseInt(this.indexString);
             Task task = tasks.get(index);
+
             tasks.delete(index);
             storage.save(tasks);
             return "Aju nice! I've got rid of this task: " + task.stringUI()

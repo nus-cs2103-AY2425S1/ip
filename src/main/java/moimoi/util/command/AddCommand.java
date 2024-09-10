@@ -46,57 +46,19 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws MoiMoiException {
-
         Task task;
 
         switch (this.command) {
         case TODO:
-            task = new Todo(this.arguments);
+            task = this.createTodo();
             break;
 
         case DEADLINE:
-            try {
-                String[] descBy = this.arguments.split(" /by ", 2);
-                String desc = descBy[0];
-                String byString = descBy[1];
-
-                if (desc.isEmpty() || byString.isEmpty()) {
-                    throw new MissingArgumentException();
-                }
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime by = LocalDateTime.parse(byString, formatter);
-
-                task = new Deadline(desc, by);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingArgumentException();
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateTimeException("date-time");
-            }
+            task = this.createDeadline();
             break;
 
         case EVENT:
-            try {
-                String[] descFromTo = this.arguments.split(" /from ", 2);
-                String desc = descFromTo[0];
-                String[] fromTo = descFromTo[1].split(" /to ", 2);
-                String fromString = fromTo[0];
-                String toString = fromTo[1];
-
-                if (desc.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
-                    throw new MissingArgumentException();
-                }
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime from = LocalDateTime.parse(fromString, formatter);
-                LocalDateTime to = LocalDateTime.parse(toString, formatter);
-
-                task = new Event(desc, from, to);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingArgumentException();
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateTimeException("date-time");
-            }
+            task = this.createEvent();
             break;
 
         default:
@@ -107,7 +69,72 @@ public class AddCommand extends Command {
         storage.save(tasks);
         return "Aight! New task added: " + task.stringUI()
                 + "\nWe have " + tasks.getSize() + " tasks in the bag~";
+    }
 
+    /**
+     * Creates and returns a todo task, corresponding to the task information.
+     *
+     * @return Todo task corresponding to the task information.
+     */
+    private Todo createTodo() {
+        return new Todo(this.arguments);
+    }
+
+    /**
+     * Creates and returns a deadline task, corresponding to the task information.
+     *
+     * @return Deadline task corresponding to the task information.
+     * @throws MoiMoiException If any part of the task information is missing or invalid.
+     */
+    private Deadline createDeadline() throws MoiMoiException {
+        try {
+            String[] descDeadline = this.arguments.split(" /by ", 2);
+            String description = descDeadline[0];
+            String deadlineString = descDeadline[1];
+
+            if (description.isEmpty() || deadlineString.isEmpty()) {
+                throw new MissingArgumentException();
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime deadline = LocalDateTime.parse(deadlineString, formatter);
+
+            return new Deadline(description, deadline);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("date-time");
+        }
+    }
+
+    /**
+     * Creates and returns an event task, corresponding to the task information.
+     *
+     * @return Event task corresponding to the task information.
+     * @throws MoiMoiException If any part of the task information is missing or invalid.
+     */
+    private Event createEvent() throws MoiMoiException {
+        try {
+            String[] descStartEnd = this.arguments.split(" /from ", 2);
+            String description = descStartEnd[0];
+            String[] startEnd = descStartEnd[1].split(" /to ", 2);
+            String startString = startEnd[0];
+            String endString = startEnd[1];
+
+            if (description.isEmpty() || startString.isEmpty() || endString.isEmpty()) {
+                throw new MissingArgumentException();
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime start = LocalDateTime.parse(startString, formatter);
+            LocalDateTime end = LocalDateTime.parse(endString, formatter);
+
+            return new Event(description, start, end);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("date-time");
+        }
     }
 
 }

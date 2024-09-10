@@ -63,11 +63,7 @@ public class Task {
      * @return true if the task contains the specified keyword in its description; false otherwise.
      */
     public boolean hasKeyword(String keyword) {
-        if (this.description.toUpperCase().contains(keyword.toUpperCase())) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.description.toUpperCase().contains(keyword.toUpperCase());
     }
 
     /**

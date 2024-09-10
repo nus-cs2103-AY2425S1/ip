@@ -22,7 +22,7 @@ public class DeleteTest {
     private TaskList tasks = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         this.tasks.add(this.task);
         DeleteCommand deleteCommand = new DeleteCommand("1");
         assertFalse(deleteCommand.isExit());

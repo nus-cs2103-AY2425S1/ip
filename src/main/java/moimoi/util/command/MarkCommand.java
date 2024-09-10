@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(this.indexString);
             Task task = tasks.get(index);
+
             task.mark();
             storage.save(tasks);
             return "YAY!! This one's down!!\n" + task.stringUI();

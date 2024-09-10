@@ -11,7 +11,7 @@ public enum CommandEnum {
     MARK,
     UNMARK,
     LIST,
-    FILTER,
+    SCHEDULE,
     FIND,
     BYE
 }
