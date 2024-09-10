@@ -32,6 +32,7 @@ public class InvalidDateTimeException extends MoiMoiException {
      */
     @Override
     public String getMessage() {
+        assert this.formatter != null : "formatter should not be null";
         return super.getMessage() + "The " + this.type
                 + " format doesn't make sense to me.. This calls for a fix!\n"
                 + "** Pro-tip: pass me valid " + this.type + "s in the format '" + this.formatter + "' ;)";
