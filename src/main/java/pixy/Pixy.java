@@ -3,6 +3,7 @@ package pixy;
 import java.io.IOException;
 import java.util.Scanner;
 
+import pixy.parser.CommandType;
 import pixy.parser.Parser;
 import pixy.storage.Storage;
 import pixy.tasks.TaskList;
@@ -16,25 +17,32 @@ public class Pixy {
     /** List of tasks */
     private TaskList tasks;
 
-    /** storage object to store the tasks */
+    /** Storage object to store the tasks */
     private Storage storage;
 
     /** Parser object to parse the user commands. */
     private Parser parser;
 
-    /** Ui object to handle interaction between user and chatbot*/
+    /** Ui object to handle interaction between user and chatbot */
     private Ui ui;
 
-    /** Scanner object for inputs*/
+    /** Scanner object for inputs */
     private Scanner sc;
+
+    /** Command type string */
+    private String commandType;
+
+    /** CommandType object to call ComandType functions*/
+    private CommandType c;
+
+    /** File path */
+    private static final String FILE_NAME = "./data/tasks.txt";
 
     /**
      * Creates Pixy object to start the chatbot.
-     *
-     * @param filePath The specified filePath to store the tasks.
      */
-    public Pixy(String filePath) {
-        storage = new Storage(filePath);
+    public Pixy() {
+        storage = new Storage(FILE_NAME);
         parser = new Parser();
         ui = new Ui();
         sc = new Scanner(System.in);
@@ -74,15 +82,36 @@ public class Pixy {
 
         while (true) {
             String command = inputTask();
-            boolean exit = parser.parseCommand(command, tasks, ui);
-            if (exit) {
+            String response = parser.executeCommand(command, tasks, ui);
+            CommandType type = parser.parseCommandType(command);
+            if (type == CommandType.BYE) {
                 ui.showGoodbyeMessage();
                 break;
             }
+            System.out.println(response); // Output the response to the user
         }
         saveTasks();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        String response = parser.executeCommand(input, tasks, ui);
+        CommandType type = parser.parseCommandType(input);
+        commandType = type != null ? type.getCommand() : "Unknown Command"; // Ensure non-null value
+        return response;
+    }
+
+    /**
+     * Returns the command type
+     *
+     */
+    public String getCommandType() {
+        return commandType;
+    }
+
     public static void main(String[] args) {
-        new Pixy("./data/tasks.txt").run();
+        new Pixy().run();
     }
 }

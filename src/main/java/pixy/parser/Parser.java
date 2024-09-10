@@ -1,7 +1,5 @@
 package pixy.parser;
 
-import java.util.List;
-
 import pixy.PixyExceptions;
 import pixy.tasks.Deadlines;
 import pixy.tasks.Event;
@@ -11,86 +9,111 @@ import pixy.tasks.ToDos;
 import pixy.ui.Ui;
 
 /**
- * Parses the user commands and executes respective actions.
+ * Parses the user commands and returns the command type.
  */
 public class Parser {
 
     /**
-     * Parses user command and performs action corresponding to
-     * the command type.
+     * Determines the command type from the user's input.
+     *
+     * @param command User inputted command
+     * @return CommandType The type of the command
+     */
+    public CommandType parseCommandType(String command) {
+        if (command.equalsIgnoreCase("list")) {
+            return CommandType.LIST;
+        } else if (command.equalsIgnoreCase("bye")) {
+            return CommandType.BYE;
+        } else if (command.startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (command.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        } else if (command.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (command.startsWith("find")) {
+            return CommandType.FIND;
+        } else if (command.startsWith("todo ")) {
+            return CommandType.TODO;
+        } else if (command.startsWith("deadline ")) {
+            return CommandType.DEADLINE;
+        } else if (command.startsWith("event ")) {
+            return CommandType.EVENT;
+        } else {
+            return CommandType.UNKNOWN;
+        }
+    }
+
+    /**
+     * Parses user command and performs action corresponding to the command type.
+     *
      * @param command User inputted command
      * @param tasks The task list
      * @param ui The interaction of chatbot according to the command.
-     * @return boolean If command is "bye"
+     * @return A string response that can be returned to the user.
      */
-    public boolean parseCommand(String command, TaskList tasks, Ui ui) {
+    public String executeCommand(String command, TaskList tasks, Ui ui) {
         try {
-            if (command.equalsIgnoreCase("list")) {
+            CommandType commandType = parseCommandType(command);
+            int taskNumber;
+            String description;
+            String[] parts;
+            switch (commandType) {
+            case LIST:
                 if (tasks.isEmpty()) {
-                    ui.showListEmpty();
+                    return "Your task list is empty.";
                 } else {
-                    ui.showTasks(tasks.getList());
+                    return ui.showTasks(tasks.getList());
                 }
-            } else if (command.equalsIgnoreCase("Bye")) {
-                return true;
-            } else if (command.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                Task task = tasks.get(taskNumber - 1);
-                task.markAsDone(true);
-                ui.showTaskMarked(task);
-            } else if (command.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                Task task = tasks.get(taskNumber - 1);
-                task.markAsDone(false);
-                ui.showTaskUnmarked(task);
-            } else if (command.startsWith("delete")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+            case BYE:
+                ui.showGoodbyeMessage();
+                return "Bye. See you again!";
+            case MARK:
+                taskNumber = Integer.parseInt(command.split(" ")[1]);
+                tasks.get(taskNumber - 1).markAsDone(true);
+                return "Task marked as done: " + tasks.get(taskNumber - 1).getDescription();
+            case UNMARK:
+                taskNumber = Integer.parseInt(command.split(" ")[1]);
+                tasks.get(taskNumber - 1).markAsDone(false);
+                return "Task unmarked: " + tasks.get(taskNumber - 1).getDescription();
+            case DELETE:
+                taskNumber = Integer.parseInt(command.split(" ")[1]);
                 Task task = tasks.get(taskNumber - 1);
                 tasks.remove(task);
-                ui.showTaskRemoved(task, tasks.size());
-            } else if (command.startsWith("find")) {
-                String description = command.substring(5);
+                return "Task deleted: " + task.getDescription() + ". You now have " + tasks.size() + " task(s).";
+            case FIND:
+                description = command.substring(5);
+                return ui.showMatchedTasks(tasks.find(description));
+            case TODO:
+                description = command.substring(5);
                 if (description.isEmpty()) {
-                    throw new PixyExceptions("OOPS! Cannot complete find. "
-                            + "Incomplete command.");
-                }
-                List<Task> matchedTasks = tasks.find(description);
-                ui.showMatchedTasks(matchedTasks);
-            } else if (command.startsWith("todo ")) {
-                String description = command.substring(5);
-                if (description.isEmpty()) {
-                    throw new PixyExceptions("OOPS!!! The description of a "
-                            + "todo cannot be empty.");
+                    throw new PixyExceptions("OOPS!!! The description of a todo cannot be empty.");
                 }
                 Task todo = new ToDos(description);
                 tasks.add(todo);
-                ui.showTaskAdded(todo, tasks.size());
-            } else if (command.startsWith("deadline ")) {
-                String[] parts = command.substring(9).split(" /by");
+                return "Added new todo: " + todo.getDescription() + ". You now have " + tasks.size() + " task(s).";
+            case DEADLINE:
+                parts = command.substring(9).split(" /by");
                 if (parts.length != 2) {
-                    throw new PixyExceptions("OOPS!!! The description of a deadline is "
-                            + "not in the correct format.");
+                    throw new PixyExceptions("OOPS!!! The description of a deadline is not in the correct format.");
                 }
                 Task deadline = new Deadlines(parts[0], parts[1]);
                 tasks.add(deadline);
-                ui.showTaskAdded(deadline, tasks.size());
-            } else if (command.startsWith("event ")) {
-                String[] parts = command.substring(6).split(" /from | /to");
+                return "Added new deadline: " + deadline.getDescription() + " (by:" + parts[1] + "). You now have " + tasks.size() + " task(s).";
+            case EVENT:
+                parts = command.substring(6).split(" /from | /to");
                 if (parts.length != 3) {
-                    throw new PixyExceptions("OOPS!!! The description of an event is not "
-                            + "in the correct format.");
+                    throw new PixyExceptions("OOPS!!! The description of an event is not in the correct format.");
                 }
                 Task event = new Event(parts[0], parts[1], parts[2]);
                 tasks.add(event);
-                ui.showTaskAdded(event, tasks.size());
-            } else {
-                throw new PixyExceptions("OOPS!!! I'm sorry, I don't understand the command.");
+                return "Added new event: " + event.getDescription() + " (from: " + parts[1] + " to:" + parts[2] + "). You now have " + tasks.size() + " task(s).";
+            default:
+                return "Unknown command!";
             }
         } catch (NumberFormatException e) {
-            ui.showError("OOPS!!! Please provide a valid number for the task.");
+            return "OOPS!!! Please provide a valid number for the task.";
         } catch (PixyExceptions e) {
-            ui.showError(e.getMessage());
+            return "Error: " + e.getMessage();
         }
-        return false;
     }
 }
