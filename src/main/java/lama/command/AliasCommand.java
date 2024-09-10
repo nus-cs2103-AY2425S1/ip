@@ -1,7 +1,6 @@
 package lama.command;
 
 import lama.AliasManager;
-import lama.CommandType;
 import lama.LamaException;
 import lama.Storage;
 import lama.TaskList;

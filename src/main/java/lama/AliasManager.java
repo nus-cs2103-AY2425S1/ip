@@ -58,8 +58,8 @@ public class AliasManager {
         aliasMap.putIfAbsent("f", "find");
         aliasMap.putIfAbsent("b", "bye");
         aliasMap.putIfAbsent("a", "alias");
-        aliasMap.putIfAbsent("c", "command");
-        aliasMap.putIfAbsent("da", "deletealias");
+        aliasMap.putIfAbsent("al", "aliases");
+        aliasMap.putIfAbsent("rm", "remove");
     }
 
     /**

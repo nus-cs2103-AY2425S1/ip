@@ -1,13 +1,13 @@
 a=alias
 b=bye
-c=command
 d=deadline
 e=event
 f=find
 del=delete
+al=aliases
 l=list
 m=mark
-sleep=todo
+r=remove
 t=todo
 u=unmark
-da=deletealias
+rm=remove

@@ -151,8 +151,9 @@ public class ParserTest {
                 + "6. unmark [number of todo in the list]\n"
                 + "7. find [keywords]\n"
                 + "8. alias [alias] [command]\n"
-                + "9. command\n"
-                + "10. bye";
+                + "9. aliases\n"
+                + "10. remove [alias]\n"
+                + "11. bye";
 
         assertEquals(output, lamaException.getMessage());
     }

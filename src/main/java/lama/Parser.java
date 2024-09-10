@@ -25,6 +25,20 @@ import lama.task.Todo;
  */
 public class Parser {
 
+    private static final String UNKNOWN_COMMAND = "Sorry, I don't know what you want to do!\n"
+            + "You can either choose to use:\n"
+            + "1. todo [Your TODO]\n"
+            + "2. deadline [Your TODO] /by [date of deadline]\n"
+            + "3. event [Your event] /from [start time] /to [end time]\n"
+            + "4. list\n"
+            + "5. mark [number of todo in the list]\n"
+            + "6. unmark [number of todo in the list]\n"
+            + "7. find [keywords]\n"
+            + "8. alias [alias] [command]\n"
+            + "9. aliases\n"
+            + "10. remove [alias]\n"
+            + "11. bye";
+
     /**
      * Parses the given user input and returns the corresponding command.
      *
@@ -35,6 +49,10 @@ public class Parser {
     public static Command parse(String command) throws LamaException {
         assert command != null : "Command should not be null";
         assert !command.isBlank() : "Command should not be empty or blank";
+
+        if (command.trim().isEmpty()) {
+            throw new LamaException(UNKNOWN_COMMAND);
+        }
 
         String resolvedCommand = AliasManager.getCommand(command.split(" ")[0]);
 
@@ -73,25 +91,14 @@ public class Parser {
         case "alias":
             return handleAliasCommand(words);
 
-        case "command":
+        case "aliases":
             return new AliasListCommand();
 
-        case "deletealias":
+        case "remove":
             return handleDeleteAliasCommand(words);
 
         default:
-            throw new LamaException("Sorry, I don't know what you want to do!\n"
-                    + "You can either choose to use:\n"
-                    + "1. todo [Your TODO]\n"
-                    + "2. deadline [Your TODO] /by [date of deadline]\n"
-                    + "3. event [Your event] /from [start time] /to [end time]\n"
-                    + "4. list\n"
-                    + "5. mark [number of todo in the list]\n"
-                    + "6. unmark [number of todo in the list]\n"
-                    + "7. find [keywords]\n"
-                    + "8. alias [alias] [command]\n"
-                    + "9. command\n"
-                    + "10. bye");
+            throw new LamaException(UNKNOWN_COMMAND);
         }
 
     }

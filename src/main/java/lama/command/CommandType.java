@@ -1,4 +1,4 @@
-package lama;
+package lama.command;
 
 /**
  * The CommandType enum represents the various valid commands that can be used
@@ -16,8 +16,8 @@ public enum CommandType {
     FIND("find"),
     BYE("bye"),
     ALIAS("alias"),
-    COMMAND("command"),
-    DELETEALIAS("deletealias");
+    ALIASES("aliases"),
+    REMOVE("remove");
 
     private final String command;
 
