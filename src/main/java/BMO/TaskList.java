@@ -24,6 +24,7 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Null task cannot be added";
         this.tasks.add(task);
     }
 
@@ -43,6 +44,7 @@ public class TaskList {
      * @return Task object at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         return this.tasks.get(index);
     }
 
@@ -59,6 +61,7 @@ public class TaskList {
      * @param index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         this.tasks.remove(index);
     }
 
@@ -68,6 +71,7 @@ public class TaskList {
      * @param index of the task to be marked as completed.
      */
     public void markTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         this.getTask(index).mark();
     }
 
@@ -77,6 +81,7 @@ public class TaskList {
      * @param index of the task to be unmarked.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         this.getTask(index).unmark();
     }
 
@@ -86,6 +91,7 @@ public class TaskList {
      * @param description of the todo task.
      */
     public void addTodo(String description) {
+        assert description != "" : "Description cannot be empty";
         Task todo = new ToDo(description);
         this.addTask(todo);
     }
@@ -97,6 +103,8 @@ public class TaskList {
      * @param by the deadline of the task. Format: "dd/MM/yyyy"
      */
     public void addDeadline(String description, String by) {
+        assert description != "" : "Description cannot be empty";
+        assert by != "" : "Deadline cannot be empty";
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
     }
@@ -109,6 +117,9 @@ public class TaskList {
      * @param to the end date of the event. Format: "dd/MM/yyyy"
      */
     public void addEvent(String description, String from, String to) throws IOException {
+        assert description != "" : "Description cannot be empty";
+        assert from != "" : "Start date cannot be empty";
+        assert to != "" : "End date cannot be empty";
         Task event = new Event(description, from, to);
         this.addTask(event);
     }
@@ -120,6 +131,7 @@ public class TaskList {
      * @return TaskList containing tasks with matching descriptions.
      */
     public TaskList findMatchingTasks(String keyword) {
+        assert keyword != "" : "Keyword cannot be empty";
         TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {
             if (task.hasMatchingDescription(keyword)) {
