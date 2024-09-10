@@ -1,6 +1,6 @@
-package sigmabot.util;
+package util;
 
-import sigmabot.task.Task;
+import task.Task;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

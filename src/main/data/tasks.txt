@@ -1,5 +1,0 @@
-[T] [X] a
-	Description: b
-[D] [X] lo
-	Description: po
-	By: 23/MAR/2012

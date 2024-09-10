@@ -1,9 +1,9 @@
-package sigmabot.util;
+package util;
 
-import sigmabot.task.Task;
-import sigmabot.task.Todo;
-import sigmabot.task.Deadline;
-import sigmabot.task.Event;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

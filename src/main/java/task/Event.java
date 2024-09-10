@@ -1,4 +1,4 @@
-package sigmabot.task;
+package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -47,7 +47,6 @@ public class Event extends Task {
         this.location = location;
         this.isDone = isDone;
     }
-
     /**
      * Prompts the user to enter the details for a new {@code Event} and creates a new {@code Event} object.
      *
@@ -62,7 +61,6 @@ public class Event extends Task {
         LocalDate startTime = null;
         LocalDate endTime = null;
         String location;
-
         // Loop to prompt user for a valid start time
         while (true) {
             try {
@@ -73,7 +71,6 @@ public class Event extends Task {
                 System.out.println("Invalid date format. Please enter in the format yyyy-MM-dd.");
             }
         }
-
         // Loop to prompt user for a valid end time
         while (true) {
             try {
@@ -94,20 +91,10 @@ public class Event extends Task {
         return new Event(name, description, startTime, endTime, location);
     }
 
-    /**
-     * Returns the location of the event.
-     *
-     * @return The location of the event.
-     */
     public String getLocation() {
         return location;
     }
 
-    /**
-     * Returns the start time of the event.
-     *
-     * @return The start time of the event.
-     */
     public LocalDate getStartTime() {
         return startTime;
     }

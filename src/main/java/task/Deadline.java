@@ -1,4 +1,4 @@
-package sigmabot.task;
+package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -61,6 +61,10 @@ public class Deadline extends Task {
                 System.out.println("Invalid date format. Please enter in the format yyyy-MM-dd.");
             }
         }
+        return new Deadline(name, description, byTime);
+    }
+
+    public static Deadline createDeadline(String name, String description, LocalDate byTime) {
         return new Deadline(name, description, byTime);
     }
 

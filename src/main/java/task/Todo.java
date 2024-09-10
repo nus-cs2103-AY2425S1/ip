@@ -1,4 +1,4 @@
-package sigmabot.task;
+package task;
 
 import java.util.Scanner;
 
@@ -43,6 +43,16 @@ public class Todo extends Task {
         String name = sc.nextLine().trim();
         System.out.println("Enter description: ");
         String description = sc.nextLine().trim();
+        return new Todo(name, description);
+    }
+
+    /**
+     * Prompts the user to enter the details for a new {@code Todo} task and creates a new {@code Todo} object.
+     *
+     * @param sc The {@link Scanner} object used to read user input.
+     * @return A new {@code Todo} object created based on user input.
+     */
+    public static Todo createTodo(String name, String description) {
         return new Todo(name, description);
     }
 
