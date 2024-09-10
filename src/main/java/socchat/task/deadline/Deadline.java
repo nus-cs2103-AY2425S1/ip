@@ -11,8 +11,6 @@ import socchat.task.Task;
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
-    private Parser parser;
-
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
@@ -35,7 +33,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by, Boolean isDone) {
         super(description, isDone);
-//        parser = new Parser();
         this.by = by;
     }
 

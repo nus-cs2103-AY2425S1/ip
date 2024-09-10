@@ -12,7 +12,7 @@ import static socchat.Socchat.exit;
  */
 public class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public Parser(TaskList taskList) {
         this.taskList = taskList;
@@ -30,7 +30,7 @@ public class Parser {
      * @param command the command string to be tokenized
      * @return an array of strings, where each element is a token extracted from the command
      */
-    public static String[] tokenizeAdd(String command) {
+    public static String[] tokenizeAddTaskCommand(String command) {
         String[] strToken = command.split(" /");
         return strToken;
     }
@@ -84,7 +84,6 @@ public class Parser {
         String[] commandTokens = new String[2];
 
         if (firstSpaceIndex != -1) {
-
             String command = input.substring(0, firstSpaceIndex);
             commandTokens[0] = command;
             String remaining = input.substring(firstSpaceIndex + 1);
@@ -95,10 +94,15 @@ public class Parser {
         return commandTokens;
     }
 
+    /**
+     * Gets the corresponding response for each command.
+     *
+     * @param input the input tokens that have been processed in {@link #processInput(String)} processInput
+     * @return the generated response as a String.
+     */
     public String getResponse(String... input) {
         String[] strToken;
         String respond = "";
-
         try {
             String commandInput = input[0];
             String remaining;
@@ -125,19 +129,22 @@ public class Parser {
                         throw new SocchatException("Todo cannot have empty description");
                     }
                     String str = command + " " + remaining;
-                    strToken = Parser.tokenizeAdd(str);
+                    // Tokenize str to separate dateTime object from description
+                    strToken = Parser.tokenizeAddTaskCommand(str);
                     respond = taskList.addTodo(strToken);
                     break;
                 case DEADLINE:
                     remaining = input[1];
                     str = command + " " + remaining;
-                    strToken = Parser.tokenizeAdd(str);
+                    // Tokenize str to separate dateTime object from description
+                    strToken = Parser.tokenizeAddTaskCommand(str);
                     respond = taskList.addDeadline(strToken);
                     break;
                 case EVENT:
                     remaining = input[1];
                     str = command + " " + remaining;
-                    strToken = Parser.tokenizeAdd(str);
+                    // Tokenize str to separate dateTime object from description
+                    strToken = Parser.tokenizeAddTaskCommand(str);
                     respond = taskList.addEvent(strToken);
                     break;
                 case DELETE:
