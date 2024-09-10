@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("mira.Mira")
+    mainClass.set("mira.Launcher")
 }
 
 shadowJar {
@@ -58,4 +58,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = false
 }
