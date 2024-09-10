@@ -5,6 +5,7 @@ package bimo.tasks;
  */
 public class Task {
     private boolean status = false;
+    private String priority = "";
     private String details;
 
     /**
@@ -38,7 +39,8 @@ public class Task {
     @Override
     public String toString() {
         String status = this.status ? "X" : " ";
-        String taskString = String.format("[%s] %s", status, this.details);
+        String taskString = String.format("[%s] %s",
+                status, this.details);
         return taskString;
     }
 
@@ -59,5 +61,39 @@ public class Task {
      */
     public String getDetails() {
         return this.details;
+    }
+
+    /**
+     * Sets the priority level of task.
+     *
+     * @param priority The level of priority indicated by user.
+     */
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * Formats priority of task to load text file.
+     *
+     * @return Representation of priority in text file.
+     */
+    public String priorityToText() {
+        String priorityLevel = this.priority.isEmpty()
+                ? ""
+                : this.priority + "~";
+        return priorityLevel;
+    }
+
+
+    /**
+     * Formats priority of task to use for subclass toString
+     *
+     * @return String representation of priority.
+     */
+    public String priorityString() {
+        String priorityLevel = this.priority.equals("")
+                ? ""
+                : "<" + this.priority + "> ";
+        return priorityLevel;
     }
 }

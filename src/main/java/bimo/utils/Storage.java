@@ -43,7 +43,7 @@ public class Storage {
         } else {
             throw new IllegalArgumentException("Invalid task type");
         }
-        return text;
+        return task.priorityToText() + text;
     }
 
     /**
@@ -53,7 +53,9 @@ public class Storage {
      * @return Task object.
      */
     private Task convertTextToTask(String text) {
-        String[] details = text.split("\\|");
+        String[] arrayByPriority = text.split("~");
+        boolean hasPriority = arrayByPriority.length > 1;
+        String[] details = hasPriority ? arrayByPriority[1].split("\\|") : text.split("\\|");
         String type = details[0];
         Task task = null;
 
@@ -71,6 +73,10 @@ public class Storage {
         }
         if (status) {
             task.markCompleted();
+        }
+        if (hasPriority) {
+            String priority = arrayByPriority[0];
+            task.setPriority(priority);
         }
         return task;
     }

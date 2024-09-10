@@ -43,9 +43,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String eventString = String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
-                this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        String startDateFormat = this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        String endDateFormat = this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        String eventString = priorityString() + String.format("[E]%s (from: %s to: %s)",
+                super.toString(), startDateFormat, endDateFormat);
         return eventString;
     }
 }

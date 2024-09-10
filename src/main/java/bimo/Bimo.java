@@ -61,7 +61,7 @@ public class Bimo {
         } catch (MissingDateException e) {
             response = e.getMessage();
         } catch (BimoException e) {
-            response = ui.printErrorMessage();
+            response = e.getMessage();
         }
         return response;
     }

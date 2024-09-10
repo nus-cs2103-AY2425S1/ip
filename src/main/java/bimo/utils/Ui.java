@@ -36,7 +36,8 @@ public class Ui {
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
                 + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. list\n\n"
-                + "9. bye\n\n10.help\n";
+                + "9. set <high, medium, low>\n\n10.help\n\n"
+                + "11. bye\n";
         return list;
     }
 
@@ -187,4 +188,15 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Creates response for setting of task priority.
+     *
+     * @param task Task to have priority level set.
+     * @return Response to set command
+     */
+    public String printPrioritisedTaskMessage(Task task) {
+        String response = "OKAYY I have set the priority level!"
+                + "    " + task.toString();
+        return response;
+    }
 }
