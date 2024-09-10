@@ -37,8 +37,8 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         String isDoneString = this.isDone ? "1" : "0";
-        return getTypeIcon().charAt(1) + "|" + isDoneString + "|"
-                + this.getDescription() + "|" + this.getDeadline();
+        String commandHeader = getTypeIcon().charAt(1) + "|" + isDoneString;
+        return commandHeader + "|" + this.getDescription() + "|" + this.getDeadline();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.nimbus;
+package com.exceptions;
 
 /**
  * Invalid command error for Nimbus

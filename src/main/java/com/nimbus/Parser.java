@@ -10,6 +10,8 @@ import com.commands.MarkCommand;
 import com.commands.RemoveCommand;
 import com.commands.TodoCommand;
 import com.commands.UnmarkCommand;
+import com.exceptions.InvalidArgumentException;
+import com.exceptions.InvalidCommandException;
 
 /**
  * A command parser for the chatbot
@@ -77,8 +79,9 @@ public final class Parser {
         if (endIndex == -1) {
             return substringAfterOption.trim();
         } else {
-            return argument.substring(startIndex + target.length() + 1,
-                    endIndex + startIndex + target.length() + 1).trim();
+            String substringBetweenOption = argument.substring(startIndex + target.length() + 1,
+                    endIndex + startIndex + target.length() + 1);
+            return substringBetweenOption.trim();
         }
     }
 

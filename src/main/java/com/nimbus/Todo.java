@@ -16,7 +16,8 @@ public class Todo extends Task {
     @Override
     public String toFileFormat() {
         String isDoneString = this.isDone ? "1" : "0";
-        return getTypeIcon().charAt(1) + "|" + isDoneString + "|" + this.getDescription();
+        String commandHeader = getTypeIcon().charAt(1) + "|" + isDoneString;
+        return commandHeader + "|" + this.getDescription();
     }
 
     @Override

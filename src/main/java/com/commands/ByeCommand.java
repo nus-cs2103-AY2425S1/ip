@@ -1,6 +1,6 @@
 package com.commands;
 
-import com.nimbus.InvalidArgumentException;
+import com.exceptions.InvalidArgumentException;
 import com.nimbus.Storage;
 import com.nimbus.TaskList;
 import com.nimbus.Ui;
