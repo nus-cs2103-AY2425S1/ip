@@ -24,7 +24,7 @@ public class FindCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String wordToSearch = this.predicate;
-        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch));
+        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch)) ;
         String matchedTaskListInString = filteredTasks.toString();
         return ui.showFind(matchedTaskListInString);
     }

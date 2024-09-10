@@ -27,7 +27,8 @@ public class Knight2103 {
      * @param filePath The relative location of the text file which contains the list of tasks.
      */
     public Knight2103(String filePath) {
-        this.welcomeMessage = "Hello! I'm Knight2103\nWhat can I do for you?";
+        this.welcomeMessage = "Hello! I'm Knight2103\nWhat can I do for you? Commands Available:\n"
+                + "list, todo, deadline, event, mark, unmark, delete, find, sort, bye";
         this.errorMessage = "";
         this.ui = new Ui();
         storage = new Storage(filePath);
@@ -67,6 +68,5 @@ public class Knight2103 {
         } catch (InvalidCommandException e) { // Exceptions from commands
             return "Failed to execute Command:\n" + e.getMessage();
         }
-        // welcome message - state all commands that can be used.
     }
 }
