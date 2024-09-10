@@ -232,7 +232,9 @@ public class TaskList {
             //return scanner.nextLine();
             return "The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
         }
-
+        if (fromLocalDate.isAfter(toLocalDate)) {
+            throw new TheOrangeRatchetCatException("Your start date cannot be later than your end date");
+        }
         // Assert that fromLocalDate is not after toLocalDate
         assert !fromLocalDate.isAfter(toLocalDate) : "Start date must be before or on the end date.";
 
