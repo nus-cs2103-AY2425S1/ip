@@ -83,29 +83,35 @@ public class Parser {
     private void handleMarkUnmark(String command, String action) {
         assert action.equals("mark") || action.equals("unmark") : "Action must be 'mark' or 'unmark'";
 
+        int taskNumber = parseTaskNumber(command);
+        if (taskNumber == -1) return;  // parseTaskNumber returns -1 if invalid command given
+
+        boolean isMarking = action.equals("mark");
+        dukeManager.setDone(isMarking, taskNumber);
+        String statusMessage = isMarking ? "Nice! I've marked this task as done:\n" : "OK, I've marked this task as not done yet:\n";
+        System.out.println(statusMessage + dukeManager.getItem(taskNumber));
+    }
+
+    private int parseTaskNumber(String command) {
         String[] parts = command.split(" ");
-        if (parts.length == 2) {
-            String numberStr = parts[1];
-            try {
-                int number = Integer.parseInt(numberStr);
-                if (number > 0) {
-                    if (action.equals("mark")) {
-                        dukeManager.setDone(true, number);
-                        System.out.println("Nice! I've marked this task as done:\n" + dukeManager.getItem(number));
-                    } else {
-                        dukeManager.setDone(false, number);
-                        System.out.println("OK, I've marked this task as not done yet:\n" + dukeManager.getItem(number));
-                    }
-                } else {
-                    System.out.println("Please provide a positive number.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("You didn't type a valid number.");
+        if (parts.length != 2) {
+            System.out.println("Invalid command format. Please use the correct format.");
+            return -1;  // Return -1 to indicate failure
+        }
+
+        try {
+            int number = Integer.parseInt(parts[1]);
+            if (number <= 0) {
+                System.out.println("Please provide a positive number.");
+                return -1;
             }
-        } else {
-            System.out.println("Invalid command format.");
+            return number;
+        } catch (NumberFormatException e) {
+            System.out.println("You didn't type a valid number.");
+            return -1;
         }
     }
+
 
     private void handleDeadline(String command) {
         assert command.startsWith("deadline") : "Command should start with 'deadline'";
@@ -124,6 +130,7 @@ public class Parser {
 
         String description = command.substring("todo".length()).trim();
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
+
         String task = dukeManager.createItem(taskBuilder).toString();
         dukeFileManager.writeFile(task);
     }
@@ -133,15 +140,11 @@ public class Parser {
 
         // Remove the word 'event' and split by '/from'
         String[] part = command.replaceFirst("event ", "").split("/from", 2);
-        // The description part
         String description = part[0].trim();
-        // The remaining part
         String remaining = part.length > 1 ? part[1].trim() : "";
         // Split the remaining part by '/to'
         String[] dateParts = remaining.split("/to", 2);
-        // The 'from' part
         String from = dateParts[0].trim();
-        // The 'to' part
         String to = dateParts.length > 1 ? dateParts[1].trim() : "";
 
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.EVENT);
