@@ -27,6 +27,17 @@ public class Storage {
         this.path = Paths.get(filepath);
     }
 
+    /**
+     * Loads tasks from a file and populates the given {@code Tasklist}.
+     * The file is read from the specified path, and each line is interpreted
+     * as a task.
+     *
+     * <p>If the file does not exist, the method will attempt to create the necessary
+     * directories and the file.</p>
+     *
+     * @param tasks The {@code Tasklist} object where the loaded tasks will be added.
+     * @return The updated {@code Tasklist} containing tasks loaded from the file.
+     */
     public Tasklist load(Tasklist tasks) {
         try {
             if (Files.exists(path)) {
@@ -35,6 +46,7 @@ public class Storage {
                     String[] lines = content.split("\n");
                     for (String line : lines) {
                         String[] word = line.split("\\|");
+                        assert word.length >= 3 : "Invalid format";
                         String type = word[0];
                         boolean status = word[1].contains("X");
 
@@ -47,6 +59,8 @@ public class Storage {
                         } else if (type.equals("E")) {
                             Task newTask = new Event(word[2], status, word[3], word[4]);
                             tasks.addTask(newTask);
+                        } else {
+                            assert false : "Unknown task type";
                         }
                     }
                 }
@@ -67,6 +81,8 @@ public class Storage {
      * @param tasks The {@code Tasklist} to be saved.
      */
     public void save(Tasklist tasks) {
+        assert tasks != null : "Tasklist cannot be null";
+
         String outputFile = "";
         for (int i = 0; i < tasks.getSize(); i++) {
             Task curr = tasks.getTask(i);

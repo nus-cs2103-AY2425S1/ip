@@ -19,6 +19,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null && !description.isEmpty() : "Description cannot be empty";
         this.description = description;
         this.status = false;
     }
@@ -96,6 +97,8 @@ public abstract class Task {
      */
     @Override
     public String toString() {
+        assert !this.getType().isEmpty() : "Must have a type";
+        assert this.getStatusIcon() != null : "Must have a status icon";
         return String.format("[%s] [%s] %s", this.getType(), this.getStatusIcon(), this.description);
     }
 

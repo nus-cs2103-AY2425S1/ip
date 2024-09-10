@@ -26,12 +26,18 @@ public class Parser {
      * @param tasklist The current list of tasks.
      * @param ui The user interface for displaying messages.
      */
-    public Parser(String inp, Tasklist tasklist, Ui ui) {
+    public Parser(String userInput, Tasklist tasklist, Ui ui) {
+        assert !userInput.trim().isEmpty() : "Input cannot be empty";
+        assert tasklist != null : "Tasklist cannot be null";
+        assert ui != null : "Ui cannot be null";
+
         this.isExitCalled = false;
-        this.userInput = inp.split(" ", 2);
+        this.userInput = userInput.split(" ", 2);
         this.instruction = this.userInput[0].toLowerCase();
         this.tasklist = tasklist;
         this.ui = ui;
+
+        assert !this.instruction.isEmpty() : "Instruction cannot be empty";
     }
 
     /**
@@ -110,19 +116,19 @@ public class Parser {
 
         default:
             try {
-                String des = this.userInput[1];
+                String taskDescription = this.userInput[1];
                 switch (this.instruction) {
                 case "todo":
-                    Task newTodo = new ToDo(des);
+                    Task newTodo = new ToDo(taskDescription);
                     this.tasklist.addTask(newTodo);
                     return ui.wrapSpacer(String.format("added: %s%n", newTodo));
 
                 case "deadline":
                     try {
-                        String[] activity = des.split(" /by ", 2);
+                        String[] activity = taskDescription.split(" /by ", 2);
                         String action = activity[0].trim();
-                        String due = activity[1].trim();
-                        Task newDeadline = new Deadline(action, due);
+                        String taskDue = activity[1].trim();
+                        Task newDeadline = new Deadline(action, taskDue);
                         this.tasklist.addTask(newDeadline);
                         return ui.wrapSpacer(String.format("added: %s%n", newDeadline));
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -133,11 +139,11 @@ public class Parser {
 
                 case "event":
                     try {
-                        String[] activity = des.split(" /from | /to ", 3);
+                        String[] activity = taskDescription.split(" /from | /to ", 3);
                         String action = activity[0].trim();
-                        String start = activity[1].trim();
-                        String end = activity[2].trim();
-                        Task newEvent = new Event(action, start, end);
+                        String taskStart = activity[1].trim();
+                        String taskEnd = activity[2].trim();
+                        Task newEvent = new Event(action, taskStart, taskEnd);
                         this.tasklist.addTask(newEvent);
                         return ui.wrapSpacer(String.format("added: %s%n", newEvent));
                     } catch (ArrayIndexOutOfBoundsException e) {
