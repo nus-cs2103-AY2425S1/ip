@@ -1,10 +1,16 @@
 package bigdog;
 
+/**
+ * The Parser class is responsible for interpreting and parsing input commands.
+ * It splits the input string into a command and its associated arguments.
+ * If the command is valid, it is returned in lowercase form.
+ * If the command is invalid, a BigdogException is thrown.
+ */
 public class Parser {
 
     // [command, description, start date, end date]
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
-            "deadline", "event", "find"};
+        "deadline", "event", "find"};
 
     /**
      * Constructs a {@code Parser} object.
@@ -24,7 +30,7 @@ public class Parser {
      * @throws BigdogException if the command is not recognized.
      */
     public static String[] parse(String str) throws BigdogException {
-        String[] temp = str.split(" ",2);
+        String[] temp = str.split(" ", 2);
         String command = temp[0].toLowerCase();
         for (int i = 0; i < 9; i++) {
             if (command.equals(VALID_COMMANDS[i])) {

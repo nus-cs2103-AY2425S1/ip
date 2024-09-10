@@ -1,6 +1,10 @@
 package bigdog;
 
-public class Todo extends Task{
+/**
+ * The {@code Todo} class represents a task with no specific deadline.
+ * It extends the {@code Task} class and provides methods for managing to-do items.
+ */
+public class Todo extends Task {
 
     /**
      * Private constructor for creating an Todo instance.
@@ -64,4 +68,3 @@ public class Todo extends Task{
     }
 
 }
-

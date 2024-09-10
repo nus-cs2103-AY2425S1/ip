@@ -2,6 +2,10 @@ package bigdog;
 
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles all interactions with the user,
+ * including greeting, reading input, and displaying messages.
+ */
 public class Ui {
 
     /** The Scanner object used to read user input. */
