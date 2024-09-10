@@ -273,8 +273,8 @@ public class Storage {
         if (words.length == 5) {
             return hasCorrectDoneFormat(words[INDEX_DONE_STATUS])
                     && !words[INDEX_DESCRIPTION].isEmpty()
-                    && Utils.convertToDateTime(words[INDEX_EVENT_TO])
-                    .isBefore(Utils.convertToDateTime(words[INDEX_EVENT_FROM]));
+                    && Utils.convertToDateTime(words[INDEX_EVENT_FROM])
+                    .isBefore(Utils.convertToDateTime(words[INDEX_EVENT_TO]));
         }
         return false;
     }

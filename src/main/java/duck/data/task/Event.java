@@ -44,6 +44,24 @@ public class Event extends Task implements Datable {
         this.to = end;
     }
 
+    /**
+     * Returns the start date and time of the event.
+     *
+     * @return The start date and time of the event.
+     */
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    /**
+     * Returns the end date and time of the event.
+     *
+     * @return The end date and time of the event.
+     */
+    public LocalDateTime getTo() {
+        return to;
+    }
+
     public boolean isStartingBefore(LocalDate date) {
         return !from.toLocalDate().isAfter(date);
     }
