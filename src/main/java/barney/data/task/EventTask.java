@@ -26,6 +26,10 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String atString, String toString) {
         super(description);
+        assert atString != null;
+        assert !atString.isEmpty();
+        assert toString != null;
+        assert !toString.isEmpty();
         this.atString = atString;
         this.atDate = BarneyDateTime.parseDate(atString);
         this.toString = toString;
