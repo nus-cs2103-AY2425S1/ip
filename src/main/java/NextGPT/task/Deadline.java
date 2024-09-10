@@ -1,4 +1,5 @@
-package NextGPT.task;
+package nextgpt.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,7 +14,9 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
-    public LocalDate getBy() {return this.by;}
+    public LocalDate getBy() {
+        return this.by;
+    }
 
     @Override
     public String toString() {

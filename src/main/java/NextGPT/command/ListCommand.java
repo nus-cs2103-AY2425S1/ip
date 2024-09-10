@@ -1,13 +1,15 @@
-package NextGPT.command;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.Storage;
-import NextGPT.NextGPTException;
+package nextgpt.command;
+
+import nextgpt.TaskList;
+import nextgpt.Storage;
+import nextgpt.Ui;
+
+
 
 /**
  * Subclass of Command that displays content of task list.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Displays content of task list.
      */

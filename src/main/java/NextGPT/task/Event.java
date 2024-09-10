@@ -1,4 +1,5 @@
-package NextGPT.task;
+package nextgpt.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,6 +10,9 @@ public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
+    /**
+     * Constructor for Event class.
+     */
     public Event(String name, String start, String end) {
         super(name);
         this.start = LocalDate.parse(start);
@@ -29,12 +33,11 @@ public class Event extends Task {
                 " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o instanceof Event) {
-            return super.equals(o) &&
-                    ((Event) o).start.equals(this.end) && ((Event) o).start.equals(this.end);
+            return super.equals(o)
+                    && ((Event) o).start.equals(this.end) && ((Event) o).start.equals(this.end);
         }
         return false;
     }
