@@ -24,8 +24,11 @@ public class UpdateTaskCommand extends Command {
      * @param firstDate - new date (either /by for deadline or /from for events), "" if no change is made
      * @param secondDate - new date (end date for events), "" if no change is made
      */
-    public UpdateTaskCommand(int taskNum, String desc, String firstDate, String secondDate) {
+    public UpdateTaskCommand(int taskNum, String desc, String firstDate, String secondDate) throws InvalidCommandException {
         this.taskNum = taskNum;
+        if (Objects.equals(desc, "") && Objects.equals(firstDate, "") && Objects.equals(secondDate, "")) {
+            throw new InvalidCommandException("Nothing has been changed");
+        }
         this.desc = desc;
         this.firstDate = firstDate;
         this.secondDate = secondDate;
