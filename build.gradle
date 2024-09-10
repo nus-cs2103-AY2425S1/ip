@@ -36,7 +36,6 @@ application {
 
 shadowJar {
     archiveBaseName = "nimbus"
-    archiveClassifier = null
 }
 
 run{
