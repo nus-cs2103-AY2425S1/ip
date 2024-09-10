@@ -33,6 +33,6 @@ public class Deadline extends Task {
      * @return String for file
      */
     public String toFileString() {
-        return String.format("D | %s | %s | %s", isDone ? TaskStatus.NOTDONE : TaskStatus.DONE, description, by);
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by);
     }
 }

@@ -33,8 +33,6 @@ public class Event extends Task {
      * @return String for file
      */
     public String toFileString() {
-        return String.format(
-                "E | %s | %s | %s | %s", isDone ? TaskStatus.DONE : TaskStatus.NOTDONE, description, start, end
-        );
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, start, end);
     }
 }
