@@ -1,14 +1,15 @@
-package NextGPT.command;
-import NextGPT.Storage;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.task.Task;
+package nextgpt.command;
+
+import nextgpt.Storage;
+import nextgpt.TaskList;
+import nextgpt.task.Task;
+import nextgpt.Ui;
 
 /**
  * Subclass of Command that finds tasks in task list with given keyword.
  */
 public class FindCommand extends Command{
-    String keyword;
+    private String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -25,7 +26,6 @@ public class FindCommand extends Command{
     public String execute(TaskList tasks, Ui ui, Storage storage){
         TaskList resultsFound = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-
             String taskDescription = tasks.get(i).getDescription().toLowerCase();
             if (taskDescription.contains(keyword.toLowerCase())){
                 Task foundTask = tasks.get(i);

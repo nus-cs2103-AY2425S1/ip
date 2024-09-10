@@ -1,13 +1,13 @@
-package NextGPT;
+package nextgpt;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import NextGPT.task.Deadline;
-import NextGPT.task.Event;
-import NextGPT.task.Task;
+
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Task;
 
 /**
  * Storage class to load and add local saved task list.

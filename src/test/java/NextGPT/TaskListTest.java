@@ -1,12 +1,13 @@
-package NextGPT;
+package nextgpt;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import NextGPT.task.Task;
-import NextGPT.task.Todo;
-import NextGPT.task.Event;
-import NextGPT.task.Deadline;
+
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Task;
+import nextgpt.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,8 +1,9 @@
-package NextGPT;
-import NextGPT.command.*;
-import NextGPT.task.Todo;
-import NextGPT.task.Deadline;
-import NextGPT.task.Event;
+package nextgpt;
+
+import nextgpt.command.*;
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Todo;
 
 /**
  * Class to understand User Input when using bot.

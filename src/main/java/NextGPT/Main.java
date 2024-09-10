@@ -1,4 +1,4 @@
-package NextGPT;
+package nextgpt;
 
 import java.io.IOException;
 

@@ -1,10 +1,12 @@
-package NextGPT.command;
+package nextgpt.command;
+
 import java.io.IOException;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.Storage;
-import NextGPT.NextGPTException;
-import NextGPT.task.Task;
+
+import nextgpt.NextGPTException;
+import nextgpt.task.Task;
+import nextgpt.TaskList;
+import nextgpt.Ui;
+import nextgpt.Storage;
 
 /**
  * Subclass of Command that adds tasks to task list.

@@ -1,11 +1,12 @@
-package NextGPT;
+package nextgpt;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import NextGPT.task.Deadline;
-import NextGPT.task.Todo;
-import NextGPT.task.Event;
-import NextGPT.task.Task;
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Task;
+import nextgpt.task.Todo;
 
 /**
  * Class to hold tasks in a arraylist.

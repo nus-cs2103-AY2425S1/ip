@@ -1,26 +1,17 @@
-package NextGPT;
+package nextgpt;
 
 import java.util.List;
 import java.util.Scanner;
-import NextGPT.task.Task;
+import nextgpt.task.Task;
 
 /** Interface that users interacts with. */
 public class Ui {
-    String line = "_______________________________________________________\n";
 
     Scanner sc;
     public Ui(){
         this.sc = new Scanner(System.in);
     }
 
-    /**
-     * Prints opening message to user.
-     */
-    public String openingMessage() {
-        String greeting = "Hello! I'm NextGPT and I'll be your assistant chatbot.\n" +
-                "What can I do for you today?\n";
-        return greeting;
-    }
 
     /**
      * Prints exit message to user.
@@ -93,26 +84,6 @@ public class Ui {
     public String showLoadingError() {
         return "It seems like you do not have a saved task list. I will be creating an empty one for you.";
     }
-
-    /**
-     * Prints error message.
-     *
-     * @param s Error message.
-     */
-    public String showError(String s) {
-        return s + "\n";
-    }
-
-    /**
-     * Reads next input from user.
-     *
-     * @return Returns String of input read from user.
-     */
-    public String readCommand() {
-
-        return sc.nextLine();
-    }
-
 
 
 }

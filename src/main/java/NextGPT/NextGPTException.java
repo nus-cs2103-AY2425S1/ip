@@ -1,4 +1,5 @@
-package NextGPT;
+package nextgpt;
+
 /**
  * Exception class for NextGPT.
  */

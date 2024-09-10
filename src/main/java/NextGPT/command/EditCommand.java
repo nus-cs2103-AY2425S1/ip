@@ -1,10 +1,13 @@
-package NextGPT.command;
+package nextgpt.command;
+
 import java.io.IOException;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.Storage;
-import NextGPT.NextGPTException;
-import NextGPT.task.Task;
+
+import nextgpt.NextGPTException;
+import nextgpt.Storage;
+import nextgpt.TaskList;
+import nextgpt.task.Task;
+import nextgpt.Ui;
+
 
 /**
  * Subclass of Command that edits tasks from task list
@@ -38,7 +41,7 @@ public class EditCommand extends Command{
             } else {
                 task.unmark();
                 storage.add_to_memory(tasks);
-                return ui.mark(task);
+                return ui.unmark(task);
             }
 
         } catch (IndexOutOfBoundsException e) {

@@ -1,7 +1,8 @@
-package NextGPT.command;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.Storage;
+package nextgpt.command;
+
+import nextgpt.Storage;
+import nextgpt.TaskList;
+import nextgpt.Ui;
 
 /**
  * Subclass of Command that exits user.

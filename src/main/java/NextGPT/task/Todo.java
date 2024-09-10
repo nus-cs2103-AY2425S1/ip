@@ -1,4 +1,4 @@
-package NextGPT.task;
+package nextgpt.task;
 
 /**
  * Class for task type todo.
