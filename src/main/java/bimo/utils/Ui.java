@@ -195,7 +195,7 @@ public class Ui {
      * @return Response to set command
      */
     public String printPrioritisedTaskMessage(Task task) {
-        String response = "OKAYY I have set the priority level!"
+        String response = "OKAYY I have set the priority level!\n"
                 + "    " + task.toString();
         return response;
     }
