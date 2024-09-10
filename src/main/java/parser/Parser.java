@@ -76,5 +76,20 @@ public class Parser {
         Ui.goodByeCat();
         scanner.close(); // Close the scanner to avoid resource leaks
     }
+
+    /**
+     * Returns the string that consists of all task description and date information
+     * @param tasks
+     */
+    public static String printAllTasks(List<Task> tasks) {
+        int index = 1;
+        StringBuilder sbr = new StringBuilder("Here are the tasks in your list: \n");
+        for (Task item : tasks) {
+            System.out.println(index + "." + item);
+            sbr.append(index + "." + item + "\n");
+            index++;
+        }
+        return sbr.toString();
+    }
 }
 

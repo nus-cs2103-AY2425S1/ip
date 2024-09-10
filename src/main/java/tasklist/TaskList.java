@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import exceptions.TheOrangeRatchetCatException;
+import parser.Parser;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -25,16 +26,18 @@ public class TaskList {
      * @return returns the next input command by user
      */
     public static String checkList(List<Task> items, Scanner scanner) {
-        int index = 1;
-        StringBuilder sbr = new StringBuilder("Here are the tasks in your list: \n");
+        //int index = 1;
+        //StringBuilder sbr = new StringBuilder("Here are the tasks in your list: \n");
         System.out.println("Here are the tasks in your list:");
-        for (Task item : items) {
+        String result = Parser.printAllTasks(items);
+        /*for (Task item : items) {
             System.out.println(index + "." + item);
             sbr.append(index + "." + item + "\n");
             index++;
-        }
+        }*/
         //return scanner.nextLine();
-        return sbr.toString();
+        //return sbr.toString();
+        return result;
     }
 
     /**
