@@ -25,6 +25,8 @@ public class AddCommand extends Command {
      * @throws StorageException If an error occurs while writing the task to storage
      */
     public static void addToStorage(Storage storage, Task task) throws StorageException {
+        assert task != null : "TaskList should not be null";
+
         try {
             storage.addTaskToFile(FILE_PATH, task.toFileString());
         } catch (IOException ioe) {
