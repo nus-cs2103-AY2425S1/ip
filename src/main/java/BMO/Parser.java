@@ -13,8 +13,10 @@ public class Parser {
      */
     public String[] parse(String userInput) throws BmoException {
         String[] parsedInput = new String[4];
+        assert userInput != null : "User input cannot be null";
         String[] userInputArr = userInput.split(" ");
         String command = userInputArr[0];
+        assert command != null : "Command cannot be null";
 
         switch (command) {
         case "list":

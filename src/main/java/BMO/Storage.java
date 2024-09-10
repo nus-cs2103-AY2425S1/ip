@@ -23,6 +23,7 @@ public class Storage {
      */
     public Storage(String filePath) throws IOException {
         try {
+            assert filePath != null : "File path cannot be null";
             File file = new File(filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -45,6 +46,7 @@ public class Storage {
      * @throws IOException if unable to write to file
      */
     public void updateStorageFile(TaskList tasks) throws IOException {
+        assert tasks != null : "Task list cannot be null";
         this.writer.close();
         FileWriter writer = new FileWriter("data/BMO.txt");
         this.writer = writer;
@@ -62,6 +64,8 @@ public class Storage {
      */
     public void readStorageFile(TaskList tasks, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            assert tasks != null : "Task list cannot be null";
+            assert filePath != null : "File path cannot be null";
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split(" \\| ");
@@ -96,6 +100,7 @@ public class Storage {
      * @throws IOException if unable to write to file
      */
     public void saveTask(Task task) throws IOException {
+        assert task != null : "You cannot save a null task";
         this.writer.write(task.getSavedFormat());
     }
 }

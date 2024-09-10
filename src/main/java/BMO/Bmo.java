@@ -26,6 +26,7 @@ public class Bmo {
      */
     public Bmo(String filePath) throws Exception {
         try {
+            assert filePath != null : "File path cannot be null";
             this.storage = new Storage(filePath);
             this.ui = new Ui();
             this.parser = new Parser();
@@ -44,9 +45,11 @@ public class Bmo {
      */
     public String run(String userInput) throws Exception {
         storage.readStorageFile(taskList, filePath);
+        assert userInput != null : "User input cannot be null";
 
         while (true) {
             String[] input = parser.parse(userInput);
+            assert input.length > 0 : "User input cannot be empty";
 
             //Switch statement to handle different commands
             switch (input[0]) {
@@ -131,6 +134,7 @@ public class Bmo {
      */
     public String getResponse(String input) {
         try {
+            assert input != null : "User input cannot be null";
             return run(input);
         } catch (Exception e) {
             return e.getMessage();
