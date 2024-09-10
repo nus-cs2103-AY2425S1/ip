@@ -90,7 +90,6 @@ public class TaskList {
      * @return A string representing the task after it has been marked as done.
      */
     public String markAsDone(int index) {
-        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
         try {
             list.get(index - 1).markAsDone();
             storage.save(this.list);
@@ -107,7 +106,6 @@ public class TaskList {
      * @return A string representing the task after it has been marked as not done.
      */
     public String markAsNotDone(int index) {
-        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
         try {
             list.get(index - 1).markAsNotDone();
             storage.save(this.list);
@@ -124,7 +122,6 @@ public class TaskList {
      * @return A list of filtered tasks that contains the keyword.
      */
     public List<Task> findTasks(String keyword) {
-        assert keyword != null : "Keyword is null.";
         return list.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .toList();
