@@ -134,6 +134,7 @@ public class TaskList {
      */
     public TaskList filterTasks(String prompt) {
 
+        assert(prompt != null);
         TaskList filteredTasks = new TaskList();
 
         // Get the description of the tasks and check if it has the keyword in it
