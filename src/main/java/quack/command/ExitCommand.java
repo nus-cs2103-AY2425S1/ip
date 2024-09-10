@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
-
 import quack.util.Storage;
 import quack.util.TaskList;
 import quack.util.Ui;
@@ -37,7 +36,6 @@ public class ExitCommand extends Command {
 
     @Override
     public void prompt() {
-
         execute(null);
     }
 

@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import quack.exception.InvalidDateTimeException;
+import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
 
 /**
@@ -122,7 +123,9 @@ public class Storage {
                 task.mark();
             }
         } catch (InvalidDateTimeException dateTimeError) {
-            System.out.println(dateTimeError);
+            System.out.println(dateTimeError.getMessage());
+        } catch (InvalidTaskTypeException taskTypeError) {
+            System.out.println(taskTypeError.getMessage());
         }
 
         return task;

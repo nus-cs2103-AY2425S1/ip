@@ -1,6 +1,7 @@
 package quack.command;
 
 import quack.exception.FailedUpdateException;
+import quack.exception.InvalidCommandException;
 import quack.exception.InvalidIndexException;
 import quack.tasks.Task;
 import quack.util.TaskList;
@@ -33,9 +34,8 @@ public class UpdateTaskCommand extends Command {
 
     @Override
     public void prompt() {
-
-       this.listTasks();
-       this.checkEmptyList();
+        this.listTasks();
+        this.checkEmptyList();
         ui.requestIndexFromUser(command);
     }
 
@@ -52,6 +52,8 @@ public class UpdateTaskCommand extends Command {
             ui.printExceptionMessage(indexError);
         } catch (FailedUpdateException failUpdateError) {
             ui.printExceptionMessage(failUpdateError);
+        } catch (InvalidCommandException commandError) {
+            ui.printExceptionMessage(commandError);
         } finally {
             this.completeCommand();
         }

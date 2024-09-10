@@ -66,17 +66,16 @@ public class AddTaskCommand extends Command {
         if (this.nextPrompt == PromptTypes.TASKTYPE) {
             this.getTaskTypeFromUser();
         } else if (this.nextPrompt == PromptTypes.DESCRIPTION) {
-           this.getTaskDescriptionFromUser(input);
-
+            this.getTaskDescriptionFromUser(input);
         } else if (this.nextPrompt == PromptTypes.STARTDATE) {
             this.getStartDateFromUser(input);
         } else if (this.nextPrompt == PromptTypes.ENDDATE) {
             this.getEndDateFromUser(input);
-        } else if(this.nextPrompt == PromptTypes.DONE) {
+        } else if (this.nextPrompt == PromptTypes.DONE) {
             this.finaliseCommand(input);
             this.createTask();
         } else {
-
+            throw new AssertionError();
         }
     }
 
@@ -119,6 +118,7 @@ public class AddTaskCommand extends Command {
      * <p>
      * For event tasks the next state will be to request for a start date.
      * @param input The task type the user inputed.
+     * @throws AssertionError In the event next prompt is not assigned a value in the ennum
      */
     private void getTaskDescriptionFromUser(String input) {
 
@@ -146,11 +146,11 @@ public class AddTaskCommand extends Command {
             this.nextPrompt = PromptTypes.DONE;
             break;
         default:
-            // TODO: Think of what to output an error here
+            throw new AssertionError();
         }
     }
 
-     /**
+    /**
      * Requests the start date for the task.
      * <p>
      * Progress the state of the command to retrieve the end date
@@ -213,6 +213,7 @@ public class AddTaskCommand extends Command {
      * <p>
      * After retrieving the task details, the task will be created and added,
      * into the tasklist.
+     * @throws AssertionError In the event next prompt is not assigned a value in the ennum
      */
     private void createTask() {
 
@@ -229,7 +230,7 @@ public class AddTaskCommand extends Command {
                 newTask = Task.createTask(taskType.toString(), taskDescription, startDate, endDate);
                 break;
             default:
-                // TODO: Think of what to output an error here
+                throw new AssertionError();
             }
 
             if (newTask != null) {
@@ -241,6 +242,8 @@ public class AddTaskCommand extends Command {
                 + "ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
         } catch (InvalidDateTimeException dateTimeError) {
             ui.printExceptionMessage(dateTimeError);
+        } catch (InvalidTaskTypeException taskTypeError) {
+            ui.printExceptionMessage(taskTypeError);
         } finally {
             this.completeCommand();
         }
