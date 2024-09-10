@@ -30,6 +30,8 @@ public class Ui {
      * @param taskCount the number of tasks in the list
      */
     public String printTaskAdded(Task task, int taskCount) {
+        assert task != null : "The task to be printed cannot be null";
+        assert taskCount >= 0 : "The number of tasks cannot be negative";
         return "Got it. I've added this task:\n" + task + "\nNow you have " + taskCount
             + " tasks in the list.";
     }
@@ -41,6 +43,8 @@ public class Ui {
      * @param taskCount the number of tasks in the list
      */
     public String printTaskRemoved(Task task, int taskCount) {
+        assert task != null : "The task to be printed cannot be null";
+        assert taskCount >= 0 : "The number of tasks cannot be negative";
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + taskCount
             + " tasks in the list.";
     }
@@ -51,6 +55,7 @@ public class Ui {
      * @param task the task that was marked as done
      */
     public String printTaskMarked(Task task) {
+        assert task != null : "The task to be printed cannot be null";
         return "OK, I've marked this task as done:\n" + task;
     }
 
@@ -60,6 +65,7 @@ public class Ui {
      * @param task the task that was unmarked
      */
     public String printTaskUnmarked(Task task) {
+        assert task != null : "The task to be printed cannot be null";
         return "Nice! I've unmarked this task:\n" + task;
     }
 
@@ -69,6 +75,7 @@ public class Ui {
      * @param tasks the list of tasks
      */
     public String printList(ArrayList<Task> tasks) {
+        assert tasks != null : "The task list to be printed cannot be null";
         String str = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             str += (i + 1) + ". " + tasks.get(i) + "\n";
@@ -82,6 +89,7 @@ public class Ui {
      * @param tasks the task that was found
      */
     public String printMatchingTasks(TaskList tasks) {
+        assert tasks != null : "The task list to be printed cannot be null";
         String str = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
             str += (i + 1) + ". " + tasks.getTask(i) + "\n";
