@@ -1,10 +1,10 @@
 package elysia.storage;
 
+import elysia.dateparser.DateParser;
 import elysia.task.Deadline;
 import elysia.task.Event;
 import elysia.task.Task;
 import elysia.task.ToDos;
-import elysia.dateparser.DateParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,11 +18,20 @@ import java.util.Scanner;
  * Stores and scans the txt file in hard disk to save the progress.
  **/
 public class Storage {
-    private static ArrayList<Task> arrayLists;
+    private static final String FOLDERNAME = "data";
+    private static final String FILENAME = "elysia.txt";
+    private static final String FILEPATH = "./" + FOLDERNAME + "/" + FILENAME;
+    private ArrayList<Task> arrayLists;
+
+    public void load() throws IOException{
+        Storage.createFile();
+        this.scanFileContents(FILEPATH);
+    }
 
     public Storage(ArrayList<Task> arrayLists) {
         this.arrayLists = arrayLists;
     }
+
 
     /**
      * Loads the saved list.
@@ -91,8 +100,8 @@ public class Storage {
     /**
      * Creates the txt file if it does not exist to prevent exception.
      **/
-    public static void createFile(String folderName, String fileName) throws IOException {
-        File dataDir = new File(folderName);
+    public static void createFile() throws IOException {
+        File dataDir = new File(FOLDERNAME);
 
         if (! dataDir.exists()) {
             dataDir.mkdir();
@@ -100,16 +109,16 @@ public class Storage {
         }
 
         if (dataDir.exists() && dataDir.isDirectory()) {
-            File txtFile = new File(dataDir, fileName);
+            File txtFile = new File(dataDir, FILENAME);
 
             try {
                 if (txtFile.createNewFile()) {
-                    System.out.println(fileName + " successfully created.");
+                    System.out.println(FILENAME + " successfully created.");
                 } else {
-                    System.out.println(fileName + " already exists");
+                    System.out.println(FILENAME+ " already exists");
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred while creating the " + fileName);
+                System.out.println("An error occurred while creating the " + FILENAME);
             }
         }
     }
@@ -117,17 +126,17 @@ public class Storage {
     /**
      * Appends the input from users to the txt file.
      **/
-    private void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
+    public static void appendToFile(Task task) throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH, true); // create a FileWriter in append mode
+        fw.write("\n" + task.saveToTxt());
         fw.close();
     }
 
     /**
      * Writes the input from users to the txt file and rewrites the content in the file.
      **/
-    private void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH);
         fw.write(textToAdd);
         fw.close();
     }
@@ -136,25 +145,22 @@ public class Storage {
      * Creates a txt file if it does not exist.
      * Saves all the input from list into txt file.
      *
-     * @param folderName folderName in String.
-     * @param fileName   fileName in String.
-     * @param filePath   filePath in String.
      * @throws IOException
      */
-    public void handleExit(String folderName, String fileName, String filePath) throws IOException {
-        createFile(folderName, fileName);
+    public void saveFile() throws IOException {
+        createFile();
 
         if (! arrayLists.isEmpty()) {
             try {
-                writeToFile(filePath, arrayLists.get(0).saveToTxt());
+                writeToFile(arrayLists.get(0).saveToTxt());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
             for (int i = 1; i < arrayLists.size(); i++) {
-                appendToFile(filePath, "\n" + arrayLists.get(i).saveToTxt());
+                appendToFile(arrayLists.get(i));
             }
         } else {
-            File file = new File(filePath);
+            File file = new File(FILEPATH);
             Files.delete(file.toPath());
         }
     }

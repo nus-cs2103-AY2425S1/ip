@@ -6,6 +6,7 @@ import elysia.task.ToDos;
 import elysia.ui.Ui;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ToDoCommand extends Command {
@@ -15,10 +16,15 @@ public class ToDoCommand extends Command {
     }
 
 
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public String execute(ArrayList<Task> tasks, Storage storage) {
         Ui ui = new Ui();
         Task task = new ToDos(this.description);
         tasks.add(task);
-        ui.showAddedMessage(tasks, task);
+        try {
+            Storage.appendToFile(task);
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
+        }
+        return ui.getAddedMessage(tasks, task);
     }
 }

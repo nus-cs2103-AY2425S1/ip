@@ -5,6 +5,7 @@ import elysia.task.Deadline;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,10 +18,15 @@ public class DeadlineCommand extends Command {
     }
 
 
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public String execute(ArrayList<Task> tasks, Storage storage) {
         Ui ui = new Ui();
         Task task = new Deadline(this.description, this.by);
         tasks.add(task);
-        ui.showAddedMessage(tasks, task);
+        try {
+            Storage.appendToFile(task);
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
+        }
+        return ui.getAddedMessage(tasks, task);
     }
 }

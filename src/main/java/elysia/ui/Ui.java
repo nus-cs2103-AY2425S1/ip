@@ -16,74 +16,66 @@ public class Ui {
             "Goodbye, Mei!";
 
 
-    /**
-     * Prints a horizontal line.
-     */
-    public static void insertLine() {
-        System.out.println(line);
-    }
 
 
-    public void showWelcomeMessage() {
-        insertLine();
-        System.out.println(welcomeMessage);
-        insertLine();
+    public String getWelcomeMessage() {
+        StringBuilder result = new StringBuilder();
+        result.append(welcomeMessage).append("\n");
+        return result.toString();
     }
 
     /**
      * Displays added message
      * @param task
      */
-    public void showAddedMessage(ArrayList<Task> arrayLists, Task task) {
-        insertLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
-        insertLine();
+    public String getAddedMessage(ArrayList<Task> arrayLists, Task task) {
+        StringBuilder result = new StringBuilder();
+
+        result.append("Got it. I've added this task:\n");
+        result.append("  ").append(task).append("\n");
+        result.append("Now you have ").append(arrayLists.size()).append(" tasks in the list.\n");
+
+        return result.toString();
     }
 
-    public void showExitMessage() {
-        insertLine();
-        System.out.println(exitMessage);
-        insertLine();
-    }
-
-    public void showFailMessage(String e) {
-        insertLine();
-        System.out.println(e);
-        insertLine();
+    public String getExitMessage() {
+        return exitMessage;
     }
 
 
 
-    public void printList(ArrayList<Task> arrayLists) {
-        insertLine();
+    public String printList(ArrayList<Task> arrayLists) {
+        StringBuilder result = new StringBuilder();
         int n = arrayLists.size();
-        System.out.println("Here are the tasks in your list: ");
+        result.append("Here are the tasks in your list: \n");
         for (int i = 1; i <= n; i++) {
             Task curr = arrayLists.get(i - 1);
-            System.out.println(i + "." + curr.toString());
+            result.append(i + "." + curr.toString()).append("\n");
         }
-        insertLine();
+        return result.toString();
     }
 
-    public void showMarkAsDoneMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public String getMarkAsDoneMessage(Task task) {
+        StringBuilder result =  new StringBuilder();
+        result.append("Nice! I've marked this task as done:\n");
+        result.append(task);
+        return result.toString();
     }
 
-    public void showUnmarkAsDoneMessage(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+    public String getUnmarkAsDoneMessage(Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append("OK, I've marked this task as not done yet:\n");
+        result.append(task);
+        return result.toString();
     }
 
 
-    public void showDeleteTaskMessage(ArrayList<Task> arrayLists, Task task) {
-        insertLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
-        insertLine();
+    public String getDeleteTaskMessage(ArrayList<Task> arrayLists, Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append("Noted. I've removed this task:\n");
+        result.append(" ").append(task).append("\n");
+        result.append("Now you have " + arrayLists.size() + " tasks in the list.");
+        return result.toString();
     }
 
 }

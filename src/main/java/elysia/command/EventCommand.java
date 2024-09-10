@@ -6,6 +6,7 @@ import elysia.task.Event;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -20,10 +21,15 @@ public class EventCommand extends Command{
     }
 
 
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public String execute(ArrayList<Task> tasks, Storage storage) {
         Ui ui = new Ui();
         Task task = new Event(this.description, this.startTime, this.endTime);
         tasks.add(task);
-        ui.showAddedMessage(tasks, task);
+        try {
+            Storage.appendToFile(task);
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
+        }
+        return ui.getAddedMessage(tasks, task);
     }
 }

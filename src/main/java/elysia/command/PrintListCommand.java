@@ -13,8 +13,8 @@ public class PrintListCommand extends Command{
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
         Ui ui = new Ui();
-        ui.printList(tasks);
+        return ui.printList(tasks);
     }
 }
