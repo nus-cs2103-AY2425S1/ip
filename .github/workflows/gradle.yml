@@ -25,6 +25,12 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
+      # Checks the style, making sure no style violations
+      - name: Test style using Gradle
+        run: ./gradlew checkStyleMain checkStyleTest
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
+
       # Build and run tests with Gradle
       - name: Build and test with Gradle
         run: ./gradlew clean build test
