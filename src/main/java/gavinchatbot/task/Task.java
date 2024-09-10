@@ -37,6 +37,7 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+        assert isDone : "Task should already be marked as done";
     }
 
     /**
@@ -44,6 +45,7 @@ public class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
+        assert !isDone : "Task should already be marked as not done";
     }
 
     /**
