@@ -23,6 +23,11 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details)
             throws MizzException {
+        assert tl != null : "Task list must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+        assert details != null : "Details must not be null";
+
         try {
             LocalDate date = LocalDate.parse(details[2]);
             Task newTask = new Deadline(details[1], date);

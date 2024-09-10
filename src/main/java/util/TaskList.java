@@ -34,6 +34,9 @@ public class TaskList {
      * @param s The storage instance being used.
      */
     public void addTask(Task task, Storage s) {
+        assert s != null : "Storage must not be null";
+        assert task != null : "Task must not be null";
+
         this.tasks.add(task);
         s.addToStorage(task.toString());
     }
@@ -44,6 +47,9 @@ public class TaskList {
      * @param idx The idx of the task to be deleted starting from 1.
      */
     public Task deleteTask(int idx, Storage storage) {
+        assert idx >= 1 && idx < this.tasks.size() : "Invalid index";
+        assert storage != null : "Storage must not be null";
+
         Task t = this.tasks.remove(--idx);
         storage.removeFromStorage(idx);
         return t;
@@ -55,6 +61,9 @@ public class TaskList {
      * @param idx Idx to be edited. Starting from 1.
      */
     public Task markAsDone(int idx, Storage storage) {
+        assert idx >= 1 && idx < this.tasks.size() : "Invalid index";
+        assert storage != null : "Storage must not be null";
+
         Task entry = this.tasks.get(--idx);
         if (!entry.isDone()) {
             entry.markDone();
@@ -71,6 +80,9 @@ public class TaskList {
      * @param idx Idx to be edited. Starting from 1.
      */
     public Task markAsUndone(int idx, Storage storage) {
+        assert idx >= 1 && idx < this.tasks.size() : "Invalid index";
+        assert storage != null : "Storage must not be null";
+
         Task entry = this.tasks.get(--idx);
         if (entry.isDone()) {
             entry.markUndone();

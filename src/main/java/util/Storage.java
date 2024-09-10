@@ -19,6 +19,8 @@ public class Storage {
      * @param filePath The path of the file to store the tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path must not be null";
+
         Path p = Paths.get(filePath);
         Path parentDir = p.getParent();
 

@@ -30,14 +30,18 @@ public class Parser {
      * @throws MizzException if entries in the Storage are wrongly formatted.
      */
     public static List<Task> parseFromStorage(Storage storage) throws MizzException {
-        List<Task> result = new ArrayList<>();
+        assert storage != null : "Storage must not be null";
 
+        List<Task> result = new ArrayList<>();
         String[] entries = storage.toArray();
 
         for (String entry : entries) {
-            if (entry.length() < 7 || entry.length() < 1) {
+            assert entry != null : "Bad entry: must not be null";
+
+            if (entry.length() < 1 || entry.length() < 7) {
                 throw new MizzException("Incomplete entry!:" + entry);
             }
+
             String[] parts = entry.substring(7).split("\\s+");
             char taskType = entry.charAt(1);
             String details = String.join(" ", parts);
@@ -48,7 +52,6 @@ public class Parser {
             switch (taskType) {
             case 'T': {
                 t = new ToDo(details);
-                result.add(t);
                 break;
             }
             case 'D': {
@@ -62,7 +65,6 @@ public class Parser {
                     LocalDate byDate =
                             LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
                     t = new Deadline(description, byDate);
-                    result.add(t);
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateException(e.getMessage());
                 }
@@ -83,7 +85,6 @@ public class Parser {
                     LocalDate toDate =
                             LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
                     t = new Event(description, fromDate, toDate);
-                    result.add(t);
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateException(e.getMessage());
                 }
@@ -92,6 +93,9 @@ public class Parser {
             default:
                 throw new MizzException("Invalid entry found in file!: " + taskType);
             }
+            assert t != null : "Task must not be null";
+            result.add(t);
+
             if (entry.charAt(4) == 'X') {
                 t.markDone();
             }
@@ -114,6 +118,8 @@ public class Parser {
      * @throws MizzException if input string is wrongly formatted or missing information.
      */
     public static String[] parseStringInput(String inputString) throws MizzException {
+        assert inputString != null : "Input must not be null";
+
         String[] result = new String[4];
         String[] parts = inputString.split("\\s+");
         result[0] = parts[0].toLowerCase();

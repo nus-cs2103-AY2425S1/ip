@@ -17,6 +17,11 @@ public class ToDoCommand extends Command {
 
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details) {
+        assert tl != null : "Task list must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+        assert details != null : "Details must not be null";
+
         Task newTask = new ToDo(details[1]);
         tl.addTask(newTask, storage);
         ui.setResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),

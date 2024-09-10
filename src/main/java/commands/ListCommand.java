@@ -17,6 +17,11 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details) {
+        assert tl != null : "Task list must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+        assert details != null : "Details must not be null";
+
         int no = 1;
         Task[] tasks = tl.toArray();
         ArrayList<String> taskStrings = new ArrayList<>();
