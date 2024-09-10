@@ -34,8 +34,7 @@ public class DeleteCommand {
     public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
             StorageException {
 
-
-        try { 
+        try {
             int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
             if (index >= tasks.getCount() || index < 0) {
                 throw new InvalidCommandException("You can only delete a number your task list contains");
