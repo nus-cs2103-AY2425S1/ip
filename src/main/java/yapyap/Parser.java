@@ -2,6 +2,10 @@ package yapyap;
 
 import java.util.ArrayList;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 /**
  * The Parser class is responsible for interpreting user input and executing the appropriate commands.
  */
@@ -25,6 +29,11 @@ public class Parser {
         case BYE:
             storage.saveTasks(tasks.getTasks());
             response.append("Bye. Hope to see you again soon!\n");
+
+            // create a pause transition to delay the exit so response message printed before app exits
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
             break;
         case LIST:
             response.append("Here are the tasks in your list:\n");
@@ -52,6 +61,9 @@ public class Parser {
             break;
         case FIND:
             response.append(findCommand(tasks, userInput));
+            break;
+        case HELP:
+            response.append(showHelp());
             break;
         default:
             response.append("IDK what you are yapping about!!\n");
@@ -87,6 +99,8 @@ public class Parser {
             return Commands.DELETE;
         } else if (userInput.startsWith("find")) {
             return Commands.FIND;
+        } else if (userInput.equals("help")) {
+            return Commands.HELP;
         } else {
             return Commands.OTHERS;
         }
@@ -305,5 +319,24 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             return "You must enter a keyword after 'find' to match tasks!\n";
         }
+    }
+
+    /**
+     * Provides help information for available commands.
+     *
+     * @return A string containing help information.
+     */
+    private String showHelp() {
+        return "Available Commands:\n"
+                + "1. list - Display all tasks\n"
+                + "2. mark <task number> - Mark a task as done\n"
+                + "3. unmark <task number> - Mark a task as not done\n"
+                + "4. todo <description> - Add a new todo task\n"
+                + "5. deadline <description> /by <due date> - Add a deadline task\n"
+                + "6. event <description> /from <start time> /to <end time> - Add an event task\n"
+                + "7. delete <task number> - Delete a task\n"
+                + "8. find <keyword> - Find tasks containing the keyword\n"
+                + "9. help - Show this help message\n"
+                + "10. bye - Exit the application\n";
     }
 }
