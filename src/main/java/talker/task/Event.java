@@ -43,9 +43,14 @@ public class Event extends Task {
      * @param from starting date/time
      * @param to ending date/time
      * @param isComplete status of task
+     * @param priorityType priority of task
      */
-    public Event(String description, String from, String to, boolean isComplete) throws TalkerException {
-        super(description, TaskType.EVENT, isComplete);
+    public Event(String description,
+                 String from,
+                 String to,
+                 boolean isComplete,
+                 PriorityType priorityType) throws TalkerException {
+        super(description, TaskType.EVENT, isComplete, priorityType);
         try {
             this.from = LocalDateTime.parse(from, INPUT_FORMAT);
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);

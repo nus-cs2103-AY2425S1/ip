@@ -67,6 +67,7 @@ public class TaskList {
     public String printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
         StringBuilder output = new StringBuilder();
+        int count = 0;
 
         try {
             String[] parsed = date.split(" ");
@@ -89,9 +90,15 @@ public class TaskList {
                 assert (task instanceof ToDo) : "task should be of type ToDo";
             }
 
+            if (toAppend != "") {
+                count++;
+            }
             output.append(toAppend);
         }
-        return output.toString();
+
+        return (count == 0)
+                ? ui.printNoTasksOn(targetDate.format(OUTPUT_FORMAT))
+                : output.toString();
     }
 
     /**
@@ -211,6 +218,36 @@ public class TaskList {
         }
     }
 
+    public String setPriorityOfTask(String[] parsed, Ui ui) throws TalkerException {
+        if (parsed.length != 3) {
+            throw new TalkerException("SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+        }
+        try {
+            int index = Integer.parseInt(parsed[1]) - 1;
+            PriorityType priorityType;
+
+            switch (parsed[2]) {
+            case "h":
+                priorityType = PriorityType.HIGH;
+                break;
+            case "m":
+                priorityType = PriorityType.MEDIUM;
+                break;
+            case "l":
+                priorityType = PriorityType.LOW;
+                break;
+            default:
+                throw new TalkerException(
+                        "SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+            }
+            return ui.printSetPriority(list.get(index).setPriority(priorityType));
+        } catch (NumberFormatException e) {
+            throw new TalkerException("SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            throw new TalkerException("Task not found!");
+        }
+    }
+
     /**
      * Creates a new ToDo object and adds it into list
      *
@@ -300,5 +337,40 @@ public class TaskList {
             }
         }
         return ui.printMatchingTasks(outputList.toArray(new Task[0]));
+    }
+
+    /**
+     * Finds all tasks of certain priority
+     *
+     * @param priorityString string representing priority of tasks to be found
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no tasks found
+     */
+    public String findPriorityTask(String priorityString, Ui ui) throws TalkerException {
+        ArrayList<Task> outputList = new ArrayList<>();
+
+        PriorityType targetPriority;
+
+        switch (priorityString) {
+        case "h":
+            targetPriority = PriorityType.HIGH;
+            break;
+        case "m":
+            targetPriority = PriorityType.MEDIUM;
+            break;
+        case "l":
+            targetPriority = PriorityType.LOW;
+            break;
+        default:
+            throw new TalkerException("Invalid priority type found! Try again with: findPriority <h/m/l> ");
+        }
+
+        for (Task task: list) {
+            if (task.getPriorityType() == targetPriority) {
+                outputList.add(task);
+            }
+        }
+        return ui.printPriorityTasks(targetPriority, outputList.toArray(new Task[0]));
     }
 }

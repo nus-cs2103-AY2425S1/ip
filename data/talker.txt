@@ -1,8 +1,6 @@
-D |   | test | 20-12-2024 22:00
-T | X | test
-T | X | test
-T |   | apple
-T |   | orange
-T | X | apple orange
-T |   | apple orange banana
-T | X | test1
+T |   | L | 1
+T |   | M | 2
+T |   | L | 3
+T |   | L | 4
+T |   | M | 5
+T |   | M | 6

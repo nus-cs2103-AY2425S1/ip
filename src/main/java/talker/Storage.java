@@ -21,7 +21,6 @@ public class Storage {
     //directory path for directory file read/write into is in
     private Path directoryPath;
 
-
     /**
      * Constructs a Storage object using a directory path and file path
      *
@@ -41,8 +40,7 @@ public class Storage {
      */
     public void writeFile(TaskList list) throws TalkerException {
         try {
-            FileWriter fileWriter = new FileWriter(filePath.toString());
-            boolean isDirectoryPathValid = Files.exists(directoryPath) && !Files.isDirectory(directoryPath);
+            boolean isDirectoryPathValid = Files.exists(directoryPath) && Files.isDirectory(directoryPath);
             boolean isFilePathValid = Files.exists(filePath) && Files.isRegularFile(filePath);
 
             if (!isDirectoryPathValid) {
@@ -51,6 +49,8 @@ public class Storage {
             if (!isFilePathValid) {
                 Files.createFile(filePath);
             }
+
+            FileWriter fileWriter = new FileWriter(filePath.toString());
 
             list.writeToFile(fileWriter);
             fileWriter.close();
@@ -71,7 +71,7 @@ public class Storage {
         TaskList outputList = new TaskList();
 
         try {
-            boolean isDirectoryPathValid = Files.exists(directoryPath) && !Files.isDirectory(directoryPath);
+            boolean isDirectoryPathValid = Files.exists(directoryPath) && Files.isDirectory(directoryPath);
             boolean isFilePathValid = Files.exists(filePath) && Files.isRegularFile(filePath);
             boolean isDirectoryAndFilePathValid = isDirectoryPathValid && isFilePathValid;
 

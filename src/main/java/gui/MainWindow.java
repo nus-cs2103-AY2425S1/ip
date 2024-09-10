@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
+
     /**
      * Injects Talker instance
      * @param t Talker chatbot instance
@@ -53,6 +54,7 @@ public class MainWindow extends AnchorPane {
     public void setTalker(Talker t) {
         talker = t;
     }
+
     /**
      * Creates dialog box containing user input, and appends it
      * to the dialog container. Clears user input after processing
@@ -64,8 +66,7 @@ public class MainWindow extends AnchorPane {
         String commandType = talker.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getTalkerDialog(talkerText, talkerImage, commandType)
-        );
+                DialogBox.getTalkerDialog(talkerText, talkerImage, commandType));
         userInput.clear();
     }
 

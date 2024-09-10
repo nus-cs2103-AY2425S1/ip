@@ -10,6 +10,8 @@ public class Task {
     protected boolean complete;
     // Type of task
     protected TaskType taskType;
+    // Priority of task, default set to low
+    protected PriorityType priorityType;
 
     /**
      * Constructs a new Task object, marks task as incomplete to start
@@ -21,6 +23,7 @@ public class Task {
         this.description = description;
         this.complete = false;
         this.taskType = type;
+        this.priorityType = PriorityType.LOW;
     }
 
     /**
@@ -29,11 +32,13 @@ public class Task {
      * @param description description of task
      * @param type type of task
      * @param isComplete status of task completion
+     * @param priorityType priority of task
      */
-    public Task(String description, TaskType type, boolean isComplete) {
+    public Task(String description, TaskType type, boolean isComplete, PriorityType priorityType) {
         this.description = description;
         this.complete = isComplete;
         this.taskType = type;
+        this.priorityType = priorityType;
     }
 
     /**
@@ -43,6 +48,58 @@ public class Task {
      */
     private String getComplete() {
         return this.complete ? "X" : " ";
+    }
+
+    /**
+     * Returns string representing priority of task
+     *
+     * @return String "H" if high, "M" if medium, "L" if low
+     */
+    private String getPriorityToPrint() {
+        switch (priorityType) {
+        case LOW:
+            return "L";
+        case MEDIUM:
+            return "M";
+        case HIGH:
+            return "H";
+        default:
+            assert priorityType != PriorityType.LOW;
+            assert priorityType != PriorityType.MEDIUM;
+            assert priorityType != PriorityType.HIGH;
+        }
+        return "";
+    }
+
+    /**
+     * Returns priority of task
+     *
+     * @return PriorityType priority of current task
+     */
+    public PriorityType getPriorityType() {
+        return this.priorityType;
+    }
+
+    public String setPriority(PriorityType priorityType) {
+        this.priorityType = priorityType;
+
+        String priorityString = "";
+        switch (priorityType) {
+        case LOW:
+            priorityString = "LOW";
+            break;
+        case MEDIUM:
+            priorityString = "MEDIUM";
+            break;
+        case HIGH:
+            priorityString = "HIGH";
+            break;
+        default:
+            assert priorityType != PriorityType.LOW;
+            assert priorityType != PriorityType.MEDIUM;
+            assert priorityType != PriorityType.HIGH;
+        }
+        return String.format("Okay, I've marked this task as %s priority for you:\n%s", priorityString, this);
     }
 
     /**
@@ -98,7 +155,11 @@ public class Task {
             assert taskType != taskType.EVENT;
         }
 
-        return String.format("%s | %s | %s", type, this.getComplete(), this.description);
+        return String.format("%s | %s | %s | %s",
+                type,
+                this.getComplete(),
+                this.getPriorityToPrint(),
+                this.description);
     }
 
     /**
@@ -116,6 +177,6 @@ public class Task {
      * @return String showing status and description
      */
     public String toString() {
-        return String.format("[%s] %s", this.getComplete(), this.description);
+        return String.format("[%s][%s] %s", this.getComplete(), this.getPriorityToPrint(), this.description);
     }
 }

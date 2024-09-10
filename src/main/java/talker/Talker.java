@@ -58,22 +58,22 @@ public class Talker {
      * @return String reponse depending on user's input
      */
     public String getResponse(String input) {
-        String output;
+        String output = "";
 
         try {
             Command c = Parser.parseInput(input);
-            output = c.execute(list, ui, storage);
             commandType = c.getClass().getSimpleName();
-        } catch (TalkerException e) {
+            output = c.execute(list, ui, storage);
+            return output;
+        } catch (TalkerException | NullPointerException e) {
             return ui.printError(e);
         }
-        return output;
     }
 
     /**
      * Returns the command type
      *
-     * @return String prepresenting command type
+     * @return String representing command type
      */
     public String getCommandType() {
         return commandType;
