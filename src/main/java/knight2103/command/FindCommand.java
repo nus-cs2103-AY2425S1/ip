@@ -8,7 +8,7 @@ import knight2103.tasks.TaskList;
  * Models after a command that takes in a key word, finds tasks that matches the key word
  * and shows a list of matched task.
  */
-public class FindCommand extends FormatListCommand {
+public class FindCommand extends Command {
     FindCommand(CommandVerb verb, String search) {
         super(verb, search); // verb must be CommandVerb.FIND
     }
@@ -23,7 +23,9 @@ public class FindCommand extends FormatListCommand {
      * @return The list of matched tasks in the bot's GUI after command execution.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String matchedTaskListInString = formatToList(tasks, this.predicate);
+        String wordToSearch = this.predicate;
+        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch));
+        String matchedTaskListInString = filteredTasks.toString();
         return ui.showFind(matchedTaskListInString);
     }
 }

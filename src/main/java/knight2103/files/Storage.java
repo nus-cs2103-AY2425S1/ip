@@ -60,17 +60,10 @@ public class Storage {
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
-        tasksWriter.write(formatToFileList(tasks));
+        tasksWriter.write(tasks.toStringInFile());
         tasksWriter.close();
     }
 
-    private String formatToFileList(TaskList tasks) {
-        String stringToWrite = "";
-        for (int i = 0; i < tasks.getSize(); i++) { // IndexOutOfBounds possibility
-            stringToWrite += tasks.getTask(i).toStringInFile() + "\n";
-        }
-        return stringToWrite;
-    }
 
     /**
      * Returns a pair of values: the list of tasks the function is able to generate and any error messages

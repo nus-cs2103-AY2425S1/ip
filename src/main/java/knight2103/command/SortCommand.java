@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Models after a command that shows a sorted full list of task.
  */
-public class SortCommand extends FormatListCommand {
+public class SortCommand extends Command {
     SortCommand() {
         super(CommandVerb.SORT);
     }
@@ -26,8 +26,8 @@ public class SortCommand extends FormatListCommand {
         try {
             TaskList sortedTasks = tasks.sort();
             storage.saveToFile(sortedTasks);
-            String taskListInString = formatToList(tasks);
-            return ui.showList(taskListInString);
+            String tasksInString = tasks.toString();
+            return ui.showList(tasksInString);
         } catch (IOException e) { // from saveToFile() in Storage class
             return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }

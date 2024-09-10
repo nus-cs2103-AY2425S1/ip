@@ -2,6 +2,9 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.IntStream;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 
 /**
  * Models a list of tasks.
@@ -107,7 +110,40 @@ public class TaskList {
      * @param compareLogic The Comparator class that contains the logic behind the sorting of Task objects.
      * @return The list of tasks after being sorted.
      */
-    public Task sort(compareLogic) {
+    public void sort(compareLogic) { // hmm void or sort?
         return this.tasks.sort(compareLogic); // mmmm. What other exceptions will there be?
+    }
+
+    /**
+     * Filters the list of task based on the condition specified by the predicate.
+     *
+     * @param predicate The logic condition for filtering the list of task. If predicate returns true, the
+     * tasks will remain in the list of task.
+     * @return A new list of task that corresponds to the predicate.
+     */
+    public TaskList filter(Predicate<Task> predicate) {
+        ArrayList<Task> filteredTasks =
+                new ArrayList<Task>(this.tasks.stream().filter(predicate).toList());
+        return new TaskList(filteredTasks);
+    }
+
+    /**
+     * Returns the output in String as a representation of TaskList object which stores list of tasks.
+     *
+     * @return String representation of TaskList object.
+     */
+    public String toStringInFile() {
+        return formatToList(index -> tasks.get(index).toStringInFile() + "\n");
+    }
+
+    @Override
+    public String toString() {
+        return formatToList(index -> index + ". " + tasks.get(index).toString() + "\n");
+    }
+
+    private String formatToList(IntFunction<String> mapper) {
+        return IntStream.range(0, this.tasks.size())
+                .mapToObj(mapper)
+                        .reduce("", (task1, task2) -> task1 + task2);
     }
 }
