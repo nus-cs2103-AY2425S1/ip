@@ -33,17 +33,6 @@
 }
 
 #displayPicture {
-    /* Circular display picture */
-    -fx-background-radius: 50%;
-    -fx-border-radius: 50%;
-
+    /* Shadow effect on image. */
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
-
-    /* Set fixed width and height for consistency */
-    -fx-pref-width: 40px;
-    -fx-pref-height: 40px;
-
-    /* Optional: Add a small border around the image */
-    -fx-border-color: white;
-    -fx-border-width: 2px;
 }
