@@ -66,7 +66,9 @@ public class Event extends Task {
      * @return An event object.
      */
     public static Event load(String input) {
+        assert !input.isEmpty();
         String[] parameters = input.split("\\|");
+        assert input.length() == 4;
         String[] dateRange = parameters[3].split("to");
         boolean completed = parameters[1].trim().equals("1");
         return new Event(
