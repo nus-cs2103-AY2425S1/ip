@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("GUI.Launcher")
+    mainClass.set("bigdog.GUI.Launcher")
 }
 
 shadowJar {

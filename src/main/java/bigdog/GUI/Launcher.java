@@ -1,4 +1,4 @@
-package GUI;
+package bigdog.GUI;
 
 import javafx.application.Application;
 
