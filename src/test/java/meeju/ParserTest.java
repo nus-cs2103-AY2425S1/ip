@@ -30,7 +30,7 @@ public class ParserTest {
     }
 
     @Test
-    public void add_todo_task_Success() {
+    public void addTodoTask_Success() {
         String message = "Meow! I've added this task:\n"
                 + "\t" + "[T][ ] testTodo" + "\nNow you have " + 1
                 + " tasks in the list.";
@@ -43,7 +43,7 @@ public class ParserTest {
     }
 
     @Test
-    public void add_deadline_task_Success() {
+    public void addDeadlineTask_Success() {
         String message = "Meow! I've added this task:\n"
                 + "\t" + "[D][ ] deadlineTest (by: Sep 5 2024 18:00HRS)" + "\nNow you have " + 1
                 + " tasks in the list.";

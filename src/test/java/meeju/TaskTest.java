@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 public class TaskTest {
     //CHECKSTYLE.OFF: MethodName
     @Test
-    public void create_new_todoTask_Success() {
+    public void createNewTodoTask_Success() {
         assertEquals("[T][ ] Test Todo", new Todo("Test Todo").toString());
     }
 
     @Test
-    public void create_new_deadlineTask_Success() {
+    public void createNewDeadlineTask_Success() {
         try {
             assertEquals("[D][ ] Test Deadline (by: Dec 20 2023 18:00HRS)",
                     new Deadline("Test Deadline", "20/12/2023 1800").toString());
@@ -24,7 +24,7 @@ public class TaskTest {
     }
 
     @Test
-    public void create_new_eventTask_Success() {
+    public void createNewEventTask_Success() {
         try {
             assertEquals("[E][ ] Test Event (from: Dec 20 2023 18:00HRS to: Dec 20 2023 19:00HRS)",
                     new Event("Test Event", "20/12/2023 1800", "20/12/2023 1900").toString());
@@ -35,7 +35,7 @@ public class TaskTest {
     }
 
     @Test
-    public void create_new_eventTask_invalidDate_exceptionThrow() {
+    public void createNewEventTask_invalidDate_exceptionThrow() {
         try {
             assertEquals("[E][ ] Test Event (from: Dec 20 2023 18:00HRS to: Dec 40 2023 19:00HRS)",
                     new Event("Test Event", "20/12/2023 1800", "40/12/2023 1900").toString());
@@ -49,7 +49,7 @@ public class TaskTest {
     }
 
     @Test
-    public void create_new_deadlineTask_invalidTime_exceptionThrow() {
+    public void createNewDeadlineTask_invalidTime_exceptionThrow() {
         try {
             assertEquals("[D][ ] Test Deadline (by: Feb 35 2023 18:00HRS)",
                     new Deadline("Test Deadline", "35/02/2023 1800").toString());
@@ -63,7 +63,7 @@ public class TaskTest {
     }
 
     @Test
-    public void create_new_deadlineTask_invalidParameter_exceptionThrow() {
+    public void createNewDeadlineTask_invalidParameter_exceptionThrow() {
         try {
             assertEquals("[D][ ] Test Deadline (by: abcde)",
                     new Deadline("Test Deadline", "abcde").toString());
