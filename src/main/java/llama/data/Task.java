@@ -1,5 +1,7 @@
 package llama.data;
 
+import java.util.Objects;
+
 /**
  * Represents a task to be done
  */
@@ -14,6 +16,7 @@ public abstract class Task {
      * @param isDone true if task is done; else false
      */
     public Task(String description, boolean isDone) {
+        assert !description.isEmpty();
         this.description = description;
         if (isDone) {
             markDone();
