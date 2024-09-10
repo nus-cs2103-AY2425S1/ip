@@ -58,8 +58,8 @@ public class TaskList {
     public String toString() {
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            int index = i+1;
-            String item = index + ". " + taskList.get(i).toString() ;
+            int index = i + 1;
+            String item = index + ". " + taskList.get(i).toString();
             if (i != 0) {
                 output = output + '\n' + item;
             } else {
