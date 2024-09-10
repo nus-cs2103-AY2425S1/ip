@@ -55,6 +55,18 @@ public class Azir {
         return loadMessage;
     }
 
+    private String addIfNoDuplicate(Task task, String response, String taskType) throws AzirException {
+        boolean isInTaskList = this.tasks.isInTaskList(task);
+        if (!isInTaskList) {
+            this.tasks.addTask(task);
+            response += ui.showCommandEndMessage(taskType, task.toString());
+            response += ui.showTaskNumber(this.tasks.getSize());
+            return response;
+        } else {
+            throw new AzirException("This task is already in your task list.");
+        }
+    }
+
     /**
      * Generates a response for the user's chat message.
      */
@@ -93,9 +105,7 @@ public class Azir {
                             "Format: todo [description]");
                 }
                 Task todoTask = new Todo(result[1]);
-                tasks.addTask(todoTask);
-                response += ui.showCommandEndMessage(result[0], todoTask.toString());
-                response += ui.showTaskNumber(tasks.getSize());
+                response = this.addIfNoDuplicate(todoTask, response, result[0]);
                 break;
 
             case "deadline":
@@ -103,9 +113,7 @@ public class Azir {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
                 try {
                     Task deadlineTask = new Deadline(result[1], LocalDate.parse(result[2], formatter));
-                    tasks.addTask(deadlineTask);
-                    response += ui.showCommandEndMessage(result[0], deadlineTask.toString());
-                    response += ui.showTaskNumber(tasks.getSize());
+                    response = this.addIfNoDuplicate(deadlineTask, response, result[0]);
                     break;
                 } catch (DateTimeParseException e) {
                     throw new AzirException("deadline needs to be in the following format: yyyy-mm-dd");
@@ -113,9 +121,7 @@ public class Azir {
 
             case "event":
                 Task eventTask = new Event(result[1], result[2], result[3]);
-                tasks.addTask(eventTask);
-                response += ui.showCommandEndMessage(result[0], eventTask.toString());
-                response += ui.showTaskNumber(tasks.getSize());
+                response = this.addIfNoDuplicate(eventTask, response, result[0]);
                 break;
 
             case "find":
