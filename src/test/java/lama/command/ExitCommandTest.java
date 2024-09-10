@@ -40,7 +40,7 @@ public class ExitCommandTest {
         Task todo = new Todo("Read Book");
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("./testAdd.txt");
+        Storage storage = new Storage("./testAdd.txt", "./testAliasList.txt");
 
         taskList.add(todo);
         Command exitCommand = new ExitCommand();

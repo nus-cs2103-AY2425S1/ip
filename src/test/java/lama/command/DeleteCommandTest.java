@@ -58,7 +58,7 @@ public class DeleteCommandTest {
         System.setOut(new PrintStream(outputStream));
 
         Ui ui = new Ui();
-        Storage storage = new Storage("./testAdd.txt");
+        Storage storage = new Storage("./testAdd.txt", "./testAliasList.txt");
         Task todo = new Todo("Read Book");
         Task todo2 = new Todo("Return Book");
         TaskList taskList = new TaskList();

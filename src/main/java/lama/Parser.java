@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import lama.command.AddCommand;
+import lama.command.AliasCommand;
+import lama.command.AliasListCommand;
 import lama.command.Command;
+import lama.command.DeleteAliasCommand;
 import lama.command.DeleteCommand;
 import lama.command.ExitCommand;
 import lama.command.FindCommand;
@@ -33,11 +36,13 @@ public class Parser {
         assert command != null : "Command should not be null";
         assert !command.isBlank() : "Command should not be empty or blank";
 
+        String resolvedCommand = AliasManager.getCommand(command.split(" ")[0]);
+
         String[] words = command.split(" ", 2);
 
         assert words.length > 0 : "Command should not be an empty string";
 
-        switch (words[0].toLowerCase()) {
+        switch (resolvedCommand.toLowerCase()) {
         case "bye":
             return new ExitCommand();
 
@@ -65,6 +70,15 @@ public class Parser {
         case "find":
             return handleFindCommand(words);
 
+        case "alias":
+            return handleAliasCommand(words);
+
+        case "command":
+            return new AliasListCommand();
+
+        case "deletealias":
+            return handleDeleteAliasCommand(words);
+
         default:
             throw new LamaException("Sorry, I don't know what you want to do!\n"
                     + "You can either choose to use:\n"
@@ -75,9 +89,10 @@ public class Parser {
                     + "5. mark [number of todo in the list]\n"
                     + "6. unmark [number of todo in the list]\n"
                     + "7. find [keywords]\n"
-                    + "8. bye");
+                    + "8. alias [alias] [command]\n"
+                    + "9. command\n"
+                    + "10. bye");
         }
-
 
     }
 
@@ -93,7 +108,9 @@ public class Parser {
     }
 
     private static Command handleTodoCommand(String[] words) throws LamaException {
-        if (words.length < 2 || words[1].isEmpty() || words[1].isBlank()) {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+
+        if (isInvalidInput) {
             throw new LamaException("Please specify the description of TODO!");
         }
 
@@ -101,11 +118,14 @@ public class Parser {
     }
 
     private static Command handleDeadlineCommand(String[] words) throws LamaException {
-        if (words.length < 2 || words[1].isEmpty() || words[1].isBlank()) {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+
+        if (isInvalidInput) {
             throw new LamaException("Please specify the description of deadline!");
         }
 
         String[] half = words[1].split(" /by ");
+
         if (half.length < 2) {
             throw new LamaException("Please specify the date of deadline in the format of:\n"
                     + "deadline [description] /by [date]");
@@ -124,7 +144,8 @@ public class Parser {
     }
 
     private static Command handleEventCommand(String[] words) throws LamaException {
-        if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+        if (isInvalidInput) {
             throw new LamaException("Please specify the description of event in the format of:\n"
                     + "event [description] /from [start time] /to [end time]");
         }
@@ -141,7 +162,8 @@ public class Parser {
         }
 
         String[] time = first[1].split(" /to ");
-        if (time.length < 2 || time[1].isEmpty() || time[1].isBlank()) {
+        boolean isValidTime = time.length < 2 || time[1].isEmpty() || time[1].isBlank();
+        if (isValidTime) {
             throw new LamaException("Please specify the end time of event in the format of:\n"
                     + "event [description] /from [start time] /to [end time]");
         }
@@ -157,7 +179,8 @@ public class Parser {
     }
 
     private static Command handleDeleteCommand(String[] words) throws LamaException {
-        if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+        if (isInvalidInput) {
             throw new LamaException("Please specify the number that wanted to delete!");
         }
 
@@ -165,11 +188,40 @@ public class Parser {
     }
 
     private static Command handleFindCommand(String[] words) throws LamaException {
-        if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+        if (isInvalidInput) {
             throw new LamaException("Please specify the keyword you wanted to search!");
         }
 
         return new FindCommand(words[1].trim());
+    }
+
+    private static Command handleAliasCommand(String[] words) throws LamaException {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+
+        if (isInvalidInput) {
+            throw new LamaException("Please specify both alias and command.");
+        }
+
+        String[] aliasParts = words[1].split(" ", 2);
+
+        boolean isValidAliasParts = aliasParts.length < 2 || aliasParts[1].isEmpty() || aliasParts[1].isBlank();
+
+        if (isValidAliasParts) {
+            throw new LamaException("Please specify both alias and command.");
+        }
+
+        return new AliasCommand(aliasParts[0], aliasParts[1]);
+    }
+
+    private static Command handleDeleteAliasCommand(String[] words) throws LamaException {
+        boolean isInvalidInput = words.length < 2 || words[1].isBlank() || words[1].isEmpty();
+
+        if (isInvalidInput) {
+            throw new LamaException("Please specify the alias you want to delete");
+        }
+
+        return new DeleteAliasCommand(words[1].trim());
     }
 
 }

@@ -15,7 +15,7 @@ import lama.Lama;
  */
 public class Main extends Application {
 
-    private Lama lama = new Lama("./data/lama.txt");
+    private Lama lama = new Lama("./data/lama.txt", "./data/alias.txt");
 
     /**
      * Starts the JavaFX application by setting up the primary stage.
