@@ -5,8 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import bob.command.*;
-import bob.exception.BobException;
+import bob.command.ByeCommand;
+import bob.command.Command;
+import bob.command.DeadlineCommand;
+import bob.command.DeleteCommand;
+import bob.command.EventCommand;
+import bob.command.FindCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.TodoCommand;
 import bob.ui.Ui;
 
 /**
@@ -16,6 +23,7 @@ public class Parser {
 
     /**
      * Parses string format of date and returns a LocalDate object.
+     *
      * @param date String format of date.
      * @return LocalDate object.
      */
@@ -36,12 +44,9 @@ public class Parser {
                 dateTimeParseException = e;
             }
         }
-        if (dateTimeParseException != null) {
-            System.err.println("Invalid date format: " + date);
-            System.out.println("Supported date formats are: yyyy-MM-dd, dd-MM-yyyy, dd/MM/yyyy, MMM dd yyyy");
-        }
         return null;
     }
+
 
     /**
      * Parses the input given by user.

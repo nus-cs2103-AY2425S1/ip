@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import bob.exception.BobException;
 import bob.exception.InvalidTaskException;
 import bob.parser.Parser;
 import bob.storage.Storage;
@@ -191,7 +190,7 @@ public class TaskList {
     }
 
     /**
-     * Returns String representation of the Task's description only.
+     * Returns String representation of the Task's description.
      * This description includes the task specific details.
      *
      * @param input original input given by the user.
@@ -368,7 +367,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the String representation of the task at specified index.
+     * Returns the String representation of the task at specified index when task is deleted.
      *
      * @param index Index of the task as viewed displayed using the list command.
      * @return
@@ -381,5 +380,35 @@ public class TaskList {
                 + (String.valueOf(latestRecordedIndex - 1))
                 + " tasks in the list.";
         return deletedTaskString;
+    }
+
+    /**
+     * Returns the String representation of the task at specified index when task is added.
+     *
+     * @return
+     */
+    public String getAddedTaskString() {
+        Task addedTask = this.getIndexedTask(this.getLatestRecordedIndex());
+        String CommandString = "Got it. I've added this task:\n\t"
+                + addedTask.getTaskListItem()
+                + "\n\t"
+                + "Now you have "
+                + (String.valueOf(this.getLatestRecordedIndex()))
+                + " tasks in the list.";
+        return CommandString;
+    }
+
+    /**
+     * Increments the latest recorded index by 1.
+     */
+    public void incrementLatestRecordedIndex() {
+        this.latestRecordedIndex++;
+    }
+
+    /**
+     * Returns the latest recorded index in the current task list from the viewer's perspective.
+     */
+    public int getLatestRecordedIndex() {
+        return this.latestRecordedIndex;
     }
 }
