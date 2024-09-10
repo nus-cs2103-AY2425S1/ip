@@ -17,8 +17,9 @@ public class Parser {
      * @return A string response to the user command.
      */
     public String executeCommandAndGetResponse(String userInput, TaskList tasks, Ui ui, Storage storage) {
-        Commands command = parseCommand(userInput);
         StringBuilder response = new StringBuilder();
+        Commands command = parseCommand(userInput);
+        assert command != null : "Parsed command should not be null";
 
         switch (command) {
         case BYE:
@@ -65,6 +66,9 @@ public class Parser {
      * @return The corresponding command as a {@link Commands} enum.
      */
     public Commands parseCommand(String userInput) {
+        assert userInput != null : "User input should not be null";
+        assert !userInput.trim().isEmpty() : "User input should not be empty";
+
         if (userInput.equals("bye")) {
             return Commands.BYE;
         } else if (userInput.equals("list")) {
@@ -97,8 +101,13 @@ public class Parser {
      * @return A string response indicating the result of the mark command.
      */
     public String markCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("mark") : "User input should start with 'mark'";
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            assert index >= 0 && index < tasks.size() : "Index should be within the range of task list size";
             tasks.get(index).mark();
             storage.saveTasks(tasks.getTasks());
             return "Nice! I've marked this task as done:\n"
@@ -117,6 +126,10 @@ public class Parser {
      * @return A string response indicating the result of the unmark command.
      */
     public String unmarkCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("unmark") : "User input should start with 'unmark'";
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
             tasks.get(index).unmark();
@@ -137,12 +150,18 @@ public class Parser {
      * @return A string response indicating the result of the todo command.
      */
     public String todoCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("todo") : "User input should start with 'todo'";
         try {
             String todoDescription = userInput.substring(5).trim();
             if (todoDescription.isEmpty()) {
                 throw new YapperBotException("The description for a Todo task cannot be empty.");
             }
+            int initialSize = tasks.size();
             tasks.addTask(new Todo(todoDescription));
+            assert tasks.size() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
             storage.saveTasks(tasks.getTasks());
             return "Got it. I've added this task:\n"
                     + "  " + tasks.get(tasks.size() - 1) + "\n"
@@ -164,6 +183,10 @@ public class Parser {
      * @return A string response indicating the result of the deadline command.
      */
     public String deadlineCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("deadline") : "User input should start with 'deadline'";
         try {
             String[] deadlineInput = userInput.substring(9).split(" /by ");
             if (deadlineInput.length < 2 || deadlineInput[0].trim().isEmpty()) {
@@ -195,6 +218,10 @@ public class Parser {
      * @return A string response indicating the result of the event command.
      */
     public String eventCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("event") : "User input should start with 'event'";
         try {
             String[] eventInput = userInput.substring(6).split(" /from | /to ");
             if (eventInput.length < 3 || eventInput[0].trim().isEmpty()) {
@@ -226,6 +253,10 @@ public class Parser {
      * @return A string response indicating the result of the delete command.
      */
     public String deleteCommand(TaskList tasks, String userInput, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("delete") : "User input should start with 'delete'";
         try {
             int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
             Task deleteTargetTask = tasks.get(deleteTaskNumber);
@@ -247,6 +278,9 @@ public class Parser {
      * @return A string response with the list of matching tasks.
      */
     public String findCommand(TaskList tasks, String userInput) {
+        assert tasks != null : "TaskList should not be null";
+        assert userInput != null : "User input should not be null";
+        assert userInput.startsWith("find") : "User input should start with 'find'";
         try {
             String keyword = userInput.split(" ")[1].trim();
             ArrayList<Task> matchingTasks = new ArrayList<>();
