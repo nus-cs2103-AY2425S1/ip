@@ -18,97 +18,81 @@ public class Parser {
         TODAY,
         FIND
     }
-
-    /**
-     * Creates a new instance of a Parser which processes the user input and responds accordingly
-     *
-     * @param command Instruction command
-     * @param input Details of the instruction e.g. date, time, index etc
-     * @throws DawnException
-     */
-    public Parser(String command, String input) throws DawnException {
-        this.command = command;
-        this.input = input;
-        Command cmd;
-        try {
-            cmd = Command.valueOf(command.toUpperCase()); // convert the command input to a corresponding enum constant
-            respond(cmd);
-        } catch (IllegalArgumentException e) {
-            throw new DawnException("Am I supposed to know what that means? Try something else\n");
-        }
+    private Parser() {
     }
 
-    protected void respond(Command cmd) { //provide responses to the user input
+    protected static String parse(String fullCommand) throws DawnException {
+        String[] words = fullCommand.split(" ");
+        String cmd = words[0].toUpperCase();
+        Command command;
+        String detailedInstruction = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
         try {
-            switch (cmd) {
+            command = Command.valueOf(cmd); // convert the command input to a corresponding enum constant
+            switch (command) {
             case BYE:
-                System.out.println("Byeeee~ nice chatting with you! See you next time, Bunny out");
-                System.out.println("ᘏ ⑅ ᘏ   ഒ    zᶻ\n" + "꒰˶  - ˕ -꒱ ⌒)ᦱ");
+                String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
                 saveTasks("./data/dawn.txt");
-                String divider = "--".repeat(30);
-                System.out.println(divider);
-                return;
+                return "Bye! Nice chatting with you :)\n See you next time, Bunny out \n" + logo;
             case LIST:
-                list();
-                break;
+                return list();
             case MARK:
             case UNMARK:
-                mark(command, input);
-                break;
+                return mark(cmd, detailedInstruction);
             case DELETE:
-                delete(input);
-                break;
+                return delete(detailedInstruction);
             case TODO:
             case DEADLINE:
             case EVENT:
-                addTask(String.valueOf(cmd), input);
-                break;
+                return addTask(cmd, detailedInstruction);
             case TODAY:
-                doByToday();
-                break;
+                return doByToday();
             case FIND:
-                findTask(input);
-                break;
+                return findTask(detailedInstruction);
             }
-        } catch (DawnException e) {
-            System.out.println(e);
+        } catch (IllegalArgumentException e) {
+            throw new DawnException("I do not undestand what you mean.. please try something else!\n");
         }
+        return cmd;
     }
 
-    protected static void mark(String cmd, String index) throws DawnException { // mark the tasks accordingly
+    protected static String mark(String cmd, String index) throws DawnException { // mark the tasks accordingly
         int ind;
         try {
             ind = Integer.parseInt(index);
-            if (ind < 0 || ind > numOfTasks()) {
+            if (ind <= 0 || ind > numOfTasks()) {
                 throw new DawnException("Task specified does not exist!\n");
             }
         } catch (NumberFormatException e) {
             throw new DawnException("Please specify the index of the task to be marked!\n");
         }
 
-        if (cmd.equals("unmark")) {
-            markAsNotDone(ind);
+        if (cmd.equals("UNMARK")) {
+            return markAsNotDone(ind);
         } else {
-            markAsDone(ind);
+            return markAsDone(ind);
         }
     }
 
-    public static void findTask(String input) throws DawnException {
+    public static String findTask(String input) throws DawnException {
         if (input.isBlank()) {
             throw new DawnException("Please specify what tasks you are looking for!");
         }
-        System.out.println("Finding the matching tasks in your list...");
+
+        StringBuilder s = new StringBuilder();
+        s.append("Finding the matching tasks in your list...\n");
+
         boolean hasMatch = false;
         int counter = 1;
         for (int i = 0; i < numOfTasks(); i++) {
             if (getTask(i).isAMatch(input)) {
                 hasMatch = true;
-                System.out.println(counter + ". " + getTask(i));
+                s.append(counter + ". " + getTask(i) + "\n");
                 counter++;
             }
         }
         if (!hasMatch) {
-            System.out.println("There are no matching tasks in your task list!");
+            s.append("There are no matching tasks in your task list!");
         }
+        return String.valueOf(s);
     }
 }

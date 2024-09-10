@@ -1,39 +1,27 @@
 package Dawn;
 public class Dawn {
     private Storage storage;
-    private Ui ui;
     private TaskList taskList;
 
     /**
      * Creates a new instance of the chatbot Dawn with the specified file path where it will store current tasks
-     *
-     * @param filePath File path of the file in which the chatbot will store current tasks
      */
-    public Dawn(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
+    public Dawn() {
+        this.storage = new Storage("data/Dawn.txt");
         try {
             this.taskList = new TaskList(storage.load());
         } catch (DawnException ex) {
-            ui.showLoadingError(ex);
             this.taskList = new TaskList();
         }
     }
 
-    /**
-     * Starts the interaction between the chatbot and the user by greeting the user
-     *
-     * @throws DawnException
-     */
-    public void run() throws DawnException {
-        ui.greet();
-    }
-    public static void main(String[] args) {
+    public static void main(String[] args) {}
+
+    public String getResponse(String input) {
         try {
-            new Dawn("data/Dawn.txt").run();
+            return Parser.parse(input);
         } catch (DawnException e) {
-            System.out.println(e);
+            return e.getMessage();
         }
     }
-
 }
