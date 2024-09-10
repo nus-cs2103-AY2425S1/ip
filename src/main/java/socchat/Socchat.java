@@ -41,26 +41,6 @@ public class Socchat {
         return parser.getResponse(strToken);
     }
 
-//    /**
-//     * Starts the Socchat application and enters the main command loop.
-//     * Processes user input and executes commands based on the input.
-//     */
-//    public void run() {
-//        greet();
-//
-//        chatLoop:
-//        while (true) {
-//
-//        }
-//
-//    }
-//
-//    public static void main(String[] args) {
-//        new Socchat().run();
-//    }
-//
-//
-
     /**
      * Prints a greeting message to the user.
      */
@@ -77,8 +57,6 @@ public class Socchat {
     public static String exit() {
         return "Bye. Hope to see you again soon!";
     }
-
-
 
 }
 

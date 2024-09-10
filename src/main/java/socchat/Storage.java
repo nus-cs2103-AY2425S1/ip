@@ -46,6 +46,8 @@ public class Storage {
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 String[] strToken = line.split("\\|");
+                assert strToken.length >= 3;
+
                 String type = strToken[0].trim();
 
                 String done = strToken[1].trim();
@@ -53,21 +55,20 @@ public class Storage {
                 String des = strToken[2].trim();
 
                 Task t;
-                Boolean isDone;
-                if (done.equals("Done")) {
-                    isDone = true;
-                } else {
-                    isDone = false;
-                }
+                boolean isDone;
+                isDone = done.equals("Done");
+
                 if (type.equals("T")) {
                     t = new Todo(des, isDone);
                 } else if (type.equals("E")) {
+                    assert strToken.length == 4;
                     String date = strToken[3].trim();
                     String[] dateToken = date.split("to");
                     LocalDateTime from = Parser.parseDate(dateToken[0].trim());
                     LocalDateTime to = Parser.parseDate(dateToken[1].trim());
                     t = new Event(des, from, to, isDone);
                 } else {
+                    assert strToken.length == 4;
                     String date = strToken[3].trim();
                     LocalDateTime by = Parser.parseDate(date);
 

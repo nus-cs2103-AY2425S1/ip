@@ -79,18 +79,20 @@ public class Parser {
     }
 
     public static String[] processInput(String input) {
+
         int firstSpaceIndex = input.indexOf(' ');
-        String[] tokens = new String[2];
+        String[] commandTokens = new String[2];
 
         if (firstSpaceIndex != -1) {
+
             String command = input.substring(0, firstSpaceIndex);
-            tokens[0] = command;
+            commandTokens[0] = command;
             String remaining = input.substring(firstSpaceIndex + 1);
-            tokens[1] = remaining;
+            commandTokens[1] = remaining;
         } else {
-            tokens[0] = input;
+            commandTokens[0] = input;
         }
-        return tokens;
+        return commandTokens;
     }
 
     public String getResponse(String... input) {
