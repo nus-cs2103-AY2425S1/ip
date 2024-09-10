@@ -14,6 +14,7 @@ on:
     branches: [ "master" ]
 
 jobs:
+  # This tests if the application can be built on all platforms (no tests / checkstyle)
   buildOnAllPlatforms:
     strategy:
       matrix:
@@ -31,8 +32,9 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     - name: Build with Gradle Wrapper
-      run: ./gradlew clean build -x test
-  
+      run: ./gradlew clean build -x test -x checkstyleMain -x checkStyleTest
+
+  # This tests if the build, checkstyle and jUnit tests pass, then
   testAndGenerateReleaseFile:
     strategy:
       matrix:
@@ -49,7 +51,10 @@ jobs:
         distribution: 'temurin'
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-      
+
+    - name: run checkstyle
+      run: ./gradlew checkstyleTest checkstyleMain
+
     - name: run gradle test
       run: ./gradlew test
     
