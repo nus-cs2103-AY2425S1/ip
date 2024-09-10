@@ -132,6 +132,7 @@ public abstract class Task {
 
             return new Event(eventArgs.get(0), fromDate, toDate);
         default:
+            assert false: "Illegal new task state";
             throw new IllegalStateException();
         }
     }
