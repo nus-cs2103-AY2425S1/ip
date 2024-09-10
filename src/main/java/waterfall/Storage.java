@@ -34,6 +34,7 @@ public class Storage {
      * @throws IOException If I/O exception occurs when creating the file or directory.
      */
     public Storage(String filePath) throws IOException {
+        assert filePath != null : "filePath cannot be null";
         taskFile = new File(filePath);
         if (!taskFile.getParentFile().exists()) {
             taskFile.getParentFile().mkdirs();
@@ -90,17 +91,21 @@ public class Storage {
                 Task task;
                 switch (strings[0]) {
                 case "T":
+                    assert strings.length == 3 : "Todo should have 3 arguments";
                     task = new ToDo(strings[2]);
                     break;
                 case "D":
+                    assert strings.length == 4 : "Deadline should have 4 arguments";
                     task = new Deadline(strings[2], strings[3]);
                     break;
                 case "E":
+                    assert strings.length == 5 : "Event should have 5 arguments";
                     task = new Event(strings[2], strings[3], strings[4]);
                     break;
                 default:
                     throw new WaterfallException("Unknown task type in database: " + line);
                 }
+
                 if (Objects.equals(strings[1], "1")) {
                     task.setDone(true);
                 }

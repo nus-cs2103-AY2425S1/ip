@@ -35,6 +35,7 @@ public class Parser {
      * @throws WaterfallException if the input format is invalid or if required fields are missing.
      */
     public static Command parse(String input) throws WaterfallException {
+        assert input != null : "input should be non null";
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
