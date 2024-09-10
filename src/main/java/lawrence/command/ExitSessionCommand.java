@@ -11,8 +11,8 @@ public class ExitSessionCommand extends Command {
     /**
      * Default constructor.
      */
-    public ExitSessionCommand() {
-       // Empty constructor
+    public ExitSessionCommand(CommandType type) {
+       super(type);
     }
 
     /**
@@ -28,7 +28,7 @@ public class ExitSessionCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
-        ui.showExitMessage();
+        this.response = "That's all folks! Hope to see you again soon!";
     }
 
     /**

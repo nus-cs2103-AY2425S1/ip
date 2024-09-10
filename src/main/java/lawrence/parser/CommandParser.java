@@ -50,25 +50,25 @@ public class CommandParser {
         case ADD_DEADLINE:
             // Fallthrough
         case ADD_TODO:
-            c = new AddTaskCommand(input);
+            c = new AddTaskCommand(type, input);
             break;
         case DELETE:
-            c = new DeleteTaskCommand(input);
+            c = new DeleteTaskCommand(type, input);
             break;
         case DISPLAY:
-            c = new DisplayTasksCommand();
+            c = new DisplayTasksCommand(type);
             break;
         case EXIT:
-            c = new ExitSessionCommand();
+            c = new ExitSessionCommand(type);
             break;
         case FIND_MATCHING:
-            c = new FindTasksCommand(input);
+            c = new FindTasksCommand(type, input);
             break;
         case MARK_COMPLETE:
-            c = new CompleteTaskCommand(input);
+            c = new CompleteTaskCommand(type, input);
             break;
         case MARK_INCOMPLETE:
-            c = new UncompleteTaskCommand(input);
+            c = new UncompleteTaskCommand(type, input);
             break;
         default:
             // This case should never be reached

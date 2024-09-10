@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import lawrence.command.Command;
+import lawrence.command.CommandType;
 import lawrence.database.TaskFileManager;
 import lawrence.parser.CommandParser;
 import lawrence.task.Task;
@@ -29,6 +30,8 @@ public class Lawrence {
     private TaskFileManager manager;
     private TaskList tasks;
     private UserInterface ui;
+
+    private Command previousCommand;
 
     /**
      * Default constructor.
@@ -75,5 +78,45 @@ public class Lawrence {
                 ui.showMessage(String.format("%s Please try again.", e.getMessage()));
             }
         }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = CommandParser.createCommand(input);
+            c.execute(tasks, manager, ui);
+            previousCommand = c;
+            return c.getResponse();
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return String.format("%s Please try again.", e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the type of command previously executed. If no command was executed, returns null.
+     *
+     * @return the type of the previous command, null if no previous command exists
+     */
+    public CommandType getPreviousCommandType() {
+        if (previousCommand == null) {
+            return null;
+        }
+
+        return previousCommand.getType();
+    }
+
+    /**
+     * Returns a boolean indicating whether the program should continue running.
+     * <p>
+     * Changes with the execution of different commands.
+     * </p>
+     *
+     * @return a boolean indicating whether the program should continue running
+     */
+    public boolean shouldContinue() {
+        if (previousCommand == null) {
+            return true;
+        }
+
+        return previousCommand.shouldContinue();
     }
 }

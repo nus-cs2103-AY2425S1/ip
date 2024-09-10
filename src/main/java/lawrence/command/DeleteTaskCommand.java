@@ -11,14 +11,15 @@ import lawrence.ui.UserInterface;
  * Represents the user command to delete existing tasks from the list.
  */
 public class DeleteTaskCommand extends Command {
-    private String input;
+    private final String input;
 
     /**
      * Default constructor.
      *
      * @param input the user input associated with this command
      */
-    public DeleteTaskCommand(String input) {
+    public DeleteTaskCommand(CommandType type, String input) {
+        super(type);
         this.input = input;
     }
 
@@ -42,7 +43,7 @@ public class DeleteTaskCommand extends Command {
     public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
-            ui.showMessage("Please specify the task you want to delete.");
+            this.response = "Please specify the task you want to delete.";
             return;
         }
 
@@ -52,13 +53,13 @@ public class DeleteTaskCommand extends Command {
             Task deletedTask = tasks.deleteTask(taskNumber);
             saveTasks(tasks, manager);
 
-            ui.showMessage(String.format("Task:%n%s%nhas been deleted.", deletedTask));
+            this.response = String.format("Task:%n%s%nhas been deleted.", deletedTask);
         } catch (NumberFormatException e) {
-            ui.showMessage("Please specify an integer to select a task.");
+            this.response = "Please specify an integer to select a task.";
         } catch (IllegalArgumentException | IllegalStateException e) {
-            ui.showMessage(String.format("%s Please try again.", e.getMessage()));
+            this.response = String.format("%s Please try again.", e.getMessage());
         } catch (IOException e) {
-            ui.showMessage(String.format("Failed to delete task %s from the list. Please try again.", rawTaskNumber));
+            this.response = String.format("Failed to delete task %s from the list. Please try again.", rawTaskNumber);
         }
     }
 
