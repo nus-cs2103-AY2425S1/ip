@@ -15,7 +15,7 @@ public class Ui {
      *
      * @return The greeting message.
      */
-    public static String greeting() {
+    public static String greet() {
         return "Hello there! ☺ I'm OLLIE ☺\n" + "What can I do for you today? ☺";
     }
 
@@ -24,7 +24,7 @@ public class Ui {
      *
      * @return The error message.
      */
-    public String showError() {
+    public static String showError() {
         return "Oh no! There is an error!\n";
     }
 
@@ -33,7 +33,7 @@ public class Ui {
      *
      * @return The goodbye message.
      */
-    public String exit() {
+    public static String exit() {
         return "Bye. Have a great day. ☺\n" + "Hope to see you again soon! ☺";
     }
 
@@ -122,7 +122,7 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             output.append("There are no matching tasks in your list.");
         } else {
-            output.append("Here are the matching tasks in your list:\n");
+            output.append("Here are the matching tasks in your list ☺ :\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 output.append(i + 1).append(".").append(matchingTasks.get(i).toString()).append("\n");
             }

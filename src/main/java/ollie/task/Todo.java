@@ -15,6 +15,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description, TaskType.TODO);
+        assert description != null : "Oops! Description cannot be null.";
     }
 
     /**
@@ -43,15 +44,5 @@ public class Todo extends Task {
             throw new EmptyDescriptionException("todo");
         }
         return new Todo(description);
-    }
-
-    /**
-     * Returns the string representation of the Todo task.
-     *
-     * @return The string representation of the Todo task.
-     */
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }
