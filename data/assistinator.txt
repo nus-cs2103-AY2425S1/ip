@@ -1,6 +1,2 @@
-E | 0 | hello | today | tmr
-D | 0 | hey | 2019-10-15
-T | 0 | hey
-D | 0 | meo | 2019-10-15
-T | 0 | home
-T | 0 | assignment
+T | NOTDONE | hehe
+T | NOTDONE | haha
