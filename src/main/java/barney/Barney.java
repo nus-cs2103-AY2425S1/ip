@@ -61,6 +61,12 @@ public class Barney {
         return output;
     }
 
+    /**
+     * Gets the response from Barney based on the input.
+     *
+     * @param input The input from the user.
+     * @return The response from Barney.
+     */
     public String getResponse(String input) {
         String output = "";
         Command command;
