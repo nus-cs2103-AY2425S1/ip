@@ -1,4 +1,4 @@
-package com.nimbus;
+package com.exceptions;
 
 /**
  * Invalid argument error for Nimbus

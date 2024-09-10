@@ -4,7 +4,7 @@ import static com.nimbus.Parser.getDescription;
 import static com.nimbus.Parser.readOption;
 
 import com.nimbus.Event;
-import com.nimbus.InvalidArgumentException;
+import com.exceptions.InvalidArgumentException;
 import com.nimbus.Storage;
 import com.nimbus.Task;
 import com.nimbus.TaskList;

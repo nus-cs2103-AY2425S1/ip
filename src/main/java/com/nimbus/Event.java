@@ -50,14 +50,15 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         String isDoneString = this.isDone ? "1" : "0";
-        return getTypeIcon().charAt(1) + "|" + isDoneString + "|"
-                + this.getDescription() + "|" + this.getFromDate() + "|" + this.getToDate();
+        String commandHeader = getTypeIcon().charAt(1) + "|" + isDoneString;
+        String commandDescription = this.getDescription() + "|" + this.getFromDate() + "|" + this.getToDate();
+        return commandHeader + "|" + commandDescription;
     }
 
     @Override
     public String toString() {
-        return getTypeIcon() + super.toString()
-               + " (from: " + this.from + " to: " + this.to + ")";
+        String date = " (from: " + this.from + " to: " + this.to + ")";
+        return getTypeIcon() + super.toString() + date;
     }
 
     @Override

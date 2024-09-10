@@ -22,18 +22,21 @@ public class Storage {
         checkSavedFile();
     }
 
-    // create all the necessary directory and file if the file doesn't exists
+    /**
+     * Create necessary directory and the file
+     */
     private void checkSavedFile() {
         File file = new File(filePath);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error occur when creating file.");
-            }
+        if (file.exists()) {
+            return;
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error occur when creating file.");
         }
     }
 
@@ -110,13 +113,13 @@ public class Storage {
                 arr.add(nxt);
             }
             sc.close();
+
             FileWriter fw = new FileWriter(filePath);
             for (String s : arr) {
                 fw.write(s);
                 fw.write(System.lineSeparator());
             }
             fw.close();
-
             return true;
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + e.getMessage());

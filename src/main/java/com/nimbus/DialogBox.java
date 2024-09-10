@@ -50,11 +50,10 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getDialog(String text, Image img, boolean isFlipped) {
+        var db = new DialogBox(text, img);
         if (isFlipped) {
-            var db = new DialogBox(text, img);
             db.flip();
-            return db;
         }
-        return new DialogBox(text, img);
+        return db;
     }
 }
