@@ -284,7 +284,8 @@ public abstract class Task {
         if (temporaryTaskList.isEmpty()) {
             response = ui.emptyList();
         } else {
-            if (temporaryTaskList.size() > index) {
+            System.out.println("===debug=== size: " + temporaryTaskList.size());
+            if (temporaryTaskList.size() >= index) {
                 Task temp = temporaryTaskList.get(index - 1);
                 if (temp.getCurrentStatus() == Status.UNMARKED) {
                     response = ui.alreadyUnmarked();

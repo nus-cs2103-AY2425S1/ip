@@ -4,10 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import task.Deadlines;
-import task.Events;
-import task.Task;
-import task.ToDos;
+import task.*;
 
 
 /**
@@ -148,12 +145,22 @@ public class Parser {
      * @throws IOException If an I/O error occurs during the operation.
      */
     public String performMark(String input) throws IOException {
-        int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
+        int listNo;
         if (containUnmark(input)) {
+            listNo = Integer.parseInt(input.substring(7));
+            System.out.println("===debug=== listno: " + listNo);
+            if (listNo != TaskList.tasks.size() && listNo <= 0) {
+                return ui.indexOutOfBounds();
+            }
             return Task.unmark_task(listNo);
-        } else {
-            return Task.mark_task(listNo);
         }
+
+        listNo = Integer.parseInt(input.substring(5));
+        if (listNo != TaskList.tasks.size() && listNo <= 0) {
+            return ui.indexOutOfBounds();
+        }
+
+        return Task.mark_task(listNo);
     }
 
     /**
@@ -237,8 +244,18 @@ public class Parser {
             String minute = time.substring(2);
 
             LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
+            boolean isBefore = dateTimeSystem.compareDateTime(ldt);
+            if (!isBefore) {
+                response = ui.dateBeforeCurrent();
+                return response;
+            }
+
             Deadlines tempDeadline = new Deadlines(name, ldt);
             response = tempDeadline.addTask(tempDeadline);
+            assert Integer.parseInt(year) >= 2024;
+            assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
+            assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
+
         } catch (StringIndexOutOfBoundsException
                  | IOException e) {
             response = ui.empty_deadline();
@@ -322,6 +339,23 @@ public class Parser {
             LocalDateTime ldtEnd =
                     dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
 
+            boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
+            boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
+            boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
+
+            if (!isBeforeEnd || !isBeforeStart || isEndBeforeStart) {
+                response = ui.dateBeforeCurrent();
+                return response;
+            }
+
+            assert Integer.parseInt(startYear) >= 2024;
+            assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
+            assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
+
+            assert Integer.parseInt(endYear) >= 2024;
+            assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
+            assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
+
             Events tempEvent = new Events(name, ldtStart, ldtEnd);
             response = tempEvent.addTask(tempEvent);
 
@@ -341,7 +375,12 @@ public class Parser {
      * @throws IOException If an I/O error occurs during the deletion operation.
      */
     public String performDelete(String input) throws IOException {
-        int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
-        return Task.deleteTask(listNo);
+        int listNo = Integer.parseInt(input.substring(7));
+        if (listNo <= TaskList.tasks.size() && listNo > 0) {
+            assert listNo <= TaskList.tasks.size() && listNo > 0;
+            return Task.delete_task(listNo);
+        } else {
+            return ui.indexOutOfBounds();
+        }
     }
 }

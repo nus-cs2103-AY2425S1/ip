@@ -32,9 +32,11 @@ public class Tanjiro {
      * @throws IOException If there is an error during file operations.
      */
     public String run(String userInput) throws IOException {
+        assert true;
         Ui ui = new Ui();
         Storage storage = new Storage();
         Parser parser = new Parser();
+
         storage.createFile();
         Task.init_list();
 
@@ -60,6 +62,7 @@ public class Tanjiro {
             response.append(ui.invalid_input());
         }
 
+        assert !response.isEmpty();
         return response.toString();
     }
 

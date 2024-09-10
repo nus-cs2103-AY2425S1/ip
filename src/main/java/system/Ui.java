@@ -245,4 +245,19 @@ public class Ui {
     public String invalid_input() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
+    /**
+     * Displays a message indicating that the date/time is invalid.
+     * @return a String message displaying the invalid date/time.
+     */
+    public String dateBeforeCurrent() {
+        return "Invalid date/time as it is before current date/time!";
+    }
+    /**
+     * Displays a message indicating that the list number is
+     * out of bounds and does not exist.
+     * @return a String message displaying the invalid list number.
+     */
+    public String indexOutOfBounds() {
+        return "The list number is invalid and does not exist!";
+    }
 }

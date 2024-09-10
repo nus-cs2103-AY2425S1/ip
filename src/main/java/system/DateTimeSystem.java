@@ -40,4 +40,13 @@ public class DateTimeSystem {
 
         return localDateTime.format(formatter);
     }
+    /**
+     * Compares current date with the LocalDateTime object parsed into the method.
+     * @param localDateTime LocalDateTime object to be compared.
+     * @return boolean True/False if current date is before the date parsed in.
+     */
+    public boolean compareDateTime(LocalDateTime localDateTime) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return currentDateTime.isBefore(localDateTime);
+    }
 }
