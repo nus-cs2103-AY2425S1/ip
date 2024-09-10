@@ -128,7 +128,7 @@ public class TaskList {
         assert keyword != null : "Keyword must not be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().equals(keyword.toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
