@@ -21,11 +21,11 @@ public class Ui {
         String response = "Hello! I'm Tanjiro!\n"
                 + "What can I do for you?\n"
                 + "Instructions:\n"
-                + "todo ___\n"
-                + "deadline ___ /by ____\n"
-                + "event ___ /from ___ /to ___\n"
-                + "Please input the date format in: yyyy-mm-dd hhmm.";
-
+                + "todo *_name_* \n"
+                + "deadline *_name_* /by *_date_* [Date Format: yyyy-mm-dd hhmm]\n"
+                + "event *_name_* /from *_date_* /to *_date_* [Date Format: yyyy-mm-dd hhmm]\n"
+                + "find *_name_*\n"
+                + "view *_date_* [Date Format: yyyy-mm-dd]\n";
         return response;
     }
 
@@ -91,20 +91,20 @@ public class Ui {
         } else if (t instanceof Deadlines) {
             if (t.getCurrentStatus() == Task.Status.MARKED) {
                 response.append("[D][X] ").append(t.getName()).append(" (by: ")
-                        .append(dateTimeSystem.format(t.getDate())).append(")\n");
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getDate())).append(")\n");
             } else {
                 response.append("[D][ ] ").append(t.getName()).append(" (by: ")
-                        .append(dateTimeSystem.format(t.getDate())).append(")\n");
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getDate())).append(")\n");
             }
         } else if (t instanceof Events) {
             if (t.getCurrentStatus() == Task.Status.MARKED) {
                 response.append("[E][X] ").append(t.getName()).append(" (from: ")
-                        .append(dateTimeSystem.format(t.getStart())).append(" to: ")
-                        .append(dateTimeSystem.format(t.getEnd())).append(")\n");
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getStart())).append(" to: ")
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getEnd())).append(")\n");
             } else {
                 response.append("[E][ ] ").append(t.getName()).append(" (from: ")
-                        .append(dateTimeSystem.format(t.getStart())).append(" to: ")
-                        .append(dateTimeSystem.format(t.getEnd())).append(")\n");
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getStart())).append(" to: ")
+                        .append(dateTimeSystem.formatLocalTimeDate(t.getEnd())).append(")\n");
             }
         }
         response.append("Now you have ").append(t.get_list_size()).append(" tasks in the list.");
@@ -125,12 +125,33 @@ public class Ui {
                 + sb.toString();
     }
 
+    public String viewTaskMessage(String date, StringBuilder sb) {
+        return "Here are the matching tasks in for this date: "
+                + date + "\n"
+                + sb.toString();
+    }
+
     /**
      * Displays a message indicating that the date provided is invalid.
      * @return a String message displaying invalid date format.
      */
     public String invalidDate() {
         return "The date provided is invalid! Please type in this format: yyyy-mm-dd HHmm. Thanks!";
+    }
+
+    /**
+     * Displays a message indicating that the command provided is in invalid format.
+     * @return a String message displaying invalid command format.
+     */
+    public String invalidCommand() {
+        return "The command is not in the correct format! Please try again!";
+    }
+    /**
+     * Displays a message indicating that no task has been found.
+     * @return a String message displaying no task has been found.
+     */
+    public String noTaskFound() {
+        return "There are no tasks found!";
     }
 
     /**
@@ -206,7 +227,7 @@ public class Ui {
     public String addDeadlineMessage(Deadlines d, LocalDateTime date) {
         DateTimeSystem dateTimeSystem = new DateTimeSystem();
         return "Got it. I've added this task:\n"
-                + "[D][_] " + d.getName() + "(by: " + dateTimeSystem.format(date) + ")\n"
+                + "[D][_] " + d.getName() + "(by: " + dateTimeSystem.formatLocalTimeDate(date) + ")\n"
                 + "Now you have " + d.get_list_size() + " tasks in the list.";
     }
     /**
@@ -218,7 +239,7 @@ public class Ui {
 
         return "Got it. I've added this task:\n"
                 + "[E][_] " + e.getName() + "(from: "
-                + dateTimeSystem.format(start) + " to: " + dateTimeSystem.format(end) + ")\n"
+                + dateTimeSystem.formatLocalTimeDate(start) + " to: " + dateTimeSystem.formatLocalTimeDate(end) + ")\n"
                 + "Now you have " + e.get_list_size() + " tasks in the list.";
     }
 
@@ -242,7 +263,7 @@ public class Ui {
      * Displays a message indicating that the input format is not understandable.
      * @return a String message displaying the invalid input format.
      */
-    public String invalid_input() {
+    public String invalidInput() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
     /**

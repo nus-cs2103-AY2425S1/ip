@@ -45,7 +45,7 @@ public class Deadlines extends Task {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + unmarked + " " + d.getName());
         }
 
-        information.append(" (by: ").append(dateTimeSystem.format(d.getDate())).append(")");
+        information.append(" (by: ").append(dateTimeSystem.formatLocalTimeDate(d.getDate())).append(")");
 
         storage.write(String.valueOf(information));
     }

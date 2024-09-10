@@ -12,7 +12,7 @@ public class DateTimeSystemTest {
     public void testCreateDate(){
         DateTimeSystem dateTimeSystem = new DateTimeSystem();
         LocalDateTime ldt = LocalDateTime.of(2024,8,29,12,12);
-        assertEquals(dateTimeSystem.createDate("2024","8","29","12","12"),ldt);
+        assertEquals(dateTimeSystem.createDateTime("2024","8","29","12","12"),ldt);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class DateTimeSystemTest {
         DateTimeSystem dateTimeSystem = new DateTimeSystem();
         LocalDateTime ldt = LocalDateTime.of(2024,8,29,12,12);
 
-        assertEquals("2024-08-29 12:12 pm",dateTimeSystem.format(ldt));
+        assertEquals("2024-08-29 12:12 pm",dateTimeSystem.formatLocalTimeDate(ldt));
     }
 
 }

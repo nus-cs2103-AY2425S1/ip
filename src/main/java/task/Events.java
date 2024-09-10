@@ -50,7 +50,7 @@ public class Events extends Task {
                     + ". [" + e.getTag() + "]" + unmarked + " " + e.getName());
         }
 
-        information.append(" (from: ").append(dateTimeSystem.format(e.getStart())).append(" to: ").append(dateTimeSystem.format(e.getEnd())).append(")");
+        information.append(" (from: ").append(dateTimeSystem.formatLocalTimeDate(e.getStart())).append(" to: ").append(dateTimeSystem.formatLocalTimeDate(e.getEnd())).append(")");
         storage.write(String.valueOf(information));
     }
 

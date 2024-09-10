@@ -102,7 +102,7 @@ public abstract class Task {
                 String[] dateTokens = fullDateTokens[0].split("-");
                 String[] timeTokens = fullDateTokens[1].split(":");
 
-                LocalDateTime ldt = dateTimeSystem.createDate(dateTokens[0],
+                LocalDateTime ldt = dateTimeSystem.createDateTime(dateTokens[0],
                         dateTokens[1], dateTokens[2], timeTokens[0], timeTokens[1]);
 
                 Task d = new Deadlines(name.toString(), ldt);
@@ -146,7 +146,7 @@ public abstract class Task {
                 String[] timeTokenStart = fullDateTokenStart[1].split(":");
 
                 LocalDateTime ldtStart =
-                        dateTimeSystem.createDate(dateTokenStart[0], dateTokenStart[1], dateTokenStart[2],
+                        dateTimeSystem.createDateTime(dateTokenStart[0], dateTokenStart[1], dateTokenStart[2],
                                 timeTokenStart[0], timeTokenStart[1]);
 
                 String[] fullDateTokenEnd = end.toString().split(" ");
@@ -154,7 +154,7 @@ public abstract class Task {
                 String[] timeTokenEnd = fullDateTokenEnd[1].split(":");
 
                 LocalDateTime ldtEnd =
-                        dateTimeSystem.createDate(dateTokenEnd[0], dateTokenEnd[1], dateTokenEnd[2],
+                        dateTimeSystem.createDateTime(dateTokenEnd[0], dateTokenEnd[1], dateTokenEnd[2],
                                 timeTokenEnd[0], timeTokenEnd[1]);
 
                 Task e = new Events(name.toString(), ldtStart, ldtEnd);
@@ -197,6 +197,22 @@ public abstract class Task {
         return response;
     }
 
+    public static String viewTask(String input) throws FileNotFoundException {
+        StringBuilder sb = storage.read();
+        String temp = sb.toString();
+        String[] lineTokens = temp.split("\n");
+        StringBuilder finalSb = new StringBuilder();
+        int count = 1;
+        for (int i = 0; i < lineTokens.length; i++) {
+            if (lineTokens[i].contains(input)) {
+                finalSb.append(count).append(". ").append(lineTokens[i].substring(3)).append("\n");
+                count++;
+            }
+        }
+
+        return ui.viewTaskMessage(input, finalSb);
+    }
+
     /**
      * Finds tasks that match the specified input string.
      *
@@ -209,7 +225,7 @@ public abstract class Task {
         String temp = sb.toString();
         String[] lineTokens = temp.split("\n");
         StringBuilder finalSb = new StringBuilder();
-        int count = 1;
+        int count = 0;
         for (int i = 0; i < lineTokens.length; i++) {
             String name = "";
             if (lineTokens[i].contains("\\(")) {
@@ -221,9 +237,13 @@ public abstract class Task {
             }
 
             if (name.contains(input)) {
-                finalSb.append(count).append(".").append(lineTokens[i].substring(3)).append("\n");
                 count++;
+                finalSb.append(count).append(". ").append(lineTokens[i].substring(3)).append("\n");
             }
+        }
+
+        if (count == 0) {
+            return ui.noTaskFound();
         }
 
         return ui.findTaskMessage(finalSb);
