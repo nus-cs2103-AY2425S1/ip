@@ -1,6 +1,17 @@
 package main;
 
-import commands.*;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.InvalidCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.ToDoCommand;
+import commands.UnmarkCommand;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,26 +37,36 @@ public class Parser {
         String commandWord = parts[0];
 
         switch (commandWord) {
-            case "todo":
-                return parseTodoCommand(parts);
-            case "deadline":
-                return parseDeadlineCommand(parts);
-            case "event":
-                return parseEventCommand(parts);
-            case "delete":
-                return parseDeleteCommand(parts);
-            case "mark":
-                return parseMarkCommand(parts);
-            case "unmark":
-                return parseUnmarkCommand(parts);
-            case "list":
-                return new ListCommand();
-            case "bye":
-                return new ExitCommand();
-            case "find":
-                return parseFindCommand(parts);
-            default:
-                return new InvalidCommand("Unknown command: " + commandWord);
+        case "todo":
+            return parseTodoCommand(parts);
+            // Fallthrough
+        case "deadline":
+            return parseDeadlineCommand(parts);
+            // Fallthrough
+        case "event":
+            return parseEventCommand(parts);
+            // Fallthrough
+        case "delete":
+            return parseDeleteCommand(parts);
+            // Fallthrough
+        case "mark":
+            return parseMarkCommand(parts);
+            // Fallthrough
+        case "unmark":
+            return parseUnmarkCommand(parts);
+            // Fallthrough
+        case "list":
+            return new ListCommand();
+            // Fallthrough
+        case "bye":
+            return new ExitCommand();
+            // Fallthrough
+        case "find":
+            return parseFindCommand(parts);
+            // Fallthrough
+        default:
+            return new InvalidCommand("Unknown command: " + commandWord);
+            // Fallthrough
         }
     }
 
@@ -167,6 +188,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a find command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code FindCommand} or {@code InvalidCommand}
+     */
     private static Command parseFindCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("find WHAT????");
