@@ -70,6 +70,44 @@ public class Parser {
 
 
     /**
+     * Parses the provided date input and returns a {@code LocalDate} object.
+     * This method handles special keywords such as "today" and "tomorrow",
+     * as well as absolute dates in the ISO format (yyyy-MM-dd). If the input
+     * cannot be parsed as a valid date, an {@code InvalidDateException} is thrown.
+     * <p>
+     * The method first checks if the input is a special keyword ("today" or
+     * "tomorrow") and returns the corresponding date. If not, it attempts to
+     * parse the input as an absolute date. If parsing fails, it throws an
+     * {@code InvalidDateException}.
+     * </p>
+     *
+     * @param input the date input as a {@code String}. This can be a special
+     *              keyword ("today" or "tomorrow") or an absolute date in the
+     *              format yyyy-MM-dd.
+     * @return a {@code LocalDate} object representing the parsed date.
+     * @throws InvalidDateException if the input is not a valid date or special
+     *                               keyword, and cannot be parsed into a
+     *                               {@code LocalDate}.
+     */
+    public LocalDate parseDate(String input) throws InvalidDateException {
+        LocalDate today = LocalDate.now();
+
+        if (input.equalsIgnoreCase("today")) {
+            return today;
+        } else if (input.equalsIgnoreCase("tomorrow")) {
+            return today.plusDays(1);
+        } else {
+            try {
+                // Try parsing as an absolute date
+                return LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
+        }
+    }
+
+
+    /**
      * Parses the "finddate" or "findkey" command and extracts the search criteria from the user input.
      *
      * @param userInput The input string from the user, expected to start with "searchdate " or "find ".
@@ -89,12 +127,8 @@ public class Parser {
         assert command.equalsIgnoreCase("searchdate")
                 || command.equalsIgnoreCase("find") : "Invalid command: " + command;
         if (command.equalsIgnoreCase("searchdate")) {
-            try {
-                LocalDate date = LocalDate.parse(argument);
-                return tasks.findTasksByDate(date);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
+            LocalDate date = parseDate(argument);
+            return tasks.findTasksByDate(date);
         } else if (command.equalsIgnoreCase("find")) {
             return tasks.findTasksByKeyword(argument);
         } else {

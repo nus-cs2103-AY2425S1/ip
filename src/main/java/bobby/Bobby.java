@@ -89,10 +89,10 @@ public class Bobby {
                 storage.saveTasks(tasks);
                 return ui.getTaskUnmarkedMessage(tasksToUnmark);
             case DELETE:
-                int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                Task deletedTask = tasks.remove(deleteIndex);
+                String[] deleteArgs = parser.parseTaskIndices(userInput);
+                ArrayList<Task> tasksToDelete = tasks.deleteMultipleTasks(deleteArgs);
                 storage.saveTasks(tasks);
-                return ui.getTaskDeletedMessage(deletedTask, tasks.size());
+                return ui.getTaskDeletedMessage(tasksToDelete, tasks.size());
             case SEARCHDATE:
             case FIND:
                 ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);

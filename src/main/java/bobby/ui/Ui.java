@@ -81,14 +81,22 @@ public class Ui {
     }
 
     /**
-     * Returns a message indicating that a task has been deleted successfully.
+     * Returns a message indicating that the specified ArrayList of tasks have been deleted successfully.
      *
-     * @param task the task that was deleted
+     * @param tasks the ArrayList of tasks that were deleted
      * @param size the current number of tasks remaining in the list
      * @return the task deleted message
      */
-    public String getTaskDeletedMessage(Task task, int size) {
-        return String.format("Task removed successfully:\n  %s\nNow you have %d tasks in the list.", task, size);
+    public String getTaskDeletedMessage(ArrayList<Task> tasks, int size) {
+        if (tasks.size() == 0) {
+            return "No tasks to be deleted.";
+        }
+        StringBuilder message = new StringBuilder("Task removed successfully:\n");
+        for (Task task : tasks) {
+            message.append(" - ").append(task).append("\n");
+        }
+        message.append(String.format("Now you have %d tasks in the list.", size));
+        return message.toString();
     }
 
     /**
