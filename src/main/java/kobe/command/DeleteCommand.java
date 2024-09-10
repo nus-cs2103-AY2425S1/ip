@@ -33,9 +33,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task removedTask = tasks.removeTask(taskIndex);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + removedTask);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        ui.setResponse("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.");
         storage.save(tasks.getTasks());
     }
 }

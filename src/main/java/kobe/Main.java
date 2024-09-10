@@ -131,8 +131,4 @@ public class Main extends Application {
         // Add the newly created dialog to the container
         dialogContainer.getChildren().add(welcomeDialog);
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

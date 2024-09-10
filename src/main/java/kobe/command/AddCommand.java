@@ -45,14 +45,14 @@ public class AddCommand extends Command {
             String description = words[1];
             Todo todo = new Todo(description);
             tasks.addTask(todo);
-            ui.showTasks(tasks);
+            ui.setResponse("Got it. I've added this task:\n  " + todo + "\nNow you have " + tasks.size() + " tasks in the list.");
         } else if (taskType.equals("deadline")) {
             String[] parts = words[1].split(" /by ");
             String description = parts[0];
             LocalDateTime by = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             Deadline deadline = new Deadline(description, by);
             tasks.addTask(deadline);
-            ui.showTasks(tasks);
+            ui.setResponse("Got it. I've added this task:\n  " + deadline + "\nNow you have " + tasks.size() + " tasks in the list.");
         } else if (taskType.equals("event")) {
             String[] parts = words[1].split(" /from ");
             String description = parts[0];
@@ -61,7 +61,7 @@ public class AddCommand extends Command {
             LocalDateTime to = LocalDateTime.parse(dateTimeParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             Event event = new Event(description, from, to);
             tasks.addTask(event);
-            ui.showTasks(tasks);
+            ui.setResponse("Got it. I've added this task:\n  " + event + "\nNow you have " + tasks.size() + " tasks in the list.");
         }
 
         storage.save(tasks.getTasks());

@@ -5,7 +5,6 @@ import kobe.task.TaskList;
 import kobe.util.Parser;
 import kobe.util.Storage;
 import kobe.util.Ui;
-
 import java.io.IOException;
 
 /**
@@ -41,16 +40,15 @@ public class Kobe {
      * @return The response from the chatbot.
      */
     public String getResponse(String input) {
-        if (input.equals("list")) {
-            return tasks.getAllTasksAsString();
-        }
         if (input.equals("welcome")) {
             return ui.getWelcomeMessage();
         }
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
-            return ui.getLatestResponse();
+            return ui.getLatestResponse(); // Return the latest response set by the command
+        } catch (KobeException e) {
+            return e.getMessage();
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }

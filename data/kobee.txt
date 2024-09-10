@@ -1,2 +1,6 @@
-T | 0 | ball
-T | 1 | shoot
+T | 0 | shoot
+D | 0 | eatshiet | 2002-11-11 2020
+T | 1 | 777
+T | 0 | little
+T | 0 | sixty8
+T | 0 | lol

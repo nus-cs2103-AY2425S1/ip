@@ -8,7 +8,7 @@ import kobe.util.Ui;
 import java.io.IOException;
 
 /**
- * Represents a command to mark a task as done in the Duke chatbot application.
+ * Represents a command to mark a task as done in the Kobe chatbot application.
  */
 public class MarkCommand extends Command {
     private final int taskIndex;
@@ -34,8 +34,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+        ui.setResponse("Nice! I've marked this task as done:\n  " + task);
         storage.save(tasks.getTasks());
     }
 }
