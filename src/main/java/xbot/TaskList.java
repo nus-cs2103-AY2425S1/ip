@@ -71,14 +71,16 @@ public class TaskList {
      * @param rest The 1-based index of the task to be deleted.
      * @throws XBotException If the task number is invalid.
      */
-    public void deleteTask(String rest) throws XBotException {
+    public String deleteTask(String rest) throws XBotException {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
-                System.out.println("Noted. I've removed this task:");
-                System.out.print(list.get(taskNumber - 1).toString() + "\n");
+                String output;
+                output = ("Noted. I've removed this task:\n");
+                output = output + (list.get(taskNumber - 1).toString() + "\n");
                 list.remove(taskNumber - 1);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                output = output + ("Now you have " + list.size() + " tasks in the list.");
+                return output;
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -92,12 +94,14 @@ public class TaskList {
      *
      * @param rest The description of the ToDo task.
      */
-    public void addTodo(String rest) {
+    public String addTodo(String rest) {
         System.out.println("Got it. I've added this task:");
         Task newTask = new ToDo(rest);
+        String output;
         list.add(newTask);
-        System.out.println(newTask.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        output = (newTask.toString() + "\n");
+        output = output + ("Now you have " + list.size() + " tasks in the list.");
+        return output;
     }
 
     /**
@@ -107,7 +111,7 @@ public class TaskList {
      * @param rest The description and deadline of the task.
      * @throws XBotException If the input format is invalid or the date is in an incorrect format.
      */
-    public void addDeadline(String rest) throws XBotException {
+    public String addDeadline(String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
@@ -116,9 +120,11 @@ public class TaskList {
                 Task newTask = new Deadline(taskDescription, deadline);
                 list.add(newTask);
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println(newTask.toString());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                String output;
+                output = ("Got it. I've added this task:\n");
+                output = output + (newTask.toString() + "\n");
+                output = output + ("Now you have " + list.size() + " tasks in the list.");
+                return output;
             } else {
                 throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
             }
@@ -134,8 +140,9 @@ public class TaskList {
      * @param rest The description and time period of the task.
      * @throws XBotException If the input format is invalid or the dates are in an incorrect format.
      */
-    public void addEvent(String rest) throws XBotException {
+    public String addEvent(String rest) throws XBotException {
         String[] parts = rest.split("/from", 2);
+        String output = "Error: There is no output at ADD EVENT?!";
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
             String time = parts[1].trim();
@@ -149,9 +156,9 @@ public class TaskList {
                     Task newTask = new Event(taskDescription, from, to);
                     list.add(newTask);
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTask.toString());
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    output = ("Got it. I've added this task:\n");
+                    output = output + (newTask.toString() + "\n");
+                    output = output + ("Now you have " + list.size() + " tasks in the list.");
                 } else {
                     throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
                 }
@@ -160,6 +167,7 @@ public class TaskList {
             throw new XBotException(
                     "Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
         }
+        return output;
     }
 
     /**
@@ -169,11 +177,11 @@ public class TaskList {
      * @param rest The 1-based index of the task to be mark as done.
      * @throws XBotException If the task number is invalid.
      */
-    public void markDone(String rest) throws XBotException {
+    public String markDone(String rest) throws XBotException {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
-                list.get(taskNumber - 1).markAsDone();
+                return list.get(taskNumber - 1).markAsDone();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -189,11 +197,11 @@ public class TaskList {
      * @param rest The 1-based index of the task to be mark as undone.
      * @throws XBotException If the task number is invalid.
      */
-    public void markUndone(String rest) throws XBotException {
+    public String markUndone(String rest) throws XBotException {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
-                list.get(taskNumber - 1).markAsUndone();
+                return list.get(taskNumber - 1).markAsUndone();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -207,13 +215,13 @@ public class TaskList {
      *
      * @param keyword the keyword to search for in task descriptions
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         TaskList specificTasks = new TaskList();
         for (Task task : list) {
             if (task.getDescription().contains(keyword)) {
                 specificTasks.add(task);
             }
         }
-        Ui.showMatchingTaskList(specificTasks);
+        return Ui.showMatchingTaskList(specificTasks);
     }
 }

@@ -152,58 +152,63 @@ public class Parser {
      * @param storage The Storage object for saving tasks.
      * @throws XBotException If the input is invalid or an unknown command is given.
      */
-    public void processInput(String input, TaskList list, Ui ui, Storage storage) throws XBotException {
+    public String processInput(String input, TaskList list, Ui ui, Storage storage) throws XBotException {
         String[] words = input.split("\\s+", 2);
         String command = words[0].toLowerCase();
         String rest = words.length > 1 ? words[1] : "";
+        String output;
         switch(command) {
         case "list":
-            ui.showTaskList(list);
+            output = ui.showTaskList(list);
             break;
         case "mark":
-            list.markDone(rest);
+            output = list.markDone(rest);
             storage.saveTask(list);
             break;
         case "unmark":
-            list.markUndone(rest);
+            output = list.markUndone(rest);
             storage.saveTask(list);
             break;
         case "todo":
             if (rest.isEmpty()) {
                 throw new XBotException("The description of the todo cannot be empty!");
             }
-            list.addTodo(rest);
+            output = list.addTodo(rest);
             storage.saveTask(list);
             break;
         case "event":
             if (rest.isEmpty()) {
                 throw new XBotException("The description of the event cannot be empty!");
             }
-            list.addEvent(rest);
+            output = list.addEvent(rest);
             storage.saveTask(list);
             break;
         case "deadline":
             if (rest.isEmpty()) {
                 throw new XBotException("The description of the deadline cannot be empty!");
             }
-            list.addDeadline(rest);
+            output = list.addDeadline(rest);
             storage.saveTask(list);
             break;
         case "delete":
             if (rest.isEmpty()) {
                 throw new XBotException("The task number to be deleted cannot be empty!");
             }
-            list.deleteTask(rest);
+            output = list.deleteTask(rest);
             storage.saveTask(list);
             break;
         case "find":
             if (rest.isEmpty()) {
                 throw new XBotException("There is nothing to find!");
             }
-            list.findTask(rest);
+            output = list.findTask(rest);
+            break;
+        case "bye":
+            output = "Hope to see you again!";
             break;
         default:
             throw new XBotException("I'm sorry, but I don't know what that means :-(");
         }
+        return output;
     }
 }
