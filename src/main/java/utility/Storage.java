@@ -31,16 +31,23 @@ public class Storage {
      * @throws IOException When save fails.
      */
     public void save(ArrayList<Task> tasks) throws IOException {
-        File saveFile = new File(storagePath);
-        if (!saveFile.exists()) {
+        createFileIfItDoesNotExists();
+        writeTasksToFile(tasks);
+    }
+
+    private void createFileIfItDoesNotExists() throws IOException {
+        File file = new File(storagePath);
+        if (!file.exists()) {
             File dir = new File("./data");
             boolean dirCreated = dir.mkdir();
-            if (dirCreated && !saveFile.createNewFile()) {
-                throw new FileNotFoundException("Could not create file " + saveFile.getAbsolutePath());
+            if (dirCreated && !file.createNewFile()) {
+                throw new FileNotFoundException("Could not create file " + file.getAbsolutePath());
             }
         }
         assert (saveFile.exists());
+    }
 
+    private void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(storagePath);
         for (Task task : tasks) {
             fw.write(task.getSaveFormat() + "\n");
@@ -59,8 +66,8 @@ public class Storage {
         if (!saveFile.exists()) {
             return tasks;
         }
-        Scanner sc = new Scanner(saveFile);
 
+        Scanner sc = new Scanner(saveFile);
         String line;
         while (sc.hasNextLine()) {
             line = sc.nextLine();

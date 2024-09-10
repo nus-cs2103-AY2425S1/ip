@@ -24,7 +24,7 @@ class ParserTest {
     @Test
     public void parseDeadLine_noSpacingBeforeSlashBy_exceptionThrown() {
         try {
-            parser.parseDeadLine("something/by 2025-02-21");
+            parser.parse("deadline something/by 2025-02-21");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 21 2025", parser.getBy());
             fail();
@@ -36,7 +36,7 @@ class ParserTest {
     @Test
     public void parseDeadLine_noSpacingAfterSlashBy_exceptionThrown() {
         try {
-            parser.parseDeadLine("something /by2025-02-21");
+            parser.parse("deadline something /by2025-02-21");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 21 2025", parser.getBy());
             fail();
@@ -48,7 +48,7 @@ class ParserTest {
     @Test
     public void parseDeadLine_noSpacingAroundSlashBy_exceptionThrown() {
         try {
-            parser.parseDeadLine("something/by2025-02-21");
+            parser.parse("deadline something/by2025-02-21");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 21 2025", parser.getBy());
             fail();
@@ -60,19 +60,19 @@ class ParserTest {
     @Test
     public void parseDeadLine_missingSlashBy_exceptionThrown() {
         try {
-            parser.parseDeadLine("something 2025-02-21");
+            parser.parse("deadline something 2025-02-21");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 21 2025", parser.getBy());
             fail();
         } catch (LukeException e) {
-            assertEquals("Missing /by to indicate when the deadline of the task.", e.getMessage());
+            assertEquals("Yo! A necessary /by is missing from your input.", e.getMessage());
         }
     }
 
     @Test
     public void parseDeadLine_badDateFormat_exceptionThrown() {
         try {
-            parser.parseDeadLine("something /by 12-02-2024");
+            parser.parse("deadline something /by 12-02-2024");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 12 2024", parser.getBy());
             fail();
@@ -84,7 +84,7 @@ class ParserTest {
     @Test
     public void parseDeadLine_correctInput_correctParserInternalValue() {
         try {
-            parser.parseDeadLine("something /by 2024-02-12");
+            parser.parse("deadline something /by 2024-02-12");
             assertEquals("something", parser.getDescription());
             assertEquals("Feb 12 2024", parser.getBy());
         } catch (LukeException e) {

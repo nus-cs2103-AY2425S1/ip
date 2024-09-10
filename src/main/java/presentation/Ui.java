@@ -28,7 +28,7 @@ public class Ui {
     /**
      * Shows closing dialog when the application ends.
      */
-    public void closingDialog() {
+    public void closeDialog() {
         System.out.println("Aight, Cya later.");
     }
 

@@ -46,26 +46,16 @@ public class Parser {
 
     /**
      * Parses the command given and updates the class variable.
+     *
      * @param line Is the command.
      * @throws LukeException When parsing an invalid command.
      */
     public void parse(String line) throws LukeException {
-        String[] parameters = line.split(" ");
-        try {
-            command = Command.valueOf(parameters[0].trim());
-        } catch (IllegalArgumentException e) {
-            throw new LukeException(String.format("Yo! This command \"%s\" doesn't exist.", parameters[0].trim()));
-        }
+        String[] tokens = line.split(" ");
+        getCommand(tokens);
         switch (command) {
         case list, bye -> { }
-        case mark, unmark, delete -> {
-            try {
-                index = Integer.parseInt(parameters[1].trim());
-            } catch (NumberFormatException e) {
-                throw new LukeException("Index does not exists");
-            }
-
-        }
+        case mark, unmark, delete -> parseIndex(tokens);
         case todo -> description = line.substring(4).trim();
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
@@ -75,60 +65,80 @@ public class Parser {
 
     /**
      * Parse DeadLine task to retrieve description and by date.
+     *
      * @param input Is the instruction without the command keyword.
      * @throws LukeException When instruction format is invalid.
      */
-    public void parseDeadLine(String input) throws LukeException {
-        int slashIndex = input.indexOf(" /by ");
-        if (slashIndex == -1) {
-            if (input.contains("/by")) {
-                throw new LukeException("There needs to be spacing between /by and other words.");
-            } else {
-                throw new LukeException("Missing /by to indicate when the deadline of the task.");
-            }
-        }
-        description = input.substring(0, slashIndex).trim();
-        String dateString = input.substring(slashIndex + 4).trim();
-        try {
-            by = DateTime.parseDate(dateString).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        } catch (DateTimeParseException e) {
-            by = "";
-            throw new LukeException("Invalid Date format");
-        }
+    private void parseDeadLine(String input) throws LukeException {
+        int byIndex = getIndexOfToken(input, " /by ");
+        description = parseDescription(input, byIndex);
+        by = parseDate(input, byIndex + 4);
     }
 
     /**
      * Parse Event task to retrieve description, from and to dates.
+     *
      * @param input Is the instruction without the command keyword.
      * @throws LukeException When instruction format is invalid.
      */
-    public void parseEvent(String input) throws LukeException {
-        int firstSlashIndex = input.indexOf(" /from ");
-        if (firstSlashIndex == -1) {
-            if (input.contains("/from")) {
-                throw new LukeException("There needs to be spacing between /from and other words.");
-            } else {
-                throw new LukeException("Missing /from to indicate the start time of the event.");
-            }
-        }
-        int secondSlashIndex = input.indexOf(" /to ");
-        if (secondSlashIndex == -1) {
-            if (input.contains("/to")) {
-                throw new LukeException("There needs to be spacing between /to and other words.");
-            } else {
-                throw new LukeException("Missing /to to indicate the end time of the event.");
-            }
-        }
-        description = input.substring(0, firstSlashIndex).trim();
+    private void parseEvent(String input) throws LukeException {
+        int fromIndex = getIndexOfToken(input, " /from ");
+        int toIndex = getIndexOfToken(input, " /to ");
+        description = parseDescription(input, fromIndex);
+        from = parseDate(input, fromIndex + 6, toIndex);
+        to = parseDate(input,toIndex + 4);
+    }
+
+    private void getCommand(String[] tokens) throws LukeException {
         try {
-            from = DateTime.parseDate(input.substring(firstSlashIndex + 6, secondSlashIndex).trim())
-                    .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            to = DateTime.parseDate(input.substring(secondSlashIndex + 4).trim())
+            this.command = Command.valueOf(tokens[0].trim());
+        } catch (IllegalArgumentException e) {
+            throw new LukeException(String.format("Yo! This command \"%s\" doesn't exist.", tokens[0].trim()));
+        }
+    }
+
+    private String parseDescription(String input, int beginIndex) {
+        return input.substring(0, beginIndex).trim();
+    }
+
+    private void parseIndex(String[] tokens) throws LukeException {
+        try {
+            this.index = Integer.parseInt(tokens[1].trim());
+        } catch (NumberFormatException e) {
+            throw new LukeException("Index does not exists");
+        }
+    }
+
+    private String parseDate(String input, int beginIndex) throws LukeException {
+        try {
+            return DateTime
+                    .parseDate(input.substring(beginIndex).trim())
                     .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
-            from = "";
-            to = "";
             throw new LukeException("Invalid Date format");
         }
+    }
+
+    private String parseDate(String input, int beginIndex, int endIndex) throws LukeException {
+        try {
+            return DateTime
+                    .parseDate(input.substring(beginIndex, endIndex).trim())
+                    .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Invalid Date format");
+        }
+    }
+
+    private int getIndexOfToken(String input, String token) throws LukeException {
+        int index = input.indexOf(token);
+        if (index == -1) {
+            String trimmedToken = token.trim();
+            if (input.contains(trimmedToken)) {
+                throw new LukeException(String.format("There needs to be spacing between %s and other words.", trimmedToken));
+            } else {
+                throw new LukeException(String.format("Yo! A necessary %s is missing from your input.", trimmedToken));
+            }
+        }
+        return index;
     }
 }

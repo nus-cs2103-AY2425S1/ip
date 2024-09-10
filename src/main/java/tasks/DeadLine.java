@@ -37,13 +37,19 @@ public class DeadLine extends Task {
 
     @Override
     public String getSaveFormat() {
-        return String.format("D | %d | %s | %s", super.intComplete(), super.getDescription(), byDate);
+        return String.format(
+                "D | %d | %s | %s",
+                super.isCompleteAsInteger(),
+                super.getDescription(),
+                byDate
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)",
-                super.completedStringRepresentation(),
+        return String.format(
+                "[D][%s] %s (by: %s)",
+                super.getCompletedStringRepresentation(),
                 super.getDescription(),
                 byDate
         );

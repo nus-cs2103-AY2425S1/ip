@@ -33,18 +33,23 @@ public class Luke {
         this.ui = new Ui();
     }
 
+    private boolean parseLine(BufferedReader br) throws IOException {
+        try {
+            parser.parse(br.readLine());
+            return true;
+        } catch (LukeException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     /** Runs the Luke application */
     public void run() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ui.greetDialog();
-        String line;
-        boolean flag = true;
-        while (flag) {
-            line = br.readLine();
-            try {
-                parser.parse(line);
-            } catch (LukeException e) {
-                System.out.println(e.getMessage());
+        boolean isRunning = true;
+        while (isRunning) {
+            if (!parseLine(br)) {
                 continue;
             }
 
@@ -66,30 +71,30 @@ public class Luke {
             }
             case delete -> {
                 Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
-                ui.deleteTaskDialog(deletedTask, this.taskList.getTasksSize());
+                ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
             }
             case todo -> {
                 Task t = new Todo(parser.getDescription());
                 this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTasksSize());
+                ui.addTaskDialog(t, taskList.getTaskListSize());
             }
             case event -> {
                 Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
                 this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTasksSize());
+                ui.addTaskDialog(t, taskList.getTaskListSize());
             }
             case deadline -> {
                 Task t = new DeadLine(parser.getDescription(), parser.getBy());
                 this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTasksSize());
+                ui.addTaskDialog(t, taskList.getTaskListSize());
             }
-            case bye -> flag = false;
+            case bye -> isRunning = false;
             default -> { }
             }
 
         }
         taskList.save(storage);
-        ui.closingDialog();
+        ui.closeDialog();
         br.close();
     }
     public static void main(String[] args) throws IOException {
