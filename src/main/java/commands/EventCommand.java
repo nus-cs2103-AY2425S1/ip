@@ -51,9 +51,7 @@ public class EventCommand extends Command {
             taskList.addTask(newTask);
             int numTasks = taskList.size();
 
-            ui.showMessage("Got it. I've added this task:");
-            ui.showMessage("  " + newTask.toString());
-            ui.showMessage("Now you have " + numTasks + " tasks in the list");
+            ui.showMessage("Got it. I've added this task:\n" + "  " + newTask.toString() + "\nNow you have " + numTasks + " tasks in the list");
             storage.saveTasks(taskList.getTasks());
         }
     }

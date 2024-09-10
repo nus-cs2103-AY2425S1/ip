@@ -37,8 +37,7 @@ public class UnmarkCommand extends Command {
             Task unmarked = taskList.get(this.taskNumber - 1);
             unmarked.markAsUndone();
 
-            ui.showMessage("OK, I've marked this task as not done yet:");
-            ui.showMessage(unmarked.toString());
+            ui.showMessage("OK, I've marked this task as not done yet:\n" + unmarked.toString());
             storage.saveTasks(taskList.getTasks());
         }
     }

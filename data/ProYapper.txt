@@ -1,9 +1,10 @@
 T | 0 | sleep
-E | 0 | splashdown | 2024-08-29 1800 | 2024-08-29 2100
 T | 0 | play
-D | 0 | cs2101 | 2024-08-28 1600
-T | 0 | get over it
+T | 1 | get over it
 T | 0 | think
 T | 0 | forget
 D | 0 | keeping sane | 2024-09-03 1800
-T | 0 | dowhat
+T | 1 | send gui screenshot
+E | 0 | CS2101 meeting | 2024-09-10 1600 | 2024-09-10 1800
+D | 0 | CS2103T | 2024-09-13 1800
+T | 0 | get my shit together

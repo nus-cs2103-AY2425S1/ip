@@ -30,17 +30,18 @@
                 AnchorPane.bottomAnchor="1.0" />
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
                     hvalue="1.0"
+                    vvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
-                    vvalue="1.0"
                     AnchorPane.topAnchor="1.0"
                     AnchorPane.leftAnchor="1.0"
                     AnchorPane.rightAnchor="1.0"
                     AnchorPane.bottomAnchor="50.0">
             <content>
                 <VBox fx:id="dialogContainer"
-                      prefHeight="552.0"
+                      VBox.vgrow="ALWAYS"
                       prefWidth="388.0" />
             </content>
         </ScrollPane>
