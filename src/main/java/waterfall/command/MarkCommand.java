@@ -14,7 +14,7 @@ import waterfall.task.TaskList;
  * @author Wai Hong
  */
 
-public class MarkCommand extends Command {
+public class MarkCommand extends UndoableCommand {
     private final int index;
 
     /**
@@ -28,15 +28,22 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
         if (!tasks.checkIndex(index)) {
-            throw new WaterfallException("Why are you trying to edit a waterfall waterfall.task that does not exist?");
+            throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
         }
         tasks.setDone(index, true);
         storage.updateTask(tasks.getTasks());
+        addToUndoList(this);
         return ui.showMarkMessage(tasks.getTask(index));
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void undo(TaskList tasks, Storage storage) throws IOException {
+        tasks.setDone(index, false);
+        storage.updateTask(tasks.getTasks());
     }
 }

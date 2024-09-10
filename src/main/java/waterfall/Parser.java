@@ -7,6 +7,7 @@ import waterfall.command.ExitCommand;
 import waterfall.command.MarkCommand;
 import waterfall.command.SearchCommand;
 import waterfall.command.ShowTasksCommand;
+import waterfall.command.UndoCommand;
 import waterfall.command.UnmarkCommand;
 import waterfall.command.UnrecognisedCommand;
 
@@ -40,6 +41,8 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ShowTasksCommand();
+        } else if (input.equals("undo")) {
+            return new UndoCommand();
         } else if (input.startsWith("mark ") && (input.substring(5).matches("\\d+"))) {
             int index = Integer.parseInt(input.substring(5)) - 1;
             return new MarkCommand(index);

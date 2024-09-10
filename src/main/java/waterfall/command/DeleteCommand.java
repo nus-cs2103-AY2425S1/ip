@@ -14,8 +14,9 @@ import waterfall.task.TaskList;
  * @author Wai Hong
  */
 
-public class DeleteCommand extends Command {
-    final int index;
+public class DeleteCommand extends UndoableCommand {
+    private final int index;
+    private Task task;
 
     /**
      * Constructs a command to delete task at specified index.
@@ -27,14 +28,21 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task task = tasks.getTask(index);
+        task = tasks.getTask(index);
         tasks.delete(index);
         storage.updateTask(tasks.getTasks());
+        addToUndoList(this);
         return ui.showDeleteMessage(task);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void undo(TaskList tasks, Storage storage) throws IOException {
+        tasks.add(index, task);
+        storage.updateTask(tasks.getTasks());
     }
 }

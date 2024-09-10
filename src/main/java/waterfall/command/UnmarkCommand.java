@@ -14,7 +14,7 @@ import waterfall.task.TaskList;
  * @author Wai Hong
  */
 
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends UndoableCommand {
     private final int index;
 
     /**
@@ -32,11 +32,18 @@ public class UnmarkCommand extends Command {
         }
         tasks.setDone(index, false);
         storage.updateTask(tasks.getTasks());
+        addToUndoList(this);
         return ui.showUnmarkMessage(tasks.getTask(index));
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void undo(TaskList tasks, Storage storage) throws IOException {
+        tasks.setDone(index, true);
+        storage.updateTask(tasks.getTasks());
     }
 }

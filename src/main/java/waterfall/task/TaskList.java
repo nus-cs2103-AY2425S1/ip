@@ -45,6 +45,17 @@ public class TaskList {
     }
 
     /**
+     * Adds a task to the task list at specified index.
+     *
+     * @param index The index to be added.
+     * @param task The task to be added.
+     */
+    public void add(int index, Task task) {
+        tasks.add(index, task);
+        num++;
+    }
+
+    /**
      * Deletes task from the task list at the specified index.
      *
      * @param index The index of the task to be deleted.
@@ -81,6 +92,15 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Retrieves the number of tasks.
+     *
+     * @return The number of tasks in lists.
+     */
+    public int getNum() {
+        return num;
     }
 
     /**

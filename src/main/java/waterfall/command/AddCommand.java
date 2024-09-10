@@ -17,8 +17,9 @@ import waterfall.task.ToDo;
  * @author Wai Hong
  */
 
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
     private final Task task;
+    private int index;
 
     /**
      * Constructs an AddCommand to add <code>ToDo</code> task with given title.
@@ -56,11 +57,19 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.add(task);
         storage.addTask(task);
+        index = tasks.getNum() - 1;
+        addToUndoList(this);
         return ui.showAddMessage(task);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void undo(TaskList tasks, Storage storage) throws IOException {
+        tasks.delete(index);
+        storage.updateTask(tasks.getTasks());
     }
 }

@@ -123,4 +123,25 @@ public class Ui {
         String res = "Here's the matching tasks in your waterfall hualalala\n";
         return res + taskList.printDetail(2);
     }
+
+    /**
+     * Provides the undo message.
+     * @param taskList The current tasks.
+     * @return String representing the success message with current task detail.
+     */
+    public String getUndoMessage(TaskList taskList) {
+        String successMsg = "Successfully undo the last command!\n"
+                + "Here's the list of modified tasks in your waterfall hualalala\n";
+        String taskDetail = taskList.printDetail(2);
+        return successMsg + taskDetail;
+    }
+
+    /**
+     * Provides failed undo message.
+     *
+     * @return String representing a fail to undo message.
+     */
+    public String getFailedUndoMessage() {
+        return "Bruh no more undo possible!";
+    }
 }
