@@ -68,6 +68,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds an event to the tasklist.
+     *
+     * @param taskList TaskList where event will be added.
+     * @param line String containing name, start and end date.
+     */
     private void loadEvent(TaskList taskList, String line) {
         String[] splitUserStartDate = line.split("from: ", 3);
         String[] splitUserEndDate = splitUserStartDate[1].split("to: ", 2);
@@ -89,6 +95,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a deadline to the tasklist.
+     *
+     * @param taskList TaskList where deadline will be added.
+     * @param line String containing name and end date.
+     */
     private void loadDeadline(TaskList taskList, String line) {
         String nameTask;
         String[] deadlineSplit = line.split("by: ");
@@ -105,6 +117,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a Todos to the tasklist.
+     *
+     * @param taskList TaskList where Todos will be added.
+     * @param line String containing name.
+     */
     private void loadTodos(TaskList taskList, String line) {
         String nameTask;
         if (line.contains("[ X ]")) {

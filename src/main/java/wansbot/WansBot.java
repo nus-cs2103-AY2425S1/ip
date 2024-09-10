@@ -26,14 +26,21 @@ public class WansBot {
      * Throws InputEmptyException when user doesn't input anything after command word.
      */
     protected static void emptyInput(String userInput) throws InputEmptyException {
-        if (userInput.strip().equalsIgnoreCase("todos")
+        if (isValidCommand(userInput)) {
+            throw new InputEmptyException(userInput);
+        }
+    }
+
+    /**
+     * Checks whether userInput is a valid command.
+     */
+    private static boolean isValidCommand(String userInput) {
+        return userInput.strip().equalsIgnoreCase("todos")
                 || userInput.strip().equalsIgnoreCase("deadline")
                 || userInput.strip().equalsIgnoreCase("event")
                 || userInput.strip().equalsIgnoreCase("mark")
                 || userInput.strip().equalsIgnoreCase("unmark")
-                || userInput.strip().equalsIgnoreCase("remove")) {
-            throw new InputEmptyException(userInput);
-        }
+                || userInput.strip().equalsIgnoreCase("remove");
     }
 
     /**
@@ -134,9 +141,7 @@ public class WansBot {
     private String addDeadlined(String userInput) {
         try {
             checkMissingInputDeadline(userInput);
-            String[] splitUser = userInput.split(" /by ", 2);
-            Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8),
-                    LocalDate.parse(splitUser[1].trim()));
+            Deadlined newDeadlined = extractDeadline(userInput);
             userTaskList.add(newDeadlined);
             return ui.handleSuccessfulAdd(newDeadlined);
         } catch (InputEmptyException e) {
@@ -147,16 +152,25 @@ public class WansBot {
     }
 
     /**
+     * Takes user input and turns it into a Deadlined.
+     *
+     * @param userInput Input String by user.
+     * @return Deadline after parsing userInput to get a name and an end date.
+     */
+    private Deadlined extractDeadline(String userInput) {
+        String[] splitUser = userInput.split(" /by ", 2);
+        Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8),
+                LocalDate.parse(splitUser[1].trim()));
+        return newDeadlined;
+    }
+
+    /**
      * Adds Deadlined to userTaskList. If there is invalid input, WansBot will guide user on the correct commands.
      */
     private String addEvent(String userInput) {
         try {
             missingInputEvent(userInput);
-            String[] splitUserStartDate = userInput.split(" /from ", 3);
-            String[] splitUserEndDate = splitUserStartDate[1].split(" /to ", 2);
-            Events newEvent = new Events(splitUserStartDate[0].substring(5),
-                    LocalDate.parse(splitUserEndDate[0].trim()),
-                    LocalDate.parse(splitUserEndDate[1].trim()));
+            Events newEvent = extractEvent(userInput);
             userTaskList.add(newEvent);
             return ui.handleSuccessfulAdd(newEvent);
         } catch (InputEmptyException e) {
@@ -164,6 +178,21 @@ public class WansBot {
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
         }
+    }
+
+    /**
+     * Takes user input and turns it into an Event
+     *
+     * @param userInput Input String by user.
+     * @return Deadline after parsing userInput to get a name, a start date and an end date.
+     */
+    private Events extractEvent(String userInput) {
+        String[] splitUserStartDate = userInput.split(" /from ", 3);
+        String[] splitUserEndDate = splitUserStartDate[1].split(" /to ", 2);
+        Events newEvent = new Events(splitUserStartDate[0].substring(5),
+                LocalDate.parse(splitUserEndDate[0].trim()),
+                LocalDate.parse(splitUserEndDate[1].trim()));
+        return newEvent;
     }
 
     /**
@@ -185,28 +214,38 @@ public class WansBot {
 
     /**
      * Gathers Deadlined and Event which are of exact date and in-between start and end date respectively. WansBot
-     * will tell the user which tasks these are. Todos will not be able to be found
+     * will tell the user which tasks these are. Todos will not be able to be found.
      */
     private String findTaskDate(String userInput) {
         try {
             String[] splitDate = userInput.split(" ");
             TaskList filteredList = new TaskList();
-            for (int i = 0; i < userTaskList.numOfTasks(); i++) {
-                if (userTaskList.getTask(i) instanceof Events) {
-                    Events event = (Events) userTaskList.getTask(i);
-                    if (event.isBetweenDate(LocalDate.parse(splitDate[1]))) {
-                        filteredList.add(event);
-                    }
-                } else if (userTaskList.getTask(i) instanceof Deadlined) {
-                    Deadlined deadlined = (Deadlined) userTaskList.getTask(i);
-                    if (deadlined.isOnDate(LocalDate.parse(splitDate[1]))) {
-                        filteredList.add(deadlined);
-                    }
-                }
-            }
+            filterTaskList(splitDate, filteredList);
             return ui.handleFindFiles(filteredList, splitDate[1]);
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
+        }
+    }
+
+    /**
+     * Filters and adds to tasklist Events and Deadlineds that lie within the splitDate.
+     *
+     * @param splitDate Date which user wants to find Tasks on.
+     * @param filteredList The new tasklist which will contain the latest list of tasks that lie on splitDate.
+     */
+    private void filterTaskList(String[] splitDate, TaskList filteredList) {
+        for (int i = 0; i < userTaskList.numOfTasks(); i++) {
+            if (userTaskList.getTask(i) instanceof Events) {
+                Events event = (Events) userTaskList.getTask(i);
+                if (event.isBetweenDate(LocalDate.parse(splitDate[1]))) {
+                    filteredList.add(event);
+                }
+            } else if (userTaskList.getTask(i) instanceof Deadlined) {
+                Deadlined deadlined = (Deadlined) userTaskList.getTask(i);
+                if (deadlined.isOnDate(LocalDate.parse(splitDate[1]))) {
+                    filteredList.add(deadlined);
+                }
+            }
         }
     }
 
@@ -271,7 +310,6 @@ public class WansBot {
         default:
             return ui.handleUnrecognisedInput(userInput);
         }
-
         return response;
     }
 }
