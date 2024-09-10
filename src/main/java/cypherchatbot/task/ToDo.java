@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toStringinFile() {
+    public String toStringInFile() {
         int val = this.completed ? 1 : 0;
         return String.format("T|%d|%s", val, this.description);
     }
