@@ -91,5 +91,15 @@ public class Parser {
         }
         return sbr.toString();
     }
+
+    /**
+     * Returns the string that shows that the task has been marked
+     * @param task
+     * @param index
+     * @return
+     */
+    public static String markTaskAsDone(Task task, int index) {
+        return "";
+    }
 }
 
