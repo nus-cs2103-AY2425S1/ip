@@ -1,9 +1,14 @@
-package tecna;
+package tecna.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
+
+import tecna.JsonLoadingException;
+
+import tecna.Deadline;
+import tecna.JsonLoadingExceptionType;
 
 /**
  * Parses the task of Deadline type from a JSONObject.
