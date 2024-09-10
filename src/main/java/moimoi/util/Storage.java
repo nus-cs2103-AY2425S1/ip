@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import moimoi.util.exception.InvalidDateTimeRangeException;
 import moimoi.util.exception.MoiMoiException;
 import moimoi.util.exception.StorageCorruptedException;
 import moimoi.util.exception.StorageIoException;
@@ -79,8 +80,10 @@ public class Storage {
      *
      * @param taskInfo Task information.
      * @return Task corresponding to the specified information.
+     * @throws StorageCorruptedException If any part of the task information is missing or invalid,
+     *                                   i.e., the storage is corrupted.
      */
-    private Task createTask(String[] taskInfo) throws MoiMoiException {
+    private Task createTask(String[] taskInfo) throws StorageCorruptedException {
         try {
             Task task;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -90,27 +93,23 @@ public class Storage {
                 task = new Todo(taskInfo[2]);
                 break;
             case D:
-                LocalDateTime by = LocalDateTime.parse(taskInfo[3], formatter);
-                task = new Deadline(taskInfo[2], by);
+                LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], formatter);
+                task = new Deadline(taskInfo[2], deadline);
                 break;
             case E:
-                LocalDateTime from = LocalDateTime.parse(taskInfo[3], formatter);
-                LocalDateTime to = LocalDateTime.parse(taskInfo[4], formatter);
-                task = new Event(taskInfo[2], from, to);
+                LocalDateTime start = LocalDateTime.parse(taskInfo[3], formatter);
+                LocalDateTime end = LocalDateTime.parse(taskInfo[4], formatter);
+                task = new Event(taskInfo[2], start, end);
                 break;
             default:
                 throw new StorageCorruptedException();
             }
 
-            String taskStatusIcon = taskInfo[1];
-            if (taskStatusIcon.equals("X")) {
-                task.mark();
-            } else if (!taskStatusIcon.equals(" ")) {
-                throw new StorageCorruptedException();
-            }
+            this.setTaskStatus(task, taskInfo[1]);
 
             return task;
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException
+                 | InvalidDateTimeRangeException e) {
             throw new StorageCorruptedException();
         }
     }
@@ -128,6 +127,23 @@ public class Storage {
             file.createNewFile();
         } catch (IOException e) {
             throw new StorageIoException();
+        }
+    }
+
+    /**
+     * Sets status of the specified task, according to its status icon retrieved from storage.
+     *
+     * @param task Task whose status is to be set.
+     * @param taskStatusIcon Status icon of the task.
+     * @throws StorageCorruptedException If the task's status icon is invalid, i.e., the storage is corrupted.
+     */
+    private void setTaskStatus(Task task, String taskStatusIcon) throws StorageCorruptedException {
+        if (taskStatusIcon.equals("X")) {
+            task.mark();
+        } else if (taskStatusIcon.equals(" ")) {
+            task.unmark();
+        } else {
+            throw new StorageCorruptedException();
         }
     }
 

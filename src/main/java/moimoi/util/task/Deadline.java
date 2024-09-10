@@ -9,17 +9,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    protected LocalDateTime deadline;
 
     /**
      * Constructs a deadline task of the specified description and deadline.
      *
      * @param description Task description.
-     * @param by Task deadline.
+     * @param deadline Task deadline.
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(TaskEnum.D, description);
-        this.by = by;
+        this.deadline = deadline;
     }
 
     /**
@@ -30,11 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean occursOn(LocalDate date) {
-        if (this.by.toLocalDate().isEqual(date)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.deadline.toLocalDate().isEqual(date);
     }
 
     /**
@@ -45,7 +41,7 @@ public class Deadline extends Task {
     @Override
     public String stringUI() {
         return super.stringUI() + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")";
+                + this.deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")";
     }
 
     /**
@@ -56,7 +52,7 @@ public class Deadline extends Task {
     @Override
     public String stringStorage() {
         return super.stringStorage() + " | "
-                + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }

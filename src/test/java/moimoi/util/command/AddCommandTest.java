@@ -21,7 +21,7 @@ public class AddCommandTest {
     private TaskList tasks = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         AddCommand addCommand = new AddCommand(CommandEnum.TODO, "dummy");
         assertFalse(addCommand.isExit());
     }

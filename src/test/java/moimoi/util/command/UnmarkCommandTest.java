@@ -22,7 +22,7 @@ public class UnmarkCommandTest {
     private TaskList tasks = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         this.tasks.add(this.task);
         UnmarkCommand unmarkCommand = new UnmarkCommand("1");
         assertFalse(unmarkCommand.isExit());

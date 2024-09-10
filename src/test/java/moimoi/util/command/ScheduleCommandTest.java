@@ -14,22 +14,22 @@ import moimoi.util.exception.InvalidDateTimeException;
 import moimoi.util.exception.MoiMoiException;
 import moimoi.util.task.Task;
 
-public class FilterCommandTest {
+public class ScheduleCommandTest {
 
     private Storage storage;
     private TaskList tasks = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void testisExit() {
-        FilterCommand filterCommand = new FilterCommand("2024-08-24");
-        assertFalse(filterCommand.isExit());
+    public void testIsExit() {
+        ScheduleCommand scheduleCommand = new ScheduleCommand("2024-08-24");
+        assertFalse(scheduleCommand.isExit());
     }
 
     @Test
     public void execute_invalidDate_invalidDateTimeExceptionThrown() {
         try {
-            FilterCommand filterCommand = new FilterCommand("2024/08/24");
-            filterCommand.execute(this.storage, this.tasks);
+            ScheduleCommand scheduleCommand = new ScheduleCommand("2024/08/24");
+            scheduleCommand.execute(this.storage, this.tasks);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidDateTimeException("date").getMessage(), e.getMessage());
@@ -39,8 +39,8 @@ public class FilterCommandTest {
     @Test
     public void execute_validDate_success() {
         try {
-            FilterCommand filterCommand = new FilterCommand("2024-08-24");
-            filterCommand.execute(this.storage, this.tasks);
+            ScheduleCommand scheduleCommand = new ScheduleCommand("2024-08-24");
+            scheduleCommand.execute(this.storage, this.tasks);
         } catch (MoiMoiException e) {
             fail();
         }

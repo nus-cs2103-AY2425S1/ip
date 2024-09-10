@@ -5,10 +5,10 @@ import moimoi.util.command.Command;
 import moimoi.util.command.CommandEnum;
 import moimoi.util.command.DeleteCommand;
 import moimoi.util.command.ExitCommand;
-import moimoi.util.command.FilterCommand;
 import moimoi.util.command.FindCommand;
 import moimoi.util.command.ListCommand;
 import moimoi.util.command.MarkCommand;
+import moimoi.util.command.ScheduleCommand;
 import moimoi.util.command.UnmarkCommand;
 import moimoi.util.exception.InvalidCommandException;
 import moimoi.util.exception.MissingArgumentException;
@@ -44,8 +44,8 @@ public class Parser {
                 return new UnmarkCommand(Parser.extractArgs(commandArgs));
             case LIST:
                 return new ListCommand();
-            case FILTER:
-                return new FilterCommand(Parser.extractArgs(commandArgs));
+            case SCHEDULE:
+                return new ScheduleCommand(Parser.extractArgs(commandArgs));
             case FIND:
                 return new FindCommand(Parser.extractArgs(commandArgs));
             case BYE:
@@ -69,11 +69,12 @@ public class Parser {
      */
     private static String extractArgs(String[] commandArgs) throws MissingArgumentException {
         String args = commandArgs[1];
+
         if (args.isEmpty()) {
             throw new MissingArgumentException();
-        } else {
-            return args;
         }
+
+        return args;
     }
 
 }

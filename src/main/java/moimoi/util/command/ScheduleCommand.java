@@ -12,7 +12,7 @@ import moimoi.util.task.Task;
 /**
  * Represents a command to filter the task list, by a specific occurring date.
  */
-public class FilterCommand extends Command {
+public class ScheduleCommand extends Command {
 
     private String dateString;
 
@@ -21,7 +21,7 @@ public class FilterCommand extends Command {
      *
      * @param dateString Date to be checked against tasks' scheduled dates.
      */
-    public FilterCommand(String dateString) {
+    public ScheduleCommand(String dateString) {
         super(false);
         this.dateString = dateString;
     }
@@ -41,8 +41,8 @@ public class FilterCommand extends Command {
             LocalDate date = LocalDate.parse(this.dateString);
             StringBuilder completionMessage = new StringBuilder("Here's your list of tasks, occurring on "
                     + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
-
             boolean isEmpty = true;
+
             for (int i = 1; i <= tasks.getSize(); i = i + 1) {
                 Task task = tasks.get(i);
                 if (task.occursOn(date)) {
@@ -52,7 +52,7 @@ public class FilterCommand extends Command {
             }
 
             if (isEmpty) {
-                completionMessage.append("\n(No such tasks found...)");
+                completionMessage.append("\n(No tasks found!!!)");
             }
 
             return completionMessage.toString();

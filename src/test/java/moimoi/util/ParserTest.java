@@ -21,7 +21,8 @@ public class ParserTest {
             Parser.parse("mark 2");
             Parser.parse("unmark 3");
             Parser.parse("LIST");
-            Parser.parse("filter 2024-08-22");
+            Parser.parse("schedule 2024-08-22");
+            Parser.parse("find happiness");
             Parser.parse("Bye");
         } catch (MoiMoiException e) {
             fail();

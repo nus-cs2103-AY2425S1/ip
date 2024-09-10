@@ -22,7 +22,7 @@ public class MarkCommandTest {
     private TaskList tasks = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void testisExit() {
+    public void testIsExit() {
         this.tasks.add(this.task);
         MarkCommand markCommand = new MarkCommand("1");
         assertFalse(markCommand.isExit());
