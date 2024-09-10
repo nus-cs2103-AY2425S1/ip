@@ -38,7 +38,7 @@ public class Ahmad extends Application {
 
             response.getResponse().forEach(message -> Ui.print(message, mainController::pushBotMessage));
 
-            if (response.shouldExit()) {
+            if (response.checkShouldExit()) {
                 return true;
             }
 

@@ -38,11 +38,11 @@ public class Parser {
         case "bye":
             return Exit::process;
         case "todo":
-            return Add::todo;
+            return Add::createTodo;
         case "deadline":
-            return Add::deadline;
+            return Add::createDeadline;
         case "event":
-            return Add::event;
+            return Add::createEvent;
         case "delete":
             return Delete::process;
         case "find":

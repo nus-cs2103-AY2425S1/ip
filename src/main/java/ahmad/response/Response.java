@@ -7,19 +7,19 @@ import java.util.List;
  */
 public class Response {
     private final List<String> response;
-    private final boolean exit;
+    private final boolean shouldExit;
     private final boolean shouldRecord;
 
     /**
      * Constructs a response instance based on given arguments.
      *
      * @param response     A list of string to be printed to output.
-     * @param exit         Whether program should exit.
+     * @param shouldExit         Whether program should exit.
      * @param shouldRecord Whether command is to be saved.
      */
-    public Response(List<String> response, boolean exit, boolean shouldRecord) {
+    public Response(List<String> response, boolean shouldExit, boolean shouldRecord) {
         this.response = response;
-        this.exit = exit;
+        this.shouldExit = shouldExit;
         this.shouldRecord = shouldRecord;
     }
 
@@ -28,11 +28,11 @@ public class Response {
      * ShouldRecord defaults to false.
      *
      * @param response A list of string to be printed to output.
-     * @param exit     Whether program should exit.
+     * @param shouldExit     Whether program should exit.
      */
-    public Response(List<String> response, boolean exit) {
+    public Response(List<String> response, boolean shouldExit) {
         this.response = response;
-        this.exit = exit;
+        this.shouldExit = shouldExit;
         this.shouldRecord = false;
     }
 
@@ -45,7 +45,7 @@ public class Response {
      */
     public Response(List<String> response) {
         this.response = response;
-        this.exit = false;
+        this.shouldExit = false;
         this.shouldRecord = false;
     }
 
@@ -63,8 +63,8 @@ public class Response {
      *
      * @return ShouldExit boolean.
      */
-    public boolean shouldExit() {
-        return this.exit;
+    public boolean checkShouldExit() {
+        return this.shouldExit;
     }
 
     /**
