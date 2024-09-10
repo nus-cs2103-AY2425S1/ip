@@ -36,6 +36,15 @@ public class Deadline extends TaskWithDate {
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (object instanceof Deadline) {
+            Deadline compared = (Deadline) object;
+            return super.equals(compared) && this.localDate.equals(compared.localDate);
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[" + this.symbol + "]"
                 + super.toString()

@@ -43,6 +43,17 @@ public class Event extends TaskWithDate {
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (object instanceof Event) {
+            Event compared = (Event) object;
+            return super.equals(compared)
+                    && this.startDate.equals(compared.startDate)
+                    && this.endDate.equals(compared.endDate);
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[" + this.symbol + "]"
                 + super.toString()
