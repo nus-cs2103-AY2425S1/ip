@@ -1,10 +1,11 @@
 package nextgpt;
 
 import java.io.IOException;
+
 import nextgpt.command.Command;
 
 /**
- * Driver class for Next GPT chat bot.
+ * Driver class for Next GPT chatbot.
  */
 public class NextGPT {
     protected Storage storage;
@@ -27,31 +28,6 @@ public class NextGPT {
             tasks = new TaskList();
         }
     }
-
-    /**
-     * Driver function to run chatbot.
-     */
-    public void run() {
-        boolean isExit = false;
-        ui.openingMessage();
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (NextGPTException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Run chatbot.
-     */
-    //public static void main(String[] args) {
-    //    new NextGPT("./data/tasks.txt").run();
-    //}
 
 
     /**

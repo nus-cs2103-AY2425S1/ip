@@ -1,19 +1,21 @@
 package nextgpt.command;
 
-import nextgpt.TaskList;
-import nextgpt.NextGPTException;
-import nextgpt.Storage;
-import nextgpt.Ui;
-import nextgpt.task.Task;
 
 import java.io.IOException;
+
+import nextgpt.NextGPTException;
+import nextgpt.task.Task;
+import nextgpt.TaskList;
+import nextgpt.Ui;
+import nextgpt.Storage;
+
 
 /**
  * Subclass of Command that deletes tasks from task list
  */
-public class DeleteCommand extends Command {
-    int index;
 
+public class DeleteCommand extends Command{
+    private int index;
     public DeleteCommand(int index) {
         this.index = index;
     }
