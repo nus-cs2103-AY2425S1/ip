@@ -13,6 +13,8 @@ import tasks.TaskTypes;
 import tasks.ToDos;
 
 public class CommandParser {
+    private final static String MESSAGE_ONLIST = "Here are the tasks in your list: ";
+
     /**
      * Parses and performs actions for the given command.
      *
@@ -24,7 +26,7 @@ public class CommandParser {
     public static String parseCommand(String input, TaskList tl, Storage store) {
         String response = "";
         if (input.startsWith("list")) {
-            response += "Here are the tasks in your list: ";
+            response += MESSAGE_ONLIST;
             response += tl.toString();
         } else if (input.startsWith("unmark") || input.startsWith("mark")) {
             // extract integer value

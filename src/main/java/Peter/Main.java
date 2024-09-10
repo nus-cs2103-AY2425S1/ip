@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Peter using FXML.
  */
 public class Main extends Application {
-
     private Peter peter = new Peter();
 
     @Override

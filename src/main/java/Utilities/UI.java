@@ -2,7 +2,9 @@ package utilities;
 
 import tasks.Task;
 
-// Handles all system interactions
+/**
+ * Generates system messages for the application.
+ */
 public class Ui {
     public static String updateUserOnAddition(String name, int size) {
         String message = "";
