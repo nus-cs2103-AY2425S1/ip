@@ -37,13 +37,6 @@ public class Struggling {
         }
     }
 
-    //    /**
-    //     * Starts the chatbot.
-    //     */
-    //    public static void main(String[] args) {
-    //        new Struggling("data/Struggling.txt").run();
-    //    }
-
     public String getResponse(String input) {
         try {
             assert tasks != null : "Invalid tasks object";
@@ -62,27 +55,5 @@ public class Struggling {
 
         return ui.getMessage();
     }
-
-    //    /**
-    //     * Start the chatbot.
-    //     */
-    //    public void run() {
-    //        ui.showWelcome();
-    //        boolean isExit = false;
-    //        while (!isExit) {
-    //            try {
-    //                String cmd = ui.readCommand();
-    //                Command c = Parser.parse(cmd);
-    //                c.execute(tasks, ui, storage);
-    //                isExit = c.isExit();
-    //            } catch (IllegalArgumentException e) {
-    //                ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
-    //            } catch (StrugglingException e) {
-    //                ui.showError(e.getMessage());
-    //            } catch (IOException e) {
-    //                ui.showError("Fail to save task, please contact developer!");
-    //            }
-    //        }
-    //    }
 }
 

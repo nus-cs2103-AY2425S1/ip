@@ -21,6 +21,10 @@ import struggling.task.ToDo;
  */
 public class Parser {
 
+    private static final int TODO_DESCRIPTION_INDEX = 5;
+    private static final int DEADLINE_DESCRIPTION_INDEX = 9;
+    private static final int EVENT_DESCRIPTION_INDEX = 6;
+
     /**
      * Parses the full command and creates Command
      * object with arguments.
@@ -46,33 +50,11 @@ public class Parser {
             assert unmarkIndex >= 0 : "index should be >= 0";
             return new UnmarkCommand(unmarkIndex);
         case todo:
-            try {
-                Task todo = new ToDo(cmd.substring(5));
-                return new AddCommand(todo);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new StrugglingException("OOPS!!! The description of a todo cannot be empty.");
-            }
+            return new AddCommand(createTodo(cmd));
         case deadline:
-            int byIndex = cmd.indexOf("/by ");
-
-            String dDescription = cmd.substring(9, byIndex).trim();
-            LocalDate dBy = LocalDate.parse(cmd.substring(byIndex + 4));
-
-            Task deadline = new Deadline(dDescription, dBy);
-            return new AddCommand(deadline);
+            return new AddCommand(createDeadline(cmd));
         case event:
-            int fromIndex = cmd.indexOf("/from ");
-            int toIndex = cmd.indexOf("/to ");
-
-            assert fromIndex >= 0 : "index should be >= 0";
-            assert toIndex >= 0 : "index should be >= 0";
-
-            String eDescription = cmd.substring(6, fromIndex).trim();
-            String eFrom = cmd.substring(fromIndex + 6, toIndex).trim();
-            String eTo = cmd.substring(toIndex + 4);
-
-            Task event = new Event(eDescription, eFrom, eTo);
-            return new AddCommand(event);
+            return new AddCommand(createEvent(cmd));
         case delete:
             int deleteIndex = Integer.parseInt(args[1]) - 1;
             assert deleteIndex >= 0 : "index should be >= 0";
@@ -82,6 +64,41 @@ public class Parser {
         default:
             return new InvalidCommand();
         }
+    }
+
+    private static ToDo createTodo(String cmd) {
+        try {
+            String description = cmd.substring(TODO_DESCRIPTION_INDEX);
+            return new ToDo(description);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new StrugglingException("OOPS!!! The description of a todo cannot be empty.");
+        }
+    }
+
+    private static Task createDeadline(String cmd) {
+        final String byKeyword = "/by ";
+        int byIndex = cmd.indexOf(byKeyword) + byKeyword.length();
+
+        String description = cmd.substring(DEADLINE_DESCRIPTION_INDEX, cmd.indexOf(byKeyword)).trim();
+        LocalDate by = LocalDate.parse(cmd.substring(byIndex));
+
+        return new Deadline(description, by);
+    }
+
+    private static Task createEvent(String cmd) {
+        final String fromKeyword = "/from ";
+        final String toKeyword = "/to ";
+        int fromIndex = cmd.indexOf(fromKeyword) + fromKeyword.length();
+        int toIndex = cmd.indexOf(toKeyword) + toKeyword.length();
+
+        assert fromIndex >= 0 : "index should be >= 0";
+        assert toIndex >= 0 : "index should be >= 0";
+
+        String description = cmd.substring(EVENT_DESCRIPTION_INDEX, cmd.indexOf(fromKeyword)).trim();
+        String from = cmd.substring(fromIndex, toIndex).trim();
+        String to = cmd.substring(toIndex);
+
+        return new Event(description, from, to);
     }
 
     /**
