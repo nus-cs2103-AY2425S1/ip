@@ -45,6 +45,9 @@ public class CommandTypeTest {
             case FIND:
                 assertTrue(command instanceof FindCommand);
                 break;
+            case SCHEDULE:
+                assertTrue(command instanceof ScheduleCommand);
+                break;
             default:
                 fail("Unknown command type");
             }

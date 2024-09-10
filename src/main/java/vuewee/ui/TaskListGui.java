@@ -9,6 +9,7 @@ import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.Task;
 import vuewee.task.TaskList;
+import vuewee.task.TaskLocalDate;
 import vuewee.ui.gui.VueweeGui;
 
 /**
@@ -81,6 +82,22 @@ public class TaskListGui extends TaskListUi {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             sb.append("  ").append(i + 1).append(". ").append(task.toString()).append("\n");
+        }
+        VueweeGui.sendMessage(sb.toString());
+    }
+
+    @Override
+    public void displaySchedule(TaskLocalDate date) {
+        TaskList tasks = this.taskList.getTasksOnDate(date);
+        if (tasks.size() == 0) {
+            VueweeGui.sendMessage("No tasks scheduled for " + date.toString());
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks scheduled for " + date.toString() + ":\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            sb.append("  " + (i + 1) + ". " + task.toString() + "\n");
         }
         VueweeGui.sendMessage(sb.toString());
     }

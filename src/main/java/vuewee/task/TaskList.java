@@ -130,4 +130,20 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Finds tasks that are scheduled for the specified date.
+     *
+     * @param date the date to search for
+     * @return ArrayList containing tasks that are scheduled for the specified date
+     */
+    public TaskList getTasksOnDate(TaskLocalDate date) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.isWithinDateRange(date)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

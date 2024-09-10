@@ -68,4 +68,15 @@ public class TodoTask extends Task {
                 + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER);
     }
 
+    /**
+     * Checks if the date is within the task's date range. Returns false as todo
+     * tasks do not have a date range.
+     *
+     * @param date The date to check.
+     * @return Always returns false as todo tasks do not have a date range.
+     */
+    @Override
+    public boolean isWithinDateRange(TaskLocalDate date) {
+        return false;
+    }
 }
