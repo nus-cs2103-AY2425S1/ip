@@ -25,24 +25,22 @@ public class Parser {
      * @throws YapBotException If no command was entered or if the command is invalid.
      */
     public static Command parse(String input) throws YapBotException {
+        if (input.isEmpty()) {
+            throw new YapBotException("Error, User Input Prediction module offline.\nManual input required.");
+        }
 
-        // Remove leading and trailing whitespace from user input
-        input = input.strip();
-        int spaceCharPos = input.indexOf(" ");
+        String strippedInput = input.strip();
+        int spaceCharPos = strippedInput.indexOf(" ");
+
         String command;
         String commandDetails;
 
-        // Parse user input and separates out command from other details
         if (spaceCharPos == -1) {
-            command = input;
+            command = strippedInput;
             commandDetails = "";
         } else {
-            command = input.substring(0, input.indexOf(" "));
-            commandDetails = input.substring(input.indexOf(" ") + 1).strip();
-        }
-
-        if (command.isEmpty()) {
-            throw new YapBotException("Error, User Input Prediction module offline.\nManual input required.");
+            command = strippedInput.substring(0, input.indexOf(" "));
+            commandDetails = strippedInput.substring(input.indexOf(" ") + 1).strip();
         }
 
         switch (command) {

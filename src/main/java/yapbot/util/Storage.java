@@ -122,8 +122,6 @@ public class Storage {
 
             s.close();
             return result;
-        } catch (FileNotFoundException e) {
-            return new ArrayList<>();
         } catch (IOException e) {
             throw new YapBotException("Error, save file could not be created."
                     + "\nYour tasks from this session will not be saved.");
