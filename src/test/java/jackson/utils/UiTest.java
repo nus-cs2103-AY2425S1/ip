@@ -2,101 +2,95 @@ package jackson.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import jackson.exceptions.DuplicatedTaskException;
+import jackson.tasks.Todo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UiTest {
 
-    /* instance variable to capture baos stream*/
-    private ByteArrayOutputStream stream;
+    @Test
+    public void printFormatGuide_invalidInput_correctFormatGuide() {
+        Ui ui = new Ui();
 
-    /* Save old PrintStream to reset System.setOut here */
-    private PrintStream old;
+        assertEquals("""
+                    More about bye:
+                        --> bye
+                    Exits the chatbot.""", ui.printFormatGuide("bye"));
 
-    @BeforeEach
-    public void setup() {
-        this.stream = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(stream); // connect print stream to byte array output stream
-        this.old = System.out; // save old stream
-        System.setOut(ps); // redirect system out to print stream
-    }
+        assertEquals("""
+                    More about delete:
+                        --> delete [index]
+                    Deletes task at index [index].""", ui.printFormatGuide("delete"));
 
-    @AfterEach
-    public void teardown() {
-        // reset system out back to previous print stream
-        System.out.flush();
-        System.setOut(this.old);
+        assertEquals( """
+                    More about unmark:
+                        --> unmark [index]
+                    Marks task at index [index] as incomplete.""", ui.printFormatGuide("unmark"));
+
+        assertEquals( """
+                    More about mark:
+                        --> mark [index]
+                    Marks task at index [index] as complete.""", ui.printFormatGuide("mark"));
+
+        assertEquals( """
+                    More about list:
+                        --> list
+                    Lists all tasks.""", ui.printFormatGuide("list"));
+
+        assertEquals( """
+                    More about find:
+                        --> find [keywords]
+                    Finds tasks that contain the keyword(s) in their names.""", ui.printFormatGuide("find"));
+
+        assertEquals( """
+                    More about event:
+                        --> event [task-name] /from [start-date] /to [end-date]
+                    Creates an event class.
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
+                ui.printFormatGuide("event"));
+
+        assertEquals( """
+                    More about deadline:
+                        --> deadline [task-name] /by [due-date]
+                    Creates a deadline task.
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
+                ui.printFormatGuide("deadline"));
+
+        assertEquals( """
+                    More about todo:
+                        --> todo [task-name]
+                    Creates a todo task.
+                    No dates allowed at all.""", ui.printFormatGuide("todo"));
+
+        assertEquals( """
+                    More about sort:
+                        --> sort [attribute] [/a or /d]
+                    where attribute is one of: 'name', 'startdatetime', 'enddatetime', 'tasktype', 'status'""" + """
+                    and /a is ascending, whilst /d is for descending""", ui.printFormatGuide("sort"));
     }
 
     @Test
-    public void printFormatGuide_validInput_correctFormatGuide() {
+    public void printIndexGuide_invalidInput_correctIndexErrorMessage() {
         Ui ui = new Ui();
-        String prefix = "Wrong format leh...\r\nTry formatting your command as such:\r\n"; // prefix
+        TaskList taskList = new TaskList();
+        try {
+            assertEquals("""
+                    Alamak, you got 0 items on the list only leh...
+                        --> You've got no items in the list! Add some stuff first!""", ui.printIndexGuide(taskList));
 
-        ui.printFormatGuide("bye");
-        assertEquals(prefix + "bye", this.stream.toString().strip());
-        this.stream.reset();
+            taskList.addTask(new Todo("Play guitar"));
+            assertEquals("""
+                    Alamak, you got 1 items on the list only leh...
+                        --> Enter 1 to mark/unmark/delete the task in the list!""", ui.printIndexGuide(taskList));
 
-        ui.printFormatGuide("delete");
-        assertEquals(prefix + "delete [index]", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("unmark");
-        assertEquals(prefix + "unmark [index]", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("mark");
-        assertEquals(prefix + "mark [index]", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("list");
-        assertEquals(prefix + "list", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("find");
-        assertEquals(prefix + "find [keywords]", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("event");
-        assertEquals(prefix + """
-                event [task-name] /from [start-date] /to [end-date]\r
-                All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("deadline");
-        assertEquals(prefix + """
-                deadline [task-name] /by [due-date]\r
-                All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""", this.stream.toString().strip());
-        this.stream.reset();
-
-        ui.printFormatGuide("todo");
-        assertEquals(prefix + "todo [task-name]", this.stream.toString().strip());
-        this.stream.reset();
-    }
-
-    @Test
-    public void printFormatGuide_invalidInput_genericErrorFormat() {
-        Ui ui = new Ui();
-        String prefix = "Wrong format leh...\r\nTry formatting your command as such:\r\n"; // prefix
-
-        ui.printFormatGuide("list list");
-        assertEquals(prefix + "Unknown error...", stream.toString().strip());
-        stream.reset();
-
-        ui.printFormatGuide("unmark 1");
-        assertEquals(prefix + "Unknown error...", stream.toString().strip());
-        stream.reset();
-
-        ui.printFormatGuide("todo event");
-        assertEquals(prefix + "Unknown error...", stream.toString().strip());
-        stream.reset();
-
-        ui.printFormatGuide("find keyword");
-        assertEquals(prefix + "Unknown error...", stream.toString().strip());
-        stream.reset();
+            taskList.addTask(new Todo("I'm only human after all"));
+            assertEquals("""
+                    Alamak, you got 2 items on the list only leh...
+                        --> Enter a number between 1 and 2 when marking/unmarking/deleting tasks!""",
+                    ui.printIndexGuide(taskList));
+        } catch (DuplicatedTaskException e) {
+            Assertions.fail("Error thrown incorrectly by taskList!");
+        }
     }
 }
