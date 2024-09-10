@@ -29,4 +29,9 @@ public class UnmarkCommand extends Command {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Task unmarked";
+    }
+
 }

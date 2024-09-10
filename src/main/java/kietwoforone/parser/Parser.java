@@ -14,7 +14,7 @@ public class Parser {
     }
 
     public static boolean isCompleteInput(String[] input) throws KieTwoForOneException {
-        if (input.length <= 1 && !input[0].equalsIgnoreCase("list") && !input[0].equalsIgnoreCase("bye")) {
+        if (input.length < 2 && !input[0].equalsIgnoreCase("list") && !input[0].equalsIgnoreCase("bye")) {
             throw new KieTwoForOneException("Your instruction is incomplete!");
         }
         return true;

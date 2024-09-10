@@ -14,4 +14,9 @@ public class ByeCommand extends Command {
     public boolean isExit() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Bye";
+    }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static ArrayList<Task> tasks = new ArrayList<>(100);
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -25,10 +25,6 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new KieTwoForOneException(String.format("No task at index %d!", position));
         }
-    }
-
-    public int countTasks() {
-        return this.tasks.size();
     }
 
     public String markTask(int position) throws KieTwoForOneException {
