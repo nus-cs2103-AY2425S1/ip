@@ -1,7 +1,7 @@
 package screwllum;
 
 import screwllum.exception.ScrewllumException;
-import screwllum.tasks.*;
+import screwllum.tasks.TaskManager;
 import screwllum.utils.Parser;
 import screwllum.utils.Storage;
 import screwllum.utils.Ui;
@@ -24,6 +24,8 @@ public class Screwllum {
         } catch (IOException e) {
             ui.showError("File does not exist, creating new file");
             taskManager = new TaskManager();
+        } catch (ScrewllumException e) {
+            ui.showError(e.getMessage());
         }
     }
     
