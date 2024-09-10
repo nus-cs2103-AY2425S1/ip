@@ -12,7 +12,7 @@ public class Task {
     private final String name;
 
     /**
-     * Creates a hypebot.task with the specified name.
+     * Creates a Task with the specified name.
      *
      * @param name The name of the hypebot.task.
      */
@@ -29,35 +29,42 @@ public class Task {
     }
 
     /**
-     * Marks hypebot.task as complete by changing isComplete to true.
+     * Marks task as complete by changing isComplete to true.
      */
     public void mark() {
         this.isComplete = true;
     }
 
     /**
-     * Marks hypebot.task as incomplete by changing isComplete to false.
+     * Marks task as incomplete by changing isComplete to false.
      */
     public void unmark() {
         this.isComplete = false;
     }
 
+    /**
+     * Takes in a LocalDate object representing a search date
+     * and returns whether the event is happening on the given date.
+     *
+     * @param date LocalDate object representing a date.
+     * @return False - Task base class does not have a date associated.
+     */
     public boolean isHappeningOn(LocalDate date) {
         return false;
     }
 
     /**
-     * Returns the String description of the hypebot.task to append to /data/tasklist.txt.
+     * Returns the String description of the task to append to /data/tasklist.txt.
      * Should not be accessed at runtime.
      *
-     * @return String description of hypebot.task to append to /data/tasklist.txt.
+     * @return String description of task to append to /data/tasklist.txt.
      */
     public String toFileString() {
         return "N , 0 , T\n";
     }
 
     /**
-     * Returns the String representation of the hypebot.task as shown to the user on the hypebot.HypeBot UI.
+     * Returns the String representation of the task as shown to the user on the hypebot.HypeBot UI.
      * Should be in this form: "[{X only if complete}] {name}".
      *
      * @return String representation of hypebot.task as shown on hypebot.HypeBot UI.

@@ -36,6 +36,13 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Takes in a LocalDate object representing a search date
+     * and returns whether the Deadline is happening on the given date.
+     *
+     * @param date LocalDate object representing a date.
+     * @return Whether the Deadline is happening on the given date.
+     */
     @Override
     public boolean isHappeningOn(LocalDate date) {
         return dueDate.isEqual(date);
