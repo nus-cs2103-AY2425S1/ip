@@ -24,6 +24,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     * Loads the FXML layout for the dialog box and sets the text and image.
+     *
+     * @param text The text to display in the dialog.
+     * @param img  The image to display representing the speaker.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -48,10 +55,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user with the specified text and image.
+     *
+     * @param text The text to display in the user's dialog.
+     * @param img  The image to represent the user.
+     * @return A DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for the "Duke" (or chatbot) with the specified text and image.
+     * The dialog box will be flipped so that the image appears on the left.
+     *
+     * @param text The text to display in Duke's dialog.
+     * @param img  The image to represent Duke (or chatbot).
+     * @return A flipped DialogBox representing Duke's dialog.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

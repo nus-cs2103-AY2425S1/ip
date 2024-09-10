@@ -16,6 +16,12 @@ public class Main extends Application {
 
     private Jar jar = new Jar("./data/jar.txt");
 
+    /**
+     * Starts the JavaFX application.
+     * Sets up the primary stage and loads the FXML layout for the main window.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
