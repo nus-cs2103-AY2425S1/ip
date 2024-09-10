@@ -8,6 +8,7 @@ import java.util.Objects;
 public abstract class Task {
     private boolean isComplete;
     private final String description;
+    private String note;
 
     /**
      * Sets the description for all task type.
@@ -17,13 +18,26 @@ public abstract class Task {
     public Task(String description) {
         this.isComplete = false;
         this.description = description;
+        this.note = "";
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void addNote(String note) {
+        if (this.note.isEmpty()) {
+            this.note = note;
+        } else {
+            this.note += "\n" + note;
+        }
     }
 
     /**
      * Sets the description and complete flag for all task type.
      *
      * @param description Is the description of the task.
-     * @param completed Is the complete flag.
+     * @param isComplete Is the complete flag.
      */
     public Task(String description, boolean isComplete) {
         this.isComplete = isComplete;
