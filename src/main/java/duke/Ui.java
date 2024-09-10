@@ -19,6 +19,10 @@ public class Ui {
                 "____________________________________________________________\n");
     }
 
+    public static String getWelcomeMessage() {
+        return " Hello! I'm " + "Meow" + "\n" +
+                " What can I do for you?\n";
+    }
     /**
      * Displays the goodbye message when the application closes.
      */
@@ -51,5 +55,9 @@ public class Ui {
      */
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    public String getMessage(String message) {
+        return message;
     }
 }
