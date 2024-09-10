@@ -46,7 +46,7 @@ public class EventCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showMessage("Event description and duration cannot be empty");
         } catch (DateTimeParseException e) {
-            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
+            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {
             ui.showHorizontalLine();
         }

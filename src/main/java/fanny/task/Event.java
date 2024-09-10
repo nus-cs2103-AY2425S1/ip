@@ -28,6 +28,20 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs an {@code Event} with the specified duration as a string.
+     *
+     * @param description The description of the task.
+     * @param startTime The start time of the event in string format.
+     * @param endTime The end time of the event in string format.
+     */
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+        this.startTime = LocalDateTime.parse(startTime, formatter);;
+        this.endTime = LocalDateTime.parse(endTime, formatter);;
+    }
+
+    /**
      * Returns a string representation of the event, including its status,
      * description, start time, and end time.
      *

@@ -45,7 +45,7 @@ public class DeadlineCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showMessage("Task description and deadline cannot be empty");
         } catch (DateTimeParseException e) {
-            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
+            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {
             ui.showHorizontalLine();
         }

@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -47,12 +45,11 @@ public class Storage {
             return tasks;
         }
 
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = parseTask(line);
-                tasks.add(task);
-            }
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Task task = parseTask(line);
+            tasks.add(task);
         }
 
         return tasks;
@@ -84,27 +81,21 @@ public class Storage {
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
 
         Task task;
+
         switch (taskType) {
         case "T":
             task = new ToDo(description);
             break;
         case "D":
-            String by = parts[3].trim();
-            LocalDateTime byDate = LocalDateTime.parse(parts[3].trim(), formatter);
-            task = new Deadline(description, byDate);
+            task = new Deadline(description, parts[3].trim());
             break;
         case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
-            LocalDateTime fromDate = LocalDateTime.parse(parts[3].trim(), formatter);
-            LocalDateTime toDate = LocalDateTime.parse(parts[4].trim(), formatter);
-            task = new Event(description, fromDate, toDate);
+            task = new Event(description, parts[3].trim(), parts[4].trim());
             break;
         default:
-            throw new IllegalArgumentException("Unknown task type");
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
 
         if (isDone) {
@@ -114,6 +105,8 @@ public class Storage {
         return task;
     }
 
+
+
     /**
      * Converts a task to a string suitable for saving to a file.
      *
@@ -121,19 +114,46 @@ public class Storage {
      * @return A string representation of the task.
      */
     private String taskToString(Task task) {
-        String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
-        String isDone = task.getStatusIcon().equals("X") ? "1" : "0";
+        String taskType = getTaskType(task);
+        String isDone = task.isDone() ? "1" : "0";
         String description = task.getDescription();
-        String extra = "";
-
-        if (task instanceof Deadline) {
-            extra = "|" + ((Deadline) task).getDeadline();
-        } else if (task instanceof Event) {
-            extra = "|" + ((Event) task).getStartTime() + "|" + ((Event) task).getEndTime();
-        }
+        String extra = getTaskExtraInfo(task);
 
         return taskType + " | " + isDone + " | " + description + extra;
     }
 
+    /**
+     * Determines the task type as a string.
+     *
+     * @param task The task to evaluate.
+     * @return "T" for ToDo, "D" for Deadline, or "E" for Event.
+     */
+    private String getTaskType(Task task) {
+        if (task instanceof ToDo) {
+            return "T";
+        } else if (task instanceof Deadline) {
+            return "D";
+        } else if (task instanceof Event) {
+            return "E";
+        }
+        throw new IllegalArgumentException("Unknown task type");
+    }
+
+    /**
+     * Gets extra information for a task (e.g., deadline or event time).
+     *
+     * @param task The task to get extra information from.
+     * @return A string containing extra task information, if any.
+     */
+    private String getTaskExtraInfo(Task task) {
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return "|" + deadline.getDeadline();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return "|" + event.getStartTime() + "|" + event.getEndTime();
+        }
+        return "";
+    }
 
 }
