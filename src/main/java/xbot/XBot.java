@@ -26,26 +26,44 @@ public class XBot {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
+//        try {
+//            System.out.println("Hello!");
+//            storage.loadTask();
+//        } catch (IOException e) {
+//            System.out.println("Error loading tasks: " + e.getMessage());
+//        }
+//
+//        ui.showWelcome();
+//        String input = ui.readCommand();
+//        while (!input.equalsIgnoreCase("bye")) {
+//            try {
+//                parser.processInput(input, list, ui, storage);
+//            } catch (XBotException e) {
+//                ui.mainErrorMessage(e);
+//            }
+//            input = ui.readCommand();
+//        }
+//        ui.showBye();
+//        ui.close();
+    }
+    public String getResponse(String input) {
+        String output;
         try {
             storage.loadTask();
         } catch (IOException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
+            return ("Error loading tasks: " + e.getMessage());
         }
 
-        ui.showWelcome();
-        String input = ui.readCommand();
-        while (!input.equalsIgnoreCase("bye")) {
+//        ui.showWelcome();
+//        if (!input.equalsIgnoreCase("bye")) {
             try {
-                parser.processInput(input, list, ui, storage);
+                output = parser.processInput(input, list, ui, storage);
             } catch (XBotException e) {
-                ui.mainErrorMessage(e);
+                output = ui.mainErrorMessage(e);
             }
-            input = ui.readCommand();
-        }
-        ui.showBye();
-        ui.close();
-    }
-    public String getResponse(String input) {
-        return "XBot heard: " + input;
+//        }
+//        ui.showBye();
+//        ui.close();
+        return output;
     }
 }

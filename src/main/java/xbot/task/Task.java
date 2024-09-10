@@ -60,18 +60,18 @@ public class Task {
     /**
      * Marks the task as done and prints a confirmation message.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n"
+        return ("Nice! I've marked this task as done:\n"
                 + toString());
     }
 
     /**
      * Marks the task as undone and prints a confirmation message.
      */
-    public void markAsUndone() {
+    public String markAsUndone() {
         isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n"
+        return ("OK, I've marked this task as not done yet:\n"
                 + toString());
     }
 

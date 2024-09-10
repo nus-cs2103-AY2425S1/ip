@@ -18,16 +18,18 @@ public class Ui {
      *
      * @param list The TaskList containing the tasks to be displayed.
      */
-    public void showTaskList(TaskList list) {
+    public String showTaskList(TaskList list) {
+        String output;
         if (list.size() == 0) {
-            System.out.println("Yayy!! You have no task in your list");
+            output = ("Yayy!! You have no task in your list");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            output = ("Here are the tasks in your list:\n");
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
-                System.out.println(index + ". " + list.get(i).toString());
+                output = output + (index + ". " + list.get(i).toString() + "\n");
             }
         }
+        return output;
     }
 
     /**
@@ -38,15 +40,16 @@ public class Ui {
      *
      * @param list the list of tasks to display
      */
-    public static void showMatchingTaskList(TaskList list) {
+    public static String showMatchingTaskList(TaskList list) {
         if (list.size() == 0) {
-            System.out.println("There is no task description containing this keyword :(");
+            return ("There is no task description containing this keyword :(");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String output = ("Here are the matching tasks in your list:");
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
-                System.out.println(index + ". " + list.get(i).toString());
+                output = output + (index + ". " + list.get(i).toString());
             }
+            return output;
         }
     }
 
@@ -54,15 +57,15 @@ public class Ui {
     /**
      * Displays a welcome message to the user when the application starts.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
+    public String showWelcome() {
+        return ("Hello! I'm XBot\n" + "What can I do for you?");
     }
 
     /**
      * Displays a goodbye message to the user when the application terminates.
      */
-    public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showBye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -80,8 +83,8 @@ public class Ui {
      *
      * @param e The XBotException containing the error message to be displayed.
      */
-    public void mainErrorMessage(XBotException e) {
-        System.out.println("Oh No!! " + e.getMessage());
+    public String mainErrorMessage(XBotException e) {
+        return ("Oh No!! " + e.getMessage());
     }
 
     /**
