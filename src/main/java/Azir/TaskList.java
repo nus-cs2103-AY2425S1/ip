@@ -1,6 +1,7 @@
 package Azir;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Represents a list of tasks in the chatbot
@@ -40,5 +41,12 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public boolean isInTaskList(Task task) {
+        String[] descriptionArray = this.tasks.stream().map(t -> t.getDescription()).toArray(String[]::new);
+        boolean hasDuplicate = Arrays.stream(descriptionArray).anyMatch(description ->
+                task.getDescription().equals(description));
+        return hasDuplicate;
     }
 }
