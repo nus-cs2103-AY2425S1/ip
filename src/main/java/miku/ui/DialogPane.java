@@ -31,6 +31,7 @@ public class DialogPane extends AnchorPane {
      */
     public void add(Node node) {
         this.box.getChildren().add(node);
+        scrollPane.setVvalue(1.0);
     }
 
     /**
@@ -45,5 +46,6 @@ public class DialogPane extends AnchorPane {
                 DialogBox.getDukeDialog(reponse, new Image(getClass().getResourceAsStream("/miku.jpeg")))
         );
         inputField.clear();
+        scrollPane.setVvalue(1.0);
     }
 }

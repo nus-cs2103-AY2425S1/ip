@@ -1,5 +1,7 @@
 package miku.task;
 
+import miku.utility.Priority;
+
 /**
  * Represents a Task, which is a abstract parent class of all other task types.
  */
@@ -7,6 +9,7 @@ public abstract class Task {
     private String desc;
     private Boolean isDone = false;
     private String done = " ";
+    private Priority priority = Priority.MEDIUM;
 
     public Task(String desc) {
         this.desc = desc;
@@ -18,9 +21,10 @@ public abstract class Task {
      * @param desc
      * @param isDone
      */
-    public Task(String desc, boolean isDone) {
+    public Task(String desc, boolean isDone, Priority priority) {
         this.desc = desc;
         this.isDoneInit(isDone);
+        this.priority = priority;
     }
 
     /**
@@ -78,5 +82,11 @@ public abstract class Task {
 
     public String stringValue() {
         return ("[" + done + "] " + desc);
+    }
+    public void setPriority(Priority newPriority) {
+        this.priority = newPriority;
+    }
+    public Priority getPriority() {
+        return this.priority;
     }
 }
