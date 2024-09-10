@@ -1,12 +1,12 @@
 package lumina.task;
 
-import lumina.exception.LuminaException;
-import lumina.parser.Parser;
-import lumina.ui.Ui;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import lumina.exception.LuminaException;
+import lumina.parser.Parser;
+import lumina.ui.Ui;
 
 /**
  * Manages a list of tasks and handles various operations such as adding,
@@ -108,22 +108,22 @@ public class TaskList {
     }
 
     /**
-     * Handles the creation of a ToDo task based on the provided message.
-     * The message should be in the format: "todo <description>"
+     * Handles the creation of a Todo task based on the provided message.
+     * The message should be in the format: todo `description`
      *
      * @param msg the message containing the task description
      * @throws LuminaException if the message format is invalid
      */
     public void handleTodoTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
-        if(msgSplit.length < 2) {
+        if (msgSplit.length < 2) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "ToDo Task! Please try again");
         }
         StringBuilder builder = new StringBuilder();
-        for(int i = 1; i < msgSplit.length; i++) {
+        for (int i = 1; i < msgSplit.length; i++) {
             builder.append(msgSplit[i]);
-            if(i < msgSplit.length - 1) {
+            if (i < msgSplit.length - 1) {
                 builder.append(" ");
             }
         }
@@ -134,7 +134,7 @@ public class TaskList {
 
     /**
      * Handles the creation of a Deadline task based on the provided message.
-     * The message should be in the format: "deadline <description> /by <dateTime>"
+     * The message should be in the format: "deadline `description` /by `dateTime`"
      *
      * @param msg the message containing the task description and deadline
      * @throws LuminaException if the message format is invalid or missing required parts
@@ -142,18 +142,19 @@ public class TaskList {
 
     public void handleDeadlineTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
-        if(msgSplit.length < 4) { // need desc and bydatetime
+        if (msgSplit.length < 4) { // need desc and bydatetime
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Deadline Task! Please try again");
         }
 
         StringBuilder builder = new StringBuilder();
-        String desc = "", byDateTime = "";
+        String desc = "";
+        String byDateTime = "";
         boolean by = false;
 
-        for(int i = 1; i < msgSplit.length; i++) {
-            if(msgSplit[i].equals("/by")) {
-                if(by) {
+        for (int i = 1; i < msgSplit.length; i++) {
+            if (msgSplit[i].equals("/by")) {
+                if (by) {
                     throw new LuminaException("Oh no! Lumina detected invalid format for "
                             + "your Deadline Task.Task! Please try again");
                 }
@@ -211,7 +212,7 @@ public class TaskList {
         findTasksMessage.append("Here are the matching tasks in your list:\n");
         int count = 1;
         for (int i = 0; i < this.tasks.size(); i++) {
-            if(this.tasks.get(i).findInDescription(searchString)) {
+            if (this.tasks.get(i).findInDescription(searchString)) {
                 if (count > 1) {
                     findTasksMessage.append("\n");
                 }
@@ -225,14 +226,14 @@ public class TaskList {
 
     /**
      * Handles the creation of an Event task based on the provided message.
-     * The message should be in the format: "event <description> /from <startDateTime> /to <endDateTime>"
+     * The message should be in the format: "event `description` /from `startDateTime` /to `endDateTime`"
      *
      * @param msg the message containing the task description, start date/time, and end date/time
      * @throws LuminaException if the message format is invalid or missing required parts
      */
     public void handleEventTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
-        if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
+        if (msgSplit.length < 6) { // need desc, startDateTime, endDateTime
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Event Task! Please try again");
         }
@@ -244,11 +245,13 @@ public class TaskList {
         Type currentType = Type.DESC;
 
         StringBuilder builder = new StringBuilder();
-        String desc = "", startDateTime = "", endDateTime = "";
+        String desc = "";
+        String startDateTime = "";
+        String endDateTime = "";
         boolean from = false;
         boolean to = false;
-        for(int i = 1; i < msgSplit.length; i++) {
-            if(msgSplit[i].equals("/from")) {
+        for (int i = 1; i < msgSplit.length; i++) {
+            if (msgSplit[i].equals("/from")) {
                 if (from) {
                     throw new LuminaException("Oh no! Lumina detected invalid format for "
                             + "your Event Task! Please try again");
@@ -263,6 +266,8 @@ public class TaskList {
                 case TO:
                     endDateTime = builder.toString().trim();
                     break;
+                default:
+                    break;
                 }
                 builder = new StringBuilder();
                 from = true;
@@ -275,16 +280,19 @@ public class TaskList {
                             + "your Event Task! Please try again");
                 }
                 switch (currentType) {
-                    case DESC:
-                        desc = builder.toString().trim();
-                        break;
-                    case FROM:
-                        startDateTime = builder.toString().trim();
-                        break;
-                    case TO:
-                        endDateTime = builder.toString().trim();
-                        break;
+                case DESC:
+                    desc = builder.toString().trim();
+                    break;
+                case FROM:
+                    startDateTime = builder.toString().trim();
+                    break;
+                case TO:
+                    endDateTime = builder.toString().trim();
+                    break;
+                default:
+                    break;
                 }
+
                 builder = new StringBuilder();
                 to = true;
                 currentType = Type.TO;
@@ -301,15 +309,17 @@ public class TaskList {
                     + "Event Task! Please try again");
         }
         switch (currentType) {
-            case DESC:
-                desc = builder.toString().trim();
-                break;
-            case FROM:
-                startDateTime = builder.toString().trim();
-                break;
-            case TO:
-                endDateTime = builder.toString().trim();
-                break;
+        case DESC:
+            desc = builder.toString().trim();
+            break;
+        case FROM:
+            startDateTime = builder.toString().trim();
+            break;
+        case TO:
+            endDateTime = builder.toString().trim();
+            break;
+        default:
+            break;
         }
         if (desc.trim().isEmpty() || startDateTime.trim().isEmpty() || endDateTime.trim().isEmpty()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "

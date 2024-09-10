@@ -1,14 +1,14 @@
 package lumina.main;
 
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import lumina.exception.LuminaException;
 import lumina.parser.Parser;
 import lumina.storage.Storage;
 import lumina.task.TaskList;
 import lumina.ui.Ui;
-
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a simple chatbot.
@@ -18,13 +18,6 @@ public class Lumina {
 
     // counter for instances
     private static int luminaCount = 0;
-
-    // composed objects
-    private Ui ui;
-    private Parser parser;
-    private Storage storage;
-    private TaskList taskList;
-
 
     // commands
     private static final String ECHO_EXIT_STRING = "bye";
@@ -37,6 +30,11 @@ public class Lumina {
     private static final String ECHO_DELETE_TASK = "delete";
     private static final String ECHO_FIND_TASK = "find";
 
+    // composed objects
+    private Ui ui;
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
 
     /**
      * Constructor for the chatbot
@@ -61,10 +59,9 @@ public class Lumina {
     private void echo(Scanner sc) {
         ui.greet();
         String msg;
-        while(true) {
+        while (true) {
             System.out.println();
             msg = sc.nextLine();
-            
             String command = msg.split(" ")[0].trim();
 
             if (command.equals(Lumina.ECHO_EXIT_STRING)) {
@@ -88,7 +85,7 @@ public class Lumina {
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }
-                } catch(LuminaException e) {
+                } catch (LuminaException e) {
                     ui.printMessage(e.getMessage());
                 }
                 continue;
@@ -104,7 +101,7 @@ public class Lumina {
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }
-                } catch(LuminaException e) {
+                } catch (LuminaException e) {
                     ui.printMessage(e.getMessage());
                 }
                 continue;
@@ -112,7 +109,7 @@ public class Lumina {
             if (command.equals(Lumina.ECHO_TODO_TASK)) {
                 try {
                     taskList.handleTodoTask(msg);
-                } catch(LuminaException e) {
+                } catch (LuminaException e) {
                     ui.printMessage(e.getMessage());
                 }
                 continue;
@@ -144,7 +141,7 @@ public class Lumina {
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }
-                } catch(LuminaException e) {
+                } catch (LuminaException e) {
                     ui.printMessage(e.getMessage());
                 }
                 continue;

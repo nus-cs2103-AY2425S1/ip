@@ -40,8 +40,8 @@ public class EventTask extends Task {
 
     @Override
     public String saveString() {
-        return "E | " + super.getStatusAndDescription() + " | " +
-                startDateObject.toString() + " | " + endDateTime.toString();
+        return "E | " + super.getStatusAndDescription() + " | "
+                + startDateObject.toString() + " | " + endDateTime.toString();
     }
 
     /**
@@ -51,10 +51,10 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                this.startDateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " +
-                this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.startDateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: "
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
@@ -65,7 +65,7 @@ public class EventTask extends Task {
         if (!super.equals(o)) {
             return false;
         }
-        if(o instanceof EventTask) {
+        if (o instanceof EventTask) {
             EventTask other = (EventTask) o;
             return this.startDateObject.equals(other.startDateObject)
                     && this.endDateTime.equals(other.endDateTime);

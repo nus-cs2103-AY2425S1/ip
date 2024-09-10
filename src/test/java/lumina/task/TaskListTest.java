@@ -1,15 +1,14 @@
 package lumina.task;
 
-import lumina.exception.LuminaException;
-import lumina.parser.Parser;
-import lumina.ui.Ui;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import lumina.parser.Parser;
+import lumina.ui.Ui;
 
 public class TaskListTest {
 

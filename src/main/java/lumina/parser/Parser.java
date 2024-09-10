@@ -1,13 +1,13 @@
 package lumina.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import lumina.exception.LuminaException;
 import lumina.task.DeadlineTask;
 import lumina.task.EventTask;
 import lumina.task.Task;
 import lumina.task.TodoTask;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Utility class for parsing dates and task data.
@@ -35,7 +35,7 @@ public class Parser {
 
     /**
      * Parses a data line from the storage file into a Task object.
-     * The data line should be in the format: "<type> | <done> | <description> | <additionalData>"
+     * The data line should be in the format: "`type` | `done` | `description` | `additionalData`"
      * The type can be "T" for TodoTask, "D" for DeadlineTask, or "E" for EventTask.
      *
      * @param line the data line to parse
@@ -57,33 +57,32 @@ public class Parser {
             boolean isDone = parts[1].trim().equals("1");
             String description = parts[2].trim();
             switch (type) {
-                case "T":
-                    if (parts.length != 3) {
-                        throw luminaException;
-                    }
-                    task = new TodoTask(description, isDone);
-                    break;
-                case "D":
-                    if (parts.length != 4) {
-                        throw luminaException;
-                    }
-                    String byDateTime = parts[3].trim();
-                    LocalDate byDateObject = parseDateString(byDateTime);
-                    task = new DeadlineTask(description, byDateObject, isDone);
-                    break;
-                case "E":
-                    if (parts.length != 5) {
-                        throw luminaException;
-                    }
-                    String startDateTime = parts[3].trim();
-                    String endDateTime = parts[4].trim();
-                    LocalDate startDateObject = parseDateString(startDateTime);
-                    LocalDate endDateObject = parseDateString(endDateTime);
-                    task = new EventTask(description, startDateObject, endDateObject, isDone);
-                    break;
-                default:
+            case "T":
+                if (parts.length != 3) {
                     throw luminaException;
-
+                }
+                task = new TodoTask(description, isDone);
+                break;
+            case "D":
+                if (parts.length != 4) {
+                    throw luminaException;
+                }
+                String byDateTime = parts[3].trim();
+                LocalDate byDateObject = parseDateString(byDateTime);
+                task = new DeadlineTask(description, byDateObject, isDone);
+                break;
+            case "E":
+                if (parts.length != 5) {
+                    throw luminaException;
+                }
+                String startDateTime = parts[3].trim();
+                String endDateTime = parts[4].trim();
+                LocalDate startDateObject = parseDateString(startDateTime);
+                LocalDate endDateObject = parseDateString(endDateTime);
+                task = new EventTask(description, startDateObject, endDateObject, isDone);
+                break;
+            default:
+                throw luminaException;
             }
         } catch (LuminaException e) {
             System.err.println(e.getMessage());
