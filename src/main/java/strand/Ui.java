@@ -97,7 +97,7 @@ public class Ui {
     /**
      * Displays a message indicating whether a task has been marked as done or not done.
      *
-     * @param task The task that was marked.
+     * @param task   The task that was marked.
      * @param marked {@code true} if the task was marked as done; {@code false} otherwise.
      * @return The message indicating the task's status.
      */
@@ -109,6 +109,18 @@ public class Ui {
             return print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n"
                     + "%s", task));
         }
+    }
+
+    /**
+     * Displays a message when a task has been assigned a priority.
+     *
+     * @param task     The task that was marked.
+     * @param priority Priority that the task was assigned.
+     * @return The message indicating the task's status.
+     */
+    public String priorityAssigned(Task task, Task.PriorityEnum priority) {
+        return print(String.format(":> I've marked this task with priority %s"
+                + ":\n%s", priority, task));
     }
 
     /**

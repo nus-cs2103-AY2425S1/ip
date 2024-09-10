@@ -76,10 +76,14 @@ public class Parser {
             throw new StrandNumberNotFoundException(split[0]);
         }
         try {
-            int index = Integer.parseInt(split[1]);
+            String desc = split[1].trim();
+            String[] indexAndPriority = desc.trim().split("\\s+");
+            int index = Integer.parseInt(indexAndPriority[0]);
             return switch (command) {
             case DELETE -> new DeleteCommand(index);
-            case MARK -> new MarkCommand(index, true);
+            case MARK -> indexAndPriority.length > 1
+                    ? new MarkCommand(index, indexAndPriority[1])
+                    : new MarkCommand(index, true);
             case UNMARK -> new MarkCommand(index, false);
             default -> throw new StrandWrongCommandException();
             };

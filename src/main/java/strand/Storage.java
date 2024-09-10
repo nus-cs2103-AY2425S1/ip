@@ -49,18 +49,16 @@ public class Storage {
         String[] split = line.split(" \\| ");
         Task newTask;
         switch (split[0]) {
-        case TODO_TYPE -> {
-            newTask = new Todo(split[2]);
-            if (split[1].equals("1")) {
-                newTask.markAsDone();
-            }
-        }
-        case DEADLINE_TYPE -> newTask = new Deadline(split[2], split[3]);
-        case EVENT_TYPE -> newTask = new Event(split[2], split[3], split[4]);
+        case TODO_TYPE -> newTask = new Todo(split[2]);
+        case DEADLINE_TYPE -> newTask = new Deadline(split[2], split[4]);
+        case EVENT_TYPE -> newTask = new Event(split[2], split[4], split[5]);
         default -> throw new StrandWrongCommandException();
         }
         if (split[1].equals("1")) {
             newTask.markAsDone();
+        }
+        if (!split[3].equals(Task.PriorityEnum.NONE.toString())) {
+            newTask.markPriority(Task.PriorityEnum.valueOf(split[3]));
         }
         return newTask;
     }

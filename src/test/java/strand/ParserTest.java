@@ -28,6 +28,8 @@ public class ParserTest {
         assertInstanceOf(ListCommand.class, Parser.parse("list"));
         assertInstanceOf(ListCommand.class, Parser.parse(" LIST "));
         assertInstanceOf(MarkCommand.class, Parser.parse("mark 0"));
+        assertInstanceOf(MarkCommand.class, Parser.parse("mark 0 high"));
+        assertInstanceOf(MarkCommand.class, Parser.parse("mark 0 mEdium"));
     }
 
     @Test
@@ -83,6 +85,12 @@ public class ParserTest {
     public void testInvalidCommand() {
         try {
             Parser.parse("thisIsAnInvalidCommand");
+        } catch (StrandException e) {
+            assertEquals("Command not found (×_×;）", e.getMessage());
+        }
+        try {
+            Parser.parse("todo read book");
+            Parser.parse("mark 0 noPriority");
         } catch (StrandException e) {
             assertEquals("Command not found (×_×;）", e.getMessage());
         }
