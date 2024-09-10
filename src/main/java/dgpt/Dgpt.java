@@ -1,7 +1,6 @@
 package dgpt;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import dgpt.exception.DgptFileNotFoundException;
 import dgpt.exception.IncorrectInputException;
@@ -31,6 +30,7 @@ public class Dgpt {
      *                 tasks upon initialization.
      */
     public Dgpt(String filepath) {
+        assert !filepath.isEmpty() : "filepath should not be empty";
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.load());
