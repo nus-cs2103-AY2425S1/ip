@@ -49,6 +49,7 @@ test {
 shadowJar {
     archiveBaseName = "wansbot"
     archiveClassifier = null
+    archiveFileName = "wansbot.jar"
 }
 
 run {

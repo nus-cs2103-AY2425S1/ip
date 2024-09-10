@@ -43,5 +43,4 @@ public class Deadlined extends Task {
         return myDeadline + super.toString() + " (by: " + this.deadline
                         .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
-
 }

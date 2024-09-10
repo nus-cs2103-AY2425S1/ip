@@ -95,6 +95,7 @@ public class WansBot {
             checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(5)) - 1;
             userTaskList.getTask(posTask).finish();
+            assert userTaskList.getTask(posTask).isDone() : "Task is not marked"; // assert that the task is marked
             return ui.handleSuccesfulMarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
             return ui.handleMarkingFormat();
@@ -111,6 +112,7 @@ public class WansBot {
             checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
             userTaskList.getTask(posTask).unfinish();
+            assert !userTaskList.getTask(posTask).isDone() : "Task is not marked"; // assert that the task is un marked
             return ui.handleSuccesfulUnmarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
             return ui.handleUnmarkingFormat();
@@ -188,6 +190,7 @@ public class WansBot {
      * will tell the user which tasks these are. Todos will not be able to be found
      */
     private String findTaskDate(String userInput) {
+        // assert that at this point, userInput cannot be null as a precondition
         try {
             String[] splitDate = userInput.split(" ");
             TaskList filteredList = new TaskList();
@@ -231,7 +234,9 @@ public class WansBot {
         String command = userInput.split(" ")[0];
         String response = "";
 
-        switch (command) {
+        switch (command.toLowerCase()) {
+        case "hello":
+            response += ui.introduceToUser();
         case "list":
             response += ui.handleListingTask(userTaskList);
             break;
