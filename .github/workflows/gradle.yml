@@ -56,20 +56,14 @@ jobs:
     - name: build Jar file
       run: ./gradlew shadowJar
       
-    - name: Build Changelog
-      id: github_release
-      uses: mikepenz/release-changelog-builder-action@v5
-      
-    - name: Output changelog
-      run: echo "tag = ${{ steps.github_release.outputs.changelog }}"
-      
     - name: Release Jar file
       uses: phuonghuynh/action-ghrelease@v1.1.0
       if: startsWith(github.ref, 'refs/tags/')
       with:
         # Note-worthy description of changes in release
-        body_path: ${{ github.workspace }}-CHANGELOG.txt
+        body: This release is automated with github actions.
+        # body_path: ${{ github.workspace }}-CHANGELOG.txt
         # Gives the release a custom name. Defaults to tag name
-        name: New Jar File Release!
+        name: (${{github.ref_name}}) New Jar File Release!
         # Newline-delimited list of path globs for asset files to upload
         files: ./build/libs/yappingbot.jar
