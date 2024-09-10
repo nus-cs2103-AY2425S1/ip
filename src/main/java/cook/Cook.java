@@ -77,7 +77,7 @@ public class Cook {
                     this.tasks.deleteTask(taskNumber);
                     return "The task has been deleted from the list.";
                 } else {
-                    isSuccessful = this.tasks.markTask(taskNumber, isMarking);
+                    // do nothing
                 }
             } catch (IndexOutOfBoundsException e) {
                 return "The task is not in the list.";
@@ -85,7 +85,7 @@ public class Cook {
             return "The task has been " + command + "ed.";
         } else if (command.equals("find")) {
             String keyword = argumentsHashMap.get("find");
-            return this.tasks.findTask(keyword);
+            return this.tasks.findTask(keyword).toString();
         } else {
             if (command.equals("todo")) {
                 String taskDesc = argumentsHashMap.get("todo");

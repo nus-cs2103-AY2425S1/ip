@@ -25,20 +25,31 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks task.
+     * Marks task.
      *
      * @param taskNo Task number in tasks.
-     * @param isMarking Mark or unmark task.
      * @return Success of marking or unmarking task.
      * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
      */
-    public boolean markTask(int taskNo, boolean isMarking) throws IndexOutOfBoundsException {
+    public boolean markTask(int taskNo) throws IndexOutOfBoundsException {
         int indexNo = taskNo - 1;
-        return this.tasks.get(indexNo).mark(isMarking);
+        return this.tasks.get(indexNo).mark();
     }
 
     /**
-     * Deletes task
+     * Unmarks task.
+     *
+     * @param taskNo Task number in tasks.
+     * @return Success of marking or unmarking task.
+     * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
+     */
+    public boolean unmarkTask(int taskNo) throws IndexOutOfBoundsException {
+        int indexNo = taskNo - 1;
+        return this.tasks.get(indexNo).unmark();
+    }
+
+    /**
+     * Deletes task.
      *
      * @param taskNo Task number in tasks.
      */
@@ -48,20 +59,25 @@ public class TaskList {
     }
 
     /**
-     * Finds task
+     * Finds task.
      *
-     * @param keyword String to find in task descriptions
+     * @param keyword String to find in task descriptions.
      */
-    public String findTask(String keyword) {
-        StringBuilder taskStringBuilder = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            int taskNo = i + 1;
-            Task task = this.tasks.get(i);
+    public TaskList findTask(String keyword) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : this.tasks) {
             if (task.toString().contains(keyword.toLowerCase())) {
-                taskStringBuilder.append(taskNo).append(".").append(task.toString()).append("\n");
+                foundTasks.addTask(task);
             }
         }
-        return taskStringBuilder.toString().strip();
+        return foundTasks;
+    }
+
+    /**
+     * Checks if tasks is empty.
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
     }
 
     /**

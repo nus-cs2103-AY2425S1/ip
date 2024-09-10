@@ -15,7 +15,7 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(true, tasks.markTask(1, true));
+        assertEquals(true, tasks.markTask(1));
     }
 
     @Test
@@ -25,29 +25,29 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(false, tasks.markTask(1, false));
+        assertEquals(false, tasks.unmarkTask(1));
     }
 
     @Test
     public void mark_markedTask_trueReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
-        todo.mark(true);
+        todo.mark();
 
         tasks.addTask(todo);
 
-        assertEquals(false, tasks.markTask(1, true));
+        assertEquals(false, tasks.markTask(1));
     }
 
     @Test
     public void unmark_markedTask_falseReturned() {
         TaskList tasks = new TaskList();
         ToDo todo = new ToDo("test ToDo");
-        todo.mark(true);
+        todo.mark();
 
         tasks.addTask(todo);
 
-        assertEquals(true, tasks.markTask(1, false));
+        assertEquals(true, tasks.unmarkTask(1));
     }
 
     @Test
