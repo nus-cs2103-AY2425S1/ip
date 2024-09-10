@@ -94,7 +94,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + " [" + this.getStatusIcon()
-                + "] " + super.toString()
+                + "] " + "[Priority: " + this.priority + "] "
+                + super.toString()
                 + " (from: " + this.getFrom()
                 + " to: " + this.getTo() + ")";
     }

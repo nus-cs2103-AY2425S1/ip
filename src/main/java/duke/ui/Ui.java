@@ -25,7 +25,7 @@ public class Ui {
      * @return The formatted task as a string.
      */
     private static String formatSingleTask(int i, Task task) {
-        return i + "." + task.toString() + "\n";
+        return i + ". " + task.toString() + "\n";
     }
 
     /**
@@ -116,6 +116,19 @@ public class Ui {
                 "Noted. I've removed this task:" + "\n"
                         + task.toString() + "\n"
                         + "Now you have " + size + " tasks in the list." + "\n"
+            );
+    }
+
+    /**
+     * Formats a message when a priority is added to a task.
+     *
+     * @param task The task that was deleted.
+     * @return The formatted message as a string.
+     */
+    public String formatAddPriorityTask(Task task) {
+        return (
+                "Noted. I've added the priority " + task.getPriority() + " to this task:" + "\n"
+                        + task.toString() + "\n"
             );
     }
 }

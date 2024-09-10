@@ -10,9 +10,10 @@ public class Task {
 
     /** The description of the task. */
     protected String description;
-
     /** The status of the task, indicating whether it is done or not. */
     protected boolean isDone;
+    /** The priority of the task. */
+    protected int priority;
 
     /**
      * Creates a new task with the specified description.
@@ -23,6 +24,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     /**
@@ -43,6 +45,16 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    /**
+     * Returns the priority of the task.
+     *
+     * @return The priority of the task.
+     */
+    public int getPriority() {
+        return this.priority;
+    }
+
 
     /**
      * Checks if the task is occurring at a specified date and time.
@@ -67,6 +79,13 @@ public class Task {
      */
     public void setNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Sets the priority of the task
+     */
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     /**
