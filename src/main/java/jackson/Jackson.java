@@ -169,6 +169,10 @@ public class Jackson {
                 output = this.ui.printSortedList(this.taskList);
                 this.commandType = Commands.CommandType.MODIFY;
                 break;
+            case HELP:
+                output = this.ui.printFormatGuide(matcher.group(1));
+                this.commandType = Commands.CommandType.NORMAL;
+                break;
             case BYE:
                 output = this.storage.save(this.taskList);
                 this.commandType = Commands.CommandType.EXIT;
@@ -189,7 +193,7 @@ public class Jackson {
             this.commandType = Commands.CommandType.ERROR;
         } catch (SyntaxException e) {
             // if the user input is in the wrong format for the command, print format guide
-            output = this.ui.printFormatGuide(e.getMessage());
+            output = this.ui.printWrongFormat(e.getMessage());
             this.commandType = Commands.CommandType.ERROR;
         } catch (OutOfListException e) {
             // if user inputs an invalid index for mark/unmark/delete, print index guide

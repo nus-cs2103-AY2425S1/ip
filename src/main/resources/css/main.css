@@ -34,12 +34,12 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-font-size: 9px;  /* Change width of scroll bar. */
     -fx-background-color: main-color;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #0096FF;
     -fx-background-radius: 1em;
 }
 
