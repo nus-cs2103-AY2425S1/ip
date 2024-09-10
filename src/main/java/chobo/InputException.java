@@ -24,6 +24,7 @@ public class InputException extends Exception {
                 : msg.equals("deadline") ? "deadline format: deadline xxxxx /by xxxx"
                 : msg.equals("id") ? "invalid task ID"
                 : msg.equals("find") ? "find format: find xxxxx"
+                : msg.equals("duplicate") ? "duplicate task!"
                 : "invalid input");
     }
 }

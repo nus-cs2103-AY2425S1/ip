@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         MainWindow mainWindow = new MainWindow();
-        mainWindow.setChobo(chobo);  // Inject the Chobo instance
+        mainWindow.setChobo(chobo); 
 
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);

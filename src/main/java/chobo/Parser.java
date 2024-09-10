@@ -17,24 +17,21 @@ public class Parser {
      * @throws InputException the input exception
      */
     public static String parse(String fullCommand, TaskList taskList, Ui ui, Storage storage) throws InputException {
-        String[] input = fullCommand.split(" ", 2);
-        String action = input[0];
+        String[] inputs = fullCommand.split(" ", 2);
+        String action = inputs[0];
 
         switch (action) {
         case "bye":
             return "bye";
-
         case "list":
             return ui.printTaskList(taskList.getTasks());
-//            break;
-
         case "mark":
         case "unmark":
         case "delete":
-            if (input.length < 2) {
+            if (inputs.length < 2) {
                 throw new InputException("id");
             }
-            int taskId = Integer.parseInt(input[1].trim()) - 1;
+            int taskId = Integer.parseInt(inputs[1].trim()) - 1;
             if (taskId < 0 || taskId >= taskList.getTotalTask()) {
                 throw new InputException("id");
             }
@@ -52,25 +49,19 @@ public class Parser {
                 storage.saveTasks(taskList.getTasks());
                 return ui.printTaskDeleted(removedTask, taskList.getTotalTask());
             }
-//            storage.saveTasks(taskList.getTasks());
-//            break;
-
         case "todo":
-            if (input.length < 2) {
+            if (inputs.length < 2) {
                 throw new InputException("todo");
             }
-            Task todo = new ToDo(input[1].trim(), false);
+            Task todo = new ToDo(inputs[1].trim(), false);
             taskList.addTask(todo);
             storage.saveTasks(taskList.getTasks());
             return ui.printTaskAdded(todo, taskList.getTotalTask());
-//            storage.saveTasks(taskList.getTasks());
-//            break;
-
         case "deadline":
-            if (input.length < 2) {
+            if (inputs.length < 2) {
                 throw new InputException("deadline");
             }
-            String[] deadlineParts = input[1].split("/by", 2);
+            String[] deadlineParts = inputs[1].split("/by", 2);
             if (deadlineParts.length < 2) {
                 throw new InputException("deadline");
             }
@@ -78,13 +69,11 @@ public class Parser {
             taskList.addTask(deadline);
             storage.saveTasks(taskList.getTasks());
             return ui.printTaskAdded(deadline, taskList.getTotalTask());
-//            break;
-
         case "event":
-            if (input.length < 2) {
+            if (inputs.length < 2) {
                 throw new InputException("event");
             }
-            String[] eventParts = input[1].split("/from", 2);
+            String[] eventParts = inputs[1].split("/from", 2);
             if (eventParts.length < 2) {
                 throw new InputException("event");
             }
@@ -96,14 +85,11 @@ public class Parser {
             taskList.addTask(event);
             storage.saveTasks(taskList.getTasks());
             return ui.printTaskAdded(event, taskList.getTotalTask());
-//        break;
-
-
         case "find":
-            if (input.length < 2) {
+            if (inputs.length < 2) {
                 throw new InputException("find");
             }
-            String keyword = input[1].trim();
+            String keyword = inputs[1].trim();
             ArrayList<Task> matchedTasks = new ArrayList<>();
 
             for (Task task : taskList.getTasks()) {
@@ -111,9 +97,7 @@ public class Parser {
                     matchedTasks.add(task);
                 }
             }
-
             return ui.printMatchedTasks(matchedTasks);
-//        break;
 
         default:
             throw new InputException("Invalid");
