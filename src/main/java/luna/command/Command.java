@@ -18,4 +18,6 @@ public abstract class Command {
      * @throws LunaException If the command to be executed is invalid.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws LunaException;
+
+    public abstract String undo(TaskList tasks, Storage storage) throws LunaException;
 }

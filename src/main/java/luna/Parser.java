@@ -4,16 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import luna.command.Command;
-import luna.command.DeadlineCommand;
-import luna.command.DeleteCommand;
-import luna.command.EventCommand;
-import luna.command.ExitCommand;
-import luna.command.FindCommand;
-import luna.command.ListCommand;
-import luna.command.MarkCommand;
-import luna.command.TodoCommand;
-import luna.command.UnmarkCommand;
+import luna.command.*;
 import luna.task.Deadline;
 import luna.task.Event;
 import luna.task.Todo;
@@ -32,6 +23,7 @@ public class Parser {
         DELETE,
         BYE,
         FIND,
+        UNDO,
     }
 
     /**
@@ -82,6 +74,9 @@ public class Parser {
 
         case LIST:
             return new ListCommand();
+
+        case UNDO:
+            return new UndoCommand();
 
         case MARK:
             if (commands.length == 1) {

@@ -25,7 +25,11 @@ public class FindCommand extends Command {
         if (matched.isEmpty()) {
             return "No task with matching description";
         }
-
         return "Here are the tasks with the matching description:\n" + matched;
+    }
+
+    @Override
+    public String undo(TaskList tasks, Storage storage) {
+        return "Nothing to undo for 'find' command";
     }
 }

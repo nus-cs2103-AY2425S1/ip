@@ -23,5 +23,11 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws LunaException {
         return tasks.markTaskAsDone(taskToMark, storage);
     }
+
+    @Override
+    public String undo(TaskList tasks, Storage storage) throws LunaException {
+        return ">>> undo 'mark' command"
+                + tasks.unmarkTask(taskToMark, storage);
+    }
 }
 

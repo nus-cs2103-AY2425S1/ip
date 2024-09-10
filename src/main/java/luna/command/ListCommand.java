@@ -12,4 +12,9 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         return tasks.list();
     }
+
+    @Override
+    public String undo(TaskList tasks, Storage storage) {
+        return "Nothing to undo for 'list' command";
+    }
 }

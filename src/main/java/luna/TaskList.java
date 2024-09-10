@@ -38,21 +38,18 @@ public class TaskList {
      * Deletes task from the current list of tasks.
      *
      * @param task Task to be deleted.
-     * @return List of tasks after deleting task.
+     * @return Deleted task.
      * @throws LunaException If task number is invalid.
      */
-    public String deleteTask(int task, Storage storage) throws LunaException {
+    public Task deleteTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
 
         Task removed = tasks.remove(task);
-        assert removed.equals(tasks.get(task));
+        assert removed != null;
         storage.saveTasks(tasks);
-
-        return "Noted, I've removed this task:\n"
-                + "  " + removed.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+        return removed;
     }
 
     /**
@@ -135,5 +132,9 @@ public class TaskList {
             }
         }
         return matched;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }
