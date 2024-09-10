@@ -1,5 +1,8 @@
+package controllers;
+
 import java.util.Objects;
 
+import controllers.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
+import core.Brock;
 import task.TaskList;
 import utility.Pair;
 
@@ -44,7 +48,7 @@ public class MainWindow extends AnchorPane {
     }
 
 
-    /** Injects the Brock instance */
+    /** Injects the core.Brock instance */
     public void setBrock(Brock b) {
         this.brock = b;
     }
@@ -53,15 +57,27 @@ public class MainWindow extends AnchorPane {
         this.tasks = t;
     }
 
+    public void showInitialMessage(String response) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBrockDialog(response, dukeImage)
+        );
+    }
+
+    // Adopted from https://github.com/nus-cs2103-AY2425S1/forum/issues/199
+    public void exitProgram() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
+    }
+
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Brock's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing core.Brock's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() { // Responds to user input event
         String rawCommand = userInput.getText();
-        String processedCommand = this.brock
-                .getProcessedCommand(rawCommand);
+        String processedCommand = this.processCommand(rawCommand);
 
         Pair<Boolean, String> respondResult = this.brock
                 .respondToCommand(processedCommand, this.tasks);
@@ -78,16 +94,12 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    protected void showInitialMessage(String response) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getBrockDialog(response, dukeImage)
-        );
+    private String processCommand(String rawCommand) {
+        // Trim away leading & trailing whitespaces
+        // Replace multiple whitespaces with a single one
+        return rawCommand.trim()
+                .replaceAll(" +", " ");
     }
 
-    // Adopted from https://github.com/nus-cs2103-AY2425S1/forum/issues/199
-    protected void exitProgram() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event -> Platform.exit());
-        pause.play();
-    }
+
 }

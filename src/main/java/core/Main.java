@@ -1,5 +1,8 @@
+package core;
+
 import java.io.IOException;
 
+import controllers.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,7 +12,7 @@ import task.TaskList;
 import utility.Pair;
 
 /**
- * A GUI for Brock using FXML.
+ * A GUI for core.Brock using FXML.
  */
 public class Main extends Application {
     private final Brock BROCK = new Brock();
@@ -46,7 +49,7 @@ public class Main extends Application {
             mainController.setTasks(tasks);
 
             // Shows welcome message
-            String welcomeResponse = "Hello! I'm Brock\n"
+            String welcomeResponse = "Hello! I'm core.Brock\n"
                     + "What can I do for you?";
             mainController.showInitialMessage(welcomeResponse);
 

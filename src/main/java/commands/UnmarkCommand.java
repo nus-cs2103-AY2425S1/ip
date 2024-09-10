@@ -3,8 +3,7 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents an unmark command entered by the user.
@@ -31,11 +30,11 @@ public class UnmarkCommand extends Command {
      * @throws BrockException If unmark command is invalid.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
-        Utility.validateStatus(command, Utility.Action.UNMARK, tasks);
+        CommandUtility.validateStatus(command, CommandUtility.Action.UNMARK, tasks);
 
-        int taskIndex = Utility.getTaskIndex(command);
+        int taskIndex = CommandUtility.getTaskIndex(command);
         boolean isSuccessful = tasks.unmarkTask(taskIndex);
 
         // Update the save file

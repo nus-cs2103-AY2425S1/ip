@@ -3,8 +3,7 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents a delete command entered by the user.
@@ -35,7 +34,7 @@ public class DeleteCommand extends Command {
         if (commandLength == 1) {
             throw new BrockException("Missing task number!");
         }
-        if (commandLength > 2 || Utility.isNotInteger(commandWords[1])) {
+        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
             throw new BrockException("Delete command is in the form delete <task-number>!");
         }
 
@@ -58,11 +57,11 @@ public class DeleteCommand extends Command {
      * @throws BrockException If delete command is invalid.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         validateDelete(tasks);
 
         String command = super.getCommand();
-        int taskIndex = Utility.getTaskIndex(command);
+        int taskIndex = CommandUtility.getTaskIndex(command);
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 

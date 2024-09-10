@@ -3,8 +3,7 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents a mark command entered by the user.
@@ -31,11 +30,11 @@ public class MarkCommand extends Command {
      * @throws BrockException If mark command is invalid.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
-        Utility.validateStatus(command, Utility.Action.MARK, tasks);
+        CommandUtility.validateStatus(command, CommandUtility.Action.MARK, tasks);
 
-        int taskIndex = Utility.getTaskIndex(command);
+        int taskIndex = CommandUtility.getTaskIndex(command);
         boolean isSuccessful = tasks.markTask(taskIndex);
 
         // Update the save file

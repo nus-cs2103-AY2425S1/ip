@@ -5,7 +5,6 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
-import ui.Ui;
 
 /**
  * Represents a todo command entered by the user.
@@ -57,7 +56,7 @@ public class TodoCommand extends Command {
      * @throws BrockException If todo command is invalid.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         Task todoTask = createTodo();
         tasks.addToList(todoTask);
 

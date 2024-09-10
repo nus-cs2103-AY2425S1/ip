@@ -5,8 +5,7 @@ import storage.Storage;
 import task.Event;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents an event command entered by the user.
@@ -84,10 +83,10 @@ public class EventCommand extends Command {
             throw new BrockException("Both start and end dates must either include or exclude a time!");
         }
 
-        String[] startDateTimeValues = Utility.validateDateTime(startDateTime.toString(),
-                startDateTimeWords, Utility.Context.START);
-        String[] endDateTimeValues = Utility.validateDateTime(endDateTime.toString(),
-                endDateTimeWords, Utility.Context.END);
+        String[] startDateTimeValues = CommandUtility.validateDateTime(startDateTime.toString(),
+                startDateTimeWords, CommandUtility.Context.START);
+        String[] endDateTimeValues = CommandUtility.validateDateTime(endDateTime.toString(),
+                endDateTimeWords, CommandUtility.Context.END);
         if (startDateTimeWords == 1) {
             return new Event(description.toString(),
                     startDateTimeValues[0],
@@ -114,7 +113,7 @@ public class EventCommand extends Command {
      * @throws BrockException If event command is invalid
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         Task eventTask = createEvent();
         tasks.addToList(eventTask);
 

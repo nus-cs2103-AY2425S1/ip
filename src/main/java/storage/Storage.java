@@ -20,7 +20,7 @@ import task.ToDo;
  * Class to create, and interact with save file.
  */
 public class Storage {
-    private static final String FILE_PATH = "./src/main/java/saveFile.txt";
+    private static final String FILE_PATH = "./src/main/java/data/saveFile.txt";
     private static final File SAVE_FILE = new File(FILE_PATH);
 
     /**
@@ -28,7 +28,7 @@ public class Storage {
      *
      * @param description String describing the corruption.
      * @throws BrockException Always throws this exception, containing message about the corruption.
-     *      To be bubbled up to the Brock.run() in the main class.
+     *      To be bubbled up to the core.Brock.run() in the main class.
      */
     private void resetSaveFile(String description) throws BrockException {
         this.writeToFile("", false);

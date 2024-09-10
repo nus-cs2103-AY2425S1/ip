@@ -2,7 +2,7 @@ package commands;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
+
 
 /**
  * Represents a bye command entered by the user.
@@ -25,8 +25,8 @@ public class ByeCommand extends Command {
      * </p>
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) {
-        return "Bye. Hope to see you again soon!"
+    public String execute(Storage storage, TaskList tasks) {
+        return "Bye. Hope to see you again soon!\n"
                 + "Program will close now ...";
     }
 }

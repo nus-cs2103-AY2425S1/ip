@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a list command entered by the user.
@@ -26,7 +25,7 @@ public class ListCommand extends Command {
      * </p>
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) {
+    public String execute(Storage storage, TaskList tasks) {
         String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
 

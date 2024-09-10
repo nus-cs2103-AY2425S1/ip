@@ -5,8 +5,7 @@ import storage.Storage;
 import task.Deadline;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
-import utility.Utility;
+import utility.CommandUtility;
 
 /**
  * Represents a deadline command entered by the user.
@@ -63,8 +62,8 @@ public class DeadlineCommand extends Command {
             throw new BrockException("Missing due date! Remember it is specified after /by!");
         }
 
-        String[] dateTimeValues = Utility.validateDateTime(dateTime.toString(),
-                dateTimeWords, Utility.Context.DUE);
+        String[] dateTimeValues = CommandUtility.validateDateTime(dateTime.toString(),
+                dateTimeWords, CommandUtility.Context.DUE);
         if (dateTimeWords == 1) {
             return new Deadline(description.toString(),
                     dateTimeValues[0]);
@@ -88,7 +87,7 @@ public class DeadlineCommand extends Command {
      * @throws BrockException If deadline command is invalid.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+    public String execute(Storage storage, TaskList tasks) throws BrockException {
         Task deadlineTask = createDeadline();
         tasks.addToList(deadlineTask);
 

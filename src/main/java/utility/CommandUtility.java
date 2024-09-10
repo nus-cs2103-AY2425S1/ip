@@ -4,10 +4,10 @@ import exceptions.BrockException;
 import task.TaskList;
 
 /**
- * Utility class with commonly used utility functions
+ * Class with commonly used utility functions for commands
  *      to reduce code duplication
  */
-public class Utility {
+public class CommandUtility {
     /**
      * Enum used to represent mark and unmark actions.
      * To help validate mark and unmark commands.

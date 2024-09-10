@@ -3,7 +3,7 @@ package commands;
 import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
+
 
 /**
  * Abstract class that defines a template for user commands.
@@ -40,6 +40,6 @@ public abstract class Command {
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @throws BrockException If there are any issues with running the command.
      */
-    public abstract String execute(Ui ui, Storage storage, TaskList tasks) throws BrockException;
+    public abstract String execute(Storage storage, TaskList tasks) throws BrockException;
 
 }

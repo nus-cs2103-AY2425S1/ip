@@ -1,3 +1,5 @@
+package core;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,14 +10,12 @@ import parser.Parser;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 import utility.Pair;
 
 /**
  * Class that represents the chatbot.
  */
 public class Brock {
-    private static final Ui UI = new Ui();
     private static final Storage STORAGE = new Storage();
     private static final Parser PARSER = new Parser();
 
@@ -29,9 +29,10 @@ public class Brock {
 
         } catch (IOException e) {
             isSuccessful = false;
-            overallResponse = "Error creating file!\n"
-                    + "Please re-run the program and try again!"
-                    + "Program will close now ...";
+            overallResponse = """
+                    Error creating file!
+                    Please re-run the program and try again!
+                    Program will close now ...""";
         }
         return new Pair<>(isSuccessful, overallResponse);
     }
@@ -46,9 +47,10 @@ public class Brock {
 
         } catch (FileNotFoundException e) {
             tasks = null;
-            overallResponse = "Unable to find the save file!\n"
-                    + "Please re-run the program and try again."
-                    + "Program will close now ...";
+            overallResponse = """
+                    Unable to find the save file!
+                    Please re-run the program and try again.
+                    Program will close now ...""";
 
         } catch (BrockException e) {
             // Save file was corrupted
@@ -59,17 +61,13 @@ public class Brock {
         return new Pair<>(tasks, overallResponse);
     }
 
-    protected String getProcessedCommand(String rawCommand) {
-        return UI.readCommand(rawCommand);
-    }
-
-    protected Pair<Boolean, String> respondToCommand(String processedCommand, TaskList tasks) {
+    public Pair<Boolean, String> respondToCommand(String processedCommand, TaskList tasks) {
         boolean isExit;
         String overallResponse;
         isExit = processedCommand.equalsIgnoreCase("bye");
         try {
             Command commandObj = PARSER.handleCommand(processedCommand);
-            overallResponse = commandObj.execute(UI, STORAGE, tasks);
+            overallResponse = commandObj.execute(STORAGE, tasks);
 
         } catch (BrockException e) {
             overallResponse = e.getMessage();
