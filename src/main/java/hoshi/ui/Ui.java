@@ -206,6 +206,7 @@ public class Ui {
                 + "2.) Mark/Unmark {1}\n"
                 + "3.) Delete {1}\n"
                 + "4.) Find\n"
-                + "5.) Bye";
+                + "5.) List\n"
+                + "6.) Bye";
     }
 }

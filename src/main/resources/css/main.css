@@ -47,7 +47,7 @@
 
 .transparent-button {
     -fx-background-color: rgba(119, 161, 230, 0.2);
-    -fx-font: italic 15px bold "Arial";
+    -fx-font-size: 15px italic  bold "Arial";
 }
 
 .transparent-button:hover {

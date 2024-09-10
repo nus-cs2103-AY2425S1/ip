@@ -2,6 +2,7 @@ package hoshi.gui;
 
 import java.util.Objects;
 
+import hoshi.ui.Ui;
 import hoshi.Hoshi;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -30,6 +31,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private Hoshi hoshi;
+    private final Ui ui = new Ui();
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.JPG"));
     private final Image hoshiImage = new Image(this.getClass().getResourceAsStream("/images/Hoshi.JPG"));
@@ -43,12 +45,8 @@ public class MainWindow extends AnchorPane {
 
         userInput.setPromptText("Enter your input here...");
 
-        String initialMessage = "Welcome to Hoshi! Try the following commands out! \n"
-                + "1.) Add todo/deadline/event\n"
-                + "2.) Mark/Unmark\n"
-                + "3.) Delete\n"
-                + "4.) Find\n"
-                + "5.) Bye";
+        String initialMessage = ui.initialize();
+
         dialogContainer.getChildren().add(DialogBox.getHoshiDialog(initialMessage, hoshiImage));
     }
 
@@ -88,7 +86,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleTopRightButtonClick() {
+
+        Stage mainStage = (Stage) dialogContainer.getScene().getWindow();
+
         Stage helpStage = new Stage();
+
+        helpStage.initOwner(mainStage);
+
         helpStage.setTitle("Hoshi Help");
 
         TextArea textArea = new TextArea();
@@ -98,8 +102,9 @@ public class MainWindow extends AnchorPane {
                 + "2.) Mark/Unmark - Mark 1\n"
                 + "3.) Delete - Delete 1\n"
                 + "4.) Find - Find 1\n"
-                + "5.) Bye");
-        helpStage.setScene(new Scene(textArea, 400, 130));
+                + "5.) List\n"
+                + "6.) Bye");
+        helpStage.setScene(new Scene(textArea, 400, 150));
         textArea.setStyle("-fx-background-color: #5f6366; -fx-padding: 5px; -fx-font-size: 12px;");
         Image image = new Image("/images/Hoshi.JPG");
         helpStage.getIcons().add(image);

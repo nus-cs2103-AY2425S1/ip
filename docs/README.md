@@ -24,7 +24,13 @@ ____________________________________________________________
 Hoshi is a user-friendly chatbot that keeps tracks of your todos, events and deadlines! 
 It is currently still in development and features are yet to be finalized.
 
-// Product intro goes here
+## Features
+
+1. Add ToDos/Deadlines/Events
+2. Mark/Unmark Tasks as Complete/Incomplete
+3. Delete Tasks
+4. Find Tasks
+5. Graphical User Interface
 
 ## Adding deadlines
 
@@ -53,3 +59,4 @@ expected output
 ## Acknowledgements
 
 1. ASCII Art - https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI
+2. JavaFX initOwner Method - https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
