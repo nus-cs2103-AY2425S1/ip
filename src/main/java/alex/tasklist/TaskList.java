@@ -84,6 +84,7 @@ public class TaskList {
             list.add(todo);
             reply = "Got it. I've added this task: \n" + todo.toString()
                     + "\n Now you have " + list.size() + " tasks in the list.";
+            assert !list.isEmpty() : "list should not be empty";
         }
         return reply;
     }
@@ -113,6 +114,7 @@ public class TaskList {
                     list.add(deadline);
                     reply = "Got it. I've added this task: \n" + deadline.toString()
                             + "\n Now you have " + list.size() + " tasks in the list.";
+                    assert !list.isEmpty() : "list should not be empty";
                 }
             } catch (DateTimeParseException e) {
                 reply = "Invalid date entered. Use this format: YYYY-MM-DD";
@@ -148,6 +150,7 @@ public class TaskList {
                     list.add(event);
                     reply = "Got it. I've added this task: \n" + event.toString()
                             + "\n Now you have " + list.size() + " tasks in the list.";
+                    assert !list.isEmpty() : "list should not be empty";
                 }
             } catch (DateTimeParseException e) {
                 reply = "Invalid date(s) entered. Use this format: YYYY-MM-DD";
