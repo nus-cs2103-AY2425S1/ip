@@ -21,7 +21,7 @@ public class Validator {
         assert details != null : "Details must not be null";
 
         if (details.length <= 1) {
-            throw new ToDoException("Missing a descrption for this todo!");
+            throw new ToDoException("Missing a description for this todo!");
         }
     }
 
