@@ -21,6 +21,7 @@ public class TodoCommand implements Command {
      * @param taskDescription The description of the task to be added.
      */
     public TodoCommand(String taskDescription) {
+        assert taskDescription != null : "Task description cannot be null.";
         this.taskDescription = taskDescription;
     }
 

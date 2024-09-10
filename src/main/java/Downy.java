@@ -40,6 +40,9 @@ public class Downy {
     public String executeCommand(String fullCommand) {
         try {
             Command c = Parser.parse(fullCommand);
+            assert storage != null : "Storage cannot be null.";
+            assert tasks != null : "TaskList cannot be null.";
+            assert ui != null : "Ui cannot be null.";
             return c.execute(this.storage, this.tasks, this.ui);
         } catch (DownyException e) {
             return Ui.showErrorMessage(e.getMessage());
