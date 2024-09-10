@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class EventTest {
 
-    Event currEvent = new Event("read book", "from 2024-06-21 1800", "to 2024-056-22 1800");
+    Event currEvent = new Event("read book", "from 2024-06-21 1800", "to 2024-06-22 1800");
     String incorrectFormat = "21-06-2024";
 
     @Test

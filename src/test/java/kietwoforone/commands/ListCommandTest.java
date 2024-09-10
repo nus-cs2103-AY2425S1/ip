@@ -7,7 +7,7 @@ public class ListCommandTest {
 
     @Test
     public void listCommandTest() {
-        assertEquals("Task listed", new ListCommandTest().toString());
+        assertEquals("Tasks listed", new ListCommand().toString());
     }
 
 }
