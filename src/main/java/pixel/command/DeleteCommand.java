@@ -42,6 +42,8 @@ public class DeleteCommand extends Command {
                     "%d is out of range of task list, index should be range between %d and %d inclusive",
                     this.taskListIndex + 1, 1, taskList.size()));
         }
+        assert this.taskListIndex >= 0 && this.taskListIndex < taskList.size()
+                : "Task list index should within index of task list";
         Task task = taskList.getTaskAtIndex(taskListIndex);
         taskList.deleteTask(task);
         ui.pixelSays("Noted. I've removed this task:", "  " + task, "Now you have " + taskList.size()

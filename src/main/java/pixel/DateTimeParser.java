@@ -24,6 +24,7 @@ public class DateTimeParser {
         List<DateTimeFormatter> formatters = Arrays.asList(DateTimeFormatter.ofPattern("dd-MM-yyyy"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         this.dateTime = parseDate(input.strip(), formatters);
+        assert this.dateTime != null : "Parsed dateTime should not be null";
     }
 
     /**
