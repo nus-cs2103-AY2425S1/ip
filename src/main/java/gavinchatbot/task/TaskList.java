@@ -32,7 +32,9 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "TaskList size did not increase after adding a task";
     }
 
     /**
@@ -92,6 +94,11 @@ public class TaskList {
      */
     public Task deleteTask(int index) throws GavinException {
         validateTaskIndex(index);
+        int initialSize = tasks.size();
+        if (index < 0 || index >= tasks.size()) {
+            throw new GavinException("Task number is invalid!");
+        }
+        assert tasks.size() == initialSize - 1 : "TaskList size did not decrease after deleting a task (Programmer error)";
         return tasks.remove(index);
     }
 
