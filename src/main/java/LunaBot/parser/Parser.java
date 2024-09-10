@@ -11,8 +11,19 @@ import LunaBot.command.MarkCommand;
 import LunaBot.command.UnmarkCommand;
 import LunaBot.exception.LunaBotException;
 
+/**
+ * The Parser class is responsible for interpreting user input
+ * and returning the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the appropriate Command object based on the input.
+     *
+     * @param input The user's input as a string.
+     * @return A Command object corresponding to the user's input.
+     * @throws LunaBotException If the input command is not recognized or formatted incorrectly.
+     */
     public static Command parse(String input) throws LunaBotException {
         String[] fullCommand = input.split(" ");
         String command = fullCommand[0];

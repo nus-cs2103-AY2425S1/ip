@@ -16,13 +16,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the reading and writing of tasks to a file.
+ * It saves tasks to a file and loads them from the file when the application starts.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file specified by the file path.
+     * If the file or its parent directory does not exist, they will be created.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws LunaBotException If there is an error reading the file or the file format is invalid.
+     */
     public ArrayList<Task> load() throws LunaBotException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -73,6 +89,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current task list to the file specified by the file path.
+     * Creates the file and its parent directories if they do not exist.
+     *
+     * @param taskList The ArrayList of tasks to be saved to the file.
+     * @throws LunaBotException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> taskList) throws LunaBotException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();

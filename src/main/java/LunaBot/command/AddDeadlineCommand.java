@@ -1,20 +1,30 @@
 package LunaBot.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import LunaBot.exception.LunaBotException;
 import LunaBot.storage.Storage;
 import LunaBot.task.Deadline;
 import LunaBot.task.TaskList;
 import LunaBot.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Command to add Deadline task to the taskList.
+ */
 public class AddDeadlineCommand extends Command {
     private String[] parts;
     private String description;
     private LocalDateTime by;
 
+    /**
+     * Constructs an AddDeadlineCommand from user input.
+     *
+     * @param input Full user input is taken in for the command.
+     * @throws LunaBotException Handles wrong input format, empty description
+     *                          or wrong date/time format.
+     */
     public AddDeadlineCommand(String input) throws LunaBotException {
         this.parts = input.substring(9).split(" /by ");
         if (parts.length < 2) {
@@ -30,12 +40,17 @@ public class AddDeadlineCommand extends Command {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.by = LocalDateTime.parse(parts[1], formatter);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new LunaBotException("Invalid deadline date/time format. Use yyyy-MM-dd HH:mm");
         }
     }
 
+    /**
+     * @param taskList Current list of tasks for the new Deadline task to be added to.
+     * @param ui User interface that handles interactions and display messages.
+     * @param storage Storage system to save or load tasks to/from a file.
+     * @throws LunaBotException If an error occurs while executing the command.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         Deadline deadline = new Deadline(description, by);

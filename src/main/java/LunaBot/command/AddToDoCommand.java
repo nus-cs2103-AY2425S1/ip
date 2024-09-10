@@ -6,9 +6,19 @@ import LunaBot.task.TaskList;
 import LunaBot.task.ToDo;
 import LunaBot.ui.Ui;
 
+/**
+ * Command to add ToDo task to the taskList.
+ */
 public class AddToDoCommand extends Command {
     private String description;
 
+    /**
+     * Constructs an AddToDoCommand from user input.
+     *
+     * @param input Full user input is taken in for the command.
+     * @throws LunaBotException Handles wrong input format or empty description.
+     *
+     */
     public AddToDoCommand(String input) throws LunaBotException {
         this.description = input.substring(5);
         if (description.isEmpty()) {
@@ -16,6 +26,12 @@ public class AddToDoCommand extends Command {
         }
     }
 
+    /**
+     * @param taskList Current list of tasks for the ToDo task to be added to.
+     * @param ui User interface that handles user input interactions and display messages.
+     * @param storage Storage system to save or load tasks to/from a file.
+     * @throws LunaBotException If an error occurs while executing the command.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         ToDo todo = new ToDo(description);
