@@ -56,10 +56,12 @@ public class Tanjiro {
             response.append(parser.performDelete(userInput));
         } else if (parser.containFind(userInput)) {
             response.append(parser.performFind(userInput));
+        } else if (parser.containsView(userInput)) {
+            response.append(parser.performView(userInput));
         } else if (parser.containBye(userInput)) {
             response.append(ui.goodbye());
         } else {
-            response.append(ui.invalid_input());
+            response.append(ui.invalidInput());
         }
 
         assert !response.isEmpty();

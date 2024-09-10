@@ -38,6 +38,15 @@ public class Parser {
         return input.equalsIgnoreCase("list");
     }
 
+    /**
+     * Checks if the provided input string contains the keyword "view".
+     *
+     * @param input Input string to be checked.
+     * @return true if the input string contains the substring "view"; false otherwise.
+     */
+    public boolean containsView(String input) {
+        return input.contains("view");
+    }
 
     /**
      * Checks if the provided input string contains the keyword "mark".
@@ -121,8 +130,49 @@ public class Parser {
      * @throws FileNotFoundException If the task file is not found during the search.
      */
     public String performFind(String input) throws FileNotFoundException {
-        String name = input.substring(5);
+        String trimmedInput = input.trim();
+
+        if (trimmedInput.length() < 5) {
+            return ui.invalidCommand();
+        }
+
+        String name = trimmedInput.substring(5);
+
         return Task.findTask(name);
+    }
+
+    /**
+     * Performs a search for tasks based on the provided date input.
+     * Input string is used to search for the task within the task list based on the date provided.
+     * The task name starts from the 5th character onwards until the last character.
+     *
+     * @param input A string containing the input command followed by the date.
+     * @return A String containing the results of the search,
+     * listing all tasks that match the search query.
+     * @throws FileNotFoundException If the task file is not found during the search.
+     */
+    public String performView(String input) throws FileNotFoundException {
+        String trimmedInput = input.trim();
+        if (trimmedInput.length() < 5) {
+            return ui.invalidCommand();
+        }
+
+        String response = "";
+        String date = trimmedInput.substring(5);
+        String[] dateTokens = date.split("-");
+
+        if (dateTokens.length != 3) {
+            response = ui.invalidDate();
+            return response;
+        }
+
+        String year = dateTokens[0];
+        String month = dateTokens[1];
+        String day = dateTokens[2];
+
+        String formattedDate = dateTimeSystem.formatLocalDate(dateTimeSystem.createDate(year, month, day));
+        response = Task.viewTask(formattedDate);
+        return response;
     }
 
     /**
@@ -146,9 +196,14 @@ public class Parser {
      * @throws IOException If an I/O error occurs during the operation.
      */
     public String performMark(String input) throws IOException {
+        String trimmedInput = input.trim();
+        if (trimmedInput.length() < 5) {
+            return ui.invalidCommand();
+        }
+
         int listNo;
-        if (containUnmark(input)) {
-            listNo = Integer.parseInt(input.substring(7));
+        if (containUnmark(trimmedInput)) {
+            listNo = Integer.parseInt(trimmedInput.substring(7));
             System.out.println("===debug=== listno: " + listNo);
             if (listNo != TaskList.tasks.size() && listNo <= 0) {
                 return ui.indexOutOfBounds();
@@ -156,7 +211,7 @@ public class Parser {
             return Task.unmark_task(listNo);
         }
 
-        listNo = Integer.parseInt(input.substring(5));
+        listNo = Integer.parseInt(trimmedInput.substring(5));
         if (listNo != TaskList.tasks.size() && listNo <= 0) {
             return ui.indexOutOfBounds();
         }
@@ -247,7 +302,7 @@ public class Parser {
             String hour = time.substring(0, 2);
             String minute = time.substring(2);
 
-            LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
+            LocalDateTime ldt = dateTimeSystem.createDateTime(year, month, day, hour, minute);
             boolean isBefore = dateTimeSystem.compareDateTime(ldt);
             if (!isBefore) {
                 response = ui.dateBeforeCurrent();
@@ -350,9 +405,9 @@ public class Parser {
             }
 
             LocalDateTime ldtStart =
-                    dateTimeSystem.createDate(startYear, startMonth, startDay, startHour, startMinute);
+                    dateTimeSystem.createDateTime(startYear, startMonth, startDay, startHour, startMinute);
             LocalDateTime ldtEnd =
-                    dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
+                    dateTimeSystem.createDateTime(endYear, endMonth, endDay, endHour, endMinute);
 
             boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
             boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
