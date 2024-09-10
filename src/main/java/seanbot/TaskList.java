@@ -24,11 +24,13 @@ public class TaskList {
 
     // Adds a task to the task list.
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
     // Deletes a task from the task list by its index.
     public void deleteTask(int index) {
+        assert index > 0 && index <= tasks.size() : "Invalid index";
         tasks.remove(index);
     }
 
@@ -54,6 +56,7 @@ public class TaskList {
      * @return A list of tasks that match the keyword.
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Keyword cannot be null or empty";
         List<Task> found = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {

@@ -18,6 +18,7 @@ public class Storage {
 
     // Constructor to set the file path for storing tasks.
     public Storage(String PATH) {
+        assert PATH != null && !PATH.isEmpty() : "File path cannot be null or empty";
         this.PATH = PATH;
     }
     // Loads tasks from a file into an ArrayList.
