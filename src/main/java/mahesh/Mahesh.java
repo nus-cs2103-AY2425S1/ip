@@ -24,7 +24,7 @@ public class Mahesh {
     /**
      * Constructs a Mahesh object with the specified file path for storing tasks.
      *
-     * @param path the relative path to the file for storing tasks
+     * @param paths the optional relative path to the file used for storing tasks
      */
     public Mahesh(String path) {
         this.path = path;
