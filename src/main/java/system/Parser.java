@@ -1,4 +1,5 @@
 package system;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -115,7 +116,7 @@ public class Parser {
      *
      * @param input A string containing the input command followed by the task name.
      * @return A String containing the results of the search,
-     *         listing all tasks that match the search query.
+     * listing all tasks that match the search query.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
     public String performFind(String input) throws FileNotFoundException {
@@ -144,17 +145,22 @@ public class Parser {
      * @throws IOException If an I/O error occurs during the operation.
      */
     public String performMark(String input) throws IOException {
-        int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
-        if (listNo <= TaskList.tasks.size() && listNo > 0) {
-            assert listNo <= TaskList.tasks.size() && listNo > 0;
-            if (containUnmark(input)) {
-                return Task.unmark_task(listNo);
-            } else {
-                return Task.mark_task(listNo);
+        int listNo;
+        if (containUnmark(input)) {
+            listNo = Integer.parseInt(input.substring(7));
+            System.out.println("===debug=== listno: " + listNo);
+            if (listNo != TaskList.tasks.size() && listNo <= 0) {
+                return ui.indexOutOfBounds();
             }
-        } else {
+            return Task.unmark_task(listNo);
+        }
+
+        listNo = Integer.parseInt(input.substring(5));
+        if (listNo != TaskList.tasks.size() && listNo <= 0) {
             return ui.indexOutOfBounds();
         }
+
+        return Task.mark_task(listNo);
     }
 
     /**
@@ -166,7 +172,7 @@ public class Parser {
      * @param input Input string containing the command to create a to-do task as well as
      *              the name of the task.
      * @return A String indicating the result of adding the to-do task or
-     *         an error message if the input is invalid.
+     * an error message if the input is invalid.
      */
     public String performToDo(String input) {
         String response = "";
@@ -201,52 +207,59 @@ public class Parser {
 
             if (deadlineArr.length != 2 || deadlineArr[1].length() <= 3) {
                 response = ui.invalidDeadlineInput();
-            } else {
-                String name = deadlineArr[0].substring(9);
-                String date = deadlineArr[1].substring(3);
-
-                String[] tokens = date.split(" ");
-                String[] dateTokens = tokens[0].split("-");
-
-                if (tokens.length == 2 && dateTokens.length == 3) {
-                    String time = tokens[1];
-                    String year = dateTokens[0];
-                    String month = dateTokens[1];
-                    String day = dateTokens[2];
-
-                    if (year.length() == 4 && !month.isEmpty()
-                            && month.length() <= 2 && !day.isEmpty() && day.length() <= 2) {
-
-                        if (time.length() == 4) {
-                            String hour = time.substring(0, 2);
-                            String minute = time.substring(2);
-
-                            LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
-                            boolean isBefore = dateTimeSystem.compareDateTime(ldt);
-                            if (isBefore) {
-                                Deadlines tempDeadline = new Deadlines(name, ldt);
-                                response = tempDeadline.addTask(tempDeadline);
-                                assert Integer.parseInt(year) >= 2024;
-                                assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
-                                assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
-                            } else {
-                                response = ui.dateBeforeCurrent();
-                            }
-                        } else {
-                            response = ui.twentyFourHourClock();
-                        }
-                    } else {
-                        response = ui.invalidDate();
-                    }
-                } else {
-                    response = ui.invalidDate();
-                }
+                return response;
             }
+
+            String name = deadlineArr[0].substring(9);
+            String date = deadlineArr[1].substring(3);
+
+            String[] tokens = date.split(" ");
+            String[] dateTokens = tokens[0].split("-");
+
+            if (tokens.length != 2 && dateTokens.length != 3) {
+                response = ui.invalidDate();
+                return response;
+            }
+
+            String time = tokens[1];
+            String year = dateTokens[0];
+            String month = dateTokens[1];
+            String day = dateTokens[2];
+
+            boolean isYearValid = year.length() == 4;
+            boolean isMonthValid = !month.isEmpty() && month.length() <= 2;
+            boolean isDayValid = !day.isEmpty() && day.length() <= 2;
+
+            if (!isYearValid || !isMonthValid || !isDayValid) {
+                response = ui.invalidDate();
+                return response;
+            }
+
+            if (time.length() != 4) {
+                response = ui.twentyFourHourClock();
+                return response;
+            }
+
+            String hour = time.substring(0, 2);
+            String minute = time.substring(2);
+
+            LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
+            boolean isBefore = dateTimeSystem.compareDateTime(ldt);
+            if (!isBefore) {
+                response = ui.dateBeforeCurrent();
+                return response;
+            }
+
+            Deadlines tempDeadline = new Deadlines(name, ldt);
+            response = tempDeadline.addTask(tempDeadline);
+            assert Integer.parseInt(year) >= 2024;
+            assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
+            assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
+
         } catch (StringIndexOutOfBoundsException
                  | IOException e) {
             response = ui.empty_deadline();
         }
-
         return response;
     }
 
@@ -273,72 +286,82 @@ public class Parser {
             if (deadlineArr.length != 3 || deadlineArr[0].length() <= 6
                     || deadlineArr[1].length() <= 5 || deadlineArr[2].length() <= 3) {
                 response = ui.invalidEventInput();
-            } else {
-                String name = deadlineArr[0].substring(6);
-                String start = deadlineArr[1].substring(5);
-                String end = deadlineArr[2].substring(3);
-
-                String[] fullDateTokenStart = start.split(" ");
-                String[] dateTokenStart = fullDateTokenStart[0].split("-");
-                String[] fullDateTokenEnd = end.split(" ");
-                String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
-
-                if (dateTokenStart.length != 3 || dateTokenEnd.length != 3) {
-                    response = ui.invalidDate();
-                } else {
-                    String startYear = dateTokenStart[0];
-                    String startMonth = dateTokenStart[1];
-                    String startDay = dateTokenStart[2];
-                    String startHour = fullDateTokenStart[1].substring(0, 2);
-                    String startMinute = fullDateTokenStart[1].substring(2);
-
-                    String endYear = dateTokenEnd[0];
-                    String endMonth = dateTokenEnd[1];
-                    String endDay = dateTokenEnd[2];
-                    String endHour = fullDateTokenEnd[1].substring(0, 2);
-                    String endMinute = fullDateTokenEnd[1].substring(2);
-
-                    if (startYear.length() == 4 && !startMonth.isEmpty()
-                            && startMonth.length() <= 2 && !startDay.isEmpty()
-                            && startDay.length() <= 2 && endYear.length() == 4
-                            && !endMonth.isEmpty() && endMonth.length() <= 2
-                            && !endDay.isEmpty() && endDay.length() <= 2) {
-                        if (fullDateTokenStart[1].length() == 4 && fullDateTokenEnd[1].length() == 4) {
-                            LocalDateTime ldtStart =
-                                    dateTimeSystem.createDate(startYear, startMonth, startDay, startHour, startMinute);
-                            LocalDateTime ldtEnd =
-                                    dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
-
-                            boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
-                            boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
-                            boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
-
-                            if (isBeforeEnd && isBeforeStart && !isEndBeforeStart) {
-                                assert Integer.parseInt(startYear) >= 2024;
-                                assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
-                                assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
-
-                                assert Integer.parseInt(endYear) >= 2024;
-                                assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
-                                assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
-
-                                Events tempEvent = new Events(name, ldtStart, ldtEnd);
-                                response = tempEvent.addTask(tempEvent);
-                            } else {
-                                response = ui.dateBeforeCurrent();
-                            }
-                        } else {
-                            response = ui.twentyFourHourClock();
-                        }
-                    } else {
-                        response = ui.invalidDate();
-                    }
-                }
+                return response;
             }
+
+            String name = deadlineArr[0].substring(6);
+            String start = deadlineArr[1].substring(5);
+            String end = deadlineArr[2].substring(3);
+
+            String[] fullDateTokenStart = start.split(" ");
+            String[] dateTokenStart = fullDateTokenStart[0].split("-");
+            String[] fullDateTokenEnd = end.split(" ");
+            String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
+
+            if (dateTokenStart.length != 3 || dateTokenEnd.length != 3) {
+                response = ui.invalidDate();
+                return response;
+            }
+
+            String startYear = dateTokenStart[0];
+            String startMonth = dateTokenStart[1];
+            String startDay = dateTokenStart[2];
+            String startHour = fullDateTokenStart[1].substring(0, 2);
+            String startMinute = fullDateTokenStart[1].substring(2);
+
+            String endYear = dateTokenEnd[0];
+            String endMonth = dateTokenEnd[1];
+            String endDay = dateTokenEnd[2];
+            String endHour = fullDateTokenEnd[1].substring(0, 2);
+            String endMinute = fullDateTokenEnd[1].substring(2);
+
+            boolean isStartYearValid = startYear.length() == 4;
+            boolean isStartMonthValid = !startMonth.isEmpty() && startMonth.length() <= 2;
+            boolean isStartDayValid = !startDay.isEmpty() && startDay.length() <= 2;
+
+            boolean isEndYearValid = endYear.length() == 4;
+            boolean isEndMonthValid = !endMonth.isEmpty() && endMonth.length() <= 2;
+            boolean isEndDayValid = !endDay.isEmpty() && endDay.length() <= 2;
+
+            if (!isStartYearValid || !isStartMonthValid || !isStartDayValid
+                    || !isEndYearValid || !isEndMonthValid || !isEndDayValid) {
+                response = ui.invalidDate();
+                return response;
+            }
+
+            if (fullDateTokenStart[1].length() != 4 && fullDateTokenEnd[1].length() != 4) {
+                response = ui.twentyFourHourClock();
+                return response;
+            }
+
+            LocalDateTime ldtStart =
+                    dateTimeSystem.createDate(startYear, startMonth, startDay, startHour, startMinute);
+            LocalDateTime ldtEnd =
+                    dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
+
+            boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
+            boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
+            boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
+
+            if (!isBeforeEnd || !isBeforeStart || isEndBeforeStart) {
+                response = ui.dateBeforeCurrent();
+                return response;
+            }
+
+            assert Integer.parseInt(startYear) >= 2024;
+            assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
+            assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
+
+            assert Integer.parseInt(endYear) >= 2024;
+            assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
+            assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
+
+            Events tempEvent = new Events(name, ldtStart, ldtEnd);
+            response = tempEvent.addTask(tempEvent);
+
         } catch (StringIndexOutOfBoundsException | IOException e) {
             response = ui.empty_event();
         }
-
         return response;
     }
 
