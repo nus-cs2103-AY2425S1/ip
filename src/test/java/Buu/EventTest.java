@@ -6,53 +6,75 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+
+
 /**
- * Unit tests for the Event class in the GPT application.
+ * JUnit test class for the Event class in the GPT application.
  */
 public class EventTest {
 
     @Test
-    public void testConstructor_withValidInput() {
-        LocalDateTime from = LocalDateTime.of(2023, 9, 10, 10, 0);
-        LocalDateTime to = LocalDateTime.of(2023, 9, 10, 12, 0);
-        Event event = new Event("Team meeting", from, to);
+    public void testToFileFormat_withValidEvent() {
+        // Arrange
+        LocalDateTime fromDateTime = LocalDateTime.of(2023, 8, 26, 10, 0);
+        LocalDateTime toDateTime = LocalDateTime.of(2023, 8, 26, 12, 0);
+        Event event = new Event("Team meeting", fromDateTime, toDateTime);
 
-        String expectedString = "[E][ ] Team meeting (from: Sep 10 2023, 10:00am to: Sep 10 2023, 12:00pm)";
-        assertEquals(expectedString, event.toString());
-    }
-    @Test
-    public void testToString_withValidDate() {
-        LocalDateTime from = LocalDateTime.of(2023, 9, 10, 10, 0);
-        LocalDateTime to = LocalDateTime.of(2023, 9, 10, 12, 0);
-        Event event = new Event("Team meeting", from, to);
+        // Act
+        String actual = event.toFileFormat();
 
-        String expectedString = "[E][ ] Team meeting (from: Sep 10 2023, 10:00am to: Sep 10 2023, 12:00pm)";
-        assertEquals(expectedString, event.toString());
+        // Assert
+        String expected = "E | 0 | Team meeting | 2023-08-26 1000 | 2023-08-26 1200 | 1";
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testToString_withInvalidDate() {
-        Event event = new Event("Team meeting", null, null);
+    public void testToString_withValidEvent() {
+        // Arrange
+        LocalDateTime fromDateTime = LocalDateTime.of(2023, 8, 26, 10, 0);
+        LocalDateTime toDateTime = LocalDateTime.of(2023, 8, 26, 12, 0);
+        Event event = new Event("Team meeting", fromDateTime, toDateTime);
 
-        String expectedString = "[E][ ] Team meeting (from: [Invalid Date] to: [Invalid Date])";
-        assertEquals(expectedString, event.toString());
+        // Act
+        String actual = event.toString();
+
+        // Assert
+        String expected = "[E][ ] Team meeting (from: Aug 26 2023, 10:00am "
+                + "to: Aug 26 2023, 12:00pm) (Priority: Low Priority)";
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testToFileFormat_withValidDate() {
-        LocalDateTime from = LocalDateTime.of(2023, 9, 10, 10, 0);
-        LocalDateTime to = LocalDateTime.of(2023, 9, 10, 12, 0);
-        Event event = new Event("Team meeting", from, to);
+    public void testMarkAsDone() {
+        // Arrange
+        LocalDateTime fromDateTime = LocalDateTime.of(2023, 8, 26, 10, 0);
+        LocalDateTime toDateTime = LocalDateTime.of(2023, 8, 26, 12, 0);
+        Event event = new Event("Team meeting", fromDateTime, toDateTime);
 
-        String expectedFormat = "E | 0 | Team meeting | 2023-09-10 1000 | 2023-09-10 1200";
-        assertEquals(expectedFormat, event.toFileFormat());
+        // Act
+        event.markAsDone();
+        String actual = event.toString();
+
+        // Assert
+        String expected = "[E][X] Team meeting (from: Aug 26 2023, 10:00am "
+                + "to: Aug 26 2023, 12:00pm) (Priority: Low Priority)";
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testToFileFormat_withInvalidDate() {
-        Event event = new Event("Team meeting", null, null);
+    public void testSetPriority() {
+        // Arrange
+        LocalDateTime fromDateTime = LocalDateTime.of(2023, 8, 26, 10, 0);
+        LocalDateTime toDateTime = LocalDateTime.of(2023, 8, 26, 12, 0);
+        Event event = new Event("Team meeting", fromDateTime, toDateTime);
 
-        String expectedFormat = "E | 0 | Team meeting | [Invalid Date] | [Invalid Date]";
-        assertEquals(expectedFormat, event.toFileFormat());
+        // Act
+        event.setPriority(3);
+        String actual = event.toString();
+
+        // Assert
+        String expected = "[E][ ] Team meeting (from: Aug 26 2023, 10:00am "
+                + "to: Aug 26 2023, 12:00pm) (Priority: High Priority)";
+        assertEquals(expected, actual);
     }
 }

@@ -18,9 +18,9 @@ public class Parser {
      *
      * @param input The user input string to be parsed.
      * @return The corresponding Command object based on the input.
-     * @throws GPTException If the input cannot be parsed into a valid command.
+     * @throws TaskException If the input cannot be parsed into a valid command.
      */
-    public static Command parseCommand(String input) throws GPTException {
+    public static Command parseCommand(String input) throws TaskException {
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
         } else if (input.equalsIgnoreCase("list")) {
@@ -29,6 +29,8 @@ public class Parser {
             return new MarkCommand(input);
         } else if (input.startsWith("unmark")) {
             return new UnmarkCommand(input);
+        } else if (input.startsWith("priority")) {
+            return new SetPriorityCommand(input);
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
         } else if (input.startsWith("todo")) {

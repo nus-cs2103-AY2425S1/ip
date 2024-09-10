@@ -16,13 +16,15 @@ public class HelpCommand extends Command {
         ui.addToOutputBuffer("You can try these commands:");
         ui.addToOutputBuffer("todo [task description] - To add a ToDo task");
         ui.addToOutputBuffer("deadline [task description] /by [date/time] - To add a Deadline task");
-        ui.addToOutputBuffer("event [task description] /from [start date/time] /to "
-                + "[end date/time] - To add an Event task");
+        ui.addToOutputBuffer("event [task description] /from [start date/time]"
+                + " /to [end date/time] - To add an Event task");
         ui.addToOutputBuffer("list - To display all tasks");
         ui.addToOutputBuffer("mark [task number] - To mark a task as done");
         ui.addToOutputBuffer("unmark [task number] - To unmark a task");
         ui.addToOutputBuffer("delete [task number] - To delete a task");
         ui.addToOutputBuffer("find [keyword] - To find tasks by keyword");
+        ui.addToOutputBuffer("priority [task number] [priority level] - To set the priority of a task "
+                + "(1: Low, 2: Medium, 3: High)");
         ui.addToOutputBuffer("bye - To exit the chatbot");
     }
 }

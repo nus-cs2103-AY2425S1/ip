@@ -1,86 +1,96 @@
 package Buu;
+
 /**
- * Represents an abstract task in the GPT application.
- * This class provides common functionality for tasks, such as tracking the task's description,
- * completion status, and type. Subclasses of Task will provide more specific behavior.
+ * Represents a task in the GPT application.
+ * The Task class provides common functionality for all task types.
  */
-abstract class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected TaskType type;
+    protected int priority; // 1 = Low Priority, 2 = Medium Priority, 3 = High Priority
 
     /**
-     * Constructs a Task with the specified description and type.
-     * The task is initially marked as not done.
+     * Constructs a new Task with the specified description and sets default priority to 1 (Low Priority).
      *
-     * @param description The description of the task.
-     * @param type        The type of the task (e.g., ToDo, Deadline, Event).
+     * @param description The task description.
      */
-    public Task(String description, TaskType type) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = type;
-    }
-
-    /**
-     * Returns the status icon of the task, indicating whether it is done.
-     *
-     * @return "X" if the task is done, otherwise a space " ".
-     */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        this.priority = 1; // Default priority (Low Priority)
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        isDone = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-        isDone = false;
+        this.isDone = false;
     }
 
     /**
-     * Returns the type of the task.
+     * Sets the priority level for the task.
      *
-     * @return The TaskType of the task.
+     * @param priority The priority level (1 for Low, 2 for Medium, 3 for High).
      */
-    public TaskType getType() {
-        return type;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
+    /**
+     * Returns the priority level of the task as a string.
+     *
+     * @return A string representing the priority level.
+     */
+    public String getPriorityLabel() {
+        switch (priority) {
+        case 1:
+            return "Low Priority";
+        case 2:
+            return "Medium Priority";
+        case 3:
+            return "High Priority";
+        default:
+            return "None";
+        }
+    }
     /**
      * Returns the description of the task.
      *
-     * @return The task description.
+     * @return The description of the task.
      */
     public String getDescription() {
         return description;
     }
+
     /**
-     * Returns a string representation of the task suitable for saving to a file.
+     * Returns a string representation of the task in a format suitable for file storage.
+     * This method is intended to be overridden by subclasses.
      *
-     * @return A formatted string representing the task, including its type, status, and description.
+     * @return A string representation of the task for file storage.
      */
-    public String toFileFormat() {
-        return String.format("%s | %d | %s",
-                this.getClass().getSimpleName().charAt(0),
-                isDone ? 1 : 0,
-                description);
+    public abstract String toFileFormat();
+
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s (Priority: %s)",
+                getTaskType(),
+                isDone ? "X" : " ",
+                description,
+                getPriorityLabel());
     }
 
     /**
-     * Returns a string representation of the task, including its type, status, and description.
+     * Get the task type for display in the task list.
+     * Subclasses will override this to return the correct task type.
      *
-     * @return A string representing the task.
+     * @return A single letter representing the task type.
      */
-    @Override
-    public String toString() {
-        return "[" + type.name().charAt(0) + "][" + getStatusIcon() + "] " + description;
-    }
+    protected abstract String getTaskType();
 }

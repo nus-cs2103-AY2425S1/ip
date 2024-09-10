@@ -1,56 +1,65 @@
 package Buu;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline in the GPT application.
- * This class extends the Task class to include a specific date and time by which the task should be completed.
+ * Represents a Deadline task in the GPT application.
+ * A Deadline task has a description and a due date/time by which it must be completed.
  */
-class Deadline extends Task {
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructs a Deadline task with the specified description and deadline.
+     * Constructs a Deadline task with the specified description and due date/time.
      *
      * @param description The description of the task.
-     * @param by The date and time by which the task should be completed.
+     * @param by The due date/time by which the task must be completed.
      */
     public Deadline(String description, LocalDateTime by) {
-        super(description, TaskType.DEADLINE);
+        super(description);
         this.by = by;
     }
 
     /**
-     * Returns a string format suitable for saving the deadline task to a file.
+     * Returns a string representation of the Deadline task in a format suitable for saving to a file.
+     * The format is:
+     * "D | done status | description | due date/time | priority"
      *
-     * @return A string representation of the deadline task in a format suitable for file storage.
+     * @return A string representation of the Deadline task in file format.
      */
     @Override
     public String toFileFormat() {
-        if (by != null) {
-            return String.format("D | %d | %s | %s",
-                    isDone ? 1 : 0,
-                    description,
-                    by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
-        } else {
-            return String.format("D | %d | %s | [Invalid Date]",
-                    isDone ? 1 : 0,
-                    description);
-        }
+        return String.format("D | %d | %s | %s | %d",
+                isDone ? 1 : 0,
+                description,
+                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                priority);
     }
 
     /**
-     * Returns a string representation of the deadline task, including the deadline date and time.
+     * Returns a string representation of the Deadline task suitable for displaying to the user.
+     * The format is:
+     * "[D][done status] description (by: due date/time) (Priority: priority)"
      *
-     * @return A string representation of the deadline task.
+     * @return A string representation of the Deadline task for display.
      */
     @Override
     public String toString() {
-        if (by != null) {
-            return super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
-        } else {
-            return super.toString() + " (by: [Invalid Date])";
-        }
+        return String.format("[D][%s] %s (by: %s) (Priority: %s)",
+                isDone ? "X" : " ",
+                description,
+                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma")),
+                getPriorityLabel());
+    }
+
+    /**
+     * Returns the type of the task, which is "D" for Deadline tasks.
+     *
+     * @return The type of the task as a string.
+     */
+    @Override
+    protected String getTaskType() {
+        return "D";
     }
 }

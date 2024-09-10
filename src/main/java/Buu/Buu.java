@@ -61,8 +61,8 @@ public class Buu {
             }
 
             return response.toString().trim(); // Return the full output to display in the GUI
-        } catch (GPTException e) {
-            return "Error: " + e.getMessage();
+        } catch (TaskException exception) {
+            return "Error: " + exception.getMessage();
         } catch (Exception e) {
             return "An unexpected error occurred: " + e.getMessage();
         }

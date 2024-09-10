@@ -28,23 +28,12 @@ public class Ui {
     public void showWelcomeMessage(String chatbotName) {
         outputBuffer.add("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
     }
-
     /**
      * Displays a goodbye message to the user when the application exits.
      */
     public void showGoodbyeMessage() {
         outputBuffer.add("Bye. Hope to see you again soon!");
     }
-
-    /**
-     * Reads the next command entered by the user.
-     *
-     * @return The trimmed input string entered by the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine().trim();
-    }
-
     /**
      * Displays an error message to the user.
      *
@@ -74,9 +63,9 @@ public class Ui {
         outputBuffer.add("  " + task);
     }
     /**
-     * Displays a confirmation message indicating that the task has been unmarked as not done.
+     * Displays a message when a task is unmarked as not done.
      *
-     * @param task The task that has been unmarked as not completed.
+     * @param task The task that was unmarked.
      */
     public void showTaskUnmarked(Task task) {
         outputBuffer.add("OK, I've marked this task as not done yet:");
@@ -90,8 +79,8 @@ public class Ui {
      * @param taskCount The total number of tasks remaining in the list after removing the task.
      */
     public void showTaskRemoved(Task task, int taskCount) {
-        outputBuffer.add("Noted. I've removed this task:\n  "
-                + task + "\nNow you have " + taskCount + " tasks in the list.");
+        outputBuffer.add("Noted. I've removed this task:\n  " + task);
+        outputBuffer.add("Now you have " + taskCount + " tasks left in the list.");
     }
 
     /**
@@ -109,6 +98,19 @@ public class Ui {
             }
             outputBuffer.add(taskListMessage.toString());
         }
+    }
+    /**
+     * Displays a message to confirm that the priority has been set for the specified task.
+     * This method adds a message to the output buffer, indicating that the priority of the
+     * task has been successfully updated, and then shows the task's details using its
+     * {@code toString()} method.
+     *
+     * @param task The task whose priority was set. The task's details will be displayed
+     *             along with the newly set priority.
+     */
+    public void showTaskPrioritySet(Task task) {
+        outputBuffer.add("OK, I've set the priority for this task:");
+        outputBuffer.add("  " + task); // Calls the task's toString() method
     }
 
     /**
@@ -141,7 +143,9 @@ public class Ui {
      * @return The list of buffered messages.
      */
     public List<String> getOutputBuffer() {
-        return new ArrayList<>(outputBuffer);
+        List<String> output = new ArrayList<>(outputBuffer);
+        outputBuffer.clear();
+        return output;
     }
 
     public void addToOutputBuffer(String message) {
