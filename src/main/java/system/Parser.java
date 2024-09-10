@@ -25,7 +25,7 @@ public class Parser {
      * @return true if the input string contains the substring "bye"; false otherwise.
      */
     public boolean containBye(String input) {
-        return input.equals(("bye"));
+        return input.contains(("bye"));
     }
 
     /**
@@ -35,7 +35,7 @@ public class Parser {
      * @return true if the input string contains the substring "list"; false otherwise.
      */
     public boolean containList(String input) {
-        return input.equalsIgnoreCase("list");
+        return input.contains("list");
     }
 
     /**

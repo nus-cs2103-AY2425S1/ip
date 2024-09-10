@@ -228,8 +228,7 @@ public abstract class Task {
         int count = 0;
         for (int i = 0; i < lineTokens.length; i++) {
             String name = "";
-            if (lineTokens[i].contains("\\(")) {
-                System.out.println("==DEBUG==" + lineTokens[i]);
+            if (lineTokens[i].contains("(")) {
                 String[] charTokens = lineTokens[i].split("\\(");
                 name = charTokens[0].substring(10);
             } else {
