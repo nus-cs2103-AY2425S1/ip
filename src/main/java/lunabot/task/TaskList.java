@@ -1,8 +1,8 @@
-package LunaBot.task;
-
-import LunaBot.exception.LunaBotException;
+package lunabot.task;
 
 import java.util.ArrayList;
+
+import lunabot.exception.LunaBotException;
 
 public class TaskList {
     private ArrayList<Task> taskList;

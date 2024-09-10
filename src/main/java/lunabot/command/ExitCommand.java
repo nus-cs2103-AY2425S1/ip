@@ -1,8 +1,8 @@
-package LunaBot.command;
+package lunabot.command;
 
-import LunaBot.storage.Storage;
-import LunaBot.task.TaskList;
-import LunaBot.ui.Ui;
+import lunabot.storage.Storage;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
 public class ExitCommand extends Command {
 

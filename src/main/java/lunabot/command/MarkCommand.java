@@ -1,22 +1,22 @@
-package LunaBot.command;
+package lunabot.command;
 
-import LunaBot.exception.LunaBotException;
-import LunaBot.storage.Storage;
-import LunaBot.task.Task;
-import LunaBot.task.TaskList;
-import LunaBot.ui.Ui;
+import lunabot.exception.LunaBotException;
+import lunabot.storage.Storage;
+import lunabot.task.Task;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private int index;
 
-    public UnmarkCommand(String input) throws LunaBotException {
+    public MarkCommand(String input) throws LunaBotException {
         try {
             // extracts index as a string and converts to an int
-            this.index = Integer.parseInt(input.substring(7).trim()) - 1;
+            this.index = Integer.parseInt(input.substring(5).trim()) - 1;
         }
         catch (NumberFormatException e) {
             // checks if user inout an int
-            throw new LunaBotException(" Invalid task number format");
+            throw new LunaBotException("Invalid task number format");
         }
     }
 
@@ -27,8 +27,8 @@ public class UnmarkCommand extends Command {
             throw new LunaBotException("Invalid task number provided");
         }
         Task task = taskList.get(index);
-        task.unmarkAsDone();
+        task.markAsDone();
         storage.save(taskList.getTasks());
-        ui.printTaskUnmarked(task);
+        ui.printTaskMarked(task);
     }
 }

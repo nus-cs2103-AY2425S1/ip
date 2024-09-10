@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 public abstract class Task {
     protected String description;

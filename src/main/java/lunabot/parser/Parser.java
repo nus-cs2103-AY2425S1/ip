@@ -1,15 +1,15 @@
-package LunaBot.parser;
+package lunabot.parser;
 
-import LunaBot.command.AddDeadlineCommand;
-import LunaBot.command.AddEventCommand;
-import LunaBot.command.AddToDoCommand;
-import LunaBot.command.Command;
-import LunaBot.command.DeleteCommand;
-import LunaBot.command.ExitCommand;
-import LunaBot.command.ListCommand;
-import LunaBot.command.MarkCommand;
-import LunaBot.command.UnmarkCommand;
-import LunaBot.exception.LunaBotException;
+import lunabot.command.AddDeadlineCommand;
+import lunabot.command.AddEventCommand;
+import lunabot.command.AddToDoCommand;
+import lunabot.command.Command;
+import lunabot.command.DeleteCommand;
+import lunabot.command.ExitCommand;
+import lunabot.command.ListCommand;
+import lunabot.command.MarkCommand;
+import lunabot.command.UnmarkCommand;
+import lunabot.exception.LunaBotException;
 
 public class Parser {
 
@@ -21,7 +21,7 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
-        case "mark" :
+        case "mark":
             return new MarkCommand(input);
         case "unmark":
             return new UnmarkCommand(input);

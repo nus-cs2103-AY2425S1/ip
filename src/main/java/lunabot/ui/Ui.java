@@ -1,12 +1,12 @@
-package LunaBot.ui;
-
-import LunaBot.task.Task;
+package lunabot.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import lunabot.task.Task;
+
 public class Ui {
-    private static String LINE = "___________________________________________________________________";
+    private final static String LINE = "___________________________________________________________________";
     private Scanner scanner;
 
     public Ui() {
@@ -46,8 +46,7 @@ public class Ui {
         System.out.println(LINE);
         if (taskList.isEmpty()) {
             System.out.println(" You have no tasks in your task list.");
-        }
-        else {
+        } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
                 System.out.println(" " + (i + 1) + "." + taskList.get(i));
@@ -74,7 +73,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println(" Noted. I've removed this task:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " +  size + " tasks in the list.");
+        System.out.println(" Now you have " + size + " tasks in the list.");
         System.out.println(LINE);
 
     }
