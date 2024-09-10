@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -99,7 +99,6 @@ public class Parser {
             throw  new InvalidIndexInputException(indexString);
         }
 
-        System.out.println("label: " + Integer.parseInt(indexString));
         return Integer.parseInt(indexString) - 1;
     }
 
@@ -156,7 +155,7 @@ public class Parser {
         String taskDescription = taskArray[0];
         String taskDate = taskArray[1];
 
-        String[] taskDateArray = taskArray[1].split("\\s+");
+        String[] taskDateArray = taskDate.split("\\s+");
         if (taskDateArray.length != 2) {
             throw new InvalidDeadlineContentException();
         }

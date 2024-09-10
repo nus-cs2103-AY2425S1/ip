@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import javafx.application.Application;
 

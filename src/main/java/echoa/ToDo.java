@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 /**
  * ToDo is a class that encapsulates the characteristics of a ToDo Task.

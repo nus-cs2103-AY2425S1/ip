@@ -1,10 +1,11 @@
-package Echoa;
+package echoa;
 
 /**
- * InvalidInstructionsContentException is a class that encapsulates errors relating to instruction
+ * InvalidInstructionsContentException is a class that encapsulates errors relating to instruction.
+ * It extends from class EchoaException.
  */
 
-public class InvalidInstructionException extends Exception {
+public class InvalidInstructionException extends EchoaException {
     String instruction;
     public InvalidInstructionException(String instruction) {
         super();

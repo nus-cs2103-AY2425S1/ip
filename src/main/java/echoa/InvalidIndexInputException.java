@@ -1,10 +1,11 @@
-package Echoa;
+package echoa;
 
 /**
  * InvalidIndexInput is a class that encapsulates exceptions related to an index.
+ * It extends from class EchoaException.
  */
 
-public class InvalidIndexInputException extends Exception {
+public class InvalidIndexInputException extends EchoaException {
 
     String indexString;
 
