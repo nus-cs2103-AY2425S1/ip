@@ -17,6 +17,8 @@ public class TaskList {
      */
     public TaskList(List<Task> taskList) {
         this.tasks = taskList;
+        // Assert that the list is initalised correctly.
+        assert tasks != null : "Task list should not be null";
     }
 
     /**
@@ -24,6 +26,8 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        // Assert that the list is initalised correctly.
+        assert tasks != null : "Task list should be initalised as an empty list";
     }
 
     /**
@@ -32,6 +36,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        // Assert that the task being added is not null.
+        assert task != null : "Task to add should not be null";
         tasks.add(task);
     }
 
@@ -42,6 +48,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        // Assert that the index is within the valid range.
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 
@@ -61,6 +69,8 @@ public class TaskList {
      * @return The deleted task.
      */
     public Task delete(int index) {
+        // Assert that the index is within the valid range.
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.remove(index);
     }
 

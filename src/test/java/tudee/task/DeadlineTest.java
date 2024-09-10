@@ -7,12 +7,14 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import tudee.TudeeException;
+
 class DeadlineTest {
 
     private Deadline deadline;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws TudeeException {
         deadline = new Deadline("Submit assignment", "2024-09-01");
     }
 
