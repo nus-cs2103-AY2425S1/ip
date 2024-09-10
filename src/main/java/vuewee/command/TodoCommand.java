@@ -1,6 +1,7 @@
 package vuewee.command;
 
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
 import vuewee.ui.TaskListUi;
@@ -18,7 +19,7 @@ class TodoCommand extends Command {
      * @param parser   the command parser for parsing the input
      */
     public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
-        parser.parse(true);
-        ui.addTask(new TodoTask(parser.getDescription()));
+        String desc = parser.<String>parse(new StringDescriptionParser());
+        ui.addTask(new TodoTask(desc));
     }
 }

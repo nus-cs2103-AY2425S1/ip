@@ -2,6 +2,7 @@ package vuewee.command;
 
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 import vuewee.task.EventTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
@@ -25,7 +26,7 @@ class EventCommand extends Command {
                 TaskLocalDate::parse);
         CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",
                 TaskLocalDate.createParserWithFrom(na -> fromOption.getParsedValue()));
-        parser.parse(true, false, fromOption, toOption);
-        ui.addTask(new EventTask(parser.getDescription(), fromOption.getParsedValue(), toOption.getParsedValue()));
+        String desc = parser.parse(new StringDescriptionParser(), fromOption, toOption);
+        ui.addTask(new EventTask(desc, fromOption.getParsedValue(), toOption.getParsedValue()));
     }
 }

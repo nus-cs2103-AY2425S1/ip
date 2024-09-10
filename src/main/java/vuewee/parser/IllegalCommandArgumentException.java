@@ -1,6 +1,7 @@
 package vuewee.parser;
 
 import vuewee.command.CommandType;
+import vuewee.parser.description.DescriptionParser;
 
 /**
  * This exception is thrown when an invalid argument is provided for a command.
@@ -8,24 +9,21 @@ import vuewee.command.CommandType;
  */
 public class IllegalCommandArgumentException extends IllegalCommandException {
     private CommandType command;
-    private boolean hasDescription;
-    private boolean isIntegerDescription;
+    private DescriptionParser<?> descriptionParser;
     private CommandOption<?>[] options;
 
     /**
      * Constructs a new IllegalCommandArgumentException.
      *
-     * @param command              the command type
-     * @param hasDescription       if the command has a description
-     * @param isIntegerDescription if the description is an integer
-     * @param options              the command options
+     * @param commandType       the command type
+     * @param descriptionParser the description parser to use
+     * @param options           the command options
      */
-    public IllegalCommandArgumentException(CommandType command, boolean hasDescription, boolean isIntegerDescription,
+    public IllegalCommandArgumentException(CommandType commandType, DescriptionParser<?> descriptionParser,
             CommandOption<?>[] options) {
         super();
-        this.command = command;
-        this.hasDescription = hasDescription;
-        this.isIntegerDescription = isIntegerDescription;
+        this.command = commandType;
+        this.descriptionParser = descriptionParser;
         this.options = options;
     }
 
@@ -39,8 +37,8 @@ public class IllegalCommandArgumentException extends IllegalCommandException {
     public String getMessage() {
         // Create a usage string for the command
         StringBuilder usage = new StringBuilder(CommandType.toString(command));
-        if (hasDescription) {
-            usage.append(isIntegerDescription ? " <value>" : " <description>");
+        if (this.descriptionParser != null) {
+            usage.append(descriptionParser.getUsageFieldName());
         }
         for (CommandOption<?> option : options) {
             usage.append(" /");

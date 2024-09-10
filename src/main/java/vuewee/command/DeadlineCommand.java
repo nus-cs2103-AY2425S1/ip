@@ -2,6 +2,7 @@ package vuewee.command;
 
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
+import vuewee.parser.description.StringDescriptionParser;
 import vuewee.task.DeadlineTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
@@ -23,7 +24,7 @@ class DeadlineCommand extends Command {
     public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
         CommandOption<TaskLocalDate> byOption = new CommandOption<TaskLocalDate>("by", "date yyyy-mm-dd",
                 TaskLocalDate::parse);
-        parser.parse(true, false, byOption);
-        ui.addTask(new DeadlineTask(parser.getDescription(), byOption.getParsedValue()));
+        String desc = parser.<String>parse(new StringDescriptionParser(), byOption);
+        ui.addTask(new DeadlineTask(desc, byOption.getParsedValue()));
     }
 }
