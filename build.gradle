@@ -51,7 +51,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "optimus"
+    archiveBaseName = "optimus.ui.Main"
     archiveClassifier = null
 }
 
