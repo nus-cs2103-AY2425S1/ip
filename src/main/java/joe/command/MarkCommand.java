@@ -31,4 +31,8 @@ public class MarkCommand extends Command {
         }
         taskList.markTask(idx);
     }
+
+    public static String getHelp() {
+        return "To mark a complete task, try: mark {index}";
+    }
 }

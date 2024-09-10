@@ -31,4 +31,8 @@ public class DeleteCommand extends Command {
         }
         taskList.removeTask(idx);
     }
+
+    public static String getHelp() {
+        return "To delete a task, try: delete {index}";
+    }
 }

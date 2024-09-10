@@ -59,4 +59,8 @@ public class DeadlineCommand extends Command {
     public int hashCode() {
         return Objects.hash(description, by);
     }
+
+    public static String getHelp() {
+        return "To add a new deadline, try: deadline {desc} /by {duedate}";
+    }
 }

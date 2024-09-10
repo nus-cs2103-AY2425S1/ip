@@ -24,4 +24,8 @@ public class ListCommand extends Command {
         ArrayList<Task> tasks = taskList.toArrayList();
         ui.printResponse("", tasks);
     }
+
+    public static String getHelp() {
+        return "To list all tasks, try: list";
+    }
 }

@@ -26,4 +26,8 @@ public class ExitCommand extends Command {
     public boolean isExit() {
         return true;
     }
+
+    public static String getHelp() {
+        return "To exit, try: bye";
+    }
 }
