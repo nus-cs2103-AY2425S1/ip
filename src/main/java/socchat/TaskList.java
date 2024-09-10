@@ -52,7 +52,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
         } catch (NumberFormatException e) {
-            throw new SocchatException("Please enter a valid task number.");
+            throw new SocchatException("Please enter a valid task number for deletion.");
         }
     }
 
