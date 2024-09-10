@@ -22,6 +22,7 @@ public class UnmarkCommand implements Command {
      * @param taskNumber The task number to be marked as incomplete, as a string.
      */
     public UnmarkCommand(String taskNumber) {
+        assert taskNumber != null : "Task number cannot be null.";
         this.taskNumber = taskNumber;
     }
 

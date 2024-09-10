@@ -24,6 +24,9 @@ public class DeadlineCommand implements Command {
      * @param time The due date and time of the deadline task.
      */
     public DeadlineCommand(String taskDescription, LocalDateTime time) {
+        assert taskDescription != null : "Task description cannot be null.";
+        assert time != null : "Task deadline cannot be null.";
+
         this.taskDescription = taskDescription;
         this.time = time;
 
