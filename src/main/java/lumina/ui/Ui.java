@@ -1,9 +1,17 @@
 package lumina.ui;
 
+/** A class to handle UI related tasks */
 public class Ui {
     // configs
     private static final int indentWidth = 2;
 
+    /**
+     * Returns an indented message where each line indented by `indentWidth`
+     * number of spaces.
+     *
+     * @param msg The message to be indented.
+     * @return The indented message.
+     */
     public String indentMessage(String msg) {
         String[] lines = msg.split("\n");
 
@@ -40,8 +48,8 @@ public class Ui {
      * Greets the user with a welcome message when the program starts.
      */
     public void greet() {
-        this.printMessage("Hello! I'm Lumina\n" +
-                "What can I do for you?");
+        this.printMessage("Hello! I'm Lumina\n"
+                + "What can I do for you?");
     }
 
     /**

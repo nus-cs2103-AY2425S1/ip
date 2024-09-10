@@ -1,16 +1,19 @@
 package lumina.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import lumina.exception.LuminaException;
 import lumina.task.DeadlineTask;
 import lumina.task.EventTask;
 import lumina.task.Task;
 import lumina.task.TodoTask;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 public class ParserTest {
 
@@ -36,7 +39,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDataLine_ValidTodoTask() {
+    void parseDataLine_validTodoTask() {
         Parser parser = new Parser();
         String line = "T | 1 | Read book";
 
@@ -48,7 +51,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDataLine_ValidDeadlineTask() {
+    void parseDataLine_validDeadlineTask() {
         Parser parser = new Parser();
         String line = "D | 0 | Return book | 2024-06-06";
 
@@ -61,7 +64,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDataLine_ValidEventTask() {
+    void parseDataLine_validEventTask() {
         Parser parser = new Parser();
         String line = "E | 0 | Project meeting | 2024-08-06 | 2024-08-06";
 

@@ -46,7 +46,7 @@ public class TodoTask extends Task {
         if (!super.equals(o)) {
             return false;
         }
-        if (o instanceof  TodoTask) {
+        if (o instanceof TodoTask) {
             return true;
         }
         return false;

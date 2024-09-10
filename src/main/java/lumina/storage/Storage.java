@@ -1,9 +1,5 @@
 package lumina.storage;
 
-import lumina.parser.Parser;
-import lumina.task.Task;
-import lumina.task.TaskList;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import lumina.parser.Parser;
+import lumina.task.Task;
+import lumina.task.TaskList;
 
 /**
  * Manages the saving and loading of task data to and from a file.
@@ -99,9 +99,9 @@ public class Storage {
 
         // get line stream and collect it into an array
         try (Stream<String> lines = Files.lines(path)) {
-            retTasks = lines.map(parser::parseDataLine).
-                    filter(Objects::nonNull).
-                    collect(Collectors.toCollection(ArrayList::new));
+            retTasks = lines.map(parser::parseDataLine)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
             // error handling
             System.err.println(e.getMessage());
