@@ -36,7 +36,7 @@ public class Remind extends Action {
         if (list.isEmpty()) {
             return "Croak! Looks like things are empty around here...";
         }
-        String ans = "Here are the tasks in your list due in " + this.days + " days\n";
+        String ans = "Here are the tasks in your list due within " + this.days + " days\n";
         LocalDate dueByTime = currentTime.plusDays(this.days);
         int numberOfSearchHits = 0;
 
