@@ -45,6 +45,7 @@ public class TaskList {
 
     /**
      * Constructs TaskList instance from given Tasks.
+     * Not required to check for duplicate task names as user cannot directly call this method.
      * This is an overloaded constructor in case this functionality is needed.
      * @param tasks varargs of tasks to add to new TaskList instance.
      */
@@ -77,6 +78,7 @@ public class TaskList {
 
     /**
      * Gets a specified task according to index.
+     * This method is only used internally (Storage.java), thus no exception is needed.
      * @param index index of task (from 0) to get.
      * @return {@code Task} object at index {@code index}.
      */
@@ -86,7 +88,7 @@ public class TaskList {
 
     /**
      * Deletes Task from the list at specified index.
-     * @param index Integer index to delete at.
+     * @param index Zero-based integer index to delete at.
      * @return {@code Task} object that was deleted.
      * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
@@ -101,7 +103,7 @@ public class TaskList {
 
     /**
      * Marks task as completed at specified index.
-     * @param index Integer index to mark task at.
+     * @param index Zero-based integer index to mark task at.
      * @return {@code Task} object that was marked.
      * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
@@ -115,19 +117,8 @@ public class TaskList {
     }
 
     /**
-     * Returns tasks that have names that contain keywords.
-     * @param keywords String of keyword(s) to search for.
-     * @return {@code ArrayList} of tasks that match the keyword.
-     */
-    public ArrayList<Task> findTasks(String keywords) {
-        ArrayList<Task> filtered = new ArrayList<>(this.tasks);
-        filtered.removeIf(x -> !x.getName().contains(keywords));
-        return filtered;
-    }
-
-    /**
      * Unmarks task as completed at specified index.
-     * @param index Integer index to unmark task at.
+     * @param index Zero-based integer index to unmark task at.
      * @return {@code Task} object that was unmarked.
      * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
@@ -138,6 +129,17 @@ public class TaskList {
         Task curr = this.tasks.get(index);
         curr.unmark();
         return curr;
+    }
+
+    /**
+     * Returns tasks that have names that contain keywords.
+     * @param keywords String of keyword(s) to search for.
+     * @return {@code ArrayList} of tasks that match the keyword.
+     */
+    public ArrayList<Task> findTasks(String keywords) {
+        ArrayList<Task> filtered = new ArrayList<>(this.tasks);
+        filtered.removeIf(x -> !x.getName().contains(keywords));
+        return filtered;
     }
 
     /**
