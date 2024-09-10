@@ -278,22 +278,31 @@ public class TaskManager {
         } else {
             switch(input) {
             case ("help"):
+                Help.helpHelp();
+                break;
+            case ("list"):
+                Help.helpList();
                 break;
             case("todo"):
+                Help.helpToDo();
                 break;
             case("deadline"):
+                Help.helpDeadline();
                 break;
             case("event"):
+                Help.helpEvent();
                 break;
             case("find"):
-                break;
-            case("add"):
+                Help.helpFind();
                 break;
             case("delete"):
+                Help.helpDelete();
                 break;
             case("mark"):
+                Help.helpMark();
                 break;
             case("unmark"):
+                Help.helpUnmark();
                 break;
             case("bye"):
                 Help.helpBye();
