@@ -45,42 +45,9 @@ public class Waterfall {
     }
 
     /**
-     * Runs the waterfall chatbot application.
-     * Displays a welcome message and continuously reads user commands until
-     * the user decides to exit the application. It handles exceptions that
-     * occur during command execution and provides appropriate feedback to the user.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (WaterfallException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * The main method to start the Waterfall application.
-     *
-     * @param args Command line arguments
-     */
-    public static void main(String[] args) {
-        new Waterfall("data/Tasks.txt").run();
-    }
-
-    /**
      * Generates a response for the user's chat message.
+     *
+     * @param input Input from the user.
      */
     public String getResponse(String input) {
         try {
@@ -88,8 +55,7 @@ public class Waterfall {
             assert tasks != null : "tasks before command cannot be null";
             assert ui != null : "ui before command cannot be null";
             assert storage != null : "storage before command cannot be null";
-            String res = c.execute(tasks, ui, storage);
-            return res;
+            return c.execute(tasks, ui, storage);
         } catch (WaterfallException e) {
             return e.getMessage();
         } catch (Exception e) {
