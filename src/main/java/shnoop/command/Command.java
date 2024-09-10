@@ -22,7 +22,7 @@ public abstract class Command {
      * @throws ShnoopException If any ChatBot specific issue arise during execution.
      * @throws IncompleteEventOrDeadlineException If there was an incomplete input when creating an Event or Deadline
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException,
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException,
             ShnoopException, IncompleteEventOrDeadlineException;
 
     public boolean isExit() {
