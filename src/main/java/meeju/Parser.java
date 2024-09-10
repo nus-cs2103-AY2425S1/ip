@@ -15,8 +15,10 @@ public class Parser {
      * @return A String representing the result of the parsing
      */
     public String parse(TaskList taskList, String instruction) {
-        
-        if (instruction.trim().equals("")) {
+        assert taskList != null : "TaskList object is null";
+        assert instruction != null : "instruction is null";
+
+        if (instruction.trim().isEmpty()) {
             return "Empty Command!";
         } else if (instruction.equals("bye")) {
             return " Bye. Hope to see you again soon!";
@@ -68,8 +70,6 @@ public class Parser {
             }
         } else {
             return "I'm sorry, I did not understand that =^..^=";
-
         }
-
     }
 }
