@@ -29,6 +29,9 @@ public class Parser {
      */
     public String parseCommand(String input, TaskList taskList, Ui ui) {
 
+        // assert input is not null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty";
+
         String[] splitInput = input.split(" ");
         String commandInput = splitInput[0].toLowerCase();
         Command command;
@@ -45,6 +48,10 @@ public class Parser {
                 return ui.displayTaskToMark();
             }
             int markIndex = Integer.parseInt(splitInput[1]) - 1;
+
+            // assert retrieved index is not out of bounds
+            assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for tasks";
+
             command = new MarkCommand(markIndex);
             break;
         case "unmark":
@@ -52,6 +59,10 @@ public class Parser {
                 return ui.displayTaskToMark();
             }
             int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
+
+            // assert retrieved index is not out of bounds
+            assert unmarkIndex < taskList.size() && unmarkIndex >= 0 : "Index is out of bounds for tasks";
+
             command = new UnmarkCommand(unmarkIndex);
             break;
         case "delete":

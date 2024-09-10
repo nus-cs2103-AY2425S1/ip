@@ -45,6 +45,9 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
+    // disable Java Assertions for JUnit Testing
+    jvmArgs '-da'
 }
 
 application {
@@ -58,6 +61,7 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
