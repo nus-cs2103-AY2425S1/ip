@@ -1,10 +1,11 @@
 package assistinator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 /**
  * API of the storage class
@@ -26,10 +27,11 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
-            String content = tasks.stream()
-                    .map(Task::toFileString)
-                    .collect(Collectors.joining(System.lineSeparator()));
-            Files.writeString(Paths.get(filePath), content);
+            FileWriter writer = new FileWriter(filePath);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + System.lineSeparator());
+            }
+            writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks: " + e.getMessage());
         }
@@ -42,14 +44,17 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws AssitinatorExceptions {
         try {
-            return Files.lines(Paths.get(filePath))
-                    .map(line -> {
-                        String[] parts = line.split("\\|");
-                        String type = parts[0].trim();
-                        return getTask(parts, type);
-                    })
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } catch (IOException e) {
+            ArrayList<Task> tasks = new ArrayList<>();
+            File file = new File(filePath);
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split("\\|");
+                String type = parts[0].trim();
+                Task task = getTask(parts, type);
+                tasks.add(task);
+            }
+            return tasks;
+        } catch (FileNotFoundException e) {
             throw new AssitinatorExceptions("File not found");
         }
     }
@@ -61,7 +66,7 @@ public class Storage {
      * @return Task
      */
     public Task getTask(String[] parts, String type) {
-        boolean isDone = parts[1].trim().equals("1");
+        boolean isDone = TaskStatus.isDone(parts[1].trim());
         String description = parts[2].trim();
 
         Task task;
@@ -70,13 +75,16 @@ public class Storage {
             task = new Todo(description);
             break;
         case "D":
-            task = new Deadline(description, parts[3].trim());
+            String deadline = parts[3].trim();
+            task = new Deadline(description, deadline);
             break;
         case "E":
+            String start = parts[3].trim();
+            String end = parts[4].substring(parts[4].indexOf(' ') + 1);
             task = new Event(
                     description,
-                    parts[3].trim(),
-                    parts[4].substring(parts[4].indexOf(' ') + 1)
+                    start,
+                    end
             );
             break;
         default:
