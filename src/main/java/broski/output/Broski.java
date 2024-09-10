@@ -9,8 +9,8 @@ import broski.exception.TodoException;
 import broski.exception.WrongInputException;
 import broski.parser.DateTimeParser;
 import broski.parser.Parser;
-import broski.taskRelated.TaskList;
-import broski.taskRelated.TaskManager;
+import broski.taskrelated.TaskList;
+import broski.taskrelated.TaskManager;
 
 /**
  * A class to hold the general functions to run the chatbot.

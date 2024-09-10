@@ -12,7 +12,7 @@ import broski.task.Deadline;
 import broski.task.Event;
 import broski.task.Task;
 import broski.task.Todo;
-import broski.taskRelated.TaskList;
+import broski.taskrelated.TaskList;
 
 /**
  * Class that handles output such as println.

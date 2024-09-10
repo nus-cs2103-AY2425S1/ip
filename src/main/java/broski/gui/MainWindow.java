@@ -1,4 +1,4 @@
-package broski.GUI;
+package broski.gui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,6 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * In charge of visuals of the main window.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -30,10 +33,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Broski instance */
+    /**
+     * Injects the Broski instance
+     * @param bot the broski bot instance
+     */
     public void setBroski(Broski bot) {
-         this.bot = bot;
-         dialogContainer.getChildren().addAll(DialogBox.getBroskiDialog(bot.start(), broskiImage));
+        this.bot = bot;
+        dialogContainer.getChildren().addAll(DialogBox.getBroskiDialog(bot.start(), broskiImage));
     }
 
     /**
