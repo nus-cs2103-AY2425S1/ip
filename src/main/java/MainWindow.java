@@ -23,20 +23,22 @@ public class MainWindow extends AnchorPane {
     private Alex alex;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Alex.png"));
+    private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/Alex.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Alex instance
+     * */
     public void setAlex(Alex a) {
         alex = a;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Alex's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -45,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String reply = alex.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(reply, dukeImage)
+                DialogBox.getAlexDialog(reply, alexImage)
         );
         userInput.clear();
     }

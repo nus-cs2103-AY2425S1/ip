@@ -8,12 +8,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Alex using FXML.
  */
 public class Main extends Application {
 
     private Alex alex = new Alex("./data/alex.txt");
 
+    /**
+     * starts the GUI for Alex
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {

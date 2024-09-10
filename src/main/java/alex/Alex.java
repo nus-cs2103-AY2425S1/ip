@@ -28,8 +28,12 @@ public class Alex {
      * Allows the user to input a command for the chatbot to respond to.
      * Handles all the commands given by the user.
      * If the chatbot does not understand the command, it will ask the user to try again.
+     * Avoids deep nesting
+     *
+     * @param userInput input that is entered by the user
+     * @return string representing what Alex will display to the user
      */
-    public String scan(String userInput) {
+    public String handleCommand(String userInput) {
 
         if (userInput.equalsIgnoreCase("bye")) {
             return ui.byeMessage();
@@ -75,8 +79,13 @@ public class Alex {
         }
     }
 
+    /**
+     *
+     * @param input input entered by the user
+     * @return string returned by the handleCommand method
+     */
     public String getResponse(String input) {
-        return scan(input);
+        return handleCommand(input);
     }
 
     public static void main(String[] args) {
