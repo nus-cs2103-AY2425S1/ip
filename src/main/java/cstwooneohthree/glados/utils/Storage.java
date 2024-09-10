@@ -76,6 +76,7 @@ public class Storage {
                     task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
                     break;
                 default:
+                    throw new IllegalArgumentException("Invalid task type: " + taskType);
                 }
 
                 if (task != null) {
