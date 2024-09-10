@@ -2,6 +2,8 @@ package bobby.tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import bobby.exceptions.InvalidInputException;
 import bobby.exceptions.InvalidTaskNumberException;
@@ -159,6 +161,54 @@ public class TaskList {
                 processedTasks.add(task); // Collect the processed task
             } catch (NumberFormatException e) {
                 throw new InvalidInputException();
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidTaskNumberException();
+            }
+        }
+        return processedTasks;
+    }
+
+    /**
+     * Deletes multiple tasks from the task list based on the provided indices.
+     * The method processes each index provided in the arguments, removes the corresponding task from the list,
+     * and collects the removed tasks in an {@code ArrayList}.
+     * <p>
+     * If an index is invalid (either non-numeric or out of range), appropriate exceptions are thrown:
+     * {@code InvalidInputException} for non-numeric indices,
+     * and {@code InvalidTaskNumberException} for out-of-range indices.
+     * </p>
+     *
+     * @param args A variable number of string arguments where each string represents
+     *             an index of the task to be deleted.
+     * @return An {@code ArrayList} of {@code Task} objects that were removed from the task list.
+     * @throws InvalidInputException if any of the arguments cannot be parsed as a valid integer.
+     * @throws InvalidTaskNumberException if any of the indices are out of the valid range of the task list.
+     */
+    public ArrayList<Task> deleteMultipleTasks(String... args)
+            throws InvalidInputException, InvalidTaskNumberException {
+        ArrayList<Task> processedTasks = new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();
+        // Parse and collect indices
+        for (String arg : args) {
+            try {
+                int index = Integer.parseInt(arg) - 1; // Convert to 0-based index
+                if (index < 0) {
+                    throw new InvalidInputException(); // Index must be non-negative
+                }
+                indices.add(index);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException();
+            }
+        }
+
+        // Sort indices in descending order to prevent shifting issues
+        Collections.sort(indices, Collections.reverseOrder());
+
+
+        for (int index : indices) {
+            try {
+                Task removedTask = this.remove(index);
+                processedTasks.add(removedTask); // Collect the processed task
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidTaskNumberException();
             }
