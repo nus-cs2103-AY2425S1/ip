@@ -46,6 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean checkDuplicate(Task task) {
+        int taskIconLength = 8;
         if (!(task instanceof Deadline)) {
             return false;
         }
@@ -53,8 +54,8 @@ public class Deadline extends Task {
             return true;
         }
         //get the substring of the task description without the status icon
-        String taskSubstring = task.toString().substring(this.getStatusIcon().length());
-        String otherTaskSubstring = task.toString().substring(this.getStatusIcon().length());
+        String taskSubstring = this.toString().substring(taskIconLength);
+        String otherTaskSubstring = task.toString().substring(taskIconLength);
         return taskSubstring.equals(otherTaskSubstring);
     }
 }
