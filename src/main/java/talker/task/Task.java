@@ -81,6 +81,7 @@ public class Task {
      */
     public String getSaveFormat() {
         String type = "";
+
         switch (taskType) {
         case TODO:
             type = "T";
@@ -96,6 +97,7 @@ public class Task {
             assert taskType != taskType.DEADLINE;
             assert taskType != taskType.EVENT;
         }
+
         return String.format("%s | %s | %s", type, this.getComplete(), this.description);
     }
 

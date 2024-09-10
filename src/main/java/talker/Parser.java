@@ -73,6 +73,7 @@ public class Parser {
         } else {
             throw new TalkerException("Invalid completion tag, corrupted file detected.");
         }
+
         switch (parsed[0]) {
         case "T":
             if (parsed.length != 3) {
