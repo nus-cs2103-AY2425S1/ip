@@ -6,7 +6,7 @@ import mahesh.util.TaskList;
  * Represents a command to print the tasks in the TaskList.
  */
 public class PrintCommand extends Command {
-    private TaskList list;
+    private final TaskList list;
 
     /**
      * Constructs a PrintCommand with the specified TaskList.
@@ -19,17 +19,11 @@ public class PrintCommand extends Command {
 
     /**
      * Executes the PrintCommand by printing the tasks in the TaskList.
-     */
-    public void execute() {
-        list.printList();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
      *
-     * @return false as PrintCommand is not an exit command
+     * @return a String response with the tasks in the TaskList
      */
-    public boolean isExit() {
-        return false;
+    @Override
+    public String execute() {
+        return list.printList();
     }
 }

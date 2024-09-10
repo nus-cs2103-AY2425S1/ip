@@ -6,142 +6,114 @@ import mahesh.task.Task;
  * Utility class for handling user interface interactions.
  */
 public class Ui {
-    /**
-     * The LOGO to be displayed when the application starts.
-     */
-    private static final String LOGO =
-          """
-          #     #                                       ######                               ######
-          ##   ##   ##   #    # ######  ####  #    #    #     #   ##   #      #              #
-          # # # #  #  #  #    # #      #      #    #    #     #  #  #  #      #              #
-          #  #  # #    # ###### #####   ####  ######    #     # #    # #      #      #####   #####
-          #     # ###### #    # #           # #    #    #     # ###### #      #              #
-          #     # #    # #    # #      #    # #    #    #     # #    # #      #              #
-          #     # #    # #    # ######  ####  #    #    ######  #    # ###### ######         ######
-          """;
 
     /**
-     * Divider line used for separating sections in the console output.
-     */
-    private static final String DIVIDER = "-------------------------------------------------------";
-
-    /**
-     * Prints the startup message including the LOGO and a welcome message.
-     */
-    public static void printStartupMessage() {
-        System.out.println(Ui.LOGO);
-        System.out.println("Hello! I'm Mahesh Dall-E [but you can call me Mahesh ;)]\nWhat can I do for you?");
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Prints the exit message.
-     */
-    public static void printExitMessage() {
-        System.out.println("Bye! Hope to see you again soon!");
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Prints a message indicating that a task has been added.
+     * Returns a message indicating that a task has been added.
      *
      * @param task the task that was added
      * @param taskCount the current number of tasks in the list
+     * @return a String message indicating the task was added
      */
-    public static void printTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println(DIVIDER);
+    public static String printTaskAdded(Task task, int taskCount) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added this task:");
+        response.append(String.format("  %s", task));
+        response.append(String.format("Now you have %d tasks in the list.", taskCount));
+        return response.toString();
     }
 
     /**
-     * Prints a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
      * @param task the task that was deleted
      * @param taskCount the current number of tasks in the list
+     * @return a String message indicating the task was deleted
      */
-    public static void printTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println(DIVIDER);
+    public static String printTaskDeleted(Task task, int taskCount) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've removed this task:");
+        response.append(String.format("  %s", task));
+        response.append(String.format("Now you have %d tasks in the list.", taskCount));
+        return response.toString();
     }
 
     /**
-     * Prints a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task the task that was marked as done
+     * @return a String message indicating the task was marked as done
      */
-    public static void printMarkedAsDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        System.out.println(DIVIDER);
+    public static String printMarkedAsDone(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("Nice! I've marked this task as done:\n  ");
+        response.append(task);
+        return response.toString();
     }
 
     /**
-     * Prints a message indicating that a task has been unmarked as done.
+     * Returns a message indicating that a task has been unmarked as done.
      *
      * @param task the task that was unmarked as done
+     * @return a String message indicating the task was unmarked as done
      */
-    public static void printUnmarkedAsDone(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        System.out.println(DIVIDER);
+    public static String printUnmarkedAsDone(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("OK, I've marked this task as not done yet:\n  ");
+        response.append(task);
+        return response.toString();
     }
 
     /**
-     * Prints an error message.
+     * Returns an error message.
      *
      * @param err the exception containing the error message
+     * @return a String error message
      */
-    public static void printErr(MaheshException err) {
-        System.out.println(err.getMessage());
-        System.out.println(DIVIDER);
+    public static String printErr(MaheshException err) {
+        return err.getMessage();
     }
 
     /**
-     * Prints an error message indicating that there is no such task.
+     * Returns an error message indicating that there is no such task.
      *
      * @param taskCount the current number of tasks in the list
+     * @return a String error message indicating there is no such task
      */
-    public static void printNoSuchTaskErr(int taskCount) {
-        System.out.println("There is no such task. You currently have " + taskCount + " task(s).");
-        System.out.println("Use the \"list\" command to view all your tasks.");
-        System.out.println(DIVIDER);
+    public static String printNoSuchTaskErr(int taskCount) {
+        StringBuilder response = new StringBuilder();
+        response.append(String.format("There is no such task. You currently have %d task(s).\n", taskCount));
+        response.append("Use the \"list\" command to view all your tasks.");
+        return response.toString();
     }
 
     /**
-     * Prints an error message indicating that the command is incomplete or incorrect.
+     * Returns an error message indicating that the command is incomplete or incorrect.
      *
      * @param err the exception containing the error message
+     * @return a String error message indicating the command is incomplete or incorrect
      */
-    public static void printIncompleteCommandErr(MaheshException err) {
-        System.out.println("The command is incomplete/incorrect.");
-        System.out.println(err.getMessage());
-        System.out.println(DIVIDER);
+    public static String printIncompleteCommandErr(MaheshException err) {
+        StringBuilder response = new StringBuilder();
+        response.append("The command is incomplete/incorrect.\n");
+        response.append(err.getMessage());
+        return response.toString();
     }
 
     /**
-     * Prints an error message indicating that the task list is empty.
+     * Returns an error message indicating that the task list is empty.
+     *
+     * @return a String error message indicating the task list is empty
      */
-    public static void printEmptyListErr() {
-        System.out.println("You have no tasks! Add a few tasks (todo, deadline or event)");
-        System.out.println(DIVIDER);
+    public static String printEmptyListErr() {
+        return "You have no tasks! Add a few tasks (todo, deadline or event)";
     }
 
     /**
-     * Prints an error message indicating that some tasks may not have loaded correctly due to a corrupted data file.
+     * Returns an error message indicating that some tasks may not have loaded correctly due to a corrupted data file.
+     *
+     * @return a String error message indicating corrupted data file
      */
-    public static void printCorruptedDataErr() {
-        System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Prints a DIVIDER line.
-     */
-    public static void printDivider() {
-        System.out.println(DIVIDER);
+    public static String printCorruptedDataErr() {
+        return "Some tasks may not have loaded correctly due to corrupted data file.";
     }
 }

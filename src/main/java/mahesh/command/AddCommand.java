@@ -1,5 +1,7 @@
 package mahesh.command;
 
+import java.io.IOException;
+
 import mahesh.task.Task;
 import mahesh.util.Storage;
 import mahesh.util.TaskList;
@@ -8,9 +10,9 @@ import mahesh.util.TaskList;
  * Represents a command to add a task to the TaskList and update the Storage.
  */
 public class AddCommand extends Command {
-    private TaskList list;
-    private Storage store;
-    private Task task;
+    private final TaskList list;
+    private final Storage store;
+    private final Task task;
 
     /**
      * Constructs an AddCommand with the specified TaskList, Storage, and Task.
@@ -27,18 +29,17 @@ public class AddCommand extends Command {
 
     /**
      * Executes the AddCommand by adding the task to the TaskList and updating the Storage.
-     */
-    public void execute() {
-        list.addToList(task);
-        store.updateData(list);
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
      *
-     * @return false as AddCommand is not an exit command
+     * @return a String response indicating the result of adding the task
      */
-    public boolean isExit() {
-        return false;
+    @Override
+    public String execute() {
+        String response = list.addToList(task);
+        try {
+            store.updateData(list);
+            return response;
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 }

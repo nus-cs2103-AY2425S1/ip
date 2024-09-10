@@ -6,13 +6,8 @@ package mahesh.command;
 public abstract class Command {
     /**
      * Executes the command.
-     */
-    public abstract void execute();
-
-    /**
-     * Indicates whether the command is an exit command.
      *
-     * @return true if the command is an exit command, false otherwise
+     * @return a String response indicating the result of the command execution
      */
-    public abstract boolean isExit();
+    public abstract String execute();
 }

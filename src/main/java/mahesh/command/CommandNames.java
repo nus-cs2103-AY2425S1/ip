@@ -9,18 +9,17 @@ public enum CommandNames {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND;
 
     /**
-     * Converts a string to its corresponding Command enum value.
+     * Converts a string to its corresponding CommandNames enum value.
      *
      * @param command The string representation of the command.
-     * @return The corresponding Command enum value.
-     * @throws MaheshException If the string does not match any Command enum value.
+     * @return The corresponding CommandNames enum value.
+     * @throws MaheshException If the string does not match any CommandNames enum value.
      */
     public static CommandNames fromString(String command) throws MaheshException {
         try {
             return CommandNames.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new MaheshException(command + " is not a valid command. "
-            + "Use the \"bye\" command if you wish to exit the bot.");
+            throw new MaheshException("Unknown command");
         }
     }
 }
