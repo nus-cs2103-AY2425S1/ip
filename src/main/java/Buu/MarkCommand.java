@@ -1,31 +1,40 @@
 package Buu;
+
 /**
- * Represents a command to mark a task as completed in the GPT application.
- * This command identifies the task to be marked based on the user input and updates its status.
+ * Represents a command to mark a task as completed without setting its priority.
  */
 public class MarkCommand extends Command {
     private int index;
+
     /**
      * Constructs a MarkCommand by parsing the user input to determine the index of the task to be marked.
-     * The index is adjusted to be zero-based (subtracting 1).
      *
-     * @param input The user input string containing the command to mark a task as completed.
+     * @param input The user input string containing the command to mark a task.
+     * @throws TaskException if the input format is invalid.
      */
-    public MarkCommand(String input) {
-        // Precondition: Ensure the input is not null and has the right format
+    public MarkCommand(String input) throws TaskException {
+        // Precondition: Ensure the input is not null
         assert input != null : "Input should not be null";
-        assert input.split(" ").length > 1 : "Invalid input format for mark command";
+        String[] parts = input.trim().split(" ");
 
-        this.index = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (parts.length != 2) {
+            throw new TaskException("Invalid format for 'mark' command.\n"
+                    + "Correct format: mark <task number>\nExample: mark 1");
+        }
 
-        // Postcondition: Ensure that the index is not negative
+        try {
+            this.index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new TaskException("Task number must be a valid integer.\n"
+                    + "Correct format: mark <task number>\nExample: mark 1");
+        }
+
+        // Postcondition: Ensure that the index is valid
         assert index >= 0 : "Task index should be non-negative";
     }
 
     /**
-     * Executes the command to mark the specified task as completed. If the task index is valid,
-     * the task is marked as completed, the updated list is saved, and a confirmation message is shown.
-     * If the index is invalid, an error message is displayed.
+     * Executes the command to mark the specified task as completed.
      *
      * @param taskList The list of tasks containing the task to be marked.
      * @param ui       The user interface that displays messages to the user.
@@ -33,19 +42,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // Preconditions: Ensure taskList, ui, and storage are not null
-        assert taskList != null : "TaskList should not be null";
-        assert ui != null : "UI should not be null";
-        assert storage != null : "Storage should not be null";
-
-        // Internal Invariant: Ensure index is within bounds of taskList
-        assert index < taskList.getTasks().size() : "Task index is out of bounds";
         try {
-            taskList.markTask(index);
+            taskList.markTask(index); // Mark the task as done without affecting the priority
             storage.saveTasks(taskList.getTasks());
-            // Show confirmation message that the task is marked as done
             ui.showTaskMarkedDone(taskList.getTasks().get(index));
-        } catch (GPTException e) {
+        } catch (TaskException e) {
             ui.showError(e.getMessage());
         }
     }

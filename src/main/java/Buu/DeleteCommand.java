@@ -44,8 +44,8 @@ public class DeleteCommand extends Command {
             taskList.deleteTask(index);
             storage.saveTasks(taskList.getTasks());
             ui.showTaskRemoved(removedTask, taskList.getTasks().size());
-        } catch (GPTException gptException) {
-            ui.showError(gptException.getMessage());
+        } catch (TaskException Exception) {
+            ui.showError(Exception.getMessage());
         }
     }
 }

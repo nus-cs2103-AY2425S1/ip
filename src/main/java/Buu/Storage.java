@@ -45,31 +45,10 @@ public class Storage {
             try (BufferedReader reader = Files.newBufferedReader(filePath)) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    String taskType = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-
-                    Task task;
-                    if (taskType.equals("T")) {
-                        task = new ToDo(description);
-                    } else if (taskType.equals("D")) {
-                        LocalDateTime byDateTime = Parser.parseDateTime(parts[3]);
-                        task = new Deadline(description, byDateTime);
-                    } else if (taskType.equals("E")) {
-                        LocalDateTime fromDateTime = Parser.parseDateTime(parts[3]);
-                        LocalDateTime toDateTime = Parser.parseDateTime(parts[4]);
-                        task = new Event(description, fromDateTime, toDateTime);
-                    } else {
-                        System.out.println("Unknown task type: " + taskType);
-                        continue;
+                    Task task = parseTaskFromFile(line);
+                    if (task != null) {
+                        tasks.add(task);
                     }
-
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-
-                    tasks.add(task);
                 }
             } catch (IOException e) {
                 System.out.println("An error occurred while loading tasks: " + e.getMessage());
@@ -77,6 +56,54 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Parses a line from the file and converts it to a Task object.
+     *
+     * @param line The line to be parsed.
+     * @return The corresponding Task object, or null if parsing fails.
+     */
+    private Task parseTaskFromFile(String line) {
+        String[] parts = line.split("\\|");
+        if (parts.length < 4) {
+            System.out.println("Invalid task format: " + line);
+            return null;
+        }
+
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        int priority = Integer.parseInt(parts[parts.length - 1].trim());
+
+        System.out.println("Parsed priority: " + priority); // Debug statement
+
+        Task task = null;
+
+        switch (taskType) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            LocalDateTime byDateTime = Parser.parseDateTime(parts[3].trim());
+            task = new Deadline(description, byDateTime);
+            break;
+        case "E":
+            LocalDateTime startDateTime = Parser.parseDateTime(parts[3].trim());
+            LocalDateTime endDateTime = Parser.parseDateTime(parts[4].trim());
+            task = new Event(description, startDateTime, endDateTime);
+            break;
+        default:
+            System.out.println("Unknown task type: " + taskType);
+            return null;
+        }
+
+        if (task != null) {
+            task.setPriority(priority);
+        }
+
+        return task;
+    }
+
 
     /**
      * Saves the given list of tasks to the specified file. Each task is written in
