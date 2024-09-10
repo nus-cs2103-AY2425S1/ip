@@ -375,7 +375,7 @@ public class Parser {
      * @throws IOException If an I/O error occurs during the deletion operation.
      */
     public String performDelete(String input) throws IOException {
-        int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
+        int listNo = Integer.parseInt(input.substring(7));
         if (listNo <= TaskList.tasks.size() && listNo > 0) {
             assert listNo <= TaskList.tasks.size() && listNo > 0;
             return Task.delete_task(listNo);
