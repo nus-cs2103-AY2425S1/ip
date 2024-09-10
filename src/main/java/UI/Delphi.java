@@ -1,7 +1,5 @@
 package UI;
 
-import java.util.Scanner;
-
 import Commands.Command;
 import Exceptions.DelphiException;
 import Parser.Parser;
@@ -31,56 +29,24 @@ public class Delphi {
     }
 
     /**
-     * Starts the application, handles user input, and manages the task list.
-     * Displays the welcome message, processes commands, and exits upon receiving the exit command.
-     */
-    public void run() {
-        boolean isExitCommand = false;
-        ui.welcomeMessage();
-        System.out.println("current tasks:");
-        taskList.loadStorageToTasks(this.storage);
-        taskList.printTasks();
-        Scanner scanner = new Scanner(System.in);
-        while (!isExitCommand) {
-            try {
-                Command c = parser.parseInput(scanner.nextLine());
-                c.execute(taskList, storage, ui);
-                isExitCommand = c.exitBot();
-            } catch (DelphiException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        ui.goodbyeMessage();
-    }
-
-    /**
-     *
      * @return the tasks stored in the hard drive at the time of starting the bot
      */
     public String currentTasks() {
         taskList.loadStorageToTasks(this.storage);
-        String res = "current tasks: \n" + taskList.printTasks();
-        return res;
+        return "current tasks: \n" + taskList.printTasks();
     }
 
+    /**
+     * @param input the user input
+     * @return the message return by the Command object once executed or the error message if there is one
+     */
     public String getResponse(String input) {
         try {
             Command c = parser.parseInput(input);
-            //c.execute(taskList, storage, ui);
             return c.execute(taskList, storage, ui);
         } catch (DelphiException e) {
             return e.getMessage();
         }
-    }
-
-    /**
-     * The entry point of the application.
-     * Creates an instance of UI.Delphi and starts it with the specified storage file path.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Delphi("../ip/src/main/HardDisk.txt").run();
     }
 }
 

@@ -1,6 +1,8 @@
 package Storage;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,14 +41,16 @@ public class Storage {
             }
             // Write new content to the file
             try (FileWriter writer = new FileWriter(file, true)) {
+                assert file.exists() && file.length() == 0 : "file still has leftover content that needs to be cleared";
                 for (Task line : tasks) {
                     writer.write(line.toString());
                     writer.write(System.lineSeparator()); // Ensure each line appears on a new line
                 }
                 writer.flush();
+                assert countLines(file) == tasks.size() : "hard drive should have same number of tasks as list";
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Print stack trace for debugging
+            System.out.println("no hard drive present!");
         }
     }
 
@@ -58,5 +62,15 @@ public class Storage {
      */
     public List<String> readFromHardDisk() throws IOException {
         return Files.readAllLines(file.toPath());
+    }
+
+    public static int countLines(File file) throws IOException {
+        int lineCount = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while (reader.readLine() != null) {
+                lineCount++;
+            }
+        }
+        return lineCount;
     }
 }
