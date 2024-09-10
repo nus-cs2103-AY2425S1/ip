@@ -52,6 +52,11 @@ public class Event extends TimeTask {
     }
 
     @Override
+    public String getType() {
+        return "event";
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "| from: " + from + "| to: " + to;
     }

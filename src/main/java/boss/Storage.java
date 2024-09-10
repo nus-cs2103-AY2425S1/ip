@@ -83,7 +83,6 @@ public class Storage {
 
         try {
             List<String> lst = Files.readAllLines(Path.of(filePath));
-
             for (String str : lst) {
                 String[] arr = str.split("] ");
                 String s = arr[arr.length - 1];
@@ -114,7 +113,6 @@ public class Storage {
         if (str.contains("[T]")) {
             return new Todo(description, isDone);
         } else if (str.contains("[D]")) {
-
             String[] string = description.split("\\| ");
 
             String deadline = string[1].split("by: ")[1];

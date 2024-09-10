@@ -42,7 +42,6 @@ public class Boss {
             task = myObj.nextLine();
         }
         ui.bye();
-
     }
 
 
@@ -78,6 +77,7 @@ public class Boss {
         switch(input) {
             case "hello":
             case "hey":
+            case "hi":
             case "whats up":
                 return "WHATS GOOD, MY HOMIE! I'm the boss!" + "\n" + "How can I help you?";
         }
