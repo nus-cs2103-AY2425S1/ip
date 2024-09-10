@@ -1,8 +1,5 @@
 package ahmad.processor.task;
 
-import java.util.Arrays;
-import java.util.List;
-
 import ahmad.exceptions.deadline.DeadlineEmptyNameException;
 import ahmad.exceptions.deadline.DeadlineInvalidArgsException;
 import ahmad.exceptions.deadline.DeadlineInvalidTimeException;
@@ -35,7 +32,7 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException,
+    public static Response createTodo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException,
             DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
         if (prompt.length() < 5) {
@@ -60,8 +57,8 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException,
-            EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
+    public static Response createDeadline(String prompt) throws DeadlineEmptyNameException,
+            DeadlineInvalidArgsException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
         if (prompt.length() < 10) {
             throw new DeadlineEmptyNameException();
@@ -85,7 +82,7 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException,
+    public static Response createEvent(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException,
             EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
             DeadlineInvalidTimeException, EventInvalidTimeException {
         if (prompt.length() < 7) {

@@ -19,7 +19,7 @@ public class ParserTest {
     }
 
     @Test
-    public void unMarkTest() {
+    public void unmarkTest() {
         try {
             Parser.parse("unmark 12");
         } catch (CommandInvalidException e) {
