@@ -1,8 +1,11 @@
 package cypherchatbot.command;
 
+import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
+
+import java.util.ArrayList;
 
 
 public class FindCommand extends Command {
@@ -12,12 +15,12 @@ public class FindCommand extends Command {
         this.substring = s.toLowerCase();
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String output = tasks.filterTasks(this.substring);
-        ui.output(output);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        ArrayList<Task> filteredList = tasks.filterTasks(this.substring);
+        return ui.showFilterMessage(filteredList);
     }
 
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

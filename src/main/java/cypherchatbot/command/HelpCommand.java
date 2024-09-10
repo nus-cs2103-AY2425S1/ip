@@ -5,11 +5,11 @@ import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
 
 public class HelpCommand extends Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.output("<<UNDER CONSTRUCTION>>");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showHelpMessage();
     }
 
-    public boolean isExit() {
+    public boolean showExitStatus() {
         return false;
     }
 }

@@ -9,11 +9,11 @@ public abstract class Task {
         this.completed = false;
     }
 
-    public void completeTask() {
+    public void markAsComplete() {
         this.completed = true;
     }
 
-    public void incompleteTask() {
+    public void markAsIncomplete() {
         this.completed = false;
     }
 
@@ -24,5 +24,5 @@ public abstract class Task {
         return str;
     }
 
-    public abstract String toStringinFile();
+    public abstract String toStringInFile();
 }
