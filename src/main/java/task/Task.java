@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import storage.Storage;
 import system.DateTimeSystem;
 import system.Ui;
+
 /**
  * Represents an abstract task that can be managed in a task management system.
  * This class provides methods to initialize, add, delete, find, mark, unmark, and list tasks.
@@ -30,6 +31,7 @@ public abstract class Task {
     public enum Status {
         MARKED, UNMARKED
     }
+
     private Status currentStatus;
     private String tag;
 
@@ -41,18 +43,20 @@ public abstract class Task {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * Constructs a new Task with the specified name and tag.
      * The task is initialised with the status UNMARKED.
      *
      * @param name Name of the task.
-     * @param tag Tag of the task.
+     * @param tag  Tag of the task.
      */
     public Task(String name, String tag) {
         this.name = name;
         currentStatus = Status.UNMARKED;
         this.tag = tag;
     }
+
     /**
      * Initialises the task list by reading from storage and populating the task list with tasks.
      *
@@ -78,8 +82,6 @@ public abstract class Task {
                     t.setCurrentStatus(Status.UNMARKED);
                 }
                 TaskList.addTasks(t);
-
-
             } else if (s.contains("[D]")) {
                 String[] tokens = s.split(" ");
                 StringBuilder name = new StringBuilder();
@@ -162,10 +164,12 @@ public abstract class Task {
                     e.setCurrentStatus(Status.UNMARKED);
                 }
                 TaskList.addTasks(e);
-
+            } else {
+                assert false;
             }
         }
     }
+
     /**
      * Deletes a task at the specified index from the task list.
      *
@@ -173,24 +177,26 @@ public abstract class Task {
      * @return Response message indicating the result of the deletion.
      * @throws IOException If an I/O error occurs while accessing the storage.
      */
-    public static String delete_task(int index) throws IOException {
+    public static String deleteTask(int index) throws IOException {
         String response = "";
         ArrayList<Task> temporaryTaskList = TaskList.tasks;
         if (temporaryTaskList.isEmpty()) {
             response = ui.emptyList();
-        } else {
-            if (temporaryTaskList.size() >= index) {
-                Task temp = temporaryTaskList.get(index - 1);
-                temporaryTaskList.remove(temp);
-                storage.delete(index);
-                response = ui.delete_message(temp);
-            } else {
-                response = ui.doesNotExist();
-            }
+            return response;
         }
 
+        if (temporaryTaskList.size() < index) {
+            response = ui.doesNotExist();
+            return response;
+        }
+
+        Task temp = temporaryTaskList.get(index - 1);
+        temporaryTaskList.remove(temp);
+        storage.delete(index);
+        response = ui.delete_message(temp);
         return response;
     }
+
     /**
      * Finds tasks that match the specified input string.
      *
@@ -222,6 +228,7 @@ public abstract class Task {
 
         return ui.findTaskMessage(finalSb);
     }
+
     /**
      * Lists all tasks in the task list.
      *
@@ -232,6 +239,7 @@ public abstract class Task {
         StringBuilder temp = storage.read();
         return ui.list_task_message(String.valueOf(temp));
     }
+
     /**
      * Marks the task at the specified index as completed.
      *
@@ -262,6 +270,7 @@ public abstract class Task {
 
         return response;
     }
+
     /**
      * Marks the task at the specified index as completed.
      *

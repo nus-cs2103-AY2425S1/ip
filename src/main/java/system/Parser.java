@@ -342,6 +342,6 @@ public class Parser {
      */
     public String performDelete(String input) throws IOException {
         int listNo = Character.getNumericValue(input.charAt(input.length() - 1));
-        return Task.delete_task(listNo);
+        return Task.deleteTask(listNo);
     }
 }
