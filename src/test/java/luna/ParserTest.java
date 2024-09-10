@@ -23,6 +23,7 @@ public class ParserTest {
                    "delete" - remove task from current tasks
                    "list" - show all tasks
                    "find" - search for task given description
+                   "undo" - undo most recent command
                    "bye" - close chatbot
                    """, e.getMessage());
         }
@@ -43,6 +44,7 @@ public class ParserTest {
                     "delete" - remove task from current tasks
                     "list" - show all tasks
                     "find" - search for task given description
+                    "undo" - undo most recent command
                     "bye" - close chatbot
                     """, e.getMessage());
         }

@@ -45,7 +45,6 @@ public class TaskList {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task removed = tasks.remove(task);
         assert removed != null;
         storage.saveTasks(tasks);
@@ -63,12 +62,10 @@ public class TaskList {
         }
 
         String list = "Here are the tasks in your list:\n";
-
         for (int i = 0; i < tasks.size(); i++) {
             String task = String.format("%d. %s\n", i + 1, tasks.get(i).toString());
             list += task;
         }
-
         return list;
     }
 
@@ -83,7 +80,6 @@ public class TaskList {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task taskToMark = tasks.get(task);
         assert taskToMark != null;
         taskToMark.markAsDone();
@@ -102,7 +98,6 @@ public class TaskList {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task taskToUnmark = tasks.get(task);
         assert taskToUnmark != null;
         taskToUnmark.unmark();
@@ -132,8 +127,6 @@ public class TaskList {
 
     /**
      * Returns current list of task.
-     *
-     * @return
      */
     public ArrayList<Task> getTasks() {
         return tasks;

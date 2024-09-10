@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import luna.task.Deadline;
+import luna.task.Todo;
 
 public class TaskListTest {
     @Test
     public void deleteTask_negativeTaskNumber_exceptionThrown() {
         try {
             Storage storage = new Storage();
-            assertEquals("", new TaskList().deleteTask(-1, storage));
+            assertEquals(new Todo("return book"), new TaskList().deleteTask(-1, storage));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task number. Type \"list\" to view tasks.", e.getMessage());
@@ -25,7 +26,7 @@ public class TaskListTest {
     public void deleteTask_exceedTotalTask_exceptionThrown() {
         try {
             Storage storage = new Storage();
-            assertEquals("", new TaskList().deleteTask(1, storage));
+            assertEquals(new Todo("return book"), new TaskList().deleteTask(1, storage));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task number. Type \"list\" to view tasks.", e.getMessage());

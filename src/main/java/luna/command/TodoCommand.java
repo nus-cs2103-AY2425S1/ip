@@ -13,6 +13,9 @@ public class TodoCommand implements Command {
     private final Todo todo;
     private final Command previousCommand;
 
+    /**
+     * Creates a command to add a simple task with description.
+     */
     public TodoCommand(Todo todo, Command previousCommand) {
         this.todo = todo;
         this.previousCommand = previousCommand;

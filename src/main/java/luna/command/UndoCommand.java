@@ -4,6 +4,9 @@ import luna.LunaException;
 import luna.Storage;
 import luna.TaskList;
 
+/**
+ * Represents a command to undo the previous command.
+ */
 public class UndoCommand implements Command {
 
     @Override
