@@ -28,6 +28,7 @@ public class TaskList {
      * @param taskList The initial list of tasks to set in the {@code TaskList}.
      */
     public TaskList(List<Task> taskList) {
+        assert taskList != null : "taskList should not be null";
         this.taskList = taskList;
     }
 
@@ -38,6 +39,7 @@ public class TaskList {
      * @return The newly created {@code ToDo} task.
      */
     public Task addToDoToList(String description) {
+        assert description != null && !description.isBlank() : "description cannot be null or empty";
         Task newTask = new ToDo(description);
         this.taskList.add(newTask);
         return newTask;
@@ -52,6 +54,7 @@ public class TaskList {
      * @throws DateTimeParseException If the provided deadline is in an invalid format.
      */
     public Task addDeadlineToList(String description, String deadline) throws DateTimeParseException {
+        assert description != null && !description.isBlank() : "description cannot be null or empty";
         Task newTask = new Deadline(description, deadline);
         this.taskList.add(newTask);
         return newTask;
@@ -66,6 +69,7 @@ public class TaskList {
      * @return The newly created {@code Event} task.
      */
     public Task addEventToList(String description, String startTime, String endTime) {
+        assert description != null && !description.isBlank() : "description cannot be null or empty";
         Task newTask = new Event(description, startTime, endTime);
         this.taskList.add(newTask);
         return newTask;
@@ -78,6 +82,7 @@ public class TaskList {
      * @return The task that was marked as done.
      */
     public Task markTask(int index) {
+        assert index >= 0 && index < this.taskList.size() : "Index out of bounds";
         this.taskList.get(index).mark();
         return this.taskList.get(index);
     }
@@ -89,6 +94,7 @@ public class TaskList {
      * @return The task that was unmarked.
      */
     public Task unmarkTask(int index) {
+        assert index >= 0 && index < this.taskList.size() : "Index out of bounds";
         this.taskList.get(index).unmark();
         return this.taskList.get(index);
     }
@@ -100,6 +106,7 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < this.taskList.size() : "Index out of bounds";
         Task curr = this.taskList.get(index);
         this.taskList.remove(index);
         return curr;
@@ -130,6 +137,7 @@ public class TaskList {
      * @return A list of tasks that contain the keyword in their description.
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.isBlank() : "keyword cannot be null or empty";
         List<Task> res = new ArrayList<>();
         for (Task t : this.taskList) {
             if (t.getDescription().contains(keyword)) {

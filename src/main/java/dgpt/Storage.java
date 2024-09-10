@@ -99,7 +99,7 @@ public class Storage {
      *         the parent directory cannot be created.
      */
     public void save(TaskList taskList) throws IOException {
-
+        assert taskList != null : "taskList cannot be null";
         File file = new File(this.filePath);
 
         // Handle the case where parent directory does not exist
