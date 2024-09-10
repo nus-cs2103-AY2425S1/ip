@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	Hello! I'm Joe
+	What can I do for you?
+	____________________________________________________________
+	? No tasks yet! Looks like you've got a clean slate. Time to add some tasks and conquer the day! ?
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] borrow book
+    Now you have 1 tasks in the list.
 
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: Sunday)
+    Now you have 2 tasks in the list.
+
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	  [T][X] borrow book
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	  [D][X] return book (by: Sunday)
+	____________________________________________________________
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Sunday)
+	____________________________________________________________
+	OK, I've marked this task as not done yet:
+	  [T][ ] borrow book
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 3 tasks in the list.
+
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] conference (from: Tue 3pm)
+    Now you have 4 tasks in the list.
+
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [T][ ] borrow book
+	____________________________________________________________
+	1. [D][X] return book (by: Sunday)
+	2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	3. [E][ ] conference (from: Tue 3pm)
+	____________________________________________________________
+	Bye. Hope to see you again soon!
