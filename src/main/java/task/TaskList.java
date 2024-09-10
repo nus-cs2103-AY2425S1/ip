@@ -107,8 +107,7 @@ public class TaskList {
         return "[" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] "
                 + task.getDescription()
-                + " "
-                + task.getExtraInfo();
+                + " " + task.getExtraInfo();
     }
 
     /**
@@ -145,10 +144,8 @@ public class TaskList {
         StringBuilder result = new StringBuilder();
         int taskNumber = 1;
         for (Task task : this.tasks) {
-            result.append(taskNumber)
-                    .append(". ")
-                    .append(this.getTaskDetails(task))
-                    .append('\n');
+            result.append(taskNumber).append(". ")
+                    .append(this.getTaskDetails(task)).append('\n');
             taskNumber++;
         }
 
@@ -191,12 +188,10 @@ public class TaskList {
 
         for (Task task : this.tasks) {
             String description = task.getDescription();
-            if (isDescriptionMatching(description, keyword)) {
+            if (this.isDescriptionMatching(description, keyword)) {
                 String taskDetails = this.getTaskDetails(task);
-                result.append(taskNumber)
-                        .append(". ")
-                        .append(taskDetails)
-                        .append('\n');
+                result.append(taskNumber).append(". ")
+                        .append(taskDetails).append('\n');
                 taskNumber++;
             }
         }

@@ -50,27 +50,23 @@ public class TodoCommand extends Command {
      * Chatbot checks if todo command is valid.
      * If so, it creates a {@code ToDo} object.
      * Adds it to {@code tasks}, writes it to save file.
-     * Displays a response indicating it has added the todo task.
+     * Returns a response indicating it has added the todo task.
      * </p>
      *
      * @throws BrockException If todo command is invalid.
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
-        Task todoTask = createTodo();
+        Task todoTask = this.createTodo();
         tasks.addToList(todoTask);
 
         // Update the save file
-        storage.writeToFile(tasks.numTasks()
-                        + ". "
-                        + tasks.getTaskDetails(todoTask)
-                        + '\n',
+        storage.writeToFile(tasks.numTasks() + ". "
+                + tasks.getTaskDetails(todoTask) + '\n',
                 true);
 
         return "Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(todoTask)
-                + '\n'
+                + "  " + tasks.getTaskDetails(todoTask) + '\n'
                 + tasks.getTasksSummary();
     }
 }

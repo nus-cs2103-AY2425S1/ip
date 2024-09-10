@@ -12,11 +12,16 @@ import task.TaskList;
 import utility.Pair;
 
 /**
- * A GUI for core.Brock using FXML.
+ * A GUI for Brock using FXML.
  */
 public class Main extends Application {
-    private final Brock BROCK = new Brock();
+    private static final Brock BROCK = new Brock();
 
+    /**
+     * Starts the GUI.
+     *
+     * @param stage A platform of sorts, as the backbone for the GUI application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -36,7 +41,11 @@ public class Main extends Application {
                 mainController.exitProgram();
             }
             String createResponse = createResult.getSecond();
-            mainController.showInitialMessage(createResponse);
+            String[] responseParts = createResponse.split(" \\| ");
+            String dirResponse = responseParts[0];
+            String fileResponse = responseParts[1];
+            mainController.showInitialResponse(dirResponse);
+            mainController.showInitialResponse(fileResponse);
 
             // Load the tasks from the save file
             Pair<TaskList, String> loadResult = BROCK.loadTasksFromFile();
@@ -45,19 +54,19 @@ public class Main extends Application {
                 mainController.exitProgram();
             }
             String loadResponse = loadResult.getSecond();
-            mainController.showInitialMessage(loadResponse);
+            mainController.showInitialResponse(loadResponse);
             mainController.setTasks(tasks);
 
             // Shows welcome message
-            String welcomeResponse = "Hello! I'm core.Brock\n"
+            String welcomeResponse = "Hello! I'm Brock\n"
                     + "What can I do for you?";
-            mainController.showInitialMessage(welcomeResponse);
+            mainController.showInitialResponse(welcomeResponse);
 
             // Finish setup
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(555);
+            stage.setMinWidth(777);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

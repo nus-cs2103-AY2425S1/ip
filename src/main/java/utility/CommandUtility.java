@@ -91,7 +91,7 @@ public class CommandUtility {
      */
     public static String[] validateDateTime(String dateTimeString, int dateTimeWords, Context context)
             throws BrockException {
-        String label = getLabel(dateTimeWords, context);
+        String label = CommandUtility.getLabel(dateTimeWords, context);
 
         String dateStringFinal = "";
         String timeStringFinal = "";
@@ -116,7 +116,7 @@ public class CommandUtility {
                 throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
                         + label + "date is not in the <yyyy-mm-dd> format!");
             }
-            if (isNotInteger(timeString)) {
+            if (CommandUtility.isNotInteger(timeString)) {
                 throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
                         + label + "time is not a number!");
             } else {
@@ -157,7 +157,7 @@ public class CommandUtility {
         if (commandLength == 1) {
             throw new BrockException("Missing task number!");
         }
-        if (commandLength > 2 || isNotInteger(commandWords[1])) {
+        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
             throw new BrockException(actionName
                     + " command is in the form "
                     + actionName.toLowerCase()

@@ -21,7 +21,7 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      *
      * <p>
-     * Chatbot reads from task list, displaying all the existing tasks.
+     * Chatbot reads from task list, returns all the existing tasks.
      * </p>
      */
     @Override

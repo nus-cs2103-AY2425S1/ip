@@ -81,27 +81,23 @@ public class DeadlineCommand extends Command {
      * Chatbot checks if deadline command is valid.
      * If so, it creates a {@code Deadlines} object.
      * Adds it to {@code tasks}, writes it to save file.
-     * Displays a response indicating it has added the deadline task.
+     * Returns a response indicating it has added the deadline task.
      * </p>
      *
      * @throws BrockException If deadline command is invalid.
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
-        Task deadlineTask = createDeadline();
+        Task deadlineTask = this.createDeadline();
         tasks.addToList(deadlineTask);
 
         // Update the save file
-        storage.writeToFile(tasks.numTasks()
-                        + ". "
-                        + tasks.getTaskDetails(deadlineTask)
-                        + '\n',
+        storage.writeToFile(tasks.numTasks() + ". "
+                + tasks.getTaskDetails(deadlineTask) + '\n',
                 true);
 
         return "Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(deadlineTask)
-                + '\n'
+                + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
                 + tasks.getTasksSummary();
     }
 }

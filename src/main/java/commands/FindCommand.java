@@ -41,14 +41,14 @@ public class FindCommand extends Command {
      *
      * <p>
      * Chatbot iterates through the list of tasks, finding matching tasks that contain the keyword.
-     * It then displays these matching tasks, if any.
+     * It then returns these matching tasks, if any.
      * </p>
      *
      * @throws BrockException If the find command is invalid.
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
-        String keyword = validateFindCommand();
+        String keyword = this.validateFindCommand();
 
         String[] result = tasks.findMatchingTasks(keyword);
         String resultString = result[0];

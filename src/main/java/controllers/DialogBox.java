@@ -15,8 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * Controller class for the DialogBox GUI.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -24,9 +23,16 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a new DialogBox element.
+     *
+     * @param text Text string within the element.
+     * @param img Image within the element.
+     */
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -39,7 +45,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the contents within the DialogBox element.
+     * Such that the ImageView is on the left and text is on the right.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -49,10 +56,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Constructs a user dialog box.
+     *
+     * @param text Text string within the dialog box.
+     * @param img Image within the dialog box.
+     * @return User dialog box element.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+
+    /**
+     * Constructs a Brock dialog box.
+     *
+     * @param text Text string within the dialog box.
+     * @param img Image within the dialog box.
+     * @return Brock dialog box element.
+     */
     public static DialogBox getBrockDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

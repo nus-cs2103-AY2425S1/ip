@@ -38,7 +38,7 @@ public class Event extends Task {
             isParseStartDateSuccessful = true;
             this.endDate = LocalDate.parse(endDateString);
 
-            validateDateTime();
+            this.validateDateTime();
 
         } catch (DateTimeParseException e) {
             if (isParseStartDateSuccessful) {
@@ -65,14 +65,14 @@ public class Event extends Task {
         super(description);
         boolean isParseStartDateSuccessful = false;
         try {
-            this.startTime = parseTime(startTimeString);
-            this.endTime = parseTime(endTimeString);
+            this.startTime = this.parseTime(startTimeString);
+            this.endTime = this.parseTime(endTimeString);
 
             this.startDate = LocalDate.parse(startDateString);
             isParseStartDateSuccessful = true;
             this.endDate = LocalDate.parse(endDateString);
 
-            validateDateTime();
+            this.validateDateTime();
 
         } catch (DateTimeParseException e) {
             if (isParseStartDateSuccessful) {

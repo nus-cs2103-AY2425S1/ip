@@ -3,7 +3,6 @@ package commands;
 import storage.Storage;
 import task.TaskList;
 
-
 /**
  * Represents a bye command entered by the user.
  */
@@ -21,7 +20,7 @@ public class ByeCommand extends Command {
      * {@inheritDoc}
      *
      * <p>
-     * Chatbot displays bye message and terminates.
+     * Chatbot returns bye message and terminates.
      * </p>
      */
     @Override

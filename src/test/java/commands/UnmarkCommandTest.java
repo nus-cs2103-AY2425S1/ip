@@ -13,35 +13,34 @@ public class UnmarkCommandTest extends BaseCommandTest {
     public void execute_missingNumber_throwsException() {
         UnmarkCommand uc = new UnmarkCommand("unmark");
         assertThrows(BrockException.class, () ->
-                uc.execute(UI, STORAGE, TASKS));
+                uc.execute(STORAGE, TASKS));
     }
 
     @Test
     public void execute_invalidNumber_throwsException() {
         UnmarkCommand uc = new UnmarkCommand("unmark 5");
         assertThrows(BrockException.class, () ->
-                uc.execute(UI, STORAGE, TASKS));
+                uc.execute(STORAGE, TASKS));
     }
 
     @Test
     public void execute_markedTask_unmarksTask() {
         TodoCommand tc = new TodoCommand("todo borrow book");
         assertDoesNotThrow(() -> {
-            tc.execute(UI, STORAGE, TASKS);
+            tc.execute(STORAGE, TASKS);
             MarkCommand mc = new MarkCommand("mark 1");
-            mc.execute(UI, STORAGE, TASKS);
+            mc.execute(STORAGE, TASKS);
         });
-        NEW_OUT.reset();
 
-        String expectedResponse = "OK, I've marked this task as not done yet:\n"
+        String expectedOutput = "OK, I've marked this task as not done yet:\n"
                 + "  [T][ ] borrow book ";
-        UI.displayResponse(expectedResponse);
-        String expectedOutput = super.getOutput();
 
+        // Local variable in function must be effectively final!
+        final String[] actualOutput = new String[1];
         UnmarkCommand uc = new UnmarkCommand("unmark 1");
-        assertDoesNotThrow(() -> uc.execute(UI, STORAGE, TASKS));
-        String actualOutput = super.getOutput();
-
-        assertEquals(expectedOutput, actualOutput);
+        assertDoesNotThrow(() -> {
+            actualOutput[0] = uc.execute(STORAGE, TASKS);
+        });
+        assertEquals(expectedOutput, actualOutput[0]);
     }
 }

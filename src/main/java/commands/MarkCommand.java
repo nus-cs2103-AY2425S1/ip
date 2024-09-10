@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
      * <p>
      * Chatbot checks if mark command is valid.
      * If so, it marks the associated task in {@code tasks} and updates the save file.
-     * Displays a response indicating it has successfully marked the task.
+     * Returns a response indicating it has successfully marked the task.
      * </p>
      *
      * @throws BrockException If mark command is invalid.
@@ -47,7 +47,6 @@ public class MarkCommand extends Command {
         }
 
         return "Nice! I've marked this task as done:\n"
-                + "  "
-                + tasks.getTaskDetails(taskIndex);
+                + "  " + tasks.getTaskDetails(taskIndex);
     }
 }

@@ -51,14 +51,14 @@ public class DeleteCommand extends Command {
      * <p>
      * Chatbot checks if delete command is valid.
      * If so, it deletes the corresponding task from {@code tasks}, updates the save file.
-     * As well as displays a response indicating successful deletion.
+     * As well as return a response indicating successful deletion.
      * </p>
      *
      * @throws BrockException If delete command is invalid.
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
-        validateDelete(tasks);
+        this.validateDelete(tasks);
 
         String command = super.getCommand();
         int taskIndex = CommandUtility.getTaskIndex(command);

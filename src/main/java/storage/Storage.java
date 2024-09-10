@@ -28,7 +28,7 @@ public class Storage {
      *
      * @param description String describing the corruption.
      * @throws BrockException Always throws this exception, containing message about the corruption.
-     *      To be bubbled up to the core.Brock.run() in the main class.
+     *                        To be bubbled up to the core.Brock.run() in the main class.
      */
     private void resetSaveFile(String description) throws BrockException {
         this.writeToFile("", false);
@@ -107,11 +107,11 @@ public class Storage {
         String[] dateTimeParts = dateTime.split(", ");
 
         String dueDateString = dateTimeParts.length == 1
-                ? parseDate(removeCloseBracket(dateTimeParts[0]))
-                : parseDate(dateTimeParts[0]);
+                ? this.parseDate(this.removeCloseBracket(dateTimeParts[0]))
+                : this.parseDate(dateTimeParts[0]);
         String dueTimeString = dateTimeParts.length == 1
                 ? ""
-                : removeCloseBracket(dateTimeParts[1])
+                : this.removeCloseBracket(dateTimeParts[1])
                 .replace(":", "");
 
         Task deadlineTask;
@@ -156,16 +156,16 @@ public class Storage {
         String[] endDateTimeParts = endDateTime.substring(4)
                 .split(", ");
 
-        String startDateString = parseDate(startDateTimeParts[0]);
+        String startDateString = this.parseDate(startDateTimeParts[0]);
         String startTimeString = startDateTimeParts.length == 1
                 ? ""
                 : startDateTimeParts[1].replace(":", "");
         String endDateString = endDateTimeParts.length == 1
-                ? parseDate(removeCloseBracket(endDateTimeParts[0]))
-                : parseDate(endDateTimeParts[0]);
+                ? this.parseDate(this.removeCloseBracket(endDateTimeParts[0]))
+                : this.parseDate(endDateTimeParts[0]);
         String endTimeString = endDateTimeParts.length == 1
                 ? ""
-                : removeCloseBracket(endDateTimeParts[1])
+                : this.removeCloseBracket(endDateTimeParts[1])
                 .replace(":", "");
 
         Task eventTask;
@@ -202,9 +202,9 @@ public class Storage {
         String taskBody = taskDetails.substring(7);
 
         return switch (taskType) {
-            case 'T' -> handleToDo(taskBody, taskStatus);
-            case 'D' -> handleDeadline(taskBody, taskStatus);
-            case 'E' -> handleEvent(taskBody, taskStatus);
+            case 'T' -> this.handleToDo(taskBody, taskStatus);
+            case 'D' -> this.handleDeadline(taskBody, taskStatus);
+            case 'E' -> this.handleEvent(taskBody, taskStatus);
             default -> {
                 this.resetSaveFile("Invalid task entry - unrecognized task type!");
                 yield null;
@@ -223,7 +223,7 @@ public class Storage {
         Scanner s = new Scanner(SAVE_FILE);
         while (s.hasNext()) {
             String taskString = s.nextLine();
-            Task task = convertToTaskObject(taskString);
+            Task task = this.convertToTaskObject(taskString);
             tasks.add(task);
         }
         return tasks;

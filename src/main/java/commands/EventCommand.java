@@ -107,27 +107,23 @@ public class EventCommand extends Command {
      * Chatbot checks if event command is valid.
      * If so, it creates a {@code Event} object.
      * Adds it to {@code tasks}, writes it to save file.
-     * Displays a response indicating it has added the event task.
+     * Returns a response indicating it has added the event task.
      * </p>
      *
      * @throws BrockException If event command is invalid
      */
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
-        Task eventTask = createEvent();
+        Task eventTask = this.createEvent();
         tasks.addToList(eventTask);
 
         // Update the save file
-        storage.writeToFile(tasks.numTasks()
-                + ". "
-                + tasks.getTaskDetails(eventTask)
-                + '\n',
+        storage.writeToFile(tasks.numTasks() + ". "
+                + tasks.getTaskDetails(eventTask) + '\n',
                 true);
 
         return "Got it. I've added this task:\n"
-                + "  "
-                + tasks.getTaskDetails(eventTask)
-                + '\n'
+                + "  " + tasks.getTaskDetails(eventTask) + '\n'
                 + tasks.getTasksSummary();
     }
 }

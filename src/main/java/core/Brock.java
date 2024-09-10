@@ -19,13 +19,19 @@ public class Brock {
     private static final Storage STORAGE = new Storage();
     private static final Parser PARSER = new Parser();
 
+    /**
+     * Creates the save file.
+     *
+     * @return A boolean indicating if creation was successful,
+     *      as well as a string storing the response of this action.
+     */
     protected Pair<Boolean, String> createSaveFile() {
         boolean isSuccessful;
         String overallResponse;
         try {
             String[] responses = STORAGE.createFile();
             isSuccessful = true;
-            overallResponse = responses[0] + " \\| " + responses[1];
+            overallResponse = responses[0] + " | " + responses[1];
 
         } catch (IOException e) {
             isSuccessful = false;
@@ -37,6 +43,12 @@ public class Brock {
         return new Pair<>(isSuccessful, overallResponse);
     }
 
+    /**
+     * Loads tasks from the save file.
+     *
+     * @return The {@code TaskList tasks} that represents the existing {@code Task} objects,
+     *      as well as a string storing the response of this action.
+     */
     protected Pair<TaskList, String> loadTasksFromFile() {
         TaskList tasks;
         String overallResponse;
@@ -61,6 +73,14 @@ public class Brock {
         return new Pair<>(tasks, overallResponse);
     }
 
+    /**
+     * Responds to a particular user command.
+     *
+     * @param processedCommand The processed user command to respond to.
+     * @param tasks The list of existing tasks.
+     * @return A boolean indicating if the program should be terminated (only on bye command),
+     *      as well as a string storing the response to the command.
+     */
     public Pair<Boolean, String> respondToCommand(String processedCommand, TaskList tasks) {
         boolean isExit;
         String overallResponse;
@@ -75,4 +95,3 @@ public class Brock {
         return new Pair<>(isExit, overallResponse);
     }
 }
-

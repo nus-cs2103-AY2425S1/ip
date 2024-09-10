@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
      * <p>
      * Chatbot checks if unmark command is valid.
      * If so, it unmarks the associated task in {@code tasks} and updates the save file.
-     * Displays a response indicating it has successfully unmarked the task.
+     * Returns a response indicating it has successfully unmarked the task.
      * </p>
      *
      * @throws BrockException If unmark command is invalid.
@@ -47,7 +47,6 @@ public class UnmarkCommand extends Command {
         }
 
         return "OK, I've marked this task as not done yet:\n"
-                + "  "
-                + tasks.getTaskDetails(taskIndex);
+                + "  " + tasks.getTaskDetails(taskIndex);
     }
 }
