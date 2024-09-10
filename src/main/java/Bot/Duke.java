@@ -25,6 +25,9 @@ public class Duke {
      * with the user until an exit command is issued.
      */
     private void greet() {
+        assert dukeFileManager != null : "FileManager is not initialized";
+        assert parser != null : "Parser is not initialized";
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + ". How can I assist you today?");
         dukeFileManager.readFile();
