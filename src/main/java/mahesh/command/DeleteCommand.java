@@ -28,6 +28,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the DeleteCommand by deleting the task from the TaskList and updating the Storage.
+     *
+     * @return a String response indicating the result of the deletion
      */
     @Override
     public String execute() {

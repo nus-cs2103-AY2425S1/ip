@@ -29,6 +29,8 @@ public class AddCommand extends Command {
 
     /**
      * Executes the AddCommand by adding the task to the TaskList and updating the Storage.
+     *
+     * @return a String response indicating the result of adding the task
      */
     @Override
     public String execute() {

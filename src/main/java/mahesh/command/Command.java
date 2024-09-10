@@ -6,6 +6,8 @@ package mahesh.command;
 public abstract class Command {
     /**
      * Executes the command.
+     *
+     * @return a String response indicating the result of the command execution
      */
     public abstract String execute();
 }

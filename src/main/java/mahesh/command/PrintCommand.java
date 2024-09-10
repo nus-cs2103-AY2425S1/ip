@@ -19,6 +19,8 @@ public class PrintCommand extends Command {
 
     /**
      * Executes the PrintCommand by printing the tasks in the TaskList.
+     *
+     * @return a String response with the tasks in the TaskList
      */
     @Override
     public String execute() {

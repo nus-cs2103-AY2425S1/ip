@@ -31,6 +31,8 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the MarkCommand by marking or unmarking the task as done in the TaskList and updating the Storage.
+     *
+     * @return a String response indicating the result of marking or unmarking the task
      */
     @Override
     public String execute() {

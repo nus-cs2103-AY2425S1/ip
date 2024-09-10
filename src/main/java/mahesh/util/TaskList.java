@@ -28,9 +28,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list and increments the task count.
+     * Adds a task to the list and returns a response indicating the task was added.
      *
      * @param task the task to be added to the list
+     * @return a String response indicating the task was added
      */
     public String addToList(Task task) {
         this.list.add(task);
@@ -38,9 +39,10 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list at the specified index and decrements the task count.
+     * Deletes a task from the list at the specified index and returns a response indicating the task was deleted.
      *
      * @param index the index of the task to be removed from the list
+     * @return a String response indicating the task was deleted
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String deleteFromList(int index) {
@@ -54,9 +56,10 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done at the specified index.
+     * Marks a task as done at the specified index and returns a response indicating the task was marked as done.
      *
      * @param index the index of the task to be marked as done
+     * @return a String response indicating the task was marked as done
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String markTaskAsDone(int index) {
@@ -70,9 +73,10 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task as done at the specified index.
+     * Unmarks a task as done at the specified index and returns a response indicating the task was unmarked as done.
      *
      * @param index the index of the task to be unmarked as done
+     * @return a String response indicating the task was unmarked as done
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String unmarkTaskAsDone(int index) {
@@ -86,10 +90,10 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks in the list that match the given search term.
-     * Prints the matching tasks or an error message if no matches are found.
+     * Finds tasks in the list that match the given search term and returns a response with the matching tasks.
      *
      * @param searchTerm the term to search for in the task descriptions
+     * @return a String response with the matching tasks or an error message if no matches are found
      */
     public String findTaskInList(String searchTerm) {
         if (this.list.isEmpty()) {
@@ -106,7 +110,7 @@ public class TaskList {
         if (count == 0) {
             return "No matching tasks found!";
         } else {
-            StringBuilder response =  new StringBuilder();
+            StringBuilder response = new StringBuilder();
             response.append("Here are the matching tasks in your list:\n");
             response.append(result);
             return response.toString();
@@ -114,7 +118,10 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list. Prints an error message if the list is empty.
+     * Prints all tasks in the list and returns a response with the tasks.
+     * Returns an error message if the list is empty.
+     *
+     * @return a String response with all tasks in the list or an error message if the list is empty
      */
     public String printList() {
         if (this.list.isEmpty()) {

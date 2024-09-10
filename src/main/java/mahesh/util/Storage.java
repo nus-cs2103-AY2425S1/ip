@@ -34,6 +34,7 @@ public class Storage {
      * If the data is corrupted, it prints an error message.
      *
      * @return the TaskList containing the tasks retrieved from the file
+     * @throws IOException if an I/O error occurs
      */
     public TaskList retrieveData() throws IOException {
         File dataFile = new File(this.pathString);
@@ -84,6 +85,7 @@ public class Storage {
      * If the file does not exist, it creates a new file.
      *
      * @param list the TaskList containing the tasks to be saved to the file
+     * @throws IOException if an I/O error occurs
      */
     public void updateData(TaskList list) throws IOException {
         File dataFile = new File(pathString);

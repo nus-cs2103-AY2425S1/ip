@@ -14,6 +14,11 @@ public class Main extends Application {
 
     private Mahesh mahesh = new Mahesh();
 
+    /**
+     * Starts the application by setting up the main stage and loading the FXML layout.
+     *
+     * @param stage the primary stage for this application
+     */
     @Override
     public void start(Stage stage) {
         try {

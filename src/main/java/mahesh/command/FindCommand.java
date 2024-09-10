@@ -22,6 +22,8 @@ public class FindCommand extends Command {
 
     /**
      * Executes the FindCommand by searching for tasks in the TaskList that match the search term.
+     *
+     * @return a String response with the matching tasks or an error message if no matches are found
      */
     @Override
     public String execute() {

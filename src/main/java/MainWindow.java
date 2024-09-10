@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mahesh.Mahesh;
+
 /**
  * Controller for the main GUI.
  */
@@ -24,19 +25,27 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window.
+     * Binds the vertical scroll value of the scroll pane to the height property of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Mahesh instance.
+     *
+     * @param d the Mahesh instance to be injected
+     */
     public void setDuke(Mahesh d) {
         mahesh = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating two dialog boxes: one echoing the user input and the other containing Mahesh's reply.
+     * Appends the dialog boxes to the dialog container and clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

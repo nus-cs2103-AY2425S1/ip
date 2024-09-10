@@ -8,10 +8,11 @@ import mahesh.task.Task;
 public class Ui {
 
     /**
-     * Prints a message indicating that a task has been added.
+     * Returns a message indicating that a task has been added.
      *
      * @param task the task that was added
      * @param taskCount the current number of tasks in the list
+     * @return a String message indicating the task was added
      */
     public static String printTaskAdded(Task task, int taskCount) {
         StringBuilder response = new StringBuilder();
@@ -22,10 +23,11 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
      * @param task the task that was deleted
      * @param taskCount the current number of tasks in the list
+     * @return a String message indicating the task was deleted
      */
     public static String printTaskDeleted(Task task, int taskCount) {
         StringBuilder response = new StringBuilder();
@@ -36,9 +38,10 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task the task that was marked as done
+     * @return a String message indicating the task was marked as done
      */
     public static String printMarkedAsDone(Task task) {
         StringBuilder response = new StringBuilder();
@@ -48,9 +51,10 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been unmarked as done.
+     * Returns a message indicating that a task has been unmarked as done.
      *
      * @param task the task that was unmarked as done
+     * @return a String message indicating the task was unmarked as done
      */
     public static String printUnmarkedAsDone(Task task) {
         StringBuilder response = new StringBuilder();
@@ -60,18 +64,20 @@ public class Ui {
     }
 
     /**
-     * Prints an error message.
+     * Returns an error message.
      *
      * @param err the exception containing the error message
+     * @return a String error message
      */
     public static String printErr(MaheshException err) {
         return err.getMessage();
     }
 
     /**
-     * Prints an error message indicating that there is no such task.
+     * Returns an error message indicating that there is no such task.
      *
      * @param taskCount the current number of tasks in the list
+     * @return a String error message indicating there is no such task
      */
     public static String printNoSuchTaskErr(int taskCount) {
         StringBuilder response = new StringBuilder();
@@ -81,9 +87,10 @@ public class Ui {
     }
 
     /**
-     * Prints an error message indicating that the command is incomplete or incorrect.
+     * Returns an error message indicating that the command is incomplete or incorrect.
      *
      * @param err the exception containing the error message
+     * @return a String error message indicating the command is incomplete or incorrect
      */
     public static String printIncompleteCommandErr(MaheshException err) {
         StringBuilder response = new StringBuilder();
@@ -93,14 +100,18 @@ public class Ui {
     }
 
     /**
-     * Prints an error message indicating that the task list is empty.
+     * Returns an error message indicating that the task list is empty.
+     *
+     * @return a String error message indicating the task list is empty
      */
     public static String printEmptyListErr() {
         return "You have no tasks! Add a few tasks (todo, deadline or event)";
     }
 
     /**
-     * Prints an error message indicating that some tasks may not have loaded correctly due to a corrupted data file.
+     * Returns an error message indicating that some tasks may not have loaded correctly due to a corrupted data file.
+     *
+     * @return a String error message indicating corrupted data file
      */
     public static String printCorruptedDataErr() {
         return "Some tasks may not have loaded correctly due to corrupted data file.";
