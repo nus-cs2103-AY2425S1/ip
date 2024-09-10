@@ -74,7 +74,7 @@ public class Duck {
         }
     }
 
-    private String startUpAndLoadStorage( String filePath) {
+    private String startUpAndLoadStorage(String filePath) {
         assert ui != null;
         return captureOutput(() -> {
             try {

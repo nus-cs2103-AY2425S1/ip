@@ -1,13 +1,8 @@
 package duck.ui;
 
-
-
-import duck.data.exception.DuckException;
-
 import java.util.Scanner;
 
-
-
+import duck.data.exception.DuckException;
 
 /**
  * Handles user interactions with the Duck application, including displaying messages
