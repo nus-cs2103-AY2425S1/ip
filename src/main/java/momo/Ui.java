@@ -62,6 +62,7 @@ public class Ui {
 
         try {
             CommandType command = Parser.parseInput(input);
+            assert command != null;
             momo.processCommand(input, command);
         } catch (MomoException e) {
             printDialogue(e.getMessage());
@@ -73,6 +74,8 @@ public class Ui {
     }
 
     public void printDialogue(String text) {
+        assert !text.isEmpty() : "Dialogue box should not be empty";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getMomoDialog(text, momoImage)
         );
