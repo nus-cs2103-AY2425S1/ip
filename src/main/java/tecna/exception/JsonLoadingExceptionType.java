@@ -1,4 +1,4 @@
-package tecna;
+package tecna.exception;
 
 /**
  * Represents types of exceptions when parsing data from a json file.

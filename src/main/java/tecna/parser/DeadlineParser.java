@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
 
-import tecna.JsonLoadingException;
+import tecna.exception.JsonLoadingException;
 
 import tecna.task.Deadline;
-import tecna.JsonLoadingExceptionType;
+import tecna.exception.JsonLoadingExceptionType;
 
 /**
  * Parses the task of Deadline type from a JSONObject.

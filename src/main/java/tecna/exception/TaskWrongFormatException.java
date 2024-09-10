@@ -1,4 +1,4 @@
-package tecna;
+package tecna.exception;
 
 public abstract class TaskWrongFormatException extends Exception {
     public TaskWrongFormatException() {

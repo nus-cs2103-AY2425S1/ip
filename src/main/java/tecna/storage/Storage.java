@@ -19,8 +19,8 @@ import org.json.simple.parser.ParseException;
 
 import tecna.task.Deadline;
 import tecna.task.Event;
-import tecna.JsonLoadingException;
-import tecna.JsonLoadingExceptionType;
+import tecna.exception.JsonLoadingException;
+import tecna.exception.JsonLoadingExceptionType;
 import tecna.parser.DeadlineParser;
 import tecna.parser.EventParser;
 import tecna.parser.ToDoParser;

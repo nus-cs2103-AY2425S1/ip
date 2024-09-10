@@ -1,4 +1,4 @@
-package tecna;
+package tecna.exception;
 
 /**
  * Indicates errors during parsing json data into valid classes.

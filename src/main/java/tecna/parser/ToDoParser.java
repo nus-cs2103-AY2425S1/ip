@@ -2,8 +2,8 @@ package tecna.parser;
 
 import org.json.simple.JSONObject;
 
-import tecna.JsonLoadingException;
-import tecna.JsonLoadingExceptionType;
+import tecna.exception.JsonLoadingException;
+import tecna.exception.JsonLoadingExceptionType;
 import tecna.task.ToDo;
 
 /**
