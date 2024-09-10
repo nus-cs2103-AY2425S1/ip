@@ -32,6 +32,12 @@ public class AddDeadlineCommand implements Command {
      */
     public AddDeadlineCommand(TaskList tasks, Storage storage, Ui ui, String details,
                               DateTimeFormatter... inputFormatters) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert details != null && !details.isEmpty() : "Details cannot be null or empty";
+        assert inputFormatters != null && inputFormatters.length > 0 : "At least one DateTimeFormatter must be provided";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -48,12 +54,15 @@ public class AddDeadlineCommand implements Command {
     @Override
     public String execute() throws ArtsException {
         String[] deadlineParts = details.split(" /by ");
-        if (deadlineParts.length < 2) {
-            throw new ArtsException("The deadline must have a /by date.");
-        }
+        assert deadlineParts.length >= 2 : "Details must contain a '/by' to separate task description and deadline";
+
         LocalDateTime deadlineDate = parseDate(deadlineParts[1]);
         tasks.addTask(new Deadline(deadlineParts[0], deadlineDate));
+
+        assert tasks.size() > 0 : "Task was not added to the task list";
+
         storage.save(tasks.getTasks());
+
         return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
                 + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
                 + " in the list.";
@@ -68,6 +77,8 @@ public class AddDeadlineCommand implements Command {
      * @throws ArtsException If the date string cannot be parsed with any of the provided formatters.
      */
     private LocalDateTime parseDate(String dateString) throws ArtsException {
+        assert dateString != null && !dateString.isEmpty() : "Date string cannot be null or empty";
+
         LocalDateTime date = null;
         for (DateTimeFormatter formatter : inputFormatters) {
             try {
@@ -77,9 +88,8 @@ public class AddDeadlineCommand implements Command {
                 // Continue to the next formatter
             }
         }
-        if (date == null) {
-            throw new ArtsException("Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
-        }
+        assert date != null : "Date must be successfully parsed";
+
         return date;
     }
 }

@@ -6,7 +6,6 @@ import arts.task.Todo;
 import arts.util.Storage;
 import arts.util.Ui;
 
-
 /**
  * Represents a command to add a todo task to the task list.
  */
@@ -21,9 +20,15 @@ public class AddTodoCommand implements Command {
      *
      * @param tasks The list of tasks.
      * @param storage The storage used to save tasks.
+     * @param ui The user interface for displaying messages.
      * @param description The description of the todo task to be added.
      */
     public AddTodoCommand(TaskList tasks, Storage storage, Ui ui, String description) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -39,11 +44,14 @@ public class AddTodoCommand implements Command {
      */
     @Override
     public String execute() throws ArtsException {
-        if (description == null || description.trim().isEmpty()) {
-            throw new ArtsException("The description of a todo cannot be empty.");
-        }
+        assert description != null && !description.trim().isEmpty() : "Description must be valid before execution";
+
         tasks.addTask(new Todo(description));
+
+        assert tasks.size() > 0 : "Task was not added to the task list";
+
         storage.save(tasks.getTasks());
+
         return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
                 + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
                 + " in the list.";
