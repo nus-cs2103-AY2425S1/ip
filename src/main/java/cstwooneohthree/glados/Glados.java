@@ -52,6 +52,12 @@ public class Glados {
         sc.close();
     }
 
+    /**
+     * Executes a command given by user.
+     *
+     * @param input Command to be executed.
+     * @return String to be shown in the UI.
+     */
     public String executeCommand(String input) {
         try {
             String query = Parser.parseCommand(input);
