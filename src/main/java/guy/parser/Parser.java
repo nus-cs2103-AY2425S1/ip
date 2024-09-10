@@ -61,6 +61,9 @@ public class Parser {
                 case "find":
                     tm.findTask(args);
                     break;
+                case "help":
+                    tm.getHelp(args);
+                    break;
                 default:
                     throw new GuyException("Maybe put in an actual command next time, shitass.");
                 }
@@ -112,6 +115,9 @@ public class Parser {
                 break;
             case "find":
                 tm.findTask(args);
+                break;
+            case "help":
+                tm.getHelp(args);
                 break;
             default:
                 throw new GuyException("Maybe put in an actual command next time, shitass.");
