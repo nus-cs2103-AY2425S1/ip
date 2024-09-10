@@ -9,6 +9,10 @@ public class Meeju {
     private Parser parser = new Parser();
 
     public String getResponse(String instruction) {
-        return parser.parse(taskList, instruction);
+        try {
+            return parser.parse(taskList, instruction);
+        } catch (MeejuException e) {
+            return e.getMessage();
+        }
     }
 }
