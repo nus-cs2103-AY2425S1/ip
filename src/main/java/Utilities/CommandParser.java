@@ -29,17 +29,22 @@ public class CommandParser {
         } else if (input.startsWith("unmark") || input.startsWith("mark")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
+            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
             int index = Integer.parseInt(intValue) - 1;
+            assert index <= tl.getSize(); // add assertion to check index
             response += tl.updateTaskListStatus(index, input.startsWith("mark"));
             store.updateFileStatus(index, input.startsWith("mark"));
         } else if (input.startsWith("delete")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
+            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
             int index = Integer.parseInt(intValue) - 1;
+            assert index <= tl.getSize(); // add assertion to check index
             response += tl.removeFromTaskList(index);
             store.removeFileTask(index);
         } else if (input.startsWith("find")) {
             String matchValue = input.replace("find", "").strip();
+            assert !matchValue.isEmpty();
             response += tl.findTasks(matchValue);
         } else {
             try {
@@ -90,6 +95,8 @@ public class CommandParser {
                 response += Ui.updateUserOnError(e);
             }
         }
+
+        assert response != ""; // important check for return
 
         return response;
     }
