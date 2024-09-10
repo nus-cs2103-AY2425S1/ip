@@ -29,4 +29,8 @@ public class MarkCommand extends Command {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Task marked";
+    }
 }
