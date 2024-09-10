@@ -1,7 +1,8 @@
 package crack;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 
@@ -19,7 +20,7 @@ class ParserTest {
     @Test
     void testParseTaskNumber() {
         String input = "mark 2";
-        int expectedTaskNumber = 1;  // 1-based index is converted to 0-based
+        int expectedTaskNumber = 1; // 1-based index is converted to 0-based
 
         int result = Parser.parseTaskNumber(input);
 

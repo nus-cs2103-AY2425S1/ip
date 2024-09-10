@@ -6,16 +6,19 @@ import java.time.format.DateTimeParseException;
 
 /**
  * The Task class represents a generic task in the application.
- * It stores basic information about the task, such as its description, status (done or not),
+ * It stores basic information about the task, such as its description, status
+ * (done or not),
  * and type (Todo, Deadline, or Event).
  */
 public class Task {
-    
+
     /**
      * Enum representing the different types of tasks.
      */
     public enum TaskType {
-        TODO, DEADLINE, EVENT
+        TODO,
+        DEADLINE,
+        EVENT
     }
 
     protected String description;
@@ -27,7 +30,7 @@ public class Task {
      * The task is initially marked as not done.
      *
      * @param description the description of the task.
-     * @param type the type of the task (Todo, Deadline, or Event).
+     * @param type        the type of the task (Todo, Deadline, or Event).
      */
     public Task(String description, TaskType type) {
         this.description = description;
@@ -37,11 +40,10 @@ public class Task {
 
     /**
      * Returns the status icon of the task.
-     * 
      * @return "X" if the task is done, otherwise a blank space.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");  // Mark done task with X
+        return (isDone ? "X" : " "); // Mark done task with X
     }
 
     /**
@@ -60,7 +62,7 @@ public class Task {
 
     /**
      * Returns the type of the task.
-     * 
+     *
      * @return the type of the task (Todo, Deadline, or Event).
      */
     public TaskType getType() {
@@ -69,7 +71,7 @@ public class Task {
 
     /**
      * Returns a formatted string representation of the task for saving to a file.
-     * 
+     *
      * @return the task details in a save-friendly format.
      */
     public String toSaveString() {
@@ -78,7 +80,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task, including its type and status.
-     * 
+     *
      * @return a string representation of the task.
      */
     @Override
@@ -87,29 +89,31 @@ public class Task {
     }
 
     /**
-     * Returns the icon representing the type of the task (T for Todo, D for Deadline, E for Event).
-     * 
+     * Returns the icon representing the type of the task (T for Todo, D for
+     * Deadline, E for Event).
+     *
      * @return the icon of the task type.
      */
     public String getTypeIcon() {
         switch (type) {
-            case TODO:
-                return "T";
-            case DEADLINE:
-                return "D";
-            case EVENT:
-                return "E";
-            default:
-                return " ";
+        case TODO:
+            return "T";
+        case DEADLINE:
+            return "D";
+        case EVENT:
+            return "E";
+        default:
+            return " ";
         }
     }
 }
 
 /**
- * Represents a Todo task. A Todo task only has a description and does not have any dates.
+ * Represents a Todo task. A Todo task only has a description and does not have
+ * any dates.
  */
 class Todo extends Task {
-    
+
     /**
      * Constructs a new Todo task with the specified description.
      *
@@ -120,8 +124,9 @@ class Todo extends Task {
     }
 
     /**
-     * Returns a formatted string representation of the Todo task for saving to a file.
-     * 
+     * Returns a formatted string representation of the Todo task for saving to a
+     * file.
+     *
      * @return the Todo task details in a save-friendly format.
      */
     @Override
@@ -141,20 +146,21 @@ class Deadline extends Task {
      * The due date is expected to be in the yyyy-mm-dd format.
      *
      * @param description the description of the deadline task.
-     * @param by the due date of the deadline task (in yyyy-mm-dd format).
+     * @param by          the due date of the deadline task (in yyyy-mm-dd format).
      */
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
         try {
-            this.by = LocalDate.parse(by);  // Parse date in yyyy-mm-dd format
+            this.by = LocalDate.parse(by); // Parse date in yyyy-mm-dd format
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
         }
     }
 
     /**
-     * Returns a formatted string representation of the Deadline task for saving to a file.
-     * 
+     * Returns a formatted string representation of the Deadline task for saving to
+     * a file.
+     *
      * @return the Deadline task details in a save-friendly format.
      */
     @Override
@@ -163,8 +169,9 @@ class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, including its description and due date.
-     * 
+     * Returns a string representation of the Deadline task, including its
+     * description and due date.
+     *
      * @return a string representation of the Deadline task.
      */
     @Override
@@ -175,33 +182,36 @@ class Deadline extends Task {
 }
 
 /**
-     * Represents an Event task. An Event task has a description, start date, and end date.
+ * Represents an Event task. An Event task has a description, start date, and
+ * end date.
  */
 class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
     /**
-     * Constructs a new Event task with the specified description, start date, and end date.
+     * Constructs a new Event task with the specified description, start date, and
+     * end date.
      * The start and end dates are expected to be in the yyyy-mm-dd format.
      *
      * @param description the description of the event task.
-     * @param from the start date of the event (in yyyy-mm-dd format).
-     * @param to the end date of the event (in yyyy-mm-dd format).
+     * @param from        the start date of the event (in yyyy-mm-dd format).
+     * @param to          the end date of the event (in yyyy-mm-dd format).
      */
     public Event(String description, String from, String to) {
         super(description, TaskType.EVENT);
         try {
-            this.from = LocalDate.parse(from);  // Parse start date in yyyy-mm-dd format
-            this.to = LocalDate.parse(to);      // Parse end date in yyyy-mm-dd format
+            this.from = LocalDate.parse(from); // Parse start date in yyyy-mm-dd format
+            this.to = LocalDate.parse(to); // Parse end date in yyyy-mm-dd format
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
         }
     }
 
     /**
-     * Returns a formatted string representation of the Event task for saving to a file.
-     * 
+     * Returns a formatted string representation of the Event task for saving to a
+     * file.
+     *
      * @return the Event task details in a save-friendly format.
      */
     @Override
@@ -210,8 +220,9 @@ class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its description, start date, and end date.
-     * 
+     * Returns a string representation of the Event task, including its description,
+     * start date, and end date.
+     *
      * @return a string representation of the Event task.
      */
     @Override

@@ -83,7 +83,7 @@ public class Ui {
                 + " Now you have " + size + " tasks in the list.\n" + DIVIDER);
     }
 
-        /**
+    /**
      * Displays the list of tasks that match the search keyword.
      *
      * @param tasks the list of matching tasks.

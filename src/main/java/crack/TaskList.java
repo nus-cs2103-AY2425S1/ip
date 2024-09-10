@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 /**
  * The TaskList class manages the list of tasks in the application.
- * It provides methods to add, remove, and retrieve tasks, as well as other operations 
+ * It provides methods to add, remove, and retrieve tasks, as well as other
+ * operations
  * such as checking if the list is empty and listing all tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList < Task > tasks;
 
     /**
      * Constructs a new TaskList with an empty list of tasks.
@@ -22,7 +23,7 @@ public class TaskList {
      *
      * @param tasks an ArrayList of tasks to initialize the task list with.
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList < Task > tasks) {
         this.tasks = tasks;
     }
 
@@ -102,19 +103,19 @@ public class TaskList {
      *
      * @return the ArrayList of tasks.
      */
-    public ArrayList<Task> getTasks() {
+    public ArrayList < Task > getTasks() {
         return tasks;
     }
 
-     /**
+    /**
      * Finds tasks that contain the given keyword in their description.
      *
      * @param keyword the keyword to search for in the task descriptions.
      * @return a list of tasks that match the keyword.
      */
-    public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
+    public ArrayList < Task > findTasks(String keyword) {
+        ArrayList < Task > matchingTasks = new ArrayList<>();
+        for (Task task: tasks) {
             if (task.description.contains(keyword)) {
                 matchingTasks.add(task);
             }

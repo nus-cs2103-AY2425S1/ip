@@ -15,7 +15,7 @@ public class Parser {
      * @return the command part of the input.
      */
     public static String parseCommand(String input) {
-        return input.split(" ")[0];  // Return the first word as the command
+        return input.split(" ")[0]; // Return the first word as the command
     }
 
     /**
@@ -29,7 +29,7 @@ public class Parser {
      */
     public static int parseTaskNumber(String input) throws IllegalArgumentException {
         try {
-            return Integer.parseInt(input.split(" ")[1]) - 1;  // Task numbers are 1-based, convert to 0-based index
+            return Integer.parseInt(input.split(" ")[1]) - 1; // Task numbers are 1-based, convert to 0-based index
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid task number format.");
         }
@@ -52,43 +52,60 @@ public class Parser {
     }
 
     /**
-     * Parses a "deadline" command to extract the task description and deadline date.
-     * The description should precede the "/by" delimiter and the deadline should follow it.
+     * Parses a "deadline" command to extract the task description and deadline
+     * date.
+     * The description should precede the "/by" delimiter and the deadline should
+     * follow it.
      *
      * @param input the input string containing the "deadline" command.
-     * @return a string array where the first element is the task description and the second is the deadline.
-     * @throws IllegalArgumentException if the format of the deadline is invalid or incomplete.
+     * @return a string array where the first element is the task description and
+     *         the second is the deadline.
+     * @throws IllegalArgumentException if the format of the deadline is invalid or
+     *                                  incomplete.
      */
     public static String[] parseDeadline(String input) throws IllegalArgumentException {
         try {
             String[] parts = input.substring(9).split(" /by ");
             if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new IllegalArgumentException("Invalid format for deadline. Use: deadline <description> /by <yyyy-mm-dd>.");
+                throw new IllegalArgumentException(
+                    "Invalid format for deadline. Use: deadline <description> /by <yyyy-mm-dd>.");
             }
-            return new String[]{parts[0].trim(), parts[1].trim()};  // Return description and deadline date
+            return new String[] {
+                parts[0].trim(), parts[1].trim()
+            }; // Return description and deadline date
         } catch (StringIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid format for deadline. Use: deadline <description> /by <yyyy-mm-dd>.");
+            throw new IllegalArgumentException(
+                "Invalid format for deadline. Use: deadline <description> /by <yyyy-mm-dd>.");
         }
     }
 
     /**
-     * Parses an "event" command to extract the task description, start date, and end date.
-     * The description should precede the "/from" delimiter, the start date should follow "/from", 
+     * Parses an "event" command to extract the task description, start date, and
+     * end date.
+     * The description should precede the "/from" delimiter, the start date should
+     * follow "/from",
      * and the end date should follow "/to".
      *
      * @param input the input string containing the "event" command.
-     * @return a string array where the first element is the task description, the second is the start date, and the third is the end date.
-     * @throws IllegalArgumentException if the format of the event is invalid or incomplete.
+     * @return a string array where the first element is the task description, the
+     *         second is the start date, and the third is the end date.
+     * @throws IllegalArgumentException if the format of the event is invalid or
+     *                                  incomplete.
      */
     public static String[] parseEvent(String input) throws IllegalArgumentException {
         try {
             String[] parts = input.substring(6).split(" /from | /to ");
             if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                throw new IllegalArgumentException("Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.");
+                throw new IllegalArgumentException(
+                    "Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.");
             }
-            return new String[]{parts[0].trim(), parts[1].trim(), parts[2].trim()};  // Return description, start, and end dates
+            return new String[] {
+                parts[0].trim(), parts[1].trim(), parts[2].trim()
+            }; // Return description, start, and
+            // end dates
         } catch (StringIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.");
+            throw new IllegalArgumentException(
+                "Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.");
         }
     }
 }
