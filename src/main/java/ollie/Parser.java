@@ -44,6 +44,7 @@ public class Parser {
 
     /**
      * Parses the user's command and returns the appropriate action.
+     * Users can enter the actions commands starting with "-".
      *
      * @param userInput The input entered by the user.
      * @param taskList  The list of tasks.
@@ -62,20 +63,20 @@ public class Parser {
             switch (command) {
             case "hello":
                 return Ui.greet();
-            case "bye":
+            case "-b": // '-b' as an alias for 'bye'
                 return Ui.exit();
-            case "list":
+            case "-l": // '-l' as an alias for 'list'
                 return taskList.listTasks();
-            case "mark":
-                int taskNumber = Parser.parseTaskNumber(userInput, 5);
+            case "-m": // '-m' as an alias for 'mark'
+                int taskNumber = Parser.parseTaskNumber(userInput, 3);
                 return taskList.markTaskAsDone(taskNumber);
-            case "unmark":
-                int taskNumberToUnmark = Parser.parseTaskNumber(userInput, 7);
+            case "-u": // '-u' as an alias for 'unmark'
+                int taskNumberToUnmark = Parser.parseTaskNumber(userInput, 3);
                 return taskList.unmarkTaskAsDone(taskNumberToUnmark);
-            case "delete":
-                int taskNumberDelete = Parser.parseTaskNumber(userInput, 7);
+            case "-d": // '-d' as an alias for 'delete'
+                int taskNumberDelete = Parser.parseTaskNumber(userInput, 3);
                 return taskList.deleteTask(taskNumberDelete);
-            case "find":
+            case "-f": // '-f' as an alias for 'find'
                 String keyword = Parser.parseKeyword(userInput);
                 return taskList.findTasksByKeyword(keyword);
             case "todo":
