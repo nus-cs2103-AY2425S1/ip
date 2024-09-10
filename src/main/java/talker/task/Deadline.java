@@ -64,7 +64,7 @@ public class Deadline extends Task {
      * @return String formatted by Task including deadline
      */
     @Override
-    public String getSaveFormat() throws TalkerException {
+    public String getSaveFormat() {
         return super.getSaveFormat() + " | " + by.format(INPUT_FORMAT);
     }
 

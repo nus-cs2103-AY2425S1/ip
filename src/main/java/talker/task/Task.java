@@ -1,7 +1,5 @@
 package talker.task;
 
-import talker.TalkerException;
-
 /**
  * Represents a Task that has a description and can be marked as complete/incomplete
  */
@@ -81,7 +79,7 @@ public class Task {
      *
      * @return String in format specified to write to file
      */
-    public String getSaveFormat() throws TalkerException {
+    public String getSaveFormat() {
         String type = "";
 
         switch (taskType) {
@@ -95,7 +93,9 @@ public class Task {
             type = "E";
             break;
         default:
-            throw new TalkerException("Invalid task type.");
+            assert taskType != taskType.TODO;
+            assert taskType != taskType.DEADLINE;
+            assert taskType != taskType.EVENT;
         }
 
         return String.format("%s | %s | %s", type, this.getComplete(), this.description);
