@@ -60,6 +60,11 @@ public class Task {
         return this.description;
     }
 
+    public String getType() {
+        return "none";
+    }
+
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

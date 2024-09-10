@@ -31,7 +31,7 @@ public class Parser {
     }
 
     /**
-     * Handles the user command
+     * Handles the user command for the text-based UI
      *
      * @param task the user command
      * @throws IOException throws an exception if
@@ -129,6 +129,14 @@ public class Parser {
     }
 
 
+    /**
+     * Handles the user command for the GUI.
+     *
+     * @param task user input that contains the command.
+     * @return String containing response from the Chatbot.
+     * @throws BossException throws an exception if user input is invalid.
+     * @throws IOException throws an exception if writing to data fails.
+     */
     public String getResponse(String task) throws BossException, IOException {
         if (task.equals("list")) {
             return storage.printTasks();
@@ -149,7 +157,12 @@ public class Parser {
         } else if (task.startsWith("find")) {
             String description = task.split("find ")[1];
             return tasks.findTask(description);
-        } else if (task.startsWith("bye")) {
+        } else if (task.startsWith("remind")) {
+            return tasks.remind();
+        }
+
+
+        else if (task.startsWith("bye")) {
             return "Bye! Have a wonderful day legend!";
         }
         else {

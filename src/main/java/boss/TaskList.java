@@ -3,8 +3,11 @@ package boss;
 import boss.exceptions.BossException;
 import boss.exceptions.EmptyTaskInputException;
 import boss.exceptions.NonExistentTaskException;
+import boss.tasks.Deadline;
 import boss.tasks.Task;
+import boss.tasks.TimeTask;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -21,6 +24,10 @@ public class TaskList {
 
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -95,6 +102,23 @@ public class TaskList {
         return newFileData;
     }
 
+    public String remind() {
+        String s = "";
+        for (Task task : tasks) {
+            String type = task.getType();
+            if (type.equals("deadline")) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.checkDateDifference() || deadline.checkTimeDifference()) {
+                    s = s + task + '\n';
+                }
+            }
+        }
+        if (s.isEmpty()) {
+            return "You have no upcoming deadlines!";
+        }
+        return s;
+    }
+
     /**
      * used to rewrite text file
      *
@@ -111,7 +135,7 @@ public class TaskList {
 
 
     /**
-     * Prints user messages to the screen.
+     * Prints messages for user to the screen for text-based UI.
      */
     public void printTextAbstraction() {
         System.out.println("Got it! I've added this task now");
@@ -119,6 +143,13 @@ public class TaskList {
         System.out.println(tasks.get(size-1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+
+    /**
+     * Returns user messages to print onto screen for GUI.
+     *
+     * @return String containing messages for user.
+     */
 
     public String printAbstraction() {
         String toPrint = "";
@@ -129,7 +160,7 @@ public class TaskList {
 
 
     /**
-     * Finds a word in the list of tasks
+     * Finds a word in the list of tasks for text-based UI
      * @param word word to find
      */
     public void find(String word) {
@@ -148,6 +179,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find the tasks that match the given word (for GUI).
+     *
+     * @param word the word user wants to find matching tasks for/
+     * @return String containing tasks that match the word.
+     */
     public String findTask(String word) {
         int i = 0;
         String result = "";
