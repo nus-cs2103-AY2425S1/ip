@@ -3,11 +3,13 @@ package fanny;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import fanny.command.Command;
 import fanny.parser.Parser;
 import fanny.storage.Storage;
+import fanny.task.Deadline;
 import fanny.task.TaskList;
 import fanny.ui.Ui;
 
@@ -19,10 +21,10 @@ import fanny.ui.Ui;
 public class Fanny {
 
     /** List of tasks */
-    private TaskList tasks;
+    private static TaskList tasks;
 
     /** Handles user interface interaction */
-    private Ui ui;
+    private static Ui ui;
 
     /** Handles the storing and loading of tasks */
     private Storage storage;
@@ -121,6 +123,15 @@ public class Fanny {
         return Arrays.stream(message.split(System.lineSeparator()))
                 .filter(line -> !line.matches("[-_]+"))
                 .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    /**
+     * Retrieves reminders for tasks with upcoming deadlines.
+     *
+     * @return A string of upcoming deadlines formatted for display.
+     */
+    public static String getReminders() {
+        return captureCliMsg(() -> ui.showReminders(tasks));
     }
 
 }

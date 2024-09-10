@@ -61,9 +61,11 @@ public class MainWindow extends AnchorPane {
     private void showStartupMessage() {
         String welcomeMessage = Fanny.captureCliMsg(() -> new Ui().printHello());
         String filteredMessage = Fanny.filterLines(welcomeMessage);
+        String reminderMessage = Fanny.getReminders();
+        String startUpMessage = filteredMessage + "\n" + reminderMessage;
 
         dialogContainer.getChildren().add(
-                DialogBox.getFannyDialog(filteredMessage, dukeImage)
+                DialogBox.getFannyDialog(startUpMessage, dukeImage)
         );
     }
 
