@@ -27,26 +27,28 @@ public class Parser {
             remaining = input.substring(input.indexOf(" ") + 1);
         }
 
-        if (command.equals("todo")) {
+        switch (command.toLowerCase()) {
+        case "todo":
             return new AddCommand(remaining, AddCommand.TaskType.TODO);
-        } else if (command.equals("deadline")) {
+        case "deadline":
             return new AddCommand(remaining, AddCommand.TaskType.DEADLINE);
-        } else if (command.equals("event")) {
+        case "event":
             return new AddCommand(remaining, AddCommand.TaskType.EVENT);
-        } else if (command.equals("bye")) {
+        case "bye":
             return new ExitCommand();
-        } else if (command.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (command.equals("mark")) {
+        case "mark":
             return new EditCommand(remaining, EditCommand.Instruction.MARK);
-        } else if (command.equals("unmark")) {
+        case "unmark":
             return new EditCommand(remaining, EditCommand.Instruction.UNMARK);
-        } else if (command.equals("delete")) {
+        case "delete":
             return new DeleteCommand(remaining);
-        } else if (command.equals("find")) {
+        case "find":
             return new ListCommand(remaining);
+        default:
+            throw new LlamaException("Command not found, try again.");
         }
 
-        throw new LlamaException("Command not found, try again.");
     }
 }
