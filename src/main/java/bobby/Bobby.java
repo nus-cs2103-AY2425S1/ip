@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import bobby.command.Command;
 import bobby.exceptions.BobbyException;
+import bobby.exceptions.InvalidInputException;
 import bobby.parser.Parser;
 import bobby.storage.Storage;
 import bobby.tasklist.TaskList;
@@ -78,12 +79,12 @@ public class Bobby {
             case LIST:
                 return ui.getTasksList(tasks);
             case MARK:
-                String[] markArgs = userInput.split(" ");
+                String[] markArgs = parser.parseTaskIndices(userInput);
                 ArrayList<Task> tasksToMark = tasks.markMultipleTasks(true, markArgs);
                 storage.saveTasks(tasks);
                 return ui.getTaskMarkedMessage(tasksToMark);
             case UNMARK:
-                String[] unmarkArgs = userInput.split(" ");
+                String[] unmarkArgs = parser.parseTaskIndices(userInput);
                 ArrayList<Task> tasksToUnmark = tasks.markMultipleTasks(false, unmarkArgs);
                 storage.saveTasks(tasks);
                 return ui.getTaskUnmarkedMessage(tasksToUnmark);
@@ -96,11 +97,15 @@ public class Bobby {
             case FIND:
                 ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);
                 return ui.getFoundTasksMessage(foundTasks);
-            default:
+            case TODO:
+            case EVENT:
+            case DEADLINE:
                 Task newTask = parser.parseTask(userInput);
                 tasks.add(newTask);
                 storage.saveTasks(tasks);
                 return ui.getTaskAddedMessage(newTask, tasks.size());
+            default:
+                throw new InvalidInputException();
             }
         } catch (BobbyException e) {
             return ui.getErrorMessage(e.getMessage());

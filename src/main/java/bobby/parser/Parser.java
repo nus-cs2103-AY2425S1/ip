@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import bobby.command.Command;
 import bobby.exceptions.BobbyException;
@@ -51,6 +52,24 @@ public class Parser {
     }
 
     /**
+     * Parses the user input and returns an array containing the task indices.
+     * This method splits the input string by spaces and returns the arguments
+     * starting from the second position onward, excluding the command keyword.
+     *
+     * For example, if the input is "mark 1 2 3", this method will return
+     * an array containing ["1", "2", "3"].
+     *
+     * @param userInput the raw input string from the user, where the first argument
+     *                  is the command, and the remaining arguments are task indices.
+     * @return an array of strings containing the task indices extracted from the input.
+     */
+    public String[] parseTaskIndices(String userInput) {
+        String[] args = userInput.split(" ");
+        return Arrays.copyOfRange(args, 1, args.length);
+    }
+
+
+    /**
      * Parses the "finddate" or "findkey" command and extracts the search criteria from the user input.
      *
      * @param userInput The input string from the user, expected to start with "searchdate " or "find ".
@@ -67,8 +86,8 @@ public class Parser {
         }
         String command = parts[0];
         String argument = parts[1].trim(); // Extract the argument after "searchdate " or "find "
-
-        assert command.equalsIgnoreCase("searchdate") || command.equalsIgnoreCase("find") : "Invalid command: " + command;
+        assert command.equalsIgnoreCase("searchdate")
+                || command.equalsIgnoreCase("find") : "Invalid command: " + command;
         if (command.equalsIgnoreCase("searchdate")) {
             try {
                 LocalDate date = LocalDate.parse(argument);
