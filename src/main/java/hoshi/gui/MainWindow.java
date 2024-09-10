@@ -6,12 +6,14 @@ import hoshi.Hoshi;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -26,8 +28,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Hoshi hoshi;
 
@@ -81,6 +81,29 @@ public class MainWindow extends AnchorPane {
             // start the delay
             delay.play();
         }
+    }
+
+    /**
+     * Creates a new window with text indicating what commands are available in Hoshi chatbot.
+     */
+    @FXML
+    private void handleTopRightButtonClick() {
+        Stage helpStage = new Stage();
+        helpStage.setTitle("Hoshi Help");
+
+        TextArea textArea = new TextArea();
+        textArea.setEditable(false);
+        textArea.setText("Hoshi provides you with the following commands and examples!\n"
+                + "1.) Add todo/deadline/event - Add deadline 2022-12-12\n"
+                + "2.) Mark/Unmark - Mark 1\n"
+                + "3.) Delete - Delete 1\n"
+                + "4.) Find - Find 1\n"
+                + "5.) Bye");
+        helpStage.setScene(new Scene(textArea, 400, 130));
+        textArea.setStyle("-fx-background-color: #5f6366; -fx-padding: 5px; -fx-font-size: 12px;");
+        Image image = new Image("/images/Hoshi.JPG");
+        helpStage.getIcons().add(image);
+        helpStage.show();
     }
 
 }
