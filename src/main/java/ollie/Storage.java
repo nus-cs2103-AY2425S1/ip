@@ -77,13 +77,22 @@ public class Storage {
             boolean isDone = status.equals("[X]");
 
             // Map task type to task creation function
-            Function<List<String>, Task> taskCreator = switch (taskType) {
-                case "TODO" -> p -> new Todo(description);
-                case "DEADLINE" -> p -> new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
-                case "EVENT" -> p -> new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
+            Function<List<String>, Task> taskCreator;
+            switch (taskType) {
+            case "TODO":
+                taskCreator = p -> new Todo(description);
+                break;
+            case "DEADLINE":
+                taskCreator = p -> new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
+                break;
+            case "EVENT":
+                taskCreator = p -> new Event(description,
+                        LocalDateTime.parse(date, Task.getFormatDate()),
                         LocalDateTime.parse(end, Task.getFormatDate()));
-                default -> throw new OllieException("Oops! Invalid task type detected: " + taskType);
-            };
+                break;
+            default:
+                throw new OllieException("Oops! Invalid task type detected: " + taskType);
+            }
 
             // Create the task using the mapped function
             Task task = taskCreator.apply(parts);
