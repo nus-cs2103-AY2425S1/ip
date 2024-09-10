@@ -42,30 +42,11 @@ public class Parser {
         case unmark:
             return new UnmarkCommand(Integer.parseInt(args[1]) - 1);
         case todo:
-            try {
-                Task todo = new ToDo(cmd.substring(5));
-                return new AddCommand(todo);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new StrugglingException("OOPS!!! The description of a todo cannot be empty.");
-            }
+            return new AddCommand(createTodo(cmd));
         case deadline:
-            int byIndex = cmd.indexOf("/by ");
-
-            String dDescription = cmd.substring(9, byIndex).trim();
-            LocalDate dBy = LocalDate.parse(cmd.substring(byIndex + 4));
-
-            Task deadline = new Deadline(dDescription, dBy);
-            return new AddCommand(deadline);
+            return new AddCommand(createDeadline(cmd));
         case event:
-            int fromIndex = cmd.indexOf("/from ");
-            int toIndex = cmd.indexOf("/to ");
-
-            String eDescription = cmd.substring(6, fromIndex).trim();
-            String eFrom = cmd.substring(fromIndex + 6, toIndex).trim();
-            String eTo = cmd.substring(toIndex + 4);
-
-            Task event = new Event(eDescription, eFrom, eTo);
-            return new AddCommand(event);
+            return new AddCommand(createEvent(cmd));
         case delete:
             return new DeleteCommand(Integer.parseInt(args[1]) - 1);
         case find:
@@ -73,6 +54,35 @@ public class Parser {
         default:
             return new InvalidCommand();
         }
+    }
+
+    private static ToDo createTodo(String cmd) {
+        try {
+            String description = cmd.substring(5);
+            return new ToDo(description);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new StrugglingException("OOPS!!! The description of a todo cannot be empty.");
+        }
+    }
+
+    private static Task createDeadline(String cmd) {
+        int byIndex = cmd.indexOf("/by ");
+
+        String description = cmd.substring(9, byIndex).trim();
+        LocalDate by = LocalDate.parse(cmd.substring(byIndex + 4));
+
+        return new Deadline(description, by);
+    }
+
+    private static Task createEvent(String cmd) {
+        int fromIndex = cmd.indexOf("/from ");
+        int toIndex = cmd.indexOf("/to ");
+
+        String description = cmd.substring(6, fromIndex).trim();
+        String from = cmd.substring(fromIndex + 6, toIndex).trim();
+        String to = cmd.substring(toIndex + 4);
+
+        return new Event(description, from, to);
     }
 
     /**
