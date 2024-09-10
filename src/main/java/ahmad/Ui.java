@@ -31,7 +31,7 @@ public class Ui {
      * @param printFunction Custom print function.
      */
     public static void print(String msg, Consumer<String> printFunction) {
-        assert printFunction != null: "No GUI print function provided";
+        assert printFunction != null : "No GUI print function provided";
 
         printFunction.accept(msg);
     }
