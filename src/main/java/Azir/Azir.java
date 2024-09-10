@@ -128,6 +128,9 @@ public class Azir {
                     }
                 }
                 break;
+
+            default:
+                assert false: result[0];
             }
         } catch (AzirException e) {
             return ui.showError(e.getMessage());
