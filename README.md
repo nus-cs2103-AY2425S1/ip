@@ -31,3 +31,8 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 1. Ensure JDK-17.0.12 or equivalent is installed locally
 2. Download and run the latest JAR file in releases (note that current v0.1 is outdated and will be updated once features are complete)
 3. JAR file should be compatible across various Operating Systems (Windows, Mac etc.)
+
+## Acknowledgements
+
+1. ASCII Art - https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI
+2. JavaFX initOwner Method - https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
