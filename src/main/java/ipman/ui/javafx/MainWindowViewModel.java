@@ -49,6 +49,7 @@ public class MainWindowViewModel {
      * @return whether to exit the program
      */
     public boolean processMessage(String message) {
+        this.messages.add(new Message(MessageAuthor.USER, message));
         return this.ipMan.executeMessage(message);
     }
 

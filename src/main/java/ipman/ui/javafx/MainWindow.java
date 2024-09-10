@@ -4,11 +4,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import ipman.ui.javafx.components.MessageBox;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -30,10 +30,10 @@ public class MainWindow extends AnchorPane implements Initializable {
         this.viewModel = new MainWindowViewModel();
         this.viewModel.getMessages().addListener((ListChangeListener<Message>) c -> {
             while (c.next()) {
-                List<Label> labels = c.getAddedSubList().stream()
-                        .map(e -> new Label(e.message()))
+                List<MessageBox> messageBoxes = c.getAddedSubList().stream()
+                        .map(MessageBox::createMessage)
                         .toList();
-                dialogContainer.getChildren().addAll(labels);
+                dialogContainer.getChildren().addAll(messageBoxes);
             }
         });
     }
