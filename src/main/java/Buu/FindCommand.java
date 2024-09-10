@@ -16,12 +16,17 @@ public class FindCommand extends Command {
      * @param input The user input string containing the command to find tasks.
      */
     public FindCommand(String input) {
+        // Precondition: Ensure input is not null
+        assert input != null : "Input should not be null";
+
         // Extract keyword after "find ", but check if input length is valid to avoid errors.
         if (input.trim().equals("find") || input.length() <= 5) {
             this.keyword = ""; // No keyword provided
         } else {
             this.keyword = input.substring(5).trim();
         }
+        // Postcondition: Ensure keyword is properly initialized
+        assert keyword != null : "Keyword should not be null";
     }
 
     /**
@@ -34,6 +39,10 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Preconditions: Ensure taskList, ui, and storage are not null
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
         // Check if the keyword is empty or invalid
         if (keyword.isEmpty()) {
             ui.showError(

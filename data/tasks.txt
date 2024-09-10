@@ -1,5 +1,1 @@
-T | 1 | Buy groceries
-T | 0 | read a book
 T | 1 | running
-T | 1 | Buy groceries
-E | 0 | Team meeting | 2019-12-02 1400 | 2019-12-02 1600
