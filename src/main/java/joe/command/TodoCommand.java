@@ -15,7 +15,16 @@ import joe.task.Todo;
 public class TodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs a new {@code TodoCommand} with the specified task description.
+     *
+     * @param description The description of the todo task, provided as a {@code String}. It should not be empty.
+     * @throws JoeException if the provided description is empty.
+     */
     public TodoCommand(String description) {
+        if (description.isEmpty()) {
+            throw new JoeException("OOPS!!! The description of a todo cannot be empty.");
+        }
         this.description = description;
     }
 

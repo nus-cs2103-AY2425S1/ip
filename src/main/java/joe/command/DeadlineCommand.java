@@ -1,6 +1,7 @@
 package joe.command;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import joe.JoeException;
@@ -23,9 +24,16 @@ public class DeadlineCommand extends Command {
      * @param description the description of the deadline task
      * @param by the date by which the task is to be completed
      */
-    public DeadlineCommand(String description, LocalDate by) {
+    public DeadlineCommand(String description, String by) {
+        if (description.isEmpty() || by == null) {
+            throw new JoeException("Oops! Try: deadline {desc} /by {duedate}");
+        }
         this.description = description;
-        this.by = by;
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new JoeException("Please enter a date with the format yyyy-mm-dd");
+        }
     }
 
     @Override
