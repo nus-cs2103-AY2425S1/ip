@@ -16,7 +16,7 @@
     -fx-border-radius: 0 1em 1em 1em;
 }
 
-.modify-label {
+.task-label {
     -fx-background-color: linear-gradient(lightgreen, #ccf6cc);
     -fx-border-color: darkgreen;
     -fx-text-fill: black;
@@ -34,7 +34,7 @@
     -fx-border-radius: 0 1em 1em 1em;
 }
 
-.task-label {
+.list-label {
     -fx-background-color: linear-gradient(#f1cfa2, #f4ecc2);
     -fx-border-color: orange;
     -fx-text-fill: black;

@@ -10,19 +10,12 @@ import java.util.stream.Stream;
 
 import jackson.enums.Actions;
 import jackson.enums.Commands;
-import jackson.exceptions.DuplicatedTaskException;
-import jackson.exceptions.OutOfListException;
-import jackson.exceptions.SyntaxException;
-import jackson.exceptions.UnsupportedCommandException;
+import jackson.exceptions.*;
 import jackson.tasks.Deadline;
 import jackson.tasks.Event;
 import jackson.tasks.Task;
 import jackson.tasks.Todo;
-import jackson.utils.Parser;
-import jackson.utils.Response;
-import jackson.utils.Storage;
-import jackson.utils.TaskList;
-import jackson.utils.Ui;
+import jackson.utils.*;
 
 /**
  * Main class for the chatbot.
@@ -97,10 +90,13 @@ public class Jackson {
         Actions.ActionType action;
         Matcher matcher;
         ArrayList<Task> tasks;
+        CustomDateTime from;
+        CustomDateTime to;
+
         int index;
         boolean isAscending;
         String output;
-        System.out.println(input);
+        System.out.println(input); // for debugging purposes
 
         // main loop starts
         try {
@@ -119,42 +115,47 @@ public class Jackson {
                 task = new Todo(matcher.group(1));
                 this.taskList.addTask(task);
                 output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.TASKS;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case DEADLINE:
                 task = new Deadline(matcher.group(1), matcher.group(2));
                 this.taskList.addTask(task);
                 output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.TASKS;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case EVENT:
+                from = new CustomDateTime(matcher.group(2));
+                to = new CustomDateTime(matcher.group(3));
+                if (from.compareTo(to) > 0) {
+                    throw new InvalidArgumentException();
+                }
                 task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
                 this.taskList.addTask(task);
                 output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.TASKS;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case MARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.mark(index);
                 output = this.ui.printAfterMark(task);
-                this.commandType = Commands.CommandType.MODIFY;
+                this.commandType = Commands.CommandType.TASK;
                 break;
             case UNMARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.unmark(index);
                 output = this.ui.printAfterUnmark(task);
-                this.commandType = Commands.CommandType.MODIFY;
+                this.commandType = Commands.CommandType.TASK;
                 break;
             case DELETE:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.deleteTask(index);
                 output = this.ui.printAfterDeleteList(task, this.taskList);
-                this.commandType = Commands.CommandType.MODIFY;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case FIND:
                 tasks = this.taskList.findTasks(matcher.group(1));
                 output = this.ui.printAfterFindList(tasks, matcher.group(1));
-                this.commandType = Commands.CommandType.TASKS;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case SORT:
                 if (matcher.group(2) == null) {
@@ -164,10 +165,14 @@ public class Jackson {
                 }
                 this.taskList.sort(matcher.group(1), isAscending);
                 output = this.ui.printSortedList(this.taskList);
-                this.commandType = Commands.CommandType.MODIFY;
+                this.commandType = Commands.CommandType.LIST;
                 break;
             case HELP:
-                output = this.ui.printFormatGuide(matcher.group(1));
+                if (matcher.group(1) == null) {
+                    output = this.ui.printCommandList();
+                } else {
+                    output = this.ui.printFormatGuide(matcher.group(1));
+                }
                 this.commandType = Commands.CommandType.NORMAL;
                 break;
             case BYE:
@@ -186,7 +191,7 @@ public class Jackson {
             }
         } catch (UnsupportedCommandException e) {
             // if user input not recognised, print command list
-            output = this.ui.printCommandList();
+            output = this.ui.printUnrecognizedMessage();
             this.commandType = Commands.CommandType.ERROR;
         } catch (SyntaxException e) {
             // if the user input is in the wrong format for the command, print format guide
@@ -199,6 +204,9 @@ public class Jackson {
         } catch (DuplicatedTaskException e) {
             // if user tries to add task with a name that already exists in taskList, print de-conflict advice
             output = this.ui.printDeconflictAdvice(e.getMessage());
+            this.commandType = Commands.CommandType.ERROR;
+        } catch (InvalidArgumentException e) {
+            output = this.ui.printInvalidDates();
             this.commandType = Commands.CommandType.ERROR;
         } catch (Exception e) {
             // some other error unaccounted for, print generic warning

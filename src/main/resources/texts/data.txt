@@ -1,5 +1,3 @@
-[E][ ] convention (from: 15:30, 14 Dec 2006 | to: 15:29, 14 Jan 2007)
-[T][X] buy books
-[T][X] go to school
-[T][ ] water flowers
-[T][ ] water the trees
+[E][ ] open house (from: 12:00, 24 Sep 2024 | to: 11:59, 27 Sep 2024)
+[D][ ] finish PC2032 tutorial (by: 12:00, 11 Sep 2024)
+[T][ ] bake a cake
