@@ -25,15 +25,10 @@ public class Command {
 
     public String executeMark(String string)
             throws MissingInformationException, IndexOutOfBoundsException {
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2) {
-            String msg = "You need to specify the task number to mark.";
-            throw new MissingInformationException(msg);
-        }
-        if (Integer.parseInt(fullCommand[1]) > taskList.getTaskList().size()) {
-            throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
-        }
-        int id = Integer.parseInt(fullCommand[1])-1;
+        String[] fullCommand;
+        fullCommand = parseAndValidateCommand(string, "You need to specify the task number to mark.");
+
+        int id = validateTaskIndex(fullCommand);
         taskList.mark(id);
         return ui.getMarkMessage(taskList.getTask(id));
     }
@@ -46,15 +41,9 @@ public class Command {
 
     public String executeUnmark(String string)
             throws MissingInformationException, IndexOutOfBoundsException {
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2) {
-            String msg = "You need to specify the task number to mark.";
-            throw new MissingInformationException(msg);
-        }
-        if (Integer.parseInt(fullCommand[1])> taskList.getTaskList().size()) {
-            throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
-        }
-        int id = Integer.parseInt(fullCommand[1])-1;
+        String[] fullCommand;
+        fullCommand = parseAndValidateCommand(string, "You need to specify the task number to mark.");
+        int id = validateTaskIndex(fullCommand);
         taskList.unmark(id);
         return ui.getUnmarkMessage(taskList.getTask(id));
     }
@@ -66,15 +55,11 @@ public class Command {
      */
     public String executeAddToDo(String string)
             throws MissingInformationException {
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
-            String msg = "You need to specify the description of a todo task.";
-            throw new MissingInformationException(msg);
-        }
+        String[] fullCommand = parseAndValidateCommand(string, "You need to specify the description of a todo task.");
         String des = Parser.getToDoDes(string);
         ToDo todo = new ToDo(des);
-        taskList.addTask(todo);
-        return ui.getAddMessage(todo,taskList);
+        addTask(todo);
+        return ui.getAddMessage(todo, taskList);
     }
 
 
@@ -86,11 +71,7 @@ public class Command {
 
     public String executeAddEvent(String string)
             throws MissingInformationException {
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
-            String msg = "You need to specify the description of an event.";
-            throw new MissingInformationException(msg);
-        }
+        String[] fullCommand = parseAndValidateCommand(string, "You need to specify the description of an event.");
         String fromTime = Parser.getEventFromTime(string);
         String toTime = Parser.getEventToTime(string);
         String des = Parser.getEventDes(string);
@@ -107,8 +88,8 @@ public class Command {
             throw new MissingInformationException(msg);
         }
         Event event = new Event(des, fromTime, toTime);
-        taskList.addTask(event);
-        return ui.getAddMessage(event,taskList);
+        addTask(event);
+        return ui.getAddMessage(event, taskList);
     }
 
     /**
@@ -118,11 +99,7 @@ public class Command {
      */
     public String executeAddDeadline(String string)
             throws MissingInformationException, InvalidInputException {
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
-            String msg = "You need to specify the description of a deadline.";
-            throw new MissingInformationException(msg);
-        }
+        String[] fullCommand = parseAndValidateCommand(string, "You need to specify the description of an event.");
         String time = Parser.getDeadlineTime(string);
         String des = Parser.getDeadlineDes(string);
 
@@ -135,13 +112,13 @@ public class Command {
             String msg = "You need to specify the description of a deadline";
             throw new MissingInformationException(msg);
         }
-        if (!Parser.isValidDate(time)){
+        if (!Parser.isValidDate(time)) {
             throw new InvalidInputException(ui.getDateFormatErrorMessage());
         }
 
         Deadline deadline = new Deadline(des, time);
-        taskList.addTask(deadline);
-        return ui.getAddMessage(deadline,taskList);
+        addTask(deadline);
+        return ui.getAddMessage(deadline, taskList);
     }
 
 
@@ -151,22 +128,15 @@ public class Command {
      * @return a string from ui.getDeleteMessage()
      */
     public String executeDelete(String string)
-            throws MissingInformationException{
-        String[] fullCommand = Parser.parseCommand(string);
-        if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
-            String msg = "You need to specify the task number to delete.";
-            throw new MissingInformationException(msg);
-        }
-        if (Integer.parseInt(fullCommand[1])> taskList.getTaskList().size()) {
-            throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
-        }
-        int id = Integer.parseInt(fullCommand[1])-1;
+            throws MissingInformationException {
+        String[] fullCommand = parseAndValidateCommand(string, "You need to specify the task number to delete.");
+        int id = validateTaskIndex(fullCommand);
         Task t = taskList.getTask(id);
         taskList.deleteTask(id);
-        return ui.getDeleteMessage(t,taskList);
+        return ui.getDeleteMessage(t, taskList);
     }
 
-    public String executeFind(String string) throws MissingInformationException{
+    public String executeFind(String string) throws MissingInformationException {
         String keyword = Parser.getFindKeyWord(string);
         if (keyword.isEmpty()) {
             String msg = "You need to specify the content to be searched in your list.";
@@ -176,5 +146,28 @@ public class Command {
             return ui.getFindResult(result);
         }
     }
+
+    private String[] parseAndValidateCommand(String command, String errorMessage)
+            throws MissingInformationException {
+        String[] fullCommand = Parser.parseCommand(command);
+        if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
+            throw new MissingInformationException(errorMessage);
+        }
+        return fullCommand;
+    }
+
+    private int validateTaskIndex(String[] fullCommand)
+            throws IndexOutOfBoundsException {
+        int id = Integer.parseInt(fullCommand[1]) - 1;
+        if (id >= taskList.getTaskList().size()) {
+            throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
+        }
+        return id;
+    }
+
+    private void addTask(Task task) {
+        taskList.addTask(task);
+    }
+
 
 }

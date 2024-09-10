@@ -12,10 +12,6 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
-    public static String getDIVIDE() {
-        return Message.DIVIDE;
-    }
-
     public String getLine() {
         return sc.nextLine();
     }
