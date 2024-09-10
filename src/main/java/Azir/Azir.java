@@ -30,6 +30,7 @@ public class Azir {
             if (tasks.getSize() == 0) {
                 loadMessage = "Your current list does not have any tasks";
             } else {
+                loadMessage = "These are your saved tasks:\n";
                 for (int i = 0; i < tasks.getSize(); i++) {
                     loadMessage += tasks.getTask(i) + "\n";
                 }
