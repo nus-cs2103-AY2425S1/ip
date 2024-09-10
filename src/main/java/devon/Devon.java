@@ -42,82 +42,69 @@ public class Devon {
     /**
      * Starts the Devon bot. Loads tasks from the database, receives user input, and saves tasks back to the database.
      */
-    private void start() {
+    protected void start() {
         ArrayList<String> stringListOfTasks = storage.loadTasksFromDatabase();
         try {
             tasks.initialiseLoadTasks(stringListOfTasks);
         } catch (DevonReadDatabaseException e) {
             ui.displayException(e);
         }
-        introduction();
-        receiveUserInput();
-        try {
-            storage.saveTasksToDatabase(tasks);
-        } catch (IOException e) {
-            ui.displayText("Error! Task(s) could not be saved.");
-        }
-        goodbye();
     }
 
     /**
      * Displays the introduction message to the user.
      */
-    private void introduction() {
-        ui.displayText("\t" + "Hello! I'm Devon.\n" + "\t" + "What can I do for you?");
+    protected String introduction() {
+        return "\t" + "Hello! I'm Devon.\n" + "\t" + "What can I do for you?";
     }
 
     /**
      * Displays the goodbye message to the user.
      */
-    private void goodbye() {
-        ui.displayText("\t" + "Bye. Hope to see you again soon!");
+    private String goodbye() {
+        try {
+            storage.saveTasksToDatabase(tasks);
+        } catch (IOException e) {
+            ui.displayText("Error! Task(s) could not be saved.");
+        }
+        return "\t" + "Bye. Hope to see you again soon!";
     }
 
     /**
      * Continuously receives user input until the "BYE" command is given.
      * Based on the input, different actions are performed.
      */
-    private void receiveUserInput() {
-        while (true) {
-            String input = scanner.nextLine();
-            Command command = Command.fromStringToEnum(parser.extractCommand(input));
+    protected String getResponse(String input) {
+        Command command = Command.fromStringToEnum(parser.extractCommand(input));
+        String response;
 
-            try {
-                switch (command) {
-                case BYE:
-                    return;
-                case LIST:
-                    printList();
-                    break;
-                case MARK:
-                    markAction(input);
-                    break;
-                case UNMARK:
-                    unmarkAction(input);
-                    break;
-                case TODO:
-                    todoAction(input);
-                    break;
-                case DEADLINE:
-                    deadlineAction(input);
-                    break;
-                case EVENT:
-                    eventAction(input);
-                    break;
-                case DELETE:
-                    deleteAction(input);
-                    break;
-                case FIND:
-                    findAction(input);
-                    break;
-                default:
-                    unknownAction();
-                    break;
-                }
-            } catch (DevonException e) {
-                ui.displayException(e);
+        try {
+            switch (command) {
+            case BYE:
+                return goodbye();
+            case LIST:
+                return getListAsString();
+            case MARK:
+                return markAction(input);
+            case UNMARK:
+                return unmarkAction(input);
+            case TODO:
+                return todoAction(input);
+            case DEADLINE:
+                return deadlineAction(input);
+            case EVENT:
+                return eventAction(input);
+            case DELETE:
+                return deleteAction(input);
+            case FIND:
+                return findAction(input);
+            default:
+                unknownAction();
             }
+        } catch (DevonException e) {
+            return e.toString();
         }
+        return "Error";
     }
 
     /**
@@ -126,7 +113,7 @@ public class Devon {
      * @param input The user input specifying which task to mark as done.
      * @throws DevonInvalidTaskNumberException If the task number provided is invalid.
      */
-    private void markAction(String input) throws DevonInvalidTaskNumberException {
+    private String markAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
         try {
             taskIndex = parser.extractTaskIndex(input) - 1;
@@ -136,7 +123,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsDone(taskIndex);
+        return markAsDone(taskIndex);
     }
 
     /**
@@ -145,7 +132,7 @@ public class Devon {
      * @param input The user input specifying which task to mark as undone.
      * @throws DevonInvalidTaskNumberException If the task number provided is invalid.
      */
-    private void unmarkAction(String input) throws DevonInvalidTaskNumberException {
+    private String unmarkAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
         try {
             taskIndex = parser.extractTaskIndex(input) - 1;
@@ -155,7 +142,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsUndone(taskIndex);
+        return markAsUndone(taskIndex);
     }
 
     /**
@@ -163,9 +150,9 @@ public class Devon {
      *
      * @param input The user input specifying the description of the Todo task.
      */
-    private void todoAction(String input) {
+    private String todoAction(String input) {
         String description = parser.extractTodo(input);
-        addToList(new Todo(description));
+        return addToList(new Todo(description));
     }
 
     /**
@@ -175,14 +162,14 @@ public class Devon {
      * @throws DevonInvalidDeadlineException If the deadline format is invalid.
      * @throws DevonInvalidDateTimeException If the date/time format is invalid.
      */
-    private void deadlineAction(String input) throws DevonInvalidDeadlineException, DevonInvalidDateTimeException {
+    private String deadlineAction(String input) throws DevonInvalidDeadlineException, DevonInvalidDateTimeException {
         String[] contents = parser.extractDeadline(input);
         String description = contents[0];
         String by = contents[1];
 
         try {
             LocalDateTime byDateTime = LocalDateTime.parse(by, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
-            addToList(new Deadline(description, byDateTime));
+            return addToList(new Deadline(description, byDateTime));
         } catch (DateTimeParseException e) {
             throw new DevonInvalidDateTimeException();
         }
@@ -195,7 +182,7 @@ public class Devon {
      * @throws DevonInvalidEventException If the event format is invalid.
      * @throws DevonInvalidDateTimeException If the date/time format is invalid.
      */
-    private void eventAction(String input) throws DevonInvalidEventException, DevonInvalidDateTimeException {
+    private String eventAction(String input) throws DevonInvalidEventException, DevonInvalidDateTimeException {
         String[] contents = parser.extractEvent(input);
         String description = contents[0];
         String from = contents[1];
@@ -204,7 +191,7 @@ public class Devon {
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(from, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             LocalDateTime toDateTime = LocalDateTime.parse(to, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
-            addToList(new Event(description, fromDateTime, toDateTime));
+            return addToList(new Event(description, fromDateTime, toDateTime));
         } catch (DateTimeParseException e) {
             throw new DevonInvalidDateTimeException();
         }
@@ -216,7 +203,7 @@ public class Devon {
      * @param input The user input specifying which task to delete.
      * @throws DevonInvalidTaskNumberException If the task number provided is invalid.
      */
-    private void deleteAction(String input) throws DevonInvalidTaskNumberException {
+    private String deleteAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
 
         try {
@@ -228,7 +215,7 @@ public class Devon {
             throw new DevonInvalidTaskNumberException();
         }
 
-        deleteTask(taskIndex);
+        return deleteTask(taskIndex);
     }
 
     /**
@@ -239,10 +226,10 @@ public class Devon {
      *
      * @param input The input string containing the keyword for searching tasks.
      */
-    private void findAction(String input) {
+    private String findAction(String input) {
         String keyword = parser.extractContent(input).toLowerCase();
         String results = tasks.search(keyword);
-        ui.displayText("Here are the matching tasks in your list:\n\t" + results);
+        return "Here are the matching tasks in your list:\n\t" + results;
     }
 
     /**
@@ -259,21 +246,19 @@ public class Devon {
      *
      * @param task The task to add to the list.
      */
-    private void addToList(Task task) {
+    private String addToList(Task task) {
         tasks.addTask(task);
-        ui.displayText(
-                "\t" + "Got it. I've added this task:\n\t\t"
+        return "\t" + "Got it. I've added this task:\n\t\t"
                         + task + "\n\tNow you have "
                         + tasks.getNumberOfTasks()
-                        + " tasks in the list."
-        );
+                        + " tasks in the list.";
     }
 
     /**
      * Prints the current task list to the user.
      */
-    private void printList() {
-        ui.displayText(tasks.getListAsString());
+    private String getListAsString() {
+        return tasks.getListAsString();
     }
 
     /**
@@ -281,9 +266,9 @@ public class Devon {
      *
      * @param taskIndex The index of the task to mark as done.
      */
-    private void markAsDone(int taskIndex) {
+    private String markAsDone(int taskIndex) {
         String textResponse = tasks.markAsDone(taskIndex);
-        ui.displayText(textResponse);
+        return textResponse;
     }
 
     /**
@@ -291,9 +276,9 @@ public class Devon {
      *
      * @param taskIndex The index of the task to mark as undone.
      */
-    private void markAsUndone(int taskIndex) {
+    private String markAsUndone(int taskIndex) {
         String textResponse = tasks.markAsUndone(taskIndex);
-        ui.displayText(textResponse);
+        return textResponse;
     }
 
     /**
@@ -301,9 +286,9 @@ public class Devon {
      *
      * @param taskIndex The index of the task to delete.
      */
-    private void deleteTask(int taskIndex) {
+    private String deleteTask(int taskIndex) {
         String textResponse = tasks.removeTask(taskIndex);
-        ui.displayText(textResponse + "\n\tNow you have " + tasks.getNumberOfTasks() + " tasks in the list.");
+        return textResponse + "\n\tNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
     }
 
     /**
