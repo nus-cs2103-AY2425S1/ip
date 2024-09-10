@@ -87,33 +87,37 @@ public class Storage {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] strings = line.split(" \\| ");
-                Task task;
-                switch (strings[0]) {
-                case "T":
-                    assert strings.length == 3 : "Todo should have 3 arguments";
-                    task = new ToDo(strings[2]);
-                    break;
-                case "D":
-                    assert strings.length == 4 : "Deadline should have 4 arguments";
-                    task = new Deadline(strings[2], strings[3]);
-                    break;
-                case "E":
-                    assert strings.length == 5 : "Event should have 5 arguments";
-                    task = new Event(strings[2], strings[3], strings[4]);
-                    break;
-                default:
-                    throw new WaterfallException("Unknown task type in database: " + line);
-                }
-
-                if (Objects.equals(strings[1], "1")) {
-                    task.setDone(true);
-                }
+                Task task = parseAndGetTask(line);
                 tasks.add(task);
             }
             return tasks;
         } catch (FileNotFoundException e) {
             throw new WaterfallException("File not found: " + taskFile);
         }
+    }
+
+    private static Task parseAndGetTask(String line) throws WaterfallException {
+        String[] strings = line.split(" \\| ");
+        Task task;
+        switch (strings[0]) {
+        case "T":
+            assert strings.length == 3 : "Todo should have 3 arguments";
+            task = new ToDo(strings[2]);
+            break;
+        case "D":
+            assert strings.length == 4 : "Deadline should have 4 arguments";
+            task = new Deadline(strings[2], strings[3]);
+            break;
+        case "E":
+            assert strings.length == 5 : "Event should have 5 arguments";
+            task = new Event(strings[2], strings[3], strings[4]);
+            break;
+        default:
+            throw new WaterfallException("Unknown task type in database: " + line);
+        }
+        if (Objects.equals(strings[1], "1")) {
+            task.setDone(true);
+        }
+        return task;
     }
 }

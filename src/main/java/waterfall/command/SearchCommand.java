@@ -1,13 +1,13 @@
 package waterfall.command;
 
+import java.io.IOException;
+import java.util.List;
+
 import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.WaterfallException;
 import waterfall.task.Task;
 import waterfall.task.TaskList;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Represents the <code>Command</code> object to search for specific string in the
