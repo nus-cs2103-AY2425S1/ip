@@ -31,8 +31,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Devon instance */
-    public void setDuke(Devon devon) {
+    public void setDevon(Devon devon) {
         this.devon = devon;
+        devon.start();
+        dialogContainer.getChildren().add(DialogBox.getDevonDialog(devon.introduction(), dukeImage));
     }
 
     /**
