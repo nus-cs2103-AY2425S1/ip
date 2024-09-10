@@ -45,6 +45,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setBeeboo(Beeboo b) {
         beeboo = b;
+        assert beeboo != null : "Beeboo should not be null";
     }
 
     /**
