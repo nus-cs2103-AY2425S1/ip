@@ -15,6 +15,7 @@
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
          </padding></Label>
         <Circle fx:id="displayPicture" radius="30.0" />
+
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
