@@ -97,7 +97,7 @@ public class TaskList {
                 filteredList.add(this.taskList.get(i));
             }
         }
-
+        ArrayList<Task> filteredList2 = (ArrayList<Task>) this.taskList.stream().filter(x->x.toString().toLowerCase().contains(filter)).toList();
         if (filteredList.isEmpty()) {
             return "You have no items in your list matching the given string";
         } else {
