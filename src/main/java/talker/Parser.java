@@ -8,6 +8,7 @@ import talker.command.ExitCommand;
 import talker.command.FindCommand;
 import talker.command.ListCommand;
 import talker.command.MarkCommand;
+import talker.command.SetPriorityCommand;
 import talker.command.UnmarkCommand;
 import talker.task.Deadline;
 import talker.task.Event;
@@ -51,6 +52,8 @@ public class Parser {
             return new DateCommand(input);
         case "find":
             return new FindCommand(parsed);
+        case "setPriority":
+            return new SetPriorityCommand(parsed);
         case "bye":
             return new ExitCommand();
         default:
@@ -91,17 +94,17 @@ public class Parser {
             if (parsed.length != 4) {
                 throw new TalkerException("Invalid ToDo Task, corrupted file detected.");
             }
-            return new ToDo(parsed[2], isComplete, priorityType);
+            return new ToDo(parsed[3], isComplete, priorityType);
         case "D":
             if (parsed.length != 5) {
                 throw new TalkerException("Invalid Deadline Task, corrupted file detected.");
             }
-            return new Deadline(parsed[2], parsed[3], isComplete, priorityType);
+            return new Deadline(parsed[3], parsed[4], isComplete, priorityType);
         case "E":
             if (parsed.length != 6) {
                 throw new TalkerException("Invalid Event Task, corrupted file detected.");
             }
-            return new Event(parsed[2], parsed[3], parsed[4], isComplete, priorityType);
+            return new Event(parsed[3], parsed[4], parsed[5], isComplete, priorityType);
         default:
             throw new TalkerException("Invalid task type, corrupted file detected.");
         }

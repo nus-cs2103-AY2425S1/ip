@@ -218,6 +218,36 @@ public class TaskList {
         }
     }
 
+    public String setPriorityOfTask(String[] parsed, Ui ui) throws TalkerException {
+        if (parsed.length != 3) {
+            throw new TalkerException("SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+        }
+        try {
+            int index = Integer.parseInt(parsed[1]) - 1;
+            PriorityType priorityType;
+
+            switch (parsed[2]) {
+            case "h":
+                priorityType = PriorityType.HIGH;
+                break;
+            case "m":
+                priorityType = PriorityType.MEDIUM;
+                break;
+            case "l":
+                priorityType = PriorityType.LOW;
+                break;
+            default:
+                throw new TalkerException(
+                        "SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+            }
+            return ui.printSetPriority(list.get(index).setPriority(priorityType));
+        } catch (NumberFormatException e) {
+            throw new TalkerException("SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            throw new TalkerException("Task not found!");
+        }
+    }
+
     /**
      * Creates a new ToDo object and adds it into list
      *

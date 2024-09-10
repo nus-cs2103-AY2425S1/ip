@@ -81,6 +81,8 @@ public class Task {
     }
 
     public String setPriority(PriorityType priorityType) {
+        this.priorityType = priorityType;
+
         String priorityString = "";
         switch (priorityType) {
         case LOW:

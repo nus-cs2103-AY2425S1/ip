@@ -150,6 +150,16 @@ public class Ui {
     }
 
     /**
+     * Returns representation of setting of priority of task
+     *
+     * @param set String representation of setting event
+     * @return String response when priority has been set
+     */
+    public String printSetPriority(String set) {
+        return set.toString();
+    }
+
+    /**
      * Returns representation of marking of task as complete
      *
      * @param mark String representation of marking event
