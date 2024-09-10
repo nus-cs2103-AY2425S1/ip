@@ -60,15 +60,13 @@ public class Phenex {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        String response = "Invalid input!";
         try {
-            Command command;
-            command = this.parser.parseCommandFromLine(input);
-            response = command.execute(this.tasks, this.ui, this.storage);
+            Command command = this.parser.parseCommandFromLine(input);
+            return command.execute(this.tasks, this.ui, this.storage);
         } catch (PhenexException e) {
             Ui.printExceptionMessage(e);
+            return "Invalid input!";
         }
-        return response;
     }
 
     public static void main(String... args) {
@@ -79,27 +77,23 @@ public class Phenex {
         phenex.ui.greet();
 
         Scanner scanner = new Scanner(System.in);
-        String userInput;
-        Command command = null;
-
-        while (scanner.hasNext()) {
-            // scan inputs
-            userInput = scanner.nextLine();
+        boolean programIsExecuting = true;
+        while (scanner.hasNext() && programIsExecuting) {
+            String userInput = scanner.nextLine();
 
             phenex.ui.printLine();
 
             try {
-                command = phenex.parser.parseCommandFromLine(userInput);
+                Command command = phenex.parser.parseCommandFromLine(userInput);
                 command.execute(phenex.tasks, phenex.ui, phenex.storage);
+                if (command.isTerminatingCommand()) {
+                    programIsExecuting = false;
+                }
             } catch (PhenexException e) {
                 Ui.printExceptionMessage(e);
             }
 
             phenex.ui.printLine();
-
-            if (command.isTerminatingCommand()) {
-                break;
-            }
         }
 
         scanner.close();
