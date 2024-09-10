@@ -123,14 +123,12 @@ public class Parser {
     public Task parseTask(String userInput) throws BobbyException {
         if (userInput.startsWith("todo ")) {
             String description = userInput.substring(5).trim();
-            assert !description.isEmpty() : "Todo description cannot be empty";
             if (description.isEmpty()) {
                 throw new EmptyTodoException();
             }
             return new Todo(description);
         } else if (userInput.startsWith("deadline ")) {
             String[] parts = userInput.substring(9).split(" /by ");
-            assert parts.length == 2 : "Deadline input must contain '/by' separator";
             if (parts.length < 2) {
                 throw new EmptyDeadlineException();
             }
@@ -144,7 +142,6 @@ public class Parser {
             }
         } else if (userInput.startsWith("event ")) {
             String[] parts = userInput.substring(6).split(" /from | /to ");
-            assert parts.length == 3 : "Event input must contain '/from' and '/to' separators";
             if (parts.length < 3) {
                 throw new EmptyEventException();
             }
