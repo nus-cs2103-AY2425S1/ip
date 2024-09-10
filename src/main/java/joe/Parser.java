@@ -55,6 +55,7 @@ public class Parser {
      * @throws JoeException if the input is empty or the command is unknown.
      */
     public static Command parse(String rawInput) {
+        assert rawInput != null : "rawInput should not be null";
         Parser parsedObj = Parser.parseInputToObject(rawInput);
         Command c = CommandFactory.getCommand(parsedObj.commandCode, parsedObj);
         return c;
