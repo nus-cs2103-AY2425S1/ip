@@ -8,8 +8,19 @@ import seanbot.Tasks.Event;
 import seanbot.Tasks.Task;
 import seanbot.Tasks.Todo;
 
+/**
+ * The Parser class processes user input and triggers corresponding commands.
+ */
 public class Parser {
 
+     /**
+     * Parses the user input and executes the appropriate command.
+     * 
+     * @param userInput The command entered by the user.
+     * @param tasks The task list being operated on.
+     * @param ui The user interface for interaction.
+     * @param storage The storage system for saving tasks.
+     */
     public void parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws SeanBotException, IOException {
         assert userInput != null : "User Input cannot be null";
         assert tasks != null : "Tasks  cannot be null";

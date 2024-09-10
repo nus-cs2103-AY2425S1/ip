@@ -9,15 +9,19 @@ import seanbot.Tasks.Event;
 import seanbot.Tasks.Task;
 import seanbot.Tasks.Todo;
 
+/**
+ * The storage class for storing tasks
+ */
 public class Storage {
 
     private String PATH;
 
+    // Constructor to set the file path for storing tasks.
     public Storage(String PATH) {
         assert PATH != null && !PATH.isEmpty() : "File path cannot be null or empty";
         this.PATH = PATH;
     }
-
+    // Loads tasks from a file into an ArrayList.
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(PATH);
@@ -53,7 +57,7 @@ public class Storage {
         }
         return tasks;
     }
-
+    // Saves the tasks to a file.
     public void save(ArrayList<Task> tasks) throws IOException {
         try (FileWriter fw = new FileWriter(PATH);) {
             for (Task task : tasks) {
