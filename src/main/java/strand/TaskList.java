@@ -81,6 +81,24 @@ public class TaskList {
     }
 
     /**
+     * Marks a task as a certain priority based on the provided index.
+     *
+     * @param index    The index of the task to be marked or unmarked (1-based index).
+     * @param priority The priority to be assigned to the task.
+     * @return The updated task.
+     * @throws StrandException If the index is invalid.
+     */
+    public Task mark(Integer index, Task.PriorityEnum priority) throws StrandException {
+        assert index != null : "Index cannot be null";
+        if (index > listOfTasks.size() || index < 1) {
+            throw new StrandWrongIndexException(listOfTasks.size());
+        }
+        Task task = listOfTasks.get(index - 1);
+        task.markPriority(priority);
+        return task;
+    }
+
+    /**
      * Returns the number of tasks in the list.
      *
      * @return The number of tasks.

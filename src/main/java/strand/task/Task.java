@@ -15,6 +15,7 @@ import strand.exception.StrandException;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected PriorityEnum priority = PriorityEnum.NONE;
     protected DateTimeFormatter formatterWithTime = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")) // Handles 'T' separator
             .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
@@ -101,7 +102,10 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return this.getStatus() + this.description; // mark done task with X
+        return String.format("%s%s%s",
+                this.getStatus(),
+                this.description,
+                this.priority != PriorityEnum.NONE ? " #PRIORITY:" + this.priority : "");
     }
 
     /**
@@ -119,16 +123,34 @@ public abstract class Task {
     }
 
     /**
+     * Marks the task's priority.
+     */
+    public void markPriority(PriorityEnum priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Returns the string representation of the task for file storage,
      * including its status and description.
      *
      * @return A string formatted for file storage.
      */
     public String convertToFileFormat() {
-        return String.format("%s | %s", this.isDone ? "1" : "0", this.description);
+        return String.format("%s | %s | %s",
+                this.isDone ? "1" : "0", this.description, this.priority);
     }
 
     public Boolean containsSegment(String segment) {
         return this.description.toLowerCase().contains(segment.toLowerCase());
+    }
+
+    /**
+     * Enumeration of possible priorities.
+     */
+    public enum PriorityEnum {
+        HIGH,
+        MEDIUM,
+        LOW,
+        NONE,
     }
 }

@@ -4,6 +4,7 @@ import strand.Storage;
 import strand.TaskList;
 import strand.Ui;
 import strand.exception.StrandException;
+import strand.exception.StrandWrongCommandException;
 import strand.task.Task;
 
 /**
@@ -11,7 +12,8 @@ import strand.task.Task;
  */
 public class MarkCommand extends Command {
     private final Integer index;
-    private final Boolean mark;
+    private Boolean mark = false;
+    private Task.PriorityEnum priority = null;
 
     /**
      * Constructs a new {@code MarkCommand} with the specified task index and mark status.
@@ -25,6 +27,22 @@ public class MarkCommand extends Command {
     }
 
     /**
+     * Constructs a new {@code MarkCommand} with the specified task index, mark status and priority.
+     *
+     * @param index    The index of the task to be marked.
+     * @param priority The priority that the task will be assigned.
+     */
+    public MarkCommand(Integer index, String priority) throws StrandException {
+        this.index = index;
+        assert priority != null : "Priority cannot be null";
+        try {
+            this.priority = Task.PriorityEnum.valueOf(priority.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new StrandWrongCommandException();
+        }
+    }
+
+    /**
      * Executes the mark command by updating the status of the task in the task list.
      *
      * @param tasks   The current list of tasks to which the new task will be added.
@@ -34,8 +52,15 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
-        Task task = tasks.mark(this.index, this.mark);
-        String output = ui.taskMarked(task, this.mark);
+        Task task;
+        String output;
+        if (this.priority != null) {
+            task = tasks.mark(this.index, this.priority);
+            output = ui.priorityAssigned(task, this.priority);
+        } else {
+            task = tasks.mark(this.index, this.mark);
+            output = ui.taskMarked(task, this.mark);
+        }
         storage.save(tasks.convertToFileFormat());
         return output;
     }
