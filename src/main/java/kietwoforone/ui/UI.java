@@ -73,6 +73,20 @@ public class UI {
         }
     }
 
+    public void showMatchingTask(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> taskList= new ArrayList<>(100);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (currTask.compareString(keyword)) {
+                taskList.add(currTask);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
+        }
+    }
+
     public void showErrorMessage(KieTwoForOneException e) {
         System.out.println(e.getMessage());
     }

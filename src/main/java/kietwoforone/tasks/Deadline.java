@@ -41,6 +41,12 @@ public class Deadline extends Task {
             throw new KieTwoForOneException("Date must be valid and in the form YYYY-MM-DD!");
         }
     }
+
+    @Override
+    public boolean compareString(String keyword) {
+        return this.task.compareString(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", this.task.toString(), this.getDate(), this.deadlineTime);

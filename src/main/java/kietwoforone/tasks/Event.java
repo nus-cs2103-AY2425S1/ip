@@ -57,6 +57,11 @@ public class Event extends Task{
     }
 
     @Override
+    public boolean compareString(String keyword) {
+        return this.task.compareString(keyword);
+    }
+
+    @Override
     public String toString() {
         return String.format("[E] %s (from: %s %s to: %s %s)", this.task.toString(), this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
     }

@@ -25,6 +25,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean compareString(String keyword) {
+        return this.task.compareString(keyword);
+    }
+
+    @Override
     public String toString() {
         return String.format("[T] %s", this.task.toString());
     }

@@ -38,6 +38,10 @@ public class Task implements Serializable {
         return false;
     }
 
+    public boolean compareString(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
