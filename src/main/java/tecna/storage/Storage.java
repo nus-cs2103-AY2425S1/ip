@@ -17,16 +17,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import tecna.Deadline;
-import tecna.Event;
+import tecna.task.Deadline;
+import tecna.task.Event;
 import tecna.JsonLoadingException;
 import tecna.JsonLoadingExceptionType;
 import tecna.parser.DeadlineParser;
 import tecna.parser.EventParser;
 import tecna.parser.ToDoParser;
-import tecna.Task;
-import tecna.TaskList;
-import tecna.ToDo;
+import tecna.task.Task;
+import tecna.collection.TaskList;
+import tecna.task.ToDo;
 
 /**
  * Saves and loads the data generated while the chatbot is running.

@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 
 import tecna.JsonLoadingException;
 
-import tecna.Deadline;
+import tecna.task.Deadline;
 import tecna.JsonLoadingExceptionType;
 
 /**

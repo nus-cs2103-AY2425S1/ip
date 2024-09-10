@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 
 import tecna.JsonLoadingException;
 import tecna.JsonLoadingExceptionType;
-import tecna.Event;
+import tecna.task.Event;
 
 /**
  * Parses the task of Event type from a JSONObject.

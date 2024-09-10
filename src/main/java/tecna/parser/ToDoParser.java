@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 import tecna.JsonLoadingException;
 import tecna.JsonLoadingExceptionType;
-import tecna.ToDo;
+import tecna.task.ToDo;
 
 /**
  * Parses the task of ToDo type from a JSONObject.

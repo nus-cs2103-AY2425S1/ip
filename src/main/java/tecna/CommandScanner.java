@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import tecna.task.Deadline;
+import tecna.task.Event;
+import tecna.task.Task;
+import tecna.task.ToDo;
+
 /**
  * Scans and processes the user's input.
  * An <code>inputIndex</code> is the index of the corresponding task if the command is <i>mark, unmark, or delete</i>.

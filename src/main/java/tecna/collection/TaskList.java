@@ -1,9 +1,9 @@
-package tecna;
+package tecna.collection;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<tecna.task.Task> tasks;
     private int size;
 
     public TaskList() {
@@ -11,7 +11,7 @@ public class TaskList {
         this.size = 0;
     }
 
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<tecna.task.Task> tasks) {
         this.tasks = tasks;
         this.size = tasks.size();
     }
@@ -20,7 +20,7 @@ public class TaskList {
         return size;
     }
 
-    public Task getTask(int index) {
+    public tecna.task.Task getTask(int index) {
         return this.tasks.get(index);
     }
 
@@ -41,8 +41,8 @@ public class TaskList {
      * Adds new item to the list of tasks
      * @param item extracted from the user input
      */
-    public String addItem(Task item) {
-        Task task = item;
+    public String addItem(tecna.task.Task item) {
+        tecna.task.Task task = item;
         this.tasks.add(task);
         ++this.size;
         StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
@@ -92,7 +92,7 @@ public class TaskList {
     public String findTasks(String keyword) {
         int counter = 0;
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (Task task : this.tasks) {
+        for (tecna.task.Task task : this.tasks) {
             String[] words = task.getTaskName().split(" ");
 
             for (String word : words) {
