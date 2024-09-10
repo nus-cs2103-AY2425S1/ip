@@ -28,6 +28,8 @@ public class Parser {
      * @param command The user's input command.
      */
     public void parseCommand(String command) {
+        assert command != null && !command.trim().isEmpty() : "Command cannot be null or empty";
+
         String commandLowerCase = command.toLowerCase();
         String[] parts = command.split(" ");
         String firstWord = parts[0].toLowerCase();
@@ -79,6 +81,8 @@ public class Parser {
      * @param action  The action to perform ("mark" or "unmark").
      */
     private void handleMarkUnmark(String command, String action) {
+        assert action.equals("mark") || action.equals("unmark") : "Action must be 'mark' or 'unmark'";
+
         String[] parts = command.split(" ");
         if (parts.length == 2) {
             String numberStr = parts[1];
@@ -104,6 +108,8 @@ public class Parser {
     }
 
     private void handleDeadline(String command) {
+        assert command.startsWith("deadline") : "Command should start with 'deadline'";
+
         String[] part = command.replaceFirst("deadline ", "").split("/by", 2);
         String description = part[0].trim();
         String by = part.length > 1 ? part[1].trim() : "";
@@ -114,6 +120,8 @@ public class Parser {
     }
 
     private void handleTodo(String command) {
+        assert command.startsWith("todo") : "Command should start with 'todo'";
+
         String description = command.substring("todo".length()).trim();
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
         String task = dukeManager.createItem(taskBuilder).toString();
@@ -121,6 +129,8 @@ public class Parser {
     }
 
     private void handleEvent(String command) {
+        assert command.startsWith("event") : "Command should start with 'event'";
+
         // Remove the word 'event' and split by '/from'
         String[] part = command.replaceFirst("event ", "").split("/from", 2);
         // The description part
@@ -140,6 +150,8 @@ public class Parser {
     }
 
     private void handleDelete(String command) {
+        assert command.startsWith("delete") : "Command should start with 'delete'";
+
         String index = command.substring("delete".length()).trim();
         try {
             int indexNumber = Integer.parseInt(index);

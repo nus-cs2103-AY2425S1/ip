@@ -10,6 +10,7 @@ public class FileManager {
     private String filePath = "src/main/java/data";
 
     public FileManager(String pathname) {
+        assert pathname != null && !pathname.isEmpty() : "Pathname must not be null or empty";
         this.filePath = pathname;
     }
 
@@ -20,6 +21,8 @@ public class FileManager {
      */
 
     public void readFile() {
+        assert this.filePath != null && !this.filePath.isEmpty() : "File path must not be null or empty";
+
         try {
             File file = new File("src/main/java/data");
             System.out.println("Absolute path: " + file.getAbsolutePath());
@@ -49,6 +52,8 @@ public class FileManager {
     // File to write to will always exist as will call readFile method first always on boot up which would automatically
     // Create a new file if it doesn't exist
     public void writeFile(String textToAdd) {
+        assert textToAdd != null : "Text to add must not be null";
+
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(textToAdd + "\n");
