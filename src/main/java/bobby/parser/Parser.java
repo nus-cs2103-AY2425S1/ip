@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import bobby.command.Command;
-import bobby.exceptions.*;
+import bobby.exceptions.BobbyException;
+import bobby.exceptions.EmptyDeadlineException;
+import bobby.exceptions.EmptyEventException;
+import bobby.exceptions.EmptyTodoException;
+import bobby.exceptions.InvalidDateException;
+import bobby.exceptions.InvalidInputException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -81,7 +86,6 @@ public class Parser {
         }
         String command = parts[0];
         String argument = parts[1].trim(); // Extract the argument after "searchdate " or "find "
-
         if (command.equalsIgnoreCase("searchdate")) {
             try {
                 LocalDate date = LocalDate.parse(argument);
