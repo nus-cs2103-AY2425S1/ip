@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     /**
      * Creates an Event with the specified description, start time, and end time.
@@ -25,12 +25,11 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws YapperBotException {
         super(description);
         try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));;
+            this.startTime = parseDateTime(from);
+            this.endTime = parseDateTime(to);
         } catch (DateTimeParseException e) {
             throw new YapperBotException("Invalid date-time format! Please use the format: d/M/yyyy HHmm");
         }
-
     }
 
     /**
@@ -47,12 +46,11 @@ public class Event extends Task {
         super(description);
         this.isDone = isDone;
         try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));;
+            this.startTime = parseDateTime(from);
+            this.endTime = parseDateTime(to);
         } catch (DateTimeParseException e) {
             throw new YapperBotException("Invalid date-time format! Please use the format: d/M/yyyy HHmm");
         }
-
     }
 
     /**
@@ -63,8 +61,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy "
-                + "h:mm a")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: " + formatDateTime(this.startTime)
+                + " to: " + formatDateTime(this.endTime) + ")";
     }
 
     /**
@@ -76,7 +74,38 @@ public class Event extends Task {
     @Override
     public String toSaveFormat() {
         return "E | " + (this.isDone ? 1 : 0) + " | " + this.description
-                + " | " + this.from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
-                + " | " + this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                + " | " + formatForSave(this.startTime)
+                + " | " + formatForSave(this.endTime);
+    }
+
+    /**
+     * Parses a date-time string into a LocalDateTime object using the "d/M/yyyy HHmm" pattern.
+     *
+     * @param dateTime The date-time string to parse.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeParseException if the date-time format is invalid.
+     */
+    private static LocalDateTime parseDateTime(String dateTime) throws DateTimeParseException {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    }
+
+    /**
+     * Formats a LocalDateTime object into a string using the "MMM dd yyyy h:mm a" pattern.
+     *
+     * @param dateTime The LocalDateTime object to format.
+     * @return The formatted date-time string.
+     */
+    private static String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"));
+    }
+
+    /**
+     * Formats a LocalDateTime object into a string using the "d/M/yyyy HHmm" pattern for saving.
+     *
+     * @param dateTime The LocalDateTime object to format.
+     * @return The formatted date-time string for saving.
+     */
+    private static String formatForSave(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 }
