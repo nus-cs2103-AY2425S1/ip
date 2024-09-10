@@ -18,10 +18,13 @@ public class Event extends Task {
      *
      * @param description A description of the deadline task
      * @param start date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
-     * @param end
      */
     public Event(String description, String start, String end) {
         super(TaskType.EVENT, description);
+
+        assert !start.isEmpty() : "every Event task must have a start date";
+        assert !end.isEmpty() : "every Event task must have an end date";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] startArr = start.split(" ");
         startDate = LocalDate.parse(startArr[0], formatter);
@@ -34,7 +37,7 @@ public class Event extends Task {
         }
 
 
-        String[] endArr = start.split(" ");
+        String[] endArr = end.split(" ");
         endDate = LocalDate.parse(endArr[0], formatter);
         if (endArr.length == 2) {
             String timeStr = endArr[1];
