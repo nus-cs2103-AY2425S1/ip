@@ -35,6 +35,7 @@ public class ToDoCommand extends Command {
      */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert this.command.length == 2 : "Command error checking not done properly";
         Task todo = new ToDo(command[1]);
         String output = tasks.addToList(todo);
         ui.output(output);

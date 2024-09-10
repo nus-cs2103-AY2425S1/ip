@@ -86,6 +86,7 @@ public class Cypher {
         this.mainWindow = mainWindow;
     }
     public void sendDialog(String response) {
+        assert this.mainWindow != null: "A Main Window does not exist for this Cypher Application";
         this.mainWindow.addDialogFromCypher(response);
     }
 }

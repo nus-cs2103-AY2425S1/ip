@@ -40,6 +40,7 @@ public class DeadlineCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
+            assert this.command.length == 2 : "Command error checking not done properly";
             LocalDateTime by = LocalDateTime.parse(command[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task deadline = new Deadline(command[0], by);
             String output = tasks.addToList(deadline);

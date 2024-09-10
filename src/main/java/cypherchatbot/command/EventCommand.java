@@ -41,6 +41,7 @@ public class EventCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
+            assert this.command.length == 3 : "Command error checking not done properly";
             LocalDateTime from = LocalDateTime.parse(command[1].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             LocalDateTime to = LocalDateTime.parse(command[2].trim(),
