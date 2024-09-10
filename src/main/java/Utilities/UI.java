@@ -25,6 +25,15 @@ public class Ui {
         return message;
     }
 
+    public static String updateUserOnTag(Task t) {
+        String message = "";
+
+        message += "Noted! I have successfully tagged this task: ";
+        message += t.toString();
+
+        return message;
+    }
+
     public static String updateUserOnUncompletion(Task t) {
         String message = "";
 

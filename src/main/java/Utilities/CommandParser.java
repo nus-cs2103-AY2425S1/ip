@@ -13,7 +13,7 @@ import tasks.TaskTypes;
 import tasks.ToDos;
 
 public class CommandParser {
-    private final static String MESSAGE_ONLIST = "Here are the tasks in your list: ";
+    private final static String MESSAGE_ONLIST = "Here are the tasks in your list: \n";
 
     /**
      * Parses and performs actions for the given command.
@@ -35,7 +35,7 @@ public class CommandParser {
             int index = Integer.parseInt(intValue) - 1;
             assert index <= tl.getSize(); // add assertion to check index
             response += tl.updateTaskListStatus(index, input.startsWith("mark"));
-            store.updateFileStatus(index, input.startsWith("mark"));
+            store.updateTaskStatus(index, input.startsWith("mark"));
         } else if (input.startsWith("delete")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
@@ -48,6 +48,13 @@ public class CommandParser {
             String matchValue = input.replace("find", "").strip();
             assert !matchValue.isEmpty();
             response += tl.findTasks(matchValue);
+        } else if (input.startsWith("tag")) {
+            String[] splits = input.split("/");
+            String intValue = splits[0].replaceAll("[^0-9]", "");
+            assert !intValue.isEmpty();
+            int index = Integer.parseInt(intValue) - 1;
+            response += tl.addTag(index, splits[1].strip());
+            store.updateTaskTag(index, splits[1].strip());
         } else {
             try {
                 String name = "";
@@ -58,7 +65,7 @@ public class CommandParser {
                     }
                     Task t = new ToDos(name);
                     response += tl.addToTaskList(t, name);
-                    store.updateFileTasks(String.format("T, %d, %s", 0, name));
+                    store.updateFileTasks(String.format("T, %d, %s, ", 0, name));
                 } else if (input.startsWith("deadline")) {
                     String[] splits = input.split("/");
                     name = splits[0].substring(8).strip();
@@ -70,7 +77,7 @@ public class CommandParser {
                     try {
                         Task t = new Deadlines(name, details.strip());
                         response += tl.addToTaskList(t, name);
-                        store.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
@@ -86,7 +93,7 @@ public class CommandParser {
                     try {
                         Task t = new Event(name, startDetails.strip(), endDetails.strip());
                         response += tl.addToTaskList(t, name);
-                        store.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
