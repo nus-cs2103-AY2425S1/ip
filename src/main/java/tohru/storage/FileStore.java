@@ -33,6 +33,8 @@ public class FileStore {
      * @param filepath File path of save file.
      */
     public FileStore(String filepath) {
+        assert (filepath != null && !filepath.isEmpty()) : "Filepath should not be null or empty";
+
         this.savefile = new File(filepath);
     }
 

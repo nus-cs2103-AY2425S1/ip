@@ -18,6 +18,9 @@ public class DeadlineItem extends TodoItem {
      */
     public DeadlineItem(String content, LocalDateTime deadline) {
         super(content);
+
+        assert deadline != null : "Deadline datetime cannot be null";
+
         this.deadline = deadline;
     }
 
