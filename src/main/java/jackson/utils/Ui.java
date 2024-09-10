@@ -172,6 +172,19 @@ public class Ui {
     }
 
     /**
+     * Returns response from Jackson to deconflict identical task names.
+     * @param taskName String of task name that clashes with pre-existing one in task list.
+     * @return String response.
+     */
+    public String printDeconflictAdvice(String taskName) {
+        return String.format("""
+                Eh I think you already got this task name already right???
+                    --> %s already exists
+                To deconflict, consider deleting the respective task in the task list"""
+                + "or renaming the current task before adding!", taskName);
+    }
+
+    /**
      * Returns chatbot response when adding task to list.
      * @param task {@code Task} object to be added to taskList.
      * @param taskList {@code TaskList} object task is to be added to.

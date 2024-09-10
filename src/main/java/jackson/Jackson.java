@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import jackson.enums.Actions;
 import jackson.enums.Commands;
+import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.OutOfListException;
 import jackson.exceptions.SyntaxException;
 import jackson.exceptions.UnsupportedCommandException;
@@ -199,8 +200,13 @@ public class Jackson {
             // if user inputs an invalid index for mark/unmark/delete, print index guide
             output = this.ui.printIndexGuide(this.taskList);
             this.commandType = Commands.CommandType.ERROR;
+        } catch (DuplicatedTaskException e) {
+            // if user tries to add task with a name that already exists in taskList, print de-conflict advice
+            output = this.ui.printDeconflictAdvice(e.getMessage());
+            this.commandType = Commands.CommandType.ERROR;
         } catch (Exception e) {
             // some other error unaccounted for, print generic warning
+            // here we pass an error so the stack trace can be extracted
             output = this.ui.printUnknownError(e);
             this.commandType = Commands.CommandType.ERROR;
         }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.OutOfListException;
 import jackson.tasks.Task;
 
@@ -28,8 +29,9 @@ public class TaskList {
     private static Comparator<Task> comparatorByMarkedUnmarked =
             Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.reverseOrder()));;
 
-    // Array list to store classes
+    // ArrayList to store tasks and their names
     private ArrayList<Task> tasks;
+    private ArrayList<String> taskNames;
 
     /**
      * Constructs empty TaskList instance.
@@ -38,6 +40,7 @@ public class TaskList {
      */
     public TaskList(int expectedSize) {
         this.tasks = new ArrayList<>(expectedSize);
+        this.taskNames = new ArrayList<>(expectedSize);
     }
 
     /**
@@ -47,6 +50,7 @@ public class TaskList {
      */
     public TaskList(Task... tasks) {
         this.tasks = new ArrayList<>(Arrays.asList(tasks));
+        this.taskNames = new ArrayList<>(Arrays.stream(tasks).map(Task::getName).toList());
     }
 
     /**
@@ -58,11 +62,17 @@ public class TaskList {
     }
 
     /**
-     * Adds task to the list and prints list adding message.
+     * Checks Adds task to the list and prints list adding message.
      * @param task {@code Task} object to be added.
+     * @throws DuplicatedTaskException Exception to signal conflicting task names.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicatedTaskException {
+        if (this.taskNames.contains(task.getName())) {
+            // guard clause to check if 2 tasks have the same name
+            throw new DuplicatedTaskException(task.getName());
+        }
         this.tasks.add(task);
+        this.taskNames.add(task.getName());
     }
 
     /**
@@ -85,6 +95,7 @@ public class TaskList {
             throw new OutOfListException(String.valueOf(this.tasks.size()));
         }
         Task curr = this.tasks.remove(index);
+        this.taskNames.remove(index);
         return curr;
     }
 
