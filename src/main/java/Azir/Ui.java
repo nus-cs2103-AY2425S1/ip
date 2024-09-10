@@ -53,6 +53,7 @@ public class Ui {
             return "Here are the matching tasks in your list:\n";
 
         default:
+            assert false: command;
             return "";
         }
     }
@@ -97,6 +98,7 @@ public class Ui {
             return botOutput;
 
         default:
+            assert false: command;
             return "";
         }
     }
