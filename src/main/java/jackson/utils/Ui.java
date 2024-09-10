@@ -21,7 +21,7 @@ public class Ui {
      * @return String representation of welcome.
      */
     public String printWelcome() {
-        return "Oi! I'm Jackson!\nWhat you want me do today ah?\n";
+        return "Oi! I'm Jackson!\nWhat you want me do today ah?";
     }
 
     /**
@@ -29,7 +29,7 @@ public class Ui {
      * @return String representation of goodbye.
      */
     public String printGoodbye() {
-        return "K k bye, see you!\n";
+        return "K k bye, see you!";
     }
 
     /**
@@ -139,7 +139,7 @@ public class Ui {
             output += "Unknown error...";
             break;
         }
-        return output + "\n";
+        return output;
     }
 
     /**
@@ -153,13 +153,13 @@ public class Ui {
 
         // different responses based on taskList size
         if (size == 0) {
-            output += "You've got no items in the list! Add some stuff first!";
+            output += "    --> You've got no items in the list! Add some stuff first!";
         } else if (size == 1) {
-            output += "Enter 1 to mark/unmark/delete the task in the list!";
+            output += "    --> Enter 1 to mark/unmark/delete the task in the list!";
         } else {
-            output += String.format("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", size);
+            output += String.format("    --> Enter a number between 1 and %d when marking/unmarking/deleting tasks!", size);
         }
-        return output + "\n";
+        return output;
     }
 
     /**
@@ -168,7 +168,7 @@ public class Ui {
      * @return String response.
      */
     public String printUnknownError(Exception e) {
-        return String.format("Oops! Something went wrong!\n%s\n", Arrays.toString(e.getStackTrace()));
+        return String.format("Oops! Something went wrong!\n    --> %s\n", Arrays.toString(e.getStackTrace()));
     }
 
     /**
