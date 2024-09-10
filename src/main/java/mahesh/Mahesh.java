@@ -25,7 +25,7 @@ public class Mahesh {
      * Constructs a Mahesh object with an optional file path for storing tasks.
      * If no path is provided, the default path is used.
      *
-     * @param paths the optional relative path to the file for storing tasks
+     * @param paths the optional relative path to the file used for storing tasks
      */
     public Mahesh(String... paths) {
         if (paths.length > 0) {
