@@ -1,4 +1,4 @@
-package broski.GUI;
+package broski.gui;
 
 import java.io.IOException;
 import java.util.Collections;
