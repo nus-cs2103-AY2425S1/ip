@@ -18,8 +18,6 @@ class ByeCommand extends Command {
      */
     @Override
     public void executeCommand(TaskListUi ui, TaskList taskList, CommandParser parser) {
-        assert ui != null : "UI cannot be null";
-
         throw new EndProgramException();
     }
 }
