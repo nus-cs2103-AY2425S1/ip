@@ -114,6 +114,19 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves the tag of the task.
+     * @return The tag label assigned to the task.
+     */
+    protected String getTag() {
+
+        if (this.tag == null) {
+            return "THERE-IS-NO-TAG";
+        } else {
+            return this.tag;
+        }
+    }
+
+    /**
      * Sets a tag to the corrosponding task.
      * @param tag The tag label the task will be associated to.
      */
@@ -180,9 +193,9 @@ public abstract class Task {
     @Override
     public String toString() {
         if (isChecked) {
-            return "[X] " + this.description + (this.tag != null ? " Tag: # " + this.tag : "");
+            return "[X] " + this.description + (this.tag != null ? " (Tag: #" + this.tag + ")" : "");
         } else {
-            return "[ ] " + this.description + (this.tag != null ? " Tag: # " + this.tag : "");
+            return "[ ] " + this.description + (this.tag != null ? " (Tag: #" + this.tag + ")" : "");
         }
     }
 }

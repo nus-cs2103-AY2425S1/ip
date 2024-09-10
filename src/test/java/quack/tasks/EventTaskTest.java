@@ -117,7 +117,8 @@ public class EventTaskTest {
 
         this.dummyEventTask = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
 
-        String expectedTaskCsvFormat = "EVENT,Dummy event task,10/05/2024 10:00:30,15/06/2024 12:30:00,false";
+        String expectedTaskCsvFormat = "EVENT,Dummy event task,10/05/2024 10:00:30,15/06/2024 12:30:00,false"
+            + ",THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyEventTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,
@@ -135,7 +136,8 @@ public class EventTaskTest {
         this.dummyEventTask = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
         this.dummyEventTask.mark();
 
-        String expectedTaskCsvFormat = "EVENT,Dummy event task,10/05/2024 10:00:30,15/06/2024 12:30:00,true";
+        String expectedTaskCsvFormat = "EVENT,Dummy event task,10/05/2024 10:00:30,15/06/2024 12:30:00,"
+            + "true,THERE-IS-NO-TAG";
         String actualTaskCsvFormat = this.dummyEventTask.toCsvFormat();
 
         assertEquals(expectedTaskCsvFormat, actualTaskCsvFormat,

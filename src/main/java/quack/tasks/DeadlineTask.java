@@ -35,7 +35,8 @@ public class DeadlineTask extends Task {
     @Override
     public String toCsvFormat() {
 
-        return "DEADLINE," + super.toCsvFormat() + "," + this.dueDate.format(Task.DATE_FORMAT) + "," + this.isChecked;
+        return "DEADLINE," + super.toCsvFormat() + "," + this.dueDate.format(Task.DATE_FORMAT)
+            + "," + this.isChecked + "," + this.getTag();
     }
 
     @Override
