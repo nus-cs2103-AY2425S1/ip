@@ -1,6 +1,8 @@
 package assistinator;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents list of task
@@ -57,11 +59,9 @@ public class TaskList {
      * @return formatted string
      */
     public String listTasks() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
-        }
-        return sb.toString().trim();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -70,15 +70,10 @@ public class TaskList {
      * @return Filtered string
      */
     public String filterTasks(String keyword) {
-        int j = 1;
-        StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            if (task.contains(keyword)) {
-                sb.append(j).append(".").append(task.toString()).append("\n");
-                j++;
-            }
-        }
-        return sb.toString().trim();
+        return IntStream.range(0, tasks.size())
+                .filter(i -> tasks.get(i).contains(keyword))
+                .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 
     /**
