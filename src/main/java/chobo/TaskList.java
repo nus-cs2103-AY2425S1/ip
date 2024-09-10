@@ -20,6 +20,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        assert tasks != null : "tasks should be set";
     }
 
     /**
@@ -29,7 +30,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        assert tasks.contains(task);
+        assert tasks.contains(task) : "tasks should contain task";
     }
 
     /**
