@@ -44,6 +44,7 @@ public class Deadline extends Task {
      */
     public Deadline(String input, String date, Boolean isDone) {
         super(input, isDone);
+        assert date.matches("\\d{4}-\\d{2}-\\d{2}") : "Date format must be YYYY-MM-DD";
 
         deadline = LocalDate.parse(date);
     }

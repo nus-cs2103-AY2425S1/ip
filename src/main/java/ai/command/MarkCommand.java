@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
 
         Task temp = tasks.get(i);
         temp.mark();
-        return "Marked as done... since you have time, how about a drink ;)"
+        return "Marked as done... since you have time, how about a drink ;)\n"
                 + temp + "\n";
     }
 

@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui) {
         tasks.add(task);
 
-        return "Task added!!\n" + task + String.format("You better finish your %d tasks!! ehe :3\n", tasks.size());
+        return "Task added!!\n" + task + "\n" + String.format("You better finish your %d tasks!! ehe :3\n", tasks.size());
     }
 
     @Override

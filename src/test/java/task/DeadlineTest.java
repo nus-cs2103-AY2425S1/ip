@@ -32,7 +32,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadline_garbageInput_exceptionThrown() {
+    public void deadline_wrongDateTimeFormat_exceptionThrown() {
         try {
             new Deadline("eat sushi with Ai", "this sunday");
             fail();

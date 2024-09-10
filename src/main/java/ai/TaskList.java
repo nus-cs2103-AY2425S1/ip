@@ -54,7 +54,7 @@ public class TaskList {
      *
      * @param date Date to be matched.
      */
-    public String isDue(LocalDate date) {
+    public String getDueTasks(LocalDate date) {
         String list = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task temp = tasks.get(i);
