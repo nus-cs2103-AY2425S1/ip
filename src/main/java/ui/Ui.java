@@ -78,6 +78,11 @@ public class Ui {
         showMessage(message.toString());
     }
 
+    /**
+     * Displays the tasks that match the search query.
+     *
+     * @param taskList the {@code TaskList} containing matching tasks to be displayed
+     */
     public void showFound(TaskList taskList) {
         assert dialogContainer != null : "Dialog container should be initialized";
 

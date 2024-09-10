@@ -8,12 +8,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Represents a custom dialog box that consists of a text message and an image.
+ * The dialog box can be aligned to the left (for the bot) or to the right (for the user).
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
     private boolean isUser;
 
+    /**
+     * Constructs a {@code DialogBox} with the specified text, image, and alignment.
+     * If the dialog is from the user, it is aligned to the right; otherwise, it is aligned to the left.
+     *
+     * @param s       The text to display in the dialog box.
+     * @param i       The image to display in the dialog box.
+     * @param isUser  A flag indicating whether the dialog is from the user (true) or the bot (false).
+     */
     public DialogBox(String s, Image i, boolean isUser) {
         this.text = new Label(s);
         this.displayPicture = new ImageView(i);

@@ -13,7 +13,10 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
 
-
+/**
+ * The {@code MainWindow} class is the controller for the main window of the ProYapper chatbot application.
+ * It handles user input, processes it, and displays the corresponding response in the UI.
+ */
 public class MainWindow {
     @FXML
     private ScrollPane scrollPane;
@@ -31,6 +34,10 @@ public class MainWindow {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Initializes the main window by setting up necessary components like {@code scrollPane}, {@code taskList}, and displaying
+     * the welcome message from ProYapper.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -43,11 +50,20 @@ public class MainWindow {
         dialogContainer.getChildren().add(DialogBox.getProYapperDialog(welcomeMessage, proYapperImage));
     }
 
+    /**
+     * Sets the {@code ProYapper} instance for this controller and connects it to the dialog container.
+     *
+     * @param proYapper the ProYapper instance to set
+     */
     public void setProYapper(ProYapper proYapper) {
         this.proYapper = proYapper;
         proYapper.setDialogContainer(dialogContainer);
     }
 
+    /**
+     * Handles user input, processes the command, and adds the response to the dialog container.
+     * Also, checks if the "bye" command is given to terminate the application.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -82,7 +98,6 @@ public class MainWindow {
         }
     }
 
-
     /**
      * Processes user input by parsing it into a command and executing the command.
      * @param input The user input as a string.
@@ -97,8 +112,6 @@ public class MainWindow {
         // Execute the command and capture its output
         command.execute(taskList, ui, storage);
 
-        // Since the Ui now appends output directly to dialogContainer,
-        // we could use a method in Ui to get the last message or similar, but here we assume it appends directly.
         return ""; // Return an empty string if output is already managed by Ui.
     }
 }
