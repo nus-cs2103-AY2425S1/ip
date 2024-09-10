@@ -111,7 +111,6 @@ class UiTest {
         String expectedMessage2 = "      [T][ ] Test task";
         assertTrue(outputStreamCaptor.toString().contains(expectedMessage1.trim()));
         assertTrue(outputStreamCaptor.toString().contains(expectedMessage2.trim()));
-
     }
 
     @Test
