@@ -5,6 +5,7 @@ package tasks;
  * This class serves as a base class for more specific types of tasks such as ToDos, Deadlines, and Events.
  */
 public class Task {
+    private static final String TASK_TYPE = "task";
     private String taskContent;
     private boolean isDone;
 
@@ -67,8 +68,7 @@ public class Task {
      * @return The string "task" representing the task type.
      */
     public String getTaskType() {
-        return "task";
+        return TASK_TYPE;
     }
-
 
 }

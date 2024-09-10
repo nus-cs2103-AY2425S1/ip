@@ -5,6 +5,7 @@ package tasks;
  * A ToDo task is a simple task with a description but no specific date or time associated with it.
  */
 public class ToDo extends Task {
+    private static final String TASK_TYPE = "todo";
 
     /**
      * Constructs a ToDo task with the specified description.
@@ -42,7 +43,7 @@ public class ToDo extends Task {
      */
     @Override
     public String getTaskType() {
-        return "todo";
+        return TASK_TYPE;
     }
 
 }

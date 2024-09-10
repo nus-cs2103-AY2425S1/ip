@@ -4,6 +4,7 @@ package tasks;
  * Represents an event task. An Event task has a description, a start time, and an end time.
  */
 public class Event extends Task {
+    private static final String TASK_TYPE = "event";
     private String from;
     private String to;
 
@@ -47,7 +48,7 @@ public class Event extends Task {
      */
     @Override
     public String getTaskType() {
-        return "event";
+        return TASK_TYPE;
     }
 
     /**

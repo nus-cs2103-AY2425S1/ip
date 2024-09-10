@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * A DeadLine task has a description and a specific date and time by which it must be completed.
  */
 public class DeadLine extends Task {
+    private static final String TASK_TYPE = "deadline";
     private LocalDateTime by;
 
     /**
@@ -50,7 +51,7 @@ public class DeadLine extends Task {
      */
     @Override
     public String getTaskType() {
-        return "deadline";
+        return TASK_TYPE;
     }
 
     /**
