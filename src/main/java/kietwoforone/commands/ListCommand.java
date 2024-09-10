@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
     @Override
     public String toString() {
-        return "Task listed";
+        return "Tasks listed";
     }
 
 }

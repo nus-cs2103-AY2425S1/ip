@@ -9,6 +9,6 @@ public class MarkCommandTest {
 
     @Test
     public void markCommandTest() {
-        assertEquals("Test marked", new MarkCommand(position).toString());
+        assertEquals("Task marked", new MarkCommand(position).toString());
     }
 }
