@@ -52,7 +52,6 @@ public class Ui {
     public void showMessage(String message) {
         DialogBox proYapperDialog = DialogBox.getProYapperDialog(message, proYapperImage);
         dialogContainer.getChildren().add(proYapperDialog);
-        //System.out.println("showMessage called with: " + message);
     }
 
     /**
