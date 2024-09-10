@@ -33,7 +33,7 @@ public class RunTest {
     public void toDoClassTest() {
         Task todo = new Todo("read a book");
         todo.markDone();
-        assertEquals("T | true | read a book\n", todo.storeValue());
+        assertEquals("T | true | read a book | MEDIUM\n", todo.storeValue());
     }
 
 }
