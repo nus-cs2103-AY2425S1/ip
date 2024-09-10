@@ -2,16 +2,18 @@ package optimus.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import optimus.Storage;
+import optimus.exceptions.InvalidDateFormatException;
 
 /**
  * Task with deadline
  */
 public class DeadlineTask extends Task {
 
-    private final LocalDate deadline;
+    private LocalDate deadline;
 
     /**
      * Constructor for when new DeadlineTask is initialised
@@ -19,9 +21,14 @@ public class DeadlineTask extends Task {
      * @param desc     - description
      * @param deadline - deadline
      */
-    public DeadlineTask(String desc, LocalDate deadline) {
+    public DeadlineTask(String desc, String deadline) throws InvalidDateFormatException {
         super(desc);
-        this.deadline = deadline;
+
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
+        }
     }
 
     /**
@@ -31,11 +38,25 @@ public class DeadlineTask extends Task {
      * @param deadline - deadline
      * @param status   - task status
      */
-    public DeadlineTask(String desc, LocalDate deadline, String status) {
+    public DeadlineTask(String desc, String deadline, String status) throws InvalidDateFormatException {
         this(desc, deadline);
         if (Objects.equals(status, "1")) {
             super.markAsComplete();
         }
+    }
+
+    @Override
+    public void updateFirstDate(String deadline) throws InvalidDateFormatException {
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
+        }
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
     }
 
     /**

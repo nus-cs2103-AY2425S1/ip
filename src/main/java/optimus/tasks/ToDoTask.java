@@ -2,7 +2,6 @@ package optimus.tasks;
 
 import java.util.Objects;
 
-import optimus.Storage;
 
 /**
  * Task without time constraint
@@ -23,6 +22,11 @@ public class ToDoTask extends Task {
         if (Objects.equals(status, "1")) {
             super.markAsComplete();
         }
+    }
+
+    @Override
+    public String getTaskType() {
+        return "T";
     }
 
     /**

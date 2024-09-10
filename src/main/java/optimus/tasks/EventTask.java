@@ -3,13 +3,14 @@ package optimus.tasks;
 import java.util.Objects;
 
 import optimus.Storage;
+import optimus.exceptions.OptimusExceptions;
 
 /**
  * Task with start and end time
  */
 public class EventTask extends Task {
-    private final String start;
-    private final String end;
+    private String start;
+    private String end;
 
     /**
      * Constructor for when new EventTask is initialised
@@ -37,6 +38,21 @@ public class EventTask extends Task {
         if (Objects.equals(status, "1")) {
             super.markAsComplete();
         }
+    }
+
+    @Override
+    public void updateFirstDate(String firstDate) throws OptimusExceptions {
+        this.start = firstDate;
+    }
+
+    @Override
+    public void updateSecondDate(String secondDate) {
+        this.end = secondDate;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "E";
     }
 
     /**
