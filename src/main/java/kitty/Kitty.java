@@ -6,7 +6,6 @@ import kitty.kittyexceptions.MarksException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Provides an interactive ChatBot named Kitty.

@@ -40,6 +40,8 @@ public class Storage {
             isCreated = KITTY_TASKS_DATA.createNewFile();
         }
 
+        assert KITTY_TASKS_DATA.exists();
+
         Scanner scanKittyTasks = new Scanner(KITTY_TASKS_DATA);
         while (scanKittyTasks.hasNext()) {
             Task tmp = createTaskFromInput(scanKittyTasks.nextLine());
