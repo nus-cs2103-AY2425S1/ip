@@ -244,4 +244,32 @@ public class TaskList {
         }
         return reply;
     }
+
+    /**
+     * Tags the desired task with the specified tag as commanded by the user.
+     *
+     * @param input input entered by user.
+     * @return string to be displayed to user
+     */
+    public String handleTag(String input) {
+        String reply = "";
+        int index = Integer.parseInt(input.substring(4,5)) - 1;
+        String tagAs = input.substring(5).trim();
+        if (tagAs.isEmpty()) {
+            reply = "You missed out the name of the tag. Try again.";
+        } else {
+            boolean isLessThanSizeOfList = index < list.size();
+            boolean isGreaterThanZero = index >= 0;
+            boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
+            if (isValidIndex) {
+                Task task = list.get(index);
+                task.addTag(tagAs);
+                reply = "OK, I've tagged this task: \n" +
+                        task.toString();
+            } else {
+                reply = "It seems that task does not exist. Please try again.";
+            }
+        }
+        return reply;
+    }
 }

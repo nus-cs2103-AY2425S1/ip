@@ -37,25 +37,20 @@ public class Alex {
 
         if (userInput.equalsIgnoreCase("bye")) {
             return ui.byeMessage();
-        }
-        else if (userInput.equalsIgnoreCase("list")) {
+        } else if (userInput.equalsIgnoreCase("list")) {
             return tasks.handleList();
-
         } else if (userInput.startsWith("mark")) {
             String tmp = tasks.handleMark(userInput);
             storage.saveTasksToFile(filePath);
             return tmp;
-
         } else if (userInput.startsWith("unmark")) {
             String tmp = tasks.handleUnmark(userInput);
             storage.saveTasksToFile(filePath);
             return tmp;
-
         } else if (userInput.startsWith("todo")) {
             String tmp = tasks.handleTodo(userInput);
             storage.saveTasksToFile(filePath);
             return tmp;
-
         } else if (userInput.startsWith("deadline")) {
             String tmp = tasks.handleDeadline(userInput);
             storage.saveTasksToFile(filePath);
@@ -70,10 +65,12 @@ public class Alex {
             return tmp;
         } else if (userInput.startsWith("tasks on")) {
             return tasks.handleDate(userInput);
-
         } else if (userInput.startsWith("find")) {
             return tasks.handleFind(userInput);
-
+        } else if (userInput.startsWith("tag")) {
+            String tmp = tasks.handleTag(userInput);
+            storage.saveTasksToFile(filePath);
+            return tmp;
         } else {
             return "Sorry, I don't understand that command. Did you make a typo?";
         }

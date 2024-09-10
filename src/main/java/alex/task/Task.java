@@ -10,9 +10,11 @@ public class Task {
     public String description;
     public boolean isDone;
     public LocalDate dueDate;
+    public String tag;
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = "";
     }
 
     /**
@@ -40,6 +42,9 @@ public class Task {
      *
      * @return string to be saved as data.
      */
+    public void addTag(String tag) {
+        this.tag = tag;
+    }
     public String toBeSavedAsData() {
         return toString();
     }
@@ -49,7 +54,11 @@ public class Task {
      * @return string to be displayed to users.
      */
     public String toString() {
-        return description;
+        if (tag.isEmpty()) {
+            return description;
+        } else {
+            return description + " #" + tag;
+        }
     }
 
 }
