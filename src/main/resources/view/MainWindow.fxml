@@ -23,7 +23,7 @@
          </cursor></Button>
         <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-background-color: #000000;" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" maxWidth="383.0" minHeight="559.0" minWidth="383.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-image: url(images/chatBackground.png); -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-position: center;" />
+                <VBox fx:id="dialogContainer" minHeight="559.0" minWidth="383.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-image: url(images/chatBackground.png); -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-position: center;" />
             </content>
         </ScrollPane>
     </children>
