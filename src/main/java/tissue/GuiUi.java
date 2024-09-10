@@ -128,8 +128,11 @@ public class GuiUi {
         case "event" -> {
             return storeEvent(messageTemplate);
         }
+        case "help" -> {
+            return help();
+        }
         default -> {
-            return "Invalid input. Possible inputs are deadline, todo, event, list, mark, and unmark.";
+            return "Invalid input. Type 'help' to show the list of commands.";
         }
         }
     }
@@ -168,5 +171,14 @@ public class GuiUi {
         storage.save(task);
         taskList.add(task);
         return String.format(messageTemplate, task);
+    }
+
+    private String help() {
+        return """
+                The available commands are
+                todo [item]
+                deadline [item] /by [date]
+                event [item] /from [date] /to [date]
+                """;
     }
 }
