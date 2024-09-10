@@ -1,5 +1,6 @@
 package knight2103.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,6 +26,15 @@ public class EventTask extends Task {
         super(description);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);
+    }
+
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    @Override
+    public TaskType showTaskType() {
+        return TaskType.EVENT;
     }
 
     @Override

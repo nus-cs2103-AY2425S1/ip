@@ -38,15 +38,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the Task specified by the index in the bot's taskList.
-     *
-     * @return the Task specified by index in the bot's taskList.
-     */
-    public Task getTask(int index) {
-        return this.tasks.get(index);
-    }
-
-    /**
      * Adds a task into the bot's taskList.
      *
      * @param newTask Task to be added to the taskList.
@@ -108,10 +99,9 @@ public class TaskList {
      * tasks will be sorted based on alphabetical order.
      *
      * @param compareLogic The Comparator class that contains the logic behind the sorting of Task objects.
-     * @return The list of tasks after being sorted.
      */
-    public void sort(compareLogic) { // hmm void or sort?
-        return this.tasks.sort(compareLogic); // mmmm. What other exceptions will there be?
+    public void sort(Comparator<Task> compareLogic) { // hmm void or sort?
+        this.tasks.sort(compareLogic); // mmmm. What other exceptions will there be?
     }
 
     /**

@@ -3,7 +3,7 @@ package knight2103.tasks;
 /**
  * Contains the basic requirements of what makes a task.
  */
-public class Task {
+public abstract class Task {
     protected final String description;
     protected boolean isDone;
 
@@ -20,6 +20,15 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Indicates if the task is marked as done.
+     *
+     * @return isDone status.
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**
@@ -55,4 +64,6 @@ public class Task {
         return String.format("[%s] %s",
                 this.isDone ? TASK_MARKED_LIST_STATUS : TASK_UNMARKED_LIST_STATUS, this.description);
     }
+
+    public abstract TaskType showTaskType();
 }
