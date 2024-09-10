@@ -224,6 +224,10 @@ public class WansBot {
         return ui.handleFindKeyword(filteredList);
     }
 
+    private void learnQuestions(String qn) {
+
+    }
+
     /**
      * Takes in userInput and returns WansBot's response as a String.
      */
@@ -271,7 +275,6 @@ public class WansBot {
         default:
             return ui.handleUnrecognisedInput(userInput);
         }
-
         return response;
     }
 
