@@ -129,8 +129,7 @@ public class Commands {
             try {
                 Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, true);
                 output.append("  " + theTask + "\n");
-            }
-            catch (KitaOutOfBounds e) {
+            } catch (KitaOutOfBounds e) {
                 if (errorOutput.isEmpty()) {
                     errorOutput.append("However, I had errors marking the following tasks: \n");
                 }
@@ -166,8 +165,7 @@ public class Commands {
             try {
                 Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, false);
                 output.append("  " + theTask + "\n");
-            }
-            catch (KitaOutOfBounds e) {
+            } catch (KitaOutOfBounds e) {
                 if (errorOutput.isEmpty()) {
                     errorOutput.append("However, I had errors marking the following tasks: \n");
                 }
@@ -203,8 +201,7 @@ public class Commands {
             try {
                 Task theTask = this.tasks.removeTask(numberToMark - 1);
                 output.append("  " + theTask + "\n");
-            }
-            catch (KitaOutOfBounds e) {
+            } catch (KitaOutOfBounds e) {
                 if (errorOutput.isEmpty()) {
                     errorOutput.append("However, I encountered errors deleting the following tasks: \n");
                 }
