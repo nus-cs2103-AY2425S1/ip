@@ -15,7 +15,11 @@ public class Parser {
      * @return A String representing the result of the parsing
      * @throws MeejuException If the input string could not be parsed
      */
+
     public String parse(TaskList taskList, String instruction) throws MeejuException {
+        assert taskList != null : "TaskList object is null";
+        assert instruction != null : "instruction is null";
+
         if (instruction.trim().isEmpty()) {
             return "Empty Command!";
         } else if (instruction.equals("bye")) {

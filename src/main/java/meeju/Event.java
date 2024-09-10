@@ -28,6 +28,10 @@ public class Event extends Task {
      */
     public Event(String taskDescription, String from, String to) throws MeejuException {
         super(taskDescription, false);
+
+        assert from != null : "Event task From field is null";
+        assert to != null : "Event task To field is null";
+
         String[] dateAndTimeFrom = from.split(" ");
         String[] dateAndTimeTo = to.split(" ");
 
@@ -49,6 +53,7 @@ public class Event extends Task {
         LocalTime fromTime;
         LocalDate toDate;
         LocalTime toTime;
+
         try {
             fromDate = LocalDate.parse(dateRawFrom, dateFormatter);
             fromTime = LocalTime.parse(timeRawFrom, timeFormatter);
@@ -57,6 +62,7 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new MeejuException(exceptionMessage);
         }
+
         this.from = LocalDateTime.of(fromDate, fromTime);
         this.to = LocalDateTime.of(toDate, toTime);
     }
@@ -78,6 +84,7 @@ public class Event extends Task {
         String formattedTimeFrom = this.from.toLocalTime().format(timeFormatter);
         String formattedDateTo = this.to.toLocalDate().format(dateFormatter);
         String formattedTimeTo = this.to.toLocalTime().format(timeFormatter);
+
 
         return taskCharacter + fileDelimiter + this.getIsDone() + fileDelimiter
                 + this.getTaskDescription() + fileDelimiter
