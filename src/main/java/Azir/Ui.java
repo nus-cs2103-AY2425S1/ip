@@ -7,13 +7,6 @@ import java.util.Scanner;
  */
 public class Ui {
     /**
-     * Outputs the divider line
-     */
-    public void showLine() {
-        System.out.println("----------------------------------");
-    }
-
-    /**
      * Outputs the chatbot welcome message
      */
     public static String showWelcome() {
@@ -28,17 +21,6 @@ public class Ui {
      */
     public void showExit() {
         System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Reads the user input
-     *
-     * @param obj Scanner object for reading user input
-     * @return User input
-     */
-    public String readCommand(Scanner obj) {
-        String command = obj.nextLine();
-        return command;
     }
 
     /**
