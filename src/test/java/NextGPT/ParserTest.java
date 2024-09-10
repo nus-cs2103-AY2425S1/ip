@@ -1,13 +1,14 @@
-package NextGPT;
+package nextgpt;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import NextGPT.command.AddCommand;
-import NextGPT.command.Command;
-import NextGPT.task.Todo;
-import NextGPT.task.Deadline;
-import NextGPT.task.Event;
+import nextgpt.command.AddCommand;
+import nextgpt.command.Command;
+import nextgpt.task.Todo;
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
 
 public class ParserTest {
     @Test

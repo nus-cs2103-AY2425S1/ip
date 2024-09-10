@@ -49,11 +49,11 @@ test {
 }
 
 application {
-    mainClass.set("NextGPT.Launcher")
+    mainClass.set("nextgpt.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "NextGPT"
+    archiveBaseName = "nextgpt"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

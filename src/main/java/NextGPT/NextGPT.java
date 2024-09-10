@@ -1,7 +1,7 @@
-package NextGPT;
+package nextgpt;
 
 import java.io.IOException;
-import NextGPT.command.Command;
+import nextgpt.command.Command;
 
 /**
  * Driver class for Next GPT chat bot.

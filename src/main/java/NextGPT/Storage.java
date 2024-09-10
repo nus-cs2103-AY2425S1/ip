@@ -1,13 +1,13 @@
-package NextGPT;
+package nextgpt;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import NextGPT.task.Deadline;
-import NextGPT.task.Event;
-import NextGPT.task.Task;
+
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Task;
 
 /**
  * Storage class to load and add local saved task list.
@@ -25,7 +25,7 @@ public class Storage {
      * @return Locally saved task list.
      * @throws IOException If file cannot be accessed.
      */
-    public Scanner load_tasks() throws IOException{
+    public Scanner load_tasks() throws IOException {
         File dir = new File("./data");
         if (!dir.exists()) {
             dir.mkdir();
@@ -49,18 +49,18 @@ public class Storage {
             Task task = taskList.get(i);
             if (task instanceof Event) {
                 text += "E,";
-                text += task.isDone()? "X,":" ,";
+                text += task.isDone() ? "X, ":" ,";
                 text += task.getDescription() + ",";
                 text += ((Event) task).getStart() + ",";
                 text += ((Event) task).getEnd() + "\n";
             } else if (task instanceof Deadline) {
                 text += "D,";
-                text += task.isDone()? "X,":" ,";
+                text += task.isDone() ? "X, ":" ,";
                 text += task.getDescription() + ",";
                 text += ((Deadline) task).getBy() + "\n";
             } else {
                 text += "T,";
-                text += task.isDone()? "X,":" ,";
+                text += task.isDone() ? "X, ":" ,";
                 text += task.getDescription();
                 text += "\n";
 

@@ -1,15 +1,13 @@
-package NextGPT;
+package nextgpt;
 
-import java.util.List;
 import java.util.Scanner;
-import NextGPT.task.Task;
+
+import nextgpt.task.Task;
 
 /** Interface that users interacts with. */
 public class Ui {
-    String line = "_______________________________________________________\n";
-
     Scanner sc;
-    public Ui(){
+    public Ui() {
         this.sc = new Scanner(System.in);
     }
 
@@ -17,8 +15,8 @@ public class Ui {
      * Prints opening message to user.
      */
     public String openingMessage() {
-        String greeting = "Hello! I'm NextGPT and I'll be your assistant chatbot.\n" +
-                "What can I do for you today?\n";
+        String greeting = "Hello! I'm NextGPT and I'll be your assistant chatbot.\n"
+                + "What can I do for you today?\n";
         return greeting;
     }
 
@@ -27,7 +25,7 @@ public class Ui {
      */
     public String bye() {
         this.sc.close();
-        return  "Bye. Hope to see you soon!\n";
+        return "Bye. Hope to see you soon!\n";
     }
 
     /**
@@ -36,7 +34,9 @@ public class Ui {
      * @param task Task that was marked as done.
      */
     public String mark(Task task) {
-        return "Nice! I've marked this task as done:\n " + task + "\n";
+        return "Nice! I've marked this task as done:\n "
+                + task
+                + "\n";
     }
 
     /**
@@ -45,7 +45,9 @@ public class Ui {
      * @param task Task that was marked as done.
      */
     public String unmark(Task task) {
-        return "Ok, I've marked this task as not done yet:\n " + task + "\n";
+        return "Ok, I've marked this task as not done yet:\n "
+                + task
+                + "\n";
     }
 
 
@@ -56,8 +58,9 @@ public class Ui {
      * @param listSize Size of task list remaining.
      */
     public String delete(Task task, int listSize) {
-        return "Noted. I've removed this task from the list:\n " + task +
-                "\nNow you have " + listSize + " tasks in the list.\n";
+        return "Noted. I've removed this task from the list:\n "
+                + task + "\nNow you have "
+                + listSize + " tasks in the list.\n";
     }
 
     /**
@@ -67,8 +70,9 @@ public class Ui {
      * @param listSize Size of task list.
      */
     public String addTask(Task task, int listSize) {
-        return " added: " +
-                task + "\n Now you have " + listSize + " tasks in the list\n";
+        return " added: " + task
+                + "\n Now you have " + listSize
+                + " tasks in the list\n";
     }
 
     /**
@@ -109,7 +113,6 @@ public class Ui {
      * @return Returns String of input read from user.
      */
     public String readCommand() {
-
         return sc.nextLine();
     }
 

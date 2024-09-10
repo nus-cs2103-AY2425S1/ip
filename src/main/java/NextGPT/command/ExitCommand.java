@@ -1,12 +1,14 @@
-package NextGPT.command;
-import NextGPT.TaskList;
-import NextGPT.Ui;
-import NextGPT.Storage;
+package nextgpt.command;
+
+import nextgpt.TaskList;
+import nextgpt.Storage;
+import nextgpt.Ui;
+
 
 /**
  * Subclass of Command that exits user.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
      * Notifies user with exit message.
      */

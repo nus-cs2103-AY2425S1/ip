@@ -1,22 +1,24 @@
-package NextGPT;
+package nextgpt;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import NextGPT.task.Deadline;
-import NextGPT.task.Todo;
-import NextGPT.task.Event;
-import NextGPT.task.Task;
+import nextgpt.task.Deadline;
+import nextgpt.task.Event;
+import nextgpt.task.Task;
+import nextgpt.task.Todo;
 
 /**
  * Class to hold tasks in a arraylist.
  */
 public class TaskList {
 
-    ArrayList<Task> todo_list;
+    ArrayList<Task> todoList;
 
-    public TaskList(){
-
-        this.todo_list = new ArrayList<>();
+    /**
+     * Initializes task list with empty array list
+     */
+    public TaskList() {
+        this.todoList = new ArrayList<>();
     }
 
     /**
@@ -25,7 +27,7 @@ public class TaskList {
      * @param sc Scanner file containing contents of saved task list.
      */
     public TaskList(Scanner sc) {
-        this.todo_list = new ArrayList<>();
+        this.todoList = new ArrayList<>();
         while (sc.hasNextLine()) {
             String task = sc.nextLine();
             String[] split = task.split(",");
@@ -34,7 +36,7 @@ public class TaskList {
             String desc = split[2];
             if (taskType.equals("T")) {
                 Todo todo = new Todo(desc);
-                this.todo_list.add(todo);
+                this.todoList.add(todo);
                 if (isDone) {
                     todo.mark();
                 }
@@ -42,7 +44,7 @@ public class TaskList {
                 String by = split[3];
 
                 Deadline deadline = new Deadline(desc, by);
-                this.todo_list.add(deadline);
+                this.todoList.add(deadline);
                 if (isDone) {
                     deadline.mark();
                 }
@@ -50,7 +52,7 @@ public class TaskList {
                 String from = split[3];
                 String to = split[4];
                 Event event = new Event(desc, from, to);
-                this.todo_list.add(event);
+                this.todoList.add(event);
                 if (isDone) {
                     event.mark();
                 }
@@ -66,7 +68,7 @@ public class TaskList {
      */
     public void add(Task task) {
 
-        this.todo_list.add(task);
+        this.todoList.add(task);
     }
 
     /**
@@ -77,7 +79,7 @@ public class TaskList {
      */
     public Task remove(int index) {
 
-        return this.todo_list.remove(index);
+        return this.todoList.remove(index);
     }
 
     /**
@@ -87,8 +89,7 @@ public class TaskList {
      * @return Task that was retrieved.
      */
     public Task get(int index) {
-
-        return this.todo_list.get(index);
+        return this.todoList.get(index);
     }
 
     /**
@@ -97,13 +98,12 @@ public class TaskList {
      * @return Number of elements in task list.
      */
     public int size() {
-        return this.todo_list.size();
+        return this.todoList.size();
     }
 
     @Override
     public String toString() {
-
-        return this.todo_list.toString();
+        return this.todoList.toString();
     }
 
 }
