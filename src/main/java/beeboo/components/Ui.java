@@ -98,17 +98,8 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
-
-    /**
-     * Reads and returns the next line of user input, converting it to lowercase and trimming whitespace.
-     *
-     * @return the user input as a trimmed and lowercase string
-     */
-    public String handleCommand() {
-        if (input == null) { // Ensure Scanner is initialized
-            input = new Scanner(System.in);
-        }
-        return input.nextLine().trim().toLowerCase();
+    public String duplicateTaskError() {
+        return "This task already exists in the list!";
     }
 
     /**

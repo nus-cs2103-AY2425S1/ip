@@ -36,9 +36,17 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task the task to be added
+     * @return true if the task was successfully added, false if the task already exists in the list
      */
-    public void addList(Tasks task) {
+    public boolean addList(Tasks task) {
+        String description = task.getDescription();
+        for(Tasks t : list) {
+            if(t.getDescription().equals(description)) {
+                return false;
+            }
+        }
         list.add(task);
+        return true;
     }
 
     /**
