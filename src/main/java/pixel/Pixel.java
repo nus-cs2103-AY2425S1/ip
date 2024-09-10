@@ -30,6 +30,9 @@ public class Pixel {
         } catch (IOException e) {
             ui.pixelSays(e.getMessage(), "Creating a new file!");
             taskList = new TaskList();
+        } catch (PixelException e) {
+            ui.pixelSays(e.getMessage());
+            taskList = new TaskList();
         }
     }
 

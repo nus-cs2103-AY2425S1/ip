@@ -6,12 +6,15 @@ import java.util.regex.Pattern;
 import pixel.DateTimeParser;
 import pixel.PixelException;
 
+import java.time.LocalDate;
+
 /**
  * Represents a deadline task. A deadline task is a task with a specific
  * deadline date
  */
 public class Deadline extends Task {
     private String type = "D";
+    private LocalDate deadline;
 
     /**
      * Constructs a new Deadline object with the given description.
@@ -22,6 +25,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description) throws PixelException {
         super(modifyDescription(description));
+        this.extractDeadline(description);
     }
 
     /**
@@ -31,8 +35,9 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param done        The completion status of the deadline task.
      */
-    public Deadline(String description, String done) {
+    public Deadline(String description, String done) throws PixelException {
         super(description, done);
+        this.extractDeadline(description);
     }
 
     /**
@@ -60,6 +65,23 @@ public class Deadline extends Task {
         }
     }
 
+    private void extractDeadline(String des) throws PixelException {
+        // String regex = "\\b\\d{2} [A-Za-z]{3} \\d{4}\\b";
+        // Pattern pattern = Pattern.compile(regex);
+        // Matcher matcher = pattern.matcher(des);
+        // System.out.println(des);
+        // if (matcher.find()) {
+        // DateTimeParser time = new DateTimeParser(matcher.group(2));
+        // this.deadline = time.getDateTime();
+        // } else {
+        // throw new PixelException("Unable to extract Deadline");
+        // }
+        String[] parts = des.split(" ");
+        String date = parts[parts.length - 1];
+        DateTimeParser time = new DateTimeParser(date);
+        this.deadline = time.getDateTime();
+    }
+
     /**
      * Returns the type of the task.
      *
@@ -68,6 +90,10 @@ public class Deadline extends Task {
     @Override
     public String getType() {
         return this.type;
+    }
+
+    public LocalDate getDeadline() {
+        return this.deadline;
     }
 
 }

@@ -84,6 +84,17 @@ public class TaskList {
     }
 
     public void sort() {
-        list.sort((task1, task2) -> task1.toString().compareTo(task2.toString()));
+        // list.sort((task1, task2) -> task1.toString().compareTo(task2.toString()));
+        list.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getDeadline().compareTo(((Deadline) task2).getDeadline());
+            } else if (task1 instanceof Deadline) {
+                return -1;
+            } else if (task2 instanceof Deadline) {
+                return 1;
+            } else {
+                return task1.toString().compareTo(task2.toString());
+            }
+        });
     }
 }

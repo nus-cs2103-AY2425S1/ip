@@ -2,9 +2,9 @@ package pixel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The DateTimeParser class is responsible for parsing date-time strings into
@@ -21,8 +21,12 @@ public class DateTimeParser {
      *                        date-time format
      */
     public DateTimeParser(String input) throws PixelException {
-        List<DateTimeFormatter> formatters = Arrays.asList(DateTimeFormatter.ofPattern("dd-MM-yyyy"), DateTimeFormatter
-                .ofPattern("yyyy-MM-dd"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        HashMap<Pattern, DateTimeFormatter> formatters = new HashMap<>();
+
+        formatters.put(Pattern.compile("\\d{2}-\\d{2}-\\d{4}"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        formatters.put(Pattern.compile("\\d{4}-\\d{2}-\\d{2}"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        formatters.put(Pattern.compile("\\d{2}/\\d{2}/\\d{4}"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        formatters.put(Pattern.compile("\\b\\d{2} [A-Za-z]{3} \\d{4}\\b"), DateTimeFormatter.ofPattern("dd MMM yyyy"));
         this.dateTime = parseDate(input.strip(), formatters);
         assert this.dateTime != null : "Parsed dateTime should not be null";
     }
@@ -36,18 +40,15 @@ public class DateTimeParser {
      * @throws PixelException if the date-time string cannot be parsed using any of
      *                        the formatters
      */
-    private static LocalDate parseDate(String dateTimeString, List<DateTimeFormatter> formatters)
+    private static LocalDate parseDate(String dateTimeString, HashMap<Pattern, DateTimeFormatter> formatters)
             throws PixelException {
-        Pattern ddmmyyyyPattern = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
-        Pattern yyyymmddPattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
-        Pattern mmddyyyyPattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4}");
 
-        if (ddmmyyyyPattern.matcher(dateTimeString).matches()) {
-            return LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        } else if (yyyymmddPattern.matcher(dateTimeString).matches()) {
-            return LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } else if (mmddyyyyPattern.matcher(dateTimeString).matches()) {
-            return LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        for (Map.Entry<Pattern, DateTimeFormatter> entry : formatters.entrySet()) {
+            Pattern pattern = entry.getKey();
+            DateTimeFormatter formatter = entry.getValue();
+            if (pattern.matcher(dateTimeString).matches()) {
+                return LocalDate.parse(dateTimeString, formatter);
+            }
         }
 
         throw new PixelException((String.format(
