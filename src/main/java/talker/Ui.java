@@ -2,6 +2,7 @@ package talker;
 
 import java.util.Scanner;
 
+import talker.task.PriorityType;
 import talker.task.Task;
 
 /**
@@ -184,6 +185,7 @@ public class Ui {
      *
      * @param tasks list of tasks to be printed
      * @return String list of matching tasks
+     * @throws TalkerException if no tasks found
      */
     public String printMatchingTasks(Task... tasks) throws TalkerException {
         if (tasks.length == 0) {
@@ -193,7 +195,30 @@ public class Ui {
 
             output.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.length; i++) {
-                output.append(String.format("%d.%s\n", i + 1, tasks[i]));
+                output.append(String.format("%d. %s\n", i + 1, tasks[i]));
+            }
+
+            return output.toString();
+        }
+    }
+
+    /**
+     * Returns String output of tasks that have matching priority
+     *
+     * @param priority priority of tasks to be printed
+     * @param tasks list of tasks to be printed
+     * @return String representing list of tasks
+     * @throws TalkerException if no tasks found
+     */
+    public String printPriorityTasks(PriorityType priority, Task... tasks) throws TalkerException {
+        if (tasks.length == 0) {
+            throw new TalkerException("No tasks of " + priority.toString() + " priority found!");
+        } else {
+            StringBuilder output = new StringBuilder();
+
+            output.append("Here are the tasks of " + priority.toString() + " priority in your list:\n");
+            for (int i = 0; i < tasks.length; i++) {
+                output.append(String.format("%d. %s\n", i + 1, tasks[i]));
             }
 
             return output.toString();

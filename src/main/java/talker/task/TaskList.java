@@ -338,4 +338,39 @@ public class TaskList {
         }
         return ui.printMatchingTasks(outputList.toArray(new Task[0]));
     }
+
+    /**
+     * Finds all tasks of certain priority
+     *
+     * @param priorityString string representing priority of tasks to be found
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no tasks found
+     */
+    public String findPriorityTask(String priorityString, Ui ui) throws TalkerException {
+        ArrayList<Task> outputList = new ArrayList<>();
+
+        PriorityType targetPriority;
+
+        switch (priorityString) {
+        case "h":
+            targetPriority = PriorityType.HIGH;
+            break;
+        case "m":
+            targetPriority = PriorityType.MEDIUM;
+            break;
+        case "l":
+            targetPriority = PriorityType.LOW;
+            break;
+        default:
+            throw new TalkerException("Invalid priority type found! Try again with: findPriority <h/m/l> ");
+        }
+
+        for (Task task: list) {
+            if (task.getPriorityType() == targetPriority) {
+                outputList.add(task);
+            }
+        }
+        return ui.printPriorityTasks(targetPriority, outputList.toArray(new Task[0]));
+    }
 }

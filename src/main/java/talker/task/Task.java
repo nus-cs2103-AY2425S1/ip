@@ -76,7 +76,7 @@ public class Task {
      *
      * @return PriorityType priority of current task
      */
-    private PriorityType getPriorityType() {
+    public PriorityType getPriorityType() {
         return this.priorityType;
     }
 

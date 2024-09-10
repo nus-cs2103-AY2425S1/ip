@@ -1,15 +1,6 @@
 package talker;
 
-import talker.command.AddCommand;
-import talker.command.Command;
-import talker.command.DateCommand;
-import talker.command.DeleteCommand;
-import talker.command.ExitCommand;
-import talker.command.FindCommand;
-import talker.command.ListCommand;
-import talker.command.MarkCommand;
-import talker.command.SetPriorityCommand;
-import talker.command.UnmarkCommand;
+import talker.command.*;
 import talker.task.Deadline;
 import talker.task.Event;
 import talker.task.PriorityType;
@@ -54,6 +45,8 @@ public class Parser {
             return new FindCommand(parsed);
         case "setPriority":
             return new SetPriorityCommand(parsed);
+        case "findPriority":
+            return new FindPriorityCommand(parsed);
         case "bye":
             return new ExitCommand();
         default:
