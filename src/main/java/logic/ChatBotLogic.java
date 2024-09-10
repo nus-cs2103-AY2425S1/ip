@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
 import java.util.Map;
-import logic.EventChainType;
+
 import task.Deadline;
 import task.Task;
 import task.Todo;
@@ -17,35 +16,52 @@ import util.ListReader;
  * The {@code ChatBotLogic} class is responsible for processing user input,
  * managing the state of the chatbot, and handling task-related operations such as
  * adding, viewing, marking, unmarking, deleting, and finding tasks.
- *
+ * <p>
  * It uses an event chain model where the chatbot transitions through different states
  * based on user commands and input.
  */
 public class ChatBotLogic {
 
-	/** The current state of the chatbot's event chain. */
+	/**
+	 * The current state of the chatbot's event chain.
+	 */
 	private EventChainType eventChainType;
 
-	/** A map that holds tasks, with task names as keys and {@link Task} objects as values. */
+	/**
+	 * A map that holds tasks, with task names as keys and {@link Task} objects as values.
+	 */
 	private Map<String, Task> taskList;
 
-	/** A utility for reading tasks from a file. */
+	/**
+	 * A utility for reading tasks from a file.
+	 */
 	private ListReader reader = new ListReader();
 
-	/** A utility for writing tasks to a file. */
+	/**
+	 * A utility for writing tasks to a file.
+	 */
 	private ListMapWriter writer = new ListMapWriter();
 
-	/** Temporary storage for task names during task creation. */
+	/**
+	 * Temporary storage for task names during task creation.
+	 */
 	private String tempName;
 
-	/** Temporary storage for task descriptions during task creation. */
+	/**
+	 * Temporary storage for task descriptions during task creation.
+	 */
 	private String tempDescription;
 
-	/** A reference to a task for operations like marking, unmarking, or deleting. */
+	/**
+	 * A reference to a task for operations like marking, unmarking, or deleting.
+	 */
 	private Task flaggedTask = null;
 
-	/** The file path where tasks are stored. */
+	/**
+	 * The file path where tasks are stored.
+	 */
 	private String filePath = System.getProperty("user.home") + "/tasks.txt";
+
 	/**
 	 * Constructs a new {@code ChatBotLogic} instance, initializes the event chain type,
 	 * and loads the storage file containing tasks.
@@ -114,79 +130,80 @@ public class ChatBotLogic {
 			}
 		}
 		if (eventChainType == EventChainType.LIST) {    // state DEFAULT -> LIST
+			assert (taskList != null);  // taskList should not be null
 			switch (userMessage) {
-				case "view" -> {
-					eventChainType = EventChainType.VIEW;
-					return taskList.toString();
-				}
-				case "add" -> {
-					eventChainType = EventChainType.ADD;
-					return "Enter the type of task to add: (todo, deadline)";
-				}
-				case "mark" -> {    // bypassing VIEW state to direct operate on list
-					eventChainType = EventChainType.MARK;
-					return "enter name of the task to mark done";
-				}
-				case "unmark" -> {  // bypassing VIEW state to direct operate on list
-					eventChainType = EventChainType.UNMARK;
-					return "enter name of the task to mark undone";
-				}
-				case "delete" -> {  // bypassing VIEW state to direct operate on list
-					eventChainType = EventChainType.DELETE;
-					return "enter the name of task to delete";
-				}
-				case "find" -> {    // bypassing VIEW state to direct operate on list
-					eventChainType = EventChainType.FIND;
-					return "enter keyword: ";
-				}
-				case "exit" -> {
-					eventChainType = EventChainType.DEFAULT;
-					return "return to main";
-				}
-				default -> {
-					return "unknown command";
-				}
+			case "view" -> {
+				eventChainType = EventChainType.VIEW;
+				return taskList.toString();
+			}
+			case "add" -> {
+				eventChainType = EventChainType.ADD;
+				return "Enter the type of task to add: (todo, deadline)";
+			}
+			case "mark" -> {    // bypassing VIEW state to direct operate on list
+				eventChainType = EventChainType.MARK;
+				return "enter name of the task to mark done";
+			}
+			case "unmark" -> {  // bypassing VIEW state to direct operate on list
+				eventChainType = EventChainType.UNMARK;
+				return "enter name of the task to mark undone";
+			}
+			case "delete" -> {  // bypassing VIEW state to direct operate on list
+				eventChainType = EventChainType.DELETE;
+				return "enter the name of task to delete";
+			}
+			case "find" -> {    // bypassing VIEW state to direct operate on list
+				eventChainType = EventChainType.FIND;
+				return "enter keyword: ";
+			}
+			case "exit" -> {
+				eventChainType = EventChainType.DEFAULT;
+				return "return to main";
+			}
+			default -> {
+				return "unknown command";
+			}
 			}
 		}
 		if (eventChainType == EventChainType.ADD) {     // state DEFAULT -> LIST -> ADD
 			switch (userMessage) {
-				case "todo" -> {
-					eventChainType = EventChainType.TODO;
-					return "enter the name of todo task: ";
-				}
-				case "deadline" -> {
-					eventChainType = EventChainType.DEADLINE;
-					return "enter the name of deadline task: ";
-				}
-				case "exit" -> {
-					eventChainType = EventChainType.DEFAULT;
-					return "return to main";
-				}
-				case "back" -> {
-					eventChainType = EventChainType.LIST;
-					return "back to List state";
-				}
-				default -> {
-					eventChainType = EventChainType.DEFAULT;
-					return "unknown type, return to main";
-				}
+			case "todo" -> {
+				eventChainType = EventChainType.TODO;
+				return "enter the name of todo task: ";
+			}
+			case "deadline" -> {
+				eventChainType = EventChainType.DEADLINE;
+				return "enter the name of deadline task: ";
+			}
+			case "exit" -> {
+				eventChainType = EventChainType.DEFAULT;
+				return "return to main";
+			}
+			case "back" -> {
+				eventChainType = EventChainType.LIST;
+				return "back to List state";
+			}
+			default -> {
+				eventChainType = EventChainType.DEFAULT;
+				return "unknown type, return to main";
+			}
 			}
 		}
 		if (eventChainType == EventChainType.TODO) {    // state DEFAULT -> LIST -> ADD -> TODO
 			switch (userMessage) {
-				case "back" -> {
-					eventChainType = EventChainType.ADD;
-					return "return to add";
-				}
-				case "exit" -> {
-					eventChainType = EventChainType.DEFAULT;
-					return "back to main";
-				}
-				default -> {
-					tempName = userMessage;
-					eventChainType = EventChainType.TODO_NAMED;
-					return "enter description:";
-				}
+			case "back" -> {
+				eventChainType = EventChainType.ADD;
+				return "return to add";
+			}
+			case "exit" -> {
+				eventChainType = EventChainType.DEFAULT;
+				return "back to main";
+			}
+			default -> {
+				tempName = userMessage;
+				eventChainType = EventChainType.TODO_NAMED;
+				return "enter description:";
+			}
 			}
 		}
 		if (eventChainType == EventChainType.DEADLINE) {    // state DEFAULT -> LIST -> ADD -> DEADLINE
@@ -299,14 +316,14 @@ public class ChatBotLogic {
 		// state DEFAULT -> LIST -> VIEW -> FIND
 		if (eventChainType == EventChainType.FIND) {
 			switch (userMessage) {
-				case "back" -> {
-					eventChainType = EventChainType.VIEW;
-					return "back to view";
-				}
-				case "exit" -> {
-					eventChainType = EventChainType.DEFAULT;
-					return "back to main";
-				}
+			case "back" -> {
+				eventChainType = EventChainType.VIEW;
+				return "back to view";
+			}
+			case "exit" -> {
+				eventChainType = EventChainType.DEFAULT;
+				return "back to main";
+			}
 			default -> {
 				for (Task task : taskList.values()) {
 					if (task.getName().toLowerCase().contains(userMessage)) {
@@ -333,34 +350,36 @@ public class ChatBotLogic {
 				return "back to main";
 			}
 			case "mark" -> {
-					if (flaggedTask.isDone()) {
-						return flaggedTask.getName() + " is already marked done";
-					} else {
-						String taskName = flaggedTask.getName();
-						flaggedTask.markDone();
-						flaggedTask = null;
-						eventChainType = EventChainType.VIEW;
-						return taskName + " marked done";
-					}
-				}
-				case "unmark" -> {
-					if (!flaggedTask.isDone()) {
-						return flaggedTask.getName() + " is already marked undone";
-					} else {
-						String taskName = flaggedTask.getName();
-						flaggedTask.markUndone();
-						flaggedTask = null;
-						eventChainType = EventChainType.VIEW;
-						return taskName + " marked undone";
-					}
-				}
-				case "delete" -> {
-					String taskRemoved = flaggedTask.getName();
-					taskList.remove(taskRemoved);
+				assert (flaggedTask != null);   // flaggedTask should not be null
+				if (flaggedTask.isDone()) {
+					return flaggedTask.getName() + " is already marked done";
+				} else {
+					String taskName = flaggedTask.getName();
+					flaggedTask.markDone();
 					flaggedTask = null;
 					eventChainType = EventChainType.VIEW;
-					return taskRemoved + " has been removed.";
+					return taskName + " marked done";
 				}
+			}
+			case "unmark" -> {
+				assert (flaggedTask != null);   // flaggedTask should not be null
+				if (!flaggedTask.isDone()) {
+					return flaggedTask.getName() + " is already marked undone";
+				} else {
+					String taskName = flaggedTask.getName();
+					flaggedTask.markUndone();
+					flaggedTask = null;
+					eventChainType = EventChainType.VIEW;
+					return taskName + " marked undone";
+				}
+			}
+			case "delete" -> {
+				String taskRemoved = flaggedTask.getName();
+				taskList.remove(taskRemoved);
+				flaggedTask = null;
+				eventChainType = EventChainType.VIEW;
+				return taskRemoved + " has been removed.";
+			}
 			}
 		}
 		// state DEFAULT -> LIST -> VIEW -> MARK

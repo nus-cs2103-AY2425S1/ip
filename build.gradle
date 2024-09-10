@@ -35,7 +35,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "chatbot.jar"
+    archiveBaseName = "sigmabot.jar"
 }
 
 run{
