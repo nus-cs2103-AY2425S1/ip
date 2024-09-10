@@ -42,11 +42,11 @@ public class TaskList {
     }
 
     /**
-     * Marks a Jay.task as done.
+     * Marks a task as done.
      *
-     * @param taskNumber The index of the Jay.task need to be marked.
-     * @return The marked Jay.task.
-     * @throws InvalidCommandException If the Jay.task number is invalid.
+     * @param taskNumber The index of the task need to be marked.
+     * @return The marked task.
+     * @throws InvalidCommandException If the task number is invalid.
      * @throws DataIOException If there is an error saving the tasks.
      */
     public Task markAsDone(int taskNumber) throws DataIOException, InvalidCommandException {
@@ -57,11 +57,11 @@ public class TaskList {
     }
 
     /**
-     * Mark a Jay.task as not done.
+     * Mark a task as not done.
      *
      * @param taskNumber The index of the Jay.task.
-     * @return The marked Jay.task.
-     * @throws InvalidCommandException If the Jay.task number is invalid.
+     * @return The marked task.
+     * @throws InvalidCommandException If the task number is invalid.
      * @throws DataIOException If there is an error saving the tasks.
      */
     public Task markAsNotDone(int taskNumber) throws DataIOException, InvalidCommandException {
@@ -72,10 +72,10 @@ public class TaskList {
     }
 
     /**
-     * Checks if the Jay.task number is valid.
+     * Checks if the task number is valid.
      *
-     * @param taskNumber The index of the Jay.task need to be checked.
-     * @throws InvalidCommandException If the Jay.task number is invalid.
+     * @param taskNumber The index of the task need to be checked.
+     * @throws InvalidCommandException If the task number is invalid.
      */
     private void isValidTaskNumberCheck(int taskNumber) throws InvalidCommandException {
         if (!this.isValidTaskNumber(taskNumber)) {
@@ -88,18 +88,18 @@ public class TaskList {
     }
 
     /**
-     * Checks if the Jay.task list is empty.
+     * Checks if the task list is empty.
      *
-     * @return True if the Jay.task list is empty, false otherwise.
+     * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
         return this.taskCount == 0;
     }
 
     /**
-     * Adds a Jay.task to the Jay.task list.
+     * Adds a task to the task list.
      *
-     * @param task The Jay.task to be added.
+     * @param task The task to be added.
      * @throws DataIOException If there is an error saving the tasks.
      */
     public void addTask(Task task) throws DataIOException {
@@ -109,12 +109,12 @@ public class TaskList {
     }
 
     /**
-     * Removes a Jay.task from the Jay.task list.
+     * Removes a task from the task list.
      *
-     * @param taskNumber The index of the Jay.task need to be removed.
-     * @return The removed Jay.task.
+     * @param taskNumber The index of the task need to be removed.
+     * @return The removed task.
      * @throws DataIOException If there is an error saving the tasks.
-     * @throws InvalidCommandException If the Jay.task number is invalid.
+     * @throws InvalidCommandException If the task number is invalid.
      */
     public Task removeTask(int taskNumber) throws DataIOException, InvalidCommandException {
         this.isValidTaskNumberCheck(taskNumber);
@@ -185,7 +185,7 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks in the Jay.task list that contain the keyword.
+     * Finds tasks in the task list that contain the keyword.
      *
      * @param keyword The keyword to search for.
      * @return The tasks that contain the keyword.

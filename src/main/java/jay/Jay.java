@@ -10,7 +10,7 @@ import jay.task.InvalidTaskException;
 import jay.task.Task;
 
 /**
- * Jay.Jay is a personal assistant chatbot that helps users to keep track of various tasks.
+ * Jay is a personal assistant chatbot that helps users to keep track of various tasks.
  */
 public class Jay {
     private final String name;
@@ -18,7 +18,7 @@ public class Jay {
     private final Ui ui;
 
     /**
-     * Constructs a Jay.Jay object.
+     * Constructs a Jay object.
      *
      * @param name The name of the user.
      */
@@ -70,10 +70,10 @@ public class Jay {
     }
 
     /**
-     * Processes the Jay.command and returns the response.
+     * Processes the command and returns the response.
      *
-     * @param commandStr The Jay.command to be processed.
-     * @return The response to the Jay.command. Show to the user by the chatbot.
+     * @param commandStr The command to be processed.
+     * @return The response to the command. Show to the user by the chatbot.
      */
     private String processCommand(String commandStr) {
         Command command = new Command(commandStr);
@@ -114,10 +114,10 @@ public class Jay {
     }
 
     /**
-     * Shows the tasks in the Jay.task list.
-     * If the Jay.task list is empty, a message will be shown to the user.
+     * Shows the tasks in the task list.
+     * If the task list is empty, a message will be shown to the user.
      *
-     * @return The tasks in the Jay.task list or a message indicating that the Jay.task list is empty.
+     * @return The tasks in the task list or a message indicating that the Jay.task list is empty.
      */
     private String showTasks() {
         if (this.tasks.isEmpty()) {
@@ -128,9 +128,9 @@ public class Jay {
     }
 
     /**
-     * Adds a Jay.task to the Jay.task list.
+     * Adds a task to the task list.
      *
-     * @param task The Jay.task to be added.
+     * @param task The task to be added.
      * @return The response to the user.
      */
     private String addTask(Task task) {
@@ -143,9 +143,9 @@ public class Jay {
     }
 
     /**
-     * Deletes a Jay.task from the Jay.task list.
+     * Deletes a task from the task list.
      *
-     * @param taskNumber The number of the Jay.task to be deleted.
+     * @param taskNumber The number of the task to be deleted.
      * @return The response to the user.
      */
     private String deleteTask(int taskNumber) {
@@ -158,7 +158,7 @@ public class Jay {
     }
 
     /**
-     * Finds tasks in the Jay.task list that contain the keyword.
+     * Finds tasks in the task list that contain the keyword.
      *
      * @param keyword The keyword to search for.
      * @return The tasks that contain the keyword.

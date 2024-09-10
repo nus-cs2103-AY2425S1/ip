@@ -1,26 +1,29 @@
 package jay.parser;
 
-import jay.command.Command;
-import jay.task.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import jay.command.Command;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.InvalidTaskException;
+import jay.task.Task;
+import jay.task.ToDoTask;
+
 /**
- * Represents a Jay.parser that parses the user input and converts it into a Jay.task object.
- * The Jay.parser also converts the date and time strings into LocalDate and LocalTime objects.
+ * Represents a Parser that parses the user input and converts it into a task object.
+ * The Parser also converts the date and time strings into LocalDate and LocalTime objects.
  */
 public class Parser {
     /**
-     * Parses the user input and returns a Jay.task object.
+     * Parses the user input and returns a task object.
      *
-     * @param taskType The type of Jay.task to be created.
-     * @param command The Jay.command object containing the user input.
-     * @return The Jay.task object created from the user input.
+     * @param taskType The type of task to be created.
+     * @param command The command object containing the user input.
+     * @return The task object created from the user input.
      * @throws InvalidTaskException If the user input is invalid.
      */
-    @SuppressWarnings("checkstyle:RightCurly")
     public static Task parseTask(Task.Type taskType, Command command) throws InvalidTaskException {
         try {
             switch (taskType) {
@@ -61,8 +64,7 @@ public class Parser {
         } catch (InvalidDateException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid "
                     + "date and time in the format dd-mm-yyyy.");
-        }
-        catch (InvalidTimeException e) {
+        } catch (InvalidTimeException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid "
                     + "time in the format HHmm.");
         }
@@ -94,7 +96,7 @@ public class Parser {
     }
 
     /**
-     * Parse the LocalDate object to a Jay.storage format string.
+     * Parse the LocalDate object to a storage format string.
      *
      * @param date The LocalDate object to be parsed.
      * @return The string representation of the LocalDate object.
@@ -104,7 +106,7 @@ public class Parser {
     }
 
     /**
-     * Parse the LocalTime object to a Jay.storage format string.
+     * Parse the LocalTime object to a storage format string.
      *
      * @param time The LocalTime object to be parsed.
      * @return The string representation of the LocalTime object.

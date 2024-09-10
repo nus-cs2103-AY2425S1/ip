@@ -1,7 +1,7 @@
 package jay.task;
 
 /**
- * Represents a Jay.task.
+ * Represents a task.
  */
 public class Task {
     /**
@@ -13,12 +13,12 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructs a Jay.task object.
+     * Constructs a task object.
      *
      * @param description The description of the Jay.task.
      * @param isDone      The status of the Jay.task.
      */
-    public Task(String description, boolean isDone) {
+    protected Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
