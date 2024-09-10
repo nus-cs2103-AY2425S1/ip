@@ -2,41 +2,75 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane
     xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="ipman.ui.javafx.MainWindow"
-    prefHeight="400.0" prefWidth="600.0"
-    maxHeight="-Infinity" maxWidth="-Infinity"
+    prefHeight="640"
+    prefWidth="480"
+    maxHeight="Infinity" maxWidth="Infinity"
     minHeight="-Infinity" minWidth="-Infinity"
 >
-    <children>
+    <GridPane
+        AnchorPane.rightAnchor="14"
+        AnchorPane.leftAnchor="14"
+        AnchorPane.topAnchor="14"
+        AnchorPane.bottomAnchor="14"
+        maxHeight="Infinity" maxWidth="-Infinity"
+        minHeight="-Infinity" minWidth="-Infinity"
+    >
+        <Label
+            GridPane.rowIndex="0"
+            GridPane.columnIndex="0"
+            GridPane.columnSpan="2"
+            text="Welcome to IpMan"
+        />
         <ScrollPane
             fx:id="scrollPane"
             hbarPolicy="NEVER"
             hvalue="1.0"
-            prefHeight="557.0"
-            prefWidth="400.0"
             vvalue="1.0"
+            GridPane.rowIndex="1"
+            GridPane.columnIndex="0"
+            GridPane.columnSpan="2"
+            GridPane.vgrow="ALWAYS"
         >
             <VBox fx:id="dialogContainer" />
         </ScrollPane>
         <TextField
             fx:id="inputTextField"
-            layoutY="558.0"
-            prefHeight="41.0"
-            prefWidth="324.0"
-            AnchorPane.bottomAnchor="1.0"
-        />
+            GridPane.rowIndex="2"
+            GridPane.columnIndex="0"
+            prefHeight="50"
+            GridPane.fillWidth="true"
+            GridPane.fillHeight="true"
+            GridPane.hgrow="ALWAYS"
+        >
+            <GridPane.margin>
+                <Insets right="14" top="14" />
+            </GridPane.margin>
+        </TextField>
         <Button
-            layoutX="324.0"
-            layoutY="558.0"
+            GridPane.rowIndex="2"
+            GridPane.columnIndex="1"
+
+            GridPane.fillWidth="true"
+            GridPane.fillHeight="true"
+            maxWidth="Infinity"
+            prefHeight="50"
+            minHeight="50"
+            minWidth="50"
+            prefWidth="100"
+
+            text="Send"
             mnemonicParsing="false"
             onAction="#handleOnSendClick"
-            prefHeight="41.0"
-            prefWidth="76.0"
-            text="Send"
-        />
-    </children>
+        >
+            <GridPane.margin>
+                <Insets left="14" top="14" />
+            </GridPane.margin>
+        </Button>
+    </GridPane>
 </AnchorPane>
