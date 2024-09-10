@@ -70,7 +70,8 @@ public class Gui extends Application implements Ui {
      * @param message the message to be sent
      */
     private void sendMessage(String message) {
-        window.sendBotMessage(message);
+        assert(Gui.window != null);
+        Gui.window.sendBotMessage(message);
     }
 
     /**
