@@ -55,6 +55,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getTinaDialog(String text, Image img) {
+        System.out.println(text);
         var db = new DialogBox(text, img);
         db.flip();
         //DUKE dialog box img now on the left
