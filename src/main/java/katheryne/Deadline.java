@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * the time of the deadline.
  * The time attribute is a LocalDate object.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate time;
 
     public Deadline(String description, String by) {
@@ -29,9 +29,9 @@ public class Deadline extends Task{
     public String toSaveString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (isDone) {
-            return String.format("D | %d | %s | %s",1,this.getDescription(),this.time.format(outputFormatter));
+            return String.format("D | %d | %s | %s",1, this.getDescription(), this.time.format(outputFormatter));
         } else {
-            return String.format("D | %d | %s | %s",0,this.getDescription(),this.time.format(outputFormatter));
+            return String.format("D | %d | %s | %s",0, this.getDescription(), this.time.format(outputFormatter));
         }
     }
 }
