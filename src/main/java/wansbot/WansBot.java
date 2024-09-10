@@ -231,7 +231,9 @@ public class WansBot {
         String command = userInput.split(" ")[0];
         String response = "";
 
-        switch (command) {
+        switch (command.toLowerCase()) {
+        case "hello":
+            response += ui.introduceToUser();
         case "list":
             response += ui.handleListingTask(userTaskList);
             break;
