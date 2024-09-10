@@ -2,7 +2,6 @@ package beeboo.components;
 
 import java.util.Scanner;
 
-import beeboo.exception.BeeBooExceptions;
 import beeboo.task.Tasks;
 
 /**
@@ -70,24 +69,6 @@ public class Ui {
     }
 
     /**
-     * Formats and prints a message surrounded by a border of dashes.
-     *
-     * @param str the message to be displayed
-     */
-    public void chatBox(String str) {
-        for (int i = 0; i < 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-        System.out.println(str);
-        System.out.println();
-        for (int i = 0; i < 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-    }
-
-    /**
      * Returns a message indicating that a task has been added to the list and shows the number of tasks.
      *
      * @param task the task that has been added
@@ -117,15 +98,6 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Returns an error message based on the provided exception.
-     *
-     * @param e the exception containing the error message
-     * @return the error message
-     */
-    public String showError(BeeBooExceptions e) {
-        return e.toString();
-    }
 
     /**
      * Reads and returns the next line of user input, converting it to lowercase and trimming whitespace.

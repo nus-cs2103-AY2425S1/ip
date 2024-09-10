@@ -42,31 +42,6 @@ public class Beeboo {
     }
 
     /**
-     * Starts the BeeBoo application and enters the main event loop. It shows the welcome message,
-     * continuously prompts the user for commands, parses and executes the commands, and handles
-     * exceptions. The loop exits when a command that triggers an exit is executed.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-
-        // Prompts user while user doesn't enter bye
-        while (!isExit) {
-            try {
-                String fullCommand = ui.handleCommand();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
-                assert c.isExit() != null : "isExit should not be null";
-                isExit = c.isExit();
-            } catch (InvalidCommandException e) {
-                ui.chatBox("Invalid Command! Me no understand");
-            } catch (BeeBooExceptions e) {
-                ui.chatBox(e.toString());
-            }
-        }
-    }
-
-    /**
      * Generates a response for the user's chat message.
      *
      * @param input the user's input message

@@ -56,15 +56,6 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for the welcome message with BeeBoo's image.
-     *
-     * @return a DialogBox containing the welcome message
-     */
-    public static DialogBox welcomeMessage() {
-        return new DialogBox("Hello! I'm BeeBoo. How can I help you today?", Beeboo.getBeebooImage());
-    }
-
-    /**
      * Creates a DialogBox for the user input with the specified text and image.
      *
      * @param text the user's input text
