@@ -24,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Displays a exit message to the user.
+     * Displays an exit message to the user.
      */
     public String showByeMessage() {
         String byeMessage = ("Shhhhhhhhhhhh. Hope to see you again soon!\n");
@@ -34,8 +34,8 @@ public class Ui {
     /**
      * Displays an error message to alert users on database loading error.
      */
-    public String showLoadingError() {
-        return "Oops! Something went wrong in loading the database!";
+    public void showLoadingError() {
+        System.out.println("Oops! Something went wrong in loading the database!");
     }
 
     /**
