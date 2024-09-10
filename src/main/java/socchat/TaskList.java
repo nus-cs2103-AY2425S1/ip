@@ -38,16 +38,20 @@ public class TaskList {
      *
      * @param indexString the index of the task to delete (1-based index)
      * @throws SocchatException if the index is invalid or not a valid number
+     * @return a string confirming that the task has been successfully added
      */
     public String delete(String indexString) throws SocchatException {
         try {
-            String respond = "";
             int taskIndex = Integer.parseInt(indexString);
             Task task = tasks.get(taskIndex - 1);
             tasks.remove(taskIndex - 1);
+
+            String respond = "";
             respond += ("Deleted " + "\"" + task.toString() + "\"" + "\n");
             respond += ("Now you have " + tasks.size() + " task(s).\n");
+
             Storage.update(tasks, false);
+
             return respond;
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
@@ -74,19 +78,18 @@ public class TaskList {
      *
      * @param strToken an array where the first element contains the ToDo description
      * @throws SocchatException if the ToDo format is invalid
+     * @return a string confirming that the task has been successfully added
      */
     public String addTodo(String[] strToken) throws SocchatException {
         try {
-            String respond = "";
-            String des = strToken[0].substring("todo ".length()).trim();
-            Task t = new Todo(des);
+            // Get the description of 'Todo' task
+            String desc = strToken[0].substring("todo ".length()).trim();
+
+            Task t = new Todo(desc);
             tasks.add(t);
-            respond += "added: ";
-            respond += (t.toString() + "\n");
-            respond += ("Now you have " + tasks.size() + " task(s).\n");
 
             Storage.update(tasks, true);
-            return respond;
+            return addingTaskAcknowledgement(t);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid Todo format: Description is empty");
 
@@ -98,26 +101,22 @@ public class TaskList {
      *
      * @param strToken an array containing the event description, start time, and end time
      * @throws SocchatException if the event format is invalid
+     * @return a string confirming that the task has been successfully added
      */
     public String addEvent(String[] strToken) throws SocchatException {
         try {
-            String respond = "";
-            String des = strToken[0].substring("event ".length());
+            String desc = strToken[0].substring("event ".length());
             String from = strToken[1].substring("from ".length());
             String to = strToken[2].substring("to ".length());
             LocalDateTime formattedFrom = Parser.parseDate(from);
             LocalDateTime formattedTo = Parser.parseDate(to);
 
-            Task t = new Event(des, formattedFrom, formattedTo);
+            Task t = new Event(desc, formattedFrom, formattedTo);
             tasks.add(t);
-            respond += "added: ";
-            respond += (t.toString() + "\n");
-            respond += ("Now you have " + tasks.size() + " task(s).\n");
 
-            storage.update(tasks, true);
-            return respond;
+            Storage.update(tasks, true);
+            return addingTaskAcknowledgement(t);
         } catch (IndexOutOfBoundsException e) {
-
             throw new SocchatException("Invalid Event format: event <description> /from <startTime> /to <endTime>");
         }
     }
@@ -127,26 +126,32 @@ public class TaskList {
      *
      * @param strToken an array containing the deadline description and due date
      * @throws SocchatException if the deadline format is invalid
+     * @return a string confirming that the task has been successfully added
      */
     public String addDeadline(String[] strToken) throws SocchatException {
         try {
-            String respond = "";
             String des = strToken[0].substring("deadline ".length());
             String by = strToken[1].substring("by ".length());
             LocalDateTime formattedBy = Parser.parseDate(by);
 
             Task t = new Deadline(des, formattedBy);
             tasks.add(t);
-            respond += "added: ";
-            respond += (t.toString() + "\n");
-            respond += ("Now you have " + tasks.size() + " task(s).\n");
 
-            storage.update(tasks, true);
-            return respond;
+            Storage.update(tasks, true);
+            return addingTaskAcknowledgement(t);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid Deadline format: deadline <description> /by <deadline>");
         }
+    }
 
+    /**
+     * Creates a response string confirming that the task has been successfully added
+     */
+    public String addingTaskAcknowledgement(Task t) {
+        String respond = "added: ";
+        respond += (t.toString() + "\n");
+        respond += ("Now you have " + tasks.size() + " task(s).\n");
+        return respond;
     }
 
     /**
@@ -160,11 +165,13 @@ public class TaskList {
         try {
             String respond = "";
             int taskIndex = Integer.parseInt(indexString);
+
             if (mark) {
                 respond =  tasks.get(taskIndex - 1).mark();
             } else {
                 respond =  tasks.get(taskIndex - 1).unmark();
             }
+
             Storage.update(tasks, false);
             return respond;
         } catch (IndexOutOfBoundsException e) {
@@ -181,13 +188,14 @@ public class TaskList {
      * @throws SocchatException if no tasks contain the keyword
      */
     public String find(String keyword) throws SocchatException {
-        String respond = "";
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 foundTasks.add(task);
             }
         }
+
+        String respond = "";
         respond += ("Found " + foundTasks.size() + " task(s). \n");
         for (int i = 0; i < foundTasks.size(); i++) {
             Task curr = foundTasks.get(i);

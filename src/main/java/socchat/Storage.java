@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,7 +39,7 @@ public class Storage {
      * @return a list of tasks loaded from the file
      * @throws SocchatException if the file is not found or if there is an error parsing the file
      */
-    public static ArrayList<Task> load() throws SocchatException {
+    public static ArrayList<Task> processStorageLine() throws SocchatException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -46,33 +47,28 @@ public class Storage {
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 String[] strToken = line.split("\\|");
+
                 assert strToken.length >= 3;
-
                 String type = strToken[0].trim();
-
                 String done = strToken[1].trim();
-
-                String des = strToken[2].trim();
+                String desc = strToken[2].trim();
 
                 Task t;
                 boolean isDone;
                 isDone = done.equals("Done");
 
                 if (type.equals("T")) {
-                    t = new Todo(des, isDone);
+                    t = createTodo(desc, isDone);
                 } else if (type.equals("E")) {
                     assert strToken.length == 4;
                     String date = strToken[3].trim();
-                    String[] dateToken = date.split("to");
-                    LocalDateTime from = Parser.parseDate(dateToken[0].trim());
-                    LocalDateTime to = Parser.parseDate(dateToken[1].trim());
-                    t = new Event(des, from, to, isDone);
-                } else {
+                    t = loadEvent(desc, isDone, date);
+                } else if (type.equals("D")) {
                     assert strToken.length == 4;
                     String date = strToken[3].trim();
-                    LocalDateTime by = Parser.parseDate(date);
-
-                    t = new Deadline(des, by, isDone);
+                    t = createDeadline(desc, isDone, date);
+                } else {
+                    throw new SocchatException("Unknown task type: " + type);
                 }
                 tasks.add(t);
             }
@@ -82,6 +78,32 @@ public class Storage {
 
         return tasks;
 
+    }
+
+    public static Task createTodo(String desc, boolean isDone) {
+        return new Todo(desc, isDone);
+    }
+
+    public static Task loadEvent(String desc, boolean isDone, String date) {
+        try {
+            String[] dateToken = date.split("to");
+            LocalDateTime from = Parser.parseDate(dateToken[0].trim());
+            LocalDateTime to = Parser.parseDate(dateToken[1].trim());
+            return new Event(desc, from, to, isDone);
+        } catch (SocchatException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+    public static Task createDeadline(String desc, boolean isDone, String date) {
+        try {
+            LocalDateTime by = Parser.parseDate(date);
+            return new Deadline(desc, by, isDone);
+        } catch (SocchatException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -98,6 +120,7 @@ public class Storage {
         } else {
             content = tasks; // Rewrite the tasks
         }
+
         try (FileWriter writer = new FileWriter(filePath, needAppend)) {
             for (Task t : content) {
                 writer.write(t.toSave());

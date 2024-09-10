@@ -1,6 +1,8 @@
 package socchat;
 
-import java.util.Scanner;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Represents the main class for the Socchat application.
@@ -8,12 +10,7 @@ import java.util.Scanner;
  */
 public class Socchat {
 
-    private static Scanner scanner = new Scanner(System.in);
-    private Storage storage;
     private TaskList taskList;
-    private Ui ui;
-    private Parser parser;
-
 
     /**
      * Constructs a Socchat instance with the specified file path.
@@ -21,10 +18,11 @@ public class Socchat {
      *
      */
     public Socchat() {
-        ui = new Ui();
-        storage = new Storage("tasks.txt");
+        Ui ui = new Ui();
+        new Storage("tasks.txt");
         try {
-            taskList = new TaskList(Storage.load());
+            // Load tasks history into taskList
+            taskList = new TaskList(Storage.processStorageLine());
         } catch (SocchatException e) {
             System.out.println(e.getMessage());
             ui.showLoadingError();
@@ -36,7 +34,7 @@ public class Socchat {
      * Generates a response for the user's chat mess age.
      */
     public String getResponse(String input) {
-        parser = new Parser(taskList);
+        Parser parser = new Parser(taskList);
         String[] strToken = Parser.processInput(input);
         return parser.getResponse(strToken);
     }
@@ -55,6 +53,11 @@ public class Socchat {
      * Prints a goodbye message to the user.
      */
     public static String exit() {
+
+        // Close javafx application after 1.5 seconds
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
         return "Bye. Hope to see you again soon!";
     }
 
