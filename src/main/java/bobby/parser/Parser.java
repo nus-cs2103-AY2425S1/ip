@@ -4,14 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import bobby.command.Command;
-import bobby.exceptions.BobbyException;
-import bobby.exceptions.EmptyDeadlineException;
-import bobby.exceptions.EmptyEventException;
-import bobby.exceptions.EmptyTodoException;
-import bobby.exceptions.InvalidDateException;
-import bobby.exceptions.InvalidInputException;
+import bobby.exceptions.*;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -49,6 +45,24 @@ public class Parser {
     public Command parseCommand(String userInput) {
         return Command.fromString(userInput);
     }
+
+    /**
+     * Parses the user input and returns an array containing the task indices.
+     * This method splits the input string by spaces and returns the arguments
+     * starting from the second position onward, excluding the command keyword.
+     *
+     * For example, if the input is "mark 1 2 3", this method will return
+     * an array containing ["1", "2", "3"].
+     *
+     * @param userInput the raw input string from the user, where the first argument
+     *                  is the command, and the remaining arguments are task indices.
+     * @return an array of strings containing the task indices extracted from the input.
+     */
+    public String[] parseTaskIndices(String userInput) {
+        String[] args = userInput.split(" ");
+        return Arrays.copyOfRange(args, 1, args.length);
+    }
+
 
     /**
      * Parses the "finddate" or "findkey" command and extracts the search criteria from the user input.

@@ -78,12 +78,12 @@ public class Bobby {
             case LIST:
                 return ui.getTasksList(tasks);
             case MARK:
-                String[] markArgs = userInput.split(" ");
+                String[] markArgs = parser.parseTaskIndices(userInput);
                 ArrayList<Task> tasksToMark = tasks.markMultipleTasks(true, markArgs);
                 storage.saveTasks(tasks);
                 return ui.getTaskMarkedMessage(tasksToMark);
             case UNMARK:
-                String[] unmarkArgs = userInput.split(" ");
+                String[] unmarkArgs = parser.parseTaskIndices(userInput);
                 ArrayList<Task> tasksToUnmark = tasks.markMultipleTasks(false, unmarkArgs);
                 storage.saveTasks(tasks);
                 return ui.getTaskUnmarkedMessage(tasksToUnmark);

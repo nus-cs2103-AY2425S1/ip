@@ -142,7 +142,7 @@ public class TaskList {
     public ArrayList<Task> markMultipleTasks(boolean isMarking, String... args)
             throws InvalidInputException, InvalidTaskNumberException {
         ArrayList<Task> processedTasks = new ArrayList<>();
-        for (int i = 1; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             try {
                 int index = Integer.parseInt(args[i]) - 1;
                 Task task = tasks.get(index);
