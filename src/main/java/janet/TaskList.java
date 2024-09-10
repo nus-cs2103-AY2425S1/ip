@@ -164,12 +164,7 @@ public class TaskList {
      * @return A TaskList.
      */
     public TaskList viewScheduledTasks(String dateAndTime) throws JanetException {
-        LocalDate schedule = null;
-        try {
-            schedule = LocalDate.parse(dateAndTime);
-        } catch (DateTimeParseException e) {
-            throw new JanetException("WHOOPS! Please ensure date is in yyyy-MM-dd format!");
-        }
+        LocalDate schedule = LocalDate.parse(dateAndTime);
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {     // go through all the tasks in the list
             if (isDeadlineOrEvent(task) && isScheduledTask(task, schedule)) {

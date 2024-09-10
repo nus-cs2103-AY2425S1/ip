@@ -1,8 +1,6 @@
 package janet;
 
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -100,9 +98,11 @@ public class Janet {
                 response = ui.showFindMessage(tasks.findTasks(keywords));
                 break;
             case VIEW:
-                // view schedules
                 String dateAndTime = commandDetails[1];
                 response = ui.showScheduledTasksMessage(tasks.viewScheduledTasks(dateAndTime), dateAndTime);
+                break;
+            default:
+                throw new JanetException("Huge glitch detected! Press the big red button to reset Janet!");
             }
         } catch (JanetException e) {
             response  = e.getMessage();     // returns a message for any invalid user command
