@@ -19,8 +19,6 @@ public class Beeboo {
     private TaskList tasks;
     private Ui ui;
 
-    private static final String FILE_PATH = "./data/beeboo.txt";
-
     private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/Beeboo.jpg"));
 
     /**
