@@ -35,7 +35,18 @@ public class AddEventCommand extends Command {
             throw new TohruException("Missing argument: Please specify description, from datetime and to datetime");
         }
 
-        String[] dissectedArgument = super.arguments.split("/from|/to", 3);
+        EventItem newEvent = parseArguments(super.arguments.trim());
+        list.addItem(newEvent);
+
+        ui.showText("Added event entry:",
+                newEvent.toString(),
+                String.format("There are now %d total entries", list.getTotal()));
+
+        store.saveTodoList(list.getTodoList());
+    }
+
+    private EventItem parseArguments(String arguments) throws TohruException {
+        String[] dissectedArgument = arguments.split("/from|/to", 3);
         // Check if all arguments are present
         if (dissectedArgument.length < 3) {
             throw new TohruException("Missing argument: Missing either description, from datetime or to datetime");
@@ -65,15 +76,6 @@ public class AddEventCommand extends Command {
             throw new TohruException("Invalid argument: To datetime cannot be earlier than From datetime");
         }
 
-        EventItem newEvent = new EventItem(eventContent, eventFromDate, eventToDate);
-        list.addItem(newEvent);
-
-        ui.showText("Added event entry:",
-                newEvent.toString(),
-                String.format("There are now %d total entries", list.getTotal()));
-
-        store.saveTodoList(list.getTodoList());
-
+        return new EventItem(eventContent, eventFromDate, eventToDate);
     }
-
 }

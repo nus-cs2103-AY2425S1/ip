@@ -118,4 +118,18 @@ public class TodoList {
         List<TodoItem> filteredList = clone.stream().filter((item) -> item.contains(keyword)).toList();
         return new ArrayList<>(filteredList);
     }
+
+    /**
+     * Gets the string representation of each entry in the given to-do list in an itemised format.
+     *
+     * @param list The list used for itemised string list.
+     * @return A String array containing the entries number and their details.
+     */
+    public static String[] getItemisedItemsString(ArrayList<TodoItem> list) {
+        String[] itemsListString = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            itemsListString[i] = String.format("%d. %s", i + 1, list.get(i));
+        }
+        return itemsListString;
+    }
 }

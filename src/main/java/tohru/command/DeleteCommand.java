@@ -32,14 +32,7 @@ public class DeleteCommand extends Command {
             throw new TohruException("Missing argument: Specify index to delete");
         }
 
-        int itemIndex = -1;
-
-        // Check for valid index
-        try {
-            itemIndex = Integer.parseInt(arguments) - 1;
-        } catch (NumberFormatException e) {
-            throw new TohruException(String.format("%s is not valid index", arguments));
-        }
+        int itemIndex = Parser.parseIntArgument(super.arguments);
 
         String storedItemStatus = list.getItemStatus(itemIndex);
 

@@ -37,10 +37,7 @@ public class FindCommand extends Command {
 
         ArrayList<TodoItem> filteredItems = list.filter(super.arguments);
 
-        String[] filteredItemsListString = new String[filteredItems.size()];
-        for (int i = 0; i < filteredItems.size(); i++) {
-            filteredItemsListString[i] = String.format("%d. %s", i + 1, filteredItems.get(i));
-        }
+        String[] filteredItemsListString = TodoList.getItemisedItemsString(filteredItems);
         ui.showText(String.format("Here are the %d matching tasks in your list:", filteredItems.size()),
                 String.join(System.lineSeparator(), filteredItemsListString));
     }

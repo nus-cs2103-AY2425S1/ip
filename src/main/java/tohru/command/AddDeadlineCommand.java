@@ -35,7 +35,18 @@ public class AddDeadlineCommand extends Command {
             throw new TohruException("Missing argument: Please specify description and deadline");
         }
 
-        String[] dissectedArgument = super.arguments.split("/by", 2);
+        DeadlineItem newDeadline = parseArguments(super.arguments.trim());
+        list.addItem(newDeadline);
+
+        ui.showText("Added deadline entry:",
+                newDeadline.toString(),
+                String.format("There are now %d total entries", list.getTotal()));
+
+        store.saveTodoList(list.getTodoList());
+    }
+
+    private DeadlineItem parseArguments(String arguments) throws TohruException {
+        String[] dissectedArgument = arguments.split("/by", 2);
         // Check if all arguments are present
         if (dissectedArgument.length < 2) {
             throw new TohruException("Missing argument: Missing either description or deadline");
@@ -46,6 +57,7 @@ public class AddDeadlineCommand extends Command {
         if (deadlineContent.isBlank()) {
             throw new TohruException("Missing argument: Please specify description");
         }
+
         String deadlineStr = dissectedArgument[1];
         // Check for valid deadline
         if (deadlineStr.isBlank()) {
@@ -54,14 +66,6 @@ public class AddDeadlineCommand extends Command {
 
         LocalDateTime deadline = Parser.parseDateTimeString(deadlineStr.trim(), Command.DATE_TIME_FORMATTER);
 
-        DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
-        list.addItem(newDeadline);
-
-        ui.showText("Added deadline entry:",
-                newDeadline.toString(),
-                String.format("There are now %d total entries", list.getTotal()));
-
-        store.saveTodoList(list.getTodoList());
-
+        return new DeadlineItem(deadlineContent, deadline);
     }
 }
