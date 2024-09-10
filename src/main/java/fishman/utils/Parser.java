@@ -51,6 +51,8 @@ public class Parser {
      * @throws FishmanException for unexpected errors during parsing.
      */
     public static Command parse(String userInput, TaskList tasks) throws FishmanException {
+        assert tasks != null : "TaskList should not be null";
+
         if (userInput == null || userInput.trim().isEmpty()) {
             throw new FishmanException.InvalidCommandException();
         }
@@ -122,6 +124,7 @@ public class Parser {
     }
 
     private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
+        assert dateTimeStr != null : "DateTime string should not be null";
         try {
             return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {

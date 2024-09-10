@@ -34,6 +34,8 @@ public class Fishman {
      * @return A string containing the response from command execution or error message
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
+        assert tasks != null : "Task list should not be null before processing";
         try {
             Command command = Parser.parse(input, tasks);
             if (command.isExit()) {
@@ -54,12 +56,16 @@ public class Fishman {
      * @return A string containing the result of the operation or any error messages.
      */
     public String loadAndSaveTasks(String action) {
+        assert action != null : "Action should not be null";
+
         try {
             Storage.LoadResults output = storage.load();
+            assert output != null : "LoadResults should not be null";
             String errorMessage = output.getErrorMessage();
             switch (action) {
             case "load":
                 tasks = output.getValidTasks();
+                assert tasks != null : "Valid tasks should not be null after loading";
                 return errorMessage;
 
             case "save":
@@ -67,6 +73,8 @@ public class Fishman {
                     storage.save(tasks, new ArrayList<>());
                     return "successfully saved file.";
                 } else {
+                    assert output.getAllTasksLines() != null : "All task lines should not be null when saving with"
+                            + " corrupted lines";
                     storage.save(tasks, output.getAllTasksLines());
                     return "successfully saved file with corrupt lines";
                 }
