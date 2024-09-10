@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private LocalDate by;
-    private DateTimeFormatter outputFormatter;
 
     /**
      * Constructor for Deadline class.
@@ -20,14 +19,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
 
-        //Define input date format
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        // Convert the string to a LocalDate
-        this.by = LocalDate.parse(by, inputFormatter);
-
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
-        this.outputFormatter = outputFormatter;
+        this.by = super.getLocalDateFromString(by);
     }
 
     @Override
@@ -39,7 +31,7 @@ public class Deadline extends Task {
      * Returns the deadline in the format MMM-dd-yyyy to be printed in the console.
      */
     public String getPrintedDeadline() {
-        return this.by.format(this.outputFormatter);
+        return super.getPrintedDateFromLocalDate(by);
     }
 
     /**

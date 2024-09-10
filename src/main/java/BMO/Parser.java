@@ -12,7 +12,7 @@ public class Parser {
      * @throws BmoException If the user input is invalid or missing arguments.
      */
     public String[] parse(String userInput) throws BmoException {
-        String[] parsedInput = new String[5];
+        String[] parsedInput = new String[4];
         String[] userInputArr = userInput.split(" ");
         String command = userInputArr[0];
 
