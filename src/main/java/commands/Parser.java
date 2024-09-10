@@ -59,8 +59,8 @@ public class Parser {
      */
     public static String tagTask(String[] commandArray, TaskList allTasks)
             throws IndexOutOfBoundsException {
-        int index = Integer.parseInt(commandArray[1].split(" /t ", 2)[0]) - 1;
-        String tag = commandArray[1].split(" /t ", 2)[1];
+        int index = Integer.parseInt(commandArray[1].split(" ", 2)[0]) - 1;
+        String tag = commandArray[1].split(" ", 2)[1];
         return allTasks.tagTask(index, tag);
     }
 
