@@ -26,3 +26,4 @@ public class IncompleteCommand extends Command {
         return this.errMessage;
     }
 }
+

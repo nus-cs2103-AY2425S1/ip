@@ -26,7 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(mahesh);  // inject the Mahesh instance
+            fxmlLoader.<MainWindow>getController().setDuke(mahesh); // inject the Mahesh instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
