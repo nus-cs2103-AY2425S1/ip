@@ -23,6 +23,9 @@ public class Storage {
      * @throws IOException If there is input or output failure with the file.
      */
     Storage(String fileName) throws IOException {
+        assert fileName != null : "fileName should not be null";
+        assert !fileName.isBlank() : "fileName should not be blank";
+
         String currentDirectory = System.getProperty("user.dir");
         Path folder = Paths.get(currentDirectory, "data");
         Path filePath = Paths.get(folder.toString(), fileName);
@@ -65,9 +68,8 @@ public class Storage {
      * Saves the list of records.
      *
      * @param records Records that are in a string representation.
-     * @return If the records were save to the storage.
      */
-    public boolean saveRecords(ArrayList<String> records) {
+    public void saveRecords(ArrayList<String> records) {
         try {
             FileWriter fileWriter = new FileWriter(filePath.toFile());
             for (String record : records) {
@@ -75,8 +77,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            return false;
+            // Empty Catch Block
         }
-        return true;
     }
 }
