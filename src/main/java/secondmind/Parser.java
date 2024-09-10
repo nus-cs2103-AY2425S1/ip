@@ -20,7 +20,7 @@ public class Parser {
         String[] newInput = input.split(" ");
         String[] ignoreInstruction = new String[] {"ignore"};
         String command = newInput[0];
-        if (command.equals("bye")) {
+        if (command.equals("bye") && newInput.length == 1) {
             return new String[] {"bye"};
         } else if (command.equals("mark")) {
             try {
@@ -45,6 +45,8 @@ public class Parser {
             } 
         } else if (command.equals("list")) {
             return new String[] {"list"};
+        } else if (command.equals("find")) {
+            return newInput;
         } else {
             return new String[] {"add", input};
         }
