@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import exceptions.InvalidFileFormatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -98,12 +99,14 @@ public class Storage {
                     }
                 }
                 default -> {
-                    // Do nothing
+                    throw new InvalidFileFormatException("File not in appropriate format");
                 }
                 }
             }
         } catch (FileNotFoundException e) {
             Ui.showErrorMessage("File not found: " + path.toAbsolutePath());
+        } catch (InvalidFileFormatException e) {
+            Ui.showErrorMessage(e.getMessage());
         }
 
         return taskList;
