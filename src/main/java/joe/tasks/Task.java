@@ -41,7 +41,6 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-
     /**
      * Returns a formatted String that represents the done and description fields of the Task
      *
