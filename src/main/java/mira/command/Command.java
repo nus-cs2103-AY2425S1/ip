@@ -1,5 +1,6 @@
 package mira.command;
 
+import mira.ExpenseList;
 import mira.TaskList;
 
 /**
@@ -9,6 +10,7 @@ import mira.TaskList;
 public abstract class Command {
     /* TaskList to access lists of tasks */
     protected TaskList taskList;
+    protected ExpenseList expenseList;
 
     /**
      * Sets the {@code TaskList} that this command will operate on.
@@ -17,6 +19,17 @@ public abstract class Command {
      */
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
+    }
+
+    /**
+     * Sets the task list and expense list for the command.
+     *
+     * @param taskList The task list to set.
+     * @param expenseList The expense list to set.
+     */
+    public void setTaskList(TaskList taskList, ExpenseList expenseList) {
+        this.taskList = taskList;
+        this.expenseList = expenseList;
     }
 
     /**
