@@ -42,6 +42,8 @@ public class TodoTask extends Task {
      */
     @Override
     void deserialize(String serializedTask) {
+        assert serializedTask != null : "Serialized task cannot be null";
+
         String[] parts = serializedTask.split(Pattern.quote(DELIMETER_SPACE), EXPECTED_DELIMETED_PARAM_COUNT);
 
         if (parts.length != EXPECTED_DELIMETED_PARAM_COUNT) {

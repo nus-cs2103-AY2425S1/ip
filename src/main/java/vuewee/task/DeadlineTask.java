@@ -34,8 +34,8 @@ public class DeadlineTask extends Task {
     @Override
     String serialize() {
         return this.type.toChar() + Task.DELIMETER_SPACE + (this.isDone ? "1" : "0") + Task.DELIMETER_SPACE
-                + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE
-                + this.byDate.serialize();
+                + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE + this.byDate
+                        .serialize();
     }
 
     /**

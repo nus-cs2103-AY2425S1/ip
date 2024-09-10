@@ -16,7 +16,10 @@ class ByeCommand extends Command {
      * @param taskList the task list to perform operations on
      * @param parser   the command parser for parsing user input
      */
+    @Override
     public void execute(TaskListUi ui, TaskList taskList, CommandParser parser) {
+        assert ui != null : "UI cannot be null";
+
         throw new EndProgramException();
     }
 }

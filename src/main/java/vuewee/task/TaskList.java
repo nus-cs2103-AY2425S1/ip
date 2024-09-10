@@ -22,6 +22,8 @@ public class TaskList {
      * @return the deserialized TaskList object
      */
     public static TaskList deserialize(String str) {
+        assert str.length() > 0 : "Serialized string cannot be empty";
+
         TaskList taskList = new TaskList();
         String[] taskStrings = str.split("\n");
         for (String taskString : taskStrings) {
