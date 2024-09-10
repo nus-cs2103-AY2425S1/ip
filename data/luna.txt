@@ -1,5 +1,1 @@
-D|0|Buy groceries|2024-09-02T22:17:58.124737
-T|0|ada
-T|1|retuin book
-T|0|go for lesson
-T|1|dajdiad
+D|0|Buy groceries|2024-09-11T00:14:10.424413

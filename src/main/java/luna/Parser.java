@@ -13,6 +13,7 @@ import luna.command.FindCommand;
 import luna.command.ListCommand;
 import luna.command.MarkCommand;
 import luna.command.TodoCommand;
+import luna.command.UndoCommand;
 import luna.command.UnmarkCommand;
 import luna.task.Deadline;
 import luna.task.Event;
@@ -32,6 +33,7 @@ public class Parser {
         DELETE,
         BYE,
         FIND,
+        UNDO,
     }
 
     /**
@@ -41,7 +43,7 @@ public class Parser {
      * @return Command to be executed.
      * @throws LunaException If input has invalid format.
      */
-    public static Command parse(String input) throws LunaException {
+    public static Command parse(String input, Command previousCommand) throws LunaException {
 
         if (input.isEmpty()) {
             throw new LunaException("""
@@ -52,6 +54,7 @@ public class Parser {
                     "delete" - remove task from current tasks
                     "list" - show all tasks
                     "find" - search for task given description
+                    "undo" - undo most recent command
                     "bye" - close chatbot
                     """);
         }
@@ -72,6 +75,7 @@ public class Parser {
                     "delete" - remove task from current tasks
                     "list" - show all tasks
                     "find" - search for task given description
+                    "undo" - undo most recent command
                     "bye" - close chatbot
                     """);
         }
@@ -81,7 +85,10 @@ public class Parser {
             return new ExitCommand();
 
         case LIST:
-            return new ListCommand();
+            return new ListCommand(previousCommand);
+
+        case UNDO:
+            return new UndoCommand();
 
         case MARK:
             if (commands.length == 1) {
@@ -92,12 +99,12 @@ public class Parser {
             int taskToMark;
 
             try {
-                taskToMark = Integer.parseInt(commands[1]) - 1;
+                taskToMark = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
 
-            return new MarkCommand(taskToMark);
+            return new MarkCommand(taskToMark, previousCommand);
 
         case UNMARK:
             if (commands.length == 1) {
@@ -108,12 +115,12 @@ public class Parser {
             int taskToUnmark;
 
             try {
-                taskToUnmark = Integer.parseInt(commands[1]) - 1;
+                taskToUnmark = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
 
-            return new UnmarkCommand(taskToUnmark);
+            return new UnmarkCommand(taskToUnmark, previousCommand);
 
         case DELETE:
             if (commands.length == 1) {
@@ -124,19 +131,19 @@ public class Parser {
             int taskToDelete;
 
             try {
-                taskToDelete = Integer.parseInt(commands[1]) - 1;
+                taskToDelete = Integer.parseInt(commands[1].trim()) - 1;
             } catch (NumberFormatException e) {
                 throw new LunaException("Invalid task reference. Use integers only.");
             }
 
-            return new DeleteCommand(taskToDelete);
+            return new DeleteCommand(taskToDelete, previousCommand);
 
         case FIND:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
                 throw new LunaException("Enter task description to search\n"
                         + "e.g. find book");
             }
-            return new FindCommand(commands[1].trim());
+            return new FindCommand(commands[1].trim(), previousCommand);
 
         case TODO:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
@@ -145,7 +152,7 @@ public class Parser {
             }
 
             Todo todo = new Todo(commands[1].trim());
-            return new TodoCommand(todo);
+            return new TodoCommand(todo, previousCommand);
 
         case DEADLINE:
             if (commands.length == 1 || commands[1].trim().isEmpty()
@@ -181,7 +188,7 @@ public class Parser {
             }
 
             Deadline deadlineTask = new Deadline(deadline[0].trim(), deadlineDateTime);
-            return new DeadlineCommand(deadlineTask);
+            return new DeadlineCommand(deadlineTask, previousCommand);
 
         case EVENT:
             if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
@@ -223,7 +230,7 @@ public class Parser {
             }
 
             Event eventTask = new Event(event[0].trim(), startTime, endTime);
-            return new EventCommand(eventTask);
+            return new EventCommand(eventTask, previousCommand);
 
         default:
             throw new LunaException("""
@@ -234,6 +241,7 @@ public class Parser {
                     "delete" - remove task from current tasks
                     "list" - show all tasks
                     "find" - search for task given description
+                    "undo" - undo most recent command
                     "bye" - close chatbot
                     """);
         }

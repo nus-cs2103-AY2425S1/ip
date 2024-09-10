@@ -38,21 +38,17 @@ public class TaskList {
      * Deletes task from the current list of tasks.
      *
      * @param task Task to be deleted.
-     * @return List of tasks after deleting task.
+     * @return Deleted task.
      * @throws LunaException If task number is invalid.
      */
-    public String deleteTask(int task, Storage storage) throws LunaException {
+    public Task deleteTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task removed = tasks.remove(task);
-        assert removed.equals(tasks.get(task));
+        assert removed != null;
         storage.saveTasks(tasks);
-
-        return "Noted, I've removed this task:\n"
-                + "  " + removed.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+        return removed;
     }
 
     /**
@@ -66,12 +62,10 @@ public class TaskList {
         }
 
         String list = "Here are the tasks in your list:\n";
-
         for (int i = 0; i < tasks.size(); i++) {
             String task = String.format("%d. %s\n", i + 1, tasks.get(i).toString());
             list += task;
         }
-
         return list;
     }
 
@@ -79,46 +73,40 @@ public class TaskList {
      * Marks a task as completed in the current list of tasks.
      *
      * @param task Task to be marked.
-     * @return List of tasks after marking task.
+     * @return Task marked as completed.
      * @throws LunaException If task number is invalid.
      */
-    public String markTaskAsDone(int task, Storage storage) throws LunaException {
+    public Task markTaskAsDone(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task taskToMark = tasks.get(task);
         assert taskToMark != null;
         taskToMark.markAsDone();
         storage.saveTasks(tasks);
-
-        return "Nice! I've marked this task as done:\n"
-                + "  " + taskToMark;
+        return taskToMark;
     }
 
     /**
-     * Unmark task from the current list of tasks.
+     * Unmarks task from the current list of tasks.
      *
-     * @param task Task to unmark.
-     * @return List of tasks after unmarking task.
+     * @param task Task to mark as uncompleted.
+     * @return Task marked as uncompleted.
      * @throws LunaException If task number is invalid.
      */
-    public String unmarkTask(int task, Storage storage) throws LunaException {
+    public Task unmarkTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
-
         Task taskToUnmark = tasks.get(task);
         assert taskToUnmark != null;
         taskToUnmark.unmark();
         storage.saveTasks(tasks);
-
-        return "OK, I've marked this task as not done yet:\n"
-                + "  " + taskToUnmark;
+        return taskToUnmark;
     }
 
     /**
-     * Search for task from the current list of tasks.
+     * Finds task with matching description from the current list of tasks.
      *
      * @param query Description of task to find within tasks.
      * @return List of tasks matching query.
@@ -135,5 +123,12 @@ public class TaskList {
             }
         }
         return matched;
+    }
+
+    /**
+     * Returns current list of task.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }
