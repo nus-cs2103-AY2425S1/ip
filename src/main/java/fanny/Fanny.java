@@ -54,8 +54,8 @@ public class Fanny {
                 String input = ui.getUserInput();
                 ui.showHorizontalLine();
                 Command c = Parser.parse(input);
-                c.actionable(tasks, ui);
-                isExit = c.isExit();
+                c.executeCmd(tasks, ui);
+                isExit = c.shouldExit();
             } catch (FannyException e) {
                 ui.showMessage(e.getMessage());
             } finally {
@@ -76,7 +76,7 @@ public class Fanny {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
+    public String generateResponse(String input) {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(outputStream);
@@ -85,7 +85,7 @@ public class Fanny {
         try {
             System.setOut(ps);
             Command c = Parser.parse(input);
-            c.actionable(tasks, ui);
+            c.executeCmd(tasks, ui);
 
             String capturedOutput = outputStream.toString();
 

@@ -2,6 +2,7 @@ package fanny;
 
 import java.io.IOException;
 
+import fanny.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

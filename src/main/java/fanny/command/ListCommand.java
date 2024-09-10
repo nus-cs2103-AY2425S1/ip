@@ -15,7 +15,7 @@ public class ListCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
+    public void executeCmd(TaskList list, Ui ui) {
         ui.showHorizontalLine();
         ui.showMessage("Fanny:");
         list.printList();
@@ -28,7 +28,7 @@ public class ListCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 

@@ -1,5 +1,6 @@
-package fanny;
+package fanny.gui;
 
+import fanny.Fanny;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -50,7 +51,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = fanny.getResponse(input);
+        String response = fanny.generateResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getFannyDialog(response, dukeImage)
