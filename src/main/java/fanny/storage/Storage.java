@@ -30,7 +30,6 @@ public class Storage {
      * @param filePath The file path where tasks will be loaded from and saved to.
      */
     public Storage(String filePath) {
-
         this.filePath = filePath;
     }
 
@@ -130,7 +129,7 @@ public class Storage {
         if (task instanceof Deadline) {
             extra = "|" + ((Deadline) task).getDeadline();
         } else if (task instanceof Event) {
-            extra = "|" + ((Event) task).getFrom() + "|" + ((Event) task).getTo();
+            extra = "|" + ((Event) task).getStartTime() + "|" + ((Event) task).getEndTime();
         }
 
         return taskType + " | " + isDone + " | " + description + extra;

@@ -90,13 +90,14 @@ public class TaskList {
      * @return A string representing the task after it has been marked as done.
      */
     public String markAsDone(int index) {
+        Task taskToMark = this.list.get(index - 1);
         try {
-            list.get(index - 1).markAsDone();
+            taskToMark.markAsDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToMark.toString();
     }
 
     /**
@@ -106,13 +107,14 @@ public class TaskList {
      * @return A string representing the task after it has been marked as not done.
      */
     public String markAsNotDone(int index) {
+        Task taskToUnMark = this.list.get(index - 1);
         try {
-            list.get(index - 1).markAsNotDone();
+            taskToUnMark.markAsNotDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToUnMark.toString();
     }
 
     /**
