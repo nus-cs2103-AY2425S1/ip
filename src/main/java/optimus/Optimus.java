@@ -19,6 +19,7 @@ public class Optimus {
     }
 
     public String getResponse(String input) {
+        assert input != null;
         try {
             Command c = Parser.parse(input);
             return c.execute(storage, tasks);
