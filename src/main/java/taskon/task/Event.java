@@ -22,8 +22,8 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.start = getLocalDateTime(start);
+        this.end = getLocalDateTime(end);
     }
 
     /**
@@ -52,6 +52,35 @@ public class Event extends Task {
     public boolean occursOn(LocalDate date) {
         return this.start.toLocalDate().equals(date) || this.end.toLocalDate().equals(date)
                 || (date.isAfter(ChronoLocalDate.from(start)) && date.isBefore(ChronoLocalDate.from(end)));
+    }
+
+    /**
+     * Edits the description, start date or end date of task based on user input.
+     *
+     * @param description The new description for the task.
+     * @param start The new start date for the task.
+     * @param end The new end date for the task.
+     */
+    public void editTask(String description, String start, String end) {
+        if (!description.isEmpty()) {
+            super.editDescription(description);
+        }
+        if (!start.isEmpty()) {
+            this.start = getLocalDateTime(start);
+        }
+        if (!end.isEmpty()) {
+            this.end = getLocalDateTime(end);
+        }
+    }
+
+    /**
+     * Converts the date from String representation to a LocalDateTime object.
+     *
+     * @param date The date to convert to a LocalDateTime object from a String.
+     * @return LocalDateTime object
+     */
+    private static LocalDateTime getLocalDateTime(String date) {
+        return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**

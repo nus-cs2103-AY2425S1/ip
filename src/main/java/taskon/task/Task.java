@@ -83,6 +83,15 @@ public class Task {
     }
 
     /**
+     * Edits the description of the task based on user input.
+     *
+     * @param description The new description for the task.
+     */
+    public void editDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Returns a string representation of the task, including its status icon and description.
      *
      * @return A string in the format "[statusIcon] description".

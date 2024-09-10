@@ -31,6 +31,10 @@ public class Messages {
              5. Delete Task: delete [task number]
              6. Find Tasks: find [keyword]
              7. On Date: on [date] (Format: yyyy-MM-dd)
-             8. Exit: bye
+             8. Edit Tasks: edit [task number] [description/deadline/start/end] [new value]
+             9. Exit: bye
              Ensure task numbers and dates are correct.""";
+    public static final String MESSAGE_INVALID_EDIT = "Invalid edit format.\nPlease use:\n"
+            + "edit [task number] [description/deadline/start/end] [new value] format.";
+    public static final String MESSAGE_SUCCESSFUL_EDIT = "Task successfully edited!\n";
 }
