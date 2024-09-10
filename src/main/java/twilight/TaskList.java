@@ -57,7 +57,7 @@ public class TaskList {
      * @return A string which shows the task has been marked incomplete.
      */
     public String unmark(int taskNum) {
-        tasks.get(taskNum).SetUndone();
+        tasks.get(taskNum).setUndone();
         return tasks.get(taskNum).toString();
     }
 
@@ -73,7 +73,8 @@ public class TaskList {
      */
     public String add(Task t) {
         tasks.add(t);
-        return "added: " + tasks.get(tasks.size() - 1).toString() + "\n" + "There are " + tasks.size() + " tasks in the list";
+        return "added: " + tasks.get(tasks.size() - 1).toString() + "\n" + "There are "
+                + tasks.size() + " tasks in the list";
     }
 
     /**
@@ -112,7 +113,7 @@ public class TaskList {
             int numMatches = matches.tasks.size();
             if (numMatches > 2) {
                 for (int i = 0; i < matches.tasks.size() - 1; i++) {
-                    results += (i + 1) + ". " + matches.tasks.get(i).toString()+ "\n";
+                    results += (i + 1) + ". " + matches.tasks.get(i).toString() + "\n";
                 }
             }
             results += numMatches + ". " + matches.tasks.get(numMatches - 1).toString();

@@ -9,6 +9,12 @@ public class AddTaskCommand extends Command {
     protected int type;
     protected String details;
 
+    /**
+     * Instantiates an AddTaskCommand.
+     *
+     * @param type The type of task to be added.
+     * @param details Description and if applicable timing of task.
+     */
     public AddTaskCommand(int type, String details) {
         this.type = type;
         this.details = details;

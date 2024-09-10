@@ -1,14 +1,11 @@
 package twilight;
 
-import java.lang.IndexOutOfBoundsException;
-
 /**
  * Represents a class used for transforming user input to a command to be carried out by chatbot.
  */
 public class Parser {
     private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo",
             "event", "deadline", "delete", "find", "bye"};
-    public Parser(){}
 
     /**
      * Parses the string input and returns a command to be executed.

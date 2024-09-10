@@ -1,8 +1,5 @@
 package twilight;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-
 /**
  * Acts as the main class for running the chatbot.
  */
@@ -11,12 +8,23 @@ public class Twilight {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Instantiates Twilight for a given storage filepath.
+     *
+     * @param filePath Path where list of tasks is stored.
+     */
     public Twilight(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.getStoredTasks());
     }
 
+    /**
+     * Returns the String told by Twilight according to the user input.
+     *
+     * @param input Command from user.
+     * @return Response.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -39,21 +47,4 @@ public class Twilight {
     public static String bidFarewell() {
         return "See you";
     }
-
-
-//    public static void main(String[] args) {
-//        ui.greet();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String command = ui.readInput();
-//                Command c = Parser.parse(command);
-//                c.execute(tasks, storage);
-//                isExit = c.isExit();
-//            } catch (InvalidInputException e) {
-//                ui.printMessage(e.toString());
-//            }
-//        }
-//        ui.bidFarewell();
-//    }
 }

@@ -24,5 +24,7 @@ abstract class Command {
      * Confirms if the command is an exit command.
      * @return whether it is an exit command.
      */
-    public boolean isExit() { return false; }
+    public boolean isExit() {
+        return false;
+    }
 }

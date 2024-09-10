@@ -1,7 +1,5 @@
 package twilight;
 
-import java.io.IOException;
-
 /**
  * Represents a command to search the task list for a particular term.
  */

@@ -2,6 +2,9 @@ package twilight;
 
 import java.io.IOException;
 
+/**
+ * Handles commands for making tasks as complete or incomplete.
+ */
 public class MarkingCommand extends Command {
     protected int type;
     protected int taskNum;
@@ -17,6 +20,7 @@ public class MarkingCommand extends Command {
         this.taskNum = Integer.valueOf(details) - 1;
     }
 
+    @Override
     public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String output = "";
         if (type == 1) {
