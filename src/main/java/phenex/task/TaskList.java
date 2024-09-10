@@ -123,7 +123,8 @@ public class TaskList {
         TaskList taskList = new TaskList();
         taskList.tasks = this.tasks.stream()
                 .filter(task -> task instanceof TaskWithDate)
-                .filter(task -> ((TaskWithDate) task).overlapsWith(localDate))
+                .map(task -> (TaskWithDate) task)
+                .filter(task -> task.overlapsWith(localDate))
                 .collect(Collectors.toCollection(ArrayList::new));
         return taskList;
     }
