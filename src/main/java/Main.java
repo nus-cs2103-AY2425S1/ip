@@ -9,7 +9,7 @@ public class Main extends Application {
     Blitz blitz = new Blitz("src/main/data/blitz.txt");
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         MainWindow mainWindow = new MainWindow(blitz);
         mainWindow.load();
         Scene scene = new Scene(mainWindow);

@@ -32,7 +32,6 @@ public class Parser {
         char taskType = data.charAt(1);
         int descriptionStartIndex = data.indexOf("] ", data.indexOf("]") + 1) + 2;
         String description;
-        String timeDetails;
         switch (taskType) {
         case 'T':
             return "todo " + data.substring(descriptionStartIndex);
@@ -106,36 +105,6 @@ public class Parser {
             return new AddTaskCommand(userInput);
         default:
             throw new InvalidTaskException();
-        }
-    }
-
-    public static String formatInput(String input) {
-        input = input.substring(input.indexOf("["));
-        char taskType = input.charAt(1);
-        int descriptionStartIndex = input.indexOf("] ", input.indexOf("]") + 1) + 2;
-        String description;
-        String timeDetails;
-        switch (taskType) {
-        case 'T':
-            return "todo " + input.substring(descriptionStartIndex);
-        case 'E':
-            int endIndex = input.indexOf("(");
-            description = input.substring(descriptionStartIndex, endIndex).trim();
-
-            int timeIndex = input.indexOf("(from");
-            timeDetails = input.substring(timeIndex).trim();
-            timeDetails = timeDetails.replace("(from:", "/from");
-            timeDetails = timeDetails.replace("to:", "/to");
-            timeDetails = timeDetails.replace(")", "");
-            return "event " + description + " " + timeDetails;
-        default:
-            int descriptionEndIndex = input.indexOf("(");
-            description = input.substring(descriptionStartIndex, descriptionEndIndex).trim();
-            int deadlineIndex = input.indexOf("(by");
-            timeDetails = input.substring(deadlineIndex);
-            timeDetails = timeDetails.replace("(by", "/by");
-            timeDetails = timeDetails.replace(")", "");
-            return "deadline " + description + " " + timeDetails;
         }
     }
 

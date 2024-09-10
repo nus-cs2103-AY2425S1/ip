@@ -1,5 +1,7 @@
 package commands;
 
+import exceptions.ErrorMessageHandler;
+import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 import task.Task;
@@ -41,11 +43,12 @@ public class AddTaskCommand extends Command {
                     .append("Oh my goodness you have ").append(taskList.getSize()).append(" tasks remaining\n");
 
             taskList.writeToStorage();
-
         } catch (NoTaskDescriptionException e) {
-            result.append("Wah, no description then I record what?");
+            return ErrorMessageHandler.getNoTaskDescriptionMessage();
         } catch (InvalidTaskException e) {
-            result.append("THIS IS NOT A VALID TASK LAH");
+            return ErrorMessageHandler.getInvalidTaskMessage();
+        } catch (InvalidDateException e) {
+            return ErrorMessageHandler.getInvalidDateMessage();
         }
 
         return result.toString();

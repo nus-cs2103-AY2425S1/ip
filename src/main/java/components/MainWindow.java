@@ -35,7 +35,6 @@ public class MainWindow extends AnchorPane {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
-            System.out.println("here");
             System.out.println(this.getClass().getResource("/images/blitz.png"));
             fxmlLoader.load();
         } catch (IOException e) {
@@ -51,6 +50,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInputTextField.getText();
+
+        if (input.isEmpty()) {
+            return;
+        }
+
         String blitzResponse = blitz.getResponse(input);
         DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
         DialogBox blitzDialogBox = DialogBox.getBlitzDialog(blitzResponse, blitzImage);

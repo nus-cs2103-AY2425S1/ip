@@ -48,10 +48,9 @@ public class TaskList {
                 try {
                     Task newTask = Task.createTask(Parser.dataInputToUserInput(line));
                     inputHistory.add(newTask);
-                } catch (NoTaskDescriptionException e) {
-                    System.out.println("Wah, no description then I record what?");
-                } catch (InvalidTaskException e) {
-                    System.out.println("This is not a valid task lah!!");
+                } catch (NoTaskDescriptionException | InvalidTaskException e) {
+                    // this line should never run because data from storage all have correct format
+                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {

@@ -1,6 +1,5 @@
 package commands;
 
-import io.Ui;
 import task.TaskList;
 
 public class ExitCommand extends Command {
