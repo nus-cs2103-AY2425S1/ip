@@ -20,6 +20,8 @@ public class Task {
      * @param description the description for the task
      */
     public Task(String description) {
+        assert description != null;
+        assert !description.isEmpty();
         this.description = description;
         this.isMarked = false;
     }
