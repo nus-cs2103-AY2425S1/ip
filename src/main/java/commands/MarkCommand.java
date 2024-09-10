@@ -16,6 +16,11 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details) {
+        assert tl != null : "Task list must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+        assert details != null : "Details must not be null";
+
         try {
             int index = Integer.parseInt(details[1]);
             if (!tl.isValidIdx(index)) {

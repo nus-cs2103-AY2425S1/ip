@@ -5,7 +5,8 @@ package util;
  */
 public class Utility {
     public static final String LINE = "-------------";
-    public static final String INDENT = "    ";
+    /** Indent set to 0 spaces for the GUI */
+    public static final String INDENT = "";
     public static final String INDENTED_LINE = Utility.INDENT + Utility.LINE;
     public static final String NEW_LINE = System.lineSeparator();
 

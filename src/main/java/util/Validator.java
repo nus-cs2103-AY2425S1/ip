@@ -18,6 +18,8 @@ public class Validator {
      * @throws ToDoException if the input is malformed.
      */
     public static void verifyTodo(String[] details) throws ToDoException {
+        assert details != null : "Details must not be null";
+
         if (details.length <= 1) {
             throw new ToDoException("Missing a descrption for this todo!");
         }
@@ -31,6 +33,8 @@ public class Validator {
      * @throws DeadlineException if the input is malformed.
      */
     public static void verifyDeadline(String[] details, int byIdx) throws DeadlineException {
+        assert details != null : "Details must not be null";
+
         int maxAllowableIdx = details.length - 1;
         if (byIdx == -1) {
             throw new DeadlineException("Missing /by in the input!");
@@ -53,6 +57,8 @@ public class Validator {
      * @throws EventException if the input is malformed.
      */
     public static void verifyEvent(String[] details, int fromIdx, int toIdx) throws EventException {
+        assert details != null : "Details must not be null";
+
         int maxAllowableIdx = details.length - 1;
         if (fromIdx == 1) {
             throw new EventException("Hmmm what's this event about? Missing description!");
@@ -81,6 +87,8 @@ public class Validator {
      * @throws UpdateMarkedException if the input is malformed.
      */
     public static void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
+        assert details != null : "Details must not be null";
+
         if (details.length == 1) {
             throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark",
                     details[0]);
@@ -100,6 +108,8 @@ public class Validator {
      * @throws DeleteException if missing details.
      */
     public static void verifyDelete(String[] details) throws DeleteException {
+        assert details != null : "Details must not be null";
+
         if (details.length == 1) {
             throw new DeleteException("Too few arguments! Missing idx.");
         }
@@ -117,6 +127,8 @@ public class Validator {
      * @throws FindException if missing details.
      */
     public static void verifyFind(String[] details) throws FindException {
+        assert details != null : "Details must not be null";
+
         if (details.length <= 1) {
             throw new FindException("Incomplete request! Too few argument, missing: keyword");
         }

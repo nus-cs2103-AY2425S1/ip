@@ -1,5 +1,9 @@
 package util;
 
+import static util.Utility.INDENT;
+import static util.Utility.NEW_LINE;
+import static util.Utility.prettyPrint;
+
 import java.util.Scanner;
 
 /**
@@ -7,6 +11,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner sc;
+    private final String prepend = INDENT;
+    private final String newLine = NEW_LINE;
     private String response;
 
     /**
@@ -25,22 +31,24 @@ public class Ui {
      *        a \n in the printed msg.
      */
     public void printResponse(String... strArr) {
+        assert strArr != null : "Input array must not be null";
+
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < strArr.length - 1; i++) {
-            sb.append(Utility.INDENT + strArr[i] + Utility.NEW_LINE);
+            sb.append(prepend + strArr[i] + newLine);
         }
         if (strArr.length >= 1) {
-            sb.append(Utility.INDENT + strArr[strArr.length - 1]);
+            sb.append(prepend + strArr[strArr.length - 1]);
         }
-        Utility.prettyPrint(sb.toString());
+        prettyPrint(sb.toString());
     }
 
     /**
      * Print the stored response.
      */
     public void printResponse() {
-        Utility.prettyPrint(this.response);
+        prettyPrint(this.response);
     }
 
     /**
@@ -59,13 +67,15 @@ public class Ui {
      * @return The new response.
      */
     public String setResponse(String... strArr) {
+        assert strArr != null : "Input array must not be null";
+
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < strArr.length - 1; i++) {
-            sb.append(Utility.INDENT + strArr[i] + Utility.NEW_LINE);
+            sb.append(prepend + strArr[i] + newLine);
         }
         if (strArr.length >= 1) {
-            sb.append(Utility.INDENT + strArr[strArr.length - 1]);
+            sb.append(prepend + strArr[strArr.length - 1]);
         }
         this.response = sb.toString();
         return this.response;
