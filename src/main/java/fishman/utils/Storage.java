@@ -36,6 +36,7 @@ public class Storage {
      * @param filePath The path of the save file used to store tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = Paths.get(filePath);
         createFileIfDoesNotExist();
     }
@@ -49,6 +50,7 @@ public class Storage {
             Files.createDirectories(filePath.getParent());
             if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
+                assert Files.exists(filePath) : "File should exist after attempts to create it";
             }
         } catch (IOException e) {
             System.out.println("Error creating file: " + e.getMessage());
@@ -64,6 +66,10 @@ public class Storage {
      * @throws RuntimeException If an error occurs while writing to the file.
      */
     public void save(TaskList validTasks, List<String> allFileLines) {
+        assert validTasks != null : "Valid tasks should not be null";
+        assert allFileLines != null : "All file lines should not be null";
+        assert filePath != null : "File path should not be null";
+
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             if (errorMessages.isEmpty()) {
                 for (Task task : validTasks) {
@@ -90,6 +96,8 @@ public class Storage {
      * @return A string representing the task in CSV format.
      */
     private String toCsv(Task task) {
+        assert task != null : "Task should not be null";
+
         StringBuilder sb = new StringBuilder();
         if (task instanceof ToDo) {
             sb.append("T").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription());
@@ -116,9 +124,11 @@ public class Storage {
      * @throws RuntimeException If any other errors occurs while reading the file.
      */
     public LoadResults load() {
+        assert filePath != null : "File path should not be null";
         TaskList tasks = new TaskList();
         errorMessages.clear();
         List<String> allLines;
+
         try {
             List<String> lines = Files.readAllLines(filePath);
             allLines = lines.stream().toList();
@@ -195,6 +205,8 @@ public class Storage {
      *      the expected date-time format.
      */
     private static LocalDateTime parseDateTime(String dateTimeStr, String line) throws FishmanException {
+        assert dateTimeStr != null : "DateTime string should not be null";
+
         try {
             return LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {

@@ -49,6 +49,7 @@ public class FishmanException extends Exception {
          */
         public MissingArgumentException(String commandType) {
             super(getMessageForCommandType(commandType));
+            assert commandType.matches("deadline|event|todo|mark|unmark|delete|find") : "Invalid command type";
         }
 
         /**
@@ -79,6 +80,8 @@ public class FishmanException extends Exception {
          */
         public NumberFormatException(String message) {
             super(MESSAGE + message);
+            assert message != null && !message.isEmpty() : "Number format exception message should "
+                    + "not be null or empty";
         }
     }
 
@@ -109,6 +112,7 @@ public class FishmanException extends Exception {
          */
         public IndexOutOfBoundsException(int index) {
             super(MESSAGE + " Index provided: " + index);
+            assert index >= 0 : "Index provided should be non negative";
         }
     }
 
@@ -127,6 +131,7 @@ public class FishmanException extends Exception {
          */
         public InvalidArgumentsException(ErrorType errorType, String line) {
             super(MESSAGE_PREFIX + getErrorMessage(errorType, line) + MESSAGE_SUFFIX);
+            assert line != null && !line.isEmpty() : "Line should not be null or empty";
         }
 
         private static String getErrorMessage(ErrorType errorType, String line) {
@@ -177,6 +182,7 @@ public class FishmanException extends Exception {
          */
         public InvalidDateFormatException(String dateTimeStr) {
             super(MESSAGE + dateTimeStr);
+            assert dateTimeStr != null && !dateTimeStr.isEmpty() : "DateTime string should not be null or empty";
         }
     }
 

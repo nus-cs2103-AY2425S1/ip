@@ -23,6 +23,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task.Task object to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added should not be null";
         tasks.add(task);
     }
 
@@ -33,6 +34,7 @@ public class TaskList implements Iterable<Task> {
      * @return The Task object found at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index to be retrieved should be of valid range";
         return tasks.get(index);
     }
 
@@ -41,6 +43,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to retrieve.
      */
     public void markAsDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index to be marked should be of valid range";
         tasks.get(index).markAsDone();
     }
 
@@ -49,6 +52,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to retrieve.
      */
     public void markAsNotDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index to be unmarked should be of valid range";
         tasks.get(index).markAsNotDone();
     }
 
@@ -58,6 +62,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to delete.
      */
     public void delete(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index to be deleted should be of valid range";
         tasks.remove(index);
     }
 

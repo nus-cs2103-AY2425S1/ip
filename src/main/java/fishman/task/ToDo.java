@@ -12,6 +12,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
+        assert description != null : "Description should not be null";
     }
 
     @Override
