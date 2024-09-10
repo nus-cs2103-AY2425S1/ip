@@ -31,13 +31,13 @@ public class Parser {
         String first = part[0];
 
         switch (first) {
-            case "bye":
+            case "b":
                 ui.showExitMessage();
                 break;
-            case "list":
+            case "l":
                 ui.showTaskList(tasks);
                 break;
-            case "mark":
+            case "m":
                 if (part.length < 2) {
                     throw new SeanBotException("The task number of mark cannot be empty");
                 }
@@ -50,7 +50,7 @@ public class Parser {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks.getTask(markIndex));
                 break;
-            case "unmark":
+            case "um":
                 if (part.length < 2) {
                     throw new SeanBotException("The task number of mark cannot be empty");
                 }
@@ -63,7 +63,7 @@ public class Parser {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks.getTask(unmarkIndex));
                 break;
-            case "todo":
+            case "t":
                 if (part.length < 2 || part[1].trim().isEmpty()) {
                     throw new SeanBotException("The description of a todo cannot be empty.");
                 }
@@ -74,7 +74,7 @@ public class Parser {
                 System.out.println("  " + todo);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 break;
-            case "deadline":
+            case "dl":
                 String[] specifications = part[1].split(" /by ");
                 if (specifications.length < 2) {
                     throw new SeanBotException("The description or deadline cannot be empty.");
@@ -86,7 +86,7 @@ public class Parser {
                 System.out.println("  " + deadline);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 break;
-            case "event":
+            case "e":
                 String[] firstPart = part[1].split(" /from ", 2);
                 if (firstPart.length < 2) {
                     throw new SeanBotException("The description of an event cannot be empty.");
@@ -102,7 +102,7 @@ public class Parser {
                 System.out.println("  " + event);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 break;
-            case "delete":
+            case "del":
                 int deleteIndex = Integer.parseInt(part[1]) - 1;
                 if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
                     throw new SeanBotException("The task number to delete must be valid.");
@@ -114,7 +114,7 @@ public class Parser {
                 System.out.println("  " + removedTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 break;
-            case "find":
+            case "f":
                 List<Task> foundTasks = tasks.findTasks(part[1]);
                 ui.showFoundTasks(foundTasks);
                 break;
