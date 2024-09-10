@@ -18,9 +18,9 @@ import broski.task.Todo;
 /**
  * Class that holds all functionality for the saving and loading of tasks into hard disk.
  */
-public class TaskManager {
+public class ArchiveManager {
 
-    private static final String FILE_PATH = "./data/broski.txt";
+    private static final String FILE_PATH = "./data/archive.txt";
 
     /**
      * Saves task to hard disk as txt file.
@@ -108,3 +108,4 @@ public class TaskManager {
         }
     }
 }
+

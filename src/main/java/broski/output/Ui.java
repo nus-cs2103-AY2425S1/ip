@@ -12,6 +12,7 @@ import broski.task.Deadline;
 import broski.task.Event;
 import broski.task.Task;
 import broski.task.Todo;
+import broski.taskrelated.Archive;
 import broski.taskrelated.TaskList;
 
 /**
@@ -46,6 +47,16 @@ public class Ui {
     public void list(TaskList taskList) {
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.println(i + ". " + taskList.get(i - 1));
+        }
+    }
+
+    /**
+     * Displays the entire list to the user.
+     * @param archive stores all prior task input.
+     */
+    public void listArchive(Archive archive) {
+        for (int i = 1; i <= archive.size(); i++) {
+            System.out.println(i + ". " + archive.get(i - 1));
         }
     }
 
@@ -107,6 +118,22 @@ public class Ui {
         for (int i = 1; i <= tempList.size(); i++) {
             System.out.println(i + ". " + tempList.get(i - 1));
         }
+    }
+
+    /**
+     * Removes a task from the main taskList and archives it.
+     * @param taskList stores all prior task input
+     * @param archive old tasks that are to be stored
+     * @param parser parser user input
+     * @param reply user input
+     */
+    public void archive(TaskList taskList, Archive archive, Parser parser, String reply) {
+        int i = parser.parseIndex(reply);
+        Task temp = taskList.get(i);
+        taskList.remove(i);
+        archive.add(temp);
+        System.out.println("Your task has been archived bro:");
+        System.out.println(temp);
     }
 
     /**

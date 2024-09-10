@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("broski.GUI.Launcher")
+    mainClass.set("broski.gui.Launcher")
 }
 
 shadowJar {

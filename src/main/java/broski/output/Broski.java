@@ -9,6 +9,8 @@ import broski.exception.TodoException;
 import broski.exception.WrongInputException;
 import broski.parser.DateTimeParser;
 import broski.parser.Parser;
+import broski.taskrelated.Archive;
+import broski.taskrelated.ArchiveManager;
 import broski.taskrelated.TaskList;
 import broski.taskrelated.TaskManager;
 
@@ -18,7 +20,9 @@ import broski.taskrelated.TaskManager;
 public class Broski {
     private final Scanner scanner = new Scanner(System.in);
     private TaskList taskList;
+    private Archive archive;
     private final TaskManager manager = new TaskManager();
+    private final ArchiveManager archiveManager = new ArchiveManager();
     private final DateTimeParser dateTimeParser = new DateTimeParser();
     private final Parser parser = new Parser();
     private final Ui ui = new Ui();
@@ -28,6 +32,7 @@ public class Broski {
      */
     public String start() {
         this.taskList = new TaskList(this.manager.loadTasks());
+        this.archive = new Archive(this.archiveManager.loadTasks());
         return ui.greeting();
     }
 
@@ -42,6 +47,8 @@ public class Broski {
             EventException, WrongInputException {
         if (reply.equals("list")) {
             ui.list(taskList);
+        } else if (reply.equals("listarchive")) {
+            ui.listArchive(archive);
         } else if (reply.equals("bye")) {
             ui.exit();
         } else if (reply.length() > 5 && reply.startsWith("mark")) {
@@ -55,6 +62,9 @@ public class Broski {
             this.save();
         } else if (reply.length() > 5 && reply.startsWith("find")) {
             ui.find(taskList, reply);
+        } else if (reply.length() > 8 && reply.startsWith("archive")) {
+            ui.archive(taskList, archive, parser, reply);
+            this.save();
         } else {
             assert !reply.startsWith("list") : "reply should not start with list";
             ui.mainResponse(taskList, parser, reply, dateTimeParser);
@@ -67,6 +77,7 @@ public class Broski {
      */
     public void save() {
         this.manager.saveTasks(this.taskList.getList());
+        this.archiveManager.saveTasks(this.archive.getList());
     }
 
     /**
