@@ -32,16 +32,6 @@ public class Response {
                                 \\/       \\/        \\/\s
                 """.trim();
 
-    /**
-     * Formats the given input as a response and prints it to the console with separators.
-     *
-     * @param input The response text to be formatted and displayed.
-     */
-    private void formatResponse(String input) {
-
-        String separator = '\n' + "-".repeat(Math.min(input.length() + 5, 110))+'\n';
-        System.out.println(separator + input + separator);
-    }
 
     /**
      * Generates and displays a response based on the user's input and the current task list.
@@ -52,34 +42,33 @@ public class Response {
      * @param input The user's input string.
      * @param tasks The {@link TaskList} object containing the tasks to be modified or accessed.
      */
-    public void generateResponse(String input, TaskList tasks) {
-        System.out.println(input);
+    public String generateResponse(String input, TaskList tasks) {
         if (input.contains("mark")) {
             try {
-                formatResponse(markCommand.execute(input, tasks));
+                return markCommand.execute(input, tasks);
             } catch (TarsException e) {
-                formatResponse(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.contains("delete")) {
             try {
-                formatResponse(deleteCommand.execute(input, tasks));
+                return deleteCommand.execute(input, tasks);
             } catch (TarsException e) {
-                formatResponse(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.contains("find")){
             try {
-                formatResponse(findCommand.execute(input, tasks));
+                return findCommand.execute(input, tasks);
             } catch (TarsException e) {
-                formatResponse(e.getMessage());
+                return e.getMessage();
             }
 
         } else {
             try {
-                formatResponse(addCommand.execute(input, tasks));
+                return addCommand.execute(input, tasks);
             } catch (TarsException e) {
-                formatResponse(e.getMessage());
+                return e.getMessage();
 
             }
         }
@@ -87,34 +76,24 @@ public class Response {
     }
 
     /**
-     * Displays the list of current tasks in the task list.
-     *
-     * @param tasks The {@link TaskList} object containing the tasks to be displayed.
-     */
-    public void showList(TaskList tasks) {
-        formatResponse(tasks.toString());
-    }
-
-    /**
      * Displays the introductory message when the TARS application starts.
      */
-    public void intro() {
+    public String intro() {
         String introMessage = """
                 \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
                 Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""";
 
-        formatResponse(LOGO + introMessage);
+        return (LOGO + introMessage);
     }
 
     /**
      * Displays the outro message when the TARS application is about to exit.
      */
-    public void outro() {
-        String outputMessage = """
+    public String outro() {
+
+        return """
                 Well, that's a wrap! If you need anything else, just holler.
                 But let’s be honest, you’re probably better off asking someone else.""";
-
-        formatResponse(outputMessage);
     }
 
 }

@@ -2,7 +2,7 @@ package tars;
 
 import tars.storage.Storage;
 import tars.tasks.TaskList;
-import java.util.Scanner;
+
 
 /**
  * The main class for running the TARS application.
@@ -14,49 +14,27 @@ import java.util.Scanner;
  */
 public class Tars {
 
+    Storage storage = new Storage();
+    Response response = new Response();
+    TaskList tasks = new TaskList(storage.updateTasks());
+
+    public String intro() {
+        return response.intro();
+    }
+
     /**
-     * Starts the TARS application and manages the user interaction loop.
-     *
-     * <p>This method initializes the necessary components, such as {@link Storage}, {@link Response},
-     * and {@link TaskList}, and continuously listens for user input. Depending on the user's commands,
-     * it will perform different actions, such as listing tasks, adding new tasks, and exiting the application.</p>
+     * Generates a response for the user's chat message.
      */
-    public void run() {
+    public String getResponse(String input) {
 
-        Storage storage = new Storage();
-        Response response = new Response();
-        TaskList tasks = new TaskList(storage.updateTasks());
-
-        response.intro();
-
-        Scanner scanner = new Scanner(System.in);
-
-        boolean isExit = false;
-
-        while (!isExit) {
-            System.out.print(">>>");
-            String userInput = scanner.nextLine().trim();
-
-            switch (userInput) {
-            case "bye":
-                response.outro();
-                scanner.close();
-                isExit = true;
-
-                break;
-
-            case "list":
-                response.showList(tasks);
-                break;
-
-            default:
-                response.generateResponse(userInput, tasks);
-                break;
+        return switch (input) {
+            case "bye" -> {
+                storage.saveTasks(tasks);
+                yield response.outro();
             }
-        }
-
-        storage.saveTasks(tasks);
-
+            case "list" -> tasks.toString();
+            default -> response.generateResponse(input, tasks);
+        };
 
 
     }
@@ -68,7 +46,6 @@ public class Tars {
      */
     public static void main(String[] args) {
 
-        Tars tars = new Tars();
-        tars.run();
+
     }
 }
