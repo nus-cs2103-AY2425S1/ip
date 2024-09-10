@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Storage {
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final String PATH = "src/main/data/task_list.txt";
+    private final String PATH = ".\\src\\main\\data\\task_list.txt";
     private File file;
     private Scanner scanner;
     private FileWriter fileWriterAmend;
@@ -29,8 +29,18 @@ public class Storage {
      *
      * @throws IOException If an I/O error occurs while creating the file.
      */
-    public void createFile() throws IOException {
-        file.createNewFile();
+    public void createFile() {
+        file.getParentFile().mkdirs();
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     /**

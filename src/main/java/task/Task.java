@@ -23,6 +23,15 @@ public abstract class Task {
     public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
     @SuppressWarnings("checkstyle:VisibilityModifier")
     public static Storage storage;
+
+    static {
+        try {
+            storage = new Storage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private String name;
 
     /**
@@ -36,13 +45,13 @@ public abstract class Task {
     private String tag;
 
 
-    static {
-        try {
-            storage = new Storage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//            storage ;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     /**
      * Constructs a new Task with the specified name and tag.
@@ -164,8 +173,6 @@ public abstract class Task {
                     e.setCurrentStatus(Status.UNMARKED);
                 }
                 TaskList.addTasks(e);
-            } else {
-                assert false;
             }
         }
     }
@@ -256,6 +263,9 @@ public abstract class Task {
      */
     public static String list_task() throws FileNotFoundException {
         StringBuilder temp = storage.read();
+        if (temp.toString().equals("")) {
+            return ui.emptyList();
+        }
         return ui.list_task_message(String.valueOf(temp));
     }
 
