@@ -53,9 +53,17 @@ public class Storage {
      */
     public void saveTasks(TaskList tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks.getTasks()) {
-                writer.write(task.toFileString() + System.lineSeparator());
-            }
+            tasks.getTasks().stream()
+                    .map(Task::toFileString)
+                    .forEach(taskString -> {
+                        try {
+                            writer.write(taskString + System.lineSeparator());
+                        } catch (IOException e) {
+                            // Handle exception
+                            System.out.println("Error writing to file: " + e.getMessage());
+                            e.printStackTrace();
+                        }
+                    });
             System.out.println("Tasks successfully saved to file.");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
