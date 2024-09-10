@@ -60,6 +60,10 @@ public class Task {
         return this.isDone ? 1 : 0;
     }
 
+    /**
+     * Returns string representation of tasks for UI
+     * @return task string
+     */
     @Override
     public String toString() {
         String s = "";
@@ -69,9 +73,8 @@ public class Task {
     }
 
     /**
-     * Dummy method for child classes to override.
-     *
-     * @return ""
+     * Returns string representation of task for easier reading from storage
+     * @return task string
      */
     public String getStorageString() {
         String s = "";

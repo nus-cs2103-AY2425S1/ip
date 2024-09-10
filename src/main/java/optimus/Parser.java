@@ -58,7 +58,7 @@ public class Parser {
     }
 
     private static int parseTaskNumber(String[] commands) throws OptimusExceptions {
-        if (commands.length != 2) {
+        if (commands.length < 2) {
             throw new IncompleteCommandException(TASK_NOT_SPECIFIED_MSG);
         }
         try {
