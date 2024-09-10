@@ -59,13 +59,13 @@ public class TaskList {
      * Finds all tasks that match the keyword
      * @param input keyword
      */
-    public void find(String input) {
+    public TaskList find(String input) {
         TaskList matches = new TaskList();
         for (Task task : this.taskList) {
             if (task.description.contains(input)) {
                 matches.add(task);
             }
         }
-        Ui.returnMatches(matches);
+        return matches;
     }
 }
