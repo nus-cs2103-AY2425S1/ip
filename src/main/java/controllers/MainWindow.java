@@ -97,18 +97,19 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Brock's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one showing user input and the other containing Brock's reply
+     *      and then appends them to the dialog container.
+     *      Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String rawCommand = userInput.getText();
         String processedCommand = this.processCommand(rawCommand);
 
-        Pair<Boolean, String> respondResult = this.brock
+        Pair<Boolean, String> responseResult = this.brock
                 .respondToCommand(processedCommand, this.tasks);
-        boolean isExit = respondResult.getFirst();
-        String brockResponse = respondResult.getSecond();
+        boolean isExit = responseResult.getFirst();
+        String brockResponse = responseResult.getSecond();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(rawCommand, userImage),

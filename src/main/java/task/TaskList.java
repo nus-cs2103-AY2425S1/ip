@@ -107,7 +107,7 @@ public class TaskList {
         return "[" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] "
                 + task.getDescription()
-                + " " + task.getExtraInfo();
+                + task.getExtraInfo();
     }
 
     /**
