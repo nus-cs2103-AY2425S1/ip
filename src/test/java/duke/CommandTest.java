@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CommandTest {
-
+    // pre-commit hook of making sure test cases pass before code can be pushed to github
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
