@@ -168,7 +168,14 @@ public class Parser {
      * @return the keyword the user wants to match from the list of items
      * @throws BillException If there is an error handling the parsing of the targeted task.
      */
-    public String handleFindParser(String[] parsedInput) throws BillException {
+    public String handleFindParser(String ... parsedInput) throws BillException {
+        // CS2103T Notes, String[] parsedInput is same as String ... parsed input
+        // however by using ... now you allow an additional type of input where a comma operated input can be sent in
+        // I only changed this method, because it has one arg, in java varargs need to be the last param of the method
+        // So the compiler can differentiate between a vararg and other variables, and I did not want to rewrite
+        // the argument orientation for other methods
+        // possible use cases here could be in test cases using "", "", instead of creating an array of strings
+
         // data validation
         if (parsedInput.length < 2) {
             throw new BillException("Please provide a second argument for the find command, such as a keyword,"
