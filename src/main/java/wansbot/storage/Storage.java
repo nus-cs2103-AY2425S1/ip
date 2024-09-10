@@ -43,55 +43,16 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader("./data/tasklist.txt"));
             String line = reader.readLine();
             while (line != null) {
-                String[] splitInput = line.split(" ");
-                String typeTask = splitInput[1];
-                String nameTask = "";
+                String typeTask = parseTask(line);
                 switch (typeTask) {
                 case "T":
-                    if (line.contains("[ X ]")) {
-                        nameTask = line.substring(11);
-                        Todos next = new Todos(nameTask);
-                        next.finish();
-                        taskList.add(next);
-                    } else {
-                        nameTask = line.substring(11);
-                        Todos next = new Todos(nameTask);
-                        taskList.add(next);
-                    }
+                    loadTodos(taskList, line);
                     break;
                 case "D":
-                    String[] deadlineSplit = line.split("by: ");
-                    LocalDate deadline = LocalDate.parse(deadlineSplit[1].substring(0,
-                            deadlineSplit[1].length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    nameTask = deadlineSplit[0].substring(11, deadlineSplit[0].length() - 1);
-                    if (line.contains("[ X ]")) {
-                        Deadlined next = new Deadlined(nameTask, deadline);
-                        next.finish();
-                        taskList.add(next);
-                    } else {
-                        Deadlined next = new Deadlined(nameTask, deadline);
-                        taskList.add(next);
-                    }
+                    loadDeadline(taskList, line);
                     break;
                 case "E":
-                    String[] splitUserStartDate = line.split("from: ", 3);
-                    String[] splitUserEndDate = splitUserStartDate[1].split("to: ", 2);
-                    if (line.contains("[ X ]")) {
-                        Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0]
-                                .length() - 2), LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0]
-                                        .length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy")),
-                                LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2)
-                                                .trim(), DateTimeFormatter.ofPattern("MMM d yyyy")));
-                        next.finish();
-                        taskList.add(next);
-                    } else {
-                        Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0]
-                                .length() - 2), LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0]
-                                .length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy")),
-                                LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2)
-                                                .trim(), DateTimeFormatter.ofPattern("MMM d yyyy")));
-                        taskList.add(next);
-                    }
+                    loadEvent(taskList, line);
                     break;
                 default:
                     assert false : "Your tasklist.txt is wrong. Delete it.";
@@ -106,6 +67,88 @@ public class Storage {
         } catch (IOException e) {
             return ui.handleIoExceptionLoad();
         }
+    }
+
+    /**
+     * Adds an event to the tasklist.
+     *
+     * @param taskList TaskList where event will be added.
+     * @param line String containing name, start and end date.
+     */
+    private void loadEvent(TaskList taskList, String line) {
+        String[] splitUserStartDate = line.split("from: ", 3);
+        String[] splitUserEndDate = splitUserStartDate[1].split("to: ", 2);
+        if (line.contains("[ X ]")) {
+            Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0]
+                    .length() - 2), LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0]
+                            .length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy")),
+                    LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2)
+                                    .trim(), DateTimeFormatter.ofPattern("MMM d yyyy")));
+            next.finish();
+            taskList.add(next);
+        } else {
+            Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0]
+                    .length() - 2), LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0]
+                    .length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy")),
+                    LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2)
+                                    .trim(), DateTimeFormatter.ofPattern("MMM d yyyy")));
+            taskList.add(next);
+        }
+    }
+
+    /**
+     * Adds a deadline to the tasklist.
+     *
+     * @param taskList TaskList where deadline will be added.
+     * @param line String containing name and end date.
+     */
+    private void loadDeadline(TaskList taskList, String line) {
+        String nameTask;
+        String[] deadlineSplit = line.split("by: ");
+        LocalDate deadline = LocalDate.parse(deadlineSplit[1].substring(0,
+                deadlineSplit[1].length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy"));
+        nameTask = deadlineSplit[0].substring(11, deadlineSplit[0].length() - 1);
+        if (line.contains("[ X ]")) {
+            Deadlined next = new Deadlined(nameTask, deadline);
+            next.finish();
+            taskList.add(next);
+        } else {
+            Deadlined next = new Deadlined(nameTask, deadline);
+            taskList.add(next);
+        }
+    }
+
+    /**
+     * Adds a Todos to the tasklist.
+     *
+     * @param taskList TaskList where Todos will be added.
+     * @param line String containing name.
+     */
+    private void loadTodos(TaskList taskList, String line) {
+        String nameTask;
+        if (line.contains("[ X ]")) {
+            nameTask = line.substring(11);
+            Todos next = new Todos(nameTask);
+            next.finish();
+            taskList.add(next);
+        } else {
+            nameTask = line.substring(11);
+            Todos next = new Todos(nameTask);
+            taskList.add(next);
+        }
+    }
+
+    /**
+     * Takes line and parses it, to return the letter that represents the type of Task loaded
+     *
+     * @param line String from tasklist.txt to be loaded
+     * @return Returns one Capital letter indicating type of task i.e. T for Todos, E for events and so on.
+     */
+    private String parseTask(String line) {
+        String[] splitInput = line.split(" ");
+        String typeTask = splitInput[1];
+        String nameTask = "";
+        return typeTask;
     }
 
     /**
