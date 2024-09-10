@@ -121,7 +121,7 @@ Sorts tasks in ascending or descending order based on task attributes.
   - `tasktype`: lexicographical order of whether task is a Todo (`T`), Event (`E`) or deadline (`D`).
 - Orders of sorting are:
   - ascending: `/a`, which is the default if no order is given
-  - descending: `d`
+  - descending: `/d`
 - Null values are always considered "largest", in ascending order they are ranked last.
 
 For example: `sort name /d`, before (left) and after (right)
