@@ -1,6 +1,7 @@
 package jay.gui;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,10 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MainWindow.fxml"));
+            URL fxmlResource = Gui.class.getResource("/view/DialogBox.fxml");
+            assert fxmlResource != null : "FXML resource not found";
+
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlResource);
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);

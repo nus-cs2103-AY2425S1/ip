@@ -2,6 +2,7 @@ package jay.gui;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.net.URL;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +27,10 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/DialogBox.fxml"));
+            URL fxmlResource = Gui.class.getResource("/view/DialogBox.fxml");
+            assert fxmlResource != null : "FXML resource not found";
+
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlResource);
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -49,11 +53,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert img != null : "Image cannot be null!";
         return new DialogBox(text, img);
     }
 
     public static DialogBox getJayDialog(String text, Image img) {
-        var dialogBox = new DialogBox(text, img);
+        assert img != null : "Image cannot be null!";
+        DialogBox dialogBox = new DialogBox(text, img);
         dialogBox.flip();
         return dialogBox;
     }

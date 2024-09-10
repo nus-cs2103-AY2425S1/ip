@@ -22,6 +22,9 @@ public class Parser {
      */
     @SuppressWarnings("checkstyle:RightCurly")
     public static Task parseTask(Task.Type taskType, Command command) throws InvalidTaskException {
+        assert taskType != null : "Task type should not be null.";
+        assert command != null : "Command should not be null.";
+
         try {
             switch (taskType) {
             case ToDo: {
@@ -90,6 +93,7 @@ public class Parser {
      * @return The string representation of the LocalDate object.
      */
     public static String convertDateToString(LocalDate date) {
+        assert date != null : "Date should not be null.";
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
@@ -100,6 +104,7 @@ public class Parser {
      * @return The string representation of the LocalDate object.
      */
     public static String convertDateToStorageString(LocalDate date) {
+        assert date != null : "Date should not be null.";
         return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
@@ -110,6 +115,7 @@ public class Parser {
      * @return The string representation of the LocalTime object.
      */
     public static String convertTimeToStorageString(LocalTime time) {
+        assert time != null : "Time should not be null.";
         return time.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
@@ -120,6 +126,7 @@ public class Parser {
      * @return The string representation of the LocalTime object.
      */
     public static String convertTimeToString(LocalTime time) {
+        assert time != null : "Time should not be null.";
         return time.format(DateTimeFormatter.ofPattern("hh:mm a"));
     }
 

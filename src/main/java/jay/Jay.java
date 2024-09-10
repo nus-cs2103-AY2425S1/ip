@@ -135,6 +135,7 @@ public class Jay {
      */
     private String addTask(Task task) {
         try {
+            assert task != null : "Task should not be null";
             this.tasks.addTask(task);
             return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
         } catch (DataIOException e) {
