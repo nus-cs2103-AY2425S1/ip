@@ -12,12 +12,11 @@ public class Ui {
     /**
      * Shows the welcome message from chatbot at the beginning.
      *
-     * @return Welcome message.
      */
-    public String showWelcomeMessage() {
-        return "____________________________________________________________\n"
+    public void showWelcomeMessage() {
+        System.out .println("____________________________________________________________\n"
                 + " Hello! I'm Pixy.\n" + " What can I do for you?\n"
-                + "____________________________________________________________\n";
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -108,7 +107,6 @@ public class Ui {
      * Displays the tasks which match the keyword inputted by user.
      *
      * @param matchedTasks List of matched Tasks.
-     * @return Matched tasks message.
      */
     public String showMatchedTasks(List<Task> matchedTasks) {
         StringBuilder sb = new StringBuilder();
@@ -129,21 +127,19 @@ public class Ui {
     /**
      * Displays the goodbye message.
      *
-     * @return Goodbye message.
      */
-    public String showGoodbyeMessage() {
-        return "____________________________________________________________\n"
+    public void showGoodbyeMessage() {
+        System.out.println("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+                + "____________________________________________________________\n");
     }
 
     /**
      * Displays the appropriate message when an error is encountered.
      *
      * @param message Error message.
-     * @return Error message.
      */
-    public String showError(String message) {
-        return message + "\n____________________________________________________________\n";
+    public void showError(String message) {
+        System.out.println(message + "\n____________________________________________________________\n");
     }
 }

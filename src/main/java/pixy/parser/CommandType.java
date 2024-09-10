@@ -24,13 +24,4 @@ public enum CommandType {
     public String getCommand() {
         return command;
     }
-
-    public static CommandType fromString(String command) {
-        for (CommandType type : CommandType.values()) {
-            if (type.command.equalsIgnoreCase(command)) {
-                return type;
-            }
-        }
-        return UNKNOWN;
-    }
 }
