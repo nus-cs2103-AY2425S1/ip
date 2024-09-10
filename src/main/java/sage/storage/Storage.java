@@ -38,6 +38,8 @@ public class Storage {
             if (!file.exists()) {
                 return tasks;
             }
+            assert file.isFile();
+
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -83,6 +85,8 @@ public class Storage {
      */
     private Task parseTask(String line) throws SageException {
         String parts[] = line.split(" \\| ");
+        assert parts.length >= 3;
+
         String taskType = parts[0];
         String description = parts[2];
         Task task;
