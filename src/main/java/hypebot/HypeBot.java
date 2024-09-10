@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * The chatbot which the user interacts with.
+ *
  * @author Youngseo Park (@youngseopark05)
  */
 public class HypeBot {
@@ -18,6 +19,11 @@ public class HypeBot {
     private Tasklist tasks;
     private Ui ui;
 
+    /**
+     * Creates a new HypeBot.
+     *
+     * @param filePath The file path for tasks to save and load to.
+     */
     public HypeBot(String filePath) {
         ui = new Ui();
         storage = new StorageManager(filePath);
@@ -31,6 +37,9 @@ public class HypeBot {
         }
     }
 
+    /**
+     * Runs the main event loop for HypeBot-user interaction.
+     */
     public void run() {
         boolean isExit = false;
         while (!isExit) {
@@ -46,6 +55,11 @@ public class HypeBot {
         }
     }
 
+    /**
+     * Creates a new HypeBot object with the specified file path and runs it.
+     *
+     * @param args Command-line arguments that remain unused.
+     */
     public static void main(String[] args) {
         new HypeBot("./src/main/data/tasks.txt").run();
     }
