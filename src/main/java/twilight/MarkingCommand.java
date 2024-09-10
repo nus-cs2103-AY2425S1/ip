@@ -23,6 +23,7 @@ public class MarkingCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String output = "";
+        assert type >= 1;
         if (type == 1) {
             output = "Excellent I have marked it: " + tasks.mark(taskNum);
         } else {
