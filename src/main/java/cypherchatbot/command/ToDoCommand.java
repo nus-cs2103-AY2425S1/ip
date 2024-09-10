@@ -41,6 +41,7 @@ public class ToDoCommand extends Command {
             throw new CypherException("No task is given. "
                     + "The format of the todo command is:\n todo <Description of task>");
         }
+        assert this.command.length == 2 : "Command error checking not done properly";
 
         Task todo = new ToDo(command[1]);
         tasks.addToList(todo);

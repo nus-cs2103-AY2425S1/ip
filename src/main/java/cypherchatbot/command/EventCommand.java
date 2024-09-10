@@ -43,6 +43,7 @@ public class EventCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
         try {
+
             String[] eventSplit = command[1].split("/from|/to ", 3);
 
             if (eventSplit[0].isEmpty()) {
@@ -52,7 +53,7 @@ public class EventCommand extends Command {
                 throw new CypherException("To/from is not given properly. The format of the deadline command is:"
                         + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
             }
-
+            assert eventSplit.length == 3 : "Command error checking not done properly";
             LocalDateTime from = LocalDateTime.parse(command[1].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             LocalDateTime to = LocalDateTime.parse(command[2].trim(),

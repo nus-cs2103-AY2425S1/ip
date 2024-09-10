@@ -61,6 +61,7 @@ public class Storage {
 
     public ArrayList<Task> load() throws FileNotFoundException {
 
+        assert this.filepath != null : "File Path has not been initialised";
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(this.filepath);
 
@@ -104,6 +105,7 @@ public class Storage {
      */
     public void addToStorage(String data) {
         try {
+            assert this.filepath != null : "File Path has not been initialised";
             FileWriter writeToFile = new FileWriter(this.filepath, true);
             writeToFile.write(data + "\n");
             writeToFile.close();
@@ -121,6 +123,7 @@ public class Storage {
     public void editTask(String oldData, String newData) {
         try {
             // Read the file into an array
+            assert this.filepath != null : "File Path has not been initialised";
             List<String> entireFile = new ArrayList<>();
             File file = new File(this.filepath);
 
@@ -158,6 +161,7 @@ public class Storage {
     public void delTaskFromStorage(String oldData) {
         try {
             // Read the file into an array
+            assert this.filepath != null : "File Path has not been initialised";
             List<String> entireFile = new ArrayList<>();
             File file = new File(this.filepath);
 

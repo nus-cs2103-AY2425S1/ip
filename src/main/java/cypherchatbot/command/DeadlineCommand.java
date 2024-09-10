@@ -42,6 +42,7 @@ public class DeadlineCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
         try {
+
             String[] deadlineSplit = command[1].split("/by", 2);
 
             if (deadlineSplit[0].isEmpty()) {
@@ -51,7 +52,7 @@ public class DeadlineCommand extends Command {
                 throw new CypherException("No deadline is given. The format of the deadline command is:"
                         + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
             }
-
+            assert deadlineSplit.length == 2 : "Command error checking not done properly";
             LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task deadline = new Deadline(deadlineSplit[0], by);
 

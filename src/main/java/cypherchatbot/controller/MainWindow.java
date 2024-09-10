@@ -43,6 +43,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert this.cypher != null : "Cypher Instance does not exist";
         String input = userInput.getText();
         this.dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
         cypher.getResponse(input);
