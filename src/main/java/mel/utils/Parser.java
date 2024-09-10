@@ -17,26 +17,26 @@ public class Parser {
      * for parsing with DateTimeFormatter formatter.
      */
     private static final String[] FORMAT_DATE_TIME = {
-        "d-M-[uu][uuuu] HHmm",
-        "d-M-[uu][uuuu] HH:mm",
-        "d-M-[uu][uuuu] h.mma",
-        "d-M-[uu][uuuu] hmma",
-        "d-M-[uu][uuuu] ha",
-        "d/M/[uu][uuuu] HHmm",
-        "d/M/[uu][uuuu] HH:mm",
-        "d/M/[uu][uuuu] h.mma",
-        "d/M/[uu][uuuu] hmma",
-        "d/M/[uu][uuuu] ha",
-        "[uu][uuuu]-M-d HHmm",
-        "[uu][uuuu]-M-d HH:mm",
-        "[uu][uuuu]-M-d h.mma",
-        "[uu][uuuu]-M-d hmma",
-        "[uu][uuuu]-M-d ha",
-        "[uu][uuuu]/M/d HHmm",
-        "[uu][uuuu]/M/d HH:mm",
-        "[uu][uuuu]/M/d h.mma",
-        "[uu][uuuu]/M/d hmma",
-        "[uu][uuuu]/M/d ha",
+        "d-M-[uuuu][uu] HHmm",
+        "d-M-[uuuu][uu] HH:mm",
+        "d-M-[uuuu][uu] h.mma",
+        "d-M-[uuuu][uu] hmma",
+        "d-M-[uuuu][uu] ha",
+        "d/M/[uuuu][uu] HHmm",
+        "d/M/[uuuu][uu] HH:mm",
+        "d/M/[uuuu][uu] h.mma",
+        "d/M/[uuuu][uu] hmma",
+        "d/M/[uuuu][uu] ha",
+        "[uuuu][uu]-M-d HHmm",
+        "[uuuu][uu]-M-d HH:mm",
+        "[uuuu][uu]-M-d h.mma",
+        "[uuuu][uu]-M-d hmma",
+        "[uuuu][uu]-M-d ha",
+        "[uuuu][uu]/M/d HHmm",
+        "[uuuu][uu]/M/d HH:mm",
+        "[uuuu][uu]/M/d h.mma",
+        "[uuuu][uu]/M/d hmma",
+        "[uuuu][uu]/M/d ha",
     };
 
     /**
@@ -44,10 +44,10 @@ public class Parser {
      * for parsing with DateTimeFormatter formatter.
      */
     private static final String[] FORMAT_DATE = {
-        "d-M-[uu][uuuu]",
-        "d/M/[uu][uuuu]",
-        "[uu][uuuu]/M/d",
-        "[uu][uuuu]-M-d",
+        "d-M-[uuuu][uu]",
+        "d/M/[uuuu][uu]",
+        "[uuuu][uu]/M/d",
+        "[uuuu][uu]-M-d",
     };
 
     /**
