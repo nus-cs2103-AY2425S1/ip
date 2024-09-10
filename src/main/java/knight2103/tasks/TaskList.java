@@ -128,7 +128,7 @@ public class TaskList {
 
     @Override
     public String toString() {
-        return formatToList(index -> index + ". " + tasks.get(index).toString() + "\n");
+        return formatToList(index -> index + 1 + ". " + tasks.get(index).toString() + "\n");
     }
 
     private String formatToList(IntFunction<String> mapper) {
