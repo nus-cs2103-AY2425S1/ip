@@ -89,14 +89,9 @@ public class TaskList {
 
 
     public ArrayList<Task> filterTasks(String filter) {
-        ArrayList<Task> filteredList = new ArrayList<>();
-        for (int i = 0; i < this.taskList.size(); i++) {
-            if (this.taskList.get(i).toString().toLowerCase().contains(filter)) {
-                filteredList.add(this.taskList.get(i));
-            }
-        }
 
-        return filteredList;
+        return (ArrayList<Task>) this.taskList.stream()
+                                            .filter(x->x.toString().toLowerCase().contains(filter)).toList();
     }
 
     /**
