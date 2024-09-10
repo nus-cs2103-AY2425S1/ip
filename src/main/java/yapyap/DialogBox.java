@@ -54,8 +54,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getYapperBotDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var newDialogBox = new DialogBox(text, img);
+        newDialogBox.flip();
+        return newDialogBox;
     }
 }

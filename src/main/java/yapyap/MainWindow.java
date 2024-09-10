@@ -1,7 +1,6 @@
 package yapyap;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -17,15 +16,18 @@ public class MainWindow extends VBox {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private YapperBot yapperBot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image yapperBotImage = new Image(this.getClass().getResourceAsStream("/images/YapperBot.png"));
+    private Image userImage = loadImage("/images/User.png");
+    private Image yapperBotImage = loadImage("/images/YapperBot.png");
 
-
+    /**
+     * Initializes the MainWindow components. This method is automatically called after
+     * the FXML fields have been injected. It binds the vertical scroll position of the
+     * ScrollPane to the height property of the dialog container, ensuring that the ScrollPane
+     * always scrolls to the bottom when new dialog entries are added.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,6 +37,16 @@ public class MainWindow extends VBox {
         this.yapperBot = yapperBot;
     }
 
+    /**
+     * Handles the user input from the TextField. This method retrieves the input text from the user,
+     * processes it through the YapperBot to get a response, and displays both the user's input and
+     * the bot's response in the dialog container.
+     *
+     * This method also clears the TextField after processing the input.
+     *
+     * The dialog boxes for the user and the bot are displayed using the `DialogBox` class,
+     * with appropriate images for each.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -44,5 +56,15 @@ public class MainWindow extends VBox {
                 DialogBox.getYapperBotDialog(response, yapperBotImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Loads an image from the given path.
+     *
+     * @param path The path to the image resource.
+     * @return The loaded Image object.
+     */
+    private Image loadImage(String path) {
+        return new Image(this.getClass().getResourceAsStream(path));
     }
 }

@@ -260,12 +260,12 @@ public class Parser {
 
             if (matchingTasks.isEmpty()) {
                 response.append("No matching tasks found.\n");
-            } else {
-                response.append("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-                }
             }
+            response.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+            }
+
             return response.toString();
 
         } catch (IndexOutOfBoundsException e) {

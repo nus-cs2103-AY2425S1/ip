@@ -36,34 +36,36 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Path datafilePath = Paths.get(filePath);
-            if (Files.exists(datafilePath)) {
-                BufferedReader reader = Files.newBufferedReader(datafilePath);
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] taskInfo = line.split(" \\| ");
-                    String type = taskInfo[0];
-                    boolean isDone = taskInfo[1].equals("1");
-                    String description = taskInfo[2];
-
-                    switch (type) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        String by = taskInfo[3];
-                        tasks.add(new Deadline(description, by, isDone));
-                        break;
-                    case "E":
-                        String from = taskInfo[3];
-                        String to = taskInfo[4];
-                        tasks.add(new Event(description, from, to, isDone));
-                        break;
-                    default:
-                        throw new YapperBotException("Unrecognized task type '" + type + "'. Task cannot be added.");
-                    }
-                }
-                reader.close();
+            if (!Files.exists(datafilePath)) {
+                return tasks;
             }
+
+            BufferedReader reader = Files.newBufferedReader(datafilePath);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskInfo = line.split(" \\| ");
+                String type = taskInfo[0];
+                boolean isDone = taskInfo[1].equals("1");
+                String description = taskInfo[2];
+
+                switch (type) {
+                case "T":
+                    tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    String by = taskInfo[3];
+                    tasks.add(new Deadline(description, by, isDone));
+                    break;
+                case "E":
+                    String from = taskInfo[3];
+                    String to = taskInfo[4];
+                    tasks.add(new Event(description, from, to, isDone));
+                    break;
+                default:
+                    throw new YapperBotException("Unrecognized task type '" + type + "'. Task cannot be added.");
+                }
+            }
+            reader.close();
         } catch (IOException e) {
             throw new YapperBotException("Error loading tasks: " + e.getMessage());
         }

@@ -26,7 +26,7 @@ public class Main extends Application {
             stage.show();
 
             MainWindow controller = fxmlLoader.getController();
-            controller.setYapperBot(new YapperBot()); // Link MainWindow to YapperBot instance
+            controller.setYapperBot(new YapperBot());
 
         } catch (IOException e) {
             e.printStackTrace();
