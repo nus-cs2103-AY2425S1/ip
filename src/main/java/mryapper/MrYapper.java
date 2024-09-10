@@ -16,6 +16,8 @@ import java.io.IOException;
  */
 public class MrYapper {
 
+    private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
+            + " What can I do for you?";
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
     private final StorageManager storageManager;
     private TaskList tasks;
@@ -38,38 +40,19 @@ public class MrYapper {
         }
     }
 
-    /**
-     * Runs the ChatBot until the "bye" command is executed.
-     */
-    public void run() {
-        boolean isConversationOngoing = false;
-        if (tasks != null && storageManager != null) {
-            ui.showGreeting();
-            isConversationOngoing = true;
-        }
-
-        while (isConversationOngoing) {
-            try {
-                String userInput = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(userInput);
-                isConversationOngoing = !c.execute(tasks, ui, storageManager);
-            } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
-                ui.send(e.getMessage());
-            }
-            ui.showLine();
-        }
-        ui.close();
-    }
-
-    public static void main(String[] args) {
-        new MrYapper(TASK_DATA_PATH).run();
+    public static String greet() {
+        return GREETING_MESSAGE;
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storageManager);
+        } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 }

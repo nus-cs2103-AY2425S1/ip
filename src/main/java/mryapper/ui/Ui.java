@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
-    private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
+    private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private Scanner scanner;
 
     /**
@@ -53,16 +53,14 @@ public class Ui {
     /**
      * Makes the Chatbot send the greeting/hello message.
      */
-    public void showGreeting() {
-        showLine();
-        send(GREETING_MESSAGE);
-        showLine();
+    public String getGreeting() {
+        return GREETING_MESSAGE;
     }
 
     /**
      * Makes the Chatbot send the goodbye message.
      */
-    public void showGoodbye() {
-        send(GOODBYE_MESSAGE);
+    public String getGoodbye() {
+        return GOODBYE_MESSAGE;
     }
 }

@@ -23,10 +23,11 @@ public class CommandList {
         return (tasks, ui, storage) -> {
             Task newTask = new Todo(description);
             tasks.add(newTask);
-            ui.send(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
-                    newTask, tasks.count()));
+            String response = String.format("Task added successfully!\n  %s\n"
+                    + "Now you have %d tasks in the list",
+                    newTask, tasks.count());
             tasks.saveToStorage(storage);
-            return false;
+            return response;
         };
     }
 
@@ -41,10 +42,11 @@ public class CommandList {
         return (tasks, ui, storage) -> {
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
             tasks.add(newTask);
-            ui.send(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
-                    newTask, tasks.count()));
+            String response = String.format("Task added successfully!\n  %s\n"
+                    + "Now you have %d tasks in the list",
+                    newTask, tasks.count());
             tasks.saveToStorage(storage);
-            return false;
+            return response;
         };
     }
 
@@ -62,10 +64,11 @@ public class CommandList {
                     DateTimeParser.parseDateTime(start),
                     DateTimeParser.parseDateTime(end));
             tasks.add(newTask);
-            ui.send(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
-                    newTask, tasks.count()));
+            String response = String.format("Task added successfully!\n  %s\n"
+                    + "Now you have %d tasks in the list",
+                    newTask, tasks.count());
             tasks.saveToStorage(storage);
-            return false;
+            return response;
         };
     }
 
@@ -77,16 +80,16 @@ public class CommandList {
      */
     public static Command deleteTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            String response;
             try {
                 Task deletedTask = tasks.remove(taskNumber);
-                ui.send(String.format(" Task deleted successfully!\n   %s\n"
-                        + "Now you have %d tasks in the list", deletedTask, tasks.count()));
+                response = String.format("Task deleted successfully!\n  %s\n"
+                        + "Now you have %d tasks in the list", deletedTask, tasks.count());
             } catch (IndexOutOfBoundsException e) {
-                String errorMessage = String.format(" There is no such task!\n "
+                response = String.format("There is no such task!\n"
                         + "You currently have %d tasks in your list", tasks.count());
-                ui.send(errorMessage);
             }
-            return false;
+            return response;
         };
     }
 
@@ -97,8 +100,8 @@ public class CommandList {
      */
     public static Command listTasks() {
         return (tasks, ui, storage) -> {
-            ui.send(tasks.toString());
-            return false;
+            String response = tasks.toString();
+            return response;
         };
     }
 
@@ -112,16 +115,15 @@ public class CommandList {
         return (tasks, ui, storage) -> {
             ArrayList<Task> searchResult = tasks.searchTasks(searchInput);
             if (searchResult.isEmpty()) {
-                ui.send(" None of the tasks match your search results!");
-                return false;
+                return "None of the tasks match your search results!";
             }
 
-            ui.send(" Here are the matching tasks in your list:");
+            String response = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < searchResult.size(); i++ ) {
                 int taskNumber = i + 1;
-                ui.send(" " + taskNumber + "." + searchResult.get(i).toString());
+                response += taskNumber + "." + searchResult.get(i).toString();
             }
-            return false;
+            return response;
         };
     }
 
@@ -133,15 +135,15 @@ public class CommandList {
      */
     public static Command markTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            String response;
             try {
-                ui.send("Nice! I have marked this task as done:\n   "
-                        + tasks.mark(taskNumber));
+                response = "Nice! I have marked this task as done:\n  "
+                        + tasks.mark(taskNumber);
             } catch (IndexOutOfBoundsException e) {
-                String errorMessage = String.format(" There is no such task!\n "
+                response = String.format("There is no such task!\n"
                         + "You currently have %d tasks in your list", tasks.count());
-                ui.send(errorMessage);
             }
-            return false;
+            return response;
         };
     }
 
@@ -153,15 +155,15 @@ public class CommandList {
      */
     public static Command unmarkTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            String response;
             try {
-                ui.send("OK, I've marked this task as not done yet:\n   "
-                        + tasks.unmark(taskNumber));
+                response = "OK, I've marked this task as not done yet:\n  "
+                        + tasks.unmark(taskNumber);
             } catch (IndexOutOfBoundsException e) {
-                String errorMessage = String.format(" There is no such task!\n "
+                response = String.format("There is no such task!\n"
                         + "You currently have %d tasks in your list", tasks.count());
-                ui.send(errorMessage);
             }
-            return false;
+            return response;
         };
     }
 
@@ -171,8 +173,7 @@ public class CommandList {
      */
     public static Command bye() {
         return (tasks, ui, storage) -> {
-            ui.showGoodbye();
-            return true;
+            return ui.getGoodbye();
         };
     }
 }

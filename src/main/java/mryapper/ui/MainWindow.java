@@ -1,12 +1,19 @@
 package mryapper.ui;
 
+import javafx.application.Platform;
+
+import javafx.animation.PauseTransition;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import javafx.util.Duration;
 
 import mryapper.MrYapper;
 
@@ -26,11 +33,12 @@ public class MainWindow extends AnchorPane {
     private MrYapper mrYapper;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getYapperDialog(MrYapper.greet(), yapperImage));
     }
 
     /** Injects the MrYapper instance */
@@ -48,9 +56,15 @@ public class MainWindow extends AnchorPane {
         String response = mrYapper.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getYapperDialog(response, yapperImage)
         );
+        
         userInput.clear();
+        if (response.equals("Bye. Hope to see you again soon!")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1)); // 1-second delay
+            delay.setOnFinished(event -> Platform.exit()); // Terminate the application after delay
+            delay.play(); // Start the delay timer
+        }
     }
 }
 

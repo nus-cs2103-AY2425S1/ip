@@ -22,6 +22,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            stage.setMinHeight(500);
+            stage.setMinWidth(400);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setYapper(mrYapper);  // inject the MrYapper instance
             stage.show();

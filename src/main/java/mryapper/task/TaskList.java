@@ -89,7 +89,7 @@ public class TaskList {
         try {
             storage.saveTasks(this.taskList);
         } catch (IOException e) {
-            System.out.println(" Something went wrong when saving your changes to the task list :(");
+            System.out.println("Something went wrong when saving your changes to the task list :(");
         }
     }
 
@@ -119,7 +119,7 @@ public class TaskList {
 
         String listInString = "";
         for (int i = 0; i < listSize; i += 1) {
-            String taskString = String.format(" %d.%s", i + 1, taskList.get(i));
+            String taskString = String.format("%d.%s", i + 1, taskList.get(i));
             listInString += taskString;
             if (i < listSize - 1) {
                 listInString += "\n";
