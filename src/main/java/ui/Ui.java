@@ -1,5 +1,6 @@
 package ui;
 
+import tasks.Task;
 /**
  * Ui class that encapsulates all the cat prints
  */
@@ -70,6 +71,75 @@ public class Ui {
         System.out.println("  (__(__)___(__)__)");
         System.out.println("");
         System.out.println("    Goodbye, and have a purr-fect day!");
+    }
 
+    /**
+     * Prints the specific task that has been marked
+     * @param task that will be marked as done
+     */
+    public static void markingTaskPrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[" + task.getStatusIcon() + "] " + task.getDes());
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Prints the specific task that has been unmarked
+     * @param task that will be marked as undone
+     */
+    public static void unmarkingTaskPrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as not done:");
+        System.out.println("[" + task.getStatusIcon() + "] " + task.getDes());
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Prints the specific task to be deleted
+     * @param task that will be deleted
+     */
+    public static void deletingTaskPrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Prints the task of type ToDo that has been added
+     * @param task of type ToDo that will be added to the list of tasks
+     */
+    public static void addingToDoPrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Prints the task of type Deadline that has been added
+     * @param task of type Deadline that will be added to the list of tasks
+     */
+    public static void addingDeadlinePrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Prints the task of type Event that has been added
+     * @param task of type Event that will be added to the list of tasks
+     */
+    public static void addingEventPrint(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
 }

@@ -10,6 +10,7 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+import ui.Ui;
 
 /**
  * Encapsulates all the commands that the user can use to interact with the bot
@@ -49,11 +50,7 @@ public class TaskList {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
             markingTask.setDone(true);
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
-            System.out.println("____________________________________________________________");
-            //return scanner.nextLine();
+            Ui.markingTaskPrint(markingTask);
             return "Nice! I've marked this task as done:\n"
                     + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
@@ -80,11 +77,7 @@ public class TaskList {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
             markingTask.setDone(false);
-            System.out.println("____________________________________________________________");
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
-            System.out.println("____________________________________________________________");
-            //return scanner.nextLine();
+            Ui.unmarkingTaskPrint(markingTask);
             return "OK, I've marked this task as not done yet:\n"
                     + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
@@ -110,18 +103,10 @@ public class TaskList {
         try {
             Task taskToDelete = items.get(index - 1);
             items.remove(index - 1);
-            //Task.taskCount--;
             Task.decrementTaskCount();
-            System.out.println("____________________________________________________________");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(taskToDelete);
-            //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
-            System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
-            //return scanner.nextLine();
+            Ui.deletingTaskPrint(taskToDelete);
             return "Noted. I've removed this task:\n"
                     + taskToDelete + "\n"
-                    //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
                     + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Pick an appropriate number. Please Try Again");
@@ -147,18 +132,12 @@ public class TaskList {
             return "You can't Do Nothing";
         }
         Task nextTask = new ToDo(input);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(nextTask);
-        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        Ui.addingToDoPrint(nextTask);
         items.add(nextTask);
         //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
-        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -200,18 +179,12 @@ public class TaskList {
         }
         // If task added successfully, the program will reach here!
         Task nextTask = new Deadline(taskDescription, dateBy);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(nextTask);
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
-        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        Ui.addingDeadlinePrint(nextTask);
         items.add(nextTask);
         //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
-        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -226,6 +199,9 @@ public class TaskList {
                                      Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/from"
         String[] parts = input.split("/from");
+
+        // Assert that the input contains the "/from" delimiter.
+        assert parts.length > 1 : "Input must contain '/from' to specify the start date.";
         // The taskDescription is the first part after removing the word "event"
         String taskDescription = parts[0].replace("event", "").trim();
         if (taskDescription.isEmpty()) {
@@ -235,10 +211,17 @@ public class TaskList {
         // Further split the remaining part by "/to"
         String[] dateParts = parts[1].split("/to");
 
+        // Assert that the input contains the "/to" delimiter.
+        assert dateParts.length > 1 : "Input must contain '/to' to specify the end date.";
+
         // The "fromDate" is the first part
         String fromDate = dateParts[0].trim();
         // The "toDate" is the second part
         String toDate = dateParts.length > 1 ? dateParts[1].trim() : "";
+
+        // Assert that both fromDate and toDate are not empty
+        assert !fromDate.isEmpty() : "From date must not be empty.";
+        assert !toDate.isEmpty() : "To date must not be empty.";
         LocalDate toLocalDate;
         LocalDate fromLocalDate;
         try { // Utilises LocalDate static method to parse input
@@ -250,22 +233,19 @@ public class TaskList {
             return "The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
         }
 
+        // Assert that fromLocalDate is not after toLocalDate
+        assert !fromLocalDate.isAfter(toLocalDate) : "Start date must be before or on the end date.";
+
         if (toDate.isEmpty()) {
             throw new TheOrangeRatchetCatException("You need to specify an end time!");
         }
         Task nextTask = new Event(taskDescription, fromLocalDate, toLocalDate);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(nextTask);
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
-        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        Ui.addingEventPrint(nextTask);
         items.add(nextTask);
         //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
-        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
