@@ -1,7 +1,7 @@
 package quack.command;
 
-import quack.TaskList;
-import quack.Ui;
+import quack.util.TaskList;
+import quack.util.Ui;
 
 /**
  * This class is responsible for finding tasks similar
