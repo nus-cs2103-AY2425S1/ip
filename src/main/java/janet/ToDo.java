@@ -15,7 +15,7 @@ public class ToDo extends Task {
 
     ToDo(String description, String symbol) {
         // this is used inside the static method: createToDo
-        super(description, symbol, null);
+        super(description, symbol);
     }
 
 
