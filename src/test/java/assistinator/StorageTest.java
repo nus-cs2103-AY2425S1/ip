@@ -22,7 +22,7 @@ public class StorageTest {
     @Test
     public void getTask_invalidTaskType_exceptionThrown() {
         Storage storage = new Storage(TEST_FILE_PATH);
-        String[] parts = {"X", "NOTDONE", "Invalid task"};
+        String[] parts = {"X", "0", "Invalid task"};
 
         try {
             storage.getTask(parts, "X");

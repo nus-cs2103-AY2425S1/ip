@@ -66,7 +66,7 @@ public class Storage {
      * @return Task
      */
     public Task getTask(String[] parts, String type) {
-        boolean isDone = TaskStatus.isDone(parts[1].trim());
+        boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
         Task task;
@@ -75,16 +75,13 @@ public class Storage {
             task = new Todo(description);
             break;
         case "D":
-            String deadline = parts[3].trim();
-            task = new Deadline(description, deadline);
+            task = new Deadline(description, parts[3].trim());
             break;
         case "E":
-            String start = parts[3].trim();
-            String end = parts[4].substring(parts[4].indexOf(' ') + 1);
             task = new Event(
                     description,
-                    start,
-                    end
+                    parts[3].trim(),
+                    parts[4].substring(parts[4].indexOf(' ') + 1)
             );
             break;
         default:
