@@ -24,6 +24,16 @@ public class TaskList implements Saveable {
     }
 
     /**
+     * Inserts a task to the task list.
+     *
+     * @param task  The task to be inserted.
+     * @param index The position to be inserted.
+     */
+    public void addTask(Task task, int index) {
+        this.taskList.add(index, task);
+    }
+
+    /**
      * Deletes a task by index from the task list.
      *
      * @param index The index of the task to be deleted.
