@@ -22,6 +22,7 @@ public class Storage {
      */
     public List<Task> loadFile() {
         try {
+            assert file.exists():"file does not exist";
             Scanner s = new Scanner(file);
             List<Task> array = new ArrayList<>();
             while (s.hasNext()) {
@@ -29,12 +30,15 @@ public class Storage {
                 String[] parts = line.split(" \\| ");
                 switch (parts[0]) {
                 case "T":
+                    assert parts.length == 3: "wrong length";
                     array.add(new Todo(parts[2], parts[1].equals("1")));
                     break;
                 case "D":
+                    assert parts.length == 4: "wrong length";
                     array.add(new Deadline(parts[2], parts[3], parts[1].equals("1")));
                     break;
                 case "E":
+                    assert parts.length == 5: "wrong length";
                     array.add(new Event(parts[2], parts[3], parts[4], parts[1].equals("1")));
                     break;
                 }
