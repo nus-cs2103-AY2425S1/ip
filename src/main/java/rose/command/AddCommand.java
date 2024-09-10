@@ -34,11 +34,12 @@ public class AddCommand extends Command {
      * @param tasks current list of tasks.
      * @param ui ui object to show message to user.
      * @param storage storage object to store the data.
+     * @return A message indicating the result of the operation, such as the added task or an error message.
      * @throws RoseException If input is incomplete or tasktype is unknown.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;
-        DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
             switch (taskType) {
@@ -70,17 +71,16 @@ public class AddCommand extends Command {
             }
 
             tasks.addTask(newTask);
-            ui.showAdd(newTask, tasks.size());
+            try {
+                storage.save(tasks.getTaskList());
+            } catch (IOException e) {
+                ui.showError("We cannot save the tasks: " + e.getMessage());
+            }
+            return ui.showAdd(newTask, tasks.size());
         } catch (DateTimeParseException e) {
-            ui.showError("Please enter a valid date in the format yyyy-MM-dd.");
+            return ui.showError("Please enter a valid date in the format yyyy-MM-dd.");
         } catch (RoseException e) {
-            ui.showError("OOPS!!! " + e.getMessage());
-        }
-
-        try {
-            storage.save(tasks.getTaskList());
-        } catch (IOException e) {
-            ui.showError("We cannot save the tasks: " + e.getMessage());
+            return ui.showError("OOPS!!! " + e.getMessage());
         }
     }
 }
