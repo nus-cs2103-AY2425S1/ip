@@ -54,8 +54,11 @@ public class Parser {
      * @return Command to be executed.
      */
     public static Command parseCommand(String input) {
+        System.out.println("parseCommand - 1");
         String[] inputWordsList = input.split("\s+");
         String keyword = inputWordsList[0];
+        System.out.println("parseCommand - 2");
+
         switch (keyword) {
         case "list":
             return new ListCommand();
@@ -76,6 +79,8 @@ public class Parser {
         case "bye":
             return new ByeCommand(input);
         default:
+            System.out.println("parseCommand - when none keyed correctly");
+
             Ui.requestValidCommand();
             return new Command(input);
         }

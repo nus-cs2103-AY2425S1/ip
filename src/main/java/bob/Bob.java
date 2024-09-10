@@ -18,7 +18,7 @@ public class Bob {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-
+    private String commandType;
     /**
      * Initialises an instance of the chatBot Bob.
      * Bob's ui, storage and taskList is also initialised.
@@ -110,5 +110,25 @@ public class Bob {
             ui.showLine();
         }
         Ui.showGoodBye();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @param input
+     */
+    public String getResponse(String input) {
+        taskList = storage.loadUpdatedTaskList(); //Updates taskList based on previous input.
+        Command c = Parser.parseCommand(input);
+        String output = c.execute(taskList, storage, ui);
+        commandType = c.getClass().getSimpleName();
+        return output;
+    }
+
+    /**
+     * Returns the command type.
+     */
+    public String getCommandType() {
+        return commandType;
     }
 }
