@@ -65,7 +65,7 @@ public class Phenex {
             return command.execute(this.tasks, this.ui, this.storage);
         } catch (PhenexException e) {
             Ui.printExceptionMessage(e);
-            return "Invalid input!";
+            return e.getMessage();
         }
     }
 

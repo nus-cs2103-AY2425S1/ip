@@ -30,6 +30,9 @@ public class DeadlineCommand extends CreateTaskCommand {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Deadline deadline = new Deadline(this.name, this.localDate);
+        if (taskList.containsTask(deadline)) {
+            throw new PhenexException("Error: Duplicate Mission. Aborting!");
+        }
         taskList.addTask(deadline);
         String stringToReturn = ui.printTaskAddedMessage(deadline, taskList.getTasks().size());
         return stringToReturn;
