@@ -1,12 +1,5 @@
 package jay.storage;
 
-import jay.parser.InvalidDateException;
-import jay.parser.InvalidTimeException;
-import jay.task.DeadlineTask;
-import jay.task.EventTask;
-import jay.task.Task;
-import jay.task.ToDoTask;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,13 +7,26 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.Task;
+import jay.task.ToDoTask;
+
 /**
- * Represents the Jay.storage of tasks.
+ * Represents the storage of tasks.
  */
 public class Storage {
     private final Path folderPath;
     private final Path filePath;
 
+    /**
+     * Constructs a storage object.
+     *
+     * @param folderName The name of the folder to store the tasks.
+     * @param fileName The name of the file to store the tasks.
+     */
     public Storage(String folderName, String fileName) {
         this.folderPath = Paths.get(folderName);
         this.filePath = Paths.get(folderName, fileName);
@@ -28,6 +34,7 @@ public class Storage {
 
     /**
      * Saves the tasks to the file.
+     *
      * @param taskList The list of tasks to be saved.
      * @throws DataIOException If there is an error saving the tasks.
      */
@@ -45,8 +52,10 @@ public class Storage {
         }
     }
 
+    //CHECKSTYLE.OFF: Indentation
     /**
      * Loads the tasks from the file.
+     *
      * @return The list of tasks loaded from the file.
      * @throws DataIOException If there is an error loading the tasks.
      * @throws InvalidDataFormatException If the data format is invalid.
@@ -64,14 +73,21 @@ public class Storage {
 
             for (String taskStr : tasksStr) {
                 String[] taskDetails = taskStr.split("\\|");
-                Task.Type taskType = switch (taskDetails[0].trim()) {
-                    case "T" -> Task.Type.ToDo;
-                    case "D" -> Task.Type.Deadline;
-                    case "E" -> Task.Type.Event;
-                    default ->
-                        throw new InvalidDataFormatException("OOPS!!! "
-                                + "There was an error loading the tasks from the file.");
-                };
+                Task.Type taskType = null; // preserve the task type
+                switch (taskDetails[0].trim()) {
+                case "T":
+                    taskType = Task.Type.ToDo;
+                    break;
+                case "D":
+                    taskType = Task.Type.Deadline;
+                    break;
+                case "E":
+                    taskType = Task.Type.Event;
+                    break;
+                default:
+                    throw new InvalidDataFormatException("OOPS!!! "
+                            + "There was an error loading the tasks from the file.");
+                }
                 boolean isDone = taskDetails[1].trim().equals("1");
                 String description = taskDetails[2].trim();
                 // preserve the date for deadline and event tasks
@@ -79,19 +95,19 @@ public class Storage {
 
                 switch (taskType) {
                 case ToDo:
-                        tasks.add(new ToDoTask(description, isDone));
-                        break;
+                    tasks.add(new ToDoTask(description, isDone));
+                    break;
                 case Deadline:
-                        date = taskDetails[3].trim();
-                        tasks.add(new DeadlineTask(description, isDone, date));
-                        break;
+                    date = taskDetails[3].trim();
+                    tasks.add(new DeadlineTask(description, isDone, date));
+                    break;
                 case Event:
-                        date = taskDetails[3].trim();
-                        String startTime = taskDetails[4].trim();
-                        String endTime = taskDetails[5].trim();
+                    date = taskDetails[3].trim();
+                    String startTime = taskDetails[4].trim();
+                    String endTime = taskDetails[5].trim();
 
-                        tasks.add(new EventTask(description, isDone, date, startTime, endTime));
-                        break;
+                    tasks.add(new EventTask(description, isDone, date, startTime, endTime));
+                    break;
                 default:
                     throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
                 }

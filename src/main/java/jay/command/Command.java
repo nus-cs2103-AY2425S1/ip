@@ -3,15 +3,15 @@ package jay.command;
 import jay.task.Task;
 
 /**
- * Represents a Jay.command that the user inputs.
+ * Represents a command that the user inputs.
  */
 public class Command {
     /**
-     * Represents the type of Jay.command.
+     * Represents the type of command.
      */
     public enum CommandType {
         List, Add, Mark, Unmark, Delete, Find, Exit, Unknown
-    };
+    }
 
     private final String command;
 
@@ -19,33 +19,39 @@ public class Command {
         this.command = command;
     }
 
-    // CHECKSTYLE.OFF: Indentation
     /**
-     * Returns the type of Jay.command that user input.
+     * Returns the type of command that user input.
      *
-     * @return The type of Jay.command.
+     * @return The type of command.
      */
     public CommandType getCommandType() {
         String commandType = this.command.split(" ")[0];
 
-        return switch (commandType) {
-            case "list" -> CommandType.List;
-            case "bye" -> CommandType.Exit;
-            case "mark" -> CommandType.Mark;
-            case "unmark" -> CommandType.Unmark;
-            case "delete" -> CommandType.Delete;
-            case "find" -> CommandType.Find;
-            case "todo", "deadline", "event" -> CommandType.Add;
-            default -> CommandType.Unknown;
-        };
+        switch (commandType) {
+        case "list":
+            return CommandType.List;
+        case "bye":
+            return CommandType.Exit;
+        case "mark":
+            return CommandType.Mark;
+        case "unmark":
+            return CommandType.Unmark;
+        case "delete":
+            return CommandType.Delete;
+        case "find":
+            return CommandType.Find;
+        case "todo", "deadline", "event":
+            return CommandType.Add;
+        default:
+            return CommandType.Unknown;
+        }
     }
 
-    // CHECKSTYLE.ON: Indentation
     /**
-     * Returns the Jay.task number from the Jay.command.
+     * Returns the task number from the Jay.command.
      *
-     * @return The Jay.task number.
-     * @throws InvalidCommandException If the Jay.command is invalid.
+     * @return The task number.
+     * @throws InvalidCommandException If the command is invalid.
      */
     public int getTaskNumber() throws InvalidCommandException {
         try {
@@ -55,21 +61,23 @@ public class Command {
         }
     }
 
-    //CHECKSTYLE.OFF: Indentation
     /**
-     * Returns the Jay.task type from the Jay.command.
+     * Returns the task type from the Jay.command.
      *
-     * @return The Jay.task type.
+     * @return The task type.
      */
     public Task.Type getTaskType() {
-        return switch (this.command.split(" ")[0]) {
-            case "todo" -> Task.Type.ToDo;
-            case "deadline" -> Task.Type.Deadline;
-            case "event" -> Task.Type.Event;
-            default -> Task.Type.Unknown;
-        };
+        switch (this.command.split(" ")[0]) {
+        case "todo":
+            return Task.Type.ToDo;
+        case "deadline":
+            return Task.Type.Deadline;
+        case "event":
+            return Task.Type.Event;
+        default:
+            return Task.Type.Unknown;
+        }
     }
-    // Checkstyle.ON: Indentation
 
     /**
      * Returns the description from the Jay.command.

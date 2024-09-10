@@ -1,11 +1,12 @@
 package jay.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jay.parser.InvalidDateException;
 import jay.parser.InvalidTimeException;
 import jay.parser.Parser;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * Represents an event Jay.task.
