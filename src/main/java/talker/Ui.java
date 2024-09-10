@@ -34,6 +34,7 @@ public class Ui {
 
     /**
      * Returns the welcome message
+     *
      * @return String representing welcome message
      */
     public String printWelcome() {
@@ -42,6 +43,7 @@ public class Ui {
 
     /**
      * Returns the goodbye message
+     *
      * @return String representing goodbye message
      */
     public String printGoodBye() {
@@ -50,6 +52,7 @@ public class Ui {
 
     /**
      * Returns a divider line
+     *
      * @return String representing divider line
      */
     public String printLine() {
@@ -73,10 +76,12 @@ public class Ui {
      */
     public String printTaskList(Task... tasks) {
         StringBuilder output = new StringBuilder();
+
         output.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.length; i++) {
-            output.append(String.format("%d.%s\n", i + 1, tasks[i]));
+            output.append(String.format("%d. %s\n", i + 1, tasks[i]));
         }
+
         return output.toString();
     }
 
@@ -99,9 +104,11 @@ public class Ui {
      */
     public String printTaskDelete(Task task, int size) {
         StringBuilder output = new StringBuilder();
+
         output.append("Noted. I've removed this task:\n");
         output.append(task.toString() + "\n");
         output.append(String.format("Now you have %d tasks in the list.\n", size));
+
         return output.toString();
     }
 
@@ -114,9 +121,11 @@ public class Ui {
      */
     public String printTaskAdd(Task task, int size) {
         StringBuilder output = new StringBuilder();
+
         output.append("Got it. I've added this task:\n");
         output.append(task.toString() + "\n");
         output.append(String.format("Now you have %d tasks in the list.\n", size));
+
         return output.toString();
     }
 
@@ -161,10 +170,12 @@ public class Ui {
             throw new TalkerException("No matching tasks found!");
         } else {
             StringBuilder output = new StringBuilder();
+
             output.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.length; i++) {
                 output.append(String.format("%d.%s\n", i + 1, tasks[i]));
             }
+
             return output.toString();
         }
     }

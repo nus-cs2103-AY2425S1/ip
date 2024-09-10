@@ -66,36 +66,72 @@ public class TaskList {
     public String printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
         StringBuilder output = new StringBuilder();
+
         try {
             String[] parsed = date.split(" ");
             targetDate = LocalDate.parse(parsed[1], INPUT_FORMAT);
-        } catch (DateTimeException e) {
+        } catch (DateTimeException | IndexOutOfBoundsException e) {
             throw new TalkerException("Incorrect date format. Try again with: yyyy/MM/dd");
         }
+
         output.append(ui.printTasksOn(targetDate.format(OUTPUT_FORMAT)));
+
         for (Task task: list) {
+            String toAppend;
+
             if (task instanceof Deadline) {
-                LocalDate deadline = ((Deadline) task).getDeadline().toLocalDate();
-                if (targetDate.isBefore(deadline) || targetDate.isEqual(deadline)) {
-                    if (!task.isComplete()) {
-                        output.append(ui.printTask(task));
-                    }
-                }
+                toAppend = getDeadlineOnTargetDate((Deadline) task, targetDate, ui);
             } else if (task instanceof Event) {
-                Event eventTask = (Event) task;
-                LocalDate start = eventTask.getFrom().toLocalDate();
-                LocalDate end = eventTask.getTo().toLocalDate();
-                if ((targetDate.isAfter(start) || targetDate.isEqual(start))
-                        && (targetDate.isBefore(end) || targetDate.isEqual(end))) {
-                    if (!task.isComplete()) {
-                        output.append(ui.printTask(task));
-                    }
-                }
+                toAppend = getEventOnTargetDate((Event) task, targetDate, ui);
             } else {
+                toAppend = "";
                 assert (task instanceof ToDo) : "task should be of type ToDo";
             }
+
+            output.append(toAppend);
         }
         return output.toString();
+    }
+
+    /**
+     * Gets String representation of deadline task within targetDate
+     *
+     * @param deadlineTask Deadline task
+     * @param targetDate LocalDate target date to see if deadline has passed
+     * @param ui ui object to print output
+     * @return String representing deadline task if within targetDate else blank String
+     */
+    private String getDeadlineOnTargetDate(Deadline deadlineTask, LocalDate targetDate, Ui ui) {
+        LocalDate deadline = deadlineTask.getDeadline().toLocalDate();
+
+        boolean hasDeadlinePassed = targetDate.isBefore(deadline) || targetDate.isEqual(deadline);
+
+        if (!hasDeadlinePassed || deadlineTask.isComplete()) {
+            return "";
+        }
+        return ui.printTask(deadlineTask) + "\n";
+    }
+
+    /**
+     * Gets String representation of event task within targetDate
+     *
+     * @param eventTask Event task
+     * @param targetDate LocalDate target date to see if event is ongoing
+     * @param ui ui object to print output
+     * @return String representing event task if event is still ongoing else blank String
+     */
+    private String getEventOnTargetDate(Event eventTask, LocalDate targetDate, Ui ui) {
+        LocalDate start = eventTask.getFrom().toLocalDate();
+        LocalDate end = eventTask.getTo().toLocalDate();
+
+        boolean hasEventStarted = targetDate.isAfter(start) || targetDate.isEqual(start);
+        boolean hasEventEnded = targetDate.isBefore(end) || targetDate.isEqual(end);
+        boolean isEventOngoing = hasEventStarted && hasEventEnded;
+
+        if (!isEventOngoing || eventTask.isComplete()) {
+            return "";
+        }
+        return ui.printTask(eventTask) + "\n";
     }
 
     /**
@@ -124,6 +160,7 @@ public class TaskList {
     public String markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
+
             return ui.printTaskMarked(list.get(index).mark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
@@ -143,6 +180,7 @@ public class TaskList {
     public String unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
+
             return ui.printTaskUnmarked(list.get(index).unmark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
@@ -163,6 +201,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
             Task removed = list.remove(index);
+
             return ui.printTaskDelete(removed, list.size());
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
