@@ -98,6 +98,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<Task>();
         String errorMessage = "";
         int lineInFileCount = 0; // not item count, because .txt file can see line number easily
+
         Scanner scanner = new Scanner(this.taskFile);
         while (scanner.hasNextLine()) {
             lineInFileCount++;
@@ -105,6 +106,7 @@ public class Storage {
             if (lineInFocus.isEmpty()) {
                 continue;
             }
+
             Pair<Optional<Task>, String> taskAndErrorMsgPair = convertLineToTask(lineInFocus);
             taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
             if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {

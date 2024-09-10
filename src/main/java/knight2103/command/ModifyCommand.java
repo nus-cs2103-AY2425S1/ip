@@ -55,7 +55,7 @@ public class ModifyCommand extends Command {
                     + "\nTask number exceeded total numbers of tasks in the list. "
                     + "Please check if the task number is correct. "
                     + "\nTo see all tasks, type list";
-        } catch (IOException e) { // from save() in Storage class
+        } catch (IOException e) { // from saveToFile() in Storage class
             return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }
     }
