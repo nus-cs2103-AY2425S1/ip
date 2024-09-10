@@ -12,7 +12,7 @@ import tohru.exception.TohruException;
 public class Parser {
 
     /**
-     * Parse the giving input and determine the corresponding commands.
+     * Parses the giving input and determine the corresponding commands.
      *
      * @param prompt The input from the user.
      * @return A command object representing the operation requested by the user.
@@ -53,7 +53,7 @@ public class Parser {
     }
 
     /**
-     * Helper function to parse the datetime string passed in with the provided formatter.
+     * Parses the datetime string passed in with the provided formatter.
      *
      * @param datetimeString The datetime string to be parsed.
      * @param formatter The format used to parse the datetime string.
@@ -66,6 +66,21 @@ public class Parser {
             return LocalDateTime.parse(datetimeString, formatter);
         } catch (DateTimeParseException e) {
             throw new TohruException(String.format("Argument '%s' is in an invalid datetime format", datetimeString));
+        }
+    }
+
+    /**
+     * Parses the given string.
+     *
+     * @param arguments The integer string to be parsed.
+     * @return The integer that is parsed.
+     * @throws TohruException When the string does not have a integer to be parsed.
+     */
+    protected static int parseIntArgument(String arguments) throws TohruException {
+        try {
+            return Integer.parseInt(arguments) - 1;
+        } catch (NumberFormatException e) {
+            throw new TohruException(String.format("%s is not valid index", arguments));
         }
     }
 

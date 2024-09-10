@@ -26,10 +26,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) {
-        String[] itemsListString = new String[list.getTotal()];
-        for (int i = 0; i < list.getTotal(); i++) {
-            itemsListString[i] = String.format("%d. %s", i + 1, list.getItemStatus(i));
-        }
+        String[] itemsListString = TodoList.getItemisedItemsString(list.getTodoList());
         ui.showText(String.format("These are %s entries on your todo:", list.getTotal()),
                 String.join(System.lineSeparator(), itemsListString));
     }
