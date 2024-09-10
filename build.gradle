@@ -58,7 +58,7 @@ shadowJar {
     archiveVersion = "2.2"
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }
