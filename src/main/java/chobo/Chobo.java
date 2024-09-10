@@ -18,16 +18,20 @@ public class Chobo {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         taskList = new TaskList(storage.loadTasks());
+        assert ui != null : "UI can not be null";
+        assert storage != null : "Storage can not be null";
+        assert taskList != null : "TaskList can not be null";
     }
 
     /**
-     * Run.
+     * Run for command line interface
      */
     public void run() {
         ui.printWelcome();
         Scanner scanner = new Scanner(System.in);
         try {
             String Command = scanner.nextLine();
+            assert command != null && !command.trim().isEmpty() : "Command cannot be null or empty";
             Parser.parse(Command, taskList, ui, storage);
         } catch (InputException e) {
             ui.printError(e.getMessage());
@@ -49,15 +53,10 @@ public class Chobo {
         try {
             String Command = scanner.nextLine();
             toReturn = Parser.parse(Command, taskList, ui, storage);
+            assert toReturn != null : "Response from parser should be a string";
         } catch (InputException e) {
             return e.getMessage();
         }
         return toReturn;
     }
 }
-
-
-
-
-
-

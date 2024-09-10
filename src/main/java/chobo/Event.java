@@ -27,6 +27,10 @@ public class Event extends Task {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
         this.from = LocalDateTime.parse(from.trim(), dateTimeFormatter);
         this.to = LocalDateTime.parse(to.trim(), dateTimeFormatter);
+        assert name != null && !name.trim().isEmpty() : "Event name cannot be null or empty";
+        assert from != null && !from.trim().isEmpty() : "Start date string cannot be null or empty";
+        assert to != null && !to.trim().isEmpty() : "End date string cannot be null or empty";
+
     }
 
     @Override
