@@ -67,9 +67,9 @@ public class Deadline extends Task {
      */
     @Override
     public String formatToCsv() {
-        String res = super.formatToCsv();
-        res += DELIMITER + wrapInQuotes(DateParser.formatDateForStorage(by));
-        return res;
+        String formattedCsvString = super.formatToCsv();
+        formattedCsvString += DELIMITER + wrapInQuotes(DateParser.formatDateForStorage(by));
+        return formattedCsvString;
     }
 
     /**

@@ -75,10 +75,10 @@ public class Event extends Task {
      */
     @Override
     public String formatToCsv() {
-        String res = super.formatToCsv();
-        res += DELIMITER + wrapInQuotes(formatDateForStorage(start));
-        res += DELIMITER + wrapInQuotes(formatDateForStorage(end));
-        return res;
+        String formattedCsvString = super.formatToCsv();
+        formattedCsvString += DELIMITER + wrapInQuotes(formatDateForStorage(start));
+        formattedCsvString += DELIMITER + wrapInQuotes(formatDateForStorage(end));
+        return formattedCsvString;
     }
 
     /**

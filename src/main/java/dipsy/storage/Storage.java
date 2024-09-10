@@ -79,12 +79,12 @@ public class Storage {
      * @return A string representing the tasks in CSV format.
      */
     private static String formatTasks(ArrayList<Task> tasks) {
-        StringBuilder res = new StringBuilder();
+        StringBuilder formattedTasks = new StringBuilder();
         for (Task t: tasks) {
-            res.append(t.formatToCsv());
-            res.append("\n");
+            formattedTasks.append(t.formatToCsv());
+            formattedTasks.append("\n");
         }
-        return res.toString();
+        return formattedTasks.toString();
     }
 
     /**
@@ -96,7 +96,7 @@ public class Storage {
         try {
             File parentDir = TASK_FILE.getParentFile();
             if (!parentDir.exists()) {
-                boolean success = parentDir.mkdirs();
+                parentDir.mkdirs();
             }
             if (TASK_FILE.createNewFile()) {
                 System.out.println("A task file has been created locally.");

@@ -94,12 +94,12 @@ public class Task {
      * @return A string representing the task data in CSV format.
      */
     public String formatToCsv() {
-        String[] arr = new String[]{
+        String[] formattedCsvStringArray = new String[]{
                 wrapInQuotes(this.getStatusIcon()),
                 wrapInQuotes(this.getTaskType()),
                 wrapInQuotes(this.description)
         };
-        return String.join(DELIMITER, arr);
+        return String.join(DELIMITER, formattedCsvStringArray);
     }
 
     /**
