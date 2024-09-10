@@ -37,4 +37,17 @@ public class Event extends Task {
     public String toEasyString() {
         return "[E]" + super.toString() + " (from: " + this.startDate + ", to: " + this.endDate + ")";
     }
+
+    @Override
+    public void update(String newDesc, LocalDateTime fromTime, LocalDateTime toTime) {
+        if (newDesc != null) {
+            this.setTaskName(newDesc);
+        }
+        if (fromTime != null) {
+            this.startDate = fromTime;
+        }
+        if (toTime != null) {
+            this.endDate = toTime;
+        }
+    }
 }

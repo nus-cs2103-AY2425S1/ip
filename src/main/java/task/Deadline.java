@@ -32,4 +32,14 @@ public class Deadline extends Task {
     public String toEasyString() {
         return "[D]" + super.toString() + " (by: " + this.endTime + ")";
     }
+
+    @Override
+    public void update(String newDesc, LocalDateTime fromTime, LocalDateTime toTime) {
+        if (newDesc != null) {
+            this.setTaskName(newDesc);
+        }
+        if (toTime != null) {
+            this.endTime = toTime;
+        }
+    }
 }

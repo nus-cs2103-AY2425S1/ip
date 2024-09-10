@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private String taskName;
     private boolean isCompleted;
@@ -12,6 +14,10 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.isCompleted = false;
+    }
+
+    public void setTaskName(String newName) {
+        this.taskName = newName;
     }
 
     /**
@@ -46,12 +52,23 @@ public class Task {
     }
 
     /**
-     * checks if the particular term is present in the task name.
+     * Checks if the particular term is present in the task name.
      * 
      * @param term the term to check.
      * @return true if the term is present, false otherwise.
      */
     public boolean contains(String term) {
         return this.taskName.toLowerCase().contains(term.toLowerCase());
+    }
+
+    /**
+     * Updates the task details accordingly. MUST BE OVERRIDEN.
+     * 
+     * @param newDesc the new description (if any)
+     * @param fromDate the new from date (if any, only applicable to events)
+     * @param toDate the new to date (if any, only applicable to deadlines and events)
+     */
+    public void update(String newDesc, LocalDateTime fromTime, LocalDateTime toTime) {
+        return;
     }
 }

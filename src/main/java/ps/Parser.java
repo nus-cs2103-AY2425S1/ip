@@ -22,6 +22,8 @@ public class Parser {
             = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
     private static final Pattern FIND_CMD_PATTERN
             = Pattern.compile("find (.+)");
+    private static final Pattern UPDATE_CMD_PATTERN
+            = Pattern.compile("update (\\d+)");
 
     /**
      * Takes in a string representing a date and time and returns a representative LocalDateTime object
@@ -68,6 +70,40 @@ public class Parser {
         }
 
         return null;
+    }
+
+
+    /**
+     * Parses the update command to get the new description and time(s).
+     * 
+     * @param updatedInfo the user input
+     * @param taskNum the task number to be updated
+     * @return an UpdateTaskCommand to update the task
+     */
+    private static Command parseUpdateTaskCommand(String updatedInfo, int taskNum) {
+        String newDesc = null;
+        LocalDateTime fromDate = null;
+        LocalDateTime toDate = null;
+
+        Matcher descMatch = Pattern.compile("/desc ([^/]+)").matcher(updatedInfo);
+        if (descMatch.find()) {
+            newDesc = descMatch.group(1);
+        }
+
+        Matcher fromDateMatch = Pattern.compile("/from (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
+        if (fromDateMatch.find()) {
+            fromDate = parseDateTime(fromDateMatch.group(1));
+        }
+
+        Matcher toDateMatch = Pattern.compile("/to (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
+        Matcher byDateMatch = Pattern.compile("/by (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
+        if (toDateMatch.find()) {
+            toDate = parseDateTime(toDateMatch.group(1));
+        } else if (byDateMatch.find()) {
+            toDate = parseDateTime(byDateMatch.group(1));
+        }
+
+        return new UpdateTaskCommand(taskNum, newDesc, fromDate, toDate);
     }
 
     /**
@@ -179,6 +215,17 @@ public class Parser {
                     return new SearchTaskCommand(searchTerm);
                 } else {
                     return new ErrorCommand("Hang on, what do I need to look for?");
+                }
+            } else if (userInput.startsWith("update")) {
+                Matcher updateMatch = UPDATE_CMD_PATTERN.matcher(userInput);
+
+                if (updateMatch.find()) {
+                    return parseUpdateTaskCommand(
+                        userInput,
+                        Integer.parseInt(updateMatch.group(1)) - 1
+                    );
+                } else {
+                    return new ErrorCommand("Hang on I don't get what you want do update!");
                 }
             } else {
                 return new ErrorCommand("Uhhh I did not get that so I'm just gonna say yes!");

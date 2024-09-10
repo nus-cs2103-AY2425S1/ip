@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -42,19 +44,19 @@ public class TaskList {
     public String taskListToString() {
         int numTasks = this.tasks.size();
         if (numTasks == 0) {
-            return "\tNo tasks";
+            return "No tasks";
         }
 
         try {
             String[] tempTasks = new String[numTasks];
 
             for (int i = 1; i <= numTasks; i++) {
-                tempTasks[i - 1] = "\t" + i + ". " + this.tasks.get(i - 1).toString();
+                tempTasks[i - 1] = "(" + i + ") " + this.tasks.get(i - 1).toString();
             }
 
             return String.join("\n", tempTasks);
         } catch (NullPointerException e) {
-            return "\tOops! It seems like there's an invalid task in your list!\nI can't display the list yet.";
+            return "Oops! It seems like there's an invalid task in your list!\nI can't display the list yet.";
         }
     }
 
@@ -74,11 +76,26 @@ public class TaskList {
      * Searches for the tasks that have a particular word/phrase in them.
      * 
      * @param query the phrase in question.
-     * @return the list of tasks that contain the phrase.
+     * @return the tasks that contain the phrase.
      */
     public TaskList search(String query) {
         return new TaskList(
             new ArrayList<>(this.tasks.stream().filter(t -> t.contains(query)).toList())
         );
+    }
+
+    /**
+     * Updates the given task details (description and/or dates).
+     * Date updates are only applicable to deadline or event tasks.
+     * 
+     * @param taskIndex the task to update
+     * @param newDesc a new description (null if no change needed)
+     * @param fromDate a new fromDate (null if no change needed)
+     * @param toDate a new toDate (null if no change needed) 
+     * @throws NullPointerException if the pointer is out of range
+     */
+    public void update(int taskIndex, String newDesc, LocalDateTime fromDate, LocalDateTime toDate)
+            throws NullPointerException {
+        this.getTask(taskIndex).update(newDesc, fromDate, toDate);
     }
 }
