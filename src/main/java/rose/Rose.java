@@ -13,13 +13,14 @@ import rose.command.Command;
  */
 public class Rose {
 
+    private final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Rose(String filePath) {
+    public Rose() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -61,9 +62,17 @@ public class Rose {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
-        new Rose("data/tasks.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (RoseException e) {
+            return e.getMessage();
+        }
     }
+    //public static void main(String... args) {
+        //new Rose().run();
+    //}
 }
 
 

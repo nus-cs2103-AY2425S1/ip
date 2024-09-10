@@ -72,15 +72,19 @@ public class TaskList {
     /**
      * Displays all tasks in the task list using the provided {@code Ui} instance.
      *
+     * @return The list of tasks that the user currently has.
      * @param ui The {@code Ui} instance used to display tasks.
      */
-    public void showTasks(Ui ui) {
+    public String showTasks(Ui ui) {
+        StringBuilder taskString = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            ui.display((i + 1) + ". " + tasks.get(i).toString());
+            String stringToAdd = (i + 1) + ". " + tasks.get(i).toString() + "\n";
+            taskString.append(stringToAdd);
         }
+        return String.valueOf(taskString);
     }
 
-    public void findTask(String keyword, Ui ui) {
+    public String findTask(String keyword, Ui ui) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : tasks) {
             if (task.hasWord(keyword)) {
@@ -88,8 +92,7 @@ public class TaskList {
             }
         }
 
-        ui.showFind(matchingTasks);
-
+        return ui.showFind(matchingTasks);
 
     }
 }

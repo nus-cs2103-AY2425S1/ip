@@ -9,7 +9,7 @@ import rose.Ui;
  */
 public class ListCommand extends Command {
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.showTasks(ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.showTasks(ui);
     }
 }

@@ -11,7 +11,7 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.findTask(this.keyword, ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.findTask(this.keyword, ui);
     }
 }

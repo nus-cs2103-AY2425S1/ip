@@ -18,19 +18,18 @@ public class DeleteCommand extends Command {
         this.idx = idx;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task deleted = tasks.getTask(idx - 1);
             tasks.deleteTask(idx - 1);
-            ui.showDelete(deleted, tasks.size());
+            try {
+                storage.save(tasks.getTaskList());
+            } catch (IOException e) {
+                return ui.showError("We cannot save the tasks: " + e.getMessage());
+            }
+            return ui.showDelete(deleted, tasks.size());
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! Task index is out of bounds.");
-        }
-
-        try {
-            storage.save(tasks.getTaskList());
-        } catch (IOException e) {
-            ui.showError("We cannot save the tasks: " + e.getMessage());
+            return ui.showError("OOPS!!! Task index is out of bounds.");
         }
     }
 }

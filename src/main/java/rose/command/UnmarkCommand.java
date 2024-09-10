@@ -23,20 +23,20 @@ public class UnmarkCommand extends Command {
      * @param tasks current list of tasks.
      * @param ui ui object to show message to user.
      * @param storage storage object to store the data.
+     * @return A message indicating the result of the operation, such as the unmarked task or an error message.
      * @throws IndexOutOfBoundsException If the user gives non-existing index.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.getTask(idx - 1).unmark();
-            ui.showUnmark(tasks.getTask(idx - 1));
+            try {
+                storage.save(tasks.getTaskList());
+            } catch (IOException e) {
+                ui.showError("We cannot save the tasks: " + e.getMessage());
+            }
+            return ui.showUnmark(tasks.getTask(idx - 1));
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! Task index is out of bounds.");
-        }
-
-        try {
-            storage.save(tasks.getTaskList());
-        } catch (IOException e) {
-            ui.showError("We cannot save the tasks: " + e.getMessage());
+            return ui.showError("OOPS!!! Task index is out of bounds.");
         }
     }
 }
