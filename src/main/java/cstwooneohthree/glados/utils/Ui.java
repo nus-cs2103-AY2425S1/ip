@@ -27,6 +27,9 @@ public class Ui {
     private UiType uiType;
 
     public Ui(UiType uiType) {
+
+        assert uiType == UiType.COMMAND_LINE_INTERFACE || uiType == UiType.GRAPHICAL_USER_INTERFACE;
+
         this.uiType = uiType;
     }
 
