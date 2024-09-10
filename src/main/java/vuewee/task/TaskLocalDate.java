@@ -49,6 +49,7 @@ public class TaskLocalDate {
      *         object
      */
     public static Function<String, TaskLocalDate> createParserWithFrom(Function<?, TaskLocalDate> fromGenerator) {
+        assert fromGenerator != null : "fromGenerator cannot be null";
         return (String dateString) -> {
             TaskLocalDate taskDate = TaskLocalDate.parse(dateString);
             TaskLocalDate from = fromGenerator.apply(null);
