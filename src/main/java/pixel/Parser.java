@@ -68,7 +68,7 @@ public class Parser {
         case FIND:
             return new FindCommand(input.strip());
         case SORT:
-            return new SortCommand();
+            return new SortCommand(input.strip());
         default:
             throw new PixelException("OH NO!!! I don't understand this! Try Again!");
         }

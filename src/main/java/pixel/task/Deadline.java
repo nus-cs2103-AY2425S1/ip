@@ -25,7 +25,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description) throws PixelException {
         super(modifyDescription(description));
-        this.extractDeadline(description);
+        this.extractDeadline(this.description);
     }
 
     /**
@@ -37,7 +37,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String done) throws PixelException {
         super(description, done);
-        this.extractDeadline(description);
+        this.extractDeadline(this.description);
     }
 
     /**
@@ -66,20 +66,14 @@ public class Deadline extends Task {
     }
 
     private void extractDeadline(String des) throws PixelException {
-        // String regex = "\\b\\d{2} [A-Za-z]{3} \\d{4}\\b";
-        // Pattern pattern = Pattern.compile(regex);
-        // Matcher matcher = pattern.matcher(des);
-        // System.out.println(des);
-        // if (matcher.find()) {
-        // DateTimeParser time = new DateTimeParser(matcher.group(2));
-        // this.deadline = time.getDateTime();
-        // } else {
-        // throw new PixelException("Unable to extract Deadline");
-        // }
-        String[] parts = des.split(" ");
-        String date = parts[parts.length - 1];
-        DateTimeParser time = new DateTimeParser(date);
-        this.deadline = time.getDateTime();
+        String regex = "(.*?) by: (.*)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(des);
+        if (matcher.find()) {
+            this.deadline = new DateTimeParser(matcher.group(2)).getDateTime();
+        } else {
+            throw new PixelException("Unable to extract from Date");
+        }
     }
 
     /**

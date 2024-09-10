@@ -9,9 +9,20 @@ import pixel.task.TaskList;
  * Represents a command to add a task to the task list.
  */
 public class SortCommand extends Command {
+    private final String keyword;
 
-    public SortCommand() {
+    public SortCommand(String keyWord) throws PixelException {
         super(false);
+        String sanitisedKeyWord = keyWord.trim().toUpperCase();
+        if (sanitisedKeyWord.equals("NAME")) {
+            this.keyword = "name";
+        } else if (sanitisedKeyWord.equals("DEADLINE")) {
+            this.keyword = "deadline";
+        } else if (sanitisedKeyWord.equals("EVENT")) {
+            this.keyword = "event";
+        } else {
+            throw new PixelException("Invalid sort keyword. Please enter 'name' or 'deadline' or 'event'.");
+        }
     }
 
     /**
@@ -28,7 +39,19 @@ public class SortCommand extends Command {
         // ui.pixelSays("Got it. I've added this task:", " " + this.task, "Now you have
         // " + taskList.size()
         // + " tasks in the list.");
-        taskList.sort();
+        switch (this.keyword) {
+        case "name":
+            taskList.sortByName();
+            break;
+        case "deadline":
+            taskList.sortByDeadline();
+            break;
+        case "event":
+            taskList.sortByEvent();
+            break;
+        default:
+            throw new PixelException("Invalid sort keyword. Please enter 'name' or 'deadline' or 'event'.");
+        }
         ui.pixelSays("Got it. I have sorted your tasks!");
     }
 
@@ -44,7 +67,7 @@ public class SortCommand extends Command {
      */
     @Override
     public String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage) throws PixelException {
-        taskList.sort();
+        this.execute(taskList, ui, storage);
         return "Got it. I have sorted your tasks!";
     }
 }

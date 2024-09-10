@@ -12,7 +12,7 @@ import pixel.PixelException;
  */
 public class Event extends Task {
     private String type = "E";
-    private LocalDate from;
+    private LocalDate fromDate;
 
     /**
      * Constructs a new Event object with the given description.
@@ -23,7 +23,7 @@ public class Event extends Task {
      */
     public Event(String description) throws PixelException {
         super(modifyDescription(description));
-        this.extractFromDate(description);
+        this.extractFromDate(this.description);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Event extends Task {
      */
     public Event(String description, String done) throws PixelException {
         super(description, done);
-        this.extractFromDate(description);
+        this.extractFromDate(this.description);
     }
 
     /**
@@ -64,14 +64,20 @@ public class Event extends Task {
     }
 
     private void extractFromDate(String des) throws PixelException {
-        String[] parts = des.split(" ");
-        String date = parts[parts.length - 1];
-        DateTimeParser time = new DateTimeParser(date);
-        this.from = time.getDateTime();
+        String regex = "\\(from: (.*?) to:";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(des);
+        System.out.println(des);
+        if (matcher.find()) {
+            this.fromDate = new DateTimeParser(matcher.group(1)).getDateTime();
+        } else {
+            throw new PixelException("Unable to extract from Date");
+        }
+
     }
 
     public LocalDate getFromDate() {
-        return this.from;
+        return this.fromDate;
     }
 
     /**
