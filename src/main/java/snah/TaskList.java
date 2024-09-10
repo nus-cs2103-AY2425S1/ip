@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import snah.task.Task;
 import snah.util.Storage;
 
-public class Tasklist {
+/**
+ * Class to handle the list of tasks
+ */
+public class TaskList {
 
     private ArrayList<Task> tasksList;
 
-    public Tasklist() {
+    public TaskList() {
         this.tasksList = new ArrayList<>();
     }
 
-    public Tasklist(Storage storage) {
+    public TaskList(Storage storage) {
         this.tasksList = storage.getTaskLists();
     }
 
@@ -37,6 +40,11 @@ public class Tasklist {
         return tasksList.size();
     }
 
+    /**
+     * Search for the keyword in the tasks list
+     * @param keyword
+     * @return List of tasks that contain the keyword
+     */
     public ArrayList<Task> search(String keyword) {
         ArrayList<Task> searchResults = new ArrayList<>();
         for (Task task : tasksList) {

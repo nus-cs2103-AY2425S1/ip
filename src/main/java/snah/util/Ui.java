@@ -6,7 +6,7 @@ package snah.util;
 public class Ui {
     public static final String START_DIVIDER = "____________________________________________________________";
     public static final String END_DIVIDER = "____________________________________________________________\n";
-    private final static String CHAT_NAME = "Snah";
+    private static final String CHAT_NAME = "Snah";
 
     public Ui() {
     }
@@ -37,7 +37,6 @@ public class Ui {
 
     /**
      * Prints formatted message
-     * 
      * @param message Message to be printed
      * @param args    Arguments to be formatted
      */
@@ -47,7 +46,6 @@ public class Ui {
 
     /**
      * Prints a message with a newline
-     * 
      * @param message Message to be printed
      */
     public void print(String message) {

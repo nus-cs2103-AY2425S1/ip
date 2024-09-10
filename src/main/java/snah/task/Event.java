@@ -1,10 +1,19 @@
 package snah.task;
 
+/**
+ * Class to handle Event tasks
+ */
 public class Event extends Task {
 
     private String from;
     private String to;
 
+    /**
+     * Constructor for Event class
+     * @param description Description of the task
+     * @param from        Start time of the event
+     * @param to          End time of the event
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -17,11 +26,9 @@ public class Event extends Task {
     }
 
     /*
-     * Returns true if the task
-     * contains the keyword,including the 'from' and 'to' fields.
-     * 
+     * Returns true if the task contains the keyword,including the 'from' and 'to'
+     * fields.
      * @param keyword
-     * 
      * @return boolean
      */
     @Override
@@ -31,7 +38,6 @@ public class Event extends Task {
 
     /**
      * Returns the Event in the format to save to file
-     * 
      * @return Event in the format to save to file
      */
     @Override

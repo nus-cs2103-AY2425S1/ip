@@ -1,5 +1,8 @@
 package snah.task;
 
+/**
+ * Class to handle ToDo tasks
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
@@ -12,7 +15,6 @@ public class ToDo extends Task {
 
     /**
      * Returns the Todo in the format to save to file
-     * 
      * @return Todo in the format to save to file
      */
     @Override

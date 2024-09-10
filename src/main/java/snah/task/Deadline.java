@@ -3,10 +3,18 @@ package snah.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class to handle Deadline tasks
+ */
 public class Deadline extends Task {
 
     private LocalDate by;
 
+    /**
+     * Constructor for Deadline class
+     * @param description Description of the task
+     * @param by          Deadline of the task in the format yyyy-mm-dd
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);
@@ -19,9 +27,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns true if the task
-     * contains the keyword, including the 'by' field.
-     *
+     * Returns true if the task contains the keyword, including the 'by' field.
      * @param keyword
      * @return boolean
      */
@@ -32,7 +38,6 @@ public class Deadline extends Task {
 
     /**
      * Returns the Deadline in the format to save to file
-     * 
      * @return Deadline in the format to save to file
      */
     @Override

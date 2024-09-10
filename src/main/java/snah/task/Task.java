@@ -34,7 +34,6 @@ public class Task {
 
     /**
      * Returns the task in the format to save to file
-     * 
      * @return Task in the format to save to file
      */
     public String toSaveFile() {
@@ -43,7 +42,6 @@ public class Task {
 
     /**
      * Returns true if the task contains the keyword.
-     * 
      * @param keyword
      * @return boolean
      */
