@@ -65,4 +65,14 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Returns whether the task is marked as done.
+     *
+     * @return true if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
 }

@@ -98,7 +98,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new GavinException("Task number is invalid!");
         }
-        assert tasks.size() == initialSize - 1 : "TaskList size did not decrease after deleting a task";
+        assert tasks.size() == initialSize - 1 : "TaskList size did not decrease after deleting a task (Programmer error)";
         return tasks.remove(index);
     }
 
@@ -118,5 +118,14 @@ public class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Counts the number of tasks that are marked as done.
+     *
+     * @return The number of tasks that are done.
+     */
+    public long countDoneTasks() {
+        return tasks.stream().filter(Task::isDone).count();
     }
 }
