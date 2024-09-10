@@ -83,31 +83,50 @@ public class Storage {
      */
     private Task parseTaskFromLine(String line) throws JarException {
         String[] parts = line.split(" \\| ");
+
         String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
+        boolean isDone = parseTaskStatus(parts[1]);
         String description = parts[2];
 
-        Task task;
+        Task task = createTaskFromType(taskType, description, parts);
+        task.setStatus(isDone);
+
+        return task;
+    }
+
+    /**
+     * Parses the task's completion status from the string.
+     *
+     * @param status The status of the task ("1" for completed, "0" for not completed).
+     * @return A boolean indicating whether the task is completed.
+     */
+    private boolean parseTaskStatus(String status) {
+        return status.equals("1");
+    }
+
+    /**
+     * Creates a task object based on the task type.
+     *
+     * @param taskType The type of the task ("T", "D", "E").
+     * @param description The description of the task.
+     * @param parts The array containing task details.
+     * @return The created Task object.
+     * @throws JarException If the task type is invalid or data is corrupted.
+     */
+    private Task createTaskFromType(String taskType, String description, String[] parts) throws JarException {
         switch (taskType) {
         case "T":
-            task = new ToDo(description);
-            task.setStatus(isDone);
-            break;
+            return new ToDo(description);
         case "D":
             LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-            task = new DeadLine(description, by);
-            task.setStatus(isDone);
-            break;
+            return new DeadLine(description, by);
         case "E":
             String from = parts[3];
             String to = parts[4];
-            task = new Event(description, from, to);
-            task.setStatus(isDone);
-            break;
+            return new Event(description, from, to);
         default:
             throw new JarException("Data file corrupted. Invalid task type.");
         }
-        return task;
     }
 
     /**
