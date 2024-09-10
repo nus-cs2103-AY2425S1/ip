@@ -3,8 +3,8 @@ package wansbot;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import java.util.Scanner;
-
+import wansbot.questions.Question;
+import wansbot.questions.QuestionBank;
 import wansbot.storage.Storage;
 import wansbot.tasks.Deadlined;
 import wansbot.tasks.Events;
@@ -21,6 +21,7 @@ public class WansBot {
     private static TaskList userTaskList = new TaskList();
     private static UI ui = new UI();
     private static Storage storage = new Storage(ui);
+    private QuestionBank questionBank = new QuestionBank();
 
     /**
      * Throws InputEmptyException when user doesn't input anything after command word.
@@ -73,6 +74,17 @@ public class WansBot {
     private static void checkMissingInputDeadline(String userInput) {
         String[] splitUser = userInput.split(" /by ", 2);
         if (splitUser.length < 2) {
+            throw new InputEmptyException(userInput, "/by");
+        }
+    }
+
+    /**
+     * checks the format of user input when asking WansBot to learn a question.
+     */
+    private static void checkFormatQuestion(String userInput) {
+        String[] splitUser = userInput.split("question ");
+        String[] splitAns = splitUser[1].split("\\?");
+        if (splitAns.length < 2) {
             throw new InputEmptyException(userInput, "/by");
         }
     }
@@ -267,6 +279,42 @@ public class WansBot {
     }
 
     /**
+     * Takes in user input and adds the question to the question bank
+     */
+    private String learnQuestions(String userInput) {
+        try {
+            checkFormatQuestion(userInput);
+            String[] splitName = userInput.split("question ");
+            String[] splitAns = splitName[1].split("\\? ");
+            System.out.println(splitAns[0]);
+            System.out.println(splitAns[1]);
+            questionBank.addQuestion(new Question(splitAns[0] + "?", splitAns[1]));
+        } catch (InputEmptyException e) {
+            return ui.handleWrongQuestionFormat();
+        }
+
+        return ui.handleLearnQuestions();
+    }
+
+    /**
+     * Returns the answer to the matching question. Returns empty string if no matching questions.
+     */
+    public String matchQuestion(String userInput) {
+
+        Question qn = questionBank.getQuestion(userInput.split("answer ")[1]);
+
+        if (qn == null) {
+            return ui.handleWrongAnswerFormat();
+        }
+
+        if (qn.toString().equalsIgnoreCase(userInput.split("answer ")[1])) {
+            return qn.getAnswer();
+        }
+
+        return "";
+    }
+
+    /**
      * Takes in userInput and returns WansBot's response as a String.
      */
     public String getResponse(String userInput) {
@@ -311,6 +359,12 @@ public class WansBot {
             break;
         case "bye":
             response += ui.handleGoodbye();
+            break;
+        case "question":
+            response += learnQuestions(userInput);
+            break;
+        case "answer":
+            response += matchQuestion(userInput);
             break;
         default:
             return ui.handleUnrecognisedInput(userInput);
