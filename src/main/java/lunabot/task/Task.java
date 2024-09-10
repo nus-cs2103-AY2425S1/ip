@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 /**
  * The Task class represents a generic task with a description and completion status.

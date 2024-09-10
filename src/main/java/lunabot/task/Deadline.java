@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

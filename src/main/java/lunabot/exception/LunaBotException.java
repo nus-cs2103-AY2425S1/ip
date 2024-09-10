@@ -1,4 +1,4 @@
-package LunaBot.exception;
+package lunabot.exception;
 
 /**
  * Represents an exception specific to the LunaBot application.

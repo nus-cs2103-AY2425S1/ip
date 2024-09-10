@@ -1,14 +1,14 @@
-package LunaBot.command;
+package lunabot.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import LunaBot.exception.LunaBotException;
-import LunaBot.storage.Storage;
-import LunaBot.task.Deadline;
-import LunaBot.task.TaskList;
-import LunaBot.ui.Ui;
+import lunabot.exception.LunaBotException;
+import lunabot.storage.Storage;
+import lunabot.task.Deadline;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
 /**
  * Command to add Deadline task to the taskList.

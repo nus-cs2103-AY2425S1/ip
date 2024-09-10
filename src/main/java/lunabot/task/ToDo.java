@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 /**
  * Represents a ToDo task in the task list.

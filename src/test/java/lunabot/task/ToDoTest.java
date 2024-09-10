@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

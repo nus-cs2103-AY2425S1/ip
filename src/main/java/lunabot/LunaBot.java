@@ -1,14 +1,14 @@
-package LunaBot;
-
-import LunaBot.command.Command;
-import LunaBot.command.ExitCommand;
-import LunaBot.storage.Storage;
-import LunaBot.ui.Ui;
-import LunaBot.task.TaskList;
-import LunaBot.parser.Parser;
-import LunaBot.exception.LunaBotException;
+package lunabot;
 
 import java.util.Scanner;
+
+import lunabot.command.Command;
+import lunabot.command.ExitCommand;
+import lunabot.exception.LunaBotException;
+import lunabot.parser.Parser;
+import lunabot.storage.Storage;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
 /**
  * Represents the main bot for managing tasks with a command-line interface.
@@ -50,7 +50,7 @@ public class LunaBot {
         ui.printWelcome();
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {  // Infinite loop, break on "bye" command
+        while (true) { // Infinite loop, break on "bye" command
             try {
                 String input = ui.readCommand();
                 Command command = Parser.parse(input);

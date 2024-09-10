@@ -1,24 +1,24 @@
-package LunaBot.command;
+package lunabot.command;
 
-import LunaBot.exception.LunaBotException;
-import LunaBot.storage.Storage;
-import LunaBot.task.Task;
-import LunaBot.task.TaskList;
-import LunaBot.ui.Ui;
+import lunabot.exception.LunaBotException;
+import lunabot.storage.Storage;
+import lunabot.task.Task;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
 /**
- * Command to delete a task from the list.
+ * Command to unmark a task from the taskList as not done.
  */
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
     private int index;
 
     /**
-     * Constructs a DeleteCommand from user input.
+     * Constructs an Unmark Command from user input.
      *
      * @param input Full user input is taken in for the command.
-     * @throws LunaBotException Handles wrong input format.
+     * @throws LunaBotException Handles wrong input format
      */
-    public DeleteCommand(String input) throws LunaBotException {
+    public UnmarkCommand(String input) throws LunaBotException {
         try {
             // extracts index as a string and converts to an int
             this.index = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * @param taskList Current list of tasks for the task to be deleted from
+     * @param taskList Current list of tasks for the UnmarkCommand to operate on.
      * @param ui User interface that handles user input interactions and display messages.
      * @param storage Storage system to save or load tasks to/from a file.
      * @throws LunaBotException If the task number provided is invalid (either out of range or not a number).
@@ -40,8 +40,9 @@ public class DeleteCommand extends Command {
         if (index < 0 || index >= taskList.size()) {
             throw new LunaBotException("Invalid task number provided");
         }
-        Task deleted = taskList.deleteTask(index);
+        Task task = taskList.get(index);
+        task.unmarkAsDone();
         storage.save(taskList.getTasks());
-        ui.printTaskDeleted(deleted, taskList.size());
+        ui.printTaskUnmarked(task);
     }
 }

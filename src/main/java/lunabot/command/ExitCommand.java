@@ -1,9 +1,9 @@
-package LunaBot.command;
+package lunabot.command;
 
-import LunaBot.exception.LunaBotException;
-import LunaBot.storage.Storage;
-import LunaBot.task.TaskList;
-import LunaBot.ui.Ui;
+import lunabot.exception.LunaBotException;
+import lunabot.storage.Storage;
+import lunabot.task.TaskList;
+import lunabot.ui.Ui;
 
 /**
  * Command to exit the LunaBot chat.
@@ -17,7 +17,7 @@ public class ExitCommand extends Command {
      * @throws LunaBotException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         ui.printGoodbye();
     }
 

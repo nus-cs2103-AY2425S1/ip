@@ -1,4 +1,4 @@
-package LunaBot.task;
+package lunabot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private  LocalDateTime from;
+    private LocalDateTime from;
     private LocalDateTime to;
 
     /**
@@ -64,6 +64,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) +")";
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }

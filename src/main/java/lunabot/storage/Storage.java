@@ -1,10 +1,4 @@
-package LunaBot.storage;
-
-import LunaBot.exception.LunaBotException;
-import LunaBot.task.Task;
-import LunaBot.task.ToDo;
-import LunaBot.task.Deadline;
-import LunaBot.task.Event;
+package lunabot.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +9,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import lunabot.exception.LunaBotException;
+import lunabot.task.Deadline;
+import lunabot.task.Event;
+import lunabot.task.Task;
+import lunabot.task.ToDo;
 
 /**
  * The Storage class handles the reading and writing of tasks to a file.
@@ -67,23 +67,23 @@ public class Storage {
                 }
 
                 switch (taskType) {
-                    case "T":
-                        taskList.add(new ToDo(description, isDone));
-                        break;
-                    case "D":
-                        taskList.add(new Deadline(description, dateTime, isDone));
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                        LocalDateTime to = LocalDateTime.parse(arr[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                        taskList.add(new Event(description, from, to, isDone));
-                        break;
-                    default:
-                        throw new LunaBotException("Invalid task type found in file");
+                case "T":
+                    taskList.add(new ToDo(description, isDone));
+                    break;
+                case "D":
+                    taskList.add(new Deadline(description, dateTime, isDone));
+                    break;
+                case "E":
+                    LocalDateTime from = LocalDateTime.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    LocalDateTime to = LocalDateTime.parse(arr[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    taskList.add(new Event(description, from, to, isDone));
+                    break;
+                default:
+                    throw new LunaBotException("Invalid task type found in file");
+
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new LunaBotException("Error reading file: " + e.getMessage());
         }
         return taskList;
@@ -105,8 +105,7 @@ public class Storage {
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new LunaBotException("Error writing to file: " + e.getMessage());
         }
     }
