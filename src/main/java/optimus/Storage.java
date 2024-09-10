@@ -21,9 +21,9 @@ import optimus.tasks.ToDoTask;
 public class Storage {
 
     public static final String SPECIAL_CHAR = "%%";
-    private static final Path workingDir = Paths.get(System.getProperty("user.dir"));
-    private static final Path dataDir = workingDir.resolve("data");
-    private static final Path storeFile = dataDir.resolve("store.txt");
+    private static final Path WORKING_DIR = Paths.get(System.getProperty("user.dir"));
+    private static final Path DATA_DIR = WORKING_DIR.resolve("data");
+    private static final Path STORE_FILE = DATA_DIR.resolve("store.txt");
 
     public Storage() {
         validateStorageFile();
@@ -31,12 +31,12 @@ public class Storage {
 
     private void validateStorageFile() {
         try {
-            if (Files.notExists(dataDir)) {
-                Files.createDirectories(dataDir);
+            if (Files.notExists(DATA_DIR)) {
+                Files.createDirectories(DATA_DIR);
             }
 
-            if (Files.notExists(storeFile)) {
-                Files.createFile(storeFile);
+            if (Files.notExists(STORE_FILE)) {
+                Files.createFile(STORE_FILE);
             }
 
         } catch (IOException e) {
@@ -50,8 +50,9 @@ public class Storage {
      * @param stringToAdd - task in string format
      */
     public void appendToStorage(String stringToAdd) {
+        assert Files.exists(STORE_FILE);
         try {
-            Files.write(storeFile, List.of(stringToAdd), StandardOpenOption.APPEND);
+            Files.write(STORE_FILE, List.of(stringToAdd), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage());
         }
@@ -63,11 +64,12 @@ public class Storage {
      * @param taskList - session storage
      */
     public void rewriteEntireFile(ArrayList<Task> taskList) {
+        assert Files.exists(STORE_FILE);
         try {
             List<String> lines = taskList.stream()
                     .map(Task::getStorageString)
                     .toList();
-            Files.write(storeFile, lines, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(STORE_FILE, lines, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             System.out.println("An error occurred while rewriting the file: " + e.getMessage());
         }
@@ -80,9 +82,10 @@ public class Storage {
      * @return - An ArrayList containing all the Tasks in permanent storage
      */
     public ArrayList<Task> load() {
+        assert Files.exists(STORE_FILE);
         ArrayList<Task> data = new ArrayList<>();
         try {
-            List<String> fileLines = Files.readAllLines(storeFile);
+            List<String> fileLines = Files.readAllLines(STORE_FILE);
             if (fileLines.isEmpty()) {
                 return data;
             }
