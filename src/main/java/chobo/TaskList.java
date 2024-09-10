@@ -29,6 +29,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        assert tasks.contains(task);
     }
 
     /**
