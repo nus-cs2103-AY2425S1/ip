@@ -27,7 +27,7 @@ public class AddCommand extends Command {
      * @param tasks Task list to which the task will be added to.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList tasks, Ui ui) {
-        ui.reply(tasks.add(this.task));
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.add(this.task);
     }
 }

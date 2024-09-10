@@ -27,11 +27,11 @@ public class DeleteCommand extends Command {
      * @param tasks Task list from which the task will be deleted from.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         if (tasks.isValid(this.taskId)) {
-            ui.reply(tasks.delete(this.taskId));
+            return tasks.delete(this.taskId);
         } else {
-            ui.showError(LoafyException.ofInvalidAction());
+            return ui.showError(LoafyException.ofInvalidAction());
         }
     }
 }

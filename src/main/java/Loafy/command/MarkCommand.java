@@ -30,11 +30,11 @@ public class MarkCommand extends Command {
      * @param tasks Task list on which the task will be marked.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         if (tasks.isValid(this.taskId)) {
-            ui.reply(tasks.markTask(this.isDone, this.taskId));
+            return tasks.markTask(this.isDone, this.taskId);
         } else {
-            ui.showError(LoafyException.ofInvalidAction());
+            return ui.showError(LoafyException.ofInvalidAction());
         }
     }
 }

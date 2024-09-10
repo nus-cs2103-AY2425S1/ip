@@ -14,8 +14,8 @@ public class ExitCommand extends Command {
      * @param tasks Task list used in the program.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showExit();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.showExit();
     }
 
     /**

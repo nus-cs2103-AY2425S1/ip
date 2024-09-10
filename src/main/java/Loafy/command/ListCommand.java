@@ -14,7 +14,7 @@ public class ListCommand extends Command {
      * @param tasks Task list to be displayed.
      * @param ui User interface which will print the display.
      */
-    public void execute(TaskList tasks, Ui ui) {
-        ui.reply(tasks.view());
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.view();
     }
 }

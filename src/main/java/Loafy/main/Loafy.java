@@ -24,26 +24,16 @@ public class Loafy {
         }
     }
 
-    public void run() {
-        this.ui.showGreeting();
-
-        Scanner input = new Scanner(System.in);
-        boolean isExit = false;
-
-        while (! isExit) {
-            System.out.print("You: ");
-            String line = input.nextLine();
-            try {
-                Command command = Parser.parse(line);
-                command.execute(this.tasks, this.ui);
-                isExit = command.isExit();
-            } catch (LoafyException exception) {
-                this.ui.showError(exception);
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(this.tasks, this.ui);
+        } catch (LoafyException exception) {
+            return ui.showError(exception);
         }
     }
 
-    public static void main(String[] args) {
-        new Loafy("./data/loafy.txt").run();
+    public String getGreeting() {
+        return this.ui.showGreeting();
     }
 }
