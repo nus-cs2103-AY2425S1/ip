@@ -23,7 +23,10 @@ public class Todo extends Task {
      * @return A string representing the serialized details of the task.
      */
     public String serializeDetails() {
-        return "T !- " + this.getIsDone() + "!- "
+        String fileDelimiter = "!-";
+        String taskCharacter = "T";
+        return taskCharacter + fileDelimiter
+                + this.getIsDone() + fileDelimiter
                 + this.getTaskDescription() + "\n";
     }
     @Override
