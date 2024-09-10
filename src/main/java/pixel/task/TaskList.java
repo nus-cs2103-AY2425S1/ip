@@ -82,4 +82,8 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public void sort() {
+        list.sort((task1, task2) -> task1.toString().compareTo(task2.toString()));
+    }
 }

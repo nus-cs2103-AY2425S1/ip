@@ -13,7 +13,8 @@ public enum PixelCommandEnum {
     DEADLINE("DEADLINE"),
     EVENT("EVENT"),
     DELETE("DELETE"),
-    FIND("FIND");
+    FIND("FIND"),
+    SORT("SORT");
 
     private final String displayName;
 
