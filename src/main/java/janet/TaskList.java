@@ -128,19 +128,6 @@ public class TaskList {
 
 
     /**
-     * Returns true if the task is a deadline or event type,
-     * false otherwise.
-     *
-     * @param task A Task object.
-     * @return A boolean value.
-     */
-    private boolean isDeadlineOrEvent(Task task) {
-        // returns true if the task is either a deadline or event.
-        return task.getSymbol().equals("D") || task.getSymbol().equals("E");
-    }
-
-
-    /**
      * Returns true if the task's scheduledDate is equal to the schedule.
      * 1. if task is a deadline, its scheduledDate will be the dueDate.
      * 2. if task is an event, its scheduledDate will be the startDate.
@@ -167,8 +154,8 @@ public class TaskList {
         LocalDate schedule = LocalDate.parse(dateAndTime);
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {     // go through all the tasks in the list
-            if (isDeadlineOrEvent(task) && isScheduledTask(task, schedule)) {
-                // if the task is deadline/event and has the same schedule, add to tasks
+            if (task.getScheduledDate() != null && isScheduledTask(task, schedule)) {
+                // if the task is a ScheduledTask and has the same schedule, add to tasks
                 tasks.addTaskToList(task);
             }
         }

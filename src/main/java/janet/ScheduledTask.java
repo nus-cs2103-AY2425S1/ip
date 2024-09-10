@@ -8,9 +8,11 @@ import java.time.format.DateTimeFormatter;
  * Represents a task that has a schedule (date and time)
  */
 public class ScheduledTask extends Task {
+    private final LocalDate scheduledDate;
 
     public ScheduledTask(String description, String symbol, LocalDate scheduledDate) {
-        super(description, symbol, scheduledDate);
+        super(description, symbol);
+        this.scheduledDate = scheduledDate;
     }
 
 
@@ -30,5 +32,10 @@ public class ScheduledTask extends Task {
         LocalTime localTime = LocalTime.parse(inputTime);
         String time = localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         return date + " " + time;
+    }
+
+    @Override
+    public LocalDate getScheduledDate() {
+        return scheduledDate;
     }
 }

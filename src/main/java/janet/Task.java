@@ -9,17 +9,15 @@ public class Task {
     private final String description;
     private final String symbol;
     private boolean done;
-    private final LocalDate scheduledDate;
 
-    public Task(String description, String symbol, LocalDate scheduledDate) {
+    public Task(String description, String symbol) {
         this.description = description;
         this.done = false;
         this.symbol = symbol;
-        this.scheduledDate = scheduledDate;
     }
 
     public LocalDate getScheduledDate() {
-        return scheduledDate;
+        return null;
     }
 
     /**
