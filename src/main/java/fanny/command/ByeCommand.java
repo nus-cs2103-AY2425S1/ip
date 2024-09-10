@@ -15,7 +15,7 @@ public class ByeCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
+    public void executeCmd(TaskList list, Ui ui) {
         ui.printBye();
         ui.close();
     }
@@ -26,7 +26,7 @@ public class ByeCommand extends Command {
      * @return {@code true}, indicating that the application should exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return true;
     }
 }

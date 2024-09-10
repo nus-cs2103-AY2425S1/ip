@@ -91,13 +91,15 @@ public class TaskList {
      */
     public String markAsDone(int index) {
         assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+        Task taskToMark = this.list.get(index - 1);
+        
         try {
-            list.get(index - 1).markAsDone();
+            taskToMark.markAsDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToMark.toString();
     }
 
     /**
@@ -108,13 +110,15 @@ public class TaskList {
      */
     public String markAsNotDone(int index) {
         assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+        Task taskToUnMark = this.list.get(index - 1);
+        
         try {
-            list.get(index - 1).markAsNotDone();
+            taskToUnMark.markAsNotDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToUnMark.toString();
     }
 
     /**
