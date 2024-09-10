@@ -30,8 +30,10 @@ public class Storage {
 
     /**
      * Loads tasks from the file specified in the file path.
+     * If the file or its parent directories do not exist, they will be created.
      *
      * @return An ArrayList of tasks loaded from the file.
+     *     Returns an empty list if the file does not exist or cannot be read.
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -39,10 +41,10 @@ public class Storage {
         File parentDir = file.getParentFile();
 
         if (!parentDir.exists()) {
-            parentDir.mkdirs(); // create a parent directory if it does not exist
+            parentDir.mkdirs(); // Create parent directories if they do not exist
         } else if (!file.exists()) {
             try {
-                file.createNewFile(); // create a file if it does not exist
+                file.createNewFile(); // Create a new file if it does not exist
             } catch (IOException e) {
                 System.out.println("Error creating a file: " + e.getMessage());
             }
@@ -62,8 +64,10 @@ public class Storage {
 
     /**
      * Saves the specified tasks to the file.
+     * Overwrites the file if it already exists.
      *
      * @param tasks An ArrayList of tasks to be saved to the file.
+     *     Each task will be converted to a data string format and written to the file.
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -76,6 +80,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line of task data from the file into a Task object.
+     *
+     * @param data The line of task data read from the file.
+     * @return A Task object parsed from the given data string.
+     *     Returns null if the data format is invalid or unrecognised.
+     */
     private Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
         String taskType = parts[0];

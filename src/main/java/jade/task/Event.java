@@ -38,22 +38,12 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, INPUT_FORMAT);
     }
 
-    /**
-     * Returns a string representation of the event in data format.
-     *
-     * @return The data format string representation of the event.
-     */
     @Override
     public String toDataString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description
                 + " | " + from.format(INPUT_FORMAT) + " - " + to.format(INPUT_FORMAT);
     }
 
-    /**
-     * Returns a string representation of the event.
-     *
-     * @return The string representation of the event.
-     */
     @Override
     public String toString() {
         int len = super.toString().length();
@@ -62,7 +52,12 @@ public class Event extends Task {
                 + "to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 
-    public String toStringForGUI() {
+    /**
+     * Returns a string representation of the event for the Jade GUI application.
+     *
+     * @return The string representation of the event for the Jade GUI application.
+     */
+    public String toStringForGui() {
         return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT)
                 + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }

@@ -31,22 +31,12 @@ public class Deadline extends Task {
         this.by = LocalDateTime.parse(by, INPUT_FORMAT);
     }
 
-    /**
-     * Returns a string representation of the deadline in data format.
-     *
-     * @return The data format string representation of the deadline.
-     */
     @Override
     public String toDataString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description
                 + " | " + by.format(INPUT_FORMAT);
     }
 
-    /**
-     * Returns a string representation of the deadline.
-     *
-     * @return The string representation of the deadline.
-     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";

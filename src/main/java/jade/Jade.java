@@ -1,7 +1,6 @@
 package jade;
 
 import jade.command.Command;
-
 import jade.exception.JadeException;
 import jade.parser.Parser;
 import jade.storage.Storage;
@@ -14,9 +13,9 @@ import jade.ui.Ui;
  */
 public class Jade {
     private static final String FILE_PATH = "./data/jade.txt";
-    private static Storage storage = new Storage(FILE_PATH);
-    private static TaskManager taskManager = new TaskManager(storage);
-    private static Parser parser = new Parser();
+    private static final Storage storage = new Storage(FILE_PATH);
+    private static final TaskManager taskManager = new TaskManager(storage);
+    private static final Parser parser = new Parser();
 
     /**
      * Main method to start the Jade application.
@@ -35,7 +34,7 @@ public class Jade {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input, taskManager, parser);
-            return command.runForGUI();
+            return command.runForGui();
         } catch (JadeException e) {
             return e.getMessage();
         }

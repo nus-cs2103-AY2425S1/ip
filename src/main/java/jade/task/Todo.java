@@ -23,21 +23,11 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
-    /**
-     * Returns a string representation of the todo in data format.
-     *
-     * @return The data format string representation of the todo.
-     */
     @Override
     public String toDataString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
-    /**
-     * Returns a string representation of the todo.
-     *
-     * @return The string representation of the todo.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

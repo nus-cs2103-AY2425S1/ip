@@ -32,6 +32,15 @@ public class TaskManager {
     }
 
     /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks.
+     */
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
+    /**
      * Adds a task to the task list.
      */
     public void addTask(Task task) {
@@ -79,14 +88,5 @@ public class TaskManager {
      */
     public boolean isValidTaskIndex(int index) {
         return index >= 0 && index < tasks.size();
-    }
-
-    /**
-     * Returns the number of tasks in the list.
-     *
-     * @return The number of tasks.
-     */
-    public int getTaskCount() {
-        return tasks.size();
     }
 }

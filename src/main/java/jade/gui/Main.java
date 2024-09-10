@@ -2,16 +2,15 @@ package jade.gui;
 
 import java.io.IOException;
 
+import jade.Jade;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import jade.Jade;
-
 /**
- * A GUI for Jade using FXML.
+ * Main class that acts as the entry point for the Jade GUI application using FXML.
  */
 public class Main extends Application {
 

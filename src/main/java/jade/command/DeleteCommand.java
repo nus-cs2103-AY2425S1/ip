@@ -1,9 +1,10 @@
 package jade.command;
 
+import static jade.ui.Ui.INDENT;
+
 import jade.exception.JadeException;
 import jade.task.Task;
 import jade.task.TaskManager;
-import static jade.ui.Ui.INDENT;
 
 /**
  * Represents a command to delete a task.
@@ -11,6 +12,12 @@ import static jade.ui.Ui.INDENT;
 public class DeleteCommand extends Command {
     private final String command;
 
+    /**
+     * Constructs a DeleteCommand object with the specified TaskManager and command.
+     *
+     * @param taskManager The TaskManager to manage the tasks.
+     * @param command The command string containing task details.
+     */
     public DeleteCommand(TaskManager taskManager, String command) {
         super(taskManager);
         this.command = command;
@@ -49,7 +56,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String runForGUI() {
+    public String runForGui() {
         try {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
             if (taskManager.isValidTaskIndex(taskIndex)) {

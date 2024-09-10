@@ -2,6 +2,9 @@ package jade.command;
 
 import static jade.ui.Ui.INDENT;
 
+/**
+ * Represents a command that bids farewell to the user.
+ */
 public class ExitCommand extends Command {
 
     @Override
@@ -11,7 +14,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public String runForGUI() {
+    public String runForGui() {
         return "Bye. Hope to see you again soon!";
     }
 }

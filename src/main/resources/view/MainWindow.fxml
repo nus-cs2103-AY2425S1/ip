@@ -21,7 +21,7 @@
                 onAction="#handleUserInput"
                 prefHeight="48.0"
                 prefWidth="324.0"
-                AnchorPane.bottomAnchor="1.0"
+                AnchorPane.bottomAnchor="0.0"
                 AnchorPane.leftAnchor="0.0"
                 AnchorPane.rightAnchor="76.0" />
         <Button
@@ -33,7 +33,7 @@
                 prefHeight="48.0"
                 prefWidth="76.0"
                 text="Send"
-                AnchorPane.bottomAnchor="1.0"
+                AnchorPane.bottomAnchor="0.0"
                 AnchorPane.rightAnchor="0.0" />
         <ScrollPane
                 fx:id="scrollPane"

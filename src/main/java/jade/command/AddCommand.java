@@ -1,10 +1,11 @@
 package jade.command;
 
+import static jade.ui.Ui.INDENT;
+
 import jade.exception.JadeException;
 import jade.parser.Parser;
 import jade.task.Task;
 import jade.task.TaskManager;
-import static jade.ui.Ui.INDENT;
 
 /**
  * Represents a command to add a task.
@@ -13,6 +14,13 @@ public class AddCommand extends Command {
     private final Parser parser;
     private final String command;
 
+    /**
+     * Constructs an AddCommand object with the specified TaskManager, Parser, and command.
+     *
+     * @param taskManager The TaskManager to manage the tasks.
+     * @param parser The Parser to parse the command and create a Task.
+     * @param command The command string containing task details.
+     */
     public AddCommand(TaskManager taskManager, Parser parser, String command) {
         super(taskManager);
         this.parser = parser;
@@ -50,12 +58,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String runForGUI() {
+    public String runForGui() {
         try {
             Task newTask = parser.parseTaskCommand(command);
             if (newTask != null) {
                 taskManager.addTask(newTask);
-                return displayTaskAddedMessageForGUI(newTask);
+                return displayTaskAddedMessageForGui(newTask);
             }
             return null;
         } catch (JadeException e) {
@@ -63,7 +71,7 @@ public class AddCommand extends Command {
         }
     }
 
-    private String displayTaskAddedMessageForGUI(Task task) {
+    private String displayTaskAddedMessageForGui(Task task) {
         int taskCount = taskManager.getTaskCount();
         StringBuilder message = new StringBuilder();
         message.append("Got it. I've added this task:\n").append("  ").append(task);

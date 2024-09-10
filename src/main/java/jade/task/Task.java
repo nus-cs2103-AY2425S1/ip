@@ -17,8 +17,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+        this(description, false);
     }
 
     /**
@@ -38,7 +37,7 @@ public abstract class Task {
      * @return The status of the task as a string.
      */
     public String getStatusIcon() {
-        return isDone ? "X" : " "; // mark done task with X
+        return isDone ? "X" : " "; // Mark done task with X
     }
 
     /**

@@ -25,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox object with specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to represent the speaker's face.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -38,16 +44,41 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
-        displayPicture.setFitWidth(64);
-        displayPicture.setFitHeight(64);
-        displayPicture.setPreserveRatio(true);
-
         Circle clip = new Circle(32, 32, 32);
         displayPicture.setClip(clip);
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Creates a dialog box for the user's input with the specified text and image.
+     *
+     * @param text The text to be displayed in the user's dialog box.
+     * @param img  The image representing the user.
+     * @return A DialogBox instance representing the user's input.
+     */
+    public static DialogBox getUserDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.setAlignment(Pos.BOTTOM_RIGHT);
+        db.dialog.getStyleClass().add("label");
+        return db;
+    }
+
+    /**
+     * Creates a dialog box for Jade's response with the specified text and image.
+     * The dialog box is flipped so that the image is on the left and the text is on the right.
+     *
+     * @param text The text to be displayed in Jade's dialog box.
+     * @param img  The image representing Jade.
+     * @return A DialogBox instance representing Jade's response.
+     */
+    public static DialogBox getJadeDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and the text is on the right.
+     * Used to differentiate between the user's input and Jade's response.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -55,20 +86,5 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.BOTTOM_LEFT);
         dialog.getStyleClass().add("reply-label");
-        displayPicture.getStyleClass().add("receiver-image");
-    }
-
-    public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.setAlignment(Pos.BOTTOM_RIGHT);
-        db.dialog.getStyleClass().add("label");
-        db.displayPicture.getStyleClass().add("user-image");
-        return db;
-    }
-
-    public static DialogBox getJadeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
     }
 }

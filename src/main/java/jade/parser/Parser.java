@@ -1,9 +1,19 @@
 package jade.parser;
 
+import static jade.ui.Ui.BOT_LINE;
+import static jade.ui.Ui.INDENT;
+import static jade.ui.Ui.TOP_LINE;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import jade.command.*;
+import jade.command.AddCommand;
+import jade.command.Command;
+import jade.command.DeleteCommand;
+import jade.command.ExitCommand;
+import jade.command.FindCommand;
+import jade.command.ListCommand;
+import jade.command.MarkCommand;
 import jade.exception.JadeException;
 import jade.task.Deadline;
 import jade.task.Event;
@@ -11,13 +21,20 @@ import jade.task.Task;
 import jade.task.TaskManager;
 import jade.task.TaskType;
 import jade.task.Todo;
-import jade.ui.Ui;
 
 /**
  * Handles the parsing of user commands and executes the appropriate actions.
  */
 public class Parser {
-
+    /**
+     * Parses a user command from the GUI and returns the appropriate command object to be executed.
+     *
+     * @param command     The user input command to parse.
+     * @param taskManager The task manager that handles the task operations.
+     * @param parser      The parser object used for additional parsing.
+     * @return The Command object corresponding to the user input.
+     * @throws JadeException If the command is unrecognised or improperly formatted.
+     */
     public Command parse(String command, TaskManager taskManager, Parser parser) throws JadeException {
         if (command.equals("bye")) {
             return new ExitCommand();
@@ -38,6 +55,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input commands from the text-based UI and executes the corresponding actions.
+     *
+     * @param sc          The Scanner object for reading user input.
+     * @param taskManager The task manager that handles the task operations.
+     */
     public void parse(Scanner sc, TaskManager taskManager) {
         String command = sc.nextLine();
         while (!command.equals("bye")) {
@@ -58,12 +81,18 @@ public class Parser {
                     throw new JadeException("Please specify the type of task: todo, deadline, or event.");
                 }
             } catch (JadeException e) {
-                System.out.println(Ui.TOP_LINE + Ui.INDENT + e.getMessage() + Ui.BOT_LINE);
+                System.out.println(TOP_LINE + INDENT + e.getMessage() + BOT_LINE);
             }
             command = sc.nextLine();
         }
     }
 
+    /**
+     * Checks if the given command is a valid task command (todo, deadline, or event).
+     *
+     * @param command The user input command to check.
+     * @return True if the command is a valid task command, false otherwise.
+     */
     private boolean isTaskCommand(String command) {
         try {
             TaskType.valueOf(command.split(" ")[0].toUpperCase());
@@ -101,37 +130,51 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses a deadline command to create a Deadline task object.
+     *
+     * @param command The user input command for the deadline task.
+     * @return The Deadline task object created based on the user command.
+     * @throws JadeException If the command format is incorrect or the date format is invalid.
+     */
     private Task parseDeadline(String command) throws JadeException {
         String[] parts = command.substring(9).split(" /by ", 2);
         if (parts.length < 2) {
             throw new JadeException("Please provide a deadline in the format:\n"
-                    + Ui.INDENT + "  deadline <task> /by <time>");
+                    + INDENT + "  deadline <task> /by <time>");
         } else {
             try {
                 return new Deadline(parts[0], parts[1]);
             } catch (DateTimeParseException e) {
                 throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
-                        + Ui.INDENT + "  eg. 2024-12-25 2130");
+                        + INDENT + "  eg. 2024-12-25 2130");
             }
         }
     }
 
+    /**
+     * Parses an event command to create an Event task object.
+     *
+     * @param command The user input command for the event task.
+     * @return The Event task object created based on the user command.
+     * @throws JadeException If the command format is incorrect or the date format is invalid.
+     */
     private Task parseEvent(String command) throws JadeException {
         String[] parts = command.substring(6).split(" /from ", 2);
         if (parts.length < 2) {
             throw new JadeException("Please provide an event in the format:\n"
-                    + Ui.INDENT + "  event <task> /from <time>");
+                    + INDENT + "  event <task> /from <time>");
         } else {
             String[] timeParts = parts[1].split(" /to ", 2);
             if (timeParts.length < 2) {
                 throw new JadeException("Please provide an end time in the format:\n"
-                        + Ui.INDENT + "  event <task> /from <start time> /to <end time>");
+                        + INDENT + "  event <task> /from <start time> /to <end time>");
             } else {
                 try {
                     return new Event(parts[0], timeParts[0], timeParts[1]);
                 } catch (DateTimeParseException e) {
                     throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
-                            + Ui.INDENT + "  eg. 2024-12-25 2130");
+                            + INDENT + "  eg. 2024-12-25 2130");
                 }
             }
         }

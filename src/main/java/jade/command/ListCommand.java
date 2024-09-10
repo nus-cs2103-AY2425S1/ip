@@ -1,16 +1,21 @@
 package jade.command;
 
+import static jade.ui.Ui.INDENT;
+
 import jade.task.Event;
 import jade.task.Task;
 import jade.task.TaskManager;
-
-import static jade.ui.Ui.INDENT;
 
 /**
  * Represents a command to list all tasks.
  */
 public class ListCommand extends Command {
 
+    /**
+     * Constructs a ListCommand object with the specified TaskManager.
+     *
+     * @param taskManager The TaskManager to manage the tasks.
+     */
     public ListCommand(TaskManager taskManager) {
         super(taskManager);
     }
@@ -26,7 +31,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String runForGUI() {
+    public String runForGui() {
         StringBuilder message = new StringBuilder();
         message.append("Here are the tasks in your list:");
         for (int i = 0; i < taskManager.getTaskCount(); i++) {
@@ -34,7 +39,7 @@ public class ListCommand extends Command {
             Task task = taskManager.getTask(i);
             if (task instanceof Event) {
                 Event temp = (Event) task;
-                message.append(temp.toStringForGUI());
+                message.append(temp.toStringForGui());
             } else {
                 message.append(task);
             }

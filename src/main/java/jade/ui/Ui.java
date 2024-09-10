@@ -11,13 +11,13 @@ import jade.task.TaskManager;
  * Handles user interaction and input for the Jade application.
  */
 public class Ui {
-    public static final String INDENT = "     "; // 5 spaces for indentation
-    public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
-    public static final String BOT_LINE = "\n" + "    " + "_".repeat(60);
+    public static final String INDENT = " ".repeat(5);
+    public static final String TOP_LINE = " ".repeat(4) + "_".repeat(60) + "\n";
+    public static final String BOT_LINE = "\n" + " ".repeat(4) + "_".repeat(60);
 
     private final TaskManager taskManager;
-    private final Scanner sc;
     private final Parser parser;
+    private final Scanner sc;
 
     /**
      * Constructs a UI object with the specified TaskManager.

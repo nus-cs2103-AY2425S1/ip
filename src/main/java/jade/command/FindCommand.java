@@ -1,10 +1,11 @@
 package jade.command;
 
-import jade.task.Task;
-import jade.task.TaskManager;
 import static jade.ui.Ui.INDENT;
 
 import java.util.ArrayList;
+
+import jade.task.Task;
+import jade.task.TaskManager;
 
 /**
  * Represents a command to find tasks by a keyword.
@@ -12,6 +13,12 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
     private final String command;
 
+    /**
+     * Constructs a FindCommand object with the specified TaskManager and command.
+     *
+     * @param taskManager The TaskManager to manage the tasks.
+     * @param command The command string containing task details.
+     */
     public FindCommand(TaskManager taskManager, String command) {
         super(taskManager);
         this.command = command;
@@ -43,7 +50,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String runForGUI() {
+    public String runForGui() {
         String keyword = command.substring(5).trim();
 
         ArrayList<Task> matchingTasks = new ArrayList<>();
