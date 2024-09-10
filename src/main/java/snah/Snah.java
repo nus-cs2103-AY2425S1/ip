@@ -24,12 +24,9 @@ public class Snah {
      * Constructor for Snah chatbot
      */
     public Snah() {
-        this.ui = new Ui();
-        this.storage = new Storage();
-        this.tasksList = new TaskList(storage);
-
-        ui.greet();
-        this.chatLoop();
+        storage = new Storage();
+        tasksList = new TaskList(storage);
+        ui = new Ui();
     }
 
     /**
@@ -37,7 +34,133 @@ public class Snah {
      * @param args
      */
     public static void main(String[] args) {
-        new Snah();
+    }
+
+    public String getResponse(String input) {
+        Parser.Command currentCommand = Parser.getCommand(input);
+        switch (currentCommand) {
+        case BYE: {
+            return "Goodbye! See you sooooonnn!";
+        }
+        case LIST: {
+            String response = "Here are the tasks in your list:\n";
+            for (int i = 0; i < tasksList.size(); i++) {
+                response += String.format("%d. %s\n", i + 1, tasksList.get(i));
+            }
+            return response;
+        }
+        case MARK: {
+            int taskIndex = Parser.getTaskIndex(input);
+
+            if (taskIndex < 0 || taskIndex >= tasksList.size()) {
+                return "Oi, you're trying to mark a task that doesn't exist";
+            }
+
+            tasksList.get(taskIndex).markAsDone();
+            tasksList.save(storage);
+
+            return String.format("Alright, I will mark the task as done\n  %s", tasksList.get(taskIndex));
+        }
+        case UNMARK: {
+            int taskIndex = Parser.getTaskIndex(input);
+
+            if (taskIndex < 0 || taskIndex >= tasksList.size()) {
+                return "Oi, you're trying to unmark a task that doesn't exist";
+            }
+
+            tasksList.get(taskIndex).unmarkAsDone();
+            tasksList.save(storage);
+
+            return String.format("Walao, why you press wrong; Will mark the task as NOT done\n  %s",
+                    tasksList.get(taskIndex));
+        }
+        case DEADLINE: {
+            String[] deadlinePayload = Parser.getDeadlinePayload(input);
+
+            if (deadlinePayload == null) {
+
+                return String.format("Oi, you need to provide a description and a deadline for the deadline \n"
+                        + "Format as such: \n deadline <description> /by <deadline>");
+            }
+
+            tasksList.add(new Deadline(deadlinePayload[0], deadlinePayload[1]));
+            tasksList.save(storage);
+            return String.format("Added deadline to list\n  %s", tasksList.get(tasksList.size() - 1));
+        }
+        case EVENT: {
+            String[] eventPayload = Parser.getEventPayload(input);
+
+            if (eventPayload == null) {
+                return "Oi, you need to provide a description, a start time and an end time for the event\n"
+                        + "Format as such:\n event <description> /from <start time> /to <end time>";
+            }
+
+            tasksList.add(new Event(eventPayload[0], eventPayload[1], eventPayload[2]));
+            tasksList.save(storage);
+            return String.format("Added event to list\n  %s", tasksList.get(tasksList.size() - 1));
+        }
+        case TODO: {
+            String[] todoPayload = Parser.getTodoPayload(input);
+
+            if (todoPayload == null) {
+                return "Oi, you need to provide a description for the todo\n" + "Format as such:\n todo <description>";
+            }
+
+            tasksList.add(new ToDo(todoPayload[0]));
+            tasksList.save(storage);
+            return String.format("Added todo to list\n  %s", tasksList.get(tasksList.size() - 1));
+        }
+        case FIND: {
+            String keyword = Parser.getSearchQuery(input);
+
+            if (keyword == null) {
+                return "Oi, you need to provide a keyword to search for\n" + "Format as such:\n search <keyword>";
+            }
+
+            ArrayList<Task> searchResults = tasksList.search(keyword);
+
+            if (searchResults.isEmpty()) {
+                return "No tasks found with the keyword";
+            }
+
+            String response = "Here are the tasks in your list:\n";
+            for (int i = 0; i < searchResults.size(); i++) {
+                response += String.format("%d. %s\n", i + 1, searchResults.get(i));
+            }
+            return response;
+        }
+        case DELETE: {
+            int taskIndex = Parser.getTaskIndex(input);
+
+            if (taskIndex < 0 || taskIndex >= tasksList.size()) {
+                return "Oi, you're trying to delete a task that doesn't exist";
+            }
+
+            Task deletedTask = tasksList.remove(taskIndex);
+            tasksList.save(storage);
+
+            return String.format("Alright, task is removed\n  %s", deletedTask);
+        }
+        case CLEAR: {
+            tasksList.clear();
+            tasksList.save(storage);
+            return "Tasks cleared";
+        }
+        case INVALID: {
+            String invalidCommand = Parser.getRawCommand(input);
+            String response = String.format("Oi, no such command \"%s\". Try these instead\n", invalidCommand);
+            for (Parser.Command command : Parser.Command.values()) {
+                if (command == Parser.Command.INVALID) {
+                    continue;
+                }
+                response += String.format("- %s\n", command.toString());
+            }
+            return response;
+        }
+        default: {
+            return "Oi, something went wrong";
+        }
+        }
     }
 
     /**
@@ -48,8 +171,8 @@ public class Snah {
         boolean continueChat = true;
 
         while (continueChat) {
-            String userInput = scanner.nextLine();
-            Parser.Command currentCommand = Parser.getCommand(userInput);
+            String input = scanner.nextLine();
+            Parser.Command currentCommand = Parser.getCommand(input);
             ui.start();
             switch (currentCommand) {
             case BYE: {
@@ -65,7 +188,7 @@ public class Snah {
                 break;
             }
             case MARK: {
-                int taskIndex = Parser.getTaskIndex(userInput);
+                int taskIndex = Parser.getTaskIndex(input);
 
                 if (taskIndex < 0 || taskIndex >= tasksList.size()) {
                     ui.print("Oi, you're trying to mark a task that doesn't exist");
@@ -79,7 +202,7 @@ public class Snah {
                 break;
             }
             case UNMARK: {
-                int taskIndex = Parser.getTaskIndex(userInput);
+                int taskIndex = Parser.getTaskIndex(input);
 
                 if (taskIndex < 0 || taskIndex >= tasksList.size()) {
                     ui.print("Oi, you're trying to unmark a task that doesn't exist");
@@ -93,7 +216,7 @@ public class Snah {
                 break;
             }
             case DEADLINE: {
-                String[] deadlinePayload = Parser.getDeadlinePayload(userInput);
+                String[] deadlinePayload = Parser.getDeadlinePayload(input);
 
                 if (deadlinePayload == null) {
                     ui.print("Oi, you need to provide a description and a deadline for the deadline");
@@ -108,7 +231,7 @@ public class Snah {
                 break;
             }
             case EVENT: {
-                String[] eventPayload = Parser.getEventPayload(userInput);
+                String[] eventPayload = Parser.getEventPayload(input);
 
                 if (eventPayload == null) {
                     ui.print("Oi, you need to provide a description, a start time and an end time for the event");
@@ -123,7 +246,7 @@ public class Snah {
                 break;
             }
             case TODO: {
-                String[] todoPayload = Parser.getTodoPayload(userInput);
+                String[] todoPayload = Parser.getTodoPayload(input);
 
                 if (todoPayload == null) {
                     ui.print("Oi, you need to provide a description for the todo");
@@ -138,7 +261,7 @@ public class Snah {
                 break;
             }
             case FIND: {
-                String keyword = Parser.getSearchQuery(userInput);
+                String keyword = Parser.getSearchQuery(input);
 
                 if (keyword == null) {
                     ui.print("Oi, you need to provide a keyword to search for");
@@ -161,7 +284,7 @@ public class Snah {
                 break;
             }
             case DELETE: {
-                int taskIndex = Parser.getTaskIndex(userInput);
+                int taskIndex = Parser.getTaskIndex(input);
 
                 if (taskIndex < 0 || taskIndex >= tasksList.size()) {
                     ui.print("Oi, you're trying to delete a task that doesn't exist");
@@ -180,7 +303,7 @@ public class Snah {
                 break;
             }
             case INVALID: {
-                String invalidCommand = Parser.getRawCommand(userInput);
+                String invalidCommand = Parser.getRawCommand(input);
                 ui.printf("Oi, no such command \"%s\". Try these instead", invalidCommand);
                 for (Parser.Command command : Parser.Command.values()) {
                     if (command == Parser.Command.INVALID) {
