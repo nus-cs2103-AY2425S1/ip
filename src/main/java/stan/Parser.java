@@ -67,6 +67,9 @@ public class Parser {
      * @throws StanInvalidCommandException If the command is not recognized.
      */
     private static CommandType getCommandType(String command) throws StanInvalidCommandException {
+        if (command == null || command.isEmpty()) {
+            throw new StanInvalidCommandException();
+        }
         try {
             return CommandType.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
