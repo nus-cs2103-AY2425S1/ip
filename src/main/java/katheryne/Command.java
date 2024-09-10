@@ -71,8 +71,7 @@ public class Command {
             String[] fullCommand = parseAndValidateCommand(string, "You need to specify the description of a todo task.");
             String des = Parser.getToDoDes(string);
             ToDo todo = new ToDo(des);
-            addTask(todo);
-            return ui.getAddMessage(todo, taskList);
+            return checkDuplicate(todo);
         } catch (MissingInformationException e) {
             return e.getMessage();
         }
@@ -108,8 +107,7 @@ public class Command {
             throw new MissingInformationException(msg);
         }
         Event event = new Event(des, fromTime, toTime);
-        addTask(event);
-        return ui.getAddMessage(event, taskList);
+        return checkDuplicate(event);
     }
 
     /**
@@ -141,8 +139,7 @@ public class Command {
         }
 
         Deadline deadline = new Deadline(des, time);
-        addTask(deadline);
-        return ui.getAddMessage(deadline, taskList);
+        return checkDuplicate(deadline);
     }
 
 
@@ -197,6 +194,15 @@ public class Command {
 
     private void addTask(Task task) {
         taskList.addTask(task);
+    }
+
+    private String checkDuplicate(Task t) {
+        if (taskList.hasDuplicates(t)) {
+            return Message.MESSAGE_HAS_DUPLICATE;
+        } else {
+            addTask(t);
+            return ui.getAddMessage(t, taskList);
+        }
     }
 
 

@@ -10,10 +10,11 @@ import java.time.format.DateTimeFormatter;
  * The time attribute is a LocalDate object.
  */
 public class Deadline extends Task {
+    public static final String TYPE = "Deadline";
     protected LocalDate time;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TYPE);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateObj = LocalDate.parse(by, inputFormatter);
         this.time = dateObj;
@@ -26,12 +27,32 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getType() {
+        return this.type;
+    }
+
+    private LocalDate getTime() {
+        return time;
+    }
+
+    @Override
     public String toSaveString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (isDone) {
-            return String.format("D | %d | %s | %s",1, this.getDescription(), this.time.format(outputFormatter));
+            return String.format("D | %d | %s | %s", 1, this.getDescription(), this.time.format(outputFormatter));
         } else {
-            return String.format("D | %d | %s | %s",0, this.getDescription(), this.time.format(outputFormatter));
+            return String.format("D | %d | %s | %s", 0, this.getDescription(), this.time.format(outputFormatter));
         }
+    }
+
+    @Override
+    public boolean equals(Task t) {
+        if (!super.equals(t)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) t;
+        boolean bool1 = this.getDescription().equals(deadline.getDescription());
+        boolean bool2 = this.getTime().equals(deadline.getTime());
+        return bool1 && bool2;
     }
 }

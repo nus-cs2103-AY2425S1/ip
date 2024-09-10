@@ -5,12 +5,20 @@ package katheryne;
  * its description as given by the user.
  */
 public class Task {
+    protected String type;
     protected String description;
     protected boolean isDone;
 
     public Task(String content) {
         this.description = content;
         this.isDone = false;
+        this.type = "";
+    }
+
+    public Task(String content, String type) {
+        this.description = content;
+        this.isDone = false;
+        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -43,6 +51,14 @@ public class Task {
         } else {
             return "0";
         }
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public boolean equals(Task t) {
+        return this.getType().equals(t.getType());
     }
 
 }

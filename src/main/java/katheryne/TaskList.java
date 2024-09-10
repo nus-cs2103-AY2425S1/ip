@@ -1,6 +1,7 @@
 package katheryne;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 /**
@@ -67,5 +68,14 @@ public class TaskList {
             }
         }
         return output;
+    }
+
+    public boolean hasDuplicates(Task t) {
+        for (Task task : taskList) {
+            if (t.equals(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
