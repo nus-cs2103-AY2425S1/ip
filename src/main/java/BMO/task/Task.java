@@ -1,11 +1,16 @@
 package bmo.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an abstract task class.
  */
 public abstract class Task {
     private String description;
     private boolean isDone;
+    private DateTimeFormatter inputFormatter;
+    private DateTimeFormatter outputFormatter;
 
     /**
      * Constructor for Task class
@@ -15,6 +20,12 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+
+        // Define input and output date formats
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        this.inputFormatter = inputFormatter;
+        this.outputFormatter = outputFormatter;
     }
 
     /**
@@ -62,5 +73,13 @@ public abstract class Task {
      */
     public boolean hasMatchingDescription(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    public LocalDate getLocalDateFromString(String date) {
+        return LocalDate.parse(date, this.inputFormatter);
+    }
+
+    public String getPrintedDateFromLocalDate(LocalDate date) {
+        return date.format(outputFormatter);
     }
 }

@@ -10,7 +10,6 @@ public class Event extends Task {
 
     private LocalDate from;
     private LocalDate to;
-    private DateTimeFormatter outputFormatter;
 
     /**
      * Constructor for Event class.
@@ -23,54 +22,47 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
 
-        // Define input date format
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        // Convert string to  LocalDate objects
-        this.from = LocalDate.parse(from, inputFormatter);
-        this.to = LocalDate.parse(to, inputFormatter);
-
-        // Define output date format
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
-        this.outputFormatter = outputFormatter;
+        // Convert string to LocalDate objects
+        this.from = super.getLocalDateFromString(from);
+        this.to = super.getLocalDateFromString(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getPrintedFrom() + " to: " + this.getPrintedTo() + ")";
+        return "[E]" + super.toString() + " (from: " + this.getPrintedStartDate() + " to: " + this.getPrintedEndDate() + ")";
     }
 
     /**
      * Returns the start date in the format MMM-dd-yyyy to be printed in the console.
      */
-    private String getPrintedFrom() {
-        return this.from.format(this.outputFormatter);
+    private String getPrintedStartDate() {
+        return super.getPrintedDateFromLocalDate(from);
     }
 
     /**
      * Returns the end date in the format MMM-dd-yyyy to be printed in the console.
      */
-    private String getPrintedTo() {
-        return this.to.format(this.outputFormatter);
+    private String getPrintedEndDate() {
+        return super.getPrintedDateFromLocalDate(to);
     }
 
     /**
      * Returns the start date in the format dd/MM/yyyy to be stored in the file.
      */
-    public String getStorageFrom() {
+    public String getStorageStartDate() {
         return this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
      * Returns the end date in the format dd/MM/yyyy to be stored in the file.
      */
-    public String getStorageTo() {
+    public String getStorageEndDate() {
         return this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     @Override
     public String getSavedFormat() {
         return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | "
-            + this.getStorageFrom() + " | " + this.getStorageTo() + "\n";
+            + this.getStorageStartDate() + " | " + this.getStorageStartDate() + "\n";
     }
 }
