@@ -22,24 +22,15 @@ public class Mahesh {
     private TaskList list;
 
     /**
-     * Constructs a Mahesh object with the specified file path for storing tasks.
+     * Constructs a Mahesh object with an optional file path for storing tasks.
+     * If no path is provided, the default path is used.
      *
-     * @param path the relative path to the file for storing tasks
+     * @param paths the optional relative path to the file for storing tasks
      */
-    public Mahesh(String path) {
-        this.path = path;
-        this.store = new Storage(this.path);
-        try {
-            this.list = store.retrieveData();
-        } catch (IOException e) {
-            this.list = new TaskList();
+    public Mahesh(String... paths) {
+        if (paths.length > 0) {
+            this.path = paths[0];
         }
-    }
-
-    /**
-     * Constructs a Mahesh object with the default file path for storing tasks.
-     */
-    public Mahesh() {
         this.store = new Storage(this.path);
         try {
             this.list = store.retrieveData();
