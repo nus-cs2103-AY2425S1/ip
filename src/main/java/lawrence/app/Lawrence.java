@@ -80,6 +80,12 @@ public class Lawrence {
         }
     }
 
+    /**
+     * Returns the text response of the bot after parsing the input string and executing the relevant command.
+     *
+     * @param input the input string containing instructions on what command to run
+     * @return a string containing the bot's response
+     */
     public String getResponse(String input) {
         try {
             Command c = CommandParser.createCommand(input);

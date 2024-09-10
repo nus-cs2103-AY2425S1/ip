@@ -12,7 +12,7 @@ public class ExitSessionCommand extends Command {
      * Default constructor.
      */
     public ExitSessionCommand(CommandType type) {
-       super(type);
+        super(type);
     }
 
     /**

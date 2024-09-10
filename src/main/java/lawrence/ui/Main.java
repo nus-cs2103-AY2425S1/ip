@@ -11,7 +11,7 @@ import lawrence.app.Lawrence;
 import lawrence.ui.components.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Lawrence using FXML.
  */
 public class Main extends Application {
     private final Lawrence lawrence = new Lawrence();

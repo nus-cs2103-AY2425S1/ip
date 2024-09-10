@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
 import lawrence.command.CommandType;
 
 /**
@@ -26,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image to be displayed in the dialog box
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -40,10 +45,24 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Method to create a dialog box originating from the user.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image associated with the user
+     * @return a dialog box for the user
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Method to create a dialog box originating from the bot.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image associated with the bot
+     * @return a dialog box for the bot
+     */
     public static DialogBox getBotDialog(String text, Image img, CommandType type) {
         var db = new DialogBox(text, img);
         db.flip();
@@ -62,6 +81,11 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Sets the style of the dialog box depending on the type of command issued.
+     *
+     * @param type the type of command issued to the bot
+     */
     private void changeDialogStyle(CommandType type) {
         if (type == null) {
             // do nothing
