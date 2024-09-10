@@ -19,14 +19,16 @@ import bobby.tasks.Todo;
 public class Storage {
 
     private final String filePath;
+    private final String archivePath;
 
     /**
      * Constructs a Storage instance
      *
      * @param filePath The path of the file where the tasks are going to be stored.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath, String archivePath) {
         this.filePath = filePath;
+        this.archivePath = "archive.txt";
     }
 
     /**
@@ -34,8 +36,8 @@ public class Storage {
      *
      * @param listOfTasks The list of tasks that is in Bobby.
      */
-    public void saveData(ArrayList<Task> listOfTasks) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath);
+    public void saveData(ArrayList<Task> listOfTasks, String path) throws IOException {
+        FileWriter fw = new FileWriter(path);
 
         for (Task task : listOfTasks) {
             fw.write(task.taskInFile() + "\n");
@@ -84,7 +86,7 @@ public class Storage {
      * Returns an ArrayList of Task.
      * If there was no file containing the tasks, a new file will be created and empty ArrayList would be returned.
      *
-     * @return ArrayList of Task
+     * @return ArrayList of Task.
      */
     public ArrayList<Task> returnTaskList() throws IOException, BobbyException {
         File f = new File(this.filePath);
@@ -102,5 +104,24 @@ public class Storage {
             assert f.exists() : "File does not exist!";
             return tasks;
         }
+    }
+
+    /**
+     * Returns an ArrayList of archived tasks.
+     * If there is no archive file, a new archive file will be created and empty ArrayList will be returned.
+     *
+     * @return ArrayList of archived tasks.
+     */
+    public ArrayList<Task> returnArchiveList() throws IOException, BobbyException {
+        File archive = new File(this.archivePath);
+        ArrayList<Task> archivedTasks = new ArrayList<>();
+
+        if (!archive.createNewFile()) {
+            Scanner s = new Scanner(archive);
+            while (s.hasNextLine()) {
+                processFileLines(archivedTasks, s.nextLine());
+            }
+        }
+        return archivedTasks;
     }
 }

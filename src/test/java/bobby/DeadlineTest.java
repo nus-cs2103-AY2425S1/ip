@@ -53,6 +53,7 @@ public class DeadlineTest {
     @Test
     public void invalidDeadlineTask() throws EmptyDescriptionException {
         String input = "deadline";
-        EmptyDescriptionException e = assertThrows(EmptyDescriptionException.class, () -> Deadline.createDeadline(input));
+        EmptyDescriptionException e = assertThrows(EmptyDescriptionException.class,
+                () -> Deadline.createDeadline(input));
     }
 }
