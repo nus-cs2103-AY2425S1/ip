@@ -42,6 +42,14 @@ public enum CommandType {
         }
     }
 
+    private static String getAllCommandNames() {
+        StringBuilder allCommandNames = new StringBuilder();
+        for (CommandType commandType : CommandType.values()) {
+            allCommandNames.append(commandType.name().toLowerCase()).append(", ");
+        }
+        return allCommandNames.toString().substring(0, allCommandNames.length() - 2);
+    }
+
     /**
      * Converts a string representation of a command to the corresponding
      * CommandType.
@@ -54,7 +62,8 @@ public enum CommandType {
         try {
             return CommandType.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalCommandException("Unknown command: " + command);
+            throw new IllegalCommandException("Unknown command: " + command + "\nTry one of the following commands: "
+                    + getAllCommandNames());
         }
     }
 
