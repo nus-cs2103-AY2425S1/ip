@@ -53,6 +53,6 @@ public class Deadline extends Task {
 
     @Override
     public boolean contains(String keyword) {
-        return getDescription().contains(keyword) || getDeadline().contains(keyword);
+        return getDescription().contains(keyword);
     }
 }

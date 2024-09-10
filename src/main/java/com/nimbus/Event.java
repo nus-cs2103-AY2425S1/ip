@@ -68,9 +68,6 @@ public class Event extends Task {
 
     @Override
     public boolean contains(String keyword) {
-        return getDescription().contains(keyword)
-                || getToDate().contains(keyword)
-                || getFromDate().contains(keyword);
-
+        return getDescription().contains(keyword);
     }
 }
