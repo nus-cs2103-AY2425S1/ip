@@ -8,6 +8,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResponse execute() throws EchoBotException {
-        return new CommandResponse(this.commandType, "Bye!");
+        final String EXIT_RESPONSE = "Bye!";
+        return new CommandResponse(this.commandType, EXIT_RESPONSE);
     }
 }

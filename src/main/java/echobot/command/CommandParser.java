@@ -1,6 +1,8 @@
 package echobot.command;
 
+import echobot.exception.DeadlineEmptyException;
 import echobot.exception.EchoBotException;
+import echobot.exception.EventStartEndDateEmptyException;
 import echobot.exception.InvalidDeadlineFormatException;
 import echobot.exception.TaskNameEmptyException;
 import echobot.exception.TaskNotFoundException;
@@ -12,7 +14,8 @@ import java.util.regex.Pattern;
 public class CommandParser {
     public Command parse(String input) throws EchoBotException {
         input = input.trim();
-        Pattern pattern = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
+        final String REGEX = "(?<command>\\S+)(?<arguments>.*)";
+        Pattern pattern = Pattern.compile(REGEX);
         Matcher commandMatcher = pattern.matcher(input);
 
         if (!commandMatcher.find()) {
@@ -37,7 +40,8 @@ public class CommandParser {
     }
 
     private AddCommand getAddCommand(String arguments) throws EchoBotException {
-        Pattern pattern = Pattern.compile("(?<type>\\S+)\s?(?<description>.*?( /|$))");
+        final String REGEX = "(?<type>\\S+)\s?(?<description>.*?( /|$))";
+        Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(arguments);
 
         if (matcher.groupCount() == 1) {
@@ -49,43 +53,59 @@ public class CommandParser {
 
         String type = matcher.group("type");
         String description = matcher.group("description");
-        switch (type) {
-        case AddCommand.TODO_COMMAND: {
-            return new AddCommand(description);
+        return switch (type) {
+            case AddCommand.TODO_COMMAND -> this.getAddToDoCommand(description);
+            case AddCommand.DEADLINE_COMMAND -> this.getAddCommand(arguments, description);
+            case AddCommand.EVENT_COMMAND -> this.getAddEventCommand(arguments, description);
+            default -> throw new UnknownCommandException();
+        };
+    }
+
+    private AddCommand getAddEventCommand(String arguments, String description) throws InvalidDeadlineFormatException, TaskNameEmptyException, EventStartEndDateEmptyException {
+        Matcher matcher;
+        Pattern pattern;
+        description = description.substring(0, description.length() - 1).trim();
+        final String REGEX = ".*?/from (?<from>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}) /to (?<to>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})";
+        pattern = Pattern.compile(REGEX);
+        matcher = pattern.matcher(arguments);
+        if (!matcher.find()) {
+            final String DATE_FORMAT = "dd-MM-yyyy HH:ss";
+            throw new InvalidDeadlineFormatException(DATE_FORMAT);
         }
-        case AddCommand.DEADLINE_COMMAND: {
-            description = description.substring(0, description.length() - 1).trim();
-            pattern = Pattern.compile(".*?/by (?<deadline>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})");
-            matcher = pattern.matcher(arguments);
-            if (!matcher.find()) {
-                throw new InvalidDeadlineFormatException("dd-MM-yyyy HH:ss");
-            }
-            String deadline = matcher.group("deadline");
-            return new AddCommand(description, deadline);
+        String from = matcher.group("from");
+        String to = matcher.group("to");
+        return new AddCommand(description, from, to);
+    }
+
+    private AddCommand getAddCommand(String arguments, String description) throws InvalidDeadlineFormatException, TaskNameEmptyException, DeadlineEmptyException {
+        final String REGEX = ".*?/by (?<deadline>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})";
+        Matcher matcher;
+        Pattern pattern;
+        description = description.substring(0, description.length() - 1).trim();
+        pattern = Pattern.compile(REGEX);
+        matcher = pattern.matcher(arguments);
+        if (!matcher.find()) {
+            final String DATE_FORMAT = "dd-MM-yyyy HH:ss";
+            throw new InvalidDeadlineFormatException(DATE_FORMAT);
         }
-        case AddCommand.EVENT_COMMAND: {
-            description = description.substring(0, description.length() - 1).trim();
-            pattern = Pattern.compile(".*?/from (?<from>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}) /to (?<to>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})");
-            matcher = pattern.matcher(arguments);
-            if (!matcher.find()) {
-                throw new InvalidDeadlineFormatException("dd-MM-yyyy HH:ss");
-            }
-            String from = matcher.group("from");
-            String to = matcher.group("to");
-            return new AddCommand(description, from, to);
-        }
-        }
-        throw new UnknownCommandException();
+        String deadline = matcher.group("deadline");
+        return new AddCommand(description, deadline);
+    }
+
+    private AddCommand getAddToDoCommand(String description) throws TaskNameEmptyException {
+        return new AddCommand(description);
     }
 
     public ListCommand getListCommand(String arguments) throws InvalidDeadlineFormatException {
         if (arguments.isBlank()) {
             return new ListAllCommand();
         }
-        Pattern pattern = Pattern.compile("/on (?<on>\\d{2}-\\d{2}-\\d{4})");
+        final String REGEX = "/on (?<on>\\d{2}-\\d{2}-\\d{4})";
+        Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(arguments);
         if (!matcher.find()) {
-            throw new InvalidDeadlineFormatException("dd-MM-yyyy");
+            final String DATE_FORMAT = "dd-MM-yyyy";
+            throw new InvalidDeadlineFormatException(DATE_FORMAT);
         }
         String on = matcher.group("on");
         return new ListByDateCommand(on);
