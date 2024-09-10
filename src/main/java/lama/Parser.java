@@ -54,11 +54,11 @@ public class Parser {
             throw new LamaException(UNKNOWN_COMMAND);
         }
 
-        String resolvedCommand = AliasManager.getCommand(command.split(" ")[0]);
-
         String[] words = command.split(" ", 2);
 
         assert words.length > 0 : "Command should not be an empty string";
+
+        String resolvedCommand = AliasManager.getCommand(words[0]);
 
         switch (resolvedCommand.toLowerCase()) {
         case "bye":
