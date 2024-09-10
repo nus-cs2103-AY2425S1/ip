@@ -12,11 +12,9 @@ import java.util.Scanner;
 /**
  * Handles saving of tasks into file
  */
-@SuppressWarnings("checkstyle:Regexp")
 public class Storage {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     // CHECKSTYLE.OFF: AbbreviationAsWordInName
     private final String FILE_PATH = "./data/taskFile.txt";
     // CHECKSTYLE.ON: AbbreviationAsWordInName
@@ -26,7 +24,7 @@ public class Storage {
      * Loads all tasks from previously saved file. If saved file not found, creates a new file to save to.
      *
      * @return TaskList that has all the tasks loaded from previous saved file
-     * @throws IOException if there is an error opening saved file
+     * @throws IOException if there is an error opening existing saved file
      */
     public TaskList load() throws IOException {
         taskFile = new File(FILE_PATH);
@@ -47,7 +45,7 @@ public class Storage {
             String taskString = s.nextLine();
             String[] arr = taskString.split("\\|");
 
-            Task currentLoadedTask = null; // bad implementation...
+            Task currentLoadedTask = null;
             boolean isDone = arr[1].equals("1");
 
             if (arr[0].equals("T")) {

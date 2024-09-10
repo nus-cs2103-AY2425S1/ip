@@ -5,10 +5,10 @@ package llama.data;
  */
 public class Todo extends Task {
     /**
-     * Constructor for Todo
+     * Creates a Todo object
      *
-     * @param description description for task to be done
-     * @param isDone true if task is done; else false
+     * @param description description for todo to be done
+     * @param isDone true if todo is done; else false
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);

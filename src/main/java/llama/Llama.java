@@ -2,7 +2,6 @@ package llama;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 import llama.commands.Command;
 import llama.data.Storage;
@@ -30,37 +29,10 @@ public class Llama {
         try {
             this.taskList = storage.load();
         } catch (IOException e) {
-            ui.displayString(e.getMessage()); // TODO: Make own exception for custom message
+            ui.displayString(e.getMessage());
         }
     }
 
-    /*
-     * Method to start running the program
-
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-
-        // Initializing message
-        this.ui.displayWelcome();
-
-        // Get user input
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            String input = this.ui.getUserInput(sc);
-
-
-            try {
-                Command command = Parser.parse(input);
-                // Command returns false if program should stop running
-                shouldContinue = command.execute(this.taskList, this.ui, this.storage);
-            } catch (IOException | LlamaException e) {
-                ui.displayString(e.getMessage());
-            }
-        }
-
-        sc.close();
-    }
-    */
     public String greet() {
         return ui.displayWelcome();
     }
@@ -68,16 +40,9 @@ public class Llama {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
-            // Command returns false if program should stop running
             return command.execute(this.taskList, this.ui, this.storage);
         } catch (IOException | LlamaException e) {
             return e.getMessage();
         }
     }
-
-    /*
-    public static void main(String[] args) {
-        new Llama().run();
-    }
-    */
 }
