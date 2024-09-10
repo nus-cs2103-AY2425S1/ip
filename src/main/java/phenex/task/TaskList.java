@@ -105,6 +105,7 @@ public class TaskList {
      * @return task list containing all tasks with given name.
      */
     public TaskList findTasks(String name) {
+        assert !name.equals("") : "Error: invalid task name!";
         TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {
             if (task.getName().equals(name)) {
@@ -121,6 +122,7 @@ public class TaskList {
      * @return task list containing all tasks overlapping date.
      */
     public TaskList findAllTasksOn(LocalDate localDate) {
+        assert localDate != null : "Error: Invalid argument!";
         TaskList taskList = new TaskList();
 
         for (Task task : this.tasks) {
@@ -161,6 +163,7 @@ public class TaskList {
      * @throws PhenexException if invalid line.
      */
     private void addTaskFromMemoryLine(String data) throws PhenexException {
+        assert !data.equals("") : "Error: invalid input when reading data.";
         String[] taskDetails = data.split(", ");
         if (taskDetails.length <= 1) {
             throw new PhenexException("Error, corrupted memory.");
