@@ -14,7 +14,7 @@ import duck.ui.Ui;
 public class UnmarkCommand extends Command {
 
     private static final String ERROR_MESSAGE_UNMARK_COMMAND = """
-            Update tasks with correct format please >:(
+            Update tasks with correct format please >:( Quack Quack!
             mark/unmark {index of task to update}
             """;
 

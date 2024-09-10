@@ -22,7 +22,7 @@ public class EventCommand extends Command {
     private static final String INVALID_EVENT_DURATION = "The end time of an event should be after the start time!\n";
     private static final String PATTERN_EVENT_COMMAND = "(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
     private static final String ERROR_MESSAGE_EVENT_COMMAND = """
-            Give me a valid event format!
+            Give Duck a valid event format!
             event {description} /from {start} /to {end}
             {start}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm
             {end}: yyyy-mm-dd HHmm OR yyyy/mm/dd HHmm

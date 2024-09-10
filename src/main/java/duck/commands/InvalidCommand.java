@@ -12,7 +12,7 @@ import duck.ui.Ui;
 public class InvalidCommand extends Command {
 
     private static final String MESSAGE_INVALID_COMMAND =
-            "Hey, that's not a valid instruction! I don't know how to respond to that.\n";
+            "Quack, that's not a valid instruction! Duck don't know how to respond to that.\n";
 
     /**
      * Constructs an InvalidCommand with the specified message.

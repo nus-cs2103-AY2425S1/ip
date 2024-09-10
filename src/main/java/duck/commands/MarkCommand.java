@@ -12,8 +12,10 @@ import duck.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    private static final String ERROR_MESSAGE_MARK_COMMAND = "Update tasks with correct format please >:(\n"
-            + "mark/unmark {index of task to update}";
+    private static final String ERROR_MESSAGE_MARK_COMMAND = """
+            Update tasks with correct format please >:( Quack Quack!
+            mark/unmark {index of task to update}
+            """;
 
     /**
      * Constructs a MarkCommand with the specified message.

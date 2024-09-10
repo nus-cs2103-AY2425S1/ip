@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
 
 
     private static final String ERROR_MESSAGE_DELETE_COMMAND = """
-            Delete tasks with correct format please >:(
+            Delete tasks with correct format please >:( Quack Quack!
             delete {index of task to delete}
             """;
 
