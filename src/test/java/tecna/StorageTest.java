@@ -14,7 +14,7 @@ public class StorageTest {
 
     @Test
     public void load_taskListNotFound_exceptionThrown() {
-        Storage storage = new Storage("data/tasklist_not_found.json");
+        tecna.storage.Storage storage = new tecna.storage.Storage("data/tasklist_not_found.json");
 
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -31,7 +31,7 @@ public class StorageTest {
 
     @Test
     public void load_invalidTaskType_exceptionThrown() {
-        Storage storage = new Storage("data/error_tecna.json");
+        tecna.storage.Storage storage = new tecna.storage.Storage("data/error_tecna.json");
         try {
             ArrayList<Task> tasks = new ArrayList<>();
             ToDo toDo = new ToDo("borrow a book", true);
@@ -47,7 +47,7 @@ public class StorageTest {
 
     @Test
     public void load_deadlineDataMissing_exceptionThrown() {
-        Storage storage = new Storage("data/deadline_data_missing.json");
+        tecna.storage.Storage storage = new tecna.storage.Storage("data/deadline_data_missing.json");
         try {
             ArrayList<Task> tasks = new ArrayList<>();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
