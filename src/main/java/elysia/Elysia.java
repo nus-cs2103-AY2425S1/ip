@@ -1,15 +1,13 @@
 package elysia;
 
 import elysia.command.Command;
-import elysia.dateparser.Parser;
+import elysia.parser.Parser;
 import elysia.exception.ElysiaException;
 import elysia.storage.Storage;
 import elysia.task.Task;
-import elysia.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Entry point of the (Elysia) chatbot application.
@@ -18,9 +16,6 @@ import java.util.Scanner;
 public class Elysia {
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
-//    private String folderName = "data";
-//    private String fileName = "elysia.txt";
-//    private String filePath = "./" + folderName + "/" + fileName;
 
     public Elysia() throws IOException {
         storage = new Storage(tasks);

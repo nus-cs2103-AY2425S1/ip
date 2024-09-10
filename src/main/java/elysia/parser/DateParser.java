@@ -1,4 +1,4 @@
-package elysia.dateparser;
+package elysia.parser;
 
 import elysia.exception.InvalidDateFormatException;
 

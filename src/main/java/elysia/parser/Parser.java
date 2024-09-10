@@ -1,5 +1,6 @@
-package elysia.dateparser;
+package elysia.parser;
 
+import elysia.Elysia;
 import elysia.command.*;
 import elysia.exception.EmptyDescriptionException;
 import elysia.exception.InvalidDateFormatException;
@@ -15,6 +16,9 @@ public class Parser {
         String token = str[0].toLowerCase();
 
         switch (token) {
+        case "elysia":
+            parseElysiaCommand();
+            break;
         case "list":
             parsePrintListCommand();
             break;
@@ -47,6 +51,10 @@ public class Parser {
         }
 
         return command;
+    }
+
+    private void parseElysiaCommand() {
+        command = new ElysiaCommand();
     }
 
     private void parseExitCommand() {

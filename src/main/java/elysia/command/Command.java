@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * Manages the task lists with commands.
  */
 public abstract class Command {
-    public boolean hasExited = false;
 
     public Command() {
 

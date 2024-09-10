@@ -16,7 +16,6 @@ public class ExitCommand extends Command {
 
     @Override
     public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
-        this.hasExited = true;
         Ui ui = new Ui();
         try {
             Storage storage = new Storage(tasks);
