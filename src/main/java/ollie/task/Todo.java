@@ -45,14 +45,4 @@ public class Todo extends Task {
         }
         return new Todo(description);
     }
-
-    /**
-     * Returns the string representation of the Todo task.
-     *
-     * @return The string representation of the Todo task.
-     */
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

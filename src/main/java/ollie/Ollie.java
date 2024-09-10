@@ -50,10 +50,8 @@ public class Ollie {
      * The chatbot processes user input, and processes commands until it exits.
      */
     public void run() {
-        ui.greeting();
+        Ui.greet();
         Scanner scanner = new Scanner(System.in);
-
-        boolean isRunning = true;
         scanner.close();
     }
 
