@@ -43,3 +43,4 @@ jobs:
           name: (${{github.ref_name}}) New Jar File Release!
           # Newline-delimited list of path globs for asset files to upload
           files: ./build/libs/yappingbot.jar
+          token: ${{ github.token }}
