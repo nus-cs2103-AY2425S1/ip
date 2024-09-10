@@ -55,7 +55,7 @@ application {
 
 shadowJar {
     archiveBaseName = "duck"
-    archiveVersion = "2.1"
+    archiveVersion = "2.2"
 }
 
 run{
