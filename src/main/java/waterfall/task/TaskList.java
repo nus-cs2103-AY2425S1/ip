@@ -2,6 +2,8 @@ package waterfall.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Manages the list of tasks in the Waterfall chatbot application.
@@ -99,19 +101,10 @@ public class TaskList {
      * @param indentSpace The number of spaces to indent.
      */
     public String printDetail(int indentSpace) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < num; i++) {
-            Task task = tasks.get(i);
-            if (task != null) {
-                String taskString = " ".repeat(indentSpace)
-                        + Integer.toString(i + 1) + "."
-                        + task.toString() + "\n";
-                sb.append(taskString);
-            } else {
-                break;
-            }
-        }
-        return sb.toString();
+        return tasks.stream()
+                .limit(num)
+                .map(task -> " ".repeat(indentSpace) + (tasks.indexOf(task) + 1) + "." + task.toString() + "\n")
+                .collect(Collectors.joining());
     }
 
     /**
