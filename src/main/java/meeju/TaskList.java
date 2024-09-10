@@ -21,12 +21,12 @@ public class TaskList {
     public TaskList(Storage storage) {
         this.storage = storage;
         this.taskList = this.storage.initialiseList();
+
     }
 
     public Task getTask(int index) {
         return this.taskList.get(index);
     }
-
 
     public int getNumberOfTask() {
         return this.taskList.size();
@@ -65,6 +65,7 @@ public class TaskList {
         if (taskToMark.getIsDone()) {
             throw new MeejuException("The task is already marked!");
         }
+
         taskToMark.setIsDone(true);
         this.storage.updateFile(taskList);
         return "Meow! I've marked this task as done:\n"
@@ -92,6 +93,7 @@ public class TaskList {
         if (!taskToUnmark.getIsDone()) {
             throw new MeejuException("The task is not marked yet!");
         }
+
         taskToUnmark.setIsDone(false);
         this.storage.updateFile(taskList);
         return "Meow! I've marked this task as not done yet:\n"
@@ -109,6 +111,7 @@ public class TaskList {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
+
         Todo task = new Todo(taskInstruction);
         this.taskList.add(task);
         this.storage.updateFile(taskList);

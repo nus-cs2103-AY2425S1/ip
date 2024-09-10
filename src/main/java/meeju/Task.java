@@ -35,7 +35,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-
     public String getStatusIcon() {
         if (this.isDone) {
             return "[X]";

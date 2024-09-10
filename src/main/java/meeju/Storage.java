@@ -28,6 +28,31 @@ public class Storage {
         }
     }
 
+    private Task parseTask(String[] currentParsedLine) throws Exception {
+        Task task;
+        switch (currentParsedLine[0].strip()) {
+        case "T":
+            task = new Todo(currentParsedLine[2]);
+            break;
+        case "D":
+            task = new Deadline(currentParsedLine[2].strip(),
+                    currentParsedLine[3].strip());
+            break;
+        case "E":
+            task = new Event(currentParsedLine[2].strip(),
+                    currentParsedLine[3].strip(), currentParsedLine[4].strip());
+            break;
+        default:
+            throw new MeejuException("File has been tampered!");
+        }
+
+        if (currentParsedLine[1].strip().equals("true")) {
+            task.setIsDone(true);
+        }
+
+        return task;
+    }
+
     /**
      * Initializes the task list by reading from the storage file.
      *
@@ -38,35 +63,24 @@ public class Storage {
      */
     public ArrayList<Task> initialiseList() {
         ArrayList<Task> taskList = new ArrayList<>();
-        if (file.exists()) {
+        if (!file.exists()) {
+            return taskList;
+        }
+
+        try {
+            this.scanner = new Scanner(this.file);
+        } catch (Exception e) {
+            System.out.println(e); //Ideally never reached here!
+        }
+
+        while (scanner.hasNext()) {
+            String currentLine = scanner.nextLine();
+            String fileDelimiter = "!-";
+            String[] currentParsedLine = currentLine.split(fileDelimiter);
             try {
-                this.scanner = new Scanner(this.file);
+                taskList.add(parseTask(currentParsedLine));
             } catch (Exception e) {
                 System.out.println(e); //Ideally never reached here!
-            }
-            while (scanner.hasNext()) {
-                String currentLine = scanner.nextLine();
-                String[] currentLineParsed = currentLine.split("!-");
-                Task task;
-                try {
-                    if (currentLineParsed[0].strip().equals("T")) {
-                        task = new Todo(currentLineParsed[2]);
-                        taskList.add(task);
-                    } else if (currentLineParsed[0].strip().equals("D")) {
-                        task = new Deadline(currentLineParsed[2].strip(),
-                                currentLineParsed[3].strip());
-                        taskList.add(task);
-                    } else {
-                        task = new Event(currentLineParsed[2].strip(),
-                                currentLineParsed[3].strip(), currentLineParsed[4].strip());
-                        taskList.add(task);
-                    }
-                    if (currentLineParsed[1].strip().equals("true")) {
-                        task.setIsDone(true);
-                    }
-                } catch (Exception e) {
-                    System.out.println(e); //Ideally never reached here!
-                }
             }
         }
         return taskList;
@@ -87,6 +101,7 @@ public class Storage {
         } catch (IOException e) {
             throw new MeejuException("IO exception!");
         }
+
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             String next;
@@ -94,6 +109,7 @@ public class Storage {
             next = currentTask.serializeDetails();
             content.append(next);
         }
+
         try {
             fileWriter.write(content.toString());
             fileWriter.close();
