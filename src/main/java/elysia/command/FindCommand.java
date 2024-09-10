@@ -15,7 +15,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
         Ui ui = new Ui();
 
         ArrayList<Task> results = new ArrayList<>();

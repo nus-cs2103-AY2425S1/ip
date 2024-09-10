@@ -18,7 +18,7 @@ public class DeadlineCommand extends Command {
     }
 
 
-    public String execute(ArrayList<Task> tasks, Storage storage) {
+    public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
         Task task = new Deadline(this.description, this.by);
         tasks.add(task);

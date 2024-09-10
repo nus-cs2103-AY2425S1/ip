@@ -16,12 +16,13 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
         Task curr = tasks.get(this.index);
         curr.markAsDone();
 
         Ui ui = new Ui();
         try {
+            Storage storage = new Storage(tasks);
             storage.saveFile();
         } catch (IOException e) {
             return "Something went wrong: " + e.getMessage();

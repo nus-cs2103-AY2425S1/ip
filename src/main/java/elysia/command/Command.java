@@ -22,5 +22,5 @@ public abstract class Command {
     /**
      * Executes the Command.
      */
-    public abstract String execute(ArrayList<Task> tasks, Storage storage) throws EmptyDescriptionException, IOException;
+    public abstract String execute(ArrayList<Task> tasks) throws EmptyDescriptionException, IOException;
 }

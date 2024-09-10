@@ -34,7 +34,7 @@ public class Elysia {
         try {
             Parser parser = new Parser();
             Command command = parser.parseCommand(input);
-            return command.execute(tasks, storage);
+            return command.execute(tasks);
         } catch (ElysiaException | IOException e) {
             return e.getMessage();
         }
