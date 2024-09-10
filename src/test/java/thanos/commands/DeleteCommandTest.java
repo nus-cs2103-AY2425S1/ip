@@ -11,16 +11,13 @@ import thanos.stubs.StorageStub;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
 import thanos.tasks.Todo;
-import thanos.ui.Ui;
 
 public class DeleteCommandTest {
     private TaskList taskList;
-    private Ui ui;
 
     @BeforeEach
     public void setUp() {
         taskList = new TaskList(new StorageStub());
-        ui = new Ui();
     }
 
     @Test
@@ -28,7 +25,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task index provided. Please use the correct format: 'delete [task index]'",
@@ -40,7 +37,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("1 2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'delete [task index]'",
@@ -54,7 +51,7 @@ public class DeleteCommandTest {
         taskList.add(task1);
         taskList.add(task2);
         DeleteCommand command = new DeleteCommand("2");
-        command.execute(taskList, ui);
+        command.execute(taskList);
 
         assertEquals(1, taskList.size(), "TaskList should contain 1 task after deletion");
         assertEquals(task1, taskList.getTaskList().get(0), "The remaining task should be Task 1");
@@ -65,7 +62,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("one");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is not an integer.",
@@ -79,7 +76,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is out of range.",

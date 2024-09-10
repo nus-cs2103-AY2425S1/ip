@@ -10,16 +10,13 @@ import thanos.exceptions.InvalidCommandException;
 import thanos.stubs.StorageStub;
 import thanos.tasks.TaskList;
 import thanos.tasks.Todo;
-import thanos.ui.Ui;
 
 public class MarkCommandTest {
     private TaskList taskList;
-    private Ui ui;
 
     @BeforeEach
     public void setUp() {
         taskList = new TaskList(new StorageStub());
-        ui = new Ui();
     }
 
     @Test
@@ -27,7 +24,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task index provided. Please use the correct format: 'mark [task index]'",
@@ -39,7 +36,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("1 2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'mark [task index]'",
@@ -50,7 +47,7 @@ public class MarkCommandTest {
     public void execute_validTaskIndex_markTaskSuccess() throws InvalidCommandException {
         taskList.add(new Todo("read book"));
         MarkCommand command = new MarkCommand("1");
-        command.execute(taskList, ui);
+        command.execute(taskList);
 
         assertEquals(
                 "[T][X] read book",
@@ -63,7 +60,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("one");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is not an integer.", exception.getMessage());
@@ -75,7 +72,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is out of range.", exception.getMessage());

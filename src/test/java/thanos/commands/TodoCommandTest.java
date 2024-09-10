@@ -11,16 +11,13 @@ import thanos.exceptions.InvalidCommandException;
 import thanos.stubs.StorageStub;
 import thanos.tasks.TaskList;
 import thanos.tasks.Todo;
-import thanos.ui.Ui;
 
 public class TodoCommandTest {
     private TaskList taskList;
-    private Ui ui;
 
     @BeforeEach
     public void setUp() {
         taskList = new TaskList(new StorageStub());
-        ui = new Ui();
     }
 
     @Test
@@ -28,7 +25,7 @@ public class TodoCommandTest {
         TodoCommand command = new TodoCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task description provided. Please use the correct format: 'todo [task]'",
@@ -38,7 +35,7 @@ public class TodoCommandTest {
     @Test
     public void execute_validTask_addTaskSuccess() throws InvalidCommandException {
         TodoCommand command = new TodoCommand("read book");
-        command.execute(taskList, ui);
+        command.execute(taskList);
 
         assertEquals(1, taskList.size(), "TaskList should contain 1 task after adding a todo");
         assertInstanceOf(Todo.class, taskList.getTaskList().get(0), "Expected a Todo class");

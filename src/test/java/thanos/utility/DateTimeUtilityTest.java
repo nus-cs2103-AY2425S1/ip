@@ -1,7 +1,7 @@
 package thanos.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
@@ -59,8 +59,9 @@ public class DateTimeUtilityTest {
     }
 
     @Test
-    public void testParseWithInvalidDateTimeFormat() throws InvalidDateException {
-        assertNull(DateTimeUtility.parse("Tomorrow 2 PM"));
+    public void testParseWithInvalidDateTimeFormat() {
+        assertThrows(InvalidDateException.class, () -> DateTimeUtility.parse("Tomorrow 2 PM"),
+                "Expected InvalidDateException to be thrown");
     }
 
     @Test

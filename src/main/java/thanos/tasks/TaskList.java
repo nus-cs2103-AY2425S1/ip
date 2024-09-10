@@ -118,7 +118,7 @@ public class TaskList {
      */
     public ArrayList<Task> find(String keyword) {
         return this.tasks.stream()
-                .filter(task -> tasks.toString().contains(keyword))
+                .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
