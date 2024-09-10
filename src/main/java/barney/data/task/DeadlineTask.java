@@ -26,6 +26,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String byString) {
         super(description);
+        assert byString != null;
         this.byString = byString;
         this.byDate = BarneyDateTime.parseDate(byString);
     }
