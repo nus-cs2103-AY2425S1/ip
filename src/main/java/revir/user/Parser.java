@@ -52,7 +52,7 @@ public class Parser {
     public Command parse(String commandString) throws IllegalCommandException, InvalidFormatException {
         String[] split = commandString.trim().split(" ", 2);
         String commandWord = split[0].toLowerCase();
-        String args = split.length > 1 ? split[1] : "";
+        String commandArgs = split.length > 1 ? split[1] : "";
         Action action = Parser.actionMap.getOrDefault(commandWord, Action.INVALID);
         // use switch case to return different methods based on command type
         switch (action) {
@@ -61,19 +61,19 @@ public class Parser {
         case LIST:
             return new ListTasks();
         case MARK:
-            return parseMark(args);
+            return parseMark(commandArgs);
         case UNMARK:
-            return parseUnmark(args);
+            return parseUnmark(commandArgs);
         case TODO:
-            return parseTodo(args);
+            return parseTodo(commandArgs);
         case DEADLINE:
-            return parseDeadline(args);
+            return parseDeadline(commandArgs);
         case EVENT:
-            return parseEvent(args);
+            return parseEvent(commandArgs);
         case DELETE:
-            return parseDelete(args);
+            return parseDelete(commandArgs);
         case FIND:
-            return parseFind(args);
+            return parseFind(commandArgs);
         case INVALID:
             throw new IllegalCommandException(commandWord);
         default:
@@ -104,34 +104,36 @@ public class Parser {
 
     Command parseDeadline(String args) throws InvalidFormatException {
         String[] taskInfo = args.split(" /by ");
-        if (taskInfo.length == 2) {
-            String taskDescription = taskInfo[0];
-            String deadlineStr = taskInfo[1];
-            try {
-                LocalDateTime deadline = LocalDateTime.parse(deadlineStr, dateFormat);
-                return new Create(taskDescription, deadline);
-            } catch (DateTimeParseException e) {
-                throw new InvalidFormatException(Deadline.format());
-            }
-        } else {
+        if (taskInfo.length != 2) {
+            throw new InvalidFormatException(Deadline.format());
+        }
+
+        String taskDescription = taskInfo[0];
+        String deadlineStr = taskInfo[1];
+    
+        try {
+            LocalDateTime deadline = LocalDateTime.parse(deadlineStr, dateFormat);
+            return new Create(taskDescription, deadline);
+        } catch (DateTimeParseException e) {
             throw new InvalidFormatException(Deadline.format());
         }
     }
 
     Command parseEvent(String args) throws InvalidFormatException {
         String[] taskInfo = args.split(" /from ");
-        if (taskInfo.length == 2) {
-            String taskDescription = taskInfo[0];
-            String startDateStr = taskInfo[1].split(" /to ")[0];
-            String endDateStr = taskInfo[1].split(" /to ")[1];
-            try {
-                LocalDateTime startDate = LocalDateTime.parse(startDateStr, dateFormat);
-                LocalDateTime endDate = LocalDateTime.parse(endDateStr, dateFormat);
-                return new Create(taskDescription, startDate, endDate);
-            } catch (DateTimeParseException e) {
-                throw new InvalidFormatException(Event.format());
-            }
-        } else {
+        if (taskInfo.length != 2) {
+            throw new InvalidFormatException(Event.format());
+        }
+
+        String taskDescription = taskInfo[0];
+        String startDateStr = taskInfo[1].split(" /to ")[0];
+        String endDateStr = taskInfo[1].split(" /to ")[1];
+        
+        try {
+            LocalDateTime startDate = LocalDateTime.parse(startDateStr, dateFormat);
+            LocalDateTime endDate = LocalDateTime.parse(endDateStr, dateFormat);
+            return new Create(taskDescription, startDate, endDate);
+        } catch (DateTimeParseException e) {
             throw new InvalidFormatException(Event.format());
         }
     }
