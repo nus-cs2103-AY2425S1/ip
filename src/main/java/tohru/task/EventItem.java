@@ -21,6 +21,11 @@ public class EventItem extends TodoItem {
      */
     public EventItem(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
+
+        assert from != null : "From datetime cannot be null";
+        assert to != null : "To datetime cannot be null";
+        assert (to.isAfter(from)) : "To datetime should be earlier than From datetime";
+
         this.from = from;
         this.to = to;
     }

@@ -11,7 +11,7 @@ import tohru.task.TodoItem;
 public class FileStoreStub extends FileStore {
 
     public FileStoreStub() {
-        super("");
+        super("stub");
     }
 
     @Override

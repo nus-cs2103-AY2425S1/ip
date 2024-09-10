@@ -19,6 +19,8 @@ public class TodoList {
      * @param todoList List to be used as the to-do list.
      */
     public TodoList(ArrayList<TodoItem> todoList) {
+        assert todoList != null : "Todo list should not be null";
+
         this.todoList = todoList;
     }
 

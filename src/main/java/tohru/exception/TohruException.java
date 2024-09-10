@@ -12,5 +12,7 @@ public class TohruException extends Exception {
      */
     public TohruException(String message) {
         super(message);
+
+        assert (message != null && !message.isEmpty()) : "Message should not be null";
     }
 }

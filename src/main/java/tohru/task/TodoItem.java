@@ -15,6 +15,8 @@ public class TodoItem {
      * @param content The task description of the to-do item.
      */
     public TodoItem(String content) {
+        assert (content != null && !content.isEmpty()) : "Description content should not be null or empty";
+
         this.content = content.trim();
         this.completed = false;
     }

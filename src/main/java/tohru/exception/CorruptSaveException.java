@@ -20,7 +20,10 @@ public class CorruptSaveException extends TohruException {
      */
     public CorruptSaveException(int errorEntriesCount, ArrayList<TodoItem> savedEntries) {
         super(String.format("%d entries found in your save file is corrupt", errorEntriesCount));
-        this.savedEntries = savedEntries;
+
+        assert errorEntriesCount > 0 : "CorruptSaveException should not be used when there are no error entries";
+
+        this.savedEntries = savedEntries == null ? new ArrayList<>() : savedEntries;
     }
 
     /**
