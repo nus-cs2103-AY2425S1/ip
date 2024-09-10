@@ -39,6 +39,10 @@ public class Struggling {
 
     public String getResponse(String input) {
         try {
+            assert tasks != null : "Invalid tasks object";
+            assert ui != null : "Invalid ui object";
+            assert storage != null : "Invalid storage object";
+
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
         } catch (IllegalArgumentException e) {

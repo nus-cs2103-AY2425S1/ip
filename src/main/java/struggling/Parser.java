@@ -42,9 +42,13 @@ public class Parser {
         case list:
             return new ListCommand();
         case mark:
-            return new MarkCommand(Integer.parseInt(args[1]) - 1);
+            int markIndex = Integer.parseInt(args[1]) - 1;
+            assert markIndex >= 0 : "index should be >= 0";
+            return new MarkCommand(markIndex);
         case unmark:
-            return new UnmarkCommand(Integer.parseInt(args[1]) - 1);
+            int unmarkIndex = Integer.parseInt(args[1]) - 1;
+            assert unmarkIndex >= 0 : "index should be >= 0";
+            return new UnmarkCommand(unmarkIndex);
         case todo:
             return new AddCommand(createTodo(cmd));
         case deadline:
@@ -52,7 +56,9 @@ public class Parser {
         case event:
             return new AddCommand(createEvent(cmd));
         case delete:
-            return new DeleteCommand(Integer.parseInt(args[1]) - 1);
+            int deleteIndex = Integer.parseInt(args[1]) - 1;
+            assert deleteIndex >= 0 : "index should be >= 0";
+            return new DeleteCommand(deleteIndex);
         case find:
             return new FindCommand(args[1]);
         default:
@@ -84,6 +90,9 @@ public class Parser {
         final String toKeyword = "/to ";
         int fromIndex = cmd.indexOf(fromKeyword) + fromKeyword.length();
         int toIndex = cmd.indexOf(toKeyword) + toKeyword.length();
+
+        assert fromIndex >= 0 : "index should be >= 0";
+        assert toIndex >= 0 : "index should be >= 0";
 
         String description = cmd.substring(EVENT_DESCRIPTION_INDEX, cmd.indexOf(fromKeyword)).trim();
         String from = cmd.substring(fromIndex, toIndex).trim();
