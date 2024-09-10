@@ -48,8 +48,7 @@ public class EventTask extends Task {
     public String toString() {
         String s = "";
         s += "[E]";
-        s += "[" + super.getStatusString() + "] ";
-        s += super.getTaskDesc();
+        s += super.toString();
         s += String.format(" (from: %s to: %s)", this.start, this.end);
         return s;
     }
@@ -63,11 +62,7 @@ public class EventTask extends Task {
     public String getStorageString() {
         String s = "";
         s += "E";
-        s += Storage.SPECIAL_CHAR;
-        s += super.getStatusInt();
-        s += Storage.SPECIAL_CHAR;
-        s += super.getTaskDesc();
-        s += Storage.SPECIAL_CHAR;
+        s += super.getStorageString();
         s += start;
         s += Storage.SPECIAL_CHAR;
         s += end;

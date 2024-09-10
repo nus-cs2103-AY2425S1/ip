@@ -34,8 +34,7 @@ public class ToDoTask extends Task {
     public String toString() {
         String s = "";
         s += "[T]";
-        s += "[" + super.getStatusString() + "] ";
-        s += super.getTaskDesc();
+        s += super.toString();
         return s;
     }
 
@@ -49,11 +48,7 @@ public class ToDoTask extends Task {
     public String getStorageString() {
         String s = "";
         s += "T";
-        s += Storage.SPECIAL_CHAR;
-        s += super.getStatusInt();
-        s += Storage.SPECIAL_CHAR;
-        s += super.getTaskDesc();
-        s += Storage.SPECIAL_CHAR;
+        s += super.getStorageString();
         return s;
     }
 }

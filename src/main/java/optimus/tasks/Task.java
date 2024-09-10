@@ -1,5 +1,7 @@
 package optimus.tasks;
 
+import optimus.Storage;
+
 /**
  * Tasks to be tracked by the user
  */
@@ -58,14 +60,26 @@ public class Task {
         return this.isDone ? 1 : 0;
     }
 
+    @Override
+    public String toString() {
+        String s = "";
+        s += "[" + getStatusString() + "] ";
+        s += getTaskDesc();
+        return s;
+    }
+
     /**
      * Dummy method for child classes to override.
-     * TODO: Should be in Storage class
-     * TODO: Replace this method with a method returning all relevant storage information as a String[]
      *
      * @return ""
      */
     public String getStorageString() {
-        return "";
+        String s = "";
+        s += Storage.SPECIAL_CHAR;
+        s += getStatusInt();
+        s += Storage.SPECIAL_CHAR;
+        s += getTaskDesc();
+        s += Storage.SPECIAL_CHAR;
+        return s;
     }
 }

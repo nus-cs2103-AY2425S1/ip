@@ -47,8 +47,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         String s = "";
         s += "[D]";
-        s += "[" + super.getStatusString() + "] ";
-        s += super.getTaskDesc();
+        s += super.toString();
         s += String.format(" (by: %s)", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         return s;
     }
@@ -62,11 +61,7 @@ public class DeadlineTask extends Task {
     public String getStorageString() {
         String s = "";
         s += "D";
-        s += Storage.SPECIAL_CHAR;
-        s += super.getStatusInt();
-        s += Storage.SPECIAL_CHAR;
-        s += super.getTaskDesc();
-        s += Storage.SPECIAL_CHAR;
+        s += super.getStorageString();
         s += deadline;
         s += Storage.SPECIAL_CHAR;
         return s;
