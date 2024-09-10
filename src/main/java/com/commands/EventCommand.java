@@ -26,9 +26,11 @@ public class EventCommand extends Command {
         Task task = new Event(getDescription(argument),
                 readOption(argument, "from"),
                 readOption(argument, "to"));
-
+        if (!tasks.add(task)) {
+            ui.showDuplicateTask(tasks.findAllWith(task.getDescription()));
+            return;
+        }
         storage.writeTaskToFile(task);
-        tasks.add(task);
         ui.showAddedTask(task, tasks.size());
     }
 }

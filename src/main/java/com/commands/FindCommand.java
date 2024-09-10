@@ -17,6 +17,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws InvalidArgumentException {
-        ui.showFoundTask(tasks.findAll(keyword));
+        ui.showFoundTask(tasks.findAllContains(keyword));
     }
 }

@@ -3,8 +3,8 @@ package com.commands;
 import static com.nimbus.Parser.getDescription;
 import static com.nimbus.Parser.readOption;
 
-import com.nimbus.Deadline;
 import com.exceptions.InvalidArgumentException;
+import com.nimbus.Deadline;
 import com.nimbus.Storage;
 import com.nimbus.Task;
 import com.nimbus.TaskList;
@@ -26,8 +26,11 @@ public class DeadlineCommand extends Command {
             throws InvalidArgumentException {
         Task task = new Deadline(getDescription(argument),
                 readOption(argument, "by"));
+        if (!tasks.add(task)) {
+            ui.showDuplicateTask(tasks.findAllWith(task.getDescription()));
+            return;
+        }
         storage.writeTaskToFile(task);
-        tasks.add(task);
         ui.showAddedTask(task, tasks.size());
     }
 }

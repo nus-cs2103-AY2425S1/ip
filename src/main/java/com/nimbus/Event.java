@@ -39,10 +39,18 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Return from date of an event
+     * @return from date in a String
+     */
     public String getFromDate() {
         return this.from;
     }
 
+    /**
+     * Return to date of an event
+     * @return to date in a String
+     */
     public String getToDate() {
         return this.to;
     }

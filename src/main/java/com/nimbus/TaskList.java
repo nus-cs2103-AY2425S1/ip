@@ -1,6 +1,7 @@
 package com.nimbus;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * TaskList is a container for Task
@@ -16,19 +17,26 @@ public class TaskList {
      * Add a task to current TaskList
      * @param task task to be added
      */
-    public void add(Task task) {
+    public boolean add(Task task) {
         assert tasks != null : "Tasks should be non-null";
+        if (findAllWith(task.getDescription()).size() > 0) {
+            return false;
+        }
         tasks.add(task);
+        return true;
     }
 
     /**
      * Add all task in tasks to current TaskList
      * @param tasks tasks to be added
      */
-    public void add(TaskList tasks) {
+    public boolean add(TaskList tasks) {
         for (int i = 0; i < tasks.size(); ++i) {
-            this.tasks.add(tasks.get(i));
+            if (!this.add(tasks.get(i))) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -69,10 +77,25 @@ public class TaskList {
      * @param keyword keyword to check for
      * @return All task that contains the keyword
      */
-    public TaskList findAll(String keyword) {
+    public TaskList findAllContains(String keyword) {
         TaskList ans = new TaskList();
         for (int i = 0; i < this.size(); ++i) {
             if (this.get(i).contains(keyword)) {
+                ans.add(this.get(i));
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * Return all task with same description as keyword
+     * @param description description to search for
+     * @return all task with the same description
+     */
+    public TaskList findAllWith(String description) {
+        TaskList ans = new TaskList();
+        for (int i = 0; i < this.size(); ++i) {
+            if (this.get(i).getDescription().equals(description)) {
                 ans.add(this.get(i));
             }
         }

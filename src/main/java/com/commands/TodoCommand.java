@@ -19,8 +19,11 @@ public class TodoCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) {
         Todo task = new Todo(argument);
+        if (!tasks.add(task)) {
+            ui.showDuplicateTask(tasks.findAllWith(argument));
+            return;
+        }
         storage.writeTaskToFile(task);
-        tasks.add(task);
         ui.showAddedTask(task, tasks.size());
     }
 }

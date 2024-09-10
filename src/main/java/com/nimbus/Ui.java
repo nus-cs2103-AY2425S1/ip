@@ -120,6 +120,19 @@ public class Ui extends Application {
         Ui.mainWindowController.showBotMessage(msg.toString());
     }
 
+    /**
+     * Show all duplicate task related to the one user is trying to add
+     * @param tasks All duplicate task
+     */
+    public void showDuplicateTask(TaskList tasks) {
+
+        StringBuilder msg = new StringBuilder("Error: relevant task already exist in the system.\n");
+        for (int i = 0; i < tasks.size(); ++i) {
+            msg.append(tasks.get(i).toString());
+        }
+        Ui.mainWindowController.showBotMessage(msg.toString());
+    }
+
     public void showUserMessage(String msg) {
         Ui.mainWindowController.showUserMessage(msg);
     }
