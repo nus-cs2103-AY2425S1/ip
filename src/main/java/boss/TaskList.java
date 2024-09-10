@@ -5,7 +5,6 @@ import boss.exceptions.EmptyTaskInputException;
 import boss.exceptions.NonExistentTaskException;
 import boss.tasks.Deadline;
 import boss.tasks.Task;
-import boss.tasks.TimeTask;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
  * has operations to add/delete tasks from the list
  */
 public class TaskList {
-
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -23,11 +21,8 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "task cannot be null";
         tasks.add(task);
-    }
-
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
     }
 
     /**
@@ -135,17 +130,6 @@ public class TaskList {
 
 
     /**
-     * Prints messages for user to the screen for text-based UI.
-     */
-    public void printTextAbstraction() {
-        System.out.println("Got it! I've added this task now");
-        int size = tasks.size();
-        System.out.println(tasks.get(size-1));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-
-    /**
      * Returns user messages to print onto screen for GUI.
      *
      * @return String containing messages for user.
@@ -158,26 +142,6 @@ public class TaskList {
         return toPrint;
     }
 
-
-    /**
-     * Finds a word in the list of tasks for text-based UI
-     * @param word word to find
-     */
-    public void find(String word) {
-        int i = 0;
-        for (Task str : tasks) {
-            if (str.getDescription().contains(word)) {
-                if (i == 0) {
-                    System.out.println("Here are the matching tasks in your list: ");
-                    i++;
-                }
-                System.out.println(str);
-            }
-        }
-        if (i == 0) {
-            System.out.println("There are no matching tasks :(");
-        }
-    }
 
     /**
      * Find the tasks that match the given word (for GUI).

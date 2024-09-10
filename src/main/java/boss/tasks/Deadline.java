@@ -41,14 +41,12 @@ public class Deadline extends TimeTask {
 
         // for date
         if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} ")) {
-            System.out.println(555555);
             DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy ");
             this.date = LocalDate.parse(by, dTF);
         }
 
         //for time
         if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} \\d{2}:\\d{2} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} \\d{2}:\\d{2} ")) {
-            System.out.println(555555);
             DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm ");
             this.time = LocalDateTime.parse(by, dTF);
         }
