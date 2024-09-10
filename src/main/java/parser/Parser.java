@@ -191,5 +191,21 @@ public class Parser {
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
     }
+
+    /**
+     * Prints Deadline tasks if the task coincides with the relevant dates
+     * @param task
+     * @param date
+     * @param sbr
+     * @param index
+     */
+    public static void printDeadlineIfDateCorresponds(Task task, LocalDate date, StringBuilder sbr, int index) {
+        LocalDate byDate = ((Deadline) task).getDeadlineDate();
+        if (byDate.isAfter(date)) {
+            System.out.println(index + "." + task);
+            sbr.append(index + "." + task + "\n");
+            index++;
+        }
+    }
 }
 

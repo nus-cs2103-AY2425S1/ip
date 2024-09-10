@@ -183,14 +183,6 @@ public class TaskList {
         }
         assert !taskDescription.isEmpty() : "Task description should not be empty";
         return Parser.addingDeadlineTaskToList(taskDescription, dateBy, items);
-        /*// If task added successfully, the program will reach here!
-        Task nextTask = new Deadline(taskDescription, dateBy);
-        Ui.addingDeadlinePrint(nextTask);
-        items.add(nextTask);
-        //return scanner.nextLine();
-        return "Got it. I've added this task:\n"
-                + nextTask + "\n"
-                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";*/
     }
 
     /**
@@ -239,13 +231,6 @@ public class TaskList {
         assert !fromDate.isEmpty() : "From date must not be empty.";
         assert !toDate.isEmpty() : "To date must not be empty.";
         return Parser.addingEventToTaskList(taskDescription, fromLocalDate, toLocalDate, items);
-        /*Task nextTask = new Event(taskDescription, fromLocalDate, toLocalDate);
-        Ui.addingEventPrint(nextTask);
-        items.add(nextTask);
-        //return scanner.nextLine();
-        return "Got it. I've added this task:\n"
-                + nextTask + "\n"
-                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";*/
     }
 
     /**
@@ -267,12 +252,14 @@ public class TaskList {
         int index = 1;
         for (Task task : items) {
             if (task instanceof Deadline) {
-                LocalDate byDate = ((Deadline) task).getDeadlineDate();
+                Parser.printDeadlineIfDateCorresponds(task, date, sbr, index);
+                index++;
+                /*LocalDate byDate = ((Deadline) task).getDeadlineDate();
                 if (byDate.isAfter(date)) {
                     System.out.println(index + "." + task);
                     sbr.append(index + "." + task + "\n");
                     index++;
-                }
+                }*/
             } else if (task instanceof Event) {
                 LocalDate fromDate = ((Event) task).getFromDur();
                 LocalDate toDate = ((Event) task).getToDur();
