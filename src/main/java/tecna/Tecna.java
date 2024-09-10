@@ -1,10 +1,10 @@
 package tecna;
 
-import java.util.Scanner;
-
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
+
+import tecna.ui.Ui;
 
 /**
  * Runs the Tecna chatbot application.
@@ -115,21 +115,4 @@ public class Tecna {
         ui.printSectionLine();
         return ui.printLogo() + ui.printHelloMsg();
     }
-
-    /**
-     * Generates a response for the user's chat message.
-     */
-    /*
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }*/
-/*
-    public static void main(String[] args) {
-        Tecna tecna = new Tecna("data/tecna.json");
-        tecna.greet();
-        tecna.getRequest("");
-        // tecna.echo();
-    }
-
- */
 }
