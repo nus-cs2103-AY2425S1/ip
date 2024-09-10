@@ -23,7 +23,6 @@ public class Cypher {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     private MainWindow mainWindow;
 
     /**
@@ -33,13 +32,13 @@ public class Cypher {
      * @param filePath filepath for the location on the hard disk to store the tasks created
      */
     public Cypher(String filePath) {
-        this.ui = new Ui(this);
+        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            ui.showLoadingError(filePath);
             tasks = new TaskList();
+            this.sendDialog(ui.showLoadingError(filePath));
         }
     }
 
@@ -49,20 +48,7 @@ public class Cypher {
      *  Event loops runs until the last command given has an exit status of true
      */
 
-    public void run() {
-        ui.greet();
-        boolean shouldEnd = false;
-        while (!shouldEnd) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = CommandReader.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                shouldEnd = c.isExit();
-            } catch (CypherException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
+
 
     /**
      *  Initializes the Cypher class with the preferred file path. Executes the run
@@ -70,22 +56,23 @@ public class Cypher {
      */
 
     public static void main(String[] args) {
-        new Cypher("./data/tasks.txt").run();
+        // No More CLI function
     }
 
     public void getResponse(String fullCommand) {
         try {
             Command c = CommandReader.parse(fullCommand);
-            c.execute(tasks, ui, storage);
+            this.sendDialog(c.execute(tasks, ui, storage));
         } catch (CypherException e) {
-            ui.showError(e.getMessage());
+            this.sendDialog(ui.showError(e.getMessage()));
         }
     }
 
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
-    public void sendDialog(String response) {
+    private void sendDialog(String response) {
+        // assert this.mainWindow != null : "Main Window does not exist for cypher";
         this.mainWindow.addDialogFromCypher(response);
     }
 }

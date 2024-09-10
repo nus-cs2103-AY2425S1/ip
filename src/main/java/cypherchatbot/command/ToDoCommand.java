@@ -29,16 +29,19 @@ public class ToDoCommand extends Command {
      * outputting the result to the user via the Ui output method, and then finally
      * saving the task to storage.
      *
-     * @param tasks The TaskList to which the new ToDo task should be added.
-     * @param ui The Ui interface used to interact with the user.
+     * @param tasks   The TaskList to which the new ToDo task should be added.
+     * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
+     * @return
      */
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task todo = new ToDo(command[1]);
-        String output = tasks.addToList(todo);
-        ui.output(output);
+
+        tasks.addToList(todo);
         storage.addToStorage(todo.toStringinFile());
+
+        return  ui.showAddMessage(todo, tasks.size());
     }
 
     /**

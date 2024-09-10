@@ -1,8 +1,10 @@
 package cypherchatbot.util;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import cypherchatbot.Cypher;
+import cypherchatbot.task.Task;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
@@ -13,15 +15,11 @@ import javafx.util.Duration;
  *  interaction in the chatbot occurs in this class.
  * */
 public class Ui {
-    private Scanner scanner;
 
-    private Cypher cypher;
     /**
      * Initializes a new scanner instance for reading user input from the console.
      * */
-    public Ui(Cypher cypher) {
-        this.scanner = new Scanner(System.in);
-        this.cypher = cypher;
+    public Ui() {
     }
 
     /**
@@ -29,53 +27,27 @@ public class Ui {
      *
      * @param s The String message to be displayed to the user.
      */
-    public void output(String s) {
-        Ui.lineBreak();
-        System.out.println(s);
-        Ui.lineBreak();
-        this.cypher.sendDialog(s);
+    public String output(String s) {
+        return s;
     }
 
-    /**
-     * Prints a custom line divider consisting of dashes to the console that is
-     * used to separate different sections of the output for clarity.
-     */
-    public static void lineBreak() {
-        System.out.println("-------------------------------------------------"
-                + "-------------------------------------------------------------");
-    }
-
-    /**
-     * Reads in the command entered by the user.
-     *
-     * @return The String command that the user gave as input
-     */
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
 
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        lineBreak();
-        System.out.println("Hello! I am Cypher\nWhat can I do for you!");
-        lineBreak();
-        this.cypher.sendDialog("Hello! I am Cypher\nWhat can I do for you!");
-
+    public String greet() {
+        return "Hello! I am Cypher\nWhat can I do for you!";
     }
 
     /**
      * Displays a goodbye message to the user. The method being called indicates
      * that the application has ended and the scanner is closed.
      */
-    public void goodBye() {
-        this.scanner.close();
-        this.cypher.sendDialog("Bye! See you again. This application will close in 3 seconds");
+    public String goodBye() {
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished((e) -> Platform.exit());
         delay.play();
+        return "Bye! See you again. This application will close in 3 seconds";
     }
 
     /**
@@ -84,11 +56,8 @@ public class Ui {
      * @param filePath The file path that could not be loaded/found/created.
      */
 
-    public void showLoadingError(String filePath) {
-        lineBreak();
-        System.out.println(String.format("Given filepath [%s] does not work. Please try again", filePath));
-        lineBreak();
-        this.cypher.sendDialog(String.format("Given filepath [%s] does not work. Please try again", filePath));
+    public String showLoadingError(String filePath) {
+        return String.format("Given filepath [%s] does not work. Please try again", filePath);
     }
 
     /**
@@ -97,16 +66,59 @@ public class Ui {
      * @param e The String error message to be displayed.
      */
 
-    public void showError(String e) {
-        lineBreak();
-        System.out.println(e);
-        lineBreak();
-        this.cypher.sendDialog(e);
+    public String showError(String e) {
+       return e;
     }
 
+    public String showAddMessage(Task addedTask, int totalTaskSize) {
+        return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n\n",
+                addedTask, totalTaskSize);
+    }
 
+    public String showDeleteMessage(Task deletedTask, int totalTaskSize) {
+        return "Noted! I have removed this task:\n " + deletedTask + "\n\n"
+                + String.format("Now you have %d task in the list%n", totalTaskSize);
+    }
 
+    public String showFilterMessage(ArrayList<Task> filteredList) {
+        if (filteredList.isEmpty()) {
+            return "You have no items in your list matching the given string";
+        } else {
+            StringBuilder str = new StringBuilder();
+            str.append("\nHere are the items in your list that match the search:\n");
+            for (int i = 0; i < filteredList.size(); i++) {
+                str.append((i + 1)).append(". ").append(filteredList.get(i)).append("\n");
+            }
+            str.append("\n");
+            return str.toString();
+        }
+    }
 
+    public String showHelpMessage() {
+        return "<<UNDER CONSTRUCTION>>";
+    }
+
+    public String showList (ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "You have no items in your list:";
+        } else {
+            StringBuilder str = new StringBuilder();
+            str.append("Here are the items in your list:\n");
+            for (int i = 0; i < taskList.size(); i++) {
+                str.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+            }
+            str.append("\n");
+            return str.toString();
+        }
+    }
+
+    public String showMarkedMessage(Task markedTask) {
+        return "Nice! I have marked this task as completed:\n " + markedTask;
+    }
+
+    public String showUnmarkedMessage(Task unmarkedTask) {
+        return "Ok! I have marked this task as incomplete:\n " + unmarkedTask;
+    }
 
 
 }

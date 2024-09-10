@@ -21,7 +21,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Cypher cypher;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userProfile.png"));

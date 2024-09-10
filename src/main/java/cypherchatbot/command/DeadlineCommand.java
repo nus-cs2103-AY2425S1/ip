@@ -34,21 +34,23 @@ public class DeadlineCommand extends Command {
      * outputting the result to the user via the Ui output method, and then finally
      * saving the task to storage.
      *
-     * @param tasks The TaskList to which the new Deadline task should be added.
-     * @param ui The Ui interface used to interact with the user.
+     * @param tasks   The TaskList to which the new Deadline task should be added.
+     * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
+     * @return
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             LocalDateTime by = LocalDateTime.parse(command[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task deadline = new Deadline(command[0], by);
-            String output = tasks.addToList(deadline);
-            ui.output(output);
+            tasks.addToList(deadline);
             storage.addToStorage(deadline.toStringinFile());
+            return ui.showAddMessage(deadline,tasks.size());
 
         } catch (DateTimeException e) {
-            ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
+            return ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
         }
+
     };
 
     /**

@@ -6,8 +6,8 @@ import cypherchatbot.util.Ui;
 
 public class ByeCommand extends Command {
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.goodBye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.goodBye();
     }
 
     public boolean isExit() {

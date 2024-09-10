@@ -1,9 +1,10 @@
 
-D|1|tmr|2015-11-12 14:11
-E|1|nice one|2020-10-10 11:01|2024-08-29 12:00
-E|0|testLevel8|2014-04-08 15:00|2018-09-06 14:00
-T|1|goat
-T|0|testFind
+T|1|testFind
 T|1|GUI for chatbot
+T|1|tmr
+T|0|today
+T|0|newTask
+T|0|5tueiu5
+T|0|rt
 T|0|ff
-T|0|hh
+D|0|tmr|2036-09-05 14:00
