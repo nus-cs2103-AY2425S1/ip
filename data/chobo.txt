@@ -1,4 +1,2 @@
 T|0|hihihihi
 T|1|hihihihi
-T|0|hihihihihihihihih
-E|0|xxxx|9-12-2000 0800|9-12-2001 0800
