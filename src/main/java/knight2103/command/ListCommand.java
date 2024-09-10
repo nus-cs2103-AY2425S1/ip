@@ -7,7 +7,7 @@ import knight2103.tasks.TaskList;
 /**
  * Models after a command that shows a full list of task.
  */
-public class ListCommand extends Command {
+public class ListCommand extends FormatListCommand {
     ListCommand() {
         super(CommandVerb.LIST);
     }
@@ -21,8 +21,7 @@ public class ListCommand extends Command {
      * @return The list of tasks stored after command execution in the bot's GUI.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showList(tasks);
+        String taskListInString = formatToList(tasks);
+        return ui.showList(taskListInString);
     }
-
-    ;
 }
