@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import dgpt.exception.DgptFileNotFoundException;
-import dgpt.exception.TaskNotFoundException;
 import dgpt.task.Deadline;
 import dgpt.task.Event;
 import dgpt.task.Task;

@@ -1,4 +1,4 @@
-package dgpt.FXML;
+package dgpt.fxml;
 
 import java.io.IOException;
 import java.util.Collections;

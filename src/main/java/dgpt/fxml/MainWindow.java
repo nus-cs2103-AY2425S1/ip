@@ -1,4 +1,4 @@
-package dgpt.FXML;
+package dgpt.fxml;
 
 import dgpt.Dgpt;
 import javafx.fxml.FXML;
@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * The main window that gets loaded when the application is launched.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
