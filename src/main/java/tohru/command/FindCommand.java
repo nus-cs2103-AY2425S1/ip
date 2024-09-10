@@ -1,6 +1,7 @@
 package tohru.command;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import tohru.exception.TohruException;
 import tohru.storage.FileStore;
@@ -35,7 +36,12 @@ public class FindCommand extends Command {
             throw new TohruException("Missing argument: Specify keyword to search");
         }
 
-        ArrayList<TodoItem> filteredItems = list.filter(super.arguments);
+        HashSet<TodoItem> uniqueResultsSet = new HashSet<>();
+        String[] keywords = super.arguments.split(" ");
+        for (String keyword : keywords) {
+            uniqueResultsSet.addAll(list.filter(keyword));
+        }
+        ArrayList<TodoItem> filteredItems = new ArrayList<>(uniqueResultsSet);
 
         String[] filteredItemsListString = TodoList.getItemisedItemsString(filteredItems);
         ui.showText(String.format("Here are the %d matching tasks in your list:", filteredItems.size()),
