@@ -121,16 +121,12 @@ public class TaskList {
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
-            if (task instanceof Deadline deadline) {
-                if (deadline.isDuring(date)) {
-                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
-                    n++;
-                }
-            } else if (task instanceof Event event) {
-                if (event.isDuring(date)) {
-                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
-                    n++;
-                }
+            if (task instanceof Deadline deadline && deadline.isDuring(date)) {
+                list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                n++;
+            } else if (task instanceof Event event && event.isDuring(date)) {
+                list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                n++;
             }
         }
         return list;
