@@ -21,6 +21,10 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(TaskManager taskManager, String command) {
         super(taskManager);
+
+        assert taskManager != null : "TaskManager should not be null";
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         this.command = command;
     }
 
@@ -49,6 +53,8 @@ public class DeleteCommand extends Command {
 
     private String displayTaskDeletedMessage(boolean forGui) throws JadeException {
         int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+        assert taskIndex >= 0 : "Task index should not be negative.";
+
         if (!taskManager.isValidTaskIndex(taskIndex)) {
             throw new JadeException("Hmm, no such task. Try again.");
         }

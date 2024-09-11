@@ -39,6 +39,7 @@ public class TaskManager {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert isValidTaskIndex(index) : "Invalid task index: " + index;
         return tasks.get(index);
     }
 
@@ -65,6 +66,8 @@ public class TaskManager {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert storage != null : "Storage should not be null";
+
         tasks.add(task);
         storage.saveTasks(tasks);
     }
@@ -76,14 +79,15 @@ public class TaskManager {
      * @param isDone Whether the task has been marked.
      */
     public void markTask(int index, boolean isDone) {
-        if (isValidTaskIndex(index)) {
-            if (isDone) {
-                tasks.get(index).markAsDone();
-            } else {
-                tasks.get(index).markAsNotDone();
-            }
-            storage.saveTasks(tasks);
+        assert isValidTaskIndex(index) : "Invalid task index: " + index;
+        assert storage != null : "Storage should not be null";
+
+        if (isDone) {
+            tasks.get(index).markAsDone();
+        } else {
+            tasks.get(index).markAsNotDone();
         }
+        storage.saveTasks(tasks);
     }
 
     /**
@@ -93,6 +97,8 @@ public class TaskManager {
      * @throws JadeException if index is invalid.
      */
     public void deleteTask(int index) throws JadeException {
+        assert storage != null : "Storage should not be null";
+
         if (isValidTaskIndex(index)) {
             tasks.remove(index);
             storage.saveTasks(tasks);

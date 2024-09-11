@@ -76,6 +76,8 @@ public class Storage {
      *     Each task will be converted to a data string format and written to the file.
      */
     public void saveTasks(ArrayList<Task> tasks) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toDataString());

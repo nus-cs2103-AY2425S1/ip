@@ -22,6 +22,10 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(TaskManager taskManager, String command, boolean isDone) {
         super(taskManager);
+
+        assert taskManager != null : "TaskManager should not be null";
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         this.command = command;
         this.isDone = isDone;
     }
@@ -51,6 +55,8 @@ public class MarkCommand extends Command {
 
     private String displayMarkedTaskMessage(boolean forGui) throws JadeException {
         int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+        assert taskIndex >= 0 : "Task index should not be negative.";
+
         if (!taskManager.isValidTaskIndex(taskIndex)) {
             throw new JadeException("Hmm, no such task. Try again.");
         }

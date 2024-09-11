@@ -26,6 +26,9 @@ public class Jade {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
+        assert TASK_MANAGER != null : "TaskManager should be initialised";
+        assert PARSER != null : "Parser should be initialised";
+
         Ui ui = new Ui(TASK_MANAGER, PARSER);
         ui.run();
     }
