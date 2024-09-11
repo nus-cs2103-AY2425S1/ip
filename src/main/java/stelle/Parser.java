@@ -99,7 +99,7 @@ public class Parser {
         String outputString = "";
 
         String query = input.split(" ", 2)[1];
-        ArrayList<Integer> resultList = taskList.find(query);
+        ArrayList<Integer> resultList = taskList.find(query, false);
 
         if (resultList.isEmpty()) {
             outputString = "No tasks with names matching this query!";
@@ -156,8 +156,6 @@ public class Parser {
     }
 
     private String processAddTaskInput(String input) throws IOException {
-        String outputString = "";
-
         if (input.isEmpty()) {
             return "Please specify a task name!";
         }
@@ -173,20 +171,39 @@ public class Parser {
             throw new WrongCommandException();
         }
 
+        String outputString = "";
+
         switch (taskType) {
         case TODO:
-            addToDo(input);
+            outputString = addToDo(input);
             break;
         case DEADLINE:
-            addDeadline(input);
+            outputString = addDeadline(input);
             break;
         case EVENT:
-            addEvent(input);
+            outputString = addEvent(input);
             break;
         default:
             break;
         }
 
+        return outputString;
+    }
+
+    private String addToDo(String input) throws TaskException, IOException {
+        String taskName = input.replace(TODO_COMMAND, "").strip();
+
+        if (!taskList.find(taskName, true).isEmpty()) {
+            return "There is already a task with this name!";
+        }
+        if (taskName.isEmpty()) {
+            throw new ToDoNoDescriptionException();
+        }
+
+        this.taskList.add(new ToDo(taskName));
+        this.taskList.writeToFile();
+
+        String outputString = "";
         outputString = outputString + "Got it. I've added this task:";
         outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
         outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
@@ -194,34 +211,37 @@ public class Parser {
         return outputString;
     }
 
-    private void addToDo(String input) throws TaskException, IOException {
-        String taskName = input.replace(TODO_COMMAND, "").strip();
-
-        if (taskName.isEmpty()) {
-            throw new ToDoNoDescriptionException();
-        }
-
-        this.taskList.add(new ToDo(taskName));
-        this.taskList.writeToFile();
-    }
-
-    private void addDeadline(String input) throws TaskException, IOException {
+    private String addDeadline(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
         String taskName = noCommandInput.split("/by")[0].strip();
         if (taskName.isEmpty()) {
             throw new DeadlineNoDescriptionException();
         }
+        if (!taskList.find(taskName, true).isEmpty()) {
+            return "There is already a task with this name!";
+        }
+
         String date = noCommandInput.split("/by")[1].strip();
 
         this.taskList.add(new Deadline(taskName, date));
         this.taskList.writeToFile();
+
+        String outputString = "";
+        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
+        outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
+
+        return outputString;
     }
 
-    private void addEvent(String input) throws TaskException, IOException {
+    private String addEvent(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
         String taskName = noCommandInput.split("/from")[0].strip();
         if (taskName.isEmpty()) {
             throw new EventNoDescriptionException();
+        }
+        if (!taskList.find(taskName, true).isEmpty()) {
+            return "There is already a task with this name!";
         }
         String fromAndTo = noCommandInput.split("/from")[1].strip();
         String fromDate = fromAndTo.split("/to")[0].strip();
@@ -229,6 +249,13 @@ public class Parser {
 
         this.taskList.add(new Event(taskName, fromDate, toDate));
         this.taskList.writeToFile();
+
+        String outputString = "";
+        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
+        outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
+
+        return outputString;
     }
 
     /**

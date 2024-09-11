@@ -100,19 +100,27 @@ public class TaskList {
     }
 
     /**
-     * Returns an ArrayList containing all list numbers of tasks with names that contain the query.
+     * Returns an ArrayList containing all list numbers of tasks with names that contain the query or exactly
+     * match the query.
      * @param query The string being searched for.
+     * @param exact Whether the search query must fully match the name.
      * @return ArrayList[Integer] ArrayList containing all list numbers of tasks with names that contain the query.
      */
-    public ArrayList<Integer> find(String query) {
+    public ArrayList<Integer> find(String query, boolean exact) {
         ArrayList<Integer> resultIndexes = new ArrayList<Integer>();
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             String lowerCaseTaskName = task.getTaskName().toLowerCase();
             String lowerCaseQuery = query.toLowerCase();
-            if (lowerCaseTaskName.contains(lowerCaseQuery)) {
-                resultIndexes.add(i);
+            if (exact) {
+                if (lowerCaseTaskName.equals(lowerCaseQuery)) {
+                    resultIndexes.add(i);
+                }
+            } else {
+                if (lowerCaseTaskName.contains(lowerCaseQuery)) {
+                    resultIndexes.add(i);
+                }
             }
         }
 
