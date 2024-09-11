@@ -26,14 +26,18 @@ public class Ui {
             throws IncorrectIndexException, IncorrectInstructionFormatException {
         switch (instruction.getInstructionType()) {
             case MARK:
+                assert instruction.getIndex() != -1;
                 return "Nice! I've marked this task as done:\n" + taskList.getTask(instruction.getIndex());
             case DELETE:
+                assert instruction.getTask() != null;
                 return "Ok, I will remove the task:\n" + instruction.getTask();
             case INSERT:
+                assert instruction.getTask() != null;
                 return "Got it! I've added this task: \n" + instruction.getTask();
             case SEARCH:
                 return taskList.displayFoundList(instruction.getSearch());
             case UNMARK:
+                assert instruction.getIndex() != -1;
                 return "Ok, I've marked this task as not done yet:\n" + taskList.getTask(instruction.getIndex());
         }
         throw new IncorrectInstructionFormatException();
