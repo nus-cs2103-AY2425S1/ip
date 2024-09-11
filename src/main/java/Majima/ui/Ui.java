@@ -34,10 +34,10 @@ public class Ui {
      * Integrated with the GUI.
      */
     public String userGreet() {
-        clearOutput();  // Clear previous outputs
+        clearOutput();
         output.append("KIIIIIRYU-CHAN! It's ya old pal, Majima!\n");
         output.append("What can I do fer ya?\n");
-        return output.toString();  // Return the greeting string
+        return output.toString();
     }
 
     public void showError(String message) {
@@ -105,5 +105,19 @@ public class Ui {
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public void showHelp() {
+        output.append("Here's the skinny of it, Kiryu-chan!\n\n");
+        output.append("Available commands:\n");
+        output.append("1. todo <description>: Add a new todo task\n");
+        output.append("2. deadline <description> /by <date>: Add a task with a deadline\n");
+        output.append("3. event <description> /at <date>: Add an event task\n");
+        output.append("4. mark <task_number>: Mark a task as done\n");
+        output.append("5. unmark <task_number>: Mark a task as not done\n");
+        output.append("6. delete <task_number>: Delete a task\n");
+        output.append("7. list: List all tasks\n");
+        output.append("8. help: Display this help message\n");
+        output.append("9. bye: Exit the application\n");
     }
 }

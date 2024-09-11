@@ -34,9 +34,9 @@ public class Majima {
     public String getResponse(String input) {
         ui.clearOutput();
         try {
-            Command c = Parser.parse(input);
+            Command parsedCommand = Parser.parse(input);
             ui.clearOutput(); // Clear previous outputs
-            c.execute(tasks, ui, storage); // Execute the command
+            parsedCommand.execute(tasks, ui, storage); // Execute the command
         } catch (MajimaException e) {
             ui.showError(e.getMessage());
         }

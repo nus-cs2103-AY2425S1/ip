@@ -8,6 +8,7 @@ import Majima.command.Command;
 import Majima.command.DeleteCommand;
 import Majima.command.ExitCommand;
 import Majima.command.FindCommand;
+import Majima.command.HelpCommand;
 import Majima.command.ListCommand;
 import Majima.command.MarkCommand;
 import Majima.command.UnmarkCommand;
@@ -45,6 +46,8 @@ public class Parser {
         return new ExitCommand();
         case "find":
         return new FindCommand(args);
+        case "help":
+        return new HelpCommand();
         default:
         throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
         }
