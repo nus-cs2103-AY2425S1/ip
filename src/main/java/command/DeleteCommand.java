@@ -29,9 +29,9 @@ public class DeleteCommand extends Command {
      * @throws ArrayIndexOutOfBoundsException if the input does not contain a task number.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
         int deleteNum = Integer.parseInt(parts[1]);
-        storage.deleteTask(deleteNum, tasks);
+        return storage.deleteTask(deleteNum, tasks);
     }
 }

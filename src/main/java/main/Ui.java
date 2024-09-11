@@ -9,6 +9,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    public static String showMissingMarkIndex = "OOPS! Please provide the index of the task to mark as done.";
+    public static String showNumberFormatExceptionMessage = "OOPS! The provided index is not a valid number.";
 
     /**
      * Initializes a new Ui object with a Scanner for user input.
@@ -39,18 +41,15 @@ public class Ui {
     /**
      * Displays the greeting message and logo to the user.
      */
-    public static void displayGreeting() {
-        System.out.println("Hello! I'm\n" + LOGO + "\nWhat can I do for you?");
-        Ui.insertLine();
+    public static String displayGreeting() {
+        return "Hello! I'm Dash! What can I do for you?";
     }
 
     /**
      * Displays the goodbye message to the user.
      */
-    public static void displayGoodbye() {
-        Ui.insertLine();
-        System.out.println(GOODBYE);
-        Ui.insertLine();
+    public static String displayGoodbye() {
+        return "GOODBYE!";
     }
 
     /**
@@ -65,10 +64,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public static void showError(String message) {
-        Ui.insertLine();
-        System.out.println("ERROR: " + message);
-        Ui.insertLine();
+    public static String showError(String message) {
+        return "ERROR: " + message;
     }
 
     /**
@@ -76,10 +73,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public static void showDateTimeParseError(String message) {
-        Ui.insertLine();
-        System.out.println("Date format is wrong, please input dd-mm-yyyy hhmm: " + message);
-        Ui.insertLine();
+    public static String showDateTimeParseError(String message) {
+        return "Date format is wrong, please input dd-mm-yyyy hhmm: " + message;
     }
 
     /**
@@ -87,10 +82,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public static void showUnexpectedError(String message) {
-        Ui.insertLine();
-        System.out.println("UNEXPECTED ERROR: " + message);
-        Ui.insertLine();
+    public static String showUnexpectedError(String message) {
+        return "UNEXPECTED ERROR: " + message;
     }
 
     /**
@@ -98,15 +91,15 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public static void showTaskList(TaskList tasks) {
+    public static String showTaskList(TaskList tasks) {
         int length = tasks.size();
-        Ui.insertLine();
+        StringBuilder message = new StringBuilder();
         for (int i = 0; i < length; i++) {
             Task t = tasks.get(i);
             int num = i + 1;
-            System.out.println(num + "." + t);
+            message.append(num).append(".").append(t).append("\n");
         }
-        Ui.insertLine();
+        return message.toString();
     }
 
     /**
@@ -114,25 +107,25 @@ public class Ui {
      *
      * @param tasks The list of tasks after the addition.
      */
-    public static void printAddDeadline(TaskList tasks) {
+    public static String showAddDeadline(TaskList tasks) {
         int num = tasks.size();
-        Ui.insertLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(num - 1));
-        System.out.println("Now you have " + num + " tasks in the list.");
-        Ui.insertLine();
+        return "Got it. I've added this task:\n" + tasks.get(num - 1) + "\n"
+        + "Now you have " + num + " tasks in the list.";
     }
+    public static String showDeleteTask(Task task, int num) {
+        return "Noted. I've removed this task.\n" + task + "\n"
+                + "Now you have " + (num - 1) + " tasks in the list.";
+    };
 
     /**
      * Prints a message confirming that an event task has been added.
      *
      * @param tasks The list of tasks after the addition.
      */
-    public static void printEvent(TaskList tasks) {
+    public static String showAddEvent(TaskList tasks) {
         int num = tasks.size();
-        Ui.insertLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(num - 1));
-        System.out.println("Now you have " + num + " tasks in the list.");
-        Ui.insertLine();
+        return "Got it. I've added this task:\n" + tasks.get(num - 1) + "\n"
+                + "Now you have " + num + " tasks in the list.";
     }
 
     /**
@@ -141,25 +134,32 @@ public class Ui {
      * @param tasks   The list of tasks to search through.
      * @param keyword The keyword to search for in task descriptions.
      */
-    public static void showKeywordTasks(TaskList tasks, String keyword) {
-        Ui.insertLine();
-        System.out.println("Here are the matching tasks in your list: ");
+    public static String showKeywordTasks(TaskList tasks, String keyword) {
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list: \n");
         boolean notFound = true;
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             String[] words = t.getDescription().split(" ");
             for (String word : words) {
                 if (word.equals(keyword)) {
-                    System.out.println(t);
+                    message.append(t).append("\n");
                     notFound = false;
                     break;
                 }
             }
         }
         if (notFound) {
-            System.out.println("Oops! Keyword not found!");
+            message.append("Oops! Keyword not found!");
         }
-        Ui.insertLine();
+        return message.toString();
+    }
+
+    public static String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
+    }
+
+    public static String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -167,8 +167,9 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showLoadingError(String message) {
-        System.out.println("LOADING ERROR: " + message);
+    public String showLoadingError(String message) {
+
+        return "LOADING ERROR: " + message;
     }
 
     /**
@@ -185,11 +186,11 @@ public class Ui {
      *
      * @param tasks The list of tasks after the addition.
      */
-    public static void printAddTodo(TaskList tasks) {
+    public static String showAddTodo(TaskList tasks) {
         int num = tasks.size();
-        Ui.insertLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(num - 1));
-        System.out.println("Now you have " + num + " tasks in the list.");
-        Ui.insertLine();
+        return "Got it. I've added this task:\n" + tasks.get(num - 1) + "\n"
+                + "Now you have " + num + " tasks in the list.";
     }
+
+
 }

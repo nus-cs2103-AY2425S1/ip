@@ -37,10 +37,9 @@ public class EventCommand extends Command {
      * @param storage The Storage to save the event details.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Event e = tasks.addEvent(this.description, this.from, this.to);
         storage.appendToFile(e.toFile());
-        Ui.printEvent(tasks);
+        return Ui.showAddEvent(tasks);
     }
 }
-

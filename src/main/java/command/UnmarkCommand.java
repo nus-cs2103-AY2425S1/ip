@@ -26,9 +26,9 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage to update with the unmarked task.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         String[] parts = this.input.split(" ", 2);
         int unmarkNum = Integer.parseInt(parts[1]);
-        storage.unmarkTask(unmarkNum, tasks);
+        return storage.unmarkTask(unmarkNum, tasks);
     }
 }

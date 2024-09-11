@@ -28,13 +28,12 @@ public class FindCommand extends Command {
      * @param storage The Storage object, which is not used in this method.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         String[] parts = this.input.split(" ", 2);
         if (parts.length < 2) {
-            System.out.println("OOPS!!! Please provide a keyword for the search.");
-            return;
+            return "OOPS!!! Please provide a keyword for the search.";
         }
         String keyword = parts[1];
-        Ui.showKeywordTasks(tasks, keyword);
+        return Ui.showKeywordTasks(tasks, keyword);
     }
 }

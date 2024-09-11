@@ -32,7 +32,8 @@ public class ByeCommand extends Command {
      * @param storage The storage (not used for this command).
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         // No action needed for exit command
+        return "";
     }
 }
