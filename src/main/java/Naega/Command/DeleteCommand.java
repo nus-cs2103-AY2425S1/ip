@@ -1,6 +1,5 @@
 package Naega.Command;
 
-import Naega.Command.Command;
 import Naega.NaegaException;
 import Naega.Storage.Storage;
 import Naega.Task.Task;
