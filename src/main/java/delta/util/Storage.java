@@ -81,23 +81,27 @@ public class Storage {
 
         // Create save directory
         if (!directory.exists()) {
-            boolean directoryCreatedSuccessfully = directory.mkdir();
-            if (!directoryCreatedSuccessfully) {
+            boolean isCreatedSuccessfully = directory.mkdir();
+            if (!isCreatedSuccessfully) {
                 throw new DeltaException("OOPS!!! Save Directory unable to be created!");
             }
         }
 
+        assert directory.exists() : "Save Directory still not created";
+
         // Create save file
         if (!file.exists()) {
             try {
-                boolean fileCreatedSuccessfully = file.createNewFile();
-                if (!fileCreatedSuccessfully) {
+                boolean isCreatedSuccessfully = file.createNewFile();
+                if (!isCreatedSuccessfully) {
                     throw new DeltaException("OOPS!!! Save File unable to be created!");
                 }
             } catch (IOException e) {
                 throw new DeltaException("OOPS!!! Save File unable to be created!");
             }
         }
+
+        assert file.exists() : "Save File still not created";
 
         // Convert all tasks into save format
         ArrayList<Task> tasks = taskList.getTasks();
