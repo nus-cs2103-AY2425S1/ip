@@ -27,6 +27,7 @@ public class Parser {
             }
             switch (command) {
             case "list":
+                assert storage != null : "Storage should not be null";
                 if (storage.size() > 0) {
                     return storage.toString();
                 } else {
@@ -87,7 +88,6 @@ public class Parser {
                     } catch (IllegalArgumentException e) {
                         return e.getMessage();
                     }
-
                 } else {
                     return "bruh? type something to add I'm not adding a blank...";
                 }
