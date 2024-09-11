@@ -1,3 +1,4 @@
+package main.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,8 +11,6 @@ public class Deadline extends Task {
         super(text,isDone);
         this.by = by;
     }
-
-
 
 
     @Override
