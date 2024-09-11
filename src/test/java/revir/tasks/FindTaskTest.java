@@ -8,18 +8,16 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import revir.system.Storage;
-import revir.user.ui.Ui;
 
 public class FindTaskTest {
     private Storage storageMock = mock(Storage.class);
-    private Ui uiMock = mock(Ui.class);
 
     private Todo task1 = new Todo("task1");
     private Todo task2 = new Todo("task2");
     private Todo task3 = new Todo("task3");
 
     private TaskList generateTaskList() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         try {
 
             taskList.add(task1);

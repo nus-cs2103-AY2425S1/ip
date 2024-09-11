@@ -24,9 +24,8 @@ public class Revir {
         } else {
             Revir.ui = new Gui();
         }
-        assert(Revir.ui != null);
         storage = new Storage(Path.of("data", "tasks.dat"));
-        taskList = new TaskList(storage, Revir.ui);
+        taskList = new TaskList(storage);
 
         ui.run(taskList);
         ui.showExit();

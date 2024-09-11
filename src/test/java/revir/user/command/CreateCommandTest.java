@@ -27,7 +27,7 @@ public class CreateCommandTest {
 
     @Test
     public void testTodoTask() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         Create command = new Create("todo");
         assertEquals(taskList.find("todo"), "");
         try {
@@ -40,7 +40,7 @@ public class CreateCommandTest {
 
     @Test
     public void testDeadlineTask() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         Create command = new Create("deadline", date);
         assertEquals(taskList.find("deadline"), "");
         try {
@@ -53,7 +53,7 @@ public class CreateCommandTest {
 
     @Test
     public void testEventTask() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         Create command = new Create("event", date, date);
         assertEquals(taskList.find("event"), "");
         try {

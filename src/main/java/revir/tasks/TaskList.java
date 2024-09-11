@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import revir.system.Storage;
 import revir.system.exceptions.DuplicateTaskException;
-import revir.user.ui.Ui;
 
 /**
  * Represents a list of tasks.
@@ -22,14 +21,13 @@ public class TaskList {
      * @param storage the storage object used to load tasks from a file
      * @param ui      the user interface object used to display error messages
      */
-    public TaskList(Storage storage, Ui ui) {
+    public  TaskList(Storage storage) {
         this.tasks = new ArrayList<Task>();
         this.storage = storage;
         try {
             this.tasks = storage.loadFromFile();
         } catch (Exception e) {
             tasks = new ArrayList<Task>();
-            ui.showError("An error occurred while loading tasks: " + e.getMessage());
         }
     }
 

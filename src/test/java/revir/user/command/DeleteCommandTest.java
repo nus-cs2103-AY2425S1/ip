@@ -21,7 +21,7 @@ public class DeleteCommandTest {
 
     @Test
     public void testDeleteTask() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         try {
             taskList.add(todo);
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class DeleteCommandTest {
 
     @Test
     public void testDeleteInvalidTaskIndex() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         try {
             taskList.add(todo);
         } catch (IOException e) {
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
     @Test
     public void testDeleteEmptyList() {
-        TaskList taskList = new TaskList(storageMock, uiMock);
+        TaskList taskList = new TaskList(storageMock);
         Delete command = new Delete(1);
         try {
             command.execute(uiMock, taskList);
