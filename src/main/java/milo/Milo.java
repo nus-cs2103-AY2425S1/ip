@@ -51,6 +51,7 @@ public class Milo {
         String input;
         do {
             input = ui.getUserInput();
+            assert input != null;
             parser.readInput(input, this.tasks);
             // Save data to storage
         } while (!input.toLowerCase().strip().equals("bye"));

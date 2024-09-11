@@ -34,6 +34,7 @@ public class Storage {
      */
     private Task formatterToTask(String task) {
         String[] taskDesc = task.split("\\|");
+        assert taskDesc.length >= 3;
         Boolean curIsCompleted = Integer.parseInt(taskDesc[1].strip()) == 1;
         switch (taskDesc[0].strip()) {
         // A to-do task
@@ -59,6 +60,7 @@ public class Storage {
      * @param task object that is to be converted to a String representation
      */
     private String formatterToText(Task task) {
+        assert task != null;
         return task.toTextString();
     }
 
@@ -70,6 +72,7 @@ public class Storage {
     public ArrayList<Task> readData() {
         try {
             File f = new File(this.filePath);
+            assert f.exists();
             Scanner s = new Scanner(f);
             // Iterates through lines in a file
             while (s.hasNext()) {
@@ -95,6 +98,7 @@ public class Storage {
     public void saveData(TaskList todoList) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
+            assert todoList != null;
             for (int i = 0; i < todoList.getNumberOfTasks(); i++) {
                 fw.write(formatterToText(todoList.get(i)) + "\n");
             }
