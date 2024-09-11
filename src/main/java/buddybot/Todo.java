@@ -15,7 +15,7 @@ public class Todo extends Task {
 
     /**
      * Return a String of the To Do the file reader recognises
-     * @return
+     * @return String
      */
     public String toFile() {
         return "T" + super.toFile();
@@ -23,7 +23,7 @@ public class Todo extends Task {
 
     /**
      * Return a String of the Task with its status and description
-     * @return
+     * @return String
      */
     @Override
     public String toString() {

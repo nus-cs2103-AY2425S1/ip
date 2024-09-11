@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Clas for Deadline
+ * Class for Deadline
  */
 public class Deadline extends Task {
 
@@ -23,7 +23,7 @@ public class Deadline extends Task {
 
     /**
      * Return a String of the Deadline in the format the file reader can recognise
-     * @return
+     * @return String
      */
     public String toFile() { //prototype in case of future modification
         return "D" + super.toFile() + "|" + by;
@@ -31,7 +31,7 @@ public class Deadline extends Task {
 
     /**
      * Return a String of the Deadline with its status and description and date
-     * @return
+     * @return String
      */
     @Override
     public String toString() { //prototype in case of future modification
