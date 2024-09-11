@@ -1,7 +1,6 @@
 package windebot;
 
 import commands.Command;
-import commands.ListCommand;
 import exceptions.EmptyDescriptionException;
 import exceptions.TooManyParametersException;
 import exceptions.UnsupportedCommandException;
@@ -45,22 +44,23 @@ public class Winde {
         commandType = "";
     }
 
+    /*
     /**
      * The main method that starts the WindeBot application.
      *
      * @param args Command-line arguments (not used).
      */
-/*
+    /*
     public static void main(String[] args) {
         new Winde().run();
     }
+    */
 
- */
-
+    /*
     /**
      * Starts the main loop of the WindeBot application.
      */
-/*
+    /*
     private static void run() {
         ui.greet();
         Command currentCommand = new ListCommand();
@@ -83,8 +83,13 @@ public class Winde {
         }
         currentCommand.exit(history, reminder, ui);
     }
+    */
 
- */
+    /**
+     * The main method that reponds to the user's queries
+     *
+     * @param input User's input in the GUI
+     */
 
     public String getResponse(String input) {
         try {
@@ -101,7 +106,7 @@ public class Winde {
             throw new RuntimeException(e);
         }
     }
-/*
+    /*
     public String getResponse(String... input) {
         try {
             for (String string : input) {
@@ -119,11 +124,16 @@ public class Winde {
             throw new RuntimeException(e);
         }
     }
- */
+    */
 
     public String getCommandType() {
         return commandType;
     }
+
+    /**
+     * The hello greeting that plays at the start of booting
+     * up the WindeBot gui
+     */
 
     public String hello() {
         String output = "__        __              _" + "\n";
