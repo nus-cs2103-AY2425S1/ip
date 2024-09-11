@@ -1,20 +1,25 @@
 package beechat;
 
-class DeadlineTask extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public DeadlineTask(String description, String by) {
+class DeadlineTask extends Task {
+    private LocalDateTime by;
+
+    public DeadlineTask(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
     @Override
     public String toSaveFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return "[D]" + super.toString() + "(by: " + by.format(formatter) + ")";
     }
 }

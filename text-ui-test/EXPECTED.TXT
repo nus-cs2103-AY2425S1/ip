@@ -1,9 +1,15 @@
+1. [T][ ] read book
+2. [D][X] do homework(by: Sep 15 2024 1300)
+3. [E][ ] lesson(from: Sep 12 2024 1500 to: Sep 12 2024 1600)
 added: read book
 added: finish assignment
 added: cs2103T lesson
 1. [T][ ] read book
-2. [D][ ] finish assignment (by: Sunday)
-3. [E][ ] cs2103T lesson (from: Thursday 3pm to: 4pm)
+2. [D][X] do homework(by: Sep 15 2024 1300)
+3. [E][ ] lesson(from: Sep 12 2024 1500 to: Sep 12 2024 1600)
+4. [T][ ] read book
+5. [D][ ] finish assignment (by: Sep 15 2024 2100)
+6. [E][ ] cs2103T lesson (from: Sep 12 2024 1500 to: Sep 15 2024 1600)
 Please enter the todo task in this form:
 todo [task name]
 Please mark in this form:
@@ -13,14 +19,20 @@ Nice! I've marked this task as done:
 OK, I've marked this task as not done yet:
 [T][ ] read book
 Nice! I've marked this task as done:
-[D][X] finish assignment (by: Sunday)
+[D][X] finish assignment (by: Sep 15 2024 2100)
 Nice! I've marked this task as done:
-[E][X] cs2103T lesson (from: Thursday 3pm to: 4pm)
+[E][X] cs2103T lesson (from: Sep 12 2024 1500 to: Sep 15 2024 1600)
 1. [T][ ] read book
-2. [D][X] finish assignment (by: Sunday)
-3. [E][X] cs2103T lesson (from: Thursday 3pm to: 4pm)
+2. [D][X] do homework(by: Sep 15 2024 1300)
+3. [E][ ] lesson(from: Sep 12 2024 1500 to: Sep 12 2024 1600)
+4. [T][ ] read book
+5. [D][X] finish assignment (by: Sep 15 2024 2100)
+6. [E][X] cs2103T lesson (from: Sep 12 2024 1500 to: Sep 15 2024 1600)
 OK, I've removed this task:
-[E][X] cs2103T lesson (from: Thursday 3pm to: 4pm)
+[E][X] cs2103T lesson (from: Sep 12 2024 1500 to: Sep 15 2024 1600)
 1. [T][ ] read book
-2. [E][X] cs2103T lesson (from: Thursday 3pm to: 4pm)
+2. [D][X] do homework(by: Sep 15 2024 1300)
+3. [E][ ] lesson(from: Sep 12 2024 1500 to: Sep 12 2024 1600)
+4. [T][ ] read book
+5. [E][X] cs2103T lesson (from: Sep 12 2024 1500 to: Sep 15 2024 1600)
 Bye. Hope to see you again soon!

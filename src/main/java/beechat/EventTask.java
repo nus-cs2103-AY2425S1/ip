@@ -1,10 +1,13 @@
 package beechat;
 
-class EventTask extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public EventTask(String description, String from, String to) {
+class EventTask extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -12,11 +15,15 @@ class EventTask extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(formatter) + " | " + to.format(formatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return "[E]" + super.toString() + "(from: " + from.format(formatter)
+                + " to: " + to.format(formatter) + ")";
     }
 }
