@@ -8,6 +8,11 @@
 /build/
 src/main/resources/docs/
 
+#Text files
+savedTaskList.txt
+testTaskList1.txt
+testTaskList2.txt
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
