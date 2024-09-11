@@ -23,8 +23,8 @@ public class Event extends Task {
      * @param start Start time of the task in the format YYYY-MM-DD HHMM.
      * @param end End time of the task in the format YYYY-MM-DD HHMM.
      */
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, String start, String end, Priority priority) {
+        super(description, priority);
         this.start = start;
         this.end = end;
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -50,8 +50,9 @@ public class Event extends Task {
         } else {
             storeCompleted = "0";
         }
-        // Store format: E | 0 | book event | 2pm | 5pm
-        return "E | " + storeCompleted + " | " + this.description + " | " + this.start + " | " + this.end;
+        // Store format: E | 0 | book event | 2pm | 5pm | HIGH
+        return "E | " + storeCompleted + " | " + this.description + " | " + this.start + " | " + this.end
+                + " | " + this.priority;
     }
 
     /**
@@ -61,6 +62,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")" +
+                ", priority: " + this.priority.toString();
     }
 }

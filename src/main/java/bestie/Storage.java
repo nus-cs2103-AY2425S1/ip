@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import bestie.task.Deadline;
-import bestie.task.Event;
-import bestie.task.Task;
-import bestie.task.Todo;
+import bestie.task.*;
 
 /**
  * Deals with loading objects from the file and saving tasks in the bestie.txt file.
@@ -85,20 +82,23 @@ public class Storage {
                 switch (taskType) {
 
                 case ("T"): // next task is a todo
-                    newTask = new Todo(description);
+                    Priority todoPriority = Priority.valueOf(parts[3]);
+                    newTask = new Todo(description, todoPriority);
                     tasks.add(newTask);
                     break;
 
                 case ("D"): // next task is a deadline
                     String deadline = parts[3];
-                    newTask = new Deadline(description, deadline);
+                    Priority daedlinePriority = Priority.valueOf(parts[4]);
+                    newTask = new Deadline(description, deadline, daedlinePriority);
                     tasks.add(newTask);
                     break;
 
                 case ("E"): // next task is an event
                     String start = parts[3];
                     String end = parts[4];
-                    newTask = new Event(description, start, end);
+                    Priority eventPriority = Priority.valueOf(parts[5]);
+                    newTask = new Event(description, start, end, eventPriority);
                     tasks.add(newTask);
                     break;
 

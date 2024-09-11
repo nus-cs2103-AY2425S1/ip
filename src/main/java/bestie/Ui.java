@@ -3,6 +3,7 @@ package bestie;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bestie.task.Priority;
 import bestie.task.Task;
 
 /**
@@ -144,6 +145,20 @@ public class Ui {
             output = output.concat((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
         return output;
+    }
+
+    public String showTasksOfPriority(ArrayList<Task> tasks, Priority priority) {
+        if (tasks.isEmpty()) {
+            return "There are no tasks in your list with priority " + priority.toString().toLowerCase() + ".";
+        } else {
+            String output = "Here are the tasks in your list with priority " + priority.toString().toLowerCase() + ": \n";
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getPriority().equals(priority)) {
+                    output = output.concat((i + 1) + ". " + tasks.get(i).toString() + "\n");
+                }
+            }
+            return output;
+        }
     }
 
 }

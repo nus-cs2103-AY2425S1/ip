@@ -11,8 +11,8 @@ public class Todo extends Task {
      * @param description Description of the task.
      * @throws IllegalArgumentException If task description is empty.
      */
-    public Todo(String description) throws IllegalArgumentException {
-        super(description);
+    public Todo(String description, Priority priority) throws IllegalArgumentException {
+        super(description, priority);
         if (description.isEmpty()) {
             throw new IllegalArgumentException("The description of a todo cannot be empty!");
         }
@@ -34,8 +34,8 @@ public class Todo extends Task {
         } else {
             storeCompleted = "0";
         }
-        // Store format: T | 1 | tutorial
-        return "T | " + storeCompleted + " | " + this.description;
+        // Store format: T | 1 | tutorial | HIGH
+        return "T | " + storeCompleted + " | " + this.description + " | " + this.priority;
     }
 
     /**
@@ -45,6 +45,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + ", priority: " + this.priority.toString();
     }
 }
