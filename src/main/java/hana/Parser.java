@@ -23,6 +23,9 @@ public class Parser {
      * @throws HanaException If the command is invalid or contains errors.
      */
     public static Command parse(String fullCommand) throws HanaException {
+        if (fullCommand == null || fullCommand.isEmpty()) {
+            throw new HanaException("You must specify a command");
+        }
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
         int taskNumber;
@@ -36,6 +39,7 @@ public class Parser {
                 throw new HanaException("Invalid mark syntax. Write only the task index after the word 'mark'.");
             }
             taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
+            assert taskNumber >= 0 : "Task number should be non-negative";
             return new MarkCommand(taskNumber);
         case "unmark":
             Pattern unmarkPattern = Pattern.compile("^unmark (\\d+)$");
@@ -44,6 +48,7 @@ public class Parser {
                 throw new HanaException("Invalid unmark syntax. Write only the task index after the word 'unmark'.");
             }
             taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
+            assert taskNumber >= 0 : "Task number should be non-negative";
             return new UnmarkCommand(taskNumber);
         case "todo":
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -85,6 +90,7 @@ public class Parser {
                 if (dateFrom.isAfter(dateTo)) {
                     throw new HanaException("OOPS!!! from date cannot be after to date.");
                 }
+                assert !dateFrom.isAfter(dateTo) : "Event start date cannot be after end date";
                 eventParts[1] = dateFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                 eventParts[2] = dateTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
@@ -97,12 +103,14 @@ public class Parser {
             if (!deleteMatcher.matches()) {
                 throw new HanaException("Invalid delete syntax. Write only the task index after the word 'delete'.");
             }
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            return new DeleteCommand(taskIndex);
+            taskNumber = Integer.parseInt(parts[1]) - 1;
+            assert taskNumber >= 0 : "Task number should be non-negative";
+            return new DeleteCommand(taskNumber);
         case "find":
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new HanaException("OOPS!!! The search keyword cannot be empty.");
             }
+            assert parts.length == 2 : "Find command should have a keyword";
             return new FindCommand(parts[1]);
         case "bye":
             return new ExitCommand();
