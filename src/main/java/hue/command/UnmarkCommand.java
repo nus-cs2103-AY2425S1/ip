@@ -30,19 +30,11 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task task = tasks.get(taskIndex);
-            task.unmarkDone();
-
-            ui.showLine();
-            String response = "OK, I've marked this task as not done yet: \n" +
-                    " " + task;
-
-            storage.saveTasks(tasks);
-            return response;
-        } else {
-            throw new HueException("Task number is out of range.");
-        }
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
+        Task task = tasks.get(taskIndex);
+        task.unmarkDone();
+        storage.saveTasks(tasks);
+        return ui.showUnmarkTask(task);
     }
 
 }
