@@ -37,7 +37,7 @@ public class Ui {
      * @return A string representing all the tasks in the task list.
      */
     public String getTaskListMessage(TaskList tasks) {
-        if (tasks.isEmpty()) {
+        if (tasks.isTaskListEmpty()) {
             return ("Bloop bloop, no tasks found");
         }
         StringBuilder result = new StringBuilder("Bloop bloop, here are the tasks in your list:\n");
@@ -55,7 +55,7 @@ public class Ui {
      */
     public String getTaskStatusMessage(Task task) {
         String statusMessage;
-        if (task.getStatus()) {
+        if (task.getTaskStatus()) {
             statusMessage = "Bloop bloop, I've marked this task as done:";
         } else {
             statusMessage = "Bloop bloop, I've marked this task as not done yet:";

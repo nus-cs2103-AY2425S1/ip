@@ -12,8 +12,6 @@ import fishman.utils.Ui;
  * task in the task list.
  */
 public class AddCommand implements Command {
-
-    /** The task to be added to the task list */
     private final Task task;
 
     /**
@@ -31,13 +29,13 @@ public class AddCommand implements Command {
      *      Adds the task to the task list and returns a confirmation message alongside the
      *      current number of tasks in the list.
      *
-     * @param tasks The TaskList which the new task will be added.
+     * @param taskList The TaskList which the new task will be added.
      * @param ui The Ui instance to generate the confirmation message.
      * @return The confirmation message indicating the command execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
-        tasks.addTask(task);
-        return ui.getAddedTaskMessage(task, tasks.size());
+    public String execute(TaskList taskList, Ui ui) {
+        taskList.addTask(task);
+        return ui.getAddedTaskMessage(task, taskList.size());
     }
 }

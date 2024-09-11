@@ -27,10 +27,10 @@ public class DialogBox extends HBox {
     /**
      * Constructs a DialogBox instance.
      *
-     * @param text The text to be displayed.
+     * @param message The text to be displayed.
      * @param img The image to be displayed which determines the user.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String message, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -40,7 +40,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+        dialog.setText(message);
         displayPicture.setImage(img);
     }
 
@@ -48,9 +48,9 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
+        ObservableList<Node> childNodes = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(childNodes);
+        getChildren().setAll(childNodes);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
     }
@@ -58,22 +58,22 @@ public class DialogBox extends HBox {
     /**
      * Represents a user's chat message.
      *
-     * @param text The message sent by the user.
-     * @param img The image which represents the user.
+     * @param message The message sent by the user.
+     * @param userImage The image which represents the user.
      * @return A DialogBox instance with the user's image.
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String message, Image userImage) {
+        return new DialogBox(message, userImage);
     }
 
     /**
      * Represents the chatbots chat message.
-     * @param text The message sent by the chatbot.
-     * @param img The image which represents the chatbot.
+     * @param message The message sent by the chatbot.
+     * @param fishmanImage The image which represents the chatbot.
      * @return A DialogBox instance with the chatbot image.
      */
-    public static DialogBox getFishmanDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getFishmanDialog(String message, Image fishmanImage) {
+        var db = new DialogBox(message, fishmanImage);
         db.flip();
         return db;
     }

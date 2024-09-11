@@ -17,13 +17,13 @@ public class ExitCommand implements Command {
      *      Constructs a ExitCommand, which executes the exit command by returning
      *      the termination message to the user.
      *
-     * @param tasks The TaskList, which is not used in this command but required by
+     * @param taskList The TaskList, which is not used in this command but required by
      *              the interface.
      * @param ui The Ui instance used to display the termination message.
      * @return The termination message.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         return "exited";
     }
 

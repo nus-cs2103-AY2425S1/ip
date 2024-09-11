@@ -4,7 +4,6 @@ import fishman.command.Command;
 import fishman.exception.FishmanException;
 import fishman.task.Deadline;
 import fishman.task.Event;
-import fishman.task.ToDo;
 import fishman.task.Task;
 import fishman.task.TaskList;
 import fishman.utils.Parser;
@@ -66,16 +65,16 @@ class StorageTest {
             Task originalTask = originalTasks.getTask(i);
             Task loadedTask = loadedTasks.getTask(i);
 
-            assertEquals(originalTask.getDescription(), loadedTask.getDescription());
-            assertEquals(originalTask.getStatus(), loadedTask.getStatus());
+            assertEquals(originalTask.getTaskDescription(), loadedTask.getTaskDescription());
+            assertEquals(originalTask.getTaskStatus(), loadedTask.getTaskStatus());
 
             if (originalTask instanceof Deadline originalDeadline) {
                 Deadline loadedDeadline = (Deadline) loadedTask;
-                assertEquals(originalDeadline.getBy(), loadedDeadline.getBy());
+                assertEquals(originalDeadline.getDeadlineDate(), loadedDeadline.getDeadlineDate());
             } else if (originalTask instanceof Event originalEvent) {
                 Event loadedEvent = (Event) loadedTask;
-                assertEquals(originalEvent.getFrom(), loadedEvent.getFrom());
-                assertEquals(originalEvent.getTo(), loadedEvent.getTo());
+                assertEquals(originalEvent.getEventStart(), loadedEvent.getEventStart());
+                assertEquals(originalEvent.getEventEnd(), loadedEvent.getEventEnd());
             }
         }
     }
