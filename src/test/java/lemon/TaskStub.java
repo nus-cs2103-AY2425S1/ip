@@ -1,13 +1,19 @@
 package lemon;
 
-import lemon.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import lemon.task.Task;
+
+/**
+ * TaskStub for testing classes that requires Task class
+ */
 public class TaskStub extends Task {
     private LocalDate date;
 
+    /**
+     * Constructor for TaskStub
+     */
     public TaskStub() {
         super(" Test ", "Stub", false);
 
@@ -22,7 +28,7 @@ public class TaskStub extends Task {
 
     @Override
     public String toString() {
-        return "[S]" + super.toString() + "(date: " +
-                date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[S]" + super.toString() + "(date: "
+                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

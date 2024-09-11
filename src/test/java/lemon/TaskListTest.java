@@ -1,11 +1,12 @@
 package lemon;
 
-import lemon.exception.DescriptionException;
-import lemon.task.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
 
 public class TaskListTest {
     @Test

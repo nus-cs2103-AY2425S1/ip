@@ -1,10 +1,11 @@
 package lemon;
 
-import lemon.exception.DescriptionException;
-import lemon.task.Task;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
 
 public class StorageTest {
 

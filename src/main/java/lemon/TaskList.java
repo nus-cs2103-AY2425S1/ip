@@ -1,16 +1,20 @@
 package lemon;
+
+import java.util.ArrayList;
+
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
 /**
  * Represents the list of tasks stored
  * @author He Yiheng
  */
-import lemon.exception.DescriptionException;
-import lemon.task.Task;
-
-import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
     private int numTasks = 0;
 
+    /**
+     * Constructor for TaskList
+     */
     public TaskList() {
         ArrayList<Task> list = new ArrayList<>();
         int numTasks = 0;

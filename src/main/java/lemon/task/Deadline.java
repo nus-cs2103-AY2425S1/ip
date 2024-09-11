@@ -1,11 +1,11 @@
 package lemon.task;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  * Represent the deadline tasks that includes a date for the task to be done by
  * @author He Yiheng
  */
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
     protected LocalDate by;
 
@@ -22,12 +22,12 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D|" + isDone + "|" + description + "|" + by.toString()  + "\n";
+        return "D|" + isDone + "|" + description + "|" + by.toString() + "\n";
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " +
-                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + "(by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

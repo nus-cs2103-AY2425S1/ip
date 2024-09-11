@@ -5,7 +5,7 @@ package lemon.exception;
  * @author He Yiheng
  */
 public class InvalidCommandException extends Exception {
-    public InvalidCommandException (String msg) {
+    public InvalidCommandException(String msg) {
         super(msg);
     }
 }

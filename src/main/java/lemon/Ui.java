@@ -4,21 +4,21 @@ package lemon;
  * @author He Yiheng
  */
 public class Ui {
-    private final String INTRO_MSG = "____________________________________________________________\n"
+    private static final String INTRO_MSG = "____________________________________________________________\n"
             + " Hello! I'm Lemon\n"
             + " What can I do for you?\n";
-    private final String END_MSG = " Bye. Hope to see you again soon!\n"
+    private static final String END_MSG = " Bye. Hope to see you again soon!\n"
             + "____________________________________________________________\n";
-    private final String BAR = "____________________________________________________________";
-    private final String EMPTY_LIST_MSG = " Sowwy, theres currently no tasks in your list.\n " +
-            " Ill be happy to add some for you OwO!";
-    private final String LIST_MSG = " Here are the tasks in your list:";
-    private final String MARK_MSG = " Nice! I've marked this task as done:";
-    private final String UNMARK_MSG = " OK, I've marked this task as not done yet:";
-    private final String ADD_TASK_MSG = " Got it. I've added this task:";
-    private final String DELETE_TASK_MSG = " Noted. I've removed this task:";
-    private final String MATCHING_TASK_MSG = " Here are the matching tasks in your list:";
-    private final String NO_MATCHING_MSG = " Didnt manage to find any matching tasks :c";
+    private static final String BAR = "____________________________________________________________";
+    private static final String EMPTY_LIST_MSG = " Sowwy, theres currently no tasks in your list.\n "
+            + " Ill be happy to add some for you OwO!";
+    private static final String LIST_MSG = " Here are the tasks in your list:";
+    private static final String MARK_MSG = " Nice! I've marked this task as done:";
+    private static final String UNMARK_MSG = " OK, I've marked this task as not done yet:";
+    private static final String ADD_TASK_MSG = " Got it. I've added this task:";
+    private static final String DELETE_TASK_MSG = " Noted. I've removed this task:";
+    private static final String MATCHING_TASK_MSG = " Here are the matching tasks in your list:";
+    private static final String NO_MATCHING_MSG = " Didnt manage to find any matching tasks :c";
 
     /**
      * Prints the intro message

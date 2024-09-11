@@ -4,8 +4,8 @@ package lemon.exception;
  * Used for commands dependent on multiple specific inputs
  * @author He Yiheng
  */
-public class InvalidFormatException extends Exception{
-    public InvalidFormatException (String msg) {
+public class InvalidFormatException extends Exception {
+    public InvalidFormatException(String msg) {
         super(msg);
     }
 }

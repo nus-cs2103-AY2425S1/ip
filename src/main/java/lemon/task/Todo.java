@@ -3,7 +3,7 @@ package lemon.task;
  * Represent the to do tasks
  * @author He Yiheng
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructor for the to do tasks
      * @param description description of the task
