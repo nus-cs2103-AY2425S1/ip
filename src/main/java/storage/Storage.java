@@ -10,6 +10,7 @@ public class Storage {
     private final String filePath;
     private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
     private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final String DONE = "1";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -47,7 +48,7 @@ public class Storage {
         }
 
         String type = parts[0];
-        boolean isDone = parts[1].equals("1");
+        boolean isDone = parts[1].equals(DONE);
         String description = parts[2];
 
         switch(type) {
@@ -62,8 +63,8 @@ public class Storage {
 
                 // Parse the string in the current inputFormat
                 LocalDateTime deadline = LocalDateTime.parse(deadlineStr, inputFormat);
+                // Convert the string into the desired format to create a new Task.
 
-                // Convert the string into the desired format for me to create a new Task.
                 return new DeadlineTask(description, isDone, deadline.format(outputFormat));
             case "E":
                 if (parts.length < 5) {
