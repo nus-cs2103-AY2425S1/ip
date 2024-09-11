@@ -84,31 +84,29 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        switch (type) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            assert parts.length == 4 : "Deadline task data must contain four parts";
-            LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-            task = new Deadline(description, by);
-            break;
-        case "E":
-            assert parts.length == 5 : "Event task data must contain five parts";
-            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-            task = new Event(description, from, to);
-            break;
-        default:
-            throw new ArtsException("Unknown task type.");
-        }
 
+        switch (type) {
+            case "T":
+                return createTask(new Todo(description), isDone);
+            case "D":
+                assert parts.length == 4 : "Deadline task data must contain four parts";
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+                return createTask(new Deadline(description, by), isDone);
+            case "E":
+                assert parts.length == 5 : "Event task data must contain five parts";
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+                return createTask(new Event(description, from, to), isDone);
+            default:
+                throw new ArtsException("Unknown task type.");
+        }
+    }
+
+    private static Task createTask(Task task, boolean isDone) {
         if (isDone) {
             task.markAsDone();
         }
-
         return task;
     }
 
@@ -120,6 +118,6 @@ public abstract class Task {
     @Override
     public String toString() {
         assert description != null : "Description should not be null when converting to string";
-        return "[" + getStatusIcon() + "] " + description;
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 }

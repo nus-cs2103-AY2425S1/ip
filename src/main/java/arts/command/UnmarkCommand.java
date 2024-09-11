@@ -10,6 +10,8 @@ import arts.util.Ui;
  * Represents a command to unmark a task, marking it as not done in the task list.
  */
 public class UnmarkCommand implements Command {
+    private static final String INVALID_TASK_INDEX_ERROR_MESSAGE = "Invalid task index.";
+
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -54,9 +56,10 @@ public class UnmarkCommand implements Command {
             task.markAsNotDone();
             storage.save(tasks.getTasks());
 
-            return "OK, I've marked this task as not done yet:\n " + task;
+            return String.format("OK, I've marked this task as not done yet:\n %s", task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new ArtsException("Invalid task index.");
+            // Handle invalid task index or parsing error
+            throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
 }
