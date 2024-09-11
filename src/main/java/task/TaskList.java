@@ -50,7 +50,6 @@ public class TaskList {
      */
     public Task deleteTask(int taskIndex) {
         assert(taskIndex >= 0 && taskIndex < tasks.size());
-        assert(false);
         Task task = tasks.get(taskIndex);
         tasks.remove(taskIndex);
         return task;
