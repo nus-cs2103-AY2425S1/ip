@@ -25,6 +25,8 @@ public class Storage {
      * @throws IOException If there is input or output failure with the file.
      */
     Storage(String fileName) throws IOException {
+        assert fileName != null : "fileName should not be null";
+        assert !fileName.isBlank() : "fileName should not be blank";
 
         Path folder = Paths.get(CURRENT_DIRECTORY, STORAGE_DIRECTORY);
         if (Files.notExists(folder)) {
