@@ -21,6 +21,9 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         storage.toFile(taskList);
         return ui.getGoodBye();
     }

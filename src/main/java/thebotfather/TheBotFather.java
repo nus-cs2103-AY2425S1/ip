@@ -43,11 +43,13 @@ public class TheBotFather {
      * @param filePath The file path where the task data is stored.
      */
     public TheBotFather(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(new ArrayList<>());
         try {
             taskList = storage.load();
+            assert taskList != null : "Task list should not be null after loading";
         } catch (TheBotFatherException e) {
             ui.showLoadingError();
         }
@@ -65,6 +67,7 @@ public class TheBotFather {
     public String getResponse(String input) throws TheBotFatherException {
         Command command = Parser.parse(input, ui);
         String response = command.execute(taskList, ui, storage);
+        assert response != null : "Response should not be null";
         if (command.isExit()) {
             return "EXIT-CODE";
         }
@@ -77,6 +80,8 @@ public class TheBotFather {
      * @return A string containing the greeting message.
      */
     public String getGreeting() {
-        return ui.getGreeting();
+        String greeting = ui.getGreeting();
+        assert greeting != null && !greeting.trim().isEmpty() : "Greeting should not be null or empty";
+        return greeting;
     }
 }

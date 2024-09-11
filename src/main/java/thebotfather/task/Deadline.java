@@ -27,6 +27,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) throws TheBotFatherException {
         super(description, "D");
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert by != null : "Time ('by') cannot be null";
         this.by = by;
 
     }
