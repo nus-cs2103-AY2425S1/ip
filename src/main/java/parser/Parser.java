@@ -92,6 +92,12 @@ public class Parser {
             throw new AliceException(input);
         }
 
+        // check that only "todo", "deadline", and "event" prints the task message
+        assert result[0].equals("todo")
+                || result[0].equals("deadline")
+                || result[0].equals("event")
+                : "the command should be adding a task!";
+
         // prints task messages for todos, deadlines, and events
         return ui.getHandleTaskMessage(addedTask, "add", list.getSize());
     }

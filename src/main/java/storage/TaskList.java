@@ -30,6 +30,12 @@ public class TaskList {
      */
     public Task addTask(Command type, String ... params) {
         Task task = new Task(params[0]);
+
+        assert type == Command.TODO
+                || type == Command.DEADLINE
+                || type == Command.EVENT
+                : "invalid task type to call function addTask";
+
         switch (type) {
         case TODO:
             task = new Todo(params[0]);
