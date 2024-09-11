@@ -23,6 +23,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+        assert(index > -1 & index < tasks.getSize());
         Task task = tasks.delete(index);
         return new Response(ui.getRemoveTaskMessage(task, tasks.getSize()), false);
     }

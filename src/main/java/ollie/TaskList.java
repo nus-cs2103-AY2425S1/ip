@@ -46,8 +46,8 @@ public class TaskList {
      * @throws OllieException If the index given does not exist.
      */
     public Task delete(int index) throws OllieException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new OllieException("Invalid Serial Number!");
+        if (!isIndexValid(index)) {
+            throw new OllieException("Invalid Serial number given!");
         }
         Task task = this.tasks.get(index);
         this.tasks.remove(index);
@@ -61,7 +61,10 @@ public class TaskList {
      * @param index Index represents the position of the task to be mark as done.
      * @return Task which has been marked as done.
      */
-    public Task markAsDone(int index) {
+    public Task markAsDone(int index) throws OllieException {
+        if (!isIndexValid(index)) {
+            throw new OllieException("Invalid Serial number given!");
+        }
         Task task = tasks.get(index);
         task.markAsDone();
         return task;
@@ -74,7 +77,10 @@ public class TaskList {
      * @param index Index reprsents the position of the task to be mark as undone.
      * @return Task which has been marked as done.
      */
-    public Task markAsUndone(int index) {
+    public Task markAsUndone(int index) throws OllieException{
+        if (!isIndexValid(index)) {
+            throw new OllieException("Invalid Serial number given!");
+        }
         Task task = tasks.get(index);
         task.markAsUndone();
         return task;
@@ -85,8 +91,14 @@ public class TaskList {
                 .toCollection(ArrayList::new)));
     }
 
+    public boolean isIndexValid(int index) {
+        assert(tasks != null);
+        return (index < 0 || index > tasks.size() - 1);
+    }
+
     @Override
     public String toString() {
+        assert(tasks != null);
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             list.add(String.format("%d.%s%s", i + 1, tasks.get(i), i == tasks.size() - 1 ? "" : "\n"));
