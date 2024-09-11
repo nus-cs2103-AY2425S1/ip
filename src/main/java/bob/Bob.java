@@ -77,13 +77,13 @@ public class Bob {
                 return retStr;
 
             default:
-                return "command not found in lib";
-                // throw new CommandNotFoundException();
+                
+                throw new CommandNotFoundException();
 
             }
-        } catch (MissingParamsException | PositionException c) {
+        } catch (MissingParamsException | PositionException | CommandNotFoundException c) {
             System.out.println(c);
+            return c.toString();
         }
-        return retStr;
     }
 }
