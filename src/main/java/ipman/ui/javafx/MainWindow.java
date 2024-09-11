@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import ipman.ui.javafx.components.MessageBox;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
