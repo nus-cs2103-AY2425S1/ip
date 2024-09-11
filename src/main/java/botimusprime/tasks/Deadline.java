@@ -18,12 +18,12 @@ public class Deadline extends Task {
 
     @Override
     public boolean isToDo() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isDeadline() {
-        return false;
+        return true;
     }
 
     public String saveString() {
