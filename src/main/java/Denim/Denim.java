@@ -5,6 +5,7 @@ import java.util.Scanner;
 import denim.commands.Command;
 import denim.commands.CommandResult;
 import denim.exceptions.DenimException;
+import denim.exceptions.DenimFileException;
 import denim.storage.TaskIo;
 
 /**
@@ -35,8 +36,21 @@ public class Denim {
             taskIo.readTaskData(taskList, tempScanner);
         } catch (DenimException e) {
             System.out.println(e.getMessage());
-            return;
         }
+    }
+
+    public boolean ableToReadFile() {
+        taskIo = new TaskIo(FILE_PATH);
+        taskList = new TaskList();
+
+        try {
+            Scanner tempScanner = new Scanner(System.in);
+            taskIo.readTaskData(taskList, tempScanner);
+        } catch (DenimFileException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**

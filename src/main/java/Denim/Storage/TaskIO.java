@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
+import denim.exceptions.DenimFileException;
 import denim.tasks.Deadline;
 import denim.tasks.Event;
 import denim.tasks.Task;
@@ -36,7 +37,7 @@ public class TaskIo {
     private final File taskFile;
 
     /**
-     * Constructs a TaskIO object associated with the specified file path.
+     * Constructs a TaskIo object associated with the specified file path.
      *
      * @param pathname The path to the file where tasks are stored.
      */
@@ -51,7 +52,7 @@ public class TaskIo {
      * @param sc     The scanner to receive user input for creating the necessary files.
      * @throws DenimException If an error occurs during file or directory creation.
      */
-    private void createSavePoint(FileStatus status, Scanner sc) throws DenimException {
+    private void createSavePoint(FileStatus status, Scanner sc) throws DenimFileException {
         switch (status) {
         case DIRECTORY_DOES_NOT_EXIST:
             handleDirectoryNotFound(sc);
@@ -60,7 +61,7 @@ public class TaskIo {
             handleFileNotFound(sc);
             break;
         default:
-            throw new DenimException("An error has occurred during the creation of files. Terminating");
+            throw new DenimFileException("An error has occurred during the creation of files. Terminating");
         }
     }
 
@@ -71,7 +72,7 @@ public class TaskIo {
      * @param sc The scanner to receive user input for directory and file creation.
      * @throws DenimException If the directory or file cannot be created.
      */
-    private void handleDirectoryNotFound(Scanner sc) throws DenimException {
+    private void handleDirectoryNotFound(Scanner sc) throws DenimFileException {
         System.out.println("data directory and corresponding denim.txt not found. Create both? (y / n)\n");
         String input = sc.nextLine();
 
@@ -83,13 +84,13 @@ public class TaskIo {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                throw new DenimException("Unable to create denim.txt");
+                throw new DenimFileException("Unable to create denim.txt");
             }
 
             break;
         case "n":
         default:
-            throw new DenimException("Terminating Program. Have a nice day.");
+            throw new DenimFileException("Unknown Command or 'n' chosen. Terminating Program. GoodBye");
         }
     }
 
@@ -100,7 +101,7 @@ public class TaskIo {
      * @param sc The scanner to receive user input for file creation.
      * @throws DenimException If the file cannot be created.
      */
-    private void handleFileNotFound(Scanner sc) throws DenimException {
+    private void handleFileNotFound(Scanner sc) throws DenimFileException {
         System.out.println("denim.txt not found in data directory. Create denim.txt? (y / n)\n");
         String input = sc.nextLine();
         switch (input) {
@@ -109,13 +110,13 @@ public class TaskIo {
             try {
                 denimFile.createNewFile();
             } catch (IOException e) {
-                throw new DenimException("Unable to create denim.txt");
+                throw new DenimFileException("Unable to create denim.txt");
             }
             break;
         case "n":
             //Fallthrough
         default:
-            throw new DenimException("Terminating Program. Have a nice day.");
+            throw new DenimFileException("Terminating Program. Have a nice day.");
         }
     }
 
@@ -126,22 +127,19 @@ public class TaskIo {
      * @param sc       The scanner to receive user input for file creation if needed.
      * @throws DenimException If an error occurs during file reading or if the file/directory does not exist.
      */
-    public void readTaskData(TaskList taskList, Scanner sc) throws DenimException {
+    public void readTaskData(TaskList taskList, Scanner sc) throws DenimFileException {
 
-        // Checks for Parent Directory ./data
         File dataDirectory = taskFile.getParentFile();
         if (dataDirectory == null || !dataDirectory.isDirectory()) {
             createSavePoint(FileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
             return;
         }
 
-        //Checks for denim.txt file
         if (!taskFile.exists()) {
             createSavePoint(FileStatus.FILE_DOES_NOT_EXIST, sc);
             return;
         }
 
-        // Both data directory and denim.txt exists. Proceed to read from denim.txt
         try {
             Scanner fileReader = new Scanner(taskFile);
             while (fileReader.hasNext()) {
@@ -153,7 +151,7 @@ public class TaskIo {
             }
         } catch (IOException e) {
             sc.close();
-            throw new DenimException("An error has occurred while trying to read denim.txt\n Terminating Program.");
+            throw new DenimFileException("An error has occurred while trying to read denim.txt\n Terminating Program.");
         }
     }
 
@@ -243,7 +241,7 @@ public class TaskIo {
      * @param task     The task description to be processed.
      * @throws DenimException If the task type is unknown or if there is a formatting error.
      */
-    private void processTask(TaskList taskList, String task) throws DenimException {
+    private void processTask(TaskList taskList, String task) throws DenimFileException {
         String[] taskComponents = task.split("\\|");
         String taskType = taskComponents[0].trim();
         boolean taskStatus = taskComponents[1].trim().equals("1");
@@ -270,7 +268,7 @@ public class TaskIo {
             taskList.addTask(incomingTask);
             break;
         default:
-            throw new DenimException("Unknown Formatting in data/denim.txt");
+            throw new DenimFileException("Unknown Formatting in data/denim.txt");
         }
     }
 }
