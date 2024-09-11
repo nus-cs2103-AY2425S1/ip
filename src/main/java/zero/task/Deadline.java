@@ -18,6 +18,10 @@ public class Deadline extends Task {
         return super.getStatusIcon();
     }
 
+    public void snooze() {
+        this.byDate = this.byDate.plusDays(1);
+    }
+
     @Override
     public String toFormatted() {
         return "D," + this.isDone() + "," + this.description + "," + this.byDate + "\n";

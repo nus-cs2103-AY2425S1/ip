@@ -130,6 +130,11 @@ public class Ui {
         return builder.toString();
     }
 
+    public String snoozeTask(Task task) {
+        return  " Nice! I've postponed this task:\n"
+                + "   " + task + "\n";
+    }
+
     /**
      * Checks if the session is marked as done.
      *
