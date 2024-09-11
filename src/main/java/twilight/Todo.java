@@ -12,17 +12,17 @@ public class Todo extends Task {
         super(description);
     }
 
-    public Todo(boolean isDone, String description) {
-        super(description, isDone);
+    public Todo(boolean isDone, String description, String tag) {
+        super(description, isDone, tag);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + this.getTagString();
     }
 
     @Override
     public String toStorageString() {
-        return "T," + super.toStorageString();
+        return "T," + super.toStorageString() + "," + this.tag;
     }
 }

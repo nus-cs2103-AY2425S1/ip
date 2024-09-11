@@ -5,7 +5,7 @@ package twilight;
  */
 public class Parser {
     private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo",
-            "event", "deadline", "delete", "find", "bye"};
+            "event", "deadline", "delete", "find", "tag", "bye"};
 
     /**
      * Parses the string input and returns a command to be executed.
@@ -33,6 +33,8 @@ public class Parser {
                 return new DeleteCommand(details);
             } else if (i == 7) {
                 return new SearchCommand(details);
+            } else if (i == 8) {
+                return new TagCommand(details);
             } else {
                 throw new InvalidInputException("Command does not exist.");
             }

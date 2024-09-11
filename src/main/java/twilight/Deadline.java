@@ -27,18 +27,22 @@ public class Deadline extends Task {
      * @param description What the task is.
      * @param deadline When the task is due in the format YYYY-MM-DD.
      */
-    public Deadline(boolean isDone, String description, String deadline) {
-        super(description, isDone);
+    public Deadline(boolean isDone, String description, String deadline, String tag) {
+        super(description, isDone, tag);
         this.deadline = LocalDate.parse(deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString() + " by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + this.getTagString();
     }
 
     @Override
     public String toStorageString() {
-        return "D," + super.toStorageString() + "," + deadline;
+        if (this.tag.equals("")) {
+            return "D," + super.toStorageString() + "," + deadline + "," + EMPTYTAG;
+        }
+        return "D," + super.toStorageString() + "," + deadline + "," + this.tag;
     }
 }

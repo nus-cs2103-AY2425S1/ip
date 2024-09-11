@@ -64,11 +64,11 @@ public class Storage {
             for (String entry : entries) {
                 String[] input = entry.split(",");
                 if (input[0].equals("T")) {
-                    tasks.add(new Todo(input[1].equals("1"), input[2]));
+                    tasks.add(new Todo(input[1].equals("1"), input[2], input[3]));
                 } else if ((input[0].equals("E"))) {
-                    tasks.add(new Event(input[1].equals("1"), input[2], input[3], input[4]));
+                    tasks.add(new Event(input[1].equals("1"), input[2], input[3], input[4], input[5]));
                 } else if ((input[0].equals("D"))){
-                    tasks.add(new Deadline(input[1].equals("1"), input[2], input[3]));
+                    tasks.add(new Deadline(input[1].equals("1"), input[2], input[3], input[4]));
                 } else {
                     throw new FileErrorException("The file has been incorrectly modified and cannot be read.");
                 }
