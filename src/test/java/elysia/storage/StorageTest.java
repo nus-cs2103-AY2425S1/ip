@@ -75,7 +75,7 @@ public class StorageTest {
         //append the given string to tempDir
         Path filePath = tempDir.resolve("tasks.txt");
 
-        storage.handleExit(tempDir.toString(), "tasks.txt", filePath.toString());
+        storage.saveFile(tempDir.toString(), "tasks.txt", filePath.toString());
 
         //check the file's content
         String content = Files.readString(filePath);

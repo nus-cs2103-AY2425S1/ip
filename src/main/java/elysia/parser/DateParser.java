@@ -65,7 +65,7 @@ public class DateParser {
     /**
      * Builds a map that map the subsequent dates for Mon, Tues...Sun.
      **/
-    static Map<String, LocalDate> buildMap() {
+    public static Map<String, LocalDate> buildMap() {
         Map<String, LocalDate> map = new HashMap<>();
         LocalDate today = LocalDate.now();
 

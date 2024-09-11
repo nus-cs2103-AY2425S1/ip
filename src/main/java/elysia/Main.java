@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Main extends Application {
     private Elysia elysia = new Elysia();
@@ -20,6 +21,8 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            URL fxmlLoader2 = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml")).getLocation();
+            System.out.println(fxmlLoader2.toString());
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

@@ -164,4 +164,73 @@ public class Storage {
             Files.delete(file.toPath());
         }
     }
+
+    /**
+     * Creates a temporary text file for testing purposes.
+     *
+     * @param folderName
+     * @param fileName
+     * @param filePath
+     * @throws IOException
+     */
+    public void saveFile(String folderName, String fileName, String filePath) throws IOException {
+        createFile(folderName, fileName);
+
+        if (! arrayLists.isEmpty()) {
+            try {
+                writeToFile(filePath, arrayLists.get(0).saveToTxt());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+            for (int i = 1; i < arrayLists.size(); i++) {
+                appendToFile(filePath, arrayLists.get(i));
+            }
+        } else {
+            File file = new File(filePath);
+            Files.delete(file.toPath());
+        }
+    }
+
+    public static void createFile(String folderName, String fileName) throws IOException {
+        File dataDir = new File(folderName);
+
+        if (! dataDir.exists()) {
+            dataDir.mkdir();
+
+        }
+
+        if (dataDir.exists() && dataDir.isDirectory()) {
+            File txtFile = new File(dataDir, fileName);
+
+            try {
+                if (txtFile.createNewFile()) {
+                    System.out.println(fileName + " successfully created.");
+                } else {
+                    System.out.println(fileName+ " already exists");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the " + fileName);
+            }
+        }
+    }
+
+    /**
+     * Writes the input from users to the temporary txt file and rewrites the content in the file.
+     * For texting purposes only.
+     **/
+    private void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    /**
+     * Appends the input to the temporary txt file for testing purposes.
+     **/
+    public static void appendToFile(String filePath,Task task) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write("\n" + task.saveToTxt());
+        fw.close();
+    }
+
 }
