@@ -209,15 +209,15 @@ public class Lewis {
         System.out.println("Hello! My name is Lewis, a chatbot.\nHow can I help you?");
         while(!exit) {
             Utilities.printLine();
-            //System.out.println("\n");
+
             String command = scanner.nextLine();
             try {
                 parse(command);
             } catch (LewisException e) {
                 System.out.println(e.getMessage());
-                continue;
+
             } finally {
-                //System.out.println("\n");
+
                 Utilities.printLine();
                 System.out.println("What would you like to do next?");
             }
