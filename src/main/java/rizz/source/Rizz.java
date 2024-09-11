@@ -1,6 +1,6 @@
 package rizz.source;
 import java.io.IOException;
-import rizz.commands.Command;
+import rizz.command.Command;
 
 public class Rizz {
     private Storage storage;

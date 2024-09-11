@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import rizz.tasks.*;
+import rizz.task.*;
 
 public class Storage {
     public Path dataFilePath;

@@ -1,4 +1,4 @@
-package rizz.commands;
+package rizz.command;
 import rizz.source.TaskList;
 import rizz.source.Ui;
 import rizz.source.Storage;

@@ -1,6 +1,6 @@
 package rizz.source;
 import java.util.Scanner;
-import rizz.tasks.*;
+import rizz.task.*;
 
 public class Ui {
     public void errorSaveTasks() {
