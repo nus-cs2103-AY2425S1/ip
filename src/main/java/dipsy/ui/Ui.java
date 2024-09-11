@@ -166,6 +166,7 @@ public class Ui {
      */
     private String formatTasksMessage(String header, ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder(header + "\n");
+
         int taskCount = tasks.size();
         for (int i = 0; i < taskCount; i++) {
             int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
@@ -174,6 +175,7 @@ public class Ui {
                 result.append("\n");
             }
         }
+
         return result.toString();
     }
 }

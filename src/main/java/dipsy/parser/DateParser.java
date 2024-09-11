@@ -31,10 +31,13 @@ public class DateParser {
      */
     public static LocalDate parseDate(String dateStr) throws DateTimeParseException {
         LocalDate date = LocalDate.parse(dateStr, INPUT_DATE_FORMATTER);
-        // Validate that the parsed date matches the input string
+
+        // Validate that the parsed date matches the input string due automatic adjustment of invalid dates.
+        // (e.g. February 30 might loop to March 1)
         if (!date.format(INPUT_DATE_FORMATTER).equals(dateStr)) {
             throw new DateTimeParseException("Invalid date", dateStr, 0);
         }
+
         return date;
     }
 

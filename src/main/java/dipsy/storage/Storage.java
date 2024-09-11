@@ -69,6 +69,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks from file.");
         }
+
         return new TaskList(tasks);
     }
 
@@ -80,29 +81,31 @@ public class Storage {
      */
     private static String formatTasks(ArrayList<Task> tasks) {
         StringBuilder formattedTasks = new StringBuilder();
+
         for (Task t: tasks) {
             formattedTasks.append(t.formatToCsv());
             formattedTasks.append("\n");
         }
+
         return formattedTasks.toString();
     }
 
     /**
      * Creates the task file and its parent directories if they do not exist.
-     * If the file is created successfully, a success message is printed.
-     * If an error occurs, an error message is printed.
+     *
+     * @throws IOException If an I/O error occurs during file or directory creation.
      */
-    private static void createTaskFile() {
-        try {
-            File parentDir = TASK_FILE.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs();
-            }
-            if (TASK_FILE.createNewFile()) {
-                System.out.println("A task file has been created locally.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred when creating the task file.");
+    private static void createTaskFile() throws IOException {
+        File parentDir = TASK_FILE.getParentFile();
+
+        // Ensure parent directories are created
+        if (!parentDir.exists() && !parentDir.mkdirs()) {
+            throw new IOException("Failed to create parent directories: " + parentDir.getAbsolutePath());
+        }
+
+        // Create the task file if it doesn't exist
+        if (!TASK_FILE.exists() && !TASK_FILE.createNewFile()) {
+            throw new IOException("Failed to create task file: " + TASK_FILE.getAbsolutePath());
         }
     }
 
@@ -113,15 +116,15 @@ public class Storage {
      * @throws IOException If an I/O error occurs during writing.
      */
     private static void writeToTaskFile(String formattedTasks) throws IOException {
-        if (TASK_FILE.isFile()) {
-            try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
-                writer.write(formattedTasks);
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to the task file.");
-            }
-        } else {
+        if (!TASK_FILE.isFile()) {
             createTaskFile();
             writeToTaskFile(formattedTasks);
+        }
+
+        try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
+            writer.write(formattedTasks);
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the task file.");
         }
     }
 

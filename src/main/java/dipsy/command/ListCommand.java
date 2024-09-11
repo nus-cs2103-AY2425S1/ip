@@ -31,32 +31,47 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the {@code ListCommand} by listing all tasks or filtering tasks by a specific date.
+     * Executes the command to either display the full task list or filter the task list by a specific date.
      *
-     * <p>If the user input is just "list", the method displays all tasks in the task list. If the input
-     * is in the form "list yyyy-MM-dd", the method filters the tasks by the specified date and lists
-     * only the tasks that are due or relevant to that date.</p>
-     *
-     * @return A message containing the list of all tasks, or the list of tasks filtered by the specified date.
-     *         If no tasks are found, a message indicating that there are no tasks is returned.
-     * @throws InvalidDateException If the provided date is in an incorrect format.
+     * @return A message containing either the full list of tasks or a filtered list of tasks based on the provided date.
+     * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
+     * @throws InvalidCommandException If the command format is invalid.
      */
     public String execute() throws InvalidDateException, InvalidCommandException {
         String[] parts = userInput.trim().split("\\s+");
+
+        // If the input is just 'list', return all tasks
         if (parts.length == 1) {
-            // Case where input is 'list'
             return ui.getTasksMessage(tasks.getTasks());
-        } else if (parts.length == 2) {
-            // Case where input is 'list <date>'
-            try {
-                LocalDate date = LocalDate.parse(parts[1]);
-                return ui.getTasksMessage(filterTasksByDate(date));
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
-        } else {
-            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_LIST_COMMAND);
         }
+
+        // If the input is 'list <date>', handle the date and filter tasks by the provided date
+        if (parts.length == 2) {
+            return handleListByDate(parts[1]);
+        }
+
+        throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_LIST_COMMAND);
+    }
+
+    /**
+     * Filters the task list by a specific date and returns a message with the filtered list.
+     *
+     * <p>This method parses the provided date string and filters tasks that match the date.
+     * If the date format is invalid, an {@code InvalidDateException} is thrown.</p>
+     *
+     * @param datePart The string representation of the date to filter tasks by.
+     * @return A message containing the tasks that match the specified date.
+     * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
+     */
+    private String handleListByDate(String datePart) throws InvalidDateException {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(datePart);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+
+        return ui.getTasksMessage(filterTasksByDate(date));
     }
 
     /**

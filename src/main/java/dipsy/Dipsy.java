@@ -84,6 +84,7 @@ public class Dipsy {
         if (command.isExit()) {
             exit();
         }
+
         return response;
     }
 }

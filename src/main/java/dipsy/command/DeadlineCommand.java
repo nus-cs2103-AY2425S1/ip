@@ -44,19 +44,24 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute() throws InvalidCommandException, InvalidDateException {
         Matcher matcher = DEADLINE_PATTERN.matcher(userInput);
-        if (matcher.matches()) {
-            String description = matcher.group(1);
-            String by = matcher.group(2);
-            try {
-                LocalDate parsedBy = DateParser.parseDate(by);
-                Deadline deadline = new Deadline(description, parsedBy);
-                tasks.addTask(deadline);
-                return ui.getTaskAddedMessage(deadline, tasks.getSize());
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
-        } else {
+
+        if (!matcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DEADLINE);
         }
+
+        String description = matcher.group(1);
+        String by = matcher.group(2);
+
+        LocalDate parsedBy;
+        try {
+            parsedBy = DateParser.parseDate(by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+
+        Deadline deadline = new Deadline(description, parsedBy);
+        tasks.addTask(deadline);
+
+        return ui.getTaskAddedMessage(deadline, tasks.getSize());
     }
 }
