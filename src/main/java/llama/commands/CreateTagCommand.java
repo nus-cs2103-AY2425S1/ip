@@ -5,34 +5,35 @@ import java.io.IOException;
 import llama.data.Storage;
 import llama.data.TagList;
 import llama.data.TaskList;
-import llama.exceptions.InvalidTaskException;
+import llama.exceptions.InvalidTagException;
 import llama.ui.Ui;
 
+
 /**
- * Represents the command to delete a Task
+ * Represents a command to create a new tag
  */
-public class DeleteCommand implements Command {
+public class CreateTagCommand implements Command {
     private String remaining;
 
     /**
-     * Creates a command to delete task
+     * Creates a command to create a new tag
      *
-     * @param remaining input to tell program which task to delete
+     * @param remaining input representing the title of tag
      */
-    public DeleteCommand(String remaining) {
+    public CreateTagCommand(String remaining) {
         this.remaining = remaining;
     }
 
     @Override
     public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) throws IOException {
         String response = "";
-        int index = Integer.parseInt(remaining);
         try {
-            response = taskList.deleteTask(index, ui);
-            storage.saveTasks(taskList);
-        } catch (InvalidTaskException e) {
+            response += tagList.createTag(this.remaining, ui);
+        } catch (InvalidTagException e) {
             response = ui.displayString(e.getMessage());
         }
+
+        storage.saveTags(tagList);
         return response;
     }
 }

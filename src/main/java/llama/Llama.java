@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 import llama.commands.Command;
 import llama.data.Storage;
+import llama.data.TagList;
 import llama.data.TaskList;
+import llama.exceptions.InvalidTagException;
 import llama.exceptions.LlamaException;
 import llama.parser.Parser;
 import llama.ui.Ui;
@@ -19,6 +21,7 @@ public class Llama {
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
+    private TagList tagList;
 
     /**
      * Constructor for Llama
@@ -27,8 +30,9 @@ public class Llama {
         this.ui = new Ui();
         this.storage = new Storage();
         try {
-            this.taskList = storage.load();
-        } catch (IOException e) {
+            this.tagList = storage.loadTags();
+            this.taskList = storage.loadTasks(this.tagList);
+        } catch (IOException | InvalidTagException e) {
             ui.displayString(e.getMessage());
         }
     }
@@ -40,7 +44,7 @@ public class Llama {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
-            return command.execute(this.taskList, this.ui, this.storage);
+            return command.execute(this.taskList, this.tagList, this.ui, this.storage);
         } catch (IOException | LlamaException e) {
             return e.getMessage();
         }

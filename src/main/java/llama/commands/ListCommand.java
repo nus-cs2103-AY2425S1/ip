@@ -1,8 +1,7 @@
 package llama.commands;
 
-import java.io.IOException;
-
 import llama.data.Storage;
+import llama.data.TagList;
 import llama.data.TaskList;
 import llama.ui.Ui;
 
@@ -26,7 +25,7 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) {
         String response = "";
         if (searchStr.isBlank()) {
             response = taskList.listAllTasks(ui); // list all tasks if no keyword

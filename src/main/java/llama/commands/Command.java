@@ -3,6 +3,7 @@ package llama.commands;
 import java.io.IOException;
 
 import llama.data.Storage;
+import llama.data.TagList;
 import llama.data.TaskList;
 import llama.ui.Ui;
 
@@ -19,5 +20,5 @@ public interface Command {
      * @return A string that represents Llama's response after command is completed
      * @throws IOException if there was an issue with saving the data into the file
      */
-    String execute(TaskList taskList, Ui ui, Storage storage) throws IOException;
+    String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) throws IOException;
 }

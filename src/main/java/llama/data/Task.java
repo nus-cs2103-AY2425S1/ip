@@ -1,13 +1,12 @@
 package llama.data;
 
-import java.util.Objects;
-
 /**
  * Represents a task to be done
  */
 public abstract class Task {
     private boolean isComplete;
     private String description;
+    private Tag tag;
 
     /**
      * Creates a Task Object
@@ -45,20 +44,37 @@ public abstract class Task {
      * @return String in the correct format for file saving
      */
     public String getSaveTaskString() {
+        String result = "";
         if (this.isComplete) {
-            return "|1|" + description;
+            result += "|1|";
+        } else {
+            result += "|0|";
         }
 
-        return "|0|" + description;
+        if (this.tag != null) {
+            result += tag.getSaveTagString() + "|";
+        } else {
+            result += "|";
+        }
+
+        return result + description;
     }
 
     @Override
     public String toString() {
+        String response = "";
+
         if (this.isComplete) {
-            return "[X] " + description;
+            response += "[X]";
         } else {
-            return "[ ] " + description;
+            response += "[ ]";
         }
+
+        if (this.tag != null) {
+            response += tag;
+        }
+
+        return response + " " + description + " ";
     }
 
     /**
@@ -70,5 +86,21 @@ public abstract class Task {
      */
     public boolean contains(String searchStr) {
         return this.description.toLowerCase().contains(searchStr.toLowerCase());
+    }
+
+    /**
+     * Tags the task with the given tag
+     *
+     * @param tag the tag to set the task's tag with
+     */
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Removes the tag that is on the task
+     */
+    public void removeTag() {
+        this.tag = null;
     }
 }

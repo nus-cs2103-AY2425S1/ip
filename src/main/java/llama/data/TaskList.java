@@ -162,4 +162,13 @@ public class TaskList {
         return taskList.get(taskIndex);
     }
 
+    /**
+     * Method to tag a task with given index and tag
+     * @param taskIndex index of task to be tagged
+     * @param tag tag to set task tag
+     */
+    public void tagTask(int taskIndex, Tag tag) {
+        Task task = getTask(taskIndex);
+        task.setTag(tag);
+    }
 }
