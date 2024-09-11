@@ -30,20 +30,26 @@ abstract class Task {
      */
     public static void decideTaskFromDatabase(String currentCommand, ArrayList<Task> list) {
         if (currentCommand.startsWith("deadline")) {
-            String rest = currentCommand.substring(9);
+            final int deadlineAndSpaceTotalCharacters = 9;
+            final int descriptionPart = 0;
+            final int byPart = 1;
+            String rest = currentCommand.substring(deadlineAndSpaceTotalCharacters);
             String[] parse = rest.split("/");
-            list.add(new Deadline(parse[0], parse[1]));
+            list.add(new Deadline(parse[descriptionPart], parse[byPart]));
 
         } else if (currentCommand.startsWith("todo")) {
-
-            String rest = currentCommand.substring(5);
+            final int todoAndSpaceTotalCharacters = 5;
+            String rest = currentCommand.substring(todoAndSpaceTotalCharacters);
             list.add(new Todo(rest));
 
         } else if (currentCommand.startsWith("event")) {
-
-            String rest = currentCommand.substring(6);
+            final int descriptionPart = 0;
+            final int fromPart = 1;
+            final int toPart = 2;
+            final int eventAndSpaceTotalCharacters = 6;
+            String rest = currentCommand.substring(eventAndSpaceTotalCharacters);
             String[] parse = rest.split("/");
-            list.add(new Event(parse[0], parse[1], parse[2]));
+            list.add(new Event(parse[descriptionPart], parse[fromPart], parse[toPart]));
         }
     }
     public void mark() {

@@ -11,8 +11,10 @@ public class Parser {
      * @return
      */
     public static String[] parseCommand(String input) {
-        String[] command = input.split(" ", 2);
-        command[0] = command[0].toUpperCase();
+        final int keywordPosition = 0;
+        final int splitCommandToKeywordAndArgumentPart = 2;
+        String[] command = input.split(" ", splitCommandToKeywordAndArgumentPart);
+        command[keywordPosition] = command[keywordPosition].toUpperCase();
         return command;
     }
 
@@ -35,11 +37,15 @@ public class Parser {
      * @return parsed strings for event keyword
      */
     public static String[] parseEvent(String input) {
+        final int descriptionPosition = 0;
+        final int fromTimePosition = 1;
+        final int toTimePosition = 2;
+        final int fromAndSpaceTotalCharacters = 5;
+        final int toAndSpaceTotalCharacters = 3;
         String[] args = input.trim().split("/");
-
-        args[0] = args[0].trim();
-        args[1] = args[1].trim().substring(5);
-        args[2] = args[2].trim().substring(3);
+        args[descriptionPosition] = args[descriptionPosition].trim();
+        args[fromTimePosition] = args[fromTimePosition].trim().substring(fromAndSpaceTotalCharacters);
+        args[toTimePosition] = args[toTimePosition].trim().substring(toAndSpaceTotalCharacters);
         return args;
     }
 
@@ -49,9 +55,12 @@ public class Parser {
      * @return parsed strings for event keyword
      */
     public static String[] parseDeadline(String input) {
+        final int descriptionPosition = 0;
+        final int byTimePosition = 1;
+        final int byAndSpaceTotalCharacters = 3;
         String[] args = input.trim().split("/");
-        args[0] = args[0].trim();
-        args[1] = args[1].trim().substring(3);
+        args[descriptionPosition] = args[descriptionPosition].trim();
+        args[byTimePosition] = args[byTimePosition].trim().substring(byAndSpaceTotalCharacters);
         return args;
     }
 

@@ -15,6 +15,11 @@ public class GreetBot {
     private Ui ui;
     private boolean isRunning;
 
+    /**
+     * The constructor which creates the GreetBot instance.
+     * And sets up all corresponding elements.
+     * @param filePath Specifies the file path of the database.
+     */
     public GreetBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -53,8 +58,13 @@ public class GreetBot {
      * @throws EmptyDescriptionException exception when nothing follows the command.
      */
     public String getResponse(String input) throws RandomInputException, EmptyDescriptionException {
+        final int keywordPart = 0;
+        final int markUnmarkDeletePosition = 1;
+        final int onlyHaveKeyword = 1;
+        final int argumentsPart = 1;
+
         String[] segment = Parser.parseCommand(input);
-        String keyword = segment[0];
+        String keyword = segment[keywordPart];
         if (keyword.equals("BYE")) {
             isRunning = false;
             ui.closeInput();
@@ -63,34 +73,34 @@ public class GreetBot {
         } else if (keyword.equals("LIST")) {
             return ui.showList(this.tasks);
         } else if (keyword.equals("MARK")) {
-            return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
+            return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
         } else if (keyword.equals("UNMARK")) {
-            return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
+            return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
         } else if (keyword.equals("TODO")) {
-            if (segment.length == 1) {
+            if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
             }
-            return this.addTodo(Parser.parseTodo(segment[1]));
+            return this.addTodo(Parser.parseTodo(segment[argumentsPart]));
         } else if (keyword.equals("EVENT")) {
-            if (segment.length == 1) {
+            if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
             }
-            return this.addEvent(Parser.parseEvent(segment[1]));
+            return this.addEvent(Parser.parseEvent(segment[argumentsPart]));
         } else if (keyword.equals("DEADLINE")) {
-            if (segment.length == 1) {
+            if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
             }
-            return this.addDeadline(Parser.parseDeadline(segment[1]));
+            return this.addDeadline(Parser.parseDeadline(segment[argumentsPart]));
         } else if (keyword.equals("DELETE")) {
-            if (segment.length == 1) {
+            if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
             }
-            return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
+            return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[argumentsPart]));
         } else if (keyword.equals("FIND")) {
-            if (segment.length == 1) {
+            if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of find cannot be empty.");
             }
-            return this.findTask(Parser.parseFind(segment[1]));
+            return this.findTask(Parser.parseFind(segment[argumentsPart]));
         } else if (keyword.isEmpty()) {
             return "";
         } else {
@@ -131,14 +141,19 @@ public class GreetBot {
     }
 
     private String addEvent(String[] args) {
-        Task event = new Task.Event(args[0], args[1], args[2]);
+        final int descriptionPart = 0;
+        final int fromPart = 1;
+        final int toPart = 2;
+        Task event = new Task.Event(args[descriptionPart], args[fromPart], args[toPart]);
         this.tasks.add(event);
         return this.ui.showAdd(event, this.tasks.getLength());
     }
 
     private String addDeadline(String[] args) {
         try {
-            Task deadline = new Task.Deadline(args[0], args[1]);
+            final int descriptionPart = 0;
+            final int timePart = 1;
+            Task deadline = new Task.Deadline(args[descriptionPart], args[timePart]);
             this.tasks.add(deadline);
             return this.ui.showAdd(deadline, this.tasks.getLength());
         } catch (DateTimeParseException e) {
