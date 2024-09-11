@@ -7,6 +7,26 @@ Fret, named after the player support AI Fret from [Halo Infinite](https://www.ha
 The tone of the bot when you give it commands mimics its voice lines in-game and suits its personality well:
 > "Fret AI constructs are able to remain eager to tackle the task ahead"
 
+## Setup
+First, create a directory called `data` in your root folder that contains this repository. The root folder should look as below:
+
+```
+root
+ |
+ |---build
+ |---config
+ |---data
+ |---docs
+ |---src/main
+ |        |
+ |        |---java
+ |        |---resources
+ |
+ |---text-ui-test
+...
+```
+
+Then run `./gradlew run` or `gradlew run` depending on your OS.
 
 ## Adding Tasks
 

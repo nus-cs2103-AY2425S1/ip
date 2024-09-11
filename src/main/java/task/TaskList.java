@@ -17,7 +17,9 @@ public class TaskList {
     }
 
     public void addTask(Task t) {
+        int currLen = this.tasks.size();
         this.tasks.add(t);
+        assert currLen + 1 == this.tasks.size();
     }
 
     public void removeTask(int i) {
@@ -29,11 +31,11 @@ public class TaskList {
     }
 
     public void setTaskAsCompleted(int i) {
-        this.tasks.get(i).markAsCompleted();
+        this.getTask(i).markAsCompleted();
     }
 
     public void setTaskAsNotCompleted(int i) {
-        this.tasks.get(i).markAsNotCompleted();
+        this.getTask(i).markAsNotCompleted();
     }
 
      /**
