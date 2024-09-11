@@ -41,7 +41,7 @@ public class Parser {
         // Adapted from ChatGPT
         // regex edited and tested on regex101.com
         String regex = "^(todo|td) (.+)|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) "
-                + "/from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)|^(find) (.+)";
+                + "/from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)|^(find|f) (.+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         // NEED TO RUN MATCHER.FIND()
@@ -92,6 +92,8 @@ public class Parser {
             case "del":
                 taskID = Integer.parseInt(matcher.group(14));
                 return new DeleteCommand(taskID);
+            case "f":
+                // fallthrough
             case "find":
                 String term = matcher.group(17);
                 return new FindCommand(term);
