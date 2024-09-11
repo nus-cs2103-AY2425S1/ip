@@ -155,7 +155,7 @@ public class NotgptJavaFX extends Application {
     }
 
     private String processInput(String input) {
-        return parser.parse(input);
+        return parser.parse(input); //
     }
 
     public static void main(String[] args) {
