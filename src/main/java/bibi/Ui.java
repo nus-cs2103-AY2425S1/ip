@@ -72,9 +72,9 @@ public class Ui {
     }
 
     /**
-     * Returns a string to the GUI depending on the command
-     */
-     public String processCommand(Command c, TaskList tasks, Storage storage, int index) {
+    * Returns a string to the GUI depending on the command
+    */
+    public String processCommand(Command c, TaskList tasks, Storage storage, int index) {
         StringBuilder sb = new StringBuilder();
         Task t;
         String[] input;
@@ -91,7 +91,7 @@ public class Ui {
             t = tasks.getTask(index - 1);
             t.markAsDone();
             sb.append("Alrighty, marked the following task as done:\n")
-                    .append(t);
+                 .append(t);
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
@@ -174,7 +174,7 @@ public class Ui {
                 String[] words = c.getArgs().split(" ");
                 for (int j = 0; j < words.length; j++) {
                     if (tasks.getTask(i).getDescription().contains(words[j])) {
-                        sb.append(String.format("%d.%s%n",i + 1, tasks.getTask(i)));
+                        sb.append(String.format("%d.%s%n", i + 1, tasks.getTask(i)));
                         count++;
                     }
                 }
@@ -183,16 +183,13 @@ public class Ui {
             if (count == 0) {
                 sb = new StringBuilder();
                 sb.append("No relevant results");
-            } else {
-
             }
 
             return sb.toString();
         default:
             return "Should not reach Ui Default";
         }
-     }
-
+    }
     /**
      * Prints the acknowledgement message for when the "mark" command is encountered.
      *
