@@ -146,6 +146,11 @@ public class SkD {
                 String keyword = input.substring(5).trim();
                 response = ui.stringShowFoundTasks(tasks, keyword);
                 break;
+            case SNOOZE:
+                String snoozeResult = Parser.parseSnooze(input, tasks);
+                response = snoozeResult;
+                storage.save(tasks);
+                break;
             default:
                 throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

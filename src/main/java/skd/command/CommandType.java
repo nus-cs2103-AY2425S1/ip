@@ -13,5 +13,6 @@ public enum CommandType {
     EVENT,
     DELETE,
     ETC,
-    FIND;
+    FIND,
+    SNOOZE;
 }

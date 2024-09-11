@@ -39,6 +39,8 @@ public class Parser {
             return CommandType.DELETE;
         } else if (input.startsWith("find")) {
             return CommandType.FIND;
+        } else if (input.startsWith("snooze")) {
+            return CommandType.SNOOZE;
         } else {
             return CommandType.ETC;
         }
@@ -127,7 +129,7 @@ public class Parser {
     }
 
     /**
-     * Unmarks task as not done based on input.
+     * Unmark task as not done based on input.
      *
      * @param input The Input command from user.
      * @param tasks List of tasks.
@@ -153,5 +155,36 @@ public class Parser {
         }
         Task removedTask = tasks.remove(index);
         return removedTask.stringPrintTaskRemovedMessage(tasks.size());
+    }
+
+    // Other existing methods like parseUnmark, parseDelete...
+
+    /**
+     * Snoozes a task by adding a specified number of days to its deadline or event date.
+     *
+     * @param input The input command from the user in the correct form
+     * @param tasks List of tasks.
+     * @return A string message indicating the task has been snoozed.
+     */
+    public static String parseSnooze(String input, List<Task> tasks) {
+        String[] parts = input.split(" ");
+        int index = Integer.parseInt(parts[1]) - 1;
+        int snoozeDays = Integer.parseInt(parts[2]);
+
+        if (index < 0 || index >= tasks.size()) {
+            throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
+        }
+
+        Task taskToSnooze = tasks.get(index);
+
+        if (taskToSnooze instanceof Deadline deadlineTask) {
+            deadlineTask.snooze(snoozeDays);
+            return "Snoozed deadline task by " + snoozeDays + " days: " + taskToSnooze;
+        } else if (taskToSnooze instanceof Event eventTask) {
+            eventTask.snooze(snoozeDays);
+            return "Snoozed event task by " + snoozeDays + " days: " + taskToSnooze;
+        } else {
+            throw new IllegalArgumentException("OOPS!!! Only deadline or event tasks can be snoozed.");
+        }
     }
 }

@@ -54,6 +54,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Snoozes the deadline by the specified number of days.
+     *
+     * This method adjusts the deadline date by adding the specified number of days
+     * to the current deadline date.
+     *
+     * @param days The number of days to snooze the deadline by.
+     */
+    public void snooze(int days) {
+        this.by = this.by.plusDays(days);
+    }
+
+    /**
      * Returns string representation of the deadline task.
      *
      * @return Task details.
