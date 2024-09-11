@@ -87,19 +87,19 @@ public abstract class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         switch (type) {
-            case "T":
-                return createTask(new Todo(description), isDone);
-            case "D":
-                assert parts.length == 4 : "Deadline task data must contain four parts";
-                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-                return createTask(new Deadline(description, by), isDone);
-            case "E":
-                assert parts.length == 5 : "Event task data must contain five parts";
-                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-                return createTask(new Event(description, from, to), isDone);
-            default:
-                throw new ArtsException("Unknown task type.");
+        case "T":
+            return createTask(new Todo(description), isDone);
+        case "D":
+            assert parts.length == 4 : "Deadline task data must contain four parts";
+            LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+            return createTask(new Deadline(description, by), isDone);
+        case "E":
+            assert parts.length == 5 : "Event task data must contain five parts";
+            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+            return createTask(new Event(description, from, to), isDone);
+        default:
+            throw new ArtsException("Unknown task type.");
         }
     }
 
