@@ -51,8 +51,7 @@ public class Command {
             return tasks.addTask(new Deadline(description, by));
         } catch (DateTimeParseException e) {
             return "The date is not in the correct format! It should be YYYY-MM-DD";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return "The stated deadline should have a date!";
         }
     }
