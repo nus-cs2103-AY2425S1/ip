@@ -61,6 +61,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs
      */
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
+        assert taskList != null : "taskList should not be null, but can be empty";
         FileWriter writer = new FileWriter(this.filePath);
         for (Task task : taskList) {
             writer.write(task.toFileString());

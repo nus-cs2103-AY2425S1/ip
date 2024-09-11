@@ -83,6 +83,7 @@ public class Gale {
      * <p>This method reads user input and processes it accordingly until the user inputs 'bye'.</p>
      */
     public void run() {
+        assert ui != null : "Gale not initialized properly";
         ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
@@ -100,6 +101,7 @@ public class Gale {
 
     public String getResponse(String input) {
         try {
+            assert input != null : "Input should not be null";
             if (input.equalsIgnoreCase("bye")) {
                 this.isRunning = false;
                 return ui.exit();
@@ -113,6 +115,7 @@ public class Gale {
                 return findTasks(input);
             } else {
                 Task task = Parser.parseTask(input);
+                assert task != null : "Task should not be null";
                 taskList.addTask(task);
                 return ui.showAddedTask(task, taskList.size());
             }
