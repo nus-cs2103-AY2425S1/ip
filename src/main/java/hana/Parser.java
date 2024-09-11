@@ -51,6 +51,9 @@ public class Parser {
             }
             return new AddCommand(new ToDo(parts[1]));
         case "deadline":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
+            }
             String[] deadlineParts = parts[1].split(" /by ");
             if (fullCommand.trim().equals("deadline") || fullCommand.startsWith("deadline /by")) {
                 throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
@@ -65,6 +68,9 @@ public class Parser {
             }
             return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
         case "event":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! The description of an event cannot be empty.");
+            }
             String[] eventParts = parts[1].split(" /from | /to ");
             if (fullCommand.trim().equals("event") || fullCommand.startsWith("event /from")) {
                 throw new HanaException("OOPS!!! The description of an event cannot be empty.");
