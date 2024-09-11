@@ -32,6 +32,6 @@ public class UnmarkCommand implements Command {
 
         Task task = tasks.get(taskIndex);
         task.unmarkDone();
-        context.ui().showMessageF("Marked this task as not yet done:\n%s", task);
+        context.ui().showMessageFormat("Marked this task as not yet done:\n%s", task);
     }
 }

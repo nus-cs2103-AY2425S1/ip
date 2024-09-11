@@ -24,7 +24,7 @@ public class MainWindowViewModel {
             }
 
             @Override
-            public void showMessageF(String message, Object... args) {
+            public void showMessageFormat(String message, Object... args) {
                 showMessage(String.format(message, args));
             }
 

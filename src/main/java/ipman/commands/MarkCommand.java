@@ -33,6 +33,6 @@ public class MarkCommand implements Command {
         Task task = tasks.get(taskIndex);
         task.markDone();
 
-        context.ui().showMessageF("Marked this task as done:\n%s", task);
+        context.ui().showMessageFormat("Marked this task as done:\n%s", task);
     }
 }

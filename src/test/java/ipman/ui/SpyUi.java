@@ -23,7 +23,7 @@ public class SpyUi implements Ui {
     }
 
     @Override
-    public void showMessageF(String message, Object... args) {
+    public void showMessageFormat(String message, Object... args) {
         this.showMessage(String.format(message, args));
     }
 

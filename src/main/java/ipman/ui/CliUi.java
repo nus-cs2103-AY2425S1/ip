@@ -17,7 +17,7 @@ public class CliUi implements Ui {
     }
 
     @Override
-    public void showMessageF(String message, Object... args) {
+    public void showMessageFormat(String message, Object... args) {
         System.out.printf(message + "\n", args);
     }
 
