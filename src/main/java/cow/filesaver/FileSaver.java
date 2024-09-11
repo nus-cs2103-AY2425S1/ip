@@ -104,11 +104,16 @@ public class FileSaver {
      *
      * @throws IOException if the file path is invalid.
      */
-    private void checkFilePath() throws IOException {
+    private void checkFilePath() throws CowExceptions {
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
-            Files.createDirectories(path.getParent());
-            Files.createFile(path);
+            try {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            } catch (IOException e) {
+                throw new CowExceptions(Messages.FILE_ERROR);
+            }
+
         }
     }
 

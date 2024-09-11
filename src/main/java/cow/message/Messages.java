@@ -5,10 +5,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%s";
     public static final String INDEX_INVALID = "Invalid index format!";
     public static final String INDEX_OUT_OF_RANGE = "Invalid index!";
-    public static final String FILE_ERROR = "Unable to write to file!";
-    public static final String GREETINGS_MESSAGE = " Hello! I'm COW\n"
-            + " What can I do for you?\n"
-            + "-Mooooo";
+    public static final String FILE_ERROR = "Unable to write/read to file!";
+    public static final String GREETINGS_MESSAGE = "Hello! I'm COW\n" + " What can I do for you?\n";
     public static final String ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST =
             "Error loading file, proceed with empty task list";
     public static final String ADDED_TASK_DEFAULT = "Got it. I've added this task:\n";
