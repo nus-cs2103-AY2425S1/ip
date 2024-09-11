@@ -11,7 +11,7 @@ public class Froggy {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         ui = new Ui();
-        parser = new Parser(tasks);
+        parser = new Parser();
     }
 
     public void run() {

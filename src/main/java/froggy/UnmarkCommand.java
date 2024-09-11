@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     taskList.setDone(index, false);
                     System.out.println("Marked the following task as undone:");
                     taskList.printTask(index);
@@ -48,14 +48,12 @@ public class UnmarkCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     taskList.setDone(index, false);
                     storage.saveTasks(taskList.getTasks());
                     return "Marked the following task as undone:\n" + taskList.getTask(index).toString()
                             + "\n" + ui.getLine();
                 } else {
-                    System.out.println("[INFO] Error: Invalid index. Please enter an index in range.");
-                    ui.showLine();
                     return "[INFO] Error: Invalid index. Please enter an index in range.\n" + ui.getLine();
                 }
             } catch (NumberFormatException e) {
