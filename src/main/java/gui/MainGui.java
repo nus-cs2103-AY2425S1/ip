@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,17 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import skibidi.Skibidi;
 
-/**
- * GUI for Skibidi chatbot.
- */
+/** GUI for Skibidi chatbot. */
 public class MainGui extends Application {
-    @FXML
     private ScrollPane scrollPane;
-    @FXML
     private VBox dialogContainer;
-    @FXML
     private TextField userInput;
-    @FXML
     private Button sendButton;
 
     private final Skibidi bot = new Skibidi("data/tasks.txt");
@@ -74,16 +67,22 @@ public class MainGui extends Application {
 
         // anchor ui components to corners
         AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
         AnchorPane.setRightAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(scrollPane, 40.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setRightAnchor(userInput, 60.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
         sendButton.setOnMouseClicked(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
+
+        // scroll to bottom of chat history whenever new message is printed
+        dialogContainer.heightProperty().addListener((obs) -> scrollPane.setVvalue(1.0));
 
         Parameters params = getParameters();
         List<String> args = params.getRaw();

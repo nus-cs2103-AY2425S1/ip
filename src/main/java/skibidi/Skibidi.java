@@ -37,7 +37,6 @@ public class Skibidi {
                     break;
                 }
                 System.out.println(getResponse(line));
-                storage.saveTasksToDisk(taskList);
             } catch (IOException e) {
                 System.out.println(e.toString());
             }
@@ -51,7 +50,9 @@ public class Skibidi {
             return Ui.getExitMessage();
         }
         try {
-            return parser.parseCommand(input).execute(taskList, storage, ui);
+            String message = parser.parseCommand(input).execute(taskList, storage, ui);
+            storage.saveTasksToDisk(taskList);
+            return message;
         } catch (CommandParseException | TaskValidationException e) {
             return e.getMessage();
         }
