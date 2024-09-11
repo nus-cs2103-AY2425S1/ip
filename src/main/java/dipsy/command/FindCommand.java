@@ -41,12 +41,13 @@ public class FindCommand extends Command {
     @Override
     public String execute() throws InvalidCommandException {
         Matcher matcher = FIND_PATTERN.matcher(userInput);
-        if (matcher.matches()) {
-            String keyword = matcher.group(1);
-            ArrayList<Task> tasksMatchingKeyword = tasks.getTasksByKeyword(keyword);
-            return ui.getTasksMatchingKeywordMessage(tasksMatchingKeyword);
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_FIND_COMMAND);
         }
+
+        String keyword = matcher.group(1);
+        ArrayList<Task> tasksMatchingKeyword = tasks.getTasksByKeyword(keyword);
+
+        return ui.getTasksMatchingKeywordMessage(tasksMatchingKeyword);
     }
 }

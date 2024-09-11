@@ -22,17 +22,19 @@ public class Parser {
 
     /**
      * Parses the user input and returns the corresponding {@link Command} object
-     * based on the input. The command is determined by the first word in the input.
-     *
+     * based on the first word in the input.
+     * <p></p>
      * Supported commands include:
-     * - "mark", "unmark"
-     * - "todo"
-     * - "deadline"
-     * - "event"
-     * - "delete"
-     * - "list"
-     * - "find"
-     * - "bye"
+     * <ul>
+     *     <li>mark, unmark</li>
+     *     <li>todo</li>
+     *     <li>deadline</li>
+     *     <li>event</li>
+     *     <li>delete</li>
+     *     <li>list</li>
+     *     <li>find</li>
+     *     <li>bye</li>
+     * </ul>
      *
      * @param userInput The input provided by the user.
      * @param tasks The current list of tasks.

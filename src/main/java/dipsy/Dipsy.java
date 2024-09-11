@@ -4,6 +4,7 @@ import dipsy.command.Command;
 import dipsy.exception.InvalidCommandException;
 import dipsy.exception.InvalidDateException;
 import dipsy.exception.UnknownCommandException;
+import dipsy.javafx.MainWindow;
 import dipsy.parser.Parser;
 import dipsy.storage.Storage;
 import dipsy.tasklist.TaskList;
@@ -22,6 +23,9 @@ public class Dipsy {
     /** The list of tasks managed by the application. */
     private final TaskList taskList;
 
+    /** A reference to the {@link MainWindow} for interacting with the JavaFX UI. */
+    private MainWindow mainWindow;
+
     /**
      * Constructs a new {@code Dipsy} object, initializing the user interface and task list.
      */
@@ -30,6 +34,15 @@ public class Dipsy {
         this.taskList = Storage.load(); // Load tasks from local disk when the application starts
 
         assert this.taskList != null : "TaskList should not be null after loading from storage";
+    }
+
+    /**
+     * Sets the {@link MainWindow} reference, allowing {@code Dipsy} to interact with the JavaFX UI.
+     *
+     * @param mainWindow The {@code MainWindow} instance controlling the UI.
+     */
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     /**
@@ -43,11 +56,13 @@ public class Dipsy {
     }
 
     /**
-     * Terminates the program.
-     * <p>This method closes the application by calling {@code System.exit(0)} to ensure a clean termination.</p>
+     * Exits the application by calling a method in the {@link MainWindow} to gracefully close the
+     * JavaFX application.
      */
     public void exit() {
-        System.exit(0);
+        if (mainWindow != null) {
+            mainWindow.closeApplicationWithDelay(2000);
+        }
     }
 
     /**
@@ -90,6 +105,7 @@ public class Dipsy {
         if (command.isExit()) {
             exit();
         }
+
         return response;
     }
 }

@@ -44,21 +44,27 @@ public class EventCommand extends Command {
     @Override
     public String execute() throws InvalidDateException, InvalidCommandException {
         Matcher matcher = EVENT_PATTERN.matcher(userInput);
-        if (matcher.matches()) {
-            String description = matcher.group(1);
-            String start = matcher.group(2);
-            String end = matcher.group(3);
-            try {
-                LocalDate parsedStart = DateParser.parseDate(start);
-                LocalDate parsedEnd = DateParser.parseDate(end);
-                Event event = new Event(description, parsedStart, parsedEnd);
-                tasks.addTask(event);
-                return ui.getTaskAddedMessage(event, tasks.getSize());
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
-        } else {
+
+        if (!matcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_EVENT);
         }
+
+        String description = matcher.group(1);
+        String start = matcher.group(2);
+        String end = matcher.group(3);
+
+        LocalDate parsedStart;
+        LocalDate parsedEnd;
+        try {
+            parsedStart = DateParser.parseDate(start);
+            parsedEnd = DateParser.parseDate(end);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+
+        Event event = new Event(description, parsedStart, parsedEnd);
+        tasks.addTask(event);
+
+        return ui.getTaskAddedMessage(event, tasks.getSize());
     }
 }
