@@ -5,7 +5,9 @@ import botimusprime.storage.Storage;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * The TaskList class manages a list of tasks, including operations for adding,
@@ -16,8 +18,6 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
-    // private final String SEPARATOR = "____________________________________________________________\n";
-    private final String SEPARATOR = "";
     /**
      * Constructs a TaskList with an empty list of tasks and associates it with a file for storage.
      *
@@ -57,8 +57,7 @@ public class TaskList {
      * If the list is empty, it displays a message indicating that there are no tasks.
      */
     public String showList() {
-        StringBuilder resultString = new StringBuilder(SEPARATOR
-                + "Here are the tasks in your list:\n");
+        StringBuilder resultString = new StringBuilder("Here are the tasks in your list:\n");
         if (tasks.isEmpty()) {
             return "Congratulations, human! Your task list is empty.";
         }
@@ -66,7 +65,6 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             resultString.append(String.format("%d. %s%n", i + 1, tasks.get(i))).append("\n");
         }
-        resultString.append(SEPARATOR);
         return resultString.toString();
     }
 
@@ -88,7 +86,7 @@ public class TaskList {
         }
         tasks.get(idx - 1).markAsDone();
         storage.saveToDisk(this);
-        return SEPARATOR + "Nice! I've marked this task as done:\n" +
+        return "Nice! I've marked this task as done:\n" +
                 tasks.get(idx - 1);
     }
 
@@ -107,7 +105,7 @@ public class TaskList {
 
         tasks.get(idx - 1).markAsUndone();
         storage.saveToDisk(this);
-        return SEPARATOR + "OK, I've marked this task as not done yet:\n"
+        return "OK, I've marked this task as not done yet:\n"
                 + tasks.get(idx - 1);
     }
 
@@ -127,7 +125,7 @@ public class TaskList {
         Task task = tasks.get(idx - 1);
         tasks.remove(idx - 1);
         storage.saveToDisk(this);
-        return SEPARATOR + "Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n"
                 + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
@@ -149,10 +147,9 @@ public class TaskList {
         tasks.add(task);
         storage.saveToDisk(this);
 
-        return SEPARATOR + String.format("Alright, I've added the task:\n "
+        return String.format("Alright, I've added the task:\n "
                         + "%s\nNow you have %d tasks in the list.\n",
-                                        task, tasks.size())
-                                        + SEPARATOR;
+                                        task, tasks.size());
     }
 
     /**
@@ -192,9 +189,9 @@ public class TaskList {
         tasks.add(task);
         storage.saveToDisk(this);
 
-        return SEPARATOR + String.format("Alright, I've added the task:\n"
+        return String.format("Alright, I've added the task:\n"
                                         + "%s\nNow you have %d tasks in the list.\n",
-                                    task, tasks.size()) + SEPARATOR;
+                                    task, tasks.size());
     }
 
     /**
@@ -249,17 +246,16 @@ public class TaskList {
         tasks.add(task);
         storage.saveToDisk(this);
 
-        return SEPARATOR + String.format("Alright, I've added the task:\n " +
+        return String.format("Alright, I've added the task:\n " +
                         "%s\nNow you have %d tasks in the list.\n",
-                                task, tasks.size())
-                                        + SEPARATOR;
+                                task, tasks.size());
     }
 
     public String findTask(String input) {
         assert !input.isEmpty();
 
-        StringBuilder resultString = new StringBuilder(SEPARATOR
-                    + "Here are the matching tasks in your list:\n");
+        StringBuilder resultString = new StringBuilder(
+                "Here are the matching tasks in your list:\n");
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         if (input.length() <= 5) {
@@ -280,5 +276,50 @@ public class TaskList {
         } else {
             return resultString.toString();
         }
+    }
+
+    public String viewSchedule(String input) {
+        ArrayList<Task> todaysTasks = new ArrayList<>();
+
+
+        String dateString = input.substring(5).trim();
+
+        LocalDateTime date = Parser.stringToDateTime(dateString);
+        if (date == null) {
+            return "Your date is in the wrong format, human.";
+        }
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        String formattedDate = date.toLocalDate().format(dateFormatter);
+
+        StringBuilder resultString = new StringBuilder(
+                "Here's your schedule for " + formattedDate + ":\n");
+
+        for (Task task : tasks) {
+            if (task.isDeadline()) {
+                Deadline deadlineTask = (Deadline) task;
+                LocalDateTime byDate = deadlineTask.getDeadlineDate();
+                boolean isHappeningToday = byDate.toLocalDate().isEqual(date.toLocalDate());
+                if (isHappeningToday) {
+                    todaysTasks.add(task);
+                    resultString.append(task).append("\n");
+                }
+            } else if (task.isEvent()) {
+                Event eventTask = (Event) task;
+                LocalDateTime fromDate = eventTask.getFromDate();
+                LocalDateTime toDate = eventTask.getToDate();
+                boolean isTimeBetween = (fromDate.isBefore(date) && toDate.isAfter(date)) ||
+                        fromDate.isEqual(date) || toDate.isEqual(date);
+                if (isTimeBetween) {
+                    todaysTasks.add(task);
+                    resultString.append(task).append("\n");
+                }
+            }
+        }
+
+        if (todaysTasks.isEmpty()) {
+            return "You have no tasks scheduled on that day, human.";
+        }
+
+        return resultString.toString();
     }
 }

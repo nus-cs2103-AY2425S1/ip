@@ -79,6 +79,7 @@ public class Parser {
         Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
         Pattern eventPattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
         Pattern findPattern = Pattern.compile("^find (.+)$");
+        Pattern viewPattern = Pattern.compile("^view (.+)$");
 
         Matcher listMatcher = listPattern.matcher(input);
         Matcher deleteMatcher = deletePattern.matcher(input);
@@ -88,6 +89,7 @@ public class Parser {
         Matcher eventMatcher = eventPattern.matcher(input);
         Matcher deadlineMatcher = deadlinePattern.matcher(input);
         Matcher findMatcher = findPattern.matcher(input);
+        Matcher viewMatcher = viewPattern.matcher(input);
 
         boolean isEmpty = taskList.isEmpty();
         boolean isDeleteMarkOrUnmark = deleteMatcher.matches()
@@ -116,6 +118,8 @@ public class Parser {
             return taskList.delete(index);
         } else if (findMatcher.matches()) {
             return taskList.findTask(input);
+        } else if (viewMatcher.matches()) {
+            return taskList.viewSchedule(input);
         } else if (input.isEmpty()) {
            return "plz type smth bro";
         } else {
