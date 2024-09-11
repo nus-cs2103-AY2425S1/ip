@@ -18,13 +18,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane should not be null after loading FXML";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+
+            assert dipsy != null : "Dipsy instance should not be null";
             fxmlLoader.<MainWindow>getController().setDipsy(dipsy); // inject the Dipsy instance
             stage.show();
         } catch (IOException e) {

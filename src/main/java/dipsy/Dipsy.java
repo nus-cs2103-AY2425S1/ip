@@ -28,6 +28,8 @@ public class Dipsy {
     public Dipsy() {
         this.ui = new Ui();
         this.taskList = Storage.load(); // Load tasks from local disk when the application starts
+
+        assert this.taskList != null : "TaskList should not be null after loading from storage";
     }
 
     /**
@@ -60,12 +62,15 @@ public class Dipsy {
      * @return A response message based on the executed command, or an error message if the input is invalid.
      */
     public String getResponse(String input) {
+        assert input != null : "User input should not be null";
+
         Command command;
         String response;
 
         // Attempt to parse the input to obtain command
         try {
             command = Parser.parseCommand(input, taskList, ui);
+            assert command != null : "Parsed command should not be null";
         } catch (UnknownCommandException e) {
             return ui.getErrorMessage(e.getMessage());
         } catch (Exception e) {
@@ -75,6 +80,7 @@ public class Dipsy {
         // Attempt to execute command
         try {
             response = command.execute();
+            assert response != null : "Response from command execution should not be null";
         } catch (InvalidCommandException e) {
             return ui.getErrorMessage(e.getMessage());
         } catch (InvalidDateException e) {
