@@ -38,41 +38,44 @@ public class Storage {
         }
         try {
             Scanner myReader = new Scanner(dataFile);
-            try {
-                String[] userInputArr;
-                String line;
-
-                label:
-                while (myReader.hasNextLine()) {
-                    //check next line in the data file
-                    line = myReader.nextLine();
-                    // split by ' | ' using regex
-                    userInputArr = line.split(" \\| ");
-
-                    switch (userInputArr[0]) {
-                    case "T":
-                        ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
-                        break;
-                    case "D":
-                        Deadline deadlineItem = new Deadline(userInputArr[2],
-                                    userInputArr[3], userInputArr[1].equals("1"));
-                        break;
-                    case "E":
-                        String[] userInputArrEvent = userInputArr[3].split("-");
-                        Event eventItem = new Event(userInputArr[2],
-                                    userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"));
-                        break;
-                    default:
-                        break label;
-                    }
-                }
-            } finally {
-                myReader.close();
-            }
+            this.readNextLine(myReader);
         } catch (Exception e) {
             System.out.println("An error occurred. " + e);
         }
         return "";
+    }
+
+    private void readNextLine(Scanner myReader) {
+        try {
+            String[] userInputArr;
+            String line;
+
+            while (myReader.hasNextLine()) {
+                //check next line in the data file
+                line = myReader.nextLine();
+                // split by ' | ' using regex
+                userInputArr = line.split(" \\| ");
+
+                switch (userInputArr[0]) {
+                case "T":
+                    ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
+                    break;
+                case "D":
+                    Deadline deadlineItem = new Deadline(userInputArr[2],
+                            userInputArr[3], userInputArr[1].equals("1"));
+                    break;
+                case "E":
+                    String[] userInputArrEvent = userInputArr[3].split("-");
+                    Event eventItem = new Event(userInputArr[2],
+                            userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"));
+                    break;
+                default:
+                    break;
+                }
+            }
+        } finally {
+            myReader.close();
+        }
     }
 
     /**

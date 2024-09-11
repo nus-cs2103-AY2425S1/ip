@@ -123,21 +123,28 @@ public class Ui {
         int n = 1;
 
         for (Task tasks : Task.getTaskArrayList()) {
-            if (tasks.getDescription().contains(keyMessageToFind)) {
-                if (n == 1) {
-                    msg.append("    Here are the matching tasks in your list\n");
-                }
-                msg.append("    " + (n) + "." + tasks.toString() + "\n");
-                n++;
-            }
+            n = checkHelper(msg, tasks, n, keyMessageToFind);
         }
         if (n == 1) {
             msg.append("    There are no matching tasks in your list\n");
         }
-
+        System.out.println(this.showLine()
+                + msg
+                + this.showLine());
         return this.showLine()
                 + msg
                 + this.showLine();
+    }
+
+    private int checkHelper(StringBuilder msg, Task tasks, int n, String keyMessageToFind) {
+        if (tasks.getDescription().contains(keyMessageToFind)) {
+            if (n == 1) {
+                msg.append("    Here are the matching tasks in your list\n");
+            }
+            msg.append("    " + (n) + "." + tasks.toString() + "\n");
+            n++;
+        }
+        return n;
     }
 
     /**

@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     }
 
     public void execute(Task task, Ui ui, Storage storage) {
-        ui.showFindMessage(this.commandPostfix);
+        this.responseMessage = ui.showFindMessage(this.commandPostfix);
     }
 
     public String getString() {
