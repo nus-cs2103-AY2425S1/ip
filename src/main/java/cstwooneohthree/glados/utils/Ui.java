@@ -173,6 +173,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints or returns a task after it has been updated.
+     *
+     * @param input New description of task.
+     */
     public String update(String input) {
         String message = "\nGLaDOS: I have updated this task to:\n" + input + "\n";
 

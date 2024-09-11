@@ -76,8 +76,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses update arguments to retrieve index and new task description.
+     *
+     * @param input Update command line arguments.
+     * @throws GladosException If the index argument is not parseable.
+     */
     public static String[] parseUpdateArgs(String input) throws GladosException {
-        String[] args = input.split(" ");
+        String[] args = input.split(" ", 2);
         try {
             Integer.valueOf(args[0]);
         } catch (NumberFormatException e) {
