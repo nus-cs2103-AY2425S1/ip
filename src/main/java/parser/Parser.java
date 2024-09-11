@@ -45,67 +45,49 @@ public class Parser {
         case LIST:
             return ui.getListedTasks(list.listTasks(), list.getSize());
         case MARK:
-            int taskNumber;
-            try {
-                taskNumber = Integer.parseInt(result[1]);
-            } catch (NumberFormatException e) {
-                throw new FormatException(result[1]);
-            }
-            Task markTask = list.markTask(taskNumber);
+            int markTaskNumber = checkValidTaskNumber(result[1]);
+            Task markTask = list.markTask(markTaskNumber);
             return ui.getHandleTaskMessage(markTask, "mark");
         case UNMARK:
-            int taskNum;
-            try {
-                taskNum = Integer.parseInt(result[1]);
-            } catch (NumberFormatException e) {
-                throw new FormatException(result[1]);
-            }
-            Task unmarkTask = list.unmarkTask(taskNum);
+            int unmarkTaskNumber = checkValidTaskNumber(result[1]);
+            Task unmarkTask = list.unmarkTask(unmarkTaskNumber);
             return ui.getHandleTaskMessage(unmarkTask, "unmark");
         case DELETE:
-            int taskNo;
-            try {
-                taskNo = Integer.parseInt(result[1]);
-            } catch (NumberFormatException e) {
-                throw new FormatException(result[1]);
-            }
-            Task task = list.deleteTask(taskNo);
+            int deleteTaskNumber = checkValidTaskNumber(result[1]);
+            Task task = list.deleteTask(deleteTaskNumber);
             return ui.getHandleTaskMessage(task, "delete", list.getSize());
         case TODO:
             // result[1] contains description
-            if (result.length != 2) {
-                throw new MissingArgumentException("Todo", "description");
-            }
-            addedTask = list.addTask(Command.TODO, result);
+            checkValidTaskInput(Command.TODO, result);
+            addedTask = list.addTask(Command.TODO, result[1]);
             break;
         case DEADLINE:
             // result[1] contains description /by deadline
-            if (result.length != 2) {
-                throw new MissingArgumentException("Deadline", "description", "by");
-            }
+            checkValidTaskInput(Command.DEADLINE, result);
+
             String[] deadlineInfo = result[1].split("/by ");
-            if (deadlineInfo.length != 2) {
-                throw new MissingArgumentException("Deadline", "description", "by");
-            }
-            addedTask = list.addTask(Command.DEADLINE, deadlineInfo);
+            checkValidTaskInput(Command.DEADLINE, deadlineInfo);
+
+            addedTask = list.addTask(Command.DEADLINE,
+                    deadlineInfo[0], deadlineInfo[1].strip());
             break;
         case EVENT:
             // result[1] contains description /from from /to to
-            if (result.length != 2) {
-                throw new MissingArgumentException("Event", "description", "from", "to");
-            }
+            checkValidTaskInput(Command.EVENT, result);
+
             String[] eventInfo = result[1].split("/from ");
-            if (eventInfo.length != 2) {
-                throw new MissingArgumentException("Event", "description", "from", "to");
-            }
+            checkValidTaskInput(Command.EVENT, eventInfo);
+
             String[] times = eventInfo[1].split("/to ");
-            if (times.length != 2) {
-                throw new MissingArgumentException("Event", "description", "from", "to");
-            }
-            addedTask = list.addTask(Command.EVENT, eventInfo);
+            checkValidTaskInput(Command.EVENT, times);
+
+            addedTask = list.addTask(Command.EVENT,
+                    eventInfo[0], times[0].strip(), times[1].strip());
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));
+        case EXIT:
+            return "";
         default:
             throw new AliceException(input);
         }
@@ -118,5 +100,52 @@ public class Parser {
 
         // prints task messages for todos, deadlines, and events
         return ui.getHandleTaskMessage(addedTask, "add", list.getSize());
+    }
+
+    /**
+     * Returns the task number if it is a number, throws exception otherwise.
+     *
+     * @param input the task number as a string.
+     * @return the parsed task number as a number.
+     * @throws FormatException when string cannot be parsed to a number.
+     */
+    private int checkValidTaskNumber(String input) throws FormatException {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new FormatException(input);
+        }
+    }
+
+    /**
+     * Checks if the user supplied  information required for the task type.
+     *
+     * @param taskType type of task.
+     * @param taskInfo inputs to check.
+     * @throws MissingArgumentException when there is a missing argument.
+     */
+    private void checkValidTaskInput(Command taskType, String[] taskInfo) throws MissingArgumentException {
+        if (taskInfo.length != 2) {
+            throwMissingArgumentException(taskType);
+        }
+    }
+
+    /**
+     * Throws the MissingArgumentException when called, based on the type of task.
+     *
+     * @param taskType the type of task.
+     * @throws MissingArgumentException when called.
+     */
+    private void throwMissingArgumentException(Command taskType) throws MissingArgumentException {
+        switch (taskType) {
+        case TODO:
+            throw new MissingArgumentException("Todo", "description");
+        case DEADLINE:
+            throw new MissingArgumentException("Deadline", "description", "by");
+        case EVENT:
+            throw new MissingArgumentException("Event", "description", "from", "to");
+        default:
+            break;
+        }
     }
 }

@@ -5,7 +5,7 @@ package commands;
  * Commands not recognised by the chatbot are labelled INVALID.
  */
 public enum Command {
-    MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, INVALID, LIST, BYE;
+    MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, INVALID, LIST, BYE, EXIT;
 
     /**
      * Returns the Command associated to the specified string.
@@ -33,9 +33,10 @@ public enum Command {
             return LIST;
         case "bye":
             return BYE;
+        case "exit":
+            return EXIT;
         default:
             return INVALID;
         }
     }
-
 }
