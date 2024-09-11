@@ -125,9 +125,11 @@ public class TaskList {
         }
     }
     /**
-     * A line to separate messages.
-     * @return a string message of the segmentation between messages.
+     * Returns a filtered Tasklist based on the command give.
+     * @param command is the condition that the filter is based on.
+     * @return a Tasklist that is filtered according to the command.
      */
+
     public TaskList find(String command) {
         TaskList newList = new TaskList();
         for (Task task : taskList) {
