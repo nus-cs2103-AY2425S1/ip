@@ -100,4 +100,22 @@ public class Parser {
                     + "Please use 'yyyyMMddTHH:mm' format.");
         }
     }
+
+    public static Integer[] parseIndices(String input) throws NekoException {
+        String[] parts = input.split(" ");
+        if (parts.length < 2) {
+            throw new NekoException("No task numbers provided meow!");
+        }
+
+        Integer[] indices = new Integer[parts.length - 1];
+        try {
+            for (int i = 1; i < parts.length; i++) {
+                indices[i - 1] = Integer.parseInt(parts[i]) - 1;
+            }
+        } catch (NumberFormatException e) {
+            throw new NekoException("Invalid task number format meow!");
+        }
+
+        return indices;
+    }
 }

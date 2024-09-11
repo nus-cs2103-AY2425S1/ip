@@ -24,6 +24,7 @@ public class Ui {
 
     /** Exit message displayed when the program ends. */
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon meow ฅ ฅ";
+    private static final String INVALID_INPUT_MESSAGE = "Meow /ᐠ > ˕ <マ Invalid input!";
 
     /** Scanner for reading user input from the command line. */
     private static final Scanner scanner = new Scanner(System.in);
@@ -96,5 +97,9 @@ public class Ui {
      */
     public void showExitMessage() {
         showMessage(EXIT_MESSAGE);
+    }
+
+    public String getInvalidInputMessage() {
+        return INVALID_INPUT_MESSAGE;
     }
 }
