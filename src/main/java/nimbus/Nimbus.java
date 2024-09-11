@@ -1,8 +1,10 @@
 package nimbus;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.ui.Parser;
 import nimbus.ui.Storage;
 import nimbus.ui.TaskList;
 import nimbus.ui.Ui;
@@ -14,6 +16,7 @@ public class Nimbus {
     private Storage storage;
     private Ui ui;
     private TaskList taskList = new TaskList();
+    private Parser parser;
 
     /**
      * Creates a nimbus object and runs the chatbot
@@ -25,6 +28,7 @@ public class Nimbus {
         storage.createFile();
         storage.loadFile(taskList);
         this.ui = new Ui(taskList);
+        this.parser = new Parser(taskList);
     }
 
     /**
@@ -35,7 +39,14 @@ public class Nimbus {
      */
     private void run() throws WrongDateTimeFormatException, IOException {
         Ui.showWelcome();
-        ui.run();
+        String userInput = "";
+
+        Scanner scanner = new Scanner(System.in);
+        while (!userInput.equals("bye")) {
+            userInput = scanner.nextLine();
+            this.parser.handleInput(userInput);
+        }
+        scanner.close();
     }
 
     /**
@@ -48,5 +59,18 @@ public class Nimbus {
     public static void main(String[] args)
             throws IOException, WrongDateTimeFormatException {
         new Nimbus("nimbus.txt").run();
+    }
+
+    /**
+     * Returns the Nimbus response when user has entered an input
+     * @param input string input by user
+     * @return string response from Nimbus
+     */
+    public String getResponse(String input) {
+        try {
+            return this.parser.handleInput(input);
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 }

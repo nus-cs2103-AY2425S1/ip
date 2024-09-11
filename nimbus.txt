@@ -1,4 +1,4 @@
 T | 1 | read book
 D | 0 | tutorial  | 22/8/2024 1600
-E | 0 | appointment | 22/8/2024 1700 - 22/8/2024 1900
+E | 1 | appointment | 22/8/2024 1700 - 22/8/2024 1900
 D | 0 | get home  | 30/8/2024 1900

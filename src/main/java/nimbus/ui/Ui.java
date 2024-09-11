@@ -1,10 +1,5 @@
 package nimbus.ui;
 
-import java.io.IOException;
-import java.util.Scanner;
-
-import nimbus.exception.WrongDateTimeFormatException;
-
 /**
  * Class that contains some of the UI elements needed for the project
  */
@@ -26,7 +21,6 @@ public class Ui {
     private static final String welcomeMessage = "Hello from \n" + logo + HORIZONTAL_LINE
             + " \nHow can I help you today~ UwU" + HORIZONTAL_LINE;;
     private static final String endingMessage = "BAIBAI! NIMBUS WEEEEEEEEE" + HORIZONTAL_LINE;
-    private static final Scanner scanner = new Scanner(System.in);
     private final TaskList taskList;
 
     /**
@@ -48,26 +42,7 @@ public class Ui {
     /**
      * Prints out goodbye message when user exits the chatbot
      */
-    public static void goodbyeMessage() {
-        System.out.println(endingMessage);
+    public static String goodbyeMessage() {
+        return endingMessage;
     }
-
-    /**
-     * Starts to handle userInput by passing to parser
-     *
-     * @throws WrongDateTimeFormatException if date time format is wrong
-     * @throws IOException if file is not found
-     */
-    public void run() throws WrongDateTimeFormatException, IOException {
-
-        Parser parser = new Parser(taskList);
-        String userInput = "";
-
-        while (!userInput.equals("bye")) {
-            userInput = scanner.nextLine();
-            parser.handleInput(userInput);
-        }
-        scanner.close();
-    }
-
 }

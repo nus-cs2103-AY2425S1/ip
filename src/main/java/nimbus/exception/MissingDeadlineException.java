@@ -5,7 +5,7 @@ import nimbus.ui.Ui;
 /**
  * Exception is thrown when the deadline is missing for DeadlineTasks
  */
-public class MissingDeadlineException extends Exception {
+public class MissingDeadlineException extends NimbusException {
 
     /**
      * Creates exception with message to remind user to include deadline and the keyword for deadline

@@ -22,5 +22,5 @@ public abstract class Command {
         this.taskList = taskList;
     }
 
-    public abstract void execute() throws WrongDateTimeFormatException;
+    public abstract String execute() throws WrongDateTimeFormatException;
 }

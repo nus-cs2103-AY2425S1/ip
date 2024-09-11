@@ -5,7 +5,7 @@ import nimbus.ui.Ui;
 /**
  * Exception for missing description for any tasks
  */
-public class MissingDescriptionException extends Exception {
+public class MissingDescriptionException extends NimbusException {
 
     /**
      * Creates exceptions with message to remind users to include task descriptions
