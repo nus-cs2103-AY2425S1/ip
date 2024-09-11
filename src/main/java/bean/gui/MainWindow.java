@@ -1,5 +1,6 @@
 package bean.gui;
 
+
 import bean.Bean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,6 +43,11 @@ public class MainWindow extends AnchorPane {
      */
     public void setBean(Bean b) {
         bean = b;
+        // Display greeting message from Bean's Ui
+        String greeting = bean.getUi().getGreeting(); // Assuming Bean has a method getUi() that returns the Ui instance
+        dialogContainer.getChildren().add(
+                DialogBox.getBeanDialog(greeting, beanImage)
+        );
     }
 
     /**

@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     public void markTask(int taskIndex) {
-        Task task = tasks.get(taskIndex)
+        Task task = tasks.get(taskIndex);
         task.completeTask();
         assert task.getIsDone() : "Task should be marked as done after completing it";
     }
