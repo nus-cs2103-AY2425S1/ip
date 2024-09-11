@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-
 <?import javafx.geometry.Insets?>
+
 <fx:root
-    type="javafx.scene.layout.HBox"
-    alignment="TOP_RIGHT"
+    type="javafx.scene.layout.GridPane"
     xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
     maxHeight="Infinity"
@@ -15,11 +15,21 @@
 >
     <Label
         fx:id="message"
-        minHeight="-Infinity"
+        GridPane.rowIndex="0"
+        GridPane.columnIndex="0"
+        GridPane.hgrow="ALWAYS"
+        maxHeight="Infinity"
+        maxWidth="Infinity"
         wrapText="true"
-    />
+    >
+        <padding>
+            <Insets top="14" left="14" bottom="14" right="14" />
+        </padding>
+    </Label>
     <ImageView
         fx:id="displayPicture"
+        GridPane.rowIndex="0"
+        GridPane.columnIndex="1"
         preserveRatio="true"
         fitHeight="100"
         pickOnBounds="true"

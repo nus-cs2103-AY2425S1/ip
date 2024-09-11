@@ -27,6 +27,8 @@ public class MainWindow extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
+        this.dialogContainer.prefWidthProperty().bind(this.scrollPane.widthProperty());
+
         this.viewModel = new MainWindowViewModel();
         this.viewModel.getMessages().addListener((ListChangeListener<Message>) c -> {
             while (c.next()) {
