@@ -23,6 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
+        assert from != null && !from.isEmpty() : "Start time should not be null or empty";
+        assert to != null && !to.isEmpty() : "End time should not be null or empty";
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
     }

@@ -52,11 +52,13 @@ public class Ui {
      * @return The error message as a String.
      */
     public String showError(String message) {
+        assert message != null : "Error message should not be null";
+
         String error = "     " + message;
 
         printMessage(error);
 
-        return message;
+        return error;
     }
 
     /**
@@ -90,6 +92,7 @@ public class Ui {
      * @return The message indicating the task was added as a String.
      */
     public String showAddedTask(Task task, int noOfTasks) {
+        assert task != null : "Task should not be null";
         String message = "     Got it. I've added this task:\n"
                 + "       " + task + "\n"
                 + "     Now you have " + noOfTasks + " tasks in the list.";
@@ -107,6 +110,7 @@ public class Ui {
      * @return The message indicating the task was deleted as a String.
      */
     public String showDeletedTask(Task task, int noOfTasks) {
+        assert task != null : "Task should not be null";
         String message = "     Noted. I've removed this task:\n"
                 + "       " + task + "\n"
                 + "     Now you have " + noOfTasks + " tasks in the list.";
@@ -123,6 +127,7 @@ public class Ui {
      * @return The message indicating the task was marked as done as a String.
      */
     public String showMarkedTask(Task task) {
+        assert task != null : "Task should not be null";
         String message = "     Nice! I've marked this task as done:\n"
                 + "       " + task;
 
@@ -138,6 +143,8 @@ public class Ui {
      * @return The message indicating the task was unmarked as done as a String.
      */
     public String showUnmarkedTask(Task task) {
+        assert task != null : "Task should not be null";
+
         String message = "     Nice! I've unmarked this task:\n"
                 + "       " + task;
 
@@ -153,6 +160,7 @@ public class Ui {
      * @return The list of tasks as a String.
      */
     public String showTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     Your task list is empty.\n");
@@ -176,6 +184,7 @@ public class Ui {
      * @return The list of tasks on the specified date as a String.
      */
     public String showSpecificTasks(TaskList tasks, LocalDate date) {
+        assert tasks != null : "TaskList should not be null";
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     No tasks found on this date.\n");
@@ -200,6 +209,7 @@ public class Ui {
      * @return The list of matching tasks as a String.
      */
     public String showMatchingTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     No matching tasks found.\n");

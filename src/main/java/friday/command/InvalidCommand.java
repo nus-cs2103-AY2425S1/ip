@@ -17,11 +17,16 @@ public class InvalidCommand extends Command {
      * @param message The error message to be displayed to the user.
      */
     public InvalidCommand(String message) {
+        assert message != null && !message.isEmpty(): "Message should not be null or empty";
         this.message = message;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         return ui.showError(message);
     }
 

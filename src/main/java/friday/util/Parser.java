@@ -32,6 +32,7 @@ public class Parser {
      * @return A Command object corresponding to the parsed user input.
      */
     public static Command parse(String fullCommand) {
+        assert fullCommand != null : "Full command should not be null";
         String[] parts = fullCommand.split(" ", 2);
 
         String command = parts[0];
@@ -70,6 +71,7 @@ public class Parser {
      * @return An AddCommand object for the todo task.
      */
     private static Command parseTodo(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The description of a todo cannot be empty.");
         }
@@ -83,6 +85,7 @@ public class Parser {
      * @return An AddCommand object for the deadline task.
      */
     private static Command parseDeadline(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         String[] splitArguments = arguments.split(" /by ");
         if (splitArguments.length < 2) {
             return new InvalidCommand("OOPS!!! The description or deadline cannot be empty.");
@@ -105,6 +108,7 @@ public class Parser {
      * @return An AddCommand object for the event task.
      */
     private static Command parseEvent(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         String[] splitArguments = arguments.split(" /from ");
         if (splitArguments.length < 2) {
             return new InvalidCommand("OOPS!!! The description or date/time cannot be empty.");
@@ -133,6 +137,7 @@ public class Parser {
      * @return A MarkCommand object for marking the task as done.
      */
     private static Command parseMark(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The index for marking tasks cannot be empty.");
         }
@@ -152,6 +157,7 @@ public class Parser {
      * @return An UnmarkCommand object for unmarking the task as done.
      */
     private static Command parseUnmark(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The index for unmarking tasks cannot be empty.");
         }
@@ -171,6 +177,7 @@ public class Parser {
      * @return A DeleteCommand object for deleting the task.
      */
     private static Command parseDelete(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The index for deleting tasks cannot be empty.");
         }
@@ -190,6 +197,7 @@ public class Parser {
      * @return An OnCommand object for filtering tasks by the given date.
      */
     private static Command parseOn(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The date for finding tasks cannot be empty.");
         }
@@ -209,6 +217,7 @@ public class Parser {
      * @return A FindCommand object for finding tasks that match the keyword.
      */
     private static Command parseFind(String arguments) {
+        assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The keyword for finding tasks cannot be empty.");
         }
