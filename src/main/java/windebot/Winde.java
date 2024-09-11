@@ -101,6 +101,25 @@ public class Winde {
             throw new RuntimeException(e);
         }
     }
+/*
+    public String getResponse(String... input) {
+        try {
+            for (String string : input) {
+                Command currentCommand = Parser.parse(string);
+                Ui ui = new Ui();
+                willContinue = currentCommand.execute(string, reminder, ui, history);
+                commandType = currentCommand.whatCommand();
+                return ui.getOutput();
+            }
+        } catch (UnsupportedCommandException e) {
+            throw new RuntimeException(e);
+        } catch (EmptyDescriptionException e) {
+            throw new RuntimeException(e);
+        } catch (TooManyParametersException e) {
+            throw new RuntimeException(e);
+        }
+    }
+ */
 
     public String getCommandType() {
         return commandType;
