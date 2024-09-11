@@ -53,33 +53,21 @@ public class Parser {
                     + " list, unmark, mark, delete, on, todo, deadline, event, remind, and bye.");
         }
 
-        switch (commandType) {
-        case LIST:
-            return prepareList();
-        case MARK:
-            return prepareMark(fullCommand);
-        case UNMARK:
-            return prepareUnmark(fullCommand);
-        case ON:
-            return prepareOn(fullCommand);
-        case DELETE:
-            return prepareDelete(fullCommand);
-        case FIND:
-            return prepareFine(fullCommand);
-        case TODO:
-            return prepareTodo(fullCommand);
-        case DEADLINE:
-            return prepareDeadline(fullCommand);
-        case EVENT:
-            return prepareEvent(fullCommand);
-        case REMIND:
-            return prepareRemind();
-        case BYE:
-            return new Bye();
-        default:
-            throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
+        return switch (commandType) {
+            case LIST -> prepareList();
+            case MARK -> prepareMark(fullCommand);
+            case UNMARK -> prepareUnmark(fullCommand);
+            case ON -> prepareOn(fullCommand);
+            case DELETE -> prepareDelete(fullCommand);
+            case FIND -> prepareFine(fullCommand);
+            case TODO -> prepareTodo(fullCommand);
+            case DEADLINE -> prepareDeadline(fullCommand);
+            case EVENT -> prepareEvent(fullCommand);
+            case REMIND -> prepareRemind();
+            case BYE -> new Bye();
+            default -> throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
                     + " list, unmark, mark, delete, on, todo, deadline, event, remind and bye.");
-        }
+        };
     }
 
     private static List prepareList() {

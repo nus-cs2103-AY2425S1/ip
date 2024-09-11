@@ -1,7 +1,6 @@
 package bob.gui;
 
 import bob.Bob;
-import bob.data.TaskList;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

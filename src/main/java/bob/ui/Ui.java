@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import bob.commands.Remind;
 import bob.data.TaskList;
-import bob.storage.Storage;
 
 /**
  * Class to represent interactions with the user.
