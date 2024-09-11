@@ -37,6 +37,8 @@ public class Parser {
         case "find" -> new FindCommand(inputWords);
         default -> new Command(inputWords);
         };
+        // command should not be null after switch condition
+        assert(command != null);
         return command;
     }
 }
