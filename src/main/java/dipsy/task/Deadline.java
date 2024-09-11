@@ -22,6 +22,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate by) {
         super(description);
+
+        assert by != null : "By date should not be null";
+
         this.by = by;
     }
 
@@ -34,6 +37,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, LocalDate by) {
         super(description, isDone);
+
+        assert by != null : "By date should not be null";
+
         this.by = by;
     }
 
@@ -56,6 +62,7 @@ public class Deadline extends Task {
      */
     @Override
     public LocalDate getRelevantDate() {
+        assert by != null : "By date should not be null";
         return this.by;
     }
 
@@ -80,6 +87,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert by != null : "By date should not be null";
         return "[D]" + super.toString() + " (by: " + DateParser.formatDateForDisplay(by) + ")";
     }
 }

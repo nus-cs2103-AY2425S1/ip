@@ -25,6 +25,7 @@ public class TaskList {
      * @param tasks The list of tasks to initialize the {@code TaskList} with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "ArrayList<Tasks> should not be null";
         this.tasks = tasks;
     }
 
@@ -34,6 +35,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "ArrayList<Tasks> should not be null";
         return tasks;
     }
 
@@ -43,6 +45,7 @@ public class TaskList {
      * @return The size of the task list.
      */
     public int getSize() {
+        assert tasks != null : "ArrayList<Tasks> should not be null";
         return tasks.size();
     }
 
@@ -52,6 +55,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
         Storage.save(tasks);
     }
@@ -64,6 +68,8 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should not be out of bounds";
+
         Task removedTask = tasks.remove(index);
         Storage.save(tasks);
         return removedTask;
@@ -76,6 +82,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should not be out of bounds";
+
         return tasks.get(index);
     }
 
@@ -87,6 +95,8 @@ public class TaskList {
      * @return A list of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> getTasksByKeyword(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
+
         ArrayList<Task> filteredList = new ArrayList<>();
         for (Task task: tasks) {
             if (task.hasKeywordInDescription(keyword)) {
@@ -100,6 +110,8 @@ public class TaskList {
      * Saves the current task list to local disk using the {@link Storage} class.
      */
     public void saveToLocalDisk() {
+        assert tasks != null : "Task list should not be null";
+
         Storage.save(tasks);
     }
 }

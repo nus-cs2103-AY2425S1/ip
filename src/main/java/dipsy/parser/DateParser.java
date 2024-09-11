@@ -30,6 +30,8 @@ public class DateParser {
      * @throws DateTimeParseException If the date string is invalid or does not match the expected format.
      */
     public static LocalDate parseDate(String dateStr) throws DateTimeParseException {
+        assert dateStr != null : "dateStr should not be null";
+
         LocalDate date = LocalDate.parse(dateStr, INPUT_DATE_FORMATTER);
         // Validate that the parsed date matches the input string
         if (!date.format(INPUT_DATE_FORMATTER).equals(dateStr)) {
@@ -45,6 +47,7 @@ public class DateParser {
      * @return A string representing the formatted date.
      */
     public static String formatDateForDisplay(LocalDate date) {
+        assert date != null : "date should not be null";
         return date.format(DISPLAY_DATE_FORMATTER);
     }
 
@@ -55,6 +58,7 @@ public class DateParser {
      * @return A string representing the date in ISO format.
      */
     public static String formatDateForStorage(LocalDate date) {
+        assert date != null : "date should not be null";
         return date.format(STORAGE_DATE_TIME_FORMATTER);
     }
 }

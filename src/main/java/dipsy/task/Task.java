@@ -19,6 +19,8 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Description should not be null";
+
         this.description = description;
         this.isDone = false;
     }
@@ -30,6 +32,8 @@ public class Task {
      * @param isDone      The initial completion status of the task.
      */
     public Task(String description, boolean isDone) {
+        assert description != null : "Description should not be null";
+
         this.description = description;
         this.isDone = isDone;
     }
@@ -110,9 +114,8 @@ public class Task {
      * @return true if the keyword is found in the description, false otherwise.
      */
     public boolean hasKeywordInDescription(String keyword) {
-        if (keyword == null || description == null) {
-            return false;
-        }
+        assert keyword != null : "Keyword should not be null";
+        assert description != null : "Description should not be null";
 
         // Use word boundaries to ensure exact word matches
         String regex = "\\b" + Pattern.quote(keyword.toLowerCase()) + "\\b";
@@ -124,6 +127,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String statusIcon = getStatusIcon();
+        assert statusIcon != null : "Status icon should not be null";
+        return "[" + statusIcon + "] " + description;
     }
 }

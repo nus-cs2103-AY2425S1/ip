@@ -27,6 +27,10 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
+
+        assert start != null : "Start date should not be null";
+        assert end != null : "Start date should not be null";
+
         this.start = start;
         this.end = end;
     }
@@ -41,6 +45,10 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, isDone);
+
+        assert start != null : "Start date should not be null";
+        assert end != null : "Start date should not be null";
+
         this.start = start;
         this.end = end;
     }
@@ -64,7 +72,8 @@ public class Event extends Task {
      */
     @Override
     public LocalDate getRelevantDate() {
-        return this.start; // Or the most relevant date for your use case
+        assert start != null : "Start date should not be null";
+        return start;
     }
 
     /**
@@ -90,6 +99,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert start != null : "Start date should not be null";
+        assert end != null : "Start date should not be null";
+
         return "[E]" + super.toString() + " (from: " + formatDateForDisplay(start)
                 + " to: " + formatDateForDisplay(end) + ")";
     }

@@ -12,24 +12,35 @@ import dipsy.ui.Ui;
 public class ByeCommand extends Command {
 
     /**
-     * Represents a command to exit the application.
-     * When executed, it will print an exit message and terminate the program.
+     * Constructs a {@code ByeCommand} that prepares the application to exit.
+     *
+     * @param userInput The input string provided by the user.
+     * @param tasks The list of tasks being managed in the application.
+     * @param ui The user interface component responsible for displaying messages.
      */
     public ByeCommand(String userInput, TaskList tasks, Ui ui) {
         super(userInput, tasks, ui);
     }
 
-
+    /**
+     * Indicates that this command results in exiting the application.
+     *
+     * @return {@code true} to indicate that the application should exit.
+     */
     @Override
     public boolean isExit() {
         return true;
     }
 
     /**
+     * Executes the command, which prints a farewell message to the user.
+     *
      * @return A farewell message to be shown to the user.
      */
     @Override
     public String execute() {
-        return ui.getExitMessage();
+        String exitMessage = ui.getExitMessage();
+        assert exitMessage != null : "Exit message should not be null";
+        return exitMessage;
     }
 }
