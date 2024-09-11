@@ -53,6 +53,8 @@ public class Deadline extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDate parseDate(String dateStr) {
+        assert dateStr != null : "date string should not be empty";
+
         List<DateTimeFormatter> formatters = Arrays.asList(
             DateTimeFormatter.ofPattern("d MMM yyyy"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd"),

@@ -34,6 +34,10 @@ public class Parser {
     public static String parseCommand(
             String command, TaskList taskList, Storage storage
     ) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
+        assert command != null : "Command should not be empty";
+        assert taskList != null : "TaskList should not be empty";
+        assert storage != null : "Storage should not be empty";
+
         String[] slicedStr = command.split(" ");
         String action = slicedStr[0];
 

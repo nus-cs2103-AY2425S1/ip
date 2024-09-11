@@ -21,6 +21,7 @@ public class Todo extends Task {
      * @param slicedStr The array of strings representing the user input.
      */
     public void convertStringToTask(String[] slicedStr) {
+        assert slicedStr != null : "array of sliced string should not be empty";
         String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
         this.description = String.join(" ", task);
     }
