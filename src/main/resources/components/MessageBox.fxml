@@ -13,10 +13,22 @@
     maxHeight="Infinity"
     maxWidth="Infinity"
 >
+    <padding>
+        <Insets top="14" left="14" bottom="14" right="14" />
+    </padding>
+
+    <ImageView
+            fx:id="displayPicture"
+            GridPane.rowIndex="0"
+            GridPane.columnIndex="0"
+            preserveRatio="true"
+            fitHeight="100"
+            pickOnBounds="true"
+    />
     <Label
         fx:id="message"
         GridPane.rowIndex="0"
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="1"
         GridPane.hgrow="ALWAYS"
         maxHeight="Infinity"
         maxWidth="Infinity"
@@ -26,15 +38,4 @@
             <Insets top="14" left="14" bottom="14" right="14" />
         </padding>
     </Label>
-    <ImageView
-        fx:id="displayPicture"
-        GridPane.rowIndex="0"
-        GridPane.columnIndex="1"
-        preserveRatio="true"
-        fitHeight="100"
-        pickOnBounds="true"
-    />
-    <padding>
-        <Insets top="14" left="14" bottom="14" right="14" />
-    </padding>
 </fx:root>

@@ -34,6 +34,12 @@ public class MessageBox extends GridPane {
         this.displayPicture.setImage(img);
     }
 
+    private void flip() {
+        this.message.setAlignment(Pos.CENTER_RIGHT);
+        GridPane.setColumnIndex(this.message, 0);
+        GridPane.setColumnIndex(this.displayPicture, 1);
+    }
+
     /**
      * Constructs a MessageBox for a user or system depending on the message's author
      *
@@ -56,7 +62,7 @@ public class MessageBox extends GridPane {
     public static MessageBox createUserBox(String message) {
         Image image = new Image(MessageBox.class.getResourceAsStream("/images/messageUserAvatar.png"));
         MessageBox box = new MessageBox(message, image);
-        box.message.setAlignment(Pos.CENTER_RIGHT);
+        box.flip();
         return box;
     }
 
@@ -68,9 +74,6 @@ public class MessageBox extends GridPane {
      */
     public static MessageBox createSystemBox(String message) {
         Image image = new Image(MessageBox.class.getResourceAsStream("/images/messageSystemAvatar.png"));
-        MessageBox box = new MessageBox(message, image);
-        GridPane.setColumnIndex(box.message, 1);
-        GridPane.setColumnIndex(box.displayPicture, 0);
-        return box;
+        return new MessageBox(message, image);
     }
 }
