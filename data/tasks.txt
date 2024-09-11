@@ -1,0 +1,7 @@
+todo test 1
+todo test 2
+deadline eat food /by 2024-08-24
+event eat drink /from 2024-08-24 /to 2024-08-25
+todo hello
+todo list
+todo hello
