@@ -64,6 +64,10 @@ public class Parser {
             break;
         case FIND:
             return new FindCommand(commandDescription);
+        case UNDO:
+            return new UndoCommand();
+        case REDO:
+            return new RedoCommand();
         default:
             switch (getCommandType(commandHeader)) {
             case TODO:
@@ -145,6 +149,10 @@ public class Parser {
             return DEADLINE;
         case "event":
             return EVENT;
+        case "undo":
+            return UNDO;
+        case "redo":
+            return REDO;
         default:
             throw new LightException("Invalid command type");
         }

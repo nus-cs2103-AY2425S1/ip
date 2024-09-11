@@ -13,6 +13,7 @@ public class Light {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private final TaskListHistory taskListHistory;
 
     /**
      * Creates a components.Light object.
@@ -23,6 +24,8 @@ public class Light {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.load());
+        this.taskListHistory = new TaskListHistory();
+        this.taskListHistory.add(tasks.clone());
     }
 
     /**
@@ -45,7 +48,7 @@ public class Light {
             try {
                 String fullCommand = ui.readCommand();
                 Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
+                command.execute(tasks, ui, storage, taskListHistory);
                 isExit = command.isExit();
             } catch (LightException e) {
                 ui.showError(e);
@@ -65,7 +68,7 @@ public class Light {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, ui, storage, taskListHistory);
         } catch (LightException e) {
             return e.toString();
         }

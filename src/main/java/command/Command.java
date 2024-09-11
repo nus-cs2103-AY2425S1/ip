@@ -1,6 +1,7 @@
 package command;
 
 import components.Storage;
+import components.TaskListHistory;
 import components.Ui;
 import exceptions.LightException;
 import task.TaskList;
@@ -14,12 +15,13 @@ abstract public class Command {
     /**
      * Executes the command.
      *
-     * @param tasks   the list of tasks
-     * @param ui      the user interface
-     * @param storage the storage
+     * @param tasks           the list of tasks
+     * @param ui              the user interface
+     * @param storage         the storage
+     * @param taskListHistory
      * @throws LightException if an error occurs during execution
      */
-    abstract public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException;
+    abstract public String execute(TaskList tasks, Ui ui, Storage storage, TaskListHistory taskListHistory) throws LightException;
 
     /**
      * Returns true if the command is an exit command.
@@ -42,6 +44,8 @@ abstract public class Command {
         EXIT,
         MARK,
         UNMARK,
-        HELP
+        HELP,
+        UNDO,
+        REDO
     }
 }
