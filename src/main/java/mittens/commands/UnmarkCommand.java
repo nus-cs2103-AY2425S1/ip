@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task task = tasks.markTaskAsNotDone(this.index);
+            Task task = tasks.markTaskAsNotDone(this.index - 1);
 
             storage.save(tasks);
 
