@@ -74,6 +74,7 @@ public class Megamind {
      *
      * @param command Command entered by the user.
      * @throws InvalidCommandException If the command is invalid.
+     * @return String representation of list of task with the keyword
      */
     public static String findTask(String command) throws InvalidCommandException {
         String keyword = parser.parseDescription(command, "find");
@@ -101,6 +102,7 @@ public class Megamind {
      * @param command Command entered by the user.
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
+     * @return String representation of unmarking a task
      */
     public static String unmark(String command) throws InvalidCommandException,
             TaskNotFoundException {
@@ -120,6 +122,7 @@ public class Megamind {
      * @param command Command entered by the user.
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
+     * @return String representation of marking a task
      */
     public static String mark(String command) throws InvalidCommandException,
             TaskNotFoundException {
@@ -137,6 +140,7 @@ public class Megamind {
      * @param command Command entered by the user.
      * @throws InvalidCommandException If the command is invalid (description
      *                                 is empty).
+     * @return String representation of to do task that has been added
      */
     public static String addTodo(String command) throws InvalidCommandException {
         String description = parser.parseDescription(command, "todo");
@@ -152,6 +156,7 @@ public class Megamind {
      * @throws MissingParameterException If the deadline is not specified.
      * @throws InvalidCommandException   If the command is invalid
      *                                   (description and/or deadline is empty).
+     * @return String representation of deadline task that has been added
      */
     public static String addDeadline(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseDeadline(command);
@@ -164,6 +169,7 @@ public class Megamind {
      * If the event start or end time is not specified, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of event task that has been added
      */
     public static String addEvent(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseEvent(command);
@@ -176,6 +182,7 @@ public class Megamind {
      * If the event start or end time is not specified, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of recurring task that has been added
      */
     public static String addRecur(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseRecur(command);
@@ -191,6 +198,7 @@ public class Megamind {
      * @throws InvalidCommandException If the command is invalid (task number
      *                                 is missing).
      * @throws TaskNotFoundException   If the task is not found.
+     * @return String representation of delete task ui.
      */
     public static String deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
