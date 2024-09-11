@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
+import Parser.Parser;
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {

@@ -1,0 +1,14 @@
+Improve code quality.
+
+- TaskList class: contains some common behaviors while processing storage for different tasks.
+- TaskList class: Methods are not adhering with logical structure.
+- Storage class: Else branch is used for task type = 'D'
+
+The common behaviors cause code duplication, lines without logical structure 
+will affect clarity.The 'else' branch should not be used when the condition can be specified.
+
+- Let's pull up behaviors common to all tasks into a new method named addingTaskAcknowledgement.
+- Let's add some black lines to separate groups of related statements  
+- Let's use the 'else' branch for catch error and move the 'D' task into if-else branch.
+
+ 

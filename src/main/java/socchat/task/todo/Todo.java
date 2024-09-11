@@ -18,6 +18,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, String tagName) {
+        super(description, tagName);
+    }
+
     /**
      * Constructs a new 'Todo' task with the specified description and completion status.
      *
@@ -27,10 +31,14 @@ public class Todo extends Task {
     public Todo(String description, Boolean isDone) {
         super(description, isDone);
     }
+    public Todo(String description, Boolean isDone, String tagName) {
+        super(description, isDone, tagName);
+    }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString()
+                + "<tag: " + tagName + ">";
     }
 
     /**
@@ -40,6 +48,8 @@ public class Todo extends Task {
      * @return a string representation of the 'Todo' task suitable for saving
      */
     public String toSave() {
-        return "T" + " | " + super.getDoneStatus() + " | " + super.getDescription();
+
+        return "T" + " | " + super.getDoneStatus() + " | " + description
+                + " | " + " | " + " | " + tagName;
     }
 }

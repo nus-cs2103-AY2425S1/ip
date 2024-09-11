@@ -1,0 +1,13 @@
+New feature: tagging
+
+Tagging allows users to categorize their task when
+task getting more in future.
+
+'-tag ' option allows users to input their tags.
+In future implementation, we will include a way to
+filter out the tags so that users can view all tasks
+in a specific tag.
+
+Let's,
+- search for the keyword '-tag'
+- capture and store users' tags together with the task

@@ -1,4 +1,8 @@
-package socchat;
+package Parser;
+
+import socchat.SocchatException;
+import socchat.TaskList;
+import socchat.task.Task;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -22,17 +26,6 @@ public class Parser {
      */
     enum Command {
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND
-    }
-
-    /**
-     * Splits a command string into tokens based on the delimiter " /".
-     *
-     * @param command the command string to be tokenized
-     * @return an array of strings, where each element is a token extracted from the command
-     */
-    public static String[] tokenizeAddTaskCommand(String command) {
-        String[] strToken = command.split(" /");
-        return strToken;
     }
 
     /**
@@ -78,8 +71,7 @@ public class Parser {
 
     }
 
-    public static String[] processInput(String input) {
-
+    public static String[] extractCommand(String input) {
         int firstSpaceIndex = input.indexOf(' ');
         String[] commandTokens = new String[2];
 
@@ -87,83 +79,62 @@ public class Parser {
             String command = input.substring(0, firstSpaceIndex);
             commandTokens[0] = command;
             String remaining = input.substring(firstSpaceIndex + 1);
-            commandTokens[1] = remaining;
+            commandTokens[1] = remaining.trim();
         } else {
             commandTokens[0] = input;
+            commandTokens[1] = "";
         }
         return commandTokens;
     }
 
+
     /**
      * Gets the corresponding response for each command.
      *
-     * @param input the input tokens that have been processed in {@link #processInput(String)} processInput
+     * @param input the input tokens that have been processed in {@link #extractCommand(String)} processInput
      * @return the generated response as a String.
      */
     public String getResponse(String... input) {
-        String[] strToken;
         String respond = "";
+        assert input.length == 2;
         try {
             String commandInput = input[0];
-            String remaining;
+            String remaining = input[1];
             Command command = getCommand(commandInput);
             switch (command) {
-                case BYE:
-                    return exit();
-                case LIST:
-                    respond = taskList.list();
-                    break;
-                case MARK:
-                    remaining = input[1];
-                    String taskIndexString = remaining.trim();
-                    respond = taskList.setMark(taskIndexString, true);
-                    break;
-                case UNMARK:
-                    remaining = input[1];
-                    taskIndexString = remaining.trim();
-                    respond = taskList.setMark(taskIndexString, false);
-                    break;
-                case TODO:
-                    remaining = input[1];
-                    if (remaining == null ||remaining.trim().isEmpty()) {
-                        throw new SocchatException("Todo cannot have empty description");
-                    }
-                    String str = command + " " + remaining;
-                    // Tokenize str to separate dateTime object from description
-                    strToken = Parser.tokenizeAddTaskCommand(str);
-                    respond = taskList.addTodo(strToken);
-                    break;
-                case DEADLINE:
-                    remaining = input[1];
-                    str = command + " " + remaining;
-                    // Tokenize str to separate dateTime object from description
-                    strToken = Parser.tokenizeAddTaskCommand(str);
-                    respond = taskList.addDeadline(strToken);
-                    break;
-                case EVENT:
-                    remaining = input[1];
-                    str = command + " " + remaining;
-                    // Tokenize str to separate dateTime object from description
-                    strToken = Parser.tokenizeAddTaskCommand(str);
-                    respond = taskList.addEvent(strToken);
-                    break;
-                case DELETE:
-                    remaining = input[1];
-                    taskIndexString = remaining;
-                    respond = taskList.delete(taskIndexString);
-                    break;
-                case FIND:
-                    remaining = input[1];
-                    str = remaining;
-                    respond = taskList.find(str);
-                    break;
-                default:
-                    respond = "Unrecognized command. Please try again.";
-                    break;
+            case BYE:
+                return exit();
+            case LIST:
+                respond = taskList.list();
+                break;
+            case MARK:
+                respond = taskList.setMark(remaining, true);
+                break;
+            case UNMARK:
+                respond = taskList.setMark(remaining, false);
+                break;
+            case TODO:
+                Task t = TaskParser.todoParser(remaining);
+                respond = taskList.addTask(t);
+                break;
+            case DEADLINE:
+                Task d = TaskParser.deadlineParser(remaining);
+                respond = taskList.addTask(d);
+                break;
+            case EVENT:
+                Task e = TaskParser.eventParser(remaining);
+                respond = taskList.addTask(e);
+                break;
+            case DELETE:
+                respond = taskList.delete(remaining);
+                break;
+            case FIND:
+                respond = taskList.find(remaining);
+                break;
+            default:
+                respond = "Unrecognized command. Please try again.";
+                break;
             }
-
-        } catch (NullPointerException e) {
-            respond = "Empty description";
 
         } catch (SocchatException e) {
             respond = e.getMessage();
