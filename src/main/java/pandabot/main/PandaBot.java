@@ -37,6 +37,7 @@ public class PandaBot {
      * @param filePath the file path where tasks are stored and loaded from.
      */
     public PandaBot(String filePath) {
+        assert filePath != null : "File path for task storage should not be null.";
         ui = new Ui();
         storage = new Storage(filePath);
         TaskList tempTasks;
