@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
@@ -14,7 +15,6 @@ import rainy.tasks.TaskTracker;
  * Takes in a <code>File</code> object and either reads the file or writes over it entirely.
  */
 public class Storage {
-
     /**
      * Constructs a new <code>Storage</code> object.
      */
@@ -33,35 +33,36 @@ public class Storage {
      * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a
      *                                       marked tasked or unmark an unmarked task.
      */
-    public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+    public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
         TaskTracker newTask;
-        UI ui = new UI();
         try {
             newTask = new TaskTracker();
-            Scanner sc = new Scanner(newFile);
-            int trace = 0;
-            while (sc.hasNext()) {
-                String oldData = sc.nextLine();
-                if (trace > 0) {
-                    if (oldData.charAt(8) == 'T') {
-                        newTask.updateListToDo(oldData.substring(11));
-                    } else if (oldData.charAt(8) == 'D') {
-                        String updatedOldData = oldData.substring(11, oldData.length() - 1);
-                        String[] deadlineSplit = updatedOldData.split(" \\(");
-                        newTask.updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
-                    } else {
-                        String updatedOldData = oldData.substring(11, oldData.length() - 1);
-                        String[] eventSplit = updatedOldData.split(" \\(");
-                        String newDate = eventSplit[1].split(" from ")[0];
-                        String newTime = eventSplit[1].split(" from ")[1];
-                        newTask.updateListEvent(eventSplit[0] + " ", newDate, newTime);
-                    }
-                    if (oldData.charAt(4) == 'X') {
-                        newTask.markDone(trace - 1);
+            TaskTracker[] taskHolder = new TaskTracker[]{newTask};
+            AtomicInteger trace = new AtomicInteger(0);
+            Files.lines(newFile.toPath()).skip(1).forEach(x -> {
+                if (x.charAt(8) == 'T') {
+                    taskHolder[0].updateListToDo(x.substring(11));
+                } else if (x.charAt(8) == 'D') {
+                    String updatedOldData = x.substring(11, x.length() - 1);
+                    String[] deadlineSplit = updatedOldData.split(" \\(");
+                    taskHolder[0].updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
+                } else {
+                    String updatedOldData = x.substring(11, x.length() - 1);
+                    String[] eventSplit = updatedOldData.split(" \\(");
+                    String newDate = eventSplit[1].split(" from ")[0];
+                    String newTime = eventSplit[1].split(" from ")[1];
+                    taskHolder[0].updateListEvent(eventSplit[0] + " ", newDate, newTime);
+                }
+                int newCount = trace.getAndIncrement();
+                if (x.charAt(4) == 'X') {
+                    try {
+                        taskHolder[0].markDone(newCount);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                trace++;
-            }
+            });
+            newTask = taskHolder[0];
         } catch (FileNotFoundException e) {
             newTask = new TaskTracker();
         }
