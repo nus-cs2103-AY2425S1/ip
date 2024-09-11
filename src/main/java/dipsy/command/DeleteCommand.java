@@ -41,12 +41,13 @@ public class DeleteCommand extends Command {
     public String execute() throws InvalidCommandException {
         Matcher matcher = DELETE_PATTERN.matcher(userInput);
 
-        if (matcher.matches()) {
-            int index = Integer.parseInt(matcher.group(1));
-            Task deletedTask = tasks.deleteTask(index);
-            return ui.getTaskDeletedMessage(deletedTask, tasks.getSize());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
         }
+
+        int index = Integer.parseInt(matcher.group(1));
+        Task deletedTask = tasks.deleteTask(index);
+
+        return ui.getTaskDeletedMessage(deletedTask, tasks.getSize());
     }
 }

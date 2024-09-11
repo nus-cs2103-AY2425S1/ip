@@ -30,6 +30,10 @@ public abstract class Command {
         this.userInput = userInput;
         this.tasks = tasks;
         this.ui = ui;
+
+        assert userInput != null : "User input should not be null";
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
     }
 
     /**

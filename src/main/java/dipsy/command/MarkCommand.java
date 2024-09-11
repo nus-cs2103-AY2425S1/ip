@@ -39,21 +39,25 @@ public class MarkCommand extends Command {
     @Override
     public String execute() throws InvalidCommandException {
         Matcher markMatcher = MARK_PATTERN.matcher(super.userInput);
+
         if (!markMatcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_COMMAND);
         }
+
         String action = markMatcher.group(1);
+
         int userGivenIndex = Integer.parseInt(markMatcher.group(2));
-        int index = userGivenIndex - 1; // Since tasks are 0-indexed.
-        if (index >= 0 && index < tasks.getSize()) {
-            if (action.equals("mark")) {
-                return markTaskAsDone(index);
-            } else {
-                return markTaskAsUndone(index);
-            }
-        } else {
+        int taskIndex = userGivenIndex - 1; // Since tasks are 0-indexed.
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
         }
+
+        if (action.equals("mark")) {
+            return markTaskAsDone(taskIndex);
+        } else {
+            return markTaskAsUndone(taskIndex);
+        }
+
     }
 
     /**
@@ -65,6 +69,9 @@ public class MarkCommand extends Command {
      */
     private String markTaskAsDone(int index) {
         Task task = tasks.getTask(index);
+
+        assert task != null : "Task should not be null";
+
         task.markAsDone();
         saveTasksToLocalDisk();
         return ui.getMarkTaskDoneMessage(task);
@@ -80,6 +87,9 @@ public class MarkCommand extends Command {
      */
     private String markTaskAsUndone(int index) {
         Task task = tasks.getTask(index);
+
+        assert task != null : "Task should not be null";
+
         task.markAsUndone();
         saveTasksToLocalDisk();
         return ui.getMarkTaskUndoneMessage(task);

@@ -38,13 +38,15 @@ public class TodoCommand extends Command {
     @Override
     public String execute() throws InvalidCommandException {
         Matcher matcher = TODO_PATTERN.matcher(userInput);
-        if (matcher.matches()) {
-            String description = matcher.group(1);
-            ToDo todo = new ToDo(description);
-            tasks.addTask(todo);
-            return ui.getTaskAddedMessage(todo, tasks.getSize());
-        } else {
+
+        if (!matcher.matches()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_TODO);
         }
+
+        String description = matcher.group(1);
+        ToDo todo = new ToDo(description);
+        tasks.addTask(todo);
+
+        return ui.getTaskAddedMessage(todo, tasks.getSize());
     }
 }
