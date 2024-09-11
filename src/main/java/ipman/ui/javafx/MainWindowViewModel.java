@@ -41,6 +41,7 @@ public class MainWindowViewModel {
     }
 
     private void addMessage(String message) {
+        assert !message.isBlank();
         this.messages.add(new Message(MessageAuthor.SYSTEM, message));
     }
 
