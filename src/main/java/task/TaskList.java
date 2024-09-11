@@ -25,6 +25,7 @@ public class TaskList {
      * @return Task marked as done.
      */
     public Task markTask(int taskIndex) {
+        assert(taskIndex >= 0 && taskIndex < tasks.size());
         tasks.get(taskIndex).mark();
         return tasks.get(taskIndex);
     }
@@ -36,6 +37,7 @@ public class TaskList {
      * @return Task marked as undone.
      */
     public Task unmarkTask(int taskIndex) {
+        assert(taskIndex >= 0 && taskIndex < tasks.size());
         tasks.get(taskIndex).unmark();
         return tasks.get(taskIndex);
     }
@@ -47,6 +49,8 @@ public class TaskList {
      * @return Task deleted.
      */
     public Task deleteTask(int taskIndex) {
+        assert(taskIndex >= 0 && taskIndex < tasks.size());
+        assert(false);
         Task task = tasks.get(taskIndex);
         tasks.remove(taskIndex);
         return task;
