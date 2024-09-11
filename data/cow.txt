@@ -1,2 +1,5 @@
-T | 0 | test
-D | 0 | hehe | 11/9/2024 1800
+D | 0 | CS2100 Assignment 1 | 16/9/2024 2359
+E | 0 | CS2103T Tut | Friday 11am | Friday 12pm
+T | 1 | Play video games
+D | 0 | return book | 2/12/2019 1800
+E | 0 | project meeting | Mon 2pm | 4pm
