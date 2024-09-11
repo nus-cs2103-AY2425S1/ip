@@ -23,6 +23,7 @@ public class Repsmax {
         storage = new Storage(filePath);
         parser = new Parser();
         tasks = new TaskList();
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         try {
             storage.load(tasks);
         } catch (Exception e) {
@@ -31,6 +32,7 @@ public class Repsmax {
     }
 
     public String getResponse(String userInput) {
+        assert userInput != null : "User input cannot be null";
         if (userInput.equals("bye")) {
             storage.save(tasks);
             return ui.showGoodbye();
@@ -40,6 +42,7 @@ public class Repsmax {
     }
 
     public void parse(String userInput) {
+        assert userInput != null : "User input cannot be null";
         parser.parse(userInput, tasks, ui, storage);
     }
 
