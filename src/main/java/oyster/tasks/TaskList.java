@@ -1,6 +1,8 @@
 package oyster.tasks;
 
 import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * TaskList class that holds Tasks.
@@ -95,6 +97,17 @@ public class TaskList {
         @SuppressWarnings("unchecked")
         ArrayList<Task> copy = (ArrayList<Task>) tasks.clone();
         return copy;
+    }
+
+    /**
+     * Performs a mapping function over the TaskList.
+     *
+     * @return A copy of the ArrayList after mapping is applied.
+     */
+    public ArrayList<Task> map(Function<Task, Task> mapper) {
+        return getItems().stream()
+            .map(mapper)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
