@@ -1,8 +1,9 @@
 package Gary.command;
 
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
+
 
 /**
  * Represents a ByeCommand which terminates the application.

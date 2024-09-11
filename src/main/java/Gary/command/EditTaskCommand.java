@@ -1,9 +1,10 @@
 package Gary.command;
 
 import java.io.IOException;
+
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
 import Gary.task.Task;
 
 /**
@@ -12,9 +13,11 @@ import Gary.task.Task;
  */
 public class EditTaskCommand extends Command {
 
-    private boolean isDone;  // Flag indicating whether to mark or unmark the task as done
+    // Flag indicating whether to mark or unmark the task as done
+    private boolean isDone;
 
-    private int index;  // The index of the task to be edited
+    // The index of the task to be edited
+    private int index;
 
     /**
      * Constructs an {@code EditTaskCommand} object with the specified status and task index.

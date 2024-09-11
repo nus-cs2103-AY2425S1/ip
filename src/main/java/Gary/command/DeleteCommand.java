@@ -1,9 +1,10 @@
 package Gary.command;
 
 import java.io.IOException;
+
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
 import Gary.task.Task;
 
 /**

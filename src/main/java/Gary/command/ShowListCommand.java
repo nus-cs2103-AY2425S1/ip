@@ -1,8 +1,8 @@
 package Gary.command;
 
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
 
 /**
  * Represents a command to display the current list of tasks to the user.

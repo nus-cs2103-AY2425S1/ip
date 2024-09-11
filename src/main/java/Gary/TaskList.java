@@ -2,17 +2,21 @@ package Gary;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import Gary.task.Task;
-import Gary.task.ToDo;
+
 import Gary.task.Deadline;
 import Gary.task.Event;
+import Gary.task.Task;
+import Gary.task.ToDo;
+
 
 /**
  * The {@code TaskList} class manages a list of tasks, providing functionalities
  * to add, remove, and retrieve tasks. It also supports initializing tasks from a file.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;  // List to store tasks
+
+    // List to store tasks
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.

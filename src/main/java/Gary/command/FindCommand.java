@@ -1,11 +1,12 @@
 package Gary.command;
 
+import java.util.ArrayList;
+
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
 import Gary.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The {@code FindCommand} class represents a command to find tasks containing a specified keyword.
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
 
-    private String keyword;  // The keyword to search for in task descriptions
+    // The keyword to search for in task descriptions
+    private String keyword;
 
     /**
      * Constructs a {@code FindCommand} object with the specified keyword to search for.
