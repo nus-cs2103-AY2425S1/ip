@@ -1,28 +1,27 @@
 package potong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import potong.command.AddCommand;
 import potong.command.Command;
 import potong.command.DeleteCommand;
 import potong.command.ExitCommand;
+import potong.command.FindCommand;
 import potong.command.ListCommand;
 import potong.command.MarkCommand;
-import potong.command.FindCommand;
-
 import potong.exceptions.IllegalInputPotongException;
-
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.Task;
 import potong.task.ToDoTask;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+
 
 /**
  * Class with static methods to parse the user inputs.
  */
 public class Parser {
-
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");

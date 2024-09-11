@@ -47,6 +47,9 @@ public class Potong {
         }
     }
 
+    public String getResponse(String input) {
+        return "HSDHF";
+    }
     public static void main(String[] args) {
         new Potong().run();
     }
