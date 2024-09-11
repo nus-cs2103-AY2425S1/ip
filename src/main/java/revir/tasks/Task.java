@@ -37,4 +37,12 @@ public class Task implements Serializable {
     public String toString() {
         return (completed ? "[X] " : "[ ] ") + description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task task) {
+            return this.description.equals(task.description);
+        }
+        return false;
+    }
 }
