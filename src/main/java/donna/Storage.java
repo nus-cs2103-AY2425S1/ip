@@ -1,7 +1,5 @@
 package donna;
 
-import donna.task.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import donna.task.Deadline;
+import donna.task.Event;
+import donna.task.Task;
+import donna.task.TaskList;
+import donna.task.ToDo;
 /**
  * Handles the saving and loading of tasks to and from a file.
  * Manages the file and directory paths for storing task data.
@@ -87,6 +90,8 @@ public class Storage {
                 case "E":
                     task = new Event(inWords[2], inWords[3], inWords[4]);
                     break;
+                default:
+                    throw DonnaException.invalidTaskType(taskType);
                 }
 
                 if (task != null) {
@@ -96,7 +101,7 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-        } catch (IOException | ArrayIndexOutOfBoundsException |DonnaException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException | DonnaException e) {
             return new ArrayList<Task>(); //return empty arrayList to start afresh
         }
         return tasks;

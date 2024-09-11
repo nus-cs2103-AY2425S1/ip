@@ -1,13 +1,13 @@
 package donna;
 
+import java.io.IOException;
+
 import donna.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * GUI for Donna using FXML
@@ -20,9 +20,7 @@ public class Main extends Application {
      * Starts the JavaFX application by setting up the scene and stage.
      *
      * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     *        the application scene can be set.
      */
     @Override
     public void start(Stage stage) {

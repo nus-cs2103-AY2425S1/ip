@@ -1,10 +1,9 @@
 package donna.task;
 
-import donna.DonnaException;
-import donna.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import donna.DonnaException;
 
 /**
  * Represents a list of tasks.

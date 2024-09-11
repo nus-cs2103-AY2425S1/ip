@@ -1,9 +1,9 @@
 package donna;
 
+import java.util.List;
+
 import donna.task.Task;
 import donna.task.TaskList;
-
-import java.util.List;
 
 /**
  * Contains user interface methods for interacting with the application.
@@ -16,11 +16,11 @@ public class Ui {
         this.wasDataLoaded = wasDataLoaded;
     }
 
-    static private String dashedLine() {
+    private static String dashedLine() {
         return "____________________________________________________________________\n";
     }
 
-    static private String donnaLogo() {
+    private static String donnaLogo() {
         return " __      \n"
                 + "|  _  \\  __  _ __   _ _   __  \n"
                 + "|  |  |  | / _ \\| '_  \\ | '_ \\ / _` |\n"
@@ -36,7 +36,6 @@ public class Ui {
      */
     public String getGreeting() {
         StringBuilder greeting = new StringBuilder();
-//        greeting.append(donnaLogo());
         if (wasDataLoaded) {
             greeting.append("Hello! I'm Donna, I know everything :)\n");
             greeting.append("We have had a chat before! Let's resume :)\n");
@@ -86,7 +85,7 @@ public class Ui {
         StringBuilder message = new StringBuilder();
         message.append("Alright. The following task has been deleted: \n");
         message.append("    ").append(task);
-        if (taskCount != 1){
+        if (taskCount != 1) {
             message.append("You now have ").append(taskCount).append(" tasks in the list.\n");
         } else {
             message.append("You now have 1 task left in the list.");
@@ -139,7 +138,7 @@ public class Ui {
      * @return The generated error message.
      */
     public String getErrorMessage(String message) {
-        return  message + "\n";
+        return message + "\n";
     }
 
     /**
@@ -148,7 +147,7 @@ public class Ui {
      * @param tasks The list of tasks that match the search.
      * @return The results of the user's search.
      */
-    public String FindResults(List<Task> tasks) {
+    public String findResults(List<Task> tasks) {
         StringBuilder results = new StringBuilder();
         results.append(results);
         if (tasks.isEmpty()) {

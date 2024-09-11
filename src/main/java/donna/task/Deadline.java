@@ -1,10 +1,10 @@
 package donna.task;
 
-import donna.DonnaException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import donna.DonnaException;
 
 /**
  * Represents a Deadline task which includes a description and a due date/time.
