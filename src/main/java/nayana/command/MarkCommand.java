@@ -24,8 +24,11 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NayanaException {
+        assert tasks != null;
         Task task = tasks.markAsDone(index);
+        assert storage != null;
         storage.writeToFile(tasks.getTasks());
+        assert ui != null;
         ui.printMarkTask(task);
     }
 
