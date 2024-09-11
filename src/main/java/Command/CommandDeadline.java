@@ -9,6 +9,8 @@ import exception.BlitzException;
 import task.Deadline;
 import task.Task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a "deadline" command in the Blitz application.
  */
@@ -24,6 +26,8 @@ public class CommandDeadline extends Command {
         super(values[0]);
         this.parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);
+
+        assert parameters.length == 2 : "CommandDeadline requires exactly two parameters";
     }
 
     /**
@@ -37,7 +41,12 @@ public class CommandDeadline extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task taskToAdd = new Deadline(parameters[0], "D", Task.convertStringToLocalDateTime(parameters[1]), false);
+        String description = parameters[0];
+        LocalDateTime dateTime = Task.convertStringToLocalDateTime(parameters[1]);
+
+        assert !description.isBlank() : "Deadline description must not be blank";
+
+        Task taskToAdd = new Deadline(description, "D", dateTime, false);
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);

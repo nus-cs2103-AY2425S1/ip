@@ -63,6 +63,9 @@ public class Ui {
 
         for (int i = 0; i < matchedTaskList.getSize(); i++) {
             Task curr = matchedTaskList.getTask(i);
+
+            assert curr != null : "Task in task list must not be null";
+
             string += "    " + (i + 1) + ".[" + curr.getType() + "]"
                     + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr + "\n";
         }
@@ -81,6 +84,9 @@ public class Ui {
 
         for (int i = 0; i < taskList.getSize(); i++) {
             Task curr = taskList.getTask(i);
+
+            assert curr != null : "Task in task list must not be null";
+
             string += "    " + (i + 1) + ".[" + curr.getType() + "]"
                     + "[" + (curr.isDone() ? "X" : " ") + "] " + curr + "\n";
         }

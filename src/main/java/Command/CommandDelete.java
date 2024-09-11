@@ -47,6 +47,9 @@ public class CommandDelete extends Command {
             }
 
             Task deletedTask = list.deleteTask(index);
+
+            assert deletedTask != null : "Task deleted must not be null";
+
             storage.writeAllToFile(list);
 
             return ui.getStringForTaskDeleted(deletedTask);

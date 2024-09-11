@@ -56,6 +56,8 @@ public class Parser {
                     throw new BlitzInvalidParameterMoreThanOneException("mark [Integer]");
                 }
 
+                assert markParameters.length == 1 : "Mark command should have exactly one parameter";
+
                 return new CommandMark(command, markParameters[0]);
             case "unmark":
                 String[] unmarkParameters = commandParts[1].split(" ");
@@ -64,8 +66,12 @@ public class Parser {
                     throw new BlitzInvalidParameterMoreThanOneException("unmark [Integer]");
                 }
 
+                assert unmarkParameters.length == 1 : "Unmark command should have exactly one parameter";
+
                 return new CommandUnmark(command, unmarkParameters[0]);
             case "todo":
+                assert commandParts.length == 2 : "Todo command should have exactly one parameter";
+
                 return new CommandTodo(command, commandParts[1]);
             case "deadline":
                 if (!isRegexMatched(
@@ -76,6 +82,8 @@ public class Parser {
                 }
 
                 String[] deadlineParameters = commandParts[1].split(" /by ");
+
+                assert deadlineParameters.length == 2 : "Deadline command should have exactly two parameters separated by '/by'";
 
                 return new CommandDeadline(command, deadlineParameters[0], deadlineParameters[1]);
             case "event":
@@ -92,6 +100,9 @@ public class Parser {
                 String[] fromParameters = commandParts[1].split(" /from ");
                 String[] toParameters = fromParameters[1].split(" /to ");
 
+                assert fromParameters.length == 2 : "Event command should have exactly two parameters separated by '/from'";
+                assert toParameters.length == 2 : "Event command should have exactly two parameters separated by '/to'";
+
                 return new CommandEvent(command, fromParameters[0], toParameters[0], toParameters[1]);
             case "delete":
                 String[] deleteParameters = commandParts[1].split(" ");
@@ -100,8 +111,12 @@ public class Parser {
                     throw new BlitzInvalidParameterMoreThanOneException("Delete [Integer]");
                 }
 
+                assert deleteParameters.length == 1 : "Delete command should have exactly one parameter";
+
                 return new CommandDelete(command, deleteParameters[0]);
             case "find":
+                assert commandParts.length == 2 : "Find command should have exactly one parameter";
+
                 return new CommandFind(command, commandParts[1]);
             default:
                 throw new BlitzCommandDoesNotExistException();

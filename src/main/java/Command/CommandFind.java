@@ -40,6 +40,10 @@ public class CommandFind extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+        if (list.isEmpty()) {
+            throw new BlitzEmptyTaskListException();
+        }
+
         ArrayList<Task> allTasks = list.getAllTask();
 
         TaskList matchedTasks = TaskList.convertStringListToTaskList(allTasks.stream()
@@ -47,7 +51,7 @@ public class CommandFind extends Command {
                 .filter(str -> str.contains(this.parameter))
                 .collect(Collectors.toCollection(ArrayList::new)));
 
-        if (matchedTasks.getSize() == 0) {
+        if (matchedTasks.isEmpty()) {
             throw new BlitzEmptyTaskListException();
         }
 

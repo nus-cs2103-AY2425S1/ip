@@ -20,6 +20,8 @@ public class Blitz {
         this.ui = new Ui();
         this.storage = new Storage(path);
         this.taskList = storage.readFromFile();
+
+        assert this.taskList != null : "TaskList must be properly initialized after reading from file";
     }
 
 
@@ -34,6 +36,8 @@ public class Blitz {
             Command c = Parser.parse(inp);
 
             this.taskList = storage.readFromFile();
+
+            assert this.taskList != null : "TaskList must be properly initialized after reading from file";
 
             return c.execute(this.taskList, this.ui, this.storage);
         } catch (BlitzException e) {
