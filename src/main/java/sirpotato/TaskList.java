@@ -1,6 +1,10 @@
 package sirpotato;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A custom class to hold the list of tasks
@@ -95,6 +99,22 @@ public class TaskList {
 
     public int getSizeOfList() {
         return this.toDoList.size();
+    }
+
+    
+    public TaskList sortBy(String categoryToSortBy) {
+        if (categoryToSortBy.equals("deadline")) {
+            ArrayList<Task> deadlineTasks = toDoList.stream()
+                                   .filter(Task::isDeadline)
+                                   .collect(Collectors.toCollection(ArrayList::new));
+            
+            Collections.sort(deadlineTasks, Comparator.comparing(task -> ((Deadline) task).getByDate()));
+            return new TaskList(new ArrayList<Task>(deadlineTasks));
+        } else if (categoryToSortBy.equals("description")) {
+            Collections.sort(toDoList, Comparator.comparing(Task::displayDescription));
+            return this;
+        }
+        return new TaskList();
     }
 
 }

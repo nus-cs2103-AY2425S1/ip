@@ -50,4 +50,8 @@ public class Task {
     public boolean containsString(String searchString) {
         return description.contains(searchString);
     }
+
+    public boolean isDeadline() {
+        return false;
+    }
 }

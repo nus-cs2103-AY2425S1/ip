@@ -54,7 +54,13 @@ class Parser {
             if (userInput.length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
             } 
-        } else if (!userInput.equals("bye") && !userInput.equals("list") && 
+        } else if (userInput.startsWith("sort")) {
+            String[] sectionedString = userInput.split(" ");
+            String categoryToSortBy = sectionedString[1];
+            if (!(categoryToSortBy.equals("description") || categoryToSortBy.equals("deadline"))) {
+                throw new DukeException("You have to sort by description or deadline");
+            }
+        }else if (!userInput.equals("bye") && !userInput.equals("list") && 
                    !userInput.startsWith("mark") && !userInput.startsWith("unmark")
                    && !userInput.startsWith("find")) {
             throw new DukeException("I'm sorry, that is not a valid input");
@@ -113,6 +119,10 @@ class Parser {
             String[] sectionedString = userInput.split(" ");
             int itemToDelete = Integer.parseInt(sectionedString[1]) - 1;
             return new DeleteCommand(itemToDelete);
+        } else if (userInput.startsWith("sort")) {
+            String[] sectionedString = userInput.split(" ");
+            String categoryToSortBy = sectionedString[1];
+            return new SortCommand(categoryToSortBy);
         } else {
             throw new DukeException("That is not valid input mate. Please have another go.");
         }
