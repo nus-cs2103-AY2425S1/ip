@@ -7,21 +7,21 @@ import java.time.format.DateTimeFormatter;
  * Represents a Task with a start and end date and time.
  */
 public class Event extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     /**
      * Constructs an Event Task with the specified details.
      *
      * @param taskName The name or description of the task.
      * @param isCompleted A boolean indicating whether the task is completed.
-     * @param start The start date and time of the event as a LocalDateTime object.
-     * @param end The end date and time of the event as a LocalDateTime object.
+     * @param startTime The start date and time of the event as a LocalDateTime object.
+     * @param endTime The end date and time of the event as a LocalDateTime object.
      */
-    public Event(String taskName, boolean isCompleted, LocalDateTime start, LocalDateTime end) {
+    public Event(String taskName, boolean isCompleted, LocalDateTime startTime, LocalDateTime endTime) {
         super(taskName, isCompleted);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -35,8 +35,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + " to: "
-                + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + ")";
+                + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + " to: "
+                + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + ")";
     }
 
     /**
@@ -48,8 +48,8 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         return "[E]" + super.toString() + " /from "
-                + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
-                + " /to " + this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                + this.startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                + " /to " + this.endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
 

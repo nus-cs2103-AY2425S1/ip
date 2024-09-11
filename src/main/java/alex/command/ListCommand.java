@@ -22,16 +22,6 @@ public class ListCommand extends Command {
         return ui.showTasks(tasks, "Here are the tasks in your list: ");
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return false as user is not done yet.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public String getCommandType() {
         return "";

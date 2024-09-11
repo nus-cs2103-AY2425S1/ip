@@ -42,16 +42,6 @@ public class FindCommand extends Command {
         return tasks.findWord(String.join(" ", arrOfStr), ui);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return false as the user does not wish to exit the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public String getCommandType() {
         return "FindCommand";

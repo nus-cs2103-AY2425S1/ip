@@ -41,14 +41,11 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
-        case "mark":
-        case "unmark":
+        case "mark", "unmark":
             return new MarkCommand(lineScanner, response);
         case "delete":
             return new DeleteCommand(lineScanner);
-        case "todo":
-        case "deadline":
-        case "event":
+        case "todo", "deadline", "event":
             return new AddCommand(lineScanner, response);
         case "find":
             return new FindCommand(lineScanner);

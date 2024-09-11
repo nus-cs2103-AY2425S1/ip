@@ -13,7 +13,7 @@ import alex.task.TaskList;
  */
 public class MarkCommand extends Command {
     private Scanner lineScanner;
-    private String mark;
+    private String response;
 
     /**
      * Constructs a MarkCommand instance.
@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(Scanner lineScanner, String response) {
         this.lineScanner = lineScanner;
-        this.mark = response;
+        this.response = response;
     }
 
     /**
@@ -65,21 +65,11 @@ public class MarkCommand extends Command {
             throw new AlexException("Oh no! Please provide a correct task number to mark or unmark!");
         }
 
-        if (this.mark.equals("mark")) {
+        if (this.response.equals("mark")) {
             return tasks.mark(taskNumber, storage, ui);
         } else {
             return tasks.unmark(taskNumber, storage, ui);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return false as user is not done yet.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
     @Override

@@ -1,12 +1,11 @@
-[T][ ] sing a song
-[E][ ] go to mall /from 2024-07-24 1700 /to 2024-07-24 1730
-[D][ ] water the plants /by 2024-10-07 1400
+[T][X] sing a song
+[D][X] water the plants /by 2024-10-07 1400
 [D][X] wash clothes /by 2024-10-19 1604
-[E][ ] olympics volleyball /from 2024-08-18 1704 /to 2025-01-10 1922
 [T][ ] the gym activities with the broskis
-[T][ ] hail the king
 [T][ ] water
-[T][ ] watch lecture
+[T][X] watch lecture
 [T][ ] waves
 [E][ ] teach students /from 2024-02-29 1019 /to 2024-01-10 1744
 [D][ ] ride the bike /by 2030-10-12 1700
+[T][ ] tasks
+[D][ ] stuff /by 2030-07-10 1744

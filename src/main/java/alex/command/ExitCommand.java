@@ -24,16 +24,6 @@ public class ExitCommand extends Command {
         return ui.showGoodbye();
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return true as the user wishes to exit the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
-
     @Override
     public String getCommandType() {
         return "ExitCommand";

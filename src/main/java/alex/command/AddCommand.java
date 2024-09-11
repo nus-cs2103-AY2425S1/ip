@@ -70,16 +70,6 @@ public class AddCommand extends Command {
         return ui.showMessage("Got it. I've added this task: ", task, tasks.getSize());
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return false as user is not done yet.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public String getCommandType() {
         return "AddCommand";

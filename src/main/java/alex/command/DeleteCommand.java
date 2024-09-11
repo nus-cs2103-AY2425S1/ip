@@ -65,16 +65,6 @@ public class DeleteCommand extends Command {
         return tasks.delete(taskNumber, storage, ui);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return false as the user is not done yet.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public String getCommandType() {
         return "DeleteCommand";

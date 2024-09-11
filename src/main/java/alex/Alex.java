@@ -21,9 +21,6 @@ public class Alex {
      * Loads existing tasks from the specified file path.
      *
      * @param filePath The path to the file where tasks are stored.
-     * @throws AlexException If there is an error specific to the Alex application.
-     * @throws FileNotFoundException If the file specified by filePath is not found.
-     * @throws DateTimeParseException If there is an error parsing the date in the task list.
      */
     public Alex(String filePath) {
         this.ui = new Ui();

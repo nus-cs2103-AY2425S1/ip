@@ -25,13 +25,6 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException;
 
     /**
-     * Returns a boolean value that tells the chatbot whether to terminate its operations or not.
-     *
-     * @return True if the chatbot should terminate operations, otherwise false.
-     */
-    public abstract boolean isExit();
-
-    /**
      * Returns the type of the command.
      *
      * @return A string representing the command type.
