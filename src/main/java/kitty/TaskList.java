@@ -6,9 +6,22 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<Task>(100);
+    private int numOfTasksDone;
+    private int numOfTasksNotDone;
+
+    public TaskList() {
+        numOfTasksDone = 0;
+        numOfTasksNotDone = 0;
+    }
 
     public int addTask(Task task) {
-        return tasks.add(task) ? tasks.size() : -1;
+        boolean isAdded = tasks.add(task);
+        if (!isAdded) {
+            return -1;
+        }
+
+        numOfTasksNotDone++;
+        return tasks.size();
     }
 
     public String deleteTask(int index) throws IndexOutOfBoundsException {
@@ -16,6 +29,12 @@ public class TaskList {
         Task tmp = tasks.get(index - 1);
         String note = tmp.toString();
         tasks.remove(index - 1);
+        if (tmp.isDone()) {
+            numOfTasksDone--;
+        } else {
+            numOfTasksNotDone--;
+        }
+
         str = String.format("  " + note + "\nNow you have " + tasks.size() + " tasks in the list.");
         return str;
     }
@@ -23,12 +42,18 @@ public class TaskList {
     public Task markDone(int index) throws IndexOutOfBoundsException {
         Task tmp = tasks.get(index - 1);
         tmp.mark();
+
+        numOfTasksDone++;
+        numOfTasksNotDone--;
         return tmp;
     }
 
     public Task markUndone(int index) throws IndexOutOfBoundsException {
         Task tmp = tasks.get(index - 1);
         tmp.unmark();
+
+        numOfTasksNotDone++;
+        numOfTasksDone--;
         return tmp;
     }
 

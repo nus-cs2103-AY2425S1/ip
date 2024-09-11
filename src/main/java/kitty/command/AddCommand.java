@@ -6,7 +6,7 @@ import kitty.TaskList;
 import kitty.Ui;
 import kitty.kittyexceptions.DeadlineException;
 import kitty.kittyexceptions.EventException;
-import kitty.kittyexceptions.KittyException;
+import kitty.kittyexceptions.TaskException;
 import kitty.tasks.Deadline;
 import kitty.tasks.Event;
 import kitty.tasks.Task;
@@ -14,10 +14,19 @@ import kitty.tasks.Todo;
 
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddCommand extends Command {
     private final String commandBody;
     private final Storage storage;
+    public static final Pattern TODO_PATTERN =
+            Pattern.compile("^todo\\s+(.+)\\s*$");
+    public static final Pattern DEADLINE_PATTERN =
+            Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*$");
+    public static final Pattern EVENT_PATTERN =
+            Pattern.compile("^event\\s+(.+)\\s+/from\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s+"
+                    + "/to\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*$");
 
     public AddCommand(Ui ui, TaskList taskList, String commandBody, Storage storage) {
         super(ui, taskList);
@@ -31,38 +40,20 @@ public class AddCommand extends Command {
         Task task;
 
         // create task if input is valid
-        try {
-            switch (parts[0]) {
-            case "todo" -> {
-                task = new Todo(parts[1].trim());
-            }
-            case "deadline" -> {
-                if (Parser.checkDeadline(parts[1].trim(), ui)) {
-                    String[] aux = Parser.parseDeadline(parts[1]);
-                    task = new Deadline(aux[0], Parser.parseDateTime(aux[1].trim()));
-                } else {
-                    throw new DeadlineException();
-                }
-            }
-            case "event" -> {
-                if (Parser.checkEvent(parts[1], ui)) {
-                    String[] aux = Parser.parseEvent(parts[1]);
-                    task = new Event(aux[0],
-                            Parser.parseDateTime(aux[1].trim()),
-                            Parser.parseDateTime(aux[2].trim()));
-                } else {
-                    throw new EventException();
-                }
-            }
-            default -> {
-                return "default addCommand";
-            }
-            }
-        } catch (KittyException e) {
-            return e.toString();
+        switch (parts[0]) {
+        case "todo" -> {
+            return handleTodo();
         }
-
-        return addTaskToList(task);
+        case "deadline" -> {
+            return handleDeadline();
+        }
+        case "event" -> {
+            return handleEvent();
+        }
+        default -> {
+            return "default addCommand";
+        }
+        }
     }
 
     private String addTaskToList(Task task) {
@@ -82,6 +73,47 @@ public class AddCommand extends Command {
                     + "This task is not updated to hard disk.";
             return ui.showErrorMessage(fileWritingFailMessage);
         }
+    }
 
+    private String handleTodo() {
+        Matcher matcher = TODO_PATTERN.matcher(commandBody);
+
+        if (!matcher.matches()) {
+            return new TaskException().toString();
+        }
+
+        String name = matcher.group(1);
+        Task tmp = new Todo(name);
+
+        return addTaskToList(tmp);
+    }
+
+    private String handleDeadline() {
+        Matcher matcher = DEADLINE_PATTERN.matcher(commandBody);
+
+        if (!matcher.matches()) {
+            return new DeadlineException().toString();
+        }
+
+        String name = matcher.group(1);
+        String dateTime = matcher.group(2);
+
+        Task tmp = new Deadline(name, Parser.parseDateTime(dateTime));
+        return addTaskToList(tmp);
+    }
+
+    private String handleEvent() {
+        Matcher matcher = EVENT_PATTERN.matcher(commandBody);
+
+        if (!matcher.matches()) {
+            return new EventException().toString();
+        }
+
+        String name = matcher.group(1);
+        String from = matcher.group(2);
+        String to = matcher.group(3);
+
+        Task tmp = new Event(name, Parser.parseDateTime(from), Parser.parseDateTime(to));
+        return addTaskToList(tmp);
     }
 }

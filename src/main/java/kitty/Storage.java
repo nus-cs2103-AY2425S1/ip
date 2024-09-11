@@ -45,12 +45,12 @@ public class Storage {
         Task tmp;
 
         switch (aux[0].trim()) {
-        case "T" -> tmp = new Todo(aux[2]);
-        case "D" -> tmp = new Deadline(aux[2],
-                LocalDateTime.parse(aux[3], Parser.DATE_TIME_FORMAT));
-        case "E" -> tmp = new Event(aux[2],
-                LocalDateTime.parse(aux[3], Parser.DATE_TIME_FORMAT),
-                LocalDateTime.parse(aux[4], Parser.DATE_TIME_FORMAT));
+        case "T" -> tmp = new Todo(aux[2].trim());
+        case "D" -> tmp = new Deadline(aux[2].trim(),
+                LocalDateTime.parse(aux[3].trim(), Parser.DATE_TIME_FORMAT));
+        case "E" -> tmp = new Event(aux[2].trim(),
+                LocalDateTime.parse(aux[3].trim(), Parser.DATE_TIME_FORMAT),
+                LocalDateTime.parse(aux[4].trim(), Parser.DATE_TIME_FORMAT));
         default -> {
             return null;
         }

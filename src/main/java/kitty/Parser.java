@@ -15,9 +15,15 @@ import kitty.kittyexceptions.MarksException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 public class Parser {
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+    public static final Pattern INDEX_COMMAND_PATTERN =
+            Pattern.compile("(mark|unmark|delete)\\\\s+(\\\\d+)\\s*$");
+    public static final Pattern FIND_PATTERN =
+            Pattern.compile("^find\\s+(.+)$\\s*");
 
     public static String parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException,
             MarksException, NumberFormatException, IndexOutOfBoundsException {
@@ -42,6 +48,7 @@ public class Parser {
         }
         }
     }
+
 
     public static boolean checkDeadline(String str, Ui ui) {
         try {
