@@ -37,5 +37,4 @@ public enum Command {
             return INVALID;
         }
     }
-
 }
