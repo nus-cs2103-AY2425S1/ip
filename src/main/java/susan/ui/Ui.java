@@ -3,8 +3,6 @@ package susan.ui;
 import susan.task.Task;
 import susan.task.TaskList;
 
-import java.util.Scanner;
-
 /**
  * Deals with interactions with the user.
  */
@@ -16,8 +14,10 @@ public class Ui {
      * Greets the user.
      */
     public String showWelcome() {
-        return "Hi there, I'm Susan!\n"
-            + "How may I help you be productive today?\n";
+        return """
+                Hi there, I'm Susan!
+                How may I help you be productive today?
+                """;
     }
 
     /**
@@ -81,5 +81,13 @@ public class Ui {
             return "Here are the matching tasks in your list:\n"
                 + tasks.printList();
         }
+    }
+
+    public String showReminders(TaskList tasks) {
+        if (tasks.size() == 0) {
+            return "Woohoo! No work for the next 3 days!";
+        }
+        return "The following tasks are due soon!\n"
+            + tasks.printList();
     }
 }

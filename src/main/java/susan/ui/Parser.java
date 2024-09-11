@@ -28,6 +28,8 @@ public class Parser {
             return new MarkCommand(commandParts, false);
         case "find":
             return new FindCommand(commandParts);
+        case "remindme":
+            return new RemindCommand();
         case "bye":
             return new ExitCommand();
         default:

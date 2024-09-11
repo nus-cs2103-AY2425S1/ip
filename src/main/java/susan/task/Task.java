@@ -1,5 +1,7 @@
 package susan.task;
 
+import java.time.LocalDate;
+
 /**
  * Class representing tasks to be added by user.
  */
@@ -29,6 +31,10 @@ public class Task {
      */
     public void undoMark() {
         this.isDone = false;
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.now().plusDays(7);
     }
 
     public String toString() {

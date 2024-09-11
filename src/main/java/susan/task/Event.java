@@ -1,5 +1,6 @@
 package susan.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -31,5 +32,10 @@ public class Event extends Task {
             + " to: "
             + to.format(DateTimeFormatter.ofPattern("h:mm a"))
             + ")";
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return from.toLocalDate();
     }
 }
