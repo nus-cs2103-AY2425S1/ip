@@ -9,106 +9,116 @@ import fence.tasklist.TaskList;
 public class Ui {
 
     /**
-     * Prints the default greeting.
+     * Returns the default greeting.
+     * @return Default greeting message.
      */
-    public void greet() {
-        System.out.println("nihao! I'm Fence |=|=|=|=|=|");
+    public String greet() {
+        return "nihao! I'm Fence |=|=|=|=|=|";
     }
 
     /**
-     * Prints the default goodbye message.
+     * Returns the default goodbye message.
+     * @return Default goodbye message.
      */
-    public void exit() {
-        System.out.println("have good day :)");
+    public String exit() {
+        return "have good day :)";
     }
 
     /**
-     * Prints out the tasks in the task list line by line. The starting index of the printed list is 1.
+     * Returns message containing the tasks in the task list line by line. The starting index of the list is 1.
      * @param tasks List of tasks currently.
+     * @return Message displaying the task list.
      */
-    public void list(TaskList tasks) {
-        System.out.println("!plans:");
+    public String list(TaskList tasks) {
+        String list = "!plans:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println(i + 1 + ". " + tasks.getTask(i));
+            list += i + 1 + ". " + tasks.getTask(i) + "\n";
         }
+        return list;
     }
 
     /**
-     * Prints out the size of the task list.
+     * Returns message containing the size of the task list.
      * @param size Size of the task list.
+     * @return Message displaying the size of the task list.
      */
-    public void count(int size) {
-        System.out.println("Now you have " + size + ((size == 1) ? " item " : " items ") + "in the list.");
+    public String count(int size) {
+        return "Now you have " + size + ((size == 1) ? " item " : " items ") + "in the list.";
     }
 
     /**
-     * Prints out the default message if command is not recognised.
+     * Returns the default message if command is not recognised.
+     * @return Default message for unrecognised command.
      */
-    public void printUnknownCommand() {
-        System.out.println("fence is programmed to track your tasks and has long lost all ability "
-                + "to do other things ");
+    public String printUnknownCommand() {
+        return "fence is programmed to track your tasks and has long lost all ability " + "to do other things ";
     }
 
     /**
-     * Prints out the error message for an input with invalid format.
+     * Returns the error message for an input with invalid format.
+     * @return Error message for input with invalid format.
      */
-    public void printMissingFieldError() {
-        System.out.println("doing nothing (field missing/invalid format)");
+    public String printMissingFieldError() {
+        return "doing nothing (field missing/invalid format)";
     }
 
     /**
-     * Prints out the error message for a date with invalid format.
+     * Returns the error message for a date with invalid format.
+     * @return Error message for date with invalid format.
      */
-    public void printInvalidDateError() {
-        System.out.println("fence only understands yyyy-mm-dd");
+    public String printInvalidDateError() {
+        return "fence only understands yyyy-mm-dd";
     }
 
     /**
-     * Prints out the error message for a number with invalid format.
+     * Returns the error message for a number with invalid format.
+     * @return Error message for number with invalid format.
      */
-    public void printInvalidNumberError() {
-        System.out.println("fence has only learnt numerical integers");
+    public String printInvalidNumberError() {
+        return "fence has only learnt numerical integers";
     }
 
     /**
-     * Prints out the error message for a data file with invalid format.
+     * Returns the error message for a data file with invalid format.
+     * @return Error message for data file with invalid format.
      */
-    public void printLoadingError() {
-        System.out.println("Data file corrupted");
+    public String printLoadingError() {
+        return "Data file corrupted";
     }
 
     /**
-     * Prints out the default message that a task has been added to the task list.
+     * Returns the default message that a task has been added to the task list.
      * @param task Task that was added.
+     * @return Message acknowledging that said task has been added.
      */
-    public void add(Task task) {
-        System.out.println("added: " + task);
+    public String add(Task task) {
+        return "added: " + task;
     }
 
     /**
-     * Prints out the default message that a task has been marked as done.
+     * Returns the default message that a task has been marked as done.
      * @param task Task that was marked complete.
+     * @return Message acknowledging that said task has been marked as done.
      */
-    public void mark(Task task) {
-        System.out.println("good job");
-        System.out.println(task);
+    public String mark(Task task) {
+        return "good job\n" + task;
     }
 
     /**
-     * Prints out the default message that a task has been marked as undone.
+     * Returns the default message that a task has been marked as undone.
      * @param task Task that was marked incomplete.
+     * @return Message acknowledging that said task has been marked as undone.
      */
-    public void unmark(Task task) {
-        System.out.println("huh?");
-        System.out.println(task);
+    public String unmark(Task task) {
+        return "huh?\n" + task;
     }
 
     /**
-     * Prints out the default message that a task has been removed.
+     * Returns the default message that a task has been removed.
      * @param task Task that was deleted.
+     * @return Message acknowledging that said task has been removed.
      */
-    public void delete(Task task) {
-        System.out.println("removed: " + task);
-        System.out.println("(we never make plans)");
+    public String delete(Task task) {
+        return "removed: " + task + "\n" + "(we never make plans)";
     }
 }
