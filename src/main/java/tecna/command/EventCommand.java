@@ -29,7 +29,13 @@ public class EventCommand extends Command {
 
         assert event != null;
         setIsSuccessful(true);
-        taskList.addItem(event);
+
+        try {
+            taskList.addItem(event);
+        } catch (tecna.exception.TaskDuplicateException e) {
+            return ui.printError(e.getMessage());
+        }
+
         return ui.printAddItemMsg(taskList, event);
     }
 

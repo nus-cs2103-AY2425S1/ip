@@ -23,7 +23,13 @@ public class ToDoCommand extends Command {
 
         assert toDo != null;
         setIsSuccessful(true);
-        taskList.addItem(toDo);
+
+        try {
+            taskList.addItem(toDo);
+        } catch (tecna.exception.TaskDuplicateException e) {
+            return ui.printError(e.getMessage());
+        }
+
         return ui.printAddItemMsg(taskList, toDo);
     }
 

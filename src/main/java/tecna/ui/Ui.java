@@ -1,6 +1,7 @@
 package tecna.ui;
 
 import tecna.collection.TaskList;
+import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
 
 public class Ui {
@@ -72,7 +73,11 @@ public class Ui {
     }
 
     public String printAddItemMsg(TaskList tasks, Task item) {
-        return tasks.addItem(item);
+        try {
+            return tasks.addItem(item);
+        } catch (TaskDuplicateException e) {
+            return printTaskDuplicateError(item);
+        }
     }
 
     public String printInvalidCmdError() {
@@ -85,6 +90,11 @@ public class Ui {
         StringBuilder sb = new StringBuilder("Oops! " + error);
         String msg = sb.toString();
         System.out.println(msg);
+        return msg;
+    }
+
+    public String printTaskDuplicateError(Task duplicateTask) {
+        String msg =  printError("This task already exists!\n") + duplicateTask;
         return msg;
     }
 }

@@ -4,6 +4,7 @@ import java.time.format.DateTimeParseException;
 
 import tecna.collection.TaskList;
 import tecna.exception.WrongFormatException;
+import tecna.exception.TaskDuplicateException;
 import tecna.storage.Storage;
 import tecna.task.Deadline;
 import tecna.ui.Ui;
@@ -29,7 +30,11 @@ public class DeadlineCommand extends Command {
 
         assert deadline != null;
         setIsSuccessful(true);
-        taskList.addItem(deadline);
+        try {
+            taskList.addItem(deadline);
+        } catch (TaskDuplicateException e) {
+            return ui.printError(e.getMessage());
+        }
         return ui.printAddItemMsg(taskList, deadline);
     }
 

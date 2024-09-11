@@ -22,4 +22,23 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        ToDo toDo = (ToDo) obj;
+        return taskName.equals(toDo.taskName);
+    }
+
+    @Override
+    public int hashCode() {
+        return taskName.hashCode();
+    }
 }

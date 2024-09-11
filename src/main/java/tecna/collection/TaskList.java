@@ -2,6 +2,7 @@ package tecna.collection;
 
 import java.util.ArrayList;
 
+import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
 
 public class TaskList {
@@ -44,8 +45,13 @@ public class TaskList {
      *
      * @param task extracted from the user input
      */
-    public String addItem(Task task) {
+    public String addItem(Task task) throws TaskDuplicateException {
         assert task != null;
+
+        if (isDuplicate(task)) {
+            throw new TaskDuplicateException();
+        }
+
         this.tasks.add(task);
         ++this.size;
         StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
@@ -54,6 +60,16 @@ public class TaskList {
         String response = sb.toString();
         System.out.println(response);
         return response;
+    }
+
+    public boolean isDuplicate(Task task) {
+        for (Task t : this.tasks) {
+            if (task.equals(t)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
