@@ -15,4 +15,5 @@ E 1 task 14 /from 2024-10-10 /to 2025-10-09
 T 1 task15
 T 0 Task16
 D 1 task17 /by 2024-10-20
-T 0 Task18
+T 1 Task18
+T 0 Task19
