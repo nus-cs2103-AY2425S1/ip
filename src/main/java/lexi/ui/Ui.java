@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import lexi.task.Task;
 
-
 /**
  * Handles all interactions with the user.
  * This class is responsible for displaying messages to the user and reading input from the user.
  */
 public class Ui {
+    public String showGreeting() {
+        return "Hi! I'm Lexi\nYour personal assistant in managing your schedule\n" + "How can I help you?";
+    }
 
     /**
      * Displays a goodbye message when the user exits the application.
@@ -25,6 +27,9 @@ public class Ui {
      * @param taskSize The total number of tasks in the list after adding this task.
      */
     public String showAddMessage(Task task, int taskSize) {
+        // Precondition: Ensure task is not null
+        assert task != null : "Task cannot be null.";
+
         return "Got it. I've added this task:\n"
                 + String.format("   %s%n", task)
                 + String.format("Now you have %d task%s in the list.%n", taskSize, taskSize == 1 ? "" : "s");
@@ -37,6 +42,9 @@ public class Ui {
      * @param taskSize The total number of tasks remaining in the list after deleting this task.
      */
     public String showDeleteMessage(Task task, int taskSize) {
+        // Precondition: Ensure task is not null
+        assert task != null : "Task cannot be null.";
+
         return "Noted. I've removed this task:\n"
                 + task
                 + "\n"
@@ -56,6 +64,9 @@ public class Ui {
      * @param taskToBeMarked The task that was marked as done.
      */
     public String showMarkMessage(Task taskToBeMarked) {
+        // Precondition: Ensure taskToBeMarked is not null
+        assert taskToBeMarked != null : "Task to be marked cannot be null.";
+
         return "Nice! I've marked this task as done:\n"
                 + "  " + taskToBeMarked;
     }
@@ -66,6 +77,9 @@ public class Ui {
      * @param taskToBeMarked The task that was unmarked.
      */
     public String showUnmarkMessage(Task taskToBeMarked) {
+        // Precondition: Ensure taskToBeMarked is not null
+        assert taskToBeMarked != null : "Task to be unmarked cannot be null.";
+
         return "OK, I've marked this task as not done yet:\n"
                 + "  " + taskToBeMarked;
     }
@@ -76,6 +90,9 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public String showListOfTasks(ArrayList<Task> tasks) {
+        // Precondition: Ensure tasks list is not null
+        assert tasks != null : "Tasks list cannot be null.";
+
         if (tasks.isEmpty()) {
             return "You have no tasks in your list!";
         } else {
@@ -95,6 +112,9 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public String showListOfMatchingTasks(ArrayList<Task> tasks) {
+        // Precondition: Ensure tasks list is not null
+        assert tasks != null : "Tasks list cannot be null.";
+
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task currtask = tasks.get(i);
@@ -109,6 +129,9 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String showError(String message) {
+        // Precondition: Ensure message is not null or empty
+        assert message != null && !message.isEmpty() : "Error message cannot be null or empty.";
+
         return "Error: " + message;
     }
 }

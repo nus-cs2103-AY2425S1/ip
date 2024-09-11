@@ -58,6 +58,11 @@ public class DialogBox extends HBox {
         db.changeDialogStyle(commandType);
         return db;
     }
+    public static DialogBox getLexiGreeting(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
     private void changeDialogStyle(String commandType) {
         switch (commandType) {
         case "AddCommand" -> dialog.getStyleClass().add("add-label");

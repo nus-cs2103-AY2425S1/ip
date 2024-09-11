@@ -25,9 +25,19 @@ public abstract class DatedTask extends Task {
      */
     public DatedTask(String taskName) {
         super(taskName);
+
+        // Precondition: Ensure task name is not null or empty
+        assert taskName != null && !taskName.isEmpty() : "Task name cannot be null or empty.";
     }
 
+    /**
+     * Returns the date and time formatter used by the task.
+     *
+     * @return The DateTimeFormatter for outputting the date and time.
+     */
     public DateTimeFormatter getOutputFormatter() {
+        // Ensure that the formatter is initialized
+        assert outputFormatter != null : "OutputFormatter should be initialized.";
         return DatedTask.outputFormatter;
     }
 }

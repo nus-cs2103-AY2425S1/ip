@@ -19,6 +19,14 @@ public class Event extends DatedTask {
      */
     public Event(String taskName, LocalDateTime from, LocalDateTime to) {
         super(taskName);
+
+        // Precondition: Ensure 'from' and 'to' are not null
+        assert from != null : "'from' date/time cannot be null.";
+        assert to != null : "'to' date/time cannot be null.";
+
+        // Precondition: Ensure 'from' is before 'to'
+        assert from.isBefore(to) : "'from' date/time must be before 'to' date/time.";
+
         this.from = from;
         this.to = to;
     }
@@ -48,6 +56,8 @@ public class Event extends DatedTask {
      * @return The formatted date and time as a string.
      */
     public String getFormattedDateAndTime(LocalDateTime range) {
+        // Precondition: Ensure the 'range' is not null
+        assert range != null : "Date/time range cannot be null.";
         return range.format(super.getOutputFormatter());
     }
 
