@@ -35,6 +35,7 @@ public class MainWindow extends AnchorPane {
     public void setCypher(Cypher c) {
         this.cypher = c;
         this.cypher.setMainWindow(this);
+        addDialogFromCypher("Hello! I am Cypher\nWhat can I do for you!");
     }
 
     /**

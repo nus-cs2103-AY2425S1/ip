@@ -1,22 +1,13 @@
 package cypherchatbot.util;
 
 import cypherchatbot.CypherException;
-import cypherchatbot.command.ByeCommand;
-import cypherchatbot.command.Command;
-import cypherchatbot.command.DeadlineCommand;
-import cypherchatbot.command.DeleteCommand;
-import cypherchatbot.command.EventCommand;
-import cypherchatbot.command.FindCommand;
-import cypherchatbot.command.HelpCommand;
-import cypherchatbot.command.ListCommand;
-import cypherchatbot.command.MarkCommand;
-import cypherchatbot.command.ToDoCommand;
-import cypherchatbot.command.UnmarkCommand;
+import cypherchatbot.command.*;
 
 public class CommandReader {
 
     private static enum Commands {
-        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP, DELETE, FIND
+        LIST, TODO, EVENT, DEADLINE, MARK,
+        UNMARK, BYE, HELP, DELETE, FIND, SORT
     }
 
     /**
@@ -29,7 +20,7 @@ public class CommandReader {
     public static Command parse(String input) throws CypherException {
         String[] command = input.split(" ", 2);
         try {
-            switch (Commands.valueOf(command[0].toUpperCase())) {
+            switch (Commands.valueOf(command[0].toUpperCase().trim())) {
             case LIST:
                 return new ListCommand();
             case TODO:
@@ -53,10 +44,11 @@ public class CommandReader {
                 return new DeleteCommand(delVal);
             case FIND:
                 return new FindCommand(command[1]);
+            case SORT:
+                return new SortCommand(command);
             default:
                 throw new CypherException(String.format("\"%s\" is not a valid command. "
-                            + "Type help in order to see the list of valid commands"
-                                + "(This feature is still under construction)\n", command[0]));
+                            + "Type help in order to see the list of valid commands", command[0]));
             }
         } catch (NumberFormatException exp) {
             throw new CypherException("That is not a valid command. You need to enter a valid integer. "

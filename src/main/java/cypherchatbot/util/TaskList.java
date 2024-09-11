@@ -1,8 +1,11 @@
 package cypherchatbot.util;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cypherchatbot.task.Task;
-
+import cypherchatbot.task.TaskComparator;
 
 
 /**
@@ -12,7 +15,6 @@ import cypherchatbot.task.Task;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-
     /**
      * Overloaded constructor that creates a TaskList class with an existing list of tasks.
      *
@@ -89,7 +91,6 @@ public class TaskList {
 
 
     public ArrayList<Task> filterTasks(String filter) {
-
         return (ArrayList<Task>) this.taskList.stream()
                                             .filter(x->x.toString().toLowerCase().contains(filter)).toList();
     }
@@ -99,7 +100,21 @@ public class TaskList {
      *
      * @return The total number of tasks in the list.
      */
+    public ArrayList<Task> sortAscending () {
+        Comparator<? super Task> comparator = new TaskComparator();
+        ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
+        sortedList.sort(comparator);
+        return sortedList;
+    }
 
+    public ArrayList<Task> sortDescending () {
+        Comparator<? super Task> comparator = new TaskComparator();
+        ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
+        sortedList.sort(comparator);
+        Collections.reverse(sortedList);
+
+        return sortedList;
+    }
     public int size() {
         return this.taskList.size();
     }

@@ -8,7 +8,7 @@ import cypherchatbot.task.Task;
 /**
  *  The UI class handles all interactions with the user for the Cypher Chat Bot Application such as
  *  reading user commands from the console, displaying various outputs depending on the command. All user
- *  interaction in the chatbot occurs in this class.
+ *  interaction in the ChatBot occurs in this class.
  * */
 public class Ui {
 
@@ -18,9 +18,6 @@ public class Ui {
     public Ui() {
     }
 
-    public String greet() {
-        return "Hello! I am Cypher\nWhat can I do for you!";
-    }
 
     /**
      * Displays a goodbye message to the user. The method being called indicates
@@ -96,6 +93,34 @@ public class Ui {
 
     public String showUnmarkedMessage(Task unmarkedTask) {
         return "Ok! I have marked this task as incomplete:\n " + unmarkedTask;
+    }
+
+    public String showAscendingMessage(ArrayList<Task> sortedList) {
+        if (sortedList.isEmpty()) {
+            return "You have no tasks to sort. Add some tasks";
+        } else {
+            StringBuilder str = new StringBuilder();
+            str.append("\nHere is your tasks sorted in ascending order separated by type:\n");
+            for (int i = 0; i < sortedList.size(); i++) {
+                str.append((i + 1)).append(". ").append(sortedList.get(i)).append("\n");
+            }
+            str.append("\n");
+            return str.toString();
+        }
+    }
+
+    public String showDescendingMessage(ArrayList<Task> sortedList) {
+        if (sortedList.isEmpty()) {
+            return "You have no tasks to sort. Add some tasks";
+        } else {
+            StringBuilder str = new StringBuilder();
+            str.append("\nHere is your tasks sorted in descending order separated by type:\n");
+            for (int i = 0; i < sortedList.size(); i++) {
+                str.append((i + 1)).append(". ").append(sortedList.get(i)).append("\n");
+            }
+            str.append("\n");
+            return str.toString();
+        }
     }
 
 
