@@ -41,10 +41,10 @@ public class Event extends Task {
     }
 
     public void setEventStart(LocalDateTime startTime) {
-        this.from = startTime;
+        this.eventStart = startTime;
     }
     public void setEventEnd(LocalDateTime endTime) {
-        this.to = endTime;
+        this.eventEnd = endTime;
     }
     @Override
     public String toString() {
