@@ -7,7 +7,7 @@ import rizz.task.ToDo;
 
 
 public class AddToDoCommand extends Command {
-    private String description;
+    private final String description;
 
     public AddToDoCommand(String description) {
         this.description = description;
