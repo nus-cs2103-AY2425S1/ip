@@ -73,6 +73,7 @@ public class MainWindow extends VBox {
             return;
         }
         try {
+            assert ui.hasOutputLines();
             String response = ui.getNextOutputLine();
             assert response != null;
 
