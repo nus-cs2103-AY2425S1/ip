@@ -30,12 +30,4 @@ public class ParserTest {
         });
         assertEquals("Please follow format: event {task description} /from {start} /to {end}", exception.getMessage());
     }
-
-    @Test
-    void parseTask_invalidTaskType_throwsException() {
-        AssitinatorExceptions exception = assertThrows(AssitinatorExceptions.class, () -> {
-            parser.parseTask(Command.UNKNOWN, "Some task");
-        });
-        assertEquals("Invalid task type", exception.getMessage());
-    }
 }

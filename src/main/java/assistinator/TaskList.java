@@ -1,5 +1,6 @@
 package assistinator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -90,5 +91,38 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Checks if the new task clashes with any existing tasks.
+     *
+     * @param newTask the task to check for clashes
+     * @return true if there's a clash, false otherwise
+     */
+    public Event hasTimeClash(Task newTask) {
+        if (newTask instanceof Todo || newTask instanceof Deadline) {
+            return null; // TodoTasks have no time restrictions, so they can't clash
+        }
+
+        LocalDateTime newTaskStart = null;
+        LocalDateTime newTaskEnd = null;
+
+        Event eventTask = (Event) newTask;
+        newTaskStart = eventTask.getStartTime();
+        newTaskEnd = eventTask.getEndTime();
+
+        for (Task existingTask : tasks) {
+            if (existingTask instanceof Event) {
+                Event existingEvent = (Event) existingTask;
+                if (tasksOverlap(newTaskStart, newTaskEnd, existingEvent.getStartTime(), existingEvent.getEndTime())) {
+                    return existingEvent;
+                }
+            }
+        }
+        return null;
+    }
+
+    private boolean tasksOverlap(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 }
