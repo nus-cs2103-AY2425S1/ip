@@ -19,6 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadlineStr) throws DateTimeParseException {
         super(description);
+        super.setType(TaskType.DEADLINE);
         try {
             this.deadline = LocalDateTime.parse(deadlineStr, Task.toSelfFormatter);
         } catch (DateTimeParseException exception) {
@@ -26,7 +27,6 @@ public class Deadline extends Task {
             System.out.println(exception.getMessage());
             throw exception;
         }
-        this.type = "[D]";
     }
 
     /**
@@ -46,13 +46,11 @@ public class Deadline extends Task {
         }
     }
 
-    private String getDeadline(String type) {
-        if (type.equals("in")) {
+    private String getDeadline(ReadBy target) {
+        if (target == ReadBy.BOB) {
             return this.deadline.format(Task.toSelfFormatter);
-        } else if (type.equals("out")) {
-            return this.deadline.format(Task.toUserFormatter);
         } else {
-            return "Incorrect deadline format type specified.";
+            return this.deadline.format(Task.toUserFormatter);
         }
     }
 
@@ -66,11 +64,11 @@ public class Deadline extends Task {
     @Override
     public String saveFileFormat() {
         String status = this.isCompleted() ? "1 | " : "0 | ";
-        return "D | " + status + this.getDescription() + " | " + getDeadline("in");
+        return "D | " + status + this.getDescription() + " | " + getDeadline(ReadBy.BOB);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (By: " + getDeadline("out") + ")";
+        return super.toString() + " (By: " + getDeadline(ReadBy.USER) + ")";
     }
 }

@@ -1,16 +1,18 @@
 package ui;
 
-import Storage.Storage;
+import storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
-import Task.TaskList;
-import Task.ToDo;
-import Task.Deadline;
-import Task.Event;
+import task.TaskList;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
 
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for the Storage class to ensure that saving and loading functionality works as expected.
@@ -45,7 +47,7 @@ public class StorageTest {
      * Tests saving and loading tasks to ensure data integrity.
      */
     @Test
-    public void testSaveAndLoadDataWithTasks() {
+    public void testSaveAndLoadDataWithTasks() throws BotException {
         new ToDo("Task 1");
         new Deadline("Task 2", "01-01-2024 1200");
         new Event("Task 3", "01-01-2024 1200", "01-01-2024 1300");

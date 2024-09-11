@@ -1,5 +1,7 @@
 package task;
 
+import ui.BotException;
+
 import java.util.ArrayList;
 
 /**
@@ -110,11 +112,11 @@ public class TaskList {
      * @param index The index of the task.
      * @return The task at the specified index.
      */
-    public Task getTask(int index) {
+    public Task getTask(int index) throws BotException {
         if (index >= 0 && index < tasks.size()) {
             return this.tasks.get(index);
         }
-        return null;
+        throw new BotException("Task does not exist!");
     }
 
     /**

@@ -8,8 +8,8 @@ import java.util.Objects;
  * Represents an event task with a specific start and end time.
  */
 public class Event extends Task {
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Constructs an Event task with a description, start time, and end time.
@@ -21,14 +21,14 @@ public class Event extends Task {
      */
     public Event(String description, String startStr, String endStr) throws DateTimeParseException {
         super(description);
+        super.setType(TaskType.EVENT);
         try {
-            this.start = LocalDateTime.parse(startStr, Task.toSelfFormatter);
-            this.end = LocalDateTime.parse(endStr, Task.toSelfFormatter);
+            this.startTime = LocalDateTime.parse(startStr, Task.toSelfFormatter);
+            this.endTime = LocalDateTime.parse(endStr, Task.toSelfFormatter);
         } catch (DateTimeParseException exception) {
             TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
             throw exception;
         }
-        this.type = "[E]";
     }
 
     /**
@@ -57,31 +57,27 @@ public class Event extends Task {
     @Override
     public String saveFileFormat() {
         String status = this.isCompleted() ? "1 | " : "0 | ";
-        return "E | " + status + this.getDescription() + " | " + getStart("in") + " | " + getEnd("in");
+        return "E | " + status + this.getDescription() + " | " + getStartTime(ReadBy.BOB) + " | " + getEndTime(ReadBy.BOB);
     }
 
-    private String getStart(String type) {
-        if (type.equalsIgnoreCase("in")) {
-            return this.start.format(Task.toSelfFormatter);
-        } else if (type.equalsIgnoreCase("out")) {
-            return this.start.format(Task.toUserFormatter);
+    private String getStartTime(ReadBy target) {
+        if (target == ReadBy.BOB) {
+            return this.startTime.format(Task.toSelfFormatter);
         } else {
-            return "Invalid time format specified.";
+            return this.startTime.format(Task.toUserFormatter);
         }
     }
 
-    private String getEnd(String type) {
-        if (type.equalsIgnoreCase("in")) {
-            return this.end.format(Task.toSelfFormatter);
-        } else if (type.equalsIgnoreCase("out")) {
-            return this.end.format(Task.toUserFormatter);
+    private String getEndTime(ReadBy target) {
+        if (target == ReadBy.BOB) {
+            return this.endTime.format(Task.toSelfFormatter);
         } else {
-            return "Invalid time format specified.";
+            return this.endTime.format(Task.toUserFormatter);
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (From: " + getStart("out") + " To: " + getEnd("out") + ")";
+        return super.toString() + " (From: " + getStartTime(ReadBy.USER) + " To: " + getEndTime(ReadBy.USER) + ")";
     }
 }
