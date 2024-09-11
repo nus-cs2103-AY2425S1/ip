@@ -25,6 +25,11 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    /**
+     * Formats a string to be written to the saved text file, separated by '|' character.
+     *
+     * @return Formatted string.
+     */
     @Override
     public String toFormattedString() {
         return String.format("D|%s|%s|%s", checkStatus(this), this.description, this.by);
