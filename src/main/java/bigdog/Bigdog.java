@@ -88,6 +88,11 @@ public class Bigdog {
 
     /**
      * Generates a response for the user's chat message.
+     * This method reads user input, parses it, and executes the corresponding commands.
+     * It handles exceptions that may arise during the execution of commands and ensures that tasks
+     * are saved after each iteration of the loop.
+     *
+     * @param input User input in String format
      */
     public String getResponse(String input) {
         String botReply = "I don't know";

@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a DialogBox with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog.
+     * @param img The image to be displayed beside the text.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,13 +55,28 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a dialog box for the user with the user's text and image.
+     *
+     * @param text The text to be displayed.
+     * @param img The user's image.
+     * @return A new DialogBox with the user's text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for Bigdog with its text and image, and flips the layout so the text is on the left.
+     *
+     * @param text The text to be displayed.
+     * @param img Bigdog's image.
+     * @return A new flipped DialogBox with Bigdog's text and image.
+     */
     public static DialogBox getBigdogDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
+
 }

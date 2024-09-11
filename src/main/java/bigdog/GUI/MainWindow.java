@@ -1,6 +1,7 @@
 package bigdog.GUI;
 
 import bigdog.Bigdog;
+import bigdog.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +11,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Objects;
+
+
+/**
+ * Controller for MainWindow. Provides the layout
+ * for the other controls and handles user interactions.
+ */
 
 public class MainWindow extends AnchorPane {
 
@@ -27,19 +34,29 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/po.png")));
     private Image bigdogImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/oog.png")));
 
+    /**
+     * Initializes the controller class.
+     * Binds the scroll pane to the dialog container's height and adds the initial greeting from the Bigdog bot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBigdogDialog(Ui.greet(), bigdogImage)
+        );
     }
 
-    /** Injects the Bigdog instance */
+    /**
+     * Injects the Bigdog instance into this controller.
+     * @param bot The Bigdog bot instance.
+     */
     public void setBigdog(Bigdog bot) {
         bigdog = bot;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating dialog boxes for both user input and bot reply.
+     * Appends the dialog boxes to the dialog container and clears the user input field.
      */
     @FXML
     private void handleUserInput() {
@@ -51,5 +68,6 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
 
 }

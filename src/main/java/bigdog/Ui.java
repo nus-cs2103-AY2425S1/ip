@@ -12,22 +12,22 @@ public class Ui {
     protected Scanner scanner;
 
     /**
-     * Constructs a Ui instance and initializes the Scanner for reading input.
+     * Constructs an Ui instance and initializes the Scanner for reading input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Prints a greeting message to the user at the start of the application.
+     * @return String representation of a greeting message to the user at the start of the application.
      */
-    public void greet() {
-        System.out.println("Hello! I'm Bigdog!");
-        System.out.println("What can I do for you?\n");
+    public static String greet() {
+        return "Hello! I'm Bigdog!\nWhat can I do for you?\n";
     }
 
     /**
-     * Prints a farewell message to the user and closes the Scanner when the application exits.
+     * @return String representation of a farewell message to the user and
+     * closes the Scanner when the application exits.
      */
     public String bye() {
         this.scanner.close();
