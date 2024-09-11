@@ -12,14 +12,14 @@ import task.Task;
 
 /**
  * Main class for the SKD application.
- *
+ * <p>
  * The SKD application allows users to manage tasks, such as ToDos, Deadlines, and Events.
  * Users can add, delete, mark, and unmark tasks, as well as save and load tasks from a file.
- *
+ * <p>
  * The application provides a command-line interface where users can input commands
  * to interact with their task list. The commands are parsed and appropriate actions
  * are taken, such as adding a new task or marking a task as done.
- *
+ * <p>
  * Tasks are saved to a file and loaded from the file on startup, ensuring persistence
  * of the user's task list between sessions.
  */
@@ -102,7 +102,7 @@ public class SkD {
      * @return The response as a string.
      */
     public String getResponse(String input) {
-        String response = "";
+        String response;
         try {
             CommandType commandType = Parser.parseCommand(input);
 
