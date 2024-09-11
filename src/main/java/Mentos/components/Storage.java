@@ -40,6 +40,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the input line to create a ToDo task.
+     * The method uses a regex to match the format of a ToDo task and checks
+     * whether the task is marked as done.
+     *
+     * @param line   The input line representing a ToDo task in the format: "[T] [ ] description".
+     * @param isDone The status of the task, "X" if the task is done, otherwise empty.
+     * @return A ToDo task object with the provided description, or null if the input format is invalid.
+     */
     public Task toDoHandler(String line, String isDone) {
         Matcher toDoMatcher = regexHandler(line, "^\\[(?:[T])\\] \\[(?:.)\\] (.*)$");
         if (toDoMatcher == null) {
@@ -53,6 +62,15 @@ public class Storage {
         return toDoEvent;
     }
 
+    /**
+     * Parses the input line to create an Event task.
+     * The method uses a regex to match the format of an Event task and checks
+     * whether the task is marked as done.
+     *
+     * @param line   The input line representing an Event task in the format: "[E] [ ] description (from: start to: end)".
+     * @param isDone The status of the task, "X" if the task is done, otherwise empty.
+     * @return An Event task object with the provided description, start date, and end date, or null if the input format is invalid.
+     */
     public Task eventHandler(String line, String isDone) {
         Matcher eventMatcher = regexHandler(line, "^\\[(?:[E])\\] \\[(?:.)\\] (.*) \\(from: (.*) to: (.*)\\)$");
         if (eventMatcher == null) {
@@ -68,6 +86,15 @@ public class Storage {
         return eventEvent;
     }
 
+    /**
+     * Parses the input line to create a Deadline task.
+     * The method uses a regex to match the format of a Deadline task and checks
+     * whether the task is marked as done.
+     *
+     * @param line   The input line representing a Deadline task in the format: "[D] [ ] description (by: date)".
+     * @param isDone The status of the task, "X" if the task is done, otherwise empty.
+     * @return A Deadline task object with the provided description and due date, or null if the input format is invalid.
+     */
     public Task deadlineHandler(String line, String isDone) {
         Matcher deadlineMatcher = regexHandler(line, "^\\[(?:[D])\\] \\[(?:.)\\] (.*) \\(by: (.*)\\)$");
         if (deadlineMatcher == null) {
@@ -113,7 +140,14 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Handles the task file input by identifying the type of task (ToDo, Event, or Deadline)
+     * and processing it accordingly. The method extracts the task type and completion status
+     * from the input line using a regular expression and calls the appropriate handler method.
+     *
+     * @param line The input line representing a task in the format: "[T|E|D] [X| ] description".
+     * @return A Task object (ToDo, Event, or Deadline) based on the input, or null if the format is invalid or unrecognized.
+     */
     public Task taskFileHandler(String line) {
         Matcher matcher = regexHandler(line, "^\\[([T|E|D])\\] \\[(.)\\] (?:.*)$");
         if (matcher == null) {

@@ -28,6 +28,10 @@ public abstract class Command {
         return this.gui;
     }
 
+    public String getAction() {
+        return this.action;
+    }
+
     public boolean checkIndex(int index, TaskList tasklist) throws MentosException {
         if (index > tasklist.size() || index == 0) {
             throw new MentosException("No Such Tasks!");
