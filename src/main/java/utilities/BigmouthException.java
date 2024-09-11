@@ -1,4 +1,4 @@
-package exceptions;
+package utilities;
 
 public class BigmouthException extends Exception {
     public BigmouthException(String message) {
