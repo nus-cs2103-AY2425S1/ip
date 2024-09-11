@@ -12,11 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static components.Parser.getCommandTypeFromStorage;
+
 /**
  * Represents a storage that stores and loads tasks from a file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Creates a Storage object.
@@ -33,70 +35,60 @@ public class Storage {
      *
      * @return The list of tasks loaded from the storage file.
      */
+    private File getFileOrMakeFile() throws IOException {
+        File fileObj = new File(filePath);
+        if (!fileObj.getParentFile().exists()) {
+            fileObj.getParentFile().mkdirs();
+        }
+        if (fileObj.createNewFile()) {
+            //file created
+        } else {
+            //file already exist
+        }
+        return fileObj;
+    }
+
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
-        Task task = null;
         try {
-            File fileObj = new File(filePath);
-            if (!fileObj.getParentFile().exists()) {
-                fileObj.getParentFile().mkdirs();
-            }
-            if (fileObj.createNewFile()) {
-                //file created
-            } else {
-                //file already exist
-            }
+            File fileObj = getFileOrMakeFile();
             Scanner scanner = new Scanner(fileObj);
 
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
-                Boolean isMarked = data.charAt(7) == 'X';
-                switch (data.charAt(4)) {
-                case 'T':
-                    try {
-                        task = new Todo(data.substring(10));
-                    } catch (LightException e) {
-                        System.out.println(e);
-                    }
-
-                    break;
-                case 'D':
-                    try {
+                boolean marked = data.charAt(7) == 'X';
+                char taskType = data.charAt(4);
+                String taskDescription = data.substring(10);
+                try {
+                    switch (getCommandTypeFromStorage(taskType)) {
+                    case TODO:
+                        list.add(new Todo(taskDescription));
+                        break;
+                    case DEADLINE:
+                        String byDate = data.substring(data.lastIndexOf("(by: ") + 5, data.lastIndexOf(")"));
+                        if (data.contains("(by:")) {
+                            list.add(new Deadline(taskDescription, byDate));
+                        } else {
+                            System.out.println("Not enough arguments");
+                        }
+                        break;
+                    case EVENT:
                         String betweenBrackets = data.substring(data.lastIndexOf("(") + 1, data.lastIndexOf(")"));
-                        String byDate = betweenBrackets.replace("by: ", "");
-                        task = new Deadline(data.substring(10, data.indexOf("(by:")), byDate);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Not enough arguments");
-                    } catch (LightException e) {
-                        System.out.println(e);
+                        String fromDate = betweenBrackets.split("from: ")[1].split(" to: ")[0].strip();
+                        String toDate = betweenBrackets.split("to: ")[1];
+                        list.add(new Event(taskDescription, fromDate, toDate));
+                        break;
                     }
-
-                    break;
-                case 'E':
-                    try {
-
-                        String betweenBrackets = data.substring(data.lastIndexOf("(") + 1, data.lastIndexOf(")"));
-                        String fromDate = betweenBrackets.substring(betweenBrackets.indexOf("from: ") + 6, betweenBrackets.indexOf("to: ")).stripTrailing();
-                        String toDate = betweenBrackets.substring(betweenBrackets.indexOf("to: ") + 4);
-                        task = new Event(data.substring(10, data.indexOf("(from:")), fromDate, toDate);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Not enough arguments");
-                    } catch (LightException e) {
-                        System.out.println(e);
+                    if (marked) {
+                        list.get(list.size() - 1).markAsDone();
                     }
-
-                    break;
-                }
-                if (task != null && list.add(task)) {
-                    if (isMarked) {
-                        task.markAsDone();
-                    }
+                } catch (LightException e) {
+                    System.out.println(e);
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(TaskList.arrayToNumberedString(list));
         return list;
     }
 
@@ -107,24 +99,12 @@ public class Storage {
      */
     public void write(String textToAdd) {
         try {
-            File fileObj = new File(filePath);
-            if (!fileObj.getParentFile().exists()) {
-                fileObj.getParentFile().mkdirs();
-            }
-            if (fileObj.createNewFile()) {
-                //file created
-                System.out.println("Created new file");
-            } else {
-                //file already exist
-                //System.out.println("File exist");
-            }
+            File fileObj = getFileOrMakeFile();
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.write(textToAdd);
             myWriter.close();
-            //System.out.println("Successfully wrote to the file.");
-
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
     }
 }

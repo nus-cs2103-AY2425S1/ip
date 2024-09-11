@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
  * Represents the main class of the components.Light program.
  */
 public class Light {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Creates a components.Light object.
@@ -64,9 +64,8 @@ public class Light {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);
-            String response = command.execute(tasks, ui, storage);
-            return response;
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
         } catch (LightException e) {
             return e.toString();
         }
