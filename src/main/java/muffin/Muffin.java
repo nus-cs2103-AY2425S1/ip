@@ -1,7 +1,5 @@
 package muffin;
 
-import java.util.Scanner;
-
 /**
  * The Muffin class represents the main application logic for a todo list.
  */
@@ -11,11 +9,6 @@ public class Muffin {
      * The file path to the task list file.
      */
     private final String filePath = "../taskList.txt";
-
-    /**
-     * Scanner object to capture user input.
-     */
-    private Scanner sc = new Scanner(System.in);
 
     /**
      * An instance of FileProcessor to handle reading and writing tasks to a file.
