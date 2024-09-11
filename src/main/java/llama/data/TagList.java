@@ -25,7 +25,7 @@ public class TagList {
      */
     public String createTag(String tagTitle, Ui ui) throws InvalidTagException {
         String response = "";
-        if (exists(tagTitle)) {
+        if (exists(tagTitle) == -1) {
             throw new InvalidTagException("Tag already exists!");
         }
         Tag tag = new Tag(tagTitle);
@@ -46,18 +46,18 @@ public class TagList {
      * Checks tagList to see if tagTitle already exists
      *
      * @param tagTitle tagTitle to check
-     * @return true if tagTitle already exists, else return false
+     * @return true if tagTitle already exists, return index, else returns -1
      */
-    private boolean exists(String tagTitle) {
+    private int exists(String tagTitle) {
         int len = this.tagList.size();
         for (int i = 0; i < len; i++) {
             Tag tag = this.tagList.get(i);
             if (tag.getTitle().equals(tagTitle.toLowerCase())) {
-                return true;
+                return i;
             }
         }
 
-        return false;
+        return -1;
     }
 
     /**
@@ -77,5 +77,20 @@ public class TagList {
      */
     public Tag getTag(int i) {
         return this.tagList.get(i);
+    }
+
+    /**
+     * Get the tag using tag title
+     *
+     * @param tagTitle title of tag to get
+     * @return tag if found, else throw error
+     */
+    public Tag getTagByTitle(String tagTitle) throws InvalidTagException {
+        int tagIndex = exists(tagTitle);
+        if (tagIndex == -1) {
+            throw new InvalidTagException("Tag does not exist! Create it using"
+                    + " 'create <tag title>'!");
+        }
+        return getTag(tagIndex);
     }
 }
