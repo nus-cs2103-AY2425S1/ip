@@ -274,6 +274,7 @@ public class Parser {
             result[3] = "Should have known better than to waste time trying to help you...";
         } else {
             result[2] = sb.toString();
+            assert !result[2].isEmpty() : "task list should not be empty";
             result[3] = "That's all";
         }
         return result;
@@ -296,19 +297,19 @@ public class Parser {
     /**
      * Finds all the timed events (e.g. Deadlines / Events) that are happening / yet to be due on the provided date.
      *
-     * @param s is the string representation of the date.
+     * @param date is the string representation of the date.
      * @return Slave's response containing
      * a String representation of all timed events yet happening / yet to be due on the provided date.
      */
-    protected String[] scheduleOn(String s) {
-        if (s.isEmpty()) {
+    protected String[] scheduleOn(String date) {
+        if (date.isEmpty()) {
             throw new NoSuchElementException();
         }
         StringBuilder sb = new StringBuilder();
         String[] result = new String[3];
         result[0] = "Your tasks are :";
         try {
-            LocalDate target = LocalDate.parse(s);
+            LocalDate target = LocalDate.parse(date);
             list.forEach(task -> {
                 if (task instanceof Event) {
                     if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
@@ -322,7 +323,11 @@ public class Parser {
                 }
                 sb.append("\n");
             });
+            if (sb.isEmpty()) {
+                return new String[]{"You have no Tasks on or ending after " + date};
+            }
             result[1] = sb.toString();
+            assert !result[1].isEmpty() : "the list of tasks on or ending after the date should not be empty";
             result[2] = "That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             return result;
         } catch (DateTimeParseException | NoSuchElementException e) {

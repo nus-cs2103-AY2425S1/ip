@@ -13,18 +13,14 @@ public class Slave {
     public static String SAVE_FILE_LOCATION = "./src/main/data/savefile.txt";
 
     /**
-     * <<<<<<< HEAD
-     * creates a new Slave object which will save user interactions to
-     * =======
      * Creates a new Slave object which will save user interactions to
-     * >>>>>>> Level-10
      * the specified file path
      *
      * @param filePath is the address of the save file
      */
     public Slave(String filePath) {
         storage = new Storage(list, filePath);
-        ui = new Ui(list);
+        ui = new Ui();
         parser = new Parser(list);
         storage.load();
     }
@@ -44,6 +40,10 @@ public class Slave {
      */
     public void save() {
         storage.save();
+    }
+
+    public String[] getWelcomeMsg() {
+        return ui.appWelcomeMsg();
     }
 
     /**
