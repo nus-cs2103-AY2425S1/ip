@@ -59,12 +59,12 @@ public class Easton {
             boolean isNotList = action != Action.LIST;
             boolean isNotBye = action != Action.BYE;
             boolean isNotInvalid = action != Action.INVALID;
-            String body = "";
             try {
+                String body = "";
                 if (isNotList && isNotBye && isNotInvalid) {
                     body = getBodyFromInput(input);
                 }
-                Ui.displayToConsole(performAction(action, body));
+                Ui.displayToConsole(executeAction(action, body));
             } catch (EmptyDescriptionException e) {
                 Ui.displayToConsole(e.getMessage());
             }
@@ -75,6 +75,26 @@ public class Easton {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @return Response to the user's chat.
+     */
+    public String getResponse(String input) {
+        Action action = getActionFromInput(input);
+        boolean isNotList = action != Action.LIST;
+        boolean isNotBye = action != Action.BYE;
+        boolean isNotInvalid = action != Action.INVALID;
+        try {
+            String body = "";
+            if (isNotList && isNotBye && isNotInvalid) {
+                body = getBodyFromInput(input);
+            }
+            return executeAction(action, body);
+        } catch (EmptyDescriptionException e) {
+            return e.getMessage();
+        }
+    }
 
     /**
      * Executes the program to start.
@@ -110,6 +130,22 @@ public class Easton {
     }
 
     /**
+     * Adds a given task to the list.
+     *
+     * @param task Task
+     * @return Response to be displayed to the user interface.
+     */
+    public String addTask(Task task) {
+        StringBuilder response = new StringBuilder();
+        tasks.add(task);
+        response.append("Got it. I've added this task:").append("\n");
+        response.append(task).append("\n");
+        response.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
+
+        return response.toString();
+    }
+
+    /**
      * Deletes a task.
      *
      * @param body Body from the prompt.
@@ -130,30 +166,6 @@ public class Easton {
         }
 
         return response.toString();
-    }
-
-    /**
-     * Returns the index from the input by the user.
-     * If the index does not exist, an exception is thrown.
-     *
-     * @param body Body from the prompt.
-     * @return Index that exist in the task list.
-     * @throws InvalidIndexException If the index does not exist in the task list.
-     */
-    private int getIndexFromBody(String body) throws InvalidIndexException {
-        int index;
-
-        try {
-            index = Integer.parseInt(body);
-        } catch (NumberFormatException e) {
-            throw new InvalidIndexException(body);
-        }
-
-        if (0 < index && index <= tasks.size()) {
-            return index - 1;
-        } else {
-            throw new InvalidIndexException(body);
-        }
     }
 
     /**
@@ -207,37 +219,6 @@ public class Easton {
         return new Event(content[0], content[1], content[2]);
     }
 
-    /**
-     * Returns an action that can be done/exist.
-     * If the action cannot be handled, an exception is thrown.
-     *
-     * @param input Input from the prompt.
-     * @return A valid action.
-     */
-    private static Action getActionFromInput(String input) {
-        String action = input.split(" ", 2)[0];
-        try {
-            return Action.valueOf(action.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Action.INVALID;
-        }
-    }
-
-    /**
-     * Adds a given task to the list.
-     *
-     * @param task Task
-     * @return Response to be displayed to the user interface.
-     */
-    public String addTask(Task task) {
-        StringBuilder response = new StringBuilder();
-        tasks.add(task);
-        response.append("Got it. I've added this task:").append("\n");
-        response.append(task).append("\n");
-        response.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
-
-        return response.toString();
-    }
 
     /**
      * Retrieves the tasks from the given file/storage.
@@ -324,26 +305,21 @@ public class Easton {
         return response.toString();
     }
 
-
     /**
-     * Generates a response for the user's chat message.
+     * Returns an action that can be done/exist.
+     * If the action cannot be handled, an exception is thrown.
      *
-     * @return Response to the user's chat.
+     * @param input Input from the prompt.
+     * @return A valid action.
      */
-    public String getResponse(String input) {
-        Action action = getActionFromInput(input);
+    private static Action getActionFromInput(String input) {
+        String action = input.split(" ", 2)[0];
         try {
-            String body = "";
-            boolean hasABodyAction = action != Action.LIST && action != Action.BYE;
-            if (hasABodyAction) {
-                body = getBodyFromInput(input);
-            }
-            return performAction(action, body);
-        } catch (EmptyDescriptionException e) {
-            return e.getMessage();
+            return Action.valueOf(action.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Action.INVALID;
         }
     }
-
 
     /**
      * Returns the body embedded inside the input.
@@ -362,13 +338,37 @@ public class Easton {
     }
 
     /**
-     * Performs the action with the given body.
+     * Returns the index from the input by the user.
+     * If the index does not exist, an exception is thrown.
+     *
+     * @param body Body from the prompt.
+     * @return Index that exist in the task list.
+     * @throws InvalidIndexException If the index does not exist in the task list.
+     */
+    private int getIndexFromBody(String body) throws InvalidIndexException {
+        int index;
+
+        try {
+            index = Integer.parseInt(body);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexException(body);
+        }
+
+        if (0 < index && index <= tasks.size()) {
+            return index - 1;
+        } else {
+            throw new InvalidIndexException(body);
+        }
+    }
+
+    /**
+     * Executes the action with the given body.
      *
      * @param action Action from the prompt.
      * @param body Body from the prompt.
      * @return Response to be displayed to users.
      */
-    public String performAction(Action action, String body) {
+    public String executeAction(Action action, String body) {
         StringBuilder response = new StringBuilder();
 
         switch (action) {
