@@ -1,6 +1,8 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -67,17 +69,15 @@ public class TaskList {
      * @return The tasks which have the same description as specified.
      */
     public ArrayList<Task> findTasks(String description) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
         if (description == null || description.trim().isEmpty()) {
-            return matchingTasks;
+            return new ArrayList<>();
         } else {
-            for (Task task: tasks) {
-                if (task.getDescription().toLowerCase().contains(description.toLowerCase())) {
-                    matchingTasks.add(task);
-                }
-            }
+            List<Task> matchingTasks = tasks.stream()
+                    .filter(task ->
+                            task.getDescription().toLowerCase().contains(description.toLowerCase()))
+                    .collect(Collectors.toList());
+            return new ArrayList<>(matchingTasks);
         }
-        return matchingTasks;
     }
     /**
      * Returns the number of tasks in the list.
