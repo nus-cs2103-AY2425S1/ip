@@ -15,18 +15,22 @@ public class Executor {
             throws IncorrectIndexException, IncorrectInstructionFormatException {
         switch (instruction.getInstructionType()) {
             case MARK:
+                assert instruction.getIndex() != -1;
                 taskList.markItem(instruction.getIndex());
                 return instruction;
             case DELETE:
+                assert instruction.getIndex() != -1;
                 instruction.setTask(taskList.getTask(instruction.getIndex()));
                 taskList.deleteTask(instruction.getIndex());
                 return instruction;
             case INSERT:
+                assert instruction.getTask() != null;
                 taskList.addTask(instruction.getTask());
                 return instruction;
             case SEARCH:
                 return instruction;
             case UNMARK:
+                assert instruction.getIndex() != -1;
                 taskList.unmarkItem(instruction.getIndex());
                 return instruction;
         }
