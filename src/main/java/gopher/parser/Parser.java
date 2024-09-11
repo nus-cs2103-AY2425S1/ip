@@ -75,10 +75,10 @@ public class Parser {
      * @param type String representing the task type in the command
      * @return whether the given task type is valid or not
      */
-    public static boolean isInvalidTaskType(String type) {
-        return !type.equalsIgnoreCase("todo")
-                && !type.equalsIgnoreCase("deadline")
-                && !type.equalsIgnoreCase("event");
+    public static boolean isValidTaskType(String type) {
+        return type.equalsIgnoreCase("todo")
+                || type.equalsIgnoreCase("deadline")
+                || type.equalsIgnoreCase("event");
     }
 
     /**
@@ -212,7 +212,7 @@ public class Parser {
         String[] tokens = command.split(" ");
 
         String taskType = tokens[0];
-        if (isInvalidTaskType(taskType)) {
+        if (!isValidTaskType(taskType)) {
             throw new UnknownCommandException(taskType);
         }
 
