@@ -1,5 +1,7 @@
 package joe.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a ToDo task.
  */
@@ -32,5 +34,10 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
+    }
+
+    @Override
+    public LocalDateTime getTime() {
+        return null;
     }
 }

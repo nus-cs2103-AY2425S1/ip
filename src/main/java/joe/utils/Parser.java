@@ -5,7 +5,7 @@ import joe.commands.Command;
 import joe.commands.DeleteCommand;
 import joe.commands.FindCommand;
 import joe.commands.MarkCommand;
-import joe.commands.QueryCommand;
+import joe.commands.QueryScheduleCommand;
 import joe.commands.UnmarkCommand;
 import joe.exceptions.CorruptedFileException;
 import joe.exceptions.InvalidCommandException;
@@ -93,7 +93,7 @@ public class Parser {
         } else if (userCmd.startsWith("event")) {
             c = parseEvent(userCmd);
         } else if (userCmd.startsWith("query")) {
-            c = new QueryCommand(tasks, userCmd.substring(6));
+            c = new QueryScheduleCommand(tasks, userCmd.substring(6));
         } else if (userCmd.startsWith("find")) {
             c = new FindCommand(tasks, userCmd.substring(5));
         } else {

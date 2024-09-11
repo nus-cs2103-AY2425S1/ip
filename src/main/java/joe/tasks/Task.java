@@ -1,5 +1,7 @@
 package joe.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task in the task list.
  */
@@ -69,4 +71,10 @@ public abstract class Task {
     public boolean checkDone() {
         return isDone;
     }
+
+    /**
+     * Returns the time of the task.
+     * @return a LocalDateTime object representing the time of the task
+     */
+    public abstract LocalDateTime getTime();
 }
