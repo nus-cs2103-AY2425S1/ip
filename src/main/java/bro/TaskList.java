@@ -60,6 +60,27 @@ public class TaskList {
     }
 
     /**
+     * Checks if the most recently added task is already present in the list of tasks.
+     *
+     * This method retrieves the most recent task from the list and checks if it
+     * already exists within the current list before task was added. If the task is found,
+     * a message is returned indicating that the task may be a duplicate and prompting
+     * the user for further action.
+     *
+     * @param full The string to check for duplicate task entries. It is expected to
+     *             contain a list of tasks, separated by newline characters.
+     * @return A string message warning about the possible duplicate if the most
+     *         recent task is found in `full`, or an empty string if no duplicate is detected.
+     */
+    public String findDuplicate(String full) {
+        String curr = list.get(this.size() - 1).toString();
+        if (full.contains(curr + "\n")) {
+            return "   Task added seems to already exist. Do you want to continue? [yes/no]";
+        }
+        return "";
+    }
+
+    /**
      * Adds a new Todo task to the list and returns a confirmation message.
      *
      * @param s The description of the Todo task.

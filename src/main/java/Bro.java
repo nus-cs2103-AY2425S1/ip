@@ -2,11 +2,13 @@ import bro.*;
 
 
 public class Bro {
+    private static boolean Dupe = false;
 
     /**
      * Processes a user command and returns a response based on the action specified.
      * Commands include listing tasks, marking/unmarking tasks as done, adding new tasks,
-     * deleting tasks, finding tasks, and handling other task-related operations.
+     * deleting tasks, finding tasks, detecting duplicate tasks when new tasks are added
+     * and handling other task-related operations.
      * It also handles saving the current state of tasks to storage when necessary.
      *
      * @param word    The user input command. The first word indicates the action to perform,
@@ -48,17 +50,47 @@ public class Bro {
                     case "find":
                         return tasks.findTasks(info);
                     case "todo":
+                        String sT = ui.printList(tasks);
                         String todo = tasks.addTodo(info);
+                        String dupeT = tasks.findDuplicate(sT);
+                        if (!dupeT.isEmpty()) {
+                            Bro.Dupe = true;
+                            todo += dupeT;
+                        }
                         storage.saveToFile();
                         return todo;
                     case "deadline":
+                        String sD = ui.printList(tasks);
                         String deadline = tasks.addDeadline(info);
+                        String dupeD = tasks.findDuplicate(sD);
+                        if (!dupeD.isEmpty()) {
+                            Bro.Dupe = true;
+                            deadline += dupeD;
+                        }
                         storage.saveToFile();
                         return deadline;
                     case "event":
+                        String sE = ui.printList(tasks);
                         String event = tasks.addEvent(info);
+                        String dupeE = tasks.findDuplicate(sE);
+                        if (!dupeE.isEmpty()) {
+                            Bro.Dupe = true;
+                            event += dupeE;
+                        }
                         storage.saveToFile();
                         return event;
+                    case "yes":
+                        if (Dupe) {
+                            Bro.Dupe = false;
+                            return "Ok, duplicate task not deleted";
+                        }
+                    case "no":
+                        if (Dupe) {
+                            String del = tasks.deleteTask(tasks.size());
+                            storage.saveToFile();
+                            Bro.Dupe = false;
+                            return del;
+                        }
                     default:
                         return ui.printDefault();
                 }
