@@ -16,10 +16,11 @@ public class Event extends Task {
      * @param task task description.
      * @param timeStart time the task begins.
      * @param timeEnd time the task ends.
+     * @param priority priority level of task.
      */
-    public Event(boolean mark, String task,
-                 String timeStart, String timeEnd) {
-        super(mark, task);
+    public Event(boolean mark, String task, String timeStart,
+                 String timeEnd, int priority) {
+        super(mark, task, priority);
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
 

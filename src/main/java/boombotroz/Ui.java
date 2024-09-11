@@ -120,6 +120,29 @@ public class Ui {
     }
 
     /**
+     * Throws exception when no priority, not a number, out of range priority given.
+     *
+     * @param taskInput task details.
+     * @throws BoomException If improper priority given.
+     */
+    public void hasCorrectPriority(String taskInput) throws BoomException {
+        if (!taskInput.contains(" /prior ")) {
+            throw new BoomException(
+                    "You need a priority level !!");
+        }
+        String[] parts = taskInput.split(" /prior ");
+        if (!parts[1].matches("-?\\d+")) {
+            throw new BoomException(
+                    "You need a number for priority !!");
+        }
+        int priority = Integer.parseInt(parts[1]);
+        if (priority > 5 || priority < 1) {
+            throw new BoomException(
+                    "Priority level should be within 1-5!!");
+        }
+    }
+
+    /**
      * Throws exception when no deadline.
      *
      * @param taskInput task details.

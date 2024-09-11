@@ -1,3 +1,5 @@
-[D][X] task2 (by: Sep 7 2024)
-[E][ ] task3 (from: Sep 7 2024 to: Sep 8 2024)
-[E][X] 2103 (from: sun to: mon)
+[T][X] task1
+[T][X] task2
+[D][ ] task3 (by: tday)
+[T][ ] task4
+[D][ ] task5 (by: hmm)

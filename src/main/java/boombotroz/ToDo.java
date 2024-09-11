@@ -9,9 +9,10 @@ public class ToDo extends Task {
      *
      * @param mark state of completion for task.
      * @param task task description.
+     * @param priority priority level of task.
      */
-    public ToDo(boolean mark, String task) {
-        super(mark, task);
+    public ToDo(boolean mark, String task, int priority) {
+        super(mark, task, priority);
 
     }
 

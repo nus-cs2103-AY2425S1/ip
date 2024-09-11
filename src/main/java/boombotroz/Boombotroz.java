@@ -28,7 +28,6 @@ public class Boombotroz {
         commands.add("todo");
         commands.add("deadline");
         commands.add("event");
-      
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty.";
         ui = new Ui();
         storage = new Storage(filePath);

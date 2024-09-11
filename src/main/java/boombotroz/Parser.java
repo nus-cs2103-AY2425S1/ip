@@ -114,8 +114,13 @@ public class Parser {
         // check if there is a task
         String toDoTask = input.substring(5);
         ui.hasTask(toDoTask);
+        //checks if there is a priority
+        ui.hasCorrectPriority((toDoTask));
+        String[] parts = toDoTask.split(" /prior ");
+        String description = parts[0];
 
-        Task createdTask = new ToDo(false, toDoTask);
+        int priority = Integer.parseInt(parts[1]);
+        Task createdTask = new ToDo(false, description, priority);
         taskList.addTask(createdTask);
         storage.writeTasks(taskList.getAll());
 
@@ -145,10 +150,13 @@ public class Parser {
         ui.hasTask(dlTaskTime);
         // check if there is a deadline
         ui.hasEnd(dlTaskTime);
+        //checks if there is a priority
+        ui.hasCorrectPriority((dlTaskTime));
 
+        int priority = Integer.parseInt(dlTaskTime.split(" /prior ")[1]);
         String dlTask = dlTaskTime.split(" /by ")[0];
-        String time = dlTaskTime.split(" /by ")[1];
-        Task createdTask = new Deadline(false, dlTask, time);
+        String time = dlTaskTime.split(" /by ")[1].split(" /prior ")[0];
+        Task createdTask = new Deadline(false, dlTask, time, priority);
         taskList.addTask(createdTask);
         createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());
@@ -179,14 +187,18 @@ public class Parser {
         ui.hasTask(eventTaskTime);
         // check if there is both a start and end time
         ui.hasStartEnd(eventTaskTime);
+        //checks if there is a priority
+        ui.hasCorrectPriority((eventTaskTime));
 
+        int priority = Integer.parseInt(eventTaskTime.split(" /prior ")[1]);
         String eventTask = eventTaskTime.split(" /from ")[0];
         String timeStart = eventTaskTime.split(" /from ")[1]
                 .split(" /to ")[0];
         String timeEnd = eventTaskTime.split(" /from ")[1]
-                .split(" /to ")[1];
+                .split(" /to ")[1]
+                .split(" /prior ")[0];
         Task createdTask = new Event(false, eventTask,
-                timeStart, timeEnd);
+                timeStart, timeEnd, priority);
         taskList.addTask(createdTask);
         createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());

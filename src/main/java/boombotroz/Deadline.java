@@ -14,9 +14,10 @@ public class Deadline extends Task {
      * @param mark state of completion for task.
      * @param task task description.
      * @param time time the task is due.
+     * @param priority priority level of task.
      */
-    public Deadline(boolean mark, String task, String time) {
-        super(mark, task);
+    public Deadline(boolean mark, String task, String time, int priority) {
+        super(mark, task, priority);
         this.time = time;
 
     }

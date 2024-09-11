@@ -6,6 +6,7 @@ package boombotroz;
 public abstract class Task {
     private boolean mark;
     private String task;
+    private int priority;
 
     /**
      * Creates Task object.
@@ -13,10 +14,10 @@ public abstract class Task {
      * @param mark state of completion for task.
      * @param task task description.
      */
-    public Task(boolean mark, String task) {
+    public Task(boolean mark, String task, int priority) {
         this.mark = mark;
         this.task = task;
-
+        this.priority = priority;
     }
 
     /**
@@ -37,6 +38,13 @@ public abstract class Task {
     }
 
     /**
+     * Gets the priority level of the task.
+     */
+    public int getPrior() {
+        return this.priority;
+    }
+
+    /**
      * Returns string representation of the task.
      */
     public String getDescription() {
@@ -47,9 +55,9 @@ public abstract class Task {
     public String toString() {
         String s;
         if (this.mark == true) {
-            s = String.format("[X] %s", this.task);
+            s = String.format("[X][%d] %s", this.priority, this.task);
         } else {
-            s = String.format("[ ] %s", this.task);
+            s = String.format("[ ][%d] %s", this.priority, this.task);
         }
         return s;
 

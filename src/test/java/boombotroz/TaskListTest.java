@@ -21,16 +21,16 @@ public class TaskListTest {
     @Test
     public void getAllTest() throws BoomException {
 
-        Task task1 = new ToDo(true, "cook");
-        Task task2 = new ToDo(false, "clean");
+        Task task1 = new ToDo(true, "cook", 1);
+        Task task2 = new ToDo(false, "clean", 2);
         tl.addTask(task1);
         tl.addTask(task2);
-        assertEquals("[T][X] cook\n[T][ ] clean\n", tl.getAll());
-        Task task3 = new Deadline(true, "eat", "2030-01-01");
+        assertEquals("[T][X][1] cook\n[T][ ][2] clean\n", tl.getAll());
+        Task task3 = new Deadline(true, "eat", "2030-01-01", 1);
         task3.hasDate(ui);
         tl.addTask(task3);
-        assertEquals("[T][X] cook\n[T][ ] clean\n"
-                + "[D][X] eat (by: Jan 1 2030)\n", tl.getAll());
+        assertEquals("[T][X][1] cook\n[T][ ][2] clean\n"
+                + "[D][X][1] eat (by: Jan 1 2030)\n", tl.getAll());
     }
 
 }

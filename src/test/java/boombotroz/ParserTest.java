@@ -29,11 +29,11 @@ public class ParserTest {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "ip", "src", "test");
         s = new Storage(path.toString() + "/data-text.txt");
-        Task task1 = new ToDo(true, "cook");
-        Task task2 = new ToDo(false, "clean");
+        Task task1 = new ToDo(true, "cook", 1);
+        Task task2 = new ToDo(false, "clean", 2);
         tl.addTask(task1);
         tl.addTask(task2);
         p.deleteTask(tl, "delete 2", s, ui);
-        assertEquals("[T][X] cook\n", tl.getAll());
+        assertEquals("[T][X][1] cook\n", tl.getAll());
     }
 }
