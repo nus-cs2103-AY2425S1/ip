@@ -35,6 +35,21 @@ class StorageTest {
 
 
     @Test
+    void testInitializeTaskList() throws IOException {
+        FileWriter writer = new FileWriter(TEST_DATA_PATH);
+        writer.write("T~!!0~!!Test task");
+        writer.close();
+
+        storage.initializeTaskList(taskList);
+
+        assertEquals(1, taskList.getTasks().size(),
+                "Task list should have one task after initialization");
+        Task task = taskList.getTasks().get(0);
+        assertEquals("T ~!! 0 ~!! Test task", task.getTaskData().trim(),
+                "The task data should match the input content");
+    }
+
+    @Test
     void testAddContent() throws IOException {
         storage.addContent("Test content");
 
@@ -58,20 +73,5 @@ class StorageTest {
         Scanner scanner = new Scanner(testFile);
         String content = scanner.nextLine();
         assertTrue(content.contains("New content"), "Content should be rewritten with the new text");
-    }
-
-    @Test
-    void testInitializeTaskList() throws IOException {
-        FileWriter writer = new FileWriter(TEST_DATA_PATH);
-        writer.write("T~!!0~!!Test task");
-        writer.close();
-
-        storage.initializeTaskList(taskList);
-
-        assertEquals(1, taskList.getTasks().size(),
-                "Task list should have one task after initialization");
-        Task task = taskList.getTasks().get(0);
-        assertEquals("T ~!! 0 ~!! Test task", task.getTaskData().trim(),
-                "The task data should match the input content");
     }
 }
