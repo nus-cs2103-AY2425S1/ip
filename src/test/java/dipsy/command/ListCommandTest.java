@@ -1,4 +1,4 @@
-package purrfessordipsy.command;
+package dipsy.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,10 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import purrfessordipsy.exception.InvalidDateException;
-import purrfessordipsy.task.Task;
-import purrfessordipsy.tasklist.TaskList;
-import purrfessordipsy.ui.Ui;
+import dipsy.exception.InvalidCommandException;
+import dipsy.exception.InvalidDateException;
+import dipsy.task.Task;
+import dipsy.tasklist.TaskList;
+import dipsy.ui.Ui;
 
 public class ListCommandTest {
 
@@ -47,18 +48,14 @@ public class ListCommandTest {
     private static class UiStub extends Ui {
         private final List<Task> displayedTasks = new ArrayList<>();
 
-        @Override
-        public void printListOfTasks(ArrayList<Task> tasks) {
-            displayedTasks.addAll(tasks); // Simulate displaying tasks
-        }
-
         public List<Task> getDisplayedTasks() {
             return displayedTasks;
         }
     }
 
     @Test
-    public void execute_listAllTasks_displaysAllTasks() throws InvalidDateException {
+    public void execute_listAllTasks_displaysAllTasks()
+            throws InvalidDateException, InvalidCommandException {
         String userInput = "list";
         Task task1 = new TaskStub("Placeholder1", false, LocalDate.of(2024, 1, 1));
         Task task2 = new TaskStub("Placeholder2", false, LocalDate.of(2024, 1, 2));
@@ -74,7 +71,8 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listTasksByDate_displaysTasksOnSpecificDate() throws InvalidDateException {
+    public void execute_listTasksByDate_displaysTasksOnSpecificDate()
+            throws InvalidDateException, InvalidCommandException {
         String userInput = "list 2024-01-01";
         Task task1 = new TaskStub("Placeholder1", false, LocalDate.of(2024, 1, 1));
         Task task2 = new TaskStub("Placeholder2", false, LocalDate.of(2024, 1, 2));
