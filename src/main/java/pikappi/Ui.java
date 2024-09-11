@@ -123,6 +123,22 @@ public class Ui {
                 + "> mark <index>: Marks a task as done\n"
                 + "> unmark <index>: Unmarks a task as not done yet\n"
                 + "> delete <index>: Deletes a task from the list\n"
+                + "> help: Shows the list of commands\n"
+                + "> sort <sort type>: Sorts the list of tasks\n"
                 + "> bye: Exits Pikappi";
+    }
+
+    /**
+     * Shows the sort options to the user.
+     */
+    public String showSortOptions() {
+        return "Pika..? Invalid Sort Option!\n"
+                + "Here are the sort options you can use:\n"
+                + "> sort description: Sorts the list of tasks by description\n"
+                + "> sort tasktype: Sorts the list of tasks by task type\n"
+                + "> sort status: Sorts the list of tasks by status\n"
+                + "> sort by: Sorts the list of tasks by deadline\n"
+                + "> sort from: Sorts the list of tasks by event start time";
+
     }
 }

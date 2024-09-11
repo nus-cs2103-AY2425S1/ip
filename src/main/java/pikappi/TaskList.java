@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import pikappi.exception.PikappiException;
+import pikappi.task.DeadlineTask;
+import pikappi.task.EventTask;
 import pikappi.task.Task;
 
 /** Represents a list of tasks. */
@@ -129,5 +131,53 @@ public class TaskList {
                         .filter(task -> task.getDescription().contains(keyword))
                         .forEach(task -> matches.getTasks().add(task)));
         return matches;
+    }
+
+    /**
+     * Sorts tasks by description, task type or status.
+     *
+     * @param sortBy The attribute to sort tasks by
+     * @throws PikappiException If the sort option is invalid
+     */
+    public void sortTasks(String sortBy) throws PikappiException {
+        switch (sortBy) {
+        case "description":
+            tasks.sort((task1, task2) -> task1.getDescription().compareTo(task2.getDescription()));
+            break;
+        case "tasktype":
+            tasks.sort((task1, task2) -> task1.getTaskType().compareTo(task2.getTaskType()));
+            break;
+        case "status":
+            tasks.sort((task1, task2) -> Boolean.compare(task1.isDone(), task2.isDone()));
+            break;
+        case "by":
+            tasks.sort((task1, task2) -> {
+                if (task1 instanceof DeadlineTask deadlineTask1 && task2 instanceof DeadlineTask deadlineTask2) {
+                    return deadlineTask1.getBy().compareTo(deadlineTask2.getBy());
+                } else if (task1.getTaskType().equals("D")) {
+                    return -1;
+                } else if (task2.getTaskType().equals("D")) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            break;
+        case "from":
+            tasks.sort((task1, task2) -> {
+                if (task1 instanceof EventTask eventTask1 && task2 instanceof EventTask eventTask2) {
+                    return eventTask1.getFrom().compareTo(eventTask2.getFrom());
+                } else if (task1.getTaskType().equals("E")) {
+                    return -1;
+                } else if (task2.getTaskType().equals("E")) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            break;
+        default:
+            throw new PikappiException("Pi-ka..?? Invalid sort option..");
+        }
     }
 }

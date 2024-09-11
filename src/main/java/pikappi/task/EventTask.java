@@ -20,7 +20,7 @@ public class EventTask extends Task {
      * @param to The end time of the task.
      */
     public EventTask(String description, String from, String to) {
-        super(description);
+        super(description, "E");
         try {
             LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
             String time = from.split(" ")[1];
@@ -52,7 +52,7 @@ public class EventTask extends Task {
      * @param isDone The status of the task.
      */
     public EventTask(String description, String from, String to, boolean isDone) {
-        super(description, isDone);
+        super(description, "E", isDone);
         this.from = from;
         this.to = to;
     }
