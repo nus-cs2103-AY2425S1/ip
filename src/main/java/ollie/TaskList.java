@@ -46,6 +46,7 @@ public class TaskList {
      * @throws OllieException If the index given does not exist.
      */
     public Task delete(int index) throws OllieException {
+        assert(tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid Serial number given!");
         }
@@ -62,6 +63,7 @@ public class TaskList {
      * @return Task which has been marked as done.
      */
     public Task markAsDone(int index) throws OllieException {
+        assert(tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid Serial number given!");
         }
@@ -78,6 +80,7 @@ public class TaskList {
      * @return Task which has been marked as done.
      */
     public Task markAsUndone(int index) throws OllieException{
+        assert(tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid Serial number given!");
         }
@@ -91,7 +94,12 @@ public class TaskList {
                 .toCollection(ArrayList::new)));
     }
 
-    public boolean isIndexValid(int index) {
+    /**
+     * Checks tasks can be indexed by the given index.
+     *
+     * @param index
+     */
+    private boolean isIndexValid(int index) {
         assert(tasks != null);
         return (index < 0 || index > tasks.size() - 1);
     }

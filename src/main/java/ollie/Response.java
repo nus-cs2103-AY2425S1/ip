@@ -17,13 +17,13 @@ public class Response {
      * @return boolean True if this response is for the end of conversation, false if otherwise.
      */
     public boolean isExit() {
-        return this.isExit;
+        return isExit;
     }
 
     /**
      * Return response's message
      */
     public String getMessage() {
-        return this.message;
+        return message;
     }
 }
