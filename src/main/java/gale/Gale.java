@@ -151,17 +151,17 @@ public class Gale {
     public String handleTaskMarking(String input) throws GaleException {
         String[] strA = input.split(" ");
         int index = Integer.parseInt(strA[1]) - 1;
-        boolean isDone = strA[0].equals("mark");
-        if (index >= 0 && index < taskList.size()) {
-            Task task = taskList.getTask(index);
-            if (task.status() == isDone) {
-                throw new GaleException("Oops! This task is already marked as " + (isDone ? "done." : "not done."));
-            } else {
-                taskList.markTask(index, isDone);
-                return ui.showMarkedTask(task, isDone);
-            }
-        } else {
+        if (index < 0 || index >= taskList.size()) {
             throw new GaleException("Oops! That task number is lost in the wind. Try again?");
+        }
+        boolean isDone = strA[0].equals("mark");
+        Task task = taskList.getTask(index);
+        if (task.status() == isDone) {
+            String status = isDone ? "done" : "not done.";
+            throw new GaleException("Oops! This task is already marked as " + status);
+        } else {
+            taskList.markTask(index, isDone);
+            return ui.showMarkedTask(task, isDone);
         }
     }
 

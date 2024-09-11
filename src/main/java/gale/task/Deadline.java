@@ -39,7 +39,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", super.status() ? 1 : 0, getDescription(),
-                by.format(Parser.getFormatters().get(0)));
+        int status = super.status() ? 1 : 0;
+        String byInFileFormat = by.format(Parser.getFormatters().get(0));
+        return String.format("D | %d | %s | %s", status, getDescription(),
+                byInFileFormat);
     }
 }

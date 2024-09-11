@@ -81,13 +81,14 @@ public class Parser {
      * @throws GaleException if the input string does not match the ToDo format
      */
     public static ToDo parseToDo(String input) throws GaleException {
+        String exceptionMsg = "Oops! The wind blew away your to-do description. "
+            + "Please use: 'todo [description]'.";
         if (input.length() <= 5) {
-            throw new GaleException("Oops! The wind blew away your to-do description. "
-                + "Please use: 'todo [description]'.");
+            throw new GaleException(exceptionMsg);
         }
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
-            throw new GaleException("Oops! The wind blew away your to-do description. Please furnish it again.");
+            throw new GaleException(exceptionMsg);
         }
         return new ToDo(description);
     }
@@ -100,14 +101,14 @@ public class Parser {
      * @throws GaleException if the input string does not match the Deadline format
      */
     public static Deadline parseDeadline(String input) throws GaleException {
+        String exceptionMsg = "Your deadline got tossed by the wind! "
+            + "Please use 'deadline [description] /by [date]'.";
         if (input.length() <= 9) {
-            throw new GaleException("Your deadline got tossed by the wind! "
-                + "Please use 'deadline [description] /by [date]'.");
+            throw new GaleException(exceptionMsg);
         }
         String[] strA = input.substring(9).split("/by");
         if (strA.length != 2 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()) {
-            throw new GaleException("Your deadline got tossed by the wind! "
-                + "Please use 'deadline [description] /by [date]'.");
+            throw new GaleException(exceptionMsg);
         }
         String description = strA[0].trim();
         String by = strA[1].trim();
@@ -127,15 +128,15 @@ public class Parser {
      * @throws GaleException if the input string does not match any of the task types
      */
     public static Event parseEvent(String input) throws GaleException {
+        String exceptionMsg = "Your event is lost in the wind! "
+            + "Please use 'event [description] /from [start] /to [end]'.";
         if (input.length() <= 6) {
-            throw new GaleException("Your event is lost in the wind! "
-                + "Please use 'event [description] /from [start] /to [end]'.");
+            throw new GaleException(exceptionMsg);
         }
         String[] strA = input.substring(6).split("/from|/to");
         if (strA.length != 3 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()
                 || strA[2].trim().isEmpty()) {
-            throw new GaleException("Your event is lost in the wind! "
-                + "Please use 'event [description] /from [start] /to [end]'.");
+            throw new GaleException(exceptionMsg);
         }
         String description = strA[0].trim();
         String from = strA[1].trim();
