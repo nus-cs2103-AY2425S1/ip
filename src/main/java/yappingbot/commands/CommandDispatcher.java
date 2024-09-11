@@ -24,6 +24,7 @@ public class CommandDispatcher {
      * @param ui UI interface to output text
      */
     public CommandDispatcher(Ui ui) {
+        assert ui != null;
         this.ui = ui;
     }
 
@@ -35,6 +36,7 @@ public class CommandDispatcher {
      * @return TaskList of the whole task list, not filtered
      */
     public TaskList resetView(TaskList currentUserList, boolean silent) {
+        assert currentUserList != null;
         // reset the view to main parent
         TaskList userList = currentUserList;
         while (userList instanceof TaskListFilterView) {
@@ -53,6 +55,7 @@ public class CommandDispatcher {
      * @param userList TaskList to be printed
      */
     public void printUserList(TaskList userList) {
+        assert userList != null;
         if (userList.isEmpty()) {
             ui.println("List is empty!");
         }
@@ -91,6 +94,9 @@ public class CommandDispatcher {
      * @param userList TaskList to be searched.
      */
     public void changeTaskListStatus(int i, boolean isTaskDone, TaskList userList) {
+        assert userList != null;
+        assert userList.size() > i;
+
         Task t = userList.get(i);
         t.setTaskDone(isTaskDone);
         StringBuilder sb = new StringBuilder();
@@ -118,6 +124,8 @@ public class CommandDispatcher {
      * @param userList TaskList to be searched.
      */
     public void deleteTask(int i, TaskList userList) {
+        assert userList != null;
+        assert userList.size() > i;
         Task t = userList.deleteTask(i);
         ui.print(ReplyTextMessages.DELETED_TEXT
                  + "\n"
@@ -144,6 +152,9 @@ public class CommandDispatcher {
             TaskTypes taskTypes,
             TaskList userList)
     throws YappingBotIncorrectCommandException {
+        assert userList != null;
+        assert userInputSpliced != null;
+
         Task newTask;
         String taskName = null;
         String command = null;
@@ -270,6 +281,9 @@ public class CommandDispatcher {
      *         Tasks.
      */
     public TaskList findStringInTasks(String searchString, TaskList userList) {
+        assert searchString != null;
+        assert userList != null;
+
         StringBuilder sb = new StringBuilder();
         String searchStringSanitized = searchString.replaceAll("\n", "");
         sb.append(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
