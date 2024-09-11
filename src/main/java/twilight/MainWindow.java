@@ -32,14 +32,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getTwilightDialog(Twilight.greet(), twilightImage)
-        );
     }
 
     /** Injects the Twilight instance */
     public void setTwilight(Twilight t) {
         twilight = t;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTwilightDialog(twilight.greet(), twilightImage)
+        );
     }
 
     /**

@@ -29,10 +29,12 @@ public class Parser {
                 return new MarkingCommand(i, details);
             } else if (i <= 5) {
                 return new AddTaskCommand(i, details);
-            } else if (i < 7){
+            } else if (i < 7) {
                 return new DeleteCommand(details);
-            } else {
+            } else if (i == 7) {
                 return new SearchCommand(details);
+            } else {
+                throw new InvalidInputException("Command does not exist.");
             }
         } catch (IndexOutOfBoundsException e) {
             if (input.equals("list")) {

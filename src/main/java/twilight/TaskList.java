@@ -9,7 +9,7 @@ public class TaskList {
     protected ArrayList<Task> tasks;
 
     /**
-     * Instantiates a tasklist object based on an exisiting an arraylist</task>.
+     * Instantiates a task list object based on an existing an arraylist<task>.
      *
      * @param tasks An arraylist of tasks.
      */
@@ -18,7 +18,7 @@ public class TaskList {
     }
 
     /**
-     * Instantiates an empty tasklist with an empty arraylist.
+     * Instantiates an empty task list with an empty arraylist.
      */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -28,15 +28,10 @@ public class TaskList {
      * Returns a string of the tasks stored in the list.
      */
     public String list() {
-        String list = "";
-        int listSize = tasks.size();
-        if (listSize > 2) {
-            for (int i = 0; i < listSize - 1; i++) {
-                list += (i + 1) + ". " + tasks.get(i).toString()+ "\n";
-            }
+        if (tasks.isEmpty()) {
+            return "No tasks stored in list. Feel free to add some.";
         }
-        list += listSize + ". " + tasks.get(listSize - 1).toString();
-        return "Here are the current tasks:\n" + list;
+        return "Here are the current tasks:\n" + TaskList.taskListToStringList(this);
     }
 
     /**
@@ -108,17 +103,21 @@ public class TaskList {
         }
         if (matches.tasks.isEmpty()) {
             return "No matches found";
-        } else {
-            String results = "";
-            int numMatches = matches.tasks.size();
-            if (numMatches > 2) {
-                for (int i = 0; i < matches.tasks.size() - 1; i++) {
-                    results += (i + 1) + ". " + matches.tasks.get(i).toString() + "\n";
-                }
-            }
-            results += numMatches + ". " + matches.tasks.get(numMatches - 1).toString();
-            return "Here are the matches:\n" + results;
         }
+        String results = TaskList.taskListToStringList(matches);
+        return "Here are the matches:\n" + results;
+    }
+
+    private static String taskListToStringList(TaskList tasks) {
+        String results = "";
+        int size = tasks.tasks.size();
+        if (size >= 2) {
+            for (int i = 0; i < tasks.tasks.size() - 1; i++) {
+                results += (i + 1) + ". " + tasks.tasks.get(i).toString() + "\n";
+            }
+        }
+        results += size + ". " + tasks.tasks.get(size - 1).toString();
+        return results;
     }
 }
 
