@@ -34,25 +34,46 @@ public class Parser {
     public static Command parse(String input) throws TudeeException {
         String[] inputs = input.split(" ", 2);
         String command = inputs[0];
+
+        // Assert that the command part is not empty.
+        assert command != null && !command.isEmpty() : "Input should not be empty";
         if (command.equalsIgnoreCase("list")) {
             return new ListCommand();
         } else if (command.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (command.equalsIgnoreCase("todo")) {
+            // Assert that input contains a task description for the ToDo task.
+            assert inputs.length > 1 : "Specify the task description!";
             return new AddTaskCommand(new ToDo(inputs[1]));
         } else if (command.equalsIgnoreCase("deadline")) {
-            return new AddTaskCommand(new Deadline(inputs[1], inputs[2]));
+            String[] details = inputs[1].split("/by ");
+            // Assert that the task description and the deadline are provided.
+            assert details.length == 2 : "Specify the task description or deadline (/by)!";
+            return new AddTaskCommand(new Deadline(details[0], details[1]));
         } else if (command.equalsIgnoreCase("event")) {
-            return new AddTaskCommand(new Events(inputs[1], inputs[2], inputs[3]));
+            // Assert that the task description, start and end date are provided.
+            String[] details = inputs[1].split("/from | /to ");
+            assert details.length == 3 : "Specify the task description, start (/from) and end date (/to)!";
+            return new AddTaskCommand(new Events(details[0], details[1], details[2]));
         } else if (command.equalsIgnoreCase("mark")) {
+            // Assert that a task number is provided to be marked.
+            assert inputs.length > 1 : "Specify the index of the task to be marked!";
             return new MarkCommand(Integer.parseInt(inputs[1]));
         } else if (command.equalsIgnoreCase("unmark")) {
+            // Assert that a task number is provided to be unmarked.
+            assert inputs.length > 1 : "Specify the index of the task to be unmarked!";
             return new UnmarkCommand(Integer.parseInt(inputs[1]));
         } else if (command.equalsIgnoreCase("delete")) {
+            // Assert that a task number is provided to be deleted.
+            assert inputs.length > 1 : "Specify the index of the task to be deleted!";
             return new DeleteCommand(Integer.parseInt(inputs[1]));
         } else if (command.equalsIgnoreCase("date")) {
+            // Assert that a date is provided.
+            assert inputs.length > 1 : "Specify the date you wish to check!";
             return new DateCommand(inputs[1]);
         } else if (command.equalsIgnoreCase("find")) {
+            // Assert that a keyword is provided to find tasks with that keyword.
+            assert inputs.length > 1 : "Specify the keyword you wish to find!";
             return new FindCommand(inputs[1]);
         } else {
             return new UnknownCommand();

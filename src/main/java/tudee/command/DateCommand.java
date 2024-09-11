@@ -48,6 +48,10 @@ public class DateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
+        // Assert that tasks, ui and storage are not null.
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         boolean haveTask = false;
         TaskList matchingTasks = new TaskList();
         for (Task task : tasks.get()) {

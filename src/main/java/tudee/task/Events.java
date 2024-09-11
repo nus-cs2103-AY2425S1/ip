@@ -2,6 +2,9 @@ package tudee.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import tudee.TudeeException;
 
 /**
  * Represents a Events task.
@@ -24,10 +27,14 @@ public class Events extends Task {
      * @param start The start date for the task, in the format yyyy-MM-dd.
      * @param end The end date for the task, in the format yyyy-MM-dd.
      */
-    public Events(String taskString, String start, String end) {
+    public Events(String taskString, String start, String end) throws TudeeException {
         super(taskString);
-        this.start = LocalDate.parse(start);
-        this.end = LocalDate.parse(end);
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            throw new TudeeException("Invalid date format. Please use yyyy-MM-dd.");
+        }
     }
 
     /**

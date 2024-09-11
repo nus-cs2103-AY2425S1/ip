@@ -33,6 +33,10 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        // Assert that tasks, ui and storage are not null.
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         Task task = tasks.get(index - 1);
         task.markAsNotDone();
         storage.save(tasks.get());

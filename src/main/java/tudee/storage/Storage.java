@@ -49,6 +49,9 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String currentLine = sc.nextLine();
                 String[] data = currentLine.split(" \\| ");
+
+                // Assert that the data array has the expected length.
+                assert data.length >= 3 : "Format is incorrect. You should have at least 3 segments.";
                 Task currentTask;
                 try {
                     switch (data[0]) {
@@ -56,9 +59,13 @@ public class Storage {
                         currentTask = new ToDo(data[2]);
                         break;
                     case "D":
+                        // Assert that Deadline has 4 segments.
+                        assert data.length == 4: "Deadline must have 4 segments";
                         currentTask = new Deadline(data[2], data[3]);
                         break;
                     case "E":
+                        // Assert that Events has 5 segments.
+                        assert data.length == 5: "Events must have 5 segments";
                         currentTask = new Events(data[2], data[3], data[4]);
                         break;
                     default:
