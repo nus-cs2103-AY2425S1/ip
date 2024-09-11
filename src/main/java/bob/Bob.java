@@ -6,7 +6,10 @@ import misc.Storage;
 import misc.Ui;
 import task.Tasklist;
 
-
+/**
+ * Main class for the chatbot Bob. It has a <code>Storage</code> to allow read and write,
+ * and a <code>Tasklist</code> to manage tasks and a <code>Ui</code> to handle responses.
+ */
 public class Bob {
     private Storage storage;
     private Tasklist tasklist;
@@ -21,6 +24,10 @@ public class Bob {
     public static void main(String[] args) throws CommandNotFoundException,
             MissingParamsException, PositionException {
         System.out.println("Hello!");
+    }
+
+    public String greeting() {
+        return ("Hello! Me bob");
     }
 
     /**
