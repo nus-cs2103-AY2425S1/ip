@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.markTask(index);
-        assert task.getStatusIcon().equals("X"): "Task not marked as done";
+        assert task.getStatusIcon().equals("X") : "Task not marked as done";
         String message = "Nice! I've marked this task as done:\n"
                 + "  " + task;
         ui.showCommand(message);

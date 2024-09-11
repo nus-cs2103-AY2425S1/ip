@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.deleteTask(index);
-        assert !tasks.getTasks().contains(task): "Task still exists in TaskList";
+        assert !tasks.getTasks().contains(task) : "Task still exists in TaskList";
         String message = "Noted. I've removed this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.";

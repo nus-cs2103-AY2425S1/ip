@@ -87,7 +87,7 @@ public class Storage {
             }
         }
 
-        assert directory.exists(): "Save Directory still not created";
+        assert directory.exists() : "Save Directory still not created";
 
         // Create save file
         if (!file.exists()) {
@@ -101,7 +101,7 @@ public class Storage {
             }
         }
 
-        assert file.exists(): "Save File still not created";
+        assert file.exists() : "Save File still not created";
 
         // Convert all tasks into save format
         ArrayList<Task> tasks = taskList.getTasks();

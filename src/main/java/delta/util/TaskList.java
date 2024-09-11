@@ -35,7 +35,7 @@ public class TaskList {
      * @param index Index of task to be returned (zero-based indexing).
      */
     public Task getTask(int index) {
-        assert index >= 0 && index < tasks.size(): "Index should be within bounds of TaskList";
+        assert index >= 0 && index < tasks.size() : "Index should be within bounds of TaskList";
         return tasks.get(index);
     }
 
