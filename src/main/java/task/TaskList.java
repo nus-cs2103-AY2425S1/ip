@@ -22,7 +22,9 @@ public class TaskList {
      * @param task Task object to be added to the ArrayLst.
      */
     public void addTask(Task task) {
+        int beforeSize = this.todoList.size();
         this.todoList.add(task);
+        assert(this.todoList.size() == beforeSize + 1);
     }
 
     /**
@@ -68,7 +70,11 @@ public class TaskList {
      * @return Task object removed.
      */
     public Task removeTask(int taskInd) {
-        return this.todoList.remove(taskInd - 1);
+        int beforeSize = this.todoList.size();
+        Task removedTask = this.todoList.remove(taskInd - 1);
+        assert(this.todoList.size() == beforeSize - 1);
+
+        return removedTask;
     }
 
     /**
