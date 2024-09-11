@@ -101,7 +101,12 @@ public class TaskList {
         return this.toDoList.size();
     }
 
-    
+    /**
+     * Returns a TaskList that contains the tasks sorted in the category specified
+     * 
+     * @param categoryToSortBy the category by which to sort, either by deadline, or by description
+     * @return TaskList containing the tasks in sorted order 
+     */
     public TaskList sortBy(String categoryToSortBy) {
         if (categoryToSortBy.equals("deadline")) {
             ArrayList<Task> deadlineTasks = toDoList.stream()
