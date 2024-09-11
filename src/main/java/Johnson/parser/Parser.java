@@ -1,12 +1,24 @@
 package Johnson.parser;
 
-import Johnson.command.*;
+import Johnson.command.Command;
+import Johnson.command.DeadlineCommand;
+import Johnson.command.DeleteCommand;
+import Johnson.command.EventCommand;
+import Johnson.command.ExitCommand;
+import Johnson.command.FindCommand;
+import Johnson.command.GreetCommand;
+import Johnson.command.ListCommand;
+import Johnson.command.MarkCommand;
+import Johnson.command.ToDoCommand;
+import Johnson.command.UnmarkCommand;
+
 import Johnson.exceptions.MissingDateException;
 import Johnson.exceptions.MissingDividerException;
 import Johnson.exceptions.MissingTaskException;
 import Johnson.exceptions.UnknownCommandException;
 import Johnson.utils.Utilities;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +63,7 @@ public class Parser {
      * @return the parsed command.
      */
     public Command parseCommand(String userInput) {
+
         Matcher matcher = BASIC_COMMAND_PATTERN.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -60,7 +73,13 @@ public class Parser {
 
         String command = matcher.group("command");
         String arguments = matcher.group("arguments");
+
         Command parsedCommand = null;
+
+        if (Arrays.stream(GreetCommand.COMMAND_WORDS).anyMatch(greeting -> greeting.equals(command))) {
+            parsedCommand = new GreetCommand();
+            return parsedCommand;
+        }
 
         try {
             switch (command) {
