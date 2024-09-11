@@ -6,6 +6,7 @@ import park.commands.Command;
 import park.commands.DeleteCommand;
 import park.commands.ExitCommand;
 import park.commands.FindCommand;
+import park.commands.HelpCommand;
 import park.commands.ListCommand;
 import park.commands.MarkCommand;
 import park.commands.UnmarkCommand;
@@ -28,6 +29,8 @@ public class Parser {
     public static Command parse(String userInput) throws ParkException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
+        } else if (userInput.equals("help")) {
+            return new HelpCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {

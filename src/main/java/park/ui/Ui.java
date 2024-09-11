@@ -99,6 +99,37 @@ public class Ui {
         }
     }
 
+    public void setHelpResponse() {
+        setResponse("""
+                Here is a list of available commands!
+                
+                list: shows your task list.
+                
+                todo *desc*: adds a task of type todo, which only has a description.
+                
+                deadline *desc* /by *deadline*: adds a task of type deadline, which
+                has a description and a deadline. Deadline must be in the format
+                yyyy-MM-dd HHmm.
+                
+                event *desc* /from *start* /to *end*: adds a task of type deadline,
+                which has a description, start and end. Start and end must be in the
+                format yyyy-MM-dd HHmm.
+                
+                mark *index*: Marks the task in your list with the corresponding
+                index as done.
+                
+                unmark *index*: Marks the task in your list with the corresponding
+                index as not done.
+                
+                delete *index*: Deletes the task with the corresponding index.
+                
+                find *keyword*: Finds tasks in your list that contain the input
+                keyword.
+                
+                bye: Exits the chatbot.
+                """);
+    }
+
     private void setResponse(String message) {
         parkResponse.append(message);
     }
