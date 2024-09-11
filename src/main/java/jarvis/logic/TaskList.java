@@ -87,13 +87,15 @@ public class TaskList {
      * @param i the index of the task to unmark.
      */
     public void unmark(int i) {
-        this.list.get(i - 1).setDone(false);
-        storage.unmark(i - 1);
+
+            this.list.get(i - 1).setDone(false);
+            storage.unmark(i - 1);
     }
 
     // Generates the message for the unmark dialog
     public String unmarkDialog(int i) {
-        if(i - 1 < 0 || i > this.getNumTasks()){
+        boolean validIndex = i - 1 < 0 || i > this.getNumTasks();
+        if(validIndex){
             return "index error!";
         }
         return String.format("Nice! I've marked this task as not done:\n" +
@@ -112,7 +114,8 @@ public class TaskList {
 
     // Generates the message for the mark dialog
     public String markDialog(int i) {
-        if(i - 1 < 0 || i > this.getNumTasks()){
+        boolean validIndex = i - 1 < 0 || i > this.getNumTasks();
+        if(validIndex){
             return "index error!";
         }
         return String.format(
@@ -139,11 +142,13 @@ public class TaskList {
 
     // Generates the message for the delete dialog
     public String deleteDialog(int i) {
-        if(i - 1 < 0 || i > this.getNumTasks()){
+        boolean validIndex = i - 1 < 0 || i > this.getNumTasks();
+        if(validIndex){
             return "index error!";
         }
         return String.format("Noted. I've removed this task:\n" +
-                " %s\nNow you have %d tasks in the list.\n" , this.list.get(i - 1), this.list.size());
+                " %s\nNow you have %d tasks in the list.\n" , this.list.get(i - 1),
+                this.list.size());
     }
 
     /**

@@ -13,30 +13,36 @@ public class Parser {
      * @param tasklist the {@code TaskList} object on which the commands will be executed.
      */
     public static void parse(String input, TaskList tasklist) {
-        if (!input.equals("bye")) {
-            // Only print if it's not "bye"
-            if (input.startsWith("mark") || input.startsWith("unmark") ||
-                    input.startsWith("delete")) {
-                String[] parts = input.split(" ");
-                try {
-                    if (parts.length == 2) {
-                        int taskIndex = Integer.parseInt(parts[1]);
-                        if (input.startsWith("mark")) {
-                            tasklist.mark(taskIndex);
-                        } else if (input.startsWith("unmark")) {
-                            tasklist.unmark(taskIndex);
-                        } else if (input.startsWith("delete")) {
-                            tasklist.handleDelete(taskIndex);
-                        }
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("index error!");
-                }
+        if (input.equals("bye")) {
+            return;  // Early exit if input is "bye"
+        }
 
-            } else if (input.startsWith("find")) {
-                String toFind = input.substring(5);
-                tasklist.find(toFind);
+        if (input.startsWith("mark") || input.startsWith("unmark")
+                || input.startsWith("delete")) {
+            String[] parts = input.split(" ");
+            if (parts.length != 2) {
+                return;  // Early exit if the input doesn't have two parts
             }
+
+            try {
+                int taskIndex = Integer.parseInt(parts[1]);
+                if (input.startsWith("mark")) {
+                    tasklist.mark(taskIndex);
+                } else if (input.startsWith("unmark")) {
+                    tasklist.unmark(taskIndex);
+                } else if (input.startsWith("delete")) {
+                    tasklist.handleDelete(taskIndex);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("index error!");
+            }
+
+            return;  // Early exit after handling mark, unmark, or delete
+        }
+
+        if (input.startsWith("find")) {
+            String toFind = input.substring(5);
+            tasklist.find(toFind);
         }
     }
 
@@ -52,44 +58,55 @@ public class Parser {
 
         if (input.equals("list")) {
             result.append(tasklist.list());
-        } else if (!input.equals("bye")) {
-            // Only return if it's not "bye"
-            if (input.startsWith("mark") || input.startsWith("unmark") ||
-                    input.startsWith("delete")) {
-                String[] parts = input.split(" ");
-                try {
-                    if (parts.length == 2) {
-                        int taskIndex = Integer.parseInt(parts[1]);
-                        if (input.startsWith("mark")) {
-                            result.append(tasklist.markDialog(taskIndex));
-                        } else if (input.startsWith("unmark")) {
-                            result.append(tasklist.unmarkDialog(taskIndex));
-                        } else if (input.startsWith("delete")) {
-                            result.append(tasklist.deleteDialog(taskIndex));
-                        }
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    result.append("index error!\n");
-                }
-
-            } else if (input.startsWith("find")) {
-                String toFind = input.substring(5).trim();
-                result.append(tasklist.find(toFind));
-            } else {
-                try {
-                    result.append(tasklist.add(input)).append("\n");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    result.append("bad input: invalid format ").append(input).append("\n");
-                } catch (IndexOutOfBoundsException e) {
-                    result.append("bad input: invalid format ").append(input).append("\n");
-                } catch (IllegalArgumentException e) {
-                    result.append("Invalid input.\n");
-                } catch (Exception e) {
-                    result.append("error\n");
-                }
-            }
+            return result.toString();
         }
-        parse(input, tasklist);
+
+        if (input.equals("bye")) {
+            return result.toString(); // Early exit if input is "bye"
+        }
+
+        if (input.startsWith("mark") || input.startsWith("unmark")
+                || input.startsWith("delete")) {
+            String[] parts = input.split(" ");
+            if (parts.length != 2) {
+                return result.append("Invalid input format\n").toString();
+            }
+
+            try {
+                int taskIndex = Integer.parseInt(parts[1]);
+                if (input.startsWith("mark")) {
+                    result.append(tasklist.markDialog(taskIndex));
+                } else if (input.startsWith("unmark")) {
+                    result.append(tasklist.unmarkDialog(taskIndex));
+                } else if (input.startsWith("delete")) {
+                    result.append(tasklist.deleteDialog(taskIndex));
+                }
+            } catch (IndexOutOfBoundsException e) {
+                result.append("index error!\n");
+            }
+
+            return result.toString(); // Return after processing mark, unmark, or delete
+        }
+
+        if (input.startsWith("find")) {
+            String toFind = input.substring(5).trim();
+            result.append(tasklist.find(toFind));
+            return result.toString();
+        }
+
+        // Process add operation
+        try {
+            result.append(tasklist.add(input)).append("\n");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            result.append("bad input: invalid format ").append(input).append("\n");
+        } catch (IndexOutOfBoundsException e) {
+            result.append("bad input: invalid format ").append(input).append("\n");
+        } catch (IllegalArgumentException e) {
+            result.append("Invalid input.\n");
+        } catch (Exception e) {
+            result.append("error\n");
+        }
+
         return result.toString();
     }
 }
