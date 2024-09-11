@@ -1,15 +1,15 @@
 package momo.command;
 
-import momo.Ui;
-import momo.exception.InvalidCommandException;
-import momo.Storage;
-import momo.StorageException;
-import momo.task.Task;
-import momo.task.TaskList;
+import static momo.Momo.FILE_PATH;
 
 import java.io.IOException;
 
-import static momo.Momo.FILE_PATH;
+import momo.Storage;
+import momo.StorageException;
+import momo.Ui;
+import momo.exception.InvalidCommandException;
+import momo.task.Task;
+import momo.task.TaskList;
 
 /**
  * Handles the delete task functionality, handling the validation of input and
@@ -17,14 +17,27 @@ import static momo.Momo.FILE_PATH;
  * they do not include the deleted task anymore
  */
 public class DeleteCommand {
+
+    public static final int COMMAND_PREFIX_OFFSET = 6;
+
+
+    /**
+     * Runs delete command, validating and deleting user task from list and rewriting file if the delete command is
+     * valid, with comprehensive exception handling
+     * @param input
+     * @param tasks
+     * @param storage
+     * @param ui
+     * @throws InvalidCommandException
+     * @throws StorageException
+     */
     public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
             StorageException {
         assert tasks != null : "TaskList should not be null";
         assert ui != null : "Ui should not be null";
 
         try {
-            int index = Integer.parseInt(input.substring(6).trim()) - 1;
-
+            int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
             if (index >= tasks.getCount() || index < 0) {
                 throw new InvalidCommandException("You can only delete a number your task list contains");
             }

@@ -1,15 +1,15 @@
 package momo.command;
 
-import momo.Ui;
-import momo.exception.InvalidCommandException;
-import momo.Storage;
-import momo.StorageException;
-import momo.task.Task;
-import momo.task.TaskList;
+import static momo.Momo.FILE_PATH;
 
 import java.io.IOException;
 
-import static momo.Momo.FILE_PATH;
+import momo.Storage;
+import momo.StorageException;
+import momo.Ui;
+import momo.exception.InvalidCommandException;
+import momo.task.Task;
+import momo.task.TaskList;
 
 /**
  * Handles the functionality of marking a command, validating the numerical input
