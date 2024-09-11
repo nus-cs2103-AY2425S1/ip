@@ -182,4 +182,22 @@ public class Ui {
         }
         System.out.println("    _______________________________________________________");
     }
+
+    /**
+     * Shows the sorted deadlines on the CLI.
+     *
+     * @param deadlines The list of deadlines.
+     */
+    public void showSortedDeadlines(List<Deadline> deadlines) {
+        System.out.println("    _______________________________________________________");
+        if (deadlines.isEmpty()) {
+            System.out.println("     You have no deadlines in your list.");
+        } else {
+            System.out.println("     Here are the deadlines in your list, sorted by date:");
+            for (int i = 0; i < deadlines.size(); i++) {
+                System.out.println("     " + (i + 1) + "." + deadlines.get(i));
+            }
+        }
+        System.out.println("    _______________________________________________________");
+    }
 }

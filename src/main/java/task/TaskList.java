@@ -1,6 +1,7 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -87,5 +88,21 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    /**
+     * Sorts the deadlines in the task list chronologically.
+     *
+     * @return The list of deadlines sorted chronologically.
+     */
+    public List<Deadline> sortDeadlines() {
+        List<Deadline> deadlines = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                deadlines.add((Deadline) task);
+            }
+        }
+        deadlines.sort(Comparator.comparing(Deadline::getDeadline));
+        return deadlines;
     }
 }

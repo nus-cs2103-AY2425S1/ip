@@ -8,6 +8,7 @@ import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.SearchCommand;
+import command.SortDeadlineCommand;
 import command.UnmarkCommand;
 import fridayException.FridayException;
 import fridayException.InvalidDeadlineArgument;
@@ -113,6 +114,8 @@ public class Parser {
                 throw new InvalidFindArgument();
             }
             return new FindCommand(userInput.substring(5));
+        case "sort":
+            return new SortDeadlineCommand();
         default:
             assert !command.isEmpty() : "Command cannot be an empty string";
             throw new InvalidFridayCommand(userInput);

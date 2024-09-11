@@ -184,4 +184,25 @@ public class UiGui {
         sb.append("    _______________________________________________________\n");
         return sb.toString();
     }
+
+    /**
+     * Shows the sorted deadlines on the GUI.
+     *
+     * @param deadlines The list of deadlines.
+     * @return The sorted deadlines message as a string.
+     */
+    public String showSortedDeadlines(List<Deadline> deadlines) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("    _______________________________________________________\n");
+        if (deadlines.isEmpty()) {
+            sb.append("     You have no deadlines in your list.\n");
+        } else {
+            sb.append("     Here are the deadlines in your list, sorted by date:\n");
+            for (int i = 0; i < deadlines.size(); i++) {
+                sb.append("     ").append(i + 1).append(". ").append(deadlines.get(i)).append("\n");
+            }
+        }
+        sb.append("    _______________________________________________________\n");
+        return sb.toString();
+    }
 }
