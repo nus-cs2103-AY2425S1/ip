@@ -239,5 +239,26 @@ public class Ui {
         }
         return result.toString();
     }
+
+    /**
+     * Returns a help message listing all available commands and their usage.
+     * The help message provides guidance to users on how to interact with Axel,
+     * including how to add tasks, mark tasks as done, delete tasks, and exit the application.
+     */
+    public String printHelpMessage() {
+        String helpMessage = LINE +"\n"
+                + "Here are the available commands:\n"
+                + "1. todo <description> - Adds a ToDo task.\n"
+                + "2. deadline <description> /by <date> - Adds a Deadline task.\n"
+                + "3. event <description> /from <start> /to <end> - Adds an Event task.\n"
+                + "4. list - Lists all tasks.\n"
+                + "5. mark <task_number> - Marks a task as done.\n"
+                + "6. unmark <task_number> - Marks a task as not done.\n"
+                + "7. delete <task_number> - Deletes a task.\n"
+                + "8. find <keyword> - Finds tasks by a keyword.\n"
+                + "9. bye - Exits the application.\n"
+                + LINE;
+        return helpMessage;
+    }
 }
 

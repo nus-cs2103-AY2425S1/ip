@@ -202,3 +202,16 @@ class FindCommand extends CommandBase {
         return ui.showMatchingTasksAsString(matchingTasks);
     }
 }
+
+/**
+ * Represents a command that provides guidance to users by displaying a list
+ * of available commands and their descriptions. This command allows users
+ * to access the in-App help page, which lists how to interact with Axel,
+ * such as adding, marking, deleting tasks, and other functionalities.
+ */
+class HelpCommand extends CommandBase {
+    @Override
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.printHelpMessage();
+    }
+}

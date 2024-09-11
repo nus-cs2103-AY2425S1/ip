@@ -48,6 +48,9 @@ public class Parser {
         } else if (command.startsWith("find")) {
             return new FindCommand(command.substring(5).trim());
 
+        } else if (command.equalsIgnoreCase("help")) {
+            return new HelpCommand();
+
         } else {
             throw new UnrecognisedCommandException();
         }
