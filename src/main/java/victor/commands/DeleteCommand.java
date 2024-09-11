@@ -59,6 +59,8 @@ public class DeleteCommand extends Command {
         if (taskNumber.trim().equals(WRONG_TASK_NUMBER)) {
             return;
         }
+        // length of additional input if delete command cannot be 0
+        assert(super.getAdditionalInput().length != 0);
         super.taskList.writeToFile(filePath, true);
     }
 }

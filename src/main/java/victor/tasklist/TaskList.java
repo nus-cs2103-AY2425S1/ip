@@ -50,7 +50,11 @@ public class TaskList {
      */
     public String[] deleteTask(int taskNumber) {
         try {
+            int listLength = tasks.size();
             Task removed = tasks.remove(taskNumber - 1);
+            // if code gets here, length of tasks must now be 1 less
+            assert(tasks.size() == listLength - 1);
+
             return new String[] {"  ~  Deleting the task below now!",
                 "  ~  " + removed, "  ~  You now have " + this.getSize() + ((this.getSize() == 1) ? " task" : " tasks")
                     + " in your list."};
