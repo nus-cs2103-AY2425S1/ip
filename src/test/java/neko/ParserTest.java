@@ -35,9 +35,9 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTime() {
+    public void testParseTime() throws NekoException {
         assertEquals("Sun, 25 Aug 2024 10:51pm",
-                Parser.parseTime("2024-08-25T22:51")
+                Parser.parseTime("20240825T22:51")
                 .format(DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma")));
     }
 

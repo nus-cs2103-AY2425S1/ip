@@ -32,92 +32,15 @@ public class TaskList {
     }
 
     /**
-     * Prompts the user to add a task based on the task type and updates the storage.
+     * Adds task to task list and write the task to storage.
      *
-     * @param taskType The type of task to be added ("1" for Todo, "2" for Deadline, "3" for Event).
-     * @param ui       The user interface for interaction with the user.
-     * @param storage  The storage system for saving the task details.
-     * @throws IOException If an I/O error occurs while writing to storage.
+     * @param task The task to be added.
+     * @param storage The storage to be written to.
+     * @throws IOException if an I/O error occurs.
      */
-    public void addTask(String taskType, Ui ui, Storage storage) throws IOException {
-        Task task = null;
-        switch (taskType) {
-        case "1":
-            task = addTodoTask(ui, storage);
-            break;
-        case "2":
-            task = addDeadlineTask(ui, storage);
-            break;
-        case "3":
-            task = addEventTask(ui, storage);
-            break;
-        default:
-            ui.showMessage("Oops /ᐠ > ˕ <マ, that's not a valid option meow! Please enter 1, 2, or 3 meow!");
-            break;
-        }
-        if (task != null) {
-            tasks.add(task);
-            ui.showMessage("Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
-                    + task + "\nNow you have " + tasks.size() + " tasks in your list meow");
-        }
-    }
-
-    /**
-     * Adds a Todo task based on user input and updates the storage.
-     *
-     * @param ui      The user interface for interacting with the user.
-     * @param storage The storage system for saving the task details.
-     * @return The created Todo task.
-     * @throws IOException If an I/O error occurs while writing to storage.
-     */
-    private Task addTodoTask(Ui ui, Storage storage) throws IOException {
-        String taskName = ui.getTaskName();
-        Task task = new Todo(taskName);
-        storage.writeFile("T | 0 | " + taskName + "\n");
-        ui.showMessage("");
-        return task;
-    }
-
-    /**
-     * Adds a Deadline task based on user input and updates the storage.
-     *
-     * @param ui      The user interface for interacting with the user.
-     * @param storage The storage system for saving the task details.
-     * @return The created Todo task.
-     * @throws IOException If an I/O error occurs while writing to storage.
-     */
-    private Task addDeadlineTask(Ui ui, Storage storage) throws IOException {
-        String taskName = ui.getTaskName();
-        LocalDateTime deadline = ui.getDateTime("Enter the deadline"
-                + " date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
-        Task task = new Deadline(taskName, deadline);
-        storage.writeFile("D | 0 | " + taskName + " | " + task.getTime() + "\n");
-        return task;
-    }
-
-    /**
-     * Adds an Event task based on user input and updates the storage.
-     *
-     * @param ui      The user interface for interacting with the user.
-     * @param storage The storage system for saving the task details.
-     * @return The created Todo task.
-     * @throws IOException If an I/O error occurs while writing to storage.
-     */
-    private Task addEventTask(Ui ui, Storage storage) throws IOException {
-        String taskName = ui.getTaskName();
-        LocalDateTime startDateTime = ui.getDateTime("Enter the "
-                + "start date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
-        LocalDateTime endDateTime = ui.getDateTime("Enter the end date and time "
-                + "in the form 'yyyy-MM-ddTHH:mm' meow:");
-
-        while (endDateTime.isBefore(startDateTime)) {
-            ui.showMessage("End time cannot be before start time meow! Please enter the end date and time again");
-            endDateTime = ui.getDateTime("Enter the end date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
-        }
-
-        Task task = new Event(taskName, startDateTime, endDateTime);
-        storage.writeFile("E | 0 | " + taskName + " | " + task.getTime() + "\n");
-        return task;
+    public void addTask(Task task, Storage storage) throws IOException {
+        tasks.add(task);
+        storage.writeFile(task);
     }
 
     /**
@@ -145,16 +68,16 @@ public class TaskList {
      * Outputs the string representation of the tasks in the list if there is
      * at least one task in the list. Otherwise, output an error message.
      *
-     * @param ui The user interface for interacting with the user.
      */
-    public void listTasks(Ui ui) {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            ui.showMessage("You don't have any tasks yet meow!");
-            return;
-        }
-        ui.showMessage("Here are the tasks in your list meow:");
-        for (int i = 0; i < tasks.size(); i++) {
-            ui.showMessageWithoutDivider((i + 1) + ". " + tasks.get(i));
+            return "You don't have any tasks yet meow!";
+        } else {
+            StringBuilder tasksString = new StringBuilder("Here are the tasks in your list meow:");
+            for (int i = 0; i < tasks.size(); i++) {
+                tasksString.append("\n" + (i + 1)).append(". ").append(tasks.get(i));
+            }
+            return tasksString.toString();
         }
     }
 
