@@ -6,8 +6,7 @@ plugins {
 }
 
 checkstyle {
-    toolVersion = '10.18'
-    configDir = file("Colress/config/checkstyle")
+    toolVersion = '10.2'
 }
 
 repositories {
