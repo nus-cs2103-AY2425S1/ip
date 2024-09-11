@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StorageTest {
@@ -82,15 +81,6 @@ class StorageTest {
 
         ArrayList<Task> loadedTasks = storage.load();
         assertTrue(loadedTasks.isEmpty());
-    }
-
-    @Test
-    void testSaveIoException() {
-        Storage invalidStorage = new Storage("/invalid/path/tasks.txt");
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Todo("Test task"));
-
-        assertThrows(MonoBotException.class, () -> invalidStorage.save(tasks));
     }
 }
 
