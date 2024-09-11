@@ -24,6 +24,8 @@ public class DialogBox extends HBox {
         text = l;
         displayPicture = iv;
 
+        //@@author {eugencsa}-reused
+        //minor changes made for styling purposes to avoid using fxml
         text.setFont(Font.font("Monospaced", 12));
         text.setTextFill(Color.WHITE);
         text.setWrapText(true);
