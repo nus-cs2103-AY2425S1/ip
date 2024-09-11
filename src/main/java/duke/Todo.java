@@ -3,6 +3,7 @@ package duke;
  * Represents a Task with no date attribute.
  */
 public class Todo extends Task{
+    private static final String type = "[T]";
     public Todo(String descr) {
         super(descr);
     }
@@ -13,6 +14,6 @@ public class Todo extends Task{
      * @return String task description and date.
      * */
     public String toString() {
-        return "[T]" + super.toString();
+        return type + super.toString();
     }
 }

@@ -16,6 +16,18 @@ import java.util.Objects;
 public class Storage {
     private static final String PATH = "./data/duke.txt";
 
+    private static final int TASK_LIST_SIZE = 100;
+    private static final int TASK_PART_TYPE= 0;
+    private static final int TASK_PART_STATUS= 1;
+    private static final int TASK_PART_DESCRIPTION = 2;
+    private static final int TASK_PART_START = 3;
+    private static final int TASK_PART_END = 4;
+    private static final String TASK_STATUS_MARKED = "1";
+    private static final String TASK_STATUS_UNMARKED = "0";
+    private static final String TASK_TYPE_TODO = "T";
+    private static final String TASK_TYPE_DEADLINE = "D";
+    private static final String TASK_TYPE_EVENT = "E";
+
     public Storage() {
     }
 
@@ -32,7 +44,7 @@ public class Storage {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                return new Task[100];
+                return new Task[TASK_LIST_SIZE];
             } else {
                 List<String> taskList = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
@@ -40,9 +52,9 @@ public class Storage {
                     numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
                 }
                 assert taskList.size() == numTasks: "Size of saved task list does not match the number of saved tasks";
-                tasks = new Task[100];
-                for (int i =1; i<numTasks+1; i++) {
-                    tasks[i-1] = parser(taskList.get(i));
+                tasks = new Task[TASK_LIST_SIZE];
+                for (int i = 1; i<numTasks + 1; i++) {
+                    tasks[i - 1] = parser(taskList.get(i));
                 }
                 return tasks;
             }
@@ -86,7 +98,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(PATH);
             writer.write(n + "\n");
-            for (int i = 0; i<n; i++) {
+            for (int i = 0; i < n; i++) {
                 writer.write(saveTask(tasks[i]) + "\n");
             }
             writer.close();
@@ -104,21 +116,21 @@ public class Storage {
      * */
     private static Task parser(String line) throws DuckException {
         String[] parts = line.split(" \\| ");
-        if (Objects.equals(parts[0], "T")) {
-            Task t = new Todo(parts[2]);
-            if (parts[1].equals("1")) {
+        if (Objects.equals(parts[TASK_PART_TYPE], TASK_TYPE_TODO)) {
+            Task t = new Todo(parts[TASK_PART_DESCRIPTION]);
+            if (parts[TASK_PART_STATUS].equals(TASK_STATUS_MARKED)) {
                 t.mark();
             }
             return t;
-        } else if (Objects.equals(parts[0], "D")) {
-            Task t = new Deadline(parts[2], parts[3]);
-            if (parts[1].equals("1")) {
+        } else if (Objects.equals(parts[TASK_PART_TYPE], TASK_TYPE_DEADLINE)) {
+            Task t = new Deadline(parts[TASK_PART_DESCRIPTION], parts[TASK_PART_START]);
+            if (parts[TASK_PART_STATUS].equals(TASK_STATUS_MARKED)) {
                 t.mark();
             }
             return t;
-        } else if (Objects.equals(parts[0], "E")) {
-            Task t = new Event(parts[2], parts[3], parts[4]);
-            if (parts[1].equals("1")) {
+        } else if (Objects.equals(parts[TASK_PART_TYPE], TASK_TYPE_EVENT)) {
+            Task t = new Event(parts[TASK_PART_DESCRIPTION], parts[TASK_PART_START], parts[TASK_PART_END]);
+            if (parts[TASK_PART_STATUS].equals(TASK_STATUS_MARKED)) {
                 t.mark();
             }
             return t;
@@ -133,17 +145,17 @@ public class Storage {
      * @return String representation of task to be saved.
      * */
     private static String saveTask(Task task) {
-        String done = "0";
+        String done = TASK_STATUS_UNMARKED;
         if (task.isDone) {
-            done = "1";
+            done = TASK_STATUS_MARKED;
         }
         String type = "";
         if (task instanceof Todo) {
-            type = "T";
+            type = TASK_TYPE_TODO;
         } else if (task instanceof Deadline) {
-            type = "D";
+            type = TASK_TYPE_DEADLINE;
         } else if (task instanceof Event) {
-            type = "E";
+            type = TASK_TYPE_EVENT;
         }
         return type + " | " + done + " | " + task.description + task.getDates();
     }
