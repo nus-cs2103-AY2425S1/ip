@@ -13,26 +13,20 @@ import denim.storage.TaskIo;
  * and runs the command loop until the exit command is received.
  */
 public class Denim {
-    static final String FILE_PATH = "data/denim.txt";
-    private TextBasedUi ui;
-    private TaskIo taskIo;
-    private Parser parser = new Parser();
+    public static final String FILE_PATH = "data/denim.txt";
+    public static final int INDEX_OFFSET = 1;
 
+    private TaskIo taskIo;
+
+    private Parser parser = new Parser();
     private TaskList taskList;
 
-    /**
-     * The main method that serves as the entry point of the Denim application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Denim denim = new Denim();
-        denim.start();
-        denim.runCommandLoopUntilExitCommand();
-        denim.exit();
-    }
 
-    void start() {
+
+    /**
+     * Starts the Denim Application first by reading the file with tasks stored in it.
+     */
+    public void start() {
         taskIo = new TaskIo(FILE_PATH);
         taskList = new TaskList();
 
@@ -43,22 +37,6 @@ public class Denim {
             System.out.println(e.getMessage());
             return;
         }
-        this.ui = new TextBasedUi();
-        ui.displayGreetingMessage();
-    }
-
-    /**
-     * Runs the command loop, repeatedly reading user input,
-     * executing commands, and displaying results until the exit command is given.
-     */
-    private void runCommandLoopUntilExitCommand() {
-        Command command;
-        do {
-            String userCommandText = ui.getUserCommand();
-            command = new Parser().parseCommand(userCommandText);
-            CommandResult result = command.execute(taskList, taskIo);
-            ui.displayReplyMessage(result);
-        } while (!command.isExit());
     }
 
     /**

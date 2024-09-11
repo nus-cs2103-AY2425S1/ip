@@ -40,7 +40,7 @@ public class MainWindow extends VBox {
         Command command = denim.parseGuiCommand(input);
 
         if (command.isExit()) {
-            handleExit(command);
+            handleExit();
         }
 
         CommandResult commandResult = denim.executeGuiCommand(command);
@@ -56,9 +56,11 @@ public class MainWindow extends VBox {
     private void initialize() {
         // Bind the vertical scroll value to the height property of the dialog container
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        displayGreetingMessage();
     }
 
-    private void handleExit(Command command) {
+    private void handleExit() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -69,7 +71,13 @@ public class MainWindow extends VBox {
         timer.schedule(task, 1000);
     }
 
-    public void setDenim(Denim d) {
+    private void displayGreetingMessage() {
+        DialogBox greetingMessage = DialogBox.getDenimDialog("Hello! I'm Denim! "
+                + "What can I do for you?", denimImage);
+        dialogContainer.getChildren().add(greetingMessage);
+    }
+
+    public void injectDenim(Denim d) {
         denim = d;
     }
 }
