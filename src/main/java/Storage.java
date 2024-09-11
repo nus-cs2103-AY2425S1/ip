@@ -1,64 +1,74 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class Storage {
-    private String filePath;
+
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws IOException, NaegaException {
-        File file = new File(filePath);
+    public ArrayList<Task> load() throws NaegaException {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();  // Create the folder if it doesn't exist
-            file.createNewFile();  // Create the file if it doesn't exist
-            return tasks;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskDetails = line.split(" \\| ");
+                Task task = parseTask(taskDetails);
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            // No file exists yet, so start with an empty list
+        } catch (IOException e) {
+            throw new NaegaException("Error reading from file: " + e.getMessage());
         }
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(" \\| ");
-            Task task = parseTask(parts);
-            tasks.add(task);
-        }
-        reader.close();
         return tasks;
     }
 
-    private Task parseTask(String[] parts) throws NaegaException {
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+    private Task parseTask(String[] taskDetails) throws NaegaException {
+        System.out.println("taskDetails length: " + taskDetails.length);
+        System.out.println("taskDetails: " + Arrays.toString(taskDetails));
 
-        switch (type) {
+        String taskType = taskDetails[0];
+        String description = taskDetails[2];
+
+        // Define the date-time format (e.g., "6/9/2023 1400")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        switch (taskType) {
             case "T":
-                Task todo = new Todo(description);
-                if (isDone) todo.markAsDone();
-                return todo;
-
+                return new Todo(description);
             case "D":
-                Task deadline = new Deadline(description, parts[3]);  // parts[3] contains the date in yyyy-mm-dd format
-                if (isDone) deadline.markAsDone();
-                return deadline;
-
+                if (taskDetails.length < 4) {
+                    throw new NaegaException("Insufficient details for Deadline task.");
+                }
+                // Parse deadline with custom formatter
+                LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
+                return new Deadline(description, deadline);
             case "E":
-                Task event = new Event(description, parts[3], parts[4]);  // parts[3] and parts[4] contain dates
-                if (isDone) event.markAsDone();
-                return event;
-
+                if (taskDetails.length < 5) {
+                    throw new NaegaException("Insufficient details for Event task.");
+                }
+                // Parse event start and end times with custom formatter
+                LocalDateTime eventStart = LocalDateTime.parse(taskDetails[3], formatter);
+                LocalDateTime eventEnd = LocalDateTime.parse(taskDetails[4], formatter);
+                return new Event(description, eventStart, eventEnd);
             default:
-                throw new NaegaException("Corrupted data in file.");
+                throw new NaegaException("Invalid task type in file.");
         }
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        for (Task task : tasks) {
-            writer.write(task.toSaveFormat() + "\n");
+    public void save(ArrayList<Task> tasks) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (Task task : tasks) {
+                writer.println(task.toSaveFormat());
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
-        writer.close();
     }
 }
