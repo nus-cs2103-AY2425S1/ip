@@ -145,7 +145,7 @@ public class ChatterBoxResponse {
      * @return The custom error message.
      */
     public static String showError(String message) {
-        assert message != null : "Messaage cannot be null";
+        assert message != null : "Message cannot be null";
         return "\n\t\t" + message + "\n";
     }
 
