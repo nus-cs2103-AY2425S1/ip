@@ -15,6 +15,7 @@ import lexi.ui.Ui;
 public class ListCommand extends Command {
 
     private String response;
+
     /**
      * Executes the list command, displaying all tasks in the task list.
      *
@@ -24,11 +25,24 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LexiException {
+        // Assertions to ensure preconditions
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "UI object cannot be null";
+
         ArrayList<Task> taskList = tasks.getTasks();
+
+        // Assertion to ensure taskList is not null (even if empty)
+        assert taskList != null : "Task list array should not be null";
+
         if (taskList.isEmpty()) {
             throw new LexiException("You have no tasks in your list!");
         }
+
+        // Perform the task listing and store the response
         response = ui.showListOfTasks(taskList);
+
+        // Assertion to ensure the response is properly set
+        assert response != null && !response.isEmpty() : "Response should be a non-null, non-empty string";
     }
 
     /**

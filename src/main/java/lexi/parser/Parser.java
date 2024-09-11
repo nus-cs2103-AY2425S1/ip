@@ -17,8 +17,6 @@ import lexi.task.Deadline;
 import lexi.task.Event;
 import lexi.task.Todo;
 
-
-
 /**
  * The Parser class handles the parsing of user input commands.
  * It interprets the commands and returns the corresponding Command objects.
@@ -34,36 +32,34 @@ public class Parser {
      * @throws LexiException If the input command is unrecognized or incorrectly formatted.
      */
     public static Command parse(String response) throws LexiException {
-        String[] parts = response.split(" ");
+        assert response != null : "Input response cannot be null";
+
         try {
-            Commands command = Commands.valueOf(parts[0].toUpperCase());
-            switch (command) {
-            case MARK:
-            case UNMARK:
-                return handleMark(parts);
-            case TODO:
-                return handleTodo(response);
-            case DEADLINE:
-                return handleDeadline(response);
-            case EVENT:
-                return handleEvent(response);
-            case DELETE:
-                return handleDelete(parts);
-            case LIST:
-                return listTasks();
-            case FIND:
-                return handleFind(parts);
-            case BYE:
-                return handleBye();
-            default:
-                throw new LexiException("Unrecognized command: " + parts[0]);
+            if (response.isBlank()) {
+                throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
             }
+
+            String[] parts = response.split(" ");
+            assert parts.length > 0 : "Command must have at least one part";
+
+            Commands command = Commands.valueOf(parts[0].toUpperCase());
+            return switch (command) {
+            case MARK, UNMARK -> handleMark(parts);
+            case TODO -> handleTodo(response);
+            case DEADLINE -> handleDeadline(response);
+            case EVENT -> handleEvent(response);
+            case DELETE -> handleDelete(parts);
+            case LIST -> listTasks();
+            case FIND -> handleFind(parts);
+            case BYE -> handleBye();
+            };
         } catch (IllegalArgumentException e) {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
     }
 
     private static FindCommand handleFind(String[] parts) {
+        assert parts != null && parts.length > 1 : "Find command must have a query part";
         String query = parts[1];
         return new FindCommand(query);
     }
@@ -85,10 +81,7 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the task number is invalid.
      */
     private static DeleteCommand handleDelete(String[] parts) throws LexiException {
-        if (parts.length != 2) {
-            throw new LexiException("Please key in the command in this format "
-                    + "\"delete <task number>\"\n");
-        }
+        assert parts != null && parts.length == 2 : "Delete command must have exactly two parts";
         try {
             int taskNumber = Integer.parseInt(parts[1]);
             return new DeleteCommand(taskNumber);
@@ -106,11 +99,11 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the date/time format is invalid.
      */
     private static AddCommand handleEvent(String response) throws LexiException {
+        assert response != null : "Response cannot be null";
         String[] parts = response.split(" /from ");
         String errorMessage = "Please key in the command in this format\n"
                 + "\"event <task> /from <date and time> /to <date and time>\"\n"
                 + "\"<date> in format DD/MM/YYYY HHmm like 13/01/2002 1700\"\n";
-        // If only command "event" is present
         if (parts[0].equals(response)) {
             throw new LexiException(errorMessage);
         }
@@ -119,7 +112,6 @@ public class Parser {
             throw new LexiException(errorMessage);
         }
         String[] range = parts[1].split(" /to ");
-        // No "to" command entered
         if (parts[1].equals(range[0])) {
             throw new LexiException(errorMessage);
         }
@@ -143,6 +135,7 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the date/time format is invalid.
      */
     private static AddCommand handleDeadline(String response) throws LexiException {
+        assert response != null : "Response cannot be null";
         String[] parts = response.split(" /by ");
         String errorMessage = "Please key in the command in this format\n"
                 + "\"deadline <task> /by <date>\"\n"
@@ -169,6 +162,7 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the description is empty.
      */
     private static AddCommand handleTodo(String response) throws LexiException {
+        assert response != null : "Response cannot be null";
         String errorMessage = "Sorry! The description of a todo cannot be empty\n"
                 + "Please write in this format \"todo <description>\"\n";
         if (response.length() < 6) {
@@ -191,7 +185,8 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the task number is invalid.
      */
     private static MarkCommand handleMark(String[] parts) throws LexiException {
-        if (parts.length != 2 || parts[1].isEmpty() || parts[1].isBlank()) {
+        assert parts != null && parts.length == 2 : "Mark command must have exactly two parts";
+        if (parts[1].isEmpty() || parts[1].isBlank()) {
             throw new LexiException("Please enter your command in this format\n"
                     + "\"mark <number>\"");
         }

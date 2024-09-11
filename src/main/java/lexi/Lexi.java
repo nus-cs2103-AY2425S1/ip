@@ -27,21 +27,34 @@ public class Lexi {
         try {
             ui = new Ui();
             storage = new Storage(Lexi.filePath);
+
+            // Postcondition: Ensure storage and ui are initialized before loading tasks
+            assert storage != null : "Storage should be initialized.";
+            assert ui != null : "UI should be initialized.";
+
             tasks = new TaskList(storage.load());
         } catch (LexiException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+
+        // Postcondition: Ensure tasks is initialized
+        assert tasks != null : "Tasks should be initialized.";
     }
 
     /**
-     * Runs the Lexi application.
-     * This method starts the main loop that reads commands from the user, processes them,
-     * and executes the corresponding actions until the user decides to exit.
+     * Processes user input and returns Lexi's response.
+     *
+     * @param input The user's input command as a string.
+     * @return Lexi's response after processing the command.
      */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+
+            // Postcondition: Ensure command is parsed correctly
+            assert c != null : "Parsed command should not be null.";
+
             c.execute(tasks, ui, storage);
             this.commandType = c.getClass().getSimpleName();
             return c.getString();
@@ -49,7 +62,22 @@ public class Lexi {
             return ui.showError(e.getMessage());
         }
     }
+
+    /**
+     * Returns the type of the last command executed.
+     *
+     * @return The command type as a string.
+     */
     public String getCommandType() {
         return commandType;
+    }
+
+    /**
+     * Returns the greeting message.
+     *
+     * @return The greeting message as a string.
+     */
+    public String getGreeting() {
+        return ui.showGreeting();
     }
 }

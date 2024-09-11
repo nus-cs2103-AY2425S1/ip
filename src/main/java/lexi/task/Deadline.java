@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class Deadline extends DatedTask {
     private final LocalDateTime by;
 
-
     /**
      * Constructs a new Deadline task with the specified name and due date/time.
      *
@@ -18,6 +17,10 @@ public class Deadline extends DatedTask {
      */
     public Deadline(String taskName, LocalDateTime by) {
         super(taskName);
+
+        // Precondition: Ensure the 'by' date/time is not null
+        assert by != null : "Due date/time cannot be null.";
+
         this.by = by;
     }
 
@@ -36,6 +39,9 @@ public class Deadline extends DatedTask {
      * @return The formatted due date and time as a string.
      */
     public String getFormattedDateAndTime() {
+        // Precondition: Ensure 'by' is properly initialized
+        assert by != null : "'by' date/time must be initialized before formatting.";
+
         return this.by.format(super.getOutputFormatter());
     }
 
