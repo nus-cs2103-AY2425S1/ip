@@ -80,14 +80,15 @@ public class Parser {
      */
     public static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
+        while (lineScanner.hasNext()) {
+            arrOfStr.add(lineScanner.next());
+        }
+
         if (arrOfStr.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( "
                     + "You have to provide a task!");
         }
 
-        while (lineScanner.hasNext()) {
-            arrOfStr.add(lineScanner.next());
-        }
         return new Todo(String.join(" ", arrOfStr), isDone);
     }
 
