@@ -20,6 +20,10 @@ public class TaskList {
     }
 
     public String deleteTask(int index) {
+        if (isIndexNotInRange(index)) {
+            return "The list number given is not valid!";
+        }
+
         String removedTask = this.tasks.get(index).toString();
         this.tasks.remove(index);
         return "Alright! I will delete this task for you!\n"
@@ -28,18 +32,30 @@ public class TaskList {
     }
 
     public String markTaskAsDone(int index) {
+        if (isIndexNotInRange(index)) {
+            return "The list number given is not valid!";
+        }
+
         this.tasks.get(index).markAsDone();
         return "Great! I've marked this task as done:\n"
                 + this.tasks.get(index).toString();
     }
 
     public String markTaskAsNotDone(int index) {
+        if (isIndexNotInRange(index)) {
+            return "The list number given is not valid!";
+        }
+
         this.tasks.get(index).markAsNotDone();
         return "OK, this task will be marked as not done yet:\n"
                 + this.tasks.get(index).toString();
     }
 
     public String listTasks() {
+        if (this.tasks.isEmpty()) {
+            return "There is no current tasks available.";
+        }
+
         String listOfTasks = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             listOfTasks += i + 1 + ". " + this.tasks.get(i).toString() + "\n";
@@ -65,5 +81,9 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    private boolean isIndexNotInRange(int index) {
+        return index < 0 || index >= this.tasks.size();
     }
 }
