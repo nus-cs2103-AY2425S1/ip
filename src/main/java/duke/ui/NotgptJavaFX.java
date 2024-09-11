@@ -1,37 +1,72 @@
 package duke.ui;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
+import javafx.stage.Stage;
+/**
+ * A JavaFX application that simulates a simple chatbot interface.
+ *
+ * The application provides a graphical interface where users can interact with a bot by sending messages.
+ * It includes a chat window for displaying the conversation, an input field for user input, and a send button
+ * to submit messages. User and bot messages are displayed with avatars, and the interface auto-scrolls to keep
+ * the latest messages visible.
+ *
+ * Main features of the application include:
+ * <ul>
+ *   <li>A scrollable chat area that displays both user and bot messages</li>
+ *   <li>An input field and send button for submitting messages</li>
+ *   <li>Avatar images to represent user and bot in the conversation</li>
+ *   <li>Automatic scrolling to keep the latest messages in view</li>
+ * </ul>
+ *
+ * This class extends {@link javafx.application.Application} and overrides the {@code start} method
+ * to set up and initialize the user interface.
+ *
+ * The application also processes basic commands like "bye" to exit.
+ */
 public class NotgptJavaFX extends Application {
 
+    private static final int FONT_SIZE_INPUT = 25;
+    private static final int FONT_SIZE = 16;
     private Parser parser = new Parser();
     private VBox chatBox;
     private TextField inputField;
     private Button sendButton;
     private Image userAvatar;
     private Image botAvatar;
-    private static final int FONT_SIZE_INPUT = 25;
-    private static final int FONT_SIZE = 16;
 
+
+    /**
+     * The main entry point for the JavaFX application.
+     *
+     * This method is called after the JavaFX runtime is initialized and the application is ready
+     * to start. The method initializes and displays the scene, manages user interaction events,
+     * and handles message display and scrolling functionality.
+     *
+     * @param primaryStage the primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Notgpt");
 
-
         // Load avatar images
         userAvatar = new Image(getClass().getResourceAsStream("/user_avatar.png"));
         botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar2.jpg"));
+        assert userAvatar != null : "there is no user image";
+        assert botAvatar != null : "there is no bot image";
 
         // Create UI components
         chatBox = new VBox(10);
@@ -89,9 +124,6 @@ public class NotgptJavaFX extends Application {
         if (!userInput.isEmpty()) {
             displayMessage(userInput, true);
             inputField.clear();
-//            if(userInput.split("\\s+", 2)[0].toLowerCase() == "bye") {
-//                Platform.exit();
-//            }
             String response = processInput(userInput);
             displayMessage(response, false);
         }
