@@ -33,7 +33,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Sunny instance */
     public void setSunny(Ui d) {
         sunny = d;
-        sunny.welcome();
+        String welcome = sunny.welcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcome, dukeImage)
+        );
     }
 
     /**

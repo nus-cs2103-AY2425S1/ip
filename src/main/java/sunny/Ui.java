@@ -9,12 +9,6 @@ import java.util.Objects;
 public class Ui {
 
     // Stock messages
-    public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n"
-           + "      / ____| | |  | || \\ | || \\ | | \\ \\   / /  \n"
-           + "     | (___   | |  | ||  \\| ||  \\| |  \\ \\_/ /   \n"
-           + "      \\___ \\  | |  | || . ` || . ` |   \\   /    \n"
-           + "      ____) | | |__| || |\\  || |\\  |    | |     \n"
-           + "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
     public static final String LINE = "     ────────────────────";
     public static final String WELCOME = "     HELLO! I am Sunny:)\n     How can I help you?";
     public static final String GOODBYE = "     You are leaving? Ok bye:( come back soon";
@@ -32,7 +26,7 @@ public class Ui {
      */
     public String welcome() {
         ls = store.read();
-        return "Hello from\n" + logo + "\n" + WELCOME + "\n" + LINE + "\n";
+        return WELCOME + "\n" + LINE + "\n";
     }
 
     /**
