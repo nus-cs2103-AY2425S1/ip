@@ -35,14 +35,15 @@ public class Storage {
      */
     public void saveTasksToFile(TaskList tasks) {
         // want to save tasks to bestie.txt file
+
         assert this.filePath != null && !filePath.isEmpty(): "Filepath has not been initialised";
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f); // f or file path?
 
             for (Task task: tasks.getTasks()) {
-                assert task != null: "Task in task list is null";
                 // store each task in the save format
+                assert task != null: "Task in task list is null";
                 fw.write(task.toSaveFormat() + System.lineSeparator());
             }
             // must call close() method of filewriter object for writing operation to be completed
@@ -75,9 +76,9 @@ public class Storage {
                 assert nextTask != "" : "Next task is empty";
                 String[] parts = nextTask.split(" \\| ");
                 String taskType = parts[0]; // either T, D, or E, depending on task
+                // check if task is completed
                 assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E"):
                         "Invalid task type";
-                // check if task is completed
                 boolean isCompleted = parts[1].equals("1");
                 String description = parts[2]; // description of task
                 Task newTask = null;
