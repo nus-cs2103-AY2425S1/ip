@@ -38,10 +38,12 @@ public class TaskCommand implements Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
+        assert this.fullCommand != null;
+        assert this.commandType != null;
         Task task = switch (commandType) {
-        case "todo" -> parseToDo(fullCommand);
-        case "deadline" -> parseDeadline(fullCommand);
-        case "event" -> parseEvent(fullCommand);
+        case "todo" -> parseToDo(this.fullCommand);
+        case "deadline" -> parseDeadline(this.fullCommand);
+        case "event" -> parseEvent(this.fullCommand);
         default -> throw new IllegalArgumentException("Invalid command type for tasks: " + commandType);
         };
         list.add(task);
