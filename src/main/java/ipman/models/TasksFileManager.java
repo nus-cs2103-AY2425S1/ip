@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 /**
  * Stores and retrieves tasks from a <code>TaskList</code>
+ *
  * @see TaskList
  */
 public class TasksFileManager {
@@ -19,6 +20,7 @@ public class TasksFileManager {
     /**
      * Loads tasks from the file into a particular <code>TaskList</code>
      * If no file is found, no tasks will be loaded.
+     *
      * @param tasks <code>TaskList</code> to load the tasks into
      */
     public void load(TaskList tasks) {
@@ -36,6 +38,7 @@ public class TasksFileManager {
 
     /**
      * Saves tasks from the <code>TaskList</code> into the file
+     *
      * @param tasks <code>TaskList</code> of tasks to save
      */
     public void save(TaskList tasks) {
@@ -51,6 +54,7 @@ public class TasksFileManager {
 
     /**
      * Saves one task to the bottom of the file
+     *
      * @param task task to save
      */
     public void append(Task task) {

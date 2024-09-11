@@ -39,6 +39,7 @@ public class MainWindowViewModel {
 
     /**
      * Processes the message. Parsing it and executing it
+     *
      * @param message message to process
      * @return whether to exit the program
      */

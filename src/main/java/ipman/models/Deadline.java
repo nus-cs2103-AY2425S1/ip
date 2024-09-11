@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a <code>Task</code> that has a deadline for its completion
+ *
  * @see Task
  */
 public class Deadline extends Task {
@@ -16,6 +17,7 @@ public class Deadline extends Task {
     /**
      * Constructs a <code>Deadline</code> that needs to be completed by a
      * certain date.
+     *
      * @param name name of the task
      * @param by date this task needs to be completed by
      */

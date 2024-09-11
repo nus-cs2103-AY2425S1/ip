@@ -10,6 +10,7 @@ import ipman.ui.Ui;
 /**
  * Creates an <code>Event</code> inside <code>Context</code>'s
  * <code>TaskList</code>
+ *
  * @see Event
  * @see Context
  * @see TaskList
@@ -21,6 +22,7 @@ public class CreateEventCommand implements Command {
 
     /**
      * Creates command that creates a particular event
+     *
      * @param name event name
      * @param from event start date
      * @param to event end date

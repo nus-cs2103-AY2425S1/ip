@@ -16,6 +16,7 @@ public class Event extends Task {
     /**
      * Constructs an <code>Event</code> that starts from a particular date and
      * ends on another date.
+     *
      * @param name name of the event
      * @param from date which the event starts
      * @param to date which the event ends

@@ -6,6 +6,7 @@ import ipman.models.TaskList;
 /**
  * Marks a <code>Task</code> inside <code>Context</code>'s
  * <code>TaskList</code> as complete
+ *
  * @see Task
  * @see Context
  * @see TaskList
@@ -15,6 +16,7 @@ public class MarkCommand implements Command {
 
     /**
      * Constructs a command that marks the task at the index as complete
+     *
      * @param taskIndex index of task to mark as complete
      */
     public MarkCommand(int taskIndex) {

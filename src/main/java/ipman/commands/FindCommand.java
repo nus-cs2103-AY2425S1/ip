@@ -9,6 +9,7 @@ import ipman.models.TaskList;
 /**
  * Finds a particular <code>Task</code> from the <code>Context</code>'s
  * <code>TaskList</code>.
+ *
  * @see Task
  * @see Context
  * @see TaskList
@@ -19,6 +20,7 @@ public class FindCommand implements Command {
     /**
      * Creates a command which will search for the <code>Task</code> that
      * matches the query.
+     *
      * @param query part of <code>Task</code> to try to find
      */
     public FindCommand(String query) {

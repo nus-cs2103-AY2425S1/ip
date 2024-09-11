@@ -8,6 +8,7 @@ public class MissingArgumentException extends RuntimeException {
     /**
      * Constructs a <code>MissingArgumentException</code> with an error message
      * showing the difference in expected and actual argument count.
+     *
      * @param expectedNoArgs expected number of arguments for the command to
      *                       execute
      * @param actualNoArgs actual number of arguments found for the command

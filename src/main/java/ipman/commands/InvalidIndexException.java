@@ -11,6 +11,7 @@ public class InvalidIndexException extends IndexOutOfBoundsException {
     /**
      * Constructs an <code>InvalidIndexException</code> with the error message
      * indicating what is the expected range of index and actual given index.
+     *
      * @param capacity size of the list
      * @param actual requested index of the 1-indexed list
      */

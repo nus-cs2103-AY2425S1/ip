@@ -7,6 +7,7 @@ import ipman.ui.Ui;
 /**
  * Deletes a <code>Task</code> inside <code>Context</code>'s
  * <code>TaskList</code>
+ *
  * @see Task
  * @see Context
  * @see TaskList

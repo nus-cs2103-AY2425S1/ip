@@ -3,8 +3,6 @@ package ipman.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import ipman.commands.Command;
-
 /**
  * Represents a Ui that records all messages that was sent. Cannot read any
  * messages.

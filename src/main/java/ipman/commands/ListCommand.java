@@ -8,6 +8,7 @@ import java.util.StringJoiner;
 /**
  * Displays all the <code>Task</code>s from the <code>Context</code>'s
  * <code>TaskList</code>.
+ *
  * @see Task
  * @see Context
  * @see TaskList

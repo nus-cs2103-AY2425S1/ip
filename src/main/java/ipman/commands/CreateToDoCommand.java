@@ -8,6 +8,7 @@ import ipman.ui.Ui;
 /**
  * Creates a <code>ToDo</code> inside <code>Context</code>'s
  * <code>TaskList</code>
+ *
  * @see ToDo
  * @see Context
  * @see TaskList
@@ -17,6 +18,7 @@ public class CreateToDoCommand implements Command {
 
     /**
      * Creates command that creates a particular to-do
+     *
      * @param name to-do name
      * @see ToDo
      */

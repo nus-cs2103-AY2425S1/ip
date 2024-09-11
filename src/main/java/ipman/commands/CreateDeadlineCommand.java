@@ -10,6 +10,7 @@ import ipman.ui.Ui;
 /**
  * Creates a <code>Deadline</code> inside <code>Context</code>'s
  * <code>TaskList</code>
+ *
  * @see Deadline
  * @see Context
  * @see TaskList
@@ -20,6 +21,7 @@ public class CreateDeadlineCommand implements Command {
 
     /**
      * Creates command that creates a particular deadline
+     *
      * @param name deadline name
      * @param by deadline completion date
      * @see Deadline
