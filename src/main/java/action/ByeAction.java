@@ -1,5 +1,6 @@
 package action;
 
+import enums.StatusMessage;
 import exception.BotException;
 import task.TaskList;
 
@@ -11,7 +12,7 @@ import task.TaskList;
 public class ByeAction extends Action {
     @Override
     public String execute(TaskList taskList) throws BotException {
-        return "Goodbye! Hope to see you again soon!";
+        return StatusMessage.GOODBYE.getMessage();
     }
 
     @Override

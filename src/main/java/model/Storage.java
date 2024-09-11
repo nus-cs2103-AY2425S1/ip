@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import enums.StatusMessage;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -36,7 +37,7 @@ public class Storage {
             String data = s.nextLine();
             taskList.addTask(fromData(data));
         }
-        return new Response("Data file successfully loaded!", false);
+        return new Response(StatusMessage.FILE_LOAD_SUCCESS.getMessage(), false);
     }
 
     private Task fromData(String data) {
@@ -63,9 +64,9 @@ public class Storage {
             dir.mkdir();
             File f = new File(TASK_FILE_PATH);
             f.createNewFile();
-            return new Response("Data file successfully initialised!", false);
+            return new Response(StatusMessage.FILE_INIT_SUCCESS.getMessage(), false);
         } catch (IOException e) {
-            return new Response("Error initialising file, BotManager will now exit!", true);
+            return new Response(StatusMessage.FILE_INIT_FAILURE.getMessage(), true);
         }
     }
 
@@ -82,7 +83,7 @@ public class Storage {
             fw.close();
             return null;
         } catch (IOException e) {
-            return new Response("Error saving task list!", false);
+            return new Response(StatusMessage.DATA_SAVE_FAILURE.getMessage(), false);
         }
     }
 }
