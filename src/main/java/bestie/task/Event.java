@@ -50,7 +50,7 @@ public class Event extends Task {
         } else {
             storeCompleted = "0";
         }
-        // store format: E | 0 | book event | 2pm | 5pm
+        // Store format: E | 0 | book event | 2pm | 5pm
         return "E | " + storeCompleted + " | " + this.description + " | " + this.start + " | " + this.end;
     }
 

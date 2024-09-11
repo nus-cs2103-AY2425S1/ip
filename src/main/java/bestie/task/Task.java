@@ -19,19 +19,18 @@ public abstract class Task {
     }
 
     /**
-     * Returns
+     * Returns "X" if task has been completed, and an empty string has not been completed.
+     * These will appear at the start of each task.
+     *
      * @return X if task is completed and an empty string if task is not yet completed
      */
     public String getStatusIcon() {
-        // tasks that are completed are marked with X
-        // tasks that are not completed are just empty
         return (this.isDone ? "X" : " ");
     }
 
     /**
      * Marks a task as completed.
      */
-    // mark the task as done
     public void markTaskDone() {
         this.isDone = true;
     }
