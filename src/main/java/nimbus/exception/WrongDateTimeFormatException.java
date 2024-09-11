@@ -3,7 +3,7 @@ package nimbus.exception;
 /**
  * Exception for the wrong dateTime format for DeadlineTask and EventTask
  */
-public class WrongDateTimeFormatException extends Exception {
+public class WrongDateTimeFormatException extends NimbusException {
 
     /**
      * Creates exception with message to show users the format for dateTime

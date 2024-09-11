@@ -5,7 +5,7 @@ import nimbus.ui.Ui;
 /**
  * Exception for the wrong inputs that is not supported by user
  */
-public class WrongInputException extends Exception {
+public class WrongInputException extends NimbusException {
 
     /**
      * Creates exception with message to guide user on how to create different tasks

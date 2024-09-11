@@ -40,7 +40,7 @@ public class CheckCommand extends Command {
      * @throws WrongDateTimeFormatException
      */
     @Override
-    public void execute() throws WrongDateTimeFormatException {
+    public String execute() throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = userInput.substring(5).trim();
         try {
@@ -65,8 +65,9 @@ public class CheckCommand extends Command {
                     }
                 }
             }
-            System.out.println(output + "These tasks are due on "
+            output += ("These tasks are due on "
                     + selectedDate.toString() + Ui.HORIZONTAL_LINE);
+            return output;
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeFormatException();
         }

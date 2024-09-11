@@ -31,11 +31,10 @@ public class FindCommand extends Command {
      * Prints out the tasks with the keyword
      */
     @Override
-    public void execute() {
+    public String execute() {
         if (userInput.length() < 6) {
-            System.out.println("Please enter what you want to find"
-                    + "\n" + "For example: find tutorial");
-            return;
+            return "Please enter what you want to find"
+                    + "\n" + "For example: find tutorial";
         }
 
         String temp = userInput.substring(4).trim();
@@ -47,6 +46,7 @@ public class FindCommand extends Command {
                 counter++;
             }
         }
-        System.out.println(output + "Here are your results :3" + Ui.HORIZONTAL_LINE);
+        output += ("Here are your results :3" + Ui.HORIZONTAL_LINE);
+        return output;
     }
 }

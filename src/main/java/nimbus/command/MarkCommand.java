@@ -31,18 +31,19 @@ public class MarkCommand extends Command {
      * marks task as completed if task is incomplete
      */
     @Override
-    public void execute() {
+    public String execute() {
         int x = Integer.parseInt(userInput.substring(5).trim());
         int index = x - 1;
 
         if (index >= tasks.size()) {
-            System.out.println("There is no task " + (index + 1));
+            return "There is no task " + (index + 1);
         } else if (tasks.get(index).isComplete()) {
-            System.out.println("Already Marked");
-        } else if (index < tasks.size()) {
+            return "Already Marked";
+        } else {
             tasks.get(index).setComplete();
-            System.out.println("Nimbus.Nimbus shall mark this as done:\n"
-                    + "    " + tasks.get(index).toString() + Ui.HORIZONTAL_LINE);
+            String output = "Nimbus.Nimbus shall mark this as done:\n"
+                    + "    " + tasks.get(index).toString() + Ui.HORIZONTAL_LINE;
+            return output;
         }
     }
 }

@@ -5,7 +5,7 @@ import nimbus.ui.Ui;
 /**
  * Exception for missing start and end times for EventTasks
  */
-public class MissingStartEndTimeException extends Exception {
+public class MissingStartEndTimeException extends NimbusException {
 
     /**
      * creates exception with message to remind user to include missing component for eventTasks

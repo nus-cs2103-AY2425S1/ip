@@ -35,22 +35,24 @@ public class DeleteCommand extends Command {
      */
 
     @Override
-    public void execute() {
+    public String execute() {
         if (userInput.length() <= 7) {
-            return;
+            return "Please enter the task number!!";
         }
 
         int x = Integer.parseInt(userInput.substring(7).trim());
         int index = x - 1;
 
         if (index >= tasks.size()) {
-            System.out.println("There is no task " + (index + 1));
+            return "There is no task " + (index + 1);
         } else {
             String temp = tasks.get(index).toString();
             Task task = tasks.get(index);
             taskList.delete(task);
-            System.out.println("Nimbus.Nimbus has removed the task! \n"
-                    + "    " + temp + "\n" + "You have " + tasks.size() + " tasks left!" + Ui.HORIZONTAL_LINE);
+            String output = "Nimbus.Nimbus has removed the task! \n"
+                    + "    " + temp + "\n" + "You have " + tasks.size()
+                    + " tasks left!" + Ui.HORIZONTAL_LINE;
+            return output;
         }
     }
 }
