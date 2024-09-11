@@ -34,6 +34,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setBob(Bob b) {
         bob = b;
+        this.showWelcomeMessage();
+    }
+
+    /**
+    Shows welcome message to user upon opening app.
+     */
+    private void showWelcomeMessage() {
         DialogBox dialogBox = DialogBox.getDukeDialog(bob.ui.showWelcomeMessage(), dukeImage);
         dialogContainer.getChildren().addAll(dialogBox);
     }

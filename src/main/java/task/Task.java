@@ -1,5 +1,7 @@
 package task;
 
+import ui.BotException;
+
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -10,8 +12,19 @@ public abstract class Task {
     protected static final DateTimeFormatter toSelfFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm");
     protected static final DateTimeFormatter toUserFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    protected enum ReadBy {
+        USER,
+        BOB
+    }
+
     private final String task;
-    public String type;
+    protected enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    private TaskType type;
     private boolean completed;
 
     /**
@@ -23,6 +36,10 @@ public abstract class Task {
         this.task = description;
         this.completed = false;
         TaskList.mainTaskList.addTask(this);
+    }
+
+    void setType(TaskType type) {
+        this.type = type;
     }
 
     /**
