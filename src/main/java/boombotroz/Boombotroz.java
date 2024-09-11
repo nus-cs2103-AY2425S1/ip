@@ -20,8 +20,6 @@ public class Boombotroz {
      * @param filePath file path to text file.
      */
     public Boombotroz(String filePath) {
-        System.out.println("Hello! I'm Boombotroz"
-                + "\nWhat can I do for you?");
         commands.add("list");
         commands.add("mark");
         commands.add("unmark");
@@ -30,19 +28,36 @@ public class Boombotroz {
         commands.add("todo");
         commands.add("deadline");
         commands.add("event");
+      
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty.";
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList();
         parser = new Parser();
-
         try {
-            storage.printTasks(taskList);
+            storage.loadTasks(taskList);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
 
         }
 
+    }
+
+    /**
+     * Displays current task list.
+     *
+     * @return List of all the tasks.
+     * @throws FileNotFoundException If file not in directory.
+     */
+    public String printTaskList() throws FileNotFoundException {
+        try {
+            return storage.printTasks(taskList);
+
+        } catch (FileNotFoundException e) {
+            return "File not found";
+
+        }
     }
 
     /**

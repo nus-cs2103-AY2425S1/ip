@@ -25,6 +25,7 @@ public class TaskList {
      * @param index position of task in task list.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         return taskList.get(index);
     }
 
