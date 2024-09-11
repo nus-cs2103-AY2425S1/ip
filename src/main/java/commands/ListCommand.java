@@ -18,6 +18,8 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         StringBuilder list = new StringBuilder();
         list.append("Here are the tasks in your list:\n");
         int index = 1;
