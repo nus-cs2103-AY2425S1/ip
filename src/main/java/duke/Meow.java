@@ -28,7 +28,7 @@ public class Meow {
         }
     }
 
-    /**
+     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
@@ -42,5 +42,4 @@ public class Meow {
             return e.getMessage();
         }
     }
-
 }

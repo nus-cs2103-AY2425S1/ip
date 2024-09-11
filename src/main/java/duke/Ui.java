@@ -22,7 +22,6 @@ public class Ui {
     public String getGoodbyeMessage() {
         return "Bye. Hope to see you again soon!";
     }
-
     /**
      * Displays an error message.
      *

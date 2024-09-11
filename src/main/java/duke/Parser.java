@@ -28,7 +28,13 @@ public class Parser {
         return LocalDate.parse(date, formatter);
     }
 
-    /**
+    
+    private LocalDate parseDate(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, formatter);
+    }
+
+  /**
      * Reads a single user input command and executes the corresponding task management action.
      *
      * @param input The user input command.
