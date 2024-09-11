@@ -11,7 +11,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.unmark(itemNumber);
-        return ui.displayUnmarkedItem(itemNumber, tasks.getList());
+        return ui.displayUnmarkedItem(itemNumber, tasks);
     }
     
 }

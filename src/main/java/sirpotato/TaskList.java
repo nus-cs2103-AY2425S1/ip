@@ -41,7 +41,7 @@ public class TaskList {
      */
     public void mark(int itemNumber) {
         toDoList.get(itemNumber).setCompletion(true);
-        ui.displayMarkedItem(itemNumber, this.toDoList);
+        ui.displayMarkedItem(itemNumber, this);
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskList {
      */
     public void unmark(int itemNumber) {
         toDoList.get(itemNumber).setCompletion(false);
-        ui.displayUnmarkedItem(itemNumber, this.toDoList);
+        ui.displayUnmarkedItem(itemNumber, this);
     }
 
     /**
@@ -61,7 +61,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         toDoList.add(task);
-        ui.displayAddedTask(task, this.toDoList);
+        ui.displayAddedTask(task, this);
     }
 
     /**
@@ -71,7 +71,7 @@ public class TaskList {
      * @param toDoList The ArrayList of the tasklist should you wish to specify
      */
     public void delete(int taskNumber, ArrayList<Task> toDoList) {
-        ui.displayDeletionMessage(toDoList.get(taskNumber), toDoList);
+        // ui.displayDeletionMessage(toDoList.get(taskNumber), toDoList);
         toDoList.remove(taskNumber);
     }
 
@@ -81,8 +81,20 @@ public class TaskList {
      * @param taskNumber The number of the task you wish to delete
      */
     public void delete(int taskNumber) {
-        ui.displayDeletionMessage(toDoList.get(taskNumber), this.toDoList);
         toDoList.remove(taskNumber);
+    }
+
+    /**
+     * Returns the task (starts at index 0)
+     * 
+     * @return Task at that index(starting at 0)
+     */
+    public Task getTask(int itemNumber) {
+        return this.toDoList.get(itemNumber);
+    }
+
+    public int getSizeOfList() {
+        return this.toDoList.size();
     }
 
 }

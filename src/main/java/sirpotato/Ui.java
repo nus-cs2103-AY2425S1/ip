@@ -62,11 +62,11 @@ public class Ui {
      * @param toDoList the toDoList the task is being added to.
      * @return Added task message
      */
-    public String displayAddedTask(Task task, ArrayList<Task> toDoList) {
+    public String displayAddedTask(Task task, TaskList tasks) {
         String response = HORIZONTAL_LINE + 
                 INDENT + "Got it. I've added this task for ya." + 
                 INDENT + task + 
-                INDENT + "Now you've got " + toDoList.size() + " tasks in the list mate" + 
+                INDENT + "Now you've got " + tasks.getSizeOfList() + " tasks in the list mate" + 
                 HORIZONTAL_LINE;
         System.out.println(response);
         return response;
@@ -79,11 +79,11 @@ public class Ui {
      * @param toDoList The to-do list being deleted from
      * @return Deletion of task message
      */
-    public String displayDeletionMessage(Task task, ArrayList<Task> toDoList) {
+    public String displayDeletionMessage(Task task, TaskList tasks) {
         String response = HORIZONTAL_LINE +
                 "Gotcha mate, I've deleted the following task: " + 
                 task + 
-                "Now you've got " + (toDoList.size() - 1) + " tasks left." + 
+                "Now you've got " + (tasks.getSizeOfList()) + " tasks left." + 
                 HORIZONTAL_LINE;
         System.out.println(response);
         return response;
@@ -116,10 +116,10 @@ public class Ui {
      * @param toDoList the TaskList's arrayList containing the current to-do list.
      * @return the marked item message
      */
-    public String displayMarkedItem(int itemNumber, ArrayList<Task> toDoList) {
+    public String displayMarkedItem(int itemNumber, TaskList tasks) {
         String response = HORIZONTAL_LINE + 
                 INDENT + "Good on ya! I've marked it done:" + 
-                INDENT + INDENT + toDoList.get(itemNumber) + 
+                INDENT + INDENT + tasks.getTask(itemNumber) + 
                 HORIZONTAL_LINE;
         System.out.println(response);
         return response;
@@ -133,10 +133,10 @@ public class Ui {
      * @param toDoList the TaskList's arrayList containing the current to-do list.
      * @return the unmarked item message
      */
-    public String displayUnmarkedItem(int itemNumber, ArrayList<Task> toDoList) {
+    public String displayUnmarkedItem(int itemNumber, TaskList tasks) {
         String response = HORIZONTAL_LINE + 
                 INDENT + "What's happened here mate? I've unmarked it for ya." + 
-                INDENT + INDENT + toDoList.get(itemNumber) + 
+                INDENT + INDENT + tasks.getTask(itemNumber) + 
                 HORIZONTAL_LINE;
         System.out.println(response);
         return response;

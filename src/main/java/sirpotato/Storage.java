@@ -99,10 +99,10 @@ public class Storage {
             String isDone = task.isDone ? "1" : "0";
             String textToAdd = type + " | " + isDone + " | " + task.description;
             if (task instanceof Deadline) {
-                textToAdd += " | " + ((Deadline) task).by.format(saveFormatter);
+                textToAdd += " | " + ((Deadline) task).getByDate().format(saveFormatter);
             } else if (task instanceof Event) {
-                textToAdd += " | " + ((Event) task).from.format(saveFormatter) + " | " + 
-                ((Event) task).to.format(saveFormatter);
+                textToAdd += " | " + ((Event) task).getFromDate().format(saveFormatter) + " | " + 
+                ((Event) task).getToDate().format(saveFormatter);
             }
             fw.write(textToAdd + System.lineSeparator());
         }

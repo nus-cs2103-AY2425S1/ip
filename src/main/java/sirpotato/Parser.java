@@ -53,7 +53,7 @@ class Parser {
         } else if (userInput.startsWith("delete")) {
             if (userInput.length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
-            }
+            } 
         } else if (!userInput.equals("bye") && !userInput.equals("list") && 
                    !userInput.startsWith("mark") && !userInput.startsWith("unmark")
                    && !userInput.startsWith("find")) {
@@ -61,7 +61,13 @@ class Parser {
         }
     }
 
-    public static LocalDate parseData(String dateToParse) throws DateTimeParseException {
+    /**
+     * Parses the date given into dd-MM-yyyy format
+     * 
+     * @param dateToParse The string date that we wish to parse into dd-MM-yyyy format
+     * @return the LocalDate object representing the dd-MM-yyyy date 
+     */
+    public static LocalDate parseDate(String dateToParse) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(dateToParse, formatter);
     }
@@ -95,13 +101,13 @@ class Parser {
         }else if (userInput.startsWith("deadline")) {
             String[] sectionedString = userInput.split("/by ");
             String description = sectionedString[0].substring(9);
-            LocalDate by = parseData(sectionedString[1].trim());
+            LocalDate by = parseDate(sectionedString[1].trim());
             return new AddCommand(new Deadline(description, by));
         } else if (userInput.startsWith("event")) {
             String[] sectionedString = userInput.split(" /from | /to ");
             String description = sectionedString[0].substring(6);
-            LocalDate from = parseData(sectionedString[1]);
-            LocalDate to = parseData(sectionedString[2]);
+            LocalDate from = parseDate(sectionedString[1]);
+            LocalDate to = parseDate(sectionedString[2]);
             return new AddCommand(new Event(description, from, to));
         } else if (userInput.startsWith("delete")) {
             String[] sectionedString = userInput.split(" ");
