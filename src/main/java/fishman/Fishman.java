@@ -1,6 +1,7 @@
 package fishman;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fishman.command.Command;
 import fishman.exception.FishmanException;
@@ -19,12 +20,8 @@ import javafx.application.Platform;
  * and manages the main program.
  */
 public class Fishman {
-
-    /** The task list object to store and manage tasks. */
-    private TaskList tasks = new TaskList();
-    /** The storage object used to handle file operations. */
+    private TaskList taskList = new TaskList();
     private final Storage storage = new Storage("./data/fishman.csv");
-    /** The Ui object used to construct messages. */
     private final Ui ui = new Ui();
 
     /**
@@ -35,13 +32,13 @@ public class Fishman {
      */
     public String getResponse(String input) {
         assert input != null : "Input should not be null";
-        assert tasks != null : "Task list should not be null before processing";
+        assert taskList != null : "Task list should not be null before processing";
         try {
-            Command command = Parser.parse(input, tasks);
+            Command command = Parser.parse(input, taskList);
             if (command.isExit()) {
                 Platform.exit();
             }
-            return command.execute(tasks, ui);
+            return command.execute(taskList, ui);
         } catch (FishmanException e) {
             return e.getMessage();
         }
@@ -62,22 +59,14 @@ public class Fishman {
             Storage.LoadResults output = storage.load();
             assert output != null : "LoadResults should not be null";
             String errorMessage = output.getErrorMessage();
+
             switch (action) {
             case "load":
-                tasks = output.getValidTasks();
-                assert tasks != null : "Valid tasks should not be null after loading";
+                taskList = output.getValidTasks();
+                assert taskList != null : "Valid tasks should not be null after loading";
                 return errorMessage;
-
             case "save":
-                if (errorMessage == null || errorMessage.isEmpty()) {
-                    storage.save(tasks, new ArrayList<>());
-                    return "successfully saved file.";
-                } else {
-                    assert output.getAllTasksLines() != null : "All task lines should not be null when saving with"
-                            + " corrupted lines";
-                    storage.save(tasks, output.getAllTasksLines());
-                    return "successfully saved file with corrupt lines";
-                }
+                return saveTasks(errorMessage, output);
             default:
                 return "Invalid action specified.";
             }
@@ -87,5 +76,20 @@ public class Fishman {
         }
     }
 
+    private String saveTasks(String errorMessage, Storage.LoadResults output) {
+        List<String> allLines = output.getAllTasksLines();
+        List<String> corruptedLines = output.getCorruptedLines();
+
+        if (errorMessage == null || errorMessage.isEmpty()) {
+            storage.save(taskList, new ArrayList<>());
+            return "Successfully saved file.";
+        } else {
+            assert allLines != null : "All task lines should not be null when saving with corrupted lines";
+            assert corruptedLines != null : "Corrupted lines should not be null";
+
+            storage.save(taskList, corruptedLines);
+            return "Successfully saved file with corrupt lines.";
+        }
+    }
 }
 
