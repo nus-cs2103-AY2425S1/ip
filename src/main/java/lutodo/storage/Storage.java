@@ -48,22 +48,22 @@ public class Storage {
                 }
                 Task task = TaskList.EMPTY_TASK;
                 switch (taskMessage.charAt(1)) {
-                    case 'T':
-                        task = new TodoTask(Parser.splitTaskInfo(taskMessage)[1]);
-                        toDo.add(task);
-                        break;
-                    case 'D':
-                        task = new DeadlineTask(Parser.splitTaskInfo(taskMessage)[1]);
-                        toDo.add(task);
-                        break;
-                    case 'E':
-                        task = new EventTask(Parser.splitTaskInfo(taskMessage)[1]);
-                        toDo.add(task);
-                        break;
-                    default:
-                        System.out.println("Cannot read: " + taskMessage);
+                case 'T':
+                    task = new TodoTask(Parser.splitTaskInfo(taskMessage)[1]);
+                    toDo.add(task);
+                    break;
+                case 'D':
+                    task = new DeadlineTask(Parser.splitTaskInfo(taskMessage)[1]);
+                    toDo.add(task);
+                    break;
+                case 'E':
+                    task = new EventTask(Parser.splitTaskInfo(taskMessage)[1]);
+                    toDo.add(task);
+                    break;
+                default:
+                    System.out.println("Cannot read: " + taskMessage);
                 }
-                if(taskMessage.charAt(4) == 'X') {
+                if (taskMessage.charAt(4) == 'X') {
                     task.markAsDone();
                 }
             }

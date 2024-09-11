@@ -54,7 +54,7 @@ public class Parser {
             return new UnknownCommand(fullCommand);
         } else {
             String taskType = splitTaskInfo(fullCommand)[0];
-            if(taskType.equalsIgnoreCase("bye")) {
+            if (taskType.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
             } else if (taskType.equalsIgnoreCase("delete")) {
                 int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
