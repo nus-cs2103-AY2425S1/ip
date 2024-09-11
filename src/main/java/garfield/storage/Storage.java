@@ -1,7 +1,5 @@
 package garfield.storage;
 
-import garfield.tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import garfield.tasks.Deadline;
+import garfield.tasks.Event;
+import garfield.tasks.Task;
+import garfield.tasks.TaskList;
+import garfield.tasks.Todo;
+
 
 /**
  * The Storage class represents the local storage where tasks are being saved so
@@ -26,6 +31,8 @@ public class Storage {
      * @param saveFilePath Path to the save .txt file.
      */
     public Storage(String saveFilePath) {
+        assert saveFilePath != null : "Save file path cannot be null";
+        assert !saveFilePath.isEmpty() : "Save file path cannot be empty";
         this.saveFilePath = saveFilePath;
     }
 
@@ -43,6 +50,7 @@ public class Storage {
             while (fileScanner.hasNext()) {
                 savedTask = fileScanner.nextLine();
                 String[] taskDetails = savedTask.split(" \\| ");
+                assert taskDetails.length >= 3 : "Invalid task format in save file"; // Ensure task has at least 3 parts
                 String taskType = taskDetails[0];
 
                 switch (taskType) {
@@ -73,12 +81,14 @@ public class Storage {
                         newEvent.markAsUndone();
                     }
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + taskType);
                 }
             }
             return taskList;
         } catch (FileNotFoundException e) {
             // You don't have a save file todo: add some error
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
     }
 
@@ -88,11 +98,13 @@ public class Storage {
      * @param taskList ArrayList of Tasks to be saved.
      */
     public void save(TaskList taskList) {
-        ArrayList<Task> internalTaskList = taskList.getArrayList();  // Feels iffy, see how i can fix this
+        assert taskList != null : "TaskList cannot be null";
+        ArrayList<Task> internalTasks = taskList.getArrayList();
+        assert internalTasks != null : "Internal task list cannot be null";
         try (FileWriter fw = new FileWriter(this.saveFilePath)) {
             String prefix = "";
             StringBuilder textToWrite = new StringBuilder();
-            for (Task t : internalTaskList) {
+            for (Task t : internalTasks) {
                 textToWrite.append(prefix);
                 prefix = System.lineSeparator();
                 textToWrite.append(t.toSaveRepresentation());
@@ -111,6 +123,8 @@ public class Storage {
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */
     private LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
+        assert dateInput != null : "Date input cannot be null";
+        assert !dateInput.isEmpty() : "Date input cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateInput, formatter);
     }
