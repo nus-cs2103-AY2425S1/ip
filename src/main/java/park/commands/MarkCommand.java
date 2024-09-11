@@ -28,6 +28,7 @@ public class MarkCommand extends Command {
             Task t = tasks.get(index);
             String oldLine = t.encode();
             t.mark();
+            assert t.getStatusIcon().equals("[X]") : "Task should be marked";
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
             ui.setMarkResponse(t.toString());

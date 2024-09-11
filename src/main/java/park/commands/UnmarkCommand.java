@@ -28,6 +28,7 @@ public class UnmarkCommand extends Command {
             Task t = tasks.get(index);
             String oldLine = t.encode();
             t.unmark();
+            assert t.getStatusIcon().equals("[ ]") : "Task should be unmarked";
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
             ui.setUnmarkResponse(t.toString());
