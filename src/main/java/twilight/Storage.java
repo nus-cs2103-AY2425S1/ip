@@ -42,19 +42,14 @@ public class Storage {
     /**
      * Returns an arraylist with the content in the file to be read upon start up of Twilight.
      */
-    private ArrayList<String> readStoredContent() {
-        try {
-            File f = new File(filePath);
-            Scanner s = new Scanner(f);
-            ArrayList<String> tasks = new ArrayList<String>();
-            while (s.hasNext()) {
-                tasks.add(s.nextLine());
-            }
-            return tasks;
-        } catch (FileNotFoundException e) {
-            System.out.println("There was no datafile stored for twilight tasks");
-            return new ArrayList<String>();
+    private ArrayList<String> readStoredContent() throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        ArrayList<String> tasks = new ArrayList<String>();
+        while (s.hasNext()) {
+            tasks.add(s.nextLine());
         }
+        return tasks;
     }
 
     /**
@@ -62,19 +57,25 @@ public class Storage {
      *
      * @return Arraylist to be stored in TaskList
      */
-    public ArrayList<Task> getStoredTasks() {
-        ArrayList<String> entries = readStoredContent();
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        for (String entry : entries) {
-            String[] input = entry.split(",");
-            if (input[0].equals("T")) {
-                tasks.add(new Todo(input[1].equals("1"), input[2]));
-            } else if ((input[0].equals("E"))) {
-                tasks.add(new Event(input[1].equals("1"), input[2], input[3], input[4]));
-            } else {
-                tasks.add(new Deadline(input[1].equals("1"), input[2], input[3]));
+    public ArrayList<Task> getStoredTasks() throws FileErrorException {
+        try {
+            ArrayList<String> entries = readStoredContent();
+            ArrayList<Task> tasks = new ArrayList<Task>();
+            for (String entry : entries) {
+                String[] input = entry.split(",");
+                if (input[0].equals("T")) {
+                    tasks.add(new Todo(input[1].equals("1"), input[2]));
+                } else if ((input[0].equals("E"))) {
+                    tasks.add(new Event(input[1].equals("1"), input[2], input[3], input[4]));
+                } else if ((input[0].equals("D"))){
+                    tasks.add(new Deadline(input[1].equals("1"), input[2], input[3]));
+                } else {
+                    throw new FileErrorException("The file has been incorrectly modified and cannot be read.");
+                }
             }
+            return tasks;
+        } catch (FileNotFoundException e) {
+            throw new FileErrorException("There was no stored task list found.");
         }
-        return tasks;
     }
 }

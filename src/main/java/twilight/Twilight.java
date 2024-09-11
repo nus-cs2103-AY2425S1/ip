@@ -4,9 +4,9 @@ package twilight;
  * Acts as the main class for running the chatbot.
  */
 public class Twilight {
+    private String errorMessage;
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Instantiates Twilight for a given storage filepath.
@@ -14,9 +14,14 @@ public class Twilight {
      * @param filePath Path where list of tasks is stored.
      */
     public Twilight(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.getStoredTasks());
+        try {
+            tasks = new TaskList(storage.getStoredTasks());
+            errorMessage = null;
+        } catch (FileErrorException e) {
+            tasks = new TaskList();
+            this.errorMessage = e.getMessage();
+        }
     }
 
     /**
@@ -37,7 +42,10 @@ public class Twilight {
     /**
      * Returns a message to welcome the user upon start up.
      */
-    public static String greet() {
+    public String greet() {
+        if (this.errorMessage != null) {
+            return this.errorMessage + "\n" + "Hello! I am Twilight your personal assistant\nWhat can I do for you?";
+        }
         return "Hello! I am Twilight your personal assistant\nWhat can I do for you?";
     }
 
