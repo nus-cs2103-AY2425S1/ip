@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import velma.task.After;
 import velma.task.Deadline;
 import velma.task.Event;
 import velma.task.Task;
@@ -68,6 +69,13 @@ public class Storage {
                 switch (parts[0].charAt(1)) {
                 case 'T':
                     task = new Todo(parts[2]);
+                    break;
+                case 'A':
+                    String[] afterParts = parts[2].split(" \\(after: ", 2);
+                    String afterDescription = afterParts[0];
+                    String afterString = afterParts[1]
+                            .substring(0, afterParts[1].length() - 1);
+                    task = new After(afterDescription, afterString);
                     break;
                 case 'D':
                     String[] deadlineParts = parts[2].split(" \\(by: ", 2);
