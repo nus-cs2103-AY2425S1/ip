@@ -1,16 +1,22 @@
 package slave;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
+
+import slave.task.Deadline;
+import slave.task.Event;
+import slave.task.RecurringTypeTask;
+import slave.task.Task;
 
 /**
  * It is the main class for the program
  */
 public class Slave {
-    private static final LinkedList<Task> list = new LinkedList<>();
+    private final LinkedList<Task> list = new LinkedList<>();
+    LinkedList<Task> tasksPastEndDate = new LinkedList<>();
     private Storage storage;
     private Ui ui;
     private Parser parser;
-    public static String SAVE_FILE_LOCATION = "./src/main/data/savefile.txt";
 
     /**
      * Creates a new Slave object which will save user interactions to
@@ -22,7 +28,20 @@ public class Slave {
         storage = new Storage(list, filePath);
         ui = new Ui();
         parser = new Parser(list);
-        storage.load();
+        load();
+        LocalDate dateToday = LocalDate.now();
+        list.forEach(task -> {
+            if (task instanceof RecurringTypeTask) {
+                if (((RecurringTypeTask) task).hasEnded(dateToday)) {
+                    if (((RecurringTypeTask) task).isRecurring()) {
+                        list.add(((RecurringTypeTask) task).createRecurringEvent());
+                    }
+                    tasksPastEndDate.add(task);
+                    list.remove(task);
+                }
+            }
+        });
+        save();
     }
 
     /**
@@ -51,5 +70,21 @@ public class Slave {
      */
     public void load() {
         storage.load();
+    }
+
+    public String[] getPastTasks() {
+        if (tasksPastEndDate.isEmpty()) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] result = new String[3];
+        result[0] = "Here are some tasks that are past their end date:";
+        tasksPastEndDate.forEach(task -> {
+            sb.append(task);
+            sb.append("\n");
+        });
+        result[1] = sb.toString();
+        result[2] = "I sure hope you didn't forget about them, because I won't bother remembering them anymore";
+        return result;
     }
 }

@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import slave.task.Deadline;
+import slave.task.Event;
+import slave.task.NonRecurringTaskException;
+import slave.task.RecurringTypeTask;
+import slave.task.Task;
+import slave.task.Todo;
+
 /**
  * Parser is an object that scans the user's input and performs the
  * corresponding action
@@ -14,6 +21,9 @@ import java.util.Scanner;
 public class Parser {
     private List<Task> list;
 
+    /**
+     * Enumeration of the different types of tasks, to be updated when new task types are added
+     */
     public enum TaskType {
         TODO,
         EVENT,
@@ -26,13 +36,8 @@ public class Parser {
 
     /**
      * Carries out the corresponding action to the user's input.
-     * <p>
-     * <<<<<<< HEAD
      *
-     * @return a Pair indicating if there are more actions, and if there is a need for storage to call the save() method
-     * =======
      * @return Slave's response to the user's input.
-     * >>>>>>> Level-10
      */
     public String[] handleUserInput(String input) {
         try {
@@ -87,8 +92,8 @@ public class Parser {
      */
     protected String[] listTasks() {
         String[] result = new String[2];
-        result[0] = ("Can you not even remember the things you need to do?" +
-                " That should be your job, not mine!\n");
+        result[0] = ("Can you not even remember the things you need to do?"
+                + " That should be your job, not mine!\n");
         if (list.isEmpty()) {
             result[1] = ("You don't have anything on your list, and you can't even remember that?");
             return result;
@@ -156,6 +161,7 @@ public class Parser {
 
     /**
      * Adds the task to the list of tasks.
+     * /rec tag must be added at the end of the input to indicate a recurring task.
      *
      * @param task        is the type of task to be addded.
      * @param description is the details of the task to be added.
@@ -195,6 +201,8 @@ public class Parser {
             return new String[]{"Give me the date in yyyy-mm-dd or I won't remember it for you"};
         } catch (InvalidChronologicalOrderException icoe) {
             return new String[]{"How can your event end before it started?"};
+        } catch (NonRecurringTaskException nrte) {
+            return new String[]{"Todos are not a type of recurring task!"};
         }
     }
 
@@ -204,13 +212,16 @@ public class Parser {
      * @param description is the name of the todo task.
      * @throws InvalidTaskFormatException when the description is empty.
      */
-    protected void addTodoToList(String description) throws InvalidTaskFormatException {
+    protected void addTodoToList(String description) throws InvalidTaskFormatException, NonRecurringTaskException {
         //@@ author Carl Smotricz -reused
         // String.trim() method used to remove all whitespaces from a string to check if the string only
         // contains whitespaces is reused from the StackOverflow reply
         if (description.isEmpty() || description.trim().isEmpty()) {
             //@@author
             throw new InvalidTaskFormatException("No task descriptor");
+        }
+        if (description.contains("/rec")) {
+            throw new NonRecurringTaskException();
         }
         list.add(new Todo(description));
     }
@@ -221,14 +232,22 @@ public class Parser {
      * @param description is the description of the deadline including task name and deadline.
      * @throws InvalidTaskFormatException when the description is empty or formatted incorrectly.
      */
-    protected void addDeadlineToList(String description) throws InvalidTaskFormatException {
+    protected void addDeadlineToList(String description) throws InvalidTaskFormatException, DateTimeParseException {
         String[] details = description.split(" /by ");
         if (details.length == 1) {
             throw new InvalidTaskFormatException("Error with input string format");
         }
+        boolean isRecurring = details[1].contains("/rec");
         // only accepts time in format yyyy-mm-dd
-        LocalDate by = LocalDate.parse(details[1]);
-        list.add(new Deadline(details[0], by));
+        LocalDate by;
+        if (!isRecurring) {
+            by = LocalDate.parse(details[1]);
+            list.add(new Deadline(details[0], RecurringTypeTask.RecurringType.NEVER, by));
+        } else {
+            String[] deadlineAndRecurring = details[1].split(" /rec ");
+            by = LocalDate.parse(deadlineAndRecurring[0]);
+            list.add(new Deadline(details[0], getRecurringType(deadlineAndRecurring[1]), by));
+        }
     }
 
     /**
@@ -245,13 +264,58 @@ public class Parser {
         if (eventArr.length == 1) {
             throw new InvalidTaskFormatException("Missing event start date");
         }
-        String[] startEndDate = eventArr[1].split(" /to ");
-        if (startEndDate.length == 1) {
+        String[] startEndDateAndRecurringInfo = eventArr[1].split(" /to ");
+        if (startEndDateAndRecurringInfo.length == 1) {
             throw new InvalidTaskFormatException("Missing event end date");
         }
-        LocalDate start = LocalDate.parse(startEndDate[0]);
-        LocalDate end = LocalDate.parse(startEndDate[1]);
-        list.add(new Event(eventArr[0], start, end));
+        LocalDate start = LocalDate.parse(startEndDateAndRecurringInfo[0]);
+        boolean isRecurring = startEndDateAndRecurringInfo[1].contains("/rec");
+        LocalDate end;
+        if (!isRecurring) {
+            end = LocalDate.parse(startEndDateAndRecurringInfo[1]);
+            list.add(new Event(eventArr[0], RecurringTypeTask.RecurringType.NEVER, start, end));
+        } else {
+            String[] endDateAndRecurringInfo = startEndDateAndRecurringInfo[1].split(" /rec ");
+            end = LocalDate.parse(endDateAndRecurringInfo[0]);
+            list.add(new Event(eventArr[0], getRecurringType(endDateAndRecurringInfo[1]), start, end));
+        }
+    }
+
+    /**
+     * Identifies the recurring type corresponding to the input string.
+     *
+     * @param input is the input string.
+     * @return the corresponding recurring type.
+     * @throws InvalidTaskFormatException when the input string does not correspond to any recurring type.
+     */
+    private RecurringTypeTask.RecurringType getRecurringType(String input) throws InvalidTaskFormatException {
+        RecurringTypeTask.RecurringType recurringType;
+        switch (input.toLowerCase()) {
+        case "daily":
+            recurringType = RecurringTypeTask.RecurringType.DAILY;
+            break;
+        case "weekly":
+            recurringType = RecurringTypeTask.RecurringType.WEEKLY;
+            break;
+        case "monthly":
+            recurringType = RecurringTypeTask.RecurringType.MONTHLY;
+            break;
+        case "bimonthly":
+            recurringType = RecurringTypeTask.RecurringType.BIMONTHLY;
+            break;
+        case "quarterly":
+            recurringType = RecurringTypeTask.RecurringType.QUARTERLY;
+            break;
+        case "biannually":
+            recurringType = RecurringTypeTask.RecurringType.BIANNUALLY;
+            break;
+        case "annually":
+            recurringType = RecurringTypeTask.RecurringType.ANNUALLY;
+            break;
+        default:
+            throw new InvalidTaskFormatException("Invalid recurring type");
+        }
+        return recurringType;
     }
 
     /**
@@ -339,8 +403,7 @@ public class Parser {
      * Finds all the timed events (e.g. Deadlines / Events) that are happening / yet to be due on the provided date.
      *
      * @param date is the string representation of the date.
-     * @return Slave's response containing
-     * a String representation of all timed events yet happening / yet to be due on the provided date.
+     * @return a String[] of Slave's response and all timed events yet happening / yet to be due on the provided date.
      */
     protected String[] scheduleOn(String date) {
         if (date.isEmpty()) {
@@ -377,8 +440,8 @@ public class Parser {
                     sb.append(task);
                 }
             } else if (task instanceof Deadline) {
-                if (((Deadline) task).getRawDeadline().isAfter(target) ||
-                        ((Deadline) task).getRawDeadline().isEqual(target)) {
+                if (((Deadline) task).getRawDeadline().isAfter(target)
+                        || ((Deadline) task).getRawDeadline().isEqual(target)) {
                     sb.append(task);
                 }
             }

@@ -3,7 +3,6 @@ package slave;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +12,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+
+import slave.task.Deadline;
+import slave.task.Event;
+import slave.task.RecurringTypeTask;
+import slave.task.Task;
+import slave.task.Todo;
 
 /**
  * An object containing all the method
@@ -32,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * Converts the List<Task> to a string format and writes it to the savefile "./src/main/data/savefile.txt".
+     * Converts the task list to a string format and writes it to the savefile "./src/main/data/savefile.txt".
      * Every line contains only 1 task.
      * String format is as per the return value of toString() method of the respective task.
      * Creates a new file at "./src/main/data" called "savefile.txt" in the event of a missing save file.
@@ -41,7 +46,7 @@ public class Storage {
         try {
             StringBuilder sb = new StringBuilder();
             for (Task t : list) {
-                sb.append(t.save());
+                sb.append(t.saveFormat());
                 sb.append("\n");
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -86,49 +91,73 @@ public class Storage {
 
     /**
      * Loads a single task from the save file into the task list.
+     * Formats for tasks are as follows:
+     * Todo:
+     * (Task type),(isCompleted),(Task name)
+     * Deadline:
+     * (Task type),(isCompleted),(recurring type),(Task name),(deadline)
+     * Event:
+     * (Task type),(isCompleted),(recurring type),(Task name),(startDate),(endDate)
      *
      * @param task is the string representation of the task.
      * @return a boolean indicating whether the task is successfully loaded.
      */
     protected boolean loadSingleTask(String task) {
-        char taskType = task.charAt(1);
-        char taskCompleted = task.charAt(4);
-        int firstSpacePos = task.indexOf(" ");
-        boolean isCompleted = false;
-        if (taskCompleted == ']') {
-            // do nothing
-        } else if (taskCompleted == 'X') {
-            isCompleted = true;
-        } else {
-            return false;
-        }
-        // identify the type of task:
-        switch (taskType) {
-        case 'T':
-            list.add(new Todo(isCompleted, task.substring(firstSpacePos + 1)));
-            return true;
-        case 'D':
-            // not sure how to get rid of error here for string formatting
-            String[] deadlineArray = task.split(" \\(by: ");
-            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
-            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
-            list.add(new Deadline(isCompleted, deadlineName, LocalDate.parse(by)));
-            return true;
-        case 'E':
-            // not sure how to get rid of error here for string formatting
-            String[] eventArray = task.split(" \\(from: ");
-            String eventName = eventArray[0].substring(firstSpacePos + 1);
-            String[] eventDetails = eventArray[1].split(" to: ");
-            String from = eventDetails[0];
-            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
-            try {
-                list.add(new Event(isCompleted, eventName, LocalDate.parse(from), LocalDate.parse(to)));
-            } catch (InvalidChronologicalOrderException e) {
+        try {
+            String[] taskInfo = task.split(",");
+            if (!taskInfo[1].equals("true") && !taskInfo[1].equals("false")) {
+                // to check that isCompleted is a valid boolean string
+                throw new IllegalArgumentException();
+            }
+            boolean isCompleted = Boolean.parseBoolean(taskInfo[1]);
+
+            // identify the type of task:
+            switch (taskInfo[0]) {
+            // all non-RecurringTypeTasks listed first
+            case "todo":
+                list.add(new Todo(taskInfo[2], isCompleted));
+                return true;
+            // all RecurringTypeTasks listed from here on
+            case "deadline":
+                list.add(new Deadline(taskInfo[3], isCompleted, checkTaskRecurringStatus(taskInfo[2]),
+                        LocalDate.parse(taskInfo[4])));
+                return true;
+            case "event":
+                LocalDate start = LocalDate.parse(taskInfo[4]);
+                LocalDate end = LocalDate.parse(taskInfo[5]);
+                list.add(new Event(taskInfo[3], isCompleted, checkTaskRecurringStatus(taskInfo[2]), start, end));
+                return true;
+            default:
                 return false;
             }
-            return true;
-        default:
+        } catch (DateTimeParseException | IndexOutOfBoundsException | InvalidChronologicalOrderException
+                 | IllegalArgumentException e) {
             return false;
+        }
+    }
+
+    private RecurringTypeTask.RecurringType checkTaskRecurringStatus(String recurringType)
+            throws IllegalArgumentException {
+        System.out.println(recurringType);
+        switch (recurringType.toLowerCase()) {
+        case "never":
+            return RecurringTypeTask.RecurringType.NEVER;
+        case "daily":
+            return RecurringTypeTask.RecurringType.DAILY;
+        case "weekly":
+            return RecurringTypeTask.RecurringType.WEEKLY;
+        case "bimonthly":
+            return RecurringTypeTask.RecurringType.BIMONTHLY;
+        case "monthly":
+            return RecurringTypeTask.RecurringType.MONTHLY;
+        case "quarterly":
+            return RecurringTypeTask.RecurringType.QUARTERLY;
+        case "biannually":
+            return RecurringTypeTask.RecurringType.BIANNUALLY;
+        case "annually":
+            return RecurringTypeTask.RecurringType.ANNUALLY;
+        default:
+            throw new IllegalArgumentException();
         }
     }
 

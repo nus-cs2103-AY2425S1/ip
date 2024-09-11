@@ -1,7 +1,5 @@
 package slave;
 
-import java.util.List;
-
 /**
  * Ui object contains the name which slave uses to address the user by
  * and a parser object. It contains the method to run the program
