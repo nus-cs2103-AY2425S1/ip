@@ -34,4 +34,8 @@ public class Deadline extends Task {
     public String toString() {
         return " [D] " + super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
+
+    public LocalDateTime getBy() {
+        return this.by;
+    }
 }

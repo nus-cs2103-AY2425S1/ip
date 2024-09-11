@@ -48,7 +48,11 @@ public class CommandHandler {
         } else if (command.equals("find")) {
             ArrayList<Task> result = tasks.findTasks(parser.getKey());
             return ui.searchResult(result);
-        } else {
+        } else if(command.equals("sort")) {
+            tasks.sortByDeadline();
+            return ui.showSort();
+        }
+        else {
             throw new AgaveException("I'm sorry, but I don't understand the command: " + parser.getCommand());
         }
     }
