@@ -11,9 +11,6 @@ import fishman.utils.Storage;
 import fishman.utils.Ui;
 import javafx.application.Platform;
 
-
-
-
 /**
  * The main class for the Fishman bot.
  * This class initializes the user interface, task list and parser,
@@ -76,15 +73,23 @@ public class Fishman {
         }
     }
 
+    /**
+     * Saves the current task list to data file, handling corrupt lines if any.
+     * This method checks if there are any error messages, which indicate that there are corrupted lines.
+     * If there are no corrupted lines, the task list is saved as is. However, if there are corrupted lines, they
+     * are appended to the end of the file.
+     *
+     * @param errorMessage A string containing an error message related to corrupted lines.
+     * @param output A storage object containing the results of loading tasks from data file.
+     * @return A string containing the result of the operation.
+     */
     private String saveTasks(String errorMessage, Storage.LoadResults output) {
-        List<String> allLines = output.getAllTasksLines();
         List<String> corruptedLines = output.getCorruptedLines();
 
         if (errorMessage == null || errorMessage.isEmpty()) {
             storage.save(taskList, new ArrayList<>());
             return "Successfully saved file.";
         } else {
-            assert allLines != null : "All task lines should not be null when saving with corrupted lines";
             assert corruptedLines != null : "Corrupted lines should not be null";
 
             storage.save(taskList, corruptedLines);
