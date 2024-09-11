@@ -2,16 +2,16 @@ package slave;
 
 /**
  * Task is an abstract class which contains the name of the task and
- * the state of the task, whether it was completed or not
+ * the state of the task, whether it was completed or not.
  */
 public abstract class Task {
     private boolean isCompleted;
     private String task;
 
     /**
-     * creates a task of name task
+     * Creates a task of name task.
      *
-     * @param task is the name of the task
+     * @param task is the name of the task.
      */
     public Task(String task) {
         this.isCompleted = false;
@@ -24,21 +24,23 @@ public abstract class Task {
     }
 
     /**
-     * @return the boolean value stored in the task
+     * @return the boolean value stored in the task.
      */
     public boolean isCompleted() {
         return this.isCompleted;
     }
 
     /**
-     * @return the string description of the task
+     * @return the string description of the task.
      */
     public String getTask() {
         return this.task;
     }
 
     /**
-     * sets the task as completed
+     * Sets teh task as completed.
+     *
+     * @return the task itself to enable method chaining.
      */
     public Task setAsCompleted() {
         this.isCompleted = true;
@@ -46,7 +48,9 @@ public abstract class Task {
     }
 
     /**
-     * sets the task as incomplete
+     * Sets the task as incomplete.
+     *
+     * @return the task itself to enable method chaining.
      */
     public Task setAsIncomplete() {
         this.isCompleted = false;
@@ -54,9 +58,9 @@ public abstract class Task {
     }
 
     /**
-     * Prints the task in the required format
+     * Prints the task in the required format.
      *
-     * @return the string representation of the task
+     * @return the string representation of the task.
      */
     @Override
     public String toString() {
@@ -71,10 +75,10 @@ public abstract class Task {
     }
 
     /**
-     * used as a .toString() used only when save() is called in Slave.java
-     * prints the Task's date in the format yyyy-mm-dd
+     * Used as a .toString() used only when save() is called in Slave.java
+     * Prints the Task's date in the format yyyy-mm-dd.
      *
-     * @return a String representation of the task
+     * @return a String representation of the task.
      */
     abstract String save();
 }
