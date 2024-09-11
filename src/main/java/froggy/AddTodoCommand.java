@@ -37,14 +37,18 @@ public class AddTodoCommand extends Command {
         if (input.length() == 5) {
             return "[INFO] Error: No description for ToDo task.\n"
                     + "Please input a description for the task.\n" + ui.getLine();
-        } else {
-            String output = "";
-            String desc = input.substring(5);
-            Todo current = new Todo(desc);
-            taskList.add(current, storage);
-            output = current.toString() + "\n";
-            return "Added this task:\n" + output + ui.getLine();
         }
+
+        String output = "";
+        String desc = input.substring(5).trim();
+        Todo current = new Todo(desc);
+        if (taskList.isDuplicate(current)){
+            return "Duplicate Task found. Adding failed";
+        }
+        taskList.add(current, storage);
+        output = current.toString() + "\n";
+        return "Added this task:\n" + output + ui.getLine();
+
     }
 
     @Override

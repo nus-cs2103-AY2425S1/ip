@@ -23,4 +23,16 @@ public class Todo extends Task {
     public String toTxt() {
         return "T " + super.toTxt();
     }
+
+    @Override
+    public boolean equals(Task task) {
+        if (this == task) {
+            return true;
+        }
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+        Todo todo = (Todo) task;
+        return description.equals(todo.getDescription());
+    }
 }

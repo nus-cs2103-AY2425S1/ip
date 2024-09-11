@@ -68,6 +68,15 @@ public class TaskList {
         return output;
     }
 
+    public boolean isDuplicate(Task task) {
+        for (Task currentTask : tasks) {
+            if (task.equals(currentTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isInRange(int index) {
         return index >= 0 && index < tasks.size();
     }
