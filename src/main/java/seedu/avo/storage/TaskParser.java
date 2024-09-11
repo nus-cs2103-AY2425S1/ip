@@ -16,6 +16,7 @@ public class TaskParser extends FileParser<Task> {
     @Override
     public Task parse(String input) throws AvoException {
         String[] inputs = input.split(" : ");
+        assert inputs.length > 0 : "inputs should not be empty";
         String type = inputs[0];
         Task task;
         switch (type) {
