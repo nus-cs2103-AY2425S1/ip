@@ -26,15 +26,15 @@ public class MainWindow extends AnchorPane implements Initializable {
     @FXML
     private ScrollPane scrollPane;
 
-    private MainWindowViewModel viewModel;
+    private final MainWindowViewModel viewModel = new MainWindowViewModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
         this.dialogContainer.prefWidthProperty().bind(this.scrollPane.widthProperty());
 
-        this.viewModel = new MainWindowViewModel();
-        this.viewModel.getMessages().addListener((ListChangeListener<Message>) c -> {
+        // Bind dialogContainer to the viewModel's messages
+        this.viewModel.addMessagesListener(c -> {
             while (c.next()) {
                 List<MessageBox> messageBoxes = c.getAddedSubList().stream()
                         .map(MessageBox::createMessage)
