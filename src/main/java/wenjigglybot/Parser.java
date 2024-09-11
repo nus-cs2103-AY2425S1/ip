@@ -15,10 +15,12 @@ public class Parser {
      */
     public static String[] processEventTask(String task) throws EventException {
         String[] fromParts = task.split("/from");
+        assert fromParts.length == 2 : "Input must contain '/from'";
         if (fromParts.length != 2) {
             throw new EventException();
         }
         String[] toParts = fromParts[1].split("/to");
+        assert toParts.length == 2 : "Input must contain '/to'";
         if (toParts.length != 2) {
             throw new EventException();
         }
@@ -26,6 +28,9 @@ public class Parser {
         String event = fromParts[0].replaceFirst("event", "").trim();
         String startTime = toParts[0].trim();
         String endTime = toParts[1].trim();
+        assert !event.isEmpty() : "Event description should not be empty";
+        assert !startTime.isEmpty() : "Start time should not be empty";
+        assert !endTime.isEmpty() : "End time should not be empty";
         return new String[]{event, startTime, endTime};
     }
 
@@ -40,12 +45,15 @@ public class Parser {
     public static String[] processDeadlineTask(String task) throws DeadlineException {
         // Remove deadline tag
         String taskNameAndDeadline = task.replaceFirst("deadline", "").trim();
+        assert !taskNameAndDeadline.isEmpty() : "Task description and deadline should not be empty";
 
         // Split the title and deadline
         String[] parts = taskNameAndDeadline.split("/by");
         if (parts.length != 2) {
             throw new DeadlineException();
         }
+        assert !parts[0].isEmpty() : "Task description should not be empty";
+        assert !parts[1].isEmpty() : "Deadline should not be empty";
         return parts;
     }
 
@@ -57,6 +65,7 @@ public class Parser {
      * @throws InvalidCommandException If the command is not recognized.
      */
     public static Command parseCommand(String command) throws InvalidCommandException {
+        assert command != null && !command.isEmpty() : "Command should not be null or empty";
         for (Command cmd : Command.values()) {
             if (command.startsWith(cmd.name().toLowerCase())) {
                 return cmd;
@@ -73,7 +82,9 @@ public class Parser {
      */
     public static Task parseTask(String line) {
         // Example format: 1. [T][X] task description
+        assert line != null && !line.isEmpty() : "Task line should not be null or empty";
         String[] parts = line.split(" ", 3);
+        assert parts.length == 3 : "Task should contain 3 parts (type, status, description)";
         if (parts.length < 3) {
             return null;
         }
@@ -95,6 +106,7 @@ public class Parser {
         case "D": // Deadline task
             // Format: [D][ ] description (by: date/time)
             String[] deadlineParts = description.split("\\(by: ");
+            assert deadlineParts.length == 2 : "Deadline task format should contain '(by: date/time)'";
             if (deadlineParts.length == 2) {
                 String unprocessedTaskDescription = deadlineParts[0].trim();
                 String[] splitted = unprocessedTaskDescription.split(" ");
@@ -105,6 +117,7 @@ public class Parser {
                     taskDescription = splitted[0];
                 }
                 String deadline = deadlineParts[1].replace(")", "").trim();
+                assert !deadline.isEmpty() : "Deadline should not be empty";
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy");
                 DeadlineTask deadlineTask = new DeadlineTask(taskDescription, LocalDate.parse(deadline, formatter));
                 if (isDone) {
@@ -123,6 +136,8 @@ public class Parser {
                 if (timeParts.length == 2) {
                     String startTime = timeParts[0].trim();
                     String endTime = timeParts[1].replace(")", "").trim();
+                    assert !startTime.isEmpty() : "Start time should not be empty";
+                    assert !endTime.isEmpty() : "End time should not be empty";
                     EventTask eventTask = new EventTask(taskDescription, startTime, endTime);
                     if (isDone) {
                         eventTask.markTask();
