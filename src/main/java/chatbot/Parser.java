@@ -53,6 +53,8 @@ public class Parser {
                 String keyword = response.substring(response.indexOf(' ') + 1);
                 TaskList filtered = new TaskList(taskList.filterByWord(keyword));
                 return filtered.listOut();
+            case "help":
+                return Parser.showCommands();
             default:
                 throw new InvalidCommandException();
             }
@@ -61,5 +63,16 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
+    }
+
+    public static String showCommands() {
+        return "todo {taskName}: add a new Todo\n"
+                + "deadline {taskName} /by {deadline}: add a new Deadline\n"
+                + "event {taskName} /from {startDate in YYYY-MM-DD} /to {endDate in YYYY-MM-DD}: add a new Event\n"
+                + "mark {taskIndex}: mark that task as Done\n"
+                + "unmark {taskIndex}: mark that task as not Done\n"
+                + "delete {taskIndex}: delete that task\n"
+                + "list: list out all tasks\n"
+                + "find {keyword}: filter list by keyword\n";
     }
 }

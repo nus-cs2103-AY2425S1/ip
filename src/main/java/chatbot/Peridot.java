@@ -29,7 +29,7 @@ public class Peridot {
             storage.write(taskList.getTaskList());
             return response;
         } catch (Exception e) {
-            return("?");
+            return "type 'help' to see list of commands";
         }
     }
 
