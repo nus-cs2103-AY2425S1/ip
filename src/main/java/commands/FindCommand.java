@@ -29,6 +29,7 @@ public class FindCommand extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ", 2);
+        assert(command.length == 2);
         if (command.length == 2) {
             ui.print("Here are the matching tasks in your list:");
             String keyWord = command[1];

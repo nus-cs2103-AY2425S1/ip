@@ -28,6 +28,7 @@ public class AddTodo extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
+        assert(command.length == 2);
         if (command.length == 2) {
             Todos todoTask = new Todos(command[1]);
             reminder.addTodo(todoTask);
