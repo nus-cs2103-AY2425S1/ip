@@ -90,6 +90,8 @@ public class Parser {
             return taskList.delete(input);
         } else if (input.startsWith("find")) {
             return taskList.findTask(input);
+        } else if (input.isEmpty()) {
+           return "plz type smth bro";
         } else {
             return "bro out here speaking nonsense issit";
         }
@@ -97,10 +99,6 @@ public class Parser {
 
 
     public boolean isBye(String input) {
-        if (input.equals("bye")) {
-            return true;
-        } else {
-            return false;
-        }
+        return input.equals("bye");
     }
 }

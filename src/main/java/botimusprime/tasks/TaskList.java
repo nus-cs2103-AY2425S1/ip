@@ -47,6 +47,10 @@ public class TaskList {
         return tasks;
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     /**
      * Displays the list of tasks.
      * If the list is empty, it displays a message indicating that there are no tasks.
@@ -72,6 +76,9 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String markDone(String input) {
+        assert !input.isEmpty();
+        assert !tasks.isEmpty();
+
         String[] numFinder = input.split(" ");
 
         if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
@@ -92,6 +99,9 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String markUndone(String input) {
+        assert !input.isEmpty();
+        assert !tasks.isEmpty();
+
         String[] numFinder = input.split(" ");
 
         if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
@@ -112,6 +122,9 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String delete(String input) {
+        assert !input.isEmpty();
+        assert !tasks.isEmpty();
+
         String[] numFinder = input.split(" ");
 
         if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
@@ -133,6 +146,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addToDo(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 5) {
             return "eh bro udw to put ur description of ur task issit";
         }
@@ -155,6 +170,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addDeadline(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 9 || !input.contains("/by")) {
             return "brother u forgot to type all the deadline task details plz.";
         }
@@ -191,6 +208,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addEvent(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 6 || input.substring(6)
                 .trim()
                         .isEmpty()) {
@@ -235,6 +254,8 @@ public class TaskList {
     }
 
     public String findTask(String input) {
+        assert !input.isEmpty();
+
         StringBuilder resultString = new StringBuilder(SEPARATOR
                     + "Here are the matching tasks in your list:\n");
         ArrayList<Task> foundTasks = new ArrayList<>();
