@@ -49,14 +49,17 @@ public class Chatterbox {
             switch (Commands.valueOf(command[0].toUpperCase())) {
             case BYE:
                 storage.writeToSave(taskList);
+                assert command.length == 1 : "There should only be one fields in the command";
                 return """
                        ____________________________________________________________
                        Bye. Hope to see you again soon!
                        ____________________________________________________________
                        """;
             case LIST:
+                assert command.length == 1 : "There should only be one fields in the command";
                 return taskList.toString();
             case MARK:
+                assert command.length == 2 : "There should only be two fields in the command";
                 try {
                     message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(true);
                     return message;
@@ -64,6 +67,7 @@ public class Chatterbox {
                     throw new ChatterBoxNullTaskError();
                 }
             case UNMARK:
+                assert command.length == 2 : "There should only be two fields in the command";
                 try {
                     message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(false);
                     return message;
@@ -71,23 +75,28 @@ public class Chatterbox {
                     throw new ChatterBoxNullTaskError();
                 }
             case DELETE:
+                assert command.length == 2 : "There should only be two fields in the command";
                 message = taskList.removeItem(Integer.parseInt(command[1]));
                 return message;
             case TODO:
+                assert command.length == 2 : "There should only be two fields in the command";
                 message = taskList.addItem(new ToDo(command[1]));
                 return message;
             case DEADLINE:
+                assert command.length == 3 : "There should only be three fields in the command";
                 message = taskList.addItem(
                         new Deadline(command[1], Parser.processDateTime(command[2]))
                 );
                 return message;
             case EVENT:
+                assert command.length == 4 : "There should only be four fields in the command";
                 message = taskList.addItem(
                         new Event(command[1], Parser.processDateTime(command[2]),
                                 Parser.processDateTime(command[3]))
                 );
                 return message;
             case FIND:
+                assert command.length == 2 : "There should only be two fields in the command";
                 message = taskList.findItem(command[1]);
                 return message;
             default:

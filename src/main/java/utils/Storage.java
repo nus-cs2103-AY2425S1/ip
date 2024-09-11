@@ -66,6 +66,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             try {
                 saveFile.createNewFile();
+                assert saveFilePath != null;
             } catch (IOException e1) {
                 textUi.printMessage("Error Reading Chatterbox save file");
             }

@@ -38,6 +38,7 @@ public class Parser {
             throw new ChatterBoxError();
         }
         userCommand[0] = command[0];
+        assert userCommand[0] != null : "Error processing User Commands";
         switch (commandType) {
         case BYE, LIST:
             if (command.length > 1) {
@@ -139,6 +140,8 @@ public class Parser {
         if (oneTimeMatcher.find()) {
             parsedNameTime[0] = oneTimeMatcher.group(1);
             parsedNameTime[1] = oneTimeMatcher.group(2);
+            assert parsedNameTime[0] != null : "Name should not be null";
+            assert parsedNameTime[1] != null : "Time should not be null";
             return parsedNameTime;
         } else {
             throw new ChatterBoxDeadlineError();
@@ -159,6 +162,9 @@ public class Parser {
             parsedNameTime[0] = twoTimeMatcher.group(1);
             parsedNameTime[1] = twoTimeMatcher.group(2);
             parsedNameTime[2] = twoTimeMatcher.group(3);
+            assert parsedNameTime[0] != null : "Name should not be null";
+            assert parsedNameTime[1] != null : "Start time should not be null";
+            assert parsedNameTime[2] != null : "End time should not be null";
             return parsedNameTime;
         } else {
             throw new ChatterBoxEventError();
