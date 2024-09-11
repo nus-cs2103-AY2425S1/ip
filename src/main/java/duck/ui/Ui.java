@@ -9,7 +9,6 @@ import duck.task.TaskList;
  * The Ui class deals with interactions with the user.
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
     private String lastResponse;
 

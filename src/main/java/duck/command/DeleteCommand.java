@@ -21,7 +21,7 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         int taskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         list.delete(taskIndex);
         ui.showNumOfTasksMessage(list);

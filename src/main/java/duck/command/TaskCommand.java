@@ -37,7 +37,7 @@ public class TaskCommand implements Command {
      * @param storage the storage to save the updated task list
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         Task task = switch (commandType) {
         case "todo" -> parseToDo(fullCommand);
         case "deadline" -> parseDeadline(fullCommand);

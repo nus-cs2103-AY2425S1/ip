@@ -15,5 +15,5 @@ public interface Command {
      * @param ui the user interface to interact with the user
      * @param storage the storage to save or load tasks
      */
-    void execute(TaskList tasks, Ui ui, Storage storage);
+    void executeCommand(TaskList tasks, Ui ui, Storage storage);
 }

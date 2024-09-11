@@ -47,15 +47,18 @@ public class Storage {
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
                 String[] parts = line.split(" \\| ");
+
                 Task task = switch (parts[0]) {
                 case "T" -> new ToDo(parts[2]);
                 case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
                 case "E" -> new Event(parts[2], parts[3], parts[4]);
                 default -> throw new InvalidCommandException("Invalid task type in file");
                 };
+
                 if (parts[1].equals("1")) {
                     task.mark();
                 }
+
                 taskList.add(task);
             }
         } catch (IOException | InvalidCommandException e) {

@@ -24,6 +24,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws InvalidCommandException {
         String commandType = Parser.getCommandType(fullCommand);
+
         return switch (commandType) {
         case "todo", "deadline", "event" -> new TaskCommand(fullCommand, commandType);
         case "mark" -> new MarkCommand(fullCommand);
