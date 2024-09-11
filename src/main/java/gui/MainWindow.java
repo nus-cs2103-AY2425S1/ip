@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Michael michael;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image michaelImage = new Image(this.getClass().getResourceAsStream("/images/michael.png"));
 
     @FXML
     public void initialize() {
@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
             String response = michael.getParser().parse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getDukeDialog(response, michaelImage)
             );
             userInput.clear();
         } catch (MichaelException e) {
