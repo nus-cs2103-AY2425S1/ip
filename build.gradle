@@ -33,11 +33,11 @@ test {
 }
 
 application {
-    mainClass.set("R2D2.R2D2")
+    mainClass.set("swbot.R2D2")
 }
 
 shadowJar {
-    archiveFileName = 'r2d2.jar'
+    archiveFileName = 'swbot.jar'
 }
 
 run{
