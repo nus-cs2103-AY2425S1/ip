@@ -47,12 +47,14 @@ test {
     }
 }
 
+mainClassName = "bestie.Launcher"
+
 application {
     mainClass.set("bestie.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bestie"
     archiveClassifier = null
 }
 
