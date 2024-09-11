@@ -40,23 +40,31 @@ public abstract class Task {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            return new Todo(taskDetails[2], "T", Boolean.parseBoolean(taskDetails[1]));
+            String todoDescription = taskDetails[2];
+            boolean todoStatus = Boolean.parseBoolean(taskDetails[1]);
+
+            return new Todo(todoDescription, type, todoStatus);
         case "D":
             if (taskDetails.length != 4) {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            return new Deadline(taskDetails[2],
-                    "D",
-                    convertStringToLocalDateTime(taskDetails[3]),
-                    Boolean.parseBoolean(taskDetails[1]));
+            String deadlineDescription = taskDetails[2];
+            LocalDateTime dateTime = convertStringToLocalDateTime(taskDetails[3]);
+            boolean deadlineStatus = Boolean.parseBoolean(taskDetails[1]);
+
+            return new Deadline(deadlineDescription, type, dateTime, deadlineStatus);
         case "E":
             if (taskDetails.length != 5) {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            return new Event(taskDetails[2], "E", convertStringToLocalDateTime(taskDetails[3]),
-                    convertStringToLocalDateTime(taskDetails[4]), Boolean.parseBoolean(taskDetails[1]));
+            String eventDescription = taskDetails[2];
+            LocalDateTime startDateTime = convertStringToLocalDateTime(taskDetails[3]);
+            LocalDateTime endDateTime = convertStringToLocalDateTime(taskDetails[4]);
+            boolean eventStauts = Boolean.parseBoolean(taskDetails[1]);
+
+            return new Event(eventDescription, type, startDateTime, endDateTime, eventStauts);
         default:
             throw new BlitzIoException("Failed to read from database");
         }
