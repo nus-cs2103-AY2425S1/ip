@@ -1,5 +1,7 @@
 package command;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +13,7 @@ import task.Task;
  */
 public class Ui {
     private static final String LINE_SEPARATOR = "\t\t" + "_".repeat(50);
-
+    private final Scanner scanner;
 
 
     /**
@@ -29,6 +31,15 @@ public class Ui {
         System.out.println("\t\tHey there! I'm ChatterBox");
         System.out.println("\t\tWhat's on your plate today?");
         System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Reads a command from the user input.
+     *
+     * @return The trimmed command entered by the user.
+     */
+    public String readCommand() {
+        return scanner.nextLine().trim();
     }
 
     /**
@@ -176,4 +187,3 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 }
-
