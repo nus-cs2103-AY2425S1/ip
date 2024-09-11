@@ -31,4 +31,16 @@ public class Event extends Task {
     public String toTxt() {
         return "E " + super.toTxt() + " | " + from + " | " + to;
     }
+
+    @Override
+    public boolean equals(Task task) {
+        if (this == task) {
+            return true;
+        }
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        Event event = (Event) task;
+        return description.equals(event.getDescription()) && from.equals(event.from) && to.equals(event.to);
+    }
 }

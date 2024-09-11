@@ -42,7 +42,9 @@ public class AddEventCommand extends Command {
             String from = input.substring(firstIndex + 5, secondIndex).trim();
             String to = input.substring(secondIndex + 3).trim();
             Event current = new Event(desc, from, to);
-            taskList.add(current, storage);
+            if (taskList.isDuplicate(current)){
+                return "Duplicate Task found. Adding failed";
+            }
             taskList.add(current, storage);
             output = current.toString() + "\n";
             return "Added this task:\n" + output + ui.getLine();

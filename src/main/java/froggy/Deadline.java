@@ -52,4 +52,16 @@ public class Deadline extends Task {
     public String toTxt() {
         return "D " + super.toTxt() + " | " + by;
     }
+
+    @Override
+    public boolean equals(Task task) {
+        if (this == task) {
+            return true;
+        }
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) task;
+        return description.equals(deadline.getDescription()) && by.equals(deadline.by);
+    }
 }

@@ -21,7 +21,8 @@ public abstract class Command {
      * @param storage storage to save tasks.
      * @return String output to user.
      */
-    public abstract String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage);
+    public abstract String executeAndGetOutput(TaskList taskList,
+                                               Ui ui, Storage storage);
 
     /**
      * Returns true if command is an exit command.
