@@ -2,6 +2,8 @@ package denim;
 
 import java.io.IOException;
 
+import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimFileException;
 import denim.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +20,13 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Denim denim = new Denim();
+    public static final String FILE_PATH = "data/denim.txt";
+
+    private final Denim denim = new Denim(FILE_PATH);
 
     @Override
     public void start(Stage stage) {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
 
         try {
@@ -29,11 +34,20 @@ public class Main extends Application {
             Scene scene = new Scene(mainWindow);
             stage.setTitle("Denim");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().injectDenim(denim);
+            fxmlLoader.<MainWindow>getController().injectDenim(denim); // inject the Denim instance
             denim.start();
             stage.show();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (DenimFileException e) {
+            fxmlLoader.<MainWindow>getController().handleFileNotFound();
+            stage.show();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+        } catch (DenimDirectoryException e) {
+            fxmlLoader.<MainWindow>getController().handleDirectoryNotFound();
+            stage.show();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
         }
 
     }

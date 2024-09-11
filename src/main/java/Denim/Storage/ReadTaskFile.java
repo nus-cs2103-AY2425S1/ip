@@ -1,6 +1,7 @@
 package denim.storage;
 
 import denim.TaskList;
+import denim.exceptions.DenimDirectoryException;
 import denim.exceptions.DenimException;
 import denim.exceptions.DenimFileException;
 import denim.tasks.Deadline;
@@ -21,7 +22,10 @@ public class ReadTaskFile {
     static final String EVENT = "E";
     static final String DEADLINE = "D";
 
-
+    enum FileStatus {
+        DIRECTORY_DOES_NOT_EXIST,
+        FILE_DOES_NOT_EXIST
+    }
 
     private final File taskFile;
 
@@ -29,45 +33,47 @@ public class ReadTaskFile {
         taskFile = new File(pathname);
     }
 
-    private void createSavePoint(TaskIo.FileStatus status, Scanner sc) throws DenimFileException {
-        switch (status) {
-        case DIRECTORY_DOES_NOT_EXIST:
-            handleDirectoryNotFound(sc);
-            break;
-        case FILE_DOES_NOT_EXIST:
-            handleFileNotFound(sc);
-            break;
-        default:
-            throw new DenimFileException("An error has occurred during the creation of files. Terminating");
+    /**
+     * Reads task data from the file and populates the provided task list.
+     *
+     * @param taskList The task list to populate with data from the file.
+     * @throws DenimException If an error occurs during file reading or if the file/directory does not exist.
+     */
+    public void readTaskData(TaskList taskList) throws DenimFileException, DenimDirectoryException {
+
+        if (!doesDirectoryExist()) {
+            throw new DenimDirectoryException("Directory Not Found");
         }
+
+        if (!doesFileExist()) {
+            throw new DenimFileException("File Not Found");
+        }
+
+        updateTaskList(taskList);
+    }
+
+    private boolean doesDirectoryExist() {
+        return taskFile.getParentFile().exists();
+    }
+
+    private boolean doesFileExist() {
+        return taskFile.exists();
     }
 
     /**
      * Handles the case where the directory is not found.
      * Prompts the user to create the directory and the corresponding file.
      *
-     * @param sc The scanner to receive user input for directory and file creation.
      * @throws DenimException If the directory or file cannot be created.
      */
-    private void handleDirectoryNotFound(Scanner sc) throws DenimFileException {
-        System.out.println("data directory and corresponding denim.txt not found. Create both? (y / n)\n");
-        String input = sc.nextLine();
-
-        switch (input) {
-        case "y":
-            File directory = new File("data");
-            directory.mkdir();
-            File dataFile = new File(directory, "denim.txt");
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                throw new DenimFileException("Unable to create denim.txt");
-            }
-
-            break;
-        case "n":
-        default:
-            throw new DenimFileException("Unknown Command or 'n' chosen. Terminating Program. GoodBye");
+    public void handleDirectoryNotFound() throws DenimDirectoryException {
+        File directory = new File("data");
+        directory.mkdir();
+        File dataFile = new File(directory, "denim.txt");
+        try {
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            throw new DenimDirectoryException("Unable to create denim.txt");
         }
     }
 
@@ -75,39 +81,18 @@ public class ReadTaskFile {
      * Handles the case where the file is not found.
      * Prompts the user to create the file within an existing directory.
      *
-     * @param sc The scanner to receive user input for file creation.
      * @throws DenimException If the file cannot be created.
      */
-    private void handleFileNotFound(Scanner sc) throws DenimFileException {
-        System.out.println("denim.txt not found in data directory. Create denim.txt? (y / n)\n");
-        String input = sc.nextLine();
-        switch (input) {
-        case "y":
-            File denimFile = new File("data", "denim.txt");
-            try {
-                denimFile.createNewFile();
-            } catch (IOException e) {
-                throw new DenimFileException("Unable to create denim.txt");
-            }
-            break;
-        case "n":
-            //Fallthrough
-        default:
-            throw new DenimFileException("Terminating Program. Have a nice day.");
+    public void handleFileNotFound() throws DenimFileException {
+        File denimFile = new File("data", "denim.txt");
+        try {
+            denimFile.createNewFile();
+        } catch (IOException e) {
+            throw new DenimFileException("Unable to create denim.txt");
         }
     }
 
-    /**
-     * Reads task data from the file and populates the provided task list.
-     *
-     * @param taskList The task list to populate with data from the file.
-     * @param sc       The scanner to receive user input for file creation if needed.
-     * @throws DenimException If an error occurs during file reading or if the file/directory does not exist.
-     */
-    public void readTaskData(TaskList taskList, Scanner sc) throws DenimFileException {
-
-        File dataDirectory = taskFile.getParentFile();
-
+    private void updateTaskList(TaskList taskList) throws DenimFileException {
         try {
             Scanner fileReader = new Scanner(taskFile);
             while (fileReader.hasNext()) {
@@ -118,7 +103,6 @@ public class ReadTaskFile {
                 processTask(taskList, taskDescription);
             }
         } catch (IOException e) {
-            sc.close();
             throw new DenimFileException("An error has occurred while trying to read denim.txt\n Terminating Program.");
         }
     }

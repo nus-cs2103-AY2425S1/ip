@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import denim.commands.Command;
 import denim.commands.CommandResult;
+import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimException;
 import denim.exceptions.DenimFileException;
 import denim.storage.ReadTaskFile;
 import denim.storage.WriteTaskFile;
@@ -14,44 +16,37 @@ import denim.storage.WriteTaskFile;
  * and runs the command loop until the exit command is received.
  */
 public class Denim {
-    public static final String FILE_PATH = "data/denim.txt";
     public static final int INDEX_OFFSET = 1;
 
     private ReadTaskFile readTaskFile;
     private WriteTaskFile writeTaskFile;
+    private String filePath;
 
     private Parser parser;
     private TaskList taskList;
 
+    public Denim(String filePath) {
+        this.filePath = filePath;
+    }
 
 
     /**
      * Starts the Denim Application first by reading the file with tasks stored in it.
      */
-    public void start() {
+    public void start() throws DenimFileException, DenimDirectoryException {
         initialize();
-
-        if (!ableToReadFile()) {
-
-        }
+        ReadFile();
     }
 
     public void initialize() {
-        readTaskFile = new ReadTaskFile(FILE_PATH);
-        writeTaskFile = new WriteTaskFile(FILE_PATH);
+        readTaskFile = new ReadTaskFile(filePath);
+        writeTaskFile = new WriteTaskFile(filePath);
         parser = new Parser();
         taskList = new TaskList();
     }
 
-    public boolean ableToReadFile() {
-        try {
-            Scanner tempScanner = new Scanner(System.in);
-            readTaskFile.readTaskData(taskList, tempScanner);
-        } catch (DenimFileException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        return true;
+    public void ReadFile() throws DenimFileException, DenimDirectoryException {
+        readTaskFile.readTaskData(taskList);
     }
 
     /**
@@ -75,6 +70,14 @@ public class Denim {
      */
     public void exit() {
         System.exit(0);
+    }
+
+    public void handleDirectoryNotFound() throws DenimDirectoryException {
+        readTaskFile.handleDirectoryNotFound();
+    }
+
+    public void handleFileNotFound() throws DenimFileException {
+        readTaskFile.handleFileNotFound();
     }
 }
 
