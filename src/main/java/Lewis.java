@@ -1,10 +1,26 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 public class Lewis {
-    private static boolean exit = false;
+    private static boolean isExit = false;
     protected static TaskList taskList = new TaskList();
 
     private final static String[] commands = new String[] {"help","mark","unmark","echo","todo","deadline","event","bye","hello","list"};
+
+    /**
+     * Initialises the data for Lewis bot to function. This includes loading the tasklist from
+     * the hard drive and the sorted command list that Lewis can parse.
+     */
+    private static void init() {
+        Arrays.sort(commands);
+        TaskList.load();
+    }
+
+    /**
+     * Parses user input into commands.
+     * @param input
+     * @throws LewisException
+     */
     private static void parse(String input) throws LewisException {
         StringBuilder str = new StringBuilder();
         int curr = 0;
@@ -27,8 +43,8 @@ public class Lewis {
                 if (todoDescript.isEmpty() || todoDescript.toString().matches("^\\s*$")) throw new LewisException("Hey, a todo can't be empty!");
                 taskList.add(new Todo(todoDescript.toString()));
                 System.out.println("I've got it, I've added this todo to your tasklist.");
-                System.out.println(taskList.get(taskList.len));
-                System.out.printf("Now you have %d task(s) on our list!\n", taskList.len);
+                System.out.println(taskList.get(taskList.length));
+                System.out.printf("Now you have %d task(s) on our list!\n", taskList.length);
             }
             case "deadline" -> {
                 StringBuilder deadlineDescript = new StringBuilder();
@@ -53,8 +69,8 @@ public class Lewis {
                 if (deadline.isEmpty() || deadline.toString().matches("^\\s*$")) throw new LewisException("Hey, fill in the deadline!");
                 taskList.add(new Deadline(deadlineDescript.toString(), deadline.toString()));
                 System.out.println("I've got it, I've added this deadline to your tasklist.");
-                System.out.println(taskList.get(taskList.len));
-                System.out.printf("Now you have %d task%s on our list!\n", taskList.len, (taskList.len == 1 ? "" : "s"));
+                System.out.println(taskList.get(taskList.length));
+                System.out.printf("Now you have %d task%s on our list!\n", taskList.length, (taskList.length == 1 ? "" : "s"));
             }
             case "event" -> {
                 StringBuilder eventDescript = new StringBuilder();
@@ -99,12 +115,12 @@ public class Lewis {
                 if (to.isEmpty() || to.toString().matches("^\\s*$")) throw new LewisException("Hey, the \"to\" field can't be empty!");
                 taskList.add(new Event(eventDescript.toString(), from.toString(), to.toString()));
                 System.out.println("I've got it, I've added this event to your tasklist.");
-                System.out.println(taskList.get(taskList.len));
-                System.out.printf("Now you have %d task(s) on our list!\n", taskList.len);
+                System.out.println(taskList.get(taskList.length));
+                System.out.printf("Now you have %d task(s) on our list!\n", taskList.length);
             }
             case "list" -> System.out.println(taskList.toString());
             case "bye","exit" -> {
-                exit = true;
+                isExit = true;
                 System.out.println("""
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠒⠒⠢⢄⡀⠀⠀⢠⡏⠉⠉⠉⠑⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠙⢦⠀⡇⡇⠀⠀⠀⠀⠀⠀⠈⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -146,11 +162,11 @@ public class Lewis {
                 int index;
                 try {
                     index = Integer.parseInt(taskToMark.toString());
-                    if (index >= 1 && index <= taskList.len) {taskList.update(index, Task.Status.DONE);}
-                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));}
+                    if (index >= 1 && index <= taskList.length) {taskList.update(index, Task.Status.DONE);}
+                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.length));}
                 }
                 catch (NumberFormatException e) {
-                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.length));
                 }
 
             }
@@ -179,14 +195,14 @@ public class Lewis {
                 int index;
                 try {
                     index = Integer.parseInt(taskToDelete.toString());
-                    if (index >= 1 && index <= taskList.len) {
+                    if (index >= 1 && index <= taskList.length) {
                         System.out.printf("You are about to remove this task:\n%s",taskList.get(index));
                         taskList.remove(index);
                     }
-                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));}
+                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.length));}
                 }
                 catch (NumberFormatException e) {
-                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.length));
                 }
 
             }
@@ -203,11 +219,11 @@ public class Lewis {
     }
 
     public static void main(String[] args) {
-        Arrays.sort(commands);
+        init();
         Scanner scanner = new Scanner(System.in);
         Utilities.printLine();
         System.out.println("Hello! My name is Lewis, a chatbot.\nHow can I help you?");
-        while(!exit) {
+        while(!isExit) {
             Utilities.printLine();
             //System.out.println("\n");
             String command = scanner.nextLine();
@@ -215,7 +231,6 @@ public class Lewis {
                 parse(command);
             } catch (LewisException e) {
                 System.out.println(e.getMessage());
-                continue;
             } finally {
                 //System.out.println("\n");
                 Utilities.printLine();
