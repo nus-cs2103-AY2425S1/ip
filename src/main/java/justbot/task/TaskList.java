@@ -130,4 +130,8 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
 }

@@ -1,5 +1,8 @@
 package justbot.command;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Represents the types of commands that can be executed in the Justbot application.
  * Each command type corresponds to a specific action that can be performed on the task list.
@@ -17,6 +20,12 @@ public enum CommandType {
     UNKNOWN("");
 
     private final String commandString;
+    private static final Map<String, CommandType> commandMap = new HashMap<>();
+    static {
+        for (CommandType command : CommandType.values()) {
+            commandMap.put(command.commandString, command);
+        }
+    }
 
     /**
      * Constructs a CommandType with the specified command string.
@@ -44,11 +53,6 @@ public enum CommandType {
      * @return The CommandType corresponding to the given string, or UNKNOWN if no match is found.
      */
     public static CommandType fromString(String commandString) {
-        for (CommandType command : CommandType.values()) {
-            if (command.getCommandString().equals(commandString)) {
-                return command;
-            }
-        }
-        return UNKNOWN;
+        return commandMap.getOrDefault(commandString, UNKNOWN);
     }
 }

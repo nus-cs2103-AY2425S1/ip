@@ -1,4 +1,6 @@
 Todo | X | eat | No time constraint
-Todo | 0 | dance | No time constraint
+Todo | X | dance | No time constraint
 Todo | 0 | swim | No time constraint
 Todo | 0 | eat swim | No time constraint
+Todo | 0 | swim | No time constraint
+Todo | 0 | fly | No time constraint
