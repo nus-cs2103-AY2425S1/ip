@@ -9,6 +9,7 @@ import victor.messages.ReturnMessage;
  * executes the delete command.
  */
 public class DeleteCommand extends Command {
+    private static final String WRONG_TASK_NUMBER = "-1";
     private String taskNumber;
 
     /**
@@ -18,8 +19,16 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String[] additionalInput) {
         super(additionalInput);
+        setTaskNumber();
+    }
+
+    /**
+     * Checks if additional input has a number provided for the delete command. If not,
+     * sets task number to constant wrong value.
+     */
+    private void setTaskNumber() {
         if (additionalInput.length == 1) {
-            this.taskNumber = "-1";
+            this.taskNumber = WRONG_TASK_NUMBER;
         } else {
             this.taskNumber = additionalInput[1];
         }
@@ -47,8 +56,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void write(Path filePath) {
-        if (!taskNumber.trim().equals("-1")) {
-            super.taskList.writeToFile(filePath, true);
+        if (taskNumber.trim().equals(WRONG_TASK_NUMBER)) {
+            return;
         }
+        super.taskList.writeToFile(filePath, true);
     }
 }
