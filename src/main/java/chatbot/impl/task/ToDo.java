@@ -1,6 +1,6 @@
 package chatbot.impl.task;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
     private static final String TYPE = "T";
 
     public ToDo(String description) {

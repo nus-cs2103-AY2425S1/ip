@@ -12,10 +12,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        MessageView<Command> messageView = new AtlasView();
-        TaskStorage<Command> taskStorage = new TaskStorageImpl("data/atlas.txt");
-        ChatBot bot = new Atlas(scanner, messageView, taskStorage);
-        bot.start();
+       Scanner scanner = new Scanner(System.in);
+       MessageView<Command> messageView = new AtlasView();
+       TaskStorage<Command> taskStorage = new TaskStorageImpl("data/atlas.txt");
+       ChatBot bot = new Atlas(scanner, messageView, taskStorage);
+       bot.start();
     }
 }

@@ -46,6 +46,9 @@ public class Atlas implements ChatBot {
             case Delete:
                 handleDelete(inputParts);
                 break;
+            case Find:
+                handleFind(inputParts);
+                break;
             case ToDo:
             case Event:
             case Deadline:
@@ -87,6 +90,10 @@ public class Atlas implements ChatBot {
         taskStorage.saveTasks().showResult(messageView);
     }
 
+    private void handleFind(String[] inputParts) {
+        taskStorage.findTasks(inputParts).showResult(messageView);
+    }
+
     private void handleAddTask(String[] inputParts, Command command) {
         taskStorage.addTask(inputParts, command).showResult(messageView);
         taskStorage.saveTasks().showResult(messageView);
@@ -94,5 +101,6 @@ public class Atlas implements ChatBot {
 
     private void handleUnknown(String[] inputParts) {
         messageView.send("Unknown command: " + inputParts[0]);
+        messageView.endMessage();
     }
 }

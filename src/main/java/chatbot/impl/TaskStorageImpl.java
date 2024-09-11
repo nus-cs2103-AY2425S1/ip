@@ -126,6 +126,23 @@ public class TaskStorageImpl implements TaskStorage<Command> {
     }
 
     /**
+     * <p>Finds tasks matching a certain keyword</p>
+     * @param inputParts the input of the user
+     * @return a TaskStorageResult containing all the matching tasks
+     */
+    @Override
+    public TaskStorageResult<Command> findTasks(String[] inputParts) {
+        String phrase = arrayJoin(inputParts, 1, inputParts.length);
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.descriptionContains(phrase)) {
+                res.add(task);
+            }
+        }
+        return handleFindSuccess(res);
+    }
+
+    /**
      * <p>Marks or unmarks a task</p>
      * @param inputParts the input of the user
      * @return a TaskStorageResult indicating the status of the marking
@@ -244,6 +261,15 @@ public class TaskStorageImpl implements TaskStorage<Command> {
                 "  " + task +
                 "\nNow you have " + tasks.size() + " task(s) in the list";
         return new TaskStorageResultImpl(s);
+    }
+
+    private TaskStorageResult<Command> handleFindSuccess(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return new TaskStorageResultImpl(sb.toString());
     }
 
     private TaskStorageResult<Command> handleMarkSuccess(int index, boolean status) {
