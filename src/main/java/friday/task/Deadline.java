@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task. A Deadline is a task with a due date and time.
  */
 public class Deadline extends Task {
+    private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd HHmm";
+    private static final String DISPLAY_FORMAT_PATTERN = "MMM dd yyyy, h:mm a";
     private LocalDateTime by;
 
     /**
@@ -19,7 +21,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        assert by != null && !by.isEmpty() : "Due date should not be null or empty";
+        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
     }
 
     /**
@@ -40,12 +43,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+                + by.format(DateTimeFormatter.ofPattern(DISPLAY_FORMAT_PATTERN)) + ")";
     }
 
     @Override
     public String toFileFormat() {
         return "D | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | "
-                + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                + by.format(DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
     }
 }
