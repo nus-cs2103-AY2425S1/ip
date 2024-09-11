@@ -10,7 +10,9 @@ import arts.util.Ui;
  * Represents a command to unmark a task, marking it as not done in the task list.
  */
 public class UnmarkCommand implements Command {
-    private static final String INVALID_TASK_INDEX_ERROR_MESSAGE = "Invalid task index.";
+    private static final String TASK_INDEX_NOT_A_NUMBER_ERROR_MESSAGE = "Task index must be a number.";
+    private static final String TASK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Task index is out of bounds.";
+    private static final String FILE_SAVE_ERROR_MESSAGE = "Failed to save tasks to storage.";
 
     private final TaskList tasks;
     private final Storage storage;
@@ -34,7 +36,7 @@ public class UnmarkCommand implements Command {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
-        this.taskIndex = taskIndex;
+        this.taskIndex = taskIndex.trim();
     }
 
     /**
@@ -46,23 +48,32 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public String execute() throws ArtsException {
+        int index;
         try {
-            int index = Integer.parseInt(taskIndex) - 1;
-            assert index >= 0 && index < tasks.size() : "Index must be within the valid range";
-
-            Task task = tasks.getTask(index);
-            assert task != null : "Task should not be null";
-
-            task.markAsNotDone();
-            storage.save(tasks.getTasks());
-
-            // Anime-like response
-            return String.format("🎌 Fear not, for this task has been unmarked! 🗒️\n"
-                    + "Continue your quest with renewed vigor, valiant warrior! 🌟\n %s", task);
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            // Handle invalid task index or parsing error
-            throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
+            index = Integer.parseInt(taskIndex) - 1;
+        } catch (NumberFormatException e) {
+            throw new ArtsException(TASK_INDEX_NOT_A_NUMBER_ERROR_MESSAGE);
         }
-    }
 
+        if (index < 0 || index >= tasks.size()) {
+            throw new ArtsException(TASK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE);
+        }
+
+        Task task = tasks.getTask(index);
+        if (task == null) {
+            throw new ArtsException("Task at the given index does not exist.");
+        }
+
+        task.markAsNotDone();
+
+        try {
+            storage.save(tasks.getTasks());
+        } catch (Exception e) {
+            throw new ArtsException(FILE_SAVE_ERROR_MESSAGE + " " + e.getMessage());
+        }
+
+        // Anime-like response
+        return String.format("🎌 Fear not, for this task has been unmarked! 🗒️\n"
+                + "Continue your quest with renewed vigor, valiant warrior! 🌟\n %s", task);
+    }
 }
