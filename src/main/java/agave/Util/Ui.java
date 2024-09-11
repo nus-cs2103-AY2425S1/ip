@@ -73,4 +73,8 @@ public class Ui {
     public String showMessage(String response) {
         return response;
     }
+
+    public String showSort() {
+        return "Tasks sorted by deadline!";
+    }
 }

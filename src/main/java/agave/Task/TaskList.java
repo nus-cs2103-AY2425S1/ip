@@ -1,6 +1,7 @@
 package agave.Task;
 
 import agave.Util.AgaveException;
+import agave.logic.Deadline;
 
 import java.util.ArrayList;
 
@@ -134,5 +135,19 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    public void sortByDeadline() {
+        tasks.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getBy().compareTo(((Deadline) task2).getBy());
+            } else if (task1 instanceof Deadline) {
+                return -1;
+            } else if (task2 instanceof Deadline) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 }
