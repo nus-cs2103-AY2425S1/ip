@@ -1,1 +1,1 @@
-task.ToDo | Not Done | 
+task.ToDo | Not Done | run
