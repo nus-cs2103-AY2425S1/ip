@@ -16,7 +16,7 @@ public class ParserTest {
             Parser p = new Parser("xkcd");
             p.process(new TaskList(new ArrayList<>()), new Ui());
             fail();
-        } catch (EmptyCommandException | InvalidInstructionException ignored) {
+        } catch (EmptyCommandException | InvalidCommandException ignored) {
             System.out.println("Error");
         }
     }
@@ -30,7 +30,7 @@ public class ParserTest {
             tasks.add(todo);
             p.process(tasks, new Ui());
             assertEquals("[T][X] borrow book", todo.toString());
-        } catch (EmptyCommandException | InvalidInstructionException ignored) {
+        } catch (EmptyCommandException | InvalidCommandException ignored) {
             System.out.println("Error");
         }
     }
