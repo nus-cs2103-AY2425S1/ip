@@ -68,45 +68,53 @@ public abstract class Task {
      * @throws DukeException If the instruction is of wrong format.
      */
 
-    public static Task of(String s) throws DukeException {
+     public static Task of(String s) throws DukeException {
         s = s.trim();
         if (s.isEmpty()) {
             throw new NoInputException();
         }
-
+    
         String[] parts = s.split(" ", 2);
-        String command = parts[0].toLowerCase();
-
-        if (command.equals("todo")) {
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new NoInputException();
-            }
-            return new Todo(parts[1].trim());
-
-        } else if (command.equals("deadline")) {
-            Pattern deadlinePattern = Pattern.compile("(.+) /by (.+)");
-            Matcher deadlineMatcher = deadlinePattern.matcher(parts[1]);
-            if (!deadlineMatcher.matches()) {
-                throw new FormatException("deadline");
-            }
-            String description = deadlineMatcher.group(1).trim();
-            String by = deadlineMatcher.group(2).trim();
-            return new Deadline(description, by);
-
-        } else if (command.equals("event")) {
-            Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
-            Matcher eventMatcher = eventPattern.matcher(parts[1]);
-            if (!eventMatcher.matches()) {
-                throw new FormatException("event");
-            }
-            String description = eventMatcher.group(1).trim();
-            String from = eventMatcher.group(2).trim();
-            String to = eventMatcher.group(3).trim();
-            return new Event(description, from, to);
-
-        } else {
+        if (parts.length < 2) {
             throw new NoInputException();
         }
+    
+        String command = parts[0].toLowerCase();
+        String content = parts[1].trim();
+    
+        switch (command) {
+            case "todo":
+                return createTodo(content);
+            case "deadline":
+                return createDeadline(content);
+            case "event":
+                return createEvent(content);
+            default:
+                throw new FormatException("Unknown task type: " + command);
+        }
+    }
+    
+    private static Todo createTodo(String content) throws NoInputException {
+        if (content.isEmpty()) {
+            throw new NoInputException();
+        }
+        return new Todo(content);
+    }
+    
+    private static Deadline createDeadline(String content) throws FormatException {
+        Matcher matcher = Pattern.compile("(.+) /by (.+)").matcher(content);
+        if (!matcher.matches()) {
+            throw new FormatException("deadline");
+        }
+        return new Deadline(matcher.group(1).trim(), matcher.group(2).trim());
+    }
+    
+    private static Event createEvent(String content) throws FormatException {
+        Matcher matcher = Pattern.compile("(.+) /from (.+) /to (.+)").matcher(content);
+        if (!matcher.matches()) {
+            throw new FormatException("event");
+        }
+        return new Event(matcher.group(1).trim(), matcher.group(2).trim(), matcher.group(3).trim());
     }
 
     /**
