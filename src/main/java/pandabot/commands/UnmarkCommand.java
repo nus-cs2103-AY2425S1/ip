@@ -27,6 +27,7 @@ public class UnmarkCommand extends Command {
         }
         try {
             this.taskIndex = Integer.parseInt(taskIndex.trim()) - 1;
+            assert this.taskIndex >= 0 : "Task index should be a non-negative number";
         } catch (NumberFormatException e) {
             throw new InputException("Invalid task number format. Please enter a valid number.");
         }
@@ -34,6 +35,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        assert !tasks.isEmpty() : "Task list should not be empty when attempting an unmark";
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).unmark();
             storage.saveTaskList(tasks.getTasks());
