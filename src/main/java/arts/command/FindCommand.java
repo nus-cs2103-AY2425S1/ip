@@ -8,8 +8,8 @@ import arts.task.TaskList;
  * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand implements Command {
-    private static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks found.";
-    private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:\n";
+    private static final String INVALID_KEYWORD_ERROR_MESSAGE = "Keyword cannot be null, "
+            + "empty, or contain only special characters.";
 
     private final TaskList tasks;
     private final String keyword;
@@ -22,10 +22,13 @@ public class FindCommand implements Command {
      */
     public FindCommand(TaskList tasks, String keyword) {
         assert tasks != null : "TaskList cannot be null";
-        assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
+
+        if (keyword == null || keyword.trim().isEmpty() || !keyword.matches(".*\\w.*")) {
+            throw new IllegalArgumentException(INVALID_KEYWORD_ERROR_MESSAGE);
+        }
 
         this.tasks = tasks;
-        this.keyword = keyword;
+        this.keyword = keyword.trim();
     }
 
     /**
@@ -36,7 +39,9 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute() throws ArtsException {
-        assert keyword != null && !keyword.trim().isEmpty() : "Keyword must be valid before execution";
+        if (keyword == null || keyword.trim().isEmpty()) {
+            throw new ArtsException(INVALID_KEYWORD_ERROR_MESSAGE);
+        }
 
         StringBuilder sb = new StringBuilder();
         int count = 0;
@@ -53,7 +58,6 @@ public class FindCommand implements Command {
 
         assert count >= 0 : "Count of matching tasks should not be negative";
 
-        // Anime-like response
         if (count == 0) {
             return "Oh no! 😱 No tasks matched your search. Keep your spirits high, the right task will appear! 🌈";
         } else {
@@ -62,5 +66,4 @@ public class FindCommand implements Command {
                     keyword, sb.toString());
         }
     }
-
 }
