@@ -58,7 +58,7 @@ public class Ui {
      */
     public String replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
         if (Objects.equals(s, "")) {
-            return String.format("Error: todo command has incomplete description ");
+            throw new MissingParamsException("todo");
         }
 
         tasklist.add(new Todo(s));
@@ -75,7 +75,7 @@ public class Ui {
         // error handling
         if (splitString.length != 3 || Objects.equals(splitString[0].trim(), "")
             || Objects.equals(splitString[1].trim(), "") || Objects.equals(splitString[2].trim(), "")) {
-            return String.format("Error: event command has incomplete description ");
+            throw new MissingParamsException("event");
         }
 
         try {
@@ -97,7 +97,7 @@ public class Ui {
         String[] splitString = s.split("/by");
         if (splitString.length != 2 || Objects.equals(splitString[0], "")
             || Objects.equals(splitString[1], "")) {
-            return String.format("Error: deadline command has incomplete description ");
+                throw new MissingParamsException("deadline");
         }
 
         try {
