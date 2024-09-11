@@ -2,7 +2,7 @@ package susan.task;
 
 /**
  * Represents a task that needs to be done without a stipulated deadline.
- * This class is part of the Susan task management application.
+ * This class is 1 of 3 types of tasks in the Susan task management application.
  */
 public class ToDo extends Task {
 

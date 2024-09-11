@@ -5,13 +5,10 @@ import susan.ui.SusanException;
 import susan.task.TaskList;
 import susan.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * Abstract class representing the commands to be called by user.
+ */
 public abstract class Command {
     public abstract String execute(TaskList tasks, Ui ui, Storage storage)
-            throws SusanException, IOException;
-
-    public boolean isExit() {
-        return false;
-    }
+            throws SusanException;
 }
