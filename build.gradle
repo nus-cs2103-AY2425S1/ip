@@ -45,14 +45,14 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("nathanbot.ui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "NathanBot"
     archiveClassifier = null
     archiveFileName = 'NathanBot.jar'
-    mainClassName = 'Main'
+    mainClassName = 'nathanbot.ui.Launcher'
 }
 
 checkstyle {
