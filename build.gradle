@@ -49,6 +49,7 @@ test {
 
 application {
     mainClass.set("Main.Launcher")
+    applicationDefaultJvmArgs = ['-ea'] // Enable assertions
 }
 
 shadowJar {
