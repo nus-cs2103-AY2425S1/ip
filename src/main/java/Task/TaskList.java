@@ -7,6 +7,8 @@ import Ui.Ui;
 import Parse.Parse;
 public class TaskList {
     private List<Task> array;
+    private static final String argumentsCountError = "Wrong number of Arguments";
+    private static final String keywordError = "Wrong keyword";
     public TaskList(List<Task> array) {
         this.array = array;
     }
@@ -35,7 +37,7 @@ public class TaskList {
                 array.add(x);
                 return Ui.uiTodo(array.size(), x);
             } catch(Exception e) {
-                throw new MissingArg("Wrong number of Arguments");
+                throw new MissingArg(argumentsCountError);
             }
         } else if (input.startsWith("deadline")) {
             try {
@@ -44,7 +46,7 @@ public class TaskList {
                 array.add(x);
                 return Ui.uiDeadline(array.size(), x);
             } catch (Exception e) {
-                throw new MissingArg("Wrong number of Arguments");
+                throw new MissingArg(argumentsCountError);
             }
         } else if (input.startsWith("event")) {
             try {
@@ -53,10 +55,10 @@ public class TaskList {
                 array.add(x);
                 return Ui.uiEvent(array.size(), x);
             } catch (Exception e) {
-                throw new MissingArg("Wrong number of Arguments");
+                throw new MissingArg(argumentsCountError);
             }
         } else {
-            throw new WrongKeyword("Wrong keyword");
+            throw new WrongKeyword(keywordError);
         }
     }
     /**

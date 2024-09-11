@@ -6,6 +6,12 @@ import Ui.Ui;
 import Exception.MissingArg;
 import Exception.WrongKeyword;
 public class Parse {
+    private static final int todoParseSplitIndex = 5;
+    private static final int deadlineParseSplitIndex = 9;
+    private static final int eventParseSplitIndex = 6;
+    private static final int findParseSplitIndex = 5;
+    private static final String deadlineSplitBy = " /by ";
+    private static final String eventSplitBy = " /from | /to ";
     /**
      * Parses a Todo input string to get the task description.
      *
@@ -13,7 +19,7 @@ public class Parse {
      * @return the task description as a string
      */
     public static String parseTodo(String input) {
-        return input.substring(5);
+        return input.substring(todoParseSplitIndex);
     }
     /**
      * Parses a Deadline input string to get the task description and the deadline.
@@ -22,7 +28,7 @@ public class Parse {
      * @return an array of strings
      */
     public static String[] parseDeadline(String input) {
-        return input.substring(9).split(" /by ");
+        return input.substring(deadlineParseSplitIndex).split(deadlineSplitBy);
     }
     /**
      * Parses an Event input string to get the task description, start time, and end time.
@@ -31,10 +37,10 @@ public class Parse {
      * @return an array of strings
      */
     public static String[] parseEvent(String input) {
-        return input.substring(6).split(" /from | /to ");
+        return input.substring(eventParseSplitIndex).split(eventSplitBy);
     }
     public static String parseFind(String input) {
-        return input.substring(5);
+        return input.substring(findParseSplitIndex);
     }
     /**
      * Initial parsing of user commands and updates the task list,storage and ui accordingly.
@@ -61,14 +67,14 @@ public class Parse {
             return tasks.delete(input);
         } else if (input.startsWith("find")) {
             return tasks.search(input);
-        } else {
+        }
             try {
                 storage.writeFile(tasks.getArray());
                 return tasks.handleTask(input);
             } catch (WrongKeyword | MissingArg e) {
                 System.out.println(e.getMessage());
             }
-        }
+
         return "a";
     }
 }

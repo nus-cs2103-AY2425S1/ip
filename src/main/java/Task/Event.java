@@ -1,11 +1,10 @@
 package Task;
 
-import Task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 public class Event extends Task {
+    private static final String format = "M/d/yyyy HHmm";
     protected String to;
     LocalDateTime dateTo;
     protected String from;
@@ -14,15 +13,15 @@ public class Event extends Task {
         super(description);
         this.to = to;
         this.from = from;
-        this.dateTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
-        this.dateFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+        this.dateTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern(format));
+        this.dateFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern(format));
     }
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
-        this.dateTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
-        this.dateFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+        this.dateTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern(format));
+        this.dateFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern(format));
     }
     /**
      * Returns a string representation of the Event task.
@@ -31,10 +30,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        //return "[E]" + super.toString() + " (from: " + from + " to: " +  to + ")";
+
         assert description != null : "empty description";
         assert dateFrom != null : "empty dateFrom";
         assert dateTo != null : "empty dateTo";
+
         return "[E]" + super.toString() + " (from: "
                 + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH))
                         + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";

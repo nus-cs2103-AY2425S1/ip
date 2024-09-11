@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import Task.*;
 public class Storage {
-
+    private static final String splitBy = " \\| ";
+    private static final String markCheck = "1";
     File file;
     public Storage(String s) {
         this.file = new File(s);
@@ -27,19 +28,21 @@ public class Storage {
             List<Task> array = new ArrayList<>();
             while (s.hasNext()) {
                 String line = s.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] parts = line.split(splitBy);
                 switch (parts[0]) {
                 case "T":
+
                     assert parts.length == 3: "wrong length";
-                    array.add(new Todo(parts[2], parts[1].equals("1")));
+                    array.add(new Todo(parts[2], parts[1].equals(markCheck)));
                     break;
                 case "D":
                     assert parts.length == 4: "wrong length";
-                    array.add(new Deadline(parts[2], parts[3], parts[1].equals("1")));
+                    array.add(new Deadline(parts[2], parts[3], parts[1].equals(markCheck)));
                     break;
                 case "E":
                     assert parts.length == 5: "wrong length";
-                    array.add(new Event(parts[2], parts[3], parts[4], parts[1].equals("1")));
+                    array.add(new Event(parts[2], parts[3], parts[4], parts[1].equals(markCheck)));
+
                     break;
                 }
             }
