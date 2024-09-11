@@ -21,6 +21,7 @@ public class Friday {
      * @param filePath The file path for storing task data.
      */
     public Friday(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -67,6 +68,7 @@ public class Friday {
      * @return The response from the Friday application.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         try {
             if (input.equals("hi")) {
                 return ui.greet();

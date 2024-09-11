@@ -19,11 +19,16 @@ public class OnCommand extends Command {
      * @param date The date for which tasks need to be listed.
      */
     public OnCommand(LocalDate date) {
+        assert date != null : "Date should not be null";
         this.date = date;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         TaskList specificTasks = tasks.findTasksByDate(date);
         return ui.showSpecificTasks(specificTasks, date);
     }
