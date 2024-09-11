@@ -1,10 +1,11 @@
 package momo.task;
 
-import momo.exception.MomoException;
-import momo.Parser;
-
 import java.util.ArrayList;
 import java.util.Objects;
+
+import momo.Parser;
+import momo.exception.MomoException;
+
 
 /**
  * Represents the list of Task objects stored in an ArrayList and provides
@@ -13,8 +14,11 @@ import java.util.Objects;
 public class TaskList {
 
     private final ArrayList<Task> list = new ArrayList<>();
-    private Parser parser;
 
+    /**
+     * Constructor for tasklist to be populated with pre-existing file text
+     * @param fileText represents String containing text from file
+     */
     public TaskList(String fileText) {
         try {
             populateTaskList(fileText);
@@ -82,30 +86,34 @@ public class TaskList {
 
             // For deadline and events assumption is that file will always be correctly formatted
             switch (inputs[0]) {
-                case "T" -> {
-                    if (Objects.equals(inputs[1], "1")) {
-                        list.add(new Todo(inputs[2], false));
+            case "T":
+                if (Objects.equals(inputs[1], "1")) {
+                    list.add(new Todo(inputs[2], false));
+                } else {
+                    list.add(new Todo(inputs[2], true));
+                }
+                break;
 
-                    } else {
-                        list.add(new Todo(inputs[2], true));
-                    }
+            case "D":
+                if (Objects.equals(inputs[1], "1")) {
+                    list.add(new Deadline(inputs[2], Parser.parseDate(inputs[3]), false));
+                } else {
+                    list.add(new Deadline(inputs[2], Parser.parseDate(inputs[3]), true));
                 }
-                case "D" -> {
-                    if (Objects.equals(inputs[1], "1")) {
-                        list.add(new Deadline(inputs[2], parser.parseDate(inputs[3]), false));
-                    } else {
-                        list.add(new Deadline(inputs[2], parser.parseDate(inputs[3]), true));
-                    }
+                break;
+
+            case "E":
+                if (Objects.equals(inputs[1], "1")) {
+                    list.add(new Event(inputs[2], Parser.parseDate(inputs[3]), Parser.parseDate(inputs[4]), false));
+                } else {
+                    list.add(new Event(inputs[2], Parser.parseDate(inputs[3]), Parser.parseDate(inputs[4]), true));
                 }
-                case "E" -> {
-                    if (Objects.equals(inputs[1], "1")) {
-                        list.add(new Event(inputs[2], parser.parseDate(inputs[3]), parser.parseDate(inputs[4]), false));
-                    } else {
-                        list.add(new Event(inputs[2], parser.parseDate(inputs[3]), parser.parseDate(inputs[4]), true));
-                    }
-                }
-                default -> throw new MomoException("Invalid file formatting....");
+                break;
+
+            default:
+                throw new MomoException("Invalid file formatting....");
             }
+
 
 
         }
