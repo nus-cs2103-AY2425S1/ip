@@ -24,6 +24,7 @@ public class AddDeadlineCommand extends Command {
             String by = input.substring(index + 4);
             Deadline current = new Deadline(desc, by);
             taskList.add(current, storage);
+
             System.out.println("Added this task:");
             System.out.println(current.toString());
             ui.showLine();
@@ -33,16 +34,19 @@ public class AddDeadlineCommand extends Command {
     @Override
     public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
         int index = input.toLowerCase().indexOf("/by ");
-        String output = "";
         if (index != -1) {
-            String desc = input.substring(9, index - 1);
+            String output = "";
+            String desc = input.substring(9, index);
             String by = input.substring(index + 4);
             Deadline current = new Deadline(desc, by);
             taskList.add(current, storage);
             output = current.toString() + "\n";
+            return "Added this task:\n" + output + ui.getLine();
+        } else {
+            String formatErrorMessage = "Please enter a due date using '/by '.\n"
+                    + ui.getLine();
+            return formatErrorMessage;
         }
-
-        return "Added this task:\n" + output + ui.getLine();
     }
 
     @Override

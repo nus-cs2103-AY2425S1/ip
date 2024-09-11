@@ -32,7 +32,6 @@ public class TaskList {
     public String getTasksToString() {
         String output = "";
         for (int i = 1; i <= tasks.size(); i++) {
-            //output.concat(i + "." + tasks.get(i - 1).toString() + "\n");
             output = output + i + "." + tasks.get(i - 1).toString() + "\n";
         }
         return output;

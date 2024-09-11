@@ -74,4 +74,8 @@ public class Storage {
             System.out.println("Error: Failed to save task list.");
         }
     }
+
+    public void saveTasks(TaskList newTaskList) {
+        saveTasks(newTaskList.getTasks());
+    }
 }
