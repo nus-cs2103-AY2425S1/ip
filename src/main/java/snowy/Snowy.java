@@ -1,7 +1,6 @@
 package snowy;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a chatbot with the ability to keep track of tasks.
@@ -10,11 +9,9 @@ public class Snowy {
 
     private TaskList tasks;
 
-    private Storage storage;
+    private final Storage storage;
 
-    private boolean isRunning = true;
-
-    private Ui ui;
+    private final Ui ui;
 
     public Snowy(String filePath) {
         this.ui = new Ui();
@@ -27,108 +24,16 @@ public class Snowy {
         }
     }
 
-//    private void run() {
-//        Scanner scanner = new Scanner(System.in);
-//        ui.printGreeting();
-//        while (isRunning) {
-//            String input = scanner.nextLine();
-//            String[] parsedInput = Parser.parse(input);
-//            String command = parsedInput[0];
-//            String description = parsedInput[1];
-//
-//            switch (command) {
-//            case "bye":
-//                isRunning = false;
-//                break;
-//
-//            case "list":
-//                ui.printList(this.tasks);
-//                break;
-//
-//            case "mark":
-//                try {
-//                    int index = Integer.parseInt(description);
-//                    Task task = tasks.markTask(index);
-//                    ui.printMarkDone(task);
-//                } catch (NumberFormatException | SnowyException e) {
-//                    ui.printIndexError();
-//                }
-//                break;
-//
-//            case "unmark":
-//                try {
-//                    int index = Integer.parseInt(description);
-//                    Task task = tasks.unmarkTask(index);
-//                    ui.printMarkIncomplete(task);
-//                } catch (NumberFormatException | SnowyException e) {
-//                    ui.printIndexError();
-//                }
-//                break;
-//
-//            case "todo":
-//                try {
-//                    tasks.addToDo(description);
-//                } catch (SnowyException e) {
-//                    ui.printTodoFormatError();
-//                }
-//                break;
-//
-//            case "deadline":
-//                try {
-//                    tasks.addDeadline(description);
-//                } catch (SnowyException e) {
-//                    ui.printDeadlineFormatError();
-//                }
-//                break;
-//
-//            case "event":
-//                try {
-//                    tasks.addEvent(description);
-//                } catch (SnowyException e) {
-//                    ui.printEventFormatError();
-//                }
-//                break;
-//
-//            case "delete":
-//                try {
-//                    int index = Integer.parseInt(description);
-//                    Task task = tasks.deleteTask(index);
-//                    ui.printDeleteTask(task);
-//                } catch (NumberFormatException | SnowyException e) {
-//                    System.out.println("Invalid index format. Please try again");
-//                }
-//                break;
-//
-//            case "find":
-//
-//                ArrayList<Task> foundTasks = tasks.findTask(description);
-//                ui.printFoundTask(foundTasks);
-//                break;
-//
-//            default:
-//                ui.printUnknownCommand();
-//                break;
-//
-//            }
-//            ui.printLine();
-//        }
-//        try {
-//            storage.save(tasks.toSaveString());
-//        } catch (SnowyException e) {
-//            ui.printUpdateError();
-//        }
-//        ui.printEnding();
-//    }
-
     public String getResponse(String input) {
+        String result = "";
+        Task task;
+
         String[] parsedInput = Parser.parse(input);
         String command = parsedInput[0];
         String description = parsedInput[1];
-        String result = "";
-        Task newTask;
+
         switch (command) {
         case "bye":
-            isRunning = false;
             result = ui.printEnding();
             break;
 
@@ -139,7 +44,7 @@ public class Snowy {
         case "mark":
             try {
                 int index = Integer.parseInt(description);
-                Task task = tasks.markTask(index);
+                task = tasks.markTask(index);
                 result = ui.printMarkDone(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = ui.printIndexError();
@@ -149,7 +54,7 @@ public class Snowy {
         case "unmark":
             try {
                 int index = Integer.parseInt(description);
-                Task task = tasks.unmarkTask(index);
+                task = tasks.unmarkTask(index);
                 result = ui.printMarkIncomplete(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = ui.printIndexError();
@@ -158,8 +63,8 @@ public class Snowy {
 
         case "todo":
             try {
-                newTask = tasks.addToDo(description);
-                result = "New todo task added:\n" + newTask;
+                task = tasks.addToDo(description);
+                result = "New todo task added:\n" + task;
             } catch (SnowyException e) {
                 result = ui.printTodoFormatError();
             }
@@ -167,8 +72,8 @@ public class Snowy {
 
         case "deadline":
             try {
-                newTask = tasks.addDeadline(description);
-                System.out.println("New Deadline task added:\n" + newTask);
+                task = tasks.addDeadline(description);
+                result = ("New Deadline task added:\n" + task);
             } catch (SnowyException e) {
                 result = ui.printDeadlineFormatError();
             }
@@ -176,8 +81,8 @@ public class Snowy {
 
         case "event":
             try {
-                newTask = tasks.addEvent(description);
-                System.out.println("New Event task added:\n " + newTask);
+                task = tasks.addEvent(description);
+                result = ("New Event task added:\n " + task);
             } catch (SnowyException e) {
                 result = ui.printEventFormatError();
             }
@@ -186,7 +91,7 @@ public class Snowy {
         case "delete":
             try {
                 int index = Integer.parseInt(description);
-                Task task = tasks.deleteTask(index);
+                task = tasks.deleteTask(index);
                 result = ui.printDeleteTask(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = "Invalid index format. Please try again";
@@ -194,9 +99,12 @@ public class Snowy {
             break;
 
         case "find":
-
             ArrayList<Task> foundTasks = tasks.findTask(description);
             result = ui.printFoundTask(foundTasks);
+            break;
+
+        case "hello":
+            result = ui.printGreeting();
             break;
 
         default:
@@ -211,6 +119,7 @@ public class Snowy {
         }
         return result;
     }
+
 }
 
 

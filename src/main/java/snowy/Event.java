@@ -9,8 +9,8 @@ import java.time.LocalDate;
  * This class holds the fromDate and toDate as a LocalDate.
  */
 public class Event extends Task {
-    private LocalDate fromDate;
-    private LocalDate toDate;
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
 
     /**
      * Creates a new Event with the specific name and dates provided.
@@ -34,7 +34,7 @@ public class Event extends Task {
     public String toString() {
         String temp = super.toString();
         return String.format("[E]%s (from %s to: %s)",
-                temp, fromDate.format(super.FORMATTER), toDate.format(super.FORMATTER));
+                temp, fromDate.format(FORMATTER), toDate.format(FORMATTER));
     }
 
     @Override

@@ -1,11 +1,11 @@
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import snowy.Snowy;
 
 public class MainWindow extends AnchorPane {
@@ -37,5 +37,10 @@ public class MainWindow extends AnchorPane {
 
     public void setSnowy(Snowy snowy) {
         this.snowy = snowy;
+
+    }
+
+    public void setInitialMessage() {
+        dialogContainer.getChildren().addAll(DialogBox.getBotDialog(snowy.getResponse("hello"), botImage));
     }
 }
