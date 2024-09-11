@@ -85,16 +85,19 @@ public class Parser {
         LocalDateTime fromDate = null;
         LocalDateTime toDate = null;
 
+        // if the user has provided a new description, then get the new description
         Matcher descMatch = Pattern.compile("/desc ([^/]+)").matcher(updatedInfo);
         if (descMatch.find()) {
             newDesc = descMatch.group(1);
         }
 
+        // if the user has provided a new from datetime, then get the new from datetime [events only]
         Matcher fromDateMatch = Pattern.compile("/from (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
         if (fromDateMatch.find()) {
             fromDate = parseDateTime(fromDateMatch.group(1));
         }
 
+        // same with the deadline datetime/end datetime for an event
         Matcher toDateMatch = Pattern.compile("/to (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
         Matcher byDateMatch = Pattern.compile("/by (" + DATETIME_PATTERN + ")").matcher(updatedInfo);
         if (toDateMatch.find()) {

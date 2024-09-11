@@ -17,7 +17,7 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public String execute(TaskList tasks) {
-        try{
+        try {
             tasks.removeTask(this.getTaskIndex());
             return generateRandomPrefix(TASK_DELETED_PREFIXES) + tasks.taskListToString();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
