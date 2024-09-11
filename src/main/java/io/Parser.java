@@ -98,7 +98,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
         case "find":
-            return new FindCommand(userInput.substring(5));
+            return FindCommand.createFindCommand(userInput);
         case "todo", "deadline", "event":
             return new AddTaskCommand(userInput);
         default:

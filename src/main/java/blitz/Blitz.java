@@ -24,7 +24,7 @@ public class Blitz {
             this.taskList = new TaskList(storage);
             ui = new Ui(taskList);
         } catch (InvalidDateException e) {
-
+            // All dates imported from data have the correct format
         }
     }
 
@@ -39,7 +39,7 @@ public class Blitz {
             String message = userCommand.execute(taskList);
 
             if (userCommand instanceof ExitCommand) {
-                return ErrorMessageHandler.getExitMessage();
+                return Ui.getExitMessage();
             }
 
             return message;

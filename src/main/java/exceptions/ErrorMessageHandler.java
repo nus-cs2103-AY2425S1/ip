@@ -10,14 +10,14 @@ public class ErrorMessageHandler {
     }
 
     public static String getInvalidDateMessage() {
-        return "PLEASE USE THE PROPER DATE FORMAT";
+        return "PLEASE USE THE PROPER DATE FORMAT: dd/MM/yyyy";
     }
 
     public static String getNoTaskDescriptionMessage() {
         return "Wah, no description then I record what?";
     }
 
-    public static String getExitMessage() {
-        return "Till we meet again, GOODBYE";
+    public static String getInvalidTagNameMessage() {
+        return "You are finding a tag that doesn't exist!!";
     }
 }

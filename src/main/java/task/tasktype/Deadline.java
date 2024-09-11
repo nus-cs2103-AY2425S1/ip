@@ -22,8 +22,8 @@ public class Deadline extends Task {
      * @param description A description of the deadline task
      * @param by date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
      */
-    public Deadline(String description, String by) {
-        super(TaskType.DEADLINE, description);
+    public Deadline(String description, String by, String... tags) {
+        super(TaskType.DEADLINE, description, tags);
 
         assert !by.isEmpty() : "every deadline task must have a due date";
 
@@ -44,6 +44,6 @@ public class Deadline extends Task {
         String altFormat = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String timeStr = deadlineTime == null ? "" : deadlineTime.toString();
         String deadline = (altFormat + " " + timeStr).trim();
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline + ")" + "tags: " + this.getTagsAsString();
     }
 }

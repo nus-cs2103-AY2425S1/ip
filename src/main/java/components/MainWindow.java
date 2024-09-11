@@ -1,6 +1,7 @@
 package components;
 
 import blitz.Blitz;
+import io.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -46,6 +47,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        DialogBox blitzDialogBox = DialogBox.getBlitzDialog(Ui.getStartUpMessage(), blitzImage);
+        dialogContainer.getChildren().add(blitzDialogBox);
     }
 
     @FXML
