@@ -48,8 +48,9 @@ public class MainWindow extends AnchorPane {
 
         String[] response = oyster.readInput(input);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < response.length; i++) {
-            stringBuilder.append(response[i]).append("\n");
+
+        for (String s : response) {
+            stringBuilder.append(s).append("\n");
         }
 
         dialogContainer.getChildren().addAll(
