@@ -26,7 +26,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Formats a string to be written to the saved text file, separated by '|' character.
+     * Formats a string to be written to the saved text file,
+     * separated by a pipe '|' character.
      *
      * @return Formatted string.
      */

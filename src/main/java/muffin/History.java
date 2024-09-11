@@ -18,10 +18,17 @@ public class History {
     private Task task;
 
     /**
-     * The index of the task in the task list at the time the command was executed.
+     * The position of the task in the task list at the time the command was executed.
      */
     private int index;
 
+    /**
+     * Constructs a new History object to store details about a command executed on a task.
+     *
+     * @param command The command that was executed.
+     * @param task The task that the command was executed on.
+     * @param index The position of the task in the task list at the time the command was executed.
+     */
     public History(String command, Task task, int index) {
         this.command = command;
         this.task = task;

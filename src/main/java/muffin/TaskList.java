@@ -24,6 +24,9 @@ public class TaskList {
      */
     private Stack<History> history;
 
+    /**
+     * Constructs a new TaskList object by initializing the task list and history stack.
+     */
     public TaskList() {
         this.tasks = fp.readFromFile();
         this.history = new Stack<>();
