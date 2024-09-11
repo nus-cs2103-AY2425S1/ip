@@ -35,6 +35,7 @@ jobs:
 
       - name: Perform IO redirection test (*NIX)
         if: runner.os == 'Linux'
+        uses: actions/checkout@v2
         working-directory:  ${{ github.workspace }}/text-ui-test
         run: ./runtest.sh
 
