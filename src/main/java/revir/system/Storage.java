@@ -17,10 +17,10 @@ import revir.tasks.Task;
  * It provides methods to load tasks from a file and save tasks to a file.
  */
 public class Storage {
-    private Path path;
+    private Path filePath;
 
     public Storage(Path path) {
-        this.path = path;
+        this.filePath = path;
     }
 
     /**
@@ -33,8 +33,8 @@ public class Storage {
      */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> loadFromFile() throws IOException, ClassNotFoundException {
-        if (Files.exists(this.path)) {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.path.toString()));
+        if (Files.exists(this.filePath)) {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePath.toString()));
             ArrayList<Task> result = (ArrayList<Task>) ois.readObject();
             ois.close();
             return result;
@@ -50,12 +50,12 @@ public class Storage {
      *                     file
      */
     public void saveToFile(ArrayList<Task> tasks) throws IOException {
-        Files.createDirectories(this.path.getParent());
+        Files.createDirectories(this.filePath.getParent());
 
-        if (!Files.exists(this.path)) {
-            Files.createFile(this.path);
+        if (!Files.exists(this.filePath)) {
+            Files.createFile(this.filePath);
         }
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.path.toFile()));
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePath.toFile()));
         oos.writeObject(tasks);
         oos.close();
     }

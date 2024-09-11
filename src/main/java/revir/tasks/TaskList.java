@@ -61,13 +61,13 @@ public class TaskList {
      *                                   task list to a file
      */
     public String remove(int index) throws IndexOutOfBoundsException, IOException {
+        if (tasks.size() == 0) {
+            throw new IndexOutOfBoundsException("No tasks to delete.");
+        }
         if (index < 1 || index > tasks.size()) {
-            if (tasks.size() == 0) {
-                throw new IndexOutOfBoundsException("No tasks to delete.");
-            } else {
-                throw new IndexOutOfBoundsException(
-                        "Invalid task index. Expected index between 1 and " + tasks.size());
-            }
+            throw new IndexOutOfBoundsException(
+                    "Invalid task index. Expected index between 1 and " + tasks.size());
+
         }
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
@@ -125,10 +125,14 @@ public class TaskList {
      *                                   tasks to a file
      */
     public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException(
-                    "Invalid task index. Expected index between 1 and " + tasks.size());
+        if (tasks.size() == 0) {
+            throw new IndexOutOfBoundsException("No tasks to delete.");
         }
+        if (index < 1 || index > tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index. Expected index between 1 and " + tasks.size());
+
+        }
+
         Task task = tasks.get(index);
         task.setCompleted(status);
         storage.saveToFile(this.tasks);
