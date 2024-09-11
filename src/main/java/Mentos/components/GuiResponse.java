@@ -65,6 +65,15 @@ public class GuiResponse {
     public String invalidCommand() {
         return "Sorry! me no understand";
     }
+    public String updateCommand(Task task) {
+        StringBuilder res = new StringBuilder();
+        res.append("Task has been updated!\n");
+        res.append(task.toString());
+        return res.toString();
+    }
+    public String updateCommandFailed() {
+        return "Sorry no task has been updated!\nDeadline: /by\nEvent: /from, /to";
+    }
 
 
 }

@@ -20,6 +20,7 @@ public class Parser {
     private final String DELETE = "delete";
     private final String FIND = "find";
     private final String LIST = "list";
+    private final String UPDATE = "update";
 
 
 
@@ -49,6 +50,8 @@ public class Parser {
             return new EventCommand(input);
         } else if (input.startsWith(FIND)) {
             return new FindCommand(input);
+        } else if (input.startsWith(UPDATE)) {
+            return new UpdateCommand(input);
         }
         return new InvalidCommand();
     }
