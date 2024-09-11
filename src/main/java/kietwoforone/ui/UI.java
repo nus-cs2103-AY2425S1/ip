@@ -124,7 +124,7 @@ public class UI {
             System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
         }
     }
-    
+
     /**
      * Prints all the tasks that contains the keyword.
      *
