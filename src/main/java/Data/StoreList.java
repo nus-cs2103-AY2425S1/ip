@@ -25,6 +25,8 @@ public class StoreList {
     }
 
     public Task get(int i) {
+
+        assert i >= 0 && i < items.size() : "Index out of bounds";
         return items.get(i);
     }
 
@@ -82,6 +84,7 @@ public class StoreList {
      */
     public String markItem(int num) throws InvalidIndexException {
         assert num > 0 : "Task number does not exist";
+
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -97,6 +100,7 @@ public class StoreList {
      */
     public String UnmarkItem(int num) throws InvalidIndexException {
         assert num > 0 : "Task number does not exist";
+
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -111,7 +115,9 @@ public class StoreList {
      * @param num Index of task to be deleted.
      */
     public String deleteItem(int num) throws InvalidIndexException {
+
         assert num > 0 : "Task number does not exist";
+
         if (num >= items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
