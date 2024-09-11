@@ -33,6 +33,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toFormattedString() {
+        return String.format("E|%s|%s|%s|%s", checkStatus(this), this.description, this.from, this.to);
+    }
+
+    @Override
     public String toString() {
         String fromDate = from.format(DateTimeFormatter.ofPattern("E, MMM d yyyy"));
         String toDate = to.format(DateTimeFormatter.ofPattern("E, MMM d yyyy"));

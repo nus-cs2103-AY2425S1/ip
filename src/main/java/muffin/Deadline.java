@@ -26,6 +26,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFormattedString() {
+        return String.format("D|%s|%s|%s", checkStatus(this), this.description, this.by);
+    }
+
+    @Override
     public String toString() {
         String date = by.format(DateTimeFormatter.ofPattern("E, MMM d yyyy"));
         return String.format("[D]%s (by %s)", super.toString(), date);
