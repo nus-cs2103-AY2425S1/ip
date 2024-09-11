@@ -36,8 +36,8 @@ public class ToDo extends Task {
         return String.format(
             "%s|%c|%s",
             this.getTaskType(),
-            this.isDone ? 'X' : 'O',
-            this.name
+            this.getIsDone() ? 'X' : 'O',
+            this.getName()
         );
     }
 }

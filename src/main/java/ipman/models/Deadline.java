@@ -53,8 +53,8 @@ public class Deadline extends Task {
         return String.format(
             "%s|%c|%s|%s",
             this.getTaskType(),
-            this.isDone ? 'X' : 'O',
-            this.name,
+            this.getIsDone() ? 'X' : 'O',
+            this.getName(),
             this.by
         );
     }

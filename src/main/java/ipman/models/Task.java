@@ -4,8 +4,8 @@ package ipman.models;
  * Represents a task that has a name and may or may not be completed.
  */
 public abstract class Task {
-    protected boolean isDone = false;
-    protected final String name;
+    private boolean isDone = false;
+    private final String name;
 
     public Task(String name) {
         this.name = name;
@@ -21,6 +21,10 @@ public abstract class Task {
 
     public void unmarkDone() {
         this.isDone = false;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**
@@ -39,8 +43,8 @@ public abstract class Task {
         return String.format(
             "[%c][%s] %s",
             getTaskType(),
-            this.isDone ? "X" : " ",
-            this.name
+            this.getIsDone() ? "X" : " ",
+            this.getName()
         );
     }
 }
