@@ -3,9 +3,10 @@ package meeju;
 /**
  * Represents a generic task with a description and a status indicating whether the task is done.
  */
-public class Task {
+public abstract class Task {
     private String taskDescription;
     private Boolean isDone;
+
 
 
     /**
@@ -22,12 +23,12 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public abstract String getTaskIdentifier();
+
+    public abstract String serializeDetails();
+
     public String getTaskDescription() {
         return this.taskDescription;
-    }
-
-    public String serializeDetails() {
-        return "";
     }
 
     public Boolean getIsDone() {
