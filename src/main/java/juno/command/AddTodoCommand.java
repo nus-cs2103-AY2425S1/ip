@@ -39,8 +39,10 @@ public class AddTodoCommand extends AddCommand {
     @Override
     public String runCommand() throws TaskManagerException {
         String taskInfo;
+        assert this.userInput != null : "User input in AddTodoCommand() cannot be null!";
+        assert this.tasks != null : "Task array should not be null!";
         try {
-            taskInfo = userInput.split("\\s+", 3)[2];
+            taskInfo = this.userInput.split("\\s+", 3)[2];
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
                     + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "

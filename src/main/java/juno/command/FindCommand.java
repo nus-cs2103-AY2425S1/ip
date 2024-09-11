@@ -25,7 +25,8 @@ public class FindCommand extends Command {
         } else {
             String taskString;
             try {
-                taskString = userInput.split("\\s+", 2)[1];
+                assert userInput != null : "User input in FindCommand() cannot be null";
+                taskString = this.userInput.split("\\s+", 2)[1];
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                 throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. "
                         + "Please enter a valid task string after find command. "
