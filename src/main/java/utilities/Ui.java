@@ -52,6 +52,7 @@ public class Ui {
      * @return The command to be executed.
      */
     public Command interactWithUser(String dialog) {
+        assert taskList != null : "Task list should not be null";
         Parser parser = new Parser();
         Command command = parser.parseUserInput(dialog, taskList);
         try {

@@ -51,6 +51,7 @@ public class Storage {
      * @param taskList The task list to be saved.
      */
     public void save(TaskList tasks) {
+        assert filePath != null : "File path should not be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toFileString());
