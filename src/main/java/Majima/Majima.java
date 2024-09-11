@@ -34,13 +34,13 @@ public class Majima {
     public String getResponse(String input) {
         ui.clearOutput();
         try {
-            Command parsedCommand = Parser.parse(input);
-            ui.clearOutput();
-            parsedCommand.execute(tasks, ui, storage);
+            Command c = Parser.parse(input);
+            ui.clearOutput(); // Clear previous outputs
+            c.execute(tasks, ui, storage); // Execute the command
         } catch (MajimaException e) {
             ui.showError(e.getMessage());
         }
-        return ui.getOutput();
+        return ui.getOutput(); // Return the output collected in Ui
     }
 
     public Ui getUi() {
