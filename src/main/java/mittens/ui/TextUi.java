@@ -12,15 +12,13 @@ public class TextUi extends Ui {
              /\\_/\\     ____________________
              >^,^<    / Hi, I'm Mittens!   \\
               / \\     \\ I'm a cat! Meow :3 /
-             (___)_/   --------------------
-            """;
+             (___)_/   --------------------""";
 
     private final static String GOODBYE_MESSAGE = """
              /\\_/\\     _____________
              >^,^<    ( Bye-bye! :3 )
               / \\      -------------
-             (___)_/
-            """;
+             (___)_/""";
 
     private final Scanner in;
     private final PrintStream out;
@@ -48,8 +46,7 @@ public class TextUi extends Ui {
                  /\\_/\\     %s
                  >^,^<    ( %s )
                   / \\      %s
-                 (___)_/
-                """.formatted("_".repeat(len + 2),
+                 (___)_/""".formatted("_".repeat(len + 2),
                 message, "-".repeat(len + 2));
 
         this.out.println(uiMessage);
@@ -69,8 +66,7 @@ public class TextUi extends Ui {
                  (___)_/
                 
                 Error: %s
-                %s
-                """.formatted("_".repeat(len + 2), mittensMessage,
+                %s""".formatted("_".repeat(len + 2), mittensMessage,
                 "-".repeat(len + 2), errorMessage, helpMessage);
 
         this.out.println(uiMessage);
