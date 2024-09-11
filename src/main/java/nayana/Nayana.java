@@ -24,7 +24,7 @@ public class Nayana {
         try {
             tasks = new TaskList(storage.load());
         } catch (NayanaException e) {
-            ui.showLoadingError();
+            System.out.println("no correct file");
             tasks = new TaskList();
         }
     }

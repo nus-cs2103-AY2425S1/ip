@@ -30,12 +30,15 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Nayana instance */
     public void setNayana(Nayana n) {
         nayana = n;
         nayana.getUi().setVbox(dialogContainer);
         nayana.getUi().showWelcomeMessage();
     }
+
+
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

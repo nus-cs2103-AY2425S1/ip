@@ -21,8 +21,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setNayana(nayana);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setNayana(nayana);  // inject the Nayana instance
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

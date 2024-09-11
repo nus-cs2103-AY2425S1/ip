@@ -22,6 +22,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+    
 
     public void print(String text, Image image) {
         dialogContainer.getChildren().addAll(
