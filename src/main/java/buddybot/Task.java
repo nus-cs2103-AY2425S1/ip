@@ -39,7 +39,7 @@ public class Task {
 
     /**
      * Return a String of the Task with its status and description
-     * @return
+     * @return String
      */
     @Override
     public String toString() {
@@ -48,7 +48,7 @@ public class Task {
 
     /**
      * Return a String for the Task in the format the file reader recognises
-     * @return
+     * @return String
      */
     public String toFile() {
         if (status == TaskStatus.DONE) {

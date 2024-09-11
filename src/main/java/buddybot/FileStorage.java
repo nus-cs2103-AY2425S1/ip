@@ -22,7 +22,7 @@ public class FileStorage {
 
     /**
      * Reads the contents within the file and converts the String into an ArrayList of Tasks
-     * @return
+     * @return Content of file
      * @throws BuddyBotException
      */
     public ArrayList<Task> readFileContents() throws BuddyBotException {
@@ -43,7 +43,7 @@ public class FileStorage {
     /**
      * Converts Strings to Tasks
      * @param entry
-     * @return
+     * @return Task to add
      */
     private Task readEntry(String entry) {
         String trimmed = entry.trim().trim();
@@ -77,14 +77,13 @@ public class FileStorage {
     public void writeToTxt(String myTasks) { //Using this method
         try  {
             File file = new File(this.filePath);
-            File dir = new File(file.getParent());
-            boolean dirCreated = dir.mkdirs();
-            FileWriter fw = new FileWriter(this.filePath, false);
-            BufferedWriter bw = new BufferedWriter(fw);
-           bw.write(myTasks);
-           //bw.newLine();
-           bw.close();
-           fw.close();
+            File directory = new File(file.getParent());
+            boolean dirCreated = directory.mkdirs();
+            FileWriter fileWriter = new FileWriter(this.filePath, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+           bufferedWriter.write(myTasks);
+           bufferedWriter.close();
+           fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

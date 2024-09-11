@@ -1,5 +1,5 @@
 package buddybot;
-//test
+
 import java.util.ArrayList;
 
 /**
@@ -26,7 +26,7 @@ public class TaskList {
 
     /**
      * Return the number of tasks in TaskList
-     * @return
+     * @return number of tasks
      */
     public int size() {
         return myList.size();
@@ -84,7 +84,7 @@ public class TaskList {
 
     /**
      * Return the TaskList as a String the file reader recognises
-     * @return
+     * @return String
      */
     public String toFile() {
         StringBuilder result = new StringBuilder();
