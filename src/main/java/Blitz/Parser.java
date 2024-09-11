@@ -58,7 +58,9 @@ public class Parser {
 
                 assert markParameters.length == 1 : "Mark command should have exactly one parameter";
 
-                return new MarkCommand(command, markParameters[0]);
+                String markIndex = markParameters[0];
+
+                return new MarkCommand(command, markIndex);
             case "unmark":
                 String[] unmarkParameters = commandParts[1].split(" ");
 
@@ -68,11 +70,15 @@ public class Parser {
 
                 assert unmarkParameters.length == 1 : "Unmark command should have exactly one parameter";
 
-                return new UnmarkCommand(command, unmarkParameters[0]);
+                String unmarkIndex = unmarkParameters[0];
+
+                return new UnmarkCommand(command, unmarkIndex);
             case "todo":
                 assert commandParts.length == 2 : "Todo command should have exactly one parameter";
 
-                return new TodoCommand(command, commandParts[1]);
+                String todoDescription = commandParts[1];
+
+                return new TodoCommand(command, todoDescription);
             case "deadline":
                 if (!isRegexMatchedForDeadline(command)) {
                     throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
@@ -83,7 +89,10 @@ public class Parser {
                 assert deadlineParameters.length == 2
                         : "Deadline command should have exactly two parameters separated by '/by'";
 
-                return new DeadlineCommand(command, deadlineParameters[0], deadlineParameters[1]);
+                String deadlineDescription = deadlineParameters[0];
+                String byParameterValue = deadlineParameters[1];
+
+                return new DeadlineCommand(command, deadlineDescription, byParameterValue);
             case "event":
                 if (!isRegexMatchedForEvent(command)) {
                     throw new BlitzInvalidParameterRegexException(
@@ -97,7 +106,11 @@ public class Parser {
                         : "Event command should have exactly two parameters separated by '/from'";
                 assert toParameters.length == 2 : "Event command should have exactly two parameters separated by '/to'";
 
-                return new EventCommand(command, fromParameters[0], toParameters[0], toParameters[1]);
+                String eventDescription = fromParameters[0];
+                String fromParameterValue = toParameters[0];
+                String toParameterValue = toParameters[1];
+
+                return new EventCommand(command, eventDescription, fromParameterValue, toParameterValue);
             case "delete":
                 String[] deleteParameters = commandParts[1].split(" ");
 
@@ -107,11 +120,15 @@ public class Parser {
 
                 assert deleteParameters.length == 1 : "Delete command should have exactly one parameter";
 
-                return new DeleteCommand(command, deleteParameters[0]);
+                String deleteIndex = deleteParameters[0];
+
+                return new DeleteCommand(command, deleteIndex);
             case "find":
                 assert commandParts.length == 2 : "Find command should have exactly one parameter";
 
-                return new FindCommand(command, commandParts[1]);
+                String keywordsToFind = commandParts[1];
+
+                return new FindCommand(command, keywordsToFind);
             default:
                 throw new BlitzCommandDoesNotExistException();
             }
