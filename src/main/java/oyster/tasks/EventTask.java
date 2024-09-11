@@ -35,7 +35,7 @@ public class EventTask extends Task {
      * @param input The string to parse into a EventTask.
      * @return EventTask object.
      */
-    public static EventTask fromInput(String input) {
+    public static EventTask createFromInput(String input) {
         String name = "";
         String from = "";
         String to = "";

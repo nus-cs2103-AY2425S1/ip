@@ -2,6 +2,9 @@ package oyster;
 
 import java.util.Scanner;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import oyster.commands.Command;
 import oyster.tasks.TaskList;
 import oyster.utils.Parser;
@@ -34,6 +37,13 @@ public class LogicController {
      */
     public static void close() {
         isRunning = false;
+
+        // Closes the application window after a delay
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
     }
 
     /**

@@ -13,7 +13,7 @@ public class TaskList {
     }
 
     /**
-     * Insert a Task into the list.
+     * Inserts a Task into the list.
      *
      * @param task Inserts a Task at the end.
      */
@@ -22,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a Task in the list.
+     * Deletes a Task in the list.
      *
      * @param index Index to remove Task.
      */
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a Task in the list and returns it.
+     * Deletes a Task in the list and returns it.
      *
      * @param index Index to remove Task.
      * @return Removed Task object.
@@ -41,7 +41,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a Task in the list.
+     * Marks a Task in the list.
      *
      * @param index Index of Task to mark.
      */
@@ -50,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark a Task in the list.
+     * Unmarks a Task in the list.
      *
      * @param index Index of Task to unmark.
      */
@@ -99,12 +99,13 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
-            result += String.format("%d. %s", i + 1, tasks.get(i)) + (i < tasks.size() - 1 ? "\n" : "");
+            result.append(String.format("%d. %s", i + 1, tasks.get(i)))
+                .append(i < tasks.size() - 1 ? "\n" : "");
         }
 
-        return result;
+        return result.toString();
     }
 }

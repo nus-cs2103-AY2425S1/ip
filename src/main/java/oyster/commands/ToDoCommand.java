@@ -17,7 +17,7 @@ public class ToDoCommand extends Command {
      * @param input The input String to parse.
      */
     public ToDoCommand(String input) {
-        task = ToDoTask.fromInput(input);
+        task = ToDoTask.createFromInput(input);
     }
 
     /**
