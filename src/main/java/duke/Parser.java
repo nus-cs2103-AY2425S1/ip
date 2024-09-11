@@ -31,6 +31,8 @@ public class Parser {
      * @throws MeowException If an invalid command or task operation is encountered.
      * @throws DateTimeParseException If the date format is incorrect.
      */
+
+    /*
     public void parse(String input, TaskList taskList, Ui ui, Storage storage)
             throws IOException, MeowException, DateTimeParseException {
         try {
@@ -201,6 +203,7 @@ public class Parser {
             ui.showMessage("Invalid date format.");
         }
     }
+    */
 
     private LocalDate parseDate(String date) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -211,7 +214,7 @@ public class Parser {
             throws IOException, MeowException, DateTimeParseException {
         try {
             if (input.trim().equals("bye")) {
-                return"";
+                return ui.getGoodbyeMessage();
             }
 
             if (input.trim().equals("list")) {
@@ -272,7 +275,7 @@ public class Parser {
                                     ? "Now you have " + taskList.getTaskCount() + " task in the list."
                                     : "Now you have " + taskList.getTaskCount() + " tasks in the list."));
                         } catch (DateTimeException | MeowException e) {
-                            System.out.println(e.getMessage());
+                            return e.getMessage();
                         }
                     } else {
                         throw new MeowException("Invalid deadline format. "
@@ -299,8 +302,8 @@ public class Parser {
                             } else {
                                 throw new MeowException("GRRR! Start date cannot be after End date");
                             }
-                        } catch (MeowException e) {
-                            System.out.println(e.getMessage());
+                        } catch (DateTimeException | MeowException e) {
+                            return e.getMessage();
                         }
                     } else {
                         throw new MeowException("Invalid event format. "
@@ -378,6 +381,6 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return ui.getMessage("Invalid date format.");
         }
-        return "";
+
     }
 }

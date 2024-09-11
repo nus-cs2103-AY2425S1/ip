@@ -32,6 +32,8 @@ public class Meow {
      * Runs the main application loop.
      * Reads user input, processes commands, and handles exceptions until program terminates.
      */
+
+    /*
     public void run() {
         ui.showWelcomeMessage();
         while (true) {
@@ -47,6 +49,7 @@ public class Meow {
             }
         }
     }
+    */
 
     /**
      * Generates a response for the user's chat message.
@@ -68,9 +71,11 @@ public class Meow {
      *
      * @param args Command-line arguments (not used).
      */
+
+    /*
     public static void main(String[] args) {
         new Meow().run();
     }
-
+    */
 
 }

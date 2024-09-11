@@ -26,10 +26,9 @@ public class Ui {
     /**
      * Displays the goodbye message when the application closes.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String getGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
-
     /**
      * Displays an error message.
      *

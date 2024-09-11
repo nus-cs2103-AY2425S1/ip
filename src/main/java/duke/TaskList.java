@@ -37,6 +37,9 @@ public class TaskList {
      * @throws MeowException If the index is out of bounds.
      */
     public void deleteTask(int index) throws MeowException {
+        assert index >= 0 && index < taskCount : "Task index out of bounds: " + index;
+
+        // if block is for double protection
         if (index >= 0 && index < taskCount) {
             tasks.remove(index);
             taskCount--;
@@ -53,6 +56,9 @@ public class TaskList {
      * @throws MeowException If the index is out of bounds.
      */
     public Task getTask(int index) throws MeowException {
+        assert index >= 0 && index < taskCount : "Task index out of bounds: " + index;
+
+        // if block is for double protection
         if (index >= 0 && index < taskCount) {
             return tasks.get(index);
         } else {
