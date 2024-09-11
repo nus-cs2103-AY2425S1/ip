@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import tecna.controller.MainWindow;
+
 /**
  * A GUI for Tecna using FXML.
  */

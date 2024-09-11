@@ -15,9 +15,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(CommandType.INVALID, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.LIST, commandScanner.readRequest(input));
     }
 
     @Test
@@ -26,9 +26,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.CommandType.TODO, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.TODO, commandScanner.readRequest(input));
     }
 
     @Test
@@ -37,9 +37,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.CommandType.DEADLINE, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.DEADLINE, commandScanner.readRequest(input));
     }
 
     @Test
@@ -48,9 +48,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.CommandType.EVENT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.EVENT, commandScanner.readRequest(input));
     }
 
     @Test
@@ -59,9 +59,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(CommandType.DEADLINE_WRONG_FORMAT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.DEADLINE, commandScanner.readRequest(input));
     }
 
     @Test
@@ -70,9 +70,9 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(CommandType.EVENT_WRONG_FORMAT, commandScanner.getRequest());    }
+        assertEquals(tecna.command.CommandType.EVENT, commandScanner.readRequest(input));    }
 
     @Test
     public void getRequest_todoWithBlank_commandTypeTodoWrongFormat() {
@@ -80,8 +80,8 @@ public class CommandScannerTest {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteInput);
 
-        CommandScanner commandScanner = new CommandScanner();
+        tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(CommandType.TODO_WRONG_FORMAT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.TODO, commandScanner.readRequest(input));
     }
 }

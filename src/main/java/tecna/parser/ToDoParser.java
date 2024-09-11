@@ -1,6 +1,10 @@
-package tecna;
+package tecna.parser;
 
 import org.json.simple.JSONObject;
+
+import tecna.exception.JsonLoadingException;
+import tecna.exception.JsonLoadingExceptionType;
+import tecna.task.ToDo;
 
 /**
  * Parses the task of ToDo type from a JSONObject.

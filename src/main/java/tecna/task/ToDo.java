@@ -1,4 +1,4 @@
-package tecna;
+package tecna.task;
 
 /**
  * Represents the ToDo type of Task class.

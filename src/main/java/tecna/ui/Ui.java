@@ -1,4 +1,7 @@
-package tecna;
+package tecna.ui;
+
+import tecna.collection.TaskList;
+import tecna.task.Task;
 
 public class Ui {
     public String printLogo() {

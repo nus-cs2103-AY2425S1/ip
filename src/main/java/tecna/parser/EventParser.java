@@ -1,9 +1,13 @@
-package tecna;
+package tecna.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
+
+import tecna.exception.JsonLoadingException;
+import tecna.exception.JsonLoadingExceptionType;
+import tecna.task.Event;
 
 /**
  * Parses the task of Event type from a JSONObject.
@@ -14,7 +18,7 @@ public class EventParser {
 
     /**
      * Parses a JSONObject into an Event instance.
-     * @param jsonObject is a json object with the value of "type" is "devent".
+     * @param jsonObject is a json object with the value of "type" is "event".
      * @return an Event instance.
      * @throws JsonLoadingException when there is error parsing some attributes of Event.
      */

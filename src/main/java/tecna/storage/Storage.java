@@ -1,4 +1,4 @@
-package tecna;
+package tecna.storage;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +16,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import tecna.task.Deadline;
+import tecna.task.Event;
+import tecna.exception.JsonLoadingException;
+import tecna.exception.JsonLoadingExceptionType;
+import tecna.parser.DeadlineParser;
+import tecna.parser.EventParser;
+import tecna.parser.ToDoParser;
+import tecna.task.Task;
+import tecna.collection.TaskList;
+import tecna.task.ToDo;
 
 /**
  * Saves and loads the data generated while the chatbot is running.
@@ -85,7 +94,7 @@ public class Storage {
     }
 
     /**
-     * Converts java tecna.Task objects into JSON object and write to a json file.
+     * Converts java Task objects into JSON object and write to a json file.
      * @param taskList storing the lists of all tasks currently in the app.
      *
      * @author Crunchify.com.

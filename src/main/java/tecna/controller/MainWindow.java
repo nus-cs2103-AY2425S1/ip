@@ -1,4 +1,4 @@
-package tecna;
+package tecna.controller;
 
 import javafx.application.Platform;
 
@@ -15,6 +15,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import tecna.Tecna;
+
 /**
  * Controller for the main GUI.
  *
