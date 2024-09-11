@@ -91,7 +91,7 @@ public class Parser {
             } catch (DateTimeException e) {
                 throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
             }
-
+            assert(by != null);
             task = new Deadline(desc, by);
         } else if (s.matches("^event.*")) {
             if (!s.contains("/from")) {
@@ -131,6 +131,8 @@ public class Parser {
                 throw new OllieException("/from's date must be before /to's date!");
             }
 
+            assert(from != null);
+            assert(to != null);
             task = new Event(desc, from, to);
         } else if (s.matches("^todo.*")){
             String desc = s.replaceFirst("todo", "").trim();
@@ -142,6 +144,7 @@ public class Parser {
         } else {
             throw new OllieException("Invalid Task");
         }
+        assert(task != null);
         return task;
     }
 
