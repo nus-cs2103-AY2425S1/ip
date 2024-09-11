@@ -65,7 +65,7 @@ public class MainWindow extends AnchorPane {
 
         boolean shouldTerminate = Arrays.stream(responses).anyMatch(Response::isTerminating);
         if (shouldTerminate) {
-            Platform.exit();
+            closeWindow();
         }
     }
 
@@ -80,7 +80,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void closeWindow() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(20));
         pause.setOnFinished(event -> Platform.exit());
         pause.play();
     }
