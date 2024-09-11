@@ -34,6 +34,7 @@ public class TaskList {
      * @return Task item requested.
      * */
     public Task get(int n) {
+        assert n > 0: "Invalid task number";
         return tasks[n];
     }
 
@@ -45,6 +46,7 @@ public class TaskList {
      * @return String reply confirming item has been deleted.
      * */
     public String delete(int n) {
+        assert n > 0: "Invalid task number";
         if (n >= cmdNum + 1) {
             return "There is no task with the given task number.";
         }
@@ -88,6 +90,7 @@ public class TaskList {
      * @return String confirming task has been marked.
      * */
     public String mark(int num) {
+        assert num > 0: "Invalid task number";
         if (num < cmdNum + 1) {
             get(num - 1).mark();
         } else {
@@ -104,6 +107,7 @@ public class TaskList {
      * @return String confirming task has been unmarked.
      * */
     public String unmark(int num) {
+        assert num > 0: "Invalid task number";
         if (num < cmdNum + 1) {
             get(num - 1).unmark();
         } else {

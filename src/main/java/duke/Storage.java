@@ -34,14 +34,15 @@ public class Storage {
                 file.createNewFile();
                 return new Task[100];
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
+                List<String> taskList = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
-                if (!tasklist.isEmpty()) {
-                    numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
+                if (!taskList.isEmpty()) {
+                    numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
                 }
+                assert taskList.size() == numTasks: "Size of saved task list does not match the number of saved tasks";
                 tasks = new Task[100];
                 for (int i =1; i<numTasks+1; i++) {
-                    tasks[i-1] = parser(tasklist.get(i));
+                    tasks[i-1] = parser(taskList.get(i));
                 }
                 return tasks;
             }
