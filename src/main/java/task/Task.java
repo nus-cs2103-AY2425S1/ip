@@ -73,17 +73,17 @@ public class Task {
         String description = parts[2];
 
         Task task = switch (type) {
-            case "T" -> new ToDo(description);
-            case "D" -> {
-                String deadline = parts[3];
-                yield new Deadline(description, deadline);
-            }
-            case "E" -> {
-                String startDateTime = parts[3];
-                String endDateTime = parts[4];
-                yield new Event(description, startDateTime, endDateTime);
-            }
-            default -> throw new IllegalArgumentException("Unknown task type: " + type);
+        case "T" -> new ToDo(description);
+        case "D" -> {
+            String deadline = parts[3];
+            yield new Deadline(description, deadline);
+        }
+        case "E" -> {
+            String startDateTime = parts[3];
+            String endDateTime = parts[4];
+            yield new Event(description, startDateTime, endDateTime);
+        }
+        default -> throw new IllegalArgumentException("Unknown task type: " + type);
         };
 
         if (isDone) {

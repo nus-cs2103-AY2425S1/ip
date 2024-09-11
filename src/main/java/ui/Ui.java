@@ -2,8 +2,6 @@ package ui;
 
 import java.util.Scanner;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import task.Task;
 import task.TaskList;
 
