@@ -26,7 +26,7 @@ public class AddCommand extends Command {
 
     /**
      * Checks the task to be added into the TaskList.
-     * If the task is valid with correct parameters, adds the task in the TaskList.
+     * If the task is valid with correct parameters, adds the task to the TaskList.
      *
      * @throws RasputinException If task has incorrect parameters such as empty description or invalid time and date.
      */
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
                     throw new InvalidTaskException("ERROR! Deadline tasks require a deadline to be completed by.");
                 }
                 String by = deadlineSplit[1];
-                Deadline deadline = null;
+                Deadline deadline;
                 try {
                     deadline = new Deadline(desc, by);
                 } catch (DateTimeParseException e) {
@@ -75,7 +75,7 @@ public class AddCommand extends Command {
                 String from = toSplit[0];
                 String to = toSplit[1];
 
-                Event event = null;
+                Event event;
                 try {
                     event = new Event(desc, from, to);
                 } catch (DateTimeParseException e) {

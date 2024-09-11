@@ -10,9 +10,6 @@ import rasputin.task.TaskList;
  */
 public class Ui {
 
-    private static final String LINE_BREAK = "____________________________________";
-    private static Scanner scanner = new Scanner(System.in);
-
     /**
      * Prints the list of tasks.
      *
