@@ -20,6 +20,7 @@ public class Kayo {
     public static Parser parser;
 
     public Kayo(String filepath) {
+        assert filepath != null;
         Kayo.filepath = filepath;
         storage = new Storage(filepath);
         listTasks = storage.load();
@@ -32,6 +33,7 @@ public class Kayo {
      * Gets response from chatbot
      */
     public String getResponse(String inputString) {
+        assert inputString != null;
         String[] splitList = parser.splitString(inputString);
         if (inputString.equals("bye")) {
             return "See you next time!";
@@ -190,6 +192,7 @@ public class Kayo {
             return "Bye. I hope to see you again soon!";
         }
         public String find(List<Task> taskList) {
+            assert taskList != null;
             String returnedString = "Here are the matching tasks in your list:";
             for(int i = 0; i < taskList.size(); i++) {
                 returnedString += "\n" + i+1 + ". "+ taskList.get(i);
@@ -207,6 +210,7 @@ public class Kayo {
          * @param listTasks list of tasks to add to data
          * */
         private static void updateData(List<Task> listTasks) {
+            assert listTasks != null;
             try {
                 FileWriter fw = new FileWriter("data/kayo.txt");
                 String dataBody = "";
