@@ -19,6 +19,11 @@ public class Parser {
 
     }
 
+    /**
+     * Parsers the user input into instructions
+     * @param message is the user input
+     * @return Instruction to execute
+     */
     public Instruction getInstruction(String message)
             throws NotEnoughParametersException, IncorrectDateFormatException, IncorrectInstructionFormatException {
         if (Objects.equals(message, "list")) {
