@@ -32,6 +32,7 @@ public class Storage {
                     System.out.println("File already exists.");
                 }
             }
+            assert this.storage.exists();
         } catch (IOException e) {
             System.out.println("An error occurred while creating or writing to the file.");
             e.printStackTrace();

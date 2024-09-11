@@ -87,12 +87,14 @@ public class TaskList {
      * @param i the index of the task to unmark.
      */
     public void unmark(int i) {
+        assert i > 0;
         this.list.get(i - 1).setDone(false);
         storage.unmark(i - 1);
     }
 
     // Generates the message for the unmark dialog
     public String unmarkDialog(int i) {
+        assert i > 0;
         if(i - 1 < 0 || i > this.getNumTasks()){
             return "index error!";
         }
@@ -106,12 +108,14 @@ public class TaskList {
      * @param i the index of the task to mark.
      */
     public void mark(int i) {
+        assert i > 0;
         this.list.get(i - 1).setDone(true);
         storage.mark(i - 1);
     }
 
     // Generates the message for the mark dialog
     public String markDialog(int i) {
+        assert i > 0;
         if(i - 1 < 0 || i > this.getNumTasks()){
             return "index error!";
         }
@@ -133,17 +137,19 @@ public class TaskList {
     }
 
     public void handleDelete(int i) {
+        assert i > 0;
         this.list.remove(i - 1);
         storage.delete(i - 1);
     }
 
     // Generates the message for the delete dialog
     public String deleteDialog(int i) {
+        assert i > 0;
         if(i - 1 < 0 || i > this.getNumTasks()){
             return "index error!";
         }
         return String.format("Noted. I've removed this task:\n" +
-                " %s\nNow you have %d tasks in the list.\n" , this.list.get(i - 1), this.list.size());
+                " %s\nNow you have %d tasks in the list.\n" , this.list.get(i - 1), this.list.size() - 1);
     }
 
     /**

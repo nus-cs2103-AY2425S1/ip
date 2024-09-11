@@ -62,9 +62,11 @@ public class MainWindow extends AnchorPane {
 
             // Add each saved task to the dialog container
             for (String task : savedTasks) {
-                dialogContainer.getChildren().add(
-                        DialogBox.getJarvisDialog(task, userImage)
-                );
+                if(!task.equals("")) {
+                    dialogContainer.getChildren().add(
+                            DialogBox.getJarvisDialog(task, userImage)
+                    );
+                }
             }
             storage.clearFile();
         } catch (IOException e) {
