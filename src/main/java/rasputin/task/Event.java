@@ -20,8 +20,10 @@ public class Event extends Task {
         String[] fromSplit = from.split(" ");
         String[] toSplit = to.split(" ");
         try {
-            String fromStr = fromSplit[0] + "T" + fromSplit[1].substring(0, 2) + ":" + fromSplit[1].substring(2);
-            String toStr = toSplit[0] + "T" + toSplit[1].substring(0, 2) + ":" + toSplit[1].substring(2);
+            String fromStr = fromSplit[0] + "T" + fromSplit[1].substring(0, 2) + ":" +
+                    fromSplit[1].substring(2);
+            String toStr = toSplit[0] + "T" + toSplit[1].substring(0, 2) + ":" +
+                    toSplit[1].substring(2);
             this.fromDateTime = LocalDateTime.parse(fromStr);
             this.toDateTime = LocalDateTime.parse(toStr);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -50,6 +52,18 @@ public class Event extends Task {
     @Override
     public String getType() {
         return "Event";
+    }
+
+    /**
+     * Returns the string as the format to be saved in the .txt file.
+     *
+     * @return String in the format to be saved
+     */
+    @Override
+    public String toSaveFormat() {
+        String str = String.format("E|%s|%s|%s|%s\n", getStatusIdentifier(), description, from, to);
+        return str;
+
     }
 
     @Override

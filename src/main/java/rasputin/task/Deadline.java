@@ -46,6 +46,17 @@ public class Deadline extends Task {
         return "Deadline";
     }
 
+    /**
+     * Returns the string as the format to be saved in the .txt file.
+     *
+     * @return String in the format to be saved
+     */
+    @Override
+    public String toSaveFormat() {
+        String str = String.format("D|%s|%s|%s\n", getStatusIdentifier(), description, by);
+        return str;
+    }
+
     @Override
     public String toString() {
         String deadline;

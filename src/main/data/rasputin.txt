@@ -1,5 +1,0 @@
-D|0|return book|2024-08-29 1800
-E|1|project meeting|2024-08-28 1400|2024-08-28 1500
-T|1|read book
-D|0|update calendar|2024-08-30
-D|0|math tutorial|2024-09-05

@@ -33,6 +33,12 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
+        String dirPath = "./data";
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
         this.file = new File(this.filePath);
         if (file.isFile()) {
             System.out.println("Task file found.");
@@ -111,38 +117,7 @@ public class Storage {
             FileWriter fileWriter = new FileWriter(this.file);
             fileWriter.write("");
             for (Task item : tasks.getTasks()) {
-                String type;
-                String isDone;
-                String description = item.getDescription();
-                String str;
-
-                if (item.isDone()) {
-                    isDone = "1";
-                } else {
-                    isDone = "0";
-                }
-
-                if (item instanceof Deadline) {
-                    type = "D";
-                    String by = ((Deadline) item).getBy();
-                    str = String.format("%s|%s|%s|%s\n", type, isDone, description, by);
-
-                    fileWriter.append(str.toString());
-
-                } else if (item instanceof Event) {
-                    type = "E";
-                    String from = ((Event) item).getFrom();
-                    String to = ((Event) item).getTo();
-                    str = String.format("%s|%s|%s|%s|%s\n", type, isDone, description, from, to);
-
-                    fileWriter.append(str.toString());
-                } else if (item instanceof Todo) {
-                    type = "T";
-                    str = String.format("%s|%s|%s\n", type, isDone, description);
-
-                    fileWriter.append(str.toString());
-                }
-
+                fileWriter.append(item.toSaveFormat());
             }
             fileWriter.close();
             System.out.println("Written to file successfully.");
