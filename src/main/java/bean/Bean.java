@@ -41,6 +41,17 @@ public class Bean {
     }
 
     /**
+     * Returns the Ui instance associated with this Bean.
+     * The Ui instance is responsible for handling user interactions,
+     * such as displaying messages and reading user input.
+     *
+     * @return The Ui instance associated with this Bean.
+     */
+    public Ui getUi() {
+        return this.ui;
+    }
+
+    /**
      * Processes the user input, executes commands, and returns the response string for the GUI.
      *
      * @param input The user's input command.
@@ -53,6 +64,8 @@ public class Bean {
             }
 
             Command command = parser.parseCommand(input);
+            String commandType = command.getType();
+            String details = command.getDetails();
             switch (command.getType()) {
             case "list":
                 return ui.getTasks(tasks.getTasks());
@@ -61,28 +74,13 @@ public class Bean {
             case "unmark":
             case "delete":
                 int index = Integer.parseInt(command.getDetails()) - 1;
-                return handleTaskOperation(command.getType(), index);
-
+                return handleTaskOperation(commandType, index);
             case "todo":
-                Task todo = new TodoTask(command.getDetails());
-                tasks.addTask(todo);
-                storage.save(tasks.getTasks());
-                return ui.getTaskAdded(todo, tasks.size());
-
+                return handleTodoTask(details);
             case "deadline":
-                String[] deadlineParts = command.getDetails().split(" /by ");
-                Task deadline = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
-                tasks.addTask(deadline);
-                storage.save(tasks.getTasks());
-                return ui.getTaskAdded(deadline, tasks.size());
-
+                return handleDeadlineTask(details);
             case "event":
-                String[] eventParts = command.getDetails().split(" /from | /to ");
-                Task event = new EventTask(eventParts[0], eventParts[1], eventParts[2]);
-                tasks.addTask(event);
-                storage.save(tasks.getTasks());
-                return ui.getTaskAdded(event, tasks.size());
-
+                return handleEventTask(details);
             case "find":
                 List<Task> foundTasks = tasks.findTasks(command.getDetails());
                 return ui.getMatchingTasks(foundTasks);
@@ -93,6 +91,29 @@ public class Bean {
         } catch (Exception e) {
             return ui.getError(e.getMessage());
         }
+    }
+
+    private String handleEventTask(String details) {
+        String[] eventParts = details.split(" /from | /to ");
+        Task event = new EventTask(eventParts[0], eventParts[1], eventParts[2]);
+        tasks.addTask(event);
+        storage.save(tasks.getTasks());
+        return ui.getTaskAdded(event, tasks.size());
+    }
+
+    private String handleDeadlineTask(String details) {
+        String[] deadlineParts = details.split(" /by ");
+        Task deadline = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
+        tasks.addTask(deadline);
+        storage.save(tasks.getTasks());
+        return ui.getTaskAdded(deadline, tasks.size());
+    }
+
+    private String handleTodoTask(String details) {
+        Task todo = new TodoTask(details);
+        tasks.addTask(todo);
+        storage.save(tasks.getTasks());
+        return ui.getTaskAdded(todo, tasks.size());
     }
 
     /**
