@@ -55,8 +55,8 @@ public class Lexi {
             // Postcondition: Ensure command is parsed correctly
             assert c != null : "Parsed command should not be null.";
 
-            c.execute(tasks, ui, storage);
             this.commandType = c.getClass().getSimpleName();
+            c.execute(tasks, ui, storage);
             return c.getString();
         } catch (LexiException e) {
             return ui.showError(e.getMessage());
