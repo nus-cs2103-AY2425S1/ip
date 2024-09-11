@@ -50,12 +50,13 @@ public class Parser {
      * @throws FishmanException.IndexOutOfBoundsException if trying to choose a nonexistent item from the list.
      * @throws FishmanException for unexpected errors during parsing.
      */
-    public static Command parse(String userInput, TaskList tasks) throws FishmanException {
-        assert tasks != null : "TaskList should not be null";
+    public static Command parse(String userInput, TaskList taskList) throws FishmanException {
+        assert taskList != null : "TaskList should not be null";
 
         if (userInput == null || userInput.trim().isEmpty()) {
             throw new FishmanException.InvalidCommandException();
         }
+
         String[] inputs = userInput.split(" ", 2);
         String commandPhrase = inputs[0].toLowerCase();
 
@@ -63,61 +64,74 @@ public class Parser {
             throw new FishmanException.MissingArgumentException(commandPhrase);
         }
 
+        switch (commandPhrase) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            checkIfTaskListEmpty(taskList);
+            return new ListCommand();
+        case "mark":
+            return getMarkCommand(taskList, inputs, true);
+        case "unmark":
+            return getMarkCommand(taskList, inputs, false);
+        case "todo":
+            return new AddCommand(new ToDo(inputs[1], false));
+        case "deadline":
+            return getDeadlineCommand(inputs);
+        case "event":
+            return getEventCommand(inputs);
+        case "delete":
+            return getDeleteCommand(taskList, inputs);
+        case "find":
+            return new FindCommand(inputs[1]);
+        default:
+            throw new FishmanException.InvalidCommandException();
+        }
+    }
+
+    private static MarkCommand getMarkCommand(TaskList taskList, String[] inputs, boolean isMark) throws FishmanException {
+        checkIfTaskListEmpty(taskList);
+        int taskIndex = parseTaskIndex(inputs[1], taskList.size());
+        return new MarkCommand(taskIndex, isMark);
+    }
+
+    private static AddCommand getDeadlineCommand(String[] inputs) throws FishmanException {
+        if (!inputs[1].contains("/by")) {
+            throw new FishmanException.MissingArgumentException("deadline");
+        }
+        String[] deadlineString = inputs[1].split("/by");
+        LocalDateTime deadlineDate = parseDateTime(deadlineString[1].trim());
+        return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineDate));
+    }
+
+    private static AddCommand getEventCommand(String[] inputs) throws FishmanException {
+        if (!inputs[1].contains("/from") || !inputs[1].contains("/to")) {
+            throw new FishmanException.MissingArgumentException("event");
+        }
+        String[] eventString = inputs[1].split("/from|/to");
+        LocalDateTime eventStart = parseDateTime(eventString[1].trim());
+        LocalDateTime eventEnd = parseDateTime(eventString[2].trim());
+        return new AddCommand(new Event(eventString[0].trim(), false, eventStart, eventEnd));
+    }
+
+    private static DeleteCommand getDeleteCommand(TaskList taskList, String[] inputs) throws FishmanException {
+        int deleteIndex = parseTaskIndex(inputs[1], taskList.size());
+        return new DeleteCommand(deleteIndex);
+    }
+
+    private static void checkIfTaskListEmpty(TaskList taskList) throws FishmanException {
+        if (taskList.isTaskListEmpty()) {
+            throw new FishmanException.EmptyListException();
+        }
+    }
+
+    private static int parseTaskIndex(String indexStr, int size) throws FishmanException {
         try {
-            switch (commandPhrase) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                if (tasks.isEmpty()) {
-                    throw new FishmanException.EmptyListException();
-                }
-                return new ListCommand();
-            case "mark":
-                if (tasks.isEmpty()) {
-                    throw new FishmanException.EmptyListException();
-                }
-                int markIndex = Integer.parseInt(inputs[1]) - 1;
-                if (markIndex < 0 || markIndex >= tasks.size()) {
-                    throw new FishmanException.IndexOutOfBoundsException(markIndex + 1);
-                }
-                return new MarkCommand(markIndex, true);
-            case "unmark":
-                if (tasks.isEmpty()) {
-                    throw new FishmanException.EmptyListException();
-                }
-                int unmarkIndex = Integer.parseInt(inputs[1]) - 1;
-                if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
-                    throw new FishmanException.IndexOutOfBoundsException(unmarkIndex + 1);
-                }
-                return new MarkCommand(unmarkIndex, false);
-            case "todo":
-                return new AddCommand(new ToDo(inputs[1], false));
-            case "deadline":
-                if (!inputs[1].contains("/by")) {
-                    throw new FishmanException.MissingArgumentException("deadline");
-                }
-                String[] deadlineString = inputs[1].split("/by");
-                LocalDateTime deadlineDate = parseDateTime(deadlineString[1].trim());
-                return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineDate));
-            case "event":
-                if (!inputs[1].contains("/from") || !inputs[1].contains("/to")) {
-                    throw new FishmanException.MissingArgumentException("event");
-                }
-                String[] eventString = inputs[1].split("/from|/to");
-                LocalDateTime fromDate = parseDateTime(eventString[1].trim());
-                LocalDateTime toDate = parseDateTime(eventString[2].trim());
-                return new AddCommand(new Event(eventString[0].trim(), false, fromDate, toDate));
-            case "delete":
-                int deleteIndex = Integer.parseInt(inputs[1]) - 1;
-                if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
-                    throw new FishmanException.IndexOutOfBoundsException(deleteIndex + 1);
-                }
-                return new DeleteCommand(deleteIndex);
-            case "find":
-                return new FindCommand(inputs[1]);
-            default:
-                throw new FishmanException.InvalidCommandException();
+            int index = Integer.parseInt(indexStr) - 1;
+            if (index < 0 || index >= size) {
+                throw new FishmanException.IndexOutOfBoundsException(index + 1);
             }
+            return index;
         } catch (NumberFormatException e) {
             throw new FishmanException.NumberFormatException(e.getMessage());
         }
