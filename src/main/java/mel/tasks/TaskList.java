@@ -35,11 +35,12 @@ public class TaskList {
      * @throws TaskException if task input is invalid.
      */
     public void executeTask(String input) throws MelException, TaskException {
-        String cmd = input.split(" ", 2)[0];
+        String[] s = input.split(" ", 2);
+        String cmd = s[0].trim();
         if (Objects.equals(input, "list")) {
             printAll();
         } else if (cmd.contains("mark")) {
-            markTaskAsDone(input);
+            handleTaskMarking(input);
         } else if (cmd.equals("delete")) {
             deleteTask(input);
         } else if (cmd.equals("find")) {
@@ -69,7 +70,7 @@ public class TaskList {
             task = new Event(str);
             break;
         default:
-            throw new MelException("Mel is confused... "
+            throw new MelException("Mel is confused...\n"
                     + "Mel doesn't understand you :((");
         }
         tasks.add(task);
@@ -82,15 +83,21 @@ public class TaskList {
 
     /**
      * Deletes tasks based on input.
-     * @param str input string.
+     * @param input user input string.
      */
-    private void deleteTask(String str) {
-        String[] temp = str.split(" ");
-        int idx = Integer.parseInt(temp[1]) - 1;
+    private void deleteTask(String... input) {
+        /* Command detail string as array */
+        String[] s = input[0].trim()
+                             .split(" ", 2)[1]
+                             .trim()
+                             .split(" ");
         try {
-            mel.println("Mel helps you forget:\n"
-                    + "  " + tasks.get(idx));
-            tasks.remove(idx);
+            mel.println("Mel helps you forget...");
+            for (String str : s) {
+                int idx = Integer.parseInt(str) - 1;
+                mel.println("  " + tasks.get(idx));
+                tasks.remove(idx);
+            }
             updateTasks();
             mel.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
@@ -101,29 +108,56 @@ public class TaskList {
     }
 
     /**
-     * Handles marking of tasks' completion based on input.
-     * @param str input string.
+     * Handles marking of tasks completion based on input.
+     * @param input user input string.
      */
-    private void markTaskAsDone(String str) {
+    private void handleTaskMarking(String... input) throws MelException {
         try {
-            String[] temp = str.split(" ");
-            String m = temp[0].trim();
-            String s = temp[1].trim();
-            assert !s.isEmpty() : "index value should not be empty";
-            int idx = Integer.parseInt(s) - 1;
-            Task task = tasks.get(idx);
-            if (Objects.equals(m, "mark")) {
+            String[] str = input[0].trim()
+                                   .split(" ", 2);
+            String cmd = str[0].trim();
+            String[] details = str[1].trim()
+                                     .split(" ");
+            if (Objects.equals(cmd, "mark")) {
                 mel.println("Mel sees you completed your task!");
-                task.markTaskAsDone();
-            } else {
+                markTasksAsDone(details);
+            } else if (Objects.equals(cmd, "unmark")) {
                 mel.println("Mel wonders how you undid your task...");
-                task.markTaskAsNotDone();
+                markTasksAsNotDone(details);
+            } else {
+                throw new MelException("Mel is confused... \n"
+                        + "Mel doesn't understand you :((");
             }
-            mel.println("  " + task);
             updateTasks();
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
+        }
+    }
+
+    /**
+     * Marks tasks as completed.
+     * @param str indices of tasks.
+     */
+    private void markTasksAsDone(String... str) throws MelException {
+        for (String s : str) {
+            int idx = Integer.parseInt(s) - 1;
+            Task task = tasks.get(idx);
+            task.markTaskAsDone();
+            mel.println("  " + task);
+        }
+    }
+
+    /**
+     * Marks tasks as incomplete.
+     * @param str indices of tasks.
+     */
+    private void markTasksAsNotDone(String... str) throws MelException {
+        for (String s : str) {
+            int idx = Integer.parseInt(s) - 1;
+            Task task = tasks.get(idx);
+            task.markTaskAsNotDone();
+            mel.println("  " + task);
         }
     }
 
@@ -135,11 +169,11 @@ public class TaskList {
     private void findTask(String str) {
         try {
             mel.println("Mel brain rattles in recollection...");
-            String foundTasks = "";
+            StringBuilder foundTasks = new StringBuilder();
             String s = str.split(" ", 2)[1].trim();
             for (Task t : tasks) {
                 if (t.isMatch(s)) {
-                    foundTasks += t + "\n";
+                    foundTasks.append(t).append("\n");
                 } else {
                     //Fallthrough to continue iterating over all tasks.
                 }
@@ -147,7 +181,7 @@ public class TaskList {
             if (foundTasks.isEmpty()) {
                 mel.println("Mel recalls nothing of the sort :)");
             } else {
-                mel.println(foundTasks);
+                mel.println(foundTasks.toString());
             }
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
