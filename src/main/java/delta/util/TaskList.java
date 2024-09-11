@@ -66,17 +66,22 @@ public class TaskList {
         // List is empty
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to mark.");
+        }
+
         // Index out of range of list
-        } else if (index < 1 || index > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DeltaException("""
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task to mark.""");
         }
+
         Task task = tasks.get(index - 1);
+
         // Task already marked
         if (task.getStatusIcon().equals("X")) {
             throw new DeltaException("OOPS!!! Task is already marked as done.");
         }
+
         task.markAsDone();
         tasks.set(index - 1, task);
         return task;
@@ -93,17 +98,22 @@ public class TaskList {
         // List is empty
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
+        }
+
         // Index out of range of list
-        } else if (index < 1 || index > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DeltaException("""
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task to unmark.""");
         }
+
         Task task = tasks.get(index - 1);
+
         // Task already unmarked
         if (task.getStatusIcon().equals(" ")) {
             throw new DeltaException("OOPS!!! Task is already marked as not done yet.");
         }
+
         task.markAsNotDone();
         tasks.set(index - 1, task);
         return task;
@@ -120,12 +130,15 @@ public class TaskList {
         // List is empty
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
+        }
+
         // Index out of range of list
-        } else if (index < 1 || index > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DeltaException("""
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task to delete.""");
         }
+
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
         return task;
