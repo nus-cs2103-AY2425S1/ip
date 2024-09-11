@@ -18,9 +18,8 @@ public enum CommandType {
     TODO("todo"),
     DELETE("delete"),
     UNKNOWN("");
-
-    private final String commandString;
     private static final Map<String, CommandType> commandMap = new HashMap<>();
+    private final String commandString;
     static {
         for (CommandType command : CommandType.values()) {
             commandMap.put(command.commandString, command);
