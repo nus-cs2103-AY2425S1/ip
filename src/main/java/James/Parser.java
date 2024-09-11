@@ -23,6 +23,8 @@ class Parser {
      * @param storage The Storage instance used for loading and saving tasks
      */
     public Parser(Ui ui, Storage storage) {
+        assert ui != null : "UI failed to load into parser";
+        assert storage != null : "storage failed to load into parser";
         this.ui = ui;
         this.storage = storage;
     }
@@ -37,6 +39,8 @@ class Parser {
      * @throws JamesException If an error occurs during command execution
      */
     public String parseAndExecute(String command, TaskList taskList) throws JamesException {
+        assert command != null : "empty input";
+        assert taskList != null : "failed to pass in task list to parser";
         String[] words = command.split(" ");
         String action = words[0].toLowerCase();
         StringBuilder stringBuilder = new StringBuilder();
