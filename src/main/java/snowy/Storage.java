@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Represents the object the reads and write data from hard disk.
  */
 public class Storage {
-    private File file;
+    private final File file;
 
     /**
      * Creates a new Storage with the file being specified by the given filePath.
@@ -33,6 +33,7 @@ public class Storage {
             file.createNewFile();
             assert file.exists() : "Storage file should have been created";
             Scanner scanner = new Scanner(file);
+
             while (scanner.hasNext()) {
                 String nextLine = scanner.nextLine();
                 lines.add(nextLine);

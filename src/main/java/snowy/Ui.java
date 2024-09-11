@@ -6,19 +6,11 @@ import java.util.ArrayList;
  * Represents the main object which prints out the user interface.
  */
 public class Ui {
-    private static final String LINE = "-----------------------------------\n";
 
-    private static final String GREETING = LINE
-            + "Hello! My name is Snowy\n"
-            + "What can I do for you?\n"
-            + LINE;
+    private static final String GREETING = "Hello! My name is Snowy\n"
+            + "What can I do for you?\n";
 
-    private static final String ENDING = "Bye! Hope to see you again soon!\n"
-            + LINE;
-
-    public String printLine() {
-        return LINE;
-    }
+    private static final String ENDING = "Bye! Hope to see you again soon!\n";
 
     public String printGreeting() {
         return GREETING;

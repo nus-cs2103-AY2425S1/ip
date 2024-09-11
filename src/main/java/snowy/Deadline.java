@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * This class holds the deadline as a LocalDate.
  */
 public class Deadline extends Task {
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Creates a new Deadline with the specific name and date.
@@ -29,7 +29,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String temp = super.toString();
-        return String.format("[D]%s (by %s)", temp, date.format(super.FORMATTER));
+        return String.format("[D]%s (by %s)", temp, date.format(FORMATTER));
     }
 
     @Override

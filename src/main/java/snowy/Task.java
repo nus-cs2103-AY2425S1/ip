@@ -12,7 +12,7 @@ public abstract class Task {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
-    private String name;
+    private final String name;
 
     public Task(String name) {
         this.name = name;

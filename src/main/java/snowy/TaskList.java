@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Represents a list of Tasks with the methods the add, remove and modify the tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Creates a TaskList with tasks strings that are previously saved in a file.
@@ -31,6 +31,7 @@ public class TaskList {
 
         String[] dataArray = description.split("[|]");
         String type = dataArray[0];
+
         switch (type) {
         case "T":
             status = dataArray[1];
@@ -63,7 +64,6 @@ public class TaskList {
             if (status.equals("1")) {
                 newEvent.markComplete();
             }
-
             break;
 
         default:
@@ -93,28 +93,23 @@ public class TaskList {
      * @throws SnowyException if the description is empty or invalid.
      */
     public Task addDeadline(String description) throws SnowyException {
-        if (description.isEmpty()) {
-            throw new SnowyException("Invalid input for Deadline");
-        }
-
         int byIndex = description.indexOf("/by ");
 
         if (byIndex == -1) {
             throw new SnowyException("Invalid input for Deadline");
         }
+
         String deadlineName = description.substring(0, byIndex).trim();
-        String date = description.substring(byIndex + 4);
+        String date = description.substring(byIndex + 4).trim();
 
-        if (deadlineName.isEmpty()) {
+        boolean isInvalidInput = deadlineName.isEmpty() || date.isEmpty();
+
+        if (isInvalidInput) {
             throw new SnowyException("Invalid input for Deadline");
         }
 
-        if (date.isEmpty()) {
-            throw new SnowyException("Invalid input for Deadline");
-        }
         Task newTask = new Deadline(deadlineName, date);
         tasks.add(newTask);
-
         return newTask;
     }
 
@@ -125,9 +120,6 @@ public class TaskList {
      * @throws SnowyException if the description is empty or invalid.
      */
     public Task addEvent(String description) throws SnowyException {
-        if (description.isEmpty()) {
-            throw new SnowyException("Invalid input for Event");
-        }
         int fromIndex = description.indexOf("/from ");
         int toIndex = description.indexOf("/to ");
 
@@ -138,15 +130,13 @@ public class TaskList {
         String eventName = description.substring(0, fromIndex);
         String fromDate = description.substring(fromIndex + 6, toIndex).trim();
         String toDate = description.substring(toIndex + 4);
-        if (eventName.isEmpty()) {
+
+        boolean isInvalidInput = eventName.isEmpty() || fromDate.isEmpty() || toDate.isEmpty();
+
+        if (isInvalidInput) {
             throw new SnowyException("Invalid input for Event");
         }
-        if (fromDate.isEmpty()) {
-            throw new SnowyException("Invalid input for Event");
-        }
-        if (toDate.isEmpty()) {
-            throw new SnowyException("Invalid input for Event");
-        }
+
         Task newTask = new Event(eventName, fromDate, toDate);
         tasks.add(newTask);
         return newTask;
@@ -159,11 +149,10 @@ public class TaskList {
      * @throws SnowyException if the given index is invalid.
      */
     public Task deleteTask(int index) throws SnowyException {
-        try {
-            return tasks.remove(index - 1);
-        } catch (IndexOutOfBoundsException e) {
+        if (index < 1 || index > tasks.size()) {
             throw new SnowyException("Invalid index input");
         }
+        return tasks.remove(index - 1);
     }
 
 
@@ -174,12 +163,11 @@ public class TaskList {
      * @throws SnowyException if the given index is invalid.
      */
     public Task markTask(int index) throws SnowyException {
-        try {
-            tasks.get(index - 1).markComplete();
-            return tasks.get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
+        if (index < 1 || index > tasks.size()) {
             throw new SnowyException("Invalid index input");
         }
+        tasks.get(index - 1).markComplete();
+        return tasks.get(index - 1);
     }
 
 
