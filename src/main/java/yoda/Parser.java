@@ -35,24 +35,31 @@ public class Parser {
         case "bye":
             command = new ByeCommand();
             break;
+        case "l":
         case "list":
             command = new ListCommand(tasks);
             break;
+        case "m":
         case "mark":
             command = new MarkCommand(tasks, input);
             break;
+        case "um":
         case "unmark":
             command = new UnmarkCommand(tasks, input);
             break;
+        case "del":
         case "delete":
             command = new DeleteCommand(tasks, input);
             break;
+        case "t":
         case "todo":
             command = new TodoCommand(tasks, input);
             break;
+        case "dl":
         case "deadline":
             command = new DeadlineCommand(tasks, input);
             break;
+        case "e":
         case "event":
             command = new EventCommand(tasks, input);
             break;
