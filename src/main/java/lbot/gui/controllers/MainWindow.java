@@ -1,5 +1,6 @@
 package lbot.gui.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -53,6 +54,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLBotDialog(response, lbotImage)
         );
+        if (response.equals("Bye-bi!!")) {
+            Platform.exit();
+        }
         userInput.clear();
     }
 

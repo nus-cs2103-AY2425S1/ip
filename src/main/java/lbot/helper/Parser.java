@@ -66,6 +66,7 @@ public class Parser {
                     throw new ParseCommandException("Description is empty");
                 }
                 dueBy = parseDateTime(matcher.group(5));
+                System.out.println(dueBy);
                 return new DeadlineCommand(description, dueBy);
             case "event":
                 // fallthrough

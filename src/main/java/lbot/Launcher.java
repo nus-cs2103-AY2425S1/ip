@@ -4,7 +4,7 @@ import javafx.application.Application;
 import lbot.gui.Main;
 
 /**
- * LStart point of LBot.
+ * Start point of LBot.
  */
 public class Launcher {
     /**
