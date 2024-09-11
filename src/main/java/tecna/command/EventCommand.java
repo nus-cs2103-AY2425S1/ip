@@ -40,7 +40,7 @@ public class EventCommand extends Command {
         String[] description = message.split("event | /from | /to ");
 
         try {
-            event = new Event(description[1].trim(), DateTimeUtil.parseDateTime(description[2]), DateTimeUtil.parseDateTime(description[3]));
+            event = new Event(description[1].trim(), DateTimeUtil.parseDateTime(description[2].trim()), DateTimeUtil.parseDateTime(description[3].trim()));
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new WrongFormatException("event", "Event task should in the format of \"event [description] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]");
         }
@@ -52,7 +52,7 @@ public class EventCommand extends Command {
         TaskList taskList = new TaskList();
         Storage storage = new Storage("");
         Ui ui = new Ui();
-        EventCommand command = new EventCommand("event go shopping /by 2024-12-11 1400");
+        EventCommand command = new EventCommand("event go shopping /from 2024-12-11 1400 /to 2024-12-11 1500 ");
         System.out.println(command.execute(taskList, storage, ui));
     }
 }

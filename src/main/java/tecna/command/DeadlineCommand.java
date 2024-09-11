@@ -1,15 +1,14 @@
 package tecna.command;
 
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 
 import tecna.collection.TaskList;
 import tecna.exception.WrongFormatException;
 import tecna.storage.Storage;
 import tecna.task.Deadline;
 import tecna.ui.Ui;
+import tecna.util.DateTimeUtil;
 
-import static tecna.util.DateTimeUtil.DATE_TIME_FORMATTER;
 import static tecna.util.DateTimeUtil.DATE_TIME_PATTERN;
 
 public class DeadlineCommand extends Command {
@@ -35,9 +34,12 @@ public class DeadlineCommand extends Command {
     @Override
     public Deadline checkCommand() throws WrongFormatException {
         Deadline deadline = null;
+
+        assert message.contains("deadline");
+
         String[] description = message.split("deadline | /by");
         try {
-            deadline = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(),DATE_TIME_FORMATTER));
+            deadline = new Deadline(description[1].trim(), DateTimeUtil.parseDateTime(description[2].trim()));
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new WrongFormatException("deadline", "Deadline task should be in the format \"deadline [description] /by [" + DATE_TIME_PATTERN + "]\"");
 
