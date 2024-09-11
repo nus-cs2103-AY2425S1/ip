@@ -59,4 +59,9 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s to: %s)",
                 super.toString(), Parser.printDateTime(start), Parser.printDateTime(end));
     }
+
+    @Override
+    public LocalDateTime getTime() {
+        return start;
+    }
 }

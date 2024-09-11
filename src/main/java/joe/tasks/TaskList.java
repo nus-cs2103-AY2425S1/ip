@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import joe.exceptions.InvalidIndexException;
 import joe.utils.Parser;
@@ -124,13 +126,10 @@ public class TaskList {
      * @return the message to be displayed to the user
      */
     public String listTasks() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-        }
-
-        return sb.toString();
+        return "Here are the tasks in your list:\n"
+                + IntStream.rangeClosed(1, tasks.size())
+                           .mapToObj(i -> String.format("%d. %s\n", i, tasks.get(i - 1)))
+                           .reduce("", String::concat);
     }
 
     /**
@@ -165,30 +164,31 @@ public class TaskList {
      * @param date the date to query the tasks by
      * @return the message to be displayed to the user
      */
-    public String queryTasksByDate(String date) {
+    public String viewScheduleOnDate(String date) {
         // The arbitrary 1200 time here will not affect the output
         LocalDateTime targetDate = Parser.createLocalDateTimeWithArbitraryTime(date);
-        StringBuilder sb = new StringBuilder();
-        int tasksFound = 0;
-        for (Task t : tasks) {
-            if (t instanceof Deadline d) {
-                long days = d.daysTillDeadline(targetDate);
-                if (days == 0L) {
-                    sb.append(String.format("%d.%s\n", ++tasksFound, d));
-                }
-            } else if (t instanceof Event e) {
-                long days = e.daysTillEvent(targetDate);
-                if (days == 0L) {
-                    sb.append(String.format("%d.%s\n", ++tasksFound, e));
-                }
+        class TaskCounter {
+            static int count = 0;
+
+            static int index() {
+                return ++count;
             }
         }
 
-        if (tasksFound == 0) {
-            sb.append(String.format("There are no tasks on %s\n", targetDate.format(DateTimeFormatter.ISO_DATE)));
+        TaskCounter.count = 0;
+
+        String message = tasks.stream()
+                .filter(t -> (t instanceof Deadline d && d.daysTillDeadline(targetDate) == 0L)
+                        || (t instanceof Event e && e.daysTillEvent(targetDate) == 0L))
+                .sorted(Comparator.comparing(Task::getTime))
+                .map(t -> String.format("%d. %s\n", TaskCounter.index(), t))
+                .reduce("", String::concat);
+
+        if (message.isEmpty()) {
+            return String.format("You have no tasks on %s\n", targetDate.format(DateTimeFormatter.ISO_DATE));
         }
 
-        return sb.toString();
+        return message;
     }
 
     /**
