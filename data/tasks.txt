@@ -1,6 +1,4 @@
-T | 0 | read
+D | 0 | eat cake | 2024-09-12
+E | 0 | camp | 2024-09-10 | 2024-09-15
+T | 0 | make bbt
 T | 0 | play
-T | 0 | eat
-E | 1 | go overseas | 1111-11-11 | 1212-12-12
-D | 0 | gym | 2025-01-04
-D | 0 | go to the mall | 2024-10-10
