@@ -35,12 +35,27 @@ public class MainWindow extends VBox {
     private boolean updateOutput = false;
 
     /**
+     * Initialises the MainWindow gui nodes.
+     */
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    /**
      * Sets the UiGui interface for the window.
      *
      * @param ui UiGui interface
      */
     public void setUi(UiGui ui) {
         this.ui = ui;
+
+        // New thread to monitor the OUTPUT stream from the bot,
+        // and set the update flag. Platform.runLater signals
+        // JavaFX thread to run the function within its context.
+        //
+        // This is here instead of in initialize because we need
+        // the ui context
         new Thread(() -> {
             while (ui.hasOutputLines()) {
                 this.updateOutput = true;
@@ -50,20 +65,14 @@ public class MainWindow extends VBox {
     }
 
     /**
-     * Initialises the MainWindow gui nodes.
-     */
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    /**
      * Pulls any output present from bot and outputs them.
      */
     private void handleBotOutput() {
+        // guard clause to prevent unintended loops
         if (!this.updateOutput) {
             return;
         }
+
         try {
             String response = ui.getNextOutputLine();
             DialogBox replyDialogBox = DialogBox.getReplyDialog(response, ypImage);
