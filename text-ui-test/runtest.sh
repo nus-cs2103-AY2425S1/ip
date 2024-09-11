@@ -23,6 +23,8 @@ fi
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Victor < input.txt > ACTUAL.TXT
 
+sudo apt-get dos2unix
+
 # compare the output to the expected output
 dos2unix -n EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT
