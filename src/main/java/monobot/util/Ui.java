@@ -54,6 +54,8 @@ public class Ui {
      * @param taskList taskList contains all tasks to be printed
      */
     public void printTasks(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
+
         StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
             sb.append("No tasks added yet");
@@ -72,6 +74,8 @@ public class Ui {
      * @param taskList taskList contains all matching tasks to be printed
      */
     public void printMatchingTasks(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
+
         StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
             sb.append("No matching tasks found");
@@ -91,6 +95,9 @@ public class Ui {
      * @param totalTasks Total number of tasks currently in the taskList
      */
     public void printAddedTask(Task task, int totalTasks) {
+        assert task != null : "Task added should not be null";
+        assert totalTasks >= 0 : "Total tasks should not be negative";
+
         setLastOutput("Added: " + task + "\nNow you have " + totalTasks + " task(s) in the list");
     }
 
@@ -101,6 +108,9 @@ public class Ui {
      * @param totalTasks Total number of tasks currently in the taskList
      */
     public void printDeletedTask(Task task, int totalTasks) {
+        assert task != null : "Task deleted should not be null";
+        assert totalTasks >= 0 : "Total tasks should not be negative";
+
         setLastOutput("Noted! I have removed this task:\n"
                 + task
                 + "\nNow you have " + totalTasks + " task(s) in the list");
@@ -130,6 +140,8 @@ public class Ui {
      * @param message error to be displayed
      */
     public void printError(String message) {
+        assert message != null : "Error message should not be null";
+
         setLastOutput(message);
     }
 }

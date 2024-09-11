@@ -31,8 +31,12 @@ public class Parser {
      * @throws MonoBotException If command in user's input is invalid or not recognised
      */
     public static Command parseCommand(String input) throws MonoBotException {
+        assert input != null : "Input should not be null";
+
         String[] parts = input.split(" ", 2);
         String commandString = parts[0].toLowerCase();
+        assert !commandString.isEmpty() : "Command string should not be empty";
+
         CommandType type = parseCommandType(commandString);
 
         switch (type) {
@@ -53,7 +57,9 @@ public class Parser {
         case INVALID:
             return new InvalidCommand();
         case FIND:
-            return new FindCommand(getSearchKeywords(input));
+            String[] keywords = getSearchKeywords(input);
+            assert keywords.length > 0 : "At least one search keyword should be provided";
+            return new FindCommand(keywords);
         default:
             throw new IllegalArgumentException();
         }
@@ -66,6 +72,8 @@ public class Parser {
      * @return CommandType given in user's input
      */
     private static CommandType parseCommandType(String commandString) {
+        assert commandString != null : "Command string should not be null";
+
         switch (commandString) {
         case "list":
             return CommandType.LIST;
@@ -99,6 +107,7 @@ public class Parser {
      */
     public static Task parseTask(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
+        assert parts.length == 2 : "Input should have both command and details";
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new MonoBotException("Task details are missing");
         }
@@ -127,6 +136,8 @@ public class Parser {
      */
     private static int getTaskIndex(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
+        assert parts.length == 2 : "Input should have both command and task index";
+
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
             throw new MonoBotException("Please specify which task to process");
         }
@@ -135,6 +146,8 @@ public class Parser {
 
     private static String[] getSearchKeywords(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
+        assert parts.length == 2 : "Input should have both command and search keywords";
+
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
             throw new MonoBotException("Please specify one or more keywords to search for.");
         }
@@ -149,6 +162,8 @@ public class Parser {
      * @throws MonoBotException If Deadline details are missing
      */
     private static Task parseDeadline(String details) throws MonoBotException {
+        assert details != null && !details.isEmpty() : "Details for deadline task should not be empty";
+
         String[] deadlineDetails = details.split("/by", 2);
         if (deadlineDetails.length != 2 || deadlineDetails[1].trim().isEmpty()) {
             throw new MonoBotException("Due date/time of task is missing. "
@@ -170,6 +185,8 @@ public class Parser {
      * @throws MonoBotException If Event details are missing
      */
     private static Task parseEvent(String details) throws MonoBotException {
+        assert details != null && !details.isEmpty() : "Details for event task should not be empty";
+
         String[] eventDetails = details.split("/from|/to ", 3);
         if (eventDetails.length != 3 || eventDetails[1].trim().isEmpty()
                 || eventDetails[2].trim().isEmpty()) {
