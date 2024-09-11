@@ -18,7 +18,8 @@ public class FindCommand extends Command {
 
         ArrayList<Task> matchedTasks = taskList.matchTaskDescription(itemToFind);
 
-        matchedTasks.forEach(task ->
+        
+        matchedTasks.stream().forEach(task ->
                 resultString.append((matchedTasks.indexOf(task) + 1))
                         .append(". ")
                         .append(task)

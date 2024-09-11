@@ -156,8 +156,7 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder resultString = new StringBuilder();
-
-        inputHistory.forEach(task ->
+        inputHistory.stream().forEach(task ->
                 resultString.append((inputHistory.indexOf(task) + 1))
                         .append(". ")
                         .append(task)
