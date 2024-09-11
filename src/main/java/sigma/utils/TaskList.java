@@ -1,11 +1,10 @@
 package sigma.utils;
 
-import sigma.exception.SigmaException;
-import sigma.task.Task;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import sigma.exception.SigmaException;
+import sigma.task.Task;
 /**
  * Represents a list of tasks.
  * Contains operations to add, remove, and get tasks.

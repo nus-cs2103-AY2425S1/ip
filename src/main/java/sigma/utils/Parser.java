@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import sigma.command.*;
 import sigma.exception.SigmaException;
 
 /**
@@ -18,36 +17,36 @@ public class Parser {
      * @param command User input.
      * @return Corresponding command.
      */
-    public static Command parse(String command) {
+    public static sigma.command.Command parse(String command) {
         String[] commandArray = command.split(" ", 2);
         assert commandArray != null : "Command array cannot be null";
         assert commandArray.length > 0 : "Command array length cannot be 0";
         String cmd = commandArray[0].toLowerCase();
         switch (cmd) {
         case "todo":
-            return new TodoCommand(commandArray);
+            return new sigma.command.TodoCommand(commandArray);
         case "deadline":
-            return new DeadlineCommand(commandArray);
+            return new sigma.command.DeadlineCommand(commandArray);
         case "event":
-            return new EventCommand(commandArray);
+            return new sigma.command.EventCommand(commandArray);
         case "list":
-            return new ListCommand(commandArray);
+            return new sigma.command.ListCommand(commandArray);
         case "mark":
-            return new MarkCommand(commandArray);
+            return new sigma.command.MarkCommand(commandArray);
         case "unmark":
-            return new UnmarkCommand(commandArray);
+            return new sigma.command.UnmarkCommand(commandArray);
         case "delete":
-            return new DeleteCommand(commandArray);
+            return new sigma.command.DeleteCommand(commandArray);
         case "bye":
-            return new ByeCommand(commandArray);
+            return new sigma.command.ByeCommand(commandArray);
         case "find":
-            return new FindCommand(commandArray);
+            return new sigma.command.FindCommand(commandArray);
         case "help":
-            return new HelpCommand(commandArray);
+            return new sigma.command.HelpCommand(commandArray);
         case "sort":
-            return new SortCommand(commandArray);
+            return new sigma.command.SortCommand(commandArray);
         default:
-            return new UnrecognisedCommand(commandArray);
+            return new sigma.command.UnrecognisedCommand(commandArray);
         }
     }
 
