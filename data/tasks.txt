@@ -5,3 +5,4 @@ D | 0 | read lecture notes | 2024-01-01
 T | 0 | sleep
 D | 0 | read documentation | 2020-03-01
 T | 0 | stupid
+T | 1 | hello!

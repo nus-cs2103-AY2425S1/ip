@@ -16,10 +16,6 @@ public class Event extends Task {
 
     public Event(String description, LocalDate from, LocalDate to) throws OllieException {
         super(description);
-
-        if (!from.isBefore(to)) {
-            throw new OllieException("/from's date must be before /to's date!");
-        }
         this.from = from;
         this.to = to;
     }

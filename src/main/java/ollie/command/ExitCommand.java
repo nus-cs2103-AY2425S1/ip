@@ -20,7 +20,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
-        // Save data
         storage.save(tasks.getTasks());
         return new Response(ui.getExitMessage(), true);
     }

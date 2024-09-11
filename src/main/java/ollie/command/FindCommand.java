@@ -8,15 +8,16 @@ import ollie.exception.OllieException;
 import ollie.task.Task;
 
 public class FindCommand extends Command {
-    String findQuery;
+    String filterParameter;
 
-    public FindCommand(String findQuery) {
-        this.findQuery = findQuery;
+    public FindCommand(String filterParameter) {
+        this.filterParameter = filterParameter;
     }
 
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
-        return new Response(ui.getTaskListMessage(tasks.filterByString(this.findQuery)), false);
+        assert(filterParameter != null);
+        return new Response(ui.getTaskListMessage(tasks.filterByString(this.filterParameter)), false);
     }
 }
 

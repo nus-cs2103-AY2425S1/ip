@@ -12,7 +12,7 @@ import ollie.Ui;
  */
 public abstract class Command {
     /**
-     * Return response object to be processed by Main Window
+     * Returns a response object to be processed by Main Window
      */
     public abstract Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException;
 }

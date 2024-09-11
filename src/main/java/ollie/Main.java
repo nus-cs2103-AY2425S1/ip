@@ -26,7 +26,6 @@ public class Main extends Application implements ExitHandler {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            // stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
             fxmlLoader.<MainWindow>getController().setOllie(ollie);
             fxmlLoader.<MainWindow>getController().setExitHandler(this);
             stage.show();

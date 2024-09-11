@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Execute the marking of task at a particular index in the list as undone.
+     * Executes the marking of task at a particular index in the list as undone.
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.

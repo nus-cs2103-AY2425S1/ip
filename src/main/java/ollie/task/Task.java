@@ -34,7 +34,7 @@ public class Task {
     }
 
     /**
-     * Return the formatted string for easy parsing and writing into file (database).
+     * Returns the formatted string for easy parsing and writing into file (database).
      *
      * @return Formatted String.
      */
@@ -42,8 +42,11 @@ public class Task {
         return String.format("%d | %s", isDone ? 1 : 0, this.description);
     }
 
-    public boolean doesDescContain(String findQuery) {
-        return this.description.contains(findQuery);
+    /**
+     * Return true if description contains the string input
+     */
+    public boolean doesDescContain(String s) {
+        return this.description.contains(s);
     }
 
     @Override

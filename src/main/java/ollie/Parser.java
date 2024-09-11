@@ -74,14 +74,13 @@ public class Parser {
             if (!s.contains("/by")) {
                 throw new OllieException("Use deadline with a \"/by\" keyword and a date.");
             }
-            String[] splitString = s.split("/by", 2);
 
+            String[] splitString = s.split("/by", 2);
+            String byInString = splitString[1].trim();
             String desc = splitString[0].replaceFirst("deadline", "").trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of deadline cannot be empty!");
             }
-
-            String byInString = splitString[1].trim();
             if (byInString.isEmpty()) {
                 throw new OllieException("date of deadline cannot be empty!");
             }
@@ -104,18 +103,17 @@ public class Parser {
             if (!s.matches(".*/from.*/to.*")) {
                 throw new OllieException("\"/from\" keyword must come before \"/to\" keyword.");
             }
-            String[] splitString = s.split("/from|/to", 3);
 
+            String[] splitString = s.split("/from|/to", 3);
             String desc = splitString[0].replaceFirst("event", "").trim();
+            String fromInString = splitString[1].trim();
+            String toInString = splitString[2].trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of event cannot be empty!");
             }
-
-            String fromInString = splitString[1].trim();
             if (fromInString.isEmpty()) {
                 throw new OllieException("date after /from cannot be empty!");
             }
-            String toInString = splitString[2].trim();
             if (toInString.isEmpty()) {
                 throw new OllieException("date after /to cannot be empty!");
             }
@@ -127,15 +125,22 @@ public class Parser {
             } catch (DateTimeException e) {
                 throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
             }
+            assert(from != null);
+            assert (to != null);
+            if (!from.isBefore(to)) {
+                throw new OllieException("/from's date must be before /to's date!");
+            }
 
             task = new Event(desc, from, to);
-        } else {
+        } else if (s.matches("^todo.*")){
             String desc = s.replaceFirst("todo", "").trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of todo cannot be empty!");
             }
 
             task = new Todo(desc);
+        } else {
+            throw new OllieException("Invalid Task");
         }
         return task;
     }
