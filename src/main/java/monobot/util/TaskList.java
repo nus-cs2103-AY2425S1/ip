@@ -105,7 +105,7 @@ public class TaskList {
     /**
      * Creates new ArrayList of tasks.
      *
-     * @return ArrayList containing tasks
+     * @return ArrayList containing tasks.
      */
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks);
