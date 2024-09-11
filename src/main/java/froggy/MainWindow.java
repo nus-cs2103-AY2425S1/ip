@@ -36,6 +36,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Froggy instance */
     public void setFroggy(Froggy f) {
         froggy = f;
+        String response = froggy.getGreeting();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getFroggyDialog(response, dukeImage)
+        );
     }
 
     /**

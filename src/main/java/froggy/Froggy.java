@@ -28,6 +28,10 @@ public class Froggy {
         ui.close();
     }
 
+    public String getGreeting() {
+        return ui.getGreeting();
+    }
+
     /**
      * Generates a response for user's chat message
      */
