@@ -3,6 +3,7 @@ package lexi.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import lexi.command.AddCommand;
 import lexi.command.ByeCommand;
@@ -57,10 +58,10 @@ public class Parser {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
     }
-
-    private static FindCommand handleFind(String[] parts) {
+    private static FindCommand handleFind(String[] parts) throws LexiException {
         assert parts != null && parts.length > 1 : "Find command must have a query part";
-        String query = parts[1];
+        String query = Arrays.stream(parts).skip(1).findFirst().orElseThrow(() ->
+                new LexiException("Find command requires a query string."));
         return new FindCommand(query);
     }
 
@@ -169,12 +170,12 @@ public class Parser {
             throw new LexiException(errorMessage);
         }
 
-        String taskName = response.substring(5);
+        String taskName = response.substring(5).trim();
 
-        if (taskName.isBlank()) {
+        if (taskName.isEmpty()) {
             throw new LexiException(errorMessage);
         }
-        return new AddCommand((new Todo(taskName)));
+        return new AddCommand(new Todo(taskName));
     }
 
     /**
@@ -185,17 +186,12 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the task number is invalid.
      */
     private static MarkCommand handleMark(String[] parts) throws LexiException {
-        assert parts != null && parts.length == 2 : "Mark command must have exactly two parts";
-        if (parts[1].isEmpty() || parts[1].isBlank()) {
-            throw new LexiException("Please enter your command in this format\n"
-                    + "\"mark <number>\"");
-        }
-        int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (parts[0].equals("unmark")) {
-            return new MarkCommand(taskNumber, false);
-        } else {
-            return new MarkCommand(taskNumber, true);
-        }
+        int taskNumber = Arrays.stream(parts).skip(1).findFirst()
+                .map(part -> Integer.parseInt(part) - 1)
+                .orElseThrow(() -> new LexiException("Please enter a valid task number in the format:\n"
+                        + "\"mark <number>\""));
+
+        return new MarkCommand(taskNumber, "mark".equalsIgnoreCase(parts[0]));
     }
 
     /**
