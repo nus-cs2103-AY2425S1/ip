@@ -28,15 +28,19 @@ public class MainWindow extends AnchorPane {
 
     private Slave slave;
 
-    public static String imageAddress = "/images/DaUser.png";
+    public static String userImageAddress = "/images/DaUser.png";
+    public static String slaveImageAddress = "/images/slave_pp.jpg";
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream(imageAddress));
-    private Image slaveImage = new Image(this.getClass().getResourceAsStream(imageAddress));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(userImageAddress));
+    private Image slaveImage = new Image(this.getClass().getResourceAsStream(slaveImageAddress));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        for (String string : Ui.appWelcomeMsg()) {
+    }
+
+    private void printWelcomeMsg() {
+        for (String string : slave.getWelcomeMsg()) {
             dialogContainer.getChildren().add(DialogBox.getSlaveDialog(string, slaveImage));
         }
     }
@@ -46,6 +50,8 @@ public class MainWindow extends AnchorPane {
      */
     public void setSlave(Slave s) {
         slave = s;
+        assert s != null : "slave object should not be null";
+        printWelcomeMsg();
     }
 
     /**

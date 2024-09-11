@@ -8,10 +8,8 @@ import java.util.List;
  */
 public class Ui {
     private static String user = "slave driver";
-    private Parser parser;
 
-    public Ui(List<Task> tasklist) {
-        parser = new Parser(tasklist);
+    public Ui() {
     }
 
     /**
@@ -19,7 +17,7 @@ public class Ui {
      *
      * @return an array of Strings containing the welcome messages
      */
-    public static String[] appWelcomeMsg() {
+    public String[] appWelcomeMsg() {
         String[] result = new String[3];
         result[0] = "Ugh... why did you wake me up...";
         result[1] = "Guess I am now your personal Slave";
