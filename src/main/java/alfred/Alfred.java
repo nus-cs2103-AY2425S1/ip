@@ -38,6 +38,7 @@ public class Alfred {
             storage.clearStorage();
             tasks = new TaskList();
         }
+        assert tasks != null : "Task list should not be null after initialization";
     }
 
     /**
@@ -90,6 +91,7 @@ public class Alfred {
         String validationResult = Parser.validateCommand(input, command, tasks.getTasksCount());
         if (validationResult.isEmpty()) {
             int taskNumber = Parser.getTaskNumberFromInput(input);
+            assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
             Task markedTask = tasks.markTask(taskNumber);
             return AlfredResponse.showTaskMarked(markedTask);
         }
@@ -108,6 +110,7 @@ public class Alfred {
         String validationResult = Parser.validateCommand(input, command, tasks.getTasksCount());
         if (validationResult.isEmpty()) {
             int taskNumber = Parser.getTaskNumberFromInput(input);
+            assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
             Task markedTask = tasks.unmarkTask(taskNumber);
             return AlfredResponse.showTaskUnmarked(markedTask);
         }
@@ -124,6 +127,7 @@ public class Alfred {
         if (tasks.isEmpty()) {
             return AlfredResponse.getNoTasksMessage();
         }
+        assert !tasks.getTasks().isEmpty() : "Task list should not be empty if tasks are not empty";
         return AlfredResponse.getTaskList(tasks.getTasks());
     }
 
@@ -155,6 +159,7 @@ public class Alfred {
      */
     public String findTask(String input) {
         String keyword = Parser.getKeyword(input);
+        assert keyword != null && !keyword.isEmpty() : "Keyword should not be null or empty";
         List<Task> foundTasks = tasks.findTasks(keyword);
         return AlfredResponse.getFoundTasks(foundTasks);
     }
