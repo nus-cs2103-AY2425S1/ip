@@ -31,11 +31,9 @@ public class Task {
     }
 
     public void writeToFile(FileWriter fileWriter) throws IOException {
-        return;
     }
 
     public void writeToFile(Path filePath) throws IOException {
-        return;
     }
 
     @Override

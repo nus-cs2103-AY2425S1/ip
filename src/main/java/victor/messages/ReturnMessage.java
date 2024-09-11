@@ -26,16 +26,19 @@ public class ReturnMessage {
         return this.message;
     }
 
+    /**
+     * Gets all the return messages from commands as one string.
+     * @return A string with all return messages separated by newlines.
+     */
     public String getMessagesAsString() {
-        if (!this.isEmpty()) {
-            String returnString = "";
-            for (String string : getMessages()) {
-                returnString += string + "\n";
-            }
-            return returnString.trim();
-        } else {
+        if (this.isEmpty()) {
             return "  ~  Sorry, something went wrong! Please try again!";
         }
+        String returnString = "";
+        for (String string : getMessages()) {
+            returnString += string + "\n";
+        }
+        return returnString.trim();
     }
 
     public boolean isEmpty() {

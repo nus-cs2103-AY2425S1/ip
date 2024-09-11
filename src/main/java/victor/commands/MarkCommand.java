@@ -9,20 +9,17 @@ import victor.messages.ReturnMessage;
  * as complete and executes mark command on specified task.
  */
 public class MarkCommand extends Command {
+    private static final String WRONG_TASK_NUMBER = "-1";
     private String taskNumber;
 
     /**
      * Mark command constructor that takes in additional input and validates that
      * task number was provided at all to mark.
-     * @param additionalInput
+     * @param additionalInput A string array containing all additional inputs to Mark command.
      */
     public MarkCommand(String[] additionalInput) {
         super(additionalInput);
-        if (additionalInput.length == 1) {
-            this.taskNumber = "-1";
-        } else {
-            this.taskNumber = additionalInput[1];
-        }
+        setTaskNumber();
     }
 
     /**
@@ -33,6 +30,18 @@ public class MarkCommand extends Command {
     public MarkCommand(int task) {
         super(new String[] {});
         this.taskNumber = String.valueOf(task);
+    }
+
+    /**
+     * Checks if additional input has a number provided for the mark command. If not,
+     * sets task number to constant wrong value.
+     */
+    private void setTaskNumber() {
+        if (additionalInput.length == 1) {
+            this.taskNumber = WRONG_TASK_NUMBER;
+        } else {
+            this.taskNumber = additionalInput[1];
+        }
     }
 
     /**
@@ -56,8 +65,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public void write(Path filePath) {
-        if (!taskNumber.trim().equals("-1")) {
-            super.taskList.writeToFile(filePath, true);
+        if (taskNumber.trim().equals(WRONG_TASK_NUMBER)) {
+            return;
         }
+        super.taskList.writeToFile(filePath, true);
     }
 }

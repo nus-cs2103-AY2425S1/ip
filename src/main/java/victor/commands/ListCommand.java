@@ -21,8 +21,7 @@ public class ListCommand extends Command {
         if (taskList.getSize() == 0) {
             return new ReturnMessage("  ~  No tasks in the list, add some To Dos, Events,"
                 + " and Deadlines first :)");
-        } else {
-            return new ReturnMessage(super.taskList.enumerateTasks());
         }
+        return new ReturnMessage(super.taskList.enumerateTasks());
     }
 }
