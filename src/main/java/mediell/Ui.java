@@ -22,6 +22,11 @@ public class Ui {
         return "Bye. Hope to see you again soon! :(";
     }
 
+    /**
+     * Gets the message to be displayed
+     * @param instruction is the instructions that has been executed
+     * @param taskList is the taskList to get the data to display
+     */
     public String getMessage(Instruction instruction, TaskList taskList)
             throws IncorrectIndexException, IncorrectInstructionFormatException {
         switch (instruction.getInstructionType()) {
