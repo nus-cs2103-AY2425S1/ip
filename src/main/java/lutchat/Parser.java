@@ -18,7 +18,7 @@ public class Parser {
      * @return A boolean indicating whether the application should continue running.
      */
     public static boolean parse(String userInput, Ui ui, TaskList taskList, Storage storage) {
-        String[] userInputArr = userInput.split(" ");
+        String[] userInputArr = userInput.trim().split(" ");
         String keyword = userInputArr[0];
 
         switch (keyword) {
@@ -35,6 +35,7 @@ public class Parser {
                 } else {
                     try {
                         int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
+                        assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index for marking.";
                         taskList.markTaskAsDone(taskIndex, ui);
                     } catch (NumberFormatException e) {
                         ui.showError("Invalid task number. Please enter a valid number.");
@@ -48,6 +49,7 @@ public class Parser {
                 } else {
                     try {
                         int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
+                        assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index for unmarking.";
                         taskList.markTaskAsUndone(taskIndex, ui);
                     } catch (NumberFormatException e) {
                         ui.showError("Invalid task number. Please enter a valid number.");
@@ -62,6 +64,7 @@ public class Parser {
                     try {
                         int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
                         taskList.deleteTask(taskIndex, ui);
+                        assert taskList.getTasks().size() == (Integer.valueOf(userInputArr[1]) - 1) : "Task list size doesn't match expected size after deletion.";
                     } catch (NumberFormatException e) {
                         ui.showError("Invalid task number. Please enter a valid number.");
                     }
@@ -74,6 +77,7 @@ public class Parser {
                     ui.showError("Todo 'description' is missing...");
                 } else {
                     Task todo = new Todo(todoDesc);
+                    assert todo != null  : "Todo creation failed.";
                     taskList.addTask(todo, ui);
                 }
                 return true;
@@ -87,6 +91,7 @@ public class Parser {
                     String by = deadlineParts[1].trim();
                     try {
                         Task deadline = new Deadline(deadlineDesc, by);
+                        assert deadline != null  : "Deadline creation failed.";
                         taskList.addTask(deadline, ui);
                     } catch (IllegalArgumentException e) {
                         ui.showError(e.getMessage());
@@ -108,6 +113,7 @@ public class Parser {
                         String to = fromTo[1].trim();
                         try {
                             Task event = new Event(eventDesc, from, to);
+                            assert event != null  : "Event creation failed.";
                             taskList.addTask(event, ui);
                         } catch (IllegalArgumentException e) {
                             ui.showError(e.getMessage());
