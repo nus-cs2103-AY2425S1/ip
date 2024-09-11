@@ -1,24 +1,35 @@
-# Duke project template
+# Skibidi Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Skibidi chatbot is a **free** chatbot to help you remember the things you need to do in case your brain rots.
 
-## Setting up in Intellij
+- text-based
+- easy to learn
+- ~fast~ 🔥🔥🔥 *BLAZINGLY FAST*
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+To try out this app, follow these steps:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. download it from [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+2. double-click it
+3. add your tasks
+
+>"deep sounding quote" ~ important person name, ([for more quotes](https://inspirobot.me/))
+
+## Roadmap
+
+- [x] Managing tasks
+- [ ] Managing deadlines
+- [ ] Reminders
+
+## Code snippets
+
+You might encounter a significant amount of frustration when using the app since it is currently 100% text based which could lead to suboptimal user experience. To worsen this experience, create and run a file names `Main.java` with the following code:
+
+```java
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		Runtime.getRuntime().exec(new String[]{"java", "-cp", System.getProperty("java.class.path"), "Main"});
+	}
+}
+```
