@@ -3,18 +3,20 @@ package pikappi.task;
 /**
  * Represents a task in Pikappi.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     /**
      * Creates a new Task object.
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, String taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     /**
@@ -23,9 +25,10 @@ public class Task {
      * @param description The description of the task.
      * @param isDone The status of the task.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, String taskType, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.taskType = taskType;
     }
 
     /**
@@ -67,6 +70,15 @@ public class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task.
+     */
+    public String getTaskType() {
+        return this.taskType;
     }
 
     /**

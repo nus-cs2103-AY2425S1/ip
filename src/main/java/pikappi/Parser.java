@@ -9,6 +9,7 @@ import pikappi.command.FindCommand;
 import pikappi.command.HelpCommand;
 import pikappi.command.ListCommand;
 import pikappi.command.MarkCommand;
+import pikappi.command.SortCommand;
 import pikappi.command.TodoCommand;
 import pikappi.command.UnmarkCommand;
 import pikappi.exception.PikappiException;
@@ -80,6 +81,13 @@ public class Parser {
             break;
         case "HELP":
             c = new HelpCommand();
+            break;
+        case "SORT":
+            try {
+                c = new SortCommand(command.split("sort ")[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? What do you want to sort by?");
+            }
             break;
         default:
             throw new PikappiException("Pika..?? I don't understand..");

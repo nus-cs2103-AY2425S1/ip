@@ -18,7 +18,7 @@ public class DeadlineTask extends Task {
      * @param by The deadline of the task.
      */
     public DeadlineTask(String description, String by) {
-        super(description);
+        super(description, "D");
         String timeBy = "";
         try {
             LocalDate byDate = LocalDate.parse(by.split(" ")[0]);
@@ -48,7 +48,7 @@ public class DeadlineTask extends Task {
      * @param isDone The status of the task.
      */
     public DeadlineTask(String description, String by, boolean isDone) {
-        super(description, isDone);
+        super(description, "D", isDone);
         this.by = by;
     }
 
