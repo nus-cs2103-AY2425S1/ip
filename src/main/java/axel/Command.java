@@ -57,6 +57,7 @@ class AddCommand extends CommandBase {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
+        assert task != null : "Task to be added cannot be null";
         taskList.addTask(task);
         ui.printTaskAdded(task, taskList.size());
         try {
@@ -189,12 +190,14 @@ class FindCommand extends CommandBase {
     protected String keyword;
 
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword for find command should not be null or empty";
         this.keyword = keyword;
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> matchingTasks = taskList.findTasksWithKeyword(keyword);
+        assert matchingTasks != null : "Matching tasks list should not be null";
         ui.printMatchingTasks(matchingTasks);
         return ui.showMatchingTasksAsString(matchingTasks);
     }
