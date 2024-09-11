@@ -29,19 +29,19 @@ public class Event extends Task {
      * @param startTime
      * @param endTime
      */
-    public Event(boolean isDone, String description, String startTime, String endTime) {
-        super(description, isDone);
+    public Event(boolean isDone, String description, String startTime, String endTime, String tag) {
+        super(description, isDone, tag);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " from: " + this.startTime + " to: " + this.endTime;
+        return "[E]" + super.toString() + " from: " + this.startTime + " to: " + this.endTime + getTagString();
     }
 
     @Override
     public String toStorageString() {
-        return "E," + super.toStorageString() + "," + startTime + "," + endTime;
+        return "E," + super.toStorageString() + "," + startTime + "," + endTime + "," + this.tag;
     }
 }

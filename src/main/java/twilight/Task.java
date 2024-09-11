@@ -4,8 +4,10 @@ package twilight;
  * Stores all the information pertaining to a task and allows modification to status.
  */
 public class Task {
+    protected String EMPTYTAG = "NA";
     protected String description;
     protected boolean isDone;
+    protected String tag;
 //  false status indicates incomplete item
 
     /**
@@ -16,6 +18,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = EMPTYTAG;
     }
 
     /**
@@ -24,9 +27,10 @@ public class Task {
      * @param description What the task is.
      * @param status Whether task is complete.
      */
-    public Task(String description, boolean status) {
+    public Task(String description, boolean status, String tag) {
         this.description = description;
         this.isDone = status;
+        this.tag = tag;
     }
 
     @Override
@@ -56,5 +60,20 @@ public class Task {
 
     public void setUndone() {
         this.isDone = false;
+    }
+
+    public void tag(String tag) {
+        if (this.tag.equals(EMPTYTAG)) {
+            this.tag = tag;
+        } else {
+            this.tag += " " + tag;
+        }
+    }
+
+    protected String getTagString() {
+        if (tag.equals("NA")) {
+            return "";
+        }
+        return " " + tag;
     }
 }

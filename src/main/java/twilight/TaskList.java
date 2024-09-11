@@ -108,6 +108,22 @@ public class TaskList {
         return "Here are the matches:\n" + results;
     }
 
+    /**
+     * Tags the task in the task list according to user input.
+     *
+     * @param taskNum
+     * @param tag String to be tagged.
+     * @return toString to confirm tagging.
+     */
+    public String tag(int taskNum, String tag) throws InvalidInputException {
+        try {
+            tasks.get(taskNum).tag(tag);
+            return tasks.get(taskNum).toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist");
+        }
+    }
+
     private static String taskListToStringList(TaskList tasks) {
         String results = "";
         int size = tasks.tasks.size();
