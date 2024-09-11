@@ -30,7 +30,7 @@ public class Atlas implements ChatBot {
             Command command = messageView.parseInput(input);
             String[] inputParts = messageView.splitInput(input);
 
-            switch(command) {
+            switch (command) {
             case Exit:
                 handleExit();
                 return;
