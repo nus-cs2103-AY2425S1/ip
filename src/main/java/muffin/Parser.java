@@ -1,5 +1,8 @@
 package muffin;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * Responsible for parsing user input into distinct components.
  * It splits the input string into a command and its respective arguments, handling
@@ -38,9 +41,9 @@ public class Parser {
             }
         }
 
-        String[] allParts = new String[parts.length + 1];
-        allParts[0] = firstWord;
-        System.arraycopy(parts, 0, allParts, 1, parts.length);
-        return allParts;
+        return Stream.concat(
+                Stream.of(firstWord),
+                Arrays.stream(parts)
+        ).toArray(String[]::new);
     }
 }
