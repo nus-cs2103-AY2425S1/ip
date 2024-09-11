@@ -5,10 +5,23 @@ import momo.exception.InvalidCommandException;
 import momo.task.Task;
 import momo.task.TaskList;
 
+/**
+ * Class for find command
+ */
 public class FindCommand extends Command {
+
+    public static final int COMMAND_PREFIX_OFFSET = 4;
+
+    /**
+     * Runs the find command
+     * @param input
+     * @param tasks
+     * @param ui
+     * @throws InvalidCommandException
+     */
     public static void run(String input, TaskList tasks, Ui ui) throws InvalidCommandException {
         StringBuilder matchingTasks = new StringBuilder();
-        String desc = input.substring(4).trim().toLowerCase();
+        String desc = input.substring(COMMAND_PREFIX_OFFSET).trim().toLowerCase();
 
         if (desc.isEmpty()) {
             throw new InvalidCommandException("What are you trying to find?! Don't make me come and find you...");
