@@ -29,6 +29,7 @@ public class AddUnmark extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
+        assert(command.length == 2);
         if (command.length == 2) {
             ui.print("OK, I've marked this task as not done yet:");
             reminder.unmark(Integer.parseInt(command[1]) - 1);
