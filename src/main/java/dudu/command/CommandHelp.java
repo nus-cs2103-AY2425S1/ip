@@ -19,7 +19,7 @@ public class CommandHelp extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        return ui.helpMessage();
+        return ui.getHelpMessage();
     }
 
     /**

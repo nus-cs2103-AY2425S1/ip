@@ -17,7 +17,7 @@ public class CommandBye extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
-        return ui.goodbyeMessage();
+        return ui.getGoodbyeMessage();
     }
 
     /**
