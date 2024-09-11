@@ -9,6 +9,7 @@ public class TaskList {
     private Task[] tasks;
     private int numberOfTasks = 0;
     private static final int TASK_LIST_SIZE = 100;
+
     private static final String REPLY_INVALID_TASK_NUMBER = "There is no task with the given task number.";
     private static final String REPLY_ADDED = "Got it. I've added this task:\n  ";
     private static final String REPLY_DELETED = "Noted. I've removed this task:\n ";

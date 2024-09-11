@@ -7,9 +7,9 @@ import java.time.LocalDate;
 public class Deadline extends Task {
     LocalDate date;
     private static final String type = "[D]";
-    public Deadline(String descr, String dl) {
-        super(descr);
-        date = LocalDate.parse(dl);
+    public Deadline(String description, String deadline) {
+        super(description);
+        date = LocalDate.parse(deadline);
     }
 
     /**
