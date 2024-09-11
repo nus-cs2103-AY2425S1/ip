@@ -62,8 +62,13 @@ public class Command {
     }
 
     public String delete(String[] input, TaskList tasks) {
-        int number = Integer.parseInt(input[1]) - 1;
-        return tasks.deleteTask(number);
+        try {
+            int number = Integer.parseInt(input[1]) - 1;
+            return tasks.deleteTask(number);
+        }
+        catch (NumberFormatException e) {
+            return "Detected list number as a non integer value! The right format is delete {list number}";
+        }
     }
 
     public String list(TaskList tasks) {
@@ -80,13 +85,23 @@ public class Command {
     }
 
     public String mark(String[] input, TaskList tasks) {
-        int number = Integer.parseInt(input[1]) - 1;
-        return tasks.markTaskAsDone(number);
+        try {
+            int number = Integer.parseInt(input[1]) - 1;
+            return tasks.markTaskAsDone(number);
+        }
+        catch (NumberFormatException e) {
+            return "Detected list number as a non integer value! The right format is mark {list number}";
+        }
     }
 
     public String unmark(String[] input, TaskList tasks) {
-        int number = Integer.parseInt(input[1]) - 1;
-        return tasks.markTaskAsNotDone(number);
+        try {
+            int number = Integer.parseInt(input[1]) - 1;
+            return tasks.markTaskAsNotDone(number);
+        }
+        catch (NumberFormatException e) {
+            return "Detected list number as a non integer value! The right format is unmark {list number}";
+        }
     }
 
     public String bye() {
