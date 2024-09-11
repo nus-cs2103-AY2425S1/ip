@@ -34,9 +34,11 @@ public class SkD {
      * @param filePath Path to storage file.
      */
     public SkD(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         ui = new Ui();
         storage = new ToStore(filePath);
         tasks = storage.load();
+        assert tasks != null : "Task list should not be null after loading";
     }
 
     /**

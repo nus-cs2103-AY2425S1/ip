@@ -24,6 +24,7 @@ public class ToStore {
      * @param filePath Path to file where tasks are stored.
      */
     public ToStore(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         this.filePath = Paths.get(filePath);
     }
 
