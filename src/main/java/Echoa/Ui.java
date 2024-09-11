@@ -22,7 +22,7 @@ public class Ui {
     public String getDeleteTaskMessage(TaskList taskList, int index) {
         return "Task deleted :/\n" +
                 taskList.getSpecificTask(index).toString() + "\n" +
-                "Now you have " + (taskList.getSize()) + " task(s).\n";
+                "Now you have " + (taskList.getSize() - 1) + " task(s).\n";
     }
 
     public String getMarkTaskMessage(TaskList taskList, int index) {
