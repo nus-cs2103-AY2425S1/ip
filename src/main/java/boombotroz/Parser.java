@@ -11,9 +11,8 @@ public class Parser {
      *
      * @param taskList list of all the tasks.
      */
-    public String getList(Ui ui, TaskList taskList) {
+    public String printList(Ui ui, TaskList taskList) {
         return ui.printAll(taskList);
-
     }
 
     /**
@@ -32,11 +31,9 @@ public class Parser {
     public String markTask(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
-        String s = "";
-        s = taskList.markTask(input, ui);
+        String s = taskList.markTask(input, ui);
         storage.writeTasks(taskList.getAll());
         return s;
-
     }
 
     /**
@@ -55,8 +52,7 @@ public class Parser {
     public String unmarkTask(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
-        String s = "";
-        s = taskList.unmarkTask(input, ui);
+        String s = taskList.unmarkTask(input, ui);
         storage.writeTasks(taskList.getAll());
         return s;
     }
@@ -77,11 +73,9 @@ public class Parser {
     public String deleteTask(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
-        String s = "";
-        s = taskList.deleteTask(input, ui);
+        String s = taskList.deleteTask(input, ui);
         storage.writeTasks(taskList.getAll());
         return s;
-
     }
 
     /**
@@ -96,7 +90,7 @@ public class Parser {
      *
      */
     public String findTask(TaskList taskList, String input, Ui ui) throws BoomException {
-        ui.emptyWord(input);
+        ui.hasKeyWord(input);
         String word = input.substring(5);
         return ui.findTaskMessage(taskList, word);
     }
@@ -114,20 +108,18 @@ public class Parser {
      * @throws BoomException If no task details given.
      * @throws IOException If writing to file has issue.
      */
-    public String toDoTask(TaskList taskList, String input,
+    public String createToDo(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
-
-        String toDoTask = input.substring(5);
-
         // check if there is a task
-        ui.emptyTask(toDoTask);
+        String toDoTask = input.substring(5);
+        ui.hasTask(toDoTask);
 
         Task createdTask = new ToDo(false, toDoTask);
         taskList.addTask(createdTask);
-        String s = "";
-        s = ui.toDoMessage(createdTask, taskList);
         storage.writeTasks(taskList.getAll());
+
+        String s = ui.createTaskMessage(createdTask, taskList);
         return s;
 
     }
@@ -145,26 +137,23 @@ public class Parser {
      * @throws BoomException If no task details OR no deadline given.
      * @throws IOException If writing to file has issue.
      */
-    public String deadlineTask(TaskList taskList, String input,
+    public String createDeadline(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
-
-        String dlTaskTime = input.substring(9);
-
         // check if there is a task
-        ui.emptyTask(dlTaskTime);
-
+        String dlTaskTime = input.substring(9);
+        ui.hasTask(dlTaskTime);
         // check if there is a deadline
-        ui.emptyDeadline(dlTaskTime);
+        ui.hasEnd(dlTaskTime);
 
         String dlTask = dlTaskTime.split(" /by ")[0];
         String time = dlTaskTime.split(" /by ")[1];
         Task createdTask = new Deadline(false, dlTask, time);
-        createdTask.hasDate(ui);
         taskList.addTask(createdTask);
-        String s = "";
-        s = ui.deadlineMessage(createdTask, taskList);
+        createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());
+
+        String s = ui.createTaskMessage(createdTask, taskList);
         return s;
     }
 
@@ -181,17 +170,15 @@ public class Parser {
      * @throws BoomException If no task details OR invalid time period given.
      * @throws IOException If writing to file has issue.
      */
-    public String eventTask(TaskList taskList, String input,
+    public String createEvent(TaskList taskList, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
 
-        String eventTaskTime = input.substring(6);
-
         // check if there is a task
-        ui.emptyTask(eventTaskTime);
-
+        String eventTaskTime = input.substring(6);
+        ui.hasTask(eventTaskTime);
         // check if there is both a start and end time
-        ui.emptyStartEnd(eventTaskTime);
+        ui.hasStartEnd(eventTaskTime);
 
         String eventTask = eventTaskTime.split(" /from ")[0];
         String timeStart = eventTaskTime.split(" /from ")[1]
@@ -200,12 +187,11 @@ public class Parser {
                 .split(" /to ")[1];
         Task createdTask = new Event(false, eventTask,
                 timeStart, timeEnd);
-        createdTask.hasDate(ui);
         taskList.addTask(createdTask);
-        String s = "";
-        s = ui.eventMessage(createdTask, taskList);
+        createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());
+
+        String s = ui.createTaskMessage(createdTask, taskList);
         return s;
     }
-
 }

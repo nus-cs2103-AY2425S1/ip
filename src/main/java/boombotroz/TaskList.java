@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class TaskList {
     private List<Task> taskList;
-
     public TaskList() {
         taskList = new ArrayList<>();
     }
@@ -15,7 +14,7 @@ public class TaskList {
     /**
      * Returns size of task list.
      */
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
 
@@ -23,7 +22,7 @@ public class TaskList {
     /**
      * Returns the task from the task list at that index.
      *
-     * @param index
+     * @param index position of task in task list.
      */
     public Task getTask(int index) {
         assert index >= 0 && index < taskList.size() : "Index out of bounds";
@@ -50,13 +49,11 @@ public class TaskList {
      */
     public String deleteTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to delete
-        ui.isTaskNumber(input);
-
-        int index = Integer.parseInt(
-                input.split(" ")[1]) - 1;
-
+        ui.hasNumber(input);
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // check if the task number falls within the task list range
-        ui.wrongRange(index, this);
+        ui.isWrongRange(index, this);
+
         String s = "";
         s = ui.deleteTaskMessage(this, index);
         taskList.remove(taskList.get(index));
@@ -75,13 +72,11 @@ public class TaskList {
      */
     public String markTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to mark
-        ui.isTaskNumber(input);
-
-        int index = Integer.parseInt(
-                input.split(" ")[1]) - 1;
-
+        ui.hasNumber(input);
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // check if the task number falls within the task list range
-        ui.wrongRange(index, this);
+        ui.isWrongRange(index, this);
+
         taskList.get(index).setMark(true);
         return ui.markTaskMessage(this, index);
     }
@@ -97,13 +92,11 @@ public class TaskList {
      */
     public String unmarkTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to unmark
-        ui.isTaskNumber(input);
-
-        int index = Integer.parseInt(
-                input.split(" ")[1]) - 1;
-
+        ui.hasNumber(input);
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // check if the task number falls within the task list range
-        ui.wrongRange(index, this);
+        ui.isWrongRange(index, this);
+
         taskList.get(index).setMark(false);
         return ui.unmarkTaskMessage(this, index);
     }
@@ -114,7 +107,7 @@ public class TaskList {
     public String getAll() {
         String s = "";
         for (int i = 0; i < taskList.size(); i++) {
-            s = s.concat(taskList.get(i) + "\n");
+            s += taskList.get(i) + "\n";
         }
         return s;
     }

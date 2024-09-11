@@ -12,7 +12,6 @@ import javafx.stage.Stage;
  * Main class of GUI.
  */
 public class Main extends Application {
-
     private String home = System.getProperty("user.home");
     private java.nio.file.Path path = java.nio.file.Paths.get(home, "ip", "src", "main");
     private Boombotroz boombotroz = new Boombotroz(path.toString() + "/data.txt");
