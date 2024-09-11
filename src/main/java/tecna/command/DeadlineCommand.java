@@ -35,14 +35,14 @@ public class DeadlineCommand extends Command {
     @Override
     public Deadline checkCommand() throws WrongFormatException {
         Deadline deadline = null;
-       String[] description = message.split("deadline | /by");
-       try {
-           deadline = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(),DATE_TIME_FORMATTER));
-       } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-           throw new WrongFormatException("deadline", "Deadline task should be in the format \"deadline [description] /by [" + DATE_TIME_PATTERN + "]\"");
+        String[] description = message.split("deadline | /by");
+        try {
+            deadline = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(),DATE_TIME_FORMATTER));
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new WrongFormatException("deadline", "Deadline task should be in the format \"deadline [description] /by [" + DATE_TIME_PATTERN + "]\"");
 
-       }
-       return deadline;
+        }
+        return deadline;
     }
 
     public static void main(String[] args) {
