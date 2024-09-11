@@ -51,6 +51,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String s, Image i) {
+        assert s != null && i != null : "User dialog text cannot be null";
         return new DialogBox(s, i);
     }
 

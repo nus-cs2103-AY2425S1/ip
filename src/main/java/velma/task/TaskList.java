@@ -41,6 +41,7 @@ public class TaskList {
      * @return Velma.task.Task from the specified list index.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         return tasks.get(index);
     }
 
@@ -57,6 +58,7 @@ public class TaskList {
      * @param index
      */
     public void deleteTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         tasks.remove(index);
     }
 
@@ -65,6 +67,7 @@ public class TaskList {
      * @return all tasks in list
      */
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "Tasks cannot be null";
         return tasks;
     }
 
@@ -73,6 +76,7 @@ public class TaskList {
      */
 
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
