@@ -6,6 +6,7 @@ import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
 
+import exception.BlitzDuplicateTaskException;
 import exception.BlitzException;
 
 import task.Deadline;
@@ -47,6 +48,10 @@ public class DeadlineCommand extends Command {
         assert !description.isBlank() : "Deadline description must not be blank";
 
         Task taskToAdd = new Deadline(description, "D", dateTime, false);
+
+        if (list.isTaskExist(taskToAdd)) {
+            throw new BlitzDuplicateTaskException();
+        }
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);

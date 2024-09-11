@@ -131,6 +131,16 @@ public abstract class Task {
      */
     public abstract String convertTaskToString();
 
+
+    /**
+     * Compares two Task objects and determines if they are equal without considering status.
+     *
+     * @param task Task to be compared.
+     * @return True if both objects are of same reference or all attributes (except status)
+     *     in both objects are the same, false otherwise.
+     */
+    public abstract boolean isEqualWithoutStatus(Task task);
+
     /**
      * Returns a String representation of this object.
      *
