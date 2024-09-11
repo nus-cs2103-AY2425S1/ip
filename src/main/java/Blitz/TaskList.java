@@ -93,6 +93,16 @@ public class TaskList {
     }
 
     /**
+     * Checks whether the specified Task exists in the list of tasks (without comparing status).
+     *
+     * @param task Task to be checked for existence in the list.
+     * @return True if at least one task in the list is considered equal, false otherwise.
+     */
+    public boolean isTaskExist(Task task) {
+        return this.list.stream().anyMatch(t -> t.isEqualWithoutStatus(task));
+    }
+
+    /**
      * Compares two TaskList objects and determines if they are equal.
      *
      * @param o Object to be compared.

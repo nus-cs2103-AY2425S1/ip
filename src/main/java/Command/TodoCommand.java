@@ -4,6 +4,7 @@ import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
 
+import exception.BlitzDuplicateTaskException;
 import exception.BlitzException;
 
 import task.Task;
@@ -38,6 +39,10 @@ public class TodoCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         Task taskToAdd = new Todo(this.parameter, "T", false);
+
+        if (list.isTaskExist(taskToAdd)) {
+            throw new BlitzDuplicateTaskException();
+        }
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);

@@ -63,6 +63,25 @@ public class Event extends Task {
         return this.type;
     }
 
+    @Override
+    public boolean isEqualWithoutStatus(Task task) {
+        if (this == task) {
+            return true;
+        }
+
+        if (task == null || getClass() != task.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) task;
+        boolean isTypeSame = this.type.equals(event.type);
+        boolean isDescriptionSame = super.getDescription().equals(event.getDescription());
+        boolean isStartDateTimeSame = this.startDateTime.equals(event.startDateTime);
+        boolean isEndDateTimeSame = this.endDateTime.equals(event.endDateTime);
+
+        return isTypeSame && isDescriptionSame && isStartDateTimeSame && isEndDateTimeSame;
+    }
+
     /**
      * Returns a String representation of this object.
      *
@@ -93,12 +112,8 @@ public class Event extends Task {
         }
 
         Event event = (Event) o;
-        boolean isTypeSame = this.type.equals(event.type);
-        boolean isDescriptionSame = super.getDescription().equals(event.getDescription());
-        boolean isStartDateTimeSame = this.startDateTime.equals(event.startDateTime);
-        boolean isEndDateTimeSame = this.endDateTime.equals(event.endDateTime);
         boolean isStatusSame = super.isDone() == event.isDone();
 
-        return isTypeSame && isDescriptionSame && isStartDateTimeSame && isEndDateTimeSame && isStatusSame;
+        return isEqualWithoutStatus(event) && isStatusSame;
     }
 }

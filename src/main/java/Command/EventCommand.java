@@ -6,6 +6,7 @@ import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
 
+import exception.BlitzDuplicateTaskException;
 import exception.BlitzException;
 
 import task.Event;
@@ -48,6 +49,10 @@ public class EventCommand extends Command {
         assert !description.isBlank() : "Event description must not be blank";
 
         Task taskToAdd = new Event(description, "E", startDateTime, endDateTime, false);
+
+        if (list.isTaskExist(taskToAdd)) {
+            throw new BlitzDuplicateTaskException();
+        }
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);

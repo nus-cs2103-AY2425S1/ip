@@ -38,6 +38,23 @@ public class Todo extends Task {
         return this.type;
     }
 
+    @Override
+    public boolean isEqualWithoutStatus(Task task) {
+        if (this == task) {
+            return true;
+        }
+
+        if (task == null || getClass() != task.getClass()) {
+            return false;
+        }
+
+        Todo todo = (Todo) task;
+        boolean isTypeSame = this.type.equals(todo.type);
+        boolean isDescriptionSame = super.getDescription().equals(todo.getDescription());
+
+        return isTypeSame && isDescriptionSame;
+    }
+
     /**
      * Compares two Todo objects and determines if they are equal.
      *
@@ -56,10 +73,8 @@ public class Todo extends Task {
         }
 
         Todo todo = (Todo) o;
-        boolean isTypeSame = this.type.equals(todo.type);
-        boolean isDescriptionSame = super.getDescription().equals(todo.getDescription());
         boolean isStatusSame = super.isDone() == todo.isDone();
 
-        return isTypeSame && isDescriptionSame && isStatusSame;
+        return isEqualWithoutStatus(todo) && isStatusSame;
     }
 }
