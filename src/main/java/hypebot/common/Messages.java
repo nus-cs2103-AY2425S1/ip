@@ -6,6 +6,8 @@ package hypebot.common;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Messages {
+    public static final String DIVIDER_LINE = "____________________________________________________________________"
+                                               + "____________________________________________________________\n";
     public static final String LOGO = """
              ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s
             ( OO )  /              ( (OO  ) _(  OO)\\  ( OO )              (  OO) ) \s
@@ -19,7 +21,7 @@ public class Messages {
             """;
     public static final String MESSAGE_HELP = """
             YOU CAN LEAN ON ME! Lemme show you around the ropes bro:
-            
+            \s
             • Type 'todo {Enter name here}' to add a TERRIFIC todo with no date or time associated with it!
             • Type 'deadline {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
             to add a DELIGHTFUL deadline task with a due date!

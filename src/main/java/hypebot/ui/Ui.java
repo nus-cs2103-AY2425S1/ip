@@ -1,29 +1,30 @@
 package hypebot.ui;
 
-import hypebot.task.Task;
-import hypebot.tasklist.Tasklist;
-
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import hypebot.task.Task;
+import hypebot.tasklist.Tasklist;
+
+import static hypebot.common.Messages.DIVIDER_LINE;
+import static hypebot.common.Messages.ERROR_INTRO;
+import static hypebot.common.Messages.LOGO;
 import static hypebot.common.Messages.MESSAGE_ADDED_TASK;
 import static hypebot.common.Messages.MESSAGE_DELETED_TASK;
-import static hypebot.common.Messages.ERROR_INTRO;
 import static hypebot.common.Messages.MESSAGE_EXIT;
+import static hypebot.common.Messages.MESSAGE_FIND_INTRO;
 import static hypebot.common.Messages.MESSAGE_GREET_INTRO;
 import static hypebot.common.Messages.MESSAGE_GREET_OUTRO;
 import static hypebot.common.Messages.MESSAGE_HAPPENING;
-import static hypebot.common.Messages.MESSAGE_FIND_INTRO;
 import static hypebot.common.Messages.MESSAGE_HELP;
 import static hypebot.common.Messages.MESSAGE_LIST;
 import static hypebot.common.Messages.MESSAGE_LOAD_TASKLIST;
-import static hypebot.common.Messages.LOGO;
 import static hypebot.common.Messages.MESSAGE_MARKED_TASK;
+import static hypebot.common.Messages.MESSAGE_SAVE_TASKLIST;
 import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_INTRO;
 import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_OUTRO;
-import static hypebot.common.Messages.MESSAGE_SAVE_TASKLIST;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_INTRO;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_OUTRO;
 import static hypebot.common.Messages.MESSAGE_UNMARKED_TASK;
@@ -34,8 +35,6 @@ import static hypebot.common.Messages.MESSAGE_UNMARKED_TASK;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Ui {
-    private final String DIVIDER_LINE = "____________________________________________________________________"
-            + "____________________________________________________________\n";
     private final Scanner in;
     private final PrintStream out;
 

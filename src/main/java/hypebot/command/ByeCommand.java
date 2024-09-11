@@ -1,10 +1,10 @@
 package hypebot.command;
 
+import java.io.IOException;
+
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the ByeCommand created when user prompts 'bye'.

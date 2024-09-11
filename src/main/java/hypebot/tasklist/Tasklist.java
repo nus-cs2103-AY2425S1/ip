@@ -1,15 +1,15 @@
 package hypebot.tasklist;
 
-import hypebot.task.Task;
+import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
-import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
-import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
+import hypebot.task.Task;
 
 /**
  * Represents the Tasklist containing all Task objects entered by user.
@@ -17,13 +17,13 @@ import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Tasklist {
-    private final ArrayList<Task> TASKS;
+    private final ArrayList<Task> tasks;
 
     /**
      * Creates a dummy empty Tasklist.
      */
     public Tasklist() {
-        TASKS = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -33,7 +33,7 @@ public class Tasklist {
      */
     public Tasklist(List<Task> tasks) {
         this();
-        TASKS.addAll(tasks);
+        this.tasks.addAll(tasks);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Tasklist {
      * @return Number of Tasks in Tasklist.
      */
     public int size() {
-        return TASKS.size();
+        return tasks.size();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Tasklist {
      * @return Task at corresponding index.
      */
     public Task getTaskByIndex(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -61,7 +61,7 @@ public class Tasklist {
      * @param task Task to be added to TASKS.
      */
     public void add(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Tasklist {
      */
     public Task delete(int index) throws IndexOutOfBoundsException {
         try {
-            return TASKS.remove(index);
+            return tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS);
         }
@@ -88,7 +88,7 @@ public class Tasklist {
      */
     public void mark(int index) throws IndexOutOfBoundsException {
         try {
-            TASKS.get(index).mark();
+            tasks.get(index).mark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
@@ -102,7 +102,7 @@ public class Tasklist {
      */
     public void unmark(int index) throws IndexOutOfBoundsException {
         try {
-            TASKS.get(index).unmark();
+            tasks.get(index).unmark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
@@ -116,7 +116,7 @@ public class Tasklist {
      * @return Tasklist containing Tasks occurring on given date.
      */
     public Tasklist getHappeningOn(LocalDate date) {
-        List<Task> tasksOnDate = TASKS.stream().filter(task -> task.isHappeningOn(date)).toList();
+        List<Task> tasksOnDate = tasks.stream().filter(task -> task.isHappeningOn(date)).toList();
         return new Tasklist(tasksOnDate);
     }
 
@@ -128,7 +128,7 @@ public class Tasklist {
      * @return Tasklist of Tasks containing search query in name.
      */
     public Tasklist getNameContains(Pattern searchQuery) {
-        List<Task> tasksWithSearchQuery = TASKS.stream().filter(
+        List<Task> tasksWithSearchQuery = tasks.stream().filter(
                 task -> searchQuery.matcher(task.getName().toLowerCase()).find()
         ).toList();
         return new Tasklist(tasksWithSearchQuery);
@@ -142,8 +142,8 @@ public class Tasklist {
     @Override
     public String toString() {
         StringBuilder listMessage = new StringBuilder();
-        for (int i = 0; i < TASKS.size(); i++) {
-            listMessage.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            listMessage.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         return listMessage.toString();
     }

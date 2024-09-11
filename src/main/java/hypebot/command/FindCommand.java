@@ -1,11 +1,10 @@
 package hypebot.command;
 
+import java.util.regex.Pattern;
+
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents the FindCommand created when user prompts 'find {keywords}'.
@@ -23,10 +22,9 @@ public class FindCommand extends Command {
      */
     public FindCommand(String searchQuery) {
         super();
-        Pattern searchPattern = Pattern.compile(
+        this.searchQuery = Pattern.compile(
                 searchQuery.replace(" ", "|").substring(0, searchQuery.length() - 1),
                 Pattern.CASE_INSENSITIVE);
-        this.searchQuery = searchPattern;
     }
 
     /**

@@ -1,13 +1,13 @@
 package hypebot.task;
 
+import static hypebot.common.Messages.ERROR_EVENT_TIMES_INORDERED;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_PASSED;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_WRONG_FORMAT;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import static hypebot.common.Messages.ERROR_EVENT_TIMES_INORDERED;
-import static hypebot.common.Messages.ERROR_EVENT_TIME_WRONG_FORMAT;
-import static hypebot.common.Messages.ERROR_EVENT_TIME_PASSED;
 
 /**
  * Represents an Event type Task with a LocalDateTime type start time and an end time.
@@ -18,28 +18,6 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    /**
-     * Verifies whether entered startTime is before entered endTime.
-     *
-     * @param startTime LocalDateTime object representing the start of an event.
-     * @param endTime LocalDateTime object representing the end of an event.
-     * @return Whether the startTime is before the endTime.
-     */
-    private boolean areInChronologicalOrder(LocalDateTime startTime, LocalDateTime endTime) {
-        return startTime.isBefore(endTime);
-    }
-
-    /**
-     * Verifies whether an event has passed based on startTime and endTime.
-     *
-     * @param startTime LocalDateTime object representing the start of an event.
-     * @param endTime LocalDateTime object representing the end of an event.
-     * @return Whether the event has already concluded.
-     */
-    private boolean hasPassedBy(LocalDateTime startTime, LocalDateTime endTime) {
-        return startTime.isBefore(LocalDateTime.now()) && endTime.isBefore(LocalDateTime.now());
-    }
 
     /**
      * Creates an Event task with the specified name, start time, and end time.
@@ -65,8 +43,31 @@ public class Event extends Task {
             startTime = tempStartTime;
             endTime = tempEndTime;
         } catch (DateTimeParseException e) {
-            throw new EventDateTimeParseException(ERROR_EVENT_TIME_WRONG_FORMAT, e.getParsedString(), e.getErrorIndex());
+            throw new EventDateTimeParseException(ERROR_EVENT_TIME_WRONG_FORMAT,
+                    e.getParsedString(), e.getErrorIndex());
         }
+    }
+
+    /**
+     * Verifies whether entered startTime is before entered endTime.
+     *
+     * @param startTime LocalDateTime object representing the start of an event.
+     * @param endTime LocalDateTime object representing the end of an event.
+     * @return Whether the startTime is before the endTime.
+     */
+    private boolean areInChronologicalOrder(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isBefore(endTime);
+    }
+
+    /**
+     * Verifies whether an event has passed based on startTime and endTime.
+     *
+     * @param startTime LocalDateTime object representing the start of an event.
+     * @param endTime LocalDateTime object representing the end of an event.
+     * @return Whether the event has already concluded.
+     */
+    private boolean hasPassedBy(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isBefore(LocalDateTime.now()) && endTime.isBefore(LocalDateTime.now());
     }
 
     /**

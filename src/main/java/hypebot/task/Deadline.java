@@ -1,11 +1,11 @@
 package hypebot.task;
 
+import static hypebot.common.Messages.ERROR_DEADLINE_DATE_PASSED;
+import static hypebot.common.Messages.ERROR_DEADLINE_DATE_WRONG_FORMAT;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import static hypebot.common.Messages.ERROR_DEADLINE_DATE_WRONG_FORMAT;
-import static hypebot.common.Messages.ERROR_DEADLINE_DATE_PASSED;
 
 /**
  * Represents a Deadline type Task with a LocalDateTime type due date.

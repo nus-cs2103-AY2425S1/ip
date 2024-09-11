@@ -1,10 +1,10 @@
 package hypebot.command;
 
+import java.time.LocalDate;
+
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * Represents the UnmarkCommand created when user prompts 'happening /{YYYY-MM-DD}'.
