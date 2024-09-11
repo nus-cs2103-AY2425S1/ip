@@ -35,9 +35,6 @@ public class AddTodoCommand extends Command {
     @Override
     public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
         if (input.length() == 5) {
-            System.out.println("Error: No description for ToDo task.");
-            System.out.println("Please input a description for the task.");
-            ui.showLine();
             return "[INFO] Error: No description for ToDo task.\n"
                     + "Please input a description for the task.\n" + ui.getLine();
         } else {

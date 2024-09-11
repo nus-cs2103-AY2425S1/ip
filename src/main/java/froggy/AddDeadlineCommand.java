@@ -33,11 +33,11 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
-        int index = input.toLowerCase().indexOf("/by ");
+        int index = input.toLowerCase().indexOf("/by");
         if (index != -1) {
             String output = "";
-            String desc = input.substring(9, index);
-            String by = input.substring(index + 4);
+            String desc = input.substring(9, index).trim();
+            String by = input.substring(index + 3).trim();
             Deadline current = new Deadline(desc, by);
             taskList.add(current, storage);
             output = current.toString() + "\n";
