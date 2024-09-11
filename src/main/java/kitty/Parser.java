@@ -22,6 +22,7 @@ public class Parser {
     public static String parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException,
             MarksException, NumberFormatException, IndexOutOfBoundsException {
         String[] aux = str.split(" ", 2);
+
         switch (aux[0].trim()) {
         case "find" -> {
             return parseFind(str, ui, tasks);
@@ -36,17 +37,22 @@ public class Parser {
             return new AddCommand(ui, tasks, str, storage).run();
         }
         default -> {
-            return ui.showErrorMessage("Burrrrr~ What is this??? I have no idea about it...");
+            String unknownCommandResponse = "Burrrrr~ What is this??? I have no idea about it...";
+            return ui.showErrorMessage(unknownCommandResponse);
         }
         }
     }
 
     public static boolean checkDeadline(String str, Ui ui) {
         try {
+            // separate time and name of the deadline
             String[] parts = str.split("/by");
-            if (parts.length != 2 || parts[0].equals("")) {
+
+            // check if both valid name and time exist
+            if (parts.length != 2 || parts[0].isEmpty()) {
                 throw new DeadlineException();
             }
+
             return checkDateTime(parts[1].trim());
         } catch (DeadlineException e) {
             ui.showErrorMessage(e.toString());
@@ -68,6 +74,7 @@ public class Parser {
             if (parts.length != 3) {
                 throw new EventException();
             }
+
             return checkDateTime(parts[1].trim()) && checkDateTime(parts[2].trim());
         } catch (EventException e) {
             ui.showErrorMessage(e.toString());
@@ -80,6 +87,7 @@ public class Parser {
         if (aux.length != 2) {
             throw new FindException();
         }
+
         return new FindCommand(ui, tasks, aux[1]).run();
     }
 
@@ -108,27 +116,25 @@ public class Parser {
         // Split the cleaned string by spaces
         String[] parts = cleanedInput.trim().split("\\s+");
 
-        int index;
-        // Check if there are any parts and parse the first one
-        if (parts.length > 0) {
-            index = Integer.parseInt(parts[0]);
-            switch (aux[0].trim()) {
-            case "mark" -> {
-                return new MarkCommand(ui, tasks, index, storage).run();
-            }
-            case "unmark" -> {
-                return new UnmarkCommand(ui, tasks, index, storage).run();
-            }
-            case "delete" -> {
-                return new DeleteCommand(ui, tasks, index, storage).run();
-            }
-            default -> {
-            return "";
-            }
-            }
+        if (parts.length == 0) {
+            throw new MarksException();
         }
 
-        throw new MarksException();
+        int index = Integer.parseInt(parts[0]);
+        switch (aux[0].trim()) {
+        case "mark" -> {
+            return new MarkCommand(ui, tasks, index, storage).run();
+        }
+        case "unmark" -> {
+            return new UnmarkCommand(ui, tasks, index, storage).run();
+        }
+        case "delete" -> {
+            return new DeleteCommand(ui, tasks, index, storage).run();
+        }
+        default -> {
+            return "";
+        }
+        }
     }
 
 }

@@ -38,6 +38,7 @@ public class Storage {
             File dir = new File(DIR_PATH);
             boolean isCreated = dir.mkdirs();
             isCreated = KITTY_TASKS_DATA.createNewFile();
+            assert isCreated;
         }
 
         Scanner scanKittyTasks = new Scanner(KITTY_TASKS_DATA);
@@ -51,6 +52,7 @@ public class Storage {
     private Task createTaskFromInput(String str) {
         String[] aux = str.split("~!!");
         Task tmp;
+
         switch (aux[0].trim()) {
         case "T" -> tmp = new Todo(aux[2]);
         case "D" -> tmp = new Deadline(aux[2],

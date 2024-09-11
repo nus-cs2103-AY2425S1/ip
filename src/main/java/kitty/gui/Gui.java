@@ -19,7 +19,7 @@ public class Gui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKitty(kitty);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setKitty(kitty); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

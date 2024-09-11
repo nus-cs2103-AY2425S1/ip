@@ -27,6 +27,7 @@ public class AddCommand extends Command {
         String[] parts = commandBody.split(" ", 2);
         Task task = new Task("");
         boolean isCreated = false;
+
         switch (parts[0]) {
         case "todo" -> {
             task = new Todo(parts[1].trim());
@@ -61,8 +62,9 @@ public class AddCommand extends Command {
                     storage.addContent(data);
                     return ui.showAddTaskMessage(task, size);
                 } catch (IOException e) {
-                    return ui.showErrorMessage("File writing unsuccessful.\n"
-                            + "This task is not updated to hard disk.");
+                    String fileWritingFailMessage = "File writing unsuccessful.\n"
+                            + "This task is not updated to hard disk.";
+                    return ui.showErrorMessage(fileWritingFailMessage);
                 }
 
             }

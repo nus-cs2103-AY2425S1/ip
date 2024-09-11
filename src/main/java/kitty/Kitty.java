@@ -6,7 +6,6 @@ import kitty.kittyexceptions.MarksException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Provides an interactive ChatBot named Kitty.
@@ -25,9 +24,11 @@ public class Kitty {
         try {
             storage.initializeTaskList(tasks);
         } catch (FileNotFoundException e) {
-            ui.showErrorMessage("Cannot find ip/data/Kitty.txt file.");
+            String kittyFileNotFoundMessage = "Cannot find ip/data/Kitty.txt file.";
+            ui.showErrorMessage(kittyFileNotFoundMessage);
         } catch (IOException e) {
-            ui.showErrorMessage("Create file ip/data/Kitty.txt failed.");
+            String kittyFileCreateFailMessage = "Create file ip/data/Kitty.txt failed.";
+            ui.showErrorMessage(kittyFileCreateFailMessage);
         }
     }
 
@@ -59,9 +60,12 @@ public class Kitty {
         } catch (MarksException e) {
             return ui.showErrorMessage(e.toString());
         } catch (NumberFormatException e) {
-            return ui.showErrorMessage("Please Input valid number.\n");
+            String requestForCorrectNumberFormatInputResponse = "Please Input valid number.\n";
+            return ui.showErrorMessage(requestForCorrectNumberFormatInputResponse);
         } catch (IndexOutOfBoundsException e) {
-            return ui.showErrorMessage("Index out of bound!!! Please input number within the range of list size.\n");
+            String requestForValidNumberInputResponse =
+                    "Index out of bound!!! Please input number within the range of list size.\n";
+            return ui.showErrorMessage(requestForValidNumberInputResponse);
         }
 
     }
