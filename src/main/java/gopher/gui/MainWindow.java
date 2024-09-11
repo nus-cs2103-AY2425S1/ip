@@ -1,6 +1,7 @@
 package gopher.gui;
 
 import gopher.Gopher;
+import gopher.exception.UnknownCommandException;
 import gopher.ui.UI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,11 +60,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = gopher.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getGopherDialog(response, gopherImage)
-        );
-        userInput.clear();
+        try {
+            String response = gopher.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getGopherDialog(response, gopherImage)
+            );
+        } catch (UnknownCommandException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getGopherDialog(UI.getUnknownCommandWarning(e), gopherImage)
+            );
+        } finally {
+            userInput.clear();
+        }
     }
 }
