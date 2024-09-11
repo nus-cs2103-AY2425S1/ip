@@ -12,6 +12,8 @@ public class Parser {
      * @throws DuckException if file is corrupted.
      * */
     public static String parseCommand(TaskList cmds, String userCmd) throws DuckException {
+        assert !userCmd.isEmpty() : "Command cannot be empty";
+
         if (userCmd.toLowerCase().equals("bye")) {
             cmds.save();
             return "Bye. Hope to see you again soon!";
@@ -62,7 +64,7 @@ public class Parser {
             int start = userCmd.indexOf("/");
             int end = userCmd.substring(start + 1).indexOf("/");
             if ((start == -1) || (end == -1)) {
-                return "An event needs both a start and end date or time.";
+                return "An event needs both a start and end date.";
             }
             return cmds.add(new Event(userCmd.substring(0, start),
                     userCmd.substring(start + 6, start + end),

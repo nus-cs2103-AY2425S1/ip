@@ -17,6 +17,7 @@ public class Duck {
      * @throws DuckException if command given is not valid.
      */
     public String getResponse(String input) throws DuckException {
+        assert !input.isEmpty(): "User input cannot be empty";
         return Parser.parseCommand(cmds, input);
     }
 }
