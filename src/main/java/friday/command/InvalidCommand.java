@@ -17,7 +17,7 @@ public class InvalidCommand extends Command {
      * @param message The error message to be displayed to the user.
      */
     public InvalidCommand(String message) {
-        assert message != null && !message.isEmpty(): "Message should not be null or empty";
+        assert message != null && !message.isEmpty() : "Message should not be null or empty";
         this.message = message;
     }
 

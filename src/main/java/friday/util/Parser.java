@@ -13,6 +13,7 @@ import friday.command.InvalidCommand;
 import friday.command.ListCommand;
 import friday.command.MarkCommand;
 import friday.command.OnCommand;
+import friday.command.SortCommand;
 import friday.command.UnmarkCommand;
 import friday.task.Deadline;
 import friday.task.Event;
@@ -57,6 +58,8 @@ public class Parser {
             return parseOn(arguments);
         case "find":
             return parseFind(arguments);
+        case "sort":
+            return new SortCommand();
         case "bye":
             return new ExitCommand();
         default:

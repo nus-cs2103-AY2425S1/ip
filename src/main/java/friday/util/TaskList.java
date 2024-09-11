@@ -1,7 +1,9 @@
 package friday.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,6 +130,29 @@ public class TaskList {
                 })
                 .collect(Collectors.toList());
         return new TaskList(new ArrayList<>(matchingTasks));
+    }
+
+    /**
+     * Sorts tasks by their date. Deadlines are sorted by their due date,
+     * and Events are sorted by their start date.
+     *
+     * @return A TaskList containing the sorted tasks.
+     */
+    public TaskList sortTasksByDate() {
+        List<Task> sortedTasks = tasks.stream()
+                .filter(task -> task instanceof Deadline || task instanceof Event)
+                .sorted(Comparator.comparing(task -> {
+                    if (task instanceof Deadline) {
+                        LocalDateTime deadline = ((Deadline) task).getByTime();
+                        return deadline;
+                    } else if (task instanceof Event) {
+                        LocalDateTime from = ((Event) task).getFromTime();
+                        return from;
+                    }
+                    return null;
+                }))
+                .collect(Collectors.toList());
+        return new TaskList(new ArrayList<>(sortedTasks));
     }
 
     /**

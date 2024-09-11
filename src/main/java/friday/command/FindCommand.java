@@ -27,7 +27,8 @@ public class FindCommand extends Command {
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
 
-        TaskList matchingTasks = tasks.filterTasks(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()));
+        TaskList matchingTasks = tasks
+                .filterTasks(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()));
 
         return ui.showMatchingTasks(matchingTasks);
     }
