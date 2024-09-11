@@ -46,9 +46,13 @@ public abstract class Command {
     public void save(TaskList taskList, Storage storage) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();
         try {
-            for (int i = 0; i < tasks.size(); i++) {
-                writeToFile(storage.getFilePath(), tasks.get(i).summary()
-                        + System.lineSeparator(), i);
+            if (tasks.isEmpty()) {
+                writeToFile(storage.getFilePath(), "", 0); // Clear file content
+            } else {
+                for (int i = 0; i < tasks.size(); i++) {
+                    writeToFile(storage.getFilePath(), tasks.get(i).summary()
+                            + System.lineSeparator(), i);
+                }
             }
         } catch (IOException e) {
             throw new HenryException("Failed to save tasks to file");

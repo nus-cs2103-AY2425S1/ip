@@ -27,6 +27,12 @@ public class DeleteCommand extends Command {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
+            if (this.input.equals("all")) {
+                taskList.getTasks().clear();
+                return "\nNoted. I've removed all the tasks.\n"
+                        + "Now you have 0 task in the list.\n";
+            }
+
             int number = getNumber(numOfTasks);
             Task task = taskList.getTasks().get(number - 1);
             taskList.getTasks().remove(number - 1);
