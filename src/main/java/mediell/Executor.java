@@ -34,12 +34,14 @@ public class Executor {
                 taskList.addTask(instruction.getTask());
                 return instruction;
             case SEARCH:
+            case SORT:
                 return instruction;
             case UNMARK:
                 assert instruction.getIndex() != -1;
                 taskList.unmarkItem(instruction.getIndex());
                 return instruction;
+            default:
+                throw new IncorrectInstructionFormatException();
         }
-        throw new IncorrectInstructionFormatException();
     }
 }

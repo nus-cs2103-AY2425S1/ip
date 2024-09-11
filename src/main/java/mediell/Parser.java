@@ -42,6 +42,8 @@ public class Parser {
             return createDeadlineInstruction(message);
         } else if (message.startsWith("find")) {
             return createFindInstruction(message);
+        } else if (message.startsWith("sort")) {
+            return new Instruction(Instruction.Type.SORT);
         } else {
             throw new IncorrectInstructionFormatException();
         }

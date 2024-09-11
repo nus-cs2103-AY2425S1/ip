@@ -7,6 +7,7 @@ import mediell.task.Task;
 import mediell.task.ToDo;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /** Represents an array of Task. */
 public class TaskList {
@@ -22,26 +23,36 @@ public class TaskList {
      * returns the tasks in the list.
      */
     public String displayList() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            output += String.valueOf(i+1) + ". " + listItems[i] + "\n";
+            output.append(i + 1).append(". ").append(listItems[i]).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     public String displayFoundList(String keyword) {
         if (Objects.equals(keyword, "")) {
             return displayList();
         }
-        String output = "";
+        StringBuilder output = new StringBuilder();
         int j = 0;
         for (int i = 0; i < size; i++) {
             if (listItems[i].find(keyword)) {
-                output += String.valueOf(j + 1) + ". " + listItems[i] + "\n";
+                output.append(j + 1).append(". ").append(listItems[i]).append("\n");
                 j++;
             }
         }
-        return output;
+        return output.toString();
+    }
+
+    public String displaySortedList() {
+        Stream<Task> temp = Stream.of(listItems).limit(size).sorted();
+        StringBuilder output = new StringBuilder();
+        int i = 1;
+        temp.forEach((t) -> {
+            output.append(i).append(". ").append(t).append("\n");
+        });
+        return output.toString();
     }
 
     /**

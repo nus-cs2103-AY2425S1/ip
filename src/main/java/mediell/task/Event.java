@@ -3,7 +3,7 @@ package mediell.task;
 import java.time.LocalDate;
 
 /** Represents a Task as an Event. */
-public class Event extends Task{
+public class Event extends Task implements Comparable<Task> {
     private LocalDate from;
     private LocalDate to;
 
@@ -42,5 +42,19 @@ public class Event extends Task{
         from = LocalDate.parse(temp[1]);
         to = LocalDate.parse(temp[2]);
         super.initStorageFormat(temp[3]);
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        if (t instanceof Event) {
+            return from.compareTo(((Event) t).from);
+        } else if (t instanceof Deadline) {
+            return from.compareTo(((Deadline) t).getBy());
+        }
+        return 1;
     }
 }

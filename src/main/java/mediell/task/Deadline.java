@@ -3,7 +3,7 @@ package mediell.task;
 import java.time.LocalDate;
 
 /** Represents a Task with a Deadline. */
-public class Deadline extends Task{
+public class Deadline extends Task implements Comparable<Task> {
     private LocalDate by;
 
     public Deadline() {
@@ -39,5 +39,19 @@ public class Deadline extends Task{
         String[] temp = format.split("\\|", 3);
         by = LocalDate.parse(temp[1]);
         super.initStorageFormat(temp[2]);
+    }
+
+    public LocalDate getBy() {
+        return by;
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        if (t instanceof Event) {
+            return by.compareTo(((Event) t).getFrom());
+        } else if (t instanceof Deadline) {
+            return by.compareTo(((Deadline) t).by);
+        }
+        return 1;
     }
 }

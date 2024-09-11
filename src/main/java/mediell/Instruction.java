@@ -8,7 +8,8 @@ public class Instruction {
         MARK,
         UNMARK,
         DELETE,
-        SEARCH
+        SEARCH,
+        SORT
     }
     private Type instructionType;
     private Task task;

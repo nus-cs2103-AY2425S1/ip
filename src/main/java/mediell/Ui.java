@@ -44,8 +44,11 @@ public class Ui {
             case UNMARK:
                 assert instruction.getIndex() != -1;
                 return "Ok, I've marked this task as not done yet:\n" + taskList.getTask(instruction.getIndex());
+            case SORT:
+                return taskList.displaySortedList();
+            default:
+                throw new IncorrectInstructionFormatException();
         }
-        throw new IncorrectInstructionFormatException();
     }
 
     public String handleError(Exception e) {

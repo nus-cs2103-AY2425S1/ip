@@ -1,7 +1,7 @@
 package mediell.task;
 
 /** Represents a Task as a ToDo. */
-public class ToDo extends Task{
+public class ToDo extends Task implements Comparable<Task> {
     public ToDo() {
         super("");
     }
@@ -33,5 +33,13 @@ public class ToDo extends Task{
     public void initStorageFormat(String format) {
         String[] temp = format.split("\\|", 2);
         super.initStorageFormat(temp[1]);
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        if (t instanceof ToDo) {
+            return 0;
+        }
+        return -1;
     }
 }
