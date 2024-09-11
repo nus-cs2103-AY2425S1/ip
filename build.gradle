@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("stelle.Stelle")
+    mainClass.set("stelle.ui.Launcher")
 }
 
 shadowJar {
