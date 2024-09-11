@@ -21,6 +21,11 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert from != null : "Start time cannot be null";
+        assert to != null : "End time cannot be null";
+        assert !from.isAfter(to) : "Start time must be before end time";
+
         this.from = from;
         this.to = to;
     }
@@ -33,6 +38,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert from != null : "Start time should not be null when formatting";
+        assert to != null : "End time should not be null when formatting";
+
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return "[E]" + super.toString() + " (from: " + from.format(outputFormatter)
                 + " to: " + to.format(outputFormatter) + ")";
@@ -46,6 +54,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+        assert from != null : "Start time should not be null when formatting for file";
+        assert to != null : "End time should not be null when formatting for file";
+
         DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + from.format(fileFormatter) + " | " + to.format(fileFormatter);
