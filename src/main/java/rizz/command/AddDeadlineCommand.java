@@ -1,5 +1,5 @@
-package rizz.commands;
-import rizz.tasks.Deadline;
+package rizz.command;
+import rizz.task.Deadline;
 import rizz.source.TaskList;
 import rizz.source.Ui;
 import rizz.source.Storage;

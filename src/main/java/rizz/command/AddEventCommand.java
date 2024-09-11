@@ -1,4 +1,4 @@
-package rizz.commands;
+package rizz.command;
 import rizz.source.TaskList;
 import rizz.source.Ui;
 import rizz.source.Storage;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import rizz.tasks.Event;
+import rizz.task.Event;
 
 
 

@@ -1,6 +1,6 @@
 package rizz.source;
 import java.util.ArrayList;
-import rizz.tasks.Task;
+import rizz.task.Task;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
