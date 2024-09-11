@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("cow.Main")
+    mainClass.set("cow.Launcher")
 }
 
 shadowJar {
