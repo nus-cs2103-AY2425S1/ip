@@ -6,8 +6,8 @@ import java.util.Arrays;
  * Represents a list of Task items.
  */
 public class TaskList {
-    private Task[] tasks;
-    private int numberOfTasks = 0;
+    private static Task[] tasks;
+    private static int numberOfTasks = 0;
     private static final int TASK_LIST_SIZE = 100;
 
     private static final String REPLY_INVALID_TASK_NUMBER = "There is no task with the given task number.";
@@ -30,7 +30,7 @@ public class TaskList {
      * @param task Task to be added to the list.
      * @return String reply confirming updated task list.
      * */
-    public String add(Task task) {
+    public static String add(Task task) {
         tasks[numberOfTasks] = task;
         String reply = REPLY_ADDED + get(numberOfTasks);
         numberOfTasks++;
@@ -44,7 +44,7 @@ public class TaskList {
      * @param index Index of the task to be returned.
      * @return Task item requested.
      * */
-    public Task get(int index) {
+    public static Task get(int index) {
         assert index > 0: "Invalid task number";
         return tasks[index];
     }
@@ -56,7 +56,7 @@ public class TaskList {
      * @throws DuckException if there is no task at the given index in the list.
      * @return String reply confirming item has been deleted.
      * */
-    public String delete(int index) {
+    public static String delete(int index) {
         assert index > 0: "Invalid task number";
         if (index >= numberOfTasks + 1) {
             return REPLY_INVALID_TASK_NUMBER;
@@ -99,7 +99,7 @@ public class TaskList {
      * @throws DuckException if there is no task at the given index in the list.
      * @return String confirming task has been marked.
      * */
-    public String mark(int num) {
+    public static String mark(int num) {
         assert num > 0: "Invalid task number";
         if (num > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
@@ -115,7 +115,7 @@ public class TaskList {
      * @throws DuckException if there is no task at the given index in the list.
      * @return String confirming task has been unmarked.
      * */
-    public String unmark(int num) {
+    public static String unmark(int num) {
         assert num > 0: "Invalid task number";
         if (num > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
@@ -159,6 +159,7 @@ public class TaskList {
     public void save() throws DuckException {
         Storage.save(allTasks(), numberOfTasks);
     }
+
     public int getCmdNum() {
         return numberOfTasks;
     }

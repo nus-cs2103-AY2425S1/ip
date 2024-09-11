@@ -18,6 +18,7 @@ public class Parser {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_DATE_SEPARATOR = "/";
 
     private static final String REPLY_BYE = "Bye. Hope to see you again soon!";
@@ -26,6 +27,7 @@ public class Parser {
     private static final String REPLY_MISSING_EVENT_DATE = "An event needs both a start and end date or time.";
     private static final String REPLY_INVALID_FIND_KEYWORDS = "Cannot find an empty string.";
     private static final String REPLY_INVALID_COMMAND = "I don't recognise that command.";
+    private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
 
     /**
      * Interprets a given command, and returns interpreted reply from Duck.
@@ -64,6 +66,9 @@ public class Parser {
         } else if (checkEventCommand(userCommand)) {
             return addEventTask(taskList, userCommand);
 
+        } else if (checkUndoCommand(userCommand)) {
+            return undoLastCommand(taskList);
+
         } else {
             return REPLY_INVALID_COMMAND;
         }
@@ -96,9 +101,10 @@ public class Parser {
      * @return boolean representing if command is a 'mark' command.
      * */
     private static boolean checkMarkCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_MARK.length());
-        boolean hasMarkCommand = (userCommand.substring(0, COMMAND_MARK.length()).equalsIgnoreCase(COMMAND_MARK));
-        return isCorrectLength && hasMarkCommand;
+        if (userCommand.length() < COMMAND_MARK.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_MARK.length()).equalsIgnoreCase(COMMAND_MARK);
     }
 
     /**
@@ -108,9 +114,10 @@ public class Parser {
      * @return boolean representing if command is a 'unmark' command.
      * */
     private static boolean checkUnmarkCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_UNMARK.length());
-        boolean hasUnmarkCommand = (userCommand.substring(0, COMMAND_UNMARK.length()).equalsIgnoreCase(COMMAND_UNMARK));
-        return isCorrectLength && hasUnmarkCommand;
+        if (userCommand.length() < COMMAND_UNMARK.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_UNMARK.length()).equalsIgnoreCase(COMMAND_UNMARK);
     }
 
     /**
@@ -120,9 +127,10 @@ public class Parser {
      * @return boolean representing if command is a 'delete' command.
      * */
     private static boolean checkDeleteCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_DELETE.length());
-        boolean hasDeleteCommand = (userCommand.substring(0, COMMAND_DELETE.length()).equalsIgnoreCase(COMMAND_DELETE));
-        return isCorrectLength && hasDeleteCommand;
+        if (userCommand.length() < COMMAND_DELETE.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_DELETE.length()).equalsIgnoreCase(COMMAND_DELETE);
     }
 
     /**
@@ -132,9 +140,10 @@ public class Parser {
      * @return boolean representing if command is a 'find' command.
      * */
     private static boolean checkFindCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_FIND.length());
-        boolean hasFindCommand = (userCommand.substring(0, COMMAND_FIND.length()).equalsIgnoreCase(COMMAND_FIND));
-        return isCorrectLength && hasFindCommand;
+        if (userCommand.length() < COMMAND_FIND.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_FIND.length()).equalsIgnoreCase(COMMAND_FIND);
     }
 
     /**
@@ -144,9 +153,10 @@ public class Parser {
      * @return boolean representing if command is a 'todo' command.
      * */
     private static boolean checkTodoCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_TODO.length());
-        boolean hasTodoCommand = (userCommand.substring(0, COMMAND_TODO.length()).equalsIgnoreCase(COMMAND_TODO));
-        return isCorrectLength && hasTodoCommand;
+        if (userCommand.length() < COMMAND_TODO.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_TODO.length()).equalsIgnoreCase(COMMAND_TODO);
     }
 
     /**
@@ -156,21 +166,36 @@ public class Parser {
      * @return boolean representing if command is a 'deadline' command.
      * */
     private static boolean checkDeadlineCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_DEADLINE.length());
-        boolean hasDeadlineCommand = (userCommand.substring(0, COMMAND_DEADLINE.length()).equalsIgnoreCase(COMMAND_DEADLINE));
-        return isCorrectLength && hasDeadlineCommand;
+        if (userCommand.length() < COMMAND_DEADLINE.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_DEADLINE.length()).equalsIgnoreCase(COMMAND_DEADLINE);
     }
 
     /**
-     * Check if the user command is a 'event' command.
+     * Check if the user command is an 'event' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'event' command.
      * */
     private static boolean checkEventCommand(String userCommand) {
-        boolean isCorrectLength = (userCommand.length() >= COMMAND_EVENT.length());
-        boolean hasEventCommand = (userCommand.substring(0, COMMAND_EVENT.length()).equalsIgnoreCase(COMMAND_EVENT));
-        return isCorrectLength && hasEventCommand;
+        if (userCommand.length() < COMMAND_EVENT.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_EVENT.length()).equalsIgnoreCase(COMMAND_EVENT);
+    }
+
+    /**
+     * Check if the user command is an 'undo' command.
+     *
+     * @param userCommand String command to be interpreted.
+     * @return boolean representing if command is an 'undo' command.
+     * */
+    private static boolean checkUndoCommand(String userCommand) {
+        if (userCommand.length() < COMMAND_UNDO.length()) {
+            return false;
+        }
+        return userCommand.substring(0, COMMAND_UNDO.length()).equalsIgnoreCase(COMMAND_UNDO);
     }
 
     /**
@@ -193,6 +218,7 @@ public class Parser {
      * */
     private static String markTask(TaskList taskList, String userCommand) {
         int taskIndex = Integer.parseInt(userCommand.substring(COMMAND_MARK.length() + 1));
+        Undo.saveCommand(COMMAND_MARK, taskIndex);
         return taskList.mark(taskIndex);
     }
 
@@ -205,6 +231,7 @@ public class Parser {
      * */
     private static String unmarkTask(TaskList taskList, String userCommand) {
         int taskIndex = Integer.parseInt(userCommand.substring(COMMAND_UNMARK.length() + 1));
+        Undo.saveCommand(COMMAND_UNMARK, taskIndex);
         return taskList.unmark(taskIndex);
     }
 
@@ -217,6 +244,8 @@ public class Parser {
      * */
     private static String deleteTask(TaskList taskList, String userCommand) {
         int taskIndex = Integer.valueOf(userCommand.substring(COMMAND_DELETE.length() + 1));
+        Undo.saveCommand(COMMAND_DELETE, taskIndex);
+        Undo.saveTask(taskList.get(taskIndex - 1));
         return taskList.delete(taskIndex);
     }
 
@@ -231,6 +260,7 @@ public class Parser {
         if (userCommand.length() == COMMAND_TODO.length()) {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
+        Undo.saveCommand(COMMAND_TODO, taskList.getCmdNum() + 1);
         return taskList.add(new Todo(userCommand.substring(COMMAND_TODO.length() + 1)));
     }
 
@@ -250,6 +280,7 @@ public class Parser {
         if ((dateIndex == INDEX_INVALID) || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
             return REPLY_MISSING_DEADLINE;
         }
+        Undo.saveCommand(COMMAND_DEADLINE, taskList.getCmdNum() + 1);
         return taskList.add(new Deadline(taskDetails.substring(0, dateIndex),
                 taskDetails.substring(dateIndex + INDEX_OFFSET_BY)));
     }
@@ -271,6 +302,7 @@ public class Parser {
         if ((start == INDEX_INVALID) || (end == INDEX_INVALID)) {
             return REPLY_MISSING_EVENT_DATE;
         }
+        Undo.saveCommand(COMMAND_EVENT, taskList.getCmdNum() + 1);
         return taskList.add(new Event(taskDetails.substring(0, start),
                 taskDetails.substring(start + INDEX_OFFSET_FROM, start + end),
                 taskDetails.substring(start + 1 + end + INDEX_OFFSET_TO)));
@@ -288,6 +320,19 @@ public class Parser {
             return REPLY_INVALID_FIND_KEYWORDS;
         }
         return taskList.find(userCommand.substring(COMMAND_FIND.length() + 1));
+    }
+
+    /**
+     * Undoes the last command.
+     *
+     * @param taskList Current task list.
+     * @return String response to inform user of successful undoing of last command.
+     * */
+    private static String undoLastCommand(TaskList taskList){
+        if (Undo.checkPreviousCommand()) {
+            return REPLY_NO_PREVIOUS_COMMAND;
+        }
+        return Undo.undo();
     }
 
 
