@@ -20,6 +20,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Description cannot be null";
         this.description = description;
         this.isDone = false;
     }
@@ -62,6 +63,7 @@ public class Task {
      * @return A string representing the task in a file-friendly format.
      */
     public String toWriteFormat() {
+        assert (this instanceof ToDo) || (this instanceof Deadline) || (this instanceof Event) : "Invalid task type";
         return String.format("%s | %d | %s",
                 this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
                 isDone ? 1 : 0,

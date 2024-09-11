@@ -39,7 +39,9 @@ public class Parser {
      */
     public int getTaskNumber() throws AgaveException {
         try {
-            return Integer.parseInt(userInput.split(" ")[1]);
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            assert taskNumber > 0 : "Task number must be greater than 0";
+            return taskNumber;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new AgaveException("Please enter a valid task number.");
         }
