@@ -48,6 +48,12 @@ public class ListCommandTest {
     private static class UiStub extends Ui {
         private final List<Task> displayedTasks = new ArrayList<>();
 
+        @Override
+        public String getTasksMessage(ArrayList<Task> tasks) {
+            displayedTasks.addAll(tasks); // Simulate displaying tasks
+            return ""; // Return an empty string since we are not testing the actual output
+        }
+
         public List<Task> getDisplayedTasks() {
             return displayedTasks;
         }
