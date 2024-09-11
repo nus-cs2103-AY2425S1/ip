@@ -51,6 +51,7 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         this.dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
         userInput.clear();
+        assert(this.gui != null);
         this.gui.handleUserInput(userText);
     }
 

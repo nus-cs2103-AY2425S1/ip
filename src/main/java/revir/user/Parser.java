@@ -76,7 +76,9 @@ public class Parser {
             return parseFind(commandArgs);
         case INVALID:
             throw new IllegalCommandException(commandWord);
-        default:
+        default: 
+            // should never reach here
+            assert(false);
             return new Nop(false);
         }
     }
