@@ -47,6 +47,7 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             Task task = fileStringToTask(line);
             if (task != null) {
+                // task is null if it is not one of the 3 valid tasks
                 taskList.add(task);
             }
         }

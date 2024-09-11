@@ -30,6 +30,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("T | %d | %s", super.status() ? 1 : 0, getDescription());
+        int status = super.status() ? 1 : 0;
+        return String.format("T | %d | %s", status, getDescription());
     }
 }

@@ -46,8 +46,11 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s | %s", super.status() ? 1 : 0, getDescription(),
-                from.format(Parser.getFormatters().get(0)),
-                to.format(Parser.getFormatters().get(0)));
+        int status = super.status() ? 1 : 0;
+        String fromInFileFormat = this.from.format(Parser.getFormatters().get(0));
+        String toInFileFormat = this.to.format(Parser.getFormatters().get(0));
+        return String.format("E | %d | %s | %s | %s", status, getDescription(),
+                fromInFileFormat,
+                toInFileFormat);
     }
 }
