@@ -161,6 +161,7 @@ public class Ui {
      */
     public String showTasks(TaskList tasks) {
         assert tasks != null : "TaskList should not be null";
+
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     Your task list is empty.\n");
@@ -185,6 +186,8 @@ public class Ui {
      */
     public String showSpecificTasks(TaskList tasks, LocalDate date) {
         assert tasks != null : "TaskList should not be null";
+        assert date != null : "Date should not be null";
+
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     No tasks found on this date.\n");
@@ -210,6 +213,7 @@ public class Ui {
      */
     public String showMatchingTasks(TaskList tasks) {
         assert tasks != null : "TaskList should not be null";
+
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
             output.append("     No matching tasks found.\n");

@@ -79,6 +79,7 @@ public class Storage {
      */
     public void save(ArrayList<Task> tasks) throws IOException {
         assert tasks != null : "Tasks list should not be null";
+
         FileWriter writer = new FileWriter(filePath);
 
         for (Task task : tasks) {

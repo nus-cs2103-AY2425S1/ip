@@ -39,6 +39,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -104,6 +105,7 @@ public class TaskList {
      * @return A TaskList containing the tasks that occur on the specified date.
      */
     public TaskList findTasksByDate(LocalDate date) {
+        assert date != null : "Date should not be null";
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> {
                     if (task instanceof Deadline) {
