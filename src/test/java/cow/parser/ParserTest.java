@@ -11,6 +11,7 @@ import cow.commands.DeleteCommand;
 import cow.commands.DueCommand;
 import cow.commands.EventCommand;
 import cow.commands.HelpCommand;
+import cow.commands.IncorrectCommand;
 import cow.commands.ListCommand;
 import cow.commands.MarkCommand;
 import cow.commands.TodoCommand;
@@ -82,5 +83,17 @@ public class ParserTest {
     public void unknownTest() throws CowExceptions {
         Command c = Parser.parse("random");
         assertInstanceOf(HelpCommand.class, c);
+    }
+
+    @Test
+    public void invalidDateFormatTest() throws CowExceptions {
+        Command c = Parser.parse("due invalid-date");
+        assertInstanceOf(IncorrectCommand.class, c);
+    }
+
+    @Test
+    public void invalidRecurringCommandTest() throws CowExceptions {
+        Command c = Parser.parse("recurring task /start invalid-date /freq daily /times 5");
+        assertInstanceOf(IncorrectCommand.class, c);
     }
 }
