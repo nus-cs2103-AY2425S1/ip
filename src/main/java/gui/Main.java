@@ -16,6 +16,11 @@ public class Main extends Application {
 
     private Light light= new Light("./data/saved.txt");
 
+    /**
+     * Starts the application.
+     *
+     * @param stage The stage to start the application on.
+     */
     @Override
     public void start(Stage stage) {
         try {

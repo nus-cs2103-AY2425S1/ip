@@ -62,7 +62,7 @@ public class Ui {
     /**
      * Closes the user interface.
      */
-    public void closeUI() {
+    public void closeUi() {
         scanner.close();
     }
 }

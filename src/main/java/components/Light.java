@@ -44,22 +44,28 @@ public class Light {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (LightException e) {
                 ui.showError(e);
             } catch (NoSuchElementException e) {
-                ui.closeUI();
+                ui.closeUi();
                 return;
             }
         }
     }
 
+    /**
+     * Gets the response from the Light program.
+     *
+     * @param input The input to the Light program.
+     * @return The response from the Light program.
+     */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            String response = c.execute(tasks, ui, storage);
+            Command command = Parser.parse(input);
+            String response = command.execute(tasks, ui, storage);
             return response;
         } catch (LightException e) {
             return e.toString();

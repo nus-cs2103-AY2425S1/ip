@@ -1,5 +1,6 @@
 package command;
 
+import assertions.AssertCommand;
 import components.Storage;
 import components.Ui;
 import exceptions.LightException;
@@ -30,6 +31,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+        new AssertCommand(tasks, ui, storage).assertExecute(tasks, ui, storage);
         TaskList foundTasks = tasks.findTasks(keyword);
         return ui.beautifyMessage(TaskList.arrayToNumberedString(foundTasks));
     }

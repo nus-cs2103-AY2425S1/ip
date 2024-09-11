@@ -1,5 +1,6 @@
 package command;
 
+import assertions.AssertCommand;
 import components.Storage;
 import components.Ui;
 import task.Task;
@@ -30,6 +31,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        new AssertCommand(task, tasks, ui, storage).assertExecute(task, tasks, ui, storage);
         tasks.add(task);
         String stringOfTask = TaskList.arrayToNumberedString(tasks);
         storage.write(stringOfTask);
