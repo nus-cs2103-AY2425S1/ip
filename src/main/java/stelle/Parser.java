@@ -132,6 +132,7 @@ public class Parser {
                 + "Alright. Removed the task:\n"
                 + this.taskList.get(possibleTaskNum - 1).toString();
 
+        assert possibleTaskNum > 0 && possibleTaskNum <= this.taskList.size();
         this.taskList.remove(possibleTaskNum - 1);
         this.taskList.writeToFile();
 
@@ -241,6 +242,7 @@ public class Parser {
             throw new NoSuchTaskException();
         }
 
+        assert taskNum > 0 && taskNum <= this.taskList.size();
         Task task = this.taskList.get(taskNum - 1);
         task.mark();
 
@@ -260,6 +262,7 @@ public class Parser {
         }
 
         Task task = this.taskList.get(taskNum - 1);
+        assert taskNum > 0 && taskNum <= this.taskList.size();
         task.unmark();
 
         this.taskList.writeToFile();
@@ -278,6 +281,7 @@ public class Parser {
 
         outputString = outputString + "Here are the tasks in your list:";
         for (int i = 0; i < this.taskList.size(); i++) {
+            assert i >= 0 && i < this.taskList.size();
             outputString = outputString + "\n " + (i + 1) + ". " + this.taskList.get(i).toString();
         }
 
