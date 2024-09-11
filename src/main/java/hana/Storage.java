@@ -17,7 +17,7 @@ import hana.task.ToDo;
  * Handles loading tasks from the file and saving tasks to the file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Initializes the Storage with the specified file path.
@@ -100,14 +100,17 @@ public class Storage {
      */
     private String taskToString(Task task) {
         if (task instanceof ToDo) {
-            return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription();
-        } else if (task instanceof Deadline) {
-            Deadline d = (Deadline) task;
-            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + d.getDescription() + " | " + d.getBy();
-        } else if (task instanceof Event) {
-            Event e = (Event) task;
-            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + e.getDescription() + " | " + e.getFrom()
-                    + " | " + e.getTo();
+            return "T | " + (task.getIsDone() ? "1" : "0")
+                    + " | " + task.getDescription();
+        } else if (task instanceof Deadline deadline) {
+            return "D | " + (task.getIsDone() ? "1" : "0")
+                    + " | " + deadline.getDescription()
+                    + " | " + deadline.getBy();
+        } else if (task instanceof Event event) {
+            return "E | " + (task.getIsDone() ? "1" : "0")
+                    + " | " + event.getDescription()
+                    + " | " + event.getFrom()
+                    + " | " + event.getTo();
         }
         return "";
     }

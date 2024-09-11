@@ -97,8 +97,8 @@ public class Parser {
             if (!deleteMatcher.matches()) {
                 throw new HanaException("Invalid delete syntax. Write only the task index after the word 'delete'.");
             }
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            return new DeleteCommand(taskIndex);
+            taskNumber = Integer.parseInt(parts[1]) - 1;
+            return new DeleteCommand(taskNumber);
         case "find":
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new HanaException("OOPS!!! The search keyword cannot be empty.");

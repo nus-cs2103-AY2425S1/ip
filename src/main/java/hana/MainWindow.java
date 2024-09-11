@@ -29,7 +29,6 @@ public class MainWindow extends AnchorPane {
      * Initializes the MainWindow controller and sets up the initial state of the UI.
      * Binds the vertical scroll property of the ScrollPane to automatically scroll down as the dialog container grows.
      * Displays the welcome message from Hana when the program starts.
-     *
      * The welcome message is retrieved from the Ui class and shown in the dialog container as a Duke dialog.
      */
     @FXML
