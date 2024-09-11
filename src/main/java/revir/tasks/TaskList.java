@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import revir.system.Storage;
+import revir.system.exceptions.DuplicateTaskException;
 import revir.user.ui.Ui;
 
 /**
@@ -39,7 +40,12 @@ public class TaskList {
      * @throws IOException if an I/O error occurs while saving the task list to a
      *                     file
      */
-    public void add(Task task) throws IOException {
+    public void add(Task task) throws IOException, DuplicateTaskException {
+        for (Task t : tasks) {
+            if (t.equals(task)) {
+                throw new DuplicateTaskException(task);
+            }
+        }
         tasks.add(task);
         storage.saveToFile(this.tasks);
     }

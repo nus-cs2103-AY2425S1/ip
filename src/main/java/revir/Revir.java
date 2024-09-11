@@ -19,14 +19,14 @@ public class Revir {
     private static Ui ui;
 
     public static void main(String[] args) {
-        storage = new Storage(Path.of("data", "tasks.dat"));
-        taskList = new TaskList(storage, ui);
-        
         if (args.length >= 1 && args[0].equals("--cli")) {
-            ui = new Tui();
+            Revir.ui = new Tui();
         } else {
-            ui = new Gui();
+            Revir.ui = new Gui();
         }
+        assert(Revir.ui != null);
+        storage = new Storage(Path.of("data", "tasks.dat"));
+        taskList = new TaskList(storage, Revir.ui);
 
         ui.run(taskList);
         ui.showExit();
