@@ -34,9 +34,6 @@ public class DialogBox extends HBox {
         HBox.setHgrow(text, Priority.ALWAYS);
         text.setPrefWidth(0);
 
-        setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(this, Priority.ALWAYS);
-
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
@@ -44,6 +41,7 @@ public class DialogBox extends HBox {
         getChildren().addAll(text, displayPicture);
         setSpacing(10);
         setStyle("-fx-background-color:" + color);
+        //@@author
     }
 
     /** Flips the dialog box such that the ImageView is on the left and text on the right. */

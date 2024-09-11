@@ -45,9 +45,11 @@ public class MainGui extends Application {
         stage.show();
 
         stage.setTitle("Skibidi Chatbot");
-        stage.setMinHeight(800.0);
-        stage.setMinWidth(800.0);
+        stage.setMinHeight(785.0);
+        stage.setMinWidth(785.0);
 
+        //@@author {eugencsa}-reused
+        //minor changes made for styling purposes to avoid using fxml
         anchorPane.setPrefSize(800.0, 800.0);
         anchorPane.setStyle("-fx-background-color: #1e1e1e");
 
@@ -62,8 +64,8 @@ public class MainGui extends Application {
         dialogContainer.setStyle("-fx-background-color: #1e1e1e");
 
         userInput.setPrefWidth(735.0);
-
         sendButton.setPrefWidth(55.0);
+        //@@author
 
         // anchor ui components to corners
         AnchorPane.setTopAnchor(scrollPane, 1.0);
