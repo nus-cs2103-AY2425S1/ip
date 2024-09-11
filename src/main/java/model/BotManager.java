@@ -14,7 +14,7 @@ import task.TaskList;
 public class BotManager {
     private final Parser parser;
     private final Storage storage;
-    private final TaskList taskList = new TaskList();
+    private final TaskList taskList;
 
     /**
      * Constructor for a BotManager.
@@ -23,6 +23,7 @@ public class BotManager {
     public BotManager() {
         parser = new Parser();
         storage = new Storage();
+        taskList = new TaskList();
     }
 
     /**
@@ -52,13 +53,5 @@ public class BotManager {
         } catch (BotException e) {
             return new Response[]{new Response(e.getMessage(), false)};
         }
-    }
-
-    /**
-     * Attempts to save task data to the data file.
-     * @return <code>Response</code> describing the status of the action.
-     */
-    private Response saveData() {
-        return storage.saveTaskList(taskList);
     }
 }

@@ -3,6 +3,7 @@ package controller;
 import java.util.Arrays;
 import java.util.Objects;
 
+import enums.StatusMessage;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -26,8 +27,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private BotManager botManager;
 
@@ -45,9 +44,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setup() {
         botManager = new BotManager();
-        String welcomeMessage = "Hello, I'm BotManager, your friendly task assistant!\n"
-                + "What can I do for you? (Type 'help' to view all available commands)";
-        addBotDialog(botManager.loadData().getMessage(), welcomeMessage);
+        addBotDialog(botManager.loadData().getMessage(), StatusMessage.WELCOME.getMessage());
     }
 
     /**
