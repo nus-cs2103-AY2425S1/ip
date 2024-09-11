@@ -48,6 +48,7 @@ public class Storage {
                 System.out.println("Skipping corrupted data: " + data);
                 continue;
             }
+            assert parts.length >= 3 : "Unexpected task format in file.";
 
             String taskType = parts[0];
             boolean done = parts[1].equals("1");
