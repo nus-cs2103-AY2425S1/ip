@@ -32,6 +32,8 @@ public class Storage {
      * @throws TuesdayException Throws when the program does not understand the data
      */
     public String load() throws TuesdayException {
+        assert this.filePath != null : "The constructor should be used first";
+
         File dataFile = new File(filePath);
         if (!dataFile.exists()) {
             throw new TuesdayException("No data in the file");
@@ -82,6 +84,8 @@ public class Storage {
      */
 
     public void saveToDatafile(Task taskItem) {
+        assert this.filePath != null : "The constructor should be used first";
+
         File dataFile = new File(filePath);
         taskItem.writeToDatafile(dataFile);
     }
@@ -91,6 +95,8 @@ public class Storage {
      */
     public void createNewDatafile() {
         try {
+            assert this.filePath != null : "The constructor should be used first";
+
             File dataFile = new File(filePath);
             dataFile.getParentFile().mkdirs(); // Make the directory
             dataFile.createNewFile(); // Make the file
