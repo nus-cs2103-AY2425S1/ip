@@ -1,6 +1,8 @@
 package dipsy.tasklist;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import dipsy.storage.Storage;
 import dipsy.task.Task;
@@ -87,13 +89,9 @@ public class TaskList {
      * @return A list of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> getTasksByKeyword(String keyword) {
-        ArrayList<Task> filteredList = new ArrayList<>();
-        for (Task task: tasks) {
-            if (task.hasKeywordInDescription(keyword)) {
-                filteredList.add(task);
-            }
-        }
-        return filteredList;
+        return tasks.stream()
+                .filter(task -> task.hasKeywordInDescription(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
