@@ -51,7 +51,7 @@ public class Storage {
         return taskList;
     }
 
-    private Task parseTask(String nextLine) throws IllegalFileFormatException {
+    public Task parseTask(String nextLine) throws IllegalFileFormatException {
         String[] taskData = nextLine.split("_");
         Task task = null;
         switch (taskData[0]) {

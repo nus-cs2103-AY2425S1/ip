@@ -26,6 +26,7 @@ public class Screwllum {
             taskManager = new TaskManager();
         } catch (ScrewllumException e) {
             ui.showError(e.getMessage());
+            System.exit(1);
         }
     }
     
