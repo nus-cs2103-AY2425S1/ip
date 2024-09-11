@@ -7,8 +7,6 @@ public class Ui {
     // handles the interaction with the user
     // receives inputs (readline) and printing outputs to the command line
 
-    // private static final String HORIZONTAL_LINE = "____________________________________________________________";
-
 
     /**
      * Prints the welcome message.
