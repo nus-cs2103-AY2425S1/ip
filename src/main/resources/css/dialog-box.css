@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #00bbff, #00ddff);
+    -fx-border-color: #333;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 10px;
+    -fx-margin: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+    -fx-background-color: linear-gradient(to bottom left, #ff5500, #ff7b00);
+}
+
+#displayPicture {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+

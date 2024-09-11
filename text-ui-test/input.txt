@@ -1,0 +1,12 @@
+todo read book
+deadline return book /by next week
+list
+mark 2
+yeet
+hello world
+unmark 1
+event sleep
+delete 5
+delete X
+delete 1
+bye

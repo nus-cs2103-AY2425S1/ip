@@ -1,5 +1,6 @@
 # IDEA files
 /.idea/
+/.vscode/
 /out/
 /*.iml
 
@@ -15,3 +16,7 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+src/main/java/input.txt
+src/main/java/fret/Fret_og.java
+
+data/
