@@ -21,6 +21,7 @@ public class DeadlineCommand extends Command {
     public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
         Task task = new Deadline(this.description, this.by);
+        assert task != null: "task is null";
         tasks.add(task);
         try {
             Storage.appendToFile(task);
