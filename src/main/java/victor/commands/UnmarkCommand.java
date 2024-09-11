@@ -9,6 +9,7 @@ import victor.messages.ReturnMessage;
  * as complete and executes unmark command on specified task.
  */
 public class UnmarkCommand extends Command {
+    private static final String WRONG_TASK_NUMBER = "-1";
     private String taskNumber;
 
     /**
@@ -18,12 +19,19 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(String[] additionalInput) {
         super(additionalInput);
+        setTaskNumber();
+    }
+
+    /**
+     * Checks if additional input has a number provided for the unmark command. If not,
+     * sets task number to constant wrong value.
+     */
+    public void setTaskNumber() {
         if (additionalInput.length == 1) {
-            this.taskNumber = "-1";
+            this.taskNumber = WRONG_TASK_NUMBER;
         } else {
             this.taskNumber = additionalInput[1];
         }
-
     }
 
     /**
@@ -47,8 +55,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void write(Path filePath) {
-        if (!taskNumber.trim().equals("-1")) {
-            super.taskList.writeToFile(filePath, true);
+        if (taskNumber.trim().equals("-1")) {
+            return;
         }
+        super.taskList.writeToFile(filePath, true);
     }
 }
