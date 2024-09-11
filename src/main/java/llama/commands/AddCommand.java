@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import llama.data.Deadline;
 import llama.data.Event;
 import llama.data.Storage;
+import llama.data.TagList;
 import llama.data.Task;
 import llama.data.TaskList;
 import llama.data.Todo;
@@ -52,7 +53,7 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) throws IOException {
         String response = "";
         if (taskType == TaskType.TODO) {
             Task newTask = new Todo(remaining, false);

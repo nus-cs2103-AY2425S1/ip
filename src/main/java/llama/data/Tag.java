@@ -12,7 +12,11 @@ public class Tag {
      * @param tagTitle Title of tag
      */
     public Tag(String tagTitle) {
-        this.tagTitle = tagTitle;
+        this.tagTitle = tagTitle.toLowerCase();
+    }
+
+    public String getTitle() {
+        return this.tagTitle;
     }
 
     @Override

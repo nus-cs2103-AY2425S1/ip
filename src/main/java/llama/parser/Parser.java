@@ -2,6 +2,7 @@ package llama.parser;
 
 import llama.commands.AddCommand;
 import llama.commands.Command;
+import llama.commands.CreateTagCommand;
 import llama.commands.DeleteCommand;
 import llama.commands.EditCommand;
 import llama.commands.ExitCommand;
@@ -46,9 +47,10 @@ public class Parser {
             return new DeleteCommand(remaining);
         case "find":
             return new ListCommand(remaining);
+        case "create":
+            return new CreateTagCommand(remaining);
         default:
             throw new LlamaException("Command not found, try again.");
         }
-
     }
 }
