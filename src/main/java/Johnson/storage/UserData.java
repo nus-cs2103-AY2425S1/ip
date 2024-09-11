@@ -1,16 +1,8 @@
 package Johnson.storage;
 
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
+import Johnson.task.*;
 
-import Johnson.task.Deadline;
-import Johnson.task.Event;
-import Johnson.task.Task;
-import Johnson.task.TaskList;
-import Johnson.task.ToDo;
+import java.io.*;
 
 /**
  * Handles the storage and retrieval of user data, specifically tasks lists.
@@ -30,6 +22,7 @@ public class UserData {
     public UserData(String directory) {
         saveFileDirectory = directory;
         this.tasks = loadTasks(directory);
+        assert tasks != null : "Tasks list should not be null";
     }
 
     /**
@@ -38,6 +31,7 @@ public class UserData {
     public UserData() {
         saveFileDirectory = defaultFileDirectory;
         this.tasks = loadTasks(saveFileDirectory);
+        assert tasks != null : "Tasks list should not be null";
     }
 
     public TaskList getTasks() {

@@ -43,6 +43,7 @@ public abstract class Task {
      */
     public boolean completeTask() {
         isDone = true;
+        assert isDone : "Task should be marked as done";
         return isDone;
     }
 
@@ -53,6 +54,7 @@ public abstract class Task {
      */
     public boolean uncompleteTask() {
         isDone = false;
+        assert !isDone : "Task should be marked as not done";
         return isDone;
     }
     public String getTaskName() {

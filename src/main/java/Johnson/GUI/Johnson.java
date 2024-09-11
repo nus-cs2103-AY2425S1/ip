@@ -8,8 +8,6 @@ import Johnson.storage.UserData;
 import Johnson.task.TaskList;
 import Johnson.utils.Utilities;
 
-import java.util.Scanner;
-
 /**
  * Represents the main class of the PHamBot application.
  */
@@ -28,7 +26,7 @@ public class Johnson {
     public Johnson() {
         data = new UserData();
         tasks = data.getTasks();
-        Command.setUserData(tasks);
+        Command.setTaskList(tasks);
         parser = new Parser();
     }
 

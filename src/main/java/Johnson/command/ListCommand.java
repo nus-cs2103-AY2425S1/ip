@@ -17,10 +17,13 @@ public class ListCommand extends Command {
 
     @Override
     public String executeCommand() {
-        if (Command.taskList.taskCount() == 0 || Command.taskList == null) {
+        assert Command.taskList != null : "Task list is null";
+
+        if (Command.taskList.taskCount() == 0) {
             Utilities.OutlineMessage(EMPTY_MSG);
             return EMPTY_MSG;
         }
+
         Utilities.OutlineMessage(COMMAND_MSG + Command.taskList);
         return (COMMAND_MSG + Command.taskList);
     }

@@ -18,20 +18,13 @@ public abstract class Command {
     public abstract String executeCommand();
 
     /**
-     * Sets the user data for the command.
+     * Sets the task list for commands.
      *
      * @param tasks the task list to be set.
      */
-    public static void setUserData(TaskList tasks) {
+    public static void setTaskList(TaskList tasks) {
         taskList = tasks;
+        assert taskList != null : "Task list should not be null";
     }
 
-    /**
-     * Sets the task list for the command.
-     *
-     * @param taskList the task list to be set.
-     */
-    public void setTaskList(TaskList taskList) {
-        Command.taskList = taskList;
-    }
 }
