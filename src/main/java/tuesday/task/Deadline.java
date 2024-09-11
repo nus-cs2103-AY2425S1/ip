@@ -22,7 +22,6 @@ public class Deadline extends Task {
      * @param byMsg Postfix after /by
      */
     public Deadline(String description, String byMsg) {
-
         super(description);
         byMsg = this.handleByMsg(byMsg);
         this.byMsg = byMsg;
@@ -51,6 +50,9 @@ public class Deadline extends Task {
     private String handleByMsg(String byMsg) {
         //deadline readbook /by 2019-10-23 10:30
         String[] timingMsg = byMsg.split(" ");
+        if (timingMsg.length < 2) {
+            return byMsg;
+        }
 
         timingMsg[0] = timingMsg[0].replaceAll("/", "-");
         String[] dateInParts = timingMsg[0].split("-");
