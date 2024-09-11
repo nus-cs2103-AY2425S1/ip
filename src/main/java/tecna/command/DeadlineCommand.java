@@ -18,6 +18,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
+        super.execute(taskList, storage, ui);
         Deadline deadline;
 
         try {

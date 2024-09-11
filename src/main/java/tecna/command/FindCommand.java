@@ -12,6 +12,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
+        super.execute(taskList, storage, ui);
         try {
             return ui.printFindTasksMsg(taskList, parseFindCommand());
         } catch (WrongFormatException e) {

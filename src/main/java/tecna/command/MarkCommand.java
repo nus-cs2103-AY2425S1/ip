@@ -12,6 +12,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
+        super.execute(taskList, storage, ui);
         try {
             int index = parseMarkCommand(taskList);
             taskList.mark(index);
