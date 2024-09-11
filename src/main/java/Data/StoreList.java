@@ -40,6 +40,7 @@ public class StoreList {
      */
     public String addItem(String item, String type) {
         try {
+            assert type.equals("todo") || type.equals("deadline") || type.equals("event") : "Invalid task type";
             if (type.equals("todo")) {
                 // create a Tasks.ToDos object
                 t = new ToDos(item);
@@ -82,7 +83,8 @@ public class StoreList {
      * @param num Index of task to be marked.
      */
     public String markItem(int num) throws InvalidIndexException {
-        assert num > 0 && num <= items.size() : "Invalid index";
+        assert num > 0 : "Task number does not exist";
+
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -97,7 +99,8 @@ public class StoreList {
      * @param num Index of task to be unmarked.
      */
     public String UnmarkItem(int num) throws InvalidIndexException {
-        assert num > 0 && num <= items.size() : "Invalid index";
+        assert num > 0 : "Task number does not exist";
+
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -112,7 +115,9 @@ public class StoreList {
      * @param num Index of task to be deleted.
      */
     public String deleteItem(int num) throws InvalidIndexException {
-        assert num > 0 && num < items.size() : "Invalid index";
+
+        assert num > 0 : "Task number does not exist";
+
         if (num >= items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -135,38 +140,55 @@ public class StoreList {
     }
 
     /**
-     * Displays items in list due on a specific date.
+     * Returns a formatted string representing the tasks due on the specified date.
      *
-     * @param date the date in the format yyyy-MM-dd or dd/MM/yyyy to check deadlines against.
+     * @param date The date to check deadlines against (in format yyyy-MM-dd or dd/MM/yyyy).
+     *
      */
     public String dueOnDate(String date) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate inputDate;
-        StringBuilder result = new StringBuilder();
+        //StringBuilder to append tasks due on the date
+        StringBuilder tasksDueOnDate = new StringBuilder();
+
         // variable to store if tasks found
         boolean found = false;
 
-        try {
-            // check if input date matches format of stored date
-            inputDate = LocalDate.parse(date, dateTimeFormatter);
-        } catch (Exception e) {
-            try {
-                // check if input date matches format of stored date
-                inputDate = LocalDate.parse(date, dateTimeFormatter2);
-            } catch (Exception e2) {
-                return "invalid date format! pls use yyyy-MM-dd or dd/MM/yyyy";
-            }
+        // check if input date matches format of stored date
+        inputDate = parseDeadline(date);
+
+        if (inputDate == null) {
+            return "invalid date format! pls use yyyy-MM-dd or dd/MM/yyyy";
         }
 
-        result.append("    Here are the tasks due on ").append(date).append(":\n");
+
+        found = tasksDue(date, tasksDueOnDate, inputDate, found);
+
+        // if no tasks found, return no tasks due
+        if (!found) {
+            tasksDueOnDate.append("No tasks due on ").append(date);
+        }
+        return tasksDueOnDate.toString();
+    }
+
+    /**
+     * Returns true if any tasks were found, false otherwise.
+     * Helper method to find and append tasks due on a specific date.
+     *
+     * @param date The original date string used in the request.
+     * @param tasksDueOnDate StringBuilder to append tasks due on the date.
+     * @param inputDate The parsed LocalDate of the input date.
+     * @param found A boolean indicating if any tasks were found due on the date.
+     *
+     */
+    private boolean tasksDue(String date, StringBuilder tasksDueOnDate, LocalDate inputDate, boolean found) {
+        tasksDueOnDate.append("    Here are the tasks due on ").append(date).append(":\n");
         for (int i = 0; i < items.size(); i++) {
             Task task = items.get(i);
             if (task instanceof Deadlines) {
                 // type cast once sure of type of task
                 LocalDate taskDate = ((Deadlines) task).getLocalDate();
                 if (taskDate != null && taskDate.equals(inputDate)) {
-                    result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
+                    tasksDueOnDate.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
                     found = true;
                 }
             }
@@ -175,17 +197,34 @@ public class StoreList {
                 // type cast once sure of type of task
                 LocalDate taskDate = ((Events) task).getLocalDate();
                 if (taskDate != null && taskDate.equals(inputDate)) {
-                    result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
+                    tasksDueOnDate.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
                     found = true;
                 }
             }
         }
+        return found;
+    }
 
-        // if no tasks found, return no tasks due
-        if (!found) {
-            result.append("No tasks due on ").append(date);
+    /**
+     * Parses a date string and returns a LocalDate object.
+     *
+     * @param date The date string to be parsed (formats supported: yyyy-MM-dd or dd/MM/yyyy).
+     * @return A LocalDate object if the date is valid, or null if the format is invalid.
+     */
+    private static LocalDate parseDeadline(String date) {
+        LocalDate inputDate;
+        try {
+            // check if input date matches format of stored date
+            inputDate = ParseTasks.parseDateFormat1(date);
+        } catch (Exception e) {
+            try {
+                // check if input date matches format of stored date
+                inputDate = ParseTasks.parseDateFormat2(date);
+            } catch (Exception e2) {
+                return null;
+            }
         }
-        return result.toString();
+        return inputDate;
     }
 
     /**
