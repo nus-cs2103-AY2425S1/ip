@@ -147,20 +147,20 @@ public class Ui {
         String oops = "OOPS!!! ";
         StringBuilder response = new StringBuilder();
         switch (taskType) {
-            case TODO, EVENT, DEADLINE:
-                response.append(oops).append(desc).append("\n");
-                break;
-            case INVALID:
-                String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
-                response.append(invalidMessage);
-                break;
-            case DATE:
-                String invalidDateMessage = oops + "Date is not properly formatted.\nIt should be formatted as: YYYY-MM-DD\n";
-                response.append(invalidDateMessage);
-                break;
-            default:
-                String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
-                response.append(defaultMessage);
+        case TODO, EVENT, DEADLINE:
+            response.append(oops).append(desc).append("\n");
+            break;
+        case INVALID:
+            String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+            response.append(invalidMessage);
+            break;
+        case DATE:
+            String invalidDateMessage = oops + "Date is not properly formatted.\nIt should be formatted as: YYYY-MM-DD\n";
+            response.append(invalidDateMessage);
+            break;
+        default:
+            String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
+            response.append(defaultMessage);
         }
         return response.toString();
     }
