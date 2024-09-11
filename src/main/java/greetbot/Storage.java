@@ -35,6 +35,7 @@ public class Storage {
             dir.mkdir();
             if (!Files.exists(dataPath)) {
                 database.createNewFile();
+                assert database.exists();
             } else {
                 Scanner fileReader = new Scanner(database);
                 while (fileReader.hasNextLine()) {
@@ -84,6 +85,8 @@ public class Storage {
      */
     public void saveData(TaskList taskList) {
         Path dataPath = java.nio.file.Paths.get(this.workingDir, this.filePath);
+        File database = new File(dataPath.toString());
+        assert database.exists();
         try (FileWriter databaseWriter = new FileWriter(dataPath.toString(), false)) {
             for (int i = 0; i < taskList.getLength(); i++) {
                 databaseWriter.write(taskList.get(i).transferToDatabaseString());
