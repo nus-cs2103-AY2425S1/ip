@@ -30,6 +30,12 @@ public class TaskList {
      */
     public Task addTask(Command type, String[] response) {
         Task task = new Task(response[0]);
+
+        assert type == Command.TODO
+                || type == Command.DEADLINE
+                || type == Command.EVENT
+                : "invalid task type to call function addTask";
+
         switch (type) {
         case TODO:
             task = new Todo(response[1]);
@@ -66,9 +72,10 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task markTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > tasks.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new InvalidTaskException("", taskNumber);
         }
+
         Task markTask = tasks.get(taskNumber - 1);
         markTask.markAsDone();
         return markTask;
@@ -82,7 +89,7 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task unmarkTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > tasks.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new InvalidTaskException("", taskNumber);
         }
         Task unmarkTask = tasks.get(taskNumber - 1);
@@ -98,7 +105,7 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task deleteTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > tasks.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new InvalidTaskException("", taskNumber);
         }
         return tasks.remove(taskNumber - 1);

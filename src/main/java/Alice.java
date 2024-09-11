@@ -18,6 +18,7 @@ public class Alice {
      * @param filePath the path of the file to save the tasks to.
      */
     public Alice(String filePath) {
+        assert !filePath.isEmpty() : "filePath cannot be empty";
         storage = new Storage(filePath);
         // load tasks
         storage.loadTasks();
