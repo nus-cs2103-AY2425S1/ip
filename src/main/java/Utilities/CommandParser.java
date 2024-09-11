@@ -49,17 +49,22 @@ public class CommandParser {
         } else if (input.startsWith(Commands.UNMARK.command) || input.startsWith(Commands.MARK.command)) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
+            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
             int index = Integer.parseInt(intValue) - 1;
+            assert index <= tl.getSize(); // add assertion to check index
             response += tl.updateTaskListStatus(index, input.startsWith("mark"));
             store.updateTaskStatus(index, input.startsWith(Commands.MARK.command));
         } else if (input.startsWith(Commands.DELETE.command)) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
+            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
             int index = Integer.parseInt(intValue) - 1;
+            assert index <= tl.getSize(); // add assertion to check index
             response += tl.removeFromTaskList(index);
             store.removeFileTask(index);
         } else if (input.startsWith(Commands.FIND.command)) {
             String matchValue = input.replace("find", "").strip();
+            assert !matchValue.isEmpty();
             response += tl.findTasks(matchValue);
         } else if (input.startsWith(Commands.TAG.command)) {
             String[] splits = input.split("/");
@@ -90,7 +95,7 @@ public class CommandParser {
                     try {
                         Task t = new Deadlines(name, details.strip());
                         response += tl.addToTaskList(t, name);
-                        store.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
@@ -106,7 +111,7 @@ public class CommandParser {
                     try {
                         Task t = new Event(name, startDetails.strip(), endDetails.strip());
                         response += tl.addToTaskList(t, name);
-                        store.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
@@ -117,6 +122,8 @@ public class CommandParser {
                 response += Ui.updateUserOnError(e);
             }
         }
+
+        assert response != ""; // important check for return
 
         return response;
     }

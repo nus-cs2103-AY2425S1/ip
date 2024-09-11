@@ -26,13 +26,13 @@ public class StorageTest {
     @Test
     public void updateTaskStatusInFileTest() {
         Storage store = new Storage(FILE_PATH);
-        store.updateFileStatus(3, true);
+        store.updateTaskStatus(3, true);
         // Check for the correct update of task status
         ArrayList<Task> tl = store.loadTaskListFromFile();
         Task t = tl.get(3);
         assertEquals("X", t.getTaskStatus());
 
-        store.updateFileStatus(2, false);
+        store.updateTaskStatus(2, false);
         ArrayList<Task> tl2 = store.loadTaskListFromFile();
         Task t2 = tl2.get(2);
         assertEquals(" ", t2.getTaskStatus());

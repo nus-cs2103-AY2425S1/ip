@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import tasks.Task;
 
 public class TaskList {
+    private final static String MESSAGE_ONFIND = "I found some matching tasks in your list: ";
+
     private ArrayList<Task> taskList;
 
     public TaskList(Storage s) {
@@ -66,7 +68,26 @@ public class TaskList {
     }
 
     /**
+     * Updates the tag of the task.
+     * If the task is already tagged, the previous tag is overwritten.
+     *
+     * @param index Index of task to be updated.
+     * @param tag String tag to be applied.
+     * @return String of user response
+     */
+    public String addTag(int index, String tag) {
+        String message = "";
+
+        Task t = this.taskList.get(index);
+        t.setTag(tag);
+        message += Ui.updateUserOnTag(t);
+
+        return message;
+    }
+
+    /**
      * Finds and prints matching tasks for given keyword.
+     * Allows matches via the tag for the task as well.
      *
      * @param input String pattern to be matched for search.
      * @return String of user response
@@ -74,11 +95,11 @@ public class TaskList {
     public String findTasks(String input) {
         String message = "";
 
-        System.out.println("I found some matching tasks in your list:");
+        message += MESSAGE_ONFIND;
         int count = 1;
         for (Task t : this.taskList) {
             if (t.toString().contains(input)) {
-                System.out.println(String.format("%d.%s", count, t.toString()));
+                message += String.format("%d.%s", count, t.toString());
                 count++;
             }
         }
@@ -95,7 +116,7 @@ public class TaskList {
         String output = "";
         int count = 1;
         for (Task t : this.taskList) {
-            String temp = String.format("%d.%s \n", count, t.toString());
+            String temp = String.format("%d.%s  %s\n", count, t.toString(), t.getTag());
             output += temp;
             count++;
         }
