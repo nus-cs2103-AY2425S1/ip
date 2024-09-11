@@ -16,6 +16,8 @@ public class DateTimeFormatter {
      * @throws DateFormatException If parsing goes wrong.
      */
     public static LocalDateTime readInput(String input) throws DateFormatException {
+        assert !input.isBlank();
+
         String[] date = input.split("/");
 
         // Check date values

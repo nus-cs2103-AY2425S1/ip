@@ -46,7 +46,7 @@ public class Storage {
         }
     }
 
-    private static void writeSave(String text) throws IOException {
+    private static void writeSave(String text) {
         if (!directoryExists()) {
             createSave();
         }

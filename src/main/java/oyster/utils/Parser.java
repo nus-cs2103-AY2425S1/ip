@@ -20,6 +20,8 @@ public class Parser {
      * @throws ParseException If parsing goes wrong.
      */
     public static TaskList parseTaskList(String contents) throws ParseException {
+        assert !contents.isBlank();
+
         ArrayList<Command> commands = new ArrayList<Command>();
 
         TaskList taskList = new TaskList();
@@ -64,6 +66,8 @@ public class Parser {
      * @return Command object.
      */
     public static Command parseCommand(String line) {
+        assert !line.isBlank();
+
         return CommandParser.parse(line);
     }
 }

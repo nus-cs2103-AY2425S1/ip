@@ -25,6 +25,10 @@ public class EventTask extends Task {
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+
+        assert from != null;
+        assert to != null;
+
         this.from = from;
         this.to = to;
     }
@@ -35,7 +39,13 @@ public class EventTask extends Task {
      * @param input The string to parse into a EventTask.
      * @return EventTask object.
      */
+<<<<<<< HEAD
     public static EventTask createFromInput(String input) {
+=======
+    public static EventTask fromInput(String input) {
+        assert input != null;
+
+>>>>>>> branch-A-Assertions
         String name = "";
         String from = "";
         String to = "";

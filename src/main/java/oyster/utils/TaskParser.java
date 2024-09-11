@@ -22,6 +22,8 @@ public class TaskParser {
      * @return Task object.
      */
     public static Task parse(String line) {
+        assert !line.isBlank();
+
         String[] lineInfo = line.split(FILE_DELIMITER);
 
         Task task;
@@ -68,6 +70,8 @@ public class TaskParser {
      * @return Writable save String of a Task.
      */
     public static String compose(Task task) {
+        assert task != null;
+
         return String.join(FILE_DELIMITER, task.compose());
     }
 }
