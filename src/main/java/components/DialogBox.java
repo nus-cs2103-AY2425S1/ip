@@ -34,6 +34,7 @@ public class DialogBox extends HBox {
     }
 
     private void flip() {
+        assert !this.getChildren().isEmpty() : "Every dialog box must have children";
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         this.getChildren().setAll(tmp);
