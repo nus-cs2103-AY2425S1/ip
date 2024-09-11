@@ -22,6 +22,10 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(TaskType.EVENT, description);
+
+        assert !start.isEmpty() : "every Event task must have a start date";
+        assert !end.isEmpty() : "every Event task must have an end date";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] startArr = start.split(" ");
         startDate = LocalDate.parse(startArr[0], formatter);

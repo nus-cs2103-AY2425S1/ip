@@ -9,6 +9,8 @@ import exceptions.InvalidDateException;
 import storage.Storage;
 import task.TaskList;
 
+import java.util.Objects;
+
 
 public class Blitz {
 
@@ -31,12 +33,15 @@ public class Blitz {
     }
 
     public String getResponse(String userInput) {
+        assert userInput.isEmpty() : "Empty userInputs should not be handled here";
         try {
             Command userCommand = Parser.inputToCommand(userInput);
             String message = userCommand.execute(taskList);
+
             if (userCommand instanceof ExitCommand) {
                 return ErrorMessageHandler.getExitMessage();
             }
+
             return message;
         } catch (InvalidTaskException e) {
             return ErrorMessageHandler.getInvalidTaskMessage();

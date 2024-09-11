@@ -28,6 +28,7 @@ public class Parser {
      * @return The string representing the user input format based on the stored data.
      */
     public static String dataInputToUserInput(String data) throws InvalidDateException {
+        assert !data.isEmpty() : "You should not be recording empty strings, check your data!!";
         data = data.substring(data.indexOf("["));
         char taskType = data.charAt(1);
         int descriptionStartIndex = data.indexOf("] ", data.indexOf("]") + 1) + 2;
@@ -83,9 +84,6 @@ public class Parser {
     public static Command inputToCommand(String userInput) throws InvalidTaskException,
             ArrayIndexOutOfBoundsException {
         String strippedInput = userInput.toLowerCase().trim();
-        if (strippedInput.isEmpty()) {
-            return null;
-        }
 
         String[] words = strippedInput.split(" ");
         switch (words[0]) {
@@ -107,7 +105,6 @@ public class Parser {
             throw new InvalidTaskException();
         }
     }
-
 }
 
 

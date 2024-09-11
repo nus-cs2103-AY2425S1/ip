@@ -29,6 +29,7 @@ public class TaskList {
      * @param storage The storage object used to save and load tasks.
      */
     public TaskList(Storage storage) throws InvalidDateException {
+        assert storage != null : "You don't have anywhere to store the data";
         inputHistory = new ArrayList<>();
         this.storage = storage;
         loadDataFromStorage();

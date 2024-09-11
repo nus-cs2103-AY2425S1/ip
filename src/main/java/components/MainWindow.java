@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -50,7 +51,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInputTextField.getText();
-
         if (input.isEmpty()) {
             return;
         }
