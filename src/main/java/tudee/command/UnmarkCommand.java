@@ -11,6 +11,7 @@ import tudee.ui.Ui;
  * Updates the user interface and storage accordingly.
  */
 public class UnmarkCommand extends Command {
+    private static final int INDEX_OFFSET = 1;
     private final int index;
 
     /**
@@ -33,9 +34,10 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = tasks.get(index - 1);
+        Task task = tasks.getTask(index - INDEX_OFFSET);
         task.markAsNotDone();
-        storage.save(tasks.get());
-        return ui.showUnMark(task);
+
+        storage.save(tasks.getTasks());
+        return ui.showUnmark(task);
     }
 }

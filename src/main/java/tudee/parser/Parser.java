@@ -21,10 +21,17 @@ import tudee.task.ToDo;
  */
 public class Parser {
 
+    // Indices used for parsing input strings
+    private static final int COMMAND_INDEX = 0;
+    private static final int OLD_DESCRIPTION_INDEX = 1;
+    private static final int NEW_DESCRIPTION_INDEX = 0;
+    private static final int DEADLINE_INDEX = 1;
+    private static final int START_INDEX = 1;
+    private static final int END_INDEX = 2;
+
     /**
      * Parses the given input string to generate the respective Command.
      * The input string is expected to contain a command followed by optional arguments depending on the command called.
-     * The method recognises commands such as "list", "bye", "todo", etc.
      * Each command is mapped to a specific Command subclass.
      *
      * @param input the user input string to be parsed.
@@ -33,29 +40,45 @@ public class Parser {
      */
     public static Command parse(String input) throws TudeeException {
         String[] inputs = input.split(" ", 2);
-        String command = inputs[0];
-        if (command.equalsIgnoreCase("list")) {
-            return new ListCommand();
-        } else if (command.equalsIgnoreCase("bye")) {
-            return new ByeCommand();
-        } else if (command.equalsIgnoreCase("todo")) {
-            return new AddTaskCommand(new ToDo(inputs[1]));
-        } else if (command.equalsIgnoreCase("deadline")) {
-            return new AddTaskCommand(new Deadline(inputs[1], inputs[2]));
-        } else if (command.equalsIgnoreCase("event")) {
-            return new AddTaskCommand(new Events(inputs[1], inputs[2], inputs[3]));
-        } else if (command.equalsIgnoreCase("mark")) {
-            return new MarkCommand(Integer.parseInt(inputs[1]));
-        } else if (command.equalsIgnoreCase("unmark")) {
-            return new UnmarkCommand(Integer.parseInt(inputs[1]));
-        } else if (command.equalsIgnoreCase("delete")) {
-            return new DeleteCommand(Integer.parseInt(inputs[1]));
-        } else if (command.equalsIgnoreCase("date")) {
-            return new DateCommand(inputs[1]);
-        } else if (command.equalsIgnoreCase("find")) {
-            return new FindCommand(inputs[1]);
-        } else {
-            return new UnknownCommand();
+        String command = inputs[COMMAND_INDEX];
+        CommandType commandType = CommandType.fromString(command);
+
+        // Handle each command type
+        switch (commandType) {
+            case LIST:
+                return new ListCommand();
+
+            case BYE:
+                return new ByeCommand();
+
+            case TODO:
+                return new AddTaskCommand(new ToDo(inputs[OLD_DESCRIPTION_INDEX]));
+
+            case DEADLINE:
+                String[] deadlineDetails = inputs[OLD_DESCRIPTION_INDEX].split("/by ");
+                return new AddTaskCommand(new Deadline(deadlineDetails[NEW_DESCRIPTION_INDEX], deadlineDetails[DEADLINE_INDEX]));
+
+            case EVENT:
+                String[] eventDetails = inputs[OLD_DESCRIPTION_INDEX].split("/from | /to ");
+                return new AddTaskCommand(new Events(eventDetails[NEW_DESCRIPTION_INDEX], eventDetails[START_INDEX], eventDetails[END_INDEX]));
+
+            case MARK:
+                return new MarkCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
+
+            case UNMARK:
+                return new UnmarkCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
+
+            case DELETE:
+                return new DeleteCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
+
+            case DATE:
+                return new DateCommand(inputs[OLD_DESCRIPTION_INDEX]);
+
+            case FIND:
+                return new FindCommand(inputs[OLD_DESCRIPTION_INDEX]);
+
+            default:
+                return new UnknownCommand();
         }
     }
 }

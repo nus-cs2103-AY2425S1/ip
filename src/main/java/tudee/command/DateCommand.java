@@ -48,25 +48,24 @@ public class DateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
-        boolean haveTask = false;
         TaskList matchingTasks = new TaskList();
-        for (Task task : tasks.get()) {
+
+        for (Task task : tasks.getTasks()) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getDateTime().isEqual(date)) {
-                    matchingTasks.add(deadline);
-                    haveTask = true;
+                if (deadline.getDeadline().isEqual(date)) {
+                    matchingTasks.addTask(deadline);
                 }
             } else if (task instanceof Events) {
                 Events events = (Events) task;
-                if ((events.getStart().isBefore(date) && events.getEnd().isAfter(date))
-                        || events.getStart().isEqual(date) || events.getEnd().isEqual(date)) {
-                    matchingTasks.add(events);
-                    haveTask = true;
+                boolean isWithinPeriod = events.getStart().isBefore(date) && events.getEnd().isAfter(date);
+                boolean isStartOrEnd = events.getStart().isEqual(date) || events.getEnd().isEqual(date);
+                if (isWithinPeriod || isStartOrEnd) {
+                    matchingTasks.addTask(events);
                 }
             }
         }
-        if (!haveTask) {
+        if (matchingTasks.numOfTasks() == 0) {
             throw new TudeeException("You have no tasks on this date, "
                     + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
         }

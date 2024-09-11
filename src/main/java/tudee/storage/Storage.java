@@ -19,6 +19,13 @@ import tudee.task.ToDo;
  * This class provides methods to read tasks from a file and write tasks to a file.
  */
 public class Storage {
+    private static final int COMMAND_INDEX = 0;
+    private static final int MARK_INDEX = 1;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int DEADLINE_INDEX = 3;
+    private static final int START_INDEX = 3;
+    private static final int END_INDEX = 4;
+
     private final String path;
 
     /**
@@ -41,6 +48,7 @@ public class Storage {
     public List<Task> load() throws TudeeException {
         List<Task> tasks = new ArrayList<>();
         File currentFile = new File(path);
+
         if (!currentFile.exists()) {
             return tasks;
         }
@@ -49,33 +57,46 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String currentLine = sc.nextLine();
                 String[] data = currentLine.split(" \\| ");
-                Task currentTask;
-                try {
-                    switch (data[0]) {
-                    case "T":
-                        currentTask = new ToDo(data[2]);
-                        break;
-                    case "D":
-                        currentTask = new Deadline(data[2], data[3]);
-                        break;
-                    case "E":
-                        currentTask = new Events(data[2], data[3], data[4]);
-                        break;
-                    default:
-                        throw new TudeeException("Invalid letter");
-                    }
-                    if (data[1].equals("1")) {
-                        currentTask.markAsDone();
-                    }
-                    tasks.add(currentTask);
-                } catch (TudeeException e) {
-                    System.out.println("Error procesesing task list: " + e.getMessage());
-                }
+
+                Task currentTask = createTaskFromData(data);
+                checkMark(data, currentTask);
+                tasks.add(currentTask);
             }
-        } catch (IOException e) {
+        } catch (IOException | TudeeException e) {
             System.out.println("Error in loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Checks what command the first element of the array contains.
+     *
+     * @return a new task corresponding to the command.
+     * @param data A string array consisting of task description and other requirements depending on task type.
+     */
+    private Task createTaskFromData(String[] data) throws TudeeException {
+        switch (data[COMMAND_INDEX]) {
+            case "T":
+                return new ToDo(data[DESCRIPTION_INDEX]);
+            case "D":
+                return new Deadline(data[DESCRIPTION_INDEX], data[DEADLINE_INDEX]);
+            case "E":
+                return new Events(data[DESCRIPTION_INDEX], data[START_INDEX], data[END_INDEX]);
+            default:
+                throw new TudeeException("Invalid letter");
+        }
+    }
+
+    /**
+     * Checks whether the current task was marked or not.
+     *
+     * @param data A string array consisting of task description and other requirements depending on task type.
+     * @param task The current task we are checking.
+     */
+    private void checkMark(String[] data, Task task) throws TudeeException {
+        if (data[MARK_INDEX].equals("1")) {
+            task.markAsDone();
+        }
     }
 
     /**

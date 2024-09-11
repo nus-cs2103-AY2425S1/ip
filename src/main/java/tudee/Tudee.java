@@ -24,6 +24,7 @@ public class Tudee {
     public Tudee(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             taskList = new TaskList(storage.load());
         } catch (tudee.TudeeException e) {
@@ -36,13 +37,14 @@ public class Tudee {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        boolean isFinished = false;
+
+        while (!isFinished) {
             try {
                 String command = ui.readCommand();
                 Command c = Parser.parse(command);
                 c.execute(taskList, ui, storage);
-                isExit = c.isExit();
+                isFinished = c.isFinished();
             } catch (tudee.TudeeException e) {
                 ui.showError(e.getMessage());
             }

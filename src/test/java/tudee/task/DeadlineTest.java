@@ -17,9 +17,9 @@ class DeadlineTest {
     }
 
     @Test
-    void testGetDateTime() {
+    void testGetDeadline() {
         LocalDate expectedDate = LocalDate.parse("2024-09-01");
-        assertEquals(expectedDate, deadline.getDateTime());
+        assertEquals(expectedDate, deadline.getDeadline());
     }
 
     @Test
