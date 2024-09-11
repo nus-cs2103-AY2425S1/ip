@@ -7,12 +7,27 @@ import kietwoforone.commands.*;
 import kietwoforone.exceptions.KieTwoForOneException;
 import java.time.DateTimeException;
 
+/**
+ * Represents the logic through which the chatbot understands and carries out instructions
+ * input by the user.
+ */
 public class Parser {
 
+    /**
+     * Represents the valid commands that can be inputed by the user.
+     */
     public enum Instructions {
         LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE, DATE
     }
 
+    /**
+     * Throws a KieTwoForOne exception when the user only inputs a command that is
+     * not "list" or "bye" with no additional details.
+     *
+     * @param input
+     * @return Boolean
+     * @throws KieTwoForOneException
+     */
     public static boolean isCompleteInput(String[] input) throws KieTwoForOneException {
         if (input.length < 2 && !input[0].equalsIgnoreCase("list") && !input[0].equalsIgnoreCase("bye")) {
             throw new KieTwoForOneException("Your instruction is incomplete!");
@@ -20,6 +35,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Throws a KieTwoForOne exception when the user adds an incorrect event with missing details.
+     *
+     * @param input
+     * @return Boolean
+     * @throws KieTwoForOneException
+     */
     public static boolean isCompleteEventInput(String[] input) throws KieTwoForOneException {
         if (input.length != 3) {
             throw new KieTwoForOneException("Please input a start and end time!");
@@ -27,6 +49,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Throws a KieTwoForOne exception when the user adds an incorrect deadline with missing details.
+     *
+     * @param input
+     * @return Boolean
+     * @throws KieTwoForOneException
+     */
     public static boolean isCompleteDeadlineInput(String[] input) throws KieTwoForOneException {
         if (input.length != 2) {
             throw new KieTwoForOneException("Please input a deadline!");
@@ -34,6 +63,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Returns a new command object depending on the specified keywords in the command string.
+     * Throws a KieTwoForOne exception when an invalid command string is inputted by the user.
+     *
+     * @param command
+     * @return Command
+     * @throws KieTwoForOneException
+     */
     public static Command parse(String command) throws KieTwoForOneException {
         String[] instruction = command.split(" ", 2);
         String[] taskDetails = new String[0];

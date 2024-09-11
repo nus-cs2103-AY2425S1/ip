@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event that has a start and end time
+ */
 public class Event extends Task{
 
     private LocalDate startDate;
@@ -13,6 +16,13 @@ public class Event extends Task{
     private String endTime;
     private Task task;
 
+    /**
+     * Constructor for a new Event object.
+     *
+     * @param description
+     * @param start
+     * @param end
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.task = new Task(this.description);
@@ -26,24 +36,53 @@ public class Event extends Task{
         this.endTime = ending[1];
     }
 
+    /**
+     * Returns a string representation of the start date in the format "MMM d yyyy".
+     *
+     * @return Start date
+     */
     public String getStartDate() {
         return this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
+    /**
+     * Returns a string representation of the end date in the format "MMMM d yyyy".
+     *
+     * @return End date.
+     */
     public String getEndDate() {
         return this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
+    /**
+     * Returns a String representation of a marked event.
+     *
+     * @return Marked event.
+     */
     @Override
     public String markTask() {
         return String.format("[E] %s (from: %s %s to: %s %s)", this.task.markTask() , this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
     }
 
+    /**
+     * Return a String representation of an unmarked event.
+     *
+     * @return Unmarked event.
+     */
     @Override
     public String unmarkTask() {
         return String.format("[E] %s (from: %s %s to: %s %s)", this.task.unmarkTask() , this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
     }
 
+    /**
+     * Returns a boolean value when comparing the deadline with the date string inputed.
+     * Returns true if the date is within the start and end date inclusive, and false otherwise.
+     * Throws a KieTwoForOne exception when the users input an incorrect format for the date.
+     *
+     * @param date
+     * @return Boolean
+     * @throws KieTwoForOneException
+     */
     @Override
     public boolean compareDate(String date) throws KieTwoForOneException {
         LocalDate newDate;
@@ -56,6 +95,11 @@ public class Event extends Task{
                 this.startDate.equals(newDate) || this.endDate.equals(newDate);
     }
 
+    /**
+     * Returns the string representation of the Event object.
+     *
+     * @return String representation of the Event object.
+     */
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s %s to: %s %s)", this.task.toString(), this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
