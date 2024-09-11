@@ -37,6 +37,8 @@ public class Storage {
      * @param tasks The list of tasks to save.
      */
     public static void save(ArrayList<Task> tasks) {
+        assert tasks != null : "ArrayList<Task> should not be be null";
+
         try {
             writeToTaskFile(formatTasks(tasks));
         } catch (IOException e) {
@@ -80,6 +82,8 @@ public class Storage {
      * @return A string representing the tasks in CSV format.
      */
     private static String formatTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "ArrayList<Task> should not be null";
+
         StringBuilder formattedTasks = new StringBuilder();
 
         for (Task t: tasks) {
@@ -116,6 +120,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs during writing.
      */
     private static void writeToTaskFile(String formattedTasks) throws IOException {
+        assert formattedTasks != null : "Formatted tasks should not be null";
+
         if (!TASK_FILE.isFile()) {
             createTaskFile();
             writeToTaskFile(formattedTasks);
@@ -125,6 +131,7 @@ public class Storage {
             writer.write(formattedTasks);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the task file.");
+
         }
     }
 
@@ -161,18 +168,10 @@ public class Storage {
         case "ToDo":
             return new ToDo(description, isDone);
         case "Deadline":
-            if (parts.size() < 4) {
-                System.out.println("Invalid Deadline task format: " + line);
-                return null;
-            }
             String by = parts.get(3);
             LocalDate parsedBy = DateParser.parseDate(by);
             return new Deadline(description, isDone, parsedBy);
         case "Event":
-            if (parts.size() < 5) {
-                System.out.println("Invalid Event task format: " + line);
-                return null;
-            }
             String start = parts.get(3);
             String end = parts.get(4);
             LocalDate parsedStart = DateParser.parseDate(start);

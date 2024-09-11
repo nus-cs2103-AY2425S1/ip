@@ -69,6 +69,9 @@ public class MarkCommand extends Command {
      */
     private String markTaskAsDone(int index) {
         Task task = tasks.getTask(index);
+
+        assert task != null : "Task should not be null";
+
         task.markAsDone();
         saveTasksToLocalDisk();
         return ui.getMarkTaskDoneMessage(task);
@@ -84,6 +87,9 @@ public class MarkCommand extends Command {
      */
     private String markTaskAsUndone(int index) {
         Task task = tasks.getTask(index);
+
+        assert task != null : "Task should not be null";
+
         task.markAsUndone();
         saveTasksToLocalDisk();
         return ui.getMarkTaskUndoneMessage(task);

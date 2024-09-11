@@ -88,6 +88,9 @@ public class Ui {
      *         and the total number of tasks in the list.
      */
     public String getTaskAddedMessage(Task task, int numberOfTasks) {
+        assert task != null : "Task should not be null";
+        assert numberOfTasks >= 0 : "Number of tasks should not be negative";
+
         return "(=ↀωↀ=)ノ Task added!\n" + task + "\nYou now have " + numberOfTasks + " tasks in your list.";
     }
 
@@ -100,6 +103,9 @@ public class Ui {
      *         and the total number of tasks in the list.
      */
     public String getTaskDeletedMessage(Task task, int numberOfTasks) {
+        assert task != null : "Task should not be null";
+        assert numberOfTasks >= 0 : "Number of tasks should not be negative";
+
         return "Purrr, I've swatted this task away:\n" + task
                 + "\nYou now have " + numberOfTasks + " tasks in your list.";
     }
@@ -111,6 +117,8 @@ public class Ui {
      * @return A message confirming that the task has been marked as done, along with the task details.
      */
     public String getMarkTaskDoneMessage(Task task) {
+        assert task != null : "Task should not be null";
+
         return "Meow! I’ve scratched this task off the list!\n" + task;
     }
 
@@ -121,6 +129,8 @@ public class Ui {
      * @return A message confirming that the task has been marked as undone, along with the task details.
      */
     public String getMarkTaskUndoneMessage(Task task) {
+        assert task != null : "Task should not be null";
+
         return "Mrrreow! I’ve batted this task back onto the list.\n" + task;
     }
 
@@ -133,6 +143,8 @@ public class Ui {
      *         no tasks.
      */
     public String getTasksMessage(ArrayList<Task> tasks) {
+        assert tasks != null : "ArrayList<Task> should not be null";
+
         int taskCount = tasks.size();
         if (taskCount == 0) {
             return "Your task list is as empty as a well-sunned nap spot.";
@@ -149,6 +161,8 @@ public class Ui {
      *         that there are no tasks matching the keyword.
      */
     public String getTasksMatchingKeywordMessage(ArrayList<Task> tasks) {
+        assert tasks != null : "ArrayList<Task> should not be null";
+
         return tasks.isEmpty()
                 ? "There are no tasks in your list that match the keyword."
                 : formatTasksMessage("Here is the list of matching tasks:\n", tasks);
@@ -165,6 +179,9 @@ public class Ui {
      * @return A formatted string containing the header and the list of tasks with 1-based indexing.
      */
     private String formatTasksMessage(String header, ArrayList<Task> tasks) {
+        assert header != null : "Message header should not be null";
+        assert tasks != null : "ArrayList<Task> should not be null";
+
         StringBuilder result = new StringBuilder(header + "\n");
 
         int taskCount = tasks.size();

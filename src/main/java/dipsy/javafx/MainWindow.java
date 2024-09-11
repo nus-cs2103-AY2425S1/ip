@@ -35,6 +35,8 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Dipsy instance and shows welcome message. */
     public void setDipsy(Dipsy dipsy) {
+        assert dipsy != null : "Dipsy instance should not be null";
+
         this.dipsy = dipsy;
         dipsy.setMainWindow(this);
 
@@ -76,8 +78,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "userInput should not be null";
+        assert dipsy != null : "Dipsy instance should not be null";
+        assert userImage != null : "userImage should not be null";
+        assert dipsyImage != null : "dipsyImage should not be null";
+        assert dialogContainer != null : "dialogContainer should not be null";
+
         String input = userInput.getText();
         String response = dipsy.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDipsyDialog(response, dipsyImage)

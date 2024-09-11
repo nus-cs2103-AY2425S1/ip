@@ -29,6 +29,9 @@ public class InvalidCommandException extends Exception {
      */
     public InvalidCommandException(ErrorType errorType) {
         super();
+
+        assert errorType != null : "ErrorType should not be null";
+
         this.errorType = errorType;
     }
 
@@ -60,6 +63,7 @@ public class InvalidCommandException extends Exception {
         case INVALID_LIST_COMMAND:
             return "'list' command usage: 'list' or 'list yyyy-mm-dd' for filtering by date.";
         default:
+            assert false : "Unhandled ErrorType: " + errorType;
             return "Unknown invalid command. Please try again.";
         }
     }
