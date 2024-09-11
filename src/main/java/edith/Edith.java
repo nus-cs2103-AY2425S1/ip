@@ -39,10 +39,10 @@ public class Edith {
         try {
             tasks = new TaskList(storage.load());
         } catch (EdithException e) {
-            ui.showErrorMessage(e.getMessage() + " Starting with an empty list.");
+            System.err.println(e.getMessage() + " Starting with an empty list.");
             tasks = new TaskList();
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while loading saved Edith.task list. Starting with an empty list.");
+            System.err.println("An error occurred while loading saved Edith.task list. Starting with an empty list.");
             tasks = new TaskList();
         }
         this.tasks = tasks;
@@ -62,7 +62,6 @@ public class Edith {
         String userInput;
 
         while (true) {
-            ui.showPrompt();
             userInput = scanner.nextLine();
 
             try {
@@ -72,25 +71,30 @@ public class Edith {
                     break;
                 }
             } catch (DateTimeParseException e) {
-                ui.showErrorMessage(ui.invalidDateTimeError());
+                System.err.println(ui.invalidDateTimeError());
             } catch (EdithException e) {
-                ui.showErrorMessage(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
 
         scanner.close();
     }
 
-    /**
-     * Entry point for the EDITH application.
-     * <p>
-     * Creates an instance of Edith with the specified file path and starts the chatbot by calling the run
-     * method.
-     * </p>
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Edith("./data/edith.txt").run();
+    public String reply(String userInput) {
+        StringBuilder response = new StringBuilder();
+
+        try {
+            Command command = parser.parse(userInput);
+            response.append(command.execute(tasks, ui, storage));
+            if (command.isExit()) {
+                // add logic to exit the application
+            }
+        } catch (DateTimeParseException e) {
+            response.append(ui.invalidDateTimeError());
+        } catch (EdithException e) {
+            response.append(e.getMessage());
+        }
+
+        return response.toString();
     }
 }
