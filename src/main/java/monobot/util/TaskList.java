@@ -36,7 +36,10 @@ public class TaskList {
      * @param task Task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added should not be null";
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
     }
 
     /**
@@ -45,7 +48,10 @@ public class TaskList {
      * @param index index of Task in list to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
+        int initialSize = tasks.size();
         tasks.remove(index);
+        assert tasks.size() == initialSize - 1 : "Task list size should decrease by 1 after deleting a task";
     }
 
     /**
@@ -64,6 +70,7 @@ public class TaskList {
      * @param index index of Task in list to be marked.
      */
     public void markTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
         tasks.get(index).markTask();
     }
 
@@ -73,6 +80,7 @@ public class TaskList {
      * @param index index of Task in list to be unmarked.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
         tasks.get(index).unmarkTask();
     }
 
@@ -110,6 +118,8 @@ public class TaskList {
      * @return List of tasks containing the keyword.
      */
     public TaskList filterTasks(String... filters) throws MonoBotException {
+        assert filters != null && filters.length > 0 : "Filter tasks should be provided with at least one keyword";
+
         if (filters == null || filters.length == 0) {
             throw new MonoBotException("At least one search keyword must be provided!");
         }
