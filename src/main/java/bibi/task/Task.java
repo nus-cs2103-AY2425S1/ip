@@ -20,9 +20,6 @@ public class Task {
     public void markAsNotDone() {
         isDone = false;
     }
-    public boolean isDone() {
-        return isDone;
-    }
 
     @Override
     public String toString() {
