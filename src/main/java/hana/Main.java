@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Hana hana = new Hana("data/hana.txt");
+    private final Hana hana = new Hana("data/hana.txt");
 
     @Override
     public void start(Stage stage) {

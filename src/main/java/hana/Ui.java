@@ -12,7 +12,7 @@ import hana.task.TaskList;
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
-    private StringBuilder responseMessage;
+    private final StringBuilder responseMessage;
 
     public Ui() {
         responseMessage = new StringBuilder();
@@ -28,14 +28,17 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public static String showWelcome() {
-        return "Hello I'm Hana. \n" + "What can I do for you?\n";
+        return """
+                Hello I'm Hana.\s
+                What can I do for you?
+                """;
     }
 
     /**
      * Displays the goodbye message to the user.
      */
-    public StringBuilder showGoodbye() {
-        return responseMessage.append("Bye. Hope to see you again soon!\n");
+    public void showGoodbye() {
+        responseMessage.append("Bye. Hope to see you again soon!\n");
     }
 
     /**
@@ -50,8 +53,8 @@ public class Ui {
     /**
      * Displays an error message indicating that loading the task list failed.
      */
-    public StringBuilder showLoadingError() {
-        return responseMessage.append("OOPS!!! Error loading the task list.");
+    public void showLoadingError() {
+        responseMessage.append("OOPS!!! Error loading the task list.");
     }
 
     /**
@@ -59,32 +62,36 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public StringBuilder showError(String message) {
-        return responseMessage.append(message);
+    public void showError(String message) {
+        responseMessage.append(message);
     }
 
     /**
      * Displays a message indicating that a task has been added.
      *
-     * @param task The task that was added.
+     * @param task      The task that was added.
      * @param taskCount The current number of tasks in the list.
      */
-    public StringBuilder showTaskAdded(Task task, int taskCount) {
-        return responseMessage.append("Got it. I've added this task:\n"
-                + "      " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list.");
+    public void showTaskAdded(Task task, int taskCount) {
+        responseMessage.append("Got it. I've added this task:\n" + "      ")
+                .append(task).append("\n").append("Now you have ")
+                .append(taskCount)
+                .append(" tasks in the list.");
     }
 
     /**
      * Displays a message indicating that a task has been deleted.
      *
-     * @param task The task that was deleted.
+     * @param task      The task that was deleted.
      * @param taskCount The current number of tasks in the list.
      */
-    public StringBuilder showTaskDeleted(Task task, int taskCount) {
-        return responseMessage.append("Noted. I've removed this task:\n"
-                + "      " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list.");
+    public void showTaskDeleted(Task task, int taskCount) {
+        responseMessage.append("Noted. I've removed this task:\n" + "      ")
+                .append(task)
+                .append("\n")
+                .append("Now you have ")
+                .append(taskCount)
+                .append(" tasks in the list.");
     }
 
     /**
@@ -101,12 +108,11 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to display.
      */
-    public StringBuilder showTaskList(TaskList tasks) {
+    public void showTaskList(TaskList tasks) {
         responseMessage.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            responseMessage.append("    " + (i + 1) + "." + tasks.get(i) + "\n");
+            responseMessage.append("    ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        return responseMessage;
     }
 
     /**
@@ -114,17 +120,15 @@ public class Ui {
      * If no tasks are found, a message indicating that no matches were found is returned.
      *
      * @param foundTasks The list of tasks that match the search keyword.
-     * @return The response message containing the search results or a message indicating no matches.
      */
-    public StringBuilder showFindResults(List<Task> foundTasks) {
+    public void showFindResults(List<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
-            return responseMessage.append("No matching tasks found.");
+            responseMessage.append("No matching tasks found.");
         } else {
             responseMessage.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                responseMessage.append("    " + (i + 1) + "." + foundTasks.get(i) + "\n");
+                responseMessage.append("    ").append(i + 1).append(".").append(foundTasks.get(i)).append("\n");
             }
-            return responseMessage;
         }
     }
 }
