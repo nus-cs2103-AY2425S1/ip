@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Storage {
     // Should handle file creation, file loading, load into list
     private final String filePath;
+    private final String archivedFilePath = "data/archive.txt";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -45,6 +46,7 @@ public class Storage {
             File f = new File("data/momo.txt");
             File d = new File("data");
 
+
             try {
                 if (d.mkdirs() || d.exists()) {
                     if (f.createNewFile()) {
@@ -56,6 +58,15 @@ public class Storage {
             }
 
         }
+
+        try {
+            // Create archive
+            File a = new File(archivedFilePath);
+            a.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error in creating archive.txt.");
+        }
+
         return fileString.toString();
 
     }
