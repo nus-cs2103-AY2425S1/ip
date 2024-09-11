@@ -12,6 +12,14 @@ public class ByeCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
+        storage.setFilePath("src/main/resources/data/tecna1.json");
+
+        try {
+            storage.save(taskList);
+        } catch (java.io.IOException ioException) {
+            ui.printError("I cannot access the data file " + storage.getFilePath());
+        }
+
         return ui.printGoodbyeMsg();
     }
 }
