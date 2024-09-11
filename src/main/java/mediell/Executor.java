@@ -11,6 +11,12 @@ public class Executor {
 
     }
 
+    /**
+     * Executes the instruction provided
+     * @param instruction is the instructions to be executed
+     * @param taskList is the taskList to execute the instructions on
+     * @return Instruction if it has been edited
+     */
     public Instruction executeInstruction(Instruction instruction, TaskList taskList)
             throws IncorrectIndexException, IncorrectInstructionFormatException {
         switch (instruction.getInstructionType()) {
