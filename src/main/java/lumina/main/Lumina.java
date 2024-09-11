@@ -16,6 +16,10 @@ import lumina.ui.Ui;
  */
 public class Lumina {
 
+    // Response
+    /** Exit response for lumina */
+    public static final String EXIT_RESPONSE = "Bye. Hope to see you again soon!";
+
     // counter for instances
     private static int luminaCount = 0;
 
@@ -29,6 +33,8 @@ public class Lumina {
     private static final String ECHO_EVENT_TASK = "event";
     private static final String ECHO_DELETE_TASK = "delete";
     private static final String ECHO_FIND_TASK = "find";
+    private static final String DEFAULT_MESSAGE = "Oh no! I don't know what to "
+        + "do with this command! Please try again";
 
     // composed objects
     private Ui ui;
@@ -56,119 +62,101 @@ public class Lumina {
         storage.loadData(taskList);
     }
 
+    /**
+     * Returns lumina's response to a string msg.
+     *
+     * @param msg The input string.
+     * @return Lumina's response
+     */
+    public String getResponse(String msg) {
+        String command = msg.split(" ")[0].trim();
+
+        String resp = "";
+
+        switch (command) {
+        case ECHO_EXIT_STRING:
+            storage.saveData(taskList);
+            resp = EXIT_RESPONSE;
+            break;
+        case ECHO_LIST_STRING:
+            resp = taskList.listTasks();
+            break;
+        case ECHO_UNMARK_TASK_STRING:
+            try {
+                resp = taskList.markTaskNotDone(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_MARK_TASK_STRING:
+            try {
+                resp = taskList.markTaskDone(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_TODO_TASK:
+            try {
+                resp = taskList.handleTodoTask(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_EVENT_TASK:
+            try {
+                resp = taskList.handleEventTask(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_DEADLINE_TASK:
+            try {
+                resp = taskList.handleDeadlineTask(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_DELETE_TASK:
+            try {
+                resp = taskList.deleteTask(msg);
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        case ECHO_FIND_TASK:
+            try {
+                // Define the regex pattern to match the first word followed by any whitespace
+                Pattern pattern = Pattern.compile("^\\S+\\s*(.*)$");
+                Matcher matcher = pattern.matcher(msg);
+
+                // Check if the pattern matches
+                if (matcher.find()) {
+                    resp = taskList.findTasks(matcher.group(1));
+                } else {
+                    // if it doesn't throw exception
+                    throw new LuminaException("Oh no! invalid find command! Please try again");
+                }
+            } catch (LuminaException e) {
+                resp = e.getMessage();
+            }
+            break;
+        default:
+            resp = DEFAULT_MESSAGE;
+        }
+        return resp;
+    }
+
     private void echo(Scanner sc) {
         ui.greet();
         String msg;
         while (true) {
             System.out.println();
             msg = sc.nextLine();
-            String command = msg.split(" ")[0].trim();
-
-            if (command.equals(Lumina.ECHO_EXIT_STRING)) {
-                storage.saveData(taskList);
+            String resp = this.getResponse(msg);
+            ui.printMessage(resp);
+            if (resp.equals(EXIT_RESPONSE)) {
                 ui.exit();
-                break;
             }
-            if (command.equals(Lumina.ECHO_LIST_STRING)) {
-                taskList.listTasks();
-                continue;
-            }
-            // first check unmark since mark contains unmark
-            if (command.equals(Lumina.ECHO_UNMARK_TASK_STRING)) {
-                try {
-                    String[] msgSplit = msg.split(" ");
-                    if (msgSplit.length == 2) {
-                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
-                        taskList.markTaskNotDone(taskIndex);
-                    } else {
-                        throw new LuminaException("Oh no! Lumina detected "
-                                + "unexpected number of parameters in your command! "
-                                + "Please try again");
-                    }
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_MARK_TASK_STRING)) {
-                try {
-                    String[] msgSplit = msg.split(" ");
-                    if (msgSplit.length == 2) {
-                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
-                        taskList.markTaskDone(taskIndex);
-                    } else {
-                        throw new LuminaException("Oh no! Lumina detected "
-                                + "unexpected number of parameters in your command! "
-                                + "Please try again");
-                    }
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_TODO_TASK)) {
-                try {
-                    taskList.handleTodoTask(msg);
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_EVENT_TASK)) {
-                try {
-                    taskList.handleEventTask(msg);
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_DEADLINE_TASK)) {
-                try {
-                    taskList.handleDeadlineTask(msg);
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_DELETE_TASK)) {
-                try {
-                    String[] msgSplit = msg.split(" ");
-                    if (msgSplit.length == 2) {
-                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
-                        taskList.deleteTask(taskIndex);
-                    } else {
-                        throw new LuminaException("Oh no! Lumina detected "
-                                + "unexpected number of parameters in your command! "
-                                + "Please try again");
-                    }
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-            if (command.equals(Lumina.ECHO_FIND_TASK)) {
-
-                try {
-                    // Define the regex pattern to match the first word followed by any whitespace
-                    Pattern pattern = Pattern.compile("^\\S+\\s*(.*)$");
-                    Matcher matcher = pattern.matcher(msg);
-
-                    // Check if the pattern matches
-                    if (matcher.find()) {
-                        taskList.findTasks(matcher.group(1));
-                    } else {
-                        // if it doesn't throw exception
-                        throw new LuminaException("Oh no! invalid find command! Please try again");
-                    }
-                } catch (LuminaException e) {
-                    ui.printMessage(e.getMessage());
-                }
-                continue;
-            }
-
-            // exception
-            ui.printMessage("Oh no! I don't know what to do with this command! "
-                    + "Please try again");
         }
     }
 

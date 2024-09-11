@@ -56,7 +56,6 @@ public class Ui {
      * Exits the program after printing a farewell message and saving the data.
      */
     public void exit() {
-        this.printMessage("Bye. Hope to see you again soon!");
         System.exit(0);
     }
 
