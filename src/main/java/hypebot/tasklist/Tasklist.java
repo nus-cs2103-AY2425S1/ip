@@ -8,63 +8,120 @@ import java.util.List;
 
 import static hypebot.common.Messages.*;
 
+/**
+ * Represents the Tasklist containing all Task objects entered by user.
+ *
+ * @author Youngseo Park (@youngseopark05)
+ */
 public class Tasklist {
     private final ArrayList<Task> TASKS;
 
+    /**
+     * Creates a dummy empty Tasklist.
+     */
     public Tasklist() {
         TASKS = new ArrayList<>();
     }
 
+    /**
+     * Creates a Tasklist with the saved Tasks from tasks.txt.
+     *
+     * @param tasks List containing Tasks processed from tasks.txt, encoded by TasklistEncoder.
+     */
     public Tasklist(List<Task> tasks) {
         this();
         TASKS.addAll(tasks);
     }
 
-    public ArrayList<Task> getTasks() {
-        return TASKS;
-    }
-
+    /**
+     * Returns the number of Tasks in the Tasklist.
+     *
+     * @return Number of Tasks in Tasklist.
+     */
     public int size() {
         return TASKS.size();
     }
 
+    /**
+     * Takes in an index (0-indexed) and returns the Task at corresponding index in the Tasklist.
+     *
+     * @param index Index of Task to be returned.
+     * @return Task at corresponding index.
+     */
     public Task getTaskByIndex(int index) {
         return TASKS.get(index);
     }
 
+    /**
+     * Takes in a Task and adds it to the Tasklist.
+     *
+     * @param task Task to be added to TASKS.
+     */
     public void add(Task task) {
         TASKS.add(task);
     }
 
-    public Task delete(int task) throws IndexOutOfBoundsException {
+    /**
+     * Takes in an index (0-indexed), removes it from the Tasklist and returns the Task
+     * at the previously specified index.
+     *
+     * @param index Index of Task to be deleted.
+     * @return Task removed from Tasklist, previously at given index.
+     * @throws IndexOutOfBoundsException If index provided is < 0 or > TASKS.size() - 1.
+     */
+    public Task delete(int index) throws IndexOutOfBoundsException {
         try {
-            return TASKS.remove(task);
+            return TASKS.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(TASK_NUMBER_TO_DELETE_OUT_OF_BOUNDS_ERROR);
         }
     }
 
-    public void mark(int idx) throws IndexOutOfBoundsException {
+    /**
+     * Takes in an index (0-indexed), marks the corresponding Task as complete.
+     *
+     * @param index Index of Task to be marked complete.
+     * @throws IndexOutOfBoundsException If index provided < 0 or > TASKS.size() - 1.
+     */
+    public void mark(int index) throws IndexOutOfBoundsException {
         try {
-            TASKS.get(idx).mark();
+            TASKS.get(index).mark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(TASK_NUMBER_TO_MARK_OUT_OF_BOUNDS_ERROR);
         }
     }
 
-    public void unmark(int idx) throws IndexOutOfBoundsException {
+    /**
+     * Takes in an index (0-indexed), marks the corresponding Task as incomplete.
+     *
+     * @param index Index of Task to be marked incomplete.
+     * @throws IndexOutOfBoundsException If index provided < 0 or > TASKS.size() - 1.
+     */
+    public void unmark(int index) throws IndexOutOfBoundsException {
         try {
-            TASKS.get(idx).unmark();
+            TASKS.get(index).unmark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(TASK_NUMBER_TO_UNMARK_OUT_OF_BOUNDS_ERROR);
         }
     }
 
+    /**
+     * Takes in a LocalDate, returns all Tasks in TASKS that occur on given date.
+     * Uses stream().filter().toList().
+     *
+     * @param date LocalDate object created by Parser from user input.
+     * @return Tasklist containing Tasks occurring on given date.
+     */
     public Tasklist getHappeningOn(LocalDate date) {
         List<Task> tasksOnDate = TASKS.stream().filter(task -> task.isHappeningOn(date)).toList();
         return new Tasklist(tasksOnDate);
     }
 
+    /**
+     * Creates a String object with all Tasks listed out numerically, in order of user insertion.
+     *
+     * @return String representation of Tasks in Tasklist in numerical insertion order.
+     */
     @Override
     public String toString() {
         StringBuilder listMessage = new StringBuilder();

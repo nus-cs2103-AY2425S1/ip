@@ -20,6 +20,12 @@ import static hypebot.common.Messages.TASK_NUMBER_TO_DELETE_MISSING_ERROR;
 import static hypebot.common.Messages.TASK_NUMBER_TO_MARK_MISSING_ERROR;
 import static hypebot.common.Messages.TASK_NUMBER_TO_UNMARK_MISSING_ERROR;
 
+/**
+ * Represents the Parser which makes sense of user input read form the user interface
+ * and returns the corresponding Command to be executed by HypeBot.
+ *
+ * @author YoungseoPark (@youngseopark05)
+ */
 public class Parser {
     private static final int INDEX_OFFSET = 1;
 
@@ -27,8 +33,19 @@ public class Parser {
         return Integer.parseInt(line.strip()) - INDEX_OFFSET;
     }
 
+    /**
+     * Takes in the line read from the user interface and returns appropriate Command to execute.
+     *
+     * @param fullCommand Line read from user interface, given by Ui.readCommand().
+     * @return Corresponding Command object pending execution.
+     * @throws ParseException If a Task's name, Deadline's due date, Event's start or end time,
+     *                        or date to search tasks for is missing.
+     * @throws NumberFormatException If index of Task to mark, unmark, or delete is not a number.
+     * @throws DateTimeParseException If Deadline due date, Event start/end time, or search date not properly formatted.
+     * @throws IndexOutOfBoundsException If index of Task to mark, unmark, or delete too low/high.
+     */
     public static Command parse(String fullCommand) throws ParseException,
-            NumberFormatException, DateTimeParseException, IndexOutOfBoundsException {
+            NumberFormatException, TaskDateTimeParseException, IndexOutOfBoundsException {
         String[] splitLineForDates = fullCommand.split(" /");
         String[] commandAndTaskName = splitLineForDates[0].split(" ");
         String command = commandAndTaskName[0];
@@ -95,7 +112,7 @@ public class Parser {
                         DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 return new HappeningCommand(searchDate);
             } catch (DateTimeParseException e) {
-                throw new DateTimeParseException(SEARCH_DATE_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+                throw new TaskDateTimeParseException(SEARCH_DATE_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
             }
         default:
             return new UnknownCommand(command);

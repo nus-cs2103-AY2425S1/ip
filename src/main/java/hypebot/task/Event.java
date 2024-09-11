@@ -17,10 +17,24 @@ public class Event extends Task {
     private LocalDateTime endTime;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Verifies whether entered startTime is before entered endTime.
+     *
+     * @param startTime LocalDateTime object representing the start of an event.
+     * @param endTime LocalDateTime object representing the end of an event.
+     * @return Whether the startTime is before the endTime.
+     */
     private boolean areInChronologicalOrder(LocalDateTime startTime, LocalDateTime endTime) {
         return startTime.isBefore(endTime);
     }
 
+    /**
+     * Verifies whether an event has passed based on startTime and endTime.
+     *
+     * @param startTime LocalDateTime object representing the start of an event.
+     * @param endTime LocalDateTime object representing the end of an event.
+     * @return Whether the event has already concluded.
+     */
     private boolean hasPassedBy(LocalDateTime startTime, LocalDateTime endTime) {
         return startTime.isBefore(LocalDateTime.now()) && endTime.isBefore(LocalDateTime.now());
     }
@@ -53,6 +67,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Takes in a LocalDate object representing a search date
+     * and returns whether the Event is happening on the given date.
+     *
+     * @param date LocalDate object representing a date.
+     * @return Whether the Event is happening on the given date.
+     */
     @Override
     public boolean isHappeningOn(LocalDate date) {
         LocalDate startDate = startTime.toLocalDate();

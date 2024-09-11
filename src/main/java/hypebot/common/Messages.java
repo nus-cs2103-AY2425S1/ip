@@ -1,5 +1,10 @@
 package hypebot.common;
 
+/**
+ * Represents all custom text used to communicate to user on user interface.
+ *
+ * @author Youngseo Park (@youngseopark05)
+ */
 public class Messages {
     public static final String LOGO = """
                  ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s

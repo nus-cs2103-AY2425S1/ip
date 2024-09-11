@@ -1,19 +1,33 @@
 package hypebot.storage;
 
-import hypebot.task.*;
-import hypebot.tasklist.Tasklist;
+import hypebot.task.Deadline;
+import hypebot.task.Event;
+import hypebot.task.Task;
+import hypebot.task.TaskDateTimeParseException;
+import hypebot.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static hypebot.common.Messages.LOADING_TASKLIST_ERROR;
 
+/**
+ * Represents a TasklistDecoder that takes in a File to load Tasks from
+ * and adds Tasks to an ArrayList sent to create Tasklist objects.
+ *
+ * @author Youngseo Park (@youngseopark05)
+ */
 public class TasklistDecoder {
     private File tasklistFile;
 
+    /**
+     * Takes in a File containing lines of text that decode to Task objects
+     * and creates a new TasklistDecoder.
+     *
+     * @param tasklistFile File object containing file path to .txt file with task data.
+     */
     public TasklistDecoder(File tasklistFile) {
         this.tasklistFile = tasklistFile;
     }
@@ -39,6 +53,12 @@ public class TasklistDecoder {
         return newTask;
     }
 
+    /**
+     * Decodes lines from .txt file into Tasks, adds them to an ArrayList to be returned.
+     *
+     * @return ArrayList containing Tasks decoded from .txt file.
+     * @throws FileNotFoundException If file to decode and load Tasks from not found.
+     */
     public ArrayList<Task> decode() throws FileNotFoundException {
         if (!tasklistFile.exists()) {
             throw new FileNotFoundException(LOADING_TASKLIST_ERROR);
