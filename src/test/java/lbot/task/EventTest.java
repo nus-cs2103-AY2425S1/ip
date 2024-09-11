@@ -17,7 +17,7 @@ public class EventTest {
                 LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
         event.mark();
         assertEquals(event.toString(),
-                "[D][x] testing event is marked (by: 2024-08-29 2303)");
+                "[E][x] testing event is marked (from: 2024-08-29 2303 to: 2024-08-29 2333)");
     }
 
     @Test
@@ -27,6 +27,6 @@ public class EventTest {
                 LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
         event.mark();
         assertEquals(event.toString(),
-                "[D][ ] testing event is unmarked (by: 2024-08-29 2303)");
+                "[E][ ] testing event is unmarked (from: 2024-08-29 2303 to: 2024-08-29 2333)");
     }
 }
