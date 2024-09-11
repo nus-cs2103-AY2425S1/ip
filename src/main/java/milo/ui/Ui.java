@@ -24,16 +24,12 @@ public class Ui {
                 ( ̳• · •̳)
                 /    づ♡
                 """;
-    private final String greeting = "Hello! I'm Milo.\nWhat can I do for you?\n" + cat0;
-    private final String bye = "Bye. Hope to see you again soon!\n" + cat1;
-    private final String greetingMessage = greeting;
-    private final String byeMessage = bye;
 
     /**
      * Milo greets user
      */
     public String greetUser() {
-        return greetingMessage;
+        return "Hello! I'm Milo.\nWhat can I do for you?\n" + cat0;
     }
 
     /**
@@ -47,7 +43,7 @@ public class Ui {
      * Milo says bye to user
      */
     public String byeUser() {
-        return byeMessage;
+        return "Bye. Hope to see you again soon!\n" + cat1;
     }
 
     /**
@@ -70,10 +66,8 @@ public class Ui {
      * @param curTask object that system marked as done
      */
     public String printMark(Task curTask) {
-        StringBuilder response = new StringBuilder();
-        response.append("Nice! I've marked this task as done:\n");
-        response.append("  ").append(curTask.toString()).append("\n");
-        return response.toString();
+        return "Nice! I've marked this task as done:\n" +
+                "  " + curTask.toString() + "\n";
     }
 
     /**
@@ -82,10 +76,8 @@ public class Ui {
      * @param curTask object that system marked as not done
      */
     public String printUnmark(Task curTask) {
-        StringBuilder response = new StringBuilder();
-        response.append("Ok, I've marked this as not done yet:\n");
-        response.append("  ").append(curTask.toString()).append("\n");
-        return response.toString();
+        return "Ok, I've marked this as not done yet:\n" +
+                "  " + curTask.toString() + "\n";
     }
 
     /**

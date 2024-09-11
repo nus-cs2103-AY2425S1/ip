@@ -25,7 +25,7 @@ public class Milo {
         this.storage = new Storage("./src/data/miloData.txt");
         // Reads data from storage
         this.tasks = new TaskList(storage.readData());
-        this.parser = new Parser(this.ui);
+        this.parser = new Parser();
     }
 
     /**

@@ -1,16 +1,8 @@
 package milo.parser;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 import milo.command.*;
-import milo.tasks.Deadline;
-import milo.tasks.Event;
-import milo.tasks.Task;
 import milo.tasks.TaskList;
 import milo.tasks.TaskTypes;
-import milo.tasks.Todo;
-import milo.ui.Ui;
 
 /**
 * Represents Milo's logic system, how the commands are interpreted
@@ -18,16 +10,6 @@ import milo.ui.Ui;
 * bye
  */
 public class Parser {
-    private final Ui ui;
-
-    /**
-    * Initialises the Parser Object
-    *
-    * @param ui object to initialise Parser with
-     */
-    public Parser(Ui ui) {
-        this.ui = ui;
-    }
 
     /**
     * Interprets user input as one of the aforementioned command
