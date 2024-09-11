@@ -42,9 +42,11 @@ public class Jag {
      * Generates a response from Jag
      */
     public String getResponse(String input) throws AExceptions {
+        assert input.length() > 1 : "String length is nor more than 1";
         try {
             ui.setCommand(input);
             Command c = Parser.parse(input);
+            assert (c instanceof Command) : "Object is not an instance of Command";
             c.execute(tasks, ui, storage);
             return ui.getResponse();
         } catch (AExceptions e) {
@@ -64,6 +66,7 @@ public class Jag {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
+                assert (c instanceof Command) : "c is not an instance of Command";
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (AExceptions e) {
