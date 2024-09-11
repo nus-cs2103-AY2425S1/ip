@@ -62,12 +62,7 @@ public class Parser {
             if (taskName.isEmpty()) {
                 throw new ParseException(ERROR_SEARCH_QUERY_EMPTY, 0);
             }
-            StringBuilder searchBuilder = new StringBuilder();
-            for (int i = 1; i < commandAndTaskName.length; i++) {
-                searchBuilder.append(commandAndTaskName[i]).append("|");
-            }
-            String searchQuery = taskNameBuilder.toString();
-            return new FindCommand(searchQuery);
+            return new FindCommand(taskName);
         case "mark":
             try {
                 int idxToMark = getIndexOffset(taskName);

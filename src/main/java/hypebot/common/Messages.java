@@ -81,13 +81,13 @@ public class Messages {
             Try formatting your dates in this format: yyyy-MM-dd HH:mm
             """;
     public static final String SEARCH_DATE_PARSE_ERROR = """
-                            but I couldn't catch the search date that you put.
-                            Try formatting your due date in this format: yyyy-MM-dd
-                            """;
+            but I couldn't catch the search date that you put.
+            Try formatting your due date in this format: yyyy-MM-dd
+            """;
     public static final String DUE_DATE_PASSED_ERROR = "but you can't enter a deadline that's gone with the wind!\n";
     public static final String EVENT_TIME_PASSED_ERROR = "but you can't enter a past event!\n";
     public static final String EVENT_TIMES_NOT_IN_ORDER_ERROR = "but your start time and end time aren't adding up!\n";
-    public static final String ERROR_SEARCH_QUERY_EMPTY = "make sure to enter in some keywords in the name"
+    public static final String ERROR_SEARCH_QUERY_EMPTY = "make sure to enter in some keywords in the name "
             + "of the tasks you're searching for!\n";
     public static final String UNKNOWN_COMMAND_ERROR_INTRO = "but I don't think we're vibing when you say '";
     public static final String UNKNOWN_COMMAND_ERROR_OUTRO = "'.\nMind if I ask you for anything else, homie?\n";

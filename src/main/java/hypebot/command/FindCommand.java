@@ -4,13 +4,16 @@ import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents the FindCommand created when user prompts 'find {keywords}'.
  *
  * @author Youngseo Park (@youngseopark05)
  */
 public class FindCommand extends Command {
-    private String searchQuery;
+    private Pattern searchQuery;
 
     /**
      * Takes in a search query containing keywords to search for in HypeBot's Tasklist
@@ -20,7 +23,10 @@ public class FindCommand extends Command {
      */
     public FindCommand(String searchQuery) {
         super();
-        this.searchQuery = searchQuery;
+        Pattern searchPattern = Pattern.compile(
+                searchQuery.replace(" ", "|").substring(0, searchQuery.length() - 1),
+                Pattern.CASE_INSENSITIVE);
+        this.searchQuery = searchPattern;
     }
 
     /**
@@ -35,6 +41,6 @@ public class FindCommand extends Command {
     @Override
     public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
-        ui.showTasksWithSearchQuery(searchQuery, tasksWithSearchQuery);
+        ui.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }
 }

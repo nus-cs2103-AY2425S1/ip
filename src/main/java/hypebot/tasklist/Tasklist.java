@@ -74,11 +74,10 @@ public class Tasklist {
      * @param searchQuery Search query from user to search Tasks with the search query in the name.
      * @return Tasklist of Tasks containing search query in name.
      */
-    public Tasklist getNameContains(String searchQuery) {
-        List<Task> tasksWithSearchQuery = TASKS.stream().filter(task -> {
-                Pattern pattern = Pattern.compile(searchQuery, Pattern.CASE_INSENSITIVE);
-                return pattern.matcher(task.getName().toLowerCase()).matches();
-        }).toList();
+    public Tasklist getNameContains(Pattern searchQuery) {
+        List<Task> tasksWithSearchQuery = TASKS.stream().filter(
+                task -> searchQuery.matcher(task.getName().toLowerCase()).find()
+        ).toList();
         return new Tasklist(tasksWithSearchQuery);
     }
 
