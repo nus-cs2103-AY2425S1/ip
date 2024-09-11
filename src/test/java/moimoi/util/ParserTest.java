@@ -17,6 +17,7 @@ public class ParserTest {
             Parser.parse("todo borrow book");
             Parser.parse("deadline return book /by 2024-08-22 17:00");
             Parser.parse("event project meeting /from 2024-08-22 18:00 /to 2024-08-22 18:30");
+            Parser.parse("period cry /for 24");
             Parser.parse("delete 1");
             Parser.parse("mark 2");
             Parser.parse("unmark 3");

@@ -8,10 +8,12 @@ import moimoi.util.Storage;
 import moimoi.util.TaskList;
 import moimoi.util.exception.InvalidCommandException;
 import moimoi.util.exception.InvalidDateTimeException;
+import moimoi.util.exception.InvalidPeriodException;
 import moimoi.util.exception.MissingArgumentException;
 import moimoi.util.exception.MoiMoiException;
 import moimoi.util.task.Deadline;
 import moimoi.util.task.Event;
+import moimoi.util.task.Period;
 import moimoi.util.task.Task;
 import moimoi.util.task.Todo;
 
@@ -59,6 +61,10 @@ public class AddCommand extends Command {
 
         case EVENT:
             task = this.createEvent();
+            break;
+
+        case PERIOD:
+            task = this.createPeriod();
             break;
 
         default:
@@ -134,6 +140,32 @@ public class AddCommand extends Command {
             throw new MissingArgumentException();
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException("date-time");
+        }
+    }
+
+    /**
+     * Creates and returns a period task, corresponding to the task information.
+     *
+     * @return Period task corresponding to the task information.
+     * @throws MoiMoiException If any part of the task information is missing or invalid.
+     */
+    private Period createPeriod() throws MoiMoiException {
+        try {
+            String[] descPeriod = this.arguments.split(" /for ", 2);
+            String description = descPeriod[0];
+            String periodString = descPeriod[1];
+
+            if (description.isEmpty() || periodString.isEmpty()) {
+                throw new MissingArgumentException();
+            }
+
+            double period = Double.parseDouble(periodString);
+
+            return new Period(description, period);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingArgumentException();
+        } catch (NumberFormatException e) {
+            throw new InvalidPeriodException();
         }
     }
 
