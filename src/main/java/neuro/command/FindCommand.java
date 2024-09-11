@@ -23,19 +23,17 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             return ui.showMessage("You currently have no tasks.");
-        } else {
-            StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
-
-            // ui.showMessage("Here are the matching tasks in your list:");
-            int j = 1;
-            for (int i = 0; i < tasks.getSize(); i++) {
-                if (tasks.getTask(i).toString().contains(searchQuery)) {
-                    message.append(j).append(". ").append(tasks.getTask(i)).append("\n");
-                    j++;
-                }
-            }
-
-            return message.toString();
         }
+
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
+        int displayIndex = 1;
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.getTask(i).toString().contains(searchQuery)) {
+                message.append(displayIndex).append(". ").append(tasks.getTask(i)).append("\n");
+                displayIndex++;
+            }
+        }
+
+        return message.toString();
     }
 }

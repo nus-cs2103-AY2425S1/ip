@@ -93,7 +93,6 @@ public class Ui {
      * @param message the message to be shown
      */
     public String showMessage(String message) {
-        // System.out.println("    " + message);
         return message;
     }
 

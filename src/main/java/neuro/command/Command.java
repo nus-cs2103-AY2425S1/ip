@@ -14,6 +14,7 @@ public abstract class Command {
      * @param tasks the task list on which the command operates
      * @param ui the user interface for interacting with the user
      * @param storage the storage for saving and loading tasks
+     * @return a String message to be displayed by Neuro
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 

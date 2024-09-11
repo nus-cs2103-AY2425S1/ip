@@ -52,19 +52,10 @@ public class Parser {
      * @throws IllegalArgumentException when input string does not follow any expected format
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws IllegalArgumentException {
-        DateTimeFormatter[] dateTimeFormatters = {
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
-                DateTimeFormatter.ofPattern("MMM d yyyy h a"),
-                DateTimeFormatter.ofPattern("MMM d yyyy ha")
-        };
+        DateTimeFormatter[] dateTimeFormatters = getDateTimeFormatters();
+        DateTimeFormatter[] dateFormatters = getDateFormatters();
 
-        DateTimeFormatter[] dateFormatters = {
-                DateTimeFormatter.ofPattern("d/M/yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-M-d"),
-                DateTimeFormatter.ofPattern("MMM d yyyy")
-        };
-
+        // Check if dateTimeStr follows any DateTime formats
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
                 return LocalDateTime.parse(dateTimeStr, formatter);
@@ -73,6 +64,7 @@ public class Parser {
             }
         }
 
+        // Check if dateTimeStr follows any Date formats
         for (DateTimeFormatter formatter : dateFormatters) {
             try {
                 return LocalDate.parse(dateTimeStr, formatter).atStartOfDay();
@@ -82,6 +74,23 @@ public class Parser {
         }
 
         throw new IllegalArgumentException("Invalid date string!");
+    }
+
+    private static DateTimeFormatter[] getDateFormatters() {
+        return new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-M-d"),
+                DateTimeFormatter.ofPattern("MMM d yyyy")
+        };
+    }
+
+    private static DateTimeFormatter[] getDateTimeFormatters() {
+        return new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy h a"),
+                DateTimeFormatter.ofPattern("MMM d yyyy ha")
+        };
     }
 
     /**

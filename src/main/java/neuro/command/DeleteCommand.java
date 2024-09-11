@@ -32,8 +32,6 @@ public class DeleteCommand extends Command {
         if (this.index < 0) {
             return "Missing or invalid index for 'delete' command! Add a valid "
                    + "index for a task to delete, like 'delete 2'.";
-            // ui.showError("Missing or invalid index for 'delete' command! Add a valid "
-            //         + "index for a task to delete, like 'delete 2'.");
         }
 
         try {
@@ -43,13 +41,7 @@ public class DeleteCommand extends Command {
             return "Ok, I've removed this task:\n"
                     + "     " + task.toString() + "\n"
                     + "Now you have " + tasks.getSize() + " tasks in the list.";
-
-            // ui.showMessage("Ok, I've removed this task:");
-            // ui.showMessage(task.toString());
-            // return ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            // ui.showError("Index out of bounds! Try calling the command 'list' to "
-            //        + "verify the index of the desired task.");
             return "Index out of bounds! Try calling the command 'list' to "
                    + "verify the index of the desired task.";
         }

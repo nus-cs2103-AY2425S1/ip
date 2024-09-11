@@ -37,18 +37,7 @@ public class Storage {
      * @throws FileNotFoundException If file cannot be created nor found
      */
     public TaskList load() throws FileNotFoundException {
-        File f = new File(filePath);
-        try {
-            if (!f.exists()) {
-                // Make folder if necessary
-                f.getParentFile().mkdirs();
-
-                // Create file if it doesn't exist
-                f.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println("Error encountered: " + e);
-        }
+        File f = loadOrCreateSaveFile();
 
         Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -66,6 +55,22 @@ public class Storage {
         }
 
         return new TaskList(taskList);
+    }
+
+    private File loadOrCreateSaveFile() {
+        File f = new File(filePath);
+        try {
+            if (!f.exists()) {
+                // Make folder directory if necessary
+                f.getParentFile().mkdirs();
+
+                // Create save file if it doesn't exist
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error encountered: " + e);
+        }
+        return f;
     }
 
     private Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
@@ -88,7 +93,6 @@ public class Storage {
         } catch (ArrayIndexOutOfBoundsException ignored) {
             // Corrupted line in save file
         }
-
 
         if (taskIsDone.equals("1") && taskToAdd != null) {
             taskToAdd.markDone();
