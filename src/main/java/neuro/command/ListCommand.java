@@ -19,16 +19,13 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             return "You currently have no tasks.";
-            // ui.showMessage("You currently have no tasks.");
-        } else {
-            StringBuilder message = new StringBuilder("Here is a list of all your tasks:\n");
-            // ui.showMessage("Here is a list of all your tasks:");
-            for (int i = 0; i < tasks.getSize(); i++) {
-                message.append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
-                //ui.showMessage((i + 1) + ". " + tasks.getTask(i));
-            }
-
-            return message.toString();
         }
+
+        StringBuilder message = new StringBuilder("Here is a list of all your tasks:\n");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            message.append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
+        }
+
+        return message.toString();
     }
 }

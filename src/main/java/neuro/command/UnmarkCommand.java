@@ -30,8 +30,6 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
-            // ui.showError("Missing or invalid index for 'unmark' command! Add a valid "
-            //        + "index for a task to unmark, like 'unmark 2'.");
             return "Missing or invalid index for 'unmark' command! Add a valid "
                    + "index for a task to unmark, like 'unmark 2'.";
         }
@@ -43,14 +41,9 @@ public class UnmarkCommand extends Command {
             task.markUndone();
             storage.updateTaskFile(tasks);
 
-            ui.showMessage("Ok! I've unmarked this task as done:");
-            ui.showMessage(task.toString());
-
             return "Ok! I've unmarked this task as done:"
                    + "     " + task;
         } catch (IndexOutOfBoundsException e) {
-            // ui.showError("Index out of bounds! Try calling the command 'list' to "
-            //        + "verify the index of the desired task.");
             return "Index out of bounds! Try calling the command 'list' to "
                    + "verify the index of the desired task.";
         }
