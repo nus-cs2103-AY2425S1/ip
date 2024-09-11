@@ -14,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lbot.exception.FileException;
-import lbot.exception.InvalidCommandException;
 import lbot.exception.ParseCommandException;
 import lbot.task.Deadline;
 import lbot.task.Event;
@@ -79,23 +78,11 @@ public class Storage {
      * @param input    line read from file.
      * @param taskList for task to be added into.
      * @throws ParseCommandException   thrown when error encountered while parsing line.
-     * @throws InvalidCommandException thrown when command keyword is not supported.
      */
     public static void addTaskToList(String input, TaskList taskList)
-            throws ParseCommandException, InvalidCommandException {
-
+            throws ParseCommandException{
         // Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
         // regex updated after testing on regex101.com
-        // Prompt used:
-        // Can you build me a regex string to detect the following pattern in java
-        // [T][x] Task
-        // [T][ ] Task
-        // [E][x] Event (from: 12/08/2024 to: 13/08/2024)
-        // [E][x] Event (from: Friday to: Friday)
-        // [E][ ] Event (from: 12/08/2024 to: 13/08/2024)
-        // [E][ ] Event (from: Friday to: Friday)
-        // [D][x] Deadline (by: 11)
-        // [D][ ] Deadline (by: 12/08/1203)
         String regex = "\\[([TED])]\\[(x|\\s?)] (.*?)(?: \\(from: ([^)]*?) to: ([^)]*?)\\)| \\(by: ([^)]*?)\\))?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);

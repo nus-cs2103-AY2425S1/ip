@@ -44,11 +44,8 @@ public class Parser {
                 + "/from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)|^(find|f) (.+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        // NEED TO RUN MATCHER.FIND()
         String command = input.split(" ")[0].trim().toLowerCase();
         if (matcher.find()) {
-
-            // includes BCD-Extension for Week 5
             switch (command) {
             case "todo":
                 // fallthrough
@@ -96,6 +93,9 @@ public class Parser {
                 // fallthrough
             case "find":
                 String term = matcher.group(17);
+                if (term.isEmpty()) {
+                    throw new ParseCommandException("Search term is empty");
+                }
                 return new FindCommand(term);
             case "bye":
                 // fallthrough
