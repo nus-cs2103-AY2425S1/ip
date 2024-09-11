@@ -55,6 +55,7 @@ public class Friday extends Application {
             try {
                 String commandRaw = ui.readCommand();
                 Command command = Parser.parseUserInput(commandRaw);
+                System.out.println(command);
                 command.execute(tasks, ui, storage);
                 isEndScanner = command.isEndScanner();
             } catch (FridayException | DateTimeParseException e ) {

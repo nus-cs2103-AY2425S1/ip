@@ -12,7 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Represents the storage of tasks in a file.
@@ -80,16 +82,23 @@ public class Storage {
             throw new IOException(" File is corrupted");
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = this.createTaskFromInput(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
-        }
+//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                Task task = this.createTaskFromInput(line);
+//                if (task != null) {
+//                    tasks.add(task);
+//                }
+//            }
+//        }
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            List<Task> temp = reader.lines()
+                    .map(this::createTaskFromInput)
+                    .filter(Objects::nonNull)
+                    .toList();
+            tasks.addAll(temp);
+        }
         return tasks;
     }
 
