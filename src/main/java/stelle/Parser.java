@@ -99,7 +99,7 @@ public class Parser {
         String outputString = "";
 
         String query = input.split(" ", 2)[1];
-        ArrayList<Integer> resultList = taskList.find(query);
+        ArrayList<Integer> resultList = taskList.find(query, false);
 
         if (resultList.isEmpty()) {
             outputString = "No tasks with names matching this query!";
@@ -193,7 +193,7 @@ public class Parser {
     private String addToDo(String input) throws TaskException, IOException {
         String taskName = input.replace(TODO_COMMAND, "").strip();
 
-        if (!taskList.find(taskName).isEmpty()) {
+        if (!taskList.find(taskName, true).isEmpty()) {
             return "There is already a task with this name!";
         }
         if (taskName.isEmpty()) {
@@ -217,7 +217,7 @@ public class Parser {
         if (taskName.isEmpty()) {
             throw new DeadlineNoDescriptionException();
         }
-        if (!taskList.find(taskName).isEmpty()) {
+        if (!taskList.find(taskName, true).isEmpty()) {
             return "There is already a task with this name!";
         }
 
@@ -240,7 +240,7 @@ public class Parser {
         if (taskName.isEmpty()) {
             throw new EventNoDescriptionException();
         }
-        if (!taskList.find(taskName).isEmpty()) {
+        if (!taskList.find(taskName, true).isEmpty()) {
             return "There is already a task with this name!";
         }
         String fromAndTo = noCommandInput.split("/from")[1].strip();
