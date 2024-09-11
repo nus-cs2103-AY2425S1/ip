@@ -33,14 +33,6 @@ public class Event extends Task {
         return this.to;
     }
 
-    public String getFromString() {
-        return this.from.format(PARSER);
-    }
-
-    public String getToString() {
-        return this.to.format(PARSER);
-    }
-
     /**
      * Returns a string representation of the Event task.
      *

@@ -5,22 +5,23 @@ import monobot.task.Deadline;
 import monobot.task.Event;
 import monobot.task.Task;
 import monobot.task.Todo;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StorageTest {
-    private Storage storage;
-    private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
     @TempDir
     Path tempDir;
+
+    private Storage storage;
 
     @BeforeEach
     void setUp() {
@@ -84,7 +85,7 @@ class StorageTest {
     }
 
     @Test
-    void testSaveIOException() {
+    void testSaveIoException() {
         Storage invalidStorage = new Storage("/invalid/path/tasks.txt");
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Test task"));

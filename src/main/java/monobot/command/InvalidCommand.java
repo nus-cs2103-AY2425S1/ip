@@ -25,7 +25,7 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printError("Invalid monobot.command.Command. Valid commands are: \n"
+        ui.printError("Invalid command. Valid commands are: \n"
                 + "list, todo, deadline, event, mark, unmark, bye");
     }
 }

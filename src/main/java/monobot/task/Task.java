@@ -42,7 +42,7 @@ public class Task {
     /**
      * Returns a string representation of the task.
      *
-     * @return A string represention of the task
+     * @return A string representation of the task
      */
     @Override
     public String toString() {

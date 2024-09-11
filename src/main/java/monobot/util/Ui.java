@@ -30,10 +30,6 @@ public class Ui {
         return "Hello! I'm MonoBot\nWhat can I do for you?";
     }
 
-    public void printGreeting() {
-        setLastOutput(getGreeting());
-    }
-
     /**
      * Prints farewell message.
      */
