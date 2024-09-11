@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class Duke {
     private static final String FILE_NAME = "data/tasks.txt";
+    private static final String GOODBYE_MESSAGE = "Farewell! Until we meet again.\n";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -51,16 +52,16 @@ public class Duke {
                 ps.process(tasks, ui);
                 userResponse = ui.out();
             } catch (EmptyTaskException e) {
-                System.out.println("The description of the task must contain some substance; it cannot be void.");
+                System.out.println(e.getMessage());
             } catch (EmptyCommandException e) {
-                System.out.println("An empty command has been received.");
+                System.out.println(e.getMessage());
             } catch (InvalidCommandException e) {
-                System.out.println("The instruction provided is deemed invalid.");
+                System.out.println(e.getMessage());
             } catch (DateTimeParseException e) {
                 System.out.println("Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".");
             } catch (TaskListOutOfBoundsException e) {
-                System.out.println("Please select an item number from within the current list for deletion.");
+                System.out.println(e.getMessage());
             }
         }
         try {
@@ -69,7 +70,7 @@ public class Duke {
             System.out.println("The endeavor to create the storage file has encountered an impediment."
                     + " I implore you to attempt this task once more in due course. Till then: ");
         }
-        System.out.println("Farewell! Until we meet again.\n");
+        System.out.println(GOODBYE_MESSAGE);
 
     }
 
@@ -80,36 +81,30 @@ public class Duke {
      */
     public String getResponse(String userResponse) {
         ui.greet();
-        //String userResponse = ui.out();
         if (!Objects.equals(userResponse, "bye")) {
             try {
                 Parser ps = new Parser(userResponse);
                 return ps.stringProcess(tasks, ui);
-                //userResponse = ui.out();
-                //add return statement
             } catch (EmptyTaskException e) {
-                return "The description of the task must contain some substance; it cannot be void.";
+                return e.getMessage();
             } catch (EmptyCommandException e) {
-                return "An empty command has been received.";
+                return e.getMessage();
             } catch (InvalidCommandException e) {
-                return "The instruction provided is deemed invalid.";
+                return e.getMessage();
             } catch (DateTimeParseException e) {
                 return "Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".";
             } catch (TaskListOutOfBoundsException e) {
-                System.out.println("Please select an item number from within the current list for deletion.");
+                return e.getMessage();
             }
-        } else {
-            try {
-                storage.writeToFile(FILE_NAME, tasks);
-            } catch (IOException e) {
-                return "The endeavor to create the storage file has encountered an impediment."
-                        + " I implore you to attempt this task once more in due course. Till then: ";
-            }
-            return "Farewell! Until we meet again.\n";
         }
-        assert(true);
-        return "";
+        try {
+            storage.writeToFile(FILE_NAME, tasks);
+        } catch (IOException e) {
+            return "The endeavor to create the storage file has encountered an impediment."
+                    + " I implore you to attempt this task once more in due course. Till then: \n" + GOODBYE_MESSAGE;
+        }
+        return GOODBYE_MESSAGE;
     }
 
     public static void main(String[] args) {
