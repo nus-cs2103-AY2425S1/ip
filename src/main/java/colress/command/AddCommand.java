@@ -21,6 +21,10 @@ public final class AddCommand extends Command {
     private LocalTime startTime;
     private LocalTime endTime;
     private boolean hasStartTime;
+    /**
+     * Constructs an AddCommand with the given successfulExecutionMessage. The AddCommand field has
+     * no start time field to begin with by default
+     */
     public AddCommand() {
         super("Okay. I have added this task to your list:\n");
         hasStartTime = false;
@@ -40,6 +44,10 @@ public final class AddCommand extends Command {
     public void initialise(LocalDate input) {
         date = input;
     }
+
+    /**
+     * If the command already has an initialised start time, initialise end time instead of the start time
+     */
     public void initialise(LocalTime input) {
         if (hasStartTime) {
             this.endTime = input;
