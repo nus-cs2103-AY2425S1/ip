@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import task.Merchandise;
 import task.Task;
 
 /**
@@ -102,6 +103,10 @@ public class ChatterBoxResponse {
         return "\n\t\tInvalid task number.\n";
     }
 
+    public static String showErrorInvalidMerchandiseNumber() {
+        return "\n\t\tInvalid merchandise number.\n";
+    }
+
     /**
      * Returns an error message indicating that the description of a TODO task is empty.
      *
@@ -163,5 +168,61 @@ public class ChatterBoxResponse {
             sb.append("\t\t\t").append(i + 1).append(". ").append(taskList.get(i)).append("\n");
         }
         return sb.toString();
+    }
+
+    public String showIncorrectFormatForMerchandise() {
+        return "\n\t\tOOPS!!! The correct format for add merchandise is: \n"
+                + "add merchandise, ID, NAME, DESCRIPTION \n";
+    }
+
+    public String showIncorrectFormatForUpdatingDescription() {
+        return "\n\t\tOOPS!!! The correct format for updating merchandise description is: \n"
+                + "modify merchandise description, ID, DESCRIPTION \n";
+    }
+
+    public String showMerchandiseAdded(Merchandise merchandise, int merchandiseCount) {
+            return "\n\t\t" + merchandise.getName() + " is added to your list\n\t\t" + merchandise
+                    + "\n\t\tNow you have " + merchandiseCount + " merchandise in your list.\n";
+    }
+
+    public String showMerchandiseDescriptionUpdated(Merchandise merchandise) {
+        if(merchandise == null) {
+            return "\n\t\t ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
+        } else {
+            return "\n\t Description of merchandise changed! \n"
+                    + merchandise;
+        }
+    }
+
+    public String showMerchandiseNameUpdated(Merchandise merchandise) {
+        if(merchandise == null) {
+            return "\n\t\t ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
+        } else {
+            return "\n\tName of merchandise changed! \n"
+                    + merchandise;
+        }
+    }
+
+    public String showMerchandiseList(ArrayList<Merchandise> merchandises) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\t\tHere's what you've got on your merchandise list so far:\n");
+        for (int i = 0; i < merchandises.size(); i++) {
+            sb.append("\t\t\t").append(i + 1).append(". ").append(merchandises.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static String showFindMerchandiseList(ArrayList<Merchandise> merchandises) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\t\tHere are the matching merchandises in your list:\n");
+        for (int i = 0; i < merchandises.size(); i++) {
+            sb.append("\t\t\t").append(i + 1).append(". ").append(merchandises.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static String showMerchandiseRemoved(Merchandise merchandise, int merchandiseCount) {
+        return "\n\t\tNoted. I've removed this merchandise:\n\t\t" + merchandise
+                + "\n\t\tNow you have " + merchandiseCount + " merchandises\n";
     }
 }

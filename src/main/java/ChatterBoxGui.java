@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import storage.Storage;
+import task.MerchandiseManager;
 import task.TaskList;
 
 /**
@@ -24,6 +25,7 @@ public class ChatterBoxGui extends Application {
     private ChatterBoxResponse response = new ChatterBoxResponse();
     private ParserGui parser = new ParserGui();
     private TaskList taskList = new TaskList();
+    private MerchandiseManager merchandiseList = new MerchandiseManager();
     private Storage storage = new Storage("data/tasks.txt");
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -100,7 +102,7 @@ public class ChatterBoxGui extends Application {
             dialogContainer.getChildren().add(DialogBox.getChatterBoxDialog(chatterboxText, chatterboxImage));
             Platform.exit();
         }
-        parser.parseExecute(userText, taskList, storage, response);
+        parser.parseExecute(userText, taskList, merchandiseList, storage, response);
 
         String chatterboxText = parser.getResponse();
         dialogContainer.getChildren().addAll(

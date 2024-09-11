@@ -3,9 +3,12 @@ import java.util.ArrayList;
 import storage.Storage;
 import task.Deadline;
 import task.Event;
+import task.Merchandise;
+import task.MerchandiseManager;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
+
 
 
 /**
@@ -17,7 +20,7 @@ public class ParserGui {
 
     private String response = "";
 
-    public void parseExecute(String input, TaskList taskList, Storage storage, ChatterBoxResponse response) {
+    public void parseExecute(String input, TaskList taskList, MerchandiseManager merchandiseList, Storage storage, ChatterBoxResponse response) {
         if (input.startsWith("mark")) {
             markCommand(input, taskList, storage, response);
         } else if (input.startsWith("unmark")) {
@@ -36,6 +39,18 @@ public class ParserGui {
             byeCommand(input, taskList, storage, response);
         } else if (input.startsWith("find")) {
             findCommand(input, taskList, storage, response);
+        } else if(input.startsWith("add merchandise")) {
+            merchandiseCommand(input, merchandiseList, response);
+        } else if(input.startsWith("modify merchandise description")) {
+            merchandiseModifyDescription(input, merchandiseList, response);
+        } else if(input.startsWith("modify merchandise name")) {
+            merchandiseModifyName(input, merchandiseList, response);
+        } else if (input.startsWith("merchandise")) {
+            merchandiseDisplayCommand(input, merchandiseList, response);
+        } else if(input.startsWith("search merchandise")) {
+            merchandiseFindCommand(input, merchandiseList, response);
+        } else if(input.startsWith("remove")) {
+            removeCommand(input, merchandiseList, response);
         } else {
             this.response = response.showErrorUnknownCommand();
         }
@@ -174,6 +189,76 @@ public class ParserGui {
         response = ui.showGoodbye();
     }
 
+    private void merchandiseCommand(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+        String[] components = input.split(",", 4);
+        if(components.length < 4) {
+            response = ui.showIncorrectFormatForMerchandise();
+            return;
+        }
+        String id = components[1].trim();
+        String name = components[2].trim();
+        String description = components[3].trim();
+        Merchandise merchandise = new Merchandise(id, name, description);
+        merchandiseList.addMerchandise(merchandise);
+        response = ui.showMerchandiseAdded(merchandise, merchandiseList.size());
+    }
+
+    private void merchandiseModifyDescription(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+        String[] components = input.split(",", 3);
+        if(components.length < 3) {
+            response = ui.showIncorrectFormatForUpdatingDescription();
+            return;
+        }
+        String id = components[1].trim();
+        String description = components[2].trim();
+        Merchandise merchandise = merchandiseList.updateMerchandiseDescription(id, description);
+        response = ui.showMerchandiseDescriptionUpdated(merchandise);
+    }
+
+    private void merchandiseModifyName(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+        String[] components = input.split(",", 3);
+        if(components.length < 3) {
+            response = ui.showIncorrectFormatForUpdatingDescription();
+            return;
+        }
+        String id = components[1].trim();
+        String name = components[2].trim();
+        Merchandise merchandise = merchandiseList.updateMerchandiseName(id, name);
+        response = ui.showMerchandiseNameUpdated(merchandise);
+    }
+
+    private void merchandiseFindCommand(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+            String name = input.substring(18).trim();
+            if (name.isEmpty()) {
+                response = ui.showError("Please provide a name to search for");
+            } else {
+                ArrayList<Merchandise> matchingMerchandise = merchandiseList.findMerchandisebyName(name);
+                if (matchingMerchandise.isEmpty()) {
+                    response = ui.showError("No merchandise found matching: " + name);
+                } else {
+                    response = ui.showFindMerchandiseList(matchingMerchandise);
+                }
+            }
+    }
+
+    private void removeCommand(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+        try {
+            int indexSpace = input.indexOf(" ");
+            int merchandiseIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
+            if (isValidTask(merchandiseIndex, merchandiseList.size())) {
+                merchandiseList.getMerchandise(merchandiseIndex);
+                response = ui.showMerchandiseRemoved(merchandiseList.getMerchandise(merchandiseIndex), merchandiseList.size() - 1);
+                merchandiseList.removeMerchandise(merchandiseIndex);
+            } else {
+                response = ui.showErrorInvalidMerchandiseNumber();
+            }
+        } catch (NumberFormatException e) {
+            response = ui.showError("Command must be followed by a specific merchandise number");
+        }
+    }
+    private void merchandiseDisplayCommand(String input, MerchandiseManager merchandiseList, ChatterBoxResponse ui) {
+        response = ui.showMerchandiseList(merchandiseList.getMerchandise());
+    }
     private String getDeadlineDescription(String input) {
         int index = input.indexOf("/");
 
