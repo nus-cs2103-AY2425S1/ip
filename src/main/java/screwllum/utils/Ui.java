@@ -5,6 +5,10 @@ import screwllum.tasks.Task;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a front-end CLI UI for interactions with users. Essentially, a wrapper for a scanner with methods that
+ * utilise multiple System.out.println calls.
+ */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
     
@@ -15,11 +19,23 @@ public class Ui {
     public void showWelcome() {
         print("Pleased to meet you");
     }
-    
+
+    /**
+     * Displays an error message to the user, which is normally the description of a Screwllum Exception. 
+     *
+     * @param message The error message to be shown.
+     */
     public void showError(String message) {
         print(message);
     }
-    
+
+    /**
+     * Displays a message to the user based on the command tokens and the current list of tasks.
+     * Handles commands such as "bye", "list", "toggle", "delete", "todo", "deadline", and "event".
+     *
+     * @param tokens The parsed command tokens.
+     * @param taskList The current list of tasks.
+     */
     public void showMessage(List<String> tokens, List<Task> taskList) {
         switch (tokens.get(0)) {
         case "bye":

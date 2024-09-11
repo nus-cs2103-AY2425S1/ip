@@ -9,7 +9,21 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides various methods to understand user input, or format input and output in the context of the screwllum bot.
+ */
 public class Parser {
+    /**
+     * Parses the user input and breaks it into tokens based on the command.
+     * Handles various commands such as "bye", "list", "delete", "toggle", "todo", "deadline", and "event".
+     * Depending on the type of command, the respective private handle methods would be called.
+     * The first token is always the command in lowercase.
+     *
+     * @param input The raw input string entered by the user.
+     * @return A list of tokens representing the parsed command and its associated details.
+     * @throws InvalidCommandException if the command is unrecognized or the input does not follow certain formats.
+     * @throws InvalidDateFormatException if a date in the input is not in the expected format.
+     */
     public static List<String> parseUserInput(String input) throws InvalidCommandException, InvalidDateFormatException {
         List<String> tokens = new ArrayList<>();
         String[] segments = input.split("/");
@@ -40,19 +54,45 @@ public class Parser {
         }
         return tokens;
     }
-    
+
+    /**
+     * Parses a date string into a LocalDate object via an overloaded method using the default pattern "yyyy-M-d".
+     *
+     * @param dateString The string representing the date.
+     * @return A LocalDate object corresponding to the parsed date string.
+     */
     public static LocalDate parseStringToDate(String dateString) {
         return parseStringToDate(dateString, "yyyy-M-d");
     }
-    
+
+    /**
+     * Parses a date string into a LocalDate object using the specified date pattern.
+     *
+     * @param dateString The string representing the date.
+     * @param pattern The String pattern to be used for parsing the date string.
+     * @return A LocalDate object corresponding to the parsed date string.
+     */
     public static LocalDate parseStringToDate(String dateString, String pattern) {
         return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(pattern));
     }
-    
+
+    /**
+     * Converts a LocalDate object into a string via an overloaded method using the default pattern "yyyy-M-d".
+     *
+     * @param localDate The LocalDate object to be formatted.
+     * @return A string representing the formatted date.
+     */
     public static String parseDateToString(LocalDate localDate) {
         return parseDateToString(localDate, "yyyy-M-d");
     }
-    
+
+    /**
+     * Converts a LocalDate object into a string using the specified pattern.
+     *
+     * @param localDate The LocalDate object to be formatted.
+     * @param pattern The String pattern to be used for formatting the LocalDate.
+     * @return A string representing the formatted date.
+     */
     public static String parseDateToString(LocalDate localDate, String pattern) {
         return localDate.format(DateTimeFormatter.ofPattern(pattern));
     }

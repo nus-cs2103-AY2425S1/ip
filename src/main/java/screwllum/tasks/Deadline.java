@@ -17,6 +17,11 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)", super.toString(), Parser.parseDateToString(by, "MMM dd yyyy"));
     }
 
+    /**
+     * Convert the task to a format suitable for saving to a file.
+     *
+     * @return A String in the format D_status_desc_by.
+     */
     public String toSaveFormat() {
         return String.format("D_%s_%s_%s", isDone ? "1" : "0", getDesc(), Parser.parseDateToString(by));
     }
