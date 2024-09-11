@@ -2,7 +2,7 @@ package socchat.task.deadline;
 
 import java.time.LocalDateTime;
 
-import socchat.Parser;
+import Parser.Parser;
 import socchat.task.Task;
 
 /**
@@ -23,6 +23,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+    public Deadline(String description, LocalDateTime by, String tagName) {
+        super(description, tagName);
+        this.by = by;
+    }
 
     /**
      * Constructs a new Deadline task with the specified description, deadline, and completion status.
@@ -36,15 +40,24 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, LocalDateTime by, Boolean isDone, String tagName) {
+        super(description, isDone, tagName);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Parser.dateToString(by) + ")";
+        return "[D]" + super.toString()
+                + " (by: " + Parser.dateToString(by) + ")"
+                + "<tag: " + tagName + ">";
     }
 
     @Override
     public String toSave() {
         return "D" + " | " + super.getDoneStatus()
                 + " | " + super.getDescription()
-                + " | " + Parser.dateToString(by);
+                + " | " + Parser.dateToString(by)
+                + " | "
+                +  " | " + super.getTagName();
     }
 }

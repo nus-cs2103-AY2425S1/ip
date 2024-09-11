@@ -3,6 +3,8 @@ package socchat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import Parser.Parser;
+import socchat.storage.Storage;
 import socchat.task.Task;
 import socchat.task.deadline.Deadline;
 import socchat.task.event.Event;
@@ -31,6 +33,10 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Task getLastTask() {
+        return tasks.get(tasks.size() - 1);
     }
 
     /**
@@ -73,75 +79,13 @@ public class TaskList {
         return respond;
     }
 
-    /**
-     * Adds a new ToDo task to the task list.
-     *
-     * @param strToken an array where the first element contains the ToDo description
-     * @throws SocchatException if the ToDo format is invalid
-     * @return a string confirming that the task has been successfully added
-     */
-    public String addTodo(String[] strToken) throws SocchatException {
-        try {
-            // Get the description of 'Todo' task
-            String desc = strToken[0].substring("todo ".length()).trim();
 
-            Task t = new Todo(desc);
+
+
+    public String addTask(Task t) {
             tasks.add(t);
-
             Storage.update(tasks, true);
             return addingTaskAcknowledgement(t);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid Todo format: Description is empty");
-
-        }
-    }
-
-    /**
-     * Adds a new Event task to the task list.
-     *
-     * @param strToken an array containing the event description, start time, and end time
-     * @throws SocchatException if the event format is invalid
-     * @return a string confirming that the task has been successfully added
-     */
-    public String addEvent(String[] strToken) throws SocchatException {
-        try {
-            String desc = strToken[0].substring("event ".length());
-            String from = strToken[1].substring("from ".length());
-            String to = strToken[2].substring("to ".length());
-            LocalDateTime formattedFrom = Parser.parseDate(from);
-            LocalDateTime formattedTo = Parser.parseDate(to);
-
-            Task t = new Event(desc, formattedFrom, formattedTo);
-            tasks.add(t);
-
-            Storage.update(tasks, true);
-            return addingTaskAcknowledgement(t);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid Event format: event <description> /from <startTime> /to <endTime>");
-        }
-    }
-
-    /**
-     * Adds a new Deadline task to the task list.
-     *
-     * @param strToken an array containing the deadline description and due date
-     * @throws SocchatException if the deadline format is invalid
-     * @return a string confirming that the task has been successfully added
-     */
-    public String addDeadline(String[] strToken) throws SocchatException {
-        try {
-            String des = strToken[0].substring("deadline ".length());
-            String by = strToken[1].substring("by ".length());
-            LocalDateTime formattedBy = Parser.parseDate(by);
-
-            Task t = new Deadline(des, formattedBy);
-            tasks.add(t);
-
-            Storage.update(tasks, true);
-            return addingTaskAcknowledgement(t);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid Deadline format: deadline <description> /by <deadline>");
-        }
     }
 
     /**

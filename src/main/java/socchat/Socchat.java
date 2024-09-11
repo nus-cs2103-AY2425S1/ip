@@ -1,8 +1,10 @@
 package socchat;
 
+import Parser.Parser;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
+import socchat.storage.Storage;
 
 /**
  * Represents the main class for the Socchat application.
@@ -35,7 +37,7 @@ public class Socchat {
      */
     public String getResponse(String input) {
         Parser parser = new Parser(taskList);
-        String[] strToken = Parser.processInput(input);
+        String[] strToken = Parser.extractCommand(input);
         return parser.getResponse(strToken);
     }
 

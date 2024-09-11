@@ -2,7 +2,7 @@ package socchat.task.event;
 
 import java.time.LocalDateTime;
 
-import socchat.Parser;
+import Parser.Parser;
 import socchat.task.Task;
 
 
@@ -30,6 +30,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, LocalDateTime from, LocalDateTime to, String tagName) {
+        super(description, tagName);
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Constructs a new 'Event' task with the specified description, start time, end time, and completion status.
      *
@@ -44,12 +50,19 @@ public class Event extends Task {
         this.to = to;
 
     }
+    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean isDone, String tagName) {
+        super(description, isDone, tagName);
+        this.from = from;
+        this.to = to;
+
+    }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
                 + Parser.dateToString(from) + ", to: "
-                + Parser.dateToString(to) + ")";
+                + Parser.dateToString(to) + ")"
+                + "<tag: " + tagName + ">";
     }
 
     /**
@@ -60,8 +73,9 @@ public class Event extends Task {
      */
     public String toSave() {
         return "E" + " | " + super.getDoneStatus()
-                + " | " + super.getDescription()
+                + " | " + description
                 + " | " + Parser.dateToString(from)
-                + " to " + Parser.dateToString(to);
+                + " | " + Parser.dateToString(to)
+                + " | " + tagName;
     }
 }

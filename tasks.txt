@@ -1,5 +1,4 @@
-T | Done | tadaa
-D | Not done | gaga | 2022-12-22 22:22
-T | Done | class
-E | Not done | concert | 2022-12-22 12:22 to 2022-12-22 15:22
-T | Not done | hahah
+D | Done | assignment 1 | 2022-12-22 11:11 |  | null
+T | Not done | drink coffee |  |  | null
+E | Not done | concert | 2022-12-27 12:27 | 2022-12-27 12:27 | entertainment
+T | Not done | hiking |  |  | fun

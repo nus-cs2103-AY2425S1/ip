@@ -1,4 +1,4 @@
-package socchat;
+package socchat.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Parser.Parser;
+import socchat.SocchatException;
 import socchat.task.Task;
 import socchat.task.deadline.Deadline;
 import socchat.task.event.Event;
@@ -42,63 +44,74 @@ public class Storage {
     public static ArrayList<Task> processStorageLine() throws SocchatException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            assert filePath != null;
             File file = new File(filePath);
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 String[] strToken = line.split("\\|");
 
-                assert strToken.length >= 3;
+                assert strToken.length == 6;
                 String type = strToken[0].trim();
                 String done = strToken[1].trim();
                 String desc = strToken[2].trim();
+                String from = strToken[3].trim();
+                String to = strToken[4].trim();
+                String tag = strToken[5].trim();
 
                 Task t;
                 boolean isDone;
                 isDone = done.equals("Done");
 
                 if (type.equals("T")) {
-                    t = createTodo(desc, isDone);
+                    t = createTodo(desc, isDone, tag);
                 } else if (type.equals("E")) {
-                    assert strToken.length == 4;
-                    String date = strToken[3].trim();
-                    t = loadEvent(desc, isDone, date);
+
+                    t = loadEvent(desc, isDone, from, to, tag);
                 } else if (type.equals("D")) {
-                    assert strToken.length == 4;
-                    String date = strToken[3].trim();
-                    t = createDeadline(desc, isDone, date);
+
+                    t = createDeadline(desc, isDone, from, tag);
                 } else {
                     throw new SocchatException("Unknown task type: " + type);
                 }
                 tasks.add(t);
             }
         } catch (FileNotFoundException e) {
-            throw new SocchatException("Storage file not found");
+            throw new SocchatException("Storage file not found!");
         }
 
         return tasks;
 
     }
 
-    public static Task createTodo(String desc, boolean isDone) {
-        return new Todo(desc, isDone);
+    public static Task createTodo(String desc, boolean isDone, String tag) {
+        if (!(tag.isEmpty())) {
+            return new Todo(desc, isDone);
+        }
+        return new Todo(desc, isDone, tag);
     }
 
-    public static Task loadEvent(String desc, boolean isDone, String date) {
+    public static Task loadEvent(String desc, boolean isDone, String from, String to, String tag) {
         try {
-            String[] dateToken = date.split("to");
-            LocalDateTime from = Parser.parseDate(dateToken[0].trim());
-            LocalDateTime to = Parser.parseDate(dateToken[1].trim());
-            return new Event(desc, from, to, isDone);
+//            String[] dateToken = date.split("to");
+            LocalDateTime formatted_from = Parser.parseDate(from.trim());
+            LocalDateTime formatted_to = Parser.parseDate(to.trim());
+            if (!(tag.isEmpty())) {
+                return new Event(desc, formatted_from, formatted_to, isDone, tag);
+            }
+            return new Event(desc, formatted_from, formatted_to, isDone);
         } catch (SocchatException e){
             System.out.println(e.getMessage());
             return null;
         }
 
     }
-    public static Task createDeadline(String desc, boolean isDone, String date) {
+    public static Task createDeadline(String desc, boolean isDone, String date, String tag) {
         try {
             LocalDateTime by = Parser.parseDate(date);
+            if (!(tag.isEmpty())) {
+                return new Deadline(desc, by, isDone, tag);
+            }
             return new Deadline(desc, by, isDone);
         } catch (SocchatException e) {
             System.out.println(e.getMessage());

@@ -1,5 +1,7 @@
 package socchat.task;
 
+import Parser.Parser;
+
 /**
  * The abstract Task class represents a task with a description and a completion status.
  * It provides methods to mark and unmark tasks as done, and to get the task's status.
@@ -7,6 +9,7 @@ package socchat.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String tagName;
 
     /**
      * Constructs a new Task with the specified description. The task is initially not done.
@@ -16,6 +19,12 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, String tagName) {
+        this.description = description;
+        this.isDone = false;
+        this.tagName = tagName;
     }
 
     /**
@@ -28,6 +37,11 @@ public abstract class Task {
         this.description = description;
         this.isDone = isDone;
     }
+    public Task(String description, Boolean isDone, String tagName) {
+        this.description = description;
+        this.isDone = isDone;
+        this.tagName = tagName;
+    }
 
     /**
      * Returns the status icon of the task.
@@ -36,6 +50,9 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[]"); // mark done task with X
+    }
+    public String getTagName() {
+        return tagName;
     }
 
     /**
