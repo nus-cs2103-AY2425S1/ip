@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the formatted string for easy parsing and writing into file (database).
+     * Returns the formatted string for easy parsing and writing into file (database).
      *
      * @return Formatted String.
      */

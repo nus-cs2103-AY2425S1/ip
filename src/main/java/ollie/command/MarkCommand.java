@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Execute the marking of a task at a particular index as done.
+     * Executes the marking of a task at a particular index as done.
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.

@@ -46,9 +46,6 @@ public class TaskList {
      * @throws OllieException If the index given does not exist.
      */
     public Task delete(int index) throws OllieException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new OllieException("Invalid Serial Number!");
-        }
         Task task = this.tasks.get(index);
         this.tasks.remove(index);
         return task;
@@ -61,7 +58,7 @@ public class TaskList {
      * @param index Index represents the position of the task to be mark as done.
      * @return Task which has been marked as done.
      */
-    public Task markAsDone(int index) {
+    public Task markAsDone(int index) throws OllieException {
         Task task = tasks.get(index);
         task.markAsDone();
         return task;
@@ -74,7 +71,7 @@ public class TaskList {
      * @param index Index reprsents the position of the task to be mark as undone.
      * @return Task which has been marked as done.
      */
-    public Task markAsUndone(int index) {
+    public Task markAsUndone(int index) throws OllieException {
         Task task = tasks.get(index);
         task.markAsUndone();
         return task;

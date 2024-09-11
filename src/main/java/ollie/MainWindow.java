@@ -36,8 +36,8 @@ public class MainWindow extends AnchorPane {
     /**
      * Injects the Ollie instance
      */
-    public void setOllie(Ollie d) {
-        ollie = d;
+    public void setOllie(Ollie o) {
+        ollie = o;
 
         // Show the initial message after Ollie is set
         dialogContainer.getChildren().addAll(
