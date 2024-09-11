@@ -15,6 +15,9 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane mainLayout = fxmlLoader.load();
+
+            assert mainLayout != null;
+            
             Scene scene = new Scene(mainLayout);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setSnowy(snowy);

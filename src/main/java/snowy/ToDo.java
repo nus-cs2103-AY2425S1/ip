@@ -11,6 +11,7 @@ public class ToDo extends Task {
      */
     public ToDo(String name) {
         super(name);
+        assert !name.isEmpty() : "Deadline name should not be empty";
     }
 
     @Override

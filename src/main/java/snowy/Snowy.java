@@ -25,13 +25,15 @@ public class Snowy {
     }
 
     public String getResponse(String input) {
-        String result = "";
+        String result;
         Task task;
 
         String[] parsedInput = Parser.parse(input);
+        assert parsedInput.length == 2: "Parsed length should be 2";
         String command = parsedInput[0];
         String description = parsedInput[1];
 
+        assert command != null : "Command should not be null";
         switch (command) {
         case "bye":
             result = ui.printEnding();
@@ -45,6 +47,7 @@ public class Snowy {
             try {
                 int index = Integer.parseInt(description);
                 task = tasks.markTask(index);
+                assert task != null : "task should not be null";
                 result = ui.printMarkDone(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = ui.printIndexError();
@@ -55,6 +58,7 @@ public class Snowy {
             try {
                 int index = Integer.parseInt(description);
                 task = tasks.unmarkTask(index);
+                assert task != null : "task should not be null";
                 result = ui.printMarkIncomplete(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = ui.printIndexError();
@@ -64,6 +68,7 @@ public class Snowy {
         case "todo":
             try {
                 task = tasks.addToDo(description);
+                assert task != null : "task should not be null";
                 result = "New todo task added:\n" + task;
             } catch (SnowyException e) {
                 result = ui.printTodoFormatError();
@@ -73,6 +78,7 @@ public class Snowy {
         case "deadline":
             try {
                 task = tasks.addDeadline(description);
+                assert task != null : "task should not be null";
                 result = ("New Deadline task added:\n" + task);
             } catch (SnowyException e) {
                 result = ui.printDeadlineFormatError();
@@ -82,6 +88,7 @@ public class Snowy {
         case "event":
             try {
                 task = tasks.addEvent(description);
+                assert task != null : "task should not be null";
                 result = ("New Event task added:\n " + task);
             } catch (SnowyException e) {
                 result = ui.printEventFormatError();
@@ -92,6 +99,7 @@ public class Snowy {
             try {
                 int index = Integer.parseInt(description);
                 task = tasks.deleteTask(index);
+                assert task != null : "task should not be null";
                 result = ui.printDeleteTask(task);
             } catch (NumberFormatException | SnowyException e) {
                 result = "Invalid index format. Please try again";

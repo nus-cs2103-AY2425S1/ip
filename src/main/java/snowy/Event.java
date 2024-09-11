@@ -21,6 +21,7 @@ public class Event extends Task {
      */
     public Event(String name, String fromDate, String toDate) throws SnowyException {
         super(name);
+        assert !name.isEmpty() : "Deadline name should not be empty";
         try {
             this.fromDate = LocalDate.parse(fromDate);
             this.toDate = LocalDate.parse(toDate);
