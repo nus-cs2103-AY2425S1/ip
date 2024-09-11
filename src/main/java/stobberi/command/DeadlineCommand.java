@@ -4,6 +4,7 @@ import java.time.format.DateTimeParseException;
 
 import stobberi.components.TaskList;
 import stobberi.stobberiexception.EmptyStobberiException;
+import stobberi.stobberiexception.SameTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
 import stobberi.stobberiexception.WrongDateTimeStobberiException;
 import stobberi.task.Deadline;
@@ -44,9 +45,14 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute() throws StobberiException {
         String output;
+
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
+        if (taskList.hasTask(descriptions)) {
+            throw new SameTaskStobberiException("I'm sorri! This task has already been added!");
+        }
+
         String[] parts = descriptions.split(" /by ");
         try {
             output = taskList.addTask(new Deadline(parts[0], parts[1]));
