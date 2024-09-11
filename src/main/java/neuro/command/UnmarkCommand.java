@@ -36,6 +36,8 @@ public class UnmarkCommand extends Command {
                    + "index for a task to unmark, like 'unmark 2'.";
         }
 
+        assert index - 1 < tasks.getSize() : "Index should be within size of task list";
+
         try {
             Task task = tasks.getTask(index - 1);
             task.markUndone();

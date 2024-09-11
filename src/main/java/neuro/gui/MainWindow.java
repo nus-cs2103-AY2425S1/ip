@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Neuro neuro;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Vedal_profile.jpg"));
-    private Image neuroImage = new Image(this.getClass().getResourceAsStream("/images/Neuro_profile.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Vedal_profile.jpg"));
+    private final Image neuroImage = new Image(this.getClass().getResourceAsStream("/images/Neuro_profile.jpg"));
 
     @FXML
     public void initialize() {
@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Neuro instance */
     public void setNeuro(Neuro n) {
+        assert n != null : "Neuro object should not be null";
         neuro = n;
     }
 

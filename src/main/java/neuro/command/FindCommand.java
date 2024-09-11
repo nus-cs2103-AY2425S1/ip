@@ -16,6 +16,8 @@ public class FindCommand extends Command {
      * @param searchQuery The query used to search for tasks.
      */
     public FindCommand(String searchQuery) {
+        assert !searchQuery.isEmpty() : "Search query should not be empty";
+
         this.searchQuery = searchQuery;
     }
 

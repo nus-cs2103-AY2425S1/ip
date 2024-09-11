@@ -58,6 +58,8 @@ public class Neuro {
      * @return A String containing Neuro's response.
      */
     public String getResponse(String input) {
+        assert !input.isEmpty() : "Input should not be empty";
+
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);

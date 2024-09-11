@@ -89,7 +89,6 @@ public class Storage {
             // Corrupted line in save file
         }
 
-
         if (taskIsDone.equals("1") && taskToAdd != null) {
             taskToAdd.markDone();
         }
