@@ -43,7 +43,7 @@ public class TaskList implements Iterable<Task> {
             try {
                 this.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
-                errorLists.add(e);
+                exceptions.add(e);
             }
         }
         return exceptions;
