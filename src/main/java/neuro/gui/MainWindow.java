@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
 
     private Neuro neuro;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Vedal_profile.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Evil_profile.jpg"));
     private Image neuroImage = new Image(this.getClass().getResourceAsStream("/images/Neuro_profile.jpg"));
 
     @FXML
