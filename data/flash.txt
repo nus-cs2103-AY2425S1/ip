@@ -2,3 +2,5 @@ D|X| /by 2020-04-05
 T| | read book
 T| | read book
 T| | read book
+D| | book /by 2020-04-05
+E| | meeting /from 16:00 /to 18:00 /on 2020-04-05
