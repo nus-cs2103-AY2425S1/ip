@@ -93,6 +93,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      */
     public void save(List<Task> tasks) {
+        assert tasks != null : "Task list should not be null when saving.";
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.println(task.toSaveFormat());

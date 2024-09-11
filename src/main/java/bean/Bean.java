@@ -105,7 +105,7 @@ public class Bean {
         return index >= 0 && index < tasks.size();
     }
 
-    /**
+    /*
      * Handles operations on tasks like marking, unmarking, and deleting.
      *
      * @param commandType The type of operation to perform.

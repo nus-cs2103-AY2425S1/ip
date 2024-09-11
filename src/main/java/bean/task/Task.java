@@ -55,7 +55,16 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as completed and updates the icon.
+     * Retrieves the isDone of the task
+     *
+     * @return The isDone of the task.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Marks the task as completed and resets the icon.
      */
     public void completeTask() {
         this.isDone = true;
