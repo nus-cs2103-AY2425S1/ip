@@ -14,12 +14,13 @@ import java.util.Scanner;
  * </p>
  */
 public class Storage {
+
     private final String filePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.
      *
-     * @param filePath the path to the file where tasks will be saved or loaded.
+     * @param filePath The path to the file where tasks will be saved or loaded.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -29,22 +30,19 @@ public class Storage {
      * Saves the tasks to the file specified by the file path.
      * <p>
      * Each task is written to the file in a format defined by the {@code Task}
-     * class's {@code toFileFormat()} method.
+     * class's {@code toFileFormat()} method. Each task is written on a new line.
      * </p>
      *
-     * @param tasks the {@code TaskList} containing the tasks to be saved.
+     * @param tasks The {@code TaskList} containing the tasks to be saved.
      */
     public void save(TaskList tasks) {
-        try {
-            File file = new File(filePath);
-            FileWriter fileWriter = new FileWriter(file);
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
-                fileWriter.write(task.toFileFormat() + "\n");
+                fileWriter.write(task.toFileFormat() + System.lineSeparator());
             }
-            fileWriter.close();
-            System.out.println("Tasks saved to file.");
+            System.out.println("Tasks successfully saved to file.");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks.");
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
         }
     }
 
@@ -57,23 +55,23 @@ public class Storage {
      * tasks that are added to the provided {@code TaskList}.
      * </p>
      *
-     * @param tasks the {@code TaskList} to which loaded tasks will be added.
+     * @param tasks The {@code TaskList} to which loaded tasks will be added.
      */
     public void load(TaskList tasks) {
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                System.out.println("No task found. Starting a new List");
-                return;
-            }
-            Scanner fileScanner = new Scanner(file);
+        File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("No task file found. Starting a new task list.");
+            return;
+        }
+
+        try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 tasks.add(Task.fromFileFormat(line));
             }
-            fileScanner.close();
+            System.out.println("Tasks successfully loaded from file.");
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks.");
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
         }
     }
 }
