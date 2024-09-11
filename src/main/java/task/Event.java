@@ -72,6 +72,19 @@ public class Event extends Task {
     }
 
     /**
+     * Snoozes the event by the specified number of days.
+     *
+     * This method adjusts the event's start and end date by adding the specified number of days
+     * to both the start and end dates.
+     *
+     * @param days The number of days to snooze the event by.
+     */
+    public void snooze(int days) {
+        this.from = this.from.plusDays(days);
+        this.to = this.to.plusDays(days);
+    }
+
+    /**
      * Returns a string representation of the event,its type, status,
      * description, start time, and end time.
      *
