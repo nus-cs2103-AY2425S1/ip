@@ -2,6 +2,8 @@ package monobot.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import monobot.exception.MonoBotException;
@@ -43,15 +45,24 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list.
+     * Deletes multiple tasks from the list.
      *
-     * @param index index of Task in list to be deleted.
+     * @param indices List of indices of Tasks in the list to be deleted.
+     * @return List of Tasks that were deleted.
+     * @throws MonoBotException If any index is invalid.
      */
-    public void deleteTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
-        int initialSize = tasks.size();
-        tasks.remove(index);
-        assert tasks.size() == initialSize - 1 : "Task list size should decrease by 1 after deleting a task";
+    public List<Task> deleteTasks(List<Integer> indices) throws MonoBotException {
+        List<Task> deletedTasks = new ArrayList<>();
+        indices.sort(Comparator.reverseOrder());
+
+        for (int index : indices) {
+            if (index < 0 || index >= tasks.size()) {
+                throw new MonoBotException("Invalid task index: " + (index + 1));
+            }
+            Task deletedTask = tasks.remove(index);
+            deletedTasks.add(deletedTask);
+        }
+        return deletedTasks;
     }
 
     /**
@@ -65,23 +76,43 @@ public class TaskList {
     }
 
     /**
-     * Marks a task in the list.
+     * Marks multiple tasks in the list.
      *
-     * @param index index of Task in list to be marked.
+     * @param indices List of indices of Tasks in the list to be marked.
+     * @return List of Tasks that were marked.
+     * @throws MonoBotException If any index is invalid.
      */
-    public void markTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
-        tasks.get(index).markTask();
+    public List<Task> markTasks(List<Integer> indices) throws MonoBotException {
+        List<Task> markedTasks = new ArrayList<>();
+        for (int index : indices) {
+            if (index < 0 || index >= tasks.size()) {
+                throw new MonoBotException("Invalid task index: " + (index + 1));
+            }
+            Task task = tasks.get(index);
+            task.markTask();
+            markedTasks.add(task);
+        }
+        return markedTasks;
     }
 
     /**
-     * Unmarks a task in the list.
+     * Unmarks multiple tasks in the list.
      *
-     * @param index index of Task in list to be unmarked.
+     * @param indices List of indices of Tasks in the list to be unmarked.
+     * @return List of Tasks that were unmarked.
+     * @throws MonoBotException If any index is invalid.
      */
-    public void unmarkTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Index should be within the valid range";
-        tasks.get(index).unmarkTask();
+    public List<Task> unmarkTasks(List<Integer> indices) throws MonoBotException {
+        List<Task> unmarkedTasks = new ArrayList<>();
+        for (int index : indices) {
+            if (index < 0 || index >= tasks.size()) {
+                throw new MonoBotException("Invalid task index: " + (index + 1));
+            }
+            Task task = tasks.get(index);
+            task.unmarkTask();
+            unmarkedTasks.add(task);
+        }
+        return unmarkedTasks;
     }
 
     /**

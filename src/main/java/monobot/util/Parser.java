@@ -1,6 +1,8 @@
 package monobot.util;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import monobot.command.AddCommand;
 import monobot.command.Command;
@@ -47,11 +49,11 @@ public class Parser {
         case EVENT:
             return new AddCommand(type, parseTask(input));
         case MARK:
-            return new MarkCommand(getTaskIndex(input));
+            return new MarkCommand(getTaskIndices(input));
         case UNMARK:
-            return new UnmarkCommand(getTaskIndex(input));
+            return new UnmarkCommand(getTaskIndices(input));
         case DELETE:
-            return new DeleteCommand(getTaskIndex(input));
+            return new DeleteCommand(getTaskIndices(input));
         case BYE:
             return new ExitCommand();
         case INVALID:
@@ -131,19 +133,43 @@ public class Parser {
      * Parses the user input and identifies the index of the Task in the list.
      *
      * @param input User's input as a string.
-     * @return Index of the Task required
-     * @throws MonoBotException If Task details are missing
+     * @return Index of the Task required.
+     * @throws MonoBotException If Task details are missing.
      */
-    private static int getTaskIndex(String input) throws MonoBotException {
+    private static List<Integer> getTaskIndices(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
-        assert parts.length == 2 : "Input should have both command and task index";
+        assert parts.length == 2 : "Input should have both command and task indices";
 
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
-            throw new MonoBotException("Please specify which task to process");
+            throw new MonoBotException("Please specify which task(s) to process");
         }
-        return Integer.parseInt(parts[1].trim()) - 1;
+
+        String[] indexStrings = parts[1].trim().split("\\s+");
+        List<Integer> indices = new ArrayList<>();
+
+        for (String indexStr : indexStrings) {
+            try {
+                int index = Integer.parseInt(indexStr) - 1; // Convert to 0-based index
+                indices.add(index);
+            } catch (NumberFormatException e) {
+                throw new MonoBotException("Invalid task index: " + indexStr);
+            }
+        }
+
+        if (indices.isEmpty()) {
+            throw new MonoBotException("Please specify at least one valid task index");
+        }
+
+        return indices;
     }
 
+    /**
+     * Parses the user input and identifies the search keywords.
+     *
+     * @param input User's input as a string.
+     * @return Array of search keywords stored as String.
+     * @throws MonoBotException If Task details are missing.
+     */
     private static String[] getSearchKeywords(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         assert parts.length == 2 : "Input should have both command and search keywords";
@@ -158,8 +184,8 @@ public class Parser {
      * Parses the user input and identifies the details of the Deadline task.
      *
      * @param details User's input as a string.
-     * @return Deadline task with details as given in user's input
-     * @throws MonoBotException If Deadline details are missing
+     * @return Deadline task with details as given in user's input.
+     * @throws MonoBotException If Deadline details are missing.
      */
     private static Task parseDeadline(String details) throws MonoBotException {
         assert details != null && !details.isEmpty() : "Details for deadline task should not be empty";
@@ -181,8 +207,8 @@ public class Parser {
      * Parses the user input and identifies the details of the Event task.
      *
      * @param details User's input as a string.
-     * @return Event task with details as given in user's input
-     * @throws MonoBotException If Event details are missing
+     * @return Event task with details as given in user's input.
+     * @throws MonoBotException If Event details are missing.
      */
     private static Task parseEvent(String details) throws MonoBotException {
         assert details != null && !details.isEmpty() : "Details for event task should not be empty";

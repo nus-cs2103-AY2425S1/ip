@@ -1,5 +1,6 @@
 package monobot.util;
 
+import monobot.exception.MonoBotException;
 import monobot.task.Task;
 import monobot.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 class TaskListTest {
 
@@ -31,10 +34,12 @@ class TaskListTest {
     }
 
     @Test
-    void testDeleteTask() {
+    void testDeleteTask() throws MonoBotException {
+        List<Integer> integerList = new LinkedList<>();
+        integerList.add(0);
         taskList.addTask(task1);
         taskList.addTask(task2);
-        taskList.deleteTask(0);
+        taskList.deleteTasks(integerList);
         assertEquals(1, taskList.size());
         assertEquals(task2, taskList.getTask(0));
     }
@@ -46,17 +51,21 @@ class TaskListTest {
     }
 
     @Test
-    void testMarkTask() {
+    void testMarkTasks() throws MonoBotException {
+        List<Integer> integerList = new LinkedList<>();
+        integerList.add(0);
         taskList.addTask(task1);
-        taskList.markTask(0);
+        taskList.markTasks(integerList);
         assertTrue(taskList.getTask(0).getIsDone());
     }
 
     @Test
-    void testUnmarkTask() {
+    void testUnmarkTasks() throws MonoBotException {
+        List<Integer> integerList = new LinkedList<>();
+        integerList.add(0);
         taskList.addTask(task1);
-        taskList.markTask(0);
-        taskList.unmarkTask(0);
+        taskList.markTasks(integerList);
+        taskList.unmarkTasks(integerList);
         assertFalse(taskList.getTask(0).getIsDone());
     }
 

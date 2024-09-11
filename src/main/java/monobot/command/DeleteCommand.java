@@ -1,5 +1,7 @@
 package monobot.command;
 
+import java.util.List;
+
 import monobot.exception.MonoBotException;
 import monobot.task.Task;
 import monobot.util.Storage;
@@ -10,16 +12,16 @@ import monobot.util.Ui;
  * Represents delete command to delete a task from list.
  */
 public class DeleteCommand extends Command {
-    private final int index;
+    private final List<Integer> indices;
 
     /**
      * Constructs an DeleteCommand to delete a task.
      *
-     * @param index index of Task to be deleted from list.
+     * @param indices indices of Tasks to be deleted from list.
      */
-    public DeleteCommand(int index) {
+    public DeleteCommand(List<Integer> indices) {
         super(CommandType.DELETE);
-        this.index = index;
+        this.indices = indices;
     }
 
     /**
@@ -28,13 +30,12 @@ public class DeleteCommand extends Command {
      * @param tasks list from which task will be deleted.
      * @param ui ui object to handle output to user.
      * @param storage storage object to read/write file.
-     * @throws MonoBotException IF unable to delete task
+     * @throws MonoBotException IF unable to delete task.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MonoBotException {
-        Task deletedTask = tasks.getTask(index);
-        tasks.deleteTask(index);
-        ui.printDeletedTask(deletedTask, tasks.size());
+        List<Task> deletedTasks = tasks.deleteTasks(indices);
+        ui.printDeletedTasks(deletedTasks, tasks.size());
         storage.save(tasks.getTasks());
     }
 }

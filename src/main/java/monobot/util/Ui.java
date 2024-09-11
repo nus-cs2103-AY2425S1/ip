@@ -1,5 +1,7 @@
 package monobot.util;
 
+import java.util.List;
+
 import monobot.task.Task;
 
 /**
@@ -47,7 +49,7 @@ public class Ui {
     /**
      * Prints all tasks added by user.
      *
-     * @param taskList taskList contains all tasks to be printed
+     * @param taskList taskList contains all tasks to be printed.
      */
     public void printTasks(TaskList taskList) {
         assert taskList != null : "Task list should not be null";
@@ -67,7 +69,7 @@ public class Ui {
     /**
      * Prints all matching tasks is the task list.
      *
-     * @param taskList taskList contains all matching tasks to be printed
+     * @param taskList taskList contains all matching tasks to be printed.
      */
     public void printMatchingTasks(TaskList taskList) {
         assert taskList != null : "Task list should not be null";
@@ -87,8 +89,8 @@ public class Ui {
     /**
      * Prints task that was just added by user.
      *
-     * @param task task that has just been added by user
-     * @param totalTasks Total number of tasks currently in the taskList
+     * @param task task that has just been added by user.
+     * @param totalTasks Total number of tasks currently in the taskList.
      */
     public void printAddedTask(Task task, int totalTasks) {
         assert task != null : "Task added should not be null";
@@ -98,42 +100,51 @@ public class Ui {
     }
 
     /**
-     * Prints task that was just deleted by user.
+     * Prints tasks that were just deleted by user.
      *
-     * @param task task that has just been deleted by user
-     * @param totalTasks Total number of tasks currently in the taskList
+     * @param tasks List of tasks that have just been deleted by user.
+     * @param remainingTasks Number of tasks remaining in the list.
      */
-    public void printDeletedTask(Task task, int totalTasks) {
-        assert task != null : "Task deleted should not be null";
-        assert totalTasks >= 0 : "Total tasks should not be negative";
+    public void printDeletedTasks(List<Task> tasks, int remainingTasks) {
+        StringBuilder sb = new StringBuilder("Noted! I've removed these task(s):\n");
+        for (Task task : tasks) {
+            sb.append(task).append("\n");
+        }
+        sb.append("Now you have ").append(remainingTasks).append(" task(s) in the list");
+        setLastOutput(sb.toString().trim());
+    }
 
-        setLastOutput("Noted! I have removed this task:\n"
-                + task
-                + "\nNow you have " + totalTasks + " task(s) in the list");
+
+    /**
+     * Prints tasks that were just marked by user.
+     *
+     * @param tasks List of tasks that have just been marked by user.
+     */
+    public void printMarkedTasks(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Nice! I've marked the following task(s) as completed:\n");
+        for (Task task : tasks) {
+            sb.append(task).append("\n");
+        }
+        setLastOutput(sb.toString().trim());
     }
 
     /**
-     * Prints task that was just marked by user.
+     * Prints tasks that were just unmarked by user.
      *
-     * @param task task that has just been marked by user
+     * @param tasks List of tasks that have just been unmarked by user.
      */
-    public void printMarkedTask(Task task) {
-        setLastOutput("Nice! I have marked this task as completed:\n" + task);
-    }
-
-    /**
-     * Prints task that was just unmarked by user.
-     *
-     * @param task task that has just been unmarked by user
-     */
-    public void printUnmarkedTask(Task task) {
-        setLastOutput("Ok! I have marked this task as incomplete:\n" + task);
+    public void printUnmarkedTasks(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Ok! I've marked the following task(s) as incomplete:\n");
+        for (Task task : tasks) {
+            sb.append(task).append("\n");
+        }
+        setLastOutput(sb.toString().trim());
     }
 
     /**
      * Prints error message.
      *
-     * @param message error to be displayed
+     * @param message error to be displayed.
      */
     public void printError(String message) {
         assert message != null : "Error message should not be null";
