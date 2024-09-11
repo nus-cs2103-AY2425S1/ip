@@ -34,6 +34,9 @@ public class KorolevEvent extends KorolevTask {
      */
     public KorolevEvent(String name, String start, String end) throws DateTimeParseException {
         super(name);
+        assert !start.isEmpty();
+        assert !end.isEmpty();
+
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         this.tag = "E";

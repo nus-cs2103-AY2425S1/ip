@@ -17,6 +17,7 @@ public class KorolevDeadline extends KorolevTask {
      */
     public KorolevDeadline(String name, String date) {
         super(name);
+        assert !date.isEmpty();
         this.deadline = LocalDateTime.parse(date);
     }
 

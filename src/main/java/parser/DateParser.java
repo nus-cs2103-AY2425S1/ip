@@ -28,16 +28,19 @@ public class DateParser {
     }
 
     public static String parseBy(String eventString) throws ParseException {
+        assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
     public static String parseFrom(String eventString) throws ParseException {
+        assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/from\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
     public static String parseTo(String eventString) throws ParseException {
+        assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/to\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
