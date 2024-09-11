@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import zero.exception.ZeroException;
 import zero.task.Deadline;
@@ -42,34 +46,31 @@ public class Storage {
                 fileObj.createNewFile(); // create the file if it doesn't exist
             }
             Scanner myReader = new Scanner(fileObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                String[] items = data.split(",");
-                switch (items[0]) {
-                case "T":
-                    Todo newTodo = new Todo(items[2]);
-                    if (items[1].equals("1")) {
-                        newTodo.markAsDone();
-                    }
-                    tasks.add(newTodo);
-                    break;
-                case "D":
-                    Deadline newDeadline = new Deadline(items[2], LocalDateTime.parse(items[3]));
-                    if (items[1].equals("1")) {
-                        newDeadline.markAsDone();
-                    }
-                    tasks.add(newDeadline);
-                    break;
-                case "E":
-                    Event newEvent =
-                            new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
-                    if (items[1].equals("1")) {
-                        newEvent.markAsDone();
-                    }
-                    tasks.add(newEvent);
-                    break;
-                }
-            }
+
+            tasks = Files.lines(Paths.get(filePath))
+                    .map(line -> {
+                        String[] items = line.split(",");
+                        switch (items[0]) {
+                        case "T":
+                            Todo newTodo = new Todo(items[2]);
+                            if (items[1].equals("1")) newTodo.markAsDone();
+                            return newTodo;
+                        case "D":
+                            Deadline newDeadline = new Deadline(items[2], LocalDateTime.parse(items[3]));
+                            if (items[1].equals("1")) newDeadline.markAsDone();
+                            return newDeadline;
+                        case "E":
+                            Event newEvent = new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
+                            if (items[1].equals("1")) newEvent.markAsDone();
+                            return newEvent;
+                        default:
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull) //filter out any null tasks
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+            
             myReader.close();
         } catch (FileNotFoundException e) {
             throw new ZeroException("File not found: " + filePath);
