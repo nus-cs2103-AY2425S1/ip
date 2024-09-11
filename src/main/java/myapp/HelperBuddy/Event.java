@@ -51,16 +51,18 @@ public class Event extends Task {
         String description = parts[2];
         LocalDateTime from = null;
         LocalDateTime to = null;
-        if (parts.length > 3) {
-            try {
-                from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                if (parts.length > 4) {
-                    to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Warning: There is no date format provided.");
+
+        try {
+            from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            if (parts.length > 4) {
+                to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             }
+            assert from == null || to == null || !from.isAfter(to)
+                    : "Event start time must be before or equal to end time";
+        } catch (DateTimeParseException e) {
+            System.out.println("Warning: There is no date format provided.");
         }
+
         Event event = new Event(description, from, to);
         if (parts[1].trim().equals("1")) {
             event.markDone();
@@ -79,12 +81,15 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (this.getDone() ? "X" : " ")
-                + "] " + this.getDescription()
-                + (eventFrom != null ? " (from: "
-                + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : "")
-                + (eventTo != null ? " to: "
-                + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
+        String formattedFrom = (eventFrom != null) ? " (from: "
+                + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                : "";
+        String formattedTo = (eventTo != null) ? " to: "
+                + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + ")"
+                : "";
+        return "[E][" + (this.getDone() ? "X" : " ") + "] "
+                + this.getDescription() + formattedFrom + formattedTo;
     }
 
     /**
@@ -99,9 +104,13 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+        String formattedFrom = (eventFrom != null) ? " | "
+                + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                : "";
+        String formattedTo = (eventTo != null) ? " | "
+                + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                : "";
         return "E | " + (this.getDone() ? "1" : "0") + " | "
-                + this.getDescription()
-                + (eventFrom != null ? " | " + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "")
-                + (eventTo != null ? " | " + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
+                + this.getDescription() + formattedFrom + formattedTo;
     }
 }
