@@ -59,8 +59,7 @@ public class Light {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            String response = c.execute(tasks, ui, storage);
-            return response;
+            return c.execute(tasks, ui, storage);
         } catch (LightException e) {
             return e.toString();
         }

@@ -30,4 +30,18 @@ abstract public class Command {
 
         return isExit;
     }
+
+    public enum CommandType {
+        BYE,
+        LIST,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        FIND,
+        EXIT,
+        MARK,
+        UNMARK,
+        HELP
+    }
 }

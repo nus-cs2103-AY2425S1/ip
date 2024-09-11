@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import static command.Command.CommandType.*;
+
 /**
  * Represents a parser that parses the user input and returns the corresponding command.
  */
@@ -26,50 +28,55 @@ public class Parser {
         Task task = null;
         String[] splitedBySlash;
         String[] splitedBySpace = fullCommand.split("\\s+", 2);
-        switch (splitedBySpace[0]) {
-        case "bye":
+        String commandHeader = splitedBySpace[0];
+        String commandDescription = null;
+        if (splitedBySpace.length == 2) {
+            commandDescription = splitedBySpace[1];
+        }
+        switch (getCommandType(commandHeader)) {
+        case BYE:
             return new ExitCommand();
-        case "mark":
+        case MARK:
             try {
-                int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                int itemNumber = Integer.parseInt(commandDescription) - 1;
                 return new MarkCommand(itemNumber, true);
             } catch (NumberFormatException e) {
                 System.out.println(e);
             }
             break;
-        case "unmark":
+        case UNMARK:
             try {
-                int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                int itemNumber = Integer.parseInt(commandDescription) - 1;
                 return new MarkCommand(itemNumber, false);
             } catch (NumberFormatException e) {
                 System.out.println(e);
             }
             break;
-        case "list":
+        case LIST:
             return new ListCommand();
-        case "delete":
+        case DELETE:
             try {
-                int taskNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                int taskNumber = Integer.parseInt(commandDescription) - 1;
                 return new DeleteCommand(taskNumber);
             } catch (NumberFormatException e) {
                 System.out.println(e);
             }
             break;
-        case "find":
-            return new FindCommand(splitedBySpace[1]);
+        case FIND:
+            return new FindCommand(commandDescription);
         default:
-            switch (splitedBySpace[0]) {
-            case "todo":
+            switch (getCommandType(commandHeader)) {
+            case TODO:
                 try {
-                    task = new Todo(splitedBySpace[1]);
+                    task = new Todo(commandDescription);
                 } catch (LightException e) {
                     System.out.println(e);
                 }
 
                 break;
-            case "deadline":
+            case DEADLINE:
                 try {
-                    splitedBySlash = splitedBySpace[1].split("/by ");
+                    splitedBySlash = commandDescription.split("/by ");
                     task = new Deadline(splitedBySlash[0], splitedBySlash[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Not enough arguments");
@@ -78,10 +85,10 @@ public class Parser {
                 }
 
                 break;
-            case "event":
+            case EVENT:
                 try {
-                    splitedBySlash = splitedBySpace[1].split("/from ");
-                    String[] splitedBySlashTo = splitedBySpace[1].split("/to ");
+                    splitedBySlash = commandDescription.split("/from ");
+                    String[] splitedBySlashTo = commandDescription.split("/to ");
                     task = new Event(splitedBySlash[0], splitedBySlash[1].substring(0, splitedBySlash[1].indexOf("/to ")).stripTrailing(), splitedBySlashTo[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Not enough arguments");
@@ -115,6 +122,42 @@ public class Parser {
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format! Please use the format: " + format.toString());
             return null;
+        }
+    }
+    public static Command.CommandType getCommandType(String Command) throws LightException{
+        switch (Command) {
+        case "bye":
+            return EXIT;
+        case "mark":
+            return MARK;
+        case "unmark":
+            return UNMARK;
+        case "list":
+            return LIST;
+        case "delete":
+            return DELETE;
+        case "find":
+            return FIND;
+        case "todo":
+            return TODO;
+        case "deadline":
+            return DEADLINE;
+        case "event":
+            return EVENT;
+        default:
+            throw new LightException("Invalid command type");
+        }
+    }
+    public static Command.CommandType getCommandTypeFromStorage(char Command) throws LightException{
+        switch (Command) {
+        case 'T':
+            return TODO;
+        case 'D':
+            return DEADLINE;
+        case 'E':
+            return EVENT;
+        default:
+            throw new LightException("Invalid command type");
         }
     }
 }
