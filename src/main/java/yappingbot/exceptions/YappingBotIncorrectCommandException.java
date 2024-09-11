@@ -25,6 +25,8 @@ public class YappingBotIncorrectCommandException extends YappingBotException {
      */
     public static YappingBotIncorrectCommandException withUserInputArray(String usageMessage,
                                                                          String[] userInput) {
+        assert usageMessage != null;
+        assert userInput != null;
         StringBuilder sb = new StringBuilder();
         for (String s : userInput) {
             sb.append(s);

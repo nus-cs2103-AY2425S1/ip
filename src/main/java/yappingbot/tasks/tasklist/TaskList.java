@@ -36,15 +36,14 @@ public class TaskList implements Iterable<Task> {
      * @return YappingBotException for any caught errors.
      */
     public YappingBotExceptionList generateFromRaw(ArrayList<String> tasksRaw) {
-        // Lord forgive me for returning execptions without throwing them, very illegal
-
+        assert tasksRaw != null;
         YappingBotExceptionList exceptions = new YappingBotExceptionList();
         for (String taskIndividualRaw : tasksRaw) {
             String[] s = taskIndividualRaw.split(":");
             try {
                 this.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
-                exceptions.add(e);
+                errorLists.add(e);
             }
         }
         return exceptions;
@@ -56,6 +55,7 @@ public class TaskList implements Iterable<Task> {
      * @return ArrayList of Strings of each serialized task.
      */
     public ArrayList<String> toRawFormat() {
+        assert tasks != null;
         ArrayList<String> taskListRaw = new ArrayList<>();
         for (Task t : tasks) {
             taskListRaw.add(t.serialize());
@@ -69,6 +69,8 @@ public class TaskList implements Iterable<Task> {
      * @param task Task to be added.
      */
     public void addTask(Task task) {
+        assert tasks != null;
+        assert task != null;
         tasks.add(task);
         size += 1;
     }
@@ -81,6 +83,10 @@ public class TaskList implements Iterable<Task> {
      * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
     public Task deleteTask(int index) throws YappingBotOobException {
+        assert tasks != null;
+        assert index < size;
+        assert tasks.size() == size;
+
         Task t = get(index);
         tasks.remove(index);
         size -= 1;
@@ -93,6 +99,7 @@ public class TaskList implements Iterable<Task> {
      * @return boolean of whether list is empty.
      */
     public boolean isEmpty() {
+        assert tasks.size() == size;
         return size == 0;
     }
 
@@ -103,6 +110,7 @@ public class TaskList implements Iterable<Task> {
      */
 
     public int size() {
+        assert tasks.size() == size;
         return size;
     }
 
@@ -114,6 +122,8 @@ public class TaskList implements Iterable<Task> {
      * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
     public Task get(int index) throws YappingBotOobException {
+        assert tasks != null;
+        assert tasks.size() == size;
         if (index < 0 || index >= size) {
             throw new YappingBotOobException(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, index);
         }
@@ -127,11 +137,13 @@ public class TaskList implements Iterable<Task> {
 
     @Override
     public void forEach(Consumer<? super Task> action) {
+        assert tasks != null;
         tasks.forEach(action);
     }
 
     @Override
     public Spliterator<Task> spliterator() {
+        assert tasks != null;
         return tasks.spliterator();
     }
 }

@@ -48,6 +48,8 @@ public class Parser {
      */
     public CommandTypes parseCommand(String commandString)
             throws YappingBotUnknownCommandException {
+        assert commandString != null;
+        assert commandsHashMap != null;
         if (commandString.toLowerCase().trim().isEmpty()) {
             throw new YappingBotUnknownCommandException();
         } else {
@@ -69,6 +71,7 @@ public class Parser {
      */
     public static int parseTaskNumberSelected(String userInputSlices)
             throws YappingBotInvalidTaskNumberException {
+        assert userInputSlices != null;
         int i;
         try {
             i = Integer.parseInt(userInputSlices) - 1;
@@ -89,6 +92,7 @@ public class Parser {
      */
     public static void checkMinimumArgsAvailable(String[] userInputSlices, int i)
     throws YappingBotOobException {
+        assert userInputSlices != null;
         if ((userInputSlices.length - 1) < i) {
             throw new YappingBotOobException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS, i);
         }

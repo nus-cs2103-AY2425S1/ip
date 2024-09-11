@@ -44,6 +44,7 @@ public class MainGuiApplication extends Application {
             fxmlloader.<MainWindow>getController().setUi(ui);
 
             stage.show();
+
             YappingBot yp = new YappingBot(ui, new Storage(Launcher.getSavefilePath()));
             Thread ypLogic = new Thread(() -> {
                 yp.start();

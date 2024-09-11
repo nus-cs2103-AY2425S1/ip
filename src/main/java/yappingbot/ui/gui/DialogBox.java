@@ -40,7 +40,10 @@ public class DialogBox extends HBox {
         fxmlLoader.setRoot(this);
         fxmlLoader.load();
 
+        assert text != null;
         dialog.setText(text);
+
+        assert img != null;
         displayPicture.setImage(img);
     }
 
