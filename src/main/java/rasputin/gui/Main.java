@@ -15,7 +15,7 @@ import rasputin.Rasputin;
  */
 public class Main extends Application {
 
-    private Rasputin rasputin = new Rasputin("src/main/data/rasputin.txt");
+    private Rasputin rasputin = new Rasputin("./data/rasputin.txt");
 
     @Override
     public void start(Stage stage) {

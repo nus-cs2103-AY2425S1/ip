@@ -32,6 +32,12 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        String dirPath = "./data";
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
         this.file = new File(this.filePath);
         if (file.isFile()) {
             System.out.println("Task file found.");
