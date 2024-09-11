@@ -1,5 +1,8 @@
 package justbot.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import justbot.exception.JustbotException;
@@ -45,6 +48,7 @@ public class Ui {
      */
     public String invalidCommandMessage() {
         String result = "Hey man you provided me with an invalid command. Here is a list of my commands:\n"
+                + "\n"
                 + "1. list\n"
                 + "2. mark [task number]\n"
                 + "3. unmark [task number]\n"
@@ -62,7 +66,8 @@ public class Ui {
      * Lists the valid commands for the user to input.
      */
     public String botIntro() {
-        String result = "Hey man here is a list of my commands!\n"
+        String result = "Nice to meet you man! Here is a list of my commands:\n"
+                + "\n"
                 + "1. list\n"
                 + "2. mark [task number]\n"
                 + "3. unmark [task number]\n"
@@ -94,20 +99,43 @@ public class Ui {
      * Displays a message indicating that a task has been marked as done.
      *
      * @param taskList The TaskList containing the tasks.
-     * @param keyword The string to check for in task description.
+     * @param keywords The string to check for in task description.
      */
-    public String findMessage(TaskList taskList, String keyword) {
+    public String findMessage(TaskList taskList, String... keywords) {
         StringBuilder result = new StringBuilder();
 
         result.append("Hey man, here are the matching tasks in your list:\n\n");
 
+        List<String> keywordList = new ArrayList<>();
+
+        int numberOfKeywords = keywords.length;;
+
+        for (String keyword : keywords) {
+            keywordList.add(keyword);
+        }
+
+        System.out.println(keywordList);
+
         int count = 1;
+
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
-            if (currTask.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                result.append(count).append(". ").append(currTask.toString()).append("\n");
-                count++;
+
+            for (int j = 0; j < keywordList.size(); j++) {
+                String keyword = keywordList.get(j);
+                System.out.println(keyword);
+
+                if (currTask.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                    result.append(count).append(". ").append(currTask).append("\n");
+                    count++;
+                    break;
+                }
             }
+
+            if (keywordList.isEmpty()) {
+                break;
+            }
+
         }
 
         if (count == 1) {
