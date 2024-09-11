@@ -54,10 +54,10 @@ public class Storage {
     }
 
     /**
-     * attempts to load the pre saved tasks from the save file "./src/main/data/savefile.txt"
-     * if file does not exist at the path, does nothing
-     * in the event of corrupted save file, skips the line
-     * save file format: as per toString() function of each task, with one task per line
+     * Attempts to load the pre saved tasks from the save file "./src/main/data/savefile.txt".
+     * If file does not exist at the path, does nothing.
+     * In the event of corrupted save file, skips the line.
+     * Save file format: as per toString() function of each task, with one task per line.
      */
     public void load() {
         try {
@@ -65,101 +65,118 @@ public class Storage {
             int success = 0;
             int failed = 0;
             while (sc.hasNextLine()) {
-                try {
-                    String task = sc.nextLine();
-                    char taskType = task.charAt(1);
-                    char taskCompleted = task.charAt(4);
-                    int firstSpacePos = task.indexOf(" ");
-                    boolean isCompleted = false;
-                    if (taskCompleted == ']') {
-                        // do nothing
-                    } else if (taskCompleted == 'X') {
-                        isCompleted = true;
-                    } else {
-                        throw new InvalidSaveFileFormatException("invalid completed status");
-                    }
-                    // identify the type of task:
-                    switch (taskType) {
-                    case 'T':
-                        list.add(new Todo(isCompleted, task.substring(firstSpacePos + 1)));
-                        success++;
-                        break;
-                    case 'D':
-                        // not sure how to get rid of error here for string formatting
-                        String[] deadlineArray = task.split(" \\(by: ");
-                        String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
-                        String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
-                        list.add(new Deadline(isCompleted, deadlineName, LocalDate.parse(by)));
-                        success++;
-                        break;
-                    case 'E':
-                        // not sure how to get rid of error here for string formatting
-                        String[] eventArray = task.split(" \\(from: ");
-                        String eventName = eventArray[0].substring(firstSpacePos + 1);
-                        String[] eventDetails = eventArray[1].split(" to: ");
-                        String from = eventDetails[0];
-                        String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
-                        list.add(new Event(isCompleted, eventName, LocalDate.parse(from), LocalDate.parse(to)));
-                        success++;
-                        break;
-                    default:
-                        throw new InvalidSaveFileFormatException("invalid Task type");
-                    }
-                } catch (InvalidSaveFileFormatException | DateTimeParseException
-                         | IndexOutOfBoundsException | InvalidChronologicalOrderException e) {
-                    // DateTimeParseException for incorrect LocalDate format
-                    // InvalidSaveFileFormatException, IndexOutOfBoundsException for incorrect Task format
+                String task = sc.nextLine();
+                if (loadSingleTask(task)) {
+                    success++;
+                } else {
                     failed++;
-                    System.out.println("error in event save file format: " + e.getMessage());
                 }
             }
             if (failed > 0) {
                 System.out.println("Deleting buggy save file");
-                try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
-                    writer.write("");
-                    writer.close();
-                    System.out.println("Buggy save file deleted");
-                    if (success > 0) {
-                        System.out.println("Saving readable contents");
-                        save();
-                    }
-                } catch (IOException e) {
-                    System.out.println("Failed to purge buggy save file");
-                }
+                deleteSaveFile();
             }
-            if (success == 0) {
-                System.out.println("No valid saved Tasks found");
+            if (success > 0) {
+                save();
             }
         } catch (FileNotFoundException fnfe) {
-            System.out.println("no save file found, creating new save file");
-            Path saveFilePath = Paths.get(filePath);
-            Path directory = saveFilePath.getParent();
-            //@@author mkyong -reused
-            // source: https://mkyong.com/java/how-to-create-directory-in-java/
-            // code for creating directory reused from the tutorial website above
+            createSaveFile();
+        }
+    }
+
+    /**
+     * Loads a single task from the save file into the task list.
+     *
+     * @param task is the string representation of the task.
+     * @return a boolean indicating whether the task is successfully loaded.
+     */
+    protected boolean loadSingleTask(String task) {
+        char taskType = task.charAt(1);
+        char taskCompleted = task.charAt(4);
+        int firstSpacePos = task.indexOf(" ");
+        boolean isCompleted = false;
+        if (taskCompleted == ']') {
+            // do nothing
+        } else if (taskCompleted == 'X') {
+            isCompleted = true;
+        } else {
+            return false;
+        }
+        // identify the type of task:
+        switch (taskType) {
+        case 'T':
+            list.add(new Todo(isCompleted, task.substring(firstSpacePos + 1)));
+            return true;
+        case 'D':
+            // not sure how to get rid of error here for string formatting
+            String[] deadlineArray = task.split(" \\(by: ");
+            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
+            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
+            list.add(new Deadline(isCompleted, deadlineName, LocalDate.parse(by)));
+            return true;
+        case 'E':
+            // not sure how to get rid of error here for string formatting
+            String[] eventArray = task.split(" \\(from: ");
+            String eventName = eventArray[0].substring(firstSpacePos + 1);
+            String[] eventDetails = eventArray[1].split(" to: ");
+            String from = eventDetails[0];
+            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
             try {
-                //@@author Baeldung -reused
-                // source: https://www.baeldung.com/java-file-directory-exists
-                // code for checking if directories and files exist reused from website above
-                if (!Files.exists(directory)) {
-                    Files.createDirectories(directory);
-                    System.out.println("Creating directory: " + directory);
-                }
-                if (!Files.exists(saveFilePath)) {
-                    //@@author tutorialspoint -reused
-                    // source: https://www.tutorialspoint.com/javaexamples/file_dir.htm
-                    // code for creating files using Files.createFile() reused from website
-                    Files.createFile(saveFilePath);
-                    System.out.println("Creating file: " + saveFilePath.getFileName());
-                    //@@author
-                }
+                list.add(new Event(isCompleted, eventName, LocalDate.parse(from), LocalDate.parse(to)));
+            } catch (InvalidChronologicalOrderException e) {
+                return false;
+            }
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Deletes the save file at the specified file path.
+     */
+    protected void deleteSaveFile() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write("");
+            writer.close();
+            System.out.println("Buggy save file deleted");
+        } catch (IOException e) {
+            System.out.println("Failed to purge buggy save file");
+        }
+    }
+
+    /**
+     * Creates a save file at the specified file path.
+     */
+    protected void createSaveFile() {
+        System.out.println("no save file found, creating new save file");
+        Path saveFilePath = Paths.get(filePath);
+        Path directory = saveFilePath.getParent();
+        //@@author mkyong -reused
+        // source: https://mkyong.com/java/how-to-create-directory-in-java/
+        // code for creating directory reused from the tutorial website above
+        try {
+            //@@author Baeldung -reused
+            // source: https://www.baeldung.com/java-file-directory-exists
+            // code for checking if directories and files exist reused from website above
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+                System.out.println("Creating directory: " + directory);
+            }
+            if (!Files.exists(saveFilePath)) {
+                //@@author tutorialspoint -reused
+                // source: https://www.tutorialspoint.com/javaexamples/file_dir.htm
+                // code for creating files using Files.createFile() reused from website
+                Files.createFile(saveFilePath);
+                System.out.println("Creating file: " + saveFilePath.getFileName());
                 //@@author
-                System.out.println("Save file created at " + saveFilePath);
-            } catch (IOException e) {
-                System.out.println("Error in creating file / directory: " + e.getMessage());
             }
             //@@author
+            System.out.println("Save file created at " + saveFilePath);
+        } catch (IOException e) {
+            System.out.println("Error in creating file / directory: " + e.getMessage());
         }
+        //@@author
     }
 }

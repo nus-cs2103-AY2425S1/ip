@@ -87,21 +87,30 @@ public class Parser {
      */
     protected String[] listTasks() {
         String[] result = new String[2];
-        StringBuilder sb = new StringBuilder();
         result[0] = ("Can you not even remember the things you need to do?" +
                 " That should be your job, not mine!\n");
         if (list.isEmpty()) {
             result[1] = ("You don't have anything on your list, and you can't even remember that?");
             return result;
         }
+        result[1] = getTasksInList();
+        return result;
+    }
+
+    /**
+     * Genereates the String representation of all the tasks in the list.
+     *
+     * @return a string of all the tasks in the list.
+     */
+    protected String getTasksInList() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(i + 1);
             sb.append(".");
             sb.append(list.get(i).toString());
             sb.append("\n");
         }
-        result[1] = sb.toString();
-        return result;
+        return sb.toString();
     }
 
     /**
@@ -148,11 +157,11 @@ public class Parser {
     /**
      * Adds the task to the list of tasks.
      *
-     * @param task is the type of task to be addded.
-     * @param s    is the details of the task to be added.
+     * @param task        is the type of task to be addded.
+     * @param description is the details of the task to be added.
      * @return Slave's response to the user.
      */
-    protected String[] addToList(TaskType task, String s) {
+    protected String[] addToList(TaskType task, String description) {
         /*
         0 - Todo
         1 - Deadline
@@ -162,39 +171,15 @@ public class Parser {
             switch (task) {
             case TODO:
                 // todo
-                //@@ author Carl Smotricz -reused
-                // String.trim() method used to remove all whitespaces from a string to check if the string only
-                // contains whitespaces is reused from the StackOverflow reply
-                if (s.isEmpty() || s.trim().isEmpty()) {
-                    //@@author
-                    throw new InvalidTaskFormatException("No task descriptor");
-                }
-                list.add(new Todo(s));
+                addTodoToList(description);
                 break;
             case DEADLINE:
                 // deadline
-                String[] details = s.split(" /by ");
-                if (details.length == 1) {
-                    throw new InvalidTaskFormatException("Error with input string format");
-                }
-                // only accepts time in format yyyy-mm-dd
-                LocalDate by = LocalDate.parse(details[1]);
-                list.add(new Deadline(details[0], by));
+                addDeadlineToList(description);
                 break;
             case EVENT:
                 // event
-                // only accepts time in format yyyy-mm-dd
-                String[] eventArr = s.split(" /from ");
-                if (eventArr.length == 1) {
-                    throw new InvalidTaskFormatException("Missing event start date");
-                }
-                String[] startEndDate = eventArr[1].split(" /to ");
-                if (startEndDate.length == 1) {
-                    throw new InvalidTaskFormatException("Missing event end date");
-                }
-                LocalDate start = LocalDate.parse(startEndDate[0]);
-                LocalDate end = LocalDate.parse(startEndDate[1]);
-                list.add(new Event(eventArr[0], start, end));
+                addEventToList(description);
                 break;
             default:
                 return new String[]{"That's not a type of task... you're wasting my time!"};
@@ -214,6 +199,62 @@ public class Parser {
     }
 
     /**
+     * Adds a Todo to the task list with the specified description.
+     *
+     * @param description is the name of the todo task.
+     * @throws InvalidTaskFormatException when the description is empty.
+     */
+    protected void addTodoToList(String description) throws InvalidTaskFormatException {
+        //@@ author Carl Smotricz -reused
+        // String.trim() method used to remove all whitespaces from a string to check if the string only
+        // contains whitespaces is reused from the StackOverflow reply
+        if (description.isEmpty() || description.trim().isEmpty()) {
+            //@@author
+            throw new InvalidTaskFormatException("No task descriptor");
+        }
+        list.add(new Todo(description));
+    }
+
+    /**
+     * Adds a Deadline to the task list with the specified description.
+     *
+     * @param description is the description of the deadline including task name and deadline.
+     * @throws InvalidTaskFormatException when the description is empty or formatted incorrectly.
+     */
+    protected void addDeadlineToList(String description) throws InvalidTaskFormatException {
+        String[] details = description.split(" /by ");
+        if (details.length == 1) {
+            throw new InvalidTaskFormatException("Error with input string format");
+        }
+        // only accepts time in format yyyy-mm-dd
+        LocalDate by = LocalDate.parse(details[1]);
+        list.add(new Deadline(details[0], by));
+    }
+
+    /**
+     * Adds an event to the task list with the specified description.
+     *
+     * @param description is the description of the task including the task name, start and end date.
+     * @throws InvalidTaskFormatException         when the description is empty or formatted incorrectly.
+     * @throws InvalidChronologicalOrderException when the event starts after it ends.
+     */
+    protected void addEventToList(String description)
+            throws InvalidTaskFormatException, InvalidChronologicalOrderException {
+        // only accepts time in format yyyy-mm-dd
+        String[] eventArr = description.split(" /from ");
+        if (eventArr.length == 1) {
+            throw new InvalidTaskFormatException("Missing event start date");
+        }
+        String[] startEndDate = eventArr[1].split(" /to ");
+        if (startEndDate.length == 1) {
+            throw new InvalidTaskFormatException("Missing event end date");
+        }
+        LocalDate start = LocalDate.parse(startEndDate[0]);
+        LocalDate end = LocalDate.parse(startEndDate[1]);
+        list.add(new Event(eventArr[0], start, end));
+    }
+
+    /**
      * Removes the task from the list of tasks.
      *
      * @param s is the index of the task as a String.
@@ -221,14 +262,14 @@ public class Parser {
      */
     protected String[] deleteTask(String s) {
         try {
-            int i = Integer.parseInt(s);
-            if (i < 1 || i > list.size()) {
-                return new String[]{"You don't have a task number " + i};
+            int index = Integer.parseInt(s);
+            if (index < 1 || index > list.size()) {
+                return new String[]{"You don't have a task number " + index};
             }
             String[] result = new String[2];
             result[0] = "Good to know that I have less things to remember now...";
-            result[1] = "I'll forget about " + list.get(i - 1);
-            list.remove(i - 1);
+            result[1] = "I'll forget about " + list.get(index - 1);
+            list.remove(index - 1);
             return result;
         } catch (NumberFormatException nfe) {
             return new String[]{"That's not a task number"};
@@ -305,33 +346,44 @@ public class Parser {
         if (date.isEmpty()) {
             throw new NoSuchElementException();
         }
-        StringBuilder sb = new StringBuilder();
+        LocalDate target = LocalDate.parse(date);
         String[] result = new String[3];
         result[0] = "Your tasks are :";
         try {
-            LocalDate target = LocalDate.parse(date);
-            list.forEach(task -> {
-                if (task instanceof Event) {
-                    if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
-                        sb.append(task);
-                    }
-                } else if (task instanceof Deadline) {
-                    if (((Deadline) task).getRawDeadline().isAfter(target) ||
-                            ((Deadline) task).getRawDeadline().isEqual(target)) {
-                        sb.append(task);
-                    }
-                }
-                sb.append("\n");
-            });
-            if (sb.isEmpty()) {
+            String filteredTaskList = getActiveTasks(target);
+            if (filteredTaskList.isEmpty()) {
                 return new String[]{"You have no Tasks on or ending after " + date};
             }
-            result[1] = sb.toString();
+            result[1] = filteredTaskList;
             assert !result[1].isEmpty() : "the list of tasks on or ending after the date should not be empty";
             result[2] = "That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             return result;
         } catch (DateTimeParseException | NoSuchElementException e) {
             return new String[]{"Give me the date in yyyy-mm-dd or I won't check your schedule"};
         }
+    }
+
+    /**
+     * Filters the task list for tasks which are ongoing, e.g. deadlines yet to be due, events occurring on the date.
+     *
+     * @param target is the date used as the search parameter.
+     * @return a String representation of all ongoing tasks.
+     */
+    protected String getActiveTasks(LocalDate target) {
+        StringBuilder sb = new StringBuilder();
+        list.forEach(task -> {
+            if (task instanceof Event) {
+                if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
+                    sb.append(task);
+                }
+            } else if (task instanceof Deadline) {
+                if (((Deadline) task).getRawDeadline().isAfter(target) ||
+                        ((Deadline) task).getRawDeadline().isEqual(target)) {
+                    sb.append(task);
+                }
+            }
+            sb.append("\n");
+        });
+        return sb.toString();
     }
 }
