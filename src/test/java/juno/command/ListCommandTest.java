@@ -6,8 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,10 +44,6 @@ public class ListCommandTest {
     @Test
     public void runCommand_nonEmptyList_success() throws TaskManagerException {
 
-        // Capture output
-        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStreamCaptor));
-
         // Mock a non-empty task list
         ArrayList<Task> taskList = new ArrayList<>();
         Task mockTask1 = Mockito.mock(Todo.class);
@@ -65,18 +59,17 @@ public class ListCommandTest {
         when(this.mockTaskManager.getTasksArray()).thenReturn(taskList);
         this.listCommand = new ListCommand(this.mockTaskManager);
 
-        this.listCommand.runCommand();
+        String actualOutput = this.listCommand.runCommand();
 
         // Expected output
         String expectedOutput = """
                 Here's a rundown of all your tasks! \uD83D\uDE0A
                 1. [todo] Mock Task 1
                 2. [deadline] Mock Task 2
-                \uD83C\uDFAF You have 2 tasks in the list. Keep going!
-                """;
+                \uD83C\uDFAF You have 2 tasks in the list. Keep going!""";
 
         verify(this.mockTaskManager, times(1)).getTasksArray();
-        assertEquals(expectedOutput, outputStreamCaptor.toString());
+        assertEquals(expectedOutput, actualOutput);
 
     }
 }
