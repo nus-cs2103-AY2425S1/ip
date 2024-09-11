@@ -76,12 +76,23 @@ public class Friday extends Application {
      * @param stage The stage to display the GUI.
      */
     public void runGui(Stage stage) {
+        assert stage != null : "Stage should not be null for GUI setup";
+
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Friday.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader.getLocation() != null : "FXML file for MainWindow should exist";
+
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane should be loaded from FXML";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setStorage(storage).setTasks(tasks).setGui(gui);
+
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            assert controller != null : "MainWindow controller should not be null";
+
+            controller.setStorage(storage).setTasks(tasks).setGui(gui);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,7 +106,11 @@ public class Friday extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage should not be null in the start method";
         Thread thread = new Thread(this::run);
+
+        assert thread != null : "Thread should be initialized to run CLI";
+        
         thread.start();
         runGui(stage);
     }
