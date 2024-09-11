@@ -1,6 +1,7 @@
 package Gary;
 
 import java.io.FileNotFoundException;
+
 import Gary.command.Command;
 
 /**
@@ -8,9 +9,12 @@ import Gary.command.Command;
  * It handles the initialization of the necessary components and manages the main program loop.
  */
 public class Gary {
-    protected Storage storage;    // Storage object for saving and loading tasks
-    protected TaskList taskList;  // TaskList object for managing tasks
-    protected Ui ui;              // Ui object for interacting with the user
+    // Storage object for saving and loading tasks
+    protected Storage storage;
+    // TaskList object for managing tasks
+    protected TaskList taskList;
+    // Ui object for interacting with the user
+    protected Ui ui;
 
     /**
      * Constructs a {@code Gary} object with the specified file path for storing tasks.

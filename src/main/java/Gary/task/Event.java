@@ -8,11 +8,14 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Event extends Task {
-    private LocalDateTime start;  // Start date and time of the event
-    private LocalDateTime end;    // End date and time of the event
 
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    // Start date and time of the event
+    private LocalDateTime start;
+    // End date and time of the event
+    private LocalDateTime end;
 
     /**
      * Constructs an {@code Event} object with the specified description, start time, and end time.
@@ -45,8 +48,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (this.isDone ? "X" : " ") + "] " + this.description +
-                " (from: " + this.start.format(OUTPUT_FORMATTER) + " to: " + this.end.format(OUTPUT_FORMATTER) + ")";
+        return "[E][" + (this.isDone ? "X" : " ") + "] " + this.description
+                + " (from: " + this.start.format(OUTPUT_FORMATTER) + " to: " + this.end.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -56,8 +59,8 @@ public class Event extends Task {
      */
     @Override
     public String parseToFile() {
-        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " +
-                this.start.format(INPUT_FORMATTER) + " | " + this.end.format(INPUT_FORMATTER);
+        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description + " | "
+                + this.start.format(INPUT_FORMATTER) + " | " + this.end.format(INPUT_FORMATTER);
     }
 
     /**
@@ -76,8 +79,8 @@ public class Event extends Task {
             return false;
         }
         Event otherEvent = (Event) obj;
-        return super.equals(otherEvent) &&
-                (this.start == null ? otherEvent.start == null : this.start.equals(otherEvent.start)) &&
-                (this.end == null ? otherEvent.end == null : this.end.equals(otherEvent.end));
+        return super.equals(otherEvent)
+                && (this.start == null ? otherEvent.start == null : this.start.equals(otherEvent.start))
+                && (this.end == null ? otherEvent.end == null : this.end.equals(otherEvent.end));
     }
 }

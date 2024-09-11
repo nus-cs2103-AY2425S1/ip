@@ -2,14 +2,15 @@ package Gary;
 
 import Gary.command.AddCommand;
 import Gary.command.ByeCommand;
+import Gary.command.Command;
 import Gary.command.DeleteCommand;
 import Gary.command.EditTaskCommand;
 import Gary.command.FindCommand;
 import Gary.command.ShowListCommand;
-import Gary.command.Command;
-import Gary.task.ToDo;
 import Gary.task.Deadline;
 import Gary.task.Event;
+import Gary.task.ToDo;
+
 
 /**
  * The {@code Parser} class is responsible for interpreting user input commands and
@@ -31,48 +32,48 @@ public class Parser {
         switch (taskType.toLowerCase()) {
         case "todo":
             if (split.length != 2) {
-                throw new GaryException("Please provide your ToDo task in the following format:\n" +
-                        "todo <task name>\n");
+                throw new GaryException("Please provide your ToDo task in the following format:\n"
+                        + "todo <task name>\n");
             }
             return new AddCommand(new ToDo(split[1].trim()));
         case "deadline":
             if (split.length != 2) {
-                throw new GaryException("Please provide your Deadline task in the following format:\n" +
-                        "deadline <task name> /by <yyyy-mm-dd>\n");
+                throw new GaryException("Please provide your Deadline task in the following format:\n"
+                        + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
             String[] split1 = split[1].split("/by");
             if (split1.length != 2) {
-                throw new GaryException("Please provide your Deadline task in the following format:\n" +
-                        "deadline <task name> /by <yyyy-mm-dd>\n");
+                throw new GaryException("Please provide your Deadline task in the following format:\n"
+                        + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
             String description = split1[0].trim();
             String dueDate = split1[1].trim();
             if (dueDate.isEmpty() || description.isEmpty()) {
-                throw new GaryException("Please provide your Deadline task in the following format:\n" +
-                        "deadline <task name> /by <yyyy-mm-dd>\n");
+                throw new GaryException("Please provide your Deadline task in the following format:\n"
+                        + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
             return new AddCommand(new Deadline(description, dueDate));
         case "event":
             if (split.length != 2) {
-                throw new GaryException("Please provide your Event task in the following format:\n" +
-                        "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
+                throw new GaryException("Please provide your Event task in the following format:\n"
+                        + "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
             }
             String[] firstSplit = split[1].trim().split("/from");
             if (firstSplit.length != 2) {
-                throw new GaryException("Please provide your Event task in the following format:\n" +
-                        "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
+                throw new GaryException("Please provide your Event task in the following format:\n"
+                        + "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
             }
             String[] secondSplit = firstSplit[1].trim().split("/to");
             if (secondSplit.length != 2) {
-                throw new GaryException("Please provide your Event task in the following format:\n" +
-                        "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
+                throw new GaryException("Please provide your Event task in the following format:\n"
+                        + "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
             }
             String eventName = firstSplit[0].trim();
             String start = secondSplit[0].trim();
             String end = secondSplit[1].trim();
             if (eventName.isEmpty() || start.isEmpty() || end.isEmpty()) {
-                throw new GaryException("Please provide your Event task in the following format:\n" +
-                        "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
+                throw new GaryException("Please provide your Event task in the following format:\n"
+                        + "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
             }
             return new AddCommand(new Event(eventName, start, end));
         case "mark":
@@ -85,8 +86,8 @@ public class Parser {
             return new ShowListCommand();
         case "find":
             if (split.length != 2) {
-                throw new GaryException("Please provide a keyword to search for tasks:\n" +
-                        "find <keyword>\n");
+                throw new GaryException("Please provide a keyword to search for tasks:\n"
+                        + "find <keyword>\n");
             }
             return new FindCommand(split[1].trim());
         case "bye":

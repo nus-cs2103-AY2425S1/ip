@@ -1,18 +1,20 @@
 package Gary;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import Gary.task.Task;
 
 /**
  * The {@code Storage} class handles loading and saving tasks to and from a file.
  */
 public class Storage {
-    private final String filePath;  // Path to the file where tasks are stored
+    // Path to the file where tasks are stored
+    private final String filePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.
@@ -35,12 +37,14 @@ public class Storage {
         File directory = new File("src/textFile");
 
         if (!directory.exists()) {
-            directory.mkdir();  // Create the directory if it does not exist
+            // Create the directory if it does not exist
+            directory.mkdir();
         }
 
         if (!file.exists()) {
             try {
-                file.createNewFile();  // Create the file if it does not exist
+                // Create the file if it does not exist
+                file.createNewFile();
             } catch (IOException e) {
                 // Exception is ignored since we're only checking for file creation
             }

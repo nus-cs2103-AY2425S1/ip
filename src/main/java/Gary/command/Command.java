@@ -1,8 +1,8 @@
 package Gary.command;
 
+import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
-import Gary.Storage;
 
 /**
  * The {@code Command} class represents an abstract command in the task management application.
@@ -25,7 +25,6 @@ public abstract class Command {
      * Subclasses should override this method to specify if the command is a "bye" command.
      *
      * @return {@code true} if this is a "bye" command, {@code false} otherwise.
->>>>>>> branch-A-CodingStandard
      */
     public abstract boolean isBye();
 }

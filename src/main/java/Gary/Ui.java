@@ -2,6 +2,7 @@ package Gary;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import Gary.task.Task;
 
 /**
@@ -9,7 +10,8 @@ import Gary.task.Task;
  * It handles user input and output, including displaying messages and tasks.
  */
 public class Ui {
-    private Scanner detector;  // Scanner for reading user input
+    // Scanner for reading user input
+    private Scanner detector;
 
     /**
      * Constructs a {@code Ui} object with a new {@code Scanner} instance for input.

@@ -5,8 +5,10 @@ package Gary.task;
  * whether the task is completed or not.
  */
 public abstract class Task {
-    protected String description;  // Description of the task
-    protected boolean isDone = false;  // Completion status of the task
+    // Description of the task
+    protected String description;
+    // Completion status of the task
+    protected boolean isDone = false;
 
     /**
      * Constructs a Task object with the given description.
@@ -65,10 +67,6 @@ public abstract class Task {
             return this.description.equals(otherTask.description) && this.isDone == otherTask.isDone;
         }
         return false;
-    }
-
-    public String getDescription() {
-        return this.description;
     }
 }
 

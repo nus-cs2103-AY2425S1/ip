@@ -7,11 +7,12 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task, which has a description and a date by which the task is due.
  */
 public class Deadline extends Task {
-    private LocalDate deadline;  // The due date of the deadline task
 
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private LocalDate deadline; // The due date of the deadline task
 
     /**
      * Constructs a {@code Deadline} object with the specified description and due date.
@@ -39,24 +40,24 @@ public class Deadline extends Task {
      * description, and due date.
      *
      * @return A string in the format "[D][X] description (by: MMM dd yyyy)" if done, or
-     * "[D][ ] description (by: MMM dd yyyy)" if not done.
+     *     "[D][ ] description (by: MMM dd yyyy)" if not done.
      */
     @Override
     public String toString() {
-        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description +
-                " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
+        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description
+                + " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
      * Converts the Deadline task into a string that can be written to a file.
      *
-     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where
-     * {isDone} is "1" if done and "0" if not.
+     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where{isDone} is "1"
+     *     if done and "0" if not.
      */
     @Override
     public String parseToFile() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " +
-                this.deadline.format(INPUT_FORMATTER);
+        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | "
+                + this.deadline.format(INPUT_FORMATTER);
     }
 
     /**
