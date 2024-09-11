@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import rizz.task.*;
 
-
 /**
  * Handles saving and loading tasks from a file.
  * The Storage class is responsible for reading and writing task data to a file

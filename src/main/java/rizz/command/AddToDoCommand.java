@@ -5,7 +5,6 @@ import rizz.source.Storage;
 import java.io.IOException;
 import rizz.task.ToDo;
 
-
 public class AddToDoCommand extends Command {
     private final String description;
 

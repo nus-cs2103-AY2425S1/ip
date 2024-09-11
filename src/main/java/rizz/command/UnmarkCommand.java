@@ -1,10 +1,8 @@
 package rizz.command;
-
 import rizz.source.TaskList;
 import rizz.source.Ui;
 import rizz.source.Storage;
 import java.io.IOException;
-
 
 public class UnmarkCommand extends Command {
     private int taskIndex;

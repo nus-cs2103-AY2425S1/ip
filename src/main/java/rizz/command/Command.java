@@ -4,10 +4,13 @@ import rizz.source.Ui;
 import rizz.source.Storage;
 import java.io.IOException;
 
+<<<<<<< HEAD
 /**
  * Represents an abstract command that can be executed in the Rizz application.
  * Subclasses of Command must implement the execute() method to define specific behaviors.
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public abstract class Command {
 
     /**

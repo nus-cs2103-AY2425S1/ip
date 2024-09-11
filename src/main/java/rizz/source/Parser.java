@@ -1,7 +1,6 @@
 package rizz.source;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import rizz.command.*;
 
 /**
@@ -23,6 +22,7 @@ public class Parser {
      * - "mark <index>": Mark a task as done.
      * - "unmark <index>": Unmark a task.
      * - "delete <index>": Delete a task.
+     * - "find <details>": Find a task.
      *
      * @param input The user input string to be parsed.
      * @return The Command object representing the parsed command, or null if the input is invalid.
