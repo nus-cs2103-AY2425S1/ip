@@ -31,52 +31,55 @@ public class Storage {
     public List<Task> load() throws IOException, CorruptedFileException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
+
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
-        } else {
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    if (parts.length < 3) {
-                        throw new CorruptedFileException("Corrupted data in file: " + line);
-                    }
+        }
 
-                    Task task;
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-
-                    switch (type) {
-                    case "T":
-                        task = new ToDoTask(description);
-                        break;
-                    case "D":
-                        if (parts.length < 4) {
-                            throw new CorruptedFileException("Incomplete DeadlineTask data in file: " + line);
-                        }
-                        String by = parts[3];
-                        task = new DeadlineTask(description, by);
-                        break;
-                    case "E":
-                        if (parts.length < 5) {
-                            throw new CorruptedFileException("Incomplete EventTask data in file: " + line);
-                        }
-                        String from = parts[3];
-                        String to = parts[4];
-                        task = new EventTask(description, from, to);
-                        break;
-                    default:
-                        throw new CorruptedFileException("Invalid task type in file: " + type);
-                    }
-
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-
-                    taskList.add(task);
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                if (parts.length < 3) {
+                    throw new CorruptedFileException("Corrupted data in file: " + line);
                 }
+
+                Task task;
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (type) {
+                case "T":
+                    task = new ToDoTask(description);
+                    break;
+
+                case "D":
+                    if (parts.length < 4) {
+                        throw new CorruptedFileException("Incomplete DeadlineTask data in file: " + line);
+                    }
+                    String by = parts[3];
+                    task = new DeadlineTask(description, by);
+                    break;
+
+                case "E":
+                    if (parts.length < 5) {
+                        throw new CorruptedFileException("Incomplete EventTask data in file: " + line);
+                    }
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new EventTask(description, from, to);
+                    break;
+
+                default:
+                    throw new CorruptedFileException("Invalid task type in file: " + type);
+                }
+
+                if (isDone) {
+                    task.markAsDone();
+                }
+                taskList.add(task);
             }
         }
         return taskList;
