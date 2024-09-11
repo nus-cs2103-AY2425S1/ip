@@ -1,5 +1,6 @@
 package nether;
 
+import javafx.scene.control.Alert;
 import nether.command.Command;
 import nether.parser.Parser;
 import nether.storage.Storage;
@@ -51,15 +52,27 @@ public class Nether {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.printHorizontalLine(); // show the divider line ("_______")
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-                ui.printHorizontalLine();
-            } catch (NetherException e) {
-                ui.printError(e.getMessage());
+            } catch (AssertionError ae) {
+                // Handle assertion error, e.g., show a dialog box or update status message in GUI
+                System.out.println("reached");
+                showAlert("Input Error", ae.getMessage());
+            } catch (NetherException ne) {
+                // Handle other exceptions
+                System.out.println("reached");
+                showAlert("Command Error", ne.getMessage());
             }
         }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     /**

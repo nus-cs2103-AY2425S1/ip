@@ -1,5 +1,7 @@
 package nether.parser;
 
+import java.util.Objects;
+
 import nether.NetherException;
 import nether.command.AddCommand;
 import nether.command.Command;
@@ -12,6 +14,7 @@ import nether.command.MarkNotDoneCommand;
 import nether.task.DeadlineTask;
 import nether.task.EventTask;
 import nether.task.TodoTask;
+
 
 /**
  * Handles the parsing of user input into commands and arguments that the program can understand.
@@ -27,6 +30,7 @@ public class Parser {
      * @throws NetherException If the command is not recognized or the input format is incorrect.
      */
     public Command parse(String userInput) throws NetherException {
+        assert !Objects.equals(userInput, "") : "Your input cannot be empty!";
         String[] processedInput;
         String commandWord = extractCommandWord(userInput);
 

@@ -31,6 +31,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-ea'
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -71,6 +72,7 @@ shadowJar {
 }
 
 run{
+    jvmArgs '-ea'
     standardInput = System.in
     jvmArgs = [
             '--module-path', classpath.asPath,

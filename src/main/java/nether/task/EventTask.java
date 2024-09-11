@@ -28,6 +28,8 @@ public class EventTask extends Task {
         super(description);
         this.from = null;
         this.to = null;
+        assert from.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
+        assert to.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         // Validate the input date/time and then assign them
