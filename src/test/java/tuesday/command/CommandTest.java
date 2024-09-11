@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import tuesday.task.Deadline;
 import tuesday.task.Task;
 import tuesday.task.ToDo;
 import tuesday.util.Storage;
@@ -60,5 +61,11 @@ public class CommandTest {
     public void commandExecuteCheckDatafileForTodo() {
         ToDo todo = new ToDo("read book");
         Assertions.assertEquals("[T][ ] read book", todo.toString());
+    }
+
+    @Test
+    public void commandExecuteCheckDatafileForDeadline() {
+        Deadline deadline = new Deadline("finish reading book", "5pm");
+        Assertions.assertEquals("[D][ ] finish reading book (by: 5pm)", deadline.toString());
     }
 }

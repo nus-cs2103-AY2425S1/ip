@@ -37,6 +37,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
+        assert this.commandType != null : "The AddCommand constructor must be created";
         switch (this.commandType) {
         case "todo":
             ToDo taskItem = new ToDo(this.commandPostfix);
@@ -62,6 +63,7 @@ public class AddCommand extends Command {
     }
 
     public String getString() {
+        assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;
     }
 

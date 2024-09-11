@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Prints the tasks in the current list
+     * Updates the message with the tasks in the current list
      *
      * @param task The Task object
      * @param ui The UI object
@@ -31,6 +31,7 @@ public class ListCommand extends Command {
     }
 
     public String getString() {
+        assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;
     }
 

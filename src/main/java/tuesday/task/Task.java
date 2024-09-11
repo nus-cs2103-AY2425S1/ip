@@ -98,13 +98,16 @@ public class Task {
      * @param index Index of the task wants to delete
      */
     public static void deleteTask(int index) {
+        assert count > 0 : "Count must be above 0";
         count--;
         Task.taskArrayList.remove(index);
     }
 
     public String getDescription() {
+        assert this.description != null : "Use the constructor first";
         return this.description;
     }
+
     /**
      * Write to the date file
      *
@@ -112,6 +115,7 @@ public class Task {
      * @return Description of the command
      */
     public String writeToDatafile(File dataFile) {
+        assert this.description != null : "Use the constructor first";
         return this.description;
     }
 
@@ -130,6 +134,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        assert this.description != null : "Use the constructor first";
         return "[" + this.getDoneX() + "] " + this.description;
     }
 }

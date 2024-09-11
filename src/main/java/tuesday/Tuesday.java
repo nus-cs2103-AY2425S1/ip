@@ -74,7 +74,7 @@ public class Tuesday {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
-            commandType = c.getClass().getSimpleName();
+            this.commandType = c.getClass().getSimpleName();
             return c.getString();
         } catch (TuesdayException e) {
             return "Error: " + e.getMessage();
@@ -82,7 +82,8 @@ public class Tuesday {
     }
 
     public String getCommandType() {
-        return commandType;
+        assert this.commandType != null : "getResponse() should be invoked first";
+        return this.commandType;
     }
 
     public static void main(String[] args) {

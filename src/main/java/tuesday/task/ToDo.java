@@ -13,7 +13,7 @@ public class ToDo extends Task {
      * Constructor for ToDo
      * Used for new task created
      *
-     * @param description
+     * @param description Description of the Command
      */
     public ToDo(String description) {
         super(description);
@@ -23,8 +23,8 @@ public class ToDo extends Task {
      * Constructor for ToDo
      * Used for data collected from data file
      *
-     * @param description
-     * @param done
+     * @param description Description of the Command
+     * @param done Marked task
      */
     public ToDo(String description, boolean done) {
         super(description, done);
