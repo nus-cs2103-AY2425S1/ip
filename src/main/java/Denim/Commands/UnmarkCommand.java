@@ -2,7 +2,7 @@ package denim.commands;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 
 /**
  * Represents an unmark command that can be executed.
@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
 
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
 
         try {
             taskList.unmarkTask(index);
-            taskIo.unmarkTask(taskList);
+            writeTaskFile.unmarkTask(taskList);
         } catch (DenimException e) {
             taskList.markTask(index);
             return new CommandResult(e.getMessage());

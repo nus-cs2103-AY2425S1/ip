@@ -130,15 +130,6 @@ public class TaskIo {
     public void readTaskData(TaskList taskList, Scanner sc) throws DenimFileException {
 
         File dataDirectory = taskFile.getParentFile();
-        if (dataDirectory == null || !dataDirectory.isDirectory()) {
-            createSavePoint(FileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
-            return;
-        }
-
-        if (!taskFile.exists()) {
-            createSavePoint(FileStatus.FILE_DOES_NOT_EXIST, sc);
-            return;
-        }
 
         try {
             Scanner fileReader = new Scanner(taskFile);

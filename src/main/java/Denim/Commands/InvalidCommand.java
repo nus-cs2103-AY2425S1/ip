@@ -1,7 +1,7 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 
 /**
  * Represents an invalid command that can be executed.
@@ -24,7 +24,7 @@ public class InvalidCommand extends Command {
 
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         String returnMessage = String.format("%s\n%s", error, feedback);
         return new CommandResult(returnMessage);
     }

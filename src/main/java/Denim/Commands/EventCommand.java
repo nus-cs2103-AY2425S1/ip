@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 import denim.tasks.Event;
 
 
@@ -21,9 +21,9 @@ public class EventCommand extends Command {
         eventTask = new Event(eventDescription, from, to);
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         try {
-            taskIo.writeTaskData(eventTask);
+            writeTaskFile.writeTaskData(eventTask);
         } catch (DenimException e) {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }

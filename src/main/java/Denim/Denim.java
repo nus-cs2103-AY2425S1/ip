@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 import denim.commands.Command;
 import denim.commands.CommandResult;
-import denim.exceptions.DenimException;
 import denim.exceptions.DenimFileException;
-import denim.storage.TaskIo;
+import denim.storage.ReadTaskFile;
+import denim.storage.WriteTaskFile;
 
 /**
  * The main class for the Denim application.
@@ -17,9 +17,10 @@ public class Denim {
     public static final String FILE_PATH = "data/denim.txt";
     public static final int INDEX_OFFSET = 1;
 
-    private TaskIo taskIo;
+    private ReadTaskFile readTaskFile;
+    private WriteTaskFile writeTaskFile;
 
-    private Parser parser = new Parser();
+    private Parser parser;
     private TaskList taskList;
 
 
@@ -28,24 +29,24 @@ public class Denim {
      * Starts the Denim Application first by reading the file with tasks stored in it.
      */
     public void start() {
-        taskIo = new TaskIo(FILE_PATH);
-        taskList = new TaskList();
+        initialize();
 
-        try {
-            Scanner tempScanner = new Scanner(System.in);
-            taskIo.readTaskData(taskList, tempScanner);
-        } catch (DenimException e) {
-            System.out.println(e.getMessage());
+        if (!ableToReadFile()) {
+
         }
     }
 
-    public boolean ableToReadFile() {
-        taskIo = new TaskIo(FILE_PATH);
+    public void initialize() {
+        readTaskFile = new ReadTaskFile(FILE_PATH);
+        writeTaskFile = new WriteTaskFile(FILE_PATH);
+        parser = new Parser();
         taskList = new TaskList();
+    }
 
+    public boolean ableToReadFile() {
         try {
             Scanner tempScanner = new Scanner(System.in);
-            taskIo.readTaskData(taskList, tempScanner);
+            readTaskFile.readTaskData(taskList, tempScanner);
         } catch (DenimFileException e) {
             System.out.println(e.getMessage());
             return false;
@@ -66,7 +67,7 @@ public class Denim {
     }
 
     public CommandResult executeGuiCommand(Command command) {
-        return command.execute(taskList, taskIo);
+        return command.execute(taskList, writeTaskFile);
     }
 
     /**
