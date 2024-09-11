@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +46,10 @@ public class TaskList {
 
     public int size() {
         return userInputs.size();
+    }
+
+    public void snooze(int idx, LocalDate newDate) {
+        userInputs.get(idx).snooze(newDate);
     }
 
     /**

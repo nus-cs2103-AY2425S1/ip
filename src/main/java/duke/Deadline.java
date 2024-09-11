@@ -38,6 +38,11 @@ public class Deadline extends Task {
         return "D , " + (isDone ? "1" : "0") + " , " + name + " , " + deadline;
     }
 
+    @Override
+    public void snooze(LocalDate newDate) {
+        deadline = newDate;
+    }
+
     /**
      * Overrides the existing toString() method in the Task class to fit the required display requirement for
      * Deadline objects.

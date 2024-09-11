@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+
 /**
  * The parent class for all Task types. This holds all the methods to be overridden or implemented by specialised child
  * classes.
@@ -40,6 +42,10 @@ public class Task {
 
     protected String getWriteFormat() {
         return "";
+    }
+
+    public void snooze(LocalDate newDate) {
+        return;
     }
 
     /**
