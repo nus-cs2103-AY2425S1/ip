@@ -57,6 +57,13 @@ public class Deadline extends Task {
         return super.description + " (by: " + date + ") ";
     }
 
+    /**
+     * Returns the key of this {@code Deadline}.
+     * <p>
+     * The key is formed by concatenating the {@code description} and {@code deadline}
+     * arguments passed into the {@code Deadline} constructor.
+     * @return The key of this {@code Deadline}.
+     */
     public String getKey() {
         return this.key;
     }

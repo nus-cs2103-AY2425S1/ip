@@ -73,6 +73,13 @@ public class Event extends Task {
         return super.description + " (from: " + from + " to: " + to + ") ";
     }
 
+    /**
+     * Returns the key of this {@code Event}.
+     * <p>
+     * The key is formed by concatenating the {@code description}, {@code from}, and
+     * {@code to} arguments passed into the {@code Event} constructor.
+     * @return The key of this {@code Event}.
+     */
     public String getKey() {
         return this.key;
     }
