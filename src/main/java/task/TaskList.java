@@ -14,6 +14,7 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        assert tasks != null : "Tasks should be initialized";
     }
 
     /**
@@ -31,7 +32,9 @@ public class TaskList {
      * @param task Task to add.
      */
     public void add(Task task) {
+        assert task != null : "Task to be added should not be null";
         tasks.add(task);
+        assert tasks.contains(task) : "Task list should contain the added task";
     }
 
     /**
@@ -41,6 +44,8 @@ public class TaskList {
      * @return Task at the specified index.
      */
     public Task get(int index) {
+        assert index >= 0 : "Index should be non-negative";
+        assert index < tasks.size() : "Index should be within the size of the list";
         return tasks.get(index);
     }
 
@@ -51,7 +56,11 @@ public class TaskList {
      * @return Removed task.
      */
     public Task remove(int index) {
-        return tasks.remove(index);
+        assert index >= 0 : "Index should be non-negative";
+        assert index < tasks.size() : "Index should be within the size of the list";
+        Task removedTask = tasks.remove(index);
+        assert !tasks.contains(removedTask) : "Task list should not contain the removed task";
+        return removedTask;
     }
 
     /**
