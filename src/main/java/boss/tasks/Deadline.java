@@ -1,9 +1,10 @@
-package boss;
+package boss.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Represents a Deadline, which is a type of task
@@ -37,6 +38,23 @@ public class Deadline extends TimeTask {
             this.date = formatDate(by);
             this.by = date.format(DateTimeFormatter.ofPattern("MMM d yyyy "));
         }
+
+        // for date
+        if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} ")) {
+            DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy ");
+            this.date = LocalDate.parse(by, dTF);
+        }
+
+        //for time
+        if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} \\d{2}:\\d{2} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} \\d{2}:\\d{2} ")) {
+            DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm ");
+            this.time = LocalDateTime.parse(by, dTF);
+        }
+    }
+
+    @Override
+    public String getType() {
+        return "deadline";
     }
 
 

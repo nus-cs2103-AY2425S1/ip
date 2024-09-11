@@ -1,5 +1,10 @@
 package boss;
 
+import boss.tasks.Deadline;
+import boss.tasks.Event;
+import boss.tasks.Task;
+import boss.tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,7 +22,7 @@ import java.util.Scanner;
  */
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -28,18 +33,22 @@ public class Storage {
      * uses the "list" command
      * @throws FileNotFoundException throws an exception
      * if file can not be found
+     * @return String containing all tasks
      */
-
-    public void printFileContents() throws FileNotFoundException {
+    public String printTasks() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         int i = 1;
+        String result = "";
         while (s.hasNext()) {
             String str = s.nextLine();
-            System.out.println(i + ". " + str);
-
+            result = result + i + ". " + str + "\n";
             i++;
         }
+        if (result.isEmpty()) {
+            return "There are no tasks in your list!";
+        }
+        return result;
     }
 
     /**
@@ -65,7 +74,6 @@ public class Storage {
 
         try {
             List<String> lst = Files.readAllLines(Path.of(filePath));
-
             for (String str : lst) {
                 String[] arr = str.split("] ");
                 String s = arr[arr.length - 1];
@@ -90,19 +98,16 @@ public class Storage {
      * @param isDone status of task
      * @return Task
      */
-
     public Task typeOfTask(String description, String str, boolean isDone) {
         // todo
         if (str.contains("[T]")) {
             return new Todo(description, isDone);
         } else if (str.contains("[D]")) {
-
             String[] string = description.split("\\| ");
 
             String deadline = string[1].split("by: ")[1];
 
             return new Deadline(string[0], isDone, deadline);
-
         } else if (str.contains("[E]")) {
             String[] newStr = description.split("\\| ");
 
@@ -115,6 +120,5 @@ public class Storage {
             return new Task(description, isDone);
         }
     }
-
 
 }

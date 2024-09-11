@@ -1,6 +1,6 @@
-package boss;
+package boss.tasks;
 
-import boss.Task;
+import boss.tasks.Task;
 
 /**
  * Represents the Todo class, which is a type of task,
@@ -24,6 +24,11 @@ public class Todo extends Task {
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
+    }
+
+    @Override
+    public String getType() {
+        return "todo";
     }
 
     @Override

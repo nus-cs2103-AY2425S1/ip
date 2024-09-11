@@ -1,15 +1,18 @@
-package boss;
+package boss.tasks;
+
+import boss.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Represents an event associated with times!
  */
 public class TimeTask extends Task {
-
     protected LocalDate date;
     protected LocalDateTime time;
 
@@ -21,6 +24,31 @@ public class TimeTask extends Task {
     public TimeTask(String description, boolean isDone) {
         super(description, isDone);
     }
+
+
+    public boolean checkDateDifference() {
+        if (this.date == null) {
+            return false;
+        }
+        long daysBetween = DAYS.between(this.date, LocalDate.now());
+        if (daysBetween <= 7) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkTimeDifference() {
+        if (this.time == null) {
+            return false;
+        }
+        long hoursBetween = this.time.until(LocalDateTime.now(), ChronoUnit.HOURS);
+        if (hoursBetween <= 168) {
+            return true;
+        }
+        return false;
+
+    }
+
 
     /**
      * Checks if the task has a date

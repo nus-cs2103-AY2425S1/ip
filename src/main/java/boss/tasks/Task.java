@@ -1,4 +1,4 @@
-package boss;
+package boss.tasks;
 
 /**
  * Represents the Task class.
@@ -59,6 +59,11 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    public String getType() {
+        return "none";
+    }
+
 
     @Override
     public String toString() {

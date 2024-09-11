@@ -1,4 +1,4 @@
-package boss;
+package boss.tasks;
 
 
 import java.time.LocalDate;
@@ -49,6 +49,11 @@ public class Event extends TimeTask {
             this.toTime = LocalDateTime.parse(to, formatter);
             this.to = toTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm "));
         }
+    }
+
+    @Override
+    public String getType() {
+        return "event";
     }
 
     @Override
