@@ -1,8 +1,11 @@
 package tudee.ui;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import tudee.task.Deadline;
+import tudee.task.Events;
 import tudee.task.Task;
 import tudee.task.TaskList;
 
@@ -133,6 +136,29 @@ public class Ui {
         return output;
     }
 
+    public String showReminders(TaskList tasks) {
+        LocalDate today = LocalDate.now();
+        boolean hasReminders = false;
+        String output = "\n" + "REMINDER:" + "\n";
+        for (int i = 0; i < tasks.numOfTasks(); i++) {
+            Task task = tasks.getTask(i);
+            int index = i + INDEX_OFFSET;
+            if (task instanceof Deadline) {
+                Deadline currentTask = (Deadline) task;
+                if (currentTask.isDueSoon(today)) {
+                    output += index + ". " + currentTask.getDescription() + "is due tomorrow!" + "\n";
+                    hasReminders = true;
+                }
+            } else if (task instanceof Events) {
+                Events currentTask = (Events) task;
+                if (currentTask.isDueSoon(today)) {
+                    output += index + ". " + currentTask.getDescription() + "is due tomorrow!" + "\n";
+                    hasReminders = true;
+                }
+            }
+        }
+        return hasReminders ? output : "";
+    }
     /**
      * Closes the Scanner resource used for reading user input.
      * This should be called when the user terminates the chatbot.

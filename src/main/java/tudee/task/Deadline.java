@@ -13,6 +13,7 @@ import tudee.TudeeException;
 public class Deadline extends Task {
     private static final int MARKED_VALUE = 1;
     private static final int UNMARKED_VALUE = 0;
+    private static final int DAYS_BEFORE = 1;
 
     /**
      * The deadline date for this task.
@@ -33,7 +34,14 @@ public class Deadline extends Task {
             throw new TudeeException("Invalid date format. Please use yyyy-MM-dd.");
         }
     }
-
+    /**
+     * Checks if the deadline is coming soon.
+     *
+     * @return True if the deadline is 1 day after the current date.
+     */
+    public boolean isDueSoon(LocalDate currentDate) {
+        return !deadline.isBefore(currentDate) && deadline.minusDays(DAYS_BEFORE).isEqual(currentDate);
+    }
     /**
      * Returns the deadline date of this task.
      *

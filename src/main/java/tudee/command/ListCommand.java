@@ -25,6 +25,6 @@ public class ListCommand extends Command {
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
 
-        return ui.showTaskList(tasks.getTasks());
+        return ui.showTaskList(tasks.getTasks()) + ui.showReminders(tasks);
     }
 }
