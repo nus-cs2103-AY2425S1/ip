@@ -26,6 +26,8 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        File file = new File(filePath);
+        assert file.exists();
     }
 
     /**
