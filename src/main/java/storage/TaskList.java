@@ -6,6 +6,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 /**
  * Manages a list of tasks, including adding, removing, and marking tasks as done or undone.
  * The TaskList class is responsible for handling all operations on the tasks stored in the list.
@@ -162,16 +167,13 @@ public class TaskList {
      */
     public LocalDate getDate(String type, Scanner sc) {
         try {
-            switch (type) {
-            case "d":
-                return LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
-            case "es":
-                return LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
-            case "ee":
-                return LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
-            default:
-                return getDate(type, sc);
-            }
+            return switch (type) {
+            case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
+            case "es" ->
+                    LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
+            case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
+            default -> getDate(type, sc);
+            };
         } catch (DateTimeParseException e) {
             System.out.println("Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
         }
