@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setCow(cow); // inject the Cow instance
+            stage.setTitle("Cow");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
