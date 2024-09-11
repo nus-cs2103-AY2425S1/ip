@@ -4,6 +4,7 @@ import botimusprime.parser.Parser;
 import botimusprime.storage.Storage;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +56,7 @@ public class TaskList {
         StringBuilder resultString = new StringBuilder(SEPARATOR
                 + "Here are the tasks in your list:\n");
         if (tasks.isEmpty()) {
-            return "congrats bro u got nth to do in the todolist, respect 100";
+            return "Congratulations, human! Your task list is empty.";
         }
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -65,62 +66,60 @@ public class TaskList {
         return resultString.toString();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    public int getTaskListLength() {
+        return tasks.size();
+    }
+
     /**
      * Marks a task as done based on the index provided in the input.
-     * If the input is invalid or the index is out of range, it displays an error message.
+     * If the index is out of range, it displays an error message.
      *
-     * @param input The user input containing the full command.
+     * @param idx The index of the item to be marked as done.
      */
-    public String markDone(String input) {
-        String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            return "eh bro u need to put the index of the item uw to mark";
+    public String markDone(int idx) {
+        if (getTaskListLength() < idx || idx < 1) {
+            return "Your inputted index is invalid, human.";
         }
-
-        int idx = Integer.parseInt(numFinder[1]) - 1;
-        tasks.get(idx).markAsDone();
+        tasks.get(idx - 1).markAsDone();
         storage.saveToDisk(this);
         return SEPARATOR + "Nice! I've marked this task as done:\n" +
-                tasks.get(idx);
+                tasks.get(idx - 1);
     }
 
     /**
      * Marks a task as not done based on the index provided in the input.
-     * If the input is invalid or the index is out of range, it displays an error message.
+     * If the index is out of range, it displays an error message.
      *
-     * @param input The user input containing the full command.
+     * @param idx The index of the item to be marked as undone.
      */
-    public String markUndone(String input) {
-        String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            return "eh bro u need to put the index of the item uw to unmark";
+    public String markUndone(int idx) {
+        if (getTaskListLength() < idx || idx < 1) {
+            return "Your inputted index is invalid, human.";
         }
 
-        int idx = Integer.parseInt(numFinder[1]) - 1;
-        tasks.get(idx).markAsUndone();
+        tasks.get(idx - 1).markAsUndone();
         storage.saveToDisk(this);
         return SEPARATOR + "OK, I've marked this task as not done yet:\n"
-                + tasks.get(idx);
+                + tasks.get(idx - 1);
     }
 
     /**
      * Deletes a task based on the index provided in the input.
      * If the input is invalid or the index is out of range, it displays an error message.
      *
-     * @param input The user input containing the full command.
+     * @param idx The index of the item to be deleted.
      */
-    public String delete(String input) {
-        String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            return "eh bro u need to put the index of the item uw to delete";
+    public String delete(int idx) {
+        if (getTaskListLength() < idx || idx < 1) {
+            return "Your inputted index is invalid, human.";
         }
 
-        int idx = Integer.parseInt(numFinder[1]) - 1;
-        Task task = tasks.get(idx);
-        tasks.remove(idx);
+        Task task = tasks.get(idx - 1);
+        tasks.remove(idx - 1);
         storage.saveToDisk(this);
         return SEPARATOR + "Noted. I've removed this task:\n"
                 + task + "\nNow you have " + tasks.size() + " tasks in the list.";
@@ -134,7 +133,7 @@ public class TaskList {
      */
     public String addToDo(String input) {
         if (input.length() <= 5) {
-            return "eh bro udw to put ur description of ur task issit";
+            return "You forgot to input your task, human.";
         }
 
         ToDo task = new ToDo(input.substring(5), false);
@@ -156,25 +155,29 @@ public class TaskList {
      */
     public String addDeadline(String input) {
         if (input.length() <= 9 || !input.contains("/by")) {
-            return "brother u forgot to type all the deadline task details plz.";
+            return "You forgot to input your task, human.";
         }
         String[] parser = input.split("/by ");
 
         if (parser.length < 2 || parser[1].trim().isEmpty()) {
-            return "wheres the deadline!!";
+            return "You forgot to enter the deadline, human.";
         }
         String description = parser[0].substring(9);
         String deadline = parser[1];
 
         if (deadline.isEmpty()) {
-            return "eh bro u got due date anot";
+            return "You forgot to enter the due date, human.";
         } else if (description.isEmpty()) {
-            return "eh bro ur task no description leh wake up ur idea";
+            return "Your task has no description, human.";
         }
 
-        Deadline task = new Deadline(description,
-                false,
-                        Parser.stringToDateTime(deadline));
+        LocalDateTime date = Parser.stringToDateTime(deadline);
+
+        if (date == null) {
+            return "Your date is in the wrong format, human.";
+        }
+
+        Deadline task = new Deadline(description, false, date);
 
         tasks.add(task);
         storage.saveToDisk(this);
@@ -194,16 +197,16 @@ public class TaskList {
         if (input.length() <= 6 || input.substring(6)
                 .trim()
                         .isEmpty()) {
-            return "brother u forgot to type all the event task details";
+            return "You forgot to input your task, human.";
         } else if (!input.contains("/from") || !input.contains("/to")) {
-            return "eh bro ur event no time issit";
+            return "You forgot to input times in your task, human.";
         }
 
         String[] parser = input.split("/from ");
 
         if (parser.length < 2 || parser[1].trim()
                 .isEmpty()) {
-            return "hi plz actually put a time";
+            return "Please input a time, human.";
         }
 
         String description = parser[0].substring(6);
@@ -214,16 +217,22 @@ public class TaskList {
         if (fromAndTo.length < 2 || fromAndTo[0].trim().
                 isEmpty() || fromAndTo[1].trim()
                         .isEmpty()) {
-            return "hi plz actually put times in ur EVENT";
+            return "You forgot to put times in your event, human.";
         }
 
         String from = fromAndTo[0].trim();
         String to = fromAndTo[1].trim();
 
-        Event task = new Event(description,
-                false,
-                        Parser.stringToDateTime(from),
-                                Parser.stringToDateTime(to));
+        LocalDateTime fromDate = Parser.stringToDateTime(from);
+        LocalDateTime toDate = Parser.stringToDateTime(to);
+
+        if (fromDate == null) {
+            return "Your from date is in the wrong format, human.";
+        } else if (toDate == null) {
+            return "Your to date is in the wrong format, human.";
+        }
+
+        Event task = new Event(description, false, fromDate, toDate);
 
         tasks.add(task);
         storage.saveToDisk(this);
@@ -240,7 +249,7 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         if (input.length() <= 5) {
-            return "brother u forgot to type the task to find";
+            return "Human, you did not type your task.";
         }
 
         String query = input.substring(5).trim();
@@ -253,7 +262,7 @@ public class TaskList {
         }
 
         if (foundTasks.isEmpty()) {
-            return "lol gg no tasks match ur search bruh";
+            return "No tasks match your search, human.";
         } else {
             return resultString.toString();
         }
