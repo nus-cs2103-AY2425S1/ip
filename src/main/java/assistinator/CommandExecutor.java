@@ -58,6 +58,10 @@ public class CommandExecutor {
         case DEADLINE:
         case EVENT:
             Task newTask = parser.parseTask(command, fullCommand);
+            Task clashingTask = tasks.hasTimeClash(newTask);
+            if (clashingTask != null) {
+                return String.format("Warning: This event clashes with %s.", clashingTask.getDescription());
+            }
             tasks.addTask(newTask);
             storage.saveTasks(tasks.getTasks());
             return "Task added successfully\nNumber of Tasks: " + tasks.size();

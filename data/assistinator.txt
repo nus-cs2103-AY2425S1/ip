@@ -1,2 +1,1 @@
-T | NOTDONE | hehe
-T | NOTDONE | haha
+E | NOTDONE | haha | 2002-07-11 20:00 | 2002-07-11 21:00
