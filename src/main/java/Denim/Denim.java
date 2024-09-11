@@ -1,11 +1,9 @@
 package denim;
 
-import java.util.Scanner;
 
 import denim.commands.Command;
 import denim.commands.CommandResult;
 import denim.exceptions.DenimDirectoryException;
-import denim.exceptions.DenimException;
 import denim.exceptions.DenimFileException;
 import denim.storage.ReadTaskFile;
 import denim.storage.WriteTaskFile;
@@ -35,9 +33,12 @@ public class Denim {
      */
     public void start() throws DenimFileException, DenimDirectoryException {
         initialize();
-        ReadFile();
+        readFile();
     }
 
+    /**
+     * Initializes the required fields for the application.
+     */
     public void initialize() {
         readTaskFile = new ReadTaskFile(filePath);
         writeTaskFile = new WriteTaskFile(filePath);
@@ -45,7 +46,13 @@ public class Denim {
         taskList = new TaskList();
     }
 
-    public void ReadFile() throws DenimFileException, DenimDirectoryException {
+    /**
+     * Attempt to read file given in readTaskFile.
+     *
+     * @throws DenimFileException if File is not found.
+     * @throws DenimDirectoryException if Directory is not found.
+     */
+    public void readFile() throws DenimFileException, DenimDirectoryException {
         readTaskFile.readTaskData(taskList);
     }
 

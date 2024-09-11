@@ -1,5 +1,11 @@
 package denim.storage;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 import denim.TaskList;
 import denim.exceptions.DenimDirectoryException;
 import denim.exceptions.DenimException;
@@ -9,12 +15,10 @@ import denim.tasks.Event;
 import denim.tasks.Task;
 import denim.tasks.Todo;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-
+/**
+ * Handles the input operations for task data in the Denim application.
+ * This class is responsible for reading tasks from a file and processing task data.
+ */
 public class ReadTaskFile {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
@@ -22,13 +26,13 @@ public class ReadTaskFile {
     static final String EVENT = "E";
     static final String DEADLINE = "D";
 
-    enum FileStatus {
-        DIRECTORY_DOES_NOT_EXIST,
-        FILE_DOES_NOT_EXIST
-    }
-
     private final File taskFile;
 
+    /**
+     * Creates a new ReadTaskFile object with the given path name.
+     *
+     * @param pathname the path of the file intended to be read.
+     */
     public ReadTaskFile(String pathname) {
         taskFile = new File(pathname);
     }
@@ -52,10 +56,16 @@ public class ReadTaskFile {
         updateTaskList(taskList);
     }
 
+    /**
+     * Checks if the parent directory exists.
+     */
     private boolean doesDirectoryExist() {
         return taskFile.getParentFile().exists();
     }
 
+    /**
+     * Checks if the file exists.
+     */
     private boolean doesFileExist() {
         return taskFile.exists();
     }
@@ -138,17 +148,38 @@ public class ReadTaskFile {
         }
     }
 
+    /**
+     * Produces a deadline Task from the data being read from the file.
+     *
+     * @param taskDescription the description of the task.
+     * @param taskStatus the completion status of the task.
+     * @param deadline the unformatted deadline of the task.
+     */
     public Task produceDeadlineTask(String taskDescription, boolean taskStatus, String deadline) {
         LocalDateTime formattedDeadline = LocalDateTime.parse(deadline, ReadTaskFile.DATE_TIME_FORMATTER);
         return new Deadline(taskDescription, taskStatus, formattedDeadline);
     }
 
+    /**
+     * Produces an Event Task from the data being read from the file.
+     *
+     * @param taskDescription the description of the task.
+     * @param taskStatus the completion status of the task.
+     * @param from the unformatted date and time of the task.
+     * @param to the unformatted date and time of the task.
+     */
     public Task produceEventTask(String taskDescription, boolean taskStatus, String from, String to) {
         LocalDateTime formattedEventFrom = LocalDateTime.parse(from, ReadTaskFile.DATE_TIME_FORMATTER);
         LocalDateTime formattedEventTo = LocalDateTime.parse(to, ReadTaskFile.DATE_TIME_FORMATTER);
         return new Event(taskDescription, taskStatus, formattedEventFrom, formattedEventTo);
     }
 
+    /**
+     * Produces a todo Task from the data being read from the file.
+     *
+     * @param taskDescription the description of the task.
+     * @param taskStatus the completion status of the task.
+     */
     public Task produceTodoTask(String taskDescription, boolean taskStatus) {
         return new Todo(taskDescription, taskStatus);
     }

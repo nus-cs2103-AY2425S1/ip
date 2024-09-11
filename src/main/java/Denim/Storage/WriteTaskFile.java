@@ -1,17 +1,27 @@
 package denim.storage;
 
-import denim.TaskList;
-import denim.exceptions.DenimException;
-import denim.tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import denim.TaskList;
+import denim.exceptions.DenimException;
+import denim.tasks.Task;
+
+/**
+ * Handles the output operations for task data in the Denim application.
+ * This class is responsible for processing task data before writing tasks to a file.
+ */
 public class WriteTaskFile {
 
     private final File taskFile;
 
+
+    /**
+     * Creates a new WriteTaskFile object with the given path name.
+     *
+     * @param pathname the path of the file intended to be written.
+     */
     public WriteTaskFile(String pathname) {
         taskFile = new File(pathname);
     }
