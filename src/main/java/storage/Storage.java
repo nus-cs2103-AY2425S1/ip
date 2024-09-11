@@ -50,7 +50,6 @@ public class Storage {
      */
     public static void loadTasks(List<Task> items) {
         try {
-            // Similar to BufferedWriter, BufferedReader allows reading of files to be more efficient
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line; // To hold each line read from the file
             while ((line = reader.readLine()) != null) {
@@ -58,8 +57,6 @@ public class Storage {
                 // Note: parts can be of different length depending on the length of the input being read
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0]; // Either "T"/"D"/"E"
-                // Arrangement is as follows
-                // <TaskType> <isDone> <TaskDescription> <fromDate> <toDate>
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
                 Task task = null;

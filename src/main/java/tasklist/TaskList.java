@@ -7,15 +7,12 @@ import java.util.Scanner;
 
 import exceptions.TheOrangeRatchetCatException;
 import parser.Parser;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
 
 /**
  * Encapsulates all the commands that the user can use to interact with the bot
  */
 public class TaskList {
-
     /**
      * Prints out all tasks currently in the list
      *
@@ -148,7 +145,6 @@ public class TaskList {
         assert !taskDescription.isEmpty() : "Task description should not be empty";
         return Parser.addingDeadlineTaskToList(taskDescription, dateBy, items);
     }
-
     /**
      * Adds a new task of type Event
      *
@@ -159,20 +155,15 @@ public class TaskList {
      */
     public static String addingEvent(String input, List<Task> items,
                                      Scanner scanner) throws TheOrangeRatchetCatException {
-        // Split the input string by "/from"
-        String[] parts = input.split("/from");
-        // The taskDescription is the first part after removing the word "event"
+        String[] parts = input.split("/from"); // Split the input string by "/from"
         String taskDescription = parts[0].replace("event", "").trim();
         if (taskDescription.isEmpty()) {
             throw new TheOrangeRatchetCatException("You can't do Nothing! "
                     + "Correct input format for adding event: event <Task> /from <input> /to <input>");
         }
-        // Further split the remaining part by "/to"
-        String[] dateParts = parts[1].split("/to");
-        // The "fromDate" is the first part
-        String fromDate = dateParts[0].trim();
-        // The "toDate" is the second part
-        String toDate = dateParts.length > 1 ? dateParts[1].trim() : "";
+        String[] dateParts = parts[1].split("/to"); // Further split the remaining part by "/to"
+        String fromDate = dateParts[0].trim(); // The "fromDate" is the first part
+        String toDate = dateParts.length > 1 ? dateParts[1].trim() : ""; // The "toDate" is the second part
         LocalDate toLocalDate;
         LocalDate fromLocalDate;
         try { // Utilises LocalDate static method to parse input
@@ -191,12 +182,20 @@ public class TaskList {
         if (toDate.isEmpty()) {
             throw new TheOrangeRatchetCatException("You need to specify an end time!");
         }
+        validateEventInputs(taskDescription, fromDate, toDate);
+        return Parser.addingEventToTaskList(taskDescription, fromLocalDate, toLocalDate, items);
+    }
+    /**
+     * To validate that the taskDescription, fromDate and toDate are not empty before creating a new Event instance
+     * @param taskDescription
+     * @param fromDate
+     * @param toDate
+     */
+    private static void validateEventInputs(String taskDescription, String fromDate, String toDate) {
         assert !taskDescription.isEmpty() : "TaskDescription cannot be empty";
         assert !fromDate.isEmpty() : "From date must not be empty.";
         assert !toDate.isEmpty() : "To date must not be empty.";
-        return Parser.addingEventToTaskList(taskDescription, fromLocalDate, toLocalDate, items);
     }
-
     /**
      * Prints out all activities that are still relevant in regard to the input date
      *
@@ -255,14 +254,26 @@ public class TaskList {
             }
         }
         if (index == 1) {
-            System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
+            printsMessageWhenNoTasksFound(input);
+            /*System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
             System.out.println("Try Looking for something else!");
             return "Looks like there's no task with taskDescription that contains '" + input + "'\n"
-                    + "Try looking for something else!";
+                    + "Try looking for something else!";*/
         }
         System.out.println("____________________________________________________________");
         //return scanner.nextLine();
         return sbr.toString();
+    }
+
+    /**
+     * A special case where the keyword does not match any task description and returns this print
+     * @return
+     */
+    private static String printsMessageWhenNoTasksFound(String input) {
+        System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
+        System.out.println("Try Looking for something else!");
+        return "Looks like there's no task with taskDescription that contains '" + input + "'\n"
+                + "Try looking for something else!";
     }
 
     // Input is a string of multiple tasks split by \n
@@ -299,6 +310,22 @@ public class TaskList {
             return "You seme to have reached too high. Try reaching for something else!";
         }
         //Task task = items.get(Integer.valueOf(result[1].trim()) - 1);
+        return printsOutputStringWhenChangingPriorityForTasks(task, severity);
+        /*String previousPriority = Task.getPriority(task).toString();
+        Task.changePriority(task, severity);
+        String newPriority = Task.getPriority(task).toString();
+        return "Got it. I've changed the priority of this task:\n"
+                + task + "\n"
+                + "from " + previousPriority + " to " + newPriority + "\n";*/
+    }
+
+    /**
+     * Aids in printing the output string when the user changes priority for specific tasks
+     * @param task
+     * @param severity
+     * @return
+     */
+    private static String printsOutputStringWhenChangingPriorityForTasks(Task task, int severity) {
         String previousPriority = Task.getPriority(task).toString();
         Task.changePriority(task, severity);
         String newPriority = Task.getPriority(task).toString();
