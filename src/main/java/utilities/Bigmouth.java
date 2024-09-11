@@ -1,5 +1,6 @@
+package utilities;
+
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Bigmouth {
 
@@ -22,7 +23,7 @@ public class Bigmouth {
     public static String getFileURL() {
         final URL fileURL = Bigmouth.class.getProtectionDomain().getCodeSource().getLocation();
         String path = fileURL.getPath(); //FILE_PATH;
-        String rootPath = path.substring(0, path.indexOf("ip") + 3) + "/data/Bigmouth.txt";
+        String rootPath = path.substring(0, path.indexOf("ip") + 3) + "/data/utilities.Bigmouth.txt";
         return rootPath;
     }
 }

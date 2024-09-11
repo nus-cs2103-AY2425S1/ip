@@ -1,3 +1,10 @@
+package utilities;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,7 +34,7 @@ public class Parser {
         }
     }
 
-    void parseInput() {
+    protected void parseInput() {
         while (true) {
             String userInput = scanner.nextLine();
 

@@ -1,4 +1,6 @@
-import java.util.Scanner;
+package utilities;
+
+import tasks.Task;
 
 public class Ui {
    // private final Scanner scanner;
@@ -9,7 +11,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Bigmouth\nWhat can I do for you?");
+        System.out.println("Hello! I'm utilities.Bigmouth\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
     }
 
