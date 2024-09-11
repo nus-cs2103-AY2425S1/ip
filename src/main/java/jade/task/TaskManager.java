@@ -1,6 +1,7 @@
 package jade.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import jade.exception.JadeException;
@@ -34,6 +35,15 @@ public class TaskManager {
     }
 
     /**
+     * Retrieves all tasks as an ArrayList.
+     *
+     * @return The list of all tasks.
+     */
+    public ArrayList<Task> getAllTasks() {
+        return tasks;
+    }
+
+    /**
      * Retrieves a task from the task list based on its index.
      *
      * @param index The index of the task to retrieve.
@@ -42,6 +52,16 @@ public class TaskManager {
     public Task getTask(int index) {
         assert isValidTaskIndex(index) : "Invalid task index: " + index;
         return tasks.get(index);
+    }
+
+    /**
+     * Checks if the given index is a valid task index.
+     *
+     * @param index The index to be checked.
+     * @return True if the index is valid, false otherwise.
+     */
+    public boolean isValidTaskIndex(int index) {
+        return index >= 0 && index < tasks.size();
     }
 
     /**
@@ -105,12 +125,82 @@ public class TaskManager {
     }
 
     /**
-     * Checks if the given index is a valid task index.
-     *
-     * @param index The index to be checked.
-     * @return True if the index is valid, false otherwise.
+     * Sorts tasks alphabetically by description.
      */
-    public boolean isValidTaskIndex(int index) {
-        return index >= 0 && index < tasks.size();
+    public void sortTasksAlphabetically() {
+        tasks.sort(Comparator.comparing(Task::getDescription));
+        storage.saveTasks(tasks);
+    }
+
+    /**
+     * Sorts tasks by type.
+     */
+    public void sortTasksByTaskType() {
+        tasks.sort(Comparator.comparing(this::getTaskType));
+        storage.saveTasks(tasks);
+    }
+
+    /**
+     * Sorts tasks by deadline, putting Deadline tasks first in ascending order
+     * and leaving other tasks in their original order.
+     */
+    public void sortTasksByDeadline() {
+        // Separate Deadline tasks from other tasks
+        List<Task> deadlines = tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .sorted(Comparator.comparing(task -> ((Deadline) task).getBy()))
+                .toList();
+
+        List<Task> others = tasks.stream()
+                .filter(task -> !(task instanceof Deadline))
+                .toList();
+
+        // Combine sorted Deadline tasks with other tasks
+        tasks.clear();
+        tasks.addAll(deadlines);
+        tasks.addAll(others);
+
+        storage.saveTasks(tasks);
+    }
+
+    /**
+     * Sorts tasks by event start time, putting Event tasks first in ascending order
+     * and leaving other tasks in their original order.
+     */
+    public void sortTasksByEvent() {
+        // Separate Event tasks from other tasks
+        List<Task> events = tasks.stream()
+                .filter(task -> task instanceof Event)
+                .sorted(Comparator.comparing(task -> ((Event) task).getFrom()))
+                .toList();
+
+        List<Task> others = tasks.stream()
+                .filter(task -> !(task instanceof Event))
+                .toList();
+
+        // Combine sorted Event tasks with other tasks
+        tasks.clear();
+        tasks.addAll(events);
+        tasks.addAll(others);
+
+        storage.saveTasks(tasks);
+    }
+
+    /**
+     * Maps a Task to its corresponding TaskType.
+     *
+     * @param task The task to be mapped.
+     * @return The TaskType of the task.
+     */
+    private TaskType getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return TaskType.TODO;
+        } else if (task instanceof Deadline) {
+            return TaskType.DEADLINE;
+        } else if (task instanceof Event) {
+            return TaskType.EVENT;
+        } else {
+            throw new IllegalArgumentException("Unknown task type");
+        }
     }
 }

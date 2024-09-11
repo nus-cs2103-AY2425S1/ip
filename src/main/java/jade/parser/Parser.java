@@ -16,6 +16,7 @@ import jade.command.FindCommand;
 import jade.command.GreetCommand;
 import jade.command.ListCommand;
 import jade.command.MarkCommand;
+import jade.command.SortCommand;
 import jade.exception.JadeException;
 import jade.task.Deadline;
 import jade.task.Event;
@@ -52,6 +53,7 @@ public class Parser {
         commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false));
         commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd));
         commandMap.put("find", cmd -> new FindCommand(taskManager, cmd));
+        commandMap.put("sort", cmd -> new SortCommand(taskManager, cmd));
 
         String commandType = command.trim().toLowerCase().split(" ")[0];
         Function<String, Command> commandFunction = commandMap.get(commandType);
