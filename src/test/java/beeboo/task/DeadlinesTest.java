@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import beeboo.exception.BeeBooExceptions;
 import beeboo.exception.NoDescriptionException;
 
 public class DeadlinesTest {
