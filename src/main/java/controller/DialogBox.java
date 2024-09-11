@@ -31,6 +31,8 @@ public class DialogBox extends HBox {
      * @param img The image to be displayed in the dialog box.
      */
     private DialogBox(String text, Image img) {
+        assert text != null && !text.isEmpty() : "Text should not be null or empty";
+        assert img != null : "Image should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -39,6 +41,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert dialog != null : "Dialog Label should be initialized";
+        assert displayPicture != null : "ImageView should be initialized";
 
         dialog.setText(text);
         displayPicture.setImage(img);
@@ -48,6 +52,7 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
+        assert !this.getChildren().isEmpty() : "DialogBox should contain children before flipping";
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
@@ -62,6 +67,9 @@ public class DialogBox extends HBox {
      * @return The dialog box for the user.
      */
     public static DialogBox getUserDialog(Image img, String... text) {
+        assert text.length > 0 : "Text for user dialog should be provided";
+        assert img != null : "User image should not be null";
+
         return new DialogBox(text[0], img);
     }
 
@@ -73,6 +81,9 @@ public class DialogBox extends HBox {
      * @return The dialog box for Friday.
      */
     public static DialogBox getFridayDialog(Image img, String... text) {
+        assert text.length > 0 : "Text for Friday dialog should be provided";
+        assert img != null : "Friday image should not be null";
+
         var db = new DialogBox(text[0], img);
         db.flip();
         return db;

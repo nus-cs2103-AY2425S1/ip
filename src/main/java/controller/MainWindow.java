@@ -42,6 +42,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane should be initialized in the FXML file";
+        assert dialogContainer != null : "VBox dialogContainer should be initialized in the FXML file";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 

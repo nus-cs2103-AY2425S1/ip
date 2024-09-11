@@ -27,6 +27,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
     }
 
     /**
@@ -45,6 +46,7 @@ public class Storage {
      * @return The task corresponding to the input string.
      */
     public Task createTaskFromInput(String input) {
+        assert input != null && !input.isEmpty() : "Input string should not be null or empty";
         String taskType = input.split(" ")[0];
         return switch (taskType) {
             case "T" -> new ToDo(input.substring(4), input.split(" ")[1].equals("0"));
@@ -97,7 +99,10 @@ public class Storage {
      * @param tasks The list of tasks to be saved to the file.
      * @throws IOException If an error occurs during saving of the tasks.
      */
+
     public void saveTasksToFile(List<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks list should not be null";
+
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 fw.write(task.writeToFile());
@@ -118,7 +123,7 @@ public class Storage {
         Pattern EVENT_PATTERN = Pattern.compile("^E\\s+\\d\\s+\\w+.*\\s+/from\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)\\s+/to\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$");
 
         Pattern DEADLINE_PATTERN = Pattern.compile("^D\\s+\\d\\s+\\w+.*\\s+/by\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$");
-
+        assert file != null : "File object should not be null";
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
