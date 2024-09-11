@@ -9,43 +9,26 @@ import java.util.Scanner;
  */
 public class R2D2 {
     private static final String FILE_PATH = "./data/R2D2.txt";
+    private Storage storage;
+    private InputHandler c3po;
 
-    public static void main(String[] args) {
-
-        // Opening dialogue for the bot
-        String hline = "____________________________________________________________";
-        System.out.println(hline);
-        System.out.println("Hello! I'm R2D2! *Beep* *Boop*");
-        System.out.println("What can I do for you?");
-        System.out.println(hline);
-
-        // Reading input from user
-        Scanner reader = new Scanner(System.in);
-
-        // Initialize a new database and load tasks
-        Storage storage = new Storage(FILE_PATH);
+    public R2D2() {
+        this.storage = new Storage(FILE_PATH);
         ArrayList<Task> database = storage.loadTasks();
-        InputHandler c3po = new InputHandler(database, storage);
+        this.c3po = new InputHandler(database, storage);
+    }
 
-        // Main interaction
-        while (true) {
-            String input = reader.nextLine();
-            try {
-                if (input.equals("bye")) {
-                    break;
-                } else {
-                    c3po.overallHandler(input);
-                }
-            } catch (BuzzException e) {
-                System.out.println(hline);
-                System.out.println(" " + e.getMessage());
-                System.out.println(hline);
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            if (input.equals("bye")) {
+                response = "Bye. Hope to see you again soon! *bzzzt*\n";
+            } else {
+                response = c3po.overallHandler(input);
             }
+        } catch (BuzzException e) {
+            response = " " + e.getMessage() + "\n";
         }
-
-        // Standard exit when bye is typed
-        System.out.println(hline);
-        System.out.println("Bye. Hope to see you again soon! *bzzzt*");
-        System.out.println(hline);
+        return response;
     }
 }
