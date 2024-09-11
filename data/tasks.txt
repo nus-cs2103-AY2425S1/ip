@@ -1,9 +1,2 @@
-TODO | 0 | read book
+TODO | 0 | buy flowers
 TODO | 0 | cook dinner
-TODO | 0 | cook dinner
-TODO | 0 | cook lunch
-TODO | 0 | cook dinner
-TODO | 0 | cook bfast
-TODO | 0 | cook dinner
-DEADLINE | 0 | return book | 2024-09-05 1104
-DEFAULT | 0 | 

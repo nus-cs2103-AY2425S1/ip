@@ -26,26 +26,28 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
+     * Adds a task to the task list and returns a message.
      *
      * @param task The task to be added.
+     * @return A message confirming the task has been added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added task: ");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        return "Got it. I've added task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Deletes a task from the list by index.
+     * Deletes a task from the list by index and returns a message.
      * @param index The index of the task to delete.
+     * @return A message confirming the task has been deleted.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public void deleteTask(int index) throws IndexOutOfBoundsException {
+    public String deleteTask(int index) throws IndexOutOfBoundsException {
         Task removedTask = tasks.remove(index);
-        System.out.println("Deleted task: " + removedTask.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        return "Deleted task:\n" + removedTask.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -89,4 +91,5 @@ public class TaskList {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }
+
 

@@ -10,6 +10,7 @@ import Alex.Task.Task;
  */
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
+    private StringBuilder output = new StringBuilder();
 
     /**
      * Constructs a Ui object to handle user interactions.
@@ -17,28 +18,44 @@ public class Ui {
     public Ui() {
         // No need to pass the task list
     }
+    /**
+     * Returns the stored output and clears the StringBuilder for the next response.
+     *
+     * @return The response message.
+     */
+    public String getOutput() {
+        String result = output.toString();
+        output.setLength(0); // Clear the StringBuilder for the next command
+        return result;
+    }
 
     /**
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        printDividerWithMessage("Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?");
+        appendMessage("Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?");
+    }
+
+    public void showBye() {
+        appendMessage(" Bye. Hope to see you again soon!");
     }
 
     /**
      * Displays an error message to the user.
      *
      * @param message The error message to be displayed.
+     * @return The error message.
      */
-    public void showError(String message) {
-        printDividerWithMessage(message);
+    public String showError(String message) {
+        appendMessage("Error: " + message);
+        return message; // Return the error message
     }
 
     /**
      * Displays an error message when loading tasks fails.
      */
     public void showLoadingError() {
-        printDividerWithMessage("Error loading tasks. Starting with an empty task list.");
+        appendMessage("Error loading tasks. Starting with an empty task list.");
     }
 
     /**
@@ -46,32 +63,14 @@ public class Ui {
      *
      * @return The command entered by the user.
      */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Displays a dividing line for formatting.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays a message indicating that a task has been deleted.
-     *
-     * @param task The task that was deleted.
-     */
-    public void printTaskDeleted(Task task) {
-        System.out.println("Task deleted: " + task);
-    }
 
     /**
      * Prints a joke to the user.
      */
-    public void printJoke() {
-        printDividerWithMessage("Why did the scarecrow win an award? Because he was outstanding in his field!");
+    public String showJoke() {
+        return "Why do programmers prefer dark mode? Because the light attracts bugs!";
     }
+
 
     /**
      * Prints the list of tasks to the user.
@@ -80,11 +79,11 @@ public class Ui {
      */
     public void printTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            appendMessage("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            appendMessage("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                appendMessage((i + 1) + ". " + tasks.get(i).toString());
             }
         }
     }
@@ -95,8 +94,8 @@ public class Ui {
      * @param message The message indicating the status change.
      * @param index   The index of the task whose status was changed.
      */
-    public void printTaskStatusChange(String message, int index) {
-        System.out.println(message + " " + (index + 1));
+    public void showTaskStatusChange(String message, int index) {
+        appendMessage(message + " for task " + (index + 1));
     }
 
     /**
@@ -108,6 +107,14 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println(" " + message);
         System.out.println("____________________________________________________________");
+    }
+    /**
+     * Appends a message to the output.
+     *
+     * @param message The message to be added to the output.
+     */
+    public void appendMessage(String message) {
+        output.append(message).append("\n");
     }
 }
 

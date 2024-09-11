@@ -23,8 +23,10 @@ public class DeleteCommand extends CommandBase {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
         try {
-            Task task = tasks.getTask(index);
-            tasks.deleteTask(index);
+            // Get the delete confirmation message from TaskList
+            String message = tasks.deleteTask(index);
+            // Pass the message to Ui for display
+            ui.appendMessage(message);
             storage.save(tasks.getAllTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new AlexException("Task not found.");

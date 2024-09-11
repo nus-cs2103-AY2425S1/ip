@@ -17,7 +17,8 @@ public class ExitCommand extends CommandBase {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // No action needed for exit command.
+        ui.showBye();
+        System.exit(0);
     }
 }
 
