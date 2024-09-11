@@ -3,9 +3,7 @@ package yappingbot.ui.gui;
 import java.io.IOException;
 
 import javafx.application.Platform;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -73,6 +71,7 @@ public class MainWindow extends VBox {
             return;
         }
 
+        // generate dialog box for robot
         try {
             String response = ui.getNextOutputLine();
             DialogBox replyDialogBox = DialogBox.getReplyDialog(response, ypImage);
@@ -80,6 +79,8 @@ public class MainWindow extends VBox {
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+
+        // unset flag so that if JavaFX runs this, the program will not hang.
         this.updateOutput = false;
     }
 

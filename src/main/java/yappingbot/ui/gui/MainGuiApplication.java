@@ -22,6 +22,8 @@ public class MainGuiApplication extends Application {
 
     @Override
     public void start(Stage stage) {
+        // Set the close handler to signal ui to turn off streams before closing the system,
+        // so that the program will not be stuck on a blocking check for new I/O streams.
         stage.setOnCloseRequest(e -> {
             ui.setProgramClose(true);
             Platform.exit();
@@ -32,12 +34,14 @@ public class MainGuiApplication extends Application {
             URL mainWindowResource = MainGuiApplication.class.getResource("/view/MainWindow.fxml");
             FXMLLoader fxmlloader = new FXMLLoader(mainWindowResource);
 
+            // Vbox holds the main programme:
+            //
+
             VBox vb = fxmlloader.load();
             Scene scene = new Scene(vb);
 
             stage.setScene(scene);
             fxmlloader.<MainWindow>getController().setUi(ui);
-
 
             stage.show();
             YappingBot yp = new YappingBot(ui, new Storage(Launcher.getSavefilePath()));
