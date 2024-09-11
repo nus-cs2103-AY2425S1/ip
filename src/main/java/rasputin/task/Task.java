@@ -4,7 +4,7 @@ package rasputin.task;
  * Represents a task to be completed. A task can be of 3 different types and can be marked as done or not done.
  *
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -19,7 +19,16 @@ public class Task {
      * @return Status icon of task as a String.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the status of task to be used in the file format. If task is done, return a "1", else return "0".
+     *
+     * @return Status identifier of task as a String.
+     */
+    public String getStatusIdentifier() {
+        return (isDone ? "1" : "0");
     }
 
     /**
@@ -62,6 +71,13 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns the string as the format to be saved in the .txt file.
+     *
+     * @return String in the format to be saved
+     */
+    public abstract String toSaveFormat();
 
     /**
      * Returns string representation of the task with the status icon followed by the description.
