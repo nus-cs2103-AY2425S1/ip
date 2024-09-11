@@ -47,7 +47,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(bibi); // inject the Duke instance
             stage.show();
-            assert false : "Failed to";
         } catch (IOException e) {
             e.printStackTrace();
         }
