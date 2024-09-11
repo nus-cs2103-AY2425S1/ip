@@ -14,6 +14,7 @@ import bob.commands.Find;
 import bob.commands.List;
 import bob.commands.Mark;
 import bob.commands.On;
+import bob.commands.Remind;
 import bob.commands.Todo;
 import bob.commands.Unmark;
 import bob.data.BobException;
@@ -29,7 +30,7 @@ public class Parser {
      * Enum for commands.
      */
     public enum CommandType {
-        LIST, UNMARK, MARK, ON, DELETE, FIND, TODO, DEADLINE, EVENT, BYE
+        LIST, UNMARK, MARK, ON, DELETE, FIND, TODO, DEADLINE, EVENT, REMIND, BYE
     }
 
     /**
@@ -49,34 +50,24 @@ public class Parser {
             commandType = CommandType.valueOf(commandWord); // Convert string to enum
         } catch (IllegalArgumentException e) {
             throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
-                    + " list, unmark, mark, delete, on, todo, deadline, event, and bye.");
+                    + " list, unmark, mark, delete, on, todo, deadline, event, remind, and bye.");
         }
 
-        switch (commandType) {
-        case LIST:
-            return prepareList();
-        case MARK:
-            return prepareMark(fullCommand);
-        case UNMARK:
-            return prepareUnmark(fullCommand);
-        case ON:
-            return prepareOn(fullCommand);
-        case DELETE:
-            return prepareDelete(fullCommand);
-        case FIND:
-            return prepareFine(fullCommand);
-        case TODO:
-            return prepareTodo(fullCommand);
-        case DEADLINE:
-            return prepareDeadline(fullCommand);
-        case EVENT:
-            return prepareEvent(fullCommand);
-        case BYE:
-            return new Bye();
-        default:
-            throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
-                    + " list, unmark, mark, delete, on, todo, deadline, event, and bye.");
-        }
+        return switch (commandType) {
+            case LIST -> prepareList();
+            case MARK -> prepareMark(fullCommand);
+            case UNMARK -> prepareUnmark(fullCommand);
+            case ON -> prepareOn(fullCommand);
+            case DELETE -> prepareDelete(fullCommand);
+            case FIND -> prepareFine(fullCommand);
+            case TODO -> prepareTodo(fullCommand);
+            case DEADLINE -> prepareDeadline(fullCommand);
+            case EVENT -> prepareEvent(fullCommand);
+            case REMIND -> prepareRemind();
+            case BYE -> new Bye();
+            default -> throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
+                    + " list, unmark, mark, delete, on, todo, deadline, event, remind and bye.");
+        };
     }
 
     private static List prepareList() {
@@ -102,7 +93,7 @@ public class Parser {
         String[] parts = fullCommand.split(" ");
 
         if (parts.length < 2) {
-            throw new BobException("PLease provide a task number.");
+            throw new BobException("Please provide a task number.");
         }
 
         int index = Integer.parseInt(parts[1]) - 1;
@@ -136,7 +127,7 @@ public class Parser {
         String[] parts = fullCommand.split(" ");
 
         if (parts.length < 2) {
-            throw new BobException("PLease provide a task number.");
+            throw new BobException("Please provide a task number.");
         }
 
         int index = Integer.parseInt(parts[1]) - 1;
@@ -210,5 +201,9 @@ public class Parser {
             throw new BobException("Invalid start and end date. Please enter in the format: "
                     + "/from yyyy-MM-dd HH:mm /to: yyyy-MM-dd HH:mm or HH:mm");
         }
+    }
+
+    private static Command prepareRemind() {
+        return new Remind();
     }
 }

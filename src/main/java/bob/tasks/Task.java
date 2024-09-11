@@ -1,6 +1,7 @@
 package bob.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Abstract class representing a task in the task list.
@@ -25,6 +26,10 @@ public abstract class Task {
 
     public String getType() {
         return "task";
+    }
+
+    public LocalDateTime getReminderDate() {
+        return null;
     }
 
     public String getBy() {

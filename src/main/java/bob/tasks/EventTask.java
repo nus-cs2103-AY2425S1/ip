@@ -65,6 +65,11 @@ public class EventTask extends Task {
     }
 
     @Override
+    public LocalDateTime getReminderDate() {
+        return from;
+    }
+
+    @Override
     public LocalDate getDate() {
         return from.toLocalDate();
     }
