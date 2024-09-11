@@ -71,6 +71,12 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Finds tasks which descriptions contain the keyword supplied
+     *
+     * @param keyword The keyword to look for
+     * @return A list of tasks containing the keyword
+     */
     public List<Task> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task: tasks) {
