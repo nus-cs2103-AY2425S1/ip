@@ -2,6 +2,7 @@ package llama.data;
 
 import java.util.ArrayList;
 
+import llama.exceptions.InvalidTagException;
 import llama.ui.Ui;
 /**
  * Represents the list of tags
@@ -22,15 +23,23 @@ public class TagList {
      * @param tagTitle Title of tag to be created
      * @param ui user interface to give user information
      */
-    public String createTag(String tagTitle, Ui ui) {
+    public String createTag(String tagTitle, Ui ui) throws InvalidTagException {
         String response = "";
         if (exists(tagTitle)) {
-            return "Tag already exists!";
+            throw new InvalidTagException("Tag already exists!");
         }
         Tag tag = new Tag(tagTitle);
         this.tagList.add(tag);
         response += ui.displayString("Tag created: " + tag);
         return response;
+    }
+
+    /**
+     * Loads tag using given tag title, does not show user information
+     */
+    public void loadTag(String tagTitle) {
+        Tag tag = new Tag(tagTitle);
+        this.tagList.add(tag);
     }
 
     /**
@@ -49,5 +58,24 @@ public class TagList {
         }
 
         return false;
+    }
+
+    /**
+     * Get the size of tag list
+     *
+     * @return size of tag list
+     */
+    public int getSize() {
+        return this.tagList.size();
+    }
+
+    /**
+     * Get the tag at index i
+     *
+     * @param i index of tag to get
+     * @return tag at index i
+     */
+    public Tag getTag(int i) {
+        return this.tagList.get(i);
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import llama.data.Storage;
 import llama.data.TagList;
 import llama.data.TaskList;
+import llama.exceptions.InvalidTagException;
 import llama.ui.Ui;
 
 
@@ -26,7 +27,13 @@ public class CreateTagCommand implements Command {
     @Override
     public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) throws IOException {
         String response = "";
-        response += tagList.createTag(this.remaining, ui);
+        try {
+            response += tagList.createTag(this.remaining, ui);
+        } catch (InvalidTagException e) {
+            response = ui.displayString(e.getMessage());
+        }
+
+        storage.saveTags(tagList);
         return response;
     }
 }

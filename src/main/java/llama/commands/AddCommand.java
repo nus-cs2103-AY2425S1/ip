@@ -58,7 +58,7 @@ public class AddCommand implements Command {
         if (taskType == TaskType.TODO) {
             Task newTask = new Todo(remaining, false);
             response = taskList.addTask(newTask , ui);
-            storage.save(taskList);
+            storage.saveTasks(taskList);
         } else if (taskType == TaskType.DEADLINE) {
             String[] substringArr = remaining.split("/by ");
             LocalDateTime deadline;
@@ -72,7 +72,7 @@ public class AddCommand implements Command {
 
             Task newTask = new Deadline(substringArr[0], deadline, false);
             response = taskList.addTask(newTask, ui);
-            storage.save(taskList);
+            storage.saveTasks(taskList);
         } else if (taskType == TaskType.EVENT) {
             String[] substringArr = remaining.split("/");
             String desc = substringArr[0];
@@ -91,7 +91,7 @@ public class AddCommand implements Command {
 
             Task newTask = new Event(desc, startTime, endTime, false);
             response = taskList.addTask(newTask, ui);
-            storage.save(taskList);
+            storage.saveTasks(taskList);
         }
 
         return response;

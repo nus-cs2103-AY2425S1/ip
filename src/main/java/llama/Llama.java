@@ -28,9 +28,9 @@ public class Llama {
     public Llama() {
         this.ui = new Ui();
         this.storage = new Storage();
-        this.tagList = new TagList();
         try {
-            this.taskList = storage.load();
+            this.taskList = storage.loadTasks();
+            this.tagList = storage.loadTags();
         } catch (IOException e) {
             ui.displayString(e.getMessage());
         }

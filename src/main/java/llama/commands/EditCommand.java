@@ -35,7 +35,7 @@ public class EditCommand implements Command {
     }
 
     @Override
-    public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, TagList tagList, Ui ui, Storage storage) {
         String response = "";
         int index = Integer.parseInt(remaining);
         try {
@@ -44,7 +44,7 @@ public class EditCommand implements Command {
             } else if (instruction == Instruction.UNMARK) {
                 response = taskList.unmarkTask(index, ui);
             }
-            storage.save(taskList);
+            storage.saveTasks(taskList);
         } catch (InvalidTaskException | IOException e) {
             response = ui.displayString(e.getMessage());
         }

@@ -29,9 +29,9 @@ public class DeleteCommand implements Command {
         int index = Integer.parseInt(remaining);
         try {
             response = taskList.deleteTask(index, ui);
-            storage.save(taskList);
-        } catch (InvalidTaskException | IOException e) {
-            ui.displayString(e.getMessage());
+            storage.saveTasks(taskList);
+        } catch (InvalidTaskException e) {
+            response = ui.displayString(e.getMessage());
         }
         return response;
     }
