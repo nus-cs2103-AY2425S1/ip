@@ -1,8 +1,13 @@
 package donna.task;
 
-import donna.DonnaException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import donna.DonnaException;
 
 public class TaskTest {
 
@@ -30,8 +35,8 @@ public class TaskTest {
     @Test
     void testMarkTaskAsNotDone() throws DonnaException {
         Task task = new ToDo("Valid Task");
-        task.markDone();  // Mark done first
-        task.markNotDone();  // Then mark not done
+        task.markDone(); // Mark done first
+        task.markNotDone(); // Then mark not done
         assertFalse(task.isDone());
         assertEquals("[T][ ] Valid Task ", task.toString());
     }

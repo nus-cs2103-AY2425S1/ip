@@ -1,9 +1,13 @@
 package donna.task;
 
-import donna.DonnaException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import donna.DonnaException;
 
 class DeadlineTest {
 
@@ -16,8 +20,8 @@ class DeadlineTest {
 
     @Test
     void testDeadlineInitialisationWithEmptyDeadline() {
-        DonnaException exception = assertThrows(DonnaException.class,
-                () -> new Deadline("Return books", ""),
+        DonnaException exception = assertThrows(DonnaException.class, () ->
+                        new Deadline("Return books", ""),
                 "Expected to throw DonnaException for empty deadline.");
 
         assertEquals("Please provide a deadline for this task!" + "\n" + "Use /by to provide a deadline.",

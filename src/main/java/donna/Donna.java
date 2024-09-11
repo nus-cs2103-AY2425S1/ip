@@ -1,23 +1,28 @@
 package donna;
 
-import donna.parse.ParsedCommand;
-import donna.parse.Parser;
-import donna.task.*;
-
 import java.util.List;
 import java.util.Scanner;
+
+import donna.parse.ParsedCommand;
+import donna.parse.Parser;
+import donna.task.Deadline;
+import donna.task.Event;
+import donna.task.Task;
+import donna.task.TaskList;
+import donna.task.ToDo;
+
 
 /**
  * Represents the main class for the Donna chatbot.
  */
 public class Donna {
+    private static final String DIRECTORY_PATH = "data";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/donna-tasks.txt";
+    private static Storage storage;
     private Ui ui;
     private TaskList tasks;
     private final Parser parser;
-    private static Storage storage;
 
-    private static final String DIRECTORY_PATH = "data";
-    private static final String FILE_PATH = DIRECTORY_PATH + "/donna-tasks.txt";
 
     /**
      * Constructs a Donna instance, initializing the user interface, storage,
@@ -77,8 +82,12 @@ public class Donna {
                     break;
                 case "find":
                     List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
-                    ui.display(ui.FindResults(foundTasks));
+                    ui.display(ui.findResults(foundTasks));
+                    break;
+                default:
+                    throw DonnaException.invalidTaskType(commandType);
                 }
+
             } catch (DonnaException e) {
                 ui.display(ui.getErrorMessage(e.getMessage()));
             }
@@ -89,8 +98,8 @@ public class Donna {
      * Handles the marking of a task as done.
      *
      * @param taskNum S.No of the task to mark (index from 1).
-     * @throws DonnaException If the argument is not a valid task number.
      * @return Donna's response confirming the marking of a task as done.
+     * @throws DonnaException If the argument is not a valid task number.
      */
     private String handleMark(String taskNum) throws DonnaException {
         try {
@@ -107,8 +116,8 @@ public class Donna {
      * Handles the marking of a task as not done.
      *
      * @param taskNum Index of the task to unmark (index from 1).
-     * @throws DonnaException If the argument is not a valid task number.
      * @return Donna's response confirming the marking of a task as not done.
+     * @throws DonnaException If the argument is not a valid task number.
      */
     private String handleUnmark(String taskNum) throws DonnaException {
         try {
@@ -125,8 +134,8 @@ public class Donna {
      * Handles the deletion of a task.
      *
      * @param taskNum Index of the task to delete (index from 1).
-     * @throws DonnaException If the argument is not a valid task number.
      * @return Donna's response confirming the deletion of a task.
+     * @throws DonnaException If the argument is not a valid task number.
      */
     private String handleDelete(String taskNum) throws DonnaException {
         try {
@@ -144,8 +153,8 @@ public class Donna {
      *
      * @param type Type of the task (e.g., "todo", "deadline", "event").
      * @param description Description of the task.
-     * @throws DonnaException If the type or description is invalid.
      * @return Donna's response confirming the addition of a task.
+     * @throws DonnaException If the type or description is invalid.
      */
     private String handleAdd(String type, String description) throws DonnaException {
         Task newTask;
@@ -209,12 +218,13 @@ public class Donna {
                 return handleAdd(result.getArgument1(), result.getArgument2());
             case "find":
                 List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
-                return ui.FindResults(foundTasks);
+                return ui.findResults(foundTasks);
+            default:
+                return input;
             }
         } catch (DonnaException e) {
             return ui.getErrorMessage(e.getMessage());
         }
-        return input;
     }
 
     /**
