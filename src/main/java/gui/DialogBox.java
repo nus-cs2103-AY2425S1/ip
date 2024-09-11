@@ -2,12 +2,12 @@ package gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -16,14 +16,10 @@ import javafx.scene.text.Font;
  * containing the message from the user.
  */
 public class DialogBox extends HBox {
-    @FXML
     private final Label text;
-    @FXML
     private final ImageView displayPicture;
 
-    /**
-     * Construct new DialogBox with given label, image and background color.
-     */
+    /** Construct new DialogBox with given label, image and background color. */
     public DialogBox(Label l, ImageView iv, String color) {
         text = l;
         displayPicture = iv;
@@ -34,6 +30,12 @@ public class DialogBox extends HBox {
         text.setStyle("-fx-padding: 10;"
                 + "-fx-border-color: white;"
                 + "-fx-border-radius: 10px;");
+        text.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(text, Priority.ALWAYS);
+        text.setPrefWidth(0);
+
+        setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(this, Priority.ALWAYS);
 
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
@@ -44,9 +46,7 @@ public class DialogBox extends HBox {
         setStyle("-fx-background-color:" + color);
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
+    /** Flips the dialog box such that the ImageView is on the left and text on the right. */
     private void flip() {
         setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());

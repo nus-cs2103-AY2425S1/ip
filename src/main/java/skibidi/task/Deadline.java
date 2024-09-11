@@ -19,7 +19,6 @@ public class Deadline extends AbstractTask {
         this.by = by;
     }
 
-
     /**
      * Validate arguments for creating a new instance of Deadline, and returns
      * a new instance if valid. Otherwise throws TaskValidationException.
