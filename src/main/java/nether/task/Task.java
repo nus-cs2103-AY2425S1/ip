@@ -11,7 +11,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructs an (by default) incomplete {@code Task} object with the specified description.
+     * Constructs (by default) an incomplete {@code Task} object with the specified description.
      *
      * @param description The description of the task.
      */

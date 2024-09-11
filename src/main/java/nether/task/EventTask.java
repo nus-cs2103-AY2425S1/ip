@@ -12,36 +12,40 @@ import nether.NetherException;
  * The {@code EventTask} class inherits from the {@link Task} class and adds specific start and end timings to the task.
  */
 public class EventTask extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     /**
      * Constructs an {@code EventTask} object with the specified description, start, and end date/times.
      *
      * @param description The description of the event task.
-     * @param from The start date and time of the event in the format {@code yyyy-MM-dd HHmm}.
-     * @param to The end date and time of the event in the format {@code yyyy-MM-dd HHmm}.
+     * @param startTime The start date and time of the event in the format {@code yyyy-MM-dd HHmm}.
+     * @param endTime The end date and time of the event in the format {@code yyyy-MM-dd HHmm}.
      * @throws NetherException If the date/time format for the start or end timings is invalid.
      */
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, String startTime, String endTime) {
         super(description);
-        this.from = null;
-        this.to = null;
+        assert startTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
+        assert endTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
+        this.startTime = getDateTime(startTime);
+        this.endTime = getDateTime(endTime);
+    }
+
+    /**
+     * Returns a parsed date and time of the event.
+     * @param timeStr The input date and time in the format {@code yyyy-MM-dd HHmm}.
+     * @return Parsed date and time for the event.
+     * @throws NetherException If the input date/time does not follow the accepted format.
+     */
+    private static LocalDateTime getDateTime(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         // Validate the input date/time and then assign them
         try {
-            this.from = LocalDateTime.parse(from.trim(), formatter);
+            return LocalDateTime.parse(timeStr.trim(), formatter);
         } catch (DateTimeException e) {
-            throw new NetherException("the date/time format for the event FROM timing is invalid. Please use "
-                    + "the format: yyyy-MM-dd HHmm.");
-        }
-
-        try {
-            this.to = LocalDateTime.parse(to.trim(), formatter);
-        } catch (DateTimeException e) {
-            throw new NetherException("the date/time format for the event TO timing is invalid. Please use "
+            throw new NetherException("the date/time format for the event timing is invalid. Please use "
                     + "the format: yyyy-MM-dd HHmm.");
         }
     }
@@ -55,8 +59,8 @@ public class EventTask extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E|" + this.getStatusIcon() + "|" + this.getDescription() + "|" + this.from.format(formatter)
-                + "|" + this.to.format(formatter);
+        return "E|" + this.getStatusIcon() + "|" + this.getDescription() + "|" + this.startTime.format(formatter)
+                + "|" + this.endTime.format(formatter);
     }
 
     /**
@@ -68,7 +72,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-        return "[E]" + super.toString() + "(from: " + this.from.format(formatter)
-                + " to: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + "(from: " + this.startTime.format(formatter)
+                + " to: " + this.endTime.format(formatter) + ")";
     }
 }
