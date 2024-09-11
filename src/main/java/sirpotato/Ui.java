@@ -38,7 +38,7 @@ public class Ui {
      * @return Welcome message
      */
     public String displayWelcomeMessage() {
-        String response = "Hello from\n" + logo + 
+        String response = "Hello from" + logo + 
                 "What can I do ya for?\n" + HORIZONTAL_LINE;
         System.out.println(response);
         return response;
@@ -63,11 +63,8 @@ public class Ui {
      * @return Added task message
      */
     public String displayAddedTask(Task task, TaskList tasks) {
-        String response = HORIZONTAL_LINE + 
-                INDENT + "Got it. I've added this task for ya." + 
-                INDENT + task + 
-                INDENT + "Now you've got " + tasks.getSizeOfList() + " tasks in the list mate" + 
-                HORIZONTAL_LINE;
+        String response = "Got it. I've added this task for ya.\n" + 
+                "Now you've got " + tasks.getSizeOfList() + " tasks in the list mate";
         System.out.println(response);
         return response;
     }
@@ -80,11 +77,9 @@ public class Ui {
      * @return Deletion of task message
      */
     public String displayDeletionMessage(Task task, TaskList tasks) {
-        String response = HORIZONTAL_LINE +
-                "Gotcha mate, I've deleted the following task: " + 
+        String response = "Gotcha mate, I've deleted the following task: " + 
                 task + 
-                "Now you've got " + (tasks.getSizeOfList()) + " tasks left." + 
-                HORIZONTAL_LINE;
+                "Now you've got " + (tasks.getSizeOfList()) + " tasks left.";
         System.out.println(response);
         return response;
     }
@@ -96,14 +91,11 @@ public class Ui {
      * @return the formatted list of tasks
      */
     public String listTasks(TaskList tasks) {
-        String response = HORIZONTAL_LINE + 
-                INDENT + "Here are the tasks in your list:" + 
-                INDENT + "List: ";
+        String response = "Here are the tasks in your list:\n" + "List: \n";
 
         for (int i = 0; i < tasks.getList().size(); i++) {
-            response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
+            response = response + (i+1) + ". " + tasks.getTask(i) + "\n";
         }
-        response = response + HORIZONTAL_LINE + "\n";
         System.out.println(response);
         return response;
     }
@@ -115,12 +107,11 @@ public class Ui {
      * @return the formatted list of tasks
      */
     public String displaySortedTasks(TaskList tasks) {
-        String response = "Here is the sorted task list: \n";
+        String response = "Here is your sorted task list: \n";
 
         for (int i = 0; i < tasks.getList().size(); i++) {
-            response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
+            response = response + (i+1) + ". " + tasks.getTask(i) + "\n";
         }
-        response = response + HORIZONTAL_LINE + "\n";
         System.out.println(response);
         return response;
     }
@@ -134,10 +125,8 @@ public class Ui {
      * @return the marked item message
      */
     public String displayMarkedItem(int itemNumber, TaskList tasks) {
-        String response = HORIZONTAL_LINE + 
-                INDENT + "Good on ya! I've marked it done:" + 
-                INDENT + INDENT + tasks.getTask(itemNumber) + 
-                HORIZONTAL_LINE;
+        String response = "Good on ya! I've marked it done:\n" + 
+                tasks.getTask(itemNumber);
         System.out.println(response);
         return response;
     }
@@ -151,10 +140,8 @@ public class Ui {
      * @return the unmarked item message
      */
     public String displayUnmarkedItem(int itemNumber, TaskList tasks) {
-        String response = HORIZONTAL_LINE + 
-                INDENT + "What's happened here mate? I've unmarked it for ya." + 
-                INDENT + INDENT + tasks.getTask(itemNumber) + 
-                HORIZONTAL_LINE;
+        String response = "What's happened here mate? I've unmarked it for ya.\n" + 
+                tasks.getTask(itemNumber);
         System.out.println(response);
         return response;
     }
@@ -182,15 +169,13 @@ public class Ui {
      * @return the formatted list of tasks that match the search
      */
     public String findTasks(TaskList tasks, String searchString) {
-        String response = HORIZONTAL_LINE + 
-                INDENT + "Here are the matching tasks found:";
+        String response = "Here are the matching tasks found:\n";
 
         for (int i = 0; i < tasks.getList().size(); i++) {
             if (tasks.getList().get(i).containsString(searchString)) {
-                response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
+                response = response + (i+1) + ". " + tasks.getTask(i);
             }
         }
-        response = response + HORIZONTAL_LINE + "\n";
         System.out.println(response);
         return response;
     }

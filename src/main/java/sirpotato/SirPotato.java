@@ -98,7 +98,7 @@ public class SirPotato {
             Command command = Parser.parseCommand(input);
             return command.execute(tasks, ui, storage);
         } catch (DukeException | IOException e) {
-            return ui.respond(e.getMessage());
+            return e.getMessage();
         }
     }
 

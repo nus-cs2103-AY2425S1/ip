@@ -55,6 +55,9 @@ class Parser {
                 throw new DukeException("You need to say which item to delete");
             } 
         } else if (userInput.startsWith("sort")) {
+            if (userInput.length() <= 5) {
+                throw new DukeException("Mate, please specify your category: either description or deadline");
+            }
             String[] sectionedString = userInput.split(" ");
             String categoryToSortBy = sectionedString[1];
             if (!(categoryToSortBy.equals("description") || categoryToSortBy.equals("deadline"))) {
