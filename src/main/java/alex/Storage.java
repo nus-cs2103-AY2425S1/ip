@@ -39,7 +39,9 @@ public class Storage {
         ArrayList<Task> list = new ArrayList<>();
 
         while (s.hasNext()) {
-            Scanner lineScanner = new Scanner(s.nextLine());
+            String lineOfWords = s.nextLine();
+            assert !lineOfWords.isEmpty() : "Empty line in Alex.txt";
+            Scanner lineScanner = new Scanner(lineOfWords);
             String category = lineScanner.next();
             Task task = new Task("", false);
 
