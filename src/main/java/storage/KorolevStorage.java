@@ -1,6 +1,7 @@
 package storage;
 
 import exception.ParseException;
+import parser.EventParser;
 import task.KorolevTask;
 
 import java.io.File;
@@ -15,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
-import parser.EventParser;
+
 
 /**
  * Represents a manager of interaction between the application and local storage
@@ -69,7 +70,7 @@ public class KorolevStorage {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(String.valueOf(PATH)));
             String line = bfr.readLine();
-            while(line != null) {
+            while (line != null) {
                 events.add(EventParser.parseLoadedRecord(line));
                 line = bfr.readLine();
             }

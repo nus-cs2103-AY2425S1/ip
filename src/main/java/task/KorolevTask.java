@@ -28,6 +28,7 @@ public class KorolevTask {
     }
 
     /**
+     * Checks whether the task name contains the keyword
      *
      * @param keyword keys input by users
      * @return tests whether the description contains certain keywords

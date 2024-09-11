@@ -82,14 +82,14 @@ public class EventParser {
     }
 
     private static KorolevEvent parseEventRecord(String record) throws ParseException {
-        Pattern name_pattern = Pattern.compile("\\]\\s(.+)\\s\\(");
-        Matcher m1 = name_pattern.matcher(record);
+        Pattern namePattern = Pattern.compile("\\]\\s(.+)\\s\\(");
+        Matcher m1 = namePattern.matcher(record);
 
-        Pattern from_pattern = Pattern.compile("from:\\s(.+)\\s*to");
-        Matcher m2 = from_pattern.matcher(record);
+        Pattern fromPattern = Pattern.compile("from:\\s(.+)\\s*to");
+        Matcher m2 = fromPattern.matcher(record);
 
-        Pattern to_pattern = Pattern.compile("to:\\s(.+)\\s*\\)");
-        Matcher m3 = to_pattern.matcher(record);
+        Pattern toPattern = Pattern.compile("to:\\s(.+)\\s*\\)");
+        Matcher m3 = toPattern.matcher(record);
         String taskDescription, from, to;
         if (m1.find() && m2.find() && m3.find()) {
             taskDescription = m1.group(1);

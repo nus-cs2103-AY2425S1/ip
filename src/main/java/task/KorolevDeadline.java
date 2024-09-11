@@ -29,7 +29,7 @@ public class KorolevDeadline extends KorolevTask {
     public String toString() {
         String base = super.toString();
         String tag = "D";
-        String head = "[" + tag +"]";
+        String head = "[" + tag + "]";
         String deadlines;
         deadlines = "by " + this.deadline.format(
             DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH)
