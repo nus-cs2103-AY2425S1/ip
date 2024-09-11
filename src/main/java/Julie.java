@@ -1,6 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import julie.command.Command;
 import julie.exception.JulieException;
@@ -9,6 +9,9 @@ import julie.misc.Storage;
 import julie.misc.UI;
 import julie.task.Task;
 
+/**
+ * The Class that represents the Julie Chat Bot.
+ */
 public class Julie {
     private static final String NAME = "Julie";
     private static boolean isExit = false;
