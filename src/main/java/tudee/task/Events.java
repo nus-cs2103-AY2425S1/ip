@@ -13,6 +13,7 @@ import tudee.TudeeException;
 public class Events extends Task {
     private static final int MARKED_VALUE = 1;
     private static final int UNMARKED_VALUE = 0;
+    private static final int DAYS_BEFORE = 1;
 
     /**
      * The start date for this task.
@@ -37,6 +38,15 @@ public class Events extends Task {
         } catch (DateTimeParseException e) {
             throw new TudeeException("Invalid date format. Please use yyyy-MM-dd.");
         }
+    }
+
+    /**
+     * Checks if the end date is coming soon.
+     *
+     * @return True if the end date is 1 day after the current date.
+     */
+    public boolean isDueSoon(LocalDate currentDate) {
+        return !end.isBefore(currentDate) && end.minusDays(DAYS_BEFORE).isEqual(currentDate);
     }
 
     /**
