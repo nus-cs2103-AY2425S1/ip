@@ -36,7 +36,10 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws TheBotFatherException {
+        if (taskArrayList.contains(task)) {
+            throw new TheBotFatherException("Son, check again.. this task might already be in the list smh");
+        }
         taskArrayList.add(task);
         numberOfRemainingTasks++;
     }
@@ -135,7 +138,7 @@ public class TaskList {
      * @param word The word to search for in the descriptions of the tasks.
      * @return A {@link TaskList} containing all tasks whose descriptions include the specified word.
      */
-    public TaskList findWord(String word) {
+    public TaskList findWord(String word) throws TheBotFatherException {
         TaskList taskList = new TaskList(new ArrayList<>());
         for (Task task : taskArrayList) {
             if (task.isWordInDescription(word)) {

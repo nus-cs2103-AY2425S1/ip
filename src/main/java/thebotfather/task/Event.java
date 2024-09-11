@@ -92,6 +92,15 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+
+        return obj.toString().equals(this.toString());
+    }
+
+    @Override
     public String toString() {
         return super.toString()
                 + " (from: " + this.from.format(Task.DATE_STRING_FORMATTER_PRINT)
