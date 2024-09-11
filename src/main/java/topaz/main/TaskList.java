@@ -141,4 +141,18 @@ public class TaskList {
         }
         return result;
     }
+
+    /**
+     * Compute number of tasks finished within this week, a week is from Monday 00:00 to Sunday 23:59 of this week.
+     * @return number of tasks completed within this week.
+     */
+    public Integer countWeeklyComplete() {
+        int count = 0;
+        for (Task task: tasks) {
+            if (task.isFinishedThisWeek()) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

@@ -129,4 +129,14 @@ public class Ui {
                     + taskList;
         }
     }
+    public String showGoodFeedback(int count) {
+        return String.format("Good job! You have finished "
+                + "%d task(s) this week, keep on working!", count);
+    }
+    public String showBadFeedback() {
+        return "Looks like you haven't done anything this week. Type \"list\" to see your tasks.";
+    }
+    public String callAddTask() {
+        return "You haven't added any task now, type \"help\" to see how to add one.";
+    }
 }

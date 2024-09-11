@@ -5,6 +5,7 @@ import topaz.command.CreateCommand;
 import topaz.command.DeleteCommand;
 import topaz.command.FindCommand;
 import topaz.command.MarkCommand;
+import topaz.command.StatisticsCommand;
 import topaz.command.TextCommand;
 import topaz.exception.InvalidCommandException;
 
@@ -53,6 +54,9 @@ public class Parser {
         } else if (prompt.startsWith("delete")) {
             int index = Integer.parseInt(prompt.substring(7));
             return new DeleteCommand("delete", index);
+        } else if (prompt.startsWith("statistic")) {
+            return new StatisticsCommand();
+
         } else {
             throw new InvalidCommandException(prompt);
         }
