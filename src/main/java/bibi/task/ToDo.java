@@ -4,7 +4,6 @@ package bibi.task;
  * Represents a Task with a description and no deadline.
  */
 public class ToDo extends Task {
-
     /**
      * Constructs a new ToDo with given description.
      *
