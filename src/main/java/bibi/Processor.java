@@ -199,7 +199,8 @@ public class Processor {
 
             return sb.toString();
         default:
-            return "Should not reach Ui Default";
+            assert false : "Should not reach Ui Default";
+            return "NO";
         }
     }
 
