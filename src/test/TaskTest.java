@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskTest {
 
+    /**
+     * Test if the task is marked as done from undone and vice versa.
+     */
     @Test
     public void testChangeIsDone() {
         Task task = new Task("Test task") {};

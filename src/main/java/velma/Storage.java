@@ -90,7 +90,7 @@ public class Storage {
                     throw new IllegalArgumentException("Unknown task type: " + parts[0]);
                 }
                 if (parts[1].equals("[X]")) {
-                    task.changeIsDone();
+                    task.changeIsDoneStatus();
                 }
                 list.add(task);
             }
