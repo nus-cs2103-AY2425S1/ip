@@ -19,7 +19,11 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader.getLocation() != null: "FXML file could not be found";
+
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null: "Loaded AnchorPane is null";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             // inject the Bestie instance

@@ -27,7 +27,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (this.index >= 0 && this.index < tasks.size()) {
+        boolean withinBounds = this.index >= 0 && this.index < tasks.size();
+        if (withinBounds) {
             tasks.getTask(this.index).markTaskDone();
             return ui.showTaskMarked(tasks.getTask(this.index));
         } else {
