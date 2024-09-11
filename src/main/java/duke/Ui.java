@@ -144,7 +144,7 @@ public class Ui {
      * @return A customised string showing what action (add or delete) was done to the task with respect to the
      *     TaskList tasks.
      */
-    public String guiTaskAddOrDeleteDisplay(Task task, String addOrDelete, TaskList tasks) {
+    public String guiTaskActionDisplay(Task task, String addOrDelete, TaskList tasks) {
         return "Got it. I've " + addOrDelete + "ed this task:\n"
                 + task + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
