@@ -119,12 +119,16 @@ public class Command {
             Storage.saveTasksToFile(tasks);
             break;
         }
+        case "help": {
+            handleHelpCommand();
+        }
         case "find": {
             handleFindCommand(inputParts);
             break;
         }
         default:
             System.out.println(" I'm sorry, I don't recognize that command.");
+            System.out.println(" Type 'help' to see my available commands!");
             break;
         }
     }
@@ -344,5 +348,20 @@ public class Command {
         if (!hasMatchingTasks) {
             System.out.println("No tasks found containing the keyword: " + keyword);
         }
+    }
+
+    private void handleHelpCommand() {
+        System.out.println("Available Commands:");
+        System.out.println(" - bye: Exits the chatbot.");
+        System.out.println(" - list: Lists all current tasks.");
+        System.out.println(" - mark <task number>: Marks the specified task as completed.");
+        System.out.println(" - unmark <task number>: Unmarks the specified task as incomplete.");
+        System.out.println(" - todo <task description>: Adds a new to-do task.");
+        System.out.println(" - deadline <task description> /by <dd/MM/yyyy>: Adds a task with a deadline.");
+        System.out.println(" - event <task description> /at <dd/MM/yyyy>: Adds an event with a specific date.");
+        System.out.println(" - delete <task number>: Deletes the specified task.");
+        System.out.println(" - findbydate <dd/MM/yyyy>: Finds tasks scheduled on the specified date.");
+        System.out.println(" - find <keyword>: Finds tasks that contain the specified keyword.");
+        System.out.println(" - help: Shows this help message with all available commands.");
     }
 }
