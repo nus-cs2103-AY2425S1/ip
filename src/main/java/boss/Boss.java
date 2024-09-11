@@ -3,8 +3,6 @@ package boss;
 import boss.exceptions.BossException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.IOException;
 
 /**
@@ -14,36 +12,9 @@ public class Boss {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    public enum Types {
-        TODO, DEADLINE, EVENT, NONE
-    }
-
     /**
      * Starts the Chatbot.
      */
-    public void run() {
-        ui.welcome();
-        Scanner myObj = new Scanner(System.in);
-
-        Parser parser = new Parser(storage, tasks);
-
-        String task = myObj.nextLine();
-        while (!task.equals("bye")) {
-            try {
-                parser.handleCommand(task);
-            } catch (FileNotFoundException e) {
-                ui.showLoadingError(e);
-            } catch (IOException e) {
-                ui.showLoadingError(e);
-            } catch (BossException e) {
-                ui.showLoadingError(e);
-            }
-            task = myObj.nextLine();
-        }
-        ui.bye();
-    }
-
 
     /**
      * Creates a Boss Object
@@ -82,6 +53,11 @@ public class Boss {
                 return "WHATS GOOD, MY HOMIE! I'm the boss!" + "\n" + "How can I help you?";
         }
 
+        switch(input) {
+            case "lose to you":
+                return "nah homie, LOSE TO YOU!";
+        }
+
         try {
             Parser parser = new Parser(storage, tasks);
             String responseText = parser.getResponse(input);
@@ -93,12 +69,11 @@ public class Boss {
             System.out.println(e);
             return "error";
         }
-
     }
 
 
     public static void main(String[] args) {
-        new Boss("src/main/data/boss.txt").run();
+        System.out.println("Text-based UI has been removed!");
     }
 
 

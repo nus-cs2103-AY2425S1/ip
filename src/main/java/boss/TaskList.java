@@ -26,17 +26,13 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     /**
      * Unmarks a task from the list.
      * @param task the task that the user wants to unmark
      * @return the text to replace text in file
      */
-    public String unmark(String task) throws BossException {
-        // replace all characters with nothing, in order to extract number!
+    public String[] unmark(String task) throws BossException {
+        // gets the task number to unmark
         String taskNum = task.replaceAll("[^0-9]", "");
         if (taskNum.isEmpty()) {
             throw new EmptyTaskInputException("unmark");
@@ -50,9 +46,7 @@ public class TaskList {
 
         String newFileData = getAll(tasks);
 
-        System.out.println("Ok! I have marked this task as not done yet!");
-        System.out.println(tasks.get(num - 1));
-        return newFileData;
+        return new String[] {newFileData, item.toString()};
     }
 
     /**
@@ -60,7 +54,8 @@ public class TaskList {
      * @param task the task that the user wants to mark
      * @return the text to replace text in file
      */
-    public String mark(String task) throws BossException {
+    public String[] mark(String task) throws BossException {
+        // gets the task number to mark
         String taskNum = task.replaceAll("[^0-9]", "");
 
         if (taskNum.isEmpty()) {
@@ -74,9 +69,7 @@ public class TaskList {
         item.markAsDone();
 
         String newFileData = getAll(tasks);
-        System.out.println("Nice! I have marked this task as done!");
-        System.out.println(tasks.get(num - 1));
-        return newFileData;
+        return new String[] {newFileData, item.toString()};
     }
 
     /**
@@ -84,7 +77,8 @@ public class TaskList {
      * @param task the task that the user wants to delete
      * @return the text to replace text in file
      */
-    public String delete(String task) throws BossException {
+    public String[] delete(String task) throws BossException {
+        // gets the task number to remove, i.e. delete
         String taskNum = task.replaceAll("[^0-9]", "");
         if (taskNum.isEmpty()) {
             throw new EmptyTaskInputException("delete");
@@ -96,10 +90,7 @@ public class TaskList {
         Task item = tasks.remove(num - 1);
         String newFileData = getAll(tasks);
 
-        System.out.println("Ok. This task has been removed!");
-        System.out.println(item);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
-        return newFileData;
+        return new String[] {newFileData, item.toString()};
     }
 
     public String remind() {
@@ -133,50 +124,56 @@ public class TaskList {
         return s;
     }
 
-
-    /**
-     * Prints messages for user to the screen for text-based UI.
-     */
-    public void printTextAbstraction() {
-        System.out.println("Got it! I've added this task now");
-        int size = tasks.size();
-        System.out.println(tasks.get(size-1));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-
     /**
      * Returns user messages to print onto screen for GUI.
      *
      * @return String containing messages for user.
      */
-
-    public String printAbstraction() {
+    public String printAddTask(Task task) {
         String toPrint = "";
         toPrint = toPrint + "Got it! I've added this task now!" + "\n";
+        toPrint = toPrint + task + "\n";
         toPrint = toPrint + "Now you have " + tasks.size() + " tasks in the list." + "\n";
         return toPrint;
     }
 
+    /**
+     * Returns the Chatbot's response when user marks a task.
+     *
+     * @param task string representation of the task user wants to mark
+     * @return String containing chatbot's response
+     */
+    public String printMark(String task) {
+        String toPrint = "";
+        toPrint = "Nice! I have marked this task as done!" + "\n";
+        toPrint = toPrint + task + "\n";
+        return toPrint;
+    }
 
     /**
-     * Finds a word in the list of tasks for text-based UI
-     * @param word word to find
+     * Returns the Chatbot's response when user unmarks a task.
+     *
+     * @param task string representation of the task user wants to unmark
+     * @return String containing chatbot's response
      */
-    public void find(String word) {
-        int i = 0;
-        for (Task str : tasks) {
-            if (str.getDescription().contains(word)) {
-                if (i == 0) {
-                    System.out.println("Here are the matching tasks in your list: ");
-                    i++;
-                }
-                System.out.println(str);
-            }
-        }
-        if (i == 0) {
-            System.out.println("There are no matching tasks :(");
-        }
+    public String printUnmark(String task) {
+        String toPrint = "";
+        toPrint = "Nice! I have marked this task as undone!" + "\n";
+        toPrint = toPrint + task + "\n";
+        return toPrint;
+    }
+
+    /**
+     * Returns the Chatbot's response when user deletes a task.
+     *
+     * @param task string representation of the task user wants to delete
+     * @return String containing chatbot's response
+     */
+    public String printDelete(String task) {
+        String toPrint = "";
+        toPrint = "Ok! This task has been removed!" + "\n";
+        toPrint = toPrint + task + "\n";
+        return toPrint;
     }
 
     /**
