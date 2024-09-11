@@ -42,6 +42,7 @@ public class Parser {
      * @throws FormatException If the format of the user input is not suitable.
      * @throws NoInputException If no input is given.
      */
+
     public Command parseUserInput(String dialog, TaskList taskList) throws FormatException, NoInputException {
         if (dialog.isEmpty()) {
             throw new NoInputException();
