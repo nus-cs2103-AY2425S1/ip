@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for R2D2 using FXML.
  */
 public class Main extends Application {
 
@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setDuke(r2d2);
+            fxmlLoader.<MainWindow>getController().setR2D2(r2d2);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
