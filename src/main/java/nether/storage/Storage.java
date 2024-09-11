@@ -38,7 +38,7 @@ public class Storage {
      */
     public void saveTasks(List<Task> tasks) {
         File file = new File(filePath);
-        file.getParentFile().mkdirs(); // create directories just in case they don't exist
+        file.getParentFile().mkdirs(); // create the parent directory just in case it doesn't exist yet
 
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : tasks) {
@@ -66,7 +66,7 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String taskLine = scanner.nextLine();
-                Task task = getTask(taskLine);
+                Task task = parseTask(taskLine);
 
                 if (task != null) {
                     tasks.add(task);
@@ -87,7 +87,7 @@ public class Storage {
      * @param taskLine A line from the task data file in the format used by {@code Task.toSaveFormat()}.
      * @return A {@code Task} object corresponding to the line of data.
      */
-    private static Task getTask(String taskLine) {
+    private static Task parseTask(String taskLine) {
         String[] taskParts = taskLine.split("\\|");
         Task task = null;
 
@@ -102,7 +102,7 @@ public class Storage {
             task = new EventTask(taskParts[2], taskParts[3], taskParts[4]);
             break;
         default:
-            throw new NetherException("this should not have happened");
+            throw new NetherException("this should have never happened. What is going on..");
         }
 
         if (taskParts[1].equals("X")) {

@@ -13,6 +13,8 @@ import nether.NetherException;
  * The {@code DeadlineTask} class is a subclass of the {@link Task} class and adds a deadline component to the task.
  */
 public class DeadlineTask extends Task {
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
+    private static final String DISPLAY_DATE_FORMAT = "MMM dd yyyy, h:mma";
     protected LocalDateTime by;
 
     /**
@@ -24,15 +26,22 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by) {
         super(description);
-        this.by = null;
+        this.by = parseDateTime(by);
+    }
 
-        // Validate the input date/time and then assign it
+    /**
+     * Returns a parsed date and time of the deadline.
+     * @param dateTimeStr The input date and time in the format {@code yyyy-MM-dd HHmm}.
+     * @return Parsed date and time of the deadline.
+     * @throws NetherException If the input date/time does not follow the accepted format.
+     */
+    private static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            this.by = LocalDateTime.parse(by, formatter);
+            return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeException e) {
             throw new NetherException("the date/time format for the deadline is invalid. Please use "
-                    + "the format: yyyy-MM-dd HHmm.");
+                    + "the format: " + DATE_TIME_FORMAT + ".");
         }
     }
 
@@ -44,7 +53,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toSaveFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         return "D|" + getStatusIcon() + "|" + this.getDescription() + "|" + this.by.format(formatter);
     }
 
@@ -57,7 +66,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DISPLAY_DATE_FORMAT);
         return "[D]" + super.toString() + "(by: " + this.by.format(formatter) + ")";
     }
 }

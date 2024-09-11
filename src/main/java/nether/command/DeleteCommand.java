@@ -40,6 +40,7 @@ public class DeleteCommand extends Command {
             throw new NetherException("invalid task number!");
         }
 
+        // taskIndex needs to be decremented since list index starts from 0
         Task removedTask = tasks.getTask(taskIndex - 1);
         tasks.deleteTask(taskIndex - 1);
         storage.saveTasks(tasks.getTasks());
