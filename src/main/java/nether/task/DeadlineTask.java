@@ -26,6 +26,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by) {
         super(description);
+        assert by.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         this.by = parseDateTime(by);
     }
 

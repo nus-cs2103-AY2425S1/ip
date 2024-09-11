@@ -26,6 +26,8 @@ public class EventTask extends Task {
 
     public EventTask(String description, String startTime, String endTime) {
         super(description);
+        assert startTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
+        assert endTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         this.startTime = getDateTime(startTime);
         this.endTime = getDateTime(endTime);
     }
