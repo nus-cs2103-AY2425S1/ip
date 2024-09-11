@@ -11,6 +11,7 @@ import ui.gui.MainWindow;
 
 /**
  * A GUI for Duke using FXML.
+ * Hallo
  */
 public class Main extends Application {
 
