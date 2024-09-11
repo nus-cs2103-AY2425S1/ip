@@ -14,7 +14,7 @@ import task.Task;
 /**
  * Represents a "unmark" command in the Blitz application.
  */
-public class CommandUnmark extends Command {
+public class UnmarkCommand extends Command {
     private String parameter;
 
     /**
@@ -23,7 +23,7 @@ public class CommandUnmark extends Command {
      * @param command Command String to be associated with this Command object.
      * @param parameter String containing the parameter for this command.
      */
-    public CommandUnmark(String command, String parameter) {
+    public UnmarkCommand(String command, String parameter) {
         super(command);
         this.parameter = parameter;
     }

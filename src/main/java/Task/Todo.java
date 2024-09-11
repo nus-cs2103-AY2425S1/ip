@@ -56,9 +56,10 @@ public class Todo extends Task {
         }
 
         Todo todo = (Todo) o;
+        boolean isTypeSame = this.type.equals(todo.type);
+        boolean isDescriptionSame = super.getDescription().equals(todo.getDescription());
+        boolean isStatusSame = super.isDone() == todo.isDone();
 
-        return this.type.equals(todo.type)
-                && super.getDescription().equals(todo.getDescription())
-                && (super.isDone() == todo.isDone());
+        return isTypeSame && isDescriptionSame && isStatusSame;
     }
 }

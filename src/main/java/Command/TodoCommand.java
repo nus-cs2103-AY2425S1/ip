@@ -12,7 +12,7 @@ import task.Todo;
 /**
  * Represents a "todo" command in the Blitz application.
  */
-public class CommandTodo extends Command {
+public class TodoCommand extends Command {
     private String parameter;
 
     /**
@@ -21,7 +21,7 @@ public class CommandTodo extends Command {
      * @param command Command String to be associated with this Command object.
      * @param parameter String containing the parameter for this command.
      */
-    public CommandTodo(String command, String parameter) {
+    public TodoCommand(String command, String parameter) {
         super(command);
         this.parameter = parameter;
     }

@@ -12,18 +12,18 @@ import exception.BlitzNumberFormatException;
 import task.Task;
 
 /**
- * Represents a "mark" command in the Blitz application.
+ * Represents a "delete" command in the Blitz application.
  */
-public class CommandMark extends Command {
+public class DeleteCommand extends Command {
     private String parameter;
 
     /**
-     * Constructs a new CommandMark object with specified command String and a parameter String.
+     * Constructs a new CommandDelete object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
      * @param parameter String containing the parameter for this command.
      */
-    public CommandMark(String command, String parameter) {
+    public DeleteCommand(String command, String parameter) {
         super(command);
         this.parameter = parameter;
     }
@@ -31,29 +31,28 @@ public class CommandMark extends Command {
     /**
      * Executes the command.
      *
-     * @param list TaskList to get the Task to be marked.
+     * @param list TaskList to delete the Task.
      * @param ui Ui to print the required text.
-     * @param storage Storage to write to the file to update the marked Task.
+     * @param storage Storage to write to the file after removing the Task.
      * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
-            int index = Integer.parseInt(this.parameter) - 1;
+            int index = Integer.parseInt(parameter) - 1;
 
             if (list.isEmpty()) {
                 throw new BlitzEmptyTaskListException();
             }
 
-            Task task = list.getTask(index);
+            Task deletedTask = list.deleteTask(index);
 
-            assert task != null : "Task to be marked must not be null";
+            assert deletedTask != null : "Task deleted must not be null";
 
-            task.setDone(true);
             storage.writeAllToFile(list);
 
-            return ui.getStringForTaskMarked(task);
+            return ui.getStringForTaskDeleted(deletedTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

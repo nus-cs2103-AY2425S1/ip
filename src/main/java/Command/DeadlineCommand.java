@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * Represents a "deadline" command in the Blitz application.
  */
-public class CommandDeadline extends Command {
+public class DeadlineCommand extends Command {
     private String[] parameters;
 
     /**
@@ -22,7 +22,7 @@ public class CommandDeadline extends Command {
      *
      * @param values A variable number of String arguments associated with this Command object..
      */
-    public CommandDeadline(String... values) {
+    public DeadlineCommand(String... values) {
         super(values[0]);
         this.parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);

@@ -15,7 +15,7 @@ import task.Task;
 /**
  * Represents a "find" command in the Blitz application.
  */
-public class CommandFind extends Command {
+public class FindCommand extends Command {
     private String parameter;
 
     /**
@@ -24,7 +24,7 @@ public class CommandFind extends Command {
      * @param command Command String to be associated with this Command object.
      * @param parameter String containing the parameter for this command.
      */
-    public CommandFind(String command, String parameter) {
+    public FindCommand(String command, String parameter) {
         super(command);
         this.parameter = parameter;
     }

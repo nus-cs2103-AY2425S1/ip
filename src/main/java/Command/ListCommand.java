@@ -10,13 +10,13 @@ import exception.BlitzException;
 /**
  * Represents a "list" command in the Blitz application.
  */
-public class CommandList extends Command {
+public class ListCommand extends Command {
     /**
      * Constructs a new CommandList object with specified command String.
      *
      * @param command Command String to be associated with this Command object.
      */
-    public CommandList(String command) {
+    public ListCommand(String command) {
         super(command);
     }
 

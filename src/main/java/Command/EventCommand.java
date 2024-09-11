@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 /**
  * Represents an "event" command in the Blitz application.
  */
-public class CommandEvent extends Command {
+public class EventCommand extends Command {
     private String[] parameters;
 
     /**
      * Constructs a new CommandEvent object with specified command String and parameters as Array of String.
      *
-     * @param values A variable number of String arguments associated with this Command object..
+     * @param values A variable number of String arguments associated with this Command object.
      */
-    public CommandEvent(String... values) {
+    public EventCommand(String... values) {
         super(values[0]);
         this.parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);
