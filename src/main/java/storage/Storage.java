@@ -22,11 +22,11 @@ public class Storage {
      * @return a list of tasks objects.
      * @throws IOException when the file cannot be found.
      */
-    public TaskList load() throws IOException {
+    public TaskList loadTasks() throws IOException {
         TaskList tasks = new TaskList();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             Task task = parseTask(line);
             tasks.addTask(task);
         }
@@ -64,6 +64,7 @@ public class Storage {
                 // Parse the string in the current inputFormat
                 LocalDateTime deadline = LocalDateTime.parse(deadlineStr, inputFormat);
                 // Convert the string into the desired format to create a new Task.
+
                 return new DeadlineTask(description, isDone, deadline.format(outputFormat));
             case "E":
                 if (parts.length < 5) {
