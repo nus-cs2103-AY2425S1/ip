@@ -1,5 +1,7 @@
 package boombotroz;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Deals with making sense of the user command.
@@ -12,6 +14,7 @@ public class Parser {
      * @param taskList list of all the tasks.
      */
     public String printList(Ui ui, TaskList taskList) {
+        Collections.sort(taskList.getTaskList(), Comparator.comparingInt(Task::getPriority).reversed());
         return ui.printAll(taskList);
     }
 

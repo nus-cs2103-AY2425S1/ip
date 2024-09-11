@@ -1,5 +1,7 @@
 package boombotroz;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,6 +20,12 @@ public class TaskList {
         return taskList.size();
     }
 
+    /**
+     * Returns task list array.
+     */
+    public List<Task> getTaskList() {
+        return this.taskList;
+    }
 
     /**
      * Returns the task from the task list at that index.
@@ -105,6 +113,7 @@ public class TaskList {
      * Returns all the task from task list.
      */
     public String getAll() {
+        Collections.sort(taskList, Comparator.comparingInt(Task::getPriority).reversed());
         String s = "";
         for (int i = 0; i < taskList.size(); i++) {
             s += taskList.get(i) + "\n";

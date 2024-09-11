@@ -40,7 +40,7 @@ public abstract class Task {
     /**
      * Gets the priority level of the task.
      */
-    public int getPrior() {
+    public int getPriority() {
         return this.priority;
     }
 

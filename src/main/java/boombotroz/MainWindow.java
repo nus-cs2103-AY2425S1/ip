@@ -43,7 +43,36 @@ public class MainWindow extends AnchorPane {
     public void setBoom(Boombotroz b) throws FileNotFoundException {
         boombotroz = b;
         dialogContainer.getChildren().addAll(
-                DialogBox.getBoomDialog(String.format("Hello! I am Boombotroz!\n"
+                DialogBox.getBoomDialog(String.format("Hello! I am Boombotroz, your personal helper!\n"
+                        + "\nCommands Available:\n"
+                        + "************************\n"
+                        + "CREATE TASK\n"
+                        + "------------------------\n"
+                        + "1. todo (task) /prior (number)"
+                        + "\nCreates TODO typed task with corresponding priority level\n"
+                        + "\n2. deadline (task) /by (time) /prior (number)"
+                        + "\nCreates DEADLINE typed task with corresponding priority level\n"
+                        + "Recognised date format is (YYYY-MM-DD)\n"
+                        + "\n3. event (task) /from (timeStart) /to (timeEnd) /prior (number):"
+                        + "\nCreates EVENT typed task with corresponding priority level\n"
+                        + "Recognised date format is (YYYY-MM-DD)\n"
+                        + "------------------------\n"
+                        + "MODIFY TASK\n"
+                        + "------------------------\n"
+                        + "1. mark (number)"
+                        + "\nMarks the task at that number\n"
+                        + "\n2. unmark (number)"
+                        + "\nUnmarks the task at that number\n"
+                        + "\n3. delete (number)"
+                        + "\nDeletes the task at that number\n"
+                        + "------------------------\n"
+                        + "MISCELLANEOUS\n"
+                        + "------------------------\n"
+                        + "1. list"
+                        + "\nList all the task at you have at the moment\n"
+                        + "\n2. find (word)"
+                        + "\nFinds the tasks with exact word match\n"
+                        + "************************\n"
                         + "Here is a list of all your current task:\n%s", b.printTaskList()), boomImage)
         );
     }

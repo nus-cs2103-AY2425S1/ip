@@ -98,7 +98,7 @@ public class Boombotroz {
                 throw new RuntimeException(e);
             }
         }
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Come back anytime!";
     }
 }
 
