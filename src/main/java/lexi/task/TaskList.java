@@ -21,6 +21,8 @@ public class TaskList {
      * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        // Precondition: Ensure the provided task list is not null
+        assert tasks != null : "Task list cannot be null.";
         this.tasks = tasks;
     }
 
@@ -31,6 +33,8 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task deleteTask(int index) {
+        // Precondition: Ensure the index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds.";
         return tasks.remove(index);
     }
 
@@ -40,6 +44,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        // Precondition: Ensure the task to be added is not null
+        assert task != null : "Task cannot be null.";
         tasks.add(task);
     }
 
@@ -68,6 +74,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        // Precondition: Ensure the index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds.";
         return tasks.get(index);
     }
 
@@ -78,7 +86,11 @@ public class TaskList {
      * @param taskNumber The index of the task to be updated.
      */
     public void updateTask(Task task, int taskNumber) {
-        tasks.remove(taskNumber);
-        tasks.add(taskNumber, task);
+        // Precondition: Ensure the task to be updated is not null
+        assert task != null : "Task cannot be null.";
+        // Precondition: Ensure the index is within valid range
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Index out of bounds.";
+
+        tasks.set(taskNumber, task);
     }
 }

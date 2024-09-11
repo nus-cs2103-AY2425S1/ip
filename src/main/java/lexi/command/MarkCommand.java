@@ -37,15 +37,30 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LexiException {
+        // Assertions for method preconditions
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "Ui object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+        assert taskNumber >= 0 : "Task number must be non-negative";
+
         if (taskNumber > tasks.getSize() - 1) {
             throw new LexiException("Sorry! That task does not exist.\nPlease key in the correct task number");
         }
+
         Task taskToBeMarked = tasks.getTask(taskNumber);
+
+        // Assertions to ensure the task is not null
+        assert taskToBeMarked != null : "Task should not be null";
+
         if (isMark) {
             markTask(taskToBeMarked, tasks, ui);
         } else {
             unmarkTask(taskToBeMarked, tasks, ui);
         }
+
+        // Assertion to ensure response is set
+        assert response != null : "Response should be set after marking/unmarking the task";
+
         storage.updateStorage(tasks.getTasks());
     }
 
@@ -59,12 +74,18 @@ public class MarkCommand extends Command {
      * @throws LexiException If the task is already unmarked.
      */
     private void unmarkTask(Task taskToBeMarked, TaskList tasks, Ui ui) throws LexiException {
+        // Assertion to check preconditions
+        assert taskToBeMarked != null : "Task to be unmarked cannot be null";
+
         if (!taskToBeMarked.getIsDone()) {
             throw new LexiException("This task has already been unmarked!\n");
         }
         taskToBeMarked.setDone(false);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
         response = ui.showUnmarkMessage(taskToBeMarked);
+
+        // Assertion to ensure the task is actually unmarked
+        assert !taskToBeMarked.getIsDone() : "Task should be unmarked";
     }
 
     /**
@@ -77,12 +98,20 @@ public class MarkCommand extends Command {
      * @throws LexiException If the task is already marked.
      */
     public void markTask(Task taskToBeMarked, TaskList tasks, Ui ui) throws LexiException {
+        // Assertions for method preconditions
+        assert taskToBeMarked != null : "Task to be marked cannot be null";
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "UI object cannot be null";
+
         if (taskToBeMarked.getIsDone()) {
             throw new LexiException("This task has already been marked!\n");
         }
         taskToBeMarked.setDone(true);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
         response = ui.showMarkMessage(taskToBeMarked);
+
+        // Assertion to ensure the task is actually marked
+        assert taskToBeMarked.getIsDone() : "Task should be marked as done";
     }
 
     /**

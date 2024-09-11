@@ -27,9 +27,14 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image lexiImage = new Image(this.getClass().getResourceAsStream("/images/DaLexi.png"));
 
+    /**
+     * Initialises the scrollpane and dialog box with lexi greeting
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getLexiGreeting("Hi! I'm Lexi!\n"
+                + "What can I help you with today?", lexiImage));
     }
 
     /** Injects the Lexi instance */

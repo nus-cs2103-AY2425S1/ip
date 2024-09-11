@@ -5,15 +5,15 @@ package lexi.command;
  * Each command is associated with a description that explains its purpose.
  */
 public enum Commands {
-        TODO("Adds a todo task."),
-        DEADLINE("Adds a task with a deadline."),
-        EVENT("Adds an event with a start and end time."),
-        MARK("Marks a task as done."),
-        UNMARK("Marks a task as not done."),
-        DELETE("Deletes a task."),
-        LIST("Lists all tasks."),
-        FIND("Finds all related tasks"),
-        BYE("Exits the application.");
+    TODO("Adds a todo task."),
+    DEADLINE("Adds a task with a deadline."),
+    EVENT("Adds an event with a start and end time."),
+    MARK("Marks a task as done."),
+    UNMARK("Marks a task as not done."),
+    DELETE("Deletes a task."),
+    LIST("Lists all tasks."),
+    FIND("Finds all related tasks"),
+    BYE("Exits the application.");
 
     private final String description;
 
@@ -23,6 +23,8 @@ public enum Commands {
      * @param description A brief description of what the command does.
      */
     Commands(String description) {
+        // Assertion to ensure description is not null
+        assert description != null : "Description cannot be null";
         this.description = description;
     }
 

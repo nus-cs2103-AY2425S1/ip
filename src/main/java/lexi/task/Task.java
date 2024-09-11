@@ -15,9 +15,18 @@ public class Task {
      * @param taskName The name of the task.
      */
     public Task(String taskName) {
+        // Precondition: Ensure taskName is not null or empty
+        assert taskName != null && !taskName.isEmpty() : "Task name cannot be null or empty.";
+
         this.isDone = false;
         this.taskName = taskName;
     }
+
+    /**
+     * Sets the done status of the task.
+     *
+     * @param value {@code true} to mark the task as done, {@code false} to mark it as not done.
+     */
     public void setDone(boolean value) {
         this.isDone = value;
     }
@@ -48,6 +57,9 @@ public class Task {
      * @return {@code true} if the task name contains a word that exactly matches the query, {@code false} otherwise.
      */
     public boolean containsExactWord(String query) {
+        // Precondition: Ensure query is not null or empty
+        assert query != null && !query.isEmpty() : "Query cannot be null or empty.";
+
         String pattern = "\\b" + query + "\\b";
         return taskName.matches(".*" + pattern + ".*");
     }

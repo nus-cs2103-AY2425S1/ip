@@ -58,19 +58,19 @@ public class DialogBox extends HBox {
         db.changeDialogStyle(commandType);
         return db;
     }
+    public static DialogBox getLexiGreeting(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
     private void changeDialogStyle(String commandType) {
-        switch(commandType) {
-        case "AddCommand":
-            dialog.getStyleClass().add("add-label");
-            break;
-        case "MarkCommand":
-            dialog.getStyleClass().add("marked-label");
-            break;
-        case "DeleteCommand":
-            dialog.getStyleClass().add("delete-label");
-            break;
-        default:
+        switch (commandType) {
+        case "AddCommand" -> dialog.getStyleClass().add("add-label");
+        case "MarkCommand" -> dialog.getStyleClass().add("marked-label");
+        case "DeleteCommand" -> dialog.getStyleClass().add("delete-label");
+        default -> {
             // Do nothing
+        }
         }
     }
 }

@@ -58,7 +58,6 @@ public class Parser {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
     }
-
     private static FindCommand handleFind(String[] parts) throws LexiException {
         assert parts != null && parts.length > 1 : "Find command must have a query part";
         String query = Arrays.stream(parts).skip(1).findFirst().orElseThrow(() ->
@@ -187,7 +186,6 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the task number is invalid.
      */
     private static MarkCommand handleMark(String[] parts) throws LexiException {
-        assert parts != null && parts.length == 2 : "Mark command must have exactly two parts";
         int taskNumber = Arrays.stream(parts).skip(1).findFirst()
                 .map(part -> Integer.parseInt(part) - 1)
                 .orElseThrow(() -> new LexiException("Please enter a valid task number in the format:\n"
