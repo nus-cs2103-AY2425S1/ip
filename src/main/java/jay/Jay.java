@@ -68,7 +68,8 @@ public class Jay {
      * @return The greeting message.
      */
     public String greet() {
-        return "Hello! I'm " + this.name + "\n" + " What can I do for you?";
+        return "Hello! I'm " + this.name + "\n" + " What can I do for you? "
+                + "Can type 'help' command to see the list of commands.";
     }
 
     /**
@@ -123,6 +124,8 @@ public class Jay {
                 task = this.tasks.setPriority(taskNumber, priority);
                 return "Got it. I've set the priority of this task to { " + priority + " } :\n"
                         + task;
+            case Help:
+                return command.getHelp();
             default:
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

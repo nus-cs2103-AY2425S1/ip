@@ -10,7 +10,7 @@ public class Command {
      * Represents the type of command.
      */
     public enum CommandType {
-        List, Add, Mark, Unmark, Delete, Find, Exit, Set, Unknown
+        List, Add, Mark, Unmark, Delete, Find, Exit, Set, Help, Unknown
     }
 
     private final String command;
@@ -44,6 +44,8 @@ public class Command {
             return CommandType.Add;
         case "set":
             return CommandType.Set;
+        case "help":
+            return CommandType.Help;
         default:
             return CommandType.Unknown;
         }
@@ -143,6 +145,110 @@ public class Command {
         default:
             return Task.Priority.Unknown;
         }
+    }
+
+    /**
+     * Returns the help message.
+     *
+     * @return The help message.
+     */
+    public String getHelp() throws InvalidCommandException {
+        String generalMessage = """
+                Here are the commands you can use:
+                1. todo - Adds a todo task.
+                2. deadline  - Adds a deadline task.
+                3. event  - Adds an event task.
+                4. list - Shows the tasks in the list.
+                5. mark - Marks a task as done.
+                6. unmark - Marks a task as not done.
+                7. delete - Deletes a task.
+                8. find - Finds tasks that contain the keyword.
+                9. set - Sets the priority of a task.
+                10. bye - Exits the program.
+               \s
+                find out the usage of the commands by typing help /<command>
+           \s""";
+
+        String[] helpCommand = this.command.split("/", 2);
+
+        if (helpCommand.length == 1) {
+            return generalMessage;
+        } else {
+            return this.getSpecificHelp(helpCommand[1]);
+        }
+    }
+
+    private String getSpecificHelp(String command) throws InvalidCommandException {
+        String message = "";
+
+        switch (command.trim()) {
+        case "todo":
+            message = """
+                    todo <description> - Adds a todo task.
+                    Example: todo read book
+                    
+                    """;
+            break;
+        case "deadline":
+            message = """
+                    deadline <description> /by <date> - Adds a deadline task.
+                    Example: deadline return book /by 28-07-2024
+                    
+                    """;
+            break;
+        case "event":
+            message = """
+                    event <description> /from <date> <start time> /to <end time> - Adds an event task.
+                    Example: event project meeting /from 30-07-2024 1400 /to 1600
+                    
+                    """;
+            break;
+        case "list":
+            message = "list - Shows the tasks in the list.\n\n";
+            break;
+        case "mark":
+            message = """
+                    mark <task number> - Marks a task as done.
+                    Example: mark 1
+                    
+                    """;
+            break;
+        case "unmark":
+            message = """
+                    unmark <task number> - Marks a task as not done.
+                    Example: unmark 1
+                    
+                    """;
+            break;
+        case "delete":
+            message = """
+                    delete <task number> - Deletes a task.
+                    Example: delete 1
+                    
+                    """;
+            break;
+        case "find":
+            message = """
+                    find <keyword> - Finds tasks that contain the keyword.
+                    Example: find book
+                    
+                    """;
+            break;
+        case "set":
+            message = """
+                    set <task number> <priority> - Sets the priority of a task.
+                    Example: set 1 high
+                    
+                    """;
+            break;
+        case "bye":
+            message = "bye - Exits the program.\n\n";
+            break;
+        default:
+            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        return message + "Can find out more usage about the commands by following the examples.";
     }
 }
 
