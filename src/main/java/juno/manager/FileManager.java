@@ -92,6 +92,7 @@ public class FileManager {
         File f = new File(FILE_PATH);
         if (f.delete()) {
             this.ensureFileExist();
+
             System.out.println("File created! Unfortunately, it looks like your previous tasks have vanished into the"
                     + " digital abyss. But hey, fresh start, right? 🌟");
         } else {

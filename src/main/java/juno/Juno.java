@@ -7,10 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import juno.manager.FileManager;
-import juno.manager.TaskManager;
-import juno.parser.CommandParser;
-import juno.ui.JunoUi;
 import juno.ui.MainWindow;
 
 /**
@@ -21,16 +17,6 @@ import juno.ui.MainWindow;
  * The chat bot also interacts with users, processing their inputs and executing appropriate commands.
  */
 public class Juno extends Application {
-    private TaskManager taskManager;
-    private FileManager fileManager;
-    private JunoUi junoUi;
-    private CommandParser commandParser;
-
-    /**
-     * Constructs a new {@code Juno} instance.
-     */
-    public Juno() {
-    }
 
     /**
      * Starts the Juno chat bot with a GUI. It also loads stored tasks from a file
@@ -38,7 +24,6 @@ public class Juno extends Application {
      */
     @Override
     public void start(Stage stage) {
-
         try {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
