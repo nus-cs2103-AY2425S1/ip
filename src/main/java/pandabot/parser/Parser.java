@@ -27,7 +27,9 @@ public class Parser {
      * @throws InputException if the command is invalid or the input is incomplete.
      */
     public static Command parse(String fullCommand) throws InputException {
+        assert fullCommand != null : "The input command should not be null";
         String[] commandParts = fullCommand.trim().split(" ", 2);
+        assert commandParts.length > 0 : "There should be at least one word in the command";
         String command = commandParts[0].toLowerCase();
         Command parsedCommand;
         switch (command) {
