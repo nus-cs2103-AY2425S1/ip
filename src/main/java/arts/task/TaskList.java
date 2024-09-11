@@ -85,4 +85,15 @@ public class TaskList {
         assert tasks != null : "Tasks list should not be null";
         return tasks;
     }
+
+    /**
+     * Checks if the TaskList contains an equivalent task.
+     *
+     * @param task The task to check for.
+     * @return true if the task exists in the list, false otherwise.
+     */
+    public boolean contains(Task task) {
+        assert task != null : "Task to check cannot be null";
+        return tasks.stream().anyMatch(t -> t.equals(task));
+    }
 }

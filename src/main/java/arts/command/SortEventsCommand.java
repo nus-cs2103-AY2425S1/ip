@@ -67,7 +67,6 @@ public class SortEventsCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        // Anime-like response
         return "✨ The stars have aligned, and your events are now sorted by time! ⏰✨\n"
                 + "Embark on your epic journey with clarity and purpose, noble hero! 🌟";
     }
