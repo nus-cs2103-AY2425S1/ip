@@ -2,3 +2,5 @@ T | 0 | heheheeee
 T | 0 | read cs2103
 E | 1 | hihihaha | Jan 01 2020 | Jan 01 2023
 T | 0 | print stuff
+D | 0 | khian thai | Sep 12 2024
+E | 0 |  | May 05 2024 | Dec 31 2025

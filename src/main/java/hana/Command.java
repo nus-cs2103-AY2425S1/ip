@@ -69,7 +69,7 @@ class DeleteCommand extends Command {
 }
 
 class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
