@@ -1,6 +1,7 @@
 package bean.ui;
 
 import java.util.List;
+
 import bean.task.Task;
 
 /**
@@ -27,13 +28,14 @@ public class Ui {
     }
 
     /**
-     * Returns the list of tasks formatted as a string.
+     * Formats a list of tasks into a string with a custom message.
      *
-     * @param tasks The list of tasks.
-     * @return The formatted string of tasks.
+     * @param tasks  The list of tasks.
+     * @param message The message to be included before the list of tasks.
+     * @return The formatted string of tasks with the custom message.
      */
-    public String getTasks(List<Task> tasks) {
-        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+    private String formatTasks(List<Task> tasks, String message) {
+        StringBuilder response = new StringBuilder(message);
         for (int i = 1; i <= tasks.size(); i++) {
             response.append(i).append(". ").append(tasks.get(i - 1)).append("\n");
         }
@@ -41,17 +43,23 @@ public class Ui {
     }
 
     /**
-     * Returns the list of matching tasks formatted as a string.
+     * Returns the list of tasks formatted as a string.
+     *
+     * @param tasks The list of tasks.
+     * @return The formatted string of tasks.
+     */
+    public String getTasks(List<Task> tasks) {
+        return formatTasks(tasks, "Here are the tasks in your list:\n");
+    }
+
+    /**
+     * Returns the list of tasks that match a search criterion formatted as a string.
      *
      * @param tasks The list of matching tasks.
      * @return The formatted string of matching tasks.
      */
     public String getMatchingTasks(List<Task> tasks) {
-        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 1; i <= tasks.size(); i++) {
-            response.append(i).append(". ").append(tasks.get(i - 1)).append("\n");
-        }
-        return response.toString();
+        return formatTasks(tasks, "Here are the matching tasks in your list:\n");
     }
 
     /**
@@ -93,7 +101,8 @@ public class Ui {
      * @return The formatted message.
      */
     public String getTaskDeleted(Task task, int numOfTasks) {
-        return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.", task, numOfTasks);
+        return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                task, numOfTasks);
     }
 
     /**
