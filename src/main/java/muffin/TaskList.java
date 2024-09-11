@@ -11,7 +11,7 @@ public class TaskList {
     /**
      * The list of tasks.
      */
-    ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskList with the specified list of tasks.
@@ -19,7 +19,7 @@ public class TaskList {
      * @param list An ArrayList of tasks to initialize the task list with.
      */
     public TaskList(ArrayList<Task> list) {
-        this.list = list;
+        this.tasks = list;
     }
 
     /**
@@ -29,7 +29,7 @@ public class TaskList {
      * @return The task that was marked as done.
      */
     public Task mark(int index) {
-        Task t = list.get(index);
+        Task t = tasks.get(index);
         t.isDone = true;
         return t;
     }
@@ -41,19 +41,24 @@ public class TaskList {
      * @return The task that was unmarked as not done.
      */
     public Task unmark(int index) {
-        Task t = list.get(index);
+        Task t = tasks.get(index);
         t.isDone = false;
         return t;
     }
 
     /**
-     * Prints all tasks in the list to the console, with each task numbered sequentially.
+     * Returns a formatted String representation of the elements in the list.
+     *
+     * @return A String representing the elements of the list, formatted with their positions.
      */
-    public void list() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
+    public String list() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
+        return result.toString();
     }
+
 
     /**
      * Deletes the task at the specified index from the list.
@@ -62,8 +67,8 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task delete(int index) {
-        Task t = list.get(index);
-        list.remove(index);
+        Task t = tasks.get(index);
+        tasks.remove(index);
         return t;
     }
 
@@ -73,7 +78,7 @@ public class TaskList {
      * @param t The task to add to the list.
      */
     public void add(Task t) {
-        list.add(t);
+        tasks.add(t);
     }
 
     /**
@@ -83,24 +88,38 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
-        return list.get(index);
+        return tasks.get(index);
     }
 
     /**
-     * Retrieves and display the tasks which contain the keyword.
+     * Finds tasks in the list whose descriptions contain the specified keyword.
      *
-     * @param keyword The keyword to search for.
+     * @param keyword The keyword to search for within each task's description.
+     * @return A formatted String of tasks whose descriptions contain the keyword,
+     *         or an empty String if no tasks match the search.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         ArrayList<Task> newList = new ArrayList<>();
-        for (Task task: list) {
+        for (Task task: tasks) {
             if (task.description.contains(keyword)) {
                 newList.add(task);
             }
         }
+
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < newList.size(); i++) {
-            System.out.println((i + 1) + "." + newList.get(i));
+            result.append(i + 1).append(". ").append(newList.get(i)).append("\n");
         }
+        return result.toString();
+    }
+
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return an ArrayList of Task objects representing the current list of tasks.
+     */
+    public ArrayList<Task> getList() {
+        return this.tasks;
     }
 
     /**
@@ -109,6 +128,6 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int length() {
-        return list.size();
+        return tasks.size();
     }
 }
