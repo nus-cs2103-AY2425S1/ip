@@ -100,7 +100,11 @@ public class Storage {
         }
 
         while (scanner.hasNext()) {
-            list.add(decode(scanner.nextLine()));
+            try {
+                list.add(decode(scanner.nextLine()));
+            } catch (RuntimeException e) {
+                throw new FileCorruptedException();
+            }
         }
 
         return list;

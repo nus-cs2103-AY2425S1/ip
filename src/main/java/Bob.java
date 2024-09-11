@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -208,13 +209,18 @@ public class Bob {
         """;
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println(logo);
+        greet();
+
         try {
             list = STORAGE.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (BobException e) {
+            say(e.getMessage());
+            list = new ArrayList<>();
         }
-        System.out.println(logo);
-        greet();
+
         while (true) {
             boolean executed = false;
             String[] input = scanner.nextLine().split(" ", 2);
