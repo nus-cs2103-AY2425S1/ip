@@ -3,8 +3,10 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +22,7 @@ public class Storage {
     /**
      * Loads all previous tasks that user has input before.
      *
-     * @return Array of all  previous tasks.
+     * @return Array of all previous tasks.
      * @throws DuckException if file is corrupted.
      * */
     public static Task[] load() throws DuckException {
@@ -60,10 +62,10 @@ public class Storage {
             if (!file.exists()) {
                 return 0;
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
+                List<String> taskList = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
-                if (!tasklist.isEmpty()) {
-                    numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
+                if (!taskList.isEmpty()) {
+                    numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
                 }
                 return numTasks;
             }
@@ -142,6 +144,6 @@ public class Storage {
         } else if (task instanceof Event) {
             type = "E";
         }
-        return type+" | "+done+" | "+task.description + task.getDates();
+        return type + " | " + done + " | " + task.description + task.getDates();
     }
 }

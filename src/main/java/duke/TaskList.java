@@ -17,6 +17,7 @@ public class TaskList {
      * Adds new task to list.
      *
      * @param t Task to be added to the list.
+     * @return String reply confirming updated task list.
      * */
     public String add(Task t) {
         tasks[cmdNum] = t;
@@ -30,6 +31,7 @@ public class TaskList {
      * Returns task at the specified position in the list.
      *
      * @param n Index of the task to be returned.
+     * @return Task item requested.
      * */
     public Task get(int n) {
         return tasks[n];
@@ -40,6 +42,7 @@ public class TaskList {
      *
      * @param n Index of the task to be deleted.
      * @throws DuckException if there is no task at the given index in the list.
+     * @return String reply confirming item has been deleted.
      * */
     public String delete(int n) {
         if (n >= cmdNum + 1) {
@@ -82,6 +85,7 @@ public class TaskList {
      *
      * @param num Index of the task to be marked as done.
      * @throws DuckException if there is no task at the given index in the list.
+     * @return String confirming task has been marked.
      * */
     public String mark(int num) {
         if (num < cmdNum + 1) {
@@ -97,6 +101,7 @@ public class TaskList {
      *
      * @param num Index of the task to be marked as not done.
      * @throws DuckException if there is no task at the given index in the list.
+     * @return String confirming task has been unmarked.
      * */
     public String unmark(int num) {
         if (num < cmdNum + 1) {
@@ -111,6 +116,7 @@ public class TaskList {
      * Prints all tasks in the list with the given keyword.
      *
      * @param keyword String to find in all the tasks.
+     * @return String representation of all matching tasks found.
      * */
     public String find(String keyword) {
         Task[] foundTasks = new Task[100];
