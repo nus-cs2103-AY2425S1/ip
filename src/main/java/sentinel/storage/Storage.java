@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+import sentinel.customer.Customer;
+import sentinel.customer.CustomerList;
 import sentinel.parser.Parser;
 import sentinel.task.Task;
 import sentinel.task.TaskList;
@@ -76,6 +78,43 @@ public class Storage {
      */
     public static void saveTaskList(String content) throws IOException {
         FileWriter fw = new FileWriter("src/main/data/data.txt");
+        fw.write(content);
+        fw.close();
+    }
+
+    /**
+     * Loads the customer list that was saved.
+     *
+     * @return List of customers.
+     * @throws IOException if file loading was not successful.
+     */
+    public static CustomerList loadCustomerList() throws IOException {
+        File f = loadFile("customers.txt");
+        assert(f != null) : "File does not exist";
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        CustomerList listOfCustomers = new CustomerList();
+
+        while (s.hasNextLine()) {
+            Customer newCustomer = Parser.parseStringToCustomer(s.nextLine());
+
+            if (newCustomer == null) {
+                continue;
+            }
+
+            listOfCustomers.addCustomer(newCustomer);
+        }
+
+        return listOfCustomers;
+    }
+
+    /**
+     * Saves the current customer list to a file.
+     *
+     * @param content Content to be saved to a file.
+     * @throws IOException if task list could not be saved.
+     */
+    public static void saveCustomerList(String content) throws IOException {
+        FileWriter fw = new FileWriter("src/main/data/customers.txt");
         fw.write(content);
         fw.close();
     }
