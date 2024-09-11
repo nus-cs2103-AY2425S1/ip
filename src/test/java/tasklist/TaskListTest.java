@@ -1,27 +1,30 @@
 package tasklist;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import org.junit.jupiter.api.Test;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-import java.util.List;
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.Scanner;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 public class TaskListTest {
 
     @Test
     public void test1() {
         List<Task> testList1 = new ArrayList<>();
-        testList1.add(new Deadline("CS2103T", LocalDate.parse("2024-08-26")));
-        testList1.add(new ToDo("Swimming"));
-        testList1.add(new Event("CS2102", LocalDate.parse("2025-01-15"), LocalDate.parse("2025-05-07")));
+        testList1.add(new Deadline("CS2103T", LocalDate.parse("2024-08-26"), 1));
+        testList1.add(new ToDo("Swimming", 1));
+        testList1.add(new Event("CS2102", LocalDate.parse("2025-01-15"), LocalDate.parse("2025-05-07"), 1));
 
         // Mock user input for the Scanner
         String userInput = "Next Input";
@@ -56,9 +59,9 @@ public class TaskListTest {
     @Test
     public void test2() {
         List<Task> testList2 = new ArrayList<>();
-        testList2.add(new Deadline("CS2103T", LocalDate.parse("2024-08-26")));
-        testList2.add(new ToDo("Swimming"));
-        testList2.add(new Event("CS2102", LocalDate.parse("2025-01-15"), LocalDate.parse("2025-05-07")));
+        testList2.add(new Deadline("CS2103T", LocalDate.parse("2024-08-26"), 1));
+        testList2.add(new ToDo("Swimming", 1));
+        testList2.add(new Event("CS2102", LocalDate.parse("2025-01-15"), LocalDate.parse("2025-05-07"), 1));
 
         // Mock user input for the Scanner
         String userInput = "Next Input";

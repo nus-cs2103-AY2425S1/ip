@@ -39,6 +39,7 @@ public class Parser {
         commands.put("delete", new DeleteCommand());
         commands.put("find", new FindCommand());
         commands.put("on", new OnCommand());
+        commands.put("cp", new ChangePriorityCommand());
         //commands.put("many", new AddManyCommand());
     }
 
@@ -146,7 +147,8 @@ public class Parser {
      * @return
      */
     public static String addingToDoTaskToList(String taskDescription, List<Task> tasks) {
-        Task nextTask = new ToDo(taskDescription);
+        //Task nextTask = new ToDo(taskDescription);
+        Task nextTask = new ToDo(taskDescription, 1);
         Ui.addingToDoPrint(nextTask);
         tasks.add(nextTask);
         //return scanner.nextLine();
@@ -164,7 +166,8 @@ public class Parser {
      */
     public static String addingDeadlineTaskToList(String taskDescription, LocalDate byDate, List<Task> tasks) {
         // If task added successfully, the program will reach here!
-        Task nextTask = new Deadline(taskDescription, byDate);
+        //Task nextTask = new Deadline(taskDescription, byDate);
+        Task nextTask = new Deadline(taskDescription, byDate, 1);
         Ui.addingDeadlinePrint(nextTask);
         tasks.add(nextTask);
         //return scanner.nextLine();
@@ -183,7 +186,7 @@ public class Parser {
      */
     public static String addingEventToTaskList(String taskDescription, LocalDate fromDate, LocalDate toDate,
                                                List<Task> tasks) {
-        Task nextTask = new Event(taskDescription, fromDate, toDate);
+        Task nextTask = new Event(taskDescription, fromDate, toDate, 1);
         Ui.addingEventPrint(nextTask);
         tasks.add(nextTask);
         //return scanner.nextLine();
@@ -204,7 +207,30 @@ public class Parser {
         if (byDate.isAfter(date)) {
             System.out.println(index + "." + task);
             sbr.append(index + "." + task + "\n");
-            index++;
+        }
+    }
+
+    /**
+     * Prints task if task coincides with the relevant dates
+     * @param tasks
+     * @param date
+     * @param sbr
+     * @param index
+     */
+    public static void printTasksIfDateCorresponds(List<Task> tasks, LocalDate date, StringBuilder sbr, int index) {
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Parser.printDeadlineIfDateCorresponds(task, date, sbr, index);
+                index++;
+            } else if (task instanceof Event) {
+                LocalDate fromDate = ((Event) task).getFromDur();
+                LocalDate toDate = ((Event) task).getToDur();
+                if (fromDate.isBefore(date) && toDate.isAfter(date)) {
+                    System.out.println(index + "." + task);
+                    sbr.append(index + "." + task + "\n");
+                    index++;
+                }
+            }
         }
     }
 }

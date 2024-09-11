@@ -10,14 +10,17 @@ public abstract class Task {
     private static int taskCount = 0;
     protected String description;
     protected boolean isDone;
+    private TaskPriority priority;
 
     /**
      * Task constructor
      * @param description
      */
-    public Task(String description) {
+    public Task(String description, int priority) {
         this.description = description;
         this.isDone = false;
+        this.priorityAssignment(priority);
+        //this.priority = priority;
     }
 
     @Override
@@ -70,6 +73,48 @@ public abstract class Task {
     }
     public static void decrementTaskCount() {
         Task.taskCount--;
+    }
+    public static TaskPriority getPriority(Task task) {
+        return task.priority;
+    }
+    private void priorityAssignment(int priorityAssigned) {
+        if (priorityAssigned == 1) {
+            this.priority = TaskPriority.LOW;
+        } else if (priorityAssigned == 2) {
+            this.priority = TaskPriority.MEDIUM;
+        } else if (priorityAssigned == 3) {
+            this.priority = TaskPriority.HIGH;
+        } else if (priorityAssigned == 4) {
+            this.priority = TaskPriority.CRITICAL;
+        }
+    }
+    public int getPriorityNum() {
+        if (this.priority == TaskPriority.LOW) {
+            return 1;
+        } else if (this.priority == TaskPriority.MEDIUM) {
+            return 2;
+        } else if (this.priority == TaskPriority.HIGH) {
+            return 3;
+        } else if (this.priority == TaskPriority.CRITICAL) {
+            return 4;
+        }
+        return -1;
+    }
+    /**
+     * Modifies the level of priority of a specific task instance
+     * @param task
+     * @param taskPriority
+     */
+    public static void changePriority(Task task, int taskPriority) {
+        if (taskPriority == 1) {
+            task.priority = TaskPriority.LOW;
+        } else if (taskPriority == 2) {
+            task.priority = TaskPriority.MEDIUM;
+        } else if (taskPriority == 3) {
+            task.priority = TaskPriority.HIGH;
+        } else {
+            task.priority = TaskPriority.CRITICAL;
+        }
     }
 }
 

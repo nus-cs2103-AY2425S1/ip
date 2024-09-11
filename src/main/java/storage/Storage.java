@@ -65,16 +65,20 @@ public class Storage {
                 Task task = null;
                 switch (taskType) {
                 case "T":
-                    task = new ToDo(description);
+                    int priorityForToDo = Integer.valueOf(parts[3]);
+                    task = new ToDo(description, priorityForToDo);
+                    //task = new ToDo(description);
                     break; // Continues with reading the next task in the next line
                 case "D":
                     String by = parts[3];
-                    task = new Deadline(description, LocalDate.parse(by));
+                    int priorityForDeadline = Integer.valueOf(parts[4]);
+                    task = new Deadline(description, LocalDate.parse(by), priorityForDeadline);
                     break;
                 case "E":
                     String from = parts[3];
                     String to = parts[4];
-                    task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
+                    int priorityForEvent = Integer.valueOf(parts[5]);
+                    task = new Event(description, LocalDate.parse(from), LocalDate.parse(to), priorityForEvent);
                     break;
                 default:
                     System.out.println("Unknown task type: " + taskType);

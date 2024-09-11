@@ -18,16 +18,21 @@ public class Event extends Task {
      * @param fromDuration
      * @param toDuration
      */
-    public Event(String description, LocalDate fromDuration, LocalDate toDuration) {
-        super(description);
+    public Event(String description, LocalDate fromDuration, LocalDate toDuration, int priority) {
+        super(description, priority);
         this.toDuration = toDuration;
         this.fromDuration = fromDuration;
         Task.incrementTaskCount();
     }
 
-    @Override
+    /*@Override
     public String toDataString() {
         return "E | " + super.toDataString() + " | " + fromDuration + " | " + toDuration;
+    }*/
+    @Override
+    public String toDataString() {
+        return "E | " + super.toDataString() + " | " + fromDuration + " | " + toDuration + " | "
+                + super.getPriorityNum();
     }
 
     @Override

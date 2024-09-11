@@ -10,8 +10,6 @@ import parser.Parser;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
-//import tasks.ToDo;
-//import ui.Ui;
 
 /**
  * Encapsulates all the commands that the user can use to interact with the bot
@@ -26,17 +24,9 @@ public class TaskList {
      * @return returns the next input command by user
      */
     public static String checkList(List<Task> items, Scanner scanner) {
-        //int index = 1;
-        //StringBuilder sbr = new StringBuilder("Here are the tasks in your list: \n");
         System.out.println("Here are the tasks in your list:");
         String result = Parser.printAllTasks(items);
-        /*for (Task item : items) {
-            System.out.println(index + "." + item);
-            sbr.append(index + "." + item + "\n");
-            index++;
-        }*/
         //return scanner.nextLine();
-        //return sbr.toString();
         return result;
     }
 
@@ -51,12 +41,6 @@ public class TaskList {
     public static String markingTask(String input, List<Task> items, Scanner scanner) {
         try {
             return Parser.markTaskAsDone(items, Integer.parseInt(input) - 1);
-            /*int taskIndex = Integer.parseInt(input) - 1;
-            Task markingTask = items.get(taskIndex);
-            markingTask.setDone(true);
-            Ui.markingTaskPrint(markingTask);
-            return "Nice! I've marked this task as done:\n"
-                    + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";*/
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             //return scanner.nextLine();
@@ -79,12 +63,6 @@ public class TaskList {
     public static String unmarkingTask(String input, List<Task> items, Scanner scanner) {
         try {
             return Parser.unmarkTaskAsDone(items, Integer.parseInt(input) - 1);
-            /*int taskIndex = Integer.parseInt(input) - 1;
-            Task markingTask = items.get(taskIndex);
-            markingTask.setDone(false);
-            Ui.unmarkingTaskPrint(markingTask);
-            return "OK, I've marked this task as not done yet:\n"
-                    + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";*/
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             //return scanner.nextLine();
@@ -107,13 +85,6 @@ public class TaskList {
     public static String deleteTask(int index, List<Task> items, Scanner scanner) {
         try {
             return Parser.deleteTasks(items, index);
-            /*Task taskToDelete = items.get(index - 1);
-            items.remove(index - 1);
-            Task.decrementTaskCount();
-            Ui.deletingTaskPrint(taskToDelete);
-            return "Noted. I've removed this task:\n"
-                    + taskToDelete + "\n"
-                    + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";*/
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Pick an appropriate number. Please Try Again");
             //return scanner.nextLine();
@@ -138,13 +109,6 @@ public class TaskList {
             return "You can't Do Nothing";
         }
         return Parser.addingToDoTaskToList(input, items);
-        /*Task nextTask = new ToDo(input);
-        Ui.addingToDoPrint(nextTask);
-        items.add(nextTask);
-        //return scanner.nextLine();
-        return "Got it. I've added this task:\n"
-                + nextTask + "\n"
-                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";*/
     }
 
     /**
@@ -249,17 +213,12 @@ public class TaskList {
             return "You need to specify a date!";
         }
         StringBuilder sbr = new StringBuilder("Here are the tasks that occur at this date: " + date + "\n");
-        int index = 1;
-        for (Task task : items) {
+        //int index = 1;
+        Parser.printTasksIfDateCorresponds(items, date, sbr, 1);
+        /*for (Task task : items) {
             if (task instanceof Deadline) {
                 Parser.printDeadlineIfDateCorresponds(task, date, sbr, index);
                 index++;
-                /*LocalDate byDate = ((Deadline) task).getDeadlineDate();
-                if (byDate.isAfter(date)) {
-                    System.out.println(index + "." + task);
-                    sbr.append(index + "." + task + "\n");
-                    index++;
-                }*/
             } else if (task instanceof Event) {
                 LocalDate fromDate = ((Event) task).getFromDur();
                 LocalDate toDate = ((Event) task).getToDur();
@@ -269,7 +228,7 @@ public class TaskList {
                     index++;
                 }
             }
-        }
+        }*/
         System.out.println("____________________________________________________________");
         //return scanner.nextLine();
         return sbr.toString();
@@ -311,5 +270,40 @@ public class TaskList {
     // And pass into addMany(Tasks ...) {}
     public static String addMany(String input, List<Task> items, Scanner scanner) {
         return "";
+    }
+    // input is "cp (1)<task index> LOW/MEDIUM...
+
+    /**
+     * Changes the priorityLevel for various task instances
+     * @param input
+     * @param items
+     * @param scanner
+     * @return
+     */
+    public static String changePriorityForSpecificTask(String input, List<Task> items, Scanner scanner) {
+        String[] result = input.trim().split("\\s+");
+        if (result.length != 3) {
+            return "Correct command format is...";
+        }
+        int severity = Integer.valueOf(result[2].trim());
+        if (severity > 4 || severity < 1) {
+            return "Choose only 1 to 4";
+        }
+        Task task;
+        try {
+            task = items.stream()
+                    .skip(Integer.valueOf(result[1].trim()) - 1) //Skip to the task at the given index(1-based index)
+                    .findFirst() //Get the first task if present
+                    .orElseThrow(() -> new IllegalArgumentException("Task index out of bounds."));
+        } catch (IllegalArgumentException e) {
+            return "You seme to have reached too high. Try reaching for something else!";
+        }
+        //Task task = items.get(Integer.valueOf(result[1].trim()) - 1);
+        String previousPriority = Task.getPriority(task).toString();
+        Task.changePriority(task, severity);
+        String newPriority = Task.getPriority(task).toString();
+        return "Got it. I've changed the priority of this task:\n"
+                + task + "\n"
+                + "from " + previousPriority + " to " + newPriority + "\n";
     }
 }

@@ -14,7 +14,6 @@ import tasks.Task;
  * The main class that overruns the entire Chatbot
  */
 public class TheOrangeRatchetCat {
-
     // Without the GUI, this is the main method
     public static void main(String[] args) {
         TheOrangeCat.run();

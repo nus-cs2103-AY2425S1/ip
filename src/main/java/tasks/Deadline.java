@@ -16,18 +16,21 @@ public class Deadline extends Task {
      * @param description
      * @param by
      */
-    public Deadline(String description, LocalDate by) {
-        super(description);
+    public Deadline(String description, LocalDate by, int priority) {
+        super(description, priority);
         this.by = by;
         Task.incrementTaskCount();
     }
 
 
-    @Override
+    /*@Override
     public String toDataString() {
         return "D | " + super.toDataString() + " | " + by;
+    }*/
+    @Override
+    public String toDataString() {
+        return "D | " + super.toDataString() + " | " + by + " | " + super.getPriorityNum();
     }
-
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(outputFormatter) + ")";
