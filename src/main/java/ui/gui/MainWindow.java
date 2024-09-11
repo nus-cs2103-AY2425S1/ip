@@ -35,6 +35,7 @@ public class MainWindow extends AnchorPane {
     public void setBob(Bob b) {
         bob = b;
         this.showWelcomeMessage();
+        this.showReminders();
     }
 
     /**
@@ -42,6 +43,11 @@ public class MainWindow extends AnchorPane {
      */
     private void showWelcomeMessage() {
         DialogBox dialogBox = DialogBox.getDukeDialog(bob.ui.showWelcomeMessage(), dukeImage);
+        dialogContainer.getChildren().addAll(dialogBox);
+    }
+
+    private void showReminders() {
+        DialogBox dialogBox = DialogBox.getDukeDialog(bob.ui.showRemindMessage(), dukeImage);
         dialogContainer.getChildren().addAll(dialogBox);
     }
 

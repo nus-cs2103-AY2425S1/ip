@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected static final DateTimeFormatter toSelfFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm");
     protected static final DateTimeFormatter toUserFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    protected TaskType getType() {
+        return this.type;
+    };
 
     protected enum ReadBy {
         USER,
@@ -84,7 +87,17 @@ public abstract class Task {
     @Override
     public String toString() {
         String status = this.completed ? "[X]" : "[ ]";
-        return this.type + " " + status + " " + this.task;
+        return this.getTypeAsString() + " " + status + " " + this.task;
+    }
+
+    private String getTypeAsString() {
+        if (this.type == TaskType.TODO) {
+            return "[T]";
+        } else if (this.type == TaskType.DEADLINE) {
+            return "[D]";
+        } else {
+            return "[E]";
+        }
     }
 
     /**

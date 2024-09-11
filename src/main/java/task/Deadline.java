@@ -46,7 +46,11 @@ public class Deadline extends Task {
         }
     }
 
-    private String getDeadline(ReadBy target) {
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    private String getDeadlineFormatted(ReadBy target) {
         if (target == ReadBy.BOB) {
             return this.deadline.format(Task.toSelfFormatter);
         } else {
@@ -64,11 +68,11 @@ public class Deadline extends Task {
     @Override
     public String saveFileFormat() {
         String status = this.isCompleted() ? "1 | " : "0 | ";
-        return "D | " + status + this.getDescription() + " | " + getDeadline(ReadBy.BOB);
+        return "D | " + status + this.getDescription() + " | " + getDeadlineFormatted(ReadBy.BOB);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (By: " + getDeadline(ReadBy.USER) + ")";
+        return super.toString() + " (By: " + getDeadlineFormatted(ReadBy.USER) + ")";
     }
 }

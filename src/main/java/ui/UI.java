@@ -33,4 +33,7 @@ public class UI {
         return msg;
     }
 
+    public String showRemindMessage() {
+        return Parser.handleRemind();
+    }
 }

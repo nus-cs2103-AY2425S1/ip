@@ -10,6 +10,8 @@ import ui.BotException;
  * It initializes the user interface and storage, and processes user input in a loop.
  */
 public class Bob {
+
+
     public UI ui = new UI();
     public Storage storage = new Storage("src/main/Data/save.txt");
 

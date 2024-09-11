@@ -55,6 +55,9 @@ public class Parser {
             case "find":
                 response = handleFind(arguments);
                 break;
+            case "remind":
+                response = handleRemind();
+                break;
             default:
                 throw new BotException("I'm sorry, I don't recognize that command.");
             }
@@ -62,6 +65,14 @@ public class Parser {
             response = e.getMessage();
         }
         return response;
+    }
+
+    protected static String handleRemind() {
+        String msg = "";
+        TaskList upcoming = TaskList.getUpcomingTasks();
+        msg += String.format("You have %s tasks in the next 2 days.\n", upcoming.getNumTasks());
+        msg += upcoming.printList();
+        return msg;
     }
 
     private static String handleFind(String arguments) throws BotException{
@@ -114,7 +125,7 @@ public class Parser {
             new Deadline(taskDescription, deadline);
             msg += UI.taskAddedMsg();
         } catch (DateTimeParseException e) {
-            throw new BotException("I'm sorry, I have some trouble understanding the deadline. " +
+            throw new BotException("HIHi I'm sorry, I have some trouble understanding the deadline. " +
                     "Please ensure you have formatted it correctly. [MMddyyyy HHmm]");
         }
 

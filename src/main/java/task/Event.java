@@ -48,6 +48,10 @@ public class Event extends Task {
         }
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
     /**
      * Returns a string representation of the event task formatted for saving to a file.
      * The format includes the task type, completion status, description, start time, and end time, separated by " | ".

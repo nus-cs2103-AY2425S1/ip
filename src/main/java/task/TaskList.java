@@ -2,6 +2,8 @@ package task;
 
 import ui.BotException;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -117,6 +119,33 @@ public class TaskList {
             return this.tasks.get(index);
         }
         throw new BotException("Task does not exist!");
+    }
+
+    /**
+     *
+     */
+    public static TaskList getUpcomingTasks() {
+        LocalDateTime now = LocalDateTime.now();
+        TaskList results = new TaskList();
+        for (Task t : TaskList.mainTaskList.tasks) {
+            if (t.getType() == Task.TaskType.TODO) {
+                continue;
+            }
+            LocalDateTime start;
+            if (t.getType() == Task.TaskType.EVENT) {
+                Event tsk = (Event) t;
+                start = tsk.getStartTime();
+            } else {
+                Deadline tsk = (Deadline) t;
+                start = tsk.getDeadline();
+            }
+
+            if (now.plus(2, ChronoUnit.DAYS).isAfter(start)) {
+                results.addTask(t);
+            }
+        }
+
+        return results;
     }
 
     /**
