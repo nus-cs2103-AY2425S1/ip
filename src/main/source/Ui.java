@@ -42,12 +42,19 @@ public class Ui {
         if (taskList.getLength() == 0) {
             System.out.println("\tNo items in the list.\n");
         } else {
-            String str = "\t____________________________________________________________\n" +
-                    "\tHere are the tasks in your list:\n" + taskList.export() +
-                    "\t____________________________________________________________\n";
-            System.out.println(str);
+            StringBuilder str = new StringBuilder("\t____________________________________________________________\n");
+            str.append("\tHere are the tasks in your list:\n");
+
+            String[] tasks = taskList.export();
+            for (int i = 0; i < tasks.length; i++) {
+                str.append("\t").append(i + 1).append(". ").append(tasks[i]).append("\n");
+            }
+
+            str.append("\t____________________________________________________________\n");
+            System.out.println(str.toString());
         }
     }
+
 
     public void markTask(Task task) {
             System.out.println("\tNice! I've marked this task as done:");

@@ -15,7 +15,7 @@ public class Storage {
 
     public Storage(String dataFilePath) {
         this.dataFilePath = Path.of(dataFilePath);
-        ArrayList<Task> taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     public void saveTasks(TaskList taskList) throws IOException {

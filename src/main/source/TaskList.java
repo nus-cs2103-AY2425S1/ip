@@ -30,7 +30,7 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return this.tasks.get(index);
+        return this.tasks.get(index - 1);
     }
 
     public boolean isDoneTask(int index) {
@@ -42,7 +42,7 @@ public class TaskList {
         String[] exportTasks = new String[tasks.size()];
 
         for (int i = 0; i < tasks.size(); i++) {
-            exportTasks[i] = tasks.get(i).export();
+            exportTasks[i] = tasks.get(i).toString();
         }
         return exportTasks;
     }
