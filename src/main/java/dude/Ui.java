@@ -112,6 +112,14 @@ public class Ui {
         return s.toString();
     }
 
+    public String showDefine(String shortcut, CommandType command) {
+        return "Noted. Now I know that \"" + shortcut + "\" represents \"" + command.name() + "\".\n";
+    }
+
+    public String showUndefine(String shortcut) {
+        return "I got you. What does \"" + shortcut + "\" means?\n";
+    }
+
     /**
      * Returns an error message when a DudeException occurs.
      *

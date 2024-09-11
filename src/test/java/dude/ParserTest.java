@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dude.exception.DudeDateTimeFormatException;
@@ -13,18 +15,24 @@ import dude.exception.DudeInvalidCommandException;
 import dude.exception.DudeNullCommandException;
 
 public class ParserTest {
+    Parser parser;
+
+    @BeforeEach
+    public void setup() {
+        parser = new Parser(new HashMap<>());
+    }
 
     @Test
     public void testGetCommand_validCommand() throws DudeException {
-        assertEquals(CommandType.TODO, Parser.getCommand("todo read book"));
-        assertEquals(CommandType.DEADLINE, Parser.getCommand("deadline submit report"));
-        assertEquals(CommandType.EVENT, Parser.getCommand("event"));
+        assertEquals(CommandType.TODO, parser.getCommand("todo read book"));
+        assertEquals(CommandType.DEADLINE, parser.getCommand("deadline submit report"));
+        assertEquals(CommandType.EVENT, parser.getCommand("event"));
     }
 
     @Test
     public void testGetCommand_emptyInput_throwsDudeNullCommandException() {
         DudeNullCommandException exception = assertThrows(DudeNullCommandException.class, () -> {
-            Parser.getCommand("");
+            parser.getCommand("");
         });
 
         assertEquals("Oops!! You did not enter anything.\n", exception.getMessage());
@@ -33,7 +41,7 @@ public class ParserTest {
     @Test
     public void testGetCommand_invalidCommand_throwsDudeInvalidCommandException() {
         DudeInvalidCommandException exception = assertThrows(DudeInvalidCommandException.class, () -> {
-            Parser.getCommand("hello");
+            parser.getCommand("hello");
         });
 
         assertEquals("Oops!! I don't know what does that mean.\n", exception.getMessage());

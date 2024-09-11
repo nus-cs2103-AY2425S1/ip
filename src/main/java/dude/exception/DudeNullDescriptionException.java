@@ -12,6 +12,6 @@ public class DudeNullDescriptionException extends DudeException {
      * @param command The name of the command that requires a description.
      */
     public DudeNullDescriptionException(String command) {
-        super("You need to add description for \"" + command + "\".");
+        super("You need to add description(s) for \"" + command + "\".");
     }
 }

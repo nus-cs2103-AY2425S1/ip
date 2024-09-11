@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * A GUI for Dude using FXML.
  */
 public class Main extends Application {
-    private static final String FILE_PATH = "./data/dude.txt";
+    private static final String FILE_PATH = "./data";
     private Dude dude;
 
     public Main() {

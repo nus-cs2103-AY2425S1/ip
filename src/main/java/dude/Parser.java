@@ -3,16 +3,24 @@ package dude;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 import dude.exception.DudeDateTimeFormatException;
 import dude.exception.DudeException;
 import dude.exception.DudeInvalidCommandException;
+import dude.exception.DudeInvalidDefineException;
 import dude.exception.DudeNullCommandException;
+import dude.exception.DudeShortcutDeleteException;
 
 /**
  * Provides utility methods for parsing user input into commands, descriptions, and date-time objects.
  */
 public class Parser {
+    private HashMap<String, CommandType> shortcutMap;
+
+    public Parser(HashMap<String, CommandType> shortcutMap) {
+        this.shortcutMap = shortcutMap;
+    }
 
     /**
      * Parses the input string and returns the corresponding CommandType.
@@ -21,7 +29,7 @@ public class Parser {
      * @return The CommandType that corresponds to the input command.
      * @throws DudeException If the input is empty or does not match any known command.
      */
-    public static CommandType getCommand(String input) throws DudeException {
+    public CommandType getCommand(String input) throws DudeException {
         if (input.isEmpty()) {
             throw new DudeNullCommandException();
         }
@@ -29,6 +37,12 @@ public class Parser {
         String[] parsedInput = input.split(" ", 2);
         String commandString = parsedInput[0];
         CommandType command;
+
+        if (shortcutMap.containsKey(commandString)) {
+            command = shortcutMap.get(commandString);
+
+            return command;
+        }
 
         try {
             command = CommandType.valueOf(commandString.toUpperCase());
@@ -75,5 +89,42 @@ public class Parser {
         }
 
         return dateTime;
+    }
+
+    public HashMap<String, CommandType> getShortcutMap() {
+        return shortcutMap;
+    }
+
+    public CommandType defineShortcut(String shortcut, String command) throws DudeInvalidDefineException {
+        CommandType commandType;
+
+        try {
+            CommandType.valueOf(shortcut.toUpperCase());
+            throw new DudeInvalidDefineException();
+        } catch (IllegalArgumentException e) {
+            // shortcut is not a valid CommandType
+        }
+
+        try {
+            commandType = CommandType.valueOf(command.toUpperCase());
+        } catch (IllegalArgumentException e1) {
+            throw new DudeInvalidDefineException(command);
+        }
+
+        shortcutMap.put(shortcut, commandType);
+        return commandType;
+    }
+
+    public void deleteShortcut(String shortcut) throws DudeException {
+        try {
+            CommandType.valueOf(shortcut.toUpperCase());
+            throw new DudeShortcutDeleteException();
+        } catch (IllegalArgumentException e) {
+            // shortcut is not a valid CommandType
+        }
+
+        if (shortcutMap.remove(shortcut) == null) {
+            throw new DudeShortcutDeleteException(shortcut);
+        }
     }
 }

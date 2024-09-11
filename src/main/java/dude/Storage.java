@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import dude.exception.DudeCorruptedDataException;
@@ -16,12 +17,17 @@ import dude.task.Event;
 import dude.task.Task;
 import dude.task.TaskList;
 import dude.task.ToDo;
+import javafx.util.Pair;
 
 /**
  * Represents a storage that handles the loading and saving of tasks to a file.
  */
 public class Storage {
+    private static final String DATA_FILE_NAME = "/dude.txt";
+    private static final String SHORTCUT_FILE_NAME = "/shortcut.txt";
     private String filePath;
+    private String dataFilePath;
+    private String shortcutFilePath;
 
     /**
      * Constructs a Storage with the specified file path.
@@ -32,6 +38,8 @@ public class Storage {
         assert !filePath.isEmpty();
 
         this.filePath = filePath;
+        dataFilePath = filePath + DATA_FILE_NAME;
+        shortcutFilePath = filePath + SHORTCUT_FILE_NAME;
     }
 
     /**
@@ -40,7 +48,7 @@ public class Storage {
      * @return An ArrayList of tasks loaded from the file, or an empty ArrayList if file does not exist.
      */
     public ArrayList<Task> loadData() {
-        File dataFile = new File(filePath);
+        File dataFile = new File(dataFilePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -57,7 +65,7 @@ public class Storage {
 
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            createNewDataFile();
+            createNewFile(dataFilePath);
         }
 
         return tasks;
@@ -67,9 +75,9 @@ public class Storage {
      * Creates a new data file at the specified filePath.
      * Parent directories are created if they do not exist.
      */
-    public void createNewDataFile() {
-        File dataFile = new File(filePath);
-        File parent = new File(dataFile.getParent());
+    public void createNewFile(String fullFilePath) {
+        File dataFile = new File(fullFilePath);
+        File parent = new File(filePath);
         parent.mkdirs();
 
         try {
@@ -126,7 +134,7 @@ public class Storage {
      */
     public void saveData(TaskList taskList) {
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            FileWriter fileWriter = new FileWriter(dataFilePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             ArrayList<Task> tasks = taskList.getTasks();
 
@@ -139,6 +147,69 @@ public class Storage {
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("There is something wrong while saving to data file:");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public HashMap<String, CommandType> loadShortcut() {
+        File shortcutFile = new File(shortcutFilePath);
+        HashMap<String, CommandType> shortcutMap = new HashMap<>();
+
+        try {
+            Scanner fileScanner = new Scanner(shortcutFile);
+
+            while (fileScanner.hasNextLine()) {
+                String shortcutLine = fileScanner.nextLine();
+                try {
+                    Pair<String, CommandType> shortcutPair = stringToShortcutPair(shortcutLine);
+                    shortcutMap.put(shortcutPair.getKey(), shortcutPair.getValue());
+                } catch (DudeCorruptedDataException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            createNewFile(dataFilePath);
+        }
+
+        return shortcutMap;
+    }
+
+    public Pair<String, CommandType> stringToShortcutPair(String string) throws DudeCorruptedDataException {
+        String[] splitString = string.split("\\|");
+
+        if (splitString.length != 2) {
+            throw new DudeCorruptedDataException();
+        }
+
+        try {
+            CommandType command = CommandType.valueOf(splitString[1]);
+
+            return new Pair<>(splitString[0], command);
+        } catch (IllegalArgumentException e) {
+            throw new DudeCorruptedDataException();
+        }
+    }
+
+    public void saveShortcut(Parser parser) {
+        HashMap<String, CommandType> shortcutMap = parser.getShortcutMap();
+
+        try {
+            FileWriter fileWriter = new FileWriter(shortcutFilePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            StringBuilder s = new StringBuilder();
+
+            shortcutMap.forEach((key, value) -> {
+                s.append(key + "|" + value.name() + '\n');
+            });
+
+            bufferedWriter.write(s.toString());
+
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("There is something wrong while saving to shortcut file:");
             System.out.println(e.getMessage());
         }
     }
