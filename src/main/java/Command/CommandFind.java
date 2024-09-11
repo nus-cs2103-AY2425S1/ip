@@ -15,17 +15,17 @@ import task.Task;
  * Represents a "find" command in the Blitz application.
  */
 public class CommandFind extends Command {
-    private String parameters;
+    private String parameter;
 
     /**
      * Constructs a new CommandFind object with specified command String and a parameter String.
      *
      * @param command Command String to be associated with this Command object.
-     * @param param String containing the parameter for this command.
+     * @param parameter String containing the parameter for this command.
      */
-    public CommandFind(String command, String param) {
+    public CommandFind(String command, String parameter) {
         super(command);
-        this.parameters = param;
+        this.parameter = parameter;
     }
 
     /**
@@ -39,16 +39,20 @@ public class CommandFind extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+        if (list.isEmpty()) {
+            throw new BlitzEmptyTaskListException();
+        }
+
         ArrayList<Task> allTasks = list.getAllTask();
         TaskList matchedTasks = new TaskList(new ArrayList<>());
 
         for (Task task : allTasks) {
-            if (task.convertTaskToString().contains((this.parameters))) {
+            if (task.convertTaskToString().contains((this.parameter))) {
                 matchedTasks.addTask(task);
             }
         }
 
-        if (matchedTasks.getSize() == 0) {
+        if (matchedTasks.isEmpty()) {
             throw new BlitzEmptyTaskListException();
         }
 

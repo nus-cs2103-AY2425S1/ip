@@ -13,8 +13,8 @@ public enum Instruction {
      * @return True if the command matches any of the enum constant, false otherwise.
      */
     private static boolean contains(String command) {
-        for (Instruction c : Instruction.values()) {
-            if (c.name().equals(command.toUpperCase())) {
+        for (Instruction i : Instruction.values()) {
+            if (i.name().equals(command.toUpperCase())) {
                 return true;
             }
         }

@@ -9,6 +9,8 @@ import exception.BlitzException;
 import task.Event;
 import task.Task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents an "event" command in the Blitz application.
  */
@@ -24,6 +26,8 @@ public class CommandEvent extends Command {
         super(values[0]);
         this.parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);
+
+        assert parameters.length == 3 : "Event command must have exactly three parameters";
     }
 
     /**
@@ -37,8 +41,13 @@ public class CommandEvent extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task taskToAdd = new Event(parameters[0], "E", Task.convertStringToLocalDateTime(parameters[1]),
-                Task.convertStringToLocalDateTime(parameters[2]), false);
+        String description = parameters[0];
+        LocalDateTime startDateTime = Task.convertStringToLocalDateTime(parameters[1]);
+        LocalDateTime endDateTime = Task.convertStringToLocalDateTime(parameters[2]);
+
+        assert !description.isBlank() : "Event description must not be blank";
+
+        Task taskToAdd = new Event(description, "E", startDateTime, endDateTime, false);
 
         list.addTask(taskToAdd);
         storage.writeOneToFile(taskToAdd);
