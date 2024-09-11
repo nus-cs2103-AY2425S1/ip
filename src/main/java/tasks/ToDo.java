@@ -11,8 +11,8 @@ public class ToDo extends Task {
      *
      * @param description the description of the to-do task
      */
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, String priority) {
+        super(description, priority);
     }
 
     /**
@@ -22,7 +22,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "T | " + this.getStatusIcon() + " | " + this.description;
+        return this.getPriorityIcon() + " 📋 | " + this.getStatusIcon() + " | " + this.description;
     }
 
     /**
@@ -32,7 +32,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + this.getStatusIcon() + " | " + this.description;
+        return this.priority + " | T | " + this.getStatusIcon() + " | " + this.description;
     }
 
 

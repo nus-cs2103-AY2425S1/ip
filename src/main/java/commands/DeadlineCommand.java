@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
  */
 public class DeadlineCommand extends Command {
     private final String taskDescription;
+    private final String priority;
     private final LocalDateTime dueWhen;
 
     /**
@@ -22,8 +23,9 @@ public class DeadlineCommand extends Command {
      * @param taskDescription the description of the deadline task
      * @param dueWhen the due date and time of the task
      */
-    public DeadlineCommand(String taskDescription, LocalDateTime dueWhen) {
+    public DeadlineCommand(String taskDescription, String priority, LocalDateTime dueWhen) {
         this.taskDescription = taskDescription;
+        this.priority = priority;
         this.dueWhen = dueWhen;
     }
 
@@ -42,7 +44,7 @@ public class DeadlineCommand extends Command {
         } else if (this.dueWhen == null) {
             ui.showError("WHEN IS THE DEADLINE???\nPlease use yyyy-MM-dd HHmm format.");
         } else {
-            Task newTask = new Deadline(this.taskDescription, this.dueWhen);
+            Task newTask = new Deadline(this.taskDescription, this.priority, this.dueWhen);
             taskList.addTask(newTask);
             int numTasks = taskList.size();
             ui.showMessage("Got it. I've added this task:\n" + "  " + newTask.toString() + "\nNow you have " + numTasks + " tasks in the list");

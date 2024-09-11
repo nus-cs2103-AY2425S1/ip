@@ -65,19 +65,26 @@ public class Storage {
         String[] parts = line.trim().split("\\s*\\|\\s*");
 
         if (isValidLine(parts)) {
-            String taskType = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
+            String priority = parts[0];  // Priority is now the first element
+            String taskType = parts[1];  // Task type is now the second element
+            boolean isDone = parts[2].equals("1");
+
+            // Check if parts[3] (description) exists before accessing it
+            if (parts.length < 4) {
+                System.out.println("Skipping line due to missing description: " + line);
+                return;
+            }
+            String description = parts[3];
 
             switch (taskType) {
             case "T":
-                processTodoTask(taskList, description, isDone);
+                processTodoTask(taskList, description, isDone, priority);
                 break;
             case "D":
-                processDeadlineTask(parts, taskList, description, isDone, line);
+                processDeadlineTask(parts, taskList, description, isDone, line, priority);
                 break;
             case "E":
-                processEventTask(parts, taskList, description, isDone, line);
+                processEventTask(parts, taskList, description, isDone, line, priority);
                 break;
             default:
                 System.out.println("Unknown task type: " + taskType);
@@ -104,9 +111,10 @@ public class Storage {
      * @param taskList    The list of tasks.
      * @param description The description of the to-do task.
      * @param isDone      Indicates if the task is marked as done.
+     * @param priority    The priority of the task.
      */
-    private void processTodoTask(List<Task> taskList, String description, boolean isDone) {
-        ToDo newToDo = new ToDo(description);
+    private void processTodoTask(List<Task> taskList, String description, boolean isDone, String priority) {
+        ToDo newToDo = new ToDo(description, priority);
         if (isDone) {
             newToDo.markAsDone();
         }
@@ -121,15 +129,16 @@ public class Storage {
      * @param description The description of the deadline task.
      * @param isDone      Indicates if the task is marked as done.
      * @param line        The line read from the file, used for error reporting.
+     * @param priority    The priority of the task.
      */
-    private void processDeadlineTask(String[] parts, List<Task> taskList, String description, boolean isDone, String line) {
-        if (parts.length < 4) {
+    private void processDeadlineTask(String[] parts, List<Task> taskList, String description, boolean isDone, String line, String priority) {
+        if (parts.length < 5) {
             System.out.println("Skipping invalid Tasks.Deadline line: " + line);
             return;
         }
         try {
-            LocalDateTime dueWhen = Parser.parseDateTime(parts[3]);
-            Deadline newDeadline = new Deadline(description, dueWhen);
+            LocalDateTime dueWhen = Parser.parseDateTime(parts[4]);  // Ensure index is correct for the date
+            Deadline newDeadline = new Deadline(description, priority, dueWhen);
             if (isDone) {
                 newDeadline.markAsDone();
             }
@@ -147,16 +156,17 @@ public class Storage {
      * @param description The description of the event task.
      * @param isDone      Indicates if the task is marked as done.
      * @param line        The line read from the file, used for error reporting.
+     * @param priority    The priority of the task.
      */
-    private void processEventTask(String[] parts, List<Task> taskList, String description, boolean isDone, String line) {
-        if (parts.length < 5) {
+    private void processEventTask(String[] parts, List<Task> taskList, String description, boolean isDone, String line, String priority) {
+        if (parts.length < 6) {
             System.out.println("Skipping invalid Tasks.Event line: " + line);
             return;
         }
         try {
-            LocalDateTime startWhen = Parser.parseDateTime(parts[3]);
-            LocalDateTime endWhen = Parser.parseDateTime(parts[4]);
-            Event newEvent = new Event(description, startWhen, endWhen);
+            LocalDateTime startWhen = Parser.parseDateTime(parts[4]);  // Ensure index is correct for start date
+            LocalDateTime endWhen = Parser.parseDateTime(parts[5]);    // Ensure index is correct for end date
+            Event newEvent = new Event(description, priority, startWhen, endWhen);
             if (isDone) {
                 newEvent.markAsDone();
             }

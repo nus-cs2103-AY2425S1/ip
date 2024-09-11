@@ -12,14 +12,16 @@ import storage.Storage;
  */
 public class ToDoCommand extends Command {
     private final String taskDescription;
+    private final String priority;
 
     /**
      * Constructs a {@code ToDoCommand} with the specified task description.
      *
      * @param taskDescription the description of the to-do task
      */
-    public ToDoCommand(String taskDescription) {
+    public ToDoCommand(String taskDescription, String priority) {
         this.taskDescription = taskDescription;
+        this.priority = priority;
     }
 
     /**
@@ -35,7 +37,7 @@ public class ToDoCommand extends Command {
         if (this.taskDescription == null || this.taskDescription.trim().isEmpty()) {
             ui.showError("todo WHAT????");
         } else {
-            Task newTask = new ToDo(this.taskDescription);
+            Task newTask = new ToDo(this.taskDescription, this.priority);
             taskList.addTask(newTask);
             int numTasks = taskList.size();
 
