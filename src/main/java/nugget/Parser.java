@@ -34,22 +34,30 @@ public class Parser {
         String[] splitText = command.split(" ", 2);
 
         if (splitText.length < 2) {
-            if (splitText[0].equals("list")) {
-                return new ListCommand();
-            } else if (splitText[0].equals("todo")) {
-                throw new EmptyDescriptionException();
-            } else if (splitText[0].equals("deadline")) {
-                throw new EmptyDescriptionException();
-            } else if (splitText[0].equals("event")) {
-                throw new EmptyDescriptionException();
-            } else if (splitText[0].equals("find")) {
-                throw new EmptyDescriptionException();
-            }
-            throw new UnknownCommandException();
+            return handleSinglePartCommand(splitText[0]);
         }
 
         String action = splitText[0].trim();
-        String details = splitText.length > 1 ? splitText[1].trim() : "";
+        String details = splitText[1].trim();
+        return createCommand(action, details);
+
+    }
+
+    private Command handleSinglePartCommand(String command) throws NuggetException {
+        switch (command) {
+        case "list":
+            return new ListCommand();
+        case "todo":
+        case "deadline":
+        case "event":
+        case "find":
+            throw new EmptyDescriptionException();
+        default:
+            throw new UnknownCommandException();
+        }
+    }
+
+    private Command createCommand(String action, String details) throws NuggetException {
         switch (action) {
         case "mark":
             return new MarkTaskCommand(parseIndex(details));
@@ -69,7 +77,6 @@ public class Parser {
             throw new UnknownCommandException();
         }
     }
-
     /**
      * Parses the task index from the provided details string.
      *

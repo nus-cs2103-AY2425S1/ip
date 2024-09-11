@@ -13,10 +13,16 @@ import nugget.Nugget;
 
 public class ChatUI {
 
+    private static final String USER_IMAGE_PATH = "/images/nugget.jpeg";
+    private static final String BOT_IMAGE_PATH = "/images/bot.jpeg";
+    private static final int SPACING = 10;
+    private static final Insets PADDING = new Insets(10);
+
     private Nugget nugget;
     private VBox messageArea;
     private TextField inputField;
     private ScrollPane scrollPane;
+    private Button submitButton;
 
     private Image userImage;
     private Image botImage;
@@ -27,26 +33,16 @@ public class ChatUI {
     }
 
     private void initializeComponents() {
-        userImage = new Image(this.getClass().getResourceAsStream("/images/nugget.jpeg"));
-        botImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpeg"));
-
+        userImage = loadImage(USER_IMAGE_PATH);
+        botImage = loadImage(BOT_IMAGE_PATH);
         // Message area (Scrollable)
         messageArea = new VBox(10);
         scrollPane = new ScrollPane(messageArea);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        // Automatically scroll to the bottom when new messages are added
-        messageArea.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue(1.0));
-
+        configureScrollPane();
         inputField = new TextField();
-        inputField.setPromptText("Enter command...");
-        inputField.setOnAction(e -> handleInput());
-        HBox.setHgrow(inputField, Priority.ALWAYS);
-
+        configureInputField();
         // Submit button
-        Button submitButton = new Button("Submit");
+        submitButton = new Button("Submit");
         submitButton.setOnAction(e -> handleInput());
 
         // Input field and button side by side
@@ -58,8 +54,25 @@ public class ChatUI {
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
     }
 
+    private Image loadImage(String path) {
+        return new Image(getClass().getResourceAsStream(path));
+    }
+
+    private void configureScrollPane() {
+        scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        messageArea.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue(1.0));
+    }
+
+    private void configureInputField() {
+        inputField.setPromptText("Enter command...");
+        inputField.setOnAction(e -> handleInput());
+        HBox.setHgrow(inputField, Priority.ALWAYS);
+    }
+
     public VBox getLayout() {
-        return new VBox(scrollPane, new HBox(inputField, new Button("Submit")));
+        return new VBox(scrollPane, new HBox(inputField, submitButton));
     }
 
     private void handleInput() {

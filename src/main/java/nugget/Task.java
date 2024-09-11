@@ -53,8 +53,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String formattedString = String.format("[%s] %s", this.getStatusIcon(), this.description);
-        return formattedString;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
     /**
