@@ -32,6 +32,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-ea'
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -46,6 +47,7 @@ test {
 
 application {
     mainClass.set("Launcher")
+    applicationDefaultJvmArgs = ['-ea']
 }
 
 shadowJar {
