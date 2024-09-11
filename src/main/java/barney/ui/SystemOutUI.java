@@ -145,6 +145,18 @@ public class SystemOutUI extends Ui {
     }
 
     /**
+     * Prints the tagged task.
+     *
+     * @inheritDoc
+     */
+    @Override
+    public String printTaggedTask(Task task) {
+        System.out.println(super.taggedTaskString(task));
+        printLongLine();
+        return "";
+    }
+
+    /**
      * Prints the added task.
      *
      * @inheritDoc

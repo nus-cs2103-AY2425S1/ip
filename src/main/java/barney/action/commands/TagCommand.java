@@ -1,5 +1,6 @@
 package barney.action.commands;
 
+
 import java.util.HashMap;
 
 import barney.data.TaskList;
@@ -8,25 +9,25 @@ import barney.data.task.Task;
 import barney.ui.Ui;
 
 /**
- * Represents a command for marking a task as completed. Extends the
+ * Represents a command for tagging a task with a tag. Extends the
  * {@link Command} class.
  */
-public class MarkCommand extends Command {
+public class TagCommand extends Command {
     /**
-     * Creates a new MarkCommand object.
+     * Creates a new TagCommand object.
      *
      * @param argumentMap a HashMap containing the arguments for the command
      */
-    public MarkCommand(HashMap<String, String> argumentMap) {
-        super("mark", argumentMap);
+    public TagCommand(HashMap<String, String> argumentMap) {
+        super("tag", argumentMap);
     }
 
     /**
-     * Executes the MarkCommand, marking a task as completed.
+     * Executes the TagCommand, tagging a task with a tag.
      *
      * @param tasks The TaskList containing the tasks.
      * @param ui    The Ui object for user interaction.
-     * @return String representing the result of the mark task function.
+     * @return String representing the result of the tag task function.
      * @throws InvalidArgumentException if the task number is invalid or out of
      *                                  range.
      */
@@ -35,7 +36,6 @@ public class MarkCommand extends Command {
         verifyFlags();
 
         String indexStr = getParameter("index");
-
         if (!indexStr.matches("^\\d+$")) {
             throw new InvalidArgumentException("Please enter a task number!");
         }
@@ -45,9 +45,8 @@ public class MarkCommand extends Command {
         }
 
         Task task = tasks.get(index);
-        task.mark();
+        task.setTag(getParameter("tag"));
 
-        return ui.printMarkedTask(task);
-
+        return ui.printTaggedTask(task);
     }
 }

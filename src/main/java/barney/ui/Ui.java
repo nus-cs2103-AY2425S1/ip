@@ -203,8 +203,31 @@ public abstract class Ui {
         return "Nice! I've unmarked this task as undone:\n" + task.toString();
     }
 
-
+    /**
+     * Abstract method to print the unmarked task.
+     *
+     * @param task The unmarked task.
+     * @return The unmarked task string.
+     */
     public abstract String printUnmarkedTask(Task task);
+
+    /**
+     * String of the tagged tasks.
+     *
+     * @param task The tagged task.
+     * @return The tagged task string.
+     */
+    String taggedTaskString(Task task) {
+        return "Nice! I've tagged this task:\n" + task.toString();
+    }
+
+    /**
+     * Abstract method to print the tagged task.
+     *
+     * @param task The tagged task.
+     * @return The tagged task string.
+     */
+    public abstract String printTaggedTask(Task task);
 
     /**
      * String of the added tasks.

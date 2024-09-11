@@ -13,6 +13,7 @@ public class Task {
 
     private final String description;
     private boolean isMarked;
+    private String tag = "";
 
     /**
      * Constructor for Task.
@@ -30,7 +31,7 @@ public class Task {
      * Returns the status icon of the task.
      *
      * @return The status icon of the task. Returns "X" if the task is marked as
-     *         done, otherwise returns a space character.
+     *     done, otherwise returns a space character.
      */
     public String getStatusIcon() {
         return (isMarked ? "X" : " "); // mark done task with X
@@ -60,6 +61,15 @@ public class Task {
     }
 
     /**
+     * Sets the tag of the task.
+     *
+     * @param tag the tag to be set
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
      * Converts the Task object into an ArrayList of strings for saving purposes.
      * The ArrayList contains two elements: the first element represents the marking
      * status of the task, where "1" indicates the task is marked and "0" indicates
@@ -68,7 +78,7 @@ public class Task {
      * @return An ArrayList of strings representing the Task object.
      */
     public ArrayList<String> toSaveArray() {
-        return new ArrayList<>(Arrays.asList((this.isMarked ? "1" : "0"), this.description));
+        return new ArrayList<>(Arrays.asList((this.isMarked ? "1" : "0"), this.description, this.tag));
     }
 
     /**
@@ -78,6 +88,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description + (!this.tag.isEmpty() ? " [tag: " + this.tag + "]" : "");
     }
 }

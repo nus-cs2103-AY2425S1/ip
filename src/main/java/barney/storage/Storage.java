@@ -54,13 +54,16 @@ public class Storage {
                 // description
                 String description = taskData[1];
 
+                // tag
+                String tag = taskData[2];
+
                 // taskType
-                String taskType = taskData[2];
+                String taskType = taskData[3];
                 switch (taskType) {
                 case "T" -> newTask = new TodoTask(description);
-                case "D" -> newTask = new DeadlineTask(description, taskData[3]);
-                case "E" -> newTask = new EventTask(description, taskData[3], taskData[4]);
-                default -> throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[2]);
+                case "D" -> newTask = new DeadlineTask(description, taskData[4]);
+                case "E" -> newTask = new EventTask(description, taskData[4], taskData[5]);
+                default -> throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[3]);
                 }
 
                 // isMarked
@@ -68,6 +71,11 @@ public class Storage {
                 case "1" -> newTask.mark();
                 case "0" -> newTask.unmark();
                 default -> throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
+                }
+
+                // tag
+                if (!tag.isEmpty()) {
+                    newTask.setTag(tag);
                 }
 
                 taskList.add(newTask);

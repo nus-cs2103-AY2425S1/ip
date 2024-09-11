@@ -10,6 +10,7 @@ import barney.action.commands.EventCommand;
 import barney.action.commands.FindCommand;
 import barney.action.commands.ListCommand;
 import barney.action.commands.MarkCommand;
+import barney.action.commands.TagCommand;
 import barney.action.commands.TodoCommand;
 import barney.action.commands.UnmarkCommand;
 import barney.data.exception.BarneyException;
@@ -99,7 +100,8 @@ public class CommandManager {
         EVENT("event", EventCommand.class, "description", "from", "to"),
         DELETE("delete", DeleteCommand.class, "index"),
         FIND("find", FindCommand.class, "keyword"),
-        BYE("bye", EndCommand.class);
+        BYE("bye", EndCommand.class),
+        TAG("tag", TagCommand.class, "index", "tag");
 
         public final String commandStr;
         public final String commandRegex;

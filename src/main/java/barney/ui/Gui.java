@@ -124,6 +124,16 @@ public class Gui extends Ui {
     }
 
     /**
+     * Prints the tagged task.
+     *
+     * @inheritDoc
+     */
+    @Override
+    public String printTaggedTask(Task task) {
+        return super.taggedTaskString(task);
+    }
+
+    /**
      * Prints the added task.
      *
      * @inheritDoc
