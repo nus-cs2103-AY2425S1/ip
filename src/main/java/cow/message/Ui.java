@@ -130,7 +130,7 @@ public class Ui {
                 + "\n"
                 + line
                 + "\n");
-        this.text = content;
+        this.text = content + "\n-Mooooo";
     }
 
     /** Returns the latest command output **/
