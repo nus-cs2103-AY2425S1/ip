@@ -1,6 +1,5 @@
 package Johnson.GUI;
 
-import Johnson.parser.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,7 +27,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getJohnsonDialog("Boots on the line, ready to assist!", johnsonImage));
+                DialogBox.getJohnsonDialog(Johnson.greet(), johnsonImage));
     }
 
     /** Injects the Johnson instance */

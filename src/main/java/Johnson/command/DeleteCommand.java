@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
     private final int index;
 
     public DeleteCommand(int index) {
+        assert index > 0 : "Index should be greater than 0";
         this.index = index;
     }
 

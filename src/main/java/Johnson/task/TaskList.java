@@ -27,10 +27,7 @@ public class TaskList {
      * @return true if the task was added successfully, false otherwise.
      */
     public boolean addTask(Task task) {
-        if (tasks.add(task)) {
-            return true;
-        }
-        return false;
+        return tasks.add(task);
     }
 
     public Task getTask(int index) {
