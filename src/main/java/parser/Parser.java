@@ -16,7 +16,7 @@ public class Parser {
 
     public DeadlineTask parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {
         int byIndex = deadlineCommand.indexOf("/by");
-        assert byIndex < 0 : "Index error while parsing deadline task!";
+        assert byIndex >= 0 : "Index error while parsing deadline task!";
         String desc = deadlineCommand.substring(0, byIndex);
         String deadline = deadlineCommand.substring(byIndex + 4);
         return new DeadlineTask(desc, false, deadline);
