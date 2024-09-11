@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
     //    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
     //}
 
+    /**
+     * Initializes the GUI with a default message from Tesla.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

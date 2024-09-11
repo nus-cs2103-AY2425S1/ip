@@ -81,7 +81,7 @@ public class Parser {
 
     private static String performCommandAndGetParseResponse(
             TaskList tasks, Ui ui, String command, String remainingInput)
-            throws InvalidCommandException {
+            throws InvalidCommandException, TaskListOutOfBoundsException {
         switch (command) {
         case "mark" -> {
             int idx = Integer.parseInt(remainingInput) - 1;

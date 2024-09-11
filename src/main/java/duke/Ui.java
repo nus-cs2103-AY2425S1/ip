@@ -70,7 +70,7 @@ public class Ui {
      * Displays the tasks hitherto entered by the user.
      * @param tasks A TaskList object storing tasks entered so far.
      */
-    public void printList(TaskList tasks) {
+    public void printList(TaskList tasks) throws TaskListOutOfBoundsException {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
@@ -81,7 +81,7 @@ public class Ui {
      * @param tasks The tasks listed by the user.
      * @return The tasks as an enumerated string.
      */
-    public String stringList(TaskList tasks) {
+    public String stringList(TaskList tasks) throws TaskListOutOfBoundsException {
         String acc = "";
         for (int i = 0; i < tasks.size(); i++) {
             acc = acc + (i + 1) + "." + tasks.get(i) + "\n";
@@ -94,11 +94,11 @@ public class Ui {
      * the tasks.
      * @param tasks The Tasklist object holding tasks currently stored in the program.
      */
-    public void display(TaskList tasks) {
+    public void display(TaskList tasks) throws TaskListOutOfBoundsException {
         System.out.println("Here are the tasks in your list:");
         printList(tasks);
     }
-    public String guiDisplay(TaskList tasks) {
+    public String guiDisplay(TaskList tasks) throws TaskListOutOfBoundsException {
         return "Here are the tasks in your list:\n" + stringList(tasks);
     }
 
@@ -107,7 +107,7 @@ public class Ui {
      * tasks currently stored in the program before it lists the said tasks.
      * @param tasks The Tasklist object holding tasks currently stored in the program.
      */
-    public void displaySearch(TaskList tasks) {
+    public void displaySearch(TaskList tasks) throws TaskListOutOfBoundsException {
         System.out.println("Here are the matching tasks in your list:");
         printList(tasks);
     }
@@ -118,7 +118,7 @@ public class Ui {
      * @param tasks The Tasklist object holding tasks currently stored in the program.
      * @return A customised message and the enumerated tasks as a string.
      */
-    public String guiDisplaySearch(TaskList tasks) {
+    public String guiDisplaySearch(TaskList tasks) throws TaskListOutOfBoundsException {
         return "Here are the matching tasks in your list:\n" + stringList(tasks);
     }
 
