@@ -9,5 +9,6 @@ public enum Command {
     ToDo,
     Deadline,
     Event,
+    Find,
     Unknown,
 }

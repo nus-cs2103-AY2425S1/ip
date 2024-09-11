@@ -21,6 +21,7 @@ public class AtlasView implements MessageView<Command> {
             case "mark" -> Command.Mark;
             case "unmark" -> Command.Unmark;
             case "delete" -> Command.Delete;
+            case "find" -> Command.Find;
             case "todo" -> Command.ToDo;
             case "deadline" -> Command.Deadline;
             case "event" -> Command.Event;
@@ -37,7 +38,7 @@ public class AtlasView implements MessageView<Command> {
     }
 
     public String listen() {
-        System.out.println("Me >");
+        System.out.print("Me > ");
         String text = scanner.nextLine();  // Read user input
         endMessage();
         return text;
@@ -48,6 +49,7 @@ public class AtlasView implements MessageView<Command> {
         for (String line : lines) {
             System.out.println(BOT_INDENT + line);
         }
+
     }
 
     public void endMessage() {

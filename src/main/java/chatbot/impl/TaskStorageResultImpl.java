@@ -15,6 +15,7 @@ public class TaskStorageResultImpl implements TaskStorageResult<Command> {
     public void showResult(MessageView<Command> messageView) {
         if (message != null) {
             messageView.send(message);
+            messageView.endMessage();
         }
     }
 

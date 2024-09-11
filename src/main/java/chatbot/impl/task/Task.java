@@ -19,6 +19,16 @@ public class Task implements AbstractTask {
         this.isDone = status;
     }
 
+    /**
+     * <p>Checks if the task description contains a certain keyword</p>
+     * @param phrase to search for
+     * @return boolean indicating if the phrase exists in description
+     */
+    public boolean descriptionContains(String phrase) {
+        return description.contains(phrase);
+    }
+
+
     private String getStatusIcon() {
         return isDone ? "X" : " "; // mark done task with X
     }
