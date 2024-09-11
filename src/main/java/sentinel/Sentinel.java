@@ -64,6 +64,7 @@ public class Sentinel {
     public void outputTaskList() {
         isSearch = false;
 
+        assert(this.taskList != null) : "Task list does not exist";
         say("Here are the list of your tasks \n" + this.taskList.toString()
                 + String.format("\n You have %d tasks in total.", this.taskList.getTotal()));
     }
@@ -75,6 +76,7 @@ public class Sentinel {
         searchTaskList = this.taskList.getMatching(searchTerm);
         isSearch = true;
 
+        assert(searchTaskList != null) : "Search task list does not exist";
         say("Here are the list of your matching tasks \n" + this.searchTaskList.toString()
                 + String.format("\n You have %d tasks matching that name.", this.searchTaskList.getTotal())
                 + "\n\n You are now indexing the search list.\n Type list to back to indexing the original list.");
@@ -93,6 +95,7 @@ public class Sentinel {
             selectedTaskList = this.searchTaskList;
         }
 
+        assert(selectedTaskList != null) : "Selected task list does not exist";
         say("Marked the following task as done: \n " + selectedTaskList.markAsDone(taskNumber));
     }
 
@@ -109,6 +112,7 @@ public class Sentinel {
             selectedTaskList = this.searchTaskList;
         }
 
+        assert(selectedTaskList != null) : "Selected task list does not exist";
         say("Unmarked the following task: \n " + selectedTaskList.markAsUndone(taskNumber));
     }
 

@@ -51,6 +51,7 @@ public class Storage {
      */
     public static TaskList loadTaskList() throws IOException {
         File f = loadFile("data.txt");
+        assert(f != null) : "File does not exist";
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         TaskList listOfTasks = new TaskList();
 
