@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import commands.Command;
 import tasks.Task;
+import tasks.DuplicateHandler;
 
 /**
  * Main class that runs the Applemazer chatbot.
@@ -15,6 +16,7 @@ public class Applemazer {
     private static Storage storage;
     private final Parser parser; // For text-based UI.
     private final Ui ui;
+    private final DuplicateHandler duplicateHandler;
     private boolean isProcessing = true;
 
     /**
@@ -27,7 +29,8 @@ public class Applemazer {
         ArrayList<Task> savedList = storage.loadTaskList();
         assert savedList != null : "The task list is null.";
         tasks = new TaskList(savedList);
-        parser = new Parser(sc);
+        duplicateHandler = new DuplicateHandler(tasks);
+        parser = new Parser(sc, duplicateHandler);
     }
 
     /**
@@ -42,7 +45,7 @@ public class Applemazer {
             String command = sc.next();
             try {
                 Command c = parser.parse(command);
-                System.out.print(c.execute(tasks, storage, ui));
+                System.out.print(c.execute(tasks, storage, ui, duplicateHandler));
                 isProcessing = c.continueProcessing();
             } catch (Exception e) {
                 System.err.println(e.getMessage()); // Catches parsing errors.
@@ -57,12 +60,12 @@ public class Applemazer {
      */
     public String getResponse(String input) {
         Scanner sc = new Scanner(input + " ");
-        Parser parser = new Parser(sc);
+        Parser parser = new Parser(sc, duplicateHandler);
         String command = sc.next();
         try {
             Command c = parser.parse(command);
             isProcessing = c.continueProcessing();
-            return c.execute(tasks, storage, ui);
+            return c.execute(tasks, storage, ui, duplicateHandler);
         } catch (Exception e) {
             return e.getMessage() + "\n"; // Catches parsing errors.
         }

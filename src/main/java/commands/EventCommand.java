@@ -5,6 +5,8 @@ import java.time.DateTimeException;
 import applemazer.Storage;
 import applemazer.TaskList;
 import applemazer.Ui;
+import tasks.Deadline;
+import tasks.DuplicateHandler;
 import tasks.Event;
 import tasks.Task;
 
@@ -33,16 +35,18 @@ public class EventCommand extends Command {
     /**
      * Executes the "event" command which adds an {@code Event} task to the task list.
      *
-     * @param tasks   The task list to use.
-     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
-     * @param ui The Ui object used to generate the string to print.
+     * @param tasks            The task list to use.
+     * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui               The Ui object used to generate the string to print.
+     * @param duplicateHandler The duplicate handler to use if necessary.
      * @return The string to print.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui, DuplicateHandler duplicateHandler) {
         try {
             Task task = new Event(desc, from, to);
             tasks.add(task);
+            duplicateHandler.addNewEvent(((Event) task).getKey());
             storage.saveTaskList();
             return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {

@@ -3,7 +3,11 @@ package commands;
 import applemazer.Storage;
 import applemazer.TaskList;
 import applemazer.Ui;
+import tasks.Deadline;
+import tasks.DuplicateHandler;
 import tasks.Task;
+import tasks.Todo;
+import tasks.Event;
 
 /**
  * Class that represents either the "mark", "unmark", or "delete" command.
@@ -28,13 +32,14 @@ public class IntegerCommand extends Command {
     /**
      * Executes the specified integer command.
      *
-     * @param tasks   The task list to use if necessary.
-     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
-     * @param ui The Ui object used to generate the string to print.
+     * @param tasks            The task list to use if necessary.
+     * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui               The Ui object used to generate the string to print.
+     * @param duplicateHandler The duplicate handler to use if necessary.
      * @return The string to print.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui, DuplicateHandler duplicateHandler) {
         try {
             Task task = tasks.get(taskNumber);
             switch (command) {
@@ -48,6 +53,13 @@ public class IntegerCommand extends Command {
                 return ui.getTaskSetUndoneMessage(task);
             case Delete:
                 tasks.remove(task);
+                if (task instanceof Todo) {
+                    duplicateHandler.deleteTodo(task.toString());
+                } else if (task instanceof Deadline) {
+                    duplicateHandler.deleteDeadline(((Deadline) task).getKey());
+                } else {
+                    duplicateHandler.deleteEvent(((Event) task).getKey());
+                }
                 storage.saveTaskList();
                 return ui.getTaskDeletedMessage(task, tasks.size());
             default:
@@ -60,7 +72,7 @@ public class IntegerCommand extends Command {
                 int size = tasks.size();
                 return String.format("""
                                      You currently have %d tasks.
-                                     Please enter a number between 1 and %d.\n
+                                     Please enter a number between 1 and %d.
                                      """, size, size);
             }
         } catch (IllegalStateException e) {

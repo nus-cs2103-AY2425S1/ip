@@ -5,12 +5,10 @@ import applemazer.TaskList;
 import applemazer.Ui;
 import tasks.DuplicateHandler;
 
-/**
- * Class that represents the "list" command.
- */
-public class ListCommand extends Command {
+public class TodoDuplicateCommand extends Command {
     /**
-     * Executes the "list" command by listing down all current tasks in the task list.
+     * Executes the "to-do" duplicate handler command which prevents the user from adding
+     * a duplicate To-do task to the task list.
      *
      * @param tasks            The task list to use.
      * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
@@ -20,11 +18,11 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui, DuplicateHandler duplicateHandler) {
-        return ui.getFullTaskListString(tasks);
+        return ui.getDuplicateDeny();
     }
 
     /**
-     * Returns {@code true} as the chatbot should continue running after executing the "list" command.
+     * Returns {@code true} as the chatbot should continue running after executing the "to-do" duplicate handler command.
      * @return {@code true}
      */
     @Override

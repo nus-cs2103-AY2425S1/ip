@@ -2,24 +2,19 @@ package applemazer;
 
 import java.util.Scanner;
 
-import commands.ByeCommand;
-import commands.Command;
-import commands.DeadlineCommand;
-import commands.EventCommand;
-import commands.FindCommand;
-import commands.IntegerCommand;
-import commands.ListCommand;
-import commands.NonExistentCommand;
-import commands.TodoCommand;
+import commands.*;
+import tasks.DuplicateHandler;
 
 /**
  * Class that parses all user commands.
  */
 public class Parser {
     private final Scanner sc;
+    private final DuplicateHandler duplicateHandler;
 
-    public Parser(Scanner sc) {
+    public Parser(Scanner sc, DuplicateHandler duplicateHandler) {
         this.sc = sc;
+        this.duplicateHandler = duplicateHandler;
     }
 
     /**
@@ -52,15 +47,32 @@ public class Parser {
         }
         case "todo" -> {
             desc = parseTodoCommand();
-            yield new TodoCommand(desc);
+            if (duplicateHandler.hasTodoDuplicate(desc)) {
+                yield new TodoDuplicateCommand();
+            } else {
+                yield new TodoCommand(desc);
+            }
         }
         case "deadline" -> {
             split = parseDeadlineCommand();
-            yield new DeadlineCommand(split[0], split[1]);
+            desc = split[0];
+            String deadline = split[1];
+            if (duplicateHandler.hasDeadlineDuplicate(desc, deadline)) {
+                yield new DeadlineDuplicateCommand();
+            } else {
+                yield new DeadlineCommand(desc, deadline);
+            }
         }
         case "event" -> {
             split = parseEventCommand();
-            yield new EventCommand(split[0], split[1], split[2]);
+            desc = split[0];
+            String from = split[1];
+            String to = split[2];
+            if (duplicateHandler.hasEventDuplicate(desc, from, to)) {
+                yield new EventDuplicateCommand();
+            } else {
+                yield new EventCommand(split[0], split[1], split[2]);
+            }
         }
         case "delete" -> {
             taskNumber = parseIntegerCommand(Command.IntegerCommands.Delete);
