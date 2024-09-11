@@ -25,7 +25,7 @@ public class ParserTest {
     @Test
     public void parseCommand_unknownCommand_success() {
         setUpStreams();
-        Ui ui = new Ui();
+        Processor ui = new Processor();
         ui.printUnknownCommandMessage("cmd");
 
         String expected =
@@ -40,7 +40,7 @@ public class ParserTest {
     @Test
     public void parseCommand_byeCommand_success() {
         setUpStreams();
-        Ui ui = new Ui();
+        Processor ui = new Processor();
         ui.printExitMessage();
 
         String expected =

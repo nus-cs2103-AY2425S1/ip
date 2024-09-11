@@ -8,7 +8,7 @@ import bibi.task.TaskList;
  */
 public class Bibi {
     /** The Ui instance that handles printing and reading console commands */
-    private Ui ui;
+    private Processor processor;
     /** The list that contains all Tasks inside the save file */
     private TaskList tasks;
     /** The class that handles writing to the save file */
@@ -22,20 +22,18 @@ public class Bibi {
      * @param filePath An absolute path to the save file
      */
     public Bibi(String filePath) {
-        this.ui = new Ui();
+        this.processor = new Processor();
         this.tasks = new TaskList();
         this.storage = new Storage(filePath);
         this.isExit = false;
 
         // Init
-        ui.printWelcomeMessage();
         storage.initializeDataDirectory();
         try {
             storage.restoreTasks(tasks);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        ui.printHorizontalLine();
     }
 
     /**
@@ -43,8 +41,8 @@ public class Bibi {
      */
     public void run() {
         while (!isExit) {
-            Command cmd = Parser.parseCommand(ui.readInput());
-            cmd.execute(tasks, ui, storage);
+            Command cmd = Parser.parseCommand(processor.readInput());
+            cmd.execute(tasks, processor, storage);
             isExit = cmd.isExit();
         }
     }
@@ -55,6 +53,6 @@ public class Bibi {
     }
 
     public String getResponse(String input) {
-        return Parser.parseCommand(input).execute(tasks, ui, storage);
+        return Parser.parseCommand(input).execute(tasks, processor, storage);
     }
 }

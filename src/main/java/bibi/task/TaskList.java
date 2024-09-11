@@ -1,6 +1,7 @@
 package bibi.task;
 
 import java.util.ArrayList;
+import bibi.Command;
 
 /**
  * Represents the collection of tasks and its subtypes.
@@ -39,16 +40,23 @@ public class TaskList {
     }
 
     /**
-     * Prints the entire list of tasks in order of declaration.
+     * Returns number of tasks that match the given pattern.
+     *
+     * @param pattern The pattern to match with task descriptions.
+     * @param sb The StringBuilder to append to.
+     * @return int with count of tasks that match the given pattern.
      */
-    public void printTaskList() {
-        if (tasks.isEmpty()) {
-            System.out.println("Good for you, nothing to do today :3");
-            return;
+    public int findTaskByPattern(String pattern, StringBuilder sb) {
+        int count = 0;
+        for (int i = 0; i < getTaskCount(); i++) {
+            String[] words = pattern.split(" ");
+            for (int j = 0; j < words.length; j++) {
+                if (getTask(i).getDescription().contains(words[j])) {
+                    sb.append(String.format("%d.%s%n", i + 1, getTask(i)));
+                    count++;
+                }
+            }
         }
-
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.printf("%d: %s%n", i, tasks.get(i - 1));
-        }
+        return count;
     }
 }

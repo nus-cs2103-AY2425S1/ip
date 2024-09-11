@@ -3,7 +3,6 @@ package bibi.gui;
 import java.io.IOException;
 
 import bibi.Bibi;
-
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,23 +43,24 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Bibi");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(bibi);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setDuke(bibi); // inject the Duke instance
             stage.show();
+            assert false : "Failed to";
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     /**
      * Creates a new dialog box with user input and appends it to the
      * dialog container(VBox). Clears the input in the TextField afterwards.
      */
-     @FXML
-     private void handleUserInput() {
+    @FXML
+    private void handleUserInput() {
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialogBox(userInput.getText(), userImage),
-            DialogBox.getBotDialogBox(bibi.getResponse(userInput.getText()), botImage));
+                DialogBox.getUserDialogBox(userInput.getText(), userImage),
+                DialogBox.getBotDialogBox(bibi.getResponse(userInput.getText()), botImage));
         userInput.clear();
-     }
+    }
 }
