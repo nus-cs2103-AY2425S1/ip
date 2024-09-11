@@ -38,9 +38,9 @@ public class Echo {
      */
     public String echoOut() {
 
-            String description = word;
-            String[] parts = description.split(" ", 2);
-            String command = parts[0];
+        String description = word;
+        String[] parts = description.split(" ", 2);
+        String command = parts[0];
 
         switch (command) {
         case "list":
@@ -52,8 +52,8 @@ public class Echo {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
                     return list.mark(index) + ui.line();
-                } catch(NumberFormatException e) {
-                    return "Please enter a valid task number\n" + ui.line();
+                } catch (NumberFormatException e) {
+                    return ui.NumberFormatExceptionMessage() + ui.line();
                 }
             }
         case "unmark":
@@ -64,7 +64,7 @@ public class Echo {
                     int index = Integer.parseInt(parts[1]) - 1;
                     return list.unmark(index) + ui.line();
                 } catch (NumberFormatException e) {
-                    return "Please enter a valid task number\n" + ui.line();
+                    return ui.NumberFormatExceptionMessage() + ui.line();
                 }
             }
         case "find":
@@ -89,12 +89,11 @@ public class Echo {
                 Task deadlineTask = parser.parseDeadlineTask(parts[1]);
                 list.addTask(deadlineTask);
                 return ui.affirm() + deadlineTask.getDescription() +
-                                "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size());
+                        "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size());
             } catch (StringIndexOutOfBoundsException e) {
-                return "Incorrect format of adding deadline tasks. " +
-                        "Use '/by to specify the deadline after the task description";
+                return ui.DeadlineOutOfBoundsExceptionMessage();
             } catch (DateTimeParseException e) {
-                return "Please input the correct deadline format /by yyyy-MM-dd XXXX <- Time";
+                return ui.DeadlineDateTimeParseExceptionMessage();
             }
 
         case "event":
@@ -105,17 +104,19 @@ public class Echo {
                 return ui.affirm() + eventTask.getDescription() +
                         "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size());
             } catch (StringIndexOutOfBoundsException e) {
-                return "Incorrect format of adding event tasks. " +
-                        "Use '/from to specify the start and /to to specify the end " +
-                        "after the task description\n";
+                return ui.EventOutOfBoundsExceptionMessage();
             } catch (DateTimeParseException e) {
-                return "Incorrect format of adding event tasks timings. /from yyyy-MM-dd XXXX <- Time" +
-                        "and /to yyyy-MM-dd XXXX <- Time\n";
+                return ui.EventDateTimeParseExceptionMessage();
             }
 
         case "delete":
-            int index = Integer.parseInt(parts[1]) - 1;
-            return list.removeTask(index);
+            try {
+                int index = Integer.parseInt(parts[1]) - 1;
+                return list.removeTask(index);
+            } catch (NumberFormatException e) {
+                return ui.NumberFormatExceptionMessage() + ui.line();
+            }
+
 
         case "bye":
             try {
