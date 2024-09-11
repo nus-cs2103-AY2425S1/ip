@@ -3,11 +3,10 @@ package pandabot.commands;
 import java.io.IOException;
 
 import pandabot.exceptions.InputException;
+import pandabot.storage.Storage;
 import pandabot.storage.TaskList;
 import pandabot.tasks.Task;
-import pandabot.storage.Storage;
 import pandabot.ui.Ui;
-
 
 /**
  * Represents a command to delete a task from the task list.
