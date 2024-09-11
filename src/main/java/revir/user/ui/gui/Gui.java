@@ -21,13 +21,6 @@ public class Gui extends Application implements Ui {
     private static TaskList taskList;
 
     /**
-     * Initializes a new GUI instance.
-     *
-     */
-    public Gui() {
-    }
-
-    /**
      * Runs the GUI application.
      */
     @Override

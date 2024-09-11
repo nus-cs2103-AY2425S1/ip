@@ -21,6 +21,7 @@ public class Revir {
     public static void main(String[] args) {
         storage = new Storage(Path.of("data", "tasks.dat"));
         taskList = new TaskList(storage, ui);
+        
         if (args.length >= 1 && args[0].equals("--cli")) {
             ui = new Tui();
         } else {
