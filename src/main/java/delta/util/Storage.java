@@ -81,8 +81,8 @@ public class Storage {
 
         // Create save directory
         if (!directory.exists()) {
-            boolean directoryCreatedSuccessfully = directory.mkdir();
-            if (!directoryCreatedSuccessfully) {
+            boolean isCreatedSuccessfully = directory.mkdir();
+            if (!isCreatedSuccessfully) {
                 throw new DeltaException("OOPS!!! Save Directory unable to be created!");
             }
         }
@@ -90,8 +90,8 @@ public class Storage {
         // Create save file
         if (!file.exists()) {
             try {
-                boolean fileCreatedSuccessfully = file.createNewFile();
-                if (!fileCreatedSuccessfully) {
+                boolean isCreatedSuccessfully = file.createNewFile();
+                if (!isCreatedSuccessfully) {
                     throw new DeltaException("OOPS!!! Save File unable to be created!");
                 }
             } catch (IOException e) {
