@@ -23,6 +23,23 @@ public class Ui {
         System.out.println("Unknown task type: " + taskType);
     }
 
+    /**
+     * Shows the tasks that match the search keyword.
+     *
+     * @param tasks The TaskList containing the matching tasks.
+     */
+    public void showMatchingTasks(TaskList tasks) {
+        if (tasks.getLength() == 0) {
+            System.out.println("\tNo matching tasks found.");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < tasks.getLength(); i++) {
+                System.out.printf("\t%d.%s\n", i + 1, tasks.getTask(i));
+            }
+        }
+        System.out.println("\t____________________________________________________________");
+    }
+
     public void greet() {
         String str = "\t____________________________________________________________\n" +
                 "\tHello! I'm Rizz\n" +
