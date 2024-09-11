@@ -29,6 +29,7 @@ public class RemoveCommand extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
+        assert(command.length == 2);
         if (command.length == 2) {
             Task deleted = reminder.remove(Integer.parseInt(command[1]) - 1);
             ui.print("Noted. I've removed this task:");

@@ -32,6 +32,7 @@ public class DateCommand extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
+        assert(command.length == 2);
         if (command.length == 2) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate date = LocalDate.parse(command[1], formatter);

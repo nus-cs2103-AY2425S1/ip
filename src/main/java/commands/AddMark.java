@@ -29,6 +29,7 @@ public class AddMark extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
+        assert(command.length == 2);
         if (command.length == 2) {
             ui.print("Nice! I've marked this task as done:");
             reminder.mark(Integer.parseInt(command[1]) - 1);
