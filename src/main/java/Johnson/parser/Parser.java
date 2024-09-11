@@ -1,11 +1,23 @@
 package Johnson.parser;
 
-import Johnson.command.*;
+import Johnson.command.Command;
+import Johnson.command.DeadlineCommand;
+import Johnson.command.DeleteCommand;
+import Johnson.command.EventCommand;
+import Johnson.command.ExitCommand;
+import Johnson.command.FindCommand;
+import Johnson.command.GreetCommand;
+import Johnson.command.ListCommand;
+import Johnson.command.MarkCommand;
+import Johnson.command.ToDoCommand;
+import Johnson.command.UnmarkCommand;
+
 import Johnson.exceptions.MissingDateException;
 import Johnson.exceptions.MissingDividerException;
 import Johnson.exceptions.MissingTaskException;
 import Johnson.exceptions.UnknownCommandException;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +62,7 @@ public class Parser {
      * @return the parsed command.
      */
     public Command parseCommand(String userInput) throws MissingTaskException, MissingDateException, MissingDividerException, UnknownCommandException {
+
         Matcher matcher = BASIC_COMMAND_PATTERN.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -59,38 +72,54 @@ public class Parser {
 
         String command = matcher.group("command");
         String arguments = matcher.group("arguments");
+
         Command parsedCommand = null;
 
-        switch (command) {
-        case ToDoCommand.COMMAND_WORD:
-            parsedCommand = prepToDo(arguments);
-            break;
-        case ListCommand.COMMAND_WORD:
-            parsedCommand = new ListCommand();
-            break;
-        case DeadlineCommand.COMMAND_WORD:
-             parsedCommand = prepDeadline(arguments);
-             break;
-        case MarkCommand.COMMAND_WORD:
-            parsedCommand = new MarkCommand(prepIndexedCommand(arguments));
-            break;
-        case UnmarkCommand.COMMAND_WORD:
-            parsedCommand = new UnmarkCommand(prepIndexedCommand(arguments));
-            break;
-        case EventCommand.COMMAND_WORD:
-            parsedCommand = prepEvent(arguments);
-            break;
-        case ExitCommand.COMMAND_WORD:
-            parsedCommand = new ExitCommand();
-            break;
-        case DeleteCommand.COMMAND_WORD:
-            parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
-            break;
-        case FindCommand.COMMAND_WORD:
-            parsedCommand = new FindCommand(arguments);
-            break;
-        default:
-            throw new UnknownCommandException("Unknown command");
+        if (Arrays.stream(GreetCommand.COMMAND_WORDS).anyMatch(greeting -> greeting.equals(command))) {
+            parsedCommand = new GreetCommand();
+            return parsedCommand;
+        }
+
+        try {
+            switch (command) {
+            case ToDoCommand.COMMAND_WORD:
+                parsedCommand = prepToDo(arguments);
+                break;
+            case ListCommand.COMMAND_WORD:
+                parsedCommand = new ListCommand();
+                break;
+            case DeadlineCommand.COMMAND_WORD:
+                 parsedCommand = prepDeadline(arguments);
+                 break;
+            case MarkCommand.COMMAND_WORD:
+                parsedCommand = new MarkCommand(prepIndexedCommand(arguments));
+                break;
+            case UnmarkCommand.COMMAND_WORD:
+                parsedCommand = new UnmarkCommand(prepIndexedCommand(arguments));
+                break;
+            case EventCommand.COMMAND_WORD:
+                parsedCommand = prepEvent(arguments);
+                break;
+            case ExitCommand.COMMAND_WORD:
+                parsedCommand = new ExitCommand();
+                break;
+            case DeleteCommand.COMMAND_WORD:
+                parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
+                break;
+            case FindCommand.COMMAND_WORD:
+                parsedCommand = new FindCommand(arguments);
+                break;
+            default:
+                throw new UnknownCommandException("Unknown command");
+            }
+        } catch (MissingTaskException e) {
+            Utilities.OutlineMessage("Missing a task");
+        } catch (MissingDividerException e) {
+            Utilities.OutlineMessage("Missing a divider");
+        } catch (MissingDateException e) {
+            Utilities.OutlineMessage("Missing a date");
+        } catch (UnknownCommandException e) {
+            Utilities.OutlineMessage("Unknown command");
         }
         return parsedCommand;
     }
