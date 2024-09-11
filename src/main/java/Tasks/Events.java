@@ -26,7 +26,68 @@ public class Events extends Task {
      */
     public Events(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
         super(desc);
+        // Split the description to extract the timings
+        String[] parts1 = desc.split(" /from ");
+        String[] parts2 = parts1[1].split(" /to ");
+        String[] parts3 = parts2[1].split(" /on ");
 
+
+        checkValidityOfEventInput(desc, parts1, parts2, parts3);
+
+        parseEvent(parts2, parts3);
+    }
+
+    /**
+     * Parses the event date and time from the provided description strings and
+     * attempts to convert them into `LocalDate` and `LocalTime` objects.
+     * If the first format fails, it will try a second format, and if that fails,
+     * it stores the raw deadline string instead.
+     *
+     * @param parts2 The array containing the start and end time strings.
+     * @param parts3 The array containing the end time and date strings.
+     */
+    private void parseEvent(String[] parts2, String[] parts3) {
+        try {
+
+            //input of format 16:00
+            localStartTime = ParseTasks.parseTime(parts2[0]);
+            localEndTime = ParseTasks.parseTime(parts3[0]);
+
+            // input of format 2020-12-10
+            localDate = ParseTasks.parseDateFormat1(parts3[1]);
+
+        } catch (DateTimeParseException e1) {
+            try {
+
+                //input of format 16:00
+                localStartTime = ParseTasks.parseTime(parts2[0]);
+                localEndTime = ParseTasks.parseTime(parts3[0]);
+
+                // input of format 10/12/2020
+                localDate = ParseTasks.parseDateFormat2(parts3[1]);
+
+            } catch (DateTimeParseException e2) {
+                // if wrong format, just print the string
+                rawDeadline = parts2[0];
+            }
+        }
+    }
+
+    /**
+     * Validates the event description input by checking if the description,
+     * start time, end time, and date are present and correctly formatted.
+     * Throws exceptions if any part of the input is missing or invalid.
+     *
+     * @param desc   The original event description string.
+     * @param parts1 The array containing the event description and start time.
+     * @param parts2 The array containing the start time and end time.
+     * @param parts3 The array containing the end time and date.
+     *
+     * @throws EmptyEventException       If the event description is empty.
+     * @throws EmptyEventTimingException If the start or end time is missing or invalid.
+     * @throws EmptyEventDateException   If the date is missing or invalid.
+     */
+    private static void checkValidityOfEventInput(String desc, String[] parts1, String[] parts2, String[] parts3) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
         if (desc.isEmpty()) {
             throw new EmptyEventException
                     ("     OOPS! Event start time not given leh. " +
@@ -34,8 +95,6 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
-        // Split the description to extract the timings
-        String[] parts1 = desc.split(" /from ");
 
         //throw exception if start time not given, or it is whitespace
         if (parts1.length < 2 || parts1[1].trim().isEmpty()) {
@@ -45,8 +104,6 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
-        String[] parts2 = parts1[1].split(" /to ");
-
         //throw exception if end time not given or it is whitespace
         if (parts2.length < 2 || parts2[1].trim().isEmpty()) {
             throw new EmptyEventTimingException
@@ -55,7 +112,6 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
-        String[] parts3 = parts2[1].split(" /on ");
 
         //throw exception if date not given or it is whitespace
         if (parts3.length < 2 || parts3[1].trim().isEmpty()) {
@@ -63,33 +119,6 @@ public class Events extends Task {
                     ("     OOPS! Event date not given leh. " +
                             "Pls provide in the following format: " +
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
-        }
-
-        try {
-
-            //input of format 16:00
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-            localStartTime = LocalTime.parse(parts2[0], timeFormatter);
-            localEndTime = LocalTime.parse(parts3[0], timeFormatter);
-
-            // input of format 2020-12-10
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            localDate = LocalDate.parse(parts3[1], dateFormatter);
-        } catch (DateTimeParseException e1) {
-            try {
-                //input of format 16:00
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                localStartTime = LocalTime.parse(parts2[0], timeFormatter);
-                localEndTime = LocalTime.parse(parts3[0], timeFormatter);
-
-                // input of format 10/12/2020
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                localDate = LocalDate.parse(parts3[1], dateFormatter);
-
-            } catch (DateTimeParseException e2) {
-                // if wrong format, just print the string
-                rawDeadline = parts2[0];
-            }
         }
     }
 

@@ -46,30 +46,42 @@ public class Deadlines extends Task {
                             "deadline read book /by yyyy-MM-dd or dd/MM/yyy 16:00");
         }
 
+        parseDeadline(parts);
+    }
+
+    /**
+     * Parses the deadline date and time from the provided description string and
+     * attempts to convert it into `LocalDateTime`, `LocalDate`, or `LocalTime` objects.
+     * If the first format fails, it will try other formats until it either succeeds
+     * or stores the raw deadline string.
+     *
+     * @param parts The array containing the task description and deadline string.
+     */
+    private void parseDeadline(String[] parts) {
         try {
             // input of format 2020-12-10 16:00
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            localDateTime = LocalDateTime.parse(parts[1], dateTimeFormatter);
+            localDateTime = ParseTasks.parseDateTimeFormat1(parts[1]);
+
         } catch (DateTimeParseException e1) {
             try {
                 // input of format 2020-12-10
-                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                localDate = LocalDate.parse(parts[1], dateTimeFormatter);
+                localDate = ParseTasks.parseDateFormat1(parts[1]);
+
             } catch (DateTimeParseException e2) {
                 try {
                     // input of format 10/12/2020
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    localDate = LocalDate.parse(parts[1], dateTimeFormatter);
+                    localDate = ParseTasks.parseDateFormat2(parts[1]);
+
                 } catch (DateTimeParseException e3) {
                     try {
                         // input of format 10/12/2020 16:00
-                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                        localDateTime = LocalDateTime.parse(parts[1], dateTimeFormatter);
+                        localDateTime = ParseTasks.parseDateTimeFormat2(parts[1]);
+
                     } catch (DateTimeParseException e4) {
                         try {
                             // input of format 16:00
-                            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                            localTime = LocalTime.parse(parts[1], dateTimeFormatter);
+                            localTime = ParseTasks.parseTime(parts[1]);
+
                         } catch (DateTimeParseException e5) {
                             // if wrong format, just print the string
                             rawDeadline = parts[1];
