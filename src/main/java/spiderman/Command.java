@@ -5,7 +5,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Command class that handles various commands to manage tasks.
+ * Provides methods to add, delete, mark, unmark, and find tasks in the TaskList.
+ */
 public class Command {
+
+    /**
+     * Adds a new ToDo task to the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list to which the ToDo task is to be added.
+     * @return A message indicating the result of the addition.
+     */
     public String todo(String[] input, TaskList tasks) {
         assert input != null && input.length > 0 : "Input for todo command should not be null or empty";
 
@@ -17,6 +29,13 @@ public class Command {
         return tasks.addTask(new Todo(description));
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list to which the Deadline task is to be added.
+     * @return A message indicating the result of the addition.
+     */
     public String deadline(String[] input, TaskList tasks) {
         assert input != null && input.length > 1 : "Input for deadline command should have description and date";
 
@@ -28,11 +47,9 @@ public class Command {
         }
 
         try {
-            LocalDate by = LocalDate.parse(input[1]
-                    .replaceFirst("by", "").trim(), formatter);
+            LocalDate by = LocalDate.parse(input[1].replaceFirst("by", "").trim(), formatter);
             return tasks.addTask(new Deadline(description, by));
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return "The date is not in the correct format! It should be YYYY-MM-DD";
         }
         catch (Exception e) {
@@ -40,6 +57,13 @@ public class Command {
         }
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list to which the Event task is to be added.
+     * @return A message indicating the result of the addition.
+     */
     public String event(String[] input, TaskList tasks) {
         assert input != null && input.length > 2 : "Input for event command should have description, from and to dates";
 
@@ -57,15 +81,20 @@ public class Command {
             LocalDateTime from = LocalDateTime.parse(fromString, formatter);
             LocalDateTime to = LocalDateTime.parse(toString, formatter);
             return tasks.addTask(new Event(description, from, to));
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return "The date and time is not in the correct format! It should be YYYY-MM-DD HH:mm";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return "The from and/or to cannot be empty!";
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list from which the task is to be deleted.
+     * @return A message indicating the result of the deletion.
+     */
     public String delete(String[] input, TaskList tasks) {
         assert input != null && input.length > 1 : "Input for delete command should have a task number";
 
@@ -78,10 +107,23 @@ public class Command {
         }
     }
 
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param tasks The task list to be listed.
+     * @return A formatted string of all tasks in the list.
+     */
     public String list(TaskList tasks) {
         return tasks.listTasks();
     }
 
+    /**
+     * Finds tasks in the task list that contain a given keyword.
+     *
+     * @param input The user input containing the keyword to search for.
+     * @param tasks The task list to be searched.
+     * @return A formatted string of tasks that match the keyword.
+     */
     public String find(String input, TaskList tasks) {
         assert input != null && !input.trim().isEmpty() : "Input for find command should not be null or empty";
         assert tasks != null : "TaskList should not be null";
@@ -94,6 +136,13 @@ public class Command {
         }
     }
 
+    /**
+     * Marks a task as done in the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list containing the task to be marked as done.
+     * @return A message indicating the result of marking the task as done.
+     */
     public String mark(String[] input, TaskList tasks) {
         assert input != null && input.length > 1 : "Input for mark command should have a task number";
 
@@ -106,6 +155,13 @@ public class Command {
         }
     }
 
+    /**
+     * Marks a task as not done in the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list containing the task to be marked as not done.
+     * @return A message indicating the result of marking the task as not done.
+     */
     public String unmark(String[] input, TaskList tasks) {
         assert input != null && input.length > 1 : "Input for unmark command should have a task number";
 
@@ -118,6 +174,11 @@ public class Command {
         }
     }
 
+    /**
+     * Exits the program with a goodbye message.
+     *
+     * @return A goodbye message.
+     */
     public String bye() {
         return "Bye. Hope to see you again soon!";
     }

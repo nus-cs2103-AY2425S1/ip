@@ -1,5 +1,8 @@
 package spiderman;
 
+/**
+ * Represents a task with a description and a status indicating whether it is done.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
