@@ -1,5 +1,7 @@
 package duck;
 
+import java.time.format.DateTimeParseException;
+
 import duck.exceptions.DeadlineUsageException;
 import duck.exceptions.EventUsageException;
 import duck.exceptions.TodoUsageException;
@@ -116,6 +118,10 @@ public class Duck {
                     String response = handleNewTask(task);
                     return response;
                 } catch (DeadlineUsageException e) {
+                    // TODO: friendly error message
+                    return formatAsResponse(e.toString());
+                } catch (DateTimeParseException e) {
+                    // TODO: friendly error message
                     return formatAsResponse(e.toString());
                 }
             } else if (Command.EVENT.equalsName(command)) {
@@ -127,6 +133,10 @@ public class Duck {
                     String response = handleNewTask(task);
                     return response;
                 } catch (EventUsageException e) {
+                    // TODO: friendly error message
+                    return formatAsResponse(e.toString());
+                } catch (DateTimeParseException e) {
+                    // TODO: friendly error message
                     return formatAsResponse(e.toString());
                 }
             } else {

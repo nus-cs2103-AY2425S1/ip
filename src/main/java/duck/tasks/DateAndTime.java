@@ -8,11 +8,8 @@ public class DateAndTime {
     private String str;
 
     public DateAndTime(String str) throws DateTimeParseException {
-        try {
-            this.str = str;
-            this.date = LocalDate.parse(str);
-        } finally {
-        }
+        this.str = str;
+        this.date = LocalDate.parse(str);
     }
 
     public String getOriginalString() {
