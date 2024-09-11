@@ -11,25 +11,28 @@ public class Parser {
      * @throws HueException If the input command is invalid or unrecognized.
      */
     public static Command parse(String fullCommand) throws HueException {
-        if (fullCommand.equalsIgnoreCase("bye")) {
+        String commandWord = fullCommand.split(" ")[0].toLowerCase(); // Get the first word of the command
+
+        switch (commandWord) {
+        case "bye":
             return new ExitCommand();
-        } else if (fullCommand.equalsIgnoreCase("list")) {
+        case "list":
             return new ListCommand();
-        } else if (fullCommand.startsWith("mark")) {
+        case "mark":
             return new MarkCommand(fullCommand);
-        } else if (fullCommand.startsWith("unmark")) {
+        case "unmark":
             return new UnmarkCommand(fullCommand);
-        } else if (fullCommand.startsWith("todo")) {
+        case "todo":
             return new AddTodoCommand(fullCommand);
-        } else if (fullCommand.startsWith("deadline")) {
+        case "deadline":
             return new AddDeadlineCommand(fullCommand);
-        } else if (fullCommand.startsWith("event")) {
+        case "event":
             return new AddEventCommand(fullCommand);
-        } else if (fullCommand.startsWith("delete")) {
+        case "delete":
             return new DeleteCommand(fullCommand);
-        } else if (fullCommand.startsWith("find")) {
+        case "find":
             return new FindCommand(fullCommand);
-        } else {
+        default:
             throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
         }
     }
