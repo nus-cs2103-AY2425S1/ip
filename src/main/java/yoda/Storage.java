@@ -26,6 +26,7 @@ public class Storage {
      * @param filePath The path of the file to save and load tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -36,6 +37,7 @@ public class Storage {
      * @throws YodaException If there is an error when writing to the file.
      */
     public void saveTasks(ArrayList<Task> tasks) throws YodaException {
+        assert tasks != null : "Tasks list should not be null";
         File file = new File(filePath);
 
         try {
@@ -48,6 +50,7 @@ public class Storage {
 
             FileWriter fileWriter = new FileWriter(filePath);
             for (Task task : tasks) {
+                assert task != null : "Task should not be null";
                 fileWriter.write(task.getData() + "\n");
             }
             fileWriter.close();
