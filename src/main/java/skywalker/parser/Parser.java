@@ -26,6 +26,8 @@ public class Parser {
      * @throws Exception If the command is unknown/invalid.
      */
     public static Command parse(String fullCommand) throws Exception {
+        assert fullCommand != null : "User input should not be null";
+        assert !fullCommand.isBlank() : "User input should not be empty";
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
         String arguments = words.length > 1 ? words[1] : "";
