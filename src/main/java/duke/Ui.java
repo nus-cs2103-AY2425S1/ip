@@ -111,6 +111,13 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
         printList(tasks);
     }
+
+    /**
+     * The method that returns as a string the customised header when the user searches for a specific description
+     * within the tasks currently stored in the program before it lists the said tasks.
+     * @param tasks The Tasklist object holding tasks currently stored in the program.
+     * @return A customised message and the enumerated tasks as a string.
+     */
     public String guiDisplaySearch(TaskList tasks) throws TaskListOutOfBoundsException {
         return "Here are the matching tasks in your list:\n" + stringList(tasks);
     }
@@ -143,6 +150,10 @@ public class Ui {
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
+    /**
+     * This method gives the user's input on the following line.
+     * @return The user's command line input as a String.
+     */
     public String out() {
         return scanner.nextLine();
     }

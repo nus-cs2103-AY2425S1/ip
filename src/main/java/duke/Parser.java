@@ -38,77 +38,14 @@ public class Parser {
         String[] parts = inputString.split(" ", 2);
         String instruction = parts[0];
         String remainingInput = parts.length > 1 ? parts[1] : "";
-
-        if (!VALID_COMMANDS.contains(instruction)) {
-            throw new InvalidCommandException();
-        }
+        throwInvalidInputExceptions();
 
         if (instruction.equals("list")) {
             ui.display(tasks);
             return;
         }
-
-        if (remainingInput.isEmpty()) {
-            if (Stream.of("todo", "event", "deadline", "delete").anyMatch(instruction::equals)) {
-                throw new EmptyTaskException();
-            } else {
-                throw new EmptyCommandException();
-            }
-        }
-
-        switch (instruction) {
-        case "mark":
-        case "unmark": {
-            int idx = Integer.parseInt(remainingInput) - 1;
-            tasks.set(idx, instruction.equals("mark"));
-            System.out.println((instruction.equals("mark") ? "Nice! " : "OK, ")
-                    + "I've marked this task as " + (instruction.equals("mark") ? "done" : "not done yet") + ":\n"
-                    + tasks.get(idx));
-            break;
-        }
-        case "todo": {
-            Todo task = new Todo(remainingInput);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-            break;
-        }
-        case "deadline": {
-            String[] deadlineParts = remainingInput.split(" /by ", 2);
-            String name = deadlineParts[0];
-            LocalDate endDate = LocalDate.parse(deadlineParts[1]);
-            Deadline task = new Deadline(name, endDate);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-            break;
-        }
-        case "event": {
-            String[] eventParts = remainingInput.split(" /from ", 2);
-            String name = eventParts[0];
-            String[] timeParts = eventParts[1].split(" /to ", 2);
-            String start = timeParts[0];
-            String end = timeParts[1];
-            Event task = new Event(name, start, end);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-            break;
-        }
-        case "delete": {
-            int idx = Integer.parseInt(remainingInput) - 1;
-            Task taskToBeDeleted = tasks.get(idx);
-            assert(tasks.size() > idx);
-            tasks.delete(idx);
-            ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
-            break;
-        }
-        case "find": {
-            TaskList matchingTasks = tasks.findAll(remainingInput);
-            ui.displaySearch(matchingTasks);
-            break;
-        }
-        default: {
-            throw new InvalidCommandException();
-        }
-        }
+        throwInvalidInputExceptions();
+        System.out.println(performCommandAndGetParseResponse(tasks, ui, instruction, remainingInput));
     }
 
     /**
@@ -127,22 +64,22 @@ public class Parser {
         String instruction = parts[0];
         String remainingInput = parts.length > 1 ? parts[1] : "";
 
-        if (!VALID_COMMANDS.contains(instruction)) {
-            throw new InvalidCommandException();
-        }
+        throwInvalidInputExceptions();
 
         if (instruction.equals("list")) {
             return ui.guiDisplay(tasks);
         }
 
-        if (remainingInput.isEmpty()) {
-            if (Stream.of("todo", "event", "deadline", "delete").anyMatch(instruction::equals)) {
-                throw new EmptyTaskException();
-            } else {
-                throw new EmptyCommandException();
-            }
-        }
+        throwInvalidInputExceptions();
+        return performCommandAndGetParseResponse(tasks, ui, instruction, remainingInput);
+    }
 
+
+
+
+    private static String performCommandAndGetParseResponse(
+            TaskList tasks, Ui ui, String instruction, String remainingInput)
+            throws InvalidCommandException, TaskListOutOfBoundsException {
         switch (instruction) {
         case "mark":
         case "unmark": {
@@ -178,16 +115,35 @@ public class Parser {
         case "delete": {
             int idx = Integer.parseInt(remainingInput) - 1;
             Task taskToBeDeleted = tasks.get(idx);
+            assert (tasks.size() > idx);
             tasks.delete(idx);
             return ui.guiTaskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
         }
         case "find": {
             TaskList matchingTasks = tasks.findAll(remainingInput);
             return ui.guiDisplaySearch(matchingTasks);
+
         }
         default: {
             throw new InvalidCommandException();
         }
         }
     }
+    private void throwInvalidInputExceptions() throws EmptyCommandException, InvalidCommandException {
+        String[] parts = inputString.split(" ", 2);
+        String instruction = parts[0];
+        String remainingInput = parts.length > 1 ? parts[1] : "";
+
+        if (!VALID_COMMANDS.contains(instruction)) {
+            throw new InvalidCommandException();
+        }
+        if (remainingInput.isEmpty()) {
+            if (Stream.of("todo", "event", "deadline", "delete").anyMatch(instruction::equals)) {
+                throw new EmptyTaskException();
+            } else {
+                throw new EmptyCommandException();
+            }
+        }
+    }
+
 }
