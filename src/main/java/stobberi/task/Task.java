@@ -68,6 +68,10 @@ public class Task {
         return this.isDone;
     }
 
+    public boolean isSame(String description) {
+        return this.description.equals(description);
+    }
+
     /**
      * Returns the description of the task.
      *
