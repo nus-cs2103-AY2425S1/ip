@@ -30,9 +30,9 @@ public class UnmarkCommand extends Command {
             t.unmark();
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
-            ui.setResponse("OK, I've marked this task as not done yet:" + t);
+            ui.setUnmarkResponse(t.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new ParkException("invalid index");
+            throw ParkException.invalidIndexException();
         }
     }
 

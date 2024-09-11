@@ -44,7 +44,7 @@ public class Storage {
                 }
                 f.createNewFile();
             } catch (IOException e) {
-                throw new ParkException("Error creating file");
+                throw ParkException.createFileException();
             }
             return new TaskList();
         }
@@ -57,7 +57,7 @@ public class Storage {
             }
             return tasklist;
         } catch (IOException e) {
-            throw new ParkException("Error loading file");
+            throw ParkException.loadFileException();
         }
     }
 
@@ -73,7 +73,7 @@ public class Storage {
             fw.write(t.encode() + "\n");
             fw.close();
         } catch (IOException e) {
-            throw new ParkException("Error writing to file");
+            throw ParkException.writeFileException();
         }
     }
 
@@ -97,7 +97,7 @@ public class Storage {
             }
             Files.write(Path.of(filePath), modifiedLines);
         } catch (IOException e) {
-            throw new ParkException("Error writing to file");
+            throw ParkException.writeFileException();
         }
     }
 
@@ -118,7 +118,7 @@ public class Storage {
             }
             Files.write(Path.of(filePath), modifiedLines);
         } catch (IOException e) {
-            throw new ParkException("Error writing to file");
+            throw ParkException.writeFileException();
         }
     }
 
@@ -152,10 +152,10 @@ public class Storage {
                 }
                 return event;
             default:
-                throw new ParkException("file corrupted, loading new empty list");
+                throw ParkException.fileCorruptedException();
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new ParkException("file corrupted, loading new empty list");
+            throw ParkException.fileCorruptedException();
         }
     }
 }
