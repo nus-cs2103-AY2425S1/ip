@@ -56,7 +56,7 @@ public class Tudee {
         try {
             Command command = Parser.parse(input);
             return command.execute(taskList, ui, storage);
-        } catch (tudee.TudeeException e) {
+        } catch (TudeeException | AssertionError e) {
             return ui.showError(e.getMessage());
         }
     }

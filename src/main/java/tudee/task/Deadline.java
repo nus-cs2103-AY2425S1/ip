@@ -2,6 +2,9 @@ package tudee.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import tudee.TudeeException;
 
 /**
  * Represents a Deadline task.
@@ -22,9 +25,13 @@ public class Deadline extends Task {
      * @param taskString The task description.
      * @param deadline The deadline date for the task, in the format yyyy-MM-dd.
      */
-    public Deadline(String taskString, String deadline) {
+    public Deadline(String taskString, String deadline) throws TudeeException {
         super(taskString);
-        this.deadline = LocalDate.parse(deadline);
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new TudeeException("Invalid date format. Please use yyyy-MM-dd.");
+        }
     }
 
     /**

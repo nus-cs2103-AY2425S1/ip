@@ -4,3 +4,5 @@ T | 0 | join sports club
 D | 1 | return book | 2024-08-29
 T | 0 | play games
 T | 0 | complete analysis
+D | 0 | apply job  | 2024-09-10
+E | 0 | hackathon  | 2024-09-10 | 2024-09-11

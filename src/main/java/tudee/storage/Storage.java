@@ -25,6 +25,9 @@ public class Storage {
     private static final int DEADLINE_INDEX = 3;
     private static final int START_INDEX = 3;
     private static final int END_INDEX = 4;
+    private static final int MINIMUM = 3;
+    private static final int DEADLINE_SEGMENTS = 4;
+    private static final int EVENT_SEGMENTS = 5;
 
     private final String path;
 
@@ -58,6 +61,9 @@ public class Storage {
                 String currentLine = sc.nextLine();
                 String[] data = currentLine.split(" \\| ");
 
+                // Assert that the data array has the expected length.
+                assert data.length >= MINIMUM : "Format is incorrect. You should have at least 3 segments.";
+
                 Task currentTask = createTaskFromData(data);
                 checkMark(data, currentTask);
                 tasks.add(currentTask);
@@ -79,8 +85,12 @@ public class Storage {
             case "T":
                 return new ToDo(data[DESCRIPTION_INDEX]);
             case "D":
+                // Assert that Deadline has 4 segments.
+                assert data.length == DEADLINE_SEGMENTS: "Deadline must have 4 segments";
                 return new Deadline(data[DESCRIPTION_INDEX], data[DEADLINE_INDEX]);
             case "E":
+                // Assert that Events has 5 segments.
+                assert data.length == EVENT_SEGMENTS: "Events must have 5 segments";
                 return new Events(data[DESCRIPTION_INDEX], data[START_INDEX], data[END_INDEX]);
             default:
                 throw new TudeeException("Invalid letter");

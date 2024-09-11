@@ -45,6 +45,7 @@ test {
 
 application {
     mainClass.set("tudee.Launcher")
+    applicationDefaultJvmArgs = ['-ea']
 }
 
 shadowJar {

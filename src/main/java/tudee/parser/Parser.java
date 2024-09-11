@@ -41,6 +41,10 @@ public class Parser {
     public static Command parse(String input) throws TudeeException {
         String[] inputs = input.split(" ", 2);
         String command = inputs[COMMAND_INDEX];
+
+        // Assert that the command part is not empty.
+        assert command != null && !command.isEmpty() : "Input should not be empty";
+
         CommandType commandType = CommandType.fromString(command);
 
         // Handle each command type
@@ -52,29 +56,55 @@ public class Parser {
                 return new ByeCommand();
 
             case TODO:
+                // Assert that input contains a task description for the ToDo task.
+                assert inputs.length > 1 : "Specify the task description!";
+
                 return new AddTaskCommand(new ToDo(inputs[OLD_DESCRIPTION_INDEX]));
 
             case DEADLINE:
                 String[] deadlineDetails = inputs[OLD_DESCRIPTION_INDEX].split("/by ");
+
+                // Assert that the task description and the deadline are provided.
+                assert deadlineDetails.length == 2 : "Specify the task description or deadline (/by)!";
+
                 return new AddTaskCommand(new Deadline(deadlineDetails[NEW_DESCRIPTION_INDEX], deadlineDetails[DEADLINE_INDEX]));
 
             case EVENT:
                 String[] eventDetails = inputs[OLD_DESCRIPTION_INDEX].split("/from | /to ");
+
+                // Assert that the task description, start and end date are provided.
+                assert eventDetails.length == 3 : "Specify the task description, start (/from) and end date (/to)!";
+
                 return new AddTaskCommand(new Events(eventDetails[NEW_DESCRIPTION_INDEX], eventDetails[START_INDEX], eventDetails[END_INDEX]));
 
             case MARK:
+                // Assert that a task number is provided to be marked.
+                assert inputs.length > 1 : "Specify the index of the task to be marked!";
+
                 return new MarkCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
 
             case UNMARK:
+                // Assert that a task number is provided to be unmarked.
+                assert inputs.length > 1 : "Specify the index of the task to be unmarked!";
+
                 return new UnmarkCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
 
             case DELETE:
+                // Assert that a task number is provided to be deleted.
+                assert inputs.length > 1 : "Specify the index of the task to be deleted!";
+
                 return new DeleteCommand(Integer.parseInt(inputs[OLD_DESCRIPTION_INDEX]));
 
             case DATE:
+                // Assert that a date is provided.
+                assert inputs.length > 1 : "Specify the date you wish to check!";
+
                 return new DateCommand(inputs[OLD_DESCRIPTION_INDEX]);
 
             case FIND:
+                // Assert that a keyword is provided to find tasks with that keyword.
+                assert inputs.length > 1 : "Specify the keyword you wish to find!";
+
                 return new FindCommand(inputs[OLD_DESCRIPTION_INDEX]);
 
             default:
