@@ -1,7 +1,7 @@
 package mylo.command;
 
 import mylo.task.TaskList;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 
 /**
  * Represents a command to find tasks in the task list based on a keyword.
@@ -27,11 +27,10 @@ public class FindCommand extends Command {
      * Executes the find command, displaying tasks that match the specified keyword.
      *
      * @param list The task list to search through.
-     * @param ui The user interface to display the results.
+     * @param tui The user interface to display the results.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
-        String message = list.tasksWithKeyword(KEYWORD).toString();
-        ui.show(message);
+    public String execute(TaskList list, Tui tui) {
+        return list.tasksWithKeyword(KEYWORD).toString();
     }
 }

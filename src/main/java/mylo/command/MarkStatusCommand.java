@@ -2,7 +2,7 @@ package mylo.command;
 
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 
 /**
  * Represents a command to mark or unmark a task's completion status in the task list.
@@ -39,12 +39,11 @@ public class MarkStatusCommand extends Command {
      * be marked as done. Otherwise, it will be marked as undone.</p>
      *
      * @param list The task list containing the task to be updated.
-     * @param ui   The user interface to display the result of the command execution.
+     * @param tui   The user interface to display the result of the command execution.
      * @throws StorageOperationException If there is an issue with the storage during the operation.
      */
     @Override
-    public void execute(TaskList list, Ui ui) throws StorageOperationException {
-        String message = IS_MARK_COMMAND ? list.markTaskAsDone(INDEX) : list.markTaskAsUndone(INDEX);
-        ui.show(message);
+    public String execute(TaskList list, Tui tui) throws StorageOperationException {
+        return IS_MARK_COMMAND ? list.markTaskAsDone(INDEX) : list.markTaskAsUndone(INDEX);
     }
 }

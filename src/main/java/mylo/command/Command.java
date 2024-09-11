@@ -3,7 +3,7 @@ package mylo.command;
 import mylo.data.InsufficientInfoException;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 import mylo.utils.exceptions.IllegalValueException;
 
 /**
@@ -22,21 +22,20 @@ import mylo.utils.exceptions.IllegalValueException;
  * @author cweijin
  */
 public abstract class Command {
-
     /**
-     * Executes the command using the provided {@code TaskList} and {@code Ui}.
+     * Executes the command using the provided {@code TaskList} and {@code Tui}.
      * <p></p>
      * <p>This method should be implemented by subclasses to define the specific action
      * that the command should perform, such as adding or deleting tasks.</p>
      *
      * @param list The task list that the command operates on.
-     * @param ui   The user interface used to display the result of the command execution.
+     * @param tui   The user interface used to display the result of the command execution.
      * @throws StorageOperationException If there is an issue with saving or loading tasks from storage.
      * @throws InsufficientInfoException If there is insufficient information to execute the command.
      * @throws IllegalValueException     If the command encounters invalid values or operations.
      * @throws IndexOutOfBoundsException If an invalid index is used when accessing the task list.
      */
-    public abstract void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException,
+    public abstract String execute(TaskList list, Tui tui) throws StorageOperationException, InsufficientInfoException,
             IllegalValueException, IndexOutOfBoundsException;
 
     /**

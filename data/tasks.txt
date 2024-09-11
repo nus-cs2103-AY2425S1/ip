@@ -1,7 +1,1 @@
-TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Task
+TODO | True | Task

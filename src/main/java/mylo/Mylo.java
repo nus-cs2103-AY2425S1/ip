@@ -1,15 +1,12 @@
 package mylo;
 
-import mylo.command.Command;
-import mylo.data.InsufficientInfoException;
-import mylo.data.NoSuchCommandException;
-import mylo.parser.Parser;
 import mylo.storage.FileCorruptedException;
 import mylo.storage.Storage;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
-import mylo.ui.Ui;
-import mylo.utils.exceptions.IllegalValueException;
+import mylo.ui.Gui;
+import mylo.ui.Tui;
+import mylo.ui.UiController;
 
 /**
  * Entry point of Mylo.
@@ -19,17 +16,20 @@ import mylo.utils.exceptions.IllegalValueException;
  */
 public class Mylo {
     private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private TaskList taskList;
+    private UiController controller;
+    private Tui tui;
+    private Gui gui;
 
     /**
      * Initializes the required objects and loads up the data from the storage file.
      */
     public Mylo(String filePath) {
         try {
-            ui = new Ui();
             storage = new Storage();
-            tasks = storage.load();
+            taskList = storage.load();
+            tui = new Tui();
+            gui = Gui.getInstance();
         } catch (FileCorruptedException | StorageOperationException e) {
             System.out.println(e.getMessage() + "\nPlease try again.");
         }
@@ -39,25 +39,12 @@ public class Mylo {
      * Runs the program until termination.
      */
     public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.separator();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui);
-                isExit = c.isExit();
-            } catch (NoSuchCommandException | StorageOperationException | InsufficientInfoException
-                     | IllegalValueException | IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                ui.separator();
-            }
-        }
+        // Set the model and start the TUI after JavaFX initialization is complete
+        controller = new UiController(gui, tui, taskList);
+        Gui.getInstance().setController(controller);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         new Mylo("data/tasks.txt").run();
     }
 }
