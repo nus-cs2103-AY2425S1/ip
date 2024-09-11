@@ -57,10 +57,12 @@ public class MainWindowViewModel {
     }
 
     private void addSystemMessage(String message) {
+        assert !message.isBlank();
         this.messages.add(new Message(MessageAuthor.SYSTEM, message));
     }
 
     private void addUserMessage(String message) {
+        assert !message.isBlank();
         this.messages.add(new Message(MessageAuthor.USER, message));
     }
 }

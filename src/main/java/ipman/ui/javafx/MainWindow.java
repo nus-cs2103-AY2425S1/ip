@@ -39,6 +39,8 @@ public class MainWindow extends AnchorPane implements Initializable {
                 List<MessageBox> messageBoxes = c.getAddedSubList().stream()
                         .map(MessageBox::createMessage)
                         .toList();
+
+                assert !messageBoxes.isEmpty();
                 dialogContainer.getChildren().addAll(messageBoxes);
             }
         });
@@ -48,6 +50,9 @@ public class MainWindow extends AnchorPane implements Initializable {
 
     @FXML
     private void handleOnSendClick() {
+        assert this.inputTextField != null;
+        assert this.viewModel != null;
+
         // Read message and clear input
         String message = this.inputTextField.getText();
         this.inputTextField.setText("");

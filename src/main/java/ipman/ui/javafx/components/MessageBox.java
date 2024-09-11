@@ -1,6 +1,7 @@
 package ipman.ui.javafx.components;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import ipman.ui.javafx.Message;
 import javafx.fxml.FXML;
@@ -34,6 +35,12 @@ public class MessageBox extends GridPane {
         this.displayPicture.setImage(img);
     }
 
+    private static Image loadImage(String resourcePath) {
+        InputStream is = MessageBox.class.getResourceAsStream(resourcePath);
+        assert is != null;
+        return new Image(is);
+    }
+
     private void flip() {
         this.message.setAlignment(Pos.CENTER_RIGHT);
         GridPane.setColumnIndex(this.message, 0);
@@ -60,7 +67,7 @@ public class MessageBox extends GridPane {
      * @return message box for the user
      */
     public static MessageBox createUserBox(String message) {
-        Image image = new Image(MessageBox.class.getResourceAsStream("/images/messageUserAvatar.png"));
+        Image image = loadImage("/images/messageUserAvatar.png");
         MessageBox box = new MessageBox(message, image);
         box.flip();
         return box;
@@ -73,7 +80,7 @@ public class MessageBox extends GridPane {
      * @return message box for the system
      */
     public static MessageBox createSystemBox(String message) {
-        Image image = new Image(MessageBox.class.getResourceAsStream("/images/messageSystemAvatar.png"));
+        Image image = loadImage("/images/messageSystemAvatar.png");
         return new MessageBox(message, image);
     }
 }
