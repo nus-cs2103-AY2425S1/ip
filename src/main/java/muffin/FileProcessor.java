@@ -15,16 +15,18 @@ import java.util.List;
 public class FileProcessor {
 
     /**
+     * The file path to the task list file.
+     */
+    private final String filePath = "../taskList.txt";
+
+    /**
      * Reads tasks from a file located at the specified file path. The file is
      * expected to have lines representing different types of tasks, each line
      * containing task details separated by a pipe '|' character.
      *
-     * @param filePath The path of the file to read tasks from.
      * @return An ArrayList of tasks read from the file.
      */
-    public ArrayList<Task> readFromFile(String filePath) {
-        assert filePath != null;
-
+    public ArrayList<Task> readFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -56,11 +58,9 @@ public class FileProcessor {
      * Writes the list of tasks to a file at the specified file path. The tasks are serialized
      * into lines of text, each line representing a task and its details.
      *
-     * @param filePath The path of the file to write the tasks to.
      * @param tasks An ArrayList of tasks to write to the file.
      */
-    public void writeToFile(String filePath, ArrayList<Task> tasks) {
-        assert filePath != null;
+    public void writeToFile(ArrayList<Task> tasks) {
         assert tasks != null;
 
         try {

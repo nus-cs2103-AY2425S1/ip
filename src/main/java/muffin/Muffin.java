@@ -6,16 +6,6 @@ package muffin;
 public class Muffin {
 
     /**
-     * The file path to the task list file.
-     */
-    private final String filePath = "../taskList.txt";
-
-    /**
-     * An instance of FileProcessor to handle reading and writing tasks to a file.
-     */
-    private FileProcessor fp = new FileProcessor();
-
-    /**
      * An instance of Parser to parse user input commands.
      */
     private Parser parser = new Parser();
@@ -23,13 +13,13 @@ public class Muffin {
     /**
      * The TaskList object that stores the list of tasks read from the file.
      */
-    private TaskList list = new TaskList(fp.readFromFile(filePath));
+    private TaskList list = new TaskList();
 
     /**
      * Enum representing the possible commands the user can input.
      */
     enum Command {
-        HI, HELLO, HEY, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
+        HI, HELLO, HEY, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNDO
     }
 
     /**
@@ -79,17 +69,14 @@ public class Muffin {
 
             case MARK:
                 Task t = list.mark(Integer.parseInt(parts[1]) - 1);
-                fp.writeToFile(filePath, list.getList());
                 return String.format("Yay! Marked as done:\n \t %s", t);
 
             case UNMARK:
                 Task s = list.unmark(Integer.parseInt(parts[1]) - 1);
-                fp.writeToFile(filePath, list.getList());
                 return String.format("Ok. Marked as not done yet:\n \t %s", s);
 
             case DELETE:
                 Task r = list.delete(Integer.parseInt(parts[1]) - 1);
-                fp.writeToFile(filePath, list.getList());
                 return String.format("Ok. Task has been removed:\n \t %s \n "
                         + "Now you have %d tasks in your list.", r, list.length());
 
@@ -100,8 +87,7 @@ public class Muffin {
                 if (parts[1].isEmpty()) {
                     throw new MuffinException("Oh no! You must have a description for a todo task.");
                 }
-                list.add(new Todo(parts[1]));
-                fp.writeToFile(filePath, list.getList());
+                list.add(len, new Todo(parts[1]));
                 return String.format("Ok. Added this task:\n \t %s \n"
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
@@ -109,8 +95,7 @@ public class Muffin {
                 if (parts.length < 3) {
                     throw new MuffinException("Oh no! You must have a description and a deadline for a deadline task!");
                 }
-                list.add(new Deadline(parts[1], parts[2]));
-                fp.writeToFile(filePath, list.getList());
+                list.add(len, new Deadline(parts[1], parts[2]));
                 return String.format("Ok. Added this task:\n \t %s \n"
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
@@ -118,10 +103,12 @@ public class Muffin {
                 if (parts.length < 4) {
                     throw new MuffinException("Oh no! You must have a description and a timeframe for an event task!");
                 }
-                list.add(new Event(parts[1], parts[2], parts[3]));
-                fp.writeToFile(filePath, list.getList());
+                list.add(len, new Event(parts[1], parts[2], parts[3]));
                 return String.format("Ok. Added this task:\n \t %s \n"
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
+
+            case UNDO:
+                return list.undo();
 
             default:
                 break;
