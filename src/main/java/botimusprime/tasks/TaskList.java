@@ -48,6 +48,10 @@ public class TaskList {
         return tasks;
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     /**
      * Displays the list of tasks.
      * If the list is empty, it displays a message indicating that there are no tasks.
@@ -66,10 +70,6 @@ public class TaskList {
         return resultString.toString();
     }
 
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-
     public int getTaskListLength() {
         return tasks.size();
     }
@@ -81,6 +81,8 @@ public class TaskList {
      * @param idx The index of the item to be marked as done.
      */
     public String markDone(int idx) {
+        assert !tasks.isEmpty();
+
         if (getTaskListLength() < idx || idx < 1) {
             return "Your inputted index is invalid, human.";
         }
@@ -97,6 +99,8 @@ public class TaskList {
      * @param idx The index of the item to be marked as undone.
      */
     public String markUndone(int idx) {
+        assert !tasks.isEmpty();
+
         if (getTaskListLength() < idx || idx < 1) {
             return "Your inputted index is invalid, human.";
         }
@@ -114,6 +118,8 @@ public class TaskList {
      * @param idx The index of the item to be deleted.
      */
     public String delete(int idx) {
+        assert !tasks.isEmpty();
+
         if (getTaskListLength() < idx || idx < 1) {
             return "Your inputted index is invalid, human.";
         }
@@ -132,6 +138,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addToDo(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 5) {
             return "You forgot to input your task, human.";
         }
@@ -154,6 +162,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addDeadline(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 9 || !input.contains("/by")) {
             return "You forgot to input your task, human.";
         }
@@ -194,6 +204,8 @@ public class TaskList {
      * @param input The user input containing the full command.
      */
     public String addEvent(String input) {
+        assert !input.isEmpty();
+
         if (input.length() <= 6 || input.substring(6)
                 .trim()
                         .isEmpty()) {
@@ -244,6 +256,8 @@ public class TaskList {
     }
 
     public String findTask(String input) {
+        assert !input.isEmpty();
+
         StringBuilder resultString = new StringBuilder(SEPARATOR
                     + "Here are the matching tasks in your list:\n");
         ArrayList<Task> foundTasks = new ArrayList<>();
