@@ -59,17 +59,10 @@ public class Ui {
             Command c = new DeleteCommand();
             return c.runCommand(ls, p.getSecondHalf());
         } else {
-            try {
-                Task t = TaskCreator.create(message + "|false");
-                ls.add(t);
-                store.write(ls);
-                return LINE + "\n     "
-                        + "Got it! added the task: \n     "
-                        + t + "\n     "
-                        + String.format("Now you have %h tasks in the list \n", ls.size()) + LINE;
-            } catch (Exception e) {
-                return LINE + "\n      " + e + LINE;
-            }
+            Command c = new AddTaskCommand();
+            String s = c.runCommand(ls, message);
+            store.write(ls);
+            return s;
         }
     }
 
