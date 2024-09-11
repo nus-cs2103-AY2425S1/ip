@@ -44,6 +44,10 @@ public final class Colress {
         return ui.welcome();
     }
 
+    /**
+     * Storage class loads task from task file to the given TaskList object and returns
+     * the contents of the TaskList object.
+     */
     public String loadTasks() {
         try {
             storage.loadTasks(taskList);
