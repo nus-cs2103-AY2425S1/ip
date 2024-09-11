@@ -117,13 +117,11 @@ public class Makima {
      * @return formatted string containing all tasks.
      */
     public String getTasksWithTerm(String search) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).match(search)) {
-                stringBuilder.append(i + 1).append(":").append(tasks.get(i)).append("\n");
-            }
-        }
-        return stringBuilder.toString();
+        StringBuilder result = tasks.stream().filter(task -> task.match(search))
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
+        return !result.isEmpty()
+                ? result.toString()
+                : "No items matched the search!";
     }
 
     public static void main(String[] args) {
