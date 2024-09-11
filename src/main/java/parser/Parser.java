@@ -59,7 +59,7 @@ public class Parser {
         case TODO:
             // result[1] contains description
             checkValidTaskInput(Command.TODO, result);
-            addedTask = list.addTask(Command.TODO, result[1]);
+            addedTask = list.addTask(Command.TODO, result);
             break;
         case DEADLINE:
             // result[1] contains description /by deadline
@@ -68,8 +68,7 @@ public class Parser {
             String[] deadlineInfo = result[1].split("/by ");
             checkValidTaskInput(Command.DEADLINE, deadlineInfo);
 
-            addedTask = list.addTask(Command.DEADLINE,
-                    deadlineInfo[0], deadlineInfo[1].strip());
+            addedTask = list.addTask(Command.DEADLINE, deadlineInfo);
             break;
         case EVENT:
             // result[1] contains description /from from /to to
@@ -81,8 +80,7 @@ public class Parser {
             String[] times = eventInfo[1].split("/to ");
             checkValidTaskInput(Command.EVENT, times);
 
-            addedTask = list.addTask(Command.EVENT,
-                    eventInfo[0], times[0].strip(), times[1].strip());
+            addedTask = list.addTask(Command.EVENT, eventInfo);
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));

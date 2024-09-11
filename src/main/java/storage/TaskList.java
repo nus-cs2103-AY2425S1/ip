@@ -25,20 +25,22 @@ public class TaskList {
      * Adds a task to TASKS.
      *
      * @param type type of task to be added.
-     * @param params arguments that the task has.
+     * @param response arguments that the task has.
      * @return the task that has been added to TASKS.
      */
-    public Task addTask(Command type, String ... params) {
-        Task task = new Task(params[0]);
+    public Task addTask(Command type, String[] response) {
+        Task task = new Task(response[0]);
         switch (type) {
         case TODO:
-            task = new Todo(params[0]);
+            task = new Todo(response[1]);
             break;
         case DEADLINE:
-            task = new Deadline(params[0], params[1]);
+            // response[0] = description, response[1] = deadline
+            task = new Deadline(response[0], response[1].strip());
             break;
         case EVENT:
-            task = new Event(params[0], params[1], params[2]);
+            String[] times = response[1].split("/to ");
+            task = new Event(response[0], times[0].strip(), times[1].strip());
             break;
         default:
             break;
@@ -64,7 +66,9 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task markTask(int taskNumber) throws InvalidTaskException {
-        checkValidTaskIndex(taskNumber);
+        if (taskNumber > tasks.size() || taskNumber == 0) {
+            throw new InvalidTaskException("", taskNumber);
+        }
         Task markTask = tasks.get(taskNumber - 1);
         markTask.markAsDone();
         return markTask;
@@ -78,7 +82,9 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task unmarkTask(int taskNumber) throws InvalidTaskException {
-        checkValidTaskIndex(taskNumber);
+        if (taskNumber > tasks.size() || taskNumber == 0) {
+            throw new InvalidTaskException("", taskNumber);
+        }
         Task unmarkTask = tasks.get(taskNumber - 1);
         unmarkTask.markAsUndone();
         return unmarkTask;
@@ -92,7 +98,9 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task deleteTask(int taskNumber) throws InvalidTaskException {
-        checkValidTaskIndex(taskNumber);
+        if (taskNumber > tasks.size() || taskNumber == 0) {
+            throw new InvalidTaskException("", taskNumber);
+        }
         return tasks.remove(taskNumber - 1);
     }
 
@@ -147,17 +155,5 @@ public class TaskList {
             }
         }
         return filteredTasks.listTasks();
-    }
-
-    /**
-     * Checks if the task index is within the size of the task list.
-     *
-     * @param taskNumber the index to check.
-     * @throws InvalidTaskException when index is outside range of list.
-     */
-    private void checkValidTaskIndex(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > tasks.size() || taskNumber <= 0) {
-            throw new InvalidTaskException("", taskNumber);
-        }
     }
 }

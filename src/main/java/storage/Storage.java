@@ -35,6 +35,7 @@ public class Storage {
         File file = new File(this.filePath);
         try {
             // create new file if it doesn't exist
+            // if file already exists, read its contents
             if (!file.createNewFile()) {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {
@@ -80,22 +81,22 @@ public class Storage {
      * @param line task string in data file.
      */
     private void createTask(String line) {
-        String[] taskParams = line.split(",");
-        String taskType = taskParams[0];
-        boolean isDone = Integer.parseInt(taskParams[1]) == 1;
+        String[] info = line.split(",");
+        String taskType = info[0];
+        boolean isDone = Integer.parseInt(info[1]) == 1;
         Task newTask;
         switch (taskType) {
         case "todo":
-            newTask = new Todo(taskParams[2]);
+            newTask = new Todo(info[2]);
             break;
         case "deadline":
-            newTask = new Deadline(taskParams[2], taskParams[3]);
+            newTask = new Deadline(info[2], info[3]);
             break;
         case "event":
-            newTask = new Event(taskParams[2], taskParams[3], taskParams[4]);
+            newTask = new Event(info[2], info[3], info[4]);
             break;
         default:
-            newTask = new Task(taskParams[2]);
+            newTask = new Task(info[2]);
         }
         if (isDone) {
             newTask.markAsDone();
