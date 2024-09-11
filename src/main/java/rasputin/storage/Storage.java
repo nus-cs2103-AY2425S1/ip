@@ -31,6 +31,7 @@ public class Storage {
      * @param filePath Path of file to be opened.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         this.file = new File(this.filePath);
         if (file.isFile()) {
@@ -105,6 +106,7 @@ public class Storage {
      * @param tasks List of tasks to write into file
      */
     public void writeFile(TaskList tasks) {
+        assert tasks != null : "Task list cannot be null";
         try {
             FileWriter fileWriter = new FileWriter(this.file);
             fileWriter.write("");

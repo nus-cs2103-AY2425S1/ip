@@ -37,6 +37,7 @@ public class Parser {
      * @return Command to be executed.
      */
     public Command parseInput(String input) {
+        assert input != null : "Input cannot be null";
         String command = input.split(" ")[0];
         switch (command) {
             case "list":
