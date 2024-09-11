@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import victor.tasks.Task;
 
@@ -152,23 +153,17 @@ public class TaskList {
      *      the string to match as well as the standard task print output.
      */
     public String[] findMatches(String toMatch) {
-        ArrayList<String> matches = new ArrayList<String>();
-        int count = 1;
-        for (Task task : tasks) {
-            if (task.toString().contains(toMatch)) {
-                matches.add("     " + count + ". " + task);
-                count += 1;
-            }
-        }
-        if (count > 1) {
-            String[] matchesArray = new String[matches.size()];
-            for (int i = 0; i < matches.size(); i++) {
-                matchesArray[i] = matches.get(i);
-            }
-            return matchesArray;
-        } else {
+        // Use streams to do filtering instead of loop
+        Stream<Task> taskStream = tasks.stream();
+        taskStream = taskStream.filter(task -> task.toString().contains(toMatch));
+        String[] taskArray = taskStream.map(Task::toString).toArray(String[]::new);
+        if (taskArray.length == 0) {
             return new String[] {};
         }
+        for (int i = 0; i < taskArray.length; i++) {
+            taskArray[i] = "    " + (i + 1) + ". " + taskArray[i];
+        }
+        return taskArray;
     }
 
     public ArrayList<Task> getTaskList() {
