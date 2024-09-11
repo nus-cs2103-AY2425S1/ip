@@ -1,8 +1,8 @@
-package bob.Command;
+package bob.command;
 
-import bob.Storage.Storage;
-import bob.Tasks.Task;
-import bob.Ui.Ui;
+import bob.storage.Storage;
+import bob.tasks.Task;
+import bob.ui.Ui;
 
 import java.util.ArrayList;
 

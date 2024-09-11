@@ -1,9 +1,9 @@
-package bob.Command;
+package bob.command;
 
-import bob.Exception.BobException;
-import bob.Tasks.Task;
-import bob.Storage.Storage;
-import bob.Ui.Ui;
+import bob.exception.BobException;
+import bob.tasks.Task;
+import bob.storage.Storage;
+import bob.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors; // collectors
