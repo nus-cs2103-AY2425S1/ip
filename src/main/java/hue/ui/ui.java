@@ -83,7 +83,9 @@ public class ui {
 
     public String noMatchingTasks(String keyword) {
         StringBuilder sb = new StringBuilder();
-        sb.append("No tasks found that matches the keyword \"").append(keyword).append("\":\n");
+        sb.append("No tasks found that matches the keyword: \"").append(keyword)
+                .append("\"\n")
+                .append("Sowwy! :(");
         return sb.toString().trim();
     }
 
@@ -104,7 +106,7 @@ public class ui {
         if (taskListSize != 1) {
             sb.append("s");
         }
-        sb.append(" in the list.");
+        sb.append(" in the list!. :)");
 
         return sb.toString();
     }
@@ -132,14 +134,14 @@ public class ui {
     }
 
     public String showMarkTask(Task task) {
-        String response = "Nice! I've marked this task as done:\n" +
+        String response = "Great job buddy! I've marked this task as done:\n" +
                 "  " + task;
 
         return response;
     }
 
     public String showUnmarkTask(Task task) {
-        String response = "OK, I've marked this task as not done yet: \n" +
+        String response = "Darn!, I've marked this task as not done yet:\n" +
                 " " + task;
 
         return response;
