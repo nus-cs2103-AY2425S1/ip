@@ -2,6 +2,8 @@ package friday.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import friday.task.Deadline;
 import friday.task.Event;
@@ -81,6 +83,20 @@ public class TaskList {
     }
 
     /**
+     * Filters tasks based on the specified condition.
+     *
+     * @param condition The condition to filter tasks.
+     * @return A TaskList containing the tasks that match the condition.
+     */
+    public TaskList filterTasks(java.util.function.Predicate<Task> condition) {
+        assert condition != null : "Condition should not be null";
+        ArrayList<Task> matchingTasks = new ArrayList<>(tasks.stream()
+                .filter(condition)
+                .collect(Collectors.toList()));
+        return new TaskList(matchingTasks);
+    }
+
+    /**
      * Finds tasks that occur on the specified date. This includes tasks with deadlines on that date
      * and events that occur on or span across that date.
      *
@@ -88,47 +104,28 @@ public class TaskList {
      * @return A TaskList containing the tasks that occur on the specified date.
      */
     public TaskList findTasksByDate(LocalDate date) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task instanceof Deadline) {
-                LocalDate deadline = ((Deadline) task).getBy();
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> {
+                    if (task instanceof Deadline) {
+                        LocalDate deadline = ((Deadline) task).getBy();
 
-                boolean isDeadline = deadline.equals(date);
+                        boolean isDeadline = deadline.equals(date);
 
-                if (isDeadline) {
-                    matchingTasks.add(task);
-                }
-            } else if (task instanceof Event) {
-                LocalDate from = ((Event) task).getFrom();
-                LocalDate to = ((Event) task).getTo();
+                        return isDeadline;
+                    } else if (task instanceof Event) {
+                        LocalDate from = ((Event) task).getFrom();
+                        LocalDate to = ((Event) task).getTo();
 
-                boolean isStartDate = date.equals(from);
-                boolean isEndDate = date.equals(to);
-                boolean isBetweenDates = date.isAfter(from) && date.isBefore(to);
+                        boolean isStartDate = date.equals(from);
+                        boolean isEndDate = date.equals(to);
+                        boolean isBetweenDates = date.isAfter(from) && date.isBefore(to);
 
-                if (isStartDate || isEndDate || isBetweenDates) {
-                    matchingTasks.add(task);
-                }
-            }
-        }
-        return new TaskList(matchingTasks);
-    }
-
-    /**
-     * Finds tasks that contain the specified keyword in their description.
-     *
-     * @param keyword The keyword to search for in the task descriptions.
-     * @return A TaskList containing the tasks that match the keyword.
-     */
-    public TaskList findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            String description = task.getDescription();
-            if (description.contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return new TaskList(matchingTasks);
+                        return isStartDate || isEndDate || isBetweenDates;
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+        return new TaskList(new ArrayList<>(matchingTasks));
     }
 
     /**
