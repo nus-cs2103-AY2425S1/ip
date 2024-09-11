@@ -47,9 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null : "You did not enter anything!";
         String response = lbot.getResponse(input);
-        assert response != null : "Response was empty.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLBotDialog(response, lbotImage)
