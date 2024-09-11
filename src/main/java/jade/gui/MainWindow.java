@@ -2,6 +2,7 @@ package jade.gui;
 
 import jade.Jade;
 import jade.command.GreetCommand;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -59,6 +60,7 @@ public class MainWindow extends AnchorPane {
         String response = jade.getResponse(input);
         addDialogBoxes(input, response);
         userInput.clear();
+        checkForBye(input);
     }
 
     /**
@@ -71,6 +73,24 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(messages[0], userImage),
                 DialogBox.getJadeDialog(messages[1], jadeImage)
         );
+    }
+
+    /**
+     * Checks if the user input is "bye" and if so, waits for 3 seconds before closing the application.
+     *
+     * @param input The user input to check.
+     */
+    private void checkForBye(String input) {
+        if (input.trim().equalsIgnoreCase("bye")) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000);
+                    Platform.runLater(Platform::exit);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
     /**

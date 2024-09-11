@@ -1,7 +1,5 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 import java.util.ArrayList;
 
 import jade.task.Task;
@@ -25,52 +23,32 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String run() {
-        String keyword = command.substring(5).trim();
-
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            Task task = taskManager.getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
-        StringBuilder message = new StringBuilder();
-        if (matchingTasks.isEmpty()) {
-            message.append(INDENT).append("No matching tasks found.");
-        } else {
-            message.append(INDENT).append("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append("\n").append(INDENT).append(i + 1).append(".").append(matchingTasks.get(i));
-            }
-        }
-
-        return displayMessage(message.toString());
+    public String runForGui() {
+        return displayFoundTaskListMessage(FOR_GUI);
     }
 
     @Override
-    public String runForGui() {
+    public String run() {
+        return displayFoundTaskListMessage(FOR_TEXT_UI);
+    }
+
+    private String displayFoundTaskListMessage(boolean forGui) {
         String keyword = command.substring(5).trim();
-
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            Task task = taskManager.getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
+        ArrayList<Task> matchingTasks = taskManager.getMatchingTasks(keyword);
         StringBuilder message = new StringBuilder();
+
         if (matchingTasks.isEmpty()) {
             message.append("No matching tasks found.");
-        } else {
-            message.append("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append("\n").append(i + 1).append(".").append(matchingTasks.get(i));
-            }
+            return displayMessage(forGui, message.toString());
         }
 
-        return message.toString();
+        message.append("Here are the matching task(s) in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            message.append("\n");
+            indentIfNotGui(forGui, message);
+            message.append(i + 1).append(".").append(matchingTasks.get(i));
+        }
+
+        return displayMessage(forGui, message.toString());
     }
 }

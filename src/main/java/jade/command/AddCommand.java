@@ -1,11 +1,10 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 import jade.exception.JadeException;
 import jade.parser.Parser;
 import jade.task.Task;
 import jade.task.TaskManager;
+import jade.ui.Ui;
 
 /**
  * Represents a command to add a task.
@@ -28,60 +27,46 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String run() {
-        try {
-            Task newTask = parser.parseTaskCommand(command);
-            if (newTask != null) {
-                taskManager.addTask(newTask);
-                return displayTaskAddedMessage(newTask);
-            }
-            return null;
-        } catch (JadeException e) {
-            return displayErrorMessage(e.getMessage());
-        }
-    }
-
-    private String displayTaskAddedMessage(Task task) {
-        int taskCount = taskManager.getTaskCount();
-        StringBuilder message = new StringBuilder();
-        message.append(INDENT).append("Got it. I've added this task:\n")
-                .append(INDENT).append("  ").append(task);
-
-        if (taskCount == 1) {
-            message.append("\n").append(INDENT).append("Now you have 1 task in the list.");
-        } else {
-            message.append("\n").append(INDENT)
-                    .append(String.format("Now you have %d tasks in the list.", taskCount));
-        }
-
-        return displayMessage(message.toString());
-    }
-
-    @Override
     public String runForGui() {
         try {
-            Task newTask = parser.parseTaskCommand(command);
-            if (newTask != null) {
-                taskManager.addTask(newTask);
-                return displayTaskAddedMessageForGui(newTask);
-            }
-            return null;
+            return displayTaskAddedMessage(FOR_GUI);
         } catch (JadeException e) {
             return e.getMessage();
         }
     }
 
-    private String displayTaskAddedMessageForGui(Task task) {
+    @Override
+    public String run() {
+        try {
+            return displayTaskAddedMessage(FOR_TEXT_UI);
+        } catch (JadeException e) {
+            return Ui.formatTextUiMessage(e.getMessage());
+        }
+    }
+
+    private String displayTaskAddedMessage(boolean forGui) throws JadeException {
+        Task newTask = parser.parseTaskCommand(command);
+        if (newTask == null) {
+            return null;
+        }
+        taskManager.addTask(newTask);
         int taskCount = taskManager.getTaskCount();
+
         StringBuilder message = new StringBuilder();
-        message.append("Got it. I've added this task:\n").append("  ").append(task);
+        message.append("Got it. I've added this task:\n");
+        indentIfNotGui(forGui, message);
+        message.append("  ").append(newTask);
 
         if (taskCount == 1) {
-            message.append("\n").append("Now you have 1 task in the list.");
+            message.append("\n");
+            indentIfNotGui(forGui, message);
+            message.append("Now you have 1 task in the list.");
         } else {
-            message.append("\n").append(String.format("Now you have %d tasks in the list.", taskCount));
+            message.append("\n");
+            indentIfNotGui(forGui, message);
+            message.append(String.format("Now you have %d tasks in the list.", taskCount));
         }
 
-        return message.toString();
+        return displayMessage(forGui, message.toString());
     }
 }

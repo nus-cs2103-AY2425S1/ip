@@ -38,28 +38,34 @@ public class Storage {
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        File parentDir = file.getParentFile();
-
-        if (!parentDir.exists()) {
-            parentDir.mkdirs(); // Create parent directories if they do not exist
-        } else if (!file.exists()) {
-            try {
-                file.createNewFile(); // Create a new file if it does not exist
-            } catch (IOException e) {
-                System.out.println("Error creating a file: " + e.getMessage());
-            }
-        }
+        createFileIfNeeded(file);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tasks.add(parseTask(line));
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
 
         return tasks;
+    }
+
+    private void createFileIfNeeded(File file) {
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        } else if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating a file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -89,6 +95,10 @@ public class Storage {
      */
     private Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
+        if (parts.length < 3) {
+            return null; // Invalid task format
+        }
+
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -97,15 +107,34 @@ public class Storage {
         case "T":
             return new Todo(description, isDone);
         case "D":
-            String by = parts[3];
-            return new Deadline(description, by, isDone);
+            return parseDeadline(parts, description, isDone);
         case "E":
-            String[] timeParts = parts[3].split(" - ");
-            String from = timeParts[0];
-            String to = timeParts[1];
-            return new Event(description, from, to, isDone);
+            return parseEvent(parts, description, isDone);
         default:
             return null;
         }
+    }
+
+    private Task parseDeadline(String[] parts, String description, boolean isDone) {
+        if (parts.length < 4) {
+            return null; // Invalid task format
+        }
+        String by = parts[3];
+        return new Deadline(description, by, isDone);
+    }
+
+    private Task parseEvent(String[] parts, String description, boolean isDone) {
+        if (parts.length < 4) {
+            return null; // Invalid task format
+        }
+
+        String[] timeParts = parts[3].split(" - ");
+        if (timeParts.length < 2) {
+            return null; // Invalid time format
+        }
+
+        String from = timeParts[0];
+        String to = timeParts[1];
+        return new Event(description, from, to, isDone);
     }
 }
