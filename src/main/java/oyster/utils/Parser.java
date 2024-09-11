@@ -42,7 +42,7 @@ public class Parser {
     }
 
     /**
-     * Convert TaskList into a String.
+     * Converts TaskList into a String.
      *
      * @param taskList The TaskList to be composed into String for saving.
      * @return Writeable save String of a TaskList.

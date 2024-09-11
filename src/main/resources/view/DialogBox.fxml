@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Pane prefHeight="99.0" prefWidth="0.0" style="-fx-background-color: #fff0f0;" HBox.hgrow="ALWAYS">
-         <children>
-              <Label fx:id="dialog" alignment="TOP_LEFT" layoutY="1.0" minHeight="-Infinity" prefHeight="99.0" prefWidth="271.0" text="Label" wrapText="true">
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-            </Label>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow />
-         </effect>
+        <Label fx:id="dialog" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" prefWidth="506.0" style="-fx-background-color: lightgreen; -fx-background-radius: 12px;" text="Label" wrapText="true">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
          <HBox.margin>
-            <Insets left="10.0" right="10.0" />
+            <Insets left="5.0" right="5.0" />
          </HBox.margin>
-      </Pane>
-      <Pane style="-fx-border-radius: 50%;">
+      </Label>
+      <Pane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-border-radius: 50%;">
          <children>
-              <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+             <Circle fill="#ffffff00" layoutX="50.0" layoutY="50.0" radius="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+              <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" style="-fx-fit-height: 100; -fx-fit-width: 100;">
+                  <fitWidth>100</fitWidth>
+                  <fitHeight>100</fitHeight>
+                  <preserveRatio>true</preserveRatio>
+                  <clip>
+                      <Circle radius="60.0" centerX="50.0" centerY="50.0"/>
+                  </clip>
+              </ImageView>
          </children>
+         <HBox.margin>
+            <Insets right="5.0" />
+         </HBox.margin>
       </Pane>
     </children>
     <padding>

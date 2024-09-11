@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Oyster's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -57,19 +57,10 @@ public class MainWindow extends AnchorPane {
         }
 
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input.trim(), getRoundedImage(userImage, 45)),
-            DialogBox.getChatbotDialog(stringBuilder.toString(), getRoundedImage(chatbotImage, 45))
+            DialogBox.getUserDialog(input.trim(), userImage),
+            DialogBox.getChatbotDialog(stringBuilder.toString(), chatbotImage)
         );
 
         userInput.clear();
-    }
-
-    private static Image getRoundedImage(Image image, double radius) {
-        Circle clip = new Circle(image.getWidth() / 2, image.getHeight() / 2, radius);
-        ImageView imageView = new ImageView(image);
-        imageView.setClip(clip);
-        SnapshotParameters parameters = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT);
-        return imageView.snapshot(parameters, null);
     }
 }

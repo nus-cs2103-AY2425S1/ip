@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
      * @param input Input to parse into DeadlineCommand.
      */
     public DeadlineCommand(String input) {
-        task = DeadlineTask.fromInput(input);
+        task = DeadlineTask.createFromInput(input);
     }
 
     /**

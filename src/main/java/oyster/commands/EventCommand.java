@@ -17,7 +17,7 @@ public class EventCommand extends Command {
      * @param input The input String to parse.
      */
     public EventCommand(String input) {
-        task = EventTask.fromInput(input);
+        task = EventTask.createFromInput(input);
     }
 
     /**

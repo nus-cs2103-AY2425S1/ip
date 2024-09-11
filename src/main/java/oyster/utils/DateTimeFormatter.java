@@ -51,7 +51,7 @@ public class DateTimeFormatter {
         }
 
         for (int i = 0; i < date.length; i++) {
-            if (i > 0 && date[i].length() == 1) {
+            if (date[i].length() == 1) {
                 date[i] = "0" + date[i];
             }
         }

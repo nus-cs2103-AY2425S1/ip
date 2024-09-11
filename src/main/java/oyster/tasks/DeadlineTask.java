@@ -31,7 +31,7 @@ public class DeadlineTask extends Task {
      * @param input The string to parse into a DeadlineTask.
      * @return DeadlineTask object.
      */
-    public static DeadlineTask fromInput(String input) {
+    public static DeadlineTask createFromInput(String input) {
         String name = "";
         String deadline = "";
         boolean isDeadlineNext = false;

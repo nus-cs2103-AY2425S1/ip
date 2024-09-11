@@ -23,7 +23,7 @@ public class ToDoTask extends Task {
      * @param input The string to parse into a ToDoTask.
      * @return ToDoTask object.
      */
-    public static ToDoTask fromInput(String input) {
+    public static ToDoTask createFromInput(String input) {
         input = input.trim();
 
         if (input.isEmpty()) {
