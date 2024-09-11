@@ -18,6 +18,7 @@ public class Event extends Task {
      *
      * @param description A description of the deadline task
      * @param start date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
+     * @param end
      */
     public Event(String description, String start, String end) {
         super(TaskType.EVENT, description);
@@ -29,22 +30,26 @@ public class Event extends Task {
         String[] startArr = start.split(" ");
         startDate = LocalDate.parse(startArr[0], formatter);
         if (startArr.length == 2) {
-            String timeStr = startArr[1];
-            if (timeStr.length() == 4) {
-                timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
-            }
-            startTime = LocalTime.parse(timeStr);
+            this.setTime(startArr[1], true);
         }
-
 
         String[] endArr = end.split(" ");
         endDate = LocalDate.parse(endArr[0], formatter);
         if (endArr.length == 2) {
-            String timeStr = endArr[1];
-            if (timeStr.length() == 4) {
-                timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
-            }
-            endTime = LocalTime.parse(timeStr);
+            this.setTime(endArr[1], false);
+        }
+    }
+
+    private void setTime(String timeStr, boolean isStartTime) {
+        if (timeStr.length() == 4) {
+            timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
+        }
+        LocalTime parsedTime = LocalTime.parse(timeStr);
+
+        if (isStartTime) {
+            startTime = parsedTime;
+        } else {
+            endTime = parsedTime;
         }
     }
 

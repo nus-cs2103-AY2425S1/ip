@@ -1,6 +1,7 @@
 package blitz;
 import commands.Command;
 import commands.ExitCommand;
+import exceptions.ErrorMessageHandler;
 import exceptions.InvalidTaskException;
 import io.Parser;
 import io.Ui;
@@ -23,7 +24,7 @@ public class Blitz {
             this.taskList = new TaskList(storage);
             ui = new Ui(taskList);
         } catch (InvalidDateException e) {
-            System.out.println("PLEASE USE THE PROPER DATE FORMAT");
+
         }
     }
 
@@ -38,13 +39,14 @@ public class Blitz {
             String message = userCommand.execute(taskList);
 
             if (userCommand instanceof ExitCommand) {
+                return ErrorMessageHandler.getExitMessage();
             }
 
             return message;
         } catch (InvalidTaskException e) {
-            return "THAT IS AN INVALID TASK LAH";
+            return ErrorMessageHandler.getInvalidTaskMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "A valid index has not been given!!";
+            return ErrorMessageHandler.getNoValidIndexGivenMessage();
         }
     }
 }

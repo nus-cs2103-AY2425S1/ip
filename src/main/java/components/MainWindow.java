@@ -36,7 +36,6 @@ public class MainWindow extends AnchorPane {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
-            System.out.println("here");
             System.out.println(this.getClass().getResource("/images/blitz.png"));
             fxmlLoader.load();
         } catch (IOException e) {
