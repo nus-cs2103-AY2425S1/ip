@@ -25,6 +25,7 @@ public class Task {
      */
     public void markAsCompleted() {
         this.isCompleted = true;
+        assert this.isCompleted : "Mark-as-complete command failed";
     }
 
     /**
@@ -32,6 +33,7 @@ public class Task {
      */
     public void markAsNotCompleted() {
         this.isCompleted = false;
+        assert !this.isCompleted : "Mark-as-incomplete command failed";
     }
 
     @Override
