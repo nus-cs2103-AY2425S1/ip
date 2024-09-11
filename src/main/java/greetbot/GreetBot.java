@@ -70,28 +70,28 @@ public class GreetBot {
             ui.closeInput();
             storage.saveData(tasks);
             return ui.farewellUser();
-        } else if (keyword.equals("LIST")) {
+        } else if (keyword.equals("LIST") || keyword.equals("L")) {
             return ui.showList(this.tasks);
-        } else if (keyword.equals("MARK")) {
+        } else if (keyword.equals("MARK") || keyword.equals("M")) {
             return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
-        } else if (keyword.equals("UNMARK")) {
+        } else if (keyword.equals("UNMARK") || keyword.equals("UM")) {
             return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
-        } else if (keyword.equals("TODO")) {
+        } else if (keyword.equals("TODO") || keyword.equals("T")) {
             if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
             }
             return this.addTodo(Parser.parseTodo(segment[argumentsPart]));
-        } else if (keyword.equals("EVENT")) {
+        } else if (keyword.equals("EVENT") || keyword.equals("E")) {
             if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
             }
             return this.addEvent(Parser.parseEvent(segment[argumentsPart]));
-        } else if (keyword.equals("DEADLINE")) {
+        } else if (keyword.equals("DEADLINE") || keyword.equals("D")) {
             if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
             }
             return this.addDeadline(Parser.parseDeadline(segment[argumentsPart]));
-        } else if (keyword.equals("DELETE")) {
+        } else if (keyword.equals("DELETE") || keyword.equals("DEL")) {
             if (segment.length == onlyHaveKeyword) {
                 throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
             }
