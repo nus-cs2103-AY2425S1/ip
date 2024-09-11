@@ -13,18 +13,11 @@ public class Parser {
     /**
      * Runs the entire program, reading user input and deciding what to do
      *
-     * @param input system input from textbox
+     * @param command first word of system input from textbox
+     * @param text remaining system input from textbox
      */
-    public String parse(String input) {
+    public String parse(NotgptJavaFX ui, String command, String text) {
         Storage storage = new Storage();
-        String command;
-        String text = "";
-
-            String[] parts = input.split("\\s+", 2);
-            command = parts[0].toLowerCase();
-            if (parts.length > 1 && !parts[1].trim().isEmpty()) {
-                text = parts[1];
-            }
             switch (command) {
             case "list":
                 assert storage != null : "Storage should not be null";
