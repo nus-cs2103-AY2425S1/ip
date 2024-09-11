@@ -58,6 +58,8 @@ public class Event extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDateTime parseDateTime(String dateStr) {
+        assert dateStr != null : "date string should not be empty";
+
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),
                 DateTimeFormatter.ofPattern("d MMM yyyy ha"),
