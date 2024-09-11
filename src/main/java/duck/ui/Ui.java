@@ -110,6 +110,7 @@ public class Ui {
      * @return The last response.
      */
     public String getLastResponse() {
+        assert this.lastResponse != null;
         return this.lastResponse;
     }
 }
