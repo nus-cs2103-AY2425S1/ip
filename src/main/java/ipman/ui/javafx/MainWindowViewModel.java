@@ -12,12 +12,6 @@ public class MainWindowViewModel {
     public MainWindowViewModel() {
         this.ipMan = new IpMan(new Ui() {
             @Override
-            public void showWelcome() {
-                addMessage("Hello! I'm Ip Man.");
-                addMessage("What can I do for you?");
-            }
-
-            @Override
             public void showMessage(String message) {
                 addMessage(message);
             }
@@ -31,12 +25,12 @@ public class MainWindowViewModel {
             public void showError(String message) {
                 addMessage(message);
             }
-
-            @Override
-            public void showGoodbye() {
-                addMessage("That's enough for today. See you another time.");
-            }
         });
+
+    }
+
+    public void showWelcome() {
+        this.addMessage("Hello! I'm Ip Man.\nWhat can I do for you?");
     }
 
     private void addMessage(String message) {

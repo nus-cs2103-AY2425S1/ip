@@ -36,6 +36,8 @@ public class MainWindow extends AnchorPane implements Initializable {
                 dialogContainer.getChildren().addAll(messageBoxes);
             }
         });
+
+        this.viewModel.showWelcome();
     }
 
     @FXML

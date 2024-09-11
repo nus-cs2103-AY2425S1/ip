@@ -20,16 +20,6 @@ public class SpyUi implements Ui {
     }
 
     @Override
-    public void showWelcome() {
-        this.recordedMessages.add("welcome");
-    }
-
-    @Override
-    public Command readMessage() {
-        return null;
-    }
-
-    @Override
     public void showMessage(String message) {
         this.recordedMessages.add("message:" + message);
     }
@@ -42,10 +32,5 @@ public class SpyUi implements Ui {
     @Override
     public void showError(String message) {
         this.recordedMessages.add("error:" + message);
-    }
-
-    @Override
-    public void showGoodbye() {
-        this.recordedMessages.add("goodbye");
     }
 }
