@@ -1,6 +1,7 @@
 package skibidi.command;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import skibidi.Storage;
 import skibidi.TaskList;
@@ -25,6 +26,9 @@ public class FindCommand extends AbstractCommand {
         if (searchResults.isEmpty()) {
             return "NO TASK DESCRIPTIONS MATCH THE QUERY";
         }
-        return "SEARCH RESULTS:\n" + searchResults.toString();
+        String result = searchResults.stream()
+                .map(task -> "\t" + task.toString())
+                .collect(Collectors.joining("\n"));
+        return "SEARCH RESULTS:\n" + result;
     }
 }
