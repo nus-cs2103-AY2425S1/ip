@@ -1,7 +1,5 @@
 package hypebot.storage;
 
-import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,6 +10,10 @@ import hypebot.task.Event;
 import hypebot.task.Task;
 import hypebot.task.TaskDateTimeParseException;
 import hypebot.task.ToDo;
+
+import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
+import static hypebot.common.Messages.MESSAGE_DELETING_PAST_DEADLINE;
+import static hypebot.common.Messages.MESSAGE_DELETING_PAST_EVENT;
 
 /**
  * Represents a TasklistDecoder that takes in a File to load Tasks from

@@ -1,11 +1,11 @@
 package hypebot.task;
 
-import org.junit.jupiter.api.Test;
-
 import static hypebot.common.Messages.ERROR_EVENT_TIMES_INORDERED;
 import static hypebot.common.Messages.ERROR_EVENT_TIME_PASSED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
