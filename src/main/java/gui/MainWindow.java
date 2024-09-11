@@ -11,12 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import slave.Slave;
-import slave.Ui;
 
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static String slaveImageAddress = "/images/slave_pp.jpg";
+    private static String userImageAddress = "/images/DaUser.png";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,14 +27,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private Slave slave;
-
-    public static String userImageAddress = "/images/DaUser.png";
-    public static String slaveImageAddress = "/images/slave_pp.jpg";
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream(userImageAddress));
     private Image slaveImage = new Image(this.getClass().getResourceAsStream(slaveImageAddress));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(userImageAddress));
+    private Slave slave;
 
     @FXML
     public void initialize() {
@@ -52,11 +49,18 @@ public class MainWindow extends AnchorPane {
         slave = s;
         assert s != null : "slave object should not be null";
         printWelcomeMsg();
+        String[] pastTaskList = slave.getPastTasks();
+        if (pastTaskList != null) {
+            for (String slaveDialog : pastTaskList) {
+                dialogContainer.getChildren().add(DialogBox.getSlaveDialog(slaveDialog, slaveImage));
+            }
+        }
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing duke.Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing slave.Slave's reply
+     * and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -82,7 +86,8 @@ public class MainWindow extends AnchorPane {
         // closes the application if user typed "bye"
         if (input.equalsIgnoreCase("bye")) {
             //@@author James_D -reused
-            // source: https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+            // source:
+            // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
             // reused the method to close the javafx window after a delay
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
             delay.setOnFinished(event -> Platform.exit());

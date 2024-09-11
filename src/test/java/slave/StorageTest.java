@@ -10,6 +10,12 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import slave.task.Deadline;
+import slave.task.Event;
+import slave.task.RecurringTypeTask;
+import slave.task.Task;
+import slave.task.Todo;
+
 public class StorageTest {
     @Test
     public void load1InvalidTest() {
@@ -45,9 +51,10 @@ public class StorageTest {
 
             List<Task> list = new LinkedList<>();
             Storage storage = new Storage(list, "./src/test/datafiles/saveTest.txt");
-            Todo todo = new Todo("fly");
-            Deadline deadline = new Deadline("die", LocalDate.parse("2022-02-02"));
-            Event event = new Event("revive", LocalDate.parse("2022-02-02"), LocalDate.parse("2022-03-03"));
+            Todo todo = new Todo("fly", false);
+            Deadline deadline = new Deadline("die", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02"));
+            Event event = new Event("revive", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02"),
+                    LocalDate.parse("2022-03-03"));
             storage.save();
 
             List<Task> newList = new LinkedList<>();

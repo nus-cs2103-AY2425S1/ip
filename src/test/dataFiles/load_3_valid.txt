@@ -1,3 +1,3 @@
-[T][] fly
-[D][] die (by: 2100-02-02)
-[E][] live (from: 2001-01-01 to: 2011-01-01)
+todo,false,fly
+deadline,false,NEVER,aovsne,2025-02-02
+deadline,false,DAILY,aoisnve,2024-09-12

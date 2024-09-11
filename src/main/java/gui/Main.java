@@ -1,13 +1,13 @@
 package gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import slave.Slave;
-
-import java.io.IOException;
 
 /**
  * A GUI for duke.Duke using FXML.
@@ -25,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSlave(slave);  // inject the slave.Slave instance
+            fxmlLoader.<MainWindow>getController().setSlave(slave); // inject the slave.Slave instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
