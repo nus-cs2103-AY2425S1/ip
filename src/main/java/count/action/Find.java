@@ -7,14 +7,14 @@ import count.task.Task;
 
 
 /**
- * The find class finds tasks that contain the key passed to it
+ * The Find class finds tasks that contain the key passed to it
  */
 public class Find extends Action {
     private TaskList ls;
     private String key;
 
     /**
-     * Constructor for Find
+     * Constructs Find object
      * @param ls TaskList being searched
      * @param key String to search for
      */
@@ -24,14 +24,14 @@ public class Find extends Action {
     }
 
     /**
-     * The run method finds all Tasks containing the given key
+     * Finds all Tasks containing the given key
      * appending it to the return String
      * @return String for Count's UI to print
      */
     @Override
     public String run() {
         String ans = "Ribbit, here are the matching tasks in your list\n";
-        ArrayList<Task> list = this.ls.getList();
+        ArrayList<Task> list = this.ls.getTaskList();
         int numberOfSearchHits = 0;
 
         for (Task t: list) {

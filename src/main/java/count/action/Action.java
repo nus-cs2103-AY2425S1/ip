@@ -7,7 +7,7 @@ import count.exception.CountException;
 public abstract class Action {
 
     /**
-     * the run method will execute the action
+     * Executes the action
      * @return String for Count's UI to print
      * @throws CountException for any child to throw children of CountException
      */

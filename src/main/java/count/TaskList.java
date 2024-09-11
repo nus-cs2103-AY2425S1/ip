@@ -10,24 +10,24 @@ import count.task.Task;
  * @author Kieran Koh Jun Wei
  */
 public class TaskList {
-    protected ArrayList<Task> ls;
+    protected ArrayList<Task> taskList;
 
     /**
-     * Constructor for TaskList if no ArrayList&lt;Task&gt; is provided
+     * Constructs TaskList object if no ArrayList&lt;Task&gt; is provided
      */
     public TaskList() {
-        this.ls = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
-     * Constructor for TaskList if an ArrayList&lt;Task&gt; is provided
+     * Constructs TaskList object if an ArrayList&lt;Task&gt; is provided
      */
     public TaskList(ArrayList<Task> ls) {
-        this.ls = ls;
+        this.taskList = ls;
     }
 
-    public ArrayList<Task> getList() {
-        return this.ls;
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
 }

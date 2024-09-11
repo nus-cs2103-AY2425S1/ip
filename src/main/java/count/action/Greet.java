@@ -6,7 +6,7 @@ package count.action;
 public class Greet extends Action {
 
     /**
-     * The run method returns the String for Count's UI to print
+     * Returns the String for Count's UI to print
      * @return String for Count's UI to print
      */
     @Override

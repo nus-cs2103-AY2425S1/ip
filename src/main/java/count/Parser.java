@@ -30,7 +30,7 @@ public class Parser {
     protected String filePath;
 
     /**
-     * Constructor for the Parser class
+     * Constructs Parser object
      * @param ls TaskList the Parser class receives to make changes to
      * @param filePath String of the file path the Parser class will pass to create Save objects
      */
@@ -40,7 +40,7 @@ public class Parser {
     }
 
     /**
-     * The parse method checks if the command parsed consists of single or multiple words
+     * Checks if the command parsed consists of single or multiple words
      * If it has multiple words, it passes the whole command and the first word to multiWordParser
      * Else it is a single word, it passes the whole command to singleWordParser
      * @param commandFull This is the command parsed in by the user
@@ -56,7 +56,7 @@ public class Parser {
     }
 
     /**
-     * singleWordParser parses a single word String ignoring case, returning an Action
+     * Parses a single word String ignoring case, returning an Action
      * @param command A single word String
      * @return Action decided by the switch case
      * @throws InvalidCommandException upon encountering an unsupported command
@@ -79,7 +79,7 @@ public class Parser {
     }
 
     /**
-     * multiWordParser takes both the whole command and the first word, returning an Action.
+     * Parses the whole command and the first word, returning an Action.
      * The variable rest refers to the whole command without the first word
      * @param command This is the command parsed in by the user
      * @param firstWord the first word in the command parameter

@@ -29,7 +29,7 @@ public class Storage {
     protected DateTimeFormatter readerFormat = DateTimeFormatter.ofPattern("LLLL dd yyyy");
 
     /**
-     * Constructor for Storage class
+     * Constructs Storage object
      * @param filePath String filePath in which Storage will read from
      */
 
@@ -39,7 +39,7 @@ public class Storage {
     }
 
     /**
-     * The load method checks if there is any Count.txt files in the specified file path
+     * Checks if there is any Count.txt files in the specified file path
      * It will then read the file and add the Tasks to an ArrayList to return.
      * @return ArrayList&lt;Task&gt; with Tasks read from Count.txt
      * @throws IncorrectFormatException if the String format of the read file does not match the format reader

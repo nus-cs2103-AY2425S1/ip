@@ -13,13 +13,13 @@ import count.exception.InvalidTimelineException;
  * @author Kieran Koh Jun Wei
  */
 public class Count {
-    private TaskList ls;
+    private TaskList taskList;
     private boolean isOn;
     private Storage storage;
     private Parser parser;
 
     /**
-     * Constructor for Count object
+     * Constructs Count object
      * @param filePath String filePath in which Count will read and save to
      */
     public Count(String filePath) {
@@ -28,11 +28,11 @@ public class Count {
         this.storage = new Storage(filePath);
 
         try {
-            this.ls = new TaskList(this.storage.load());
+            this.taskList = new TaskList(this.storage.load());
         } catch (FileNotFoundException | IncorrectFormatException | InvalidTimelineException e) {
-            this.ls = new TaskList();
+            this.taskList = new TaskList();
         }
-        this.parser = new Parser(this.ls, filePath);
+        this.parser = new Parser(this.taskList, filePath);
     }
 
     /**

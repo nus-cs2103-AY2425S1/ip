@@ -1,12 +1,12 @@
 package count.action;
 
 /**
- * The Greet class is used to give a message on how to format commands
+ * The Help class is used to give a message on how to format commands
  */
 public class Help extends Action {
 
     /**
-     * The run method returns the String for Count's UI to print
+     * Returns the String for Count's UI to print
      * @return String for Count's UI to print
      */
     @Override

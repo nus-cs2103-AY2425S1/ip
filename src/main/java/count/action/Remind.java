@@ -9,30 +9,30 @@ import count.task.Event;
 import count.task.Task;
 
 /**
- * The Reminder class handles giving reminders
+ * The Remind class handles giving reminders
  * whenever Count is opened and there are tasks
  * stored close to the date of completion
  * @author Kieran Koh Jun Wei
  */
 public class Remind extends Action {
-    protected TaskList taskList;
+    protected TaskList ls;
     protected int days;
     protected LocalDate currentTime;
 
     /**
-     * Constructor for remind
-     * @param taskList TaskList being searched
+     * Constructs Remind object
+     * @param ls TaskList being searched
      * @param days Int for tasks with due dates within number of days
      */
-    public Remind(TaskList taskList, int days) {
-        this.taskList = taskList;
+    public Remind(TaskList ls, int days) {
+        this.ls = ls;
         this.days = days;
         this.currentTime = LocalDate.now();
     }
 
     @Override
     public String run() {
-        ArrayList<Task> list = this.taskList.getList();
+        ArrayList<Task> list = this.ls.getTaskList();
         if (list.isEmpty()) {
             return "Croak! Looks like things are empty around here...";
         }

@@ -16,7 +16,7 @@ public class Save extends Action {
     private String filePath;
 
     /**
-     * Constructor for Save
+     * Constructs Save object
      * @param ls TaskList being saved
      * @param filePath String file path the Save class will save to
      */
@@ -26,19 +26,19 @@ public class Save extends Action {
     }
 
     /**
-     * The save method saves the TaskList as Count.txt, overwriting any existing Count.txt
+     * Saves the TaskList as Count.txt, overwriting any existing Count.txt
      * @return String for Count's UI to print
      * @throws CountException if the file creation fails
      */
     @Override
     public String run() throws CountException {
-        if (ls.getList().isEmpty()) {
+        if (ls.getTaskList().isEmpty()) {
             return "Croak! You don't have anything in your list to save!";
         }
 
         String output = "";
-        for (int i = 0; i < ls.getList().size(); i++) {
-            output += (i + 1) + "." + ls.getList().get(i).toString() + "\n";
+        for (int i = 0; i < ls.getTaskList().size(); i++) {
+            output += (i + 1) + "." + ls.getTaskList().get(i).toString() + "\n";
         }
 
         try {

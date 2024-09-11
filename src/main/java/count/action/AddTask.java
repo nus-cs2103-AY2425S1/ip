@@ -11,7 +11,7 @@ public class AddTask extends Action {
     private Task task;
 
     /**
-     * Constructor for AddTask
+     * Constructs AddTask object
      * @param ls TaskList to add the task into
      * @param t Task to add into the TaskList
      */
@@ -22,13 +22,13 @@ public class AddTask extends Action {
     }
 
     /**
-     * The run method adds the object's Task to the object's TaskList
+     * Adds the object's Task to the object's TaskList
      * @return String for Count's UI to print
      */
     @Override
     public String run() {
-        ls.getList().add(this.task);
+        ls.getTaskList().add(this.task);
         return "Ribbit, added the following task:\n" + this.task.toString()
-                + "\nYou now have " + ls.getList().size() + " task(s) in your list";
+                + "\nYou now have " + ls.getTaskList().size() + " task(s) in your list";
     }
 }
