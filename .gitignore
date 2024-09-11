@@ -16,4 +16,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/EXPECTED-UNIX.TXT
 /text-ui-test/data/
-/data/
+/data/Kitty.txt
+/data/Kitty_backup.txt
