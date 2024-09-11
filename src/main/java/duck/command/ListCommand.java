@@ -20,7 +20,7 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand.equals("list");
         assert list.getSize() >= 0;
         ui.showTasks(list);

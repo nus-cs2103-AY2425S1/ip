@@ -20,7 +20,7 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;
         int taskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         list.markTask(taskIndex);

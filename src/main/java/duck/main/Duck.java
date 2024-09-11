@@ -40,7 +40,7 @@ public class Duck {
             }
             try {
                 Command cmd = Parser.parse(command);
-                cmd.execute(tasks, ui, storage);
+                cmd.executeCommand(tasks, ui, storage);
             } catch (InvalidCommandException e) {
                 ui.showInvalidCommand();
             }
@@ -73,7 +73,7 @@ public class Duck {
 
         try {
             Command cmd = Parser.parse(input);
-            cmd.execute(tasks, ui, storage);
+            cmd.executeCommand(tasks, ui, storage);
             response = ui.getLastResponse();
         } catch (InvalidCommandException e) {
             response = "Invalid command!";

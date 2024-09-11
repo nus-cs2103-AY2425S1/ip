@@ -15,7 +15,7 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;
         String keyword = fullCommand.split(" ")[1];
         TaskList tasksWithKeyword = list.findTasks(keyword);
