@@ -1,7 +1,5 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 import jade.task.Event;
 import jade.task.Task;
 import jade.task.TaskManager;
@@ -23,28 +21,37 @@ public class ListCommand extends Command {
 
     @Override
     public String run() {
-        StringBuilder message = new StringBuilder();
-        message.append(INDENT).append("Here are the tasks in your list:");
-        for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            message.append("\n").append(INDENT).append(i + 1).append(". ").append(taskManager.getTask(i));
-        }
-        return displayMessage(message.toString());
+        return displayTaskListMessage(FOR_TEXT_UI);
     }
 
     @Override
     public String runForGui() {
+        return displayTaskListMessage(FOR_GUI);
+    }
+
+    private String displayTaskListMessage(boolean forGui) {
         StringBuilder message = new StringBuilder();
-        message.append("Here are the tasks in your list:");
+
+        if (taskManager.getTaskCount() == 0) {
+            message.append("No tasks in your list.");
+            return displayMessage(forGui, message.toString());
+        }
+
+        message.append("Here are the task(s) in your list:");
         for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            message.append("\n").append(i + 1).append(". ");
+            message.append("\n");
+            indentIfNotGui(forGui, message);
+            message.append(i + 1).append(". ");
+
             Task task = taskManager.getTask(i);
-            if (task instanceof Event) {
+            if (forGui && task instanceof Event) {
                 Event temp = (Event) task;
                 message.append(temp.toStringForGui());
             } else {
                 message.append(task);
             }
         }
-        return message.toString();
+
+        return displayMessage(forGui, message.toString());
     }
 }

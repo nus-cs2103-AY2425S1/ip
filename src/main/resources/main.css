@@ -1,27 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .root {
-    main-color: #f5e2ea;
+    main-color: #f5e2ea; // light pink
     -fx-background-color: main-color;
 }
 
 .text-field {
-    -fx-background-color: #d6eadf;
+    -fx-background-color: #d6eadf; // light green
     -fx-font: 17px "Poppins", sans-serif;
 }
 
 .button {
-    -fx-background-color: #a1c4ba;
+    -fx-background-color: #a1c4ba; // green
     -fx-font: bold 15px "Poppins", sans-serif;
 }
 
 .button:hover {
-    -fx-background-color: #8aa89f;
+    -fx-background-color: #8aa89f; // dark green
     -fx-font-size: 17px;
 }
 
 .button:pressed {
-    -fx-background-color: #eac4d5;
+    -fx-background-color: #eac4d5; // dark pink
 }
 
 .scroll-pane,
@@ -35,7 +35,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #eac4d5;
+    -fx-background-color: #eac4d5; // dark pink
     -fx-background-radius: 1em;
 }
 
