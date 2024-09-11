@@ -39,6 +39,9 @@ public class Arts {
     private final Ui ui;
     private final Parser parser;
 
+    // New field to store the command type
+    private String commandType;
+
     /**
      * Constructs an Arts object with the specified file path for task storage.
      * Initializes the UI, storage, parser, and loads existing tasks.
@@ -71,6 +74,7 @@ public class Arts {
         assert input != null : "Input cannot be null";
         try {
             CommandType command = parser.parseCommand(input);
+            commandType = command.name(); // Store the command type
             String[] parts = parser.parseArguments(input);
 
             switch (command) {
@@ -113,6 +117,14 @@ public class Arts {
         }
     }
 
+    /**
+     * Returns the type of the last command executed.
+     *
+     * @return The command type as a string.
+     */
+    public String getCommandType() {
+        return commandType;
+    }
 
     /**
      * Lists all tasks currently in the task list.
