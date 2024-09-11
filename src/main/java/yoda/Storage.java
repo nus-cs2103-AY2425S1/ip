@@ -73,29 +73,7 @@ public class Storage {
                 String[] splitInput = input.split(" \\| ");
                 String type = splitInput[0];
                 boolean isDone = splitInput[1].equals("1");
-                String description = splitInput[2];
-
-                Task newTask = null;
-                switch (type) {
-                case "T":
-                    newTask = new Todo(description);
-                    break;
-                case "D":
-                    LocalDate by = LocalDate.parse(splitInput[3]);
-                    newTask = new Deadline(description, by);
-                    break;
-                case "E":
-                    LocalDateTime from = LocalDateTime.parse(splitInput[3]);
-                    LocalDateTime to = LocalDateTime.parse(splitInput[4]);
-                    newTask = new Event(description, from, to);
-                    break;
-                default:
-                    throw new YodaException("Encountered error: Could not parse saved tasks");
-                }
-
-                if (isDone && newTask != null) {
-                    newTask.markDone();
-                }
+                Task newTask = getTask(splitInput, type, isDone);
                 tasks.add(newTask);
 
             }
@@ -103,5 +81,32 @@ public class Storage {
             throw new YodaException("Encountered error: " + e.getMessage());
         }
         return tasks;
+    }
+
+    private Task getTask(String[] splitInput, String type, boolean isDone) throws YodaException {
+        String description = splitInput[2];
+
+        Task newTask = null;
+        switch (type) {
+        case "T":
+            newTask = new Todo(description);
+            break;
+        case "D":
+            LocalDate by = LocalDate.parse(splitInput[3]);
+            newTask = new Deadline(description, by);
+            break;
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(splitInput[3]);
+            LocalDateTime to = LocalDateTime.parse(splitInput[4]);
+            newTask = new Event(description, from, to);
+            break;
+        default:
+            throw new YodaException("Encountered error: Could not parse saved tasks");
+        }
+
+        if (isDone && newTask != null) {
+            newTask.markDone();
+        }
+        return newTask;
     }
 }
