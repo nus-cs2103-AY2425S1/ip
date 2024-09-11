@@ -21,7 +21,9 @@ public class DatedTask extends Task {
     public DatedTask(String task, String date, String time) {
         super(task);
         this.date = LocalDate.parse(date);
-        this.time = LocalTime.parse(time);
+        if (time != null) {
+            this.time = LocalTime.parse(time);
+        }
     }
 
     /**

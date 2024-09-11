@@ -5,7 +5,6 @@ import Johnson.exceptions.MissingDateException;
 import Johnson.exceptions.MissingDividerException;
 import Johnson.exceptions.MissingTaskException;
 import Johnson.exceptions.UnknownCommandException;
-import Johnson.utils.Utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -106,38 +105,38 @@ public class Parser {
      * @throws MissingDateException if the date is missing.
      */
     private Command prepDeadline(String arguments) throws
-            MissingDividerException, MissingTaskException, MissingDateException, UnknownCommandException{
-        Matcher deadlineMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
+            MissingDividerException, MissingTaskException, MissingDateException, UnknownCommandException {
+
         if (!arguments.contains("/")) {
             throw new MissingDividerException("missing a divider");
         }
-        if (deadlineMatcher.matches()) {
-            String task = deadlineMatcher.group("task");
-            String date = deadlineMatcher.group("date");
-            String time = deadlineMatcher.group("time");
-            if (task == null) {
-                throw new MissingTaskException("missing a task");
-            }
-            if (date == null) {
-                throw new MissingDateException("missing a date");
-            }
-            return new DeadlineCommand(task, date, time);
-        } else {
+
+        Matcher deadlineMatcher;
+        String task = null;
+        String date = null;
+        String time = null;
+
+        if (DATETIME_COMMAND_PATTERN.matcher(arguments).matches()) {
+            deadlineMatcher  = DATETIME_COMMAND_PATTERN.matcher(arguments);
+            task = deadlineMatcher.group("task");
+            date = deadlineMatcher.group("date");
+            time = deadlineMatcher.group("time");
+        } else if (DATE_COMMAND_PATTERN.matcher(arguments).matches()) {
             deadlineMatcher = DATE_COMMAND_PATTERN.matcher(arguments);
-            if (deadlineMatcher.matches()) {
-                String task = deadlineMatcher.group("task");
-                String date = deadlineMatcher.group("date");
-                if (task == null) {
-                    throw new MissingTaskException("missing a task");
-                }
-                if (date == null) {
-                    throw new MissingDateException("missing a date");
-                }
-                return new DeadlineCommand(task, date);
-            } else {
-                throw new UnknownCommandException("Unknown command");
-            }
+            task = deadlineMatcher.group("task");
+            date = deadlineMatcher.group("date");
+        } else {
+            throw new UnknownCommandException("Unknown command");
         }
+
+        if (task == null) {
+            throw new MissingTaskException("missing a task");
+        }
+        if (date == null) {
+            throw new MissingDateException("missing a date");
+        }
+
+        return new DeadlineCommand(task, date, time);
     }
 
     /**
@@ -151,39 +150,36 @@ public class Parser {
      */
     private Command prepEvent(String arguments) throws
             MissingTaskException, MissingDividerException, MissingDateException, UnknownCommandException {
-        Matcher eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
 
         if (!arguments.contains("/")) {
             throw new MissingDividerException("missing a divider");
         }
 
-        if (eventMatcher.matches()) {
-            String task = eventMatcher.group("task");
-            String date = eventMatcher.group("date");
-            String time = eventMatcher.group("time");
-            if (task == null) {
-                throw new MissingTaskException("missing a task");
-            }
-            if (date == null) {
-                throw new MissingDateException("missing a date");
-            }
-            return new EventCommand(task, date, time);
-        } else {
+        Matcher eventMatcher;
+        String task = null;
+        String date = null;
+        String time = null;
+
+        if (DATETIME_COMMAND_PATTERN.matcher(arguments).matches()) {
+            eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
+            task = eventMatcher.group("task");
+            date = eventMatcher.group("date");
+            time = eventMatcher.group("time");
+        } else if (DATE_COMMAND_PATTERN.matcher(arguments).matches()) {
             eventMatcher = DATE_COMMAND_PATTERN.matcher(arguments);
-            if (eventMatcher.matches()) {
-                String task = eventMatcher.group("task");
-                String date = eventMatcher.group("date");
-                if (task == null) {
-                    throw new MissingTaskException("missing a task");
-                }
-                if (date == null) {
-                    throw new MissingDateException("missing a date");
-                }
-                return new EventCommand(task, date);
-            } else {
-                throw new UnknownCommandException("Unknown command");
-            }
+            task = eventMatcher.group("task");
+            date = eventMatcher.group("date");
+        } else {
+            throw new UnknownCommandException("Unknown command");
         }
+
+        if (task == null) {
+            throw new MissingTaskException("missing a task");
+        }
+        if (date == null) {
+            throw new MissingDateException("missing a date");
+        }
+        return new EventCommand(task, date, time);
     }
 
     /**
