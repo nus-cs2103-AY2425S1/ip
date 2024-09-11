@@ -182,7 +182,7 @@ public class Lewis {
                     taskList.update(index, Task.Status.NOT_DONE);
                 }
                 catch (NumberFormatException e) {
-                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", taskList.curr, taskList.end));
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", taskList.currentIndex, taskList.lastIndex));
                 }
 
             }

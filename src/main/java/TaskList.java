@@ -9,38 +9,38 @@ import java.nio.file.Files;
 public class TaskList {
     final static Path FILE_PATH = Path.of("./data/tasks.csv");
     final static Path DIRECTORY_PATH = Path.of("./data");
-    protected int curr = 0, end = 0, length = 0;
+    protected static int currentIndex = 0, lastIndex = 0, length = 0;
     private static ArrayList<Task> tasks = new ArrayList<>(1028);
-    protected void add(Task task) {
+    protected static void add(Task task) {
         tasks.add(task);
-        end = (end + 1)%tasks.size();
+        lastIndex = (lastIndex + 1)%tasks.size();
         length++;
         save();
     }
     private Task poll() {
-        Task task = tasks.get(curr);
-        tasks.remove(curr);
-        curr = (curr + 1)%tasks.size();
+        Task task = tasks.get(currentIndex);
+        tasks.remove(currentIndex);
+        currentIndex = (currentIndex + 1)%tasks.size();
         length--;
         return task;
     }
 
     protected void update(int index, Task.Status status) {
-        Task task = tasks.get((curr + index - 1) % tasks.size());
+        Task task = tasks.get((currentIndex + index - 1) % tasks.size());
         task.updateStatus(status);
         save();
     }
 
     private Task peek() {
-        return tasks.get(curr);
+        return tasks.get(currentIndex);
     }
 
     protected Task get(int i) {
-        return tasks.get((curr + i - 1) % tasks.size());
+        return tasks.get((currentIndex + i - 1) % tasks.size());
     }
 
     protected void remove(int i) {
-        tasks.remove((curr + i - 1)%tasks.size());
+        tasks.remove((currentIndex + i - 1)%tasks.size());
         length--;
         save();
     }
@@ -54,12 +54,13 @@ public class TaskList {
             final String DELIMITER = ",";
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                System.out.println("Potato");
                 String[] tokens = line.split(DELIMITER);
                 //To handle the different types of tasks separately.
                 switch (tokens[0]) {
-                    case "Event" -> tasks.add(new Event(tokens[1],tokens[2],tokens[3],tokens[4]));
-                    case "Deadline" -> tasks.add(new Deadline(tokens[1],tokens[2],tokens[3]));
-                    case "Todo" -> tasks.add(new Todo(tokens[1],tokens[2]));
+                    case "Event" -> TaskList.add(new Event(tokens[1],tokens[2],tokens[3],tokens[4]));
+                    case "Deadline" -> TaskList.add(new Deadline(tokens[1],tokens[2],tokens[3]));
+                    case "Todo" -> TaskList.add(new Todo(tokens[1],tokens[2]));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -137,8 +138,8 @@ public class TaskList {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            str.append(String.format("%d. ", i + curr + 1));
-            str.append(tasks.get((curr + i)% tasks.size()).toString());
+            str.append(String.format("%d. ", i + currentIndex + 1));
+            str.append(tasks.get((currentIndex + i)% tasks.size()).toString());
             str.append("\n");
         }
         return str.toString();
