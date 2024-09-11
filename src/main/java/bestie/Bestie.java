@@ -32,7 +32,7 @@ public class Bestie {
      * @return Welcome message when bestie first starts.
      */
     public String welcomeMessage() {
-        return this.ui.greetUser();
+        return this.ui.welcome();
     }
 
     /**

@@ -36,7 +36,7 @@ public class Storage {
         // want to save tasks to bestie.txt file
         try {
             File f = new File(this.filePath);
-            FileWriter fw = new FileWriter(f);
+            FileWriter fw = new FileWriter(f); // f or file path?
 
             for (Task task: tasks.getTasks()) {
                 // store each task in the save format

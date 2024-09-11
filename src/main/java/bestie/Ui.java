@@ -31,7 +31,7 @@ public class Ui {
     /**
      * Prints the welcome message when chatbot is first started.
      */
-    public String greetUser() {
+    public String welcome() {
         // greet user at the start
         return ("Hello! I'm bestie, your personal assistant chatbot.\n"
                 + "Let's get ready to have a productive day!\n"
@@ -41,7 +41,7 @@ public class Ui {
     /**
      * Prints goodbye message when user exits the chatbot.
      */
-    public String sayGoodbye() {
+    public String byeBye() {
         return ("Bye. Hope to see you again soon! :)");
     }
 

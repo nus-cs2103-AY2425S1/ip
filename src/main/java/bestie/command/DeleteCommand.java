@@ -33,8 +33,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        boolean withinBounds = this.index >= 0 && this.index < tasks.size();
-        if (withinBounds) {
+
+        if (this.index >= 0 && this.index < tasks.size()) {
             tasks.deleteTask(this.index);
             return ui.showTaskDeleted(tasks.size());
         } else {

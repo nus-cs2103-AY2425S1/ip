@@ -76,6 +76,7 @@ public class Parser {
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("You did not input the deadline in a valid format.");
                 System.out.println("Please follow the format \"deadline (name of task) /by (deadline)\"");
+
             } catch (DateTimeParseException e) {
                 System.out.println("You did not input the date and time in the correct format.");
                 System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
@@ -100,7 +101,6 @@ public class Parser {
             break;
 
         default:
-            // raise an invalid command if default case is reached
             return new InvalidCommand();
         }
 

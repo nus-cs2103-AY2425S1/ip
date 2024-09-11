@@ -22,6 +22,6 @@ public class ExitCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         // only save the tasks that are still in the list when exiting
         storage.saveTasksToFile(tasks);
-        return ui.sayGoodbye();
+        return ui.byeBye();
     }
 }
