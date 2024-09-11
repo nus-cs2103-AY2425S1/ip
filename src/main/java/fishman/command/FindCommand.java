@@ -12,7 +12,6 @@ import fishman.utils.Ui;
  * This command implements the Command interface and is for finding a task by searching for a keyword.
  */
 public class FindCommand implements Command {
-    /** The keyword of the task in the task list to be found. */
     private final String keyword;
 
     /**
@@ -29,17 +28,17 @@ public class FindCommand implements Command {
      *
      *      Filters the task matched based on the keyword and displays matched tasks in the list.
      *
-     * @param tasks The Task List in which the task is matched from.
+     * @param taskList The Task List in which the task is matched from.
      * @param ui The Ui instance used to generate the tasks.
      * @return The confirmation message indicating the command execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
-        List<Task> matchedTask = tasks.getTasks().stream()
-                .filter(task -> task.getDescription().toLowerCase()
+    public String execute(TaskList taskList, Ui ui) {
+        List<Task> matchedTasks = taskList.getAllTasks().stream()
+                .filter(task -> task.getTaskDescription().toLowerCase()
                 .contains(keyword.toLowerCase()))
                 .toList();
 
-        return ui.getFindResultsMessage(matchedTask);
+        return ui.getFindResultsMessage(matchedTasks);
     }
 }

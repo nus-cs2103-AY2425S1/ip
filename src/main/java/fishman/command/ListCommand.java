@@ -14,12 +14,12 @@ public class ListCommand implements Command {
      *
      *      Displays the tasks in the task list.
      *
-     * @param tasks The TaskList which the tasks will be retrieved from.
+     * @param taskList The TaskList which the tasks will be retrieved from.
      * @param ui The Ui object used to display the tasks in the task list.
      * @return The confirmation message containing the tasks currently in the task list.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
-        return ui.getTaskListMessage(tasks);
+    public String execute(TaskList taskList, Ui ui) {
+        return ui.getTaskListMessage(taskList);
     }
 }

@@ -10,9 +10,7 @@ import fishman.utils.Ui;
  * that the task has been successfully marked or unmarked to the user.
  */
 public class MarkCommand implements Command {
-    /** The index of the task in the task list to be marked. */
     private final int index;
-    /** The boolean to determine whether to mark or unmark the task. */
     private final boolean isMark;
 
     /**
@@ -31,17 +29,17 @@ public class MarkCommand implements Command {
      *
      *      Marks or unmarks the specified task in the task list and returns a confirmation message.
      *
-     * @param tasks The TaskList which the specified task will be added.
+     * @param taskList The TaskList which the specified task will be added.
      * @param ui The Ui object used to generate the confirmation message.
      * @return The confirmation message indicating the command execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         if (isMark) {
-            tasks.markAsDone(index);
+            taskList.markTaskAsDone(index);
         } else {
-            tasks.markAsNotDone(index);
+            taskList.markTaskAsNotDone(index);
         }
-        return ui.getTaskStatusMessage(tasks.getTask(index));
+        return ui.getTaskStatusMessage(taskList.getTask(index));
     }
 }
