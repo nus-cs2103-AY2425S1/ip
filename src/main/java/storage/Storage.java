@@ -29,8 +29,10 @@ import ui.Ui;
 public class Storage {
 
     private static final String FOLDER_NAME = "data";
+    private static final String NOTES_FILE_NAME = "notes.txt";
 
     private final String filePath;
+    private final String notesFilePath;
 
     /**
      * Constructs a new {@code Storage} object with the specified file path.
@@ -40,6 +42,8 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null && !filePath.isBlank() : "File path cannot be null or blank.";
         this.filePath = filePath;
+        this.notesFilePath = FOLDER_NAME + "/" + NOTES_FILE_NAME;
+
     }
 
     /**
@@ -276,6 +280,103 @@ public class Storage {
 
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves notes from the storage file and returns them as a list. If the storage
+     * file or folder does not exist, they are created.
+     *
+     * @return A {@code List} of notes retrieved from the storage file.
+     */
+    public List<String> loadNotes() {
+        List<String> notesList = new ArrayList<>();
+        Path path = Paths.get(this.notesFilePath);
+
+        // Ensure the folder and file exist
+        try {
+            if (Files.notExists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+            if (Files.notExists(path)) {
+                Files.createFile(path);
+            }
+        } catch (IOException e) {
+            Ui.showErrorMessage("Error creating notes file or folder: " + e.getMessage());
+            return notesList;
+        }
+
+        // Read the file, treating each line as a single note
+        try (Scanner sc = new Scanner(path.toFile())) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if (!line.isEmpty()) {
+                    notesList.add(line);
+                }
+            }
+        } catch (IOException e) {
+            Ui.showErrorMessage("Error reading notes file: " + e.getMessage());
+        }
+
+        return notesList;
+    }
+
+
+    /**
+     * Writes a new note to the notes storage file.
+     *
+     * @param noteContent The content of the note to be written.
+     */
+    public void writeNoteToFile(String noteContent) {
+        assert noteContent != null && !noteContent.isBlank() : "Note content cannot be null or blank.";
+        try {
+            File dataFolder = new File(FOLDER_NAME);
+
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs();
+            }
+
+            // Append the new note as a single line to the notes file
+            try (FileWriter writer = new FileWriter(this.notesFilePath, true)) {
+                writer.write(noteContent + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the notes file.");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Deletes a note by its number and re-numbers the remaining notes.
+     *
+     * @param noteNumber The number of the note to be deleted (1-based index).
+     */
+    public void deleteNoteFromFile(int noteNumber) {
+        assert noteNumber > 0 : "Note number must be greater than 0.";
+
+        try {
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(Paths.get(this.notesFilePath));
+
+            if (noteNumber > lines.size()) {
+                Ui.showErrorMessage("Note number " + noteNumber + " does not exist.");
+                return;
+            }
+
+            lines.remove(noteNumber - 1);
+
+            // Write the remaining lines back to the file
+            try (FileWriter writer = new FileWriter(this.notesFilePath, false)) {
+                for (String line : lines) {
+                    writer.write(line + System.lineSeparator());
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while updating the notes file.");
             e.printStackTrace();
         }
     }
