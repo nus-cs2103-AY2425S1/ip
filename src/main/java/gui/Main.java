@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import windebot.Winde;
 
 /**
@@ -26,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setWinde(winde);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setWinde(winde);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
