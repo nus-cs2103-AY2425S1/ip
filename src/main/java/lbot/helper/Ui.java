@@ -83,15 +83,6 @@ public class Ui {
     }
 
     /**
-     * Returns a load failed message.
-     *
-     * @return failure String when loading previous tasks from memory fails.
-     */
-    public String sayLoadFailed() {
-        return "Seems like there was an issue loading your tasks... Guess we gotta start from scratch :(";
-    }
-
-    /**
      * Formatted Exception message.
      *
      * @param output The exception message to be printed.

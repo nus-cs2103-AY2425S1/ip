@@ -57,15 +57,6 @@ public class TaskList {
     }
 
     /**
-     * Gets number of tasks in list.
-     *
-     * @return current size of {@link TaskList}.
-     */
-    public int getLength() {
-        return taskList.size();
-    }
-
-    /**
      * Returns entire TaskList.
      *
      * @return TaskList
