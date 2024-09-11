@@ -1,6 +1,7 @@
 package rasputin.command;
 
 import javafx.application.Platform;
+import rasputin.task.RasputinException;
 import rasputin.task.TaskList;
 
 import rasputin.storage.Storage;
@@ -33,6 +34,7 @@ public class ExitCommand extends Command {
         Platform.exit();
         return Ui.printFarewell();
     }
+
 
     /**
      * Will always return true as program will be terminated.

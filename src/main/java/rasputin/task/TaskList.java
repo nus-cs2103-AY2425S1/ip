@@ -1,5 +1,8 @@
 package rasputin.task;
 
+import rasputin.command.Command;
+import rasputin.command.Undoable;
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +11,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     protected ArrayList<Task> tasks;
+    protected Command lastCommand;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -78,8 +82,8 @@ public class TaskList {
      *
      * @param index of task to be removed.
      */
-    public void remove(int index) {
-        tasks.remove(index);
+    public Task remove(int index) {
+        return tasks.remove(index);
     }
 
     /**
@@ -89,6 +93,26 @@ public class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Sets the most recent command that can be undone.
+     *
+     * @param command Command to be set as the most recent command.
+     */
+    public void setLastCommand(Command command) {
+        this.lastCommand = command;
+    }
+
+    /**
+     * Sets the most recent command to be null.
+     *
+     * @return Most recent command to be undone.
+     */
+    public Undoable removeLastCommand() {
+        Undoable commandToUndo = (Undoable) lastCommand;
+        lastCommand = null;
+        return commandToUndo;
     }
 
     /**

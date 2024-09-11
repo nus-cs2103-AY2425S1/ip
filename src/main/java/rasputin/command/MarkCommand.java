@@ -1,5 +1,7 @@
 package rasputin.command;
 
+import rasputin.gui.Ui;
+import rasputin.task.RasputinException;
 import rasputin.task.TaskList;
 import rasputin.task.InvalidTaskException;
 
@@ -7,7 +9,7 @@ import rasputin.task.InvalidTaskException;
 /**
  * Represents a command to mark a task as done.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends Command implements Undoable {
 
     private TaskList tasks;
     private int index;
@@ -27,10 +29,17 @@ public class MarkCommand extends Command {
         try {
             tasks.mark(index);
             String output = "Marked that as done for you.\n" + tasks.get(index).toString();
+            tasks.setLastCommand(this);
             return output;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }
+    }
+
+    @Override
+    public String undo() throws RasputinException {
+        tasks.unmark(index);
+        return Ui.printUndoCommand();
     }
 
     /**

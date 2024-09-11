@@ -1,5 +1,7 @@
 package rasputin.command;
 
+import rasputin.gui.Ui;
+import rasputin.task.RasputinException;
 import rasputin.task.TaskList;
 import rasputin.task.InvalidTaskException;
 
@@ -7,7 +9,7 @@ import rasputin.task.InvalidTaskException;
 /**
  * Represents a command to mark a task as not done.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends Command implements Undoable {
 
     private TaskList tasks;
     private int index;
@@ -27,10 +29,17 @@ public class UnmarkCommand extends Command {
         try {
             tasks.unmark(index);
             String output = "Task has been unmarked.\n" + tasks.get(index).toString();
+            tasks.setLastCommand(this);
             return output;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }
+    }
+
+    @Override
+    public String undo() throws RasputinException {
+        tasks.mark(index);
+        return Ui.printUndoCommand();
     }
 
     /**

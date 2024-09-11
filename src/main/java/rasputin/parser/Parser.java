@@ -9,6 +9,8 @@ import rasputin.command.InvalidCommand;
 import rasputin.command.MarkCommand;
 import rasputin.command.PrintListCommand;
 import rasputin.command.UnmarkCommand;
+import rasputin.command.UndoCommand;
+
 import rasputin.storage.Storage;
 import rasputin.task.InvalidTaskException;
 import rasputin.task.RasputinException;
@@ -93,8 +95,12 @@ public class Parser {
                 } catch (RasputinException e) {
                     return new InvalidCommand(e.getMessage());
                 }
-
-
+            case "undo":
+                try {
+                    return new UndoCommand(tasks);
+                } catch (RasputinException e) {
+                    return new InvalidCommand(e.getMessage());
+                }
 
         }
         return new InvalidCommand("ERROR! Unknown command.");

@@ -1,5 +1,8 @@
 package rasputin.command;
 
+import rasputin.gui.Ui;
+import rasputin.task.RasputinException;
+import rasputin.task.Task;
 import rasputin.task.TaskList;
 import rasputin.task.InvalidTaskException;
 
@@ -8,10 +11,11 @@ import rasputin.task.InvalidTaskException;
 /**
  * Represents the command to delete a task from the TaskList.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements Undoable {
 
     private TaskList tasks;
     private int index;
+    private Task deletedTask;
 
     public DeleteCommand(TaskList tasks, int index) {
         this.tasks = tasks;
@@ -27,11 +31,18 @@ public class DeleteCommand extends Command {
     public String execute() throws InvalidTaskException {
         try {
             String output = "Done, removed that task for you.\n" + tasks.get(index).toString();
-            tasks.remove(index);
+            deletedTask = tasks.remove(index);
+            tasks.setLastCommand(this);
             return output;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }
+    }
+
+    @Override
+    public String undo() throws RasputinException {
+        tasks.add(deletedTask);
+        return Ui.printUndoCommand();
     }
 
     /**

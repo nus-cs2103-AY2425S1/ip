@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents the command to add a new task into the TaskList.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements Undoable {
 
     private TaskList tasks;
     private String input;
@@ -43,6 +43,7 @@ public class AddCommand extends Command {
                 desc = input.substring(5);
                 Todo todo = new Todo(desc);
                 tasks.add(todo);
+                tasks.setLastCommand(this);
                 return Ui.printAddTask(todo, tasks);
             case "deadline":
                 String str = input.substring(9);
@@ -59,6 +60,7 @@ public class AddCommand extends Command {
                     throw new InvalidTaskException("ERROR! Invalid deadline format.");
                 }
                 tasks.add(deadline);
+                tasks.setLastCommand(this);
                 return Ui.printAddTask(deadline, tasks);
             case "event":
                 str = input.substring(6);
@@ -82,10 +84,18 @@ public class AddCommand extends Command {
                     throw new InvalidTaskException("ERROR! Invalid event duration format.");
                 }
                 tasks.add(event);
+                tasks.setLastCommand(this);
                 return Ui.printAddTask(event, tasks);
             default:
                 throw new InvalidTaskException("ERROR! Invalid task.");
         }
+
+    }
+
+    @Override
+    public String undo() {
+        tasks.remove(tasks.size() - 1);
+        return Ui.printUndoCommand();
     }
 
     /**
