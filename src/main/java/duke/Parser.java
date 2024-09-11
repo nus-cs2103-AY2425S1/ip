@@ -20,15 +20,6 @@ public class Parser {
         return LocalDate.parse(input, FORMATTER);
     }
 
-
-
-
-    private LocalDate parseDate(String date) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(date, formatter);
-    }
-
-    
     private LocalDate parseDate(String date) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(date, formatter);
