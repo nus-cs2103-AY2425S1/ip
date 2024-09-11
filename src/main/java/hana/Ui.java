@@ -28,8 +28,7 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public static String showWelcome() {
-        String message = "Hello I'm Hana. \n" + "What can I do for you?\n";
-        return message;
+        return "Hello I'm Hana. \n" + "What can I do for you?\n";
     }
 
     /**
@@ -93,9 +92,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public StringBuilder showTaskMarked(Task task) {
-        return responseMessage.append("Nice! I've marked this task as done:\n"
-                + "     " + task);
+    public void showTaskMarked(Task task) {
+        responseMessage.append("Nice! I've marked this task as done:\n" + "     ").append(task);
     }
 
     /**
