@@ -18,6 +18,10 @@ public class AddEventCommand implements Command {
             "Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.";
     private static final String EVENT_PARTS_ERROR_MESSAGE =
             "The event must have /from and /to times.";
+    private static final String INVALID_EVENT_TIMES_MESSAGE =
+            "Event start date must be before end date.";
+    private static final String DUPLICATE_EVENT_MESSAGE =
+            "An event with the same details already exists.";
 
     private final TaskList tasks;
     private final Storage storage;
@@ -47,7 +51,7 @@ public class AddEventCommand implements Command {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
-        this.details = details;
+        this.details = details.trim();
         this.inputFormatters = inputFormatters;
     }
 
@@ -59,30 +63,43 @@ public class AddEventCommand implements Command {
      */
     @Override
     public String execute() throws ArtsException {
-        String[] eventParts = details.split(" /from | /to ");
-        if (eventParts.length < 3) {
+        // Normalize spaces
+        String normalizedDetails = normalizeSpaces(details);
+
+        // Split the details by /from and /to
+        String[] eventParts = normalizedDetails.split(" /from | /to ");
+        if (eventParts.length != 3) {
             throw new ArtsException(EVENT_PARTS_ERROR_MESSAGE);
         }
 
-        LocalDateTime eventFromDate = parseDate(eventParts[1]);
-        LocalDateTime eventToDate = parseDate(eventParts[2]);
+        String description = eventParts[0].trim();
+        LocalDateTime eventFromDate = parseDate(eventParts[1].trim());
+        LocalDateTime eventToDate = parseDate(eventParts[2].trim());
 
-        assert eventFromDate.isBefore(eventToDate) : "Event start date must be before end date";
+        if (!eventFromDate.isBefore(eventToDate)) {
+            throw new ArtsException(INVALID_EVENT_TIMES_MESSAGE);
+        }
 
-        tasks.addTask(new Event(eventParts[0], eventFromDate, eventToDate));
+        Event newEvent = new Event(description, eventFromDate, eventToDate);
 
-        assert tasks.size() > 0 : "Task was not added to the task list";
+        if (tasks.contains(newEvent)) {
+            throw new ArtsException(DUPLICATE_EVENT_MESSAGE);
+        }
 
-        storage.save(tasks.getTasks());
+        tasks.addTask(newEvent);
 
-        // Anime-like response
+        try {
+            storage.save(tasks.getTasks());
+        } catch (Exception e) {
+            throw new ArtsException("Failed to save tasks: " + e.getMessage());
+        }
+
         return String.format("Sugoi! 🌟 I've added this epic event to your adventure:"
                         + "\n🎉 %s 🎉\nNow your journey includes %d %s to tackle! Keep up the great work, hero! 💪",
                 tasks.getTask(tasks.size() - 1),
                 tasks.size(),
                 tasks.size() == 1 ? "task" : "tasks");
     }
-
 
     /**
      * Parses a date string using the provided date formatters. Attempts to parse the date string
@@ -106,5 +123,15 @@ public class AddEventCommand implements Command {
                 .filter(date -> date != null)
                 .findFirst()
                 .orElseThrow(() -> new ArtsException(DATE_FORMAT_ERROR_MESSAGE));
+    }
+
+    /**
+     * Normalize spaces in a string by replacing multiple spaces with a single space.
+     *
+     * @param input The input string.
+     * @return The normalized string.
+     */
+    private String normalizeSpaces(String input) {
+        return input.replaceAll("\\s+", " ").trim();
     }
 }

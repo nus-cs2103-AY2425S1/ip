@@ -11,6 +11,7 @@ import arts.util.Ui;
  */
 public class AddTodoCommand implements Command {
     private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description of a todo cannot be empty.";
+    private static final String DUPLICATE_TODO_MESSAGE = "A todo with the same description already exists.";
 
     private final TaskList tasks;
     private final Storage storage;
@@ -34,7 +35,7 @@ public class AddTodoCommand implements Command {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
-        this.description = description;
+        this.description = normalizeSpaces(description);
     }
 
     /**
@@ -50,13 +51,20 @@ public class AddTodoCommand implements Command {
             throw new ArtsException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
 
-        tasks.addTask(new Todo(description));
+        Todo newTodo = new Todo(description);
 
-        assert tasks.size() > 0 : "Task was not added to the task list";
+        if (tasks.contains(newTodo)) {
+            throw new ArtsException(DUPLICATE_TODO_MESSAGE);
+        }
 
-        storage.save(tasks.getTasks());
+        tasks.addTask(newTodo);
 
-        // Anime-like response
+        try {
+            storage.save(tasks.getTasks());
+        } catch (Exception e) {
+            throw new ArtsException("Failed to save tasks: " + e.getMessage());
+        }
+
         return String.format("Hooray! 🎊 A new adventure awaits with this task:\n✨ %s ✨\n"
                         + "Your quest now has %d %s to conquer! Keep shining, champion! 🌟",
                 tasks.getTask(tasks.size() - 1),
@@ -64,4 +72,13 @@ public class AddTodoCommand implements Command {
                 tasks.size() == 1 ? "task" : "tasks");
     }
 
+    /**
+     * Normalize spaces in a string by replacing multiple spaces with a single space.
+     *
+     * @param input The input string.
+     * @return The normalized string.
+     */
+    private String normalizeSpaces(String input) {
+        return input.replaceAll("\\s+", " ").trim();
+    }
 }
