@@ -1,7 +1,12 @@
-D|X|a |Nov 11 1111 11:11 am
 D| |a |Nov 11 1111 11:59 pm
-D| |a |Nov 11 1111 11:11 am
+D|X|a |Nov 11 1111 11:11 am
 D| |a |Nov 11 1111 11:59 pm
 T| |read book
 T| |read book
 D| |aa |Nov 11 1111 11:11 am
+T|X|read book
+T| |read book
+D| |a |Nov 11 1111 11:11 am
+T| |read book
+E| |a |Nov 11 1111 11:11 am|Nov 11 1111 11:11 am
+T|X|find gf

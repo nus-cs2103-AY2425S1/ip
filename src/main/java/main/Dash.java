@@ -8,9 +8,9 @@ import exception.DashException;
  * It handles the interaction between the user, task storage, and command execution.
  */
 public class Dash {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Constructs a Dash application with the specified file path for task storage.
@@ -27,30 +27,19 @@ public class Dash {
      * Runs the Dash application, continuously processing user inputs and executing commands
      * until the exit condition is met. Handles exceptions and ensures the UI is updated accordingly.
      */
-    public void run() {
-        Ui.displayGreeting();
+    public String run(String input) {
         boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = ui.nextInput();
-                Command command = Parser.parse(input);
-                command.execute(tasks, storage);
-                isExit = command.isExit();
-            } catch (DashException e) {
-                Ui.showError(e.getMessage());
-            } finally {
-                Ui.insertLine();
-            }
+        String message = "";
+        try {
+            Command command = Parser.parse(input);
+            message = command.execute(tasks, storage);
+            isExit = command.isExit();
+        } catch (DashException e) {
+            return Ui.showError(e.getMessage());
         }
-        Ui.displayGoodbye();
-    }
-
-    /**
-     * The entry point of the application. Initializes and runs the Dash application with a specified file path.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Dash("./data/dash.txt").run();
+        if (isExit) {
+            return Ui.displayGoodbye();
+        }
+        return message;
     }
 }

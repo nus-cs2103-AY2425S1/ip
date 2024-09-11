@@ -23,7 +23,8 @@ public class UnknownCommand extends Command {
      * @param storage The Storage to operate on.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         // Implementation for handling unknown commands can be added here
+        return "Unknown command.";
     }
 }

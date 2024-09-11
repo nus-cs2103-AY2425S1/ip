@@ -24,5 +24,5 @@ public abstract class Command {
      * @param tasks   The task list to operate on.
      * @param storage The storage to interact with.
      */
-    public abstract void execute(TaskList tasks, Storage storage);
+    public abstract String execute(TaskList tasks, Storage storage);
 }

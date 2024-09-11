@@ -15,10 +15,10 @@ public class DeadlineCommand extends Command {
         this.deadline = deadline;
     }
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Deadline d = tasks.addDeadline(this.description, this.deadline);
         new Deadline(this.description, this.deadline);
         storage.appendToFile(d.toFile());
-        Ui.printAddDeadline(tasks);
+        return Ui.showAddDeadline(tasks);
     }
 }

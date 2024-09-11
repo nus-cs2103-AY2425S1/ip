@@ -28,9 +28,9 @@ public class TodoCommand extends Command {
      * @param storage The Storage to save the ToDo task to.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Todo todo = tasks.addTodo(this.description);
         storage.appendToFile(todo.toFile());
-        Ui.printAddTodo(tasks);
+        return Ui.showAddTodo(tasks);
     }
 }

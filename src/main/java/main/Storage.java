@@ -125,7 +125,7 @@ public class Storage {
      * @param markNum The index of the task to be marked as done.
      * @param tasks The TaskList containing the tasks.
      */
-    public void markTask(int markNum, TaskList tasks) {
+    public String markTask(int markNum, TaskList tasks) {
         int num = tasks.size();
         Task task = tasks.get(markNum - 1);
         task.markTaskAsDone();
@@ -133,10 +133,7 @@ public class Storage {
         for (int i = 1; i < num; i++) {
             appendToFile(tasks.get(i).toFile());
         }
-        Ui.insertLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        Ui.insertLine();
+        return Ui.showMarkTask(task);
     }
 
     /**
@@ -145,7 +142,7 @@ public class Storage {
      * @param unmarkNum The index of the task to be unmarked.
      * @param tasks The TaskList containing the tasks.
      */
-    public void unmarkTask(int unmarkNum, TaskList tasks) {
+    public String unmarkTask(int unmarkNum, TaskList tasks) {
         int num = tasks.size();
         Task task = tasks.get(unmarkNum - 1);
         task.unmarkTask();
@@ -153,10 +150,7 @@ public class Storage {
         for (int i = 1; i < num; i++) {
             appendToFile(tasks.get(i).toFile());
         }
-        Ui.insertLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        Ui.insertLine();
+        return Ui.showUnmarkTask(task);
     }
 
     /**
@@ -165,13 +159,9 @@ public class Storage {
      * @param deleteNum The index of the task to be deleted.
      * @param tasks The TaskList containing the tasks.
      */
-    public void deleteTask(int deleteNum, TaskList tasks) {
+    public String deleteTask(int deleteNum, TaskList tasks) {
         int num = tasks.size();
         Task task = tasks.removeTask(deleteNum - 1);
-        Ui.insertLine();
-        System.out.println("Noted. I've removed this task.");
-        System.out.println(task);
-        System.out.println("Now you have " + (num - 1) + " tasks in the list.");
         if (!tasks.isEmpty()) {
             writeToFile(tasks.get(0).toFile());
             for (int i = 1; i < num - 1; i++) {
@@ -180,6 +170,6 @@ public class Storage {
         } else {
             writeToFile("");
         }
-        Ui.insertLine();
+        return Ui.showDeleteTask(task, num);
     }
 }

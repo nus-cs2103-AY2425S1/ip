@@ -1,6 +1,17 @@
 package main;
 
-import command.*;
+import command.Command;
+import command.ByeCommand;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TodoCommand;
+import command.UnknownCommand;
+import command.UnmarkCommand;
+
 import exception.DashException;
 import exception.EmptyDescriptionException;
 import exception.IncorrectCommandUseException;
@@ -45,7 +56,7 @@ public class Parser {
             } else if (input.startsWith("find")) {
                 return new FindCommand(input);
             } else {
-                throw new UnknownCommandException("Unknown command.");
+                return new UnknownCommand();
             }
         } catch (DashException e) {
             Ui.showError(e.getMessage());
