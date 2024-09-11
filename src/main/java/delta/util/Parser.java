@@ -91,6 +91,179 @@ public class Parser {
     }
 
     /**
+     * Returns ExitCommand to exit ChatBot.
+     */
+    private static Command sayBye() {
+        return new ExitCommand();
+    }
+
+    /**
+     * Returns PrintCommand to print all tasks in TaskList.
+     */
+    private static Command printTasks() {
+        return new PrintCommand();
+    }
+
+    /**
+     * Returns FindCommand to look for task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command findTask(String[] description) throws DeltaException {
+        // Only task given, no description
+        if (description.length != 2) {
+            throw new DeltaException(FIND_ERROR);
+        }
+
+        String taskName = description[1].strip();
+        return new FindCommand(taskName);
+    }
+
+    /**
+     * Returns AddCommand to add Todo in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command addTodo(String[] description) throws DeltaException {
+        // Only task given, no description
+        if (description.length != 2) {
+            throw new DeltaException(TODO_ERROR);
+        }
+
+        String todoName = description[1].strip();
+        return new AddCommand(new Todo(todoName));
+    }
+
+    /**
+     * Returns AddCommand to add Deadline in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command addDeadline(String[] description) throws DeltaException {
+        String deadlineName;
+        LocalDateTime by;
+
+        try {
+            // Split task name and deadline
+            String[] deadlineDetails = description[1].strip().split(" /by ");
+
+            deadlineName = deadlineDetails[0].strip();
+            by = formatDateTime(deadlineDetails[1].strip());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(DEADLINE_ERROR);
+        }
+
+        // Deadline is in the past
+        if (by.isBefore(LocalDateTime.now())) {
+            throw new DeltaException(PAST_TIME_ERROR);
+        }
+
+        return new AddCommand(new Deadline(deadlineName, by));
+    }
+
+    /**
+     * Returns AddCommand to add Event in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command addEvent(String[] description) throws DeltaException {
+        String eventName;
+        LocalDateTime start;
+        LocalDateTime end;
+
+        try {
+            // Split task name and timing details
+            String[] eventDetails = description[1].strip().split(" /from ");
+
+            eventName = eventDetails[0].strip();
+
+            // Split start time and end time
+            String[] timings = eventDetails[1].strip().split(" /to ");
+
+            start = formatDateTime(timings[0].strip());
+            end = formatDateTime(timings[1].strip());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(EVENT_ERROR);
+        }
+
+        // Timings are in the past
+        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+            throw new DeltaException(PAST_TIME_ERROR);
+        }
+
+        // End time is before start time
+        if (end.isBefore(start)) {
+            throw new DeltaException(END_BEFORE_START_ERROR);
+        }
+
+        return new AddCommand(new Event(eventName, start, end));
+    }
+
+    /**
+     * Returns MarkCommand to mark task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command markTask(String[] description) throws DeltaException {
+        int markTaskIdx;
+
+        try {
+            markTaskIdx = Integer.parseInt(description[1].strip());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(MARK_ERROR);
+        } catch (NumberFormatException e) {
+            throw new DeltaException(INDEX_ERROR);
+        }
+
+        return new MarkCommand(markTaskIdx);
+    }
+
+    /**
+     * Returns UnmarkCommand to unmark task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command unmarkTask(String[] description) throws DeltaException {
+        int unmarkTaskIdx;
+
+        try {
+            unmarkTaskIdx = Integer.parseInt(description[1].strip());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(UNMARK_ERROR);
+        } catch (NumberFormatException e) {
+            throw new DeltaException(INDEX_ERROR);
+        }
+
+        return new UnmarkCommand(unmarkTaskIdx);
+    }
+
+    /**
+     * Returns DeleteCommand to delete task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command deleteTask(String[] description) throws DeltaException {
+        int deleteTaskIdx;
+
+        try {
+            deleteTaskIdx = Integer.parseInt(description[1].strip());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(DELETE_ERROR);
+        } catch (NumberFormatException e) {
+            throw new DeltaException(INDEX_ERROR);
+        }
+
+        return new DeleteCommand(deleteTaskIdx);
+    }
+
+    /**
      * Parses user input into a command understood by the system.
      *
      * @param input User typed command.
@@ -101,135 +274,36 @@ public class Parser {
         String[] description = input.strip().split(" ", 2);
         String task = description[0];
 
-        switch (task.toLowerCase()) {
+        return switch (task.toLowerCase()) {
         // Bye
-        case "bye":
-            return new ExitCommand();
+        case "bye" -> sayBye();
 
         // Print List
-        case "list":
-            return new PrintCommand();
+        case "list" -> printTasks();
 
         // Find Tasks
-        case "find":
-            // Only task given, no description
-            if (description.length != 2) {
-                throw new DeltaException(FIND_ERROR);
-            }
-
-            String taskName = description[1].strip();
-            return new FindCommand(taskName);
+        case "find" -> findTask(description);
 
         // Add Todo
-        case "todo":
-            // Only task given, no description
-            if (description.length != 2) {
-                throw new DeltaException(TODO_ERROR);
-            }
-
-            String todoName = description[1].strip();
-            return new AddCommand(new Todo(todoName));
+        case "todo" -> addTodo(description);
 
         // Add Deadline
-        case "deadline":
-            String deadlineName;
-            LocalDateTime by;
-
-            try {
-                // Split task name and deadline
-                String[] deadlineDetails = description[1].strip().split(" /by ");
-
-                deadlineName = deadlineDetails[0].strip();
-                by = formatDateTime(deadlineDetails[1].strip());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DeltaException(DEADLINE_ERROR);
-            }
-
-            // Deadline is in the past
-            if (by.isBefore(LocalDateTime.now())) {
-                throw new DeltaException(PAST_TIME_ERROR);
-            }
-
-            return new AddCommand(new Deadline(deadlineName, by));
+        case "deadline" -> addDeadline(description);
 
         // Add Event
-        case "event":
-            String eventName;
-            LocalDateTime start;
-            LocalDateTime end;
-
-            try {
-                // Split task name and timing details
-                String[] eventDetails = description[1].strip().split(" /from ");
-
-                eventName = eventDetails[0].strip();
-
-                // Split start time and end time
-                String[] timings = eventDetails[1].strip().split(" /to ");
-
-                start = formatDateTime(timings[0].strip());
-                end = formatDateTime(timings[1].strip());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DeltaException(EVENT_ERROR);
-            }
-
-            // Timings are in the past
-            if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
-                throw new DeltaException(PAST_TIME_ERROR);
-            }
-
-            // End time is before start time
-            if (end.isBefore(start)) {
-                throw new DeltaException(END_BEFORE_START_ERROR);
-            }
-
-            return new AddCommand(new Event(eventName, start, end));
+        case "event" -> addEvent(description);
 
         // Mark Task
-        case "mark":
-            int markTaskIdx;
-
-            try {
-                markTaskIdx = Integer.parseInt(description[1].strip());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DeltaException(MARK_ERROR);
-            } catch (NumberFormatException e) {
-                throw new DeltaException(INDEX_ERROR);
-            }
-
-            return new MarkCommand(markTaskIdx);
+        case "mark" -> markTask(description);
 
         // Unmark Task
-        case "unmark":
-            int unmarkTaskIdx;
-
-            try {
-                unmarkTaskIdx = Integer.parseInt(description[1].strip());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DeltaException(UNMARK_ERROR);
-            } catch (NumberFormatException e) {
-                throw new DeltaException(INDEX_ERROR);
-            }
-
-            return new UnmarkCommand(unmarkTaskIdx);
+        case "unmark" -> unmarkTask(description);
 
         // Delete Task
-        case "delete":
-            int deleteTaskIdx;
-
-            try {
-                deleteTaskIdx = Integer.parseInt(description[1].strip());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DeltaException(DELETE_ERROR);
-            } catch (NumberFormatException e) {
-                throw new DeltaException(INDEX_ERROR);
-            }
-
-            return new DeleteCommand(deleteTaskIdx);
+        case "delete" -> deleteTask(description);
 
         // Unknown Action
-        default:
-            throw new DeltaException(UNKNOWN_ERROR);
-        }
+        default -> throw new DeltaException(UNKNOWN_ERROR);
+        };
     }
 }
