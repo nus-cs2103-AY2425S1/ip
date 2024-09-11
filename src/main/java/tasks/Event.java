@@ -12,6 +12,7 @@ public class Event extends Task {
     private final LocalDate localDateFrom;
     private final LocalDateTime localDateTimeTo;
     private final LocalDate localDateTo;
+    private final String key;
 
     /**
      * Constructor for an {@code Event} task.
@@ -33,6 +34,8 @@ public class Event extends Task {
                 || (localDateTimeTo == null && localDateTo == null)) {
             throw new DateTimeException("");
         }
+
+        this.key = description + from + to;
     }
 
     /**
@@ -68,5 +71,9 @@ public class Event extends Task {
         }
 
         return super.description + " (from: " + from + " to: " + to + ") ";
+    }
+
+    public String getKey() {
+        return this.key;
     }
 }

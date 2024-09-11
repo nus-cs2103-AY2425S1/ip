@@ -75,6 +75,10 @@ public class Ui {
     public String getTaskDeletedMessage(Task task, int size) {
         return "Noted. I've removed this task:\n"
                + "    " + task.getStatusIcon() + task + "\n"
-               + "Now you have " + size + " tasks in the list. \n";
+               + "Now you have " + size + " tasks in the list.\n";
+    }
+
+    public String getDuplicateDeny() {
+        return "This task is already in the list!\n";
     }
 }

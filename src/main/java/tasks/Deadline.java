@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     private final LocalDateTime localDateTime;
     private final LocalDate localDate;
+    private final String key;
 
     /**
      * Constructor for a {@code Deadline} task.
@@ -26,6 +27,8 @@ public class Deadline extends Task {
         if (localDateTime == null && localDate == null) {
             throw new DateTimeException("");
         }
+
+        this.key = description + deadline;
     }
 
     /**
@@ -52,5 +55,9 @@ public class Deadline extends Task {
         }
 
         return super.description + " (by: " + date + ") ";
+    }
+
+    public String getKey() {
+        return this.key;
     }
 }
