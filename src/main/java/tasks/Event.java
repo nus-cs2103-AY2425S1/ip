@@ -18,8 +18,8 @@ public class Event extends Task {
      * @param startWhen the start time of the event
      * @param endWhen the end time of the event
      */
-    public Event(String description, LocalDateTime startWhen, LocalDateTime endWhen) {
-        super(description);
+    public Event(String description, String priority, LocalDateTime startWhen, LocalDateTime endWhen) {
+        super(description, priority);
         this.startWhen = startWhen;
         this.endWhen = endWhen;
     }
@@ -33,7 +33,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "E | " + this.getStatusIcon() + " | " + this.description + " (from: " + this.startWhen.format(formatter) + " to: " + this.endWhen.format(formatter) + ")";
+        return this.getPriorityIcon() + " 🎉 | " + this.getStatusIcon() + " | " + this.description + " (from: " + this.startWhen.format(formatter) + " to: " + this.endWhen.format(formatter) + ")";
     }
 
     /**
@@ -45,6 +45,6 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.startWhen.format(formatter) + " | " + this.endWhen.format(formatter);
+        return this.priority + " | E | " + this.getStatusIcon() + " | " + this.description + " | " + this.startWhen.format(formatter) + " | " + this.endWhen.format(formatter);
     }
 }

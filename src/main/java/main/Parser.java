@@ -10,6 +10,7 @@ import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.ToDoCommand;
+import commands.PriorityCommand;
 import commands.UnmarkCommand;
 
 
@@ -64,6 +65,8 @@ public class Parser {
         case "find":
             return parseFindCommand(parts);
             // Fallthrough
+        case "priority":
+            return parsePriorityCommand(parts);
         default:
             return new InvalidCommand("Unknown command: " + commandWord);
             // Fallthrough
@@ -80,7 +83,21 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("todo WHAT????");
         }
-        return new ToDoCommand(parts[1].trim());
+
+        String[] descriptionAndPriority = parts[1].split("/priority", 2);
+        String description = descriptionAndPriority[0].trim();
+
+        if (descriptionAndPriority.length < 2 || descriptionAndPriority[1].trim().isEmpty()) {
+            return new InvalidCommand("WHAT IS THE PRIORITY???\nPlease specify a priority level (low, medium, high) using /priority.");
+        }
+
+        String priority = descriptionAndPriority[1].trim().toLowerCase();
+
+        if (!priority.matches("low|medium|high")) {
+            return new InvalidCommand("WHAT IS THE PRIORITY???\nPlease specify low, medium, or high.");
+        }
+
+        return new ToDoCommand(description, priority);
     }
 
     /**
@@ -93,18 +110,27 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN IS THE DEADLINE???\nPlease use yyyy-MM-dd HHmm format.");
         }
+
         String[] deadlineParts = parts[1].split("/by", 2);
         if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN IS THE DEADLINE???\nPlease use yyyy-MM-dd HHmm format.");
         }
+
+        String[] priorityParts = deadlineParts[1].split("/priority", 2);
+        if (priorityParts.length < 2 || priorityParts[1].trim().isEmpty()) {
+            return new InvalidCommand("WHAT IS THE PRIORITY???\nPlease specify low, medium, or high.");
+        }
+
         String taskDescription = deadlineParts[0].trim();
         try {
-            LocalDateTime dueWhen = parseDateTime(deadlineParts[1].trim());
-            return new DeadlineCommand(taskDescription, dueWhen);
+            LocalDateTime dueWhen = parseDateTime(priorityParts[0].trim()); // Parse the deadline date/time
+            String priority = priorityParts[1].trim(); // Extract priority
+            return new DeadlineCommand(taskDescription, priority, dueWhen);
         } catch (DateTimeParseException e) {
             return new InvalidCommand("OI ENTER YOUR DATE AND TIME PROPERLY!\nPlease use yyyy-MM-dd HHmm format.");
         }
     }
+
 
     /**
      * Parses an event command from user input.
@@ -116,23 +142,33 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN DOES IT START???\nPlease use yyyy-MM-dd HHmm format.");
         }
+
         String[] eventParts = parts[1].split("/from", 2);
         if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN DOES IT START???\nPlease use yyyy-MM-dd HHmm format.");
         }
+
         String[] eventTimes = eventParts[1].split("/to", 2);
         if (eventTimes.length < 2 || eventTimes[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN DOES IT END???\nPlease use yyyy-MM-dd HHmm format.");
         }
+
+        String[] priorityParts = eventTimes[1].split("/priority", 2);
+        if (priorityParts.length < 2 || priorityParts[1].trim().isEmpty()) {
+            return new InvalidCommand("WHAT IS THE PRIORITY???\nPlease specify low, medium, or high.");
+        }
+
         String eventDescription = eventParts[0].trim();
         try {
             LocalDateTime startWhen = parseDateTime(eventTimes[0].trim());
-            LocalDateTime endWhen = parseDateTime(eventTimes[1].trim());
-            return new EventCommand(eventDescription, startWhen, endWhen);
+            LocalDateTime endWhen = parseDateTime(priorityParts[0].trim());
+            String priority = priorityParts[1].trim();
+            return new EventCommand(eventDescription, priority, startWhen, endWhen);
         } catch (DateTimeParseException e) {
             return new InvalidCommand("OI ENTER YOUR DATE AND TIME PROPERLY!\nPlease use yyyy-MM-dd HHmm format.");
         }
     }
+
 
     /**
      * Parses a delete command from user input.
@@ -200,6 +236,28 @@ public class Parser {
         }
         return new FindCommand(parts[1].trim());
     }
+
+    /**
+     * Parses a priority command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code PriorityCommand} or {@code InvalidCommand}
+     */
+    private static Command parsePriorityCommand(String[] parts) {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            return new InvalidCommand("priority WHAT????");
+        }
+
+        String priority = parts[1].trim().toLowerCase();
+
+        // Optionally, validate the priority level to ensure it's either 'high', 'medium', or 'low'
+        if (!priority.equals("high") && !priority.equals("medium") && !priority.equals("low")) {
+            return new InvalidCommand("Invalid priority level! Use 'high', 'medium', or 'low'.");
+        }
+
+        return new PriorityCommand(priority);
+    }
+
 
     /**
      * Parses a date-time string into a {@code LocalDateTime} object.

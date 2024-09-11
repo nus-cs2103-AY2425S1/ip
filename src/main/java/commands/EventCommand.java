@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
  */
 public class EventCommand extends Command {
     private final String taskDescription;
+    private final String priority;
     private final LocalDateTime startWhen;
     private final LocalDateTime endWhen;
 
@@ -24,8 +25,9 @@ public class EventCommand extends Command {
      * @param startWhen the start time of the event
      * @param endWhen the end time of the event
      */
-    public EventCommand(String taskDescription, LocalDateTime startWhen, LocalDateTime endWhen) {
+    public EventCommand(String taskDescription, String priority, LocalDateTime startWhen, LocalDateTime endWhen) {
         this.taskDescription = taskDescription;
+        this.priority = priority;
         this.startWhen = startWhen;
         this.endWhen = endWhen;
     }
@@ -47,7 +49,7 @@ public class EventCommand extends Command {
         } else if (this.endWhen == null) {
             ui.showError("WHEN DOES IT END???\nPlease use yyyy-MM-dd HHmm format.");
         } else {
-            Task newTask = new Event(this.taskDescription, this.startWhen, this.endWhen);
+            Task newTask = new Event(this.taskDescription, this.priority, this.startWhen, this.endWhen);
             taskList.addTask(newTask);
             int numTasks = taskList.size();
 

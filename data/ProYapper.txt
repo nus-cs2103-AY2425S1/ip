@@ -1,10 +1,3 @@
-T | 0 | sleep
-T | 0 | play
-T | 1 | get over it
-T | 0 | think
-T | 0 | forget
-D | 0 | keeping sane | 2024-09-03 1800
-T | 1 | send gui screenshot
-E | 0 | CS2101 meeting | 2024-09-10 1600 | 2024-09-10 1800
-D | 0 | CS2103T | 2024-09-13 1800
-T | 0 | get my shit together
+high | T | 1 | sleep
+medium | D | 0 | BCD Extension | 2024-09-15 1800
+low | E | 0 | India trip | 2024-09-22 0900 | 2024-09-28 0300

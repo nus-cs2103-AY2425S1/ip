@@ -16,8 +16,8 @@ public class Deadline extends Task {
      * @param description the description of the deadline task
      * @param dueWhen the due date and time of the deadline task
      */
-    public Deadline(String description, LocalDateTime dueWhen) {
-        super(description);
+    public Deadline(String description, String priority, LocalDateTime dueWhen) {
+        super(description, priority);
         this.dueWhen = dueWhen;
     }
 
@@ -30,7 +30,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "D | " + this.getStatusIcon() + " | " + this.description + " (by: " + this.dueWhen.format(formatter) + ")";
+        return this.getPriorityIcon() + " 📆 | " + this.getStatusIcon() + " | " + this.description + " (by: " + this.dueWhen.format(formatter) + ")";
     }
 
     /**
@@ -42,6 +42,6 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D | " + this.getStatusIcon() + " | " + this.description + " | " + this.dueWhen.format(formatter);
+        return this.priority + " | D | " + this.getStatusIcon() + " | " + this.description + " | " + this.dueWhen.format(formatter);
     }
 }

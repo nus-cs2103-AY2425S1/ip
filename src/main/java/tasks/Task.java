@@ -7,14 +7,16 @@ package tasks;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String priority;
 
     /**
      * Constructs a Task with the specified description.
      *
      * @param description the description of the task
      */
-    public Task(String description) {
+    public Task(String description, String priority) {
         this.description = description;
+        this.priority = priority;
         this.isDone = false;
     }
 
@@ -26,6 +28,29 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "1" : "0");
+    }
+
+    /**
+     * Returns the priority icon of the task.
+     * 🟢 for low, 🟡 for medium, 🔴 for high.
+     *
+     * @return the priority icon as a String
+     */
+    public String getPriorityIcon() {
+        switch(this.priority.toLowerCase()) {
+        case "high":
+            return "🔴"; // High priority
+            // Fallthrough
+        case "medium":
+            return "🟡"; // Medium priority
+            // Fallthrough
+        case "low":
+            return "🟢"; // Low priority
+            // Fallthrough
+        default:
+            return "🟡"; // Default to medium if not specified
+            // Fallthrough
+        }
     }
 
     /**
@@ -42,8 +67,22 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task as a String
+     *
+     * @return the description of the task as a string
+     */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the priority of the task as a String
+     *
+     * @return the priority of the task as a string
+     */
+    public String getPriority() {
+        return this.priority;
     }
 
     /**
