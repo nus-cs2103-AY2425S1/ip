@@ -85,6 +85,13 @@ public abstract class Task {
     }
 
     /**
+     * Updates task with new description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Return string representation of task.
      */
     @Override

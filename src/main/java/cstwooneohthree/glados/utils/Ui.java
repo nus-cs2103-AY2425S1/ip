@@ -173,6 +173,17 @@ public class Ui {
         }
     }
 
+    public String update(String input) {
+        String message = "\nGLaDOS: I have updated this task to:\n" + input + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "I have updated this task to: " + input;
+        }
+    }
+
     /**
      * Prints error caught by Glados.
      *

@@ -76,6 +76,16 @@ public class Parser {
         }
     }
 
+    public static String[] parseUpdateArgs(String input) throws GladosException {
+        String[] args = input.split(" ");
+        try {
+            Integer.valueOf(args[0]);
+        } catch (NumberFormatException e) {
+            throw new ArgumentsNotFoundException();
+        }
+        return args;
+    }
+
     /**
      * Parses date.
      */

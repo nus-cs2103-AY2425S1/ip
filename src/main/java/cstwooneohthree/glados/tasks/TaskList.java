@@ -136,6 +136,29 @@ public class TaskList {
     }
 
     /**
+     * Updates the description of a task based on index in tasks.
+     *
+     * @param index Index of task in tasks.
+     * @param description New task description.
+     * @throws TaskNotFoundException If index is not in array.
+     */
+    public String update(int index, String description) throws TaskNotFoundException {
+
+        assert listIndex == tasks.size();
+
+        if (index < 0 || index - 1 >= listIndex) {
+            throw new TaskNotFoundException();
+        }
+
+        Task task = tasks.get(index - 1);
+        task.setDescription(description);
+
+        Storage.saveTasks(tasks);
+
+        return task.toString();
+    }
+
+    /**
      * Unmarks tasks based on index in tasks.
      *
      * @param index Index of task to be unmarked in tasks.

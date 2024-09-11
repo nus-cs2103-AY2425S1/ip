@@ -82,6 +82,9 @@ public class Glados {
             case "unmark":
                 String unmarkArgs = Parser.parseArguments(input);
                 return unmark(Integer.valueOf(unmarkArgs));
+            case "update":
+                String updateArgs = Parser.parseArguments(input);
+                return update(updateArgs);
             case "delete":
                 String deleteArgs = Parser.parseArguments(input);
                 return delete(Integer.valueOf(deleteArgs));
@@ -128,6 +131,12 @@ public class Glados {
     private String find(String input) {
         ArrayList<Task> res = taskList.find(input);
         return ui.list(res, true);
+    }
+
+    private String update(String input) throws GladosException {
+        String[] parsedArgs = Parser.parseUpdateArgs(input);
+        String res = taskList.update(Integer.valueOf(parsedArgs[0]), parsedArgs[1]);
+        return ui.update(res);
     }
 
     /**
