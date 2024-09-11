@@ -30,8 +30,10 @@ public class DeleteCommand implements Command {
         tasks.remove(this.taskIndex);
 
         Ui ui = context.ui();
-        ui.showMessage("Noted. I've removed this task:");
-        ui.showMessage(task.toString());
-        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
+        ui.showMessage(String.format("""
+            Noted. I've removed this task:
+            %s
+            Now you have %d tasks in the list.
+        """, task, tasks.size()));
     }
 }

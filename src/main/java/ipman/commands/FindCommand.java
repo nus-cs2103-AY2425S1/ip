@@ -43,10 +43,11 @@ public class FindCommand implements Command {
             return;
         }
 
-        context.ui().showMessage("Here's what I found:");
+        StringBuilder sb = new StringBuilder("Here's what I found:");
         for (int i = 0; i < matched.size(); i++) {
             Task task = matched.get(i);
-            context.ui().showMessageF("%d. %s", i + 1, task);
+            sb.append(String.format("\n%d. %s", i + 1, task));
         }
+        context.ui().showMessage(sb.toString());
     }
 }
