@@ -1,7 +1,6 @@
 package command;
 
 import exception.ElliotException;
-import utility.Ui;
 
 /**
  * Enum class to hold every single possible command available to the user.
@@ -51,7 +50,6 @@ public enum CommandType {
                 return type;
             }
         }
-        Ui.say("invalid command\n");
-        throw new ElliotException();
+        throw new ElliotException("invalid command\n");
     }
 }

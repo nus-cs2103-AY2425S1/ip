@@ -35,8 +35,7 @@ public class TodoCommand extends Command {
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
         if (unparsedArguments == "") {
-            Ui.say("give your todo task a description\n");
-            throw new ElliotException();
+            throw new ElliotException("give your todo task a description\n");
         }
         return new TodoCommand(unparsedArguments.strip());
     }
@@ -50,11 +49,11 @@ public class TodoCommand extends Command {
      */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
-        taskList = taskList.addTask(new TodoTask(taskDescription));
+        TaskList newTaskList = taskList.addTask(new TodoTask(taskDescription));
         Ui.say("Got it. I've added this task:\n"
-                + taskList.get(taskList.size() - 1) + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.\n");
-        return taskList;
+                + newTaskList.get(newTaskList.size() - 1) + "\n"
+                + "Now you have " + newTaskList.size() + " tasks in the list.\n");
+        return newTaskList;
     }
 
 }
