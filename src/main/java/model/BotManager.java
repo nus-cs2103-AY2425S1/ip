@@ -57,12 +57,4 @@ public class BotManager {
             return new Response[]{new Response(e.getMessage(), false)};
         }
     }
-
-    /**
-     * Attempts to save task data to the data file.
-     * @return <code>Response</code> describing the status of the action.
-     */
-    private Response saveData() {
-        return storage.saveTaskList(taskList);
-    }
 }
