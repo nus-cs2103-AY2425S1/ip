@@ -1,5 +1,7 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
@@ -8,8 +10,6 @@ import exception.BlitzException;
 
 import task.Deadline;
 import task.Task;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a "deadline" command in the Blitz application.

@@ -3,8 +3,8 @@ package blitz;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import command.Command;
 import command.ByeCommand;
+import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
@@ -80,7 +80,8 @@ public class Parser {
 
                 String[] deadlineParameters = commandParts[1].split(" /by ");
 
-                assert deadlineParameters.length == 2 : "Deadline command should have exactly two parameters separated by '/by'";
+                assert deadlineParameters.length == 2
+                        : "Deadline command should have exactly two parameters separated by '/by'";
 
                 return new DeadlineCommand(command, deadlineParameters[0], deadlineParameters[1]);
             case "event":
@@ -92,7 +93,8 @@ public class Parser {
                 String[] fromParameters = commandParts[1].split(" /from ");
                 String[] toParameters = fromParameters[1].split(" /to ");
 
-                assert fromParameters.length == 2 : "Event command should have exactly two parameters separated by '/from'";
+                assert fromParameters.length == 2
+                        : "Event command should have exactly two parameters separated by '/from'";
                 assert toParameters.length == 2 : "Event command should have exactly two parameters separated by '/to'";
 
                 return new EventCommand(command, fromParameters[0], toParameters[0], toParameters[1]);
