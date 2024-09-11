@@ -7,7 +7,7 @@ plugins {
 
 checkstyle {
     toolVersion = '10.18'
-    configDir = file("$rootProject.projectDir/etc/checkstyle")
+    configDir = file("config/checkstyle/checkstyle.xml")
 }
 
 repositories {
