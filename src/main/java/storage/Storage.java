@@ -13,7 +13,7 @@ import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.Task;
 import tasks.TaskList;
-import tasks.ToDoTask;
+import tasks.TodoTask;
 
 /**
  * The Storage class handles the loading and saving of tasks from/to a file.
@@ -40,27 +40,23 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading the file.
      */
     public Task[] load() throws PrimoException, IOException {
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         try {
             Path filePath = Paths.get(this.filePath);
             List<String> lines = Files.readAllLines(filePath);
             for (String s : lines) {
                 String[] words = s.split(" ");
                 boolean isDone;
-                String name = "";
-                String deadline = "";
-                String from = "";
-                String to = "";
                 switch (words[0].charAt(3)) {
                 case 'T':
                     int todoFromIndex = 9;
                     String todoDescription = s.substring(todoFromIndex).trim();
                     isDone = s.charAt(6) == 'X';
-                    Task newToDoTask = new ToDoTask(todoDescription);
+                    Task newToDoTask = new TodoTask(todoDescription);
                     if (isDone) {
                         newToDoTask.markAsDone();
                     }
-                    list.add(newToDoTask);
+                    taskList.add(newToDoTask);
                     break;
                 case 'D':
                     int deadlineFromIndex = 9;
@@ -72,7 +68,7 @@ public class Storage {
                     if (isDone) {
                         newDeadlineTask.markAsDone();
                     }
-                    list.add(newDeadlineTask);
+                    taskList.add(newDeadlineTask);
                     break;
                 case 'E':
                     String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
@@ -83,13 +79,13 @@ public class Storage {
                     if (isDone) {
                         newEventTask.markAsDone();
                     }
-                    list.add(newEventTask);
+                    taskList.add(newEventTask);
                     break;
                 default:
                     return null; // should not reach here if exception handling is correct
                 }
             }
-            return list.toArray(new Task[0]);
+            return taskList.toArray(new Task[0]);
         } catch (IOException e) {
             throw e;
         }
