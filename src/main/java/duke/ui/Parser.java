@@ -14,13 +14,6 @@ public class Parser {
      * @param text remaining system input from textbox
      */
     public String parse(String command, String text) {
-        String command;
-        String text = "";
-        String[] parts = input.split("\\s+", 2);
-        command = parts[0].toLowerCase();
-        if (parts.length > 1 && !parts[1].trim().isEmpty()) {
-            text = parts[1];
-        }
         switch (command) {
         case "list":
             if (storage.size() > 0) {

@@ -135,7 +135,7 @@ public class NotgptJavaFX extends Application {
             inputField.clear();
             String response = processInput(command, text);
             displayMessage(response, false);
-            if(command.equals("bye")) {
+            if (command.equals("bye")) {
                 this.exit();
             }
         }
@@ -164,8 +164,8 @@ public class NotgptJavaFX extends Application {
         }
         chatBox.getChildren().add(messageBox);
         Platform.runLater(() -> {
-            scrollPane.layout();  // Force scrollPane to refresh layout
-            scrollPane.setVvalue(1.0);  // Scroll to the bottom
+            scrollPane.layout(); // Force scrollPane to refresh layout
+            scrollPane.setVvalue(1.0); // Scroll to the bottom
         });
     }
 
@@ -177,7 +177,7 @@ public class NotgptJavaFX extends Application {
     }
 
     private String processInput(String command, String text) {
-        return parser.parse(this, command, text);
+        return parser.parse(command, text);
     }
 
     public static void main(String[] args) {
