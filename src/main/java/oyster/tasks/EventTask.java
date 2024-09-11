@@ -10,7 +10,7 @@ import oyster.utils.DateTimeFormatter;
 /**
  * EventTask contains a "from" date and a "to" date.
  */
-public class EventTask extends Task {
+public class EventTask extends Task implements DatedTask {
     public static final String FILE_SYMBOL = "E";
 
     private LocalDateTime from;
@@ -28,6 +28,7 @@ public class EventTask extends Task {
 
         assert from != null;
         assert to != null;
+        assert to.isAfter(from);
 
         this.from = from;
         this.to = to;
@@ -110,5 +111,19 @@ public class EventTask extends Task {
             from.toString(),
             to.toString()
         };
+    }
+
+    @Override
+    public boolean isDue() {
+        return LocalDateTime.now().isAfter(to);
+    }
+
+    /**
+     * Compares time now with start time of the Event.
+     *
+     * @return Boolean whether Event has begun.
+     */
+    public boolean hasStarted() {
+        return LocalDateTime.now().isAfter(from);
     }
 }

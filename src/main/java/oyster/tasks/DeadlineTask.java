@@ -9,7 +9,7 @@ import oyster.utils.DateTimeFormatter;
 /**
  * DeadlineTask contains a deadline.
  */
-public class DeadlineTask extends Task {
+public class DeadlineTask extends Task implements DatedTask {
     public static final String FILE_SYMBOL = "D";
 
     private final LocalDateTime deadline;
@@ -86,5 +86,10 @@ public class DeadlineTask extends Task {
             getDescription(),
             deadline.toString()
         };
+    }
+
+    @Override
+    public boolean isDue() {
+        return LocalDateTime.now().isAfter(deadline);
     }
 }

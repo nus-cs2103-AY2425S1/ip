@@ -2,6 +2,7 @@ package oyster.tasks;
 
 import java.util.ArrayList;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -96,6 +97,23 @@ public class TaskList {
     public ArrayList<Task> getItems() {
         @SuppressWarnings("unchecked")
         ArrayList<Task> copy = (ArrayList<Task>) tasks.clone();
+        return copy;
+    }
+
+
+    /**
+     * A copy of the ArrayList filtered according to a predicate.
+     *
+     * @param predicate Filtering function that takes in a Task and returns a boolean
+     * @return A copy of the ArrayList after filtering.
+     */
+    public ArrayList<Task> filter(Predicate<Task> predicate) {
+        @SuppressWarnings("unchecked")
+        ArrayList<Task> copy = (ArrayList<Task>) tasks.clone();
+
+        // Filter
+        copy.removeIf(task -> !predicate.test(task));
+
         return copy;
     }
 

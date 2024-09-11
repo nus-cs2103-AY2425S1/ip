@@ -11,6 +11,7 @@ import oyster.commands.ExitCommand;
 import oyster.commands.FindCommand;
 import oyster.commands.ListCommand;
 import oyster.commands.MarkCommand;
+import oyster.commands.RemindCommand;
 import oyster.commands.ToDoCommand;
 import oyster.commands.UnmarkCommand;
 import oyster.exceptions.DateFormatException;
@@ -100,6 +101,9 @@ public class CommandParser {
                 command = new ErrorCommand(e.getMessage());
             }
 
+            break;
+        case "remind":
+            command = new RemindCommand();
             break;
         default:
             command = new ErrorCommand("Oh no! I'm afraid I don't understand...");
