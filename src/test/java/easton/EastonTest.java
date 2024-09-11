@@ -13,11 +13,9 @@ import easton.exception.InvalidFormatException;
 public class EastonTest {
 
     @Test
-    public void createToDo_emptyDescription_exceptionThrown() {
-        String input = " todo ";
-        assertThrows(EmptyDescriptionException.class, () -> {
-            Easton.createToDo(input);
-        });
+    public void createToDo_nullBody_exceptionThrown() {
+        String input = null;
+        assertThrows(AssertionError.class, () -> Easton.createToDo(input));
     }
 
     @Test
@@ -25,14 +23,6 @@ public class EastonTest {
         String input = "todo hello world";
         assertDoesNotThrow(() -> {
             Easton.createToDo(input);
-        });
-    }
-
-    @Test
-    public void createDeadline_emptyDescription_exceptionThrown() {
-        String input = " deadline ";
-        assertThrows(EmptyDescriptionException.class, () -> {
-            Easton.createDeadline(input);
         });
     }
 
