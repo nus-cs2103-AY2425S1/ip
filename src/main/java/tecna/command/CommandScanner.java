@@ -6,6 +6,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import tecna.command.ByeCommand;
+import tecna.command.ListCommand;
+import tecna.command.DeleteCommand;
+import tecna.command.MarkCommand;
+import tecna.command.UnmarkCommand;
+import tecna.command.ToDoCommand;
+import tecna.command.DeadlineCommand;
+import tecna.command.EventCommand;
+import tecna.command.InvalidCommand;
+
 import tecna.task.Deadline;
 import tecna.task.Event;
 import tecna.task.Task;
@@ -48,102 +58,39 @@ public class CommandScanner {
         return this.input;
     }
 
-    /**
-     * Gets the user's input and parses into the chatbot's valid type command.
-     * @return the corresponding command type in <code>CommandType enum</code>.
-     */
-    public CommandType getRequest() {
-        this.input = this.SCANNER.nextLine().trim();
-        String[] input_words = this.input.split(" ");
-        if (input.equalsIgnoreCase("bye")) {
-            return CommandType.BYE;
-        } else if (input.equalsIgnoreCase("list")) {
-            return CommandType.LIST;
-        } else if (input_words[0].equalsIgnoreCase("mark")) {
-            return this.generateIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("unmark")) {
-            return this.generateIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("delete")) {
-            return this.generateIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("find")) {
-            this.keyword = input_words[1];
-            return CommandType.FIND;
-        } else if (input_words[0].equalsIgnoreCase("todo")) {
-            if (input_words.length <= 1) {
-                return CommandType.TODO_WRONG_FORMAT;
-            } else {
-                String[] description = input.split("todo");
-                this.inputTask = new ToDo(description[1].trim());
-                return CommandType.TODO;
-            }
-        } else if (input_words[0].equalsIgnoreCase("deadline")) {
-            try {
-                String[] description = input.split("deadline | /by");
-                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                return CommandType.DEADLINE_WRONG_FORMAT;
-            }
-            return CommandType.DEADLINE;
-        } else if (input_words[0].equalsIgnoreCase("event")) {
-            try {
-                String[] description = input.split("event | /from | /to ");
-                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                return CommandType.EVENT_WRONG_FORMAT;
-            }
-            return CommandType.EVENT;
-        } else {
-            return CommandType.INVALID;
-        }
+    public Command getCommand(String input) {
+        CommandType commandType = readRequest(input);
+
+        return switch (commandType) {
+            case BYE -> new ByeCommand(input);
+            case LIST -> new ListCommand(input);
+            case MARK -> new MarkCommand(input);
+            case UNMARK -> new UnmarkCommand(input);
+            case DELETE -> new DeleteCommand(input);
+            case FIND -> new FindCommand(input);
+            case TODO -> new ToDoCommand(input);
+            case DEADLINE -> new DeadlineCommand(input);
+            case EVENT -> new EventCommand(input);
+            default -> new InvalidCommand(input);
+        };
     }
 
     public CommandType readRequest(String input) {
         this.input = input;
-        String[] input_words = this.input.split(" ");
-        if (input.equalsIgnoreCase("bye")) {
-            return CommandType.BYE;
-        } else if (input.equalsIgnoreCase("list")) {
-            return CommandType.LIST;
-        } else if (input_words[0].equalsIgnoreCase("mark")) {
-            return this.generateIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("unmark")) {
-            return this.generateIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("delete")) {
-            return this.generateIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
-        } else if (input_words[0].equalsIgnoreCase("find")) {
-            this.keyword = input_words[1];
-            return CommandType.FIND;
-        } else if (input_words[0].equalsIgnoreCase("todo")) {
-            if (input_words.length <= 1) {
-                return CommandType.TODO_WRONG_FORMAT;
-            } else {
-                String[] description = input.split("todo");
-                this.inputTask = new ToDo(description[1].trim());
-                return CommandType.TODO;
-            }
-        } else if (input_words[0].equalsIgnoreCase("deadline")) {
-            try {
-                String[] description = input.split("deadline | /by");
-                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                return CommandType.DEADLINE_WRONG_FORMAT;
-            }
-            return CommandType.DEADLINE;
-        } else if (input_words[0].equalsIgnoreCase("event")) {
-            try {
-                String[] description = input.split("event | /from | /to ");
-                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                return CommandType.EVENT_WRONG_FORMAT;
-            }
-            return CommandType.EVENT;
-        } else {
-            return CommandType.INVALID;
-        }
+        String[] input_words = this.input.split("\\s+");
+
+        return switch(input_words[0]) {
+            case "bye" -> CommandType.BYE;
+            case "list" -> CommandType.LIST;
+            case "mark" -> CommandType.MARK;
+            case "unmark" -> CommandType.UNMARK;
+            case "delete" -> CommandType.DELETE;
+            case "find" -> CommandType.FIND;
+            case "todo" -> CommandType.TODO;
+            case "deadline" -> CommandType.DEADLINE;
+            case "event" -> CommandType.EVENT;
+            default -> CommandType.INVALID;
+        };
     }
 
     /**

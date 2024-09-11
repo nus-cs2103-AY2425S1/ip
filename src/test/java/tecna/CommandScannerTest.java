@@ -17,7 +17,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.INVALID, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.LIST, commandScanner.readRequest(input));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.TODO, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.TODO, commandScanner.readRequest(input));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.DEADLINE, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.DEADLINE, commandScanner.readRequest(input));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.EVENT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.EVENT, commandScanner.readRequest(input));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.DEADLINE_WRONG_FORMAT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.DEADLINE, commandScanner.readRequest(input));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.EVENT_WRONG_FORMAT, commandScanner.getRequest());    }
+        assertEquals(tecna.command.CommandType.EVENT, commandScanner.readRequest(input));    }
 
     @Test
     public void getRequest_todoWithBlank_commandTypeTodoWrongFormat() {
@@ -82,6 +82,6 @@ public class CommandScannerTest {
 
         tecna.command.CommandScanner commandScanner = new tecna.command.CommandScanner();
 
-        assertEquals(tecna.command.CommandType.TODO_WRONG_FORMAT, commandScanner.getRequest());
+        assertEquals(tecna.command.CommandType.TODO, commandScanner.readRequest(input));
     }
 }

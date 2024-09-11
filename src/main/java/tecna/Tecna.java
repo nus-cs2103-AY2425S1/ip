@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import tecna.collection.TaskList;
+import tecna.command.Command;
 import tecna.command.CommandScanner;
 import tecna.command.CommandType;
 import tecna.exception.JsonLoadingException;
@@ -68,45 +69,8 @@ public class Tecna {
     }
 
     public String getResponse(String input) {
-        CommandType command = commandScanner.readRequest(input);
-        ui.printSectionLine();
-
-        switch (command) {
-        case BYE:
-            return ui.printGoodbyeMsg();
-        case LIST:
-            return ui.printItems(this.taskList);
-        case MARK:
-            int index = commandScanner.getInputIndex();
-            taskList.mark(index);
-            return ui.printMarkMsg(taskList.getTask(index));
-        case UNMARK:
-            index = commandScanner.getInputIndex();
-            taskList.unmark(index);
-            return ui.printUnmarkMsg(taskList.getTask(index));
-        case DELETE:
-            index = commandScanner.getInputIndex();
-            return ui.printDeleteItemMsg(taskList, index);
-        case FIND:
-            return ui.printFindTasksMsg(taskList, commandScanner.getKeyword());
-        case TODO:
-        case DEADLINE:
-        case EVENT:
-            return ui.printAddItemMsg(taskList, commandScanner.getInputTask());
-        case TODO_WRONG_FORMAT:
-            return ui.printError("Wrong format! The command should be \"todo [task_description]\".");
-        case DEADLINE_WRONG_FORMAT:
-            return ui.printError("Wrong format! The command should be \"deadline [task_description] /by " +
-                    "[deadline in the form of yyyy-MM-dd HHmm]\".");
-        case EVENT_WRONG_FORMAT:
-            return ui.printError("Wrong format! The command should be \"event [task_description] /from " +
-                    "[start_time in the form of yyyy-MM-dd HHmm] /to [end time in the form of yyyy-MM-dd HHmm]\".");
-        case INDEX_WRONG_FORMAT:
-            return ui.printError("The parameter of this command must be a number from 1 to " + taskList.getSize());
-        case INVALID:
-        default:
-            return ui.printInvalidCmdError();
-        }
+        Command command = commandScanner.getCommand(input);
+        return command.execute(taskList, storage, ui);
     }
 
     /**
