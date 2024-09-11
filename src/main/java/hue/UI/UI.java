@@ -81,6 +81,12 @@ public class UI {
         return sb.toString().trim();  // Trim to remove any trailing newline
     }
 
+    public String noMatchingTasks(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("No tasks found that matches the keyword \"").append(keyword).append("\":\n");
+        return sb.toString().trim();
+    }
+
     /**
      * Displays a message when a task is added to the task list.
      *
@@ -123,6 +129,22 @@ public class UI {
         sb.append(" in the list.");
 
         return sb.toString();
+    }
+
+    public String showMarkTask(Task task) {
+        String response = "Nice! I've marked this task as done:\n" +
+                "  " + task;
+
+        return response;
+    }
+
+    public String showUnmarkTask(Task task) {
+        String response = "OK, I've marked this task as not done yet: \n" +
+                " " + task;
+
+        return response;
+
+
     }
 
 }
