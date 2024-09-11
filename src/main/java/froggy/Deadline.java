@@ -41,6 +41,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (isDate) {
+            assert date != null : "Date should not be null";
             return "[D]" + super.toString() + " (by: "
                     + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }

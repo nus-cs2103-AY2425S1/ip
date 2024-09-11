@@ -21,8 +21,8 @@ public class AddEventCommand extends Command {
         int firstIndex = input.toLowerCase().indexOf("/from ");
         int secondIndex = input.toLowerCase().indexOf("/to ");
         if (firstIndex != -1) {
-            String desc = input.substring(6, firstIndex - 1);
-            String from = input.substring(firstIndex + 6, secondIndex - 1);
+            String desc = input.substring(6, firstIndex);
+            String from = input.substring(firstIndex + 6, secondIndex);
             String to = input.substring(secondIndex + 4);
             Event current = new Event(desc, from, to);
             taskList.add(current, storage);
@@ -34,19 +34,23 @@ public class AddEventCommand extends Command {
 
     @Override
     public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
-        int firstIndex = input.toLowerCase().indexOf("/from ");
-        int secondIndex = input.toLowerCase().indexOf("/to ");
-        String output = "";
-        if (firstIndex != -1) {
-            String desc = input.substring(6, firstIndex - 1);
-            String from = input.substring(firstIndex + 6, secondIndex - 1);
-            String to = input.substring(secondIndex + 4);
+        int firstIndex = input.toLowerCase().indexOf("/from");
+        int secondIndex = input.toLowerCase().indexOf("/to");
+        if (firstIndex != -1 && secondIndex != -1) {
+            String output = "";
+            String desc = input.substring(6, firstIndex).trim();
+            String from = input.substring(firstIndex + 5, secondIndex).trim();
+            String to = input.substring(secondIndex + 3).trim();
             Event current = new Event(desc, from, to);
             taskList.add(current, storage);
             taskList.add(current, storage);
             output = current.toString() + "\n";
+            return "Added this task:\n" + output + ui.getLine();
+        } else {
+            String formatErrorMessage = "Please enter a duration using '/from' and '/to'.\n"
+                    + ui.getLine();
+            return formatErrorMessage;
         }
-        return "Added this task:\n" + output + ui.getLine();
     }
 
     @Override

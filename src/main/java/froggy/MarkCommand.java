@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     taskList.setDone(index, true);
                     System.out.println("Marked the following task as done:");
                     taskList.printTask(index);
@@ -48,14 +48,12 @@ public class MarkCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     taskList.setDone(index, true);
                     storage.saveTasks(taskList.getTasks());
                     return "Marked the following task as done:\n" + taskList.getTask(index).toString()
                             + "\n" + ui.getLine();
                 } else {
-                    System.out.println("[INFO] Error: Invalid index. Please enter an index in range.");
-                    ui.showLine();
                     return "[INFO] Error: Invalid index. Please enter an index in range.\n" + ui.getLine();
                 }
             } catch (NumberFormatException e) {
