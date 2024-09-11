@@ -48,11 +48,7 @@ public class BotManager {
             Action action = parser.parseInput(input.strip());
             Response actionResponse = new Response(action.execute(taskList), action.isExit());
             Response saveResponse = storage.saveTaskList(taskList);
-            if (saveResponse != null) {
-                return new Response[] {actionResponse, saveResponse};
-            } else {
-                return new Response[] {actionResponse};
-            }
+            return new Response[] {actionResponse, saveResponse};
         } catch (BotException e) {
             return new Response[]{new Response(e.getMessage(), false)};
         }
