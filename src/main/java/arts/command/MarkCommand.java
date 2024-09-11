@@ -10,6 +10,8 @@ import arts.util.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand implements Command {
+    private static final String INVALID_TASK_INDEX_ERROR_MESSAGE = "Invalid task index.";
+
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -24,6 +26,11 @@ public class MarkCommand implements Command {
      * @param taskIndex The index of the task to be marked as done.
      */
     public MarkCommand(TaskList tasks, Storage storage, Ui ui, String taskIndex) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert taskIndex != null && !taskIndex.trim().isEmpty() : "Task index cannot be null or empty";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -41,12 +48,18 @@ public class MarkCommand implements Command {
     public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
+            assert index >= 0 && index < tasks.size() : "Index must be within the valid range";
+
             Task task = tasks.getTask(index);
+            assert task != null : "Task should not be null";
+
             task.markAsDone();
             storage.save(tasks.getTasks());
-            return "Nice! I've marked this task as done:\n " + task;
+
+            return String.format("Nice! I've marked this task as done:\n %s", task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new ArtsException("Invalid task index.");
+            // Handle invalid task index or parsing error
+            throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
 }

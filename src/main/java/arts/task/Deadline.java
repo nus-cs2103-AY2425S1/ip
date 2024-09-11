@@ -8,7 +8,10 @@ import java.time.format.DateTimeFormatter;
  * additional information about the due date and time for the task.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the specified description and due date.
@@ -18,6 +21,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert by != null : "Due date cannot be null";
+
         this.by = by;
     }
 
@@ -29,8 +35,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[D]" + super.toString() + " (by: " + by.format(outputFormatter) + ")";
+        assert by != null : "Due date should not be null when formatting";
+        return String.format("[D]%s (by: %s)", super.toString(), by.format(DISPLAY_FORMATTER));
     }
 
     /**
@@ -41,7 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
+        assert by != null : "Due date should not be null when formatting for file";
+        return String.format("D | %s | %s | %s", isDone ? "1" : "0", description, by.format(FILE_FORMATTER));
     }
 }

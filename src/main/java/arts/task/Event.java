@@ -9,8 +9,11 @@ import java.time.format.DateTimeFormatter;
  * about the start and end times of the event.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -21,6 +24,11 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert from != null : "Start time cannot be null";
+        assert to != null : "End time cannot be null";
+        assert !from.isAfter(to) : "Start time must be before end time";
+
         this.from = from;
         this.to = to;
     }
@@ -33,9 +41,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter)
-                + " to: " + to.format(outputFormatter) + ")";
+        assert from != null : "Start time should not be null when formatting";
+        assert to != null : "End time should not be null when formatting";
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                from.format(DISPLAY_FORMATTER),
+                to.format(DISPLAY_FORMATTER));
     }
 
     /**
@@ -46,8 +57,12 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + from.format(fileFormatter) + " | " + to.format(fileFormatter);
+        assert from != null : "Start time should not be null when formatting for file";
+        assert to != null : "End time should not be null when formatting for file";
+        return String.format("E | %s | %s | %s | %s",
+                isDone ? "1" : "0",
+                description,
+                from.format(FILE_FORMATTER),
+                to.format(FILE_FORMATTER));
     }
 }

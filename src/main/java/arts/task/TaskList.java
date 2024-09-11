@@ -22,6 +22,7 @@ public class TaskList {
      * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
         this.tasks = tasks;
     }
 
@@ -31,6 +32,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added cannot be null";
         tasks.add(task);
     }
 
@@ -41,6 +43,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 
@@ -51,6 +54,7 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.remove(index);
     }
 
@@ -78,6 +82,7 @@ public class TaskList {
      * @return An ArrayList of tasks.
      */
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "Tasks list should not be null";
         return tasks;
     }
 }

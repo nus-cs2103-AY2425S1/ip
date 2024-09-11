@@ -17,6 +17,7 @@ import arts.task.Task;
  */
 public class Storage {
     private final String filePath;
+    private static final String NO_TASK_FILE_MESSAGE = "No existing task file found. Starting fresh.";
 
     /**
      * Constructs a Storage object with the specified file path for storing tasks.
@@ -24,6 +25,7 @@ public class Storage {
      * @param filePath The path of the file where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -35,16 +37,18 @@ public class Storage {
      * @throws ArtsException If there is an error reading the file or parsing tasks.
      */
     public ArrayList<Task> load() throws ArtsException {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        ArrayList<Task> tasks = new ArrayList<>();
+
         if (!file.exists()) {
-            System.out.println("No existing task file found. Starting fresh.");
+            System.out.println(NO_TASK_FILE_MESSAGE);
             return tasks;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                assert line != null : "Line read from file should not be null";
                 Task task = Task.fromFileFormat(line);
                 tasks.add(task);
             }
@@ -61,8 +65,10 @@ public class Storage {
      * @throws ArtsException If there is an error writing to the file.
      */
     public void save(ArrayList<Task> tasks) throws ArtsException {
+        assert tasks != null : "Tasks list cannot be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
+                assert task != null : "Task to be saved should not be null";
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }
