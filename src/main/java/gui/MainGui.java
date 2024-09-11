@@ -85,6 +85,9 @@ public class MainGui extends Application {
         sendButton.setOnMouseClicked(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
 
+        // scroll to bottom of chat history whenever new message is printed
+        dialogContainer.heightProperty().addListener((obs) -> scrollPane.setVvalue(1.0));
+
         Parameters params = getParameters();
         List<String> args = params.getRaw();
         if (!args.isEmpty()) {
