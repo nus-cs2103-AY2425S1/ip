@@ -91,15 +91,16 @@ public class AddEventCommand implements Command {
     private LocalDateTime parseDate(String dateString) throws ArtsException {
         assert dateString != null && !dateString.isEmpty() : "Date string cannot be null or empty";
 
-        for (DateTimeFormatter formatter : inputFormatters) {
-            try {
-                return LocalDateTime.parse(dateString, formatter);
-            } catch (DateTimeParseException e) {
-                // Continue to the next formatter
-            }
-        }
-        
-        throw new ArtsException(DATE_FORMAT_ERROR_MESSAGE);
+        return java.util.Arrays.stream(inputFormatters)
+                .map(formatter -> {
+                    try {
+                        return LocalDateTime.parse(dateString, formatter);
+                    } catch (DateTimeParseException e) {
+                        return null;
+                    }
+                })
+                .filter(date -> date != null)
+                .findFirst()
+                .orElseThrow(() -> new ArtsException(DATE_FORMAT_ERROR_MESSAGE));
     }
 }
-
