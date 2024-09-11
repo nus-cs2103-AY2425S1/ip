@@ -13,8 +13,9 @@ import alfred.exception.AlfredException;
  * A Deadline task has a description and a deadline date.
  */
 public class Deadlines extends Task {
+    private static final String VALID_DEADLINE_FORMAT = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
+    private static final DateTimeFormatter DEADLINE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDate deadline;
-    private static final DateTimeFormatter DISPLAY_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Constructs a Deadlines object with a description and a deadline date.
@@ -73,7 +74,7 @@ public class Deadlines extends Task {
      * @return A formatted string representation of the deadline.
      */
     private String formatDeadlineForDisplay() {
-        return deadline.format(DISPLAY_DATE_FORMAT);
+        return deadline.format(DEADLINE_DATE_FORMAT);
     }
 
     /**
@@ -101,8 +102,7 @@ public class Deadlines extends Task {
      * @throws AlfredException If the input format is incorrect.
      */
     private static String[] parseInputForDeadline(String input) throws AlfredException {
-        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(VALID_DEADLINE_FORMAT);
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {

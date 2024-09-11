@@ -32,7 +32,8 @@ public class Parser {
      * @return The command keyword as a string.
      */
     public static String getCommand(String input) {
-        return input.split(" ")[0];
+        String[] parts = input.split(" ");
+        return parts[0];
     }
 
     /**
@@ -45,23 +46,43 @@ public class Parser {
      * @return A string containing the error message if validation fails, or an empty string if valid.
      */
     public static String validateCommand(String input, String action, int listSize) {
-        String regex = "^" + action + " \\d+$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-
-        // Check if the input matches the expected command pattern
-        if (!matcher.matches()) {
+        if (!isValidCommandFormat(input, action)) {
             return AlfredResponse.showInvalidCommandFormat();
         }
 
         // Extract the task number and validate it is within the bounds of the task list
-        int taskNumber = Parser.getTaskNumberFromInput(input);
-        if (taskNumber <= 0 || taskNumber > listSize) {
+        int taskNumber = getTaskNumberFromInput(input);
+        if (!isTaskNumberValid(listSize, taskNumber)) {
             return AlfredResponse.showInvalidTaskNumber(listSize);
         }
 
         // Return an empty string indicating everything is valid
         return "";
+    }
+
+    /**
+     * Validates whether the input string matches the command format.
+     *
+     * @param input The user input string.
+     * @param action The action to match.
+     * @return True if the input matches the expected command format, false otherwise.
+     */
+    private static boolean isValidCommandFormat(String input, String action) {
+        String regex = "^" + action + " \\d+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    /**
+     * Checks whether the given task number is valid within the task list bounds.
+     *
+     * @param taskNumber The task number to validate.
+     * @param listSize The size of the current task list.
+     * @return True if the task number is valid, false otherwise.
+     */
+    private static boolean isTaskNumberValid(int listSize, int taskNumber) {
+        return taskNumber > 0 && taskNumber <= listSize;
     }
 
     /**

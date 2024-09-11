@@ -28,16 +28,45 @@ public class Alfred {
      */
     public Alfred(String filePath) {
         storage = new Storage(filePath);
+        loadTasksFromStorage();
+    }
+
+    /**
+     * Loads tasks from storage and initializes the task list.
+     * Handles potential errors during loading by catching and delegating
+     * the handling of IOExceptions and AlfredExceptions.
+     */
+    private void loadTasksFromStorage() {
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            loadingError = AlfredResponse.showLoadingError(e);
-            this.tasks = new TaskList();
+            handleIoExceptionDuringLoading(e);
         } catch (AlfredException e) {
-            loadingError = AlfredResponse.showCorruptedSaveError(e);
-            storage.clearStorage();
-            tasks = new TaskList();
+            handleCorruptedSave(e);
         }
+    }
+
+    /**
+     * Handles an IOException that occurs during the loading of tasks from storage.
+     * Sets the loadingError message and initializes an empty task list.
+     *
+     * @param e The IOException that occurred during task loading.
+     */
+    private void handleIoExceptionDuringLoading(IOException e) {
+        loadingError = AlfredResponse.showLoadingError(e);
+        this.tasks = new TaskList();
+    }
+
+    /**
+     * Handles an AlfredException that occurs due to a corrupted task save file.
+     * Sets the loadingError message, clears the storage, and initializes an empty task list.
+     *
+     * @param e The AlfredException that indicates the save file is corrupted.
+     */
+    private void handleCorruptedSave(AlfredException e) {
+        loadingError = AlfredResponse.showCorruptedSaveError(e);
+        storage.clearStorage();
+        tasks = new TaskList();
     }
 
     /**
@@ -50,32 +79,34 @@ public class Alfred {
      */
     public String getResponse(String input) {
         String command = Parser.getCommand(input);
-        StringBuilder response = new StringBuilder();
+        return processCommand(input, command);
+    }
 
+    /**
+     * Processes the command extracted from the user's input string.
+     * This method determines the correct operation to perform (list, mark, unmark, delete, find, create new task).
+     *
+     * @param input The user input string.
+     * @param command The extracted command from the user input.
+     * @return A string response generated based on the command provided.
+     */
+    private String processCommand(String input, String command) {
         switch (command) {
         case "list":
-            response.append(getTasks());
-            break;
+            return getTasks();
         case "mark":
-            response.append(markTask(input, command));
-            break;
+            return markTask(input);
         case "unmark":
-            response.append(unmarkTask(input, command));
-            break;
+            return unmarkTask(input);
         case "delete":
-            response.append(deleteTask(input));
-            break;
+            return deleteTask(input);
         case "find":
-            response.append(findTask(input));
-            break;
+            return findTask(input);
         case "bye":
-            response.append(farewell());
-            break;
+            return farewell();
         default:
-            response.append(createNewTask(input));
-            break;
+            return createNewTask(input);
         }
-        return response.toString();
     }
 
     /**
@@ -83,17 +114,27 @@ public class Alfred {
      * Validates the input and returns a response indicating whether the task was successfully marked.
      *
      * @param input The user input string.
-     * @param command The command to mark the task.
      * @return A string containing the success message or validation error.
      */
-    public String markTask(String input, String command) {
-        String validationResult = Parser.validateCommand(input, command, tasks.getTasksCount());
-        if (validationResult.isEmpty()) {
-            int taskNumber = Parser.getTaskNumberFromInput(input);
-            Task markedTask = tasks.markTask(taskNumber);
-            return AlfredResponse.showTaskMarked(markedTask);
+    public String markTask(String input) {
+        String validationResult = Parser.validateCommand(input, "mark", tasks.getTasksCount());
+        if (!validationResult.isEmpty()) {
+            return validationResult;
         }
-        return validationResult;
+        return performMarkTask(input);
+    }
+
+    /**
+     * Performs the logic to mark a task as done.
+     * Retrieves the task number from the input and marks the task.
+     *
+     * @param input The user input string.
+     * @return A string confirming the task was marked.
+     */
+    private String performMarkTask(String input) {
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        Task markedTask = tasks.markTask(taskNumber);
+        return AlfredResponse.showTaskMarked(markedTask);
     }
 
     /**
@@ -101,17 +142,27 @@ public class Alfred {
      * Validates the input and returns a response indicating whether the task was successfully unmarked.
      *
      * @param input The user input string.
-     * @param command The command to unmark the task.
      * @return A string containing the success message or validation error.
      */
-    public String unmarkTask(String input, String command) {
-        String validationResult = Parser.validateCommand(input, command, tasks.getTasksCount());
-        if (validationResult.isEmpty()) {
-            int taskNumber = Parser.getTaskNumberFromInput(input);
-            Task markedTask = tasks.unmarkTask(taskNumber);
-            return AlfredResponse.showTaskUnmarked(markedTask);
+    public String unmarkTask(String input) {
+        String validationResult = Parser.validateCommand(input, "unmark", tasks.getTasksCount());
+        if (!validationResult.isEmpty()) {
+            return validationResult;
         }
-        return validationResult;
+        return performUnmarkTask(input);
+    }
+
+    /**
+     * Performs the logic to unmark a task (i.e., mark it as not done).
+     * Retrieves the task number from the input and unmarks the task.
+     *
+     * @param input The user input string.
+     * @return A string confirming the task was unmarked.
+     */
+    private String performUnmarkTask(String input) {
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        Task markedTask = tasks.unmarkTask(taskNumber);
+        return AlfredResponse.showTaskUnmarked(markedTask);
     }
 
     /**
@@ -136,14 +187,23 @@ public class Alfred {
      */
     public String deleteTask(String input) {
         String validationResult = Parser.validateCommand(input, "delete", tasks.getTasksCount());
-
-        if (validationResult.isEmpty()) {
-            int taskNumber = Parser.getTaskNumberFromInput(input);
-            Task deletedTask = tasks.deleteTask(taskNumber);
-            return AlfredResponse.showTaskDeleted(deletedTask, tasks.getTasksCount());
-        } else {
+        if (!validationResult.isEmpty()) {
             return validationResult;
         }
+        return performDeleteTask(input);
+    }
+
+    /**
+     * Performs the logic to delete a task.
+     * Retrieves the task number from the input and deletes the task.
+     *
+     * @param input The user input string.
+     * @return A string confirming the task was deleted.
+     */
+    private String performDeleteTask(String input) {
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        Task deletedTask = tasks.deleteTask(taskNumber);
+        return AlfredResponse.showTaskDeleted(deletedTask, tasks.getTasksCount());
     }
 
     /**
@@ -168,17 +228,28 @@ public class Alfred {
      */
     public String createNewTask(String input) {
         if (!Task.isCreateTaskCommand(input)) {
-            return AlfredResponse.showInvalidCommand(); // Early return for invalid command
+            return AlfredResponse.showInvalidCommand();
         }
+        return handleTaskCreation(input);
+    }
 
+    /**
+     * Handles the creation of a new task based on the user input.
+     * Initializes the task, adds it to the task list, and returns the appropriate response.
+     * Catches exceptions related to task creation and provides error messages.
+     *
+     * @param input The user input string.
+     * @return A string containing the result of task creation, or an error message if an exception occurs.
+     */
+    private String handleTaskCreation(String input) {
         try {
-            Task task = Task.initialise(input); // Initialize task
-            tasks.addTask(task); // Add task to the list
-            return AlfredResponse.showAddedTaskMessage(task, tasks.getTasksCount()); // Success message
+            Task task = Task.initialise(input);
+            tasks.addTask(task);
+            return AlfredResponse.showAddedTaskMessage(task, tasks.getTasksCount());
         } catch (AlfredException e) {
-            return AlfredResponse.showAlfredError(e); // Handle Alfred-specific exception
+            return AlfredResponse.showAlfredError(e);
         } catch (Exception e) {
-            return AlfredResponse.showUnexpectedError(e); // Handle any other exceptions
+            return AlfredResponse.showUnexpectedError(e);
         }
     }
 
