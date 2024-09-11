@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private SkD Skd;
+    private SkD skD;
     private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setSkd(SkD d) {
-        Skd = d;
+        skD = d;
     }
 
     /**
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = Skd.getResponse(input);
+        String response = skD.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
