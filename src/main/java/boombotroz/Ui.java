@@ -5,7 +5,6 @@ import java.time.LocalDate;
  * Deals with interactions with the user.
  */
 public class Ui {
-
     /**
      * Prints all the task from task list.
      *
@@ -15,7 +14,7 @@ public class Ui {
     public String printAll(TaskList taskList) {
         String s = "";
         s += "Here are the tasks in your list:\n";
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             s += String.format("%d.%s\n", i + 1, taskList.getTask(i));
         }
         return s;
@@ -60,7 +59,7 @@ public class Ui {
         String s = "";
         s += "Noted. I've removed this task:\n";
         s += String.format("  %s\n", taskList.getTask(index));
-        s += String.format("Now you have %d tasks in the list.", taskList.size() - 1);
+        s += String.format("Now you have %d tasks in the list.", taskList.getSize() - 1);
         return s;
     }
 
@@ -74,7 +73,7 @@ public class Ui {
     public String findTaskMessage(TaskList taskList, String word) {
         String s = "";
         s += "Here are the matching tasks in your list:\n";
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             Task curr = taskList.getTask(i);
             if (curr.getDescription().matches(word)) {
                 s += String.format("%d.%s\n", i, curr);
@@ -84,54 +83,24 @@ public class Ui {
     }
 
     /**
-     * Returns message after creating ToDo task.
+     * Returns message after creating task.
      *
-     * @param createdTask ToDo task that was created.
+     * @param createdTask task that was created.
      * @param taskList list of tasks.
-     * @return Message after creating ToDo task.
+     * @return Message after creating task.
      */
-    public String toDoMessage(Task createdTask, TaskList taskList) {
+    public String createTaskMessage(Task createdTask, TaskList taskList) {
         String s = "";
         s += "Got it. I've added this task:\n";
         s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
-        return s;
-    }
-
-    /**
-     * Returns message after creating Deadline task.
-     *
-     * @param createdTask Deadline task that was created.
-     * @param taskList list of tasks.
-     * @return Message after creating Deadline task.
-     */
-    public String deadlineMessage(Task createdTask, TaskList taskList) {
-        String s = "";
-        s += "Got it. I've added this task:\n";
-        s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
-        return s;
-    }
-
-    /**
-     * Returns message after creating Event task.
-     *
-     * @param createdTask Event task that was created.
-     * @param taskList list of tasks.
-     * @return Message after creating Event task.
-     */
-    public String eventMessage(Task createdTask, TaskList taskList) {
-        String s = "";
-        s += "Got it. I've added this task:\n";
-        s += String.format("  %s\n", createdTask);
-        s += String.format("Now you have %d tasks in the list.", taskList.size());
+        s += String.format("Now you have %d tasks in the list.", taskList.getSize());
         return s;
     }
 
     /**
      * Throws exception when input invalid.
      */
-    public void invalidInput() throws BoomException {
+    public void isInvalid() throws BoomException {
         throw new BoomException("That's nonsense !!");
 
     }
@@ -142,7 +111,7 @@ public class Ui {
      * @param taskInput task details.
      * @throws BoomException If no task details given.
      */
-    public void emptyTask(String taskInput) throws BoomException {
+    public void hasTask(String taskInput) throws BoomException {
         if (taskInput.isEmpty()) {
             throw new BoomException(
                     "You can't do nothing !!");
@@ -156,7 +125,7 @@ public class Ui {
      * @param taskInput task details.
      * @throws BoomException If no deadline given.
      */
-    public void emptyDeadline(String taskInput) throws BoomException {
+    public void hasEnd(String taskInput) throws BoomException {
         if (!taskInput.contains(" /by ")) {
             throw new BoomException(
                     "You need a deadline !!");
@@ -170,7 +139,7 @@ public class Ui {
      * @param taskInput task details.
      * @throws BoomException If invalid time period given.
      */
-    public void emptyStartEnd(String taskInput) throws BoomException {
+    public void hasStartEnd(String taskInput) throws BoomException {
         if (!taskInput.contains(" /from ")
                 || !taskInput.contains(" /to ")) {
             throw new BoomException(
@@ -185,7 +154,7 @@ public class Ui {
      * @param markInput mark details.
      * @throws BoomException If no task number given.
      */
-    public void isTaskNumber(String markInput) throws BoomException {
+    public void hasNumber(String markInput) throws BoomException {
         String[] parts = markInput.split(" ");
 
         // Check if there is a second part after splitting
@@ -203,9 +172,9 @@ public class Ui {
      * @param taskList list of all the tasks
      * @throws BoomException If invalid range given.
      */
-    public void wrongRange(int index, TaskList taskList) throws BoomException {
+    public void isWrongRange(int index, TaskList taskList) throws BoomException {
         if (index + 1 <= 0
-                || index + 1 > taskList.size()) {
+                || index + 1 > taskList.getSize()) {
             throw new BoomException(
                     "You are out of range !!");
         }
@@ -218,7 +187,7 @@ public class Ui {
      * @param d2 time now.
      * @throws BoomException If invalid deadline given.
      */
-    public void wrongDeadline(LocalDate d1, LocalDate d2) throws BoomException {
+    public void isWrongDeadline(LocalDate d1, LocalDate d2) throws BoomException {
         if (d2.isAfter(d1)) {
             throw new BoomException("Your date is wrong !!");
         }
@@ -233,7 +202,7 @@ public class Ui {
      * @param d3 time now.
      * @throws BoomException If invalid time period given.
      */
-    public void wrongEventTime(LocalDate d1, LocalDate d2, LocalDate d3) throws BoomException {
+    public void isWrongEventTime(LocalDate d1, LocalDate d2, LocalDate d3) throws BoomException {
         if (d1.isAfter(d2) || d3.isAfter(d2)) {
             throw new BoomException("Your date is wrong !!");
         }
@@ -246,7 +215,7 @@ public class Ui {
      * @param wordInput task description.
      * @throws BoomException If no description given.
      */
-    public void emptyWord(String wordInput) throws BoomException {
+    public void hasKeyWord(String wordInput) throws BoomException {
         String[] parts = wordInput.split(" ");
         if (parts.length < 2) {
             throw new BoomException("You need a keyword !!");
