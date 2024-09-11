@@ -15,33 +15,36 @@ import java.util.Scanner;
 public class Storage {
 
     private static final String DIR_PATH = "data";
-    private static final String KITTY_DATA_PATH = "data/Kitty.txt";
-    private static final File KITTY_TASKS_DATA = new File(KITTY_DATA_PATH);
+    private final String kittyDataPath;
+    private final File kittyTasksData;
 
-    public Storage() {
+    public Storage(String fileName) {
+        kittyDataPath = DIR_PATH + "/" + fileName;
+        kittyTasksData = new File(kittyDataPath);
     }
 
     public void addContent(String content) throws IOException {
-        FileWriter fw = new FileWriter(KITTY_DATA_PATH, true);
+        FileWriter fw = new FileWriter(kittyDataPath, true);
         fw.write(content);
+        System.out.println("Write Success!");
         fw.close();
     }
 
     public void rewriteFile(String content) throws IOException {
-        FileWriter fw = new FileWriter(KITTY_DATA_PATH);
+        FileWriter fw = new FileWriter(kittyDataPath);
         fw.write(content);
         fw.close();
     }
 
     public void initializeTaskList(TaskList tasks) throws FileNotFoundException, IOException {
-        if (!KITTY_TASKS_DATA.exists()) {
+        if (!kittyTasksData.exists()) {
             File dir = new File(DIR_PATH);
             boolean isCreated = dir.mkdirs();
-            isCreated = KITTY_TASKS_DATA.createNewFile();
+            isCreated = kittyTasksData.createNewFile();
             assert isCreated;
         }
 
-        Scanner scanKittyTasks = new Scanner(KITTY_TASKS_DATA);
+        Scanner scanKittyTasks = new Scanner(kittyTasksData);
         while (scanKittyTasks.hasNext()) {
             Task tmp = createTaskFromInput(scanKittyTasks.nextLine());
             if (tmp != null) {

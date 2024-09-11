@@ -16,25 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StorageTest {
 
-    private static final String KITTY_DATA_PATH = "data/Kitty.txt";
-    private static final String BACKUP_PATH = "data/Kitty_backup.txt";
+    private static final String TEST_DATA_PATH = "data/Test.txt";
+    private static final String TEST_DATA_NAME = "Test.txt";
     private Storage storage;
     private TaskList taskList;
 
 
     @BeforeEach
-    void setUp() throws IOException {
-        // Backup the original file
-        File originalFile = new File(KITTY_DATA_PATH);
-
-        storage = new Storage();
+    void setUp() {
+        // Initialize the storage and task list for testing
+        storage = new Storage(TEST_DATA_NAME);
         taskList = new TaskList();
     }
 
     @AfterEach
-    void tearDown() throws IOException {
-        // Restore the original file
-        File originalFile = new File(KITTY_DATA_PATH);
+    void tearDown() {
     }
 
 
@@ -42,7 +38,7 @@ class StorageTest {
     void testAddContent() throws IOException {
         storage.addContent("Test content");
 
-        File testFile = new File(KITTY_DATA_PATH);
+        File testFile = new File(TEST_DATA_PATH);
         assertTrue(testFile.exists(), "File should exist after content is added");
 
         Scanner scanner = new Scanner(testFile);
@@ -58,7 +54,7 @@ class StorageTest {
         storage.addContent("Old content");
         storage.rewriteFile("New content");
 
-        File testFile = new File(KITTY_DATA_PATH);
+        File testFile = new File(TEST_DATA_PATH);
         Scanner scanner = new Scanner(testFile);
         String content = scanner.nextLine();
         assertTrue(content.contains("New content"), "Content should be rewritten with the new text");
@@ -66,7 +62,7 @@ class StorageTest {
 
     @Test
     void testInitializeTaskList() throws IOException {
-        FileWriter writer = new FileWriter(KITTY_DATA_PATH);
+        FileWriter writer = new FileWriter(TEST_DATA_PATH);
         writer.write("T~!!0~!!Test task");
         writer.close();
 

@@ -4,6 +4,9 @@ import kitty.Parser;
 import kitty.Storage;
 import kitty.TaskList;
 import kitty.Ui;
+import kitty.kittyexceptions.DeadlineException;
+import kitty.kittyexceptions.EventException;
+import kitty.kittyexceptions.KittyException;
 import kitty.tasks.Deadline;
 import kitty.tasks.Event;
 import kitty.tasks.Task;
@@ -25,50 +28,53 @@ public class AddCommand extends Command {
     @Override
     public String run() {
         String[] parts = commandBody.split(" ", 2);
-        Task task = new Task("");
-        boolean isCreated = false;
+        Task task;
 
-        switch (parts[0]) {
-        case "todo" -> {
-            task = new Todo(parts[1].trim());
-            isCreated = true;
-        }
-        case "deadline" -> {
-            if (Parser.checkDeadline(parts[1].trim(), ui)) {
-                String[] aux = Parser.parseDeadline(parts[1]);
-                task = new Deadline(aux[0], Parser.parseDateTime(aux[1]));
-                isCreated = true;
+        try {
+            switch (parts[0]) {
+            case "todo" -> {
+                task = new Todo(parts[1].trim());
             }
-        }
-        case "event" -> {
-            if (Parser.checkEvent(parts[1], ui)) {
-                String[] aux = Parser.parseEvent(parts[1]);
-                task = new Event(aux[0],
-                        Parser.parseDateTime(aux[1]),
-                        Parser.parseDateTime(aux[2]));
-                isCreated = true;
-            }
-        }
-        default -> {
-            return "";
-        }
-        }
-
-        if (isCreated) {
-            int size = tasks.addTask(task);
-            if (size != -1) {
-                String data = task.getTaskData();
-                try {
-                    storage.addContent(data);
-                    return ui.showAddTaskMessage(task, size);
-                } catch (IOException e) {
-                    String fileWritingFailMessage = "File writing unsuccessful.\n"
-                            + "This task is not updated to hard disk.";
-                    return ui.showErrorMessage(fileWritingFailMessage);
+            case "deadline" -> {
+                if (Parser.checkDeadline(parts[1].trim(), ui)) {
+                    String[] aux = Parser.parseDeadline(parts[1]);
+                    task = new Deadline(aux[0], Parser.parseDateTime(aux[1].trim()));
+                } else {
+                    throw new DeadlineException();
                 }
-
             }
+            case "event" -> {
+                if (Parser.checkEvent(parts[1], ui)) {
+                    String[] aux = Parser.parseEvent(parts[1]);
+                    task = new Event(aux[0],
+                            Parser.parseDateTime(aux[1].trim()),
+                            Parser.parseDateTime(aux[2].trim()));
+                } else {
+                    throw new EventException();
+                }
+            }
+            default -> {
+                return "default addCommand";
+            }
+            }
+        } catch (KittyException e) {
+            return e.toString();
         }
-        return "";
+
+        int size = tasks.addTask(task);
+        if (size != -1) {
+            String data = task.getTaskData();
+            try {
+                System.out.println(data);
+                storage.addContent(data);
+                return ui.showAddTaskMessage(task, size);
+            } catch (IOException e) {
+                String fileWritingFailMessage = "File writing unsuccessful.\n"
+                        + "This task is not updated to hard disk.";
+                return ui.showErrorMessage(fileWritingFailMessage);
+            }
+
+        }
+        return "task not created";
     }
 }

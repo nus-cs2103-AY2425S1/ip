@@ -6,11 +6,11 @@ import kitty.command.FindCommand;
 import kitty.command.MarkCommand;
 import kitty.command.UnmarkCommand;
 import kitty.command.DeleteCommand;
-
 import kitty.kittyexceptions.DeadlineException;
 import kitty.kittyexceptions.EventException;
 import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,15 +49,16 @@ public class Parser {
             String[] parts = str.split("/by");
 
             // check if both valid name and time exist
-            if (parts.length != 2 || parts[0].isEmpty()) {
+            if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                 throw new DeadlineException();
             }
 
             return checkDateTime(parts[1].trim());
         } catch (DeadlineException e) {
             ui.showErrorMessage(e.toString());
-            return false;
         }
+
+        return false;
     }
 
     public static String[] parseDeadline(String str) {
@@ -96,12 +97,14 @@ public class Parser {
             LocalDateTime.parse(dateTime, DATE_TIME_FORMAT);
             return true;
         } catch (DateTimeParseException e) {
-            return false;
+            System.out.println("dateTimeFormat is wrong");
         }
+
+        return false;
     }
 
     public static LocalDateTime parseDateTime(String str) {
-        return LocalDateTime.now();
+        return LocalDateTime.parse(str, DATE_TIME_FORMAT);
     }
 
     private static String parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,

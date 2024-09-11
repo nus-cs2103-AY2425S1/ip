@@ -18,7 +18,7 @@ public class Kitty {
 
     public Kitty() {
         tasks = new TaskList();
-        storage = new Storage();
+        storage = new Storage("Kitty.txt");
         ui = new Ui(tasks, storage);
 
         try {
