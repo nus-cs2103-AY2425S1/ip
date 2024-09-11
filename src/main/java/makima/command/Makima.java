@@ -49,6 +49,9 @@ public class Makima {
      * @return String representing all currently tracked tasks
      */
     public String getTaskList() {
+        if (tasks.isEmpty()) {
+            return "No tasks!";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(i + 1).append(":").append(tasks.get(i)).append("\n");
@@ -79,6 +82,7 @@ public class Makima {
      * @param idx index of task to delete
      */
     public void delete(int idx) {
+        assert isValidTaskListIndex(idx);
         tasks.remove(idx);
     }
 

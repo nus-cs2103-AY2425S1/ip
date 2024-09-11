@@ -21,6 +21,7 @@ public class DeadlineState extends State {
             state = Variable.END_TIME;
             return "What is the deadline?\n";
         case END_TIME:
+            assert name != null;
             try {
                 LocalDateTime endTime = LocalDateTime.parse(input);
                 makima.addTask(new Deadline(name, endTime));

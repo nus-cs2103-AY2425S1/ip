@@ -22,6 +22,7 @@ public class EventState extends State {
             state = Variable.END_TIME;
             return "What is the start time?\n";
         case START_TIME:
+            assert name != null;
             try {
                 startTime = LocalDateTime.parse(input);
                 state = Variable.END_TIME;
@@ -31,6 +32,7 @@ public class EventState extends State {
                         + "replacing the space with a T\n";
             }
         case END_TIME:
+            assert startTime != null;
             try {
                 LocalDateTime endTime = LocalDateTime.parse(input);
                 makima.addTask(new Event(name, startTime, endTime));
