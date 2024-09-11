@@ -32,8 +32,6 @@ public class DeleteCommand extends Command {
     public String runForGui() {
         try {
             return displayTaskDeletedMessage(FOR_GUI);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please specify a valid task number in the format:\n  mark <index>";
         } catch (JadeException e) {
             return e.getMessage();
         }
@@ -43,41 +41,47 @@ public class DeleteCommand extends Command {
     public String run() {
         try {
             return displayTaskDeletedMessage(FOR_TEXT_UI);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return Ui.formatTextUiMessage("Please specify a valid task number in the format:\n"
-                    + INDENT + "  mark <index>");
         } catch (JadeException e) {
             return Ui.formatTextUiMessage(e.getMessage());
         }
     }
 
     private String displayTaskDeletedMessage(boolean forGui) throws JadeException {
-        int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-        assert taskIndex >= 0 : "Task index should not be negative.";
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+            assert taskIndex >= 0 : "Task index should not be negative.";
 
-        if (!taskManager.isValidTaskIndex(taskIndex)) {
-            throw new JadeException("Hmm, no such task. Try again.");
-        }
+            if (!taskManager.isValidTaskIndex(taskIndex)) {
+                throw new JadeException("Hmm, no such task. Try again.");
+            }
 
-        Task removedTask = taskManager.getTask(taskIndex);
-        taskManager.deleteTask(taskIndex);
-        int taskCount = taskManager.getTaskCount();
+            Task removedTask = taskManager.getTask(taskIndex);
+            taskManager.deleteTask(taskIndex);
+            int taskCount = taskManager.getTaskCount();
 
-        StringBuilder message = new StringBuilder();
-        message.append("Noted. I've removed this task:\n");
-        indentIfNotGui(forGui, message);
-        message.append("  ").append(removedTask);
-
-        if (taskCount <= 1) {
-            message.append("\n");
+            StringBuilder message = new StringBuilder();
+            message.append("Noted. I've removed this task:\n");
             indentIfNotGui(forGui, message);
-            message.append(String.format("Now you have %d task in the list.", taskCount));
-        } else {
-            message.append("\n");
-            indentIfNotGui(forGui, message);
-            message.append(String.format("Now you have %d tasks in the list.", taskCount));
-        }
+            message.append("  ").append(removedTask);
 
-        return displayMessage(forGui, message.toString());
+            if (taskCount <= 1) {
+                message.append("\n");
+                indentIfNotGui(forGui, message);
+                message.append(String.format("Now you have %d task in the list.", taskCount));
+            } else {
+                message.append("\n");
+                indentIfNotGui(forGui, message);
+                message.append(String.format("Now you have %d tasks in the list.", taskCount));
+            }
+
+            return displayMessage(forGui, message.toString());
+        } catch (NumberFormatException e) {
+            StringBuilder message = new StringBuilder();
+            message.append("Please specify a valid task number in the format:\n");
+            indentIfNotGui(forGui, message);
+            message.append("  delete <index>");
+
+            throw new JadeException(message.toString());
+        }
     }
 }

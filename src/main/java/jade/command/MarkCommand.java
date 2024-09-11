@@ -34,8 +34,6 @@ public class MarkCommand extends Command {
     public String runForGui() {
         try {
             return displayMarkedTaskMessage(FOR_GUI);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please specify a valid task number in the format:\n  mark <index>";
         } catch (JadeException e) {
             return e.getMessage();
         }
@@ -45,32 +43,38 @@ public class MarkCommand extends Command {
     public String run() {
         try {
             return displayMarkedTaskMessage(FOR_TEXT_UI);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return Ui.formatTextUiMessage("Please specify a valid task number in the format:\n"
-                    + INDENT + "  mark <index>");
         } catch (JadeException e) {
             return Ui.formatTextUiMessage(e.getMessage());
         }
     }
 
     private String displayMarkedTaskMessage(boolean forGui) throws JadeException {
-        int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-        assert taskIndex >= 0 : "Task index should not be negative.";
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+            assert taskIndex >= 0 : "Task index should not be negative.";
 
-        if (!taskManager.isValidTaskIndex(taskIndex)) {
-            throw new JadeException("Hmm, no such task. Try again.");
+            if (!taskManager.isValidTaskIndex(taskIndex)) {
+                throw new JadeException("Hmm, no such task. Try again.");
+            }
+
+            taskManager.markTask(taskIndex, isDone);
+            String status = isDone
+                    ? "Nice! I've marked this task as done:"
+                    : "OK, I've marked this task as not done yet:";
+
+            StringBuilder message = new StringBuilder();
+            message.append(status).append("\n");
+            indentIfNotGui(forGui, message);
+            message.append("  ").append(taskManager.getTask(taskIndex));
+
+            return displayMessage(forGui, message.toString());
+        } catch (NumberFormatException e) {
+            StringBuilder message = new StringBuilder();
+            message.append("Please specify a valid task number in the format:\n");
+            indentIfNotGui(forGui, message);
+            message.append("  mark <index>");
+
+            throw new JadeException(message.toString());
         }
-
-        taskManager.markTask(taskIndex, isDone);
-        String status = isDone
-                ? "Nice! I've marked this task as done:"
-                : "OK, I've marked this task as not done yet:";
-
-        StringBuilder message = new StringBuilder();
-        message.append(status).append("\n");
-        indentIfNotGui(forGui, message);
-        message.append("  ").append(taskManager.getTask(taskIndex));
-
-        return displayMessage(forGui, message.toString());
     }
 }

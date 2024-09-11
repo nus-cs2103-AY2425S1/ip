@@ -53,7 +53,7 @@ public class Parser {
         commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd));
         commandMap.put("find", cmd -> new FindCommand(taskManager, cmd));
 
-        String commandType = command.split(" ")[0];
+        String commandType = command.trim().toLowerCase().split(" ")[0];
         Function<String, Command> commandFunction = commandMap.get(commandType);
 
         if (commandFunction != null) {
