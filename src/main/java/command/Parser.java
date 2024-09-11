@@ -61,7 +61,7 @@ public class Parser {
         try {
             int indexSpace = input.indexOf(" ");
             int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+            if (isValidTask(taskIndex, taskList.size())) {
                 taskList.getTask(taskIndex).markAsDone();
                 storage.saveTasks(taskList.getTasks());
                 ui.showTaskMarkedAsDone(taskList.getTask(taskIndex));
@@ -85,7 +85,7 @@ public class Parser {
         try {
             int indexSpace = input.indexOf(" ");
             int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+            if (isValidTask(taskIndex, taskList.size())) {
                 taskList.getTask(taskIndex).markAsNotDone();
                 storage.saveTasks(taskList.getTasks());
                 ui.showTaskMarkedAsNotDone(taskList.getTask(taskIndex));
@@ -127,15 +127,13 @@ public class Parser {
      */
     private void deadlineCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (!input.contains("/by")) {
-            ui.showError("task.Deadline format should be: deadline DESCRIPTION /by DATE");
+            ui.showError("Deadline format should be: deadline DESCRIPTION /by DATE");
         }
         if (input.length() == 8) {
             ui.showErrorEmptyDeadlineDescription();
         } else {
-            int index = input.indexOf("/");
-            int tempIndex = input.indexOf("y");
-            String deadline = input.substring(tempIndex + 2);
-            String description = input.substring(9, index);
+            String description = getDeadlineDescription(input);
+            String deadline = getDeadlineDate(input);
             Deadline task = new Deadline(description, deadline);
             taskList.addTask(task);
             ui.showTaskAdded(task, taskList.size());
@@ -158,13 +156,9 @@ public class Parser {
         if (input.length() == 5) {
             ui.showErrorEmptyEventDescription();
         } else {
-            int index = input.indexOf("/");
-            String description = input.substring(6, index);
-            String temp = input.substring(index + 1);
-            int index2 = temp.indexOf("/");
-            int indexM = temp.indexOf("m");
-            String dateStart = temp.substring(indexM + 1, index2);
-            String dateEnd = temp.substring(index2 + 4);
+            String description = getEventDescription(input);
+            String dateStart = getEventStartDate(input);
+            String dateEnd = getEventEndDate(input);
             Event task = new Event(description, dateStart, dateEnd);
             taskList.addTask(task);
             ui.showTaskAdded(task, taskList.size());
@@ -184,7 +178,7 @@ public class Parser {
         try {
             int indexSpace = input.indexOf(" ");
             int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+            if (isValidTask(taskIndex, taskList.size())) {
                 taskList.getTask(taskIndex).markAsNotDone();
                 ui.showTaskRemoved(taskList.getTask(taskIndex), taskList.size() - 1);
                 taskList.deleteTask(taskIndex);
@@ -233,5 +227,46 @@ public class Parser {
                 ui.showFindTaskList(matchingTasks);
             }
         }
+    }
+
+    private String getDeadlineDescription(String input) {
+        int index = input.indexOf("/");
+
+        String description = input.substring(9, index);
+        return description;
+    }
+
+    private String getDeadlineDate(String input) {
+        int tempIndex = input.indexOf("y");
+        String deadline = input.substring(tempIndex + 2);
+        return deadline;
+    }
+
+    private String getEventDescription(String input) {
+        int index = input.indexOf("/");
+        String description = input.substring(6, index);
+        return description;
+    }
+
+    private String getEventStartDate(String input) {
+        int index = input.indexOf("/");
+        String temp = input.substring(index + 1);
+        int index2 = temp.indexOf("/");
+        int indexM = temp.indexOf("m");
+        String dateStart = temp.substring(indexM + 1, index2);
+        return dateStart;
+    }
+
+    private String getEventEndDate(String input) {
+        int index = input.indexOf("/");
+        String temp = input.substring(index + 1);
+        int index2 = temp.indexOf("/");
+        int indexM = temp.indexOf("m");
+        String dateEnd = temp.substring(index2 + 4);
+        return dateEnd;
+    }
+
+    boolean isValidTask(int index, int size) {
+        return index >= 0 && index < size;
     }
 }

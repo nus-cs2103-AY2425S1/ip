@@ -40,34 +40,6 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done based on its index.
-     *
-     * @param index The index of the task to be marked done.
-     * @return True if tas was marked as done, false otherwise.
-     */
-    public boolean markedTaskAsDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsDone();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Marks a task as not done based on its index.
-     *
-     * @param index The index of the task to be marked as not done.
-     * @return True if tas was marked as not done, false otherwise.
-     */
-    public boolean markedTaskAsNotDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsNotDone();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Retrieves the list of tasks.
      *
      * @return An ArrayList of tasks
