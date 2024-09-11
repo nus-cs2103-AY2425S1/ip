@@ -32,7 +32,7 @@ public class ByeCommand extends Command {
      * @return True, as this command will terminate the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isFinished() {
         return true;
     }
 }

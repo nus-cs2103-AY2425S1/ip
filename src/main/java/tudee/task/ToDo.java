@@ -5,6 +5,8 @@ package tudee.task;
  * A To-Do task is a task without any time.
  */
 public class ToDo extends Task {
+    private static final int MARKED_VALUE = 1;
+    private static final int UNMARKED_VALUE = 0;
 
     /**
      * Constructs a new To-Do task
@@ -22,7 +24,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (done ? "1" : "0") + " | " + taskString;
+        return "T | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString;
     }
 
     /**

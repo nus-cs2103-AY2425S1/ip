@@ -11,6 +11,8 @@ import tudee.TudeeException;
  * A Deadline task is a task with a specific deadline.
  */
 public class Deadline extends Task {
+    private static final int MARKED_VALUE = 1;
+    private static final int UNMARKED_VALUE = 0;
 
     /**
      * The deadline date for this task.
@@ -37,7 +39,7 @@ public class Deadline extends Task {
      *
      * @return The deadline date as a LocalDate object.
      */
-    public LocalDate getDateTime() {
+    public LocalDate getDeadline() {
         return this.deadline;
     }
 
@@ -48,7 +50,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (done ? 1 : 0) + " | " + taskString + " | " + deadline;
+        return "D | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + deadline;
     }
 
     /**

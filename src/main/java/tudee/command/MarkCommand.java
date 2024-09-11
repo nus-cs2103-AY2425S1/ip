@@ -11,6 +11,7 @@ import tudee.ui.Ui;
  * Updates the user interface and storage accordingly.
  */
 public class MarkCommand extends Command {
+    private static final int INDEX_OFFSET = 1;
     private final int index;
 
     /**
@@ -37,9 +38,11 @@ public class MarkCommand extends Command {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
-        Task task = tasks.get(index - 1);
+
+        Task task = tasks.getTask(index - INDEX_OFFSET);
         task.markAsDone();
-        storage.save(tasks.get());
+
+        storage.save(tasks.getTasks());
         return ui.showMark(task);
     }
 }

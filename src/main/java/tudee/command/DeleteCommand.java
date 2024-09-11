@@ -12,6 +12,8 @@ import tudee.ui.Ui;
  * Updates the user interface and storage accordingly.
  */
 public class DeleteCommand extends Command {
+    private static final int MINIMUM = 1;
+    private static final int INDEX_OFFSET = 1;
     private final int index;
 
     /**
@@ -39,11 +41,13 @@ public class DeleteCommand extends Command {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
-        if (index > tasks.size() || index < 1) {
+
+        if (index > tasks.numOfTasks() || index < MINIMUM) {
             throw new TudeeException("You do not have that many tasks!");
         }
-        Task task = tasks.delete(index - 1);
-        storage.save(tasks.get());
-        return ui.showDelete(task, tasks.size());
+
+        Task task = tasks.deleteTask(index - INDEX_OFFSET);
+        storage.save(tasks.getTasks());
+        return ui.showDelete(task, tasks.numOfTasks());
     }
 }

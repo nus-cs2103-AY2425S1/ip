@@ -36,8 +36,9 @@ public class AddTaskCommand extends Command {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
-        tasks.add(task);
-        storage.save(tasks.get());
-        return ui.showAdd(task, tasks.size());
+
+        tasks.addTask(task);
+        storage.save(tasks.getTasks());
+        return ui.showAdd(task, tasks.numOfTasks());
     }
 }

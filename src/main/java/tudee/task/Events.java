@@ -11,6 +11,8 @@ import tudee.TudeeException;
  * A Events task is a task with a specific start date and end date.
  */
 public class Events extends Task {
+    private static final int MARKED_VALUE = 1;
+    private static final int UNMARKED_VALUE = 0;
 
     /**
      * The start date for this task.
@@ -62,7 +64,7 @@ public class Events extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (done ? 1 : 0) + " | " + taskString + " | " + start + " | " + end;
+        return "E | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + start + " | " + end;
     }
 
     /**

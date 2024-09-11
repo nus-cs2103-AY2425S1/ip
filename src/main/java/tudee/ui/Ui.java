@@ -12,6 +12,7 @@ import tudee.task.TaskList;
  */
 public class Ui {
     private static final String STRAIGHTLINE = "____________________________________________________________ \n";
+    private static final int INDEX_OFFSET = 1;
     private final Scanner sc;
 
     /**
@@ -53,7 +54,7 @@ public class Ui {
     public String showTaskList(List<Task> tasks) {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
-            output += i + 1 + ". " + tasks.get(i) + "\n";
+            output += i + INDEX_OFFSET + ". " + tasks.get(i) + "\n";
         }
         return output;
     }
@@ -72,7 +73,7 @@ public class Ui {
      *
      * @param task The task that has been marked as not done.
      */
-    public String showUnMark(Task task) {
+    public String showUnmark(Task task) {
         return "Ok, I've marked this task as not done yet: \n" + task;
     }
 
@@ -126,8 +127,8 @@ public class Ui {
      */
     public String showMatchingTasks(TaskList tasks) {
         String output = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            output += i + 1 + ". " + tasks.get(i) + "\n";
+        for (int i = 0; i < tasks.numOfTasks(); i++) {
+            output += i + INDEX_OFFSET + ". " + tasks.getTask(i) + "\n";
         }
         return output;
     }

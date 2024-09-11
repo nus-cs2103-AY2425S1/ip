@@ -38,17 +38,19 @@ public class FindCommand extends Command {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
-        boolean haveKeyword = false;
+
         TaskList matchingTasks = new TaskList();
-        for (Task task: tasks.get()) {
+
+        for (Task task: tasks.getTasks()) {
             if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-                haveKeyword = true;
+                matchingTasks.addTask(task);
             }
         }
-        if (!haveKeyword) {
+
+        if (matchingTasks.numOfTasks() == 0) {
             throw new TudeeException("There is no such task with the keyword specified");
         }
+
         return ui.showMatchingTasks(matchingTasks);
     }
 }
