@@ -1,6 +1,6 @@
-package main.source;
+package rizz.source;
 import java.io.IOException;
-import main.commands.Command;
+import rizz.commands.Command;
 
 public class Rizz {
     private Storage storage;
@@ -17,11 +17,14 @@ public class Rizz {
 
     public void run() throws IOException {
         ui.greet();
-        storage.loadTasks();
         boolean isExit = false;
         while (!isExit) {
             String userInput = this.ui.readCommand();
             Command command = Parser.parseCommand(userInput);
+            if (command == null) {
+                ui.showError("Invalid command. Please try again.");
+                continue;
+            }
             command.execute(tasks, ui, storage);
             storage.saveTasks(tasks);
         }

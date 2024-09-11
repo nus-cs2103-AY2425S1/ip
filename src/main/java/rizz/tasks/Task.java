@@ -1,4 +1,4 @@
-package main.tasks;
+package rizz.tasks;
 
 public abstract class Task {
     protected final String text;

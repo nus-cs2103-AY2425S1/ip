@@ -1,10 +1,13 @@
-package main.commands;
+package rizz.commands;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
-import main.source.*;
+
 
 
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     public DeleteCommand(int index) {
         this.index = index;

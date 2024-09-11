@@ -1,7 +1,10 @@
-package main.commands;
+package rizz.commands;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
-import main.source.*;
-import main.tasks.ToDo;
+import rizz.tasks.ToDo;
+
 
 public class AddToDoCommand extends Command {
     private String description;
