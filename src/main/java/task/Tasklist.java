@@ -77,6 +77,7 @@ public class Tasklist {
      */
     public void add(Task t) {
         taskList.add(t);
+        assert(taskList.size() != 0);
     }
 
     /**

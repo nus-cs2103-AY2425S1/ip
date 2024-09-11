@@ -23,6 +23,10 @@ public class Bob {
         System.out.println("Hello!");
     }
 
+    public String greeting() {
+        return("Hello! Me bob");
+    }
+
     /**
      * Generates a response for the user's chat message.
      */

@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the bob instance */
     public void setBob(Bob b) {
         bob = b;
+        dialogContainer.getChildren().add(DialogBox.getBobDialog("Hello! Me Bob", bobImage));
     }
 
     /**
