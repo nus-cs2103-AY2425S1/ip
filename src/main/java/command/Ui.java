@@ -11,7 +11,7 @@ import task.Task;
  */
 public class Ui {
     private static final String LINE_SEPARATOR = "\t\t" + "_".repeat(50);
-    private final Scanner scanner;
+
 
 
     /**
