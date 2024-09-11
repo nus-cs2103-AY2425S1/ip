@@ -80,7 +80,7 @@ public class Storage {
      * @throws ParseCommandException   thrown when error encountered while parsing line.
      */
     public static void addTaskToList(String input, TaskList taskList)
-            throws ParseCommandException{
+            throws ParseCommandException {
         // Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
         // regex updated after testing on regex101.com
         String regex = "\\[([TED])]\\[(x|\\s?)] (.*?)(?: \\(from: ([^)]*?) to: ([^)]*?)\\)| \\(by: ([^)]*?)\\))?$";
