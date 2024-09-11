@@ -2,8 +2,6 @@ package jade.ui;
 
 import java.util.Scanner;
 
-import jade.command.ExitCommand;
-import jade.command.GreetCommand;
 import jade.parser.Parser;
 import jade.task.TaskManager;
 
@@ -17,26 +15,36 @@ public class Ui {
 
     private final TaskManager taskManager;
     private final Parser parser;
-    private final Scanner sc;
+    private final Scanner scanner;
 
     /**
-     * Constructs a UI object with the specified TaskManager.
+     * Constructs a Ui object with the specified TaskManager and Parser.
+     * Initialises the scanner for reading user input.
      *
-     * @param taskManager The TaskManager to interact with.
+     * @param taskManager The TaskManager to manage tasks.
+     * @param parser The Parser to interpret user commands.
      */
     public Ui(TaskManager taskManager, Parser parser) {
         this.taskManager = taskManager;
         this.parser = parser;
-
-        this.sc = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     /**
      * Starts the user interface and handles user commands.
      */
     public void run() {
-        System.out.println(new GreetCommand().run());
-        parser.parse(sc, taskManager);
-        System.out.println(new ExitCommand().run());
+        parser.parse(scanner, taskManager);
+    }
+
+    /**
+     * Displays a formatted message for the text-based UI
+     * with indentation and a top and bottom line for decoration.
+     *
+     * @param message The message to display for the text-based UI.
+     * @return A formatted string with the message encapsulated by a top and bottom line.
+     */
+    public static String formatTextUiMessage(String message) {
+        return TOP_LINE + INDENT + message + BOT_LINE;
     }
 }

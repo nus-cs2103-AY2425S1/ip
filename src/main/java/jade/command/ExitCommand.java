@@ -1,20 +1,21 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 /**
  * Represents a command that bids farewell to the user.
  */
 public class ExitCommand extends Command {
 
     @Override
-    public String run() {
-        String message = INDENT + "Bye. Hope to see you again soon!";
-        return displayMessage(message);
+    public String runForGui() {
+        return displayExitMessage(FOR_GUI);
     }
 
     @Override
-    public String runForGui() {
-        return "Bye. Hope to see you again soon!";
+    public String run() {
+        return displayExitMessage(FOR_TEXT_UI);
+    }
+
+    private String displayExitMessage(boolean forGui) {
+        return displayMessage(forGui, "Bye. Hope to see you again soon!");
     }
 }
