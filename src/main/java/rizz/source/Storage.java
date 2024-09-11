@@ -4,14 +4,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import rizz.tasks.*;
 
 public class Storage {
     public Path dataFilePath;
-    ArrayList<Task> taskList;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private ArrayList<Task> taskList;
+    private static DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
 
     public Storage(String dataFilePath) {
         this.dataFilePath = Path.of(dataFilePath);
@@ -65,11 +67,12 @@ public class Storage {
             case "T":
                 return new ToDo(text, isDone);
             case "D":
-                LocalDateTime time = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime time = LocalDateTime.parse(parts[3], readDateTimeFormatter);
                 return new Deadline(text, time, isDone);
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                String[] timeParts = parts[3].split(" ");
+                LocalDateTime from = LocalDateTime.parse(timeParts[0] + " " + timeParts[1], readDateTimeFormatter);  // Combine the date and start time
+                LocalTime to = LocalTime.parse(timeParts[2], readTimeFormatter);
                 return new Event(text, from, to, isDone);
             default:
                 System.out.println("Unknown task type: " + taskType);

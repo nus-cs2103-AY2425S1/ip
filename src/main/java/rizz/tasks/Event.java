@@ -1,10 +1,20 @@
 package rizz.tasks;
 
-public class Event extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 
-    public Event(String text, String from, String to, boolean isDone) {
+
+public class Event extends Task {
+    private final LocalDateTime from;
+    private final LocalTime to;
+    DateTimeFormatter writeDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    DateTimeFormatter writeTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+
+    public Event(String text, LocalDateTime from, LocalTime to, boolean isDone) {
         super(text,isDone);
         this.from = from;
         this.to = to;
@@ -12,11 +22,13 @@ public class Event extends Task {
 
     @Override
     public String export() {
-        return "E | " + (isDone ? "1" : "0") + " | " + text + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | " + text + " | " + from.format(readDateTimeFormatter) + " " +
+                to.format(readTimeFormatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (at: " + from.format(writeDateTimeFormatter) + "-" +
+                to.format(writeTimeFormatter) + ")";
     }
 }
