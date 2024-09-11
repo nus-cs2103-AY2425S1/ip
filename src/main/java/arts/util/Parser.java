@@ -18,7 +18,17 @@ public class Parser {
      */
     public CommandType parseCommand(String input) throws ArtsException {
         assert input != null : "Input cannot be null";
-        String[] parts = input.trim().split(" ", 2);
+        String trimmedInput = input.trim().toLowerCase();
+
+        // Check for specific multi-word commands first
+        if (trimmedInput.equals("sort deadlines")) {
+            return CommandType.SORT_DEADLINES;
+        } else if (trimmedInput.equals("sort events")) {
+            return CommandType.SORT_EVENTS;
+        }
+
+        // Split the input by space to get the first word
+        String[] parts = trimmedInput.split(" ", 2);
         assert parts.length > 0 : "Input must contain at least one word";
         String commandWord = parts[0].toUpperCase();
 

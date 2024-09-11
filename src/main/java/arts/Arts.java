@@ -8,6 +8,8 @@ import arts.command.AddTodoCommand;
 import arts.command.DeleteCommand;
 import arts.command.FindCommand;
 import arts.command.MarkCommand;
+import arts.command.SortDeadlinesCommand;
+import arts.command.SortEventsCommand;
 import arts.command.UnmarkCommand;
 import arts.enums.CommandType;
 import arts.task.TaskList;
@@ -97,6 +99,10 @@ public class Arts {
             case FIND:
                 assert parts.length > 1 : "FIND command requires additional arguments";
                 return new FindCommand(tasks, parts[1]).execute();
+            case SORT_DEADLINES:
+                return new SortDeadlinesCommand(tasks, storage, ui).execute();
+            case SORT_EVENTS:
+                return new SortEventsCommand(tasks, storage, ui).execute();
             default:
                 throw new ArtsException(UNKNOWN_COMMAND_MESSAGE);
             }
@@ -106,6 +112,7 @@ public class Arts {
             return UNEXPECTED_ERROR_MESSAGE + e.getMessage();
         }
     }
+
 
     /**
      * Lists all tasks currently in the task list.
