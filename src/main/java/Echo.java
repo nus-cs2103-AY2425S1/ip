@@ -51,7 +51,7 @@ public class Echo {
             } else {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
-                    assert index < 0 : "Please enter a valid task number\n";
+                    assert index >= 0 : "Please enter a valid task number\n";
                     return list.mark(index) + ui.line();
                 } catch (NumberFormatException e) {
                     return ui.NumberFormatExceptionMessage() + ui.line();
@@ -63,7 +63,7 @@ public class Echo {
             } else {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
-                    assert index < 0 : "Please enter a valid task number\n";
+                    assert index >= 0 : "Please enter a valid task number\n";
                     return list.unmark(index) + ui.line();
                 } catch (NumberFormatException e) {
                     return ui.NumberFormatExceptionMessage() + ui.line();
@@ -114,7 +114,7 @@ public class Echo {
         case "delete":
             try {
                 int index = Integer.parseInt(parts[1]) - 1;
-                assert index < 0 : "Please input a valid task number!";
+                assert index >= 0 : "Please input a valid task number!";
                 return list.removeTask(index);
             } catch (NumberFormatException e) {
                 return ui.NumberFormatExceptionMessage() + ui.line();
