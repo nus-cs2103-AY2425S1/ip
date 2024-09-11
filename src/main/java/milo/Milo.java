@@ -1,5 +1,6 @@
 package milo;
 
+import milo.command.Command;
 import milo.parser.Parser;
 import milo.storage.Storage;
 import milo.tasks.TaskList;
@@ -67,6 +68,8 @@ public class Milo {
             // Save data to storage
             storage.saveData(this.tasks);
         }
-        return parser.readInput(input, this.tasks);
+        Command userCommand = parser.readInput(input, this.tasks);
+        userCommand.execute(this.tasks);
+        return userCommand.commandToString(this.ui, this.tasks);
     }
 }

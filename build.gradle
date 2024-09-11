@@ -49,6 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "Milo"
     archiveClassifier = null
+    archiveFileName = "Milo.jar"
 }
 
 run{

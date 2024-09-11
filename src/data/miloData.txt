@@ -7,4 +7,5 @@ T | 0 | read lecture slides
 D | 0 | return book | 2019-10-15
 D | 0 | career fair | 2024-08-28
 D | 0 | eat | 2024-01-01
-T | 0 | walk
+D | 1 | watch lecture | 2024-09-06
+D | 0 | finish cs2103t IP | 2024-09-12

@@ -3,6 +3,7 @@ package milo.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import milo.command.*;
 import milo.tasks.Deadline;
 import milo.tasks.Event;
 import milo.tasks.Task;
@@ -34,106 +35,36 @@ public class Parser {
     * given that it is formatted correctly
     * else an error is thrown and printed
      */
-    public String readInput(String userInput, TaskList todoList) {
+    public Command readInput(String userInput, TaskList todoList) {
         String[] arrOfInput = userInput.split(" ", 2);
         String action = arrOfInput[0];
-        switch (action) {
-        // Show list
-        case "list":
-            return ui.printList(todoList);
-        // Find task
-        case "find":
-            // Check for proper formatting
-            if (arrOfInput.length != 2) {
-                return ui.printError(TaskTypes.TaskType.TODO, "The description of a find cannot be empty");
-            } else {
-                String desc = arrOfInput[1].strip();
-                TaskList matchingTaskList = todoList.findMatchingTask(desc);
-                return ui.printFoundTask(matchingTaskList, matchingTaskList.getNumberOfTasks());
-            }
-        // Mark as complete
-        case "mark":
-            Task curTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
-            curTask.mark();
-            return ui.printMark(curTask);
-        // Mark as incomplete
-        case "unmark":
-            Task currTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
-            currTask.unmark();
-            return ui.printUnmark(currTask);
-        // Deleting tasks
-        case "delete":
-            int delIndex = Integer.parseInt(arrOfInput[1]) - 1;
-            Task currrTask = todoList.get(delIndex);
-            currrTask.delete();
-            todoList.remove(delIndex);
-            return ui.printDelete(currrTask, todoList.getNumberOfTasks());
-        // Adding tasks
-        // Todos
-        case "todo":
-            // Check case where todos empty
-            if (arrOfInput.length == 1) {
-                return ui.printError(TaskTypes.TaskType.TODO, "The description of a todo cannot be empty");
-            } else {
-                String desc = arrOfInput[1].strip();
-                Task curTodo = new Todo(desc);
-                todoList.add(curTodo);
-                return ui.printTask(curTodo, todoList.getNumberOfTasks());
-            }
-        // Deadline
-        case "deadline":
-            // Check case where deadline empty
-            if (arrOfInput.length == 1) {
-                return ui.printError(TaskTypes.TaskType.DEADLINE, "The description of a deadline cannot be empty");
-            } else {
-                // Check case where deadline command is not properly formatted
-                String[] deadlineDesc = arrOfInput[1].split("/by", 2);
-                if (deadlineDesc.length != 2) {
-                    return ui.printError(TaskTypes.TaskType.DEADLINE, "Invalid deadline "
-                            + "command\n Proper formatting: deadline <task description> + /by + <date description>");
-                } else {
-                    try {
-                        LocalDate curDate = LocalDate.parse(deadlineDesc[1].strip());
-                        Task curDeadline = new Deadline(deadlineDesc[0].strip(), curDate);
-                        todoList.add(curDeadline);
-                        return ui.printTask(curDeadline, todoList.getNumberOfTasks());
-                    } catch (DateTimeParseException e) {
-                        return ui.printError(TaskTypes.TaskType.DATE, "");
-                    }
-                }
-            }
-        // Event
-        case "event":
-            // Check case where event empty
-            if (arrOfInput.length == 1) {
-                return ui.printError(TaskTypes.TaskType.EVENT, "The description of an event cannot be empty");
-            } else {
-                // Check case where event command is not properly formatted
-                String[] eventDesc = arrOfInput[1].split("/from | /to", 3);
-                if (eventDesc.length != 3) {
-                    return ui.printError(TaskTypes.TaskType.DEADLINE, "Invalid event "
-                            + "command\n Proper formatting: deadline <task description> + /from + "
-                            + "<starting date description> + /to + <ending date description");
-                } else {
-                    try {
-                        LocalDate fromDate = LocalDate.parse(eventDesc[1].strip());
-                        LocalDate toDate = LocalDate.parse(eventDesc[1].strip());
-                        Task curEvent = new Event(eventDesc[0].strip(), fromDate, toDate);
-                        todoList.add(curEvent);
-                        return ui.printTask(curEvent, todoList.getNumberOfTasks());
-                    } catch (DateTimeParseException e) {
-                        return ui.printError(TaskTypes.TaskType.DATE, "");
-                    }
-                }
-            }
-        case "bye":
-            // Bye users
-            return ui.byeUser();
-        case "hi":
-            // Bye users
-            return ui.greetUser();
-        default:
-            return ui.printError(TaskTypes.TaskType.INVALID, "");
-        }
+        return switch (action) {
+            // List command
+            case "list" -> new ListCommand();
+            // Find task command
+            case "find" -> new FindCommand(arrOfInput);
+            // Mark as complete command
+            case "mark" -> new MarkCommand(Integer.parseInt(arrOfInput[1]) - 1);
+            // Mark as incomplete command
+            case "unmark" -> new UnmarkCommand(Integer.parseInt(arrOfInput[1]) - 1);
+            // Delete task command
+            case "delete" -> new DeleteCommand(Integer.parseInt(arrOfInput[1]) - 1);
+            // Add task commands
+            // Todos
+            case "todo" -> new AddCommand(arrOfInput, TaskTypes.TaskType.TODO);
+            // Deadline
+            case "deadline" ->
+                // Check case where deadline empty
+                    new AddCommand(arrOfInput, TaskTypes.TaskType.DEADLINE);
+            // Event
+            case "event" -> new AddCommand(arrOfInput, TaskTypes.TaskType.EVENT);
+            case "bye" ->
+                // Bye users
+                    new GreetCommand("bye");
+            case "hi" ->
+                // Bye users
+                    new GreetCommand("hi");
+            default -> new InvalidCommand();
+        };
     }
 }
