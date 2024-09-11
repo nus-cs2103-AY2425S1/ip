@@ -8,6 +8,7 @@ import llama.commands.EditCommand;
 import llama.commands.ExitCommand;
 import llama.commands.ListCommand;
 import llama.commands.TagTaskCommand;
+import llama.commands.UntagTaskCommand;
 import llama.exceptions.LlamaException;
 
 /**
@@ -52,6 +53,8 @@ public class Parser {
             return new CreateTagCommand(remaining);
         case "tag":
             return new TagTaskCommand(remaining);
+        case "untag":
+            return new UntagTaskCommand(remaining);
         default:
             throw new LlamaException("Command not found, try again.");
         }
