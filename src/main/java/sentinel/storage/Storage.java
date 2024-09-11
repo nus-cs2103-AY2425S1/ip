@@ -16,28 +16,41 @@ import sentinel.task.TaskList;
  */
 public class Storage {
     /**
-     * Loads the task list that was saved.
+     * Loads file that was requested.
      *
-     * @return List of tasks.
+     * @param fileName Name of the file to load.
+     * @return File that was loaded.
      */
-    public static TaskList load() throws IOException {
+    private static File loadFile(String fileName) throws IOException {
         File f = null;
 
         // Check if directory exists
         Path path = Path.of("src/main/data");
 
-        if (!Files.exists(path)) {
-            boolean h = new File("src/main/data").mkdirs();
-            if (h) {
-                File newFile = new File("src/main/data/data.txt");
-                newFile.createNewFile();
-
-                f = newFile;
-            }
-        } else {
-            f = new File("src/main/data/data.txt");
+        // Check if file already exists
+        if (Files.exists(path)) {
+            f = new File("src/main/data/" + fileName);
+            return f;
         }
 
+        boolean h = new File("src/main/data").mkdirs();
+        if (h) {
+            File newFile = new File("src/main/data/" + fileName);
+            newFile.createNewFile();
+
+            f = newFile;
+        }
+        return f;
+    }
+
+    /**
+     * Loads the task list that was saved.
+     *
+     * @return List of tasks.
+     * @throws IOException if file loading was not successful.
+     */
+    public static TaskList loadTaskList() throws IOException {
+        File f = loadFile("data.txt");
         assert(f != null) : "File does not exist";
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         TaskList listOfTasks = new TaskList();
@@ -59,8 +72,9 @@ public class Storage {
      * Saves the current task list to a file.
      *
      * @param content Content to be saved to a file.
+     * @throws IOException if task list could not be saved.
      */
-    public static void save(String content) throws IOException {
+    public static void saveTaskList(String content) throws IOException {
         FileWriter fw = new FileWriter("src/main/data/data.txt");
         fw.write(content);
         fw.close();

@@ -26,11 +26,7 @@ public class Parser {
      * @return Task represented by the string.
      */
     public static Task parseStringToTask(String string) {
-        String regex = "\\d+\\. \\[(?<taskType>[A-Z])]\\[(?<status>[ X])]"
-                + " (?<name>[^(]+)(?:\\(by: (?<by>[^)]+)\\))?(?:\\(from: (?<from>[^)]+) to: (?<to>[^)]+)\\))?";
-
-        Pattern r = Pattern.compile(regex);
-        Matcher m = r.matcher(string);
+        Matcher m = matchTaskString(string);
 
         if (m.find()) {
             String taskType = m.group("taskType"); // sentinel.task.Task type (e.g., "T")
@@ -42,36 +38,103 @@ public class Parser {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_PATTERN);
 
-            switch (taskType) {
-            case "T":
-                Todo newTodo = new Todo(taskName);
-                if (isDone) {
-                    newTodo.markAsDone();
-                }
-                return newTodo;
-            case "D":
-                LocalDate formattedTime = LocalDate.parse(byTime, formatter);
-
-                Deadline newDeadline = new Deadline(taskName, formattedTime);
-                if (isDone) {
-                    newDeadline.markAsDone();
-                }
-                return newDeadline;
-            case "E":
-                LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
-                LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
-
-                Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
-                if (isDone) {
-                    newEvent.markAsDone();
-                }
-                return newEvent;
-            default:
-                return null;
-            }
+            return makeNewTaskFromData(taskType, taskName, isDone, byTime, formatter, fromTime, toTime);
         }
 
         return null;
+    }
+
+    /**
+     * Maps each task type string representation to its maker function.
+     *
+     * @param taskType Type of the task.
+     * @param taskName Name of the task.
+     * @param isDone Whether the task is done.
+     * @param byTime By timeframe (for deadlines).
+     * @param fromTime From timeframe (for events).
+     * @param toTime To timeframe (for events).
+     * @param formatter Formatter to use when formatting the dates.
+     * @return Task represented by the string.
+     */
+    private static Task makeNewTaskFromData(String taskType, String taskName, boolean isDone, String byTime,
+                                            DateTimeFormatter formatter, String fromTime, String toTime) {
+        return switch (taskType) {
+        case "T" -> makeNewTodo(taskName, isDone);
+        case "D" -> makeNewDeadline(taskName, isDone, byTime, formatter);
+        case "E" -> makeNewEvent(taskName, isDone, formatter, fromTime, toTime);
+        default -> null;
+        };
+    }
+
+    /**
+     * Makes a new event from the given arguments.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Whether the task is done.
+     * @param fromTime From timeframe (for events).
+     * @param toTime To timeframe (for events).
+     * @param formatter Formatter to use when formatting the dates.
+     * @return Event represented by the string.
+     */
+    private static Event makeNewEvent(String taskName, boolean isDone, DateTimeFormatter formatter, String fromTime,
+                                      String toTime) {
+        LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
+        LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
+
+        Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
+        if (isDone) {
+            newEvent.markAsDone();
+        }
+        return newEvent;
+    }
+
+    /**
+     * Makes a new deadline from the given arguments.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Whether the task is done.
+     * @param byTime By timeframe (for deadlines).
+     * @param formatter Formatter to use when formatting the dates.
+     * @return Deadline represented by the string.
+     */
+    private static Deadline makeNewDeadline(String taskName, boolean isDone, String byTime,
+                                            DateTimeFormatter formatter) {
+        LocalDate formattedTime = LocalDate.parse(byTime, formatter);
+
+        Deadline newDeadline = new Deadline(taskName, formattedTime);
+        if (isDone) {
+            newDeadline.markAsDone();
+        }
+        return newDeadline;
+    }
+
+    /**
+     * Makes a new todo from the given arguments.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Whether the task is done.
+     * @return Todo represented by the string.
+     */
+    private static Todo makeNewTodo(String taskName, boolean isDone) {
+        Todo newTodo = new Todo(taskName);
+        if (isDone) {
+            newTodo.markAsDone();
+        }
+        return newTodo;
+    }
+
+    /**
+     * Matches a given string to the task regex.
+     *
+     * @param string String representation of task to be matched.
+     * @return Matcher.
+     */
+    private static Matcher matchTaskString(String string) {
+        String regex = "\\d+\\. \\[(?<taskType>[A-Z])]\\[(?<status>[ X])]"
+                + " (?<name>[^(]+)(?:\\(by: (?<by>[^)]+)\\))?(?:\\(from: (?<from>[^)]+) to: (?<to>[^)]+)\\))?";
+
+        Pattern r = Pattern.compile(regex);
+        return r.matcher(string);
     }
 
     /**
@@ -79,6 +142,7 @@ public class Parser {
      *
      * @param stringDate String in date format.
      * @return LocalDate represented by the string.
+     * @throws SentinelException if there was an error parsing the date time.
      */
     public static LocalDate parseStringToDate(String stringDate) throws SentinelException {
         try {
