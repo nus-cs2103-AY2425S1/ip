@@ -1,3 +1,7 @@
+package Naega.Task;
+
+import Naega.Task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

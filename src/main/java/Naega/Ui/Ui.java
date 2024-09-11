@@ -1,3 +1,7 @@
+package Naega.Ui;
+
+import Naega.Task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -33,10 +37,10 @@ public class Ui {
     }
 
     public void showDeletedTask(Task task, int remainingTasks) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + remainingTasks + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("   " + task);
+        System.out.println("Now you have " + remainingTasks + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
 }

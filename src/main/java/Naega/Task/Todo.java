@@ -1,3 +1,7 @@
+package Naega.Task;
+
+import Naega.Task.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {

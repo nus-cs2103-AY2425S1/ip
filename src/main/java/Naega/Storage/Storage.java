@@ -1,3 +1,11 @@
+package Naega.Storage;
+
+import Naega.NaegaException;
+import Naega.Task.Deadline;
+import Naega.Task.Event;
+import Naega.Task.Task;
+import Naega.Task.Todo;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,14 +52,14 @@ public class Storage {
                 return new Todo(description);
             case "D":
                 if (taskDetails.length < 4) {
-                    throw new NaegaException("Insufficient details for Deadline task.");
+                    throw new NaegaException("Insufficient details for Naega.Task.Deadline task.");
                 }
                 // Parse deadline with custom formatter
                 LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
                 return new Deadline(description, deadline);
             case "E":
                 if (taskDetails.length < 5) {
-                    throw new NaegaException("Insufficient details for Event task.");
+                    throw new NaegaException("Insufficient details for Naega.Task.Event task.");
                 }
                 // Parse event start and end times with custom formatter
                 LocalDateTime eventStart = LocalDateTime.parse(taskDetails[3], formatter);

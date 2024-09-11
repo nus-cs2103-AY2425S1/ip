@@ -1,3 +1,10 @@
+package Naega.Command;
+
+import Naega.Storage.Storage;
+import Naega.Task.Task;
+import Naega.Task.TaskList;
+import Naega.Ui.Ui;
+
 public class AddCommand extends Command {
     private final Task task;
 

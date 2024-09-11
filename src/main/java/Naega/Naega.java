@@ -1,3 +1,10 @@
+package Naega;
+
+import Naega.Command.Command;
+import Naega.Parser.Parser;
+import Naega.Storage.Storage;
+import Naega.Task.*;
+import Naega.Ui.Ui;
 import java.io.IOException;
 
 public class Naega {
@@ -16,6 +23,7 @@ public class Naega {
             tasks = new TaskList();
         }
     }
+
 
     public void run() {
         ui.showWelcome();

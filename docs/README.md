@@ -1,4 +1,4 @@
-# Naega User Guide
+# Naega.Naega User Guide
 
 // Update the title above to match the actual product name
 
