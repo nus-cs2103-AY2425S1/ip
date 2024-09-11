@@ -18,7 +18,9 @@ public class Ui {
     private static final String DIVIDER = "===================================================";
 
     /** Greeting message displayed when the program starts. */
-    private static final String GREETING_MESSAGE = "  ∧,,,∧\n( ̳̳• · ̳• )\n づ Meow! I'm Neko\nWhat can I do for you?";
+    private static final String GREETING_MESSAGE = "  ∧,,,∧\n( ̳̳• · ̳• )\n づ Meow! I'm Neko\n"
+            + "What can I do for you today?\n"
+            + "Type 'help' to see a list of commands you can use meow!";
 
     /** Exit message displayed when the program ends. */
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon meow ฅ ฅ";
@@ -60,6 +62,10 @@ public class Ui {
         return in.nextLine();
     }
 
+    public String getGreetingMessage() {
+        return GREETING_MESSAGE;
+    }
+
     /**
      * Displays a message to the user followed by a divider for clarity.
      *
@@ -90,50 +96,5 @@ public class Ui {
      */
     public void showExitMessage() {
         showMessage(EXIT_MESSAGE);
-    }
-
-    /**
-     * Prompts the user to select a type of task to add, providing numbered options for Todo, Deadline, or Event tasks.
-     *
-     * @return the number corresponding to the task type chosen by the user as a String.
-     */
-    public String getTaskType() {
-        out.println("What kind of task would you like to add today?\n"
-                + "  1: Todo (Just a simple task meow)\n"
-                + "  2: Deadline (Something with a time limit meow)\n"
-                + "  3: Event (A task with a start and end time meow)\n"
-                + "Please enter the number of the task type you'd like to add meow~");
-        return in.nextLine().trim();
-    }
-
-    /**
-     * Prompts the user to enter the name of a task.
-     *
-     * @return the task name entered by the user as a String.
-     */
-    public String getTaskName() {
-        out.println("What will this task be called meow?");
-        return in.nextLine().trim();
-    }
-
-    /**
-     * Prompts the user to enter a date and time in the 'yyyy-MM-ddTHH:mm' format and parses it.
-     * If the input format is incorrect, it keeps prompting the user until a valid format is entered.
-     *
-     * @param prompt the message to display asking for the date and time.
-     * @return the parsed LocalDateTime object.
-     */
-    public LocalDateTime getDateTime(String prompt) {
-        out.println(prompt
-                + " (e.g., 2024-01-01T13:00 for January 1, 2024, at 1:00 PM)");
-        while (true) {
-            String input = in.nextLine().trim();
-            try {
-                return Parser.parseTime(input);
-            } catch (DateTimeParseException e) {
-                out.println("Meow /ᐠ > ˕ <マ Invalid date/time format ! "
-                        + "Please use 'yyyy-MM-ddTHH:mm' format.");
-            }
-        }
     }
 }

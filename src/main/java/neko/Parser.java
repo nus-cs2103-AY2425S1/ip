@@ -2,6 +2,7 @@ package neko;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import neko.task.Deadline;
 import neko.task.Event;
@@ -20,7 +21,7 @@ public class Parser {
 
     /** Formatter for parsing date-time inputs in the 'yyyy-MM-dd'T'HH:mm' format. */
     private static final DateTimeFormatter dateFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            DateTimeFormatter.ofPattern("yyyyMMdd'T'HH:mm");
 
     /**
      * Parses a string representing a task and converts it into a Task object.
@@ -81,13 +82,22 @@ public class Parser {
         return input.split(" ")[0];
     }
 
+    public static String[] parseAddCommand(String input) {
+        return input.split(" ");
+    }
+
     /**
-     * Parses a date-time string in the 'yyyy-MM-dd'T'HH:mm' format into a LocalDateTime object.
+     * Parses a date-time string in the 'yyyyMMdd'T'HH:mm' format into a LocalDateTime object.
      *
      * @param input The string representation of a date and time.
      * @return A LocalDateTime object corresponding to the input string.
      */
-    public static LocalDateTime parseTime(String input) {
-        return LocalDateTime.parse(input, dateFormatter);
+    public static LocalDateTime parseTime(String input) throws NekoException {
+        try {
+            return LocalDateTime.parse(input, dateFormatter);
+        } catch (DateTimeParseException e) {
+            throw new NekoException("Invalid date/time format!\n"
+                    + "Please use 'yyyyMMddTHH:mm' format.");
+        }
     }
 }

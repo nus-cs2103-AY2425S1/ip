@@ -19,11 +19,11 @@ import neko.task.Todo;
  */
 public class Storage {
 
-    /** The directory path where the file will be stored. */
-    private static final String DIRECTORY_PATH = "./data";
+    private static final String DEFAULT_FILE_PATH = "./data/neko.txt";
+    private static final String DEFAULT_DIRECTORY_PATH = "./data/";
 
     /** The file path where task data is stored. */
-    private final String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage object to handle saving and loading of task data.
@@ -32,6 +32,10 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+    }
+
+    public Storage() {
+        this.filePath = DEFAULT_FILE_PATH;
     }
 
     /**
@@ -62,29 +66,23 @@ public class Storage {
     }
 
     /**
-     * Writes a string of text to the file. If the file or directory does not exist,
-     * it creates them. Appends the text to the end of the file.
+     * Writes a single task to the file, appending it to the end.
+     * Creates directories and files if they don't exist.
      *
-     * @param text The text to be written to the file.
+     * @param task The task to be written to the file.
      * @throws IOException if an I/O error occurs.
      */
-    public void writeFile(String text) throws IOException {
-        // Check if the directory exists, else create a new one
-        File directory = new File(DIRECTORY_PATH);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+    public void writeFile(Task task) throws IOException {
+        createDirectoryIfNotExist(DEFAULT_DIRECTORY_PATH);
 
-        // Check if the file exists, else create a new one
         File file = new File(filePath);
         if (!file.exists()) {
             file.createNewFile();
         }
 
-        // Write to the file, appending the text
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(text);
-        fw.close();
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            fileWriter.write(formatTask(task) + "\n");
+        }
     }
 
     /**
@@ -96,29 +94,50 @@ public class Storage {
      * @throws NekoException if an error occurs while processing tasks.
      */
     public void rewriteFile(TaskList tasks) throws IOException, NekoException {
-        FileWriter fw = new FileWriter(filePath, false);
+        createDirectoryIfNotExist(DEFAULT_DIRECTORY_PATH);
 
-        // Loop through the list of tasks and write each task to the file
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.getTask(i);
-            String taskType = task.getClass().getSimpleName().charAt(0) + ""; // First letter of the task type
-            String status = task.isDone() ? "1" : "0"; // 1 if done, 0 if not done
-            String taskDetails = "";
-
-            // Check the task type to specify the string representation of the task
-            if (task instanceof Todo) {
-                taskDetails = task.getDescription();
-            } else if (task instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) task;
-                taskDetails = task.getDescription() + " | " + deadlineTask.getTime();
-            } else if (task instanceof Event) {
-                Event eventTask = (Event) task;
-                taskDetails = task.getDescription() + " | " + eventTask.getTime();
+        try (FileWriter fileWriter = new FileWriter(filePath, false)) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.getTask(i);
+                fileWriter.write(formatTask(task) + "\n");
             }
-
-            // Write task information to the file
-            fw.write(taskType + " | " + status + " | " + taskDetails + "\n");
         }
-        fw.close();
     }
+
+    /**
+     * Ensures the directory exists. If it does not, it creates the directory.
+     *
+     * @param directoryPath The directory path to check or create.
+     */
+    private void createDirectoryIfNotExist(String directoryPath) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+    }
+
+    /**
+     * Formats a task into a string suitable for file storage.
+     *
+     * @param task The task to format.
+     * @return The formatted task string.
+     */
+    private String formatTask(Task task) {
+        String taskType = task.getClass().getSimpleName().charAt(0) + ""; // First letter of the task type
+        String status = task.isDone() ? "1" : "0"; // 1 if done, 0 if not done
+        String taskDetails = "";
+
+        if (task instanceof Todo) {
+            taskDetails = task.getDescription();
+        } else if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            taskDetails = task.getDescription() + " | " + deadlineTask.getTime();
+        } else if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            taskDetails = task.getDescription() + " | " + eventTask.getTime();
+        }
+
+        return taskType + " | " + status + " | " + taskDetails;
+    }
+
 }
