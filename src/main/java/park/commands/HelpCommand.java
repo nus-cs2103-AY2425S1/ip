@@ -5,17 +5,17 @@ import park.storage.TaskList;
 import park.ui.Ui;
 
 /**
- * Represents a command that exits the chatbot session.
+ * Represents a command that shows the user a list of available commands
  */
-public class ExitCommand extends Command {
+public class HelpCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.setExitResponse();
+        ui.setHelpResponse();
     }
 
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }
