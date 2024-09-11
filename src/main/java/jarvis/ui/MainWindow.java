@@ -31,8 +31,10 @@ public class MainWindow extends AnchorPane {
 
     private Jarvis jarvis;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.jpg"));
-    private Image jarvisImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.jpg"));
+    private Image userImage = new Image(this.getClass()
+            .getResourceAsStream("/images/jarvis.jpg"));
+    private Image jarvisImage = new Image(this.getClass()
+            .getResourceAsStream("/images/jarvis.jpg"));
 
     @FXML
     public void initialize() {
@@ -47,7 +49,8 @@ public class MainWindow extends AnchorPane {
 
 
         dialogContainer.getChildren().add(
-                DialogBox.getJarvisDialog("hello from: \n" + logo + " \nHow can I assist you today?", jarvisImage)
+                DialogBox.getJarvisDialog("hello from: \n" + logo
+                        + " \nHow can I assist you today?", jarvisImage)
         );
         dialogContainer.getChildren().add(
                 DialogBox.getJarvisDialog("here are your previous tasks:", jarvisImage)
@@ -58,20 +61,21 @@ public class MainWindow extends AnchorPane {
 
         // Retrieve the tasks from the storage file
         try {
-            List<String> savedTasks = Files.readAllLines(Paths.get(Storage.LOAD_SAVE));
+            List<String> savedTasks = Files.readAllLines(Paths
+                    .get(Storage.LOAD_SAVE));
 
             // Add each saved task to the dialog container
             for (String task : savedTasks) {
-                if(!task.equals("")) {
-                    dialogContainer.getChildren().add(
-                            DialogBox.getJarvisDialog(task, userImage)
-                    );
-                }
+                dialogContainer.getChildren().add(
+                        DialogBox.getJarvisDialog(task,
+                                userImage)
+                );
             }
             storage.clearFile();
         } catch (IOException e) {
             dialogContainer.getChildren().add(
-                    DialogBox.getJarvisDialog("An error occurred while loading saved tasks.", jarvisImage)
+                    DialogBox.getJarvisDialog("An error occurred while loading saved tasks.",
+                            jarvisImage)
             );
             e.printStackTrace();
         }
@@ -84,7 +88,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes,
+     * one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
