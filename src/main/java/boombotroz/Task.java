@@ -20,13 +20,6 @@ public abstract class Task {
         this.priority = priority;
     }
 
-    /**
-     * Checks if time for the tasks is in yyyy-mm-dd format.
-     *
-     * @param ui handles errors that may occur.
-     * @throws BoomException If invalid deadline / time period given.
-     */
-    public abstract void hasDate(Ui ui) throws BoomException;
 
     /**
      * Sets completion state of the task.

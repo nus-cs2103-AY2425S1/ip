@@ -1,5 +1,7 @@
 package boombotroz;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Deals with making sense of the user command.
@@ -156,9 +158,16 @@ public class Parser {
         int priority = Integer.parseInt(dlTaskTime.split(" /prior ")[1]);
         String dlTask = dlTaskTime.split(" /by ")[0];
         String time = dlTaskTime.split(" /by ")[1].split(" /prior ")[0];
+        if (time.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            // checks if deadline already passed
+            LocalDate d1 = LocalDate.parse(time);
+            LocalDate d2 = LocalDate.now();
+            ui.isWrongDeadline(d1, d2);
+
+            time = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
         Task createdTask = new Deadline(false, dlTask, time, priority);
         taskList.addTask(createdTask);
-        createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());
 
         String s = ui.createTaskMessage(createdTask, taskList);
@@ -197,10 +206,21 @@ public class Parser {
         String timeEnd = eventTaskTime.split(" /from ")[1]
                 .split(" /to ")[1]
                 .split(" /prior ")[0];
+        if (timeStart.matches("\\d{4}-\\d{2}-\\d{2}")
+                && timeEnd.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            //checks if end already passed or if end earlier than start
+            LocalDate d1 = LocalDate.parse(timeStart);
+            LocalDate d2 = LocalDate.parse(timeEnd);
+            LocalDate d3 = LocalDate.now();
+            ui.isWrongEventTime(d1, d2, d3);
+
+            timeStart = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            timeEnd = d2.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+
         Task createdTask = new Event(false, eventTask,
                 timeStart, timeEnd, priority);
         taskList.addTask(createdTask);
-        createdTask.hasDate(ui);
         storage.writeTasks(taskList.getAll());
 
         String s = ui.createTaskMessage(createdTask, taskList);

@@ -22,20 +22,6 @@ public class Deadline extends Task {
 
     }
 
-    /**
-     * @inheritDoc
-     */
-    public void hasDate(Ui ui) throws BoomException {
-        if (this.time.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            // checks if deadline already passed
-            LocalDate d1 = LocalDate.parse(this.time);
-            LocalDate d2 = LocalDate.now();
-            ui.isWrongDeadline(d1, d2);
-
-            this.time = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        }
-
-    }
 
     /**
      * @inheritDoc
