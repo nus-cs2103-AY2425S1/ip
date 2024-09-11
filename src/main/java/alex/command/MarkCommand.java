@@ -61,6 +61,7 @@ public class MarkCommand extends Command {
                     + "indicating the task number to mark or unmark!");
         }
 
+        // Handles the case where user provides an invalid task number
         if (taskNumber < 1 || taskNumber > tasks.getSize()) {
             throw new AlexException("Oh no! Please provide a correct task number to mark or unmark!");
         }

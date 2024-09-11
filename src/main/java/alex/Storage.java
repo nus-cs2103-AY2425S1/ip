@@ -38,6 +38,8 @@ public class Storage {
         Scanner s = new Scanner(f); // Create a Scanner using the File as the source
         ArrayList<Task> list = new ArrayList<>();
 
+        // Creates an ArrayList of Tasks based on the stored list of tasks such that user can retrieve
+        // previously stored task information
         while (s.hasNext()) {
             Scanner lineScanner = new Scanner(s.nextLine());
             String category = lineScanner.next();

@@ -58,6 +58,7 @@ public class DeleteCommand extends Command {
                     + "the task number to delete!");
         }
 
+        // Handles the case where the user enters an invalid task number
         if (taskNumber < 1 || taskNumber > tasks.getSize()) {
             throw new AlexException("Oh no! Please provide a correct task number to delete!");
         }

@@ -36,6 +36,7 @@ public class Parser {
         // Obtain the first word of user input
         String response = lineScanner.next();
 
+        // Creates respective command classes to handle different functions based on user input
         switch (response) {
         case "bye":
             return new ExitCommand();
@@ -78,12 +79,13 @@ public class Parser {
      */
     public static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
-        while (lineScanner.hasNext()) {
-            arrOfStr.add(lineScanner.next());
-        }
         if (arrOfStr.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( "
                     + "You have to provide a task!");
+        }
+
+        while (lineScanner.hasNext()) {
+            arrOfStr.add(lineScanner.next());
         }
         return new Todo(String.join(" ", arrOfStr), isDone);
     }
@@ -115,8 +117,13 @@ public class Parser {
 
         deadline = String.join(" ", arrOfStr);
 
-        if ((!hasProvidedDeadline && !deadline.isEmpty() && description.isEmpty())
-                || (hasProvidedDeadline && !description.isEmpty() && deadline.isEmpty())) {
+        boolean hasDescriptionButNoSlashBy = !hasProvidedDeadline
+                && !deadline.isEmpty() && description.isEmpty();
+        boolean hasDescriptionAndSlashByButNoDeadline = hasProvidedDeadline
+                && !description.isEmpty() && deadline.isEmpty();
+
+        if ((hasDescriptionButNoSlashBy
+                || hasDescriptionAndSlashByButNoDeadline)) {
             throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a "
                     + "deadline date by writing '/by' followed by the deadline!");
         }
@@ -138,16 +145,17 @@ public class Parser {
      */
     public static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
-        String description = "";
-        String start = "";
-        boolean isStart = false;
-        boolean isEnd = false;
-
         if (!lineScanner.hasNext()) {
             throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide "
                     + "a task!");
         }
 
+        String description = "";
+        String start = "";
+        boolean isStart = false;
+        boolean isEnd = false;
+
+        //creates description, start and end strings based on user input to create event task
         while (lineScanner.hasNext()) {
             String next = lineScanner.next();
             if (next.equals("/from")) {
