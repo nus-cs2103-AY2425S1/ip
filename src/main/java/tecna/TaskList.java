@@ -39,10 +39,12 @@ public class TaskList {
 
     /**
      * Adds new item to the list of tasks
-     * @param item extracted from the user input
+     * @param task extracted from the user input
      */
-    public String addItem(Task item) {
-        Task task = item;
+    public String addItem(Task task) throws TaskDuplicateException{
+        if (isDuplicate(task)) {
+            throw new TaskDuplicateException();
+        }
         this.tasks.add(task);
         ++this.size;
         StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
@@ -51,6 +53,16 @@ public class TaskList {
         String response = sb.toString();
         System.out.println(response);
         return response;
+    }
+
+    public boolean isDuplicate(Task task) {
+        for (Task t : this.tasks) {
+            if (task.equals(t)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

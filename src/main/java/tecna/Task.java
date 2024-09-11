@@ -8,8 +8,8 @@ package tecna;
  * @author DennieDan.
  */
 public abstract class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -62,4 +62,10 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.taskName;
     }
+
+    @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract int hashCode();
 }

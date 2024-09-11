@@ -35,4 +35,23 @@ public class Deadline extends Task {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
         return "[D]" + super.toString() + " (by: " + this.by.format(pattern) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) obj;
+        return taskName.equals(deadline.taskName) && by.equals(deadline.by);
+    }
+
+    @Override
+    public int hashCode() {
+        return taskName.hashCode() + 31 * by.hashCode();
+    }
 }

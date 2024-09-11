@@ -77,64 +77,6 @@ public class Tecna {
         sc.close();
     }
 
-    /**
-     * Receives requests entered by the user and controls other Tecna attributes to work accordingly.
-     */
-    public void getRequest() {
-        CommandType command = this.commandScanner.getRequest();
-
-        while (!command.equals(CommandType.BYE)) {
-            ui.printSectionLine();
-            switch (command) {
-            case LIST:
-                this.taskList.listItems();
-                break;
-            case MARK:
-                int index = commandScanner.getInputIndex();
-                taskList.mark(index);
-                ui.printMarkMsg(taskList.getTask(index));
-                break;
-            case UNMARK:
-                index = commandScanner.getInputIndex();
-                taskList.unmark(index);
-                ui.printUnmarkMsg(taskList.getTask(index));
-                break;
-            case DELETE:
-                index = commandScanner.getInputIndex();
-                this.taskList.deleteItem(index);
-                break;
-            case FIND:
-                taskList.findTasks(commandScanner.getKeyword());
-                break;
-            case TODO:
-            case EVENT:
-            case DEADLINE:
-                taskList.addItem(commandScanner.getInputTask());
-                break;
-            case TODO_WRONG_FORMAT:
-                ui.printError("Wrong format! The command should be \"todo [task_description]\".");
-                break;
-            case DEADLINE_WRONG_FORMAT:
-                ui.printError("Wrong format! The command should be \"deadline [task_description] /by [deadline in the form of yyyy-MM-dd HHmm]\".");
-                break;
-            case EVENT_WRONG_FORMAT:
-                ui.printError("Wrong format! The command should be \"event [task_description] /from [start_time in the form of yyyy-MM-dd HHmm] /to [end time in the form of yyyy-MM-dd HHmm]\".");
-                break;
-            case INDEX_WRONG_FORMAT:
-                ui.printError("The parameter of this command must be a number from 1 to " + taskList.getSize());
-                break;
-            case INVALID:
-                ui.printInvalidCmdError();
-                break;
-            }
-            ui.printSectionLine();
-            command = this.commandScanner.getRequest();
-        }
-        this.exitChatBot();
-        commandScanner.close();
-
-    }
-
     public String getResponse(String input) {
         CommandType command = this.commandScanner.readRequest(input);
         ui.printSectionLine();

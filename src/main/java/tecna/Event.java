@@ -41,4 +41,23 @@ public class Event extends Task {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
         return "[E]" + super.toString() + " (from: " + this.from.format(pattern) + " to: " + this.to.format(pattern) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) obj;
+        return taskName.equals(event.taskName) && from.equals(event.from) && to.equals(event.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return taskName.hashCode() + from.hashCode() + to.hashCode();
+    }
 }
