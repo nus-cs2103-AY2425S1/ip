@@ -7,7 +7,7 @@ import java.util.List;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs a task list with an empty list of tasks.
