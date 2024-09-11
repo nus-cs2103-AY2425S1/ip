@@ -1,6 +1,6 @@
 package beechat;
 
-class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
@@ -19,6 +19,8 @@ class Task {
     public void unmark() {
         this.isDone = false;
     } // mark task as undone
+
+    public abstract String toSaveFormat();
 
     @Override
     public String toString() {

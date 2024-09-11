@@ -11,6 +11,11 @@ class EventTask extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
     }
