@@ -26,6 +26,10 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         FILE_PATH = Paths.get(filePathStr);
     }
 
+    /**
+     * <p>writes all existing tasks to storage</p>
+     * @return a TaskStorageResult containing all the current tasks
+     */
     public TaskStorageResult<Command> getTasks() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -39,6 +43,12 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return new TaskStorageResultImpl(sb.toString());
     }
 
+    /**
+     * <p>writes all existing tasks to storage</p>
+     * @param inputParts information input by the user
+     * @param command the command of the input
+     * @return a TaskStorageResult indicating the status of the save
+     */
     public TaskStorageResult<Command> addTask(String[] inputParts, Command command) {
         return switch (command) {
             case ToDo -> addToDo(inputParts);
@@ -99,6 +109,11 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return handleAddSuccess();
     }
 
+    /**
+     * <p>Deletes a task</p>
+     * @param inputParts the input of the user
+     * @return a TaskStorageResult indicating the status of the deletion
+     */
     @Override
     public TaskStorageResult<Command> deleteTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]) - 1;
@@ -110,6 +125,11 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return handleDeleteSuccess(task);
     }
 
+    /**
+     * <p>Marks or unmarks a task</p>
+     * @param inputParts the input of the user
+     * @return a TaskStorageResult indicating the status of the marking
+     */
     @Override
     public TaskStorageResult<Command> setTaskDone(String[] inputParts, boolean status) {
         int index = Integer.parseInt(inputParts[1]) - 1;
@@ -120,6 +140,10 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return handleMarkSuccess(index, status);
     }
 
+    /**
+     * <p>writes all existing tasks to storage</p>
+     * @return a TaskStorageResult indicating the status of the save
+     */
     @Override
     public TaskStorageResult<Command> saveTasks() {
         // check if file exists
@@ -148,6 +172,10 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         return new TaskStorageResultImpl(null);
     }
 
+    /**
+     * <p>loads all existing tasks from storage</p>
+     * @return a TaskStorageResult indicating the status of the load
+     */
     public TaskStorageResult<Command> loadTasks() {
         try {
             File myObj = FILE_PATH.toFile();

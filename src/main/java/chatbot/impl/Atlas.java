@@ -17,6 +17,9 @@ public class Atlas implements ChatBot {
         this.taskStorage = taskStorage;
     }
 
+    /**
+     * <p>Starts the chatbot</p>
+     */
     @Override
     public void start() {
         messageView.introduce();
@@ -57,20 +60,20 @@ public class Atlas implements ChatBot {
         }
     }
 
-    public void handleExit() {
+    private void handleExit() {
         messageView.exit();
     }
 
-    public void handleList() {
+    private void handleList() {
         messageView.send("Here are the items in your list:");
         taskStorage.getTasks().showResult(messageView);
     }
 
-    public void handleMark(String[] inputParts) {
+    private void handleMark(String[] inputParts) {
         handleMarking(inputParts, true);
     }
 
-    public void handleUnmark(String[] inputParts) {
+    private void handleUnmark(String[] inputParts) {
         handleMarking(inputParts, false);
     }
 
