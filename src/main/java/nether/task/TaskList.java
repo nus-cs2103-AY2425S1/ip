@@ -2,6 +2,7 @@ package nether.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -98,14 +99,9 @@ public class TaskList {
      * @return A list of tasks whose descriptions match the input string.
      */
     public TaskList searchTask(String searchString) {
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (int i = 0; i < getSize(); i++) {
-            if (this.getTask(i).getDescription().contains(searchString)) {
-                matchingTasks.add(tasks.get(i));
-            }
-        }
-
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(searchString))
+                .collect(Collectors.toList());
         return new TaskList(matchingTasks);
     }
 
