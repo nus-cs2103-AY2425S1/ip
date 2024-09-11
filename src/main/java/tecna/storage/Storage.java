@@ -102,6 +102,7 @@ public class Storage {
      */
     @SuppressWarnings("unchecked")
     public void save(TaskList taskList) throws IOException {
+        assert taskList != null;
         JSONObject taskListObj = new JSONObject();
         JSONArray taskListArr = new JSONArray();
         for (int i = 0; i < taskList.getSize(); ++i) {

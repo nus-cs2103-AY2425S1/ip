@@ -2,8 +2,10 @@ package tecna.collection;
 
 import java.util.ArrayList;
 
+import tecna.task.Task;
+
 public class TaskList {
-    private ArrayList<tecna.task.Task> tasks;
+    private ArrayList<Task> tasks;
     private int size;
 
     public TaskList() {
@@ -11,7 +13,7 @@ public class TaskList {
         this.size = 0;
     }
 
-    public TaskList(ArrayList<tecna.task.Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.size = tasks.size();
     }
@@ -20,7 +22,7 @@ public class TaskList {
         return size;
     }
 
-    public tecna.task.Task getTask(int index) {
+    public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
@@ -39,10 +41,11 @@ public class TaskList {
 
     /**
      * Adds new item to the list of tasks
-     * @param item extracted from the user input
+     *
+     * @param task extracted from the user input
      */
-    public String addItem(tecna.task.Task item) {
-        tecna.task.Task task = item;
+    public String addItem(Task task) {
+        assert task != null;
         this.tasks.add(task);
         ++this.size;
         StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
@@ -55,6 +58,7 @@ public class TaskList {
 
     /**
      * Deletes the specified items.
+     *
      * @param index
      */
     public String deleteItem(int index) {
@@ -70,7 +74,8 @@ public class TaskList {
     }
 
     /**
-     * Marks the index th task as done.
+     * Marks the index-th task as done.
+     *
      * @param index
      */
     public void mark(int index) {
@@ -78,7 +83,8 @@ public class TaskList {
     }
 
     /**
-     * Unmarks the index the task.
+     * Unmarks the index-th task.
+     *
      * @param index
      */
     public void unmark(int index) {
@@ -87,12 +93,14 @@ public class TaskList {
 
     /**
      * Finds and prints all the matching tasks.
+     *
      * @param keyword is one word that user enters to filter the task.
      */
     public String findTasks(String keyword) {
+        assert !keyword.isEmpty(); // handled by CommandScanner
         int counter = 0;
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (tecna.task.Task task : this.tasks) {
+        for (Task task : this.tasks) {
             String[] words = task.getTaskName().split(" ");
 
             for (String word : words) {

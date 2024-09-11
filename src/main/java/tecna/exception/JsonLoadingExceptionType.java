@@ -16,6 +16,8 @@ public enum JsonLoadingExceptionType {
     public final String message;
 
     JsonLoadingExceptionType(String message) {
+        assert message != null;
+
         this.message = message;
     }
 }

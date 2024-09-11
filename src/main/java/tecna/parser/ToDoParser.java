@@ -15,6 +15,7 @@ public class ToDoParser {
 
     /**
      * Parses a JSONObject into a ToDo.
+     *
      * @param jsonObject is a json object with the value of "type" is "todo".
      * @return a ToDo instance.
      * @throws JsonLoadingException when there is error parsing some attributes of ToDo.

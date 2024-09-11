@@ -21,6 +21,7 @@ public class Event extends Task {
 
     public Event(String taskName, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(taskName);
+        assert from.isBefore(to); // This has been checked by CommandScanner.
         this.from = from;
         this.to = to;
         if (isDone) {
