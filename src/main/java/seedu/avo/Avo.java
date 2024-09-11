@@ -21,7 +21,6 @@ public class Avo {
             return new Response(result.getMessage());
         } catch (AvoException e) {
             return new Response(e.getMessage());
-
         }
     }
 }

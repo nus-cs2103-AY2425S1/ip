@@ -11,6 +11,7 @@ import seedu.avo.utils.DateTime;
  * Represents the command to add an event task
  */
 public class EventCommand extends Command {
+    private static final int INPUT_SIZE = 4;
     private final TaskManager manager;
     public EventCommand(TaskManager manager) {
         this.manager = manager;
@@ -18,7 +19,7 @@ public class EventCommand extends Command {
     @Override
     public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split("event |/from |/to ");
-        if (inputs.length < 4) {
+        if (inputs.length < INPUT_SIZE) {
             throw new AvoException("OOPS!!! The description of an event cannot be empty.");
         }
         LocalDateTime startTime = DateTime.parseWithTime(inputs[2]);
