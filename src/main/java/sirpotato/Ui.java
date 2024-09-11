@@ -109,6 +109,23 @@ public class Ui {
     }
 
     /**
+     * Prints & returns the sorted task list
+     * 
+     * @param tasks The TaskList containing the current tasks
+     * @return the formatted list of tasks
+     */
+    public String displaySortedTasks(TaskList tasks) {
+        String response = "Here is the sorted task list: \n";
+
+        for (int i = 0; i < tasks.getList().size(); i++) {
+            response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
+        }
+        response = response + HORIZONTAL_LINE + "\n";
+        System.out.println(response);
+        return response;
+    }
+
+    /**
      * When a user marks an item complete, this is the message that will be displayed
      * Prints and returns the marked item
      * 

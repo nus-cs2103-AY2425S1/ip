@@ -22,5 +22,9 @@ public class Deadline extends Task {
         return by;
     }
     
+    @Override
+    public boolean isDeadline() {
+        return true;
+    }
 
 }
