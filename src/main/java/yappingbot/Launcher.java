@@ -11,7 +11,8 @@ import yappingbot.ui.gui.MainGuiApplication;
  */
 public class Launcher {
 
-    public static String savefilePath;
+    // default savefile path is './savefile'
+    private static String savefilePath = "./savefile";
 
     /**
      * MainGuiApplication entry point. Parses arguments and launches YappingBot appropriately.
@@ -25,11 +26,13 @@ public class Launcher {
         // NOTE: args DOES NOT INCLUDE FILENAME AT ARGS[0]
         boolean isUsingGui = true;
         boolean stopTakingInputs = false;
-        String customSavefilePath = "";
         String[] jfxArgs = new String[0];
 
+        // loops through arguments to parse them.
+        // any arguments preceeding a '--' are not processed and directly passed on to javaFX
         for (int i = 0; i < args.length; i++) {
             if (stopTakingInputs) {
+                // -- has been detected. Stop and just copy everything to be passed to javaFX
                 jfxArgs = Arrays.copyOfRange(args, i + 1, args.length);
                 break;
             } else {
@@ -39,12 +42,14 @@ public class Launcher {
                     continue;
                 case "-s":
                 case "--savefile":
+                    // peek the next arguemnt to get the savefile name
                     int savefilePathIndex = i + 1;
                     if (savefilePathIndex >= args.length
                         || args[savefilePathIndex].startsWith("-")) {
                         System.out.printf("Error: %s missing argument: savefile path!\n", args[i]);
                     } else {
-                        customSavefilePath = args[savefilePathIndex];
+                        savefilePath = args[savefilePathIndex];
+                        // only advance the pointer if there was a valid value for this flag
                         i = i + 1;
                     }
                     continue;
@@ -57,11 +62,10 @@ public class Launcher {
             }
         }
 
-        Launcher.savefilePath = customSavefilePath.isEmpty() ? "./savefile" : customSavefilePath;
         if (isUsingGui) {
             launchGui(jfxArgs);
         } else {
-            launchCli(jfxArgs);
+            launchCli();
         }
     }
 
@@ -77,10 +81,8 @@ public class Launcher {
 
     /**
      * Static method to launchGui MainGuiApplication with JavaFX GUI.
-     *
-     * @param args String ArrayList of arguments passed in via CLI when launching this app.
      */
-    public static void launchCli(String[] args) {
+    public static void launchCli() {
         YappingBot yp = new YappingBot(new UiCli(), new Storage(savefilePath));
         yp.start();
     }

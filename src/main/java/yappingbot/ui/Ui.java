@@ -55,6 +55,13 @@ public interface Ui {
 
 
     /**
+     * Pushes String input into the input buffer to be processed by Yappingbot.
+     *
+     * @param input String to be inputted
+     */
+    void pushInputLine(String input);
+
+    /**
      * Peeks into input buffer and returns true if a next line is available, or <b>blocks</b>
      * until a line is present in the input buffer, or the input stream is closed.
      *
@@ -70,14 +77,6 @@ public interface Ui {
      */
     String getNextInputLine();
 
-
-    /**
-     * Returns the output lines in the buffer to be printed.
-     *
-     * @return String to be outputted or printed:
-     */
-    String getNextOutputLine() throws YappingBotIoException;
-
     /**
      * Peeks into output buffer and returns true if a next line is available, or <b>blocks</b>
      * until a line is present in the output buffer, or the output stream is closed.
@@ -85,5 +84,12 @@ public interface Ui {
      * @return boolean true if line is available, or false if output is closed.
      */
     boolean hasOutputLines();
+
+    /**
+     * Returns the output lines in the buffer to be printed.
+     *
+     * @return String to be outputted or printed:
+     */
+    String getNextOutputLine() throws YappingBotIoException;
 }
 

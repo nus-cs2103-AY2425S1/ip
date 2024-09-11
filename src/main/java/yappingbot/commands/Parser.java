@@ -64,7 +64,7 @@ public class Parser {
     /**
      * Parses any text that must be interpreted as an integer.
      *
-     * @param userInputSlice String of text to be converted to integer.
+     * @param userInputSlices String of text to be converted to integer.
      * @return integer of the parsed integer.
      * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid
      *         integer.

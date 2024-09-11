@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javafx.application.Platform;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -36,22 +34,7 @@ public class MainWindow extends VBox {
 
     private volatile UiGui ui;
     private boolean updateOutput = false;
-
-    /**
-     * Sets the UiGui interface for the window.
-     *
-     * @param ui UiGui interface
-     */
-    public void setUi(UiGui ui) {
-        this.ui = ui;
-        new Thread(() -> {
-            while (ui.hasOutputLines()) {
-                this.updateOutput = true;
-                Platform.runLater(this::handleBotOutput);
-            }
-        }).start();
-    }
-
+  
     /**
      * Initialises the MainWindow gui nodes.
      */
@@ -66,12 +49,39 @@ public class MainWindow extends VBox {
     }
 
     /**
+     * Sets the UiGui interface for the window.
+     *
+     * @param ui UiGui interface
+     */
+    public void setUi(UiGui ui) {
+        this.ui = ui;
+
+        // New thread to monitor the OUTPUT stream from the bot,
+        // and set the update flag. Platform.runLater signals
+        // JavaFX thread to run the function within its context.
+        //
+        // This is here instead of in initialize because we need
+        // the ui context
+        new Thread(() -> {
+            while (ui.hasOutputLines()) {
+                this.updateOutput = true;
+                Platform.runLater(this::handleBotOutput);
+            }
+        }).start();
+    }
+
+
+
+    /**
      * Pulls any output present from bot and outputs them.
      */
     private void handleBotOutput() {
+        // guard clause to prevent unintended loops
         if (!this.updateOutput) {
             return;
         }
+
+        // generate dialog box for robot
         try {
             assert ui.hasOutputLines();
             String response = ui.getNextOutputLine();
@@ -82,6 +92,8 @@ public class MainWindow extends VBox {
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+
+        // unset flag so that if JavaFX runs this, the program will not hang.
         this.updateOutput = false;
     }
 

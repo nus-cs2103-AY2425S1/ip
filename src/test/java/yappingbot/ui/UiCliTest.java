@@ -10,7 +10,7 @@ import yappingbot.TestHelper;
 
 class UiCliTest {
 
-    UiCli ui = new UiCli();
+    final UiCli ui = new UiCli();
 
     @Test
     void testPrintError() throws IOException {
