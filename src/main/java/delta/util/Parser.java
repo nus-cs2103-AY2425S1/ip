@@ -101,16 +101,17 @@ public class Parser {
         String[] description = input.strip().split(" ", 2);
         String task = description[0];
 
+        switch (task.toLowerCase()) {
         // Bye
-        if (task.equalsIgnoreCase("bye")) {
+        case "bye":
             return new ExitCommand();
 
         // Print List
-        } else if (task.equalsIgnoreCase("list")) {
+        case "list":
             return new PrintCommand();
 
         // Find Tasks
-        } else if (task.equalsIgnoreCase("find")) {
+        case "find":
             if (description.length == 2) {
                 String taskName = description[1].strip();
                 return new FindCommand(taskName);
@@ -119,7 +120,7 @@ public class Parser {
             }
 
         // Add Todo
-        } else if (task.equalsIgnoreCase("todo")) {
+        case "todo":
             if (description.length == 2) {
                 String taskName = description[1].strip();
                 return new AddCommand(new Todo(taskName));
@@ -129,7 +130,7 @@ public class Parser {
             }
 
         // Add Deadline
-        } else if (task.equalsIgnoreCase("deadline")) {
+        case "deadline":
             if (description.length == 2) {
                 // Split task name and deadline
                 String[] details = description[1].strip().split(" /by ");
@@ -151,7 +152,7 @@ public class Parser {
             }
 
         // Add Event
-        } else if (task.equalsIgnoreCase("event")) {
+        case "event":
             if (description.length == 2) {
                 // Split task name and timing details
                 String[] details = description[1].strip().split(" /from ");
@@ -184,7 +185,7 @@ public class Parser {
             }
 
         // Mark Task
-        } else if (task.equalsIgnoreCase("mark")) {
+        case "mark":
             // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException(MARK_ERROR);
@@ -198,7 +199,7 @@ public class Parser {
             }
 
         // Unmark Task
-        } else if (task.equalsIgnoreCase("unmark")) {
+        case "unmark":
             // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException(UNMARK_ERROR);
@@ -212,7 +213,7 @@ public class Parser {
             }
 
         // Delete Task
-        } else if (task.equalsIgnoreCase("delete")) {
+        case "delete":
             // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException(DELETE_ERROR);
@@ -226,7 +227,7 @@ public class Parser {
             }
 
         // Unknown Action
-        } else {
+        default:
             throw new DeltaException(UNKNOWN_ERROR);
         }
     }
