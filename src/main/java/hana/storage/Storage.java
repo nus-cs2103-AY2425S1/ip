@@ -69,14 +69,14 @@ public class Storage {
                 Task task;
                 switch (parts[0]) {
                 case "T":
-                    task = new ToDo(parts[2]);
+                    task = new ToDo(parts[3]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3], FORMATTER));
+                    task = new Deadline(parts[3], LocalDateTime.parse(parts[4], FORMATTER));
                     break;
                 case "E":
-                    task = new Event(parts[2], LocalDateTime.parse(parts[3], FORMATTER),
-                            LocalDateTime.parse(parts[3], FORMATTER));
+                    task = new Event(parts[3], LocalDateTime.parse(parts[4], FORMATTER),
+                            LocalDateTime.parse(parts[5], FORMATTER));
                     break;
                 default:
                     System.out.println("Failed to read saved task. File may be corrupted. Skipping line");
@@ -84,6 +84,7 @@ public class Storage {
                     // Fallthrough
                 }
                 task.setDone(parts[1].equals("1"));
+                task.setPriority(Integer.parseInt(parts[2]));
                 tasks.add(task);
                 line = br.readLine();
             }

@@ -41,8 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String fileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(FORMATTER) + " | "
-                + to.format(FORMATTER);
+        return "E | " + (isDone ? "1" : "0") + " | " + priority + " | " + description + " | "
+                + from.format(FORMATTER) + " | " + to.format(FORMATTER);
     }
 
     /**

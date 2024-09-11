@@ -1,19 +1,7 @@
 package hana.parser;
 
 import hana.HanaException;
-import hana.command.ByeCommand;
-import hana.command.Command;
-import hana.command.DeadlineCommand;
-import hana.command.DeleteCommand;
-import hana.command.EventCommand;
-import hana.command.FindByDateCommand;
-import hana.command.FindCommand;
-import hana.command.GreetingsCommand;
-import hana.command.HelpCommand;
-import hana.command.ListCommand;
-import hana.command.MarkCommand;
-import hana.command.ToDoCommand;
-import hana.command.UnmarkCommand;
+import hana.command.*;
 
 /**
  * Deals with making sense of the user command
@@ -31,6 +19,8 @@ public class Parser {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_FIND_BY_KEY = "findByKey";
     private static final String COMMAND_HELLO = "hello";
+    private static final String COMMAND_SET_PRIORITY = "priority";
+    private static final String COMMAND_LIST_BY_PRIORITY = "listPriority";
 
     /**
      * Use input and return the command to execute.
@@ -67,6 +57,10 @@ public class Parser {
             return new FindCommand(input);
         case COMMAND_HELLO:
             return new GreetingsCommand();
+        case COMMAND_SET_PRIORITY:
+            return new PriorityCommand(input);
+        case COMMAND_LIST_BY_PRIORITY:
+            return new ListByPriorityCommand();
         default:
             throw new HanaException("Unknown command! Use 'help' to see the list of available commands.");
         }

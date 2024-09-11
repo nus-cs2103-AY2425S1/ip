@@ -38,7 +38,8 @@ public class Deadline extends Task {
      */
     @Override
     public String fileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(FORMATTER);
+        return "D | " + (isDone ? "1" : "0") + " | " + priority + " | " + description
+                + " | " + deadline.format(FORMATTER);
     }
 
     /**

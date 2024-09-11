@@ -135,4 +135,12 @@ public class Ui {
             }
         }
     }
+
+    /**
+     * Prints message after task successfully marked.
+     */
+    public void printSetPriority(Task task) {
+        responseBuilder.append("OK, I've set this task to priority ").append(task.getPriority()).append(":\n");
+        responseBuilder.append("  ").append(task).append("\n");
+    }
 }

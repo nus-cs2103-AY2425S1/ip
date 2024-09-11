@@ -102,4 +102,13 @@ public class TaskList {
         }
         return result;
     }
+
+    public void setTaskPriority(int taskNumber, int priority) throws HanaException {
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            Task task = tasks.get(taskNumber - 1);
+            task.setPriority(priority);
+        } else {
+            throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
+        }
+    }
 }
