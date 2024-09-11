@@ -52,6 +52,7 @@ public class Storage {
                     taskList.add(task);
                 }
             }
+
         }
         return taskList;
     }
@@ -84,6 +85,7 @@ public class Storage {
             System.out.println("Skipping corrupted data: " + data);
             return null;
         }
+        assert parts.length >= 3 : "Unexpected task format in file.";
 
         String taskType = parts[0];
         boolean done = parts[1].equals("1");
