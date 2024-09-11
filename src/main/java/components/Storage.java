@@ -50,7 +50,7 @@ public class Storage {
 
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
-                Boolean marked = data.charAt(7) == 'X';
+                Boolean isMarked = data.charAt(7) == 'X';
                 switch (data.charAt(4)) {
                 case 'T':
                     try {
@@ -88,7 +88,7 @@ public class Storage {
                     break;
                 }
                 if (task != null && list.add(task)) {
-                    if (marked) {
+                    if (isMarked) {
                         task.markAsDone();
                     }
                 }

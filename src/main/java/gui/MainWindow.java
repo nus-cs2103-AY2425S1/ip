@@ -2,7 +2,6 @@ package gui;
 
 import components.Light;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,14 +17,16 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Light light;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/LightYagami.jpg"));
     private Image ryukImage = new Image(this.getClass().getResourceAsStream("/images/Ryuk.png"));
 
+    /**
+     * Initializes the main window.
+     * Adds an initial dialog box to the dialog container and binds the scroll pane's vertical value to the height of the dialog container.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().addAll(
@@ -34,7 +35,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Light instance */
+    /**
+     * Injects the Light instance.
+     *
+     * @param light the Light instance to be injected
+     */
     public void setLight(Light light) {
         this.light = light;
     }

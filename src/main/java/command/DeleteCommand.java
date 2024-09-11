@@ -1,5 +1,6 @@
 package command;
 
+import assertions.AssertCommand;
 import components.Storage;
 import components.Ui;
 import exceptions.LightException;
@@ -32,6 +33,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+        new AssertCommand(tasks, ui, storage).assertExecute(tasks, ui, storage);
         String reply = ui.beautifyMessage("Noted. I've removed this task:\n" + tasks.get(taskNumber) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
         tasks.remove(taskNumber);
         String stringOfTask = TaskList.arrayToNumberedString(tasks);
