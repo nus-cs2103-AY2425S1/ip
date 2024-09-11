@@ -18,7 +18,7 @@ public class TaskList {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -43,48 +43,41 @@ public class TaskList {
     /**
      * Deletes a task from the TaskList by its index.
      *
-     * @param taskIndex The index of the task to delete.
-     * @return The task that was removed, or null if the index is invalid.
+     * @param taskIndex The index of the task to delete. Must be within the bounds of the task list.
+     * @return The task that was removed.
+     * @throws AssertionError if the taskIndex is out of bounds.
      */
     public Task deleteTask(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task removedTask = tasks.remove(taskIndex);
-            return removedTask;
-        } else {
-            return null;
-        }
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index should be within bounds";
+        return tasks.remove(taskIndex);
     }
 
     /**
      * Marks a task as done by its index.
      *
-     * @param taskIndex The index of the task to mark as done.
-     * @return The task that was marked as done, or null if the index is invalid.
+     * @param taskIndex The index of the task to mark as done. Must be within the bounds of the task list.
+     * @return The task that was marked as done.
+     * @throws AssertionError if the taskIndex is out of bounds.
      */
     public Task markTaskAsDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task markedTask = tasks.get(taskIndex);
-            markedTask.markAsDone();
-            return markedTask;
-        } else {
-            return null;
-        }
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index should be within bounds";
+        Task markedTask = tasks.get(taskIndex);
+        markedTask.markAsDone();
+        return markedTask;
     }
 
     /**
      * Unmarks a task as done by its index.
      *
-     * @param taskIndex The index of the task to unmark as done.
-     * @return The task that was unmarked as done, or null if the index is invalid.
+     * @param taskIndex The index of the task to unmark as done. Must be within the bounds of the task list.
+     * @return The task that was unmarked as done.
+     * @throws AssertionError if the taskIndex is out of bounds.
      */
     public Task unmarkTaskAsDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task unmarkedTask = tasks.get(taskIndex);
-            unmarkedTask.unmarkAsDone();
-            return unmarkedTask;
-        } else {
-            return null;
-        }
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index should be within bounds";
+        Task unmarkedTask = tasks.get(taskIndex);
+        unmarkedTask.unmarkAsDone();
+        return unmarkedTask;
     }
 
     /**
@@ -98,13 +91,22 @@ public class TaskList {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
-                if (((Deadline) task).getBy().equals(date)) {
+                LocalDate deadline = ((Deadline) task).getBy();
+
+                boolean isDeadline = deadline.equals(date);
+
+                if (isDeadline) {
                     matchingTasks.add(task);
                 }
             } else if (task instanceof Event) {
                 LocalDate from = ((Event) task).getFrom();
                 LocalDate to = ((Event) task).getTo();
-                if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
+
+                boolean isStartDate = date.equals(from);
+                boolean isEndDate = date.equals(to);
+                boolean isBetweenDates = date.isAfter(from) && date.isBefore(to);
+
+                if (isStartDate || isEndDate || isBetweenDates) {
                     matchingTasks.add(task);
                 }
             }
@@ -121,7 +123,8 @@ public class TaskList {
     public TaskList findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
                 matchingTasks.add(task);
             }
         }

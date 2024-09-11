@@ -30,17 +30,17 @@ public class MarkCommand extends Command {
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
 
-        Task task = tasks.markTaskAsDone(index);
-        if (task != null) {
-            try {
-                storage.save(tasks.getTasks());
-            } catch (IOException e) {
-                ui.showError("An error occurred while saving the task.");
-            }
-            return ui.showMarkedTask(task);
-        } else {
+        if (index < 0 || index >= tasks.getSize()) {
             return ui.showError("Task not found.");
         }
+
+        Task task = tasks.markTaskAsDone(index);
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            return ui.showError("An error occurred while saving the task.");
+        }
+        return ui.showMarkedTask(task);
     }
 
     @Override

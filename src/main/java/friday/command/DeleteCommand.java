@@ -30,17 +30,17 @@ public class DeleteCommand extends Command {
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
 
-        Task task = tasks.deleteTask(index);
-        if (task != null) {
-            try {
-                storage.save(tasks.getTasks());
-            } catch (IOException e) {
-                ui.showError("An error occurred while saving the task.");
-            }
-            return ui.showDeletedTask(task, tasks.getSize());
-        } else {
+        if (index < 0 || index >= tasks.getSize()) {
             return ui.showError("Task not found.");
         }
+
+        Task task = tasks.deleteTask(index);
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            return ui.showError("An error occurred while saving the task.");
+        }
+        return ui.showDeletedTask(task, tasks.getSize());
     }
 
     @Override
