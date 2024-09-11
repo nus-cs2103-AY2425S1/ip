@@ -1,7 +1,48 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ __  __       __  __ _
+|  \/  |_  _ / _|/ _(_)_ _
+| |\/| | || |  _|  _| | ' \
+|_|  |_|\_,_|_| |_| |_|_||_|
 
+Hello~ I am muffin.Muffin
+What can I do for you?
+Ok. Added this task:
+	[T][ ] borrow book
+Now you have 1 tasks in your list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+Ok. Added this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in your list.
+Ok. Added this task:
+	[D][ ] return book (by: Sunday)
+Now you have 3 tasks in your list.
+Oh no! You must have a description for a todo task!
+Oh no! You must have a description and a deadline for a deadline task!
+Oh no! You must have a description and a timeframe for an event task!
+Yay! Marked as done:
+	[E][X] project meeting (from: Mon 2pm to: 4pm)
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[E][X] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Sunday)
+Oh no! There is only 3 tasks.
+Oh no! This task does not exist!
+Ok. Added this task:
+	[T][ ] buy apples
+Now you have 4 tasks in your list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[E][X] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Sunday)
+4.[T][ ] buy apples
+Ok. Marked as not done yet:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Um... Not sure what you mean...
+Ok. muffin.Task has been removed:
+	[D][ ] return book (by: Sunday)
+Now you have 3 tasks in your list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[T][ ] buy apples
+Goodbye~ Hope to see you again soon!
