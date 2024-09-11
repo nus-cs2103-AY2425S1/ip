@@ -28,7 +28,8 @@ public class Meow {
         }
     }
 
-    /**
+
+     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
@@ -42,17 +43,4 @@ public class Meow {
             return e.getMessage();
         }
     }
-
-    /**
-     * Standard Main function, nothing new
-     *
-     * @param args Command-line arguments (not used).
-     */
-
-    /*
-    public static void main(String[] args) {
-        new Meow().run();
-    }
-    */
-
 }
