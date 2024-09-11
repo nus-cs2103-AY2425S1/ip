@@ -5,7 +5,6 @@ import boss.exceptions.EmptyTaskInputException;
 import boss.exceptions.NonExistentTaskException;
 import boss.tasks.Deadline;
 import boss.tasks.Task;
-import boss.tasks.TimeTask;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
  * has operations to add/delete tasks from the list
  */
 public class TaskList {
-
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -23,6 +21,7 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "task cannot be null";
         tasks.add(task);
     }
 

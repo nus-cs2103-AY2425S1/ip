@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -45,6 +45,9 @@ public class Storage {
             String str = s.nextLine();
             result = result + i + ". " + str + "\n";
             i++;
+        }
+        if (result.isEmpty()) {
+            return "There are no tasks in your list!";
         }
         return result;
     }
@@ -115,6 +118,5 @@ public class Storage {
             return new Task(description, isDone);
         }
     }
-
 
 }

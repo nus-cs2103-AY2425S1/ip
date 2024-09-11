@@ -37,18 +37,20 @@ public class Parser {
      * @throws IOException throws an exception if writing to data fails.
      */
     public String getResponse(String task) throws BossException, IOException {
+        assert !task.isEmpty() : "task cannot be empty";
+
         if (task.equals("list")) {
             return storage.printTasks();
         } else if (task.equals("Yashvan is the best")) {
             return "THATS RIGHT! HE IS THE GOAT OF GOATS";
         } else if (task.startsWith("mark")) {
-            /*The first element contains the newFileData
+            /* The first element contains the newFileData
             and the second element contains the Boss' response. */
             String[] newFileDataWithResponse = tasks.mark(task);
             storage.writeToFile(newFileDataWithResponse[0], false);
             return tasks.printMark(newFileDataWithResponse[1]);
         } else if (task.startsWith("unmark")) {
-            /*The first element contains the newFileData
+            /* The first element contains the newFileData
             and the second element contains the Boss' response. */
             String[] newFileDataWithResponse = tasks.unmark(task);
             storage.writeToFile(newFileDataWithResponse[0], false);

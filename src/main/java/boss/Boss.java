@@ -12,9 +12,6 @@ public class Boss {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    /**
-     * Starts the Chatbot.
-     */
 
     /**
      * Creates a Boss Object
@@ -45,6 +42,9 @@ public class Boss {
      * @return String containing response from the Boss Chatbot.
      */
     public String getResponse(String input) {
+        if (input.isEmpty()) {
+            return "You can't enter an empty command!";
+        }
         switch(input) {
             case "hello":
             case "hey":
@@ -61,6 +61,9 @@ public class Boss {
         try {
             Parser parser = new Parser(storage, tasks);
             String responseText = parser.getResponse(input);
+
+            assert !responseText.isEmpty() : "responseText cannot be empty!";
+
             return responseText;
         } catch (IOException e) {
             System.out.println(e);
@@ -71,10 +74,8 @@ public class Boss {
         }
     }
 
-
     public static void main(String[] args) {
         System.out.println("Text-based UI has been removed!");
     }
-
 
 }
