@@ -31,9 +31,9 @@ public class UnmarkCommand extends Command {
             assert t.getStatusIcon().equals("[ ]") : "Task should be unmarked";
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
-            ui.setResponse("OK, I've marked this task as not done yet:" + t);
+            ui.setUnmarkResponse(t.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new ParkException("invalid index");
+            throw ParkException.invalidIndexException();
         }
     }
 

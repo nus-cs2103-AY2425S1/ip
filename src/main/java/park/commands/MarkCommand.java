@@ -31,9 +31,9 @@ public class MarkCommand extends Command {
             assert t.getStatusIcon().equals("[X]") : "Task should be marked";
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
-            ui.setResponse("OK, I've marked this task as done:" + t);
+            ui.setMarkResponse(t.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new ParkException("invalid index");
+            throw ParkException.invalidIndexException();
         }
     }
 

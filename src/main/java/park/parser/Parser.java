@@ -36,9 +36,9 @@ public class Parser {
                 int index = Integer.parseInt(strIndex) - 1;
                 return new MarkCommand(index);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("missing index");
+                throw ParkException.missingIndexException();
             } catch (NumberFormatException e) {
-                throw new ParkException("invalid index");
+                throw ParkException.invalidIndexException();
             }
         } else if (userInput.startsWith("unmark")) {
             try {
@@ -46,9 +46,9 @@ public class Parser {
                 int index = Integer.parseInt(strIndex) - 1;
                 return new UnmarkCommand(index);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("missing index");
+                throw ParkException.missingIndexException();
             } catch (NumberFormatException e) {
-                throw new ParkException("invalid index");
+                throw ParkException.invalidIndexException();
             }
         } else if (userInput.startsWith("delete")) {
             try {
@@ -56,80 +56,80 @@ public class Parser {
                 int index = Integer.parseInt(strIndex) - 1;
                 return new DeleteCommand(index);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("missing index");
+                throw ParkException.missingIndexException();
             } catch (NumberFormatException e) {
-                throw new ParkException("invalid index");
+                throw ParkException.invalidIndexException();
             }
         } else if (userInput.startsWith("todo")) {
             try {
                 String charAfterCommand = getChar(userInput, 4);
                 if (!charAfterCommand.equals(" ")) {
-                    throw new ParkException("invalid input");
+                    throw ParkException.invalidInputException();
                 }
                 String desc = userInput.substring(5);
                 if (desc.isEmpty()) {
-                    throw new ParkException("please provide a description");
+                    throw ParkException.missingDescException();
                 }
                 Task t = new ToDo(desc);
                 return new AddCommand(t);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("please provide a description");
+                throw ParkException.missingDescException();
             }
         } else if (userInput.startsWith("deadline")) {
             try {
                 String charAfterCommand = getChar(userInput, 8);
                 if (!charAfterCommand.equals(" ")) {
-                    throw new ParkException("invalid input");
+                    throw ParkException.invalidInputException();
                 }
                 String[] str = userInput.split(" /by ");
                 String desc = str[0].substring(9);
                 String by = str[1];
                 if (desc.isEmpty() || by.isEmpty()) {
-                    throw new ParkException("please provide a description and/or deadline");
+                    throw ParkException.deadlineFormatException();
                 }
                 Task t = new Deadline(desc, by);
                 return new AddCommand(t);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("please use the format: desc /by deadline");
+                throw ParkException.deadlineFormatException();
             } catch (DateTimeParseException e) {
-                throw new ParkException("please input DateTime in format: yyyy-MM-dd HHmm");
+                throw ParkException.dateTimeFormatException();
             }
         } else if (userInput.startsWith("event")) {
             try {
                 String charAfterCommand = getChar(userInput, 5);
                 if (!charAfterCommand.equals(" ")) {
-                    throw new ParkException("invalid input");
+                    throw ParkException.invalidInputException();
                 }
                 String[] str = userInput.split(" /");
                 String desc = str[0].substring(6);
                 String start = str[1].substring(5);
                 String end = str[2].substring(3);
                 if (desc.isEmpty() || start.isEmpty() || end.isEmpty()) {
-                    throw new ParkException("please provide desc, start, end");
+                    throw ParkException.eventFormatException();
                 }
                 Task t = new Event(desc, start, end);
                 return new AddCommand(t);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("please use the format: desc /from start /to end");
+                throw ParkException.eventFormatException();
             } catch (DateTimeParseException e) {
-                throw new ParkException("please input DateTime in format: yyyy-MM-dd HHmm");
+                throw ParkException.dateTimeFormatException();
             }
         } else if (userInput.startsWith("find")) {
             try {
                 String charAfterCommand = getChar(userInput, 4);
                 if (!charAfterCommand.equals(" ")) {
-                    throw new ParkException("invalid input");
+                    throw ParkException.invalidInputException();
                 }
                 String keyword = userInput.substring(5);
                 if (keyword.isEmpty()) {
-                    throw new ParkException("please provide a keyword");
+                    throw ParkException.missingKeywordException();
                 }
                 return new FindCommand(keyword);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParkException("please provide a keyword");
+                throw ParkException.missingKeywordException();
             }
         } else {
-            throw new ParkException("invalid input");
+            throw ParkException.invalidInputException();
         }
     }
 

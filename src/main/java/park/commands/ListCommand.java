@@ -11,14 +11,11 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.isEmpty()) {
-            ui.setResponse("There are no tasks in your list.");
-        } else {
-            ui.setResponse("Here are the tasks in your list:" + "\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                ui.setResponse((i + 1) + "." + tasks.get(i) + "\n");
-            }
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            taskList.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        ui.setListResponse(taskList);
     }
 
     @Override
