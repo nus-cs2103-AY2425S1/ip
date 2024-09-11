@@ -9,6 +9,7 @@ import thebotfather.command.MarkCommand;
 import thebotfather.command.DeleteCommand;
 import thebotfather.command.AddCommand;
 import thebotfather.command.PrintTaskListCommand;
+import thebotfather.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -3,7 +3,7 @@ package thebotfather;
 import java.util.ArrayList;
 
 import thebotfather.command.Command;
-import thebotfather.util.Parser;
+import thebotfather.parser.Parser;
 import thebotfather.util.Storage;
 import thebotfather.util.TaskList;
 import thebotfather.util.TheBotFatherException;
