@@ -11,6 +11,25 @@ import friday.task.Task;
  * It provides methods to display messages, read commands, and show task-related information.
  */
 public class Ui {
+    private static final String DISPLAY_FORMAT_PATTERN = "MMM dd yyyy";
+
+    /**
+     * Prints a separation line to separate different sections of the output.
+     */
+    public void printSeparation() {
+        System.out.println("    ____________________________________________________________");
+    }
+
+    /**
+     * Prints a message with a separation line above and below it.
+     *
+     * @param message The message to be displayed.
+     */
+    public void printMessage(String message) {
+        printSeparation();
+        System.out.println(message);
+        printSeparation();
+    }
 
     /**
      * Greets the user with a welcome message.
@@ -19,10 +38,10 @@ public class Ui {
      */
     public String greet() {
         String greeting = "     Hello! I'm Friday\n"
-                + "     What can I do for you?\n";
-        System.out.println("    ____________________________________________________________\n"
-                + greeting
-                + "    ____________________________________________________________");
+                + "     What can I do for you?";
+
+        printMessage(greeting);
+
         return greeting;
     }
 
@@ -33,10 +52,10 @@ public class Ui {
      * @return The error message as a String.
      */
     public String showError(String message) {
-        String error = "     " + message + "\n";
-        System.out.println("    ____________________________________________________________\n"
-                + error
-                + "    ____________________________________________________________");
+        String error = "     " + message;
+
+        printMessage(error);
+
         return message;
     }
 
@@ -56,10 +75,10 @@ public class Ui {
      * @return The loading error message as a String.
      */
     public String showLoadingError() {
-        String loadingError = "     Error loading tasks from file. Starting with an empty task list.\n";
-        System.out.println("    ____________________________________________________________\n"
-                + loadingError
-                + "    ____________________________________________________________");
+        String loadingError = "     Error loading tasks from file. Starting with an empty task list.";
+
+        printMessage(loadingError);
+
         return loadingError;
     }
 
@@ -73,10 +92,10 @@ public class Ui {
     public String showAddedTask(Task task, int noOfTasks) {
         String message = "     Got it. I've added this task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + noOfTasks + " tasks in the list.\n";
-        System.out.println("    ____________________________________________________________\n"
-                + message
-                + "    ____________________________________________________________");
+                + "     Now you have " + noOfTasks + " tasks in the list.";
+
+        printMessage(message);
+
         return message;
     }
 
@@ -90,10 +109,10 @@ public class Ui {
     public String showDeletedTask(Task task, int noOfTasks) {
         String message = "     Noted. I've removed this task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + noOfTasks + " tasks in the list.\n";
-        System.out.println("    ____________________________________________________________\n"
-                + message
-                + "    ____________________________________________________________");
+                + "     Now you have " + noOfTasks + " tasks in the list.";
+
+        printMessage(message);
+
         return message;
     }
 
@@ -105,10 +124,10 @@ public class Ui {
      */
     public String showMarkedTask(Task task) {
         String message = "     Nice! I've marked this task as done:\n"
-                + "       " + task + "\n";
-        System.out.println("    ____________________________________________________________\n"
-                + message
-                + "    ____________________________________________________________");
+                + "       " + task;
+
+        printMessage(message);
+
         return message;
     }
 
@@ -120,10 +139,10 @@ public class Ui {
      */
     public String showUnmarkedTask(Task task) {
         String message = "     Nice! I've unmarked this task:\n"
-                + "       " + task + "\n";
-        System.out.println("    ____________________________________________________________\n"
-                + message
-                + "    ____________________________________________________________");
+                + "       " + task;
+
+        printMessage(message);
+
         return message;
     }
 
@@ -143,9 +162,9 @@ public class Ui {
                 output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________\n"
-                + output
-                + "    ____________________________________________________________");
+
+        printMessage(output.toString());
+
         return output.toString();
     }
 
@@ -162,15 +181,15 @@ public class Ui {
             output.append("     No tasks found on this date.\n");
         } else {
             output.append("     Here are your tasks on ")
-                    .append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")))
+                    .append(date.format(DateTimeFormatter.ofPattern(DISPLAY_FORMAT_PATTERN)))
                     .append(":\n");
             for (int i = 0; i < tasks.getSize(); i++) {
                 output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________\n"
-                + output
-                + "    ____________________________________________________________");
+
+        printMessage(output.toString());
+
         return output.toString();
     }
 
@@ -190,9 +209,9 @@ public class Ui {
                 output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________\n"
-                + output
-                + "    ____________________________________________________________");
+
+        printMessage(output.toString());
+
         return output.toString();
     }
 
@@ -202,10 +221,10 @@ public class Ui {
      * @return The goodbye message as a String.
      */
     public String sayGoodbye() {
-        String message = "    ____________________________________________________________\n"
-                + "     Bye. Hope to see you again soon!\n"
-                + "    ____________________________________________________________";
-        System.out.println(message);
-        return message;
+        String goodbye = "     Bye. Hope to see you again soon!";
+
+        printMessage(goodbye);
+
+        return goodbye;
     }
 }

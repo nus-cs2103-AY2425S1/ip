@@ -67,17 +67,17 @@ public class Friday {
      * @return The response from the Friday application.
      */
     public String getResponse(String input) {
+        if (input.equals("hi")) {
+            return ui.greet();
+        }
+
         try {
-            if (input.equals("hi")) {
-                return ui.greet();
-            } else {
-                Command c = Parser.parse(input);
-                String response = c.execute(tasks, ui, storage);
-                if (c.shouldExit()) {
-                    return response + "\nEXIT";
-                }
-                return response;
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            if (c.shouldExit()) {
+                return response + "\nEXIT";
             }
+            return response;
         } catch (Exception e) {
             return ui.showError(e.getMessage());
         }

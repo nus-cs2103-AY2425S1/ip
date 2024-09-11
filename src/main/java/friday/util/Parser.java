@@ -87,6 +87,7 @@ public class Parser {
         if (splitArguments.length < 2) {
             return new InvalidCommand("OOPS!!! The description or deadline cannot be empty.");
         }
+
         String description = splitArguments[0];
         String by = splitArguments[1];
         try {
@@ -108,11 +109,13 @@ public class Parser {
         if (splitArguments.length < 2) {
             return new InvalidCommand("OOPS!!! The description or date/time cannot be empty.");
         }
-        String description = splitArguments[0];
+
         String[] dateTimeParts = splitArguments[1].split(" /to ");
         if (dateTimeParts.length < 2) {
             return new InvalidCommand("OOPS!!! The end date/time for the event cannot be empty.");
         }
+
+        String description = splitArguments[0];
         try {
             String from = dateTimeParts[0];
             String to = dateTimeParts[1];
@@ -130,6 +133,10 @@ public class Parser {
      * @return A MarkCommand object for marking the task as done.
      */
     private static Command parseMark(String arguments) {
+        if (arguments.isEmpty()) {
+            return new InvalidCommand("OOPS!!! The index for marking tasks cannot be empty.");
+        }
+
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new MarkCommand(index);
@@ -145,6 +152,10 @@ public class Parser {
      * @return An UnmarkCommand object for unmarking the task as done.
      */
     private static Command parseUnmark(String arguments) {
+        if (arguments.isEmpty()) {
+            return new InvalidCommand("OOPS!!! The index for unmarking tasks cannot be empty.");
+        }
+
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new UnmarkCommand(index);
@@ -160,6 +171,10 @@ public class Parser {
      * @return A DeleteCommand object for deleting the task.
      */
     private static Command parseDelete(String arguments) {
+        if (arguments.isEmpty()) {
+            return new InvalidCommand("OOPS!!! The index for deleting tasks cannot be empty.");
+        }
+
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new DeleteCommand(index);
@@ -175,6 +190,10 @@ public class Parser {
      * @return An OnCommand object for filtering tasks by the given date.
      */
     private static Command parseOn(String arguments) {
+        if (arguments.isEmpty()) {
+            return new InvalidCommand("OOPS!!! The date for finding tasks cannot be empty.");
+        }
+
         try {
             LocalDate date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return new OnCommand(date);

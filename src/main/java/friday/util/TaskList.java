@@ -18,7 +18,7 @@ public class TaskList {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -90,13 +90,22 @@ public class TaskList {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
-                if (((Deadline) task).getBy().equals(date)) {
+                LocalDate deadline = ((Deadline) task).getBy();
+
+                boolean isDeadline = deadline.equals(date);
+
+                if (isDeadline) {
                     matchingTasks.add(task);
                 }
             } else if (task instanceof Event) {
                 LocalDate from = ((Event) task).getFrom();
                 LocalDate to = ((Event) task).getTo();
-                if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
+
+                boolean isStartDate = date.equals(from);
+                boolean isEndDate = date.equals(to);
+                boolean isBetweenDates = date.isAfter(from) && date.isBefore(to);
+
+                if (isStartDate || isEndDate || isBetweenDates) {
                     matchingTasks.add(task);
                 }
             }
@@ -113,7 +122,8 @@ public class TaskList {
     public TaskList findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
                 matchingTasks.add(task);
             }
         }

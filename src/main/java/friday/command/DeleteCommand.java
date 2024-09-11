@@ -25,17 +25,17 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= 0 && index < tasks.getSize()) {
-            Task task = tasks.deleteTask(index);
-            try {
-                storage.save(tasks.getTasks());
-            } catch (IOException e) {
-                return ui.showError("An error occurred while saving the task.");
-            }
-            return ui.showDeletedTask(task, tasks.getSize());
-        } else {
+        if (index < 0 || index >= tasks.getSize()) {
             return ui.showError("Task not found.");
         }
+
+        Task task = tasks.deleteTask(index);
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            return ui.showError("An error occurred while saving the task.");
+        }
+        return ui.showDeletedTask(task, tasks.getSize());
     }
 
     @Override
