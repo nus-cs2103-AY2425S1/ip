@@ -48,8 +48,11 @@ application {
     mainClass.set("gui.Launcher")
 }
 
+mainClassName = 'gui.Launcher'
+
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = 'duke.jar'
     archiveClassifier = null
 }
 

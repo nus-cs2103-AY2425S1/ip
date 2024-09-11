@@ -34,7 +34,7 @@ public class Parser {
      * @param ui Handles the interaction between the user and program.
      */
     public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
-            EmptyCommandException {
+            EmptyCommandException, TaskListOutOfBoundsException {
         String[] parts = inputString.split(" ", 2);
         String instruction = parts[0];
         String remainingInput = parts.length > 1 ? parts[1] : "";
@@ -95,6 +95,7 @@ public class Parser {
         case "delete": {
             int idx = Integer.parseInt(remainingInput) - 1;
             Task taskToBeDeleted = tasks.get(idx);
+            assert(tasks.size() > idx);
             tasks.delete(idx);
             ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
             break;
@@ -121,7 +122,7 @@ public class Parser {
      * @throws EmptyCommandException If an empty command is given, an exception will be thrown.
      */
     public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
-            EmptyCommandException {
+            EmptyCommandException, TaskListOutOfBoundsException {
         String[] parts = inputString.split(" ", 2);
         String instruction = parts[0];
         String remainingInput = parts.length > 1 ? parts[1] : "";

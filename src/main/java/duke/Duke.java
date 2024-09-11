@@ -59,6 +59,8 @@ public class Duke {
             } catch (DateTimeParseException e) {
                 System.out.println("Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".");
+            } catch (TaskListOutOfBoundsException e) {
+                System.out.println("Please select an item number from within the current list for deletion.");
             }
         }
         try {
@@ -94,6 +96,8 @@ public class Duke {
             } catch (DateTimeParseException e) {
                 return "Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".";
+            } catch (TaskListOutOfBoundsException e) {
+                System.out.println("Please select an item number from within the current list for deletion.");
             }
         } else {
             try {
@@ -104,6 +108,8 @@ public class Duke {
             }
             return "Farewell! Until we meet again.\n";
         }
+        assert(true);
+        return "";
     }
 
     public static void main(String[] args) {
