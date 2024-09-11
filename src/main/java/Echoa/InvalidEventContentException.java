@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 /**
  * InvalidDEventContentException is a class that encapsulates errors relating to event.
@@ -10,7 +10,8 @@ public class InvalidEventContentException extends InvalidTaskContentException {
         super();
     }
 
-    public String toString() {
+    @Override
+    public String getMessage() {
         return
         "Event has been inputted in the wrong format.\n" +
         "Please key in the following format:\n" +

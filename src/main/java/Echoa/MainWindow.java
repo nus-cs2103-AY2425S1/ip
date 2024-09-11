@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+/**
+ * MainWindow is a class that encapsulates the main interface that the user interacts with.
+ * It extends from class AnchorPane.
+ */
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -37,8 +42,6 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-
-
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();

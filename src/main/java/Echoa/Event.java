@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,39 +28,20 @@ public class Event extends Task {
         this.endDateAndTime = endDateAndTime;
     }
 
-    public LocalDateTime getStartDateAndTime() {
-        return this.startDateAndTime;
-    }
-
     public LocalDate getStartDate() {
-        return this.getStartDateAndTime().toLocalDate();
+        return this.startDateAndTime.toLocalDate();
     }
 
     public LocalTime getStartTime() {
-        return this.getStartDateAndTime().toLocalTime();
-    }
-
-    public LocalDateTime getEndDateAndTime() {
-        return this.endDateAndTime;
+        return this.startDateAndTime.toLocalTime();
     }
 
     public LocalDate getEndDate() {
-        return this.getEndDateAndTime().toLocalDate();
+        return this.endDateAndTime.toLocalDate();
     }
 
     public LocalTime getEndTime() {
-        return this.getEndDateAndTime().toLocalTime();
-    }
-
-    /**
-     * The method reformat the given date into MONTH-DD-YYYY.
-     *
-     * @param date LocalDate to be reformatted.
-     * @return String representation of reformatted date.
-     */
-    public static String getReformattedDate(LocalDate date) {
-        return date.getMonth() + " " +
-               date.getDayOfMonth() + " " + date.getYear();
+        return this.endDateAndTime.toLocalTime();
     }
 
     /**
@@ -81,7 +62,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" +
                 super.toString() +
-                " (from: " + getReformattedDate(this.getStartDate()) + " " + this.getStartTime().toString() +
-                " to: " + getReformattedDate(this.getEndDate()) + " " + this.getEndTime().toString() + ")";
+                " (from: " + Task.getReformattedDate(this.getStartDate()) + " " + this.getStartTime().toString() +
+                " to: " + Task.getReformattedDate(this.getEndDate()) + " " + this.getEndTime().toString() + ")";
     }
 }

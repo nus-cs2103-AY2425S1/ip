@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.io.IOException;
 import java.util.Collections;

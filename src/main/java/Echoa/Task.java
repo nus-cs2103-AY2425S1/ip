@@ -1,10 +1,12 @@
-package Echoa;
+package echoa;
+
+import java.time.LocalDate;
 
 /**
  * Task is a class that encapsulates the characteristics of a Task.
  * It contains the field, description and isDone.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
@@ -50,10 +52,19 @@ public class Task {
      *
      * @return String representation of text.
      */
-    public String toText() {
-        return "Task";
-    }
+    public abstract String toText();
 
+    /**
+     * The method reformat the given date into MONTH-DD-YYYY.
+     *
+     * @param date LocalDate to be reformatted.
+     * @return String representation of reformatted date.
+     */
+    public static String getReformattedDate(LocalDate date) {
+        return date.getMonth() + " " +
+                date.getDayOfMonth() + " " +
+                date.getYear();
+    }
 
     @Override
     public String toString() {

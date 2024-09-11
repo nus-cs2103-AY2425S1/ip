@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,7 +20,6 @@ public class Main extends Application {
     */
     @Override
     public void start(Stage stage) {
-
         String filePath = "./data/echoa.txt";
         Echoa echoa = new Echoa(filePath);
 
@@ -33,12 +32,8 @@ public class Main extends Application {
             stage.show();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("An error has occurred when writing to the file");
         } catch (Exception e) {
             System.out.println("System failed. Please contact administrator.");
-            e.printStackTrace();
         }
     }
 }

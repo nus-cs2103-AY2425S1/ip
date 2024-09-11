@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.io.File;
 import java.io.FileNotFoundException;

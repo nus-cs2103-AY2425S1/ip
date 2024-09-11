@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.time.LocalTime;
  * Deadline is a class that encapsulates the characteristics of a Deadline Task.
  * It extends from the class Task,
  * and contains an additional characteristic of
- * date.
+ * dateAndTime.
  */
 public class Deadline extends Task {
     private LocalDateTime dateAndTime;
@@ -23,28 +23,13 @@ public class Deadline extends Task {
         this.dateAndTime = dateAndTime;
     }
 
-    public LocalDateTime getDateAndTime() {
-        return this.dateAndTime;
-    }
 
     public LocalDate getDate() {
-        return this.getDateAndTime().toLocalDate();
+        return this.dateAndTime.toLocalDate();
     }
 
     public LocalTime getTime() {
-        return this.getDateAndTime().toLocalTime();
-    }
-
-    /**
-     * The method reformat the given date into MONTH-DD-YYYY.
-     *
-     * @param date LocalDate to be reformatted.
-     * @return String representation of reformatted date.
-     */
-    public static String getReformattedDate(LocalDate date) {
-        return date.getMonth() + " " +
-               date.getDayOfMonth() + " " +
-               date.getYear();
+        return this.dateAndTime.toLocalTime();
     }
 
     /**
@@ -65,7 +50,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" +
                 super.toString() +
-                " (by: " + getReformattedDate(this.getDate()) + " " +
+                " (by: " + Task.getReformattedDate(this.getDate()) + " " +
                 this.getTime().toString() + ")";
     }
 }

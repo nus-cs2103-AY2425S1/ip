@@ -1,4 +1,4 @@
-package Echoa;
+package echoa;
 
 /**
  * InvalidToDoContentException is a class that encapsulates errors relating to ToDo.

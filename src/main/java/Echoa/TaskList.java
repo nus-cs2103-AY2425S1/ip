@@ -1,11 +1,11 @@
-package Echoa;
+package echoa;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> taskList = null;
+    ArrayList<Task> taskList;
 
-    TaskList() {
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -27,25 +27,6 @@ public class TaskList {
      */
     public int getSize() {
         return this.taskList.size();
-    }
-
-    /**
-     * The method iterates through the taskList and
-     * prints out all the tasks in it.
-     *
-     */
-    public void listTasks() {
-        System.out.println("My Task List");
-        if (taskList.isEmpty()) {
-            System.out.println("No tasks yet :o");
-        } else {
-            int label = 1;
-            for (Task task : taskList) {
-                System.out.println(label + ". " + task.toString());
-                label++;
-            }
-        }
-        System.out.println();
     }
 
     /**

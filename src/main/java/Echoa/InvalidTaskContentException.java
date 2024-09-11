@@ -1,23 +1,15 @@
-package Echoa;
+package echoa;
 
 /**
- * InvalidTaskContentException is a class that encapsulates errors relating to task
+ * InvalidTaskContentException is a class that encapsulates errors relating to task.
+ * It extends from class EchoaException.
  */
-public abstract class InvalidTaskContentException extends Exception {
+
+public abstract class InvalidTaskContentException extends EchoaException {
     public InvalidTaskContentException() {
         super();
     }
 
     @Override
-    public String getMessage() {
-        return
-        "Task has been inputted in the wrong format.\n" +
-        "Please key in the following format for different instructions.\n" +
-        "TODO:\n" +
-        "todo [task name]\n" +
-        "DEADLINE:\n" +
-        "deadline [task name] /[due day, time, and/or date]\n" +
-        "EVENT\n" +
-        "event [task name] /[start day, time and/or date] /[start day, time and/or date]";
-    }
+    public abstract String getMessage();
 }
