@@ -1,3 +1,5 @@
+package beechat;
+
 class EventTask extends Task {
     protected String from;
     protected String to;

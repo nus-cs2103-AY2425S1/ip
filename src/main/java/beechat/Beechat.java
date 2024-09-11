@@ -1,3 +1,5 @@
+package beechat;
+
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,7 +23,7 @@ public class Beechat {
             }
             if (start.equals("delete")) {
                 try {
-                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    j = Integer.parseInt(msg.split(" ")[1]) - 1;
                     list.remove(j);
                     System.out.println("OK, I've removed this task:\n" + list.get(j));
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -35,7 +37,7 @@ public class Beechat {
             }
             if (start.equals("mark")) {
                 try {
-                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    j = Integer.parseInt(msg.split(" ")[1]) - 1;
                     list.get(j).mark();
                     System.out.println("Nice! I've marked this task as done:\n" + list.get(j));
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -49,7 +51,7 @@ public class Beechat {
             }
             if (start.equals("unmark")) {
                 try {
-                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    j = Integer.parseInt(msg.split(" ")[1]) - 1;
                     list.get(j).unmark();
                     System.out.println("OK, I've marked this task as not done yet:\n" + list.get(j));
                 } catch (ArrayIndexOutOfBoundsException e) {
