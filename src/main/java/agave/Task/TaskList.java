@@ -68,6 +68,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "Index cannot be negative";
         return tasks.get(index);
     }
 
@@ -87,6 +88,7 @@ public class TaskList {
      * @throws AgaveException If the task number is out of range.
      */
     public void markTask(int taskNumber) throws AgaveException {
+        assert taskNumber > 0 : "Task number cannot be negative";
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
             tasks.get(taskNumber - 1).markAsDone();
         } else {

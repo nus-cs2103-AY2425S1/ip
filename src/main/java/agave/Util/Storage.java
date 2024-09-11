@@ -41,6 +41,7 @@ public class Storage {
      * @throws IOException If an error occurs when writing to the file.
      */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks cannot be null";
         BufferedWriter bufferedWriter = null;
         try {
             FileWriter fileWriter = new FileWriter(file, false);
