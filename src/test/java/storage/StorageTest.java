@@ -2,6 +2,7 @@ package storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,12 +16,17 @@ import task.TaskList;
 import task.ToDo;
 
 public class StorageTest {
-    private static final String TEST_FILE_PATH = "./data/test_tasks.txt";
+    private static final String TEST_DATA_FOLDER = "./data";
+    private static final String TEST_FILE_PATH = TEST_DATA_FOLDER + "/test_tasks.txt";
 
     private Storage storage;
 
     @BeforeEach
     public void setUp() throws IOException {
+        File dataDir = new File(TEST_DATA_FOLDER);
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }
         storage = new Storage(TEST_FILE_PATH);
         Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
     }
