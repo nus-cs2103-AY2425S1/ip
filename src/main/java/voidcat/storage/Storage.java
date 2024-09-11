@@ -12,13 +12,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage where tasks are saved and loaded from
+ * in the Void Cat program.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage initialized with the path to the file.
+     *
+     * @param filePath The path to the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * If file exists, loads the tasks saved in the file previously.
+     * Else, calls ensureFileAndDirectoryExist()
+     *
+     * @return The list of tasks from the file.
+     * @throws IOException If file cannot be read.
+     * @throws VoidException If file or directory cannot be created.
+     * @throws SecurityException If read access to the file is denied
+     * when checking if file exists.
+     */
     public ArrayList<Task> load() throws IOException, VoidException, SecurityException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -41,6 +60,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks from the task list.
+     *
+     * @param tasks The list of tasks to be added.
+     */
     public void save(TaskList tasks) throws IOException, VoidException {
         ensureFileAndDirectoryExist(new File(filePath));
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
@@ -48,26 +72,37 @@ public class Storage {
         }
     }
 
-    private void ensureFileAndDirectoryExist(File file) throws VoidException, SecurityException {
-        try {
-            File directory = new File(file.getParent());
-            if (!directory.exists()) {
-                if (!directory.mkdirs()) {
-                    throw new VoidException("Error in creating directory!");
-                }
+    /**
+     * Checks if file and directory exists, else creates them.
+     *
+     * @param file The file to check for saved tasks.
+     * @throws VoidException If file or directory cannot be created.
+     * @throws SecurityException If read access to the directory is denied
+     * when checking if directory exists.
+     * @throws IOException If an I/O error occurs.
+     */
+    private void ensureFileAndDirectoryExist(File file) throws VoidException, SecurityException, IOException {
+        File directory = new File(file.getParent());
+        if (!directory.exists()) {
+            if (!directory.mkdirs()) {
+                throw new VoidException("Error in creating directory!");
             }
-            if (!file.exists()) {
-                if (!file.createNewFile()) {
-                    throw new VoidException("Error in creating file!");
-                } else {
-                    Ui.showMessageAndLines("No saved tasks found yet! voidcat.task.Task list is empty.\n\tStart adding tasks and track them!");
-                }
+        }
+        if (!file.exists()) {
+            if (!file.createNewFile()) {
+                throw new VoidException("Error in creating file!");
+            } else {
+                Ui.showMessageAndLines("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
             }
-        } catch (IOException e) {
-            Ui.showMessageAndLines("IO error in creating file: " + e.getMessage());
         }
     }
 
+    /**
+     * Parses the string formatted task line and constructs the Task instance
+     *
+     * @param line The string formatted task line.
+     * @return The task instance.
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
