@@ -15,13 +15,7 @@ public class FindCommand extends Command {
     @Override
     public void executeCmd(LuffyUI ui, Storage taskStorage, TaskList taskList) {
 
-        TaskList tempList = new TaskList();
-        for (Task existingTask : taskList.getTasks()) {
-            String taskInfo = existingTask.getTaskInfo();
-            if (taskInfo.contains(this.keyword)) {
-                tempList.addTask(existingTask);
-            }
-        }
+        TaskList tempList = taskList.findTasks(this.keyword);
         ui.showMatchingMessage();
         ui.displayTasks(tempList);
         ui.showLine();

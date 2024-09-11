@@ -1,6 +1,7 @@
 package luffy;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Represents a chatbot that has various commands
@@ -10,36 +11,63 @@ public class Luffy {
 
     private static final String DEST_FILE = "./LuffyData/TaskData";
 
+    // Variables
+    private final LuffyUI luffyBot;
+    private final Storage taskCache;
+    private TaskList taskList;
+    private boolean wantToExit = false;
+    private final LuffyParser luffyParser;
+
+
+    /**
+     */
+    public Luffy() {
+        this.luffyBot = new LuffyUI();
+        this.taskCache = new Storage(DEST_FILE);
+        this.taskList = new TaskList();
+        this.luffyParser = new LuffyParser(new Scanner(System.in));
+    }
+
+
     public static void main(String[] args) {
 
-        // Variables
-        LuffyUI luffyBot = new LuffyUI();
-        Storage taskCache = new Storage(DEST_FILE);
-        TaskList taskList = new TaskList();
-        boolean wantToExit = false;
+        Luffy luffy = new Luffy();
 
         try {
-            taskList = taskCache.loadFromFile();
+            luffy.taskList = luffy.taskCache.loadFromFile();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
+        LuffyLauncher.main(args);
+
         // Luffy greets the user!
-        luffyBot.showWelcomeMessage();
+        luffy.luffyBot.showWelcomeMessage();
 
-        while (!wantToExit) {
+        while (!luffy.wantToExit) {
 
-            String retrievedCommand = luffyBot.readNextCommand();
+            String retrievedCommand = luffy.luffyBot.readNextCommand();
             Command userCommand = LuffyParser.parse(retrievedCommand);
-            userCommand.executeCmd(luffyBot, taskCache, taskList);
+            userCommand.executeCmd(luffy.luffyBot, luffy.taskCache, luffy.taskList);
 
 
             if (userCommand instanceof ExitCommand) {
-                wantToExit = true;
+                luffy.wantToExit = true;
             }
         }
 
         // Luffy says goodbye!
-        luffyBot.showExitMessage();
+        luffy.luffyBot.showExitMessage();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke Heard: " + input;
+        /*
+        try {
+            String luffyResponse = this.luffyParser.handleInputFromGui();
+        } */
     }
 }

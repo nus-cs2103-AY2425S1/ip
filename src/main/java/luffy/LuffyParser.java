@@ -2,12 +2,19 @@ package luffy;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 /**
  * Represents a command parser that ensures user commands
  * are of valid expressions
  */
 public class LuffyParser {
+
+    private final Scanner scanner;
+
+    public LuffyParser(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     /**
      * Returns a Command object that contains the corresponding action

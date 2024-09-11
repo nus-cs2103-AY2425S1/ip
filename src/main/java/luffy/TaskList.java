@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents an array of Task for the Storage system to access and manipulate
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class TaskList {
 
     private ArrayList<Task> taskList;
@@ -62,4 +63,19 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    /**
+     * diuew
+     * @param keyword
+     * @return
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList tempList = new TaskList();
+        for (Task existingTask : taskList) {
+            String taskInfo = existingTask.getTaskInfo();
+            if (taskInfo.contains(keyword)) {
+                tempList.addTask(existingTask);
+            }
+        }
+        return tempList;
+    }
 }
