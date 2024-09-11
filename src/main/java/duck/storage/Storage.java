@@ -80,5 +80,16 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
+
+        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+            int lineCount = 0;
+            while (fileScanner.hasNextLine()) {
+                fileScanner.nextLine();
+                lineCount++;
+            }
+            assert lineCount == list.getList().size();
+        } catch (IOException e) {
+            System.out.println("Error reading tasks from file: " + e.getMessage());
+        }
     }
 }

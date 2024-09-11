@@ -42,7 +42,8 @@ public class Parser {
      * @param fullCommand the full command string to analyze
      * @return the command type extracted from the input
      */
-    public static String getCommandType(String fullCommand) {
+    private static String getCommandType(String fullCommand) {
+        assert fullCommand != null;
         String[] parts = fullCommand.split(" ", 2);
         return parts[0].toLowerCase();
     }
