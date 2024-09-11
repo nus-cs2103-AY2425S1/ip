@@ -1,7 +1,6 @@
 package easton.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import easton.exception.DateTimeFormatException;
@@ -10,6 +9,7 @@ import easton.exception.DateTimeFormatException;
  * Represents an event task.
  */
 public class Event extends Task {
+
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -25,9 +25,10 @@ public class Event extends Task {
      */
     public Event(String description, String startDate, String endDate) throws DateTimeFormatException {
         super(description);
+
         try {
-            this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
-            this.endDate = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+            this.startDate = LocalDateTime.parse(startDate, DATE_TIME_PARSE_FORMATTER);
+            this.endDate = LocalDateTime.parse(endDate, DATE_TIME_PARSE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DateTimeFormatException();
         }
@@ -36,13 +37,16 @@ public class Event extends Task {
     @Override
     public String getCsvFormat() {
         return "E," + super.getCsvFormat()
-                + "," + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
-                + "," + endDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+                + "," + startDate.format(DATE_TIME_PARSE_FORMATTER)
+                + "," + endDate.format(DATE_TIME_PARSE_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"))
-                + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm")) + ")";
+        return "[E]" + super.toString()
+                + " ("
+                + "from: " + startDate.format(DATE_TIME_PRINT_FORMATTER)
+                + " to: " + endDate.format(DATE_TIME_PRINT_FORMATTER)
+                + ")";
     }
 }

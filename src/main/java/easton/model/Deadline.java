@@ -1,7 +1,6 @@
 package easton.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import easton.exception.DateTimeFormatException;
@@ -10,20 +9,21 @@ import easton.exception.DateTimeFormatException;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime by;
+    private LocalDateTime dueDate;
 
     /**
      * Constructs a new deadline task with the specified description, date & time by.
      * If the date & time format is wrong, an exception is thrown.
      *
      * @param description Description of the task.
-     * @param by Date & time the task is due by.
+     * @param dueDate Date & time the task is due by.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
      */
-    public Deadline(String description, String by) throws DateTimeFormatException {
+    public Deadline(String description, String dueDate) throws DateTimeFormatException {
         super(description);
+
         try {
-            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+            this.dueDate = LocalDateTime.parse(dueDate, DATE_TIME_PARSE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DateTimeFormatException();
         }
@@ -31,12 +31,11 @@ public class Deadline extends Task {
 
     @Override
     public String getCsvFormat() {
-        return "D," + super.getCsvFormat() + "," + by.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+        return "D," + super.getCsvFormat() + "," + dueDate.format(DATE_TIME_PARSE_FORMATTER);
     }
-
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm")) + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate.format(DATE_TIME_PRINT_FORMATTER) + ")";
     }
 }

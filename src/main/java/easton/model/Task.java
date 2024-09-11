@@ -1,11 +1,16 @@
 package easton.model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 /**
  * Represents a task.
  */
 public abstract class Task {
+
+    public static final DateTimeFormatter DATE_TIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
+    public static final DateTimeFormatter DATE_TIME_PRINT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy H:mm");
     private String description;
     private boolean isDone;
 
@@ -39,7 +44,8 @@ public abstract class Task {
      * @return The csv string representation of the task.
      */
     public String getCsvFormat() {
-        return (isDone ? "1" : "0") + "," + description;
+        String isDoneBinaryValue = isDone ? "1" : "0";
+        return isDoneBinaryValue + "," + description;
     }
 
     /**
@@ -49,7 +55,10 @@ public abstract class Task {
      * @return If the keyword is in the description.
      */
     public boolean hasKeywords(String ... keywords) {
-        return Arrays.stream(keywords).anyMatch((x) -> description.matches(".*\\b" + x + "\\b.*"));
+        String beforeWordRegex = ".*\\b";
+        String afterWordRegex = "\\b.*";
+        Predicate<String> hasKeyword = word -> description.matches(beforeWordRegex + word + afterWordRegex);
+        return Arrays.stream(keywords).anyMatch(hasKeyword);
     }
 
     @Override

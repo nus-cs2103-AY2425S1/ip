@@ -2,10 +2,11 @@ package easton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.function.Predicate;
 
 import easton.exception.DateTimeFormatException;
 import easton.exception.EmptyDescriptionException;
-import easton.exception.IllegalActionException;
 import easton.exception.InvalidFormatException;
 import easton.exception.InvalidIndexException;
 import easton.model.Deadline;
@@ -19,9 +20,13 @@ import easton.view.Ui;
  */
 public class Easton {
 
+    public static final String EXIT_RESPONSE = "Bye. Hope to see you again soon!";
+    public static final String INVALID_RESPONSE = "I'm sorry, but I'm not programmed to do this :/";
+    public static final String LIST_HEADER_RESPONSE = "Here are the tasks in your list:";
+    public static final String MARK_HEADER_RESPONSE = "Nice! I've marked this task as done:";
+    public static final String UNMARK_HEADER_RESPONSE = "OK, I've marked this task as not done yet:";
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
-    private Ui<Task> ui;
 
     /**
      * Constructs an instance of the chatbot.
@@ -30,14 +35,12 @@ public class Easton {
      */
     public Easton(String fileName) {
         try {
-
             storage = new Storage(fileName);
         } catch (IOException e) {
             Ui.displayToConsole("Cannot connect to the storage.");
         }
 
         tasks = retrieveTasks();
-        ui = new Ui<>();
     }
 
     /**
@@ -45,84 +48,31 @@ public class Easton {
      */
     public void run() {
         Ui.welcome();
+
         boolean isFinished = false;
-        Action action;
-        String userInput;
-
+        Scanner scanner = new Scanner(System.in);
         while (!isFinished) {
-            userInput = ui.input();
-            Ui.divider();
 
+            String input = scanner.nextLine();
+            Action action = getActionFromInput(input);
+
+            boolean isNotList = action != Action.LIST;
+            boolean isNotBye = action != Action.BYE;
+            boolean isNotInvalid = action != Action.INVALID;
+            String body = "";
             try {
-                action = getActionFromInput(userInput);
-            } catch (IllegalActionException e) {
+                if (isNotList && isNotBye && isNotInvalid) {
+                    body = getBodyFromInput(input);
+                }
+                Ui.displayToConsole(performAction(action, body));
+            } catch (EmptyDescriptionException e) {
                 Ui.displayToConsole(e.getMessage());
-                action = Action.INVALID;
             }
 
-            switch (action) {
-            case BYE:
-                Ui.goodbye();
-                isFinished = true;
-                break;
-            case LIST:
-                Ui.displayToConsole("Here are the tasks in your list:");
-                ui.list(tasks, (x) -> true);
-                break;
-            case MARK:
-                Ui.displayToConsole(changeTaskStatus(userInput,
-                        true,
-                        "Nice! I've marked this task as done:"));
-                saveTasks();
-                break;
-            case UNMARK:
-                Ui.displayToConsole(changeTaskStatus(userInput,
-                        false,
-                        "OK, I've marked this task as not done yet:"));
-                saveTasks();
-                break;
-            case TODO:
-                try {
-                    Ui.displayToConsole(addTask(createToDo(userInput)));
-                    saveTasks();
-                } catch (EmptyDescriptionException e) {
-                    Ui.displayToConsole(e.getMessage());
-                }
-                break;
-            case DEADLINE:
-                try {
-                    Ui.displayToConsole(addTask(createDeadline(userInput)));
-                    saveTasks();
-                } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    Ui.displayToConsole(e.getMessage());
-                }
-                break;
-            case EVENT:
-                try {
-                    Ui.displayToConsole(addTask(createEvent(userInput)));
-                    saveTasks();
-                } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    Ui.displayToConsole(e.getMessage());
-                }
-                break;
-            case DELETE:
-                Ui.displayToConsole(deleteTask(userInput));
-                saveTasks();
-                break;
-            case FIND:
-                try {
-                    Ui.displayToConsole(findTasks(userInput));
-                } catch (EmptyDescriptionException e) {
-                    Ui.displayToConsole(e.getMessage());
-                }
-                break;
-            default:
-                break;
-            }
+            isFinished = !isNotBye;
 
             Ui.divider();
         }
-
     }
 
 
@@ -137,21 +87,22 @@ public class Easton {
     /**
      * Changes the status of a given task.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @param isDone Is the task done.
      * @param message Message displayed to the user interface.
      * @return Response to be displayed to the user interface.
      */
-    public String changeTaskStatus(String input, boolean isDone, String message) {
+    public String changeTaskStatus(String body, boolean isDone, String message) {
         StringBuilder response = new StringBuilder();
         try {
-            int index = getIndexFromInput(input);
-            Task task = tasks.get(index - 1);
+            int index = getIndexFromBody(body);
+            Task task = tasks.get(index);
             task.setDone(isDone);
+
             response.append(message).append("\n");
             response.append(task);
 
-        } catch (InvalidIndexException | EmptyDescriptionException e) {
+        } catch (InvalidIndexException e) {
             response.append(e.getMessage());
         }
 
@@ -161,19 +112,20 @@ public class Easton {
     /**
      * Deletes a task.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return Response to be displayed to the user interface.
      */
-    public String deleteTask(String input) {
+    public String deleteTask(String body) {
         StringBuilder response = new StringBuilder();
         try {
-            int index = getIndexFromInput(input);
-            Task task = tasks.remove(index - 1);
+            int index = getIndexFromBody(body);
+            Task task = tasks.remove(index);
+
             response.append("Noted. I've removed this task:").append("\n");
             response.append(task).append("\n");
             response.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
 
-        } catch (InvalidIndexException | EmptyDescriptionException e) {
+        } catch (InvalidIndexException e) {
             response.append(e.getMessage());
         }
 
@@ -184,28 +136,23 @@ public class Easton {
      * Returns the index from the input by the user.
      * If the index does not exist, an exception is thrown.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return Index that exist in the task list.
      * @throws InvalidIndexException If the index does not exist in the task list.
-     * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
-    public int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+    private int getIndexFromBody(String body) throws InvalidIndexException {
         int index;
-        String[] splitInput = input.split(" ", 2);
-        if (splitInput.length != 2) {
-            throw new EmptyDescriptionException();
-        }
 
         try {
-            index = Integer.parseInt(splitInput[1]);
+            index = Integer.parseInt(body);
         } catch (NumberFormatException e) {
-            throw new InvalidIndexException(splitInput[1]);
+            throw new InvalidIndexException(body);
         }
 
         if (0 < index && index <= tasks.size()) {
-            return index;
+            return index - 1;
         } else {
-            throw new InvalidIndexException(splitInput[1]);
+            throw new InvalidIndexException(body);
         }
     }
 
@@ -213,46 +160,29 @@ public class Easton {
      * Creates a todo task from the input.
      * If the body of the input is empty, an exception is thrown.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return A new todo task.
-     * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
-    public static ToDo createToDo(String input) throws EmptyDescriptionException {
-        String[] splitInput = input.stripLeading()
-                .stripTrailing()
-                .split(" ", 2);
-        if (splitInput.length == 2) {
-            return new ToDo(splitInput[1]);
-        } else {
-            throw new EmptyDescriptionException();
-        }
+    public static ToDo createToDo(String body) {
+        return new ToDo(body);
     }
 
     /**
      * Creates a deadline task from the input.
      * If the body of the input is empty or the format is invalid, an exception is thrown.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return A new deadline task.
-     * @throws EmptyDescriptionException If the body of the prompt is empty.
      * @throws InvalidFormatException If the body is in the incorrect format.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
      */
-    public static Deadline createDeadline(String input) throws EmptyDescriptionException,
-            InvalidFormatException,
-            DateTimeFormatException {
-        String[] splitInput = input.stripLeading()
-                .stripTrailing()
-                .split(" ", 2);
-        if (splitInput.length != 2) {
-            throw new EmptyDescriptionException();
-        }
-
-        if (!splitInput[1].contains(" /by ")) {
+    public static Deadline createDeadline(String body) throws InvalidFormatException, DateTimeFormatException {
+        String dueDateTag = " /by ";
+        if (!body.contains(dueDateTag)) {
             throw new InvalidFormatException();
         }
 
-        String[] content = splitInput[1].split(" /by ", 2);
+        String[] content = body.split(dueDateTag, 2);
         return new Deadline(content[0], content[1]);
     }
 
@@ -260,25 +190,20 @@ public class Easton {
      * Creates an event task from the input.
      * If the body of the input is empty or the format is invalid, an exception is thrown.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return A new event task.
-     * @throws EmptyDescriptionException If the body of the prompt is empty.
      * @throws InvalidFormatException If the body is in the incorrect format.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
      */
-    public static Event createEvent(String input) throws EmptyDescriptionException,
-            InvalidFormatException,
-            DateTimeFormatException {
-        String[] splitInput = input.split(" ", 2);
-        if (splitInput.length != 2) {
-            throw new EmptyDescriptionException();
-        }
-
-        if (!(splitInput[1].contains(" /from ") && splitInput[1].contains(" /to "))) {
+    public static Event createEvent(String body) throws InvalidFormatException, DateTimeFormatException {
+        String startDateTag = " /from ";
+        String endDateTag = " /to ";
+        boolean hasDateTags = body.contains(startDateTag) && body.contains(endDateTag);
+        if (!hasDateTags) {
             throw new InvalidFormatException();
         }
 
-        String[] content = splitInput[1].split(" /from | /to ", 3);
+        String[] content = body.split(startDateTag + "|" + endDateTag, 3);
         return new Event(content[0], content[1], content[2]);
     }
 
@@ -288,14 +213,13 @@ public class Easton {
      *
      * @param input Input from the prompt.
      * @return A valid action.
-     * @throws IllegalActionException If the action given cannot be done.
      */
-    public static Action getActionFromInput(String input) throws IllegalActionException {
+    private static Action getActionFromInput(String input) {
         String action = input.split(" ", 2)[0];
         try {
             return Action.valueOf(action.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalActionException();
+            return Action.INVALID;
         }
     }
 
@@ -359,6 +283,7 @@ public class Easton {
             default:
                 continue;
             }
+
             task.setDone(data[1].equals("1"));
             taskArrayList.add(task);
         }
@@ -382,33 +307,18 @@ public class Easton {
     /**
      * Finds tasks with a matching keyword in their description.
      *
-     * @param input Input from the prompt.
+     * @param body Body from the prompt.
      * @return Response to be displayed to the user interface.
-     * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
-    public String findTasks(String input) throws EmptyDescriptionException {
+    public String findTasks(String body) {
         StringBuilder response = new StringBuilder();
-        String[] splitInput = input.trim().split("\\s+", 2);
+        String[] keywords = body.split("\\s+");
+        response.append(toNumberedTaskList(task -> task.hasKeywords(keywords)));
 
-        if (splitInput.length != 2) {
-            throw new EmptyDescriptionException();
-        }
-
-        String[] keywords = splitInput[1].split("\\s+");
-        boolean hasNoMatch = true;
-
-        for (Task task : tasks) {
-            if (task.hasKeywords(keywords)) {
-                hasNoMatch = false;
-                break;
-            }
-        }
-
-        if (hasNoMatch) {
+        if (response.isEmpty()) {
             response.append("No match was found.");
         } else {
-            response.append("Here are the matching tasks in your list:");
-            response.append(ui.toStringRecords(tasks, (x) -> x.hasKeywords(keywords)));
+            response.insert(0, "Here are the matching tasks in your list:");
         }
 
         return response.toString();
@@ -421,75 +331,117 @@ public class Easton {
      * @return Response to the user's chat.
      */
     public String getResponse(String input) {
-        Action action;
-        StringBuilder response = new StringBuilder();
-
+        Action action = getActionFromInput(input);
         try {
-            action = getActionFromInput(input);
-        } catch (IllegalActionException e) {
-            response.append(e.getMessage());
-            action = Action.INVALID;
+            String body = "";
+            boolean hasABodyAction = action != Action.LIST && action != Action.BYE;
+            if (hasABodyAction) {
+                body = getBodyFromInput(input);
+            }
+            return performAction(action, body);
+        } catch (EmptyDescriptionException e) {
+            return e.getMessage();
         }
+    }
+
+
+    /**
+     * Returns the body embedded inside the input.
+     *
+     * @param input Input from the prompt.
+     * @return Body from the input.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     */
+    public String getBodyFromInput(String input) throws EmptyDescriptionException {
+        String[] splitInput = input.split("\\s+", 2);
+        if (splitInput.length != 2) {
+            throw new EmptyDescriptionException();
+        }
+
+        return splitInput[1].trim();
+    }
+
+    /**
+     * Performs the action with the given body.
+     *
+     * @param action Action from the prompt.
+     * @param body Body from the prompt.
+     * @return Response to be displayed to users.
+     */
+    public String performAction(Action action, String body) {
+        StringBuilder response = new StringBuilder();
 
         switch (action) {
         case BYE:
-            System.exit(0);
+            response.append(EXIT_RESPONSE);
             break;
         case LIST:
-            response.append("Here are the tasks in your list:");
-            response.append(ui.toStringRecords(tasks, (x) -> true));
+            response.append(LIST_HEADER_RESPONSE);
+            response.append(toNumberedTaskList(task -> true));
             break;
         case MARK:
-            response.append(changeTaskStatus(input,
-                    true,
-                    "Nice! I've marked this task as done:"));
+            response.append(changeTaskStatus(body, true, MARK_HEADER_RESPONSE));
             saveTasks();
             break;
         case UNMARK:
-            response.append(changeTaskStatus(input,
-                    false,
-                    "OK, I've marked this task as not done yet:"));
+            response.append(changeTaskStatus(body, false, UNMARK_HEADER_RESPONSE));
             saveTasks();
             break;
         case TODO:
-            try {
-                response.append(addTask(createToDo(input)));
-                saveTasks();
-            } catch (EmptyDescriptionException e) {
-                response.append(e.getMessage());
-            }
+            ToDo todo = createToDo(body);
+            response.append(addTask(todo));
+            saveTasks();
             break;
         case DEADLINE:
             try {
-                response.append(addTask(createDeadline(input)));
+                Deadline deadline = createDeadline(body);
+                response.append(addTask(deadline));
                 saveTasks();
-            } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
+            } catch (InvalidFormatException | DateTimeFormatException e) {
                 response.append(e.getMessage());
             }
             break;
         case EVENT:
             try {
-                response.append(addTask(createEvent(input)));
+                Event event = createEvent(body);
+                response.append(addTask(event));
                 saveTasks();
-            } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
+            } catch (InvalidFormatException | DateTimeFormatException e) {
                 response.append(e.getMessage());
             }
             break;
         case DELETE:
-            response.append(deleteTask(input));
+            response.append(deleteTask(body));
             saveTasks();
             break;
         case FIND:
-            try {
-                response.append(findTasks(input));
-            } catch (EmptyDescriptionException e) {
-                response.append(e.getMessage());
-            }
+            response.append(findTasks(body));
+            break;
+        case INVALID:
+            response.append(INVALID_RESPONSE);
             break;
         default:
             break;
         }
 
         return response.toString();
+    }
+
+    /**
+     * Generates a numbered task list.
+     * The tasks can be filtered through with a predicate.
+     *
+     * @param predicate Predicate to filter the list of tasks.
+     * @return A numbered task list as a string.
+     */
+    public String toNumberedTaskList(Predicate<Task> predicate) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (predicate.test(task)) {
+                stringBuilder.append("\n").append(i + 1).append(".").append(task);
+            }
+        }
+        return stringBuilder.toString();
     }
 }
