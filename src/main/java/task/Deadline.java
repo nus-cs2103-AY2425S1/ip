@@ -8,8 +8,8 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     private final LocalDateTime deadline;
 
@@ -22,7 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) throws DateTimeParseException {
         super(TaskType.DEADLINE, description);
-        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
+        this.deadline = LocalDateTime.parse(deadline, INPUT_DATE_FORMATTER);
     }
 
     /**
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * @return task.Deadline of the task.
      */
     public String getDeadline() {
-        return deadline.format(OUTPUT_FORMATTER);
+        return deadline.format(OUTPUT_DATE_FORMATTER);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + " | " + deadline.format(INPUT_FORMATTER);
+        return super.serialize() + " | " + deadline.format(INPUT_DATE_FORMATTER);
     }
 
     /**
