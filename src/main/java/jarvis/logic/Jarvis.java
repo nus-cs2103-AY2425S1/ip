@@ -1,5 +1,4 @@
 package jarvis.logic;
-import java.util.Scanner;
 
 public class Jarvis {
         TaskList tasklist;
