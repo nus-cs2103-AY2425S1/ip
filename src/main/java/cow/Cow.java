@@ -15,6 +15,7 @@ public class Cow {
     private TodoList todoList;
     private final FileSaver fs;
     private final Ui ui;
+    private String commandType;
 
     /**
      * Creates an instance of the Cow class.
@@ -66,6 +67,7 @@ public class Cow {
         try {
             Command c = Parser.parse(input);
             c.execute(todoList, ui, fs);
+            commandType = c.getClass().getSimpleName();
             return ui.getCurrentText();
         } catch (CowExceptions e) {
             return e.getMessage();
@@ -86,5 +88,13 @@ public class Cow {
      */
     public static void main(String[] args) {
         new Cow("data/cow.txt").run();
+    }
+
+    /**
+     * Gets the command type.
+     * @return a string.
+     */
+    public String getCommandType() {
+        return commandType;
     }
 }

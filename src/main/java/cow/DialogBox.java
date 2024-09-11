@@ -49,15 +49,24 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getCowDialog(String text, Image img) {
+    public static DialogBox getCowDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(String commandType) {
+        // Do nothing
+        if (commandType.equals("IncorrectCommand")) {
+            dialog.getStyleClass().add("error-label");
+        }
     }
 }

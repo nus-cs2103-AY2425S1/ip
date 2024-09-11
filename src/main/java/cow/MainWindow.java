@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void setCow(Cow d) {
         cow = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getCowDialog(cow.getGreetings(), cowImage)
+                DialogBox.getCowDialog(cow.getGreetings(), cowImage, "Greetings")
         );
     }
 
@@ -47,9 +47,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = cow.getResponse(input);
+        String commandType = cow.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCowDialog(response, cowImage)
+                DialogBox.getCowDialog(response, cowImage, commandType)
         );
         userInput.clear();
     }
