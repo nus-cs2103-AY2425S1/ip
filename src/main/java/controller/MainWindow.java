@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import enums.StatusMessage;
 import javafx.animation.PauseTransition;
@@ -57,13 +58,32 @@ public class MainWindow extends AnchorPane {
         addUserDialog(input);
 
         Response[] responses = botManager.getResponse(input);
-        String [] messages = Arrays.stream(responses).map(Response::getMessage).toArray(String[]::new);
+        String [] messages = getMessages(responses);
         addBotDialog(messages);
 
-        boolean shouldTerminate = Arrays.stream(responses).anyMatch(Response::isTerminating);
+        boolean shouldTerminate = checkIfTerminating(responses);
         if (shouldTerminate) {
             closeWindow();
         }
+    }
+
+    /**
+     * Filters out null responses and extracts the messages into a String array.
+     */
+    private String[] getMessages(Response[] responses) {
+        return Arrays.stream(responses)
+                .filter(Objects::nonNull)
+                .map(Response::getMessage)
+                .toArray(String[]::new);
+    }
+
+    /**
+     * Filters out null responses and checks if any responses are terminating.
+     */
+    private boolean checkIfTerminating(Response[] responses) {
+        return Arrays.stream(responses)
+                .filter(Objects::nonNull)
+                .anyMatch(Response::isTerminating);
     }
 
     private void addUserDialog(String message) {
