@@ -2,3 +2,5 @@ T | 0 | read book
 D | 1 | return book | 2024-09-20T00:00
 T | 0 | work
 D | 0 | meeting | 2024-08-24T18:00
+E | 0 | event | 2024-10-26T16:00 | 2024-10-26T18:00
+E | 0 | meeting friends | 2024-09-28T16:00 | 2024-09-28T19:00

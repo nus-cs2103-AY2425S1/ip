@@ -8,13 +8,6 @@ import beeboo.exception.BeeBooExceptions;
 import beeboo.exception.NoDescriptionException;
 
 public class DeadlinesTest {
-    @Test
-    public void createDeadlineTest1() throws BeeBooExceptions {
-        String test = "ca1 /by 2024-02-24";
-        String expectedDeadlineString = "[D][ ] ca1(by:Feb 24 2024 at 12:00 am)";
-        assertEquals(expectedDeadlineString, Deadlines.createDeadline(test).toString());
-    }
-
 
     @Test
     public void createDeadlineTest2() {

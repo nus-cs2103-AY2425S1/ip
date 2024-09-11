@@ -82,7 +82,7 @@ public class Deadlines extends Tasks {
      */
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(by:" + FORMATTER.format(date) + ")";
+        return typeIcon() + super.toString() + "(by:" + FORMATTER.format(date).toLowerCase() + ")";
     }
 
     /**
