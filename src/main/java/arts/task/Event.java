@@ -9,8 +9,11 @@ import java.time.format.DateTimeFormatter;
  * about the start and end times of the event.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -40,10 +43,10 @@ public class Event extends Task {
     public String toString() {
         assert from != null : "Start time should not be null when formatting";
         assert to != null : "End time should not be null when formatting";
-
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter)
-                + " to: " + to.format(outputFormatter) + ")";
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                from.format(DISPLAY_FORMATTER),
+                to.format(DISPLAY_FORMATTER));
     }
 
     /**
@@ -56,9 +59,10 @@ public class Event extends Task {
     public String toFileFormat() {
         assert from != null : "Start time should not be null when formatting for file";
         assert to != null : "End time should not be null when formatting for file";
-
-        DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + from.format(fileFormatter) + " | " + to.format(fileFormatter);
+        return String.format("E | %s | %s | %s | %s",
+                isDone ? "1" : "0",
+                description,
+                from.format(FILE_FORMATTER),
+                to.format(FILE_FORMATTER));
     }
 }

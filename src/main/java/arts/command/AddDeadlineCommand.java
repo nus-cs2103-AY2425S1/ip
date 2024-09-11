@@ -19,6 +19,7 @@ public class AddDeadlineCommand implements Command {
     private final Ui ui;
     private final String details;
     private final DateTimeFormatter[] inputFormatters;
+    private static final String DATE_FORMAT_ERROR_MESSAGE = "Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.";
 
     /**
      * Constructs an AddDeadlineCommand with the specified task list, storage, UI, task details,
@@ -79,17 +80,15 @@ public class AddDeadlineCommand implements Command {
     private LocalDateTime parseDate(String dateString) throws ArtsException {
         assert dateString != null && !dateString.isEmpty() : "Date string cannot be null or empty";
 
-        LocalDateTime date = null;
         for (DateTimeFormatter formatter : inputFormatters) {
             try {
-                date = LocalDateTime.parse(dateString, formatter);
-                break;
+                return LocalDateTime.parse(dateString, formatter);
             } catch (DateTimeParseException e) {
                 // Continue to the next formatter
             }
         }
-        assert date != null : "Date must be successfully parsed";
 
-        return date;
+        throw new ArtsException(DATE_FORMAT_ERROR_MESSAGE);
     }
+
 }

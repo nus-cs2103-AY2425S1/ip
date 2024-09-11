@@ -26,6 +26,12 @@ public class Arts {
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm")
     };
 
+    private static final String GOODBYE_MESSAGE = "Bye! Hope to see you again soon!";
+    private static final String NO_TASKS_MESSAGE = "No tasks yet! Why not add some?";
+    private static final String TASK_LIST_HEADER = "Here are the tasks in your list:\n";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, but I don't know what that means.";
+    private static final String UNEXPECTED_ERROR_MESSAGE = "An unexpected error occurred: ";
+
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -42,6 +48,7 @@ public class Arts {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
+
         TaskList tempTasks;
         try {
             tempTasks = new TaskList(storage.load());
@@ -66,7 +73,7 @@ public class Arts {
 
             switch (command) {
             case BYE:
-                return "Bye! Hope to see you again soon!";
+                return GOODBYE_MESSAGE;
             case LIST:
                 return listTasks();
             case MARK:
@@ -91,12 +98,12 @@ public class Arts {
                 assert parts.length > 1 : "FIND command requires additional arguments";
                 return new FindCommand(tasks, parts[1]).execute();
             default:
-                throw new ArtsException("I'm sorry, but I don't know what that means.");
+                throw new ArtsException(UNKNOWN_COMMAND_MESSAGE);
             }
         } catch (ArtsException e) {
             return "OOPS!!! " + e.getMessage();
         } catch (Exception e) {
-            return "An unexpected error occurred: " + e.getMessage();
+            return UNEXPECTED_ERROR_MESSAGE + e.getMessage();
         }
     }
 
@@ -107,9 +114,9 @@ public class Arts {
      */
     private String listTasks() {
         if (tasks.isEmpty()) {
-            return "No tasks yet! Why not add some?";
+            return NO_TASKS_MESSAGE;
         } else {
-            StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder sb = new StringBuilder(TASK_LIST_HEADER);
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
             }
@@ -142,7 +149,7 @@ public class Arts {
                     isExit = true;
                 }
             } catch (Exception e) {
-                ui.showError("An unexpected error occurred: " + e.getMessage());
+                ui.showError(UNEXPECTED_ERROR_MESSAGE + e.getMessage());
             }
         }
     }
