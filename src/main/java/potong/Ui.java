@@ -46,8 +46,8 @@ public class Ui {
      * Print the introduction when the program first runs.
      */
     public void showIntroduction() {
-        System.out.println("Hello! I'm potong.Potong");
-        System.out.println("What can I do for you?\n");
+//        System.out.println("Hello! I'm potong.Potong");
+//        System.out.println("What can I do for you?\n");
     }
 
     /**
@@ -61,7 +61,7 @@ public class Ui {
      * Print the goodbye when the user terminates the program.
      */
     public void sayGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+//        System.out.println("Bye. Hope to see you again soon!\n");
         this.showLine();
     }
 
@@ -71,7 +71,7 @@ public class Ui {
      * @param message Message to be printed.
      */
     public void print(String message) {
-        System.out.println(message);
+//        System.out.println(message);
     }
 
 }

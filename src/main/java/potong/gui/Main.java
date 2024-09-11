@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setPotong(potong); // inject the Potong instance
+            fxmlLoader.<MainWindow>getController().setPotong(potong);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,11 +1,11 @@
 package potong;
+import java.io.IOException;
 
 import potong.command.Command;
 import potong.command.ExitCommand;
-
 import potong.exceptions.PotongException;
 
-import java.io.IOException;
+
 
 /**
  * Class to encapsulate a chatbot to store tasks.
@@ -47,8 +47,16 @@ public class Potong {
         }
     }
 
-    public String getResponse(String input) {
-        return "HSDHF";
+    public String getResponse(String userInput) {
+        Command c = Parser.parse(userInput);
+        assert c != null;
+        String message;
+        try {
+            message = c.execute(tasks, storage, ui);
+        } catch (PotongException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return message;
     }
     public static void main(String[] args) {
         new Potong().run();
