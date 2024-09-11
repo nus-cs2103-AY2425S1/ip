@@ -13,8 +13,6 @@ import fishman.task.ToDo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
@@ -50,7 +48,7 @@ public class ParserTest {
         Command command = Parser.parse("mark 1", tasks);
         assertInstanceOf(MarkCommand.class, command);
         command.execute(tasks, ui);
-        assertTrue(tasks.getTask(0).getStatus());
+        assertTrue(tasks.getTask(0).getTaskStatus());
     }
 
     @Test
@@ -65,7 +63,7 @@ public class ParserTest {
         tasks.addTask(new ToDo("Sample Task", false));
         Command command = Parser.parse("unmark 1", tasks);
         assertInstanceOf(MarkCommand.class, command);
-        assertFalse(tasks.getTask(0).getStatus());
+        assertFalse(tasks.getTask(0).getTaskStatus());
     }
 
     @Test
@@ -73,7 +71,7 @@ public class ParserTest {
         Command command = Parser.parse("todo Sample Task", tasks);
         command.execute(tasks, ui);
         assertEquals(1, tasks.size());
-        assertEquals("Sample Task", tasks.getTask(0).getDescription());
+        assertEquals("Sample Task", tasks.getTask(0).getTaskDescription());
         assertInstanceOf(ToDo.class, tasks.getTask(0));
     }
 
@@ -83,7 +81,7 @@ public class ParserTest {
         command.execute(tasks, ui);
         assertEquals(1, tasks.size());
         assertInstanceOf(Deadline.class, tasks.getTask(0));
-        assertEquals("Sample Task", tasks.getTask(0).getDescription());
+        assertEquals("Sample Task", tasks.getTask(0).getTaskDescription());
     }
 
 
@@ -100,7 +98,7 @@ public class ParserTest {
         command.execute(tasks, ui);
         assertEquals(1, tasks.size());
         assertInstanceOf(Event.class, tasks.getTask(0));
-        assertEquals("Sample Task", tasks.getTask(0).getDescription());
+        assertEquals("Sample Task", tasks.getTask(0).getTaskDescription());
     }
 
     @Test
