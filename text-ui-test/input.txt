@@ -1,0 +1,23 @@
+todo borrow book
+deadline return library book /by 9th August
+deadline call family /by Sunday
+event business conference /from 2 PM /to 5 PM
+mark 1
+list
+todo write script for conference
+mark 3
+list
+mark 19
+todo make presentation slides
+event business presentation /from 8 AM /to 12 PM
+unmark 13
+list
+mark 5
+mark 6
+list
+unmark 5
+todo bake peach cobbler
+mark
+unmark bye
+list
+bye

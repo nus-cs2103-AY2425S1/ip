@@ -1,7 +1,134 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+,---.  ,---..-./`)     _______ ,---------.    ,-----.    .-------.
+|   /  |   |\ .-.')   /   __  \\          \ .'  .-,  '.  |  _ _   \    
+|  |   |  .'/ `-' \  | ,_/  \__)`--.  ,---'/ ,-.|  \ _ \ | ( ' )  |
+|  | _ |  |  `-'`"`,-./  )         |   \  ;  \  '_ /  | :|(_ o _) /
+|  _( )_  |  .---. \  '_ '`)       :_ _:  |  _`,/ \ _/  || (_,_).' __
+\ (_ o._) /  |   |  > (_)  )  __   (_I_)  : (  '\_/ \   ;|  |\ \  |  |
+ \ (_,_) /   |   | (  .  .-'_/  ) (_(=)_)  \ `"/  \  ) / |  | \ `'   /
+  \     /    |   |  `-'`-'     /   (_I_)    '. \_/``".'  |  |  \    /
+   `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'
 
+Hello! My name is Victor!
+What can I do for you?
+============================================================
+============================================================
+  ~  Cool! I added this To Do:
+  ~    {T}{ } borrow book
+  ~  You now have 1 task in your list.
+============================================================
+============================================================
+  ~  Splendid! I added this Deadline:
+  ~    {D}{ } return library book (by: 9th August)
+  ~  You now have 2 tasks in your list.
+============================================================
+============================================================
+  ~  Splendid! I added this Deadline:
+  ~    {D}{ } call family (by: Sunday)
+  ~  You now have 3 tasks in your list.
+============================================================
+============================================================
+  ~  Wonderful! I added this Event:
+  ~    {E}{ } business conference (from: 2 PM to: 5PM)
+  ~  You now have 4 tasks in your list.
+============================================================
+============================================================
+  ~  You finished a task! Well done! I marked this task as done:
+  ~  {T}{X} borrow book
+============================================================
+============================================================
+  ~  Sure! Here are all of your tasks:
+  ~  1. {T}{X} borrow book
+  ~  2. {D}{ } return library book (by: 9th August)
+  ~  3. {D}{ } call family (by: Sunday)
+  ~  4. {E}{ } business conference (from: 2 PM to: 5PM)
+============================================================
+============================================================
+  ~  Cool! I added this To Do:
+  ~    {T}{ } write script for conference
+  ~  You now have 5 tasks in your list.
+============================================================
+============================================================
+  ~  You finished a task! Well done! I marked this task as done:
+  ~  {D}{X} call family (by: Sunday)
+============================================================
+============================================================
+  ~  Sure! Here are all of your tasks:
+  ~  1. {T}{X} borrow book
+  ~  2. {D}{ } return library book (by: 9th August)
+  ~  3. {D}{X} call family (by: Sunday)
+  ~  4. {E}{ } business conference (from: 2 PM to: 5PM)
+  ~  5. {T}{ } write script for conference
+============================================================
+============================================================
+  ~  I don't think there's a task with that number!
+============================================================
+============================================================
+  ~  Cool! I added this To Do:
+  ~    {T}{ } make presentation slides
+  ~  You now have 6 tasks in your list.
+============================================================
+============================================================
+  ~  Wonderful! I added this Event:
+  ~    {E}{ } business presentation (from: 8 AM to: 12PM)
+  ~  You now have 7 tasks in your list.
+============================================================
+============================================================
+  ~  I don't think there's a task with that number!
+============================================================
+============================================================
+  ~  Sure! Here are all of your tasks:
+  ~  1. {T}{X} borrow book
+  ~  2. {D}{ } return library book (by: 9th August)
+  ~  3. {D}{X} call family (by: Sunday)
+  ~  4. {E}{ } business conference (from: 2 PM to: 5PM)
+  ~  5. {T}{ } write script for conference
+  ~  6. {T}{ } make presentation slides
+  ~  7. {E}{ } business presentation (from: 8 AM to: 12PM)
+============================================================
+============================================================
+  ~  You finished a task! Well done! I marked this task as done:
+  ~  {T}{X} write script for conference
+============================================================
+============================================================
+  ~  You finished a task! Well done! I marked this task as done:
+  ~  {T}{X} make presentation slides
+============================================================
+============================================================
+  ~  Sure! Here are all of your tasks:
+  ~  1. {T}{X} borrow book
+  ~  2. {D}{ } return library book (by: 9th August)
+  ~  3. {D}{X} call family (by: Sunday)
+  ~  4. {E}{ } business conference (from: 2 PM to: 5PM)
+  ~  5. {T}{X} write script for conference
+  ~  6. {T}{X} make presentation slides
+  ~  7. {E}{ } business presentation (from: 8 AM to: 12PM)
+============================================================
+============================================================
+  ~  Oops, I guess you didn't finish the task! I marked this task as undone:
+  ~  {T}{ } write script for conference
+============================================================
+============================================================
+  ~  Cool! I added this To Do:
+  ~    {T}{ } bake peach cobbler
+  ~  You now have 8 tasks in your list.
+============================================================
+============================================================
+  ~  Sorry, I don't think you entered a number for which task to mark as done!
+============================================================
+============================================================
+  ~  Sorry, I don't think you entered a number for which task to mark as not done!
+============================================================
+============================================================
+  ~  Sure! Here are all of your tasks:
+  ~  1. {T}{X} borrow book
+  ~  2. {D}{ } return library book (by: 9th August)
+  ~  3. {D}{X} call family (by: Sunday)
+  ~  4. {E}{ } business conference (from: 2 PM to: 5PM)
+  ~  5. {T}{ } write script for conference
+  ~  6. {T}{X} make presentation slides
+  ~  7. {E}{ } business presentation (from: 8 AM to: 12PM)
+  ~  8. {T}{ } bake peach cobbler
+============================================================
+============================================================
+Goodbye! Hope to see you again soon!
+============================================================
