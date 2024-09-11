@@ -15,6 +15,7 @@ public class Deadline extends TimeTask {
 
     /**
      * Creates a Deadline object.
+     *
      * @param description description of task
      * @param isDone status of task
      */
@@ -39,25 +40,32 @@ public class Deadline extends TimeTask {
             this.by = date.format(DateTimeFormatter.ofPattern("MMM d yyyy "));
         }
 
-        // for date
+        /* If user input is in the form: MMM dd YYYY (e.g. Feb 10 2024),
+            the date will be stored in the LocalDate field.
+         */
         if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} ")) {
             DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy ");
             this.date = LocalDate.parse(by, dTF);
         }
 
-        //for time
+        /* If user input is in the form: MMM dd YYYY HH:MM (e.g. Feb 10 2024 18:00),
+            the date will be stored in the LocalDateTime field.
+         */
         if (by.matches("[A-Za-z]{3} \\d{2} \\d{4} \\d{2}:\\d{2} ") || by.matches("[A-Za-z]{3} \\d{1} \\d{4} \\d{2}:\\d{2} ")) {
             DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm ");
             this.time = LocalDateTime.parse(by, dTF);
         }
     }
 
+    /**
+     * Returns the type of task
+     *
+     * @return returns the string "deadline"
+     */
     @Override
     public String getType() {
         return "deadline";
     }
-
-
 
     @Override
     public String toString() {

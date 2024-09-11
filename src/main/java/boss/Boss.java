@@ -53,6 +53,11 @@ public class Boss {
                 return "WHATS GOOD, MY HOMIE! I'm the boss!" + "\n" + "How can I help you?";
         }
 
+        switch(input) {
+            case "lose to you":
+                return "nah homie, LOSE TO YOU!";
+        }
+
         try {
             Parser parser = new Parser(storage, tasks);
             String responseText = parser.getResponse(input);
@@ -67,11 +72,10 @@ public class Boss {
             System.out.println(e);
             return "error";
         }
-
     }
 
     public static void main(String[] args) {
-        System.out.println("Text-based UI has been removed");
+        System.out.println("Text-based UI has been removed!");
     }
 
 }

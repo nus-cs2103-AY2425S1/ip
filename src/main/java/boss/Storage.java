@@ -29,11 +29,12 @@ public class Storage {
     }
 
     /**
-     * Prints the tasks from the textfile when user
-     * uses the "list" command
-     * @throws FileNotFoundException throws an exception
-     * if file can not be found
-     * @return String containing all tasks
+     * Returns a string containing all tasks
+     * in the ArrayList
+     *
+     * @return String with all tasks
+     * @throws FileNotFoundException is thrown if file
+     * cannot be found
      */
     public String printTasks() throws FileNotFoundException {
         File f = new File(filePath);
@@ -52,7 +53,8 @@ public class Storage {
     }
 
     /**
-     * Method to write data to file
+     * Writes data to file
+     *
      * @param textToAdd text to write to file
      * @param appendorNot boolean value to append to text or replace
      * @throws IOException throws exception if error is caused
@@ -66,7 +68,8 @@ public class Storage {
     /**
      * Loads the content from text file into arraylist
      * when program is rerun.
-     * @return an arraylist containing tasks from text file
+     *
+     * @return an ArrayList containing tasks from the text file
      */
 
     public ArrayList<Task> load() {
@@ -93,29 +96,24 @@ public class Storage {
 
     /**
      * Method to determine the type of task
+     *
      * @param description description of task
      * @param str string representation of task
      * @param isDone status of task
      * @return Task
      */
     public Task typeOfTask(String description, String str, boolean isDone) {
-        // todo
         if (str.contains("[T]")) {
             return new Todo(description, isDone);
         } else if (str.contains("[D]")) {
             String[] string = description.split("\\| ");
-
             String deadline = string[1].split("by: ")[1];
-
             return new Deadline(string[0], isDone, deadline);
         } else if (str.contains("[E]")) {
             String[] newStr = description.split("\\| ");
-
             String from = newStr[1].split("from: ")[1];
             String to = newStr[2].split("to: ")[1];
-
             return new Event(newStr[0], from, to, isDone);
-
         } else {
             return new Task(description, isDone);
         }

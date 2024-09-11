@@ -13,7 +13,6 @@ import java.io.IOException;
  * Represents the class that deals with
  * making sense of the user command
  */
-
 public class Parser {
     private final Storage storage;
     private final TaskList tasks;
@@ -45,23 +44,23 @@ public class Parser {
         } else if (task.equals("Yashvan is the best")) {
             return "THATS RIGHT! HE IS THE GOAT OF GOATS";
         } else if (task.startsWith("mark")) {
-            String newFileData = tasks.mark(task);
-
-            assert !newFileData.isEmpty() : "newFileData is empty!";
-
-            storage.writeToFile(newFileData, false);
-            return "Nice! I have marked this task as done!";
+            /* The first element contains the newFileData
+            and the second element contains the Boss' response. */
+            String[] newFileDataWithResponse = tasks.mark(task);
+            storage.writeToFile(newFileDataWithResponse[0], false);
+            return tasks.printMark(newFileDataWithResponse[1]);
         } else if (task.startsWith("unmark")) {
-            String newFileData = tasks.unmark(task);
-
-            assert !newFileData.isEmpty() : "newFileData is empty!";
-
-            storage.writeToFile(newFileData, false);
-            return "Nice! I have marked this task as undone!";
+            /* The first element contains the newFileData
+            and the second element contains the Boss' response. */
+            String[] newFileDataWithResponse = tasks.unmark(task);
+            storage.writeToFile(newFileDataWithResponse[0], false);
+            return tasks.printUnmark(newFileDataWithResponse[1]);
         } else if (task.startsWith("delete")) {
-            String newFileData = tasks.delete(task);
-            storage.writeToFile(newFileData, false);
-            return "Ok. This task has been removed!";
+            /*The first element contains the newFileData
+            and the second element contains the Boss' response. */
+            String[] newFileDataWithResponse = tasks.delete(task);
+            storage.writeToFile(newFileDataWithResponse[0], false);
+            return tasks.printDelete(newFileDataWithResponse[1]);
         } else if (task.startsWith("find")) {
             String description = task.split("find ")[1];
             return tasks.findTask(description);
@@ -69,59 +68,88 @@ public class Parser {
             return tasks.remind();
         } else if (task.startsWith("bye")) {
             return "Bye! Have a wonderful day legend!";
+        } else if (task.startsWith("todo")) {
+            Task newTask = todo(task);
+            storage.writeToFile(newTask + System.lineSeparator(), true);
+            return tasks.printAddTask(newTask);
+        } else if (task.startsWith("deadline")) {
+            Task newTask = deadline(task);
+            storage.writeToFile(newTask + System.lineSeparator(), true);
+            return tasks.printAddTask(newTask);
+        } else if (task.startsWith("event")) {
+            Task newTask = event(task);
+            storage.writeToFile(newTask + System.lineSeparator(), true);
+            return tasks.printAddTask(newTask);
+        } else {
+            Task taskItem = new Task(task);
+            tasks.addTask(taskItem);
+            storage.writeToFile(taskItem + System.lineSeparator(), true);
+            return "added: " + task;
         }
-        else {
-            if (task.startsWith("todo")) {
-                String[] string = task.split(" ");
-                if (string.length == 1) {
-                    throw new InvalidInputException("todo");
-                }
-                Task item = new Todo(task);
-                tasks.addTask(item);
-                storage.writeToFile(item + System.lineSeparator(), true);
+    }
 
-                return tasks.printAbstraction();
-
-            } else if (task.startsWith("deadline")) {
-                String[] str = task.split("/by ");
-                if (str.length == 1) {
-                    throw new InvalidInputException("deadline");
-                }
-                Task newTask = new Deadline(str[0], false, str[1]);
-                tasks.addTask(newTask);
-                storage.writeToFile(newTask + System.lineSeparator(), true);
-
-                return tasks.printAbstraction();
-            } else if (task.startsWith("event")) {
-                String[] strArr = task.split("/");
-                if (!(strArr.length == 3 && strArr[1].contains("from") && strArr[2].contains("to"))) {
-                    throw new InvalidInputException("event");
-                }
-                String[] description = strArr[0].split(" ");
-                String[] fromArr = strArr[1].split("from ");
-                String[] toArr = strArr[2].split("to ");
-
-                if (description.length <= 1 || fromArr.length <= 1 || toArr.length <= 1
-                        || fromArr[1].isEmpty() || toArr[1].isEmpty()) {
-                    throw new InvalidInputException("event");
-                }
-
-                String from = fromArr[1];
-                String to = toArr[1];
-
-                Task newItem = new Event(strArr[0], from, to, false);
-
-                tasks.addTask(newItem);
-
-                storage.writeToFile(newItem + System.lineSeparator(), true);
-                return tasks.printAbstraction();
-            } else {
-                Task taskItem = new Task(task);
-                tasks.addTask(taskItem);
-
-                storage.writeToFile(taskItem + System.lineSeparator(), true);
-                return "added: " + task;
-            }
+    /**
+     * Parses the user's input if command is to create a todo task
+     *
+     * @param s user's input
+     * @return Todo Task
+     * @throws InvalidInputException is thrown if user's input is invalid
+     */
+    public Task todo(String s) throws InvalidInputException {
+        String[] string = s.split(" ");
+        if (string.length == 1) {
+            throw new InvalidInputException("todo");
         }
+        Task item = new Todo(s);
+        tasks.addTask(item);
+        return item;
+    }
+
+    /**
+     * Parses the user's input if command is to create a deadline task
+     *
+     * @param s user's input
+     * @return Deadline Task
+     * @throws InvalidInputException is thrown if user's input is invalid
+     */
+    public Task deadline(String s) throws InvalidInputException {
+        String[] str = s.split("/by ");
+        if (str.length == 1) {
+            throw new InvalidInputException("deadline");
+        }
+        Task newTask = new Deadline(str[0], false, str[1]);
+        tasks.addTask(newTask);
+        return newTask;
+    }
+
+    /**
+     * Parses the user's input if command is to create an event task
+     *
+     * @param s user's input
+     * @return Todo Task
+     * @throws InvalidInputException is thrown if user's input is invalid
+     */
+    public Task event(String s) throws InvalidInputException {
+        String[] strArr = s.split("/");
+        if (!(strArr.length == 3 && strArr[1].contains("from") && strArr[2].contains("to"))) {
+            throw new InvalidInputException("event");
+        }
+
+        String[] description = strArr[0].split(" ");
+        String[] fromArr = strArr[1].split("from ");
+        String[] toArr = strArr[2].split("to ");
+
+        if (description.length <= 1 || fromArr.length <= 1 || toArr.length <= 1
+                || fromArr[1].isEmpty() || toArr[1].isEmpty()) {
+            throw new InvalidInputException("event");
+        }
+
+        String from = fromArr[1];
+        String to = toArr[1];
+
+        Task newItem = new Event(strArr[0], from, to, false);
+
+        tasks.addTask(newItem);
+        return newItem;
     }
 }
