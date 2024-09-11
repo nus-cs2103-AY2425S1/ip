@@ -31,18 +31,42 @@ public class Parser {
         String[] commandParts = fullCommand.trim().split(" ", 2);
         assert commandParts.length > 0 : "There should be at least one word in the command";
         String command = commandParts[0].toLowerCase();
-        return switch (command) {
-            case "bye" -> new ExitCommand();
-            case "list" -> new ListCommand();
-            case "mark" -> new MarkCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "unmark" -> new UnmarkCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "delete" -> new DeleteCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "todo" -> new AddCommand("todo", commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "deadline" -> new AddCommand("deadline", commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "event" -> new AddCommand("event", commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "find" -> new FindCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
-            case "help" -> new HelpCommand();
-            default -> throw new InputException("Invalid command. Type 'help' for assistance.");
-        };
+        Command parsedCommand;
+        switch (command) {
+        case "bye":
+            parsedCommand = new ExitCommand();
+            break;
+        case "list":
+            parsedCommand = new ListCommand();
+            break;
+        case "mark":
+            parsedCommand = new MarkCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "unmark":
+            parsedCommand = new UnmarkCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "delete":
+            parsedCommand = new DeleteCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "todo":
+            parsedCommand = new AddCommand("todo", commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "deadline":
+            parsedCommand = new AddCommand("deadline", commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "event":
+            parsedCommand = new AddCommand("event", commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "find":
+            parsedCommand = new FindCommand(commandParts.length > 1 ? commandParts[1].trim() : "");
+            break;
+        case "help":
+            parsedCommand = new HelpCommand();
+            break;
+        default:
+            throw new InputException("Invalid command. Type 'help' for assistance.");
+        }
+
+        return parsedCommand;
     }
 }

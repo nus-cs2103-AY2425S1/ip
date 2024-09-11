@@ -20,7 +20,7 @@ public class Main extends Application {
      * Instance of PandaBot that will be used by the GUI.
      * The PandaBot is initialized with the file path to the saved data.
      */
-    private final PandaBot pandaBot = new PandaBot("./data/main.PandaBot.txt");
+    private final PandaBot pandaBot = new PandaBot("./data/PandaBot.txt");
 
     /**
      * The main entry point for all JavaFX applications. The start method is called after

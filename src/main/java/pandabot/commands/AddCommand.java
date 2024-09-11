@@ -33,12 +33,21 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InputException {
-        Task task = switch (taskType) {
-            case "todo" -> new ToDo("").createTask(taskDescription);
-            case "deadline" -> new Deadline("", LocalDateTime.now()).createTask(taskDescription);
-            case "event" -> new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask(taskDescription);
-            default -> throw new InputException("Invalid task type.");
-        };
+        Task task;
+
+        switch (taskType) {
+        case "todo":
+            task = new ToDo("").createTask(taskDescription);
+            break;
+        case "deadline":
+            task = new Deadline("", LocalDateTime.now()).createTask(taskDescription);
+            break;
+        case "event":
+            task = new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask(taskDescription);
+            break;
+        default:
+            throw new InputException("Invalid task type.");
+        }
 
         tasks.add(task);
         storage.saveTaskList(tasks.getTasks());
