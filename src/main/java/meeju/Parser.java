@@ -30,6 +30,8 @@ public class Parser {
             return taskList.printList();
         } else if (instruction.startsWith("find ")) {
             return taskList.findTask(instruction.substring(5));
+        } else if (instruction.startsWith("reminders")) {
+            return taskList.getReminders();
         } else if (instruction.startsWith("mark ")) {
             return taskList.markTask(instruction.substring(5));
         } else if (instruction.startsWith("unmark ")) {

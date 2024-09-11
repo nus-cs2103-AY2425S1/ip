@@ -6,6 +6,7 @@ package meeju;
  */
 public class Todo extends Task {
     private static final String TASK_ICON = "[T]";
+    private final String taskType;
 
     /**
      * Constructor for a todo task.
@@ -14,6 +15,7 @@ public class Todo extends Task {
      */
     public Todo(String taskDescription) {
         super(taskDescription, false);
+        this.taskType = "T";
     }
 
     /**
@@ -29,6 +31,11 @@ public class Todo extends Task {
                 + this.getIsDone() + fileDelimiter
                 + this.getTaskDescription() + "\n";
     }
+
+    public String getTaskIdentifier() {
+        return this.taskType;
+    }
+
     @Override
     public String toString() {
         return TASK_ICON + super.toString();

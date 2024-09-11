@@ -13,8 +13,10 @@ public class Event extends Task {
     private static final String TASK_ICON = "[E]";
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     private static final String TIME_PATTERN = "HHmm";
+    private final String taskType;
     private LocalDateTime from;
     private LocalDateTime to;
+
 
 
     /**
@@ -65,6 +67,7 @@ public class Event extends Task {
 
         this.from = LocalDateTime.of(fromDate, fromTime);
         this.to = LocalDateTime.of(toDate, toTime);
+        this.taskType = "E";
     }
 
     /**
@@ -107,6 +110,17 @@ public class Event extends Task {
     }
 
     /**
+     * Returns if the event commencement is after current date and time.
+     * This is used to for processing task in other methods
+     *
+     * @return if the event commencement is after current date and time
+     */
+    public boolean isFutureEvent() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return this.from.isAfter(currentDateTime);
+    }
+
+    /**
      * Returns the end date and time of the task in a readable format.
      * To be used with toString method
      *
@@ -118,6 +132,11 @@ public class Event extends Task {
         LocalTime time = this.to.toLocalTime();
         return formattedDate + " " + time + "HRS";
     }
+
+    public String getTaskIdentifier() {
+        return this.taskType;
+    }
+
     @Override
     public String toString() {
         return TASK_ICON + super.toString() + " (from: " + this.getFrom()

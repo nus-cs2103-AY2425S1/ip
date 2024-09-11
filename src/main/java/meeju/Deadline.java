@@ -14,6 +14,7 @@ public class Deadline extends Task {
     private static final String TASK_ICON = "[D]";
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     private static final String TIME_PATTERN = "HHmm";
+    private final String taskType;
     private LocalDateTime deadline;
 
     /**
@@ -51,6 +52,7 @@ public class Deadline extends Task {
         }
 
         this.deadline = LocalDateTime.of(date, time);
+        this.taskType = "D";
     }
 
     /**
@@ -65,6 +67,19 @@ public class Deadline extends Task {
         LocalTime time = this.deadline.toLocalTime();
         return formattedDate + " " + time + "HRS";
     }
+
+    /**
+     * Returns if the deadline is after current date and time.
+     * This is used to for processing task in other methods
+     *
+     * @return if the deadline is after current date and time
+     */
+    public boolean isFutureDeadline() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return this.deadline.isAfter(currentDateTime);
+    }
+
+
 
     /**
      * Serializes the task details into a string format suitable for storage.
@@ -84,6 +99,10 @@ public class Deadline extends Task {
         return taskCharacter + fileDelimiter + this.getIsDone() + fileDelimiter
                 + this.getTaskDescription() + fileDelimiter
                 + formattedDate + " " + formattedTime + "\n";
+    }
+
+    public String getTaskIdentifier() {
+        return this.taskType;
     }
 
     @Override
