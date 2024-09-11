@@ -1,4 +1,4 @@
-package purrfessordipsy.parser;
+package dipsy.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
