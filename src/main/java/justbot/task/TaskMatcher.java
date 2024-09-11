@@ -1,8 +1,8 @@
 package justbot.task;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskMatcher class is responsible for finding tasks that match specific keywords.
@@ -30,13 +30,9 @@ public class TaskMatcher {
      * @return A list of tasks where the task description contains at least one of the provided keywords.
      */
     public List<Task> findMatchingTasks() {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList.getTasks()) {
-            if (doesTaskMatchAnyKeyword(task)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return taskList.getTasks().stream()
+                .filter(this::doesTaskMatchAnyKeyword)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -47,11 +43,7 @@ public class TaskMatcher {
      */
     public boolean doesTaskMatchAnyKeyword(Task task) {
         String taskDescription = task.getTaskDescription().toLowerCase();
-        for (String keyword : keywordList) {
-            if (taskDescription.contains(keyword.toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
+        return keywordList.stream()
+                .anyMatch(keyword -> taskDescription.contains(keyword.toLowerCase()));
     }
 }
