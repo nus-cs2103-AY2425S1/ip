@@ -1,5 +1,4 @@
 D | 0 | Return book  | 10-10-2024
 T | 0 | book
-T | 1 | finish assignment
 T | 0 | borrow book
 T | 0 | borrow another book
