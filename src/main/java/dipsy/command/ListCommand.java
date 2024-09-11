@@ -33,7 +33,8 @@ public class ListCommand extends Command {
     /**
      * Executes the command to either display the full task list or filter the task list by a specific date.
      *
-     * @return A message containing either the full list of tasks or a filtered list of tasks based on the provided date.
+     * @return A message containing either the full list of tasks or a filtered list of tasks based on the
+     *         provided date.
      * @throws InvalidDateException If the provided date is invalid or incorrectly formatted.
      * @throws InvalidCommandException If the command format is invalid.
      */
