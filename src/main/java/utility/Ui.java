@@ -13,7 +13,7 @@ public class Ui {
      */
     public static void say(String textToSay) {
         outputString += textToSay
-                + "_______________________________________________________\n";
+                + "_________________________________________\n";
     }
 
     public static String getOutputString() {
