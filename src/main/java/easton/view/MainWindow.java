@@ -1,6 +1,9 @@
 package easton.view;
 
+import static easton.Easton.EXIT_RESPONSE;
+
 import easton.Easton;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 
 /**
  * Controller for the main GUI.
@@ -49,6 +53,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getEastonDialog(response, dukeImage)
         );
+
         userInput.clear();
+
+        if (response.equals(EXIT_RESPONSE)) {
+            Platform.exit();
+        }
     }
 }

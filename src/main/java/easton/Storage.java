@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Storage {
 
+    private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static final String STORAGE_DIRECTORY = "data";
     private final Path filePath;
 
     /**
@@ -23,14 +25,13 @@ public class Storage {
      * @throws IOException If there is input or output failure with the file.
      */
     Storage(String fileName) throws IOException {
-        String currentDirectory = System.getProperty("user.dir");
-        Path folder = Paths.get(currentDirectory, "data");
-        Path filePath = Paths.get(folder.toString(), fileName);
 
+        Path folder = Paths.get(CURRENT_DIRECTORY, STORAGE_DIRECTORY);
         if (Files.notExists(folder)) {
             Files.createDirectory(folder);
         }
 
+        Path filePath = Paths.get(folder.toString(), fileName);
         if (Files.notExists(filePath)) {
             Files.createFile(filePath);
         }
@@ -45,15 +46,11 @@ public class Storage {
      * @throws IOException If there is input or output failure with the file.
      */
     public ArrayList<String> retrieveRecords() throws IOException {
+        FileReader fileReader = new FileReader(filePath.toFile());
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
         ArrayList<String> records = new ArrayList<>();
         String record;
-
-        BufferedReader bufferedReader = new BufferedReader(
-                new FileReader(
-                        filePath.toFile()
-                )
-        );
-
         while ((record = bufferedReader.readLine()) != null) {
             records.add(record);
         }
@@ -65,18 +62,17 @@ public class Storage {
      * Saves the list of records.
      *
      * @param records Records that are in a string representation.
-     * @return If the records were save to the storage.
      */
-    public boolean saveRecords(ArrayList<String> records) {
+    public void saveRecords(ArrayList<String> records) {
         try {
             FileWriter fileWriter = new FileWriter(filePath.toFile());
             for (String record : records) {
                 fileWriter.write(record + "\n");
             }
+
             fileWriter.close();
         } catch (IOException e) {
-            return false;
+            // No Alternatives to IOException Thrown
         }
-        return true;
     }
 }
