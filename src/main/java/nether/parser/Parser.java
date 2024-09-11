@@ -81,55 +81,91 @@ public class Parser {
      */
 
     public String[] extractInputDetails(String userInput, String taskType) throws NetherException {
-        String[] preprocessArray;
-        String[] resultArray;
+        String[] preprocessArray; // stores the full input without the command word
+        String[] resultArray; // stores the split input formatted accordingly to the task type
 
         switch (taskType) {
         case "todo":
-            preprocessArray = userInput.split("(?i)todo ", 2);
-            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
-                throw new NetherException("the description of a todo cannot be empty.");
-            }
-            resultArray = new String[]{preprocessArray[1]};
-            break;
-
+            return handleTodoDetails(userInput);
         case "deadline":
-            preprocessArray = userInput.split("(?i)deadline ", 2);
-            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
-                throw new NetherException("the description of a deadline cannot be empty.");
-            }
-            String[] deadlineParts = preprocessArray[1].split("/by ", 2);
-            if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                throw new NetherException("the description or date/time of a deadline cannot be empty.");
-            }
-
-            resultArray = new String[] {deadlineParts[0], deadlineParts[1]};
-            break;
-
+            return handleDeadlineDetails(userInput);
         case "event":
-            preprocessArray = userInput.split("(?i)event ", 2);
-            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
-                throw new NetherException("the description of an event cannot be empty.");
-            }
-            String[] eventParts = preprocessArray[1].split("/from |/to ", 3);
-            if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty()
-                    || eventParts[2].trim().isEmpty()) {
-                throw new NetherException(
-                        "the description, start time, or end time of an event cannot be empty.");
-            }
-            resultArray = new String[]{eventParts[0], eventParts[1], eventParts[2]};
-            break;
+            return handleEventDetails(userInput);
         case "find":
-            preprocessArray = userInput.split("(?i)find", 2);
-            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
-                throw new NetherException("please enter a keyword for me to search.");
-            }
-            resultArray = new String[]{preprocessArray[1].trim()};
-            break;
+            return handleFindDetails(userInput);
         default:
             throw new NetherException("the command: '" + userInput + "' is not in our database");
         }
-        return resultArray;
+    }
+
+    /**
+     * Parses the user input for "todo" commands.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return An array containing the details of the todo task.
+     * @throws NetherException If the todo task's description is empty.
+     */
+    private static String[] handleTodoDetails(String userInput) {
+        String[] todoDetails = userInput.split("(?i)todo ", 2);
+        if (todoDetails.length < 2 || todoDetails[1].trim().isEmpty()) {
+            throw new NetherException("the description of a todo cannot be empty.");
+        }
+        return new String[]{todoDetails[1]};
+    }
+
+    /**
+     * Parses the user input for "deadline" commands.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return An array containing the description and due date of the deadline task.
+     * @throws NetherException If either the description or the due date is empty.
+     */
+    private static String[] handleDeadlineDetails(String userInput) {
+        String[] deadlineDetails = userInput.split("(?i)deadline ", 2);
+        if (deadlineDetails.length < 2 || deadlineDetails[1].trim().isEmpty()) {
+            throw new NetherException("the description of a deadline cannot be empty.");
+        }
+        String[] deadlineParts = deadlineDetails[1].split("/by ", 2);
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+            throw new NetherException("the description or date/time of a deadline cannot be empty.");
+        }
+        return new String[] {deadlineParts[0], deadlineParts[1]};
+    }
+
+    /**
+     * Parses the user input for "event" commands.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return An array containing the description, start time, and end time of event.
+     * @throws NetherException If the description, start time, or end time is empty.
+     */
+    private static String[] handleEventDetails(String userInput) {
+        String[] eventDetails = userInput.split("(?i)event ", 2);
+        if (eventDetails.length < 2 || eventDetails[1].trim().isEmpty()) {
+            throw new NetherException("the description of an event cannot be empty.");
+        }
+        String[] eventParts = eventDetails[1].split("/from |/to ", 3);
+        if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty()
+                || eventParts[2].trim().isEmpty()) {
+            throw new NetherException(
+                    "the description, start time, or end time of an event cannot be empty.");
+        }
+        return new String[]{eventParts[0], eventParts[1], eventParts[2]};
+    }
+
+    /**
+     * Parses the user input for "find" commands.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return An array containing the search keyword
+     * @throws NetherException If the keyword for searching is empty.
+     */
+    private static String[] handleFindDetails(String userInput) {
+        String[] findDetails = userInput.split("(?i)find", 2);
+        if (findDetails.length < 2 || findDetails[1].trim().isEmpty()) {
+            throw new NetherException("please enter a keyword for me to search.");
+        }
+        return new String[]{findDetails[1].trim()};
     }
 
     /**

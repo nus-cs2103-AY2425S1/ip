@@ -47,15 +47,12 @@ public class Nether {
      * It handles user input and executes the appropriate commands.
      */
     public void run() {
-        ui.printWelcome();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.printHorizontalLine(); // show the divider line ("_______")
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-                ui.printHorizontalLine();
             } catch (NetherException e) {
                 ui.printError(e.getMessage());
             }
@@ -73,7 +70,7 @@ public class Nether {
             isExit = c.isExit();
             return response.toString();
         } catch (NetherException e) {
-            return e.getMessage();
+            return ui.printError(e.getMessage());
         }
     }
 
