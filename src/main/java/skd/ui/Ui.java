@@ -56,7 +56,7 @@ public class Ui {
      * @return The welcome message as a string.
      */
     public String stringShowWelcome() {
-        String s = stringShowLine() + "\n     Hello! I'm skd.SKD\n     What can I do for you?\n" + stringShowLine();
+        String s = stringShowLine() + "\n     Hello! I'm SkD\n     What can I do for you?\n" + stringShowLine();
         return s;
     }
 
