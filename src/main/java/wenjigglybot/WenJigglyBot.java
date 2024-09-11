@@ -16,6 +16,7 @@ public class WenJigglyBot {
      */
     public WenJigglyBot() {
         tasks = new TaskList();
+
         ui = new Ui();
         try {
             Storage storage = new Storage("./data/data.txt");
@@ -54,7 +55,6 @@ public class WenJigglyBot {
                 System.out.println(e);
                 continue;
             }
-
             String[] strings;
             String action;
             int idx;
@@ -83,6 +83,7 @@ public class WenJigglyBot {
             case DEADLINE:
                 try {
                     String[] parts = Parser.processDeadlineTask(task);
+                    assert parts.length == 2 : "Deadline task should have a task name and deadline";
                     taskName = parts[0].trim();
                     String deadline = parts[1].trim();
                     LocalDate date;
@@ -264,6 +265,7 @@ public class WenJigglyBot {
      * @param task The task to add.
      */
     private String addTask(Task task) {
+        assert task != null : "Task to add cannot be null";
         StringBuilder response = new StringBuilder("");
         tasks.addTask(task);
         Storage.saveTasksToFile(tasks);
