@@ -64,21 +64,13 @@ public class DialogBox extends HBox {
         return db;
     }
     private void changeDialogStyle(String commandType) {
-        if (commandType == null) {
-            return;
-        }
-        switch(commandType) {
-        case "AddCommand":
-            dialog.getStyleClass().add("add-label");
-            break;
-        case "MarkCommand":
-            dialog.getStyleClass().add("marked-label");
-            break;
-        case "DeleteCommand":
-            dialog.getStyleClass().add("delete-label");
-            break;
-        default:
+        switch (commandType) {
+        case "AddCommand" -> dialog.getStyleClass().add("add-label");
+        case "MarkCommand" -> dialog.getStyleClass().add("marked-label");
+        case "DeleteCommand" -> dialog.getStyleClass().add("delete-label");
+        default -> {
             // Do nothing
+        }
         }
     }
 }
