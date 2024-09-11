@@ -152,6 +152,13 @@ public class TaskList {
         this.listOfTasks = taskList;
     }
 
+    public boolean hasTask(String description) {
+        return listOfTasks
+                .stream()
+                .map(task -> task.isSame(description))
+                .reduce(false, (hasString, element) -> hasString || element);
+    }
+
     /**
      * Returns the current list of tasks.
      *
