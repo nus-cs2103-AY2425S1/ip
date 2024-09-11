@@ -61,6 +61,7 @@ public class Storage {
             }
         }
 
+        assert f != null : "File should not be null.";
         if (!f.exists()) {
             try {
                 f.createNewFile();
