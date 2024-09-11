@@ -32,6 +32,15 @@ public class TaskManager {
     }
 
     /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
      * Returns the number of tasks in the list.
      *
      * @return The number of tasks.

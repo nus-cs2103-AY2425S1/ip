@@ -3,6 +3,8 @@ package jade.command;
 import static jade.ui.Ui.INDENT;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jade.task.Task;
 import jade.task.TaskManager;
@@ -28,13 +30,9 @@ public class FindCommand extends Command {
     public String run() {
         String keyword = command.substring(5).trim();
 
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            Task task = taskManager.getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = taskManager.getTasks().stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
 
         StringBuilder message = new StringBuilder();
         if (matchingTasks.isEmpty()) {
@@ -53,13 +51,9 @@ public class FindCommand extends Command {
     public String runForGui() {
         String keyword = command.substring(5).trim();
 
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            Task task = taskManager.getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = taskManager.getTasks().stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
 
         StringBuilder message = new StringBuilder();
         if (matchingTasks.isEmpty()) {

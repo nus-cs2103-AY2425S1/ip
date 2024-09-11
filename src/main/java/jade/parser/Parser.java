@@ -5,7 +5,10 @@ import static jade.ui.Ui.INDENT;
 import static jade.ui.Ui.TOP_LINE;
 
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import jade.command.AddCommand;
 import jade.command.Command;
@@ -36,20 +39,21 @@ public class Parser {
      * @throws JadeException If the command is unrecognised or improperly formatted.
      */
     public Command parse(String command, TaskManager taskManager, Parser parser) throws JadeException {
-        if (command.equals("bye")) {
-            return new ExitCommand();
-        } else if (command.equals("list")) {
-            return new ListCommand(taskManager);
-        } else if (command.startsWith("mark")) {
-            return new MarkCommand(taskManager, command, true);
-        } else if (command.startsWith("unmark")) {
-            return new MarkCommand(taskManager, command, false);
+        Map<String, Function<String, Command>> commandMap = new HashMap<>();
+        commandMap.put("bye", cmd -> new ExitCommand());
+        commandMap.put("list", cmd -> new ListCommand(taskManager));
+        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true));
+        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false));
+        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd));
+        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd));
+
+        String commandType = command.split(" ")[0];
+        Function<String, Command> commandFunction = commandMap.get(commandType);
+
+        if (commandFunction != null) {
+            return commandFunction.apply(command);
         } else if (isTaskCommand(command)) {
             return new AddCommand(taskManager, parser, command);
-        } else if (command.startsWith("delete")) {
-            return new DeleteCommand(taskManager, command);
-        } else if (command.startsWith("find")) {
-            return new FindCommand(taskManager, command);
         } else {
             throw new JadeException("Please specify the type of task: todo, deadline, or event.");
         }
@@ -62,21 +66,23 @@ public class Parser {
      * @param taskManager The task manager that handles the task operations.
      */
     public void parse(Scanner sc, TaskManager taskManager) {
+        Map<String, Function<String, String>> commandMap = new HashMap<>();
+        commandMap.put("list", cmd -> new ListCommand(taskManager).run());
+        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true).run());
+        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false).run());
+        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd).run());
+        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd).run());
+
         String command = sc.nextLine();
         while (!command.equals("bye")) {
             try {
-                if (command.equals("list")) {
-                    System.out.println(new ListCommand(taskManager).run());
-                } else if (command.startsWith("mark")) {
-                    System.out.println(new MarkCommand(taskManager, command, true).run());
-                } else if (command.startsWith("unmark")) {
-                    System.out.println(new MarkCommand(taskManager, command, false).run());
+                String commandType = command.split(" ")[0];
+                Function<String, String> commandFunction = commandMap.get(commandType);
+
+                if (commandFunction != null) {
+                    System.out.println(commandFunction.apply(command));
                 } else if (isTaskCommand(command)) {
                     System.out.println(new AddCommand(taskManager, this, command).run());
-                } else if (command.startsWith("delete")) {
-                    System.out.println(new DeleteCommand(taskManager, command).run());
-                } else if (command.startsWith("find")) {
-                    System.out.println(new FindCommand(taskManager, command).run());
                 } else {
                     throw new JadeException("Please specify the type of task: todo, deadline, or event.");
                 }
