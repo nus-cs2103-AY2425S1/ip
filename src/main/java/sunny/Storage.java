@@ -17,6 +17,18 @@ public class Storage {
     public Storage(String f) {
         filePath = f;
     }
+    /**
+     * Concatenate status of task behind the task description
+     * @param t The task that the status is being added to
+     * @return the status of the task in String format
+     */
+    private String addStatus(Task t) {
+        if (t.isDone) {
+            return "|true" + "\n";
+        } else {
+            return "|false" + "\n";
+        }
+    }
 
     /**
      * Writes to the storage file specified by filePath
@@ -26,25 +38,13 @@ public class Storage {
         for (Task t: ls) {
             if (t instanceof TodoTask) {
                 str += "todo " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                str += addStatus(t);
             } else if (t instanceof DeadlineTask) {
                 str += "deadline " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                str += addStatus(t);
             } else {
                 str += "event " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                str += addStatus(t);
             }
         }
         try {
@@ -58,6 +58,18 @@ public class Storage {
     }
 
     /**
+     * Adds all information stored in the hardware to a list in one go
+     * @param lines String read from the hardware
+     * @param ls target list
+     */
+    public void massAdd(List<String> lines, List<Task> ls) throws Exception {
+        for (String line : lines) {
+            Task t = TaskCreator.create(line);
+            ls.add(t);
+        }
+    }
+
+    /**
      * Reads from the storage file to a list
      */
     public List<Task> read() {
@@ -65,10 +77,7 @@ public class Storage {
         try {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                Task t = TaskCreator.create(line);
-                ls.add(t);
-            }
+            massAdd(lines, ls);
         } catch (FileNotFoundException e) {
             System.out.println("File not found, please create new file with file path: "
                     + "/Users/jerryyou/ip/taskslist.txt");

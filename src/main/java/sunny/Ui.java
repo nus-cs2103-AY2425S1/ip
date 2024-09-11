@@ -67,6 +67,7 @@ public class Ui {
             } catch (Exception e) {
                 return LINE + "\n      " + e + LINE;
             }
+
         }
     }
 
