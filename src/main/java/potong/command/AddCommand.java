@@ -40,18 +40,18 @@ public class AddCommand extends Command {
         super(command);
         this.type = type;
         switch (type) {
-            case TODO -> this.task = command;
-            case DEADLINE -> {
-                String[] arr = command.split("/");
-                this.task = arr[0].strip();
-                this.deadline = arr[1].substring(3);
-            }
-            case EVENT -> {
-                String[] arr = command.split("/");
-                this.task = arr[0].strip();
-                this.eventStart = arr[1].substring(5).strip();
-                this.eventEnd = arr[2].substring(3).strip();
-            }
+        case TODO -> this.task = command;
+        case DEADLINE -> {
+            String[] arr = command.split("/");
+            this.task = arr[0].strip();
+            this.deadline = arr[1].substring(3);
+        }
+        case EVENT -> {
+            String[] arr = command.split("/");
+            this.task = arr[0].strip();
+            this.eventStart = arr[1].substring(5).strip();
+            this.eventEnd = arr[2].substring(3).strip();
+        }
         }
     }
 
@@ -69,16 +69,16 @@ public class AddCommand extends Command {
         switch (this.type) {
         case TODO -> {
             return tasks.add(new ToDoTask(this.task));
-            }
+        }
         case DEADLINE -> {
             return tasks.add(new DeadlineTask(this.task, this.deadline));
-            }
+        }
         case EVENT -> {
             return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
-            }
+        }
         default -> {
             return "";
-            }
+        }
         }
     }
 
@@ -89,30 +89,30 @@ public class AddCommand extends Command {
     @Override
     public String toString() {
         switch (this.type) {
-            case TODO -> {
-                try {
-                    return new ToDoTask(this.task).toString();
-                } catch (IllegalInputPotongException e) {
-                    throw new RuntimeException(e);
-                }
+        case TODO -> {
+            try {
+                return new ToDoTask(this.task).toString();
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
             }
-            case DEADLINE -> {
-                try {
-                    return new DeadlineTask(this.task, this.deadline).toString();
-                } catch (IllegalInputPotongException e) {
-                    throw new RuntimeException(e);
-                }
+        }
+        case DEADLINE -> {
+            try {
+                return new DeadlineTask(this.task, this.deadline).toString();
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
             }
-            case EVENT -> {
-                try {
-                    return new EventTask(this.task, this.eventStart, this.eventEnd).toString();
-                } catch (IllegalInputPotongException e) {
-                    throw new RuntimeException(e);
-                }
+        }
+        case EVENT -> {
+            try {
+                return new EventTask(this.task, this.eventStart, this.eventEnd).toString();
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
             }
-            default -> {
-                return "";
-            }
+        }
+        default -> {
+            return "";
+        }
         }
     }
 }

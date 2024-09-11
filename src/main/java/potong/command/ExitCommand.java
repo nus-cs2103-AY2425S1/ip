@@ -26,10 +26,9 @@ public class ExitCommand extends Command {
      * @param storage Storage class for loading and saving.
      * @param ui Ui class for printing output.
      * @return Empty String.
-     * @throws IOException Handle input/output errors.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         tasks.writeToStorage(storage);
         ui.sayGoodbye();
         return "";

@@ -24,12 +24,14 @@ public class Storage {
     /**
      * Initialise the class, create the file to save if not already present.
      * @param tasklist List of tasks to load the saved tasks.
-     * @throws FileNotFoundException If the file is not present.
-     * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public Storage(TaskList tasklist) throws FileNotFoundException, IllegalInputPotongException {
+    public Storage(TaskList tasklist) {
         this.tasklist = tasklist;
-        this.loadFile();
+        try {
+            this.loadFile();
+        } catch (IllegalInputPotongException e) {
+            throw new RuntimeException(e);
+        }
         this.createFile();
     }
 
@@ -52,20 +54,23 @@ public class Storage {
     /**
      * Load the saved data from the saved file.
      *
-     * @throws FileNotFoundException If the file is not present.
      * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public void loadFile() throws FileNotFoundException, IllegalInputPotongException {
+    public void loadFile() throws IllegalInputPotongException {
         ArrayList<Task> result = new ArrayList<>(100);
         File f = new File(this.FILE_PATH);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String curr = s.nextLine();
-            if (curr.isEmpty()) {
-                break;
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String curr = s.nextLine();
+                if (curr.isEmpty()) {
+                    break;
+                }
+                Task nextTask = Parser.createTask(curr);
+                result.add(nextTask);
             }
-            Task nextTask = Parser.createTask(curr);
-            result.add(nextTask);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
         this.tasklist.initialise(result);
     }
@@ -74,12 +79,15 @@ public class Storage {
      * Save the list into the file.
      *
      * @param textToAdd String representation of the list.
-     * @throws IOException If the input/output is wrong.
      */
-    public void writeToFile(String textToAdd) throws IOException {
+    public void writeToFile(String textToAdd) {
         this.createFile();
-        FileWriter fw = new FileWriter(this.FILE_PATH);
-        fw.write(textToAdd);
-        fw.close();
+        try {
+            FileWriter fw = new FileWriter(this.FILE_PATH);
+            fw.write(textToAdd);
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

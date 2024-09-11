@@ -3,10 +3,8 @@ package potong;
 import potong.command.Command;
 import potong.command.ExitCommand;
 
-import potong.exceptions.IllegalInputPotongException;
 import potong.exceptions.PotongException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -21,10 +19,8 @@ public class Potong {
 
     /**
      * Initialise the chatbot.
-     * @throws FileNotFoundException If the saved file is not present.
-     * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public Potong() throws FileNotFoundException, IllegalInputPotongException {
+    public Potong() {
         ui = new Ui();
         tasks = new TaskList();
         storage = new Storage(tasks);
@@ -52,10 +48,6 @@ public class Potong {
     }
 
     public static void main(String[] args) {
-        try {
-            new Potong().run();
-        } catch (FileNotFoundException | IllegalInputPotongException e) {
-            throw new RuntimeException(e);
-        }
+        new Potong().run();
     }
 }

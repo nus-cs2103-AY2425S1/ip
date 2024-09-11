@@ -91,9 +91,8 @@ public class TaskList {
      * Save the list of tasks.
      *
      * @param storage Storage class to save the list.
-     * @throws IOException If the input is wrong.
      */
-    public void writeToStorage(Storage storage) throws IOException {
+    public void writeToStorage(Storage storage) {
         StringBuilder result = new StringBuilder();
         for (Task curr : this.arr) {
             String type = curr.getType();

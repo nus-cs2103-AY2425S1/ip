@@ -32,9 +32,8 @@ public class Parser {
      *
      * @param taskDescription Task Description.
      * @return Task.
-     * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public static Task createTask(String taskDescription) throws IllegalInputPotongException {
+    public static Task createTask(String taskDescription) {
         String[] arr = taskDescription.split("\\|");
         for (int i = 0; i < arr.length; i++) {
             String curr = arr[i];
@@ -46,19 +45,35 @@ public class Parser {
         String time = "";
         switch (arr[0]) {
         case "T":
-            result = new ToDoTask(description, isDone);
+            try {
+                result = new ToDoTask(description, isDone);
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
+            }
             break;
         case "D":
             time = arr[3];
-            result = new DeadlineTask(description, time, isDone);
+            try {
+                result = new DeadlineTask(description, time, isDone);
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
+            }
             break;
         case "E":
             time = arr[3];
             String[] startAndEnd = time.split("-");
-            result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone);
+            try {
+                result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone);
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
+            }
             break;
         default:
-            result = new Task(description, isDone);
+            try {
+                result = new Task(description, isDone);
+            } catch (IllegalInputPotongException e) {
+                throw new RuntimeException(e);
+            }
         }
         return result;
     }
@@ -78,16 +93,16 @@ public class Parser {
         final String arguments = matcher.group("arguments").strip();
 
         return switch (commandWord) {
-            case "bye" -> new ExitCommand(arguments);
-            case "list" -> new ListCommand(arguments);
-            case "mark" -> new MarkCommand(arguments, true);
-            case "unmark" -> new MarkCommand(arguments, false);
-            case "delete" -> new DeleteCommand(arguments);
-            case "todo" -> new AddCommand(arguments, AddCommand.Type.TODO);
-            case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
-            case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
-            case "find" -> new FindCommand(arguments);
-            default -> null;
+        case "bye" -> new ExitCommand(arguments);
+        case "list" -> new ListCommand(arguments);
+        case "mark" -> new MarkCommand(arguments, true);
+        case "unmark" -> new MarkCommand(arguments, false);
+        case "delete" -> new DeleteCommand(arguments);
+        case "todo" -> new AddCommand(arguments, AddCommand.Type.TODO);
+        case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
+        case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
+        case "find" -> new FindCommand(arguments);
+        default -> null;
         };
     }
 

@@ -33,14 +33,21 @@ public class MarkCommand extends Command {
      * @param storage Storage class for loading and saving.
      * @param ui Ui class for printing output.
      * @return String representation of mark or unmark.
-     * @throws PotongException If the index is out of bounds.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         if (toMark) {
-            return tasks.mark(this.index);
+            try {
+                return tasks.mark(this.index);
+            } catch (PotongException e) {
+                throw new RuntimeException(e);
+            }
         } else {
-            return tasks.unmark(this.index);
+            try {
+                return tasks.unmark(this.index);
+            } catch (PotongException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

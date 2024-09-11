@@ -31,11 +31,9 @@ public class FindCommand extends Command {
      * @param storage Storage class for saving and loading.
      * @param ui Ui class for input and output.
      * @return String representation of the action.
-     * @throws PotongException If the input is wrong.
-     * @throws IOException If the input/output is wrong.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException, IOException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         return tasks.find(this.keyword);
     }
 }
