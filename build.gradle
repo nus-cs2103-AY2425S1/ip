@@ -53,7 +53,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "Llama"
     archiveClassifier = null
-    archiveVersion = "alpha_0.1"
+    archiveVersion = "alpha_0.2"
 }
 
 run{
