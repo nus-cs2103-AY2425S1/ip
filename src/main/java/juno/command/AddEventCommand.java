@@ -40,6 +40,8 @@ public class AddEventCommand extends AddCommand {
     @Override
     public String runCommand() throws TaskManagerException {
         String taskInfo;
+        assert this.userInput != null : "User input in AddEventCommand() cannot be null!";
+        assert this.tasks != null : "Task array should not be null!";
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
