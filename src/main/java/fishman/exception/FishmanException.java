@@ -40,6 +40,11 @@ public class FishmanException extends Exception {
     public static class MissingArgumentException extends FishmanException {
         private static final String MESSAGE_DEADLINE = "Deadline command requires a description or a /by date";
         private static final String MESSAGE_EVENT = "Event command requires a description or /from and /to dates";
+        private static final String MESSAGE_UPDATE_DEADLINE= "Update command for Deadline tasks must "
+                + "have the format: update index /by date.";
+        private static final String MESSAGE_UPDATE_EVENT= "Update command for Event Tasks"
+                + "must have the format: update index /from date /to date.";
+
 
 
         /**
@@ -49,7 +54,6 @@ public class FishmanException extends Exception {
          */
         public MissingArgumentException(String commandType) {
             super(getMessageForCommandType(commandType));
-            assert commandType.matches("deadline|event|todo|mark|unmark|delete|find") : "Invalid command type";
         }
 
         /**
@@ -62,6 +66,8 @@ public class FishmanException extends Exception {
             return switch (commandType) {
                 case "deadline" -> MESSAGE_DEADLINE;
                 case "event" -> MESSAGE_EVENT;
+                case "updateDeadline" -> MESSAGE_UPDATE_DEADLINE;
+                case "updateEvent" -> MESSAGE_UPDATE_EVENT;
                 default -> "Missing argument for " + commandType + " command.";
             };
         }
@@ -183,6 +189,17 @@ public class FishmanException extends Exception {
         public InvalidDateFormatException(String dateTimeStr) {
             super(MESSAGE + dateTimeStr);
             assert dateTimeStr != null && !dateTimeStr.isEmpty() : "DateTime string should not be null or empty";
+        }
+    }
+
+    public static class InvalidUpdateTypeException extends FishmanException {
+        private static final String MESSAGE = "Invalid task type to be updated.";
+
+        /**
+         * Constructs a new InvalidUpdateTypeException with message.
+         */
+        public InvalidUpdateTypeException() {
+            super(MESSAGE);
         }
     }
 

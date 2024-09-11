@@ -93,4 +93,7 @@ public class Ui {
     }
 
 
+    public String getUpdatedTaskMessage(Task task) {
+        return String.format("Bloop bloop, I have updated the following task:\n%s.", task);
+    }
 }
