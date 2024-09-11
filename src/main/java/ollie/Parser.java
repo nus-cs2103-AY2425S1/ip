@@ -127,6 +127,7 @@ public class Parser {
             } catch (DateTimeException e) {
                 throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
             }
+
             assert(from != null);
             assert(to != null);
             task = new Event(desc, from, to);
