@@ -24,18 +24,34 @@ public class Storage {
     /**
      * Prints all the tasks stored in the text file.
      *
-     * @param taskList list of all the tasks
+     * @param taskList list of all the tasks.
+     * @return List of all the tasks.
      * @throws FileNotFoundException If no such file in directory.
      */
-    public void printTasks(TaskList taskList) throws FileNotFoundException {
+    public String printTasks(TaskList taskList) throws FileNotFoundException {
         File f = new File(filePath);
-        Scanner s = new Scanner(f);
+        Scanner scanner = new Scanner(f);
+        String s = "";
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            s += line + "\n";
+        }
+        return s;
+    }
 
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            System.out.println(line);
+    /**
+     * Loads all the tasks stored in the text file into the task list.
+     *
+     * @param taskList list of all the tasks.
+     * @throws FileNotFoundException If no such file in directory.
+     */
+    public void loadTasks(TaskList taskList) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner scanner = new Scanner(f);
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+
             // Process the line for tasks
-
             if (line.startsWith("[T]")) {
                 String toDoTask = line.substring(7);
 
@@ -83,7 +99,7 @@ public class Storage {
                 }
             }
         }
-        s.close();
+        scanner.close();
     }
 
     /**
