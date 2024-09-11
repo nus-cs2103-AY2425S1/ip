@@ -12,7 +12,6 @@ import stelle.task.Task;
  */
 
 public class TaskList {
-    private final String filePath;
     private Storage storage;
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
@@ -22,7 +21,6 @@ public class TaskList {
      * @param filePath Path where the local task list file is stored.
      */
     public TaskList(String filePath) {
-        this.filePath = filePath;
         storage = new Storage(filePath);
 
         try {
@@ -111,7 +109,9 @@ public class TaskList {
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            if (task.getTaskName().toLowerCase().contains(query.toLowerCase())) {
+            String lowerCaseTaskName = task.getTaskName().toLowerCase();
+            String lowerCaseQuery = query.toLowerCase();
+            if (lowerCaseTaskName.contains(lowerCaseQuery)) {
                 resultIndexes.add(i);
             }
         }

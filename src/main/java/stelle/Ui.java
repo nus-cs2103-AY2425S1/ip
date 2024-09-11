@@ -11,7 +11,6 @@ public class Ui {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     private String name;
-    private String filePath;
     private Parser parser;
 
     /**
@@ -20,8 +19,7 @@ public class Ui {
      */
     public Ui(String name, String filePath) {
         this.name = name;
-        this.filePath = filePath;
-        this.parser = new Parser(this, filePath);
+        this.parser = new Parser(filePath);
     }
 
     public String getResponse(String input) {
