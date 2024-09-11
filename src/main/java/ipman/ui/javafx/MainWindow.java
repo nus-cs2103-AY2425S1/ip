@@ -40,7 +40,10 @@ public class MainWindow extends AnchorPane implements Initializable {
 
     @FXML
     private void handleOnSendClick() {
+        // Read message and clear input
         String message = this.inputTextField.getText();
+        this.inputTextField.setText("");
+
         boolean shouldExit = this.viewModel.processMessage(message);
         if (shouldExit) {
             Platform.exit();
