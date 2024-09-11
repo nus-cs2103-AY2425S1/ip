@@ -9,15 +9,15 @@ import justbot.ui.Ui;
  * Represents a command that finds tasks in a task list that contain a specific keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private String[] keywords;
 
     /**
      * Constructs a FindCommand with the specified keyword.
      *
-     * @param keyword The keyword to search for in the task list.
+     * @param keywords The keyword to search for in the task list.
      */
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindCommand(String... keywords) {
+        this.keywords = keywords;
     }
 
     /**
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.findMessage(taskList, keyword);
+        return ui.findMessage(taskList, keywords);
     }
 
     /**

@@ -3,6 +3,7 @@ package justbot.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import justbot.command.ByeCommand;
 import justbot.command.Command;
@@ -92,8 +93,9 @@ public class Parser {
             if (words.length < 2) {
                 throw new JustbotException("Hey man, follow the format:\n" + "find [task description]");
             }
-            String keyword = words[1];
-            return new FindCommand(keyword);
+            String keywordString = words[1];
+            String[] keywordsArr = keywordString.split(" ");
+            return new FindCommand(keywordsArr);
         case MARK:
             if (words.length < 2) {
                 throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");

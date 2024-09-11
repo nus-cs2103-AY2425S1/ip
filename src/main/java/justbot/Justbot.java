@@ -63,12 +63,8 @@ public class Justbot {
         }
     }
 
-    /**
-     * The main method that starts the Justbot application.
-     *
-     * @param args Command-line arguments passed during the start of the application.
-     */
-    public static void main(String[] args) {
-        new Justbot("/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt").run();
+    public Ui getUi() {
+        return this.ui;
     }
+
 }
