@@ -2,19 +2,22 @@ package chatgpt;
 
 import chatgpt.command.Command;
 import chatgpt.command.Parser;
-
 import chatgpt.exception.ChatBotException;
-
+import chatgpt.storage.Storage;
 import chatgpt.task.TaskList;
-
 import chatgpt.ui.Ui;
 
-import chatgpt.storage.Storage;
-
-public class ChatGPT {
-
+/**
+ * The ChatGpt class is the main class where the application is run.
+ * It initialises a Storage for file read/write, Ui for display and inputs
+ * and TaskList to store the data locally for manipulation.
+ */
+public class ChatGpt {
+    /** Storage to read and write files **/
     private Storage storage;
+    /** Ui for displaying and reading user inputs **/
     private Ui ui;
+    /** Stores the list of task **/
     private TaskList tasks;
 
     /**
@@ -23,7 +26,7 @@ public class ChatGPT {
      *
      * @param filePath
      */
-    public ChatGPT(String filePath) {
+    public ChatGpt(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -63,6 +66,6 @@ public class ChatGPT {
      * @param args passed to run the program (but is not set up)
      */
     public static void main(String[] args) {
-        new ChatGPT("\\data\\data1.txt").run();
+        new ChatGpt("\\data\\data1.txt").run();
     }
 }

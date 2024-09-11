@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- *  The TaskList class handles the operations on list of Tasks
+ *  The TaskList class handles the operations on list of Tasks.
  */
 public class TaskList {
     /** List of all the tasks **/
@@ -72,6 +72,12 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Returns a TaskList containing all the task that contain the keyword.
+     *
+     * @param keyword to search for within the task
+     * @return TaskList of the found task containing the keyword
+     */
     public TaskList find(String keyword) {
         ArrayList<Task> res = tasks.stream()
                 .filter(task -> task

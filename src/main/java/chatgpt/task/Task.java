@@ -19,7 +19,7 @@ public abstract class Task {
      * @throws IllegalArgumentException if the description of the task is empty
      */
     public Task(String task) throws IllegalArgumentException {
-        if (task.isEmpty() || task.equals(" ")){
+        if (task.isEmpty() || task.equals(" ")) {
             throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;
@@ -33,7 +33,7 @@ public abstract class Task {
      * @throws IllegalArgumentException if the description of the task is empty
      */
     public Task(String task, Boolean isCompleted) throws IllegalArgumentException {
-        if (task.isEmpty() || task.equals(" ")){
+        if (task.isEmpty() || task.equals(" ")) {
             throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;

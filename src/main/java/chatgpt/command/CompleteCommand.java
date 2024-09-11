@@ -1,13 +1,10 @@
 package chatgpt.command;
 
 import chatgpt.exception.ChatBotException;
-
-import chatgpt.task.TaskList;
-import chatgpt.task.Task;
-
-import chatgpt.ui.Ui;
-
 import chatgpt.storage.Storage;
+import chatgpt.task.Task;
+import chatgpt.task.TaskList;
+import chatgpt.ui.Ui;
 
 /**
  *  The CompleteCommand class represents a command to mark a Task from the TaskList
@@ -48,7 +45,7 @@ public class CompleteCommand extends Command {
         if (index > tasks.size()) {
             throw new ChatBotException("\tNo task exists for that index");
         }
-        Task task = tasks.get(index-1);
+        Task task = tasks.get(index - 1);
         task.setCompleted(isCompleted);
         if (isCompleted) {
             ui.showCompleteTask(task);
