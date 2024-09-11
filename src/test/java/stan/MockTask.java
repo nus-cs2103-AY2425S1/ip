@@ -30,7 +30,7 @@ public class MockTask extends Task {
     /**
      * Returns a string representation of the mock task for testing purposes.
      *
-     * @return A string in the format "[MockTask] <description>".
+     * @return A string.
      */
     @Override
     public String toString() {

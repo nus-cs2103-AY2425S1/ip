@@ -21,7 +21,7 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param from The start time of the event in the format yyyy-MM-dd HHmm.
      * @param to The end time of the event in the format yyyy-MM-dd HHmm.
-     * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect or if the start time is after the end time.
+     * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect.
      */
     public Event(String description, String from, String to) throws StanInvalidDateTimeFormatException {
         super(description);
@@ -54,7 +54,8 @@ public class Event extends Task {
      */
     private void validateDateTimeOrder() throws StanInvalidDateTimeFormatException {
         if (!from.isBefore(to)) {
-            throw new StanInvalidDateTimeFormatException("The 'from' date and time must be before the 'to' date and time.");
+            throw new StanInvalidDateTimeFormatException("The 'from' date and time must be "
+                    + "before the 'to' date and time.");
         }
     }
 
@@ -66,7 +67,8 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return String.format("E | %s | %s | %s | %s", (isDone ? "1" : "0"), this.description, this.from.format(formatter), this.to.format(formatter));
+        return String.format("E | %s | %s | %s | %s", (isDone ? "1" : "0"), this.description,
+                this.from.format(formatter), this.to.format(formatter));
     }
 
     /**

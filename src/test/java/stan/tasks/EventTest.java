@@ -1,16 +1,18 @@
 package stan.tasks;
 
 import org.junit.jupiter.api.Test;
+
 import stan.exceptions.StanInvalidDateTimeFormatException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EventTest {
 
     @Test
     void createValidEvent() throws StanInvalidDateTimeFormatException {
         Event event = new Event("Team meeting", "2023-08-30 1400", "2023-08-30 1600");
-        assertEquals("[E][ ] Team meeting (from: Aug 30 2023 2:00pm to: 4:00pm)", event.toString());
+        assertEquals("[E][ ] Team meeting (from: Aug 30 2023 2:00PM to: 4:00PM)", event.toString());
     }
 
     @Test
@@ -18,7 +20,8 @@ class EventTest {
         Exception exception = assertThrows(StanInvalidDateTimeFormatException.class, () -> {
             new Event("Team meeting", "08-30-2023 1400", "2023-08-30 1600");
         });
-        assertEquals("The event time must be in the format yyyy-MM-dd HHmm.\nE.g. /from 2021-07-29 1000 /to 2021-07-30 2200", exception.getMessage());
+        assertEquals("The event time must be in the format yyyy-MM-dd "
+                + "HHmm.\nE.g. /from 2021-07-29 1000 /to 2021-07-30 2200", exception.getMessage());
     }
 
     @Test
