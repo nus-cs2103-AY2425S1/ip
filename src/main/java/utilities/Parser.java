@@ -17,6 +17,13 @@ import task.TaskList;
  * Parser class is used to parse user input and execute commands.
  */
 public class Parser {
+    private static final String EXIT_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
+
     /**
      * Static method to add horizontal lines and indentation to the dialog.
      * @param dialog The dialog to be formatted.
@@ -47,37 +54,53 @@ public class Parser {
         if (dialog.isEmpty()) {
             throw new NoInputException();
         }
-        if (dialog.equals("bye")) {
-            return new ExitCommand();
-        } else if (dialog.equals("list")) {
-            return new ListCommand(taskList);
-        } else if (dialog.startsWith("mark")) {
-            try {
-                int index = Integer.parseInt(dialog.substring(5));
-                return new MarkCommand(index, taskList);
-            } catch (NumberFormatException e) {
-                throw new FormatException("mark");
-            }
-        } else if (dialog.startsWith("unmark")) {
-            try {
-                int index = Integer.parseInt(dialog.substring(7));
-                return new UnmarkCommand(index, taskList);
-            } catch (NumberFormatException e) {
-                throw new FormatException("unmark");
-            }
-        } else if (dialog.startsWith("delete")) {
-            try {
-                int index = Integer.parseInt(dialog.substring(7));
-                return new DeleteCommand(index, taskList);
-            } catch (NumberFormatException e) {
-                throw new FormatException("delete");
-            }
-        } else if (dialog.startsWith("find")) {
-            String keyword = dialog.substring(5);
-            return new FindCommand(keyword, taskList);
-        } else {
-            return new TaskCommand(dialog, taskList);
+
+        String trimmedDialog = dialog.trim();
+        String[] parts = trimmedDialog.split("\\s+", 2);
+        String command = parts[0].toLowerCase();
+
+        switch (command) {
+            case EXIT_COMMAND:
+                return new ExitCommand();
+            case LIST_COMMAND:
+                return new ListCommand(taskList);
+            case MARK_COMMAND:
+            case UNMARK_COMMAND:
+            case DELETE_COMMAND:
+                return handleIndexCommand(command, parts, taskList);
+            case FIND_COMMAND:
+                return handleFindCommand(parts, taskList);
+            default:
+                return new TaskCommand(trimmedDialog, taskList);
         }
+    }
+
+    private Command handleIndexCommand(String command, String[] parts, TaskList taskList) throws FormatException {
+        if (parts.length < 2) {
+            throw new FormatException(command);
+        }
+        try {
+            int index = Integer.parseInt(parts[1]);
+            switch (command) {
+                case MARK_COMMAND:
+                    return new MarkCommand(index, taskList);
+                case UNMARK_COMMAND:
+                    return new UnmarkCommand(index, taskList);
+                case DELETE_COMMAND:
+                    return new DeleteCommand(index, taskList);
+                default:
+                    throw new IllegalArgumentException("Unknown index command: " + command);
+            }
+        } catch (NumberFormatException e) {
+            throw new FormatException(command);
+        }
+    }
+
+    private Command handleFindCommand(String[] parts, TaskList taskList) throws FormatException {
+        if (parts.length < 2) {
+            throw new FormatException(FIND_COMMAND);
+        }
+        return new FindCommand(parts[1], taskList);
     }
 
     /**
@@ -90,14 +113,11 @@ public class Parser {
         try {
             String input = sc.nextLine();
             return parseUserInput(input, taskList);
-        } catch (FormatException e) {
-            System.out.println("FormatException: " + e.getMessage());
-            return null;
-        } catch (NoInputException e) {
-            System.out.println("NoInputException: " + e.getMessage());
+        } catch (FormatException | NoInputException e) {
+            System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
             return null;
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            System.out.println("发生未知错误: " + e.getMessage());
             return null;
         }
     }
