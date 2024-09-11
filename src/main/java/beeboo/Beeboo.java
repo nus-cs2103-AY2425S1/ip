@@ -15,11 +15,11 @@ import javafx.scene.image.Image;
  */
 public class Beeboo {
 
+    private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/Beeboo.jpg"));
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/Beeboo.jpg"));
 
     /**
      * Constructs a BeeBoo instance with the specified file path for storage.
