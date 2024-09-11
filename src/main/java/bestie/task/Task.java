@@ -8,14 +8,17 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    protected Priority priority;
+
     /**
      * Creates a task with its description.
      *
      * @param description Description of the task.
      */
-    public Task(String description) {
+    public Task(String description, Priority priority) {
         this.description = description;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
@@ -53,6 +56,9 @@ public abstract class Task {
         return this.description;
     }
 
+    public Priority getPriority() {
+        return this.priority;
+    }
 
     /**
      * Returns string representation of the task in the console, together with its completion status.

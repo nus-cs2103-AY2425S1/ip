@@ -18,8 +18,8 @@ public class Deadline extends Task {
      * @param description Task description.
      * @param by Deadline of the task, given in the form of YYYY-MM-DD HHMM.
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, Priority priority) {
+        super(description, priority);
         this.by = by;
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.deadline = LocalDateTime.parse(by, inputFormat);
@@ -42,8 +42,8 @@ public class Deadline extends Task {
         } else {
             storeCompleted = "0";
         }
-        // Store format: " D | 0 | read book | by Sunday
-        return "D | " + storeCompleted + " | " + this.description + " | " + this.by;
+        // Store format: " D | 0 | read book | by Sunday | HIGH
+        return "D | " + storeCompleted + " | " + this.description + " | " + this.by + " | " + this.priority;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.formattedDeadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.formattedDeadline + "), priority: " + this.priority.toString();
     }
 
 }

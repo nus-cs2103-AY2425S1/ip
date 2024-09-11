@@ -2,17 +2,10 @@ package bestie;
 
 import java.time.format.DateTimeParseException;
 
-import bestie.command.AddCommand;
-import bestie.command.Command;
-import bestie.command.DeleteCommand;
-import bestie.command.ExitCommand;
-import bestie.command.FindCommand;
-import bestie.command.InvalidCommand;
-import bestie.command.ListCommand;
-import bestie.command.MarkCommand;
-import bestie.command.UnmarkCommand;
+import bestie.command.*;
 import bestie.task.Deadline;
 import bestie.task.Event;
+import bestie.task.Priority;
 import bestie.task.Todo;
 
 
@@ -56,30 +49,48 @@ public class Parser {
         case("find"):
             return new FindCommand(parts[1]);
 
+        case("priority"):
+            String priorityToFindString = userInput.split(" ")[1];
+            Priority priorityToFind = Priority.valueOf(priorityToFindString.toUpperCase());
+            return new PriorityCommand(priorityToFind);
+
         case("delete"):
             return new DeleteCommand(Integer.parseInt(parts[1]) - 1);
 
         case("todo"):
             try {
-                return new AddCommand(new Todo(userInput.substring(5)));
-            } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                String[] partsOfTodo = userInput.split(" /priority");
+                String description = partsOfTodo[0].substring(5).trim();
+                String priorityString = partsOfTodo[1].trim().toUpperCase();
+                // distinguish the priority label
+                Priority priority = Priority.valueOf(priorityString);
+
+                return new AddCommand(new Todo(description, priority));
+            } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("The description of a todo cannot be empty. Please input your todo again!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
             }
             break;
 
         case("deadline"):
             try {
-                String[] partsOfDeadline = userInput.split(" /by ");
-                String description = partsOfDeadline[0].substring(9);
-                String deadline = partsOfDeadline[1];
-                return new AddCommand(new Deadline(description, deadline));
+                String[] partsOfDeadline = userInput.split(" /");
+
+                String description = partsOfDeadline[0].substring(9).trim();
+
+                String deadline = partsOfDeadline[1].substring(3).trim();
+                String priorityString = partsOfDeadline[2].substring(8).trim().toUpperCase();
+                Priority priority = Priority.valueOf(priorityString);
+                return new AddCommand(new Deadline(description, deadline, priority));
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("You did not input the deadline in a valid format.");
                 System.out.println("Please follow the format \"deadline (name of task) /by (deadline)\"");
-
             } catch (DateTimeParseException e) {
                 System.out.println("You did not input the date and time in the correct format.");
                 System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
             }
             break;
 
@@ -89,7 +100,9 @@ public class Parser {
                 String description = partsOfEvent[0].substring(6).trim();
                 String start = partsOfEvent[1].substring(5).trim();
                 String end = partsOfEvent[2].substring(3).trim();
-                return new AddCommand(new Event(description, start, end));
+                String priorityString = partsOfEvent[3].substring(8).trim().toUpperCase();
+                Priority priority = Priority.valueOf(priorityString);
+                return new AddCommand(new Event(description, start, end, priority));
             } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 System.out.println("You did not input the event in a valid format.");
                 System.out.println("Please follow the format \"event (name of event) /from (start time) "
@@ -97,6 +110,8 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 System.out.println("You did not input the date and time in the correct format.");
                 System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
             }
             break;
 
