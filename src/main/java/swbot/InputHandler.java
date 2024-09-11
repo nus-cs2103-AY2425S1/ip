@@ -39,7 +39,7 @@ public class InputHandler {
         } else if (input.equals("list")) {
             StringBuilder res = new StringBuilder();
             for (int i = 0; i < data.size(); i++) {
-                res.append((i + 1)).append(".").append(data.get(i).toString());
+                res.append((i + 1)).append(".").append(data.get(i).toString() + "\n");
             }
             return res.toString();
         } else if (input.startsWith("todo")) {
@@ -171,7 +171,7 @@ public class InputHandler {
         for (int i = 0; i < data.size(); i++) {
             Task task = data.get(i);
             if (task.description.contains(wordSearch)) {
-                result.append(tasks).append(".").append(task.toString());
+                result.append(tasks).append(".").append(task.toString() + "\n");
                 tasks++;
             }
         }

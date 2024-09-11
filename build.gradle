@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("swbot.R2D2")
+    mainClass.set("swbot.Launcher")
 }
 
 shadowJar {
