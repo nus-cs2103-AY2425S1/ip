@@ -1,13 +1,5 @@
 package hypebot.ui;
 
-import java.io.PrintStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-
-import hypebot.task.Task;
-import hypebot.tasklist.Tasklist;
-
 import static hypebot.common.Messages.DIVIDER_LINE;
 import static hypebot.common.Messages.ERROR_INTRO;
 import static hypebot.common.Messages.LOGO;
@@ -28,6 +20,14 @@ import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_OUTRO;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_INTRO;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_OUTRO;
 import static hypebot.common.Messages.MESSAGE_UNMARKED_TASK;
+
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+import hypebot.task.Task;
+import hypebot.tasklist.Tasklist;
 
 /**
  * Represents the user interface that user interacts with HypeBot.

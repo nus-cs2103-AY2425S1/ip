@@ -47,6 +47,7 @@ public class HypeBot {
                 ui.showDividerLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                storage.save(tasks);
                 isExit = c.isExit();
             } catch (Exception e) {
                 ui.showError(e.getMessage());

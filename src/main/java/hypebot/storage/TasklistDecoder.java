@@ -34,7 +34,7 @@ public class TasklistDecoder {
         this.tasklistFile = tasklistFile;
     }
 
-    private Task loadTask(String[] taskTextLineElements) throws TaskDateTimeParseException {
+    private Task loadTask(String[] taskTextLineElements) throws TaskDateTimeParseException, IllegalArgumentException {
         String taskType = taskTextLineElements[0];
         String taskName = taskTextLineElements[2];
         Task newTask = null;
@@ -43,14 +43,22 @@ public class TasklistDecoder {
             newTask = new ToDo(taskName);
             break;
         case "D":
-            String dueDate = taskTextLineElements[3];
-            newTask = new Deadline(taskName, dueDate);
-            break;
+            try {
+                String dueDate = taskTextLineElements[3];
+                newTask = new Deadline(taskName, dueDate);
+                break;
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(MESSAGE_DELETING_PAST_DEADLINE, e);
+            }
         case "E":
-            String startTime = taskTextLineElements[3];
-            String endTime = taskTextLineElements[4];
-            newTask = new Event(taskName, startTime, endTime);
-            break;
+            try {
+                String startTime = taskTextLineElements[3];
+                String endTime = taskTextLineElements[4];
+                newTask = new Event(taskName, startTime, endTime);
+                break;
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(MESSAGE_DELETING_PAST_EVENT, e);
+            }
         default:
             throw new IllegalArgumentException(ERROR_LOAD_TASKLIST);
         }
@@ -72,11 +80,15 @@ public class TasklistDecoder {
         while (scanner.hasNextLine()) {
             String taskTextLine = scanner.nextLine();
             String[] taskTextLineElements = taskTextLine.split(" , ");
-            Task newTask = loadTask(taskTextLineElements);
-            if (newTask != null && taskTextLineElements[1].equals("1")) {
-                newTask.mark();
+            try {
+                Task newTask = loadTask(taskTextLineElements);
+                if (newTask != null && taskTextLineElements[1].equals("1")) {
+                    newTask.mark();
+                }
+                tasks.add(newTask);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-            tasks.add(newTask);
         }
         scanner.close();
         return tasks;

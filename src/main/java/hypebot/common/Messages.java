@@ -39,6 +39,8 @@ public class Messages {
     public static final String MESSAGE_GREET_INTRO = "AYO WHAT'S UP IT'S ME YOUR\n\n";
     public static final String MESSAGE_GREET_OUTRO = "\nWhat can I do for you, my wonderful homie?\n";
     public static final String MESSAGE_LOAD_TASKLIST = "LOADING YOUR TASKS IN /data/tasklist.txt...\n";
+    public static final String MESSAGE_DELETING_PAST_DEADLINE = "Deleting past deadline...\n";
+    public static final String MESSAGE_DELETING_PAST_EVENT = "Deleting past event...\n";
     public static final String MESSAGE_SAVE_TASKLIST = "Alright homie, saving your tasks to /data/tasklist.txt...\n";
     public static final String MESSAGE_LIST = "ALRIGHT, Here's that list!\n";
     public static final String MESSAGE_HAPPENING = "ALRIGHT, Here's everything that's going down on ";
