@@ -24,6 +24,7 @@ public class Storage {
      * @param filePath The path of the file where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -43,6 +44,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
+                assert parts.length >= 3 : "Invalid task format in file";
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
@@ -77,6 +79,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while saving the file.
      */
     public void save(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks list should not be null";
         FileWriter writer = new FileWriter(filePath);
 
         for (Task task : tasks) {

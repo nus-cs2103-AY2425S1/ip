@@ -20,11 +20,16 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to be marked as not done.
      */
     public UnmarkCommand(int index) {
+        assert index >= 0 : "Task index should be non-negative";
         this.index = index;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = tasks.unmarkTaskAsDone(index);
         if (task != null) {
             try {

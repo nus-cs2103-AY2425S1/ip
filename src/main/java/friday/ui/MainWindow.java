@@ -43,6 +43,7 @@ public class MainWindow extends AnchorPane {
      * @param f The Friday instance to be used by the main window.
      */
     public void setFriday(Friday f) {
+        assert f != null : "Friday instance should not be null";
         friday = f;
         dialogContainer.getChildren().add(DialogBox.getFridayDialog(friday.getResponse("hi"), fridayImage));
     }
@@ -56,6 +57,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input should not be null";
         String response = friday.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
