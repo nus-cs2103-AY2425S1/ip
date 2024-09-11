@@ -3,17 +3,7 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-import commands.ByeCommand;
-import commands.Command;
-import commands.DeadlineCommand;
-import commands.DeleteCommand;
-import commands.EventCommand;
-import commands.FindCommand;
-import commands.HelpCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.TodoCommand;
-import commands.UnmarkCommand;
+import commands.*;
 import exceptions.DownyException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;
@@ -49,6 +39,7 @@ public class Parser {
             case "event" -> handleEvent(parts);
             case "help" -> handleHelp();
             case "find" -> handleFind(parts);
+            case "note" -> handleNote(parts);
             default -> throw new InvalidCommandException();
         };
     }
@@ -217,4 +208,66 @@ public class Parser {
         }
         return new FindCommand(parts[1]);
     }
+
+    /**
+     * Handles the "note" command, which can either list notes or enter a new note.
+     *
+     * @param parts The user input split into parts.
+     * @return A {@code NoteCommand} to either list notes or enter a new note.
+     * @throws MissingArgumentException If the command is missing required arguments.
+     */
+    private static Command handleNote(String[] parts) throws MissingArgumentException, InvalidFormatException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new MissingArgumentException("Note command requires either 'list', 'entry <content>', or 'delete <number>'.\n"
+                    + "   Usage: note list\n"
+                    + "   or: note entry <content>\n"
+                    + "   or: note delete <number>");
+        }
+
+        // Split the remaining part of the command to identify the action (list, entry, or delete)
+        String[] noteParts = parts[1].split(" ", 2);
+        String noteCommand = noteParts[0];
+
+        // Handle "note list" case
+        if (noteCommand.equals("list")) {
+            return new NoteCommand("list");
+        }
+
+        // Handle "note entry" case
+        if (noteCommand.equals("entry")) {
+            if (noteParts.length < 2 || noteParts[1].trim().isEmpty()) {
+                throw new MissingArgumentException("Note entry requires content to be specified.\n"
+                        + "   Usage: note entry <content>");
+            }
+            return new NoteCommand("entry", noteParts[1].trim());
+        }
+
+        // Handle "note delete" case
+        if (noteCommand.equals("delete")) {
+            if (noteParts.length < 2 || noteParts[1].trim().isEmpty()) {
+                throw new MissingArgumentException("Note delete requires a note number.\n"
+                        + "   Usage: note delete <number>");
+            }
+
+            // Parse the note number
+            try {
+                int noteNumber = Integer.parseInt(noteParts[1].trim());
+                if (noteNumber <= 0) {
+                    throw new InvalidFormatException("Note number must be greater than 0.\n"
+                            + "   Usage: note delete <number>");
+                }
+                return new NoteCommand("delete", noteNumber); // Assuming the NoteCommand will handle deleting the note by number
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException("Invalid format for note number. It must be an integer.\n"
+                        + "   Usage: note delete <number>");
+            }
+        }
+
+        // If none of the valid commands were found, throw an exception
+        throw new InvalidFormatException("Note command requires either 'list', 'entry <content>', or 'delete <number>'.\n"
+                + "   Usage: note list\n"
+                + "   or: note entry <content>\n"
+                + "   or: note delete <number>");
+    }
+
 }

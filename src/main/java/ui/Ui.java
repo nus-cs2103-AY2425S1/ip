@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import tasks.Task;
@@ -157,6 +158,51 @@ public class Ui {
     }
 
     /**
+     * Displays the list of notes to the user.
+     *
+     * @param notes The list of notes to be displayed.
+     * @return A message displaying the notes.
+     */
+    public String displayNotes(List<String> notes) {
+        assert notes != null : "Notes list should not be null.";
+        StringBuilder result = new StringBuilder();
+        result.append("Here are your notes:\n");
+
+        if (notes.isEmpty()) {
+            result.append("No notes found.\n");
+        } else {
+            for (int i = 0; i < notes.size(); i++) {
+                result.append((i + 1)).append(". ").append(notes.get(i)).append("\n");
+            }
+        }
+
+        return result.toString();
+    }
+
+
+    /**
+     * Displays a message indicating that a new note has been added.
+     *
+     * @param noteContent The content of the note that was added.
+     * @return A message confirming that the note has been added.
+     */
+    public String displayNoteAdded(String noteContent) {
+        assert noteContent != null && !noteContent.isBlank() : "Note content should not be null or empty.";
+        return "Okay! Added this note:\n  " + noteContent + "\n";
+    }
+
+    /**
+     * Displays a message indicating that a note has been deleted.
+     *
+     * @param noteNumber The number of the note that was deleted.
+     * @return A message confirming that the note has been deleted.
+     */
+    public String displayNoteDeleted(int noteNumber) {
+        assert noteNumber > 0 : "Note number should be greater than 0.";
+        return "Okay! Deleted note number " + noteNumber + ":\n";
+    }
+
+    /**
      * Displays a help message listing all valid commands.
      */
     public String displayHelp() {
@@ -172,7 +218,11 @@ public class Ui {
         result.append(" - bye\n");
         result.append(" - help\n");
         result.append(" - find <keyword>\n");
+        result.append(" - note list\n");
+        result.append(" - note entry <noteContent>\n");
+        result.append(" - note delete <noteNumber>\n");
 
         return result.toString();
     }
+
 }
