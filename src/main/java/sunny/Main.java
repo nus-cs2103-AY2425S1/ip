@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Ui sunny = new Ui();
+    private final Ui sunny = new Ui();
 
     @Override
     public void start(Stage stage) {

@@ -63,7 +63,7 @@ public class Ui {
             return c.runCommand(ls, p.getSecondHalf());
         } else if (Objects.equals(command, "delete")) {
             Command c = new DeleteCommand();
-            return c.runCommand(ls,p.getSecondHalf());
+            return c.runCommand(ls, p.getSecondHalf());
         } else {
             try {
                 Task t = TaskCreator.create(message + "|false");
