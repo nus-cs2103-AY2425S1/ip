@@ -15,18 +15,18 @@ public class ToDoCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         ToDo toDo;
         try {
-            toDo = checkCommand();
+            toDo = parseToDoCommand();
         } catch (WrongFormatException e) {
-            return e.getMessage();
+            return ui.printError(e.getMessage());
         }
 
         assert toDo != null;
         setIsSuccessful(true);
-        return taskList.addItem(toDo);
+        taskList.addItem(toDo);
+        return ui.printAddItemMsg(taskList, toDo);
     }
 
-    @Override
-    public ToDo checkCommand() throws WrongFormatException {
+    public ToDo parseToDoCommand() throws WrongFormatException {
         String[] description = message.split("todo");
         if (description[1].isBlank()) {
             throw new WrongFormatException("todo", "ToDo task should be of type \"todo [description]\"");

@@ -21,18 +21,18 @@ public class DeadlineCommand extends Command {
         Deadline deadline;
 
         try {
-            deadline = checkCommand();
+            deadline = parseDeadlineCommand();
         } catch (WrongFormatException e) {
-            return e.getMessage();
+            return ui.printError(e.getMessage());
         }
 
         assert deadline != null;
         setIsSuccessful(true);
-        return taskList.addItem(deadline);
+        taskList.addItem(deadline);
+        return ui.printAddItemMsg(taskList, deadline);
     }
 
-    @Override
-    public Deadline checkCommand() throws WrongFormatException {
+    public Deadline parseDeadlineCommand() throws WrongFormatException {
         Deadline deadline = null;
 
         assert message.contains("deadline");

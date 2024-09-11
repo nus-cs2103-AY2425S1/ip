@@ -8,10 +8,12 @@ import tecna.ui.Ui;
 public abstract class Command {
     protected String message;
     private boolean isSuccessful;
+    private boolean isExitCommand;
 
     public Command(String message) {
         this.message = message;
         this.isSuccessful = false;
+        this.isExitCommand = false;
     }
 
     /**
@@ -32,6 +34,8 @@ public abstract class Command {
         this.isSuccessful = isSuccessful;
     }
 
-    public abstract Object checkCommand() throws WrongFormatException;
+    protected void setIsExitCommand() {
+        this.isExitCommand = true;
+    }
 
 }

@@ -21,18 +21,18 @@ public class EventCommand extends Command {
         Event event;
 
         try {
-            event = checkCommand();
+            event = parseEventCommand();
         } catch (WrongFormatException e) {
-            return e.getMessage();
+            return ui.printError(e.getMessage());
         }
 
         assert event != null;
         setIsSuccessful(true);
-        return taskList.addItem(event);
+        taskList.addItem(event);
+        return ui.printAddItemMsg(taskList, event);
     }
 
-    @Override
-    public Event checkCommand() throws WrongFormatException {
+    public Event parseEventCommand() throws WrongFormatException {
         Event event = null;
 
         assert message.contains("event");
