@@ -49,6 +49,10 @@ public class Reminder {
     Reminder(ArrayList<Task> schedule) {
         this.schedule = schedule;
         this.calendar = new Hashtable<LocalDate, ArrayList<Task>>();
+        this.schedule.forEach(task -> {
+            calendar.computeIfAbsent(task.getDate(), k -> new ArrayList<>()).add(task);
+        });
+        /*
         for (Task task : schedule) {
             ArrayList<Task> taskList;
             if (calendar.containsKey(task.getDate())) {
@@ -59,6 +63,7 @@ public class Reminder {
             taskList.add(task);
             calendar.put(task.getDate(), taskList);
         }
+         */
     }
 
     /**
@@ -69,6 +74,8 @@ public class Reminder {
 
     public static void addEvent(Event task) {
         schedule.add(task);
+        calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
+        /*
         ArrayList<Task> taskList;
         if (calendar.containsKey(task.getDate())) {
             taskList = calendar.get(task.getDate());
@@ -77,6 +84,8 @@ public class Reminder {
         }
         taskList.add(task);
         calendar.put(task.getDate(), taskList);
+
+         */
     }
 
     /**
@@ -87,6 +96,8 @@ public class Reminder {
 
     public static void addDeadline(Deadline task) {
         schedule.add(task);
+        calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
+        /*
         ArrayList<Task> taskList;
         if (calendar.containsKey(task.getDate())) {
             taskList = calendar.get(task.getDate());
@@ -95,6 +106,7 @@ public class Reminder {
         }
         taskList.add(task);
         calendar.put(task.getDate(), taskList);
+         */
     }
 
     /**
@@ -118,9 +130,15 @@ public class Reminder {
         Task task = schedule.remove(i);
         if (task.getClass() != Todos.class) {
             LocalDate date = task.getDate();
+            calendar.computeIfPresent(date, (key, value) -> {
+                value.remove(task);
+                return value.isEmpty() ? null : value;
+            });
+            /*
             ArrayList<Task> taskList = calendar.get(date);
             taskList.remove(task);
             calendar.put(date, taskList);
+             */
         }
         return task;
     }
@@ -135,11 +153,19 @@ public class Reminder {
         Task task = schedule.remove(i);
         if (task.getClass() != Todos.class) {
             LocalDate date = task.getDate();
+            calendar.computeIfPresent(date, (key, value) -> {
+                value.remove(task);
+                task.mark();
+                value.add(task);
+                return value;
+            });
+            /*
             ArrayList<Task> taskList = calendar.get(date);
             taskList.remove(task);
             task.mark();
             taskList.add(task);
             calendar.put(date, taskList);
+             */
         }
         task.mark();
         schedule.add(i, task);
@@ -155,11 +181,19 @@ public class Reminder {
         Task task = schedule.remove(i);
         if (task.getClass() != Todos.class) {
             LocalDate date = task.getDate();
+            calendar.computeIfPresent(date, (k, v) -> {
+                v.remove(task);
+                task.unmark();
+                v.add(task);
+                return v;
+            });
+            /*
             ArrayList<Task> taskList = calendar.get(date);
             taskList.remove(task);
             task.unmark();
             taskList.add(task);
             calendar.put(date, taskList);
+             */
         }
         task.unmark();
         schedule.add(i, task);
@@ -173,7 +207,7 @@ public class Reminder {
      */
 
     public static ArrayList<Task> getTasksOnDate(LocalDate date) {
-        return calendar.get(date);
+        return calendar.getOrDefault(date, new ArrayList<>());
     }
 
     public static ArrayList<Task> getSchedule() {
