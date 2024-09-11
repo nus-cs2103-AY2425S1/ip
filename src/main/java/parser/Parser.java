@@ -86,6 +86,8 @@ public class Parser {
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));
+        case EXIT:
+            return "";
         default:
             throw new AliceException(input);
         }
