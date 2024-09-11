@@ -46,6 +46,7 @@ public class LBot {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert c != null : "Command should not be null.";
             return c.execute(ui, storage, tasks);
         } catch (LBotException e) {
             return ui.sayException(e.getMessage());
