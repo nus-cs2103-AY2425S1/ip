@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import commands.ByeCommand;
 import commands.Command;
@@ -77,8 +78,10 @@ public class Parser {
 
         switch (type) {
         case BYE:
+            assert wordsOfCommand[0].equals("bye");
             return new ByeCommand();
         case LIST:
+            assert wordsOfCommand[0].equals("list");
             return new ListCommand();
         case MARK:
             return processMarkCommand(wordsOfCommand);
@@ -100,14 +103,17 @@ public class Parser {
     }
 
     private static FindCommand processFindCommand(String[] wordsOfCommand) throws PrimoException {
-        String wordToFind = "";
+        assert wordsOfCommand[0].equals("find");
+        assert wordsOfCommand.length > 1;
         if (wordsOfCommand.length <= 1) {
             throw new PrimoException("Poor formatting! Expecting find <string>");
         }
-        return new FindCommand(wordToFind);
+        return new FindCommand(wordsOfCommand[1]);
     }
 
     private static DeleteCommand processDeleteCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("delete");
+        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {
@@ -118,6 +124,9 @@ public class Parser {
     }
 
     private static EventCommand processEventCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("event");
+        assert wordsOfCommand.length >= 4;
         boolean containsFrom = fullCommand.contains("/from");
         boolean containsTo = fullCommand.contains("/to");
         if (!containsFrom || !containsTo) {
@@ -158,6 +167,9 @@ public class Parser {
     }
 
     private static DeadlineCommand processDeadlineCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("deadline");
+        assert wordsOfCommand.length >= 3;
         if (!fullCommand.contains("/by")) {
             throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
         }
@@ -185,6 +197,9 @@ public class Parser {
     }
 
     private static TodoCommand processTodoCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("todo");
+        assert wordsOfCommand.length >= 2;
         int todoNameIndex = fullCommand.indexOf("todo ") + 5;
         String todoDescription = fullCommand.substring(todoNameIndex).trim();
         if (todoDescription.isEmpty()) {
@@ -195,6 +210,8 @@ public class Parser {
     }
 
     private static UnmarkCommand processUnmarkCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("unmark");
+        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {
@@ -205,6 +222,8 @@ public class Parser {
     }
 
     private static MarkCommand processMarkCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("mark");
+        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {

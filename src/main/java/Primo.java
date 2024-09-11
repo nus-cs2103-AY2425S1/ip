@@ -52,6 +52,7 @@ public class Primo {
         ui.showWelcome();
         try {
             Command c = Parser.parse(input); // Parses the command, may throw PrimoException
+            assert c != null;
             return c.execute(tasks, ui, storage); // Executes the command, may throw PrimoException
         } catch (PrimoException e) {
             ui.showError(e.getMessage()); // Displays error message if an exception occurs
