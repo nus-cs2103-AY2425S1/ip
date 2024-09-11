@@ -1,0 +1,12 @@
+todo become zombie
+deadline turn back to human /by Monday
+event eat brains /from zombified /to Sunday 8pm
+list
+mark 1
+mark 3
+list
+unmark 3
+mark 2
+list
+bye
+

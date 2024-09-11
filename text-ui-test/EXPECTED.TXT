@@ -1,7 +1,41 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Loafy: Hellooo, I'm Loafy!
+
+Loafy: What can I do for you? :D
+
+You: Loafy: Got it. I've added this task:
+   [T][ ] become zombie
+Now you have 1 tasks in the list.
+
+You: Loafy: Got it. I've added this task:
+   [D][ ] turn back to human(by: Monday)
+Now you have 2 tasks in the list.
+
+You: Loafy: Got it. I've added this task:
+   [E][ ] eat brains (from: zombified to: Sunday 8pm)
+Now you have 3 tasks in the list.
+
+You: Loafy: Here are the tasks in your list:
+1. [T][ ] become zombie
+2. [D][ ] turn back to human(by: Monday)
+3. [E][ ] eat brains (from: zombified to: Sunday 8pm)
+
+You: Loafy: [T][X] become zombie
+
+You: Loafy: [E][X] eat brains (from: zombified to: Sunday 8pm)
+
+You: Loafy: Here are the tasks in your list:
+1. [T][X] become zombie
+2. [D][ ] turn back to human(by: Monday)
+3. [E][X] eat brains (from: zombified to: Sunday 8pm)
+
+You: Loafy: [E][ ] eat brains (from: zombified to: Sunday 8pm)
+
+You: Loafy: [D][X] turn back to human(by: Monday)
+
+You: Loafy: Here are the tasks in your list:
+1. [T][X] become zombie
+2. [D][X] turn back to human(by: Monday)
+3. [E][ ] eat brains (from: zombified to: Sunday 8pm)
+
+You: Loafy: Byeee see you soon! ;)
 
