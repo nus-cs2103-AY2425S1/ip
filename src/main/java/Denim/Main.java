@@ -29,7 +29,7 @@ public class Main extends Application {
             Scene scene = new Scene(mainWindow);
             stage.setTitle("Denim");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDenim(denim); // inject the Denim instance
+            fxmlLoader.<MainWindow>getController().injectDenim(denim);
             denim.start();
             stage.show();
         } catch (IOException e) {
@@ -38,3 +38,4 @@ public class Main extends Application {
 
     }
 }
+

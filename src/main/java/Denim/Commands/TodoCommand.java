@@ -29,9 +29,9 @@ public class TodoCommand extends Command {
 
         taskList.addTask(todoTask);
         int taskListSize = taskList.getTaskListSize();
-
         String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.",
                 todoTask, taskListSize);
+
         return new CommandResult(returnMessage);
     }
 
