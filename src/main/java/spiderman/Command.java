@@ -95,7 +95,11 @@ public class Command {
      * @return A message indicating the result of the deletion.
      */
     public String delete(String[] input, TaskList tasks) {
-        assert input != null && input.length > 1 : "Input for delete command should have a task number";
+        assert input != null : "Input for delete command cannot be null";
+
+        if (input.length <= 1) {
+            return "Input for delete command should have a task number!";
+        }
 
         try {
             int number = Integer.parseInt(input[1]) - 1;
@@ -104,6 +108,7 @@ public class Command {
         catch (NumberFormatException e) {
             return "Detected list number as a non integer value! The right format is delete {list number}";
         }
+
     }
 
     /**
@@ -124,7 +129,6 @@ public class Command {
      * @return A formatted string of tasks that match the keyword.
      */
     public String find(String input, TaskList tasks) {
-        assert input != null && !input.trim().isEmpty() : "Input for find command should not be null or empty";
         assert tasks != null : "TaskList should not be null";
 
         String keyword = input.replaceFirst("find", "").trim();
@@ -143,7 +147,11 @@ public class Command {
      * @return A message indicating the result of marking the task as done.
      */
     public String mark(String[] input, TaskList tasks) {
-        assert input != null && input.length > 1 : "Input for mark command should have a task number";
+        assert input != null : "Input for mark command cannot be null!";
+
+        if (input.length <= 1) {
+            return "Input for mark command should have a task number!";
+        }
 
         try {
             int number = Integer.parseInt(input[1]) - 1;
@@ -162,7 +170,11 @@ public class Command {
      * @return A message indicating the result of marking the task as not done.
      */
     public String unmark(String[] input, TaskList tasks) {
-        assert input != null && input.length > 1 : "Input for unmark command should have a task number";
+        assert input != null : "Input for unmark command should have a task number";
+
+        if (input.length <= 1) {
+            return "Input for unmark command should have a task number!";
+        }
 
         try {
             int number = Integer.parseInt(input[1]) - 1;
