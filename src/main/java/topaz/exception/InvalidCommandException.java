@@ -19,6 +19,7 @@ public class InvalidCommandException extends Exception {
 
     @Override
     public String toString() {
-        return "Steady... Your put an invalid command: \"" + input + "\", type \"help\" to see how to use the chatbot.";
+        return "Steady... Your put an invalid command: \""
+                + input + "\", type \"help\" to see how to use the chatbot.";
     }
 }

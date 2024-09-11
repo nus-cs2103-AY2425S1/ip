@@ -79,7 +79,8 @@ public class DialogBox extends HBox {
             dialog.getStyleClass().add("delete-label");
             break;
         default:
-            // Do nothing
+            dialog.getStyleClass().add("reply-label");
+            break;
         }
     }
 }

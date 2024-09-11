@@ -19,7 +19,7 @@ public class Topaz {
     private TaskList taskList;
     private Storage storage;
 
-    private String commandType;
+    private String commandType = "";
 
     /**
      * Enum representing the different types of tasks.

@@ -2,6 +2,7 @@ package topaz.command;
 
 import java.util.Objects;
 
+import topaz.exception.InvalidCommandException;
 import topaz.main.Storage;
 import topaz.main.TaskList;
 import topaz.ui.Ui;
@@ -42,16 +43,20 @@ public class TextCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        switch (super.keyword) {
-        case "bye":
-            return ui.goodbye();
-        case "help":
-            return ui.showHelp();
-        case "list":
-            String listString = tasks.listTasks();
-            return ui.showTaskList() + listString;
-        default:
-            return "";
+        try {
+            switch (super.keyword) {
+            case "bye":
+                return ui.goodbye();
+            case "help":
+                return ui.showHelp();
+            case "list":
+                String listString = tasks.listTasks();
+                return ui.showTaskList() + listString;
+            default:
+                throw new InvalidCommandException(super.keyword);
+            }
+        } catch (InvalidCommandException e) {
+            return ui.showException(e);
         }
     }
 

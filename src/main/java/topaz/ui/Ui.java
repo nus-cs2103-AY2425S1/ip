@@ -83,7 +83,7 @@ public class Ui {
                 + "Remove the file and try again!";
     }
     public String showInitializeIoeException(IOException e) {
-        return "Error in ininializing lists: " + e + " Try again!";
+        return "Error in initializing lists: " + e + " Try again!";
     }
 
     public String showSaveIoeException(IOException e) {
@@ -103,7 +103,7 @@ public class Ui {
     }
 
     public String showUndoneTaskStatus(Task task, int size) {
-        return "Noted. I've removed this task:\n"
+        return "Noted. I've marked this task as undone:\n"
                 + "    " + task.getStatus()
                 + "Now you have " + size + " tasks in the list.";
     }
