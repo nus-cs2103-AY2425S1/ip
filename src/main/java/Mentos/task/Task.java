@@ -1,5 +1,6 @@
 package Mentos.task;
 
+
 public class Task {
     protected boolean isDone;
     protected String description;
@@ -20,13 +21,13 @@ public class Task {
         return this.description;
     }
     public void markAsNotDone(){
-
         this.isDone = false;
     }
 
+
+
     @Override
     public String toString(){
-
         return String.format("[%s] %s",this.getStatusIcon(),this.description);
     }
 }

@@ -27,21 +27,21 @@ public class GuiResponse {
 
     public String markEvent(Task task) {
         StringBuilder res = new StringBuilder();
-        res.append("Nicely done! This Mentos.task is marked as done!\n");
+        res.append("Nicely done! This task is marked as done!\n");
         res.append(task.toString());
         return res.toString();
     }
 
     public String unmarkEvent(Task task) {
         StringBuilder res = new StringBuilder();
-        res.append("Holdup this Mentos.task is not done!\n");
+        res.append("Holdup this task is not done!\n");
         res.append(task.toString());
         return res.toString();
     }
 
     public String deleteEvent(Task task, int tasksSize) {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("Alrights I have removed the following Mentos.task!\n%s%n", task.toString()));
+        res.append(String.format("Alrights I have removed the following task!\n%s%n", task.toString()));
         res.append(String.format("%d remaining tasks%n", tasksSize));
         return res.toString();
     }
