@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.
- * This class is part of the Susan task management application.
+ * This class is 1 of 3 types of tasks in the Susan task management application.
  */
 public class Deadline extends Task {
     protected LocalDate by;
@@ -18,7 +18,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate by) {
         super(description);
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.by = by;
     }
 

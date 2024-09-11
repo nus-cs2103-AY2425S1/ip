@@ -5,8 +5,6 @@ import susan.ui.Storage;
 import susan.ui.SusanException;
 import susan.ui.Ui;
 
-import java.io.IOException;
-
 public class Susan {
     private Storage storage;
     private TaskList taskList;
@@ -18,30 +16,6 @@ public class Susan {
         taskList = new TaskList();
     }
 
-    /*
-    public void run() throws IOException {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (SusanException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Susan().run();
-    }
-    */
-
     /**
      * Generates a response for the user's chat message.
      */
@@ -49,7 +23,7 @@ public class Susan {
         try {
             Command c = Parser.parse(input);
             return c.execute(taskList, ui, storage);
-        } catch (SusanException | IOException e) {
+        } catch (SusanException e) {
             return ui.showError(e.getMessage());
         }
     }

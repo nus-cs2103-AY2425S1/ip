@@ -5,7 +5,6 @@ import susan.ui.Storage;
 import susan.ui.SusanException;
 import susan.ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,9 +28,11 @@ public class AddCommand extends Command {
     public Task deadlineTask() throws SusanException {
         Task task;
         String[] deadlineParts = commandParts[1].split(" /by ");
-        if (deadlineParts.length < 2) {
+        // Incorrect number of parameters to create deadline task
+        if (deadlineParts.length != 2) {
             throw new SusanException("To add a deadline: deadline + description + /by yyyy-MM-dd");
         }
+        // Incorrect date format
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate by = LocalDate.parse(deadlineParts[1], formatter);
@@ -45,9 +46,11 @@ public class AddCommand extends Command {
     public Task eventTask() throws SusanException {
         Task task;
         String[] eventParts = commandParts[1].split(" /from | /to ");
-        if (eventParts.length < 3) {
+        // Incorrect number of parameters to create event task
+        if (eventParts.length != 3) {
             throw new SusanException("To add an event: event + description + /from yyyy-MM-dd HHmm + /to yyyy-MM-dd HHmm");
         }
+        // Incorrect date/time format
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime from = LocalDateTime.parse(eventParts[1], formatter);
@@ -60,7 +63,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException {
         if (commandParts.length < 2) {
             throw new SusanException("The description of a task cannot be empty.");
         }

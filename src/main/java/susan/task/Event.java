@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event with a start and end time.
- * This class is part of the Susan task management application.
+ * This class is 1 of 3 types of tasks in the Susan task management application.
  */
 public class Event extends Task {
     protected LocalDateTime from;
@@ -20,7 +20,6 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = from;
         this.to = to;
     }
