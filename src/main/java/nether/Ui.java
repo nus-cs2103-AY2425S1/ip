@@ -24,24 +24,6 @@ public class Ui {
     }
 
     /**
-     * Prints the Nether logo and welcome message.
-     * This method is called when the application starts.
-     */
-    public void printWelcome() {
-        String logo = " _   _      _   _        \n"
-                + "| \\ | | ___| |_| |__  ___ _ __ \n"
-                + "|  \\| |/ _ \\ __| '_ \\/ _ \\ '__|\n"
-                + "| |\\  |  __/ |_| | | ||__/ |  \n"
-                + "|_| \\_|\\___|\\__|_| |_\\___|_|\n";
-
-        System.out.println("Hello from\n" + logo);
-        printHorizontalLine();
-        System.out.println("Hello sir! I'm Nether");
-        System.out.println("What can I do for you today?");
-        printHorizontalLine();
-    }
-
-    /**
      * Reads the command input by the user, trimming the input off leading or trailing whitespaces
      *
      * @return Input string provided by the user without leading or trailing whitespaces
@@ -62,16 +44,8 @@ public class Ui {
      *
      * @param message message The error message explaining the issue.
      */
-    public void printError(String message) {
-        System.out.println("Sir, " + message);
-        printHorizontalLine();
-    }
-
-    /**
-     * Prints out a long horizontal line to act as separator in the chat.
-     */
-    public void printHorizontalLine() {
-        System.out.println("____________________________________________________________");
+    public String printError(String message) {
+        return "Sir, " + message;
     }
 
     /**
@@ -124,14 +98,13 @@ public class Ui {
      */
     public String printMatchingTasks(TaskList matchingTasks) {
         StringBuilder response = new StringBuilder();
-        if (matchingTasks.getSize() > 0) {
-            response.append("Here are the tasks that match your search in your list:\n");
-            for (int i = 0; i < matchingTasks.getSize(); i++) {
-                response.append((i + 1)).append(".").append(matchingTasks.getTask(i).toString()).append("\n");
-            }
-            return response.toString();
-        } else {
+        if (matchingTasks.getSize() == 0) {
             return "No matching tasks found in your list.";
         }
+        response.append("Here are the tasks that match your search in your list:\n");
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
+            response.append((i + 1)).append(".").append(matchingTasks.getTask(i).toString()).append("\n");
+        }
+        return response.toString();
     }
 }

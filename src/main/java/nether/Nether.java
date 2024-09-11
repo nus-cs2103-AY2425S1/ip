@@ -48,7 +48,6 @@ public class Nether {
      * It handles user input and executes the appropriate commands.
      */
     public void run() {
-        ui.printWelcome();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -86,7 +85,7 @@ public class Nether {
             isExit = c.isExit();
             return response.toString();
         } catch (NetherException e) {
-            return e.getMessage();
+            return ui.printError(e.getMessage());
         }
     }
 

@@ -13,7 +13,7 @@ import nether.task.TaskList;
  * </p>
  */
 public abstract class MarkCommand extends Command {
-    protected int taskNumber;
+    protected int taskIndex;
 
     /**
      * Constructs a {@code MarkCommand} with the specified task number.
@@ -21,7 +21,7 @@ public abstract class MarkCommand extends Command {
      * @param taskNumber The index of the task to be marked.
      */
     public MarkCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+        this.taskIndex = taskNumber;
     }
 
     /**
@@ -39,11 +39,12 @@ public abstract class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NetherException {
-        if (taskNumber > tasks.getSize() || taskNumber < 1) {
+        if (taskIndex > tasks.getSize() || taskIndex < 1) {
             throw new NetherException("invalid task number!");
         }
 
-        Task taskToMark = tasks.getTask(taskNumber - 1);
+        Task taskToMark = tasks.getTask(taskIndex - 1);
+        // taskNumber needs to be decremented since list index starts from 0
         markTask(taskToMark);
 
         storage.saveTasks(tasks.getTasks());
