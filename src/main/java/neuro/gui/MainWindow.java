@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Neuro instance */
     public void setNeuro(Neuro n) {
+        assert n != null : "Neuro object should not be null";
         neuro = n;
     }
 

@@ -36,6 +36,8 @@ public class DeleteCommand extends Command {
             //         + "index for a task to delete, like 'delete 2'.");
         }
 
+        assert index - 1 < tasks.getSize() : "Index should be within size of task list";
+
         try {
             Task task = tasks.removeTask(index - 1);
             storage.updateTaskFile(tasks);
