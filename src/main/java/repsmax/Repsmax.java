@@ -35,7 +35,7 @@ public class Repsmax {
         storage = new Storage(filePath);  // Initializes the storage component with the specified file path.
         parser = new Parser();  // Initializes the parser for processing user inputs.
         tasks = new TaskList();  // Initializes the task list to manage tasks.
-
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         try {
             storage.load(tasks);  // Attempts to load tasks from the file into the task list.
         } catch (Exception e) {
@@ -57,6 +57,7 @@ public class Repsmax {
      *         or the result of parsing the input.
      */
     public String getResponse(String userInput) {
+        assert userInput != null : "User input cannot be null";
         if (userInput.equals("bye")) {
             storage.save(tasks);  // Saves the current tasks to the storage before exiting.
             return ui.showGoodbye();  // Returns a goodbye message.
@@ -75,6 +76,7 @@ public class Repsmax {
      * @param userInput The input provided by the user to be parsed.
      */
     public void parse(String userInput) {
+        assert userInput != null : "User input cannot be null";
         parser.parse(userInput, tasks, ui, storage);  // Delegates input parsing to the parser.
     }
 }

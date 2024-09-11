@@ -23,6 +23,7 @@ public class Storage {
      * @param filePath The path to the file where tasks will be saved or loaded.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -36,6 +37,7 @@ public class Storage {
      * @param tasks The {@code TaskList} containing the tasks to be saved.
      */
     public void save(TaskList tasks) {
+
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 fileWriter.write(task.toFileFormat() + System.lineSeparator());
@@ -59,6 +61,7 @@ public class Storage {
      */
     public void load(TaskList tasks) {
         File file = new File(filePath);
+        assert file.exists() : "File does not exist";
         if (!file.exists()) {
             System.out.println("No task file found. Starting a new task list.");
             return;
