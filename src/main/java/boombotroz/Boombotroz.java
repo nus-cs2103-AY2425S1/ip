@@ -1,7 +1,6 @@
 package boombotroz;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Main class where execution occurs.
@@ -18,16 +17,13 @@ public class Boombotroz {
      * @param filePath file path to text file.
      */
     public Boombotroz(String filePath) {
-        System.out.println("Hello! I'm Boombotroz"
-                + "\nWhat can I do for you?");
-
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty.";
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList();
         parser = new Parser();
-
         try {
-            storage.printTasks(taskList);
+            storage.loadTasks(taskList);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -37,12 +33,27 @@ public class Boombotroz {
     }
 
     /**
+     * Displays current task list.
+     *
+     * @return List of all the tasks.
+     * @throws FileNotFoundException If file not in directory.
+     */
+    public String printTaskList() throws FileNotFoundException {
+        try {
+            return storage.printTasks(taskList);
+
+        } catch (FileNotFoundException e) {
+            return "File not found";
+
+        }
+    }
+
+    /**
      * Generates a response for the user's chat message.
      */
     public String run(String input) {
 
         while (!input.equals("bye")) {
-
             try {
                 if (input.equals("list")) {
                     return parser.getList(ui, taskList);

@@ -1,4 +1,6 @@
 package boombotroz;
+import java.io.FileNotFoundException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+
 
 /**
  * Contains controller aspect of main GUI.
@@ -31,16 +35,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getBoomDialog("Hello! I am Boombotroz! How may I help you?", boomImage)
-        );
     }
 
     /**
      * Injects the Boombotroz instance.
      */
-    public void setBoom(Boombotroz b) {
+    public void setBoom(Boombotroz b) throws FileNotFoundException {
         boombotroz = b;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBoomDialog(String.format("Hello! I am Boombotroz!\n"
+                        + "Here is a list of all your current task:\n%s", b.printTaskList()), boomImage)
+        );
     }
 
     /**
