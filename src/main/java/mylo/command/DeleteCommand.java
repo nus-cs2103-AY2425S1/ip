@@ -2,7 +2,7 @@ package mylo.command;
 
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 
 /**
  * Represents a command to delete a task from the task list by its index.
@@ -35,12 +35,12 @@ public class DeleteCommand extends Command {
      * <p>If the index is invalid, an {@code IndexOutOfBoundsException} will be thrown.</p>
      *
      * @param list The task list from which the task will be deleted.
-     * @param ui   The user interface that can display any necessary output after deletion.
+     * @param tui   The user interface that can display any necessary output after deletion.
      * @throws StorageOperationException If there is an issue with the storage when deleting the task.
      * @throws IndexOutOfBoundsException If the specified index is out of bounds in the task list.
      */
     @Override
-    public void execute(TaskList list, Ui ui) throws StorageOperationException, IndexOutOfBoundsException {
-        list.deleteTask(INDEX);
+    public String execute(TaskList list, Tui tui) throws StorageOperationException, IndexOutOfBoundsException {
+        return list.deleteTask(INDEX);
     }
 }

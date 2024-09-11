@@ -4,7 +4,7 @@ import mylo.data.InsufficientInfoException;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
 import mylo.task.TaskType;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 import mylo.utils.exceptions.IllegalValueException;
 
 /**
@@ -12,7 +12,7 @@ import mylo.utils.exceptions.IllegalValueException;
  * The task to be added is specified by its type and details.
  * <p></p>
  * <p>This class is responsible for executing the command to add a task to the
- * task list, displaying the result to the user via the Ui.
+ * task list, displaying the result to the user via the Tui.
  * </p>
  *
  * @author cweijin
@@ -36,15 +36,14 @@ public class AddCommand extends Command {
      * Executes the add command, adding a task to the given task list and displaying the result.
      *
      * @param list The task list where the task will be added.
-     * @param ui   The user interface that shows the result of the command execution.
+     * @param tui  The user interface that shows the result of the command execution.
      * @throws StorageOperationException If there is an issue with saving the task to storage.
      * @throws InsufficientInfoException If the task details provided are incomplete or invalid.
      * @throws IllegalValueException     If the date time provided is not in correct format.
      */
     @Override
-    public void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException,
+    public String execute(TaskList list, Tui tui) throws StorageOperationException, InsufficientInfoException,
             IllegalValueException {
-        String message = list.addTask(DETAILS, TYPE);
-        ui.show(message);
+        return list.addTask(DETAILS, TYPE);
     }
 }

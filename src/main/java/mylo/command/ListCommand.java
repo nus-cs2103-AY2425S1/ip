@@ -3,7 +3,7 @@ package mylo.command;
 import java.time.LocalDateTime;
 
 import mylo.task.TaskList;
-import mylo.ui.Ui;
+import mylo.ui.Tui;
 
 /**
  * Represents a command to list tasks from the task list.
@@ -42,20 +42,20 @@ public class ListCommand extends Command {
     /**
      * Executes the list command by displaying tasks.
      * <p></p>
-     * <p>If a {@code dateTime} is specified, it will display tasks scheduled on that date.
-     * Otherwise, it will display all tasks in the task list.</p>
+     * <p>If a {@code dateTime} is specified, it will return tasks scheduled on that date.
+     * Otherwise, it will return all tasks in the task list.</p>
      *
      * @param list The task list whose tasks will be displayed.
-     * @param ui   The user interface that shows the tasks.
+     * @param tui   The user interface that shows the tasks.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
+    public String execute(TaskList list, Tui tui) {
         String message = list.toString();
 
         if (dateTime != null) {
             message = list.tasksOnDate(dateTime).toString();
         }
 
-        ui.show(message);
+        return message;
     }
 }

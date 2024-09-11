@@ -81,14 +81,14 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
-    public void deleteTask(int index) throws StorageOperationException, IndexOutOfBoundsException {
+    public String deleteTask(int index) throws StorageOperationException, IndexOutOfBoundsException {
         if (index > LIST.size()) {
             throw new IndexOutOfBoundsException(String.format(
                     "There is only %s tasks in the list.", LIST.size()));
         }
         Task removed = LIST.remove(index - 1);
         STORAGE.rewrite(LIST);
-        System.out.printf("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.\n",
+        return String.format("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.",
                 removed, LIST.size());
     }
 
