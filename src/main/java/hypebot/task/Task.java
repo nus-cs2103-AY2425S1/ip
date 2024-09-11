@@ -14,7 +14,7 @@ public class Task {
     /**
      * Creates a Task with the specified name.
      *
-     * @param name The name of the hypebot.task.
+     * @param name The name of the Task.
      */
     public Task(String name) {
         this.name = name;
@@ -29,14 +29,14 @@ public class Task {
     }
 
     /**
-     * Marks task as complete by changing isComplete to true.
+     * Marks Task as complete by changing isComplete to true.
      */
     public void mark() {
         this.isComplete = true;
     }
 
     /**
-     * Marks task as incomplete by changing isComplete to false.
+     * Marks Task as incomplete by changing isComplete to false.
      */
     public void unmark() {
         this.isComplete = false;
@@ -44,7 +44,7 @@ public class Task {
 
     /**
      * Takes in a LocalDate object representing a search date
-     * and returns whether the event is happening on the given date.
+     * and returns whether the task is happening on the given date.
      *
      * @param date LocalDate object representing a date.
      * @return False - Task base class does not have a date associated.
@@ -54,20 +54,20 @@ public class Task {
     }
 
     /**
-     * Returns the String description of the task to append to /data/tasklist.txt.
+     * Returns the String description of the Task to append to /data/tasklist.txt.
      * Should not be accessed at runtime.
      *
-     * @return String description of task to append to /data/tasklist.txt.
+     * @return String description of Task to append to /data/tasklist.txt.
      */
     public String toFileString() {
         return "N , 0 , T\n";
     }
 
     /**
-     * Returns the String representation of the task as shown to the user on the hypebot.HypeBot UI.
+     * Returns the String representation of the task as shown to the user on the HypeBot UI.
      * Should be in this form: "[{X only if complete}] {name}".
      *
-     * @return String representation of hypebot.task as shown on hypebot.HypeBot UI.
+     * @return String representation of task as shown on HypeBot UI.
      */
     @Override
     public String toString() {

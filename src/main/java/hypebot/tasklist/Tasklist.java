@@ -6,7 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hypebot.common.Messages.*;
+import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
 
 /**
  * Represents the Tasklist containing all Task objects entered by user.
@@ -73,7 +75,7 @@ public class Tasklist {
         try {
             return TASKS.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException(TASK_NUMBER_TO_DELETE_OUT_OF_BOUNDS_ERROR);
+            throw new IndexOutOfBoundsException(ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 
@@ -87,7 +89,7 @@ public class Tasklist {
         try {
             TASKS.get(index).mark();
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException(TASK_NUMBER_TO_MARK_OUT_OF_BOUNDS_ERROR);
+            throw new IndexOutOfBoundsException(ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 
@@ -101,7 +103,7 @@ public class Tasklist {
         try {
             TASKS.get(index).unmark();
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException(TASK_NUMBER_TO_UNMARK_OUT_OF_BOUNDS_ERROR);
+            throw new IndexOutOfBoundsException(ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 

@@ -7,7 +7,7 @@ package hypebot.task;
  */
 public class ToDo extends Task {
     /**
-     * Creates a ToDo hypebot.task with the specified name.
+     * Creates a ToDo task with the specified name.
      *
      * @param name The name of the ToDo.
      */
@@ -27,7 +27,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns the String representation of the ToDo hypebot.task as shown to the user on the hypebot.HypeBot UI.
+     * Returns the String representation of the ToDo task as shown to the user on the HypeBot UI.
      * Should be in this form: "[T][{X only if complete}] {name}".
      *
      * @return String representation of ToDo task as shown on HypeBot UI.

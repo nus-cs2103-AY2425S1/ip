@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static hypebot.common.Messages.LOADING_TASKLIST_ERROR;
+import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
 
 /**
  * Represents a TasklistDecoder that takes in a File to load Tasks from
@@ -61,7 +61,7 @@ public class TasklistDecoder {
      */
     public ArrayList<Task> decode() throws FileNotFoundException {
         if (!tasklistFile.exists()) {
-            throw new FileNotFoundException(LOADING_TASKLIST_ERROR);
+            throw new FileNotFoundException(ERROR_LOAD_TASKLIST);
         }
         Scanner scanner = new Scanner(tasklistFile);
         ArrayList<Task> tasks = new ArrayList<>();

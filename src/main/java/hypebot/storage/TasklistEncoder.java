@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static hypebot.common.Messages.SAVING_TASKLIST_ERROR;
+import static hypebot.common.Messages.ERROR_SAVE_TASKLIST;
 
 /**
  * Represents a TasklistEncoder that takes in a file to save Tasks in
@@ -39,7 +39,7 @@ public class TasklistEncoder {
      */
     public void encode() throws IOException {
         if (!tasklistFile.exists()) {
-            throw new FileNotFoundException(SAVING_TASKLIST_ERROR);
+            throw new FileNotFoundException(ERROR_SAVE_TASKLIST);
         }
         FileWriter tasklistWriter = new FileWriter(tasklistFile);
         tasklistWriter.write("");

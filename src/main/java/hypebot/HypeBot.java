@@ -7,7 +7,6 @@ import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * The chatbot which the user interacts with.

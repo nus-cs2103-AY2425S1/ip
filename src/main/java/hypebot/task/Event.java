@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static hypebot.common.Messages.*;
+import static hypebot.common.Messages.ERROR_EVENT_TIMES_INORDERED;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_WRONG_FORMAT;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_PASSED;
 
 /**
  * Represents an Event type Task with a LocalDateTime type start time and an end time.
@@ -55,15 +57,15 @@ public class Event extends Task {
             LocalDateTime tempStartTime = LocalDateTime.parse(startTimeString, formatter);
             LocalDateTime tempEndTime = LocalDateTime.parse(endTimeString, formatter);
             if (!areInChronologicalOrder(tempStartTime, tempEndTime)) {
-                throw new IllegalArgumentException(EVENT_TIMES_NOT_IN_ORDER_ERROR);
+                throw new IllegalArgumentException(ERROR_EVENT_TIMES_INORDERED);
             }
             if (hasPassedBy(tempStartTime, tempEndTime)) {
-                throw new IllegalArgumentException(EVENT_TIME_PASSED_ERROR);
+                throw new IllegalArgumentException(ERROR_EVENT_TIME_PASSED);
             }
             startTime = tempStartTime;
             endTime = tempEndTime;
         } catch (DateTimeParseException e) {
-            throw new EventDateTimeParseException(EVENT_TIME_PARSE_ERROR, e.getParsedString(), e.getErrorIndex());
+            throw new EventDateTimeParseException(ERROR_EVENT_TIME_WRONG_FORMAT, e.getParsedString(), e.getErrorIndex());
         }
     }
 
