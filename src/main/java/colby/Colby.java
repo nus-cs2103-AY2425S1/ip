@@ -79,7 +79,7 @@ public class Colby {
             } else if (command.equalsIgnoreCase("bye")) {
                 return ui.showGoodbyeMessage();
             } else if (command.equalsIgnoreCase("list")) {
-                return ui.showTaskList(taskList);
+                return "Here's all the tasks you have to do:" + storage.returnFileContents();
             } else if (command.startsWith("mark")) {
                 int index = Parser.parseIndex(input);
                 taskList.markTaskAsDone(index);

@@ -45,13 +45,15 @@ public class Storage {
      * Prints the contents of the file
      * @throws FileNotFoundException when file does not exist
      */
-    public void printFileContents() throws FileNotFoundException {
+    public String returnFileContents() throws FileNotFoundException {
         File file = new File(filePath);
+        String results  = "";
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
-                System.out.println(scanner.nextLine());
+                results = results + scanner.nextLine();
             }
         }
+        return results;
     }
 
     public void checkFile() {

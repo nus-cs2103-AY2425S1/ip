@@ -43,14 +43,14 @@ public class Ui {
      * Prints out all the tasks in the list
      * @param taskList list containing the tasks to br printed
      */
-    public String showTaskList(TaskList taskList) {
+    /*public String showTaskList(TaskList taskList) {
         String list = "";
 
         for (int i = 0; i < taskList.size(); i++) {
             list = list + "  " + (i + 1) + ". " + taskList.getTask(i).toString() + "\n";
         }
-        return "Here's all the tasks you have to do:" + list;
-    }
+        return "Here's all the tasks you have to do:" + Storage.returnFileContents();
+    }*/
 
     /**
      * Prints a message that the task has been marked as done
