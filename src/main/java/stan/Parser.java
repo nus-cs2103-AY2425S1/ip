@@ -1,5 +1,8 @@
 package stan;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import stan.commands.Command;
 import stan.commands.DeadlineCommand;
 import stan.commands.DeleteCommand;
@@ -13,10 +16,34 @@ import stan.commands.UnmarkCommand;
 import stan.exceptions.StanException;
 import stan.exceptions.StanInvalidCommandException;
 
+
+
 /**
  * Parser class to interpret user commands.
  */
 public class Parser {
+
+    // Map to hold the command aliases
+    private static final Map<String, CommandType> COMMAND_ALIASES = new HashMap<>();
+
+    static {
+        // Populate the map with aliases
+        COMMAND_ALIASES.put("bye", CommandType.BYE);
+        COMMAND_ALIASES.put("list", CommandType.LIST);
+        COMMAND_ALIASES.put("ls", CommandType.LIST);
+        COMMAND_ALIASES.put("todo", CommandType.TODO);
+        COMMAND_ALIASES.put("t", CommandType.TODO); // Alias for todo
+        COMMAND_ALIASES.put("event", CommandType.EVENT);
+        COMMAND_ALIASES.put("e", CommandType.EVENT); // Alias for event
+        COMMAND_ALIASES.put("deadline", CommandType.DEADLINE);
+        COMMAND_ALIASES.put("d", CommandType.DEADLINE); // Alias for deadline
+        COMMAND_ALIASES.put("mark", CommandType.MARK);
+        COMMAND_ALIASES.put("unmark", CommandType.UNMARK);
+        COMMAND_ALIASES.put("delete", CommandType.DELETE);
+        COMMAND_ALIASES.put("del", CommandType.DELETE); // Alias for delete
+        COMMAND_ALIASES.put("find", CommandType.FIND);
+        COMMAND_ALIASES.put("f", CommandType.FIND); // Alias for find
+    }
 
     /**
      * Parses the user input and returns the corresponding Command object.
@@ -33,6 +60,7 @@ public class Parser {
         String[] words = fullCommand.split(" ", 2);
         // Assert that words array is not empty
         assert words.length > 0 : "words array should contain at least one element";
+
         CommandType commandType = getCommandType(words[0]);
 
         switch (commandType) {
@@ -60,7 +88,7 @@ public class Parser {
     }
 
     /**
-     * Converts a command string into the corresponding CommandType enum.
+     * Converts a command string into the corresponding CommandType enum, considering aliases.
      *
      * @param command The command string.
      * @return The CommandType enum corresponding to the command string.
@@ -70,10 +98,12 @@ public class Parser {
         if (command == null || command.isEmpty()) {
             throw new StanInvalidCommandException();
         }
-        try {
-            return CommandType.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
+
+        CommandType commandType = COMMAND_ALIASES.get(command.toLowerCase());
+        if (commandType == null) {
             throw new StanInvalidCommandException();
         }
+
+        return commandType;
     }
 }
