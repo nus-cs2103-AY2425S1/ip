@@ -45,6 +45,7 @@ public class TaskList {
      * @return Task item requested.
      * */
     public Task get(int index) {
+        assert index > 0: "Invalid task number";
         return tasks[index];
     }
 
@@ -56,6 +57,7 @@ public class TaskList {
      * @return String reply confirming item has been deleted.
      * */
     public String delete(int index) {
+        assert index > 0: "Invalid task number";
         if (index >= numberOfTasks + 1) {
             return REPLY_INVALID_TASK_NUMBER;
         }
@@ -98,6 +100,7 @@ public class TaskList {
      * @return String confirming task has been marked.
      * */
     public String mark(int num) {
+        assert num > 0: "Invalid task number";
         if (num > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
         }
@@ -113,6 +116,7 @@ public class TaskList {
      * @return String confirming task has been unmarked.
      * */
     public String unmark(int num) {
+        assert num > 0: "Invalid task number";
         if (num > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
         }

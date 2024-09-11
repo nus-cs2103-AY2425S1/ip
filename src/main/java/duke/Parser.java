@@ -36,6 +36,7 @@ public class Parser {
      * @throws DuckException if file is corrupted.
      * */
     public static String parseCommand(TaskList taskList, String userCommand) throws DuckException {
+        assert !userCommand.isEmpty() : "Command cannot be empty";
         if (checkByeCommand(userCommand)) {
             return executeByeCommand(taskList);
 
