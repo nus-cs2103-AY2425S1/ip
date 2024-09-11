@@ -40,6 +40,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         taskList.addTask(task);
         storage.toFile(taskList);
         return this.toPrint + task.toString();

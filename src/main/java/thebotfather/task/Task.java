@@ -50,6 +50,8 @@ public abstract class Task {
         if (Objects.equals(description, "")) {
             throw new TheBotFatherException("Kid, Learn to read, where is the description??");
         }
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert type != null && !type.trim().isEmpty() : "Task type cannot be null or empty";
         this.description = description;
         this.type = type;
     }
