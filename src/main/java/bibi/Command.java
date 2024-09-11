@@ -2,7 +2,6 @@ package bibi;
 
 import java.io.IOException;
 
-import bibi.task.Task;
 import bibi.task.TaskList;
 
 /**
@@ -44,11 +43,10 @@ public class Command {
      * Executes the command based on the command type.
      *
      * @param tasks The list of tasks in the save file.
-     * @param ui The Ui instance that is handling the inputs and outputs of the console.
+     * @param processor The Ui instance that is handling the inputs and outputs of the console.
      * @param storage The Storage instance handling modification of the save file.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        int index;
+    public String execute(TaskList tasks, Processor processor, Storage storage) {
         // Preconfigured commands
         switch (cmd) {
         case "bye":
@@ -58,56 +56,9 @@ public class Command {
             } catch (IOException e) {
                 return e.getMessage();
             }
-            return "See you soon :3";
-        case "list":
-            return ui.processCommand(this, tasks, storage, -1);
-        case "mark":
-            if (!args.matches("\\d+")) {
-                return "Please use \"mark <int>\"";
-            } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
-                return "Invalid task index";
-            } else {
-                return ui.processCommand(this, tasks, storage, index);
-            }
-        case "unmark":
-            if (!args.matches("\\d+")) {
-                return "Please use \"unmark <int>\"";
-            } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
-                return "Invalid task index";
-            } else {
-                return ui.processCommand(this, tasks, storage, -1);
-            }
-        case "todo":
-            if (!args.matches(".+")) {
-                return "Please use \"todo <description>\"";
-            } else {
-                return ui.processCommand(this, tasks, storage, -1);
-            }
-        case "deadline":
-            if (!args.matches(".+ /by .+")) {
-                return "Please use \"deadline <description> /by <deadline>\"";
-            } else {
-                return ui.processCommand(this, tasks, storage, -1);
-            }
-        case "event":
-            if (!args.matches(".+ /from .+ /to .+")) {
-                return "Please use \"event <description> /from <time> /to <time>\"";
-            } else {
-                return ui.processCommand(this, tasks, storage, -1);
-            }
-        case "remove":
-            if (!args.matches("\\d+")) {
-                return "Please use \"remove <index>\"";
-            } else {
-                return ui.processCommand(this, tasks, storage, Integer.parseInt(args));
-            }
-        case "find":
-            // No pattern specified
-            if (args.isEmpty()) {
-                return "Please use \"find <pattern>\"";
-            } else {
-                return ui.processCommand(this, tasks, storage, -1);
-            }
+            return processor.getExitMessage();
+        case "list", "mark", "unmark", "todo", "deadline", "event", "remove", "find":
+            return processor.processCommand(this, tasks, storage);
         default:
             return String.format("%s is an unknown command%n", cmd);
         }
