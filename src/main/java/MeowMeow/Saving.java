@@ -8,6 +8,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.io.FileWriter;
 
+/**
+ * Represents a saving and loading system
+ */
 public class Saving {
 
     private Path saveFilePath;
@@ -22,6 +25,12 @@ public class Saving {
         this.taskList = new TaskList();
     }
 
+    /**
+     * Reads the save file and fills the TaskList with the Tasks from the save file.
+     *
+     * @param filePath File path of the save file.
+     * @throws FileNotFoundException If the file cannot be found at that file path.
+     */
     public void load(String filePath) throws FileNotFoundException {
         this.file = new File(filePath);
         Scanner s = new Scanner(this.file);
@@ -55,6 +64,12 @@ public class Saving {
         s.close();
     }
 
+    /**
+     * Loads the data from the file path if a save file exists at that path.
+     * If the save file does not exist at that path, new directories and a file are created at that file path.
+     *
+     * @throws IOException If an I/O error occurs when creating new directories or file.
+     */
     public void getData() throws IOException {
         try {
             load(pathName);
@@ -68,6 +83,11 @@ public class Saving {
         }
     }
 
+    /**
+     * Writes each Task in the TaskList into the save file at pathName.
+     *
+     * @throws IOException If an I/O error occurs when writing to the file.
+     */
     public void saveData() throws IOException {
         try {
             FileWriter fw = new FileWriter(this.pathName);
@@ -81,6 +101,14 @@ public class Saving {
         }
     }
 
+    /**
+     * Returns the TaskList which has no Tasks if there are no saved Tasks
+     * or if load has not been called.
+     * Returns the TaskList which contains the saved Tasks if load has run
+     * successfully and the save file was not empty.
+     *
+     * @return TaskList.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }

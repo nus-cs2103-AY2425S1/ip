@@ -3,6 +3,9 @@ package MeowMeow;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task which has to be done by a certain date
+ */
 class Deadline extends Task {
     protected LocalDate by;
 
