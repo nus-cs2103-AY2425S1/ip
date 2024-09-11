@@ -47,13 +47,13 @@ public class AddCommand extends Command {
      * @throws EdithException If the user instruction is invalid or if there is an issue with the date/time format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         Task task = null;
 
         if (instruction.startsWith("todo ")) {
             String taskString = instruction.substring(5).trim();
             if (taskString.isEmpty()) {
-                throw new EdithException("Invalid Edith.task as no description for this todo was provided.");
+                throw new EdithException("Invalid task as no description for this todo was provided.");
             }
             task = new ToDo(taskString);
         } else if (instruction.startsWith("deadline ")) {
@@ -67,27 +67,30 @@ public class AddCommand extends Command {
         } else if (instruction.startsWith("event ")) {
             String[] parts = instruction.substring(6).split(" /from | /to ");
             if (parts.length != 3) {
-                throw new EdithException("Edith.task.Event must have a description, start time, and end time.");
+                throw new EdithException("Event must have a description, start time, and end time.");
             }
             String taskString = parts[0].trim();
             String startTime = parts[1].trim();
             String endTime = parts[2].trim();
             task = new Event(taskString, startTime, endTime);
         } else {
-            throw new EdithException("Invalid Edith.command for adding tasks.");
+            throw new EdithException("Invalid command for adding tasks.");
         }
 
         try {
             tasks.addTask(task);
-            ui.showIndentedMessage("Got it. I've added this Edith.task:");
-            ui.showIndentedMessage(task.toString());
-            ui.showIndentedMessage("There are now " + tasks.getNumOfTasks() + " tasks in your list.");
-            ui.showLineBreak();
             storage.save(tasks.getListOfTasks());
+
+            StringBuilder response = new StringBuilder();
+            response.append("Got it. I've added this task:\n")
+                    .append(task.toString()).append("\n")
+                    .append("There are now ").append(tasks.getNumOfTasks()).append(" tasks in your list.");
+
+            return response.toString();
         } catch (DateTimeParseException e) {
             throw new EdithException(ui.invalidDateTimeError(), 1);
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while saving updated Edith.task list.");
+            return "An error occurred while saving updated Edith.task list.";
         }
     }
 }

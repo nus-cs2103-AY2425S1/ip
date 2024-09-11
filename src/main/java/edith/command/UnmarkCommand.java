@@ -42,22 +42,24 @@ public class UnmarkCommand extends Command {
      * @throws EdithException If the specified index is out of range or if there is an error in marking the task as not done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         if (index < 0 || index >= tasks.getNumOfTasks()) {
-            throw new EdithException("Edith.task.Task " + index + " does not exist. Please enter a valid Edith.task number.");
+            throw new EdithException("Task " + index + " does not exist. Please enter a valid task number.");
         }
 
         Task taskToUnmark = tasks.getTask(index);
         taskToUnmark.markTaskUndone();
 
-        ui.showIndentedMessage("Sure, I've marked Edith.task " + (index + 1) + " as not done yet:");
-        ui.showIndentedMessage(taskToUnmark.toString());
-        ui.showLineBreak();
+        StringBuilder response = new StringBuilder();
+        response.append("Sure, I've marked task ").append(index + 1).append(" as not done yet:\n");
+        response.append(taskToUnmark.toString());
 
         try {
             storage.save(tasks.getListOfTasks());
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while saving updated Edith.task list.");
+            return "An error occurred while saving updated task list.";
         }
+
+        return response.toString();
     }
 }

@@ -42,22 +42,24 @@ public class MarkCommand extends Command {
      * @throws EdithException If the specified index is out of range or if there is an error in marking the task as done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         if (index < 0 || index >= tasks.getNumOfTasks()) {
-            throw new EdithException("Edith.task.Task " + index + " does not exist. Please enter a valid Edith.task number.");
+            throw new EdithException("Task " + index + " does not exist. Please enter a valid task number.");
         }
 
         Task taskToMark = tasks.getTask(index);
         taskToMark.markTaskDone();
 
-        ui.showIndentedMessage("Alright, great job! I've marked Edith.task " + (index + 1) + " as done:");
-        ui.showIndentedMessage(taskToMark.toString());
-        ui.showLineBreak();
+        StringBuilder response = new StringBuilder();
+        response.append("Alright, great job! I've marked task ").append(index + 1).append(" as done:\n");
+        response.append(taskToMark.toString());
 
         try {
             storage.save(tasks.getListOfTasks());
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while saving updated Edith.task list.");
+            return "An error occurred while saving updated task list.";
         }
+
+        return response.toString();
     }
 }

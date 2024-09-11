@@ -5,6 +5,8 @@ import edith.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This TaskList class manages a list of tasks.
@@ -81,15 +83,17 @@ public class TaskList {
      *
      * @param ui The Ui object used to display the tasks.
      */
-    public void listTasks(Ui ui) {
+    public String listTasks(Ui ui) {
         if (listOfTasks.isEmpty()) {
-            ui.showIndentedMessage("Great news, you have no outstanding tasks! Have a break!");
+            return "Great news, you have no outstanding tasks! Have a break!";
         } else {
-            ui.showIndentedMessage("Here are the tasks in your list:");
+            StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+
             for (int i = 0; i < listOfTasks.size(); i++) {
-                ui.showIndentedMessage((i + 1) + ") " + listOfTasks.get(i));
+                response.append((i + 1)).append(") ").append(listOfTasks.get(i)).append("\n");
             }
-            ui.showLineBreak();
+
+            return response.toString();
         }
     }
 
@@ -99,7 +103,7 @@ public class TaskList {
      * @param date The date to filter tasks by.
      * @param ui   The Ui object used to display the tasks.
      */
-    public void listTasksOnDate(String date, Ui ui) {
+    public String listTasksOnDate(String date, Ui ui) {
         int index = 1;
         boolean isDue = false;
         boolean isStartingOn = false;
@@ -107,19 +111,21 @@ public class TaskList {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate localDate = LocalDate.parse(date, formatter);
 
-        ui.showIndentedMessage("Here are your tasks due by " + date + ":");
+        StringBuilder response = new StringBuilder();
+        response.append("Here are your tasks due by ").append(date).append(":\n");
+
         for (Task task : listOfTasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getDueDate().isEqual(localDate)) {
-                    ui.showIndentedMessage(index + ") " + deadline);
+                    response.append(index).append(") ").append(deadline).append("\n");
                     index++;
                     isDue = true;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 if (event.getEndTime().isEqual(localDate)) {
-                    ui.showIndentedMessage(index + ") " + event);
+                    response.append(index).append(") ").append(event).append("\n");
                     index++;
                     isDue = true;
                 }
@@ -127,17 +133,17 @@ public class TaskList {
         }
 
         if (!isDue) {
-            ui.showIndentedMessage("NOTHING\n");
+            response.append("NOTHING\n\n");
         } else {
-            System.out.println("\n");
+            response.append("\n");
         }
 
-        ui.showIndentedMessage("Here are your events starting on " + date + ":");
+        response.append("Here are your events starting on ").append(date).append(":\n");
         for (Task task : listOfTasks) {
             if (task instanceof Event) {
                 Event event = (Event) task;
                 if (event.getStartTime().isEqual(localDate)) {
-                    ui.showIndentedMessage(index + ") " + event);
+                    response.append(index).append(") ").append(event).append("\n");
                     index++;
                     isStartingOn = true;
                 }
@@ -145,11 +151,10 @@ public class TaskList {
         }
 
         if (!isStartingOn) {
-            ui.showIndentedMessage("NOTHING");
-            ui.showLineBreak();
-        } else {
-            ui.showLineBreak();
+            response.append("NOTHING");
         }
+
+        return response.toString();
     }
 
     /**
@@ -158,24 +163,21 @@ public class TaskList {
      * @param keyword The keyword to search for.
      * @param ui The Ui object used to display the tasks.
      */
-    public void findTasksByKeyword(String keyword, Ui ui) {
-        int index = 1;
-        boolean hasKeyword = false;
+    public String findTasksByKeyword(String keyword, Ui ui) {
+        List<Task> matchedTasks = listOfTasks.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toList());
 
-        ui.showIndentedMessage("Here are the matching tasks in your list:");
-        for (Task task : listOfTasks) {
-            if (task.containsKeyword(keyword)) {
-                ui.showIndentedMessage(index + ") " + task);
-                index++;
-                hasKeyword = true;
-            }
+        if (matchedTasks.isEmpty()) {
+            return "There are no matching tasks in your list.";
         }
 
-        if (!hasKeyword) {
-            ui.showIndentedMessage("NOTHING");
-            ui.showLineBreak();
-        } else {
-            ui.showLineBreak();
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            response.append((i + 1)).append(") ").append(matchedTasks.get(i)).append("\n");
         }
+
+        return response.toString();
     }
 }

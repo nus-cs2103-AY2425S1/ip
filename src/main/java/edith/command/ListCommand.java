@@ -25,7 +25,7 @@ public class ListCommand extends Command {
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        tasks.listTasks(ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+        return tasks.listTasks(ui);
     }
 }

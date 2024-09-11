@@ -39,9 +39,9 @@ public class ListOnDateCommand extends Command {
      * @throws EdithException If there is an error in parsing the date or listing tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         try {
-            tasks.listTasksOnDate(date, ui);
+            return tasks.listTasksOnDate(date, ui);
         } catch (DateTimeParseException e) {
             throw new EdithException(ui.invalidDateTimeError(), 1);
         }
