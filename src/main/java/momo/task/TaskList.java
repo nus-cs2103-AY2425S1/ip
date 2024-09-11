@@ -63,7 +63,6 @@ public class TaskList {
      * @param index Index of task to be deleted
      */
     public void deleteTask(int index) {
-
         list.remove(index);
     }
 

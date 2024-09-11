@@ -32,6 +32,10 @@ public class DeadlineCommand extends AddCommand {
     public static void run(String input, Storage storage, TaskList tasks, Ui ui) throws InvalidCommandException,
             StorageException {
 
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+
+
         try {
             Task deadline = getTask(input);
             tasks.addTask(deadline);

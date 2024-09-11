@@ -33,6 +33,8 @@ public class DeleteCommand {
      */
     public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
             StorageException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
 
         try {
             int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
@@ -42,6 +44,7 @@ public class DeleteCommand {
 
             Task deletedTask = tasks.getTask(index);
 
+            assert (tasks.getCount() > 0);
             tasks.deleteTask(index);
 
             ui.printDialogue("Noted. I've removed this task:\n " + deletedTask);
