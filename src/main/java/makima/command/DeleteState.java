@@ -1,5 +1,8 @@
 package makima.command;
 
+/**
+ * State to handle deletion of task
+ */
 public class DeleteState extends State {
     @Override
     public String getResponse(String input, Makima makima) {

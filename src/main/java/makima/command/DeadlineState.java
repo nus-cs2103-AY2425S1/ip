@@ -5,6 +5,9 @@ import makima.task.Deadline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * State to handle creation of new deadline
+ */
 public class DeadlineState extends State {
 
     private enum Variable {

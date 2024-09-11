@@ -1,5 +1,8 @@
 package makima.command;
 
+/**
+ * State to handle unmarking tasks
+ */
 public class UnmarkState extends State {
     @Override
     public String getResponse(String input, Makima makima) {

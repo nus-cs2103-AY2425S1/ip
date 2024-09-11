@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import makima.io.FileManager;
 import makima.task.Task;
 
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -91,6 +90,11 @@ public class Makima {
         return (idx >= 0) && (idx < tasks.size());
     }
 
+    /**
+     * Adds a new task to tasklist and save to data
+     *
+     * @param task task to add
+     */
     public void addTask(Task task) {
         tasks.add(task);
         FileManager.saveFile(this);

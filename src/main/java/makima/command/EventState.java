@@ -5,6 +5,9 @@ import makima.task.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * State to handle event creation
+ */
 public class EventState extends State {
     private enum Variable {
         NAME,

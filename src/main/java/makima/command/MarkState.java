@@ -1,5 +1,8 @@
 package makima.command;
 
+/**
+ * State to handle marking events
+ */
 public class MarkState extends State {
     @Override
     public String getResponse(String input, Makima makima) {
