@@ -1,6 +1,12 @@
 package nugget;
 
-import nugget.command.*;
+import nugget.command.AddTaskCommand;
+import nugget.command.Command;
+import nugget.command.DeleteTaskCommand;
+import nugget.command.FindTaskCommand;
+import nugget.command.ListCommand;
+import nugget.command.MarkTaskCommand;
+import nugget.command.UnmarkTaskCommand;
 import nugget.exception.EmptyDescriptionException;
 import nugget.exception.InvalidTaskNumberException;
 import nugget.exception.NuggetException;
@@ -83,6 +89,8 @@ public class Parser {
             if ((index < 0) || (index >= tasks.size())) {
                 throw new InvalidTaskNumberException();
             }
+            assert index >= 0;
+            assert index < tasks.size();
             return index;
         } catch (NumberFormatException e) {
             throw new EmptyDescriptionException();
