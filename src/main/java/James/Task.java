@@ -6,7 +6,7 @@ package james;
  */
 abstract class Task {
     private String description;
-    private Boolean marked;
+    private Boolean isMarked;
 
     /**
      * Creates a new Task with the specified description and completion status.
@@ -21,21 +21,21 @@ abstract class Task {
             throw new MissingDescriptionException("Looks like you left out the description of the task, please try again.");
         }
         this.description = desc;
-        this.marked = mark;
+        this.isMarked = mark;
     }
 
     /**
      * Marks the task as done.
      */
     public void mark() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void unMark() {
-        this.marked = false;
+        this.isMarked = false;
     }
 
     /**
@@ -45,7 +45,7 @@ abstract class Task {
      * @return The formatted task string.
      */
     public String printTask() {
-        String mark = marked ? "X" : " ";
+        String mark = isMarked ? "X" : " ";
         return String.format("[%s] %s", mark, description);
     }
 
@@ -56,7 +56,7 @@ abstract class Task {
      * @return The task in a format suitable for storage.
      */
     public String convertToFileFormat() {
-        return String.format("%d | %s", marked ? 1 : 0, description);
+        return String.format("%d | %s", isMarked ? 1 : 0, description);
     }
 
     /**
