@@ -32,9 +32,9 @@ public class DeleteCommand implements Command {
 
         Ui ui = context.ui();
         ui.showMessage(String.format("""
-            Noted. I've removed this task:
-            %s
-            Now you have %d tasks in the list.
-        """, task, tasks.size()));
+                Noted. I've removed this task:
+                %s
+                Now you have %d tasks in the list.
+            """, task, tasks.size()));
     }
 }

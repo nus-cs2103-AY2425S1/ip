@@ -1,9 +1,9 @@
 package ipman.commands;
 
+import java.util.StringJoiner;
+
 import ipman.models.Task;
 import ipman.models.TaskList;
-
-import java.util.StringJoiner;
 
 /**
  * Displays all the <code>Task</code>s from the <code>Context</code>'s

@@ -34,9 +34,9 @@ public class CreateToDoCommand implements Command {
 
         Ui ui = context.ui();
         ui.showMessage(String.format("""
-            Got it. I've added this task:
-            %s
-            Now you have %d tasks in the list.
-        """, task, tasks.size()));
+                Got it. I've added this task:
+                %s
+                Now you have %d tasks in the list.
+            """, task, tasks.size()));
     }
 }

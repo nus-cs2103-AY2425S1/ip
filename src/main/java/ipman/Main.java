@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Main JavaFx application
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) {

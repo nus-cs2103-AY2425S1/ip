@@ -5,10 +5,17 @@ import ipman.ui.Ui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Represents the view model for the MainWindow. Holds the state required for the
+ * MainWindow and processes new events from the window to transition states.
+ */
 public class MainWindowViewModel {
     private final IpMan ipMan;
     private final ObservableList<Message> messages = FXCollections.observableArrayList();
 
+    /**
+     * Constructs the MainWindowViewModel
+     */
     public MainWindowViewModel() {
         this.ipMan = new IpMan(new Ui() {
             @Override

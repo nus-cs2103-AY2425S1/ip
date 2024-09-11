@@ -14,6 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Main window for the JavaFx application. Contains the interface for the IpMan
+ * chatbot.
+ */
 public class MainWindow extends AnchorPane implements Initializable {
     @FXML
     private TextField inputTextField;

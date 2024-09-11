@@ -9,7 +9,7 @@ import ipman.parser.Parser;
 import ipman.ui.Ui;
 
 /**
- * Represents the main chat bot program that allows users to manage their tasks
+ * Represents the main chatbot program that allows users to manage their tasks
  */
 public class IpMan {
     private final Ui ui;
@@ -17,6 +17,11 @@ public class IpMan {
     private final TasksFileManager fileManager = new TasksFileManager("./data/ipman.txt");
     private final Context context;
 
+    /**
+     * Constructs the IpMan chatbot
+     *
+     * @param ui the UI to output messages to
+     */
     public IpMan(Ui ui) {
         this.ui = ui;
         this.context = new Context(tasks, ui, fileManager);
