@@ -1,6 +1,7 @@
 package command;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import blitz.Storage;
 import blitz.TaskList;
@@ -44,13 +45,11 @@ public class CommandFind extends Command {
         }
 
         ArrayList<Task> allTasks = list.getAllTask();
-        TaskList matchedTasks = new TaskList(new ArrayList<>());
 
-        for (Task task : allTasks) {
-            if (task.convertTaskToString().contains((this.parameter))) {
-                matchedTasks.addTask(task);
-            }
-        }
+        TaskList matchedTasks = TaskList.convertStringListToTaskList(allTasks.stream()
+                .map(Task::convertTaskToString)
+                .filter(str -> str.contains(this.parameter))
+                .collect(Collectors.toCollection(ArrayList::new)));
 
         if (matchedTasks.isEmpty()) {
             throw new BlitzEmptyTaskListException();
