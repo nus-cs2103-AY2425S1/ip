@@ -84,6 +84,7 @@ public class Parser {
     }
 
     private static String parseFind(String str, Ui ui, TaskList tasks) throws FindException {
+        assert str.contains("find");
         String[] aux = str.split(" ");
         if (aux.length != 2) {
             throw new FindException();
@@ -109,6 +110,7 @@ public class Parser {
 
     private static String parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,
             NumberFormatException, IndexOutOfBoundsException {
+        assert str.contains("mark") || str.contains("unmark") || str.contains("delete");
         String[] aux = str.split(" ");
         if (aux.length != 2) {
             throw new MarksException();

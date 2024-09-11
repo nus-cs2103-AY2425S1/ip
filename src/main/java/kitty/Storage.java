@@ -45,6 +45,7 @@ public class Storage {
         }
 
         Scanner scanKittyTasks = new Scanner(kittyTasksData);
+
         while (scanKittyTasks.hasNext()) {
             Task tmp = createTaskFromInput(scanKittyTasks.nextLine());
             if (tmp != null) {
