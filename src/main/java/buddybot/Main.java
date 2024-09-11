@@ -1,7 +1,7 @@
 package buddybot;
-//test
+
 import java.io.IOException;
-//test
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
