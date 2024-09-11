@@ -1,13 +1,16 @@
-package main.commands;
+package rizz.commands;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
-import main.source.*;
-import main.tasks.*;
+import rizz.tasks.Event;
+
 
 
 public class AddEventCommand extends Command {
-    private String description;
-    private String from;
-    private String to;
+    private final String description;
+    private final String from;
+    private final String to;
 
     public AddEventCommand(String description, String from, String to) {
         this.description = description;

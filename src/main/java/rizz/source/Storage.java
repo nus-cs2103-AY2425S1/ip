@@ -1,4 +1,4 @@
-package main.source;
+package rizz.source;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import main.tasks.*;
+import rizz.tasks.*;
 
 public class Storage {
     public Path dataFilePath;
@@ -40,12 +40,15 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws IOException {
         if (Files.exists(dataFilePath)) {
             List<String> lines = Files.readAllLines(dataFilePath);
-
-            for (int i = 0; i < lines.size(); i++) {
-                String line = lines.get(i);
-                Task task = decodeTasks(line);
-                if (task != null) {
-                    taskList.add(task);
+            if (lines.isEmpty()) {
+                //do nothing
+            } else {
+                for (int i = 0; i < lines.size(); i++) {
+                    String line = lines.get(i);
+                    Task task = decodeTasks(line);
+                    if (task != null) {
+                        taskList.add(task);
+                    }
                 }
             }
         }

@@ -1,5 +1,8 @@
-package main.commands;
-import main.source.*;
+package rizz.commands;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
+
 
 public class ListCommand extends Command {
     @Override

@@ -1,6 +1,6 @@
-package main.source;
+package rizz.source;
 import java.util.ArrayList;
-import main.tasks.Task;
+import rizz.tasks.Task;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -25,16 +25,8 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public boolean isEmpty() {
-        return this.tasks.size() == 0;
-    }
-
     public Task getTask(int index) {
-        return this.tasks.get(index - 1);
-    }
-
-    public boolean isDoneTask(int index) {
-        return this.tasks.get(index).getStatus();
+        return this.tasks.get(index);
     }
 
 
@@ -42,7 +34,7 @@ public class TaskList {
         String[] exportTasks = new String[tasks.size()];
 
         for (int i = 0; i < tasks.size(); i++) {
-            exportTasks[i] = tasks.get(i).toString();
+            exportTasks[i] = tasks.get(i).export();
         }
         return exportTasks;
     }

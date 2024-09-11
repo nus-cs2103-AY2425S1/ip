@@ -1,14 +1,17 @@
-package main.commands;
+package rizz.commands;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
-import main.source.*;
+
 
 
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     public MarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
-    }
+        this.taskIndex = taskIndex - 1;
+    } //cause 2nd item of list is Arr[1]
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

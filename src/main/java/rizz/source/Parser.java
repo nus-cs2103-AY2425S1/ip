@@ -1,10 +1,10 @@
-package main.source;
+package rizz.source;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import main.commands.*;
+import rizz.commands.*;
 
 public class Parser {
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static Command parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);

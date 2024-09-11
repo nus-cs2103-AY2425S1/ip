@@ -1,6 +1,6 @@
-package main.source;
+package rizz.source;
 import java.util.Scanner;
-import main.tasks.*;
+import rizz.tasks.*;
 
 public class Ui {
     public void errorSaveTasks() {
@@ -45,9 +45,9 @@ public class Ui {
             StringBuilder str = new StringBuilder("\t____________________________________________________________\n");
             str.append("\tHere are the tasks in your list:\n");
 
-            String[] tasks = taskList.export();
-            for (int i = 0; i < tasks.length; i++) {
-                str.append("\t").append(i + 1).append(". ").append(tasks[i]).append("\n");
+
+            for (int i = 0; i < taskList.getLength(); i++) {
+                str.append("\t").append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
             }
 
             str.append("\t____________________________________________________________\n");

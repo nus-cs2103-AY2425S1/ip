@@ -1,4 +1,4 @@
-package main.source;
+package rizz.source;
 
 public enum CommandType {
     BYE, LIST,

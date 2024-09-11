@@ -1,8 +1,11 @@
-package main.commands;
+package rizz.commands;
+import rizz.tasks.Deadline;
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import main.source.*;
-import main.tasks.*;
+
 
 public class AddDeadlineCommand extends Command {
     private String description;

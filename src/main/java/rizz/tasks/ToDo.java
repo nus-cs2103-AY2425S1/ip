@@ -1,4 +1,4 @@
-package main.tasks;
+package rizz.tasks;
 
 public class ToDo extends Task{
     public ToDo(String text, boolean isDone) {

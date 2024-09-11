@@ -1,12 +1,16 @@
-package main.commands;
+package rizz.commands;
+
+import rizz.source.TaskList;
+import rizz.source.Ui;
+import rizz.source.Storage;
 import java.io.IOException;
-import main.source.*;
+
 
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
     public UnmarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+        this.taskIndex = taskIndex - 1;
     }
 
     @Override
