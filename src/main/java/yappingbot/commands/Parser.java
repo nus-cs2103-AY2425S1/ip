@@ -62,18 +62,18 @@ public class Parser {
     /**
      * Parses any text that must be interpreted as an integer.
      *
-     * @param userInputSlice String of text to be converted to integer.
+     * @param userInputSlices String of text to be converted to integer.
      * @return integer of the parsed integer.
      * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid
      *         integer.
      */
-    public static int parseTaskNumberSelected(String userInputSlice)
+    public static int parseTaskNumberSelected(String userInputSlices)
             throws YappingBotInvalidTaskNumberException {
         int i;
         try {
-            i = Integer.parseInt(userInputSlice) - 1;
+            i = Integer.parseInt(userInputSlices) - 1;
         } catch (NumberFormatException ex) {
-            throw new YappingBotInvalidTaskNumberException(userInputSlice);
+            throw new YappingBotInvalidTaskNumberException(userInputSlices);
         }
         return i;
     }
