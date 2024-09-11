@@ -20,14 +20,18 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            setStage(stage, scene);
             fxmlLoader.<MainWindow>getController().setCow(cow); // inject the Cow instance
-            stage.setTitle("Cow");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void setStage(Stage stage, Scene scene) {
+        stage.setScene(scene);
+        stage.setMinHeight(220);
+        stage.setMinWidth(417);
+        stage.setTitle("Cow");
     }
 }

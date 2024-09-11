@@ -39,7 +39,8 @@ public class Cow {
     }
 
     /**
-     * Runs the Cow program by repeated asking for inputs until
+     * Runs the Cow program by repeated asking for inputs until.
+     *
      * users says bye.
      */
     public void run() {
@@ -76,6 +77,7 @@ public class Cow {
 
     /**
      * Gets cow greeting message.
+     *
      * @return a string.
      */
     public String getGreetings() {
@@ -84,6 +86,7 @@ public class Cow {
 
     /**
      * Runs cow.
+     *
      * @param args are optional.
      */
     public static void main(String[] args) {
@@ -92,6 +95,7 @@ public class Cow {
 
     /**
      * Gets the command type.
+     *
      * @return a string.
      */
     public String getCommandType() {

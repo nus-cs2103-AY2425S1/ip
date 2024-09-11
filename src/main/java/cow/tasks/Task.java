@@ -71,6 +71,7 @@ public class Task {
 
     /**
      * Creates the string to save the data in a .txt file;
+     *
      * @return a string to be written to a file;
      */
     public String getSaveData() {

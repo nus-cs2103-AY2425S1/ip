@@ -52,10 +52,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Gets the dialog box for the user.
+     *
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
+     * @return The dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets the dialog box for the cow.
+     *
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
+     * @param commandType The type of command.
+     * @return The dialog box.
+     */
     public static DialogBox getCowDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
@@ -63,6 +78,11 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Changes the dialog style based on the command type.
+     *
+     * @param commandType The type of command.
+     */
     private void changeDialogStyle(String commandType) {
         // Do nothing
         if (commandType.equals("IncorrectCommand")) {

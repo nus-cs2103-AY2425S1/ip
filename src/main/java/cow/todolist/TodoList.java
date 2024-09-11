@@ -78,8 +78,13 @@ public class TodoList {
      * @param i index of task to remove.
      * @return The removed Tasks.Task.
      */
-    public Task delete(int i) {
-        return todoList.remove(i);
+    public Task delete(int i) throws CowExceptions {
+        try {
+            Task t = todoList.remove(i);
+            return t;
+        } catch (IndexOutOfBoundsException e) {
+            throw new CowExceptions(Messages.INDEX_OUT_OF_RANGE);
+        }
     }
 
     public String getSaveData() {
