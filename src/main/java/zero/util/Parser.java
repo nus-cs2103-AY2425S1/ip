@@ -27,6 +27,9 @@ public class Parser {
      * @throws ZeroException if the command is not recognised
      */
     public static String parseCommand(String fullCommand, TaskList tasks, Ui ui) {
+        assert fullCommand != null : "Command should not be null";
+        assert !fullCommand.trim().isEmpty() : "Command should not be empty";
+
         try {
             if (fullCommand.equals("bye")) {
                 return ui.showGoodbye();
