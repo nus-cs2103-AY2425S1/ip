@@ -6,10 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
-import gopher.exception.MissingTokenException;
-import gopher.exception.UnknownCommandException;
+import gopher.parser.Parser;
 import gopher.task.Task;
 
 /**
@@ -17,7 +15,7 @@ import gopher.task.Task;
  */
 public class TaskManager {
     /** Path of the task data file relative to the working directory */
-    private static final Path taskFile = Paths.get("./task/task.txt");
+    private static final Path TASK_FILE = Paths.get("./task/task.txt");
 
     /**
      * Converts ArrayList of Task to String data.
@@ -25,7 +23,7 @@ public class TaskManager {
      * @param tasks ArrayList of Tasks
      * @return string to be stored in the data file
      */
-    private static String readTaskList(ArrayList<Task> tasks) {
+    private static String convertToTaskString(ArrayList<Task> tasks) {
         StringBuilder taskString = new StringBuilder();
         for (Task task : tasks) {
             taskString.append(task.getSaveMessage());
@@ -35,70 +33,15 @@ public class TaskManager {
     }
 
     /**
-     * Convert String data to ArrayList of Task.
-     *
-     * @param taskString string data about the tasks
-     * @return ArrayList of Task
-     * @throws FileCorruptedException if the task String can't be interpreted
-     */
-    private static ArrayList<Task> convertToTaskList(String taskString)
-            throws FileCorruptedException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        String[] taskRows = taskString.split("\n");
-        String[] tokens;
-        for (String row : taskRows) {
-            if (row.isEmpty()) {
-                continue;
-            }
-
-            tokens = row.split(" \\| ");
-            String taskType = tokens[0];
-            String taskStatus = tokens[1];
-            String taskName = tokens[2];
-
-            try {
-                Task newTask = null;
-                switch (taskType) {
-                case "T":
-                    newTask = Task.of("todo " + taskName);
-                    break;
-                case "D":
-                    newTask = Task.of(String.format("deadline %s /by %s",
-                            taskName,
-                            tokens[3]));
-                    break;
-                case "E":
-                    newTask = Task.of(String.format("event %s /from %s /to %s",
-                            taskName,
-                            tokens[3],
-                            tokens[4]));
-                    break;
-                default:
-                    break;
-                }
-                if (newTask != null && taskStatus.equals("X")) {
-                    newTask.markAsDone();
-                }
-                tasks.add(newTask);
-            } catch (UnknownCommandException
-                     | EmptyTaskDescriptionException
-                     | MissingTokenException e) {
-                throw new FileCorruptedException("Task File is corrupted...");
-            }
-        }
-        return tasks;
-    }
-
-    /**
      * Initialize the Task Manager to set up the required paths and files.
      * Check if the relative path already exists in the user's system.
      * If not, create them.
      */
     public static void initialize() {
         try {
-            Files.createDirectories(taskFile.getParent());
-            if (!Files.exists(taskFile)) {
-                Files.createFile(taskFile);
+            Files.createDirectories(TASK_FILE.getParent());
+            if (!Files.exists(TASK_FILE)) {
+                Files.createFile(TASK_FILE);
             }
         } catch (IOException e) {
             System.out.println("Error when creating task file...");
@@ -112,8 +55,8 @@ public class TaskManager {
      */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
-            String taskString = readTaskList(tasks);
-            Files.writeString(taskFile, taskString);
+            String taskString = convertToTaskString(tasks);
+            Files.writeString(TASK_FILE, taskString);
         } catch (IOException e) {
             System.out.println("Error when saving tasks...");
         }
@@ -126,8 +69,8 @@ public class TaskManager {
      */
     public static ArrayList<Task> loadTasks() {
         try {
-            String taskString = Files.readString(taskFile);
-            return convertToTaskList(taskString);
+            String taskString = Files.readString(TASK_FILE);
+            return Parser.parseSavedTaskData(taskString);
         } catch (IOException e) {
             System.out.println("Error when loading tasks...");
         } catch (FileCorruptedException e) {

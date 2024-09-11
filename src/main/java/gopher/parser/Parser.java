@@ -3,8 +3,10 @@ package gopher.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.FileCorruptedException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.task.Deadline;
@@ -230,11 +232,64 @@ public class Parser {
     }
 
     /**
-     * Parses mark task as done command.
+     * Parses saved task data to ArrayList of Task
      *
-     * @param command mark task command
-     * @return task number of the task marked as done
+     * @param taskData task data within the saved task file
+     * @return ArrayList of tasks represented by the save file
+     * @throws FileCorruptedException if file read failed
      */
+    public static ArrayList<Task> parseSavedTaskData(String taskData)
+            throws FileCorruptedException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String[] taskRows = taskData.split("\n");
+        String[] tokens;
+        for (String row : taskRows) {
+            if (row.isEmpty()) {
+                continue;
+            }
+            tokens = row.split(" \\| ");
+            String taskType = tokens[0];
+            String taskStatus = tokens[1];
+            String taskName = tokens[2];
+            try {
+                Task newTask = null;
+                switch (taskType) {
+                case "T":
+                    newTask = Task.of("todo " + taskName);
+                    break;
+                case "D":
+                    newTask = Task.of(String.format("deadline %s /by %s",
+                            taskName,
+                            tokens[3]));
+                    break;
+                case "E":
+                    newTask = Task.of(String.format("event %s /from %s /to %s",
+                            taskName,
+                            tokens[3],
+                            tokens[4]));
+                    break;
+                default:
+                    break;
+                }
+                if (newTask != null && taskStatus.equals("X")) {
+                    newTask.markAsDone();
+                }
+                tasks.add(newTask);
+            } catch (UnknownCommandException
+                     | EmptyTaskDescriptionException
+                     | MissingTokenException e) {
+                throw new FileCorruptedException("Task File is corrupted...");
+            }
+        }
+        return tasks;
+    }
+
+    /**
+    * Parses mark task as done command.
+    *
+    * @param command mark task command
+    * @return task number of the task marked as done
+    */
     public static int[] parseMarkCommand(String command) {
         String[] tokens = command.split(" ");
         int[] taskNumbers = new int[tokens.length - 1];
