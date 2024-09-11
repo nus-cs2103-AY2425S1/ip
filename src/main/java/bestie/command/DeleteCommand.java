@@ -8,8 +8,7 @@ import bestie.Ui;
  * Creates a command to remove a specified task from the list.
  */
 public class DeleteCommand extends Command {
-    // delete tasks from list
-    private int index; // item to be deleted
+    private int index; // index of task to be deleted
 
     /**
      * Creates a new instance of the command to delete a task from the list of tasks.
@@ -33,8 +32,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-
-        if (this.index >= 0 && this.index < tasks.size()) {
+        boolean withinBounds = this.index >= 0 && this.index < tasks.size();
+        if (withinBounds) {
             tasks.deleteTask(this.index);
             return ui.showTaskDeleted(tasks.size());
         } else {

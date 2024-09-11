@@ -26,7 +26,7 @@ public class Todo extends Task {
      */
     @Override
     public String toSaveFormat() {
-        // stores whether task has been marked as done - 1 for marked and 0 for unmarked
+        // Stores whether task has been completed, so that task can be correctly interpreted from stored file
         String storeCompleted = "";
 
         if (this.isDone) {
@@ -34,7 +34,7 @@ public class Todo extends Task {
         } else {
             storeCompleted = "0";
         }
-        // store format: T | 1 | tutorial
+        // Store format: T | 1 | tutorial
         return "T | " + storeCompleted + " | " + this.description;
     }
 
