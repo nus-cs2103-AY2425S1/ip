@@ -53,6 +53,14 @@ public class FindCommand implements Command {
 
         assert count >= 0 : "Count of matching tasks should not be negative";
 
-        return count == 0 ? NO_MATCHING_TASKS_MESSAGE : MATCHING_TASKS_HEADER + sb.toString();
+        // Anime-like response
+        if (count == 0) {
+            return "Oh no! 😱 No tasks matched your search. Keep your spirits high, the right task will appear! 🌈";
+        } else {
+            return String.format("Eureka! 🎉 Here are the tasks that matched your quest for '%s':\n%s"
+                            + "Keep up the great work, hero! 💪✨",
+                    keyword, sb.toString());
+        }
     }
+
 }

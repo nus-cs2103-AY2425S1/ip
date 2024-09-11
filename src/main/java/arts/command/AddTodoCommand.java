@@ -56,9 +56,12 @@ public class AddTodoCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        return String.format("Got it. I've added this task:\n %s\nNow you have %d %s in the list.",
+        // Anime-like response
+        return String.format("Hooray! 🎊 A new adventure awaits with this task:\n✨ %s ✨\n"
+                        + "Your quest now has %d %s to conquer! Keep shining, champion! 🌟",
                 tasks.getTask(tasks.size() - 1),
                 tasks.size(),
                 tasks.size() == 1 ? "task" : "tasks");
     }
+
 }

@@ -1,5 +1,9 @@
 package arts.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import arts.ArtsException;
 import arts.task.Event;
 import arts.task.Task;
@@ -7,9 +11,7 @@ import arts.task.TaskList;
 import arts.util.Storage;
 import arts.util.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * Represents a command to sort event tasks by their start date.
@@ -65,6 +67,9 @@ public class SortEventsCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        return "Events have been sorted by their start date.";
+        // Anime-like response
+        return "✨ The stars have aligned, and your events are now sorted by time! ⏰✨\n"
+                + "Embark on your epic journey with clarity and purpose, noble hero! 🌟";
     }
+
 }

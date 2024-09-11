@@ -64,10 +64,12 @@ public class AddDeadlineCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
-                + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                + " in the list.";
+        // Anime-like response
+        return "Yatta! 🎉 I've successfully added this task to your list:\n✨ " + tasks.getTask(tasks.size() - 1)
+                + " ✨\nNow your quest has " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
+                + " to conquer! Ganbatte! 💪";
     }
+
 
     /**
      * Parses a date string using the provided date formatters. Attempts to parse the date string

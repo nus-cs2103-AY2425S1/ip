@@ -41,7 +41,8 @@ public class AddEventCommand implements Command {
         assert storage != null : "Storage cannot be null";
         assert ui != null : "Ui cannot be null";
         assert details != null && !details.isEmpty() : "Details cannot be null or empty";
-        assert inputFormatters != null && inputFormatters.length > 0 : "At least one DateTimeFormatter must be provided";
+        assert inputFormatters != null && inputFormatters.length > 0
+                : "At least one DateTimeFormatter must be provided";
 
         this.tasks = tasks;
         this.storage = storage;
@@ -74,11 +75,14 @@ public class AddEventCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        return String.format("Got it. I've added this task:\n %s\nNow you have %d %s in the list.",
+        // Anime-like response
+        return String.format("Sugoi! 🌟 I've added this epic event to your adventure:"
+                        + "\n🎉 %s 🎉\nNow your journey includes %d %s to tackle! Keep up the great work, hero! 💪",
                 tasks.getTask(tasks.size() - 1),
                 tasks.size(),
                 tasks.size() == 1 ? "task" : "tasks");
     }
+
 
     /**
      * Parses a date string using the provided date formatters. Attempts to parse the date string

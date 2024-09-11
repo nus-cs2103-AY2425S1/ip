@@ -65,6 +65,9 @@ public class SortDeadlinesCommand implements Command {
 
         storage.save(tasks.getTasks());
 
-        return "Deadlines have been sorted chronologically.";
+        // Anime-like response
+        return "✨ Behold! The deadlines have been aligned in perfect harmony! 📅✨\n"
+                + "Your journey through time is now clearer, brave adventurer! 🌟";
     }
+
 }

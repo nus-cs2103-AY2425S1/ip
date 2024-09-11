@@ -56,10 +56,14 @@ public class MarkCommand implements Command {
             task.markAsDone();
             storage.save(tasks.getTasks());
 
-            return String.format("Nice! I've marked this task as done:\n %s", task);
+            // Anime-like response
+            return String.format("Victory! 🌟 I've marked this task as complete:\n🎉 %s 🎉\n"
+                            + "You've leveled up, champion! Keep conquering those tasks! 🚀",
+                    task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             // Handle invalid task index or parsing error
             throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
+
 }

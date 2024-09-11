@@ -57,7 +57,9 @@ public class DeleteCommand implements Command {
 
             storage.save(tasks.getTasks());
 
-            return String.format("Noted. I've removed this task:\n %s\nNow you have %d %s in the list.",
+            // Anime-like response
+            return String.format("Farewell, brave task! 🌸 You've been removed from the quest:\n💔 %s 💔\n"
+                            + "The journey continues with %d %s left. Keep going, warrior! 🗡️",
                     task, tasks.size(), tasks.size() == 1 ? "task" : "tasks");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             // Handle invalid task index or parsing error

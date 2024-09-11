@@ -56,10 +56,13 @@ public class UnmarkCommand implements Command {
             task.markAsNotDone();
             storage.save(tasks.getTasks());
 
-            return String.format("OK, I've marked this task as not done yet:\n %s", task);
+            // Anime-like response
+            return String.format("🎌 Fear not, for this task has been unmarked! 🗒️\n"
+                    + "Continue your quest with renewed vigor, valiant warrior! 🌟\n %s", task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             // Handle invalid task index or parsing error
             throw new ArtsException(INVALID_TASK_INDEX_ERROR_MESSAGE);
         }
     }
+
 }
