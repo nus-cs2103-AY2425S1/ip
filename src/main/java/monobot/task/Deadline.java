@@ -27,10 +27,6 @@ public class Deadline extends Task {
         return dueBy;
     }
 
-    public String getDueByString() {
-        return dueBy.format(PARSER);
-    }
-
     /**
      * Returns a string representation of the Deadline task.
      *

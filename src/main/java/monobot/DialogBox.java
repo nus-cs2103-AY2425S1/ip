@@ -26,7 +26,7 @@ public class DialogBox extends HBox {
     private ImageView profilePic;
 
     /**
-     * Constructs a new dialoguebox with given message.
+     * Constructs a new dialogue box with given message.
      *
      * @param message message to be contained in dialogue box
      * @param isUser boolean to decipher if message is from user or bot
