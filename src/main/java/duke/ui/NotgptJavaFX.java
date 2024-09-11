@@ -15,7 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
-import java.util.concurrent.TimeUnit;
 
 public class NotgptJavaFX extends Application {
 
@@ -23,6 +22,7 @@ public class NotgptJavaFX extends Application {
     private VBox chatBox;
     private TextField inputField;
     private Button sendButton;
+    private ScrollPane scrollPane;
     private Image userAvatar;
     private Image botAvatar;
     private static final int FONT_SIZE_INPUT = 25;
@@ -41,7 +41,7 @@ public class NotgptJavaFX extends Application {
         chatBox.setPadding(new Insets(10));
         chatBox.setStyle("-fx-background-color: #ECE5DD;");
 
-        ScrollPane scrollPane = new ScrollPane(chatBox);
+        scrollPane = new ScrollPane(chatBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -127,7 +127,10 @@ public class NotgptJavaFX extends Application {
             messageBox.getChildren().addAll(avatarView, messageLabel);
         }
         chatBox.getChildren().add(messageBox);
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
+        Platform.runLater(() -> {
+            scrollPane.layout();  // Force scrollPane to refresh layout
+            scrollPane.setVvalue(1.0);  // Scroll to the bottom
+        });
     }
 
     private void exit() {
