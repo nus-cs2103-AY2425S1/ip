@@ -3,25 +3,25 @@
  * @author Aaron
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected String start;
+    protected String end;
 
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, String start, String end) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.start = start;
+        this.end = end;
     }
 
-    public String getFrom() {
-        return from;
+    public String getStart() {
+        return start;
     }
 
-    public String getTo() {
-        return to;
+    public String getEnd() {
+        return end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }

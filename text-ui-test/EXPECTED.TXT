@@ -26,8 +26,12 @@ Alright, I've added this task:
 We have 1 tasks in our list now.
 ______________________________________
 ______________________________________
+You need to follow the following format for a deadline task.
+deadline [activity] /by yyyy-mm-dd hh:mm
+______________________________________
+______________________________________
 Alright, I've added this task:
-  [D][ ] do book review (by: Friday)
+  [D][ ] do book review (by: Jan 20, 2024 23:59)
 We have 2 tasks in our list now.
 ______________________________________
 ______________________________________
@@ -38,7 +42,7 @@ ______________________________________
 ______________________________________
 Here are the tasks in your list:
 1.[T][ ] watch anime
-2.[D][ ] do book review (by: Friday)
+2.[D][ ] do book review (by: Jan 20, 2024 23:59)
 3.[E][ ] lecture (from: Mon 6am to: Fri 5pm)
 ______________________________________
 ______________________________________
@@ -55,7 +59,7 @@ Great! I've marked it as done:
 ______________________________________
 ______________________________________
 Okay, I've removed this task:
-  [D][ ] do book review (by: Friday)
+  [D][ ] do book review (by: Jan 20, 2024 23:59)
 We have 2 tasks in our list now.
 ______________________________________
 ______________________________________

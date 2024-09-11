@@ -1,0 +1,2 @@
+T | 1 | watch anime
+E | 1 | lecture | Mon 6am - Fri 5pm

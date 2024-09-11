@@ -6,19 +6,19 @@ import java.time.format.DateTimeFormatter;
  * @author Aaron
  */
 public class Deadline extends Task {
-    protected String by;
+    protected String dueBy;
     protected LocalDate dueDate;
     protected String dueByTime;
 
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, String dueBy) {
         super(description, isDone);
-        this.by = by;
-        dueDate = LocalDate.parse(this.by.substring(0, 10)); // First 10 characters of this.by represent "yyyy-mm-dd"
-        dueByTime = this.by.substring(this.by.length() - 5); // Last 4 characters represent time in "hh:mm"
+        this.dueBy = dueBy;
+        dueDate = LocalDate.parse(this.dueBy.substring(0, 10)); // First 10 characters of this.by represent "yyyy-mm-dd"
+        dueByTime = this.dueBy.substring(this.dueBy.length() - 5); // Last 4 characters represent time in "hh:mm"
     }
 
-    public String getBy() {
-        return by;
+    public String getDueBy() {
+        return dueBy;
     }
 
     @Override
