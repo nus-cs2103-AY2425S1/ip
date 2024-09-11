@@ -47,7 +47,7 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (EmptyDescriptionException | RandomInputException e) {
-            int doSomething = 0;
+            System.out.println(e);
         }
 
 
@@ -56,24 +56,31 @@ public class Storage {
 
     private void readEntry(String entry, ArrayList<Task> taskList) throws
             EmptyDescriptionException, RandomInputException {
+        final int descriptionPart = 2;
+        final int isDonePart = 1;
+        final String doneString = "1";
+
         String[] fields = entry.split("\\|");
         char typeOfTask = fields[0].charAt(0);
         if (typeOfTask == 'T') {
-            String command = "todo" + fields[2];
+            String command = "todo" + fields[descriptionPart];
             Task.decideTaskFromDatabase(command, taskList);
-            if (fields[1].trim().equals("1")) {
+            if (fields[isDonePart].trim().equals(doneString)) {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'D') {
-            String command = "deadline" + fields[2] + "/by" + fields[3];
+            final int byPart = 3;
+            String command = "deadline" + fields[descriptionPart] + "/by" + fields[byPart];
             Task.decideTaskFromDatabase(command, taskList);
-            if (fields[1].trim().equals("1")) {
+            if (fields[isDonePart].trim().equals(doneString)) {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'E') {
-            String command = "event" + fields[2] + "/from" + fields[3] + "/to" + fields[4];
+            final int fromPart = 3;
+            final int toPart = 4;
+            String command = "event" + fields[descriptionPart] + "/from" + fields[fromPart] + "/to" + fields[toPart];
             Task.decideTaskFromDatabase(command, taskList);
-            if (fields[1].trim().equals("1")) {
+            if (fields[isDonePart].trim().equals(doneString)) {
                 taskList.get(taskList.size() - 1).mark();
             }
         }

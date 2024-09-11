@@ -7,6 +7,10 @@ public class RandomInputException extends Exception {
 
     private final String MESSAGE;
 
+    /**
+     * A constructor which constructs the exception object.
+     * @param message The error message for the exception.
+     */
     public RandomInputException(String message) {
         super();
         this.MESSAGE = message;
