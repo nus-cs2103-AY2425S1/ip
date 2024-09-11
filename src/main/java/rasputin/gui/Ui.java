@@ -20,6 +20,7 @@ public class Ui {
      * @return String form of the list of tasks.
      */
     public static String getList(TaskList tasks) {
+        assert tasks != null : "Task list cannot be null";
         return tasks.toString();
     }
 
@@ -31,6 +32,8 @@ public class Ui {
      * @return String of Rasputin's response.
      */
     public static String printAddTask(Task task, TaskList tasks) {
+        assert task != null : "Task cannot be null";
+        assert tasks != null : "Task list cannot be null";
         String output = String.format("Added %s task:\n%s", task.getType(), task);
         output += "\nYou currently have " + tasks.size() + " task/s in your list.";
         return output;

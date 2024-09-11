@@ -69,6 +69,7 @@ public class TaskList {
      * @param task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Tasks cannot be null";
         tasks.add(task);
     }
 
