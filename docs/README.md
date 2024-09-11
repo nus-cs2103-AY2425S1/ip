@@ -35,7 +35,7 @@ Example: `event project meeting /from Mon 2pm /to 4pm`
 
 Schedule tasks to recur daily or weekly.
 
-Example: `recurring task /start 1/1/2023 10:00 /freq daily /times 5`
+Example: `recurring task /start 16/9/2024 1000 /freq day /times 5`
 ```
 Added recurring task: [R][ ] task (starts at 1/1/2023 10:00, repeats daily for 5 times)
 ```
@@ -125,3 +125,9 @@ Example: help
 recurring: Creates recurring deadlines.
 Example: recurring return book /start 7/9/2019 1800 /freq day /times 5-Mooooo
 ```
+
+## Bye Command
+
+Exits the program.
+
+Example: `bye`
