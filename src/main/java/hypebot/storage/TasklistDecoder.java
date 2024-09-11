@@ -1,17 +1,17 @@
 package hypebot.storage;
 
-import hypebot.task.Deadline;
-import hypebot.task.Event;
-import hypebot.task.Task;
-import hypebot.task.TaskDateTimeParseException;
-import hypebot.task.ToDo;
+import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
+import hypebot.task.Deadline;
+import hypebot.task.Event;
+import hypebot.task.Task;
+import hypebot.task.TaskDateTimeParseException;
+import hypebot.task.ToDo;
 
 /**
  * Represents a TasklistDecoder that takes in a File to load Tasks from
@@ -49,6 +49,8 @@ public class TasklistDecoder {
             String endTime = taskTextLineElements[4];
             newTask = new Event(taskName, startTime, endTime);
             break;
+        default:
+            throw new IllegalArgumentException(ERROR_LOAD_TASKLIST);
         }
         return newTask;
     }

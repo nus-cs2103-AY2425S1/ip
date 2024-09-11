@@ -1,12 +1,12 @@
 package hypebot;
 
+import java.io.FileNotFoundException;
+
 import hypebot.command.Command;
 import hypebot.parser.Parser;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.Ui;
-
-import java.io.FileNotFoundException;
 
 /**
  * The chatbot which the user interacts with.

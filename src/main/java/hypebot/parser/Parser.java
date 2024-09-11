@@ -1,5 +1,20 @@
 package hypebot.parser;
 
+import static hypebot.common.Messages.ERROR_DEADLINE_DATE_MISSING;
+import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_MISSING;
+import static hypebot.common.Messages.ERROR_EVENT_TIME_MISSING;
+import static hypebot.common.Messages.ERROR_HAPPENING_DATE_MISSING;
+import static hypebot.common.Messages.ERROR_HAPPENING_DATE_WRONG_FORMAT;
+import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_MISSING;
+import static hypebot.common.Messages.ERROR_SEARCH_QUERY_EMPTY;
+import static hypebot.common.Messages.ERROR_TASK_NAME_EMPTY;
+import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_MISSING;
+
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import hypebot.command.AddCommand;
 import hypebot.command.ByeCommand;
 import hypebot.command.Command;
@@ -15,21 +30,6 @@ import hypebot.command.UnmarkCommand;
 import hypebot.task.Deadline;
 import hypebot.task.Event;
 import hypebot.task.ToDo;
-
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import static hypebot.common.Messages.ERROR_DEADLINE_DATE_MISSING;
-import static hypebot.common.Messages.ERROR_EVENT_TIME_MISSING;
-import static hypebot.common.Messages.ERROR_HAPPENING_DATE_MISSING;
-import static hypebot.common.Messages.ERROR_HAPPENING_DATE_WRONG_FORMAT;
-import static hypebot.common.Messages.ERROR_TASK_NAME_EMPTY;
-import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_MISSING;
-import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_MISSING;
-import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_MISSING;
-import static hypebot.common.Messages.ERROR_SEARCH_QUERY_EMPTY;
 
 /**
  * Represents the Parser which makes sense of user input read form the user interface

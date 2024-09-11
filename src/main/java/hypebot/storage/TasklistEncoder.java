@@ -1,13 +1,13 @@
 package hypebot.storage;
 
-import hypebot.tasklist.Tasklist;
+import static hypebot.common.Messages.ERROR_SAVE_TASKLIST;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static hypebot.common.Messages.ERROR_SAVE_TASKLIST;
+import hypebot.tasklist.Tasklist;
 
 /**
  * Represents a TasklistEncoder that takes in a file to save Tasks in
