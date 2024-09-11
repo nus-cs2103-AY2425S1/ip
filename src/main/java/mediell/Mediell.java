@@ -22,7 +22,7 @@ public class Mediell {
     public String getResponse(String input) {
         try {
             Instruction instruction = parser.getInstruction(input);
-            executor.executeInstruction(instruction, taskList);
+            instruction = executor.executeInstruction(instruction, taskList);
             return ui.getMessage(instruction, taskList);
         } catch (Exception e) {
             return ui.handleError(e);
