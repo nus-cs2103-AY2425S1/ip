@@ -1,9 +1,9 @@
 package screwllum.utils;
 
-import screwllum.tasks.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import screwllum.tasks.Task;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);

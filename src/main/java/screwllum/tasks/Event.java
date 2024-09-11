@@ -1,8 +1,8 @@
 package screwllum.tasks;
 
-import screwllum.utils.Parser;
-
 import java.time.LocalDate;
+
+import screwllum.utils.Parser;
 
 public class Event extends Task {
     private LocalDate startDate;
