@@ -1,7 +1,6 @@
 package bibi.task;
 
 import java.util.ArrayList;
-import bibi.Command;
 
 /**
  * Represents the collection of tasks and its subtypes.
