@@ -68,7 +68,9 @@ public class CreateCommand extends Command {
         try {
             String description = this.detail.substring(5);
             Todo todo = new Todo(description);
+            int originalSize = taskList.getSize();
             taskList.addTask(todo);
+            assert taskList.getSize() == originalSize + 1 : "Error in adding new taskList";
             return todo;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException(Topaz.TaskType.T);
@@ -94,6 +96,7 @@ public class CreateCommand extends Command {
         try {
             Deadline deadline = new Deadline(description, LocalDateTime.parse(by, DATE_TIME_FORMATTER));
             taskList.addTask(deadline);
+            assert taskList.find(description).getSize() > 0 : "Fail to add to taskList";
             return deadline;
         } catch (DateTimeParseException dateTimeParseException) {
             throw new InvalidTaskException(Topaz.TaskType.D);
@@ -113,23 +116,23 @@ public class CreateCommand extends Command {
         Matcher fromMatcher = fromPatternCompiled.matcher(detail);
         Matcher toMatcher = toPatternCompiled.matcher(detail);
 
-        if (!eventMatcher.find() || !fromMatcher.find() || !toMatcher.find()) {
-            throw new InvalidTaskException(Topaz.TaskType.E);
-        }
-
-        String description = eventMatcher.group(1).trim();
-        String from = fromMatcher.group(1).trim();
-        String to = toMatcher.group(1).trim();
-        try {
-            LocalDateTime start = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
-            LocalDateTime end = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
-            if (start.isAfter(end)) {
-                throw new InvalidTimeException(Topaz.TaskType.E, start, end);
+        if (eventMatcher.find() && fromMatcher.find() && toMatcher.find()) {
+            String description = eventMatcher.group(1).trim();
+            String from = fromMatcher.group(1).trim();
+            String to = toMatcher.group(1).trim();
+            try {
+                LocalDateTime start = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
+                LocalDateTime end = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
+                if (start.isAfter(end)) {
+                    throw new InvalidTimeException(Topaz.TaskType.E, start, end);
+                }
+                Event event = new Event(description, start, end);
+                taskList.addTask(event);
+                return event;
+            } catch (DateTimeParseException dateTimeParseException) {
+                throw new InvalidTaskException(Topaz.TaskType.E);
             }
-            Event event = new Event(description, start, end);
-            taskList.addTask(event);
-            return event;
-        } catch (DateTimeParseException dateTimeParseException) {
+        } else {
             throw new InvalidTaskException(Topaz.TaskType.E);
         }
     }

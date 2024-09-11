@@ -46,7 +46,9 @@ public class TaskList {
      * @return The {@link Task} that was removed.
      */
     public Task removeTask(int index) {
-        return tasks.remove(index);
+        Task remove = tasks.remove(index);
+        assert !tasks.contains(remove) : "Fail to remove the task in TaskList::removeTask";
+        return remove;
     }
 
 
