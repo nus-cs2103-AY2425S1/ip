@@ -25,6 +25,9 @@ public class Skibidi {
             ui.outputMessage("Error loading tasks: " + e.getMessage());
             storage = null;
         }
+        assert ui != null : "Ui should not be null";
+        assert parser != null : "Parser should not be null";
+        assert storage != null : "TaskStorage should not be null";
     }
 
     /**

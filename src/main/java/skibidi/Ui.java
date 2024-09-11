@@ -37,4 +37,4 @@ public class Ui {
     public String goodbyeText() {
         return "Bye. Hope to see you again soon!";
     }
-}   
+}
