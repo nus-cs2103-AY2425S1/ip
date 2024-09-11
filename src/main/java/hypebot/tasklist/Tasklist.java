@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
 import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
 import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
-Add 'find' command functionality that searches for tasks containing keywords specified by user
+
 /**
  * Represents the Tasklist containing all Task objects entered by user.
  *
