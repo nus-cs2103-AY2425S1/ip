@@ -10,10 +10,12 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+        assert this.tasks != null : "Task list shound not be null";
     }
 
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
+        assert this.tasks != null : "Task list shound not be null";
     }
 
     public void addTask(Task task) {
@@ -33,11 +35,15 @@ public class TaskList {
     }
 
     public void markTask(int taskIndex) {
-        tasks.get(taskIndex).completeTask();
+        Task task = tasks.get(taskIndex)
+        task.completeTask();
+        assert task.getIsDone() : "Task should be marked as done after completing it";
     }
 
     public void unmarkTask(int taskIndex) {
-        tasks.get(taskIndex).undoTask();
+        Task task = tasks.get(taskIndex);
+        task.undoTask();
+        assert !task.getIsDone() : "Task should be marked as not done after undoing it";
     }
 
     public int size() {
