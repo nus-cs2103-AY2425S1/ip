@@ -6,6 +6,7 @@ import lunabot.command.AddToDoCommand;
 import lunabot.command.Command;
 import lunabot.command.DeleteCommand;
 import lunabot.command.ExitCommand;
+import lunabot.command.FindCommand;
 import lunabot.command.ListCommand;
 import lunabot.command.MarkCommand;
 import lunabot.command.UnmarkCommand;
@@ -44,6 +45,8 @@ public class Parser {
             return new AddDeadlineCommand(input);
         case "event":
             return new AddEventCommand(input);
+        case "find":
+            return new FindCommand(input);
         default:
             throw new LunaBotException(" Invalid command");
         }

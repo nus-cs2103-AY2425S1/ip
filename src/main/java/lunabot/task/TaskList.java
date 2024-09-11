@@ -89,4 +89,20 @@ public class TaskList {
         }
         return taskList.get(index);
     }
+
+    /**
+     * Finds and returns a matching list of tasks from the current taskList.
+     *
+     * @param keyword The keyword to search for in the taskList entered by the user.
+     * @return A list of tasks containing the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

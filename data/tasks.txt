@@ -1,3 +1,4 @@
 T | 0 | eat
 D | 1 | quiz | 2024-09-11 23:59
 E | 0 | CS2100 lecture | 2024-09-12 16:00 | 2024-09-12 18:00
+T | 0 | rewatch lecture
