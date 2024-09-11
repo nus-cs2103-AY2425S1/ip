@@ -1,3 +1,5 @@
+package duck;
+
 public enum TaskType {
     TODO(Command.TODO.toString()),
     DEADLINE(Command.DEADLINE.toString()),

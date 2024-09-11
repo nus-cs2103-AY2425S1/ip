@@ -1,3 +1,5 @@
+package duck.gui;
+
 import javafx.application.Application;
 
 /**

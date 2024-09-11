@@ -1,5 +1,8 @@
+package duck.gui;
+
 import java.io.IOException;
 
+import duck.Duck;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

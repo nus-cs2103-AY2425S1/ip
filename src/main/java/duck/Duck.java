@@ -1,16 +1,16 @@
-import exceptions.DeadlineUsageException;
-import exceptions.EventUsageException;
-import exceptions.TodoUsageException;
-import tasks.DateAndTime;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+package duck;
+
+import duck.exceptions.DeadlineUsageException;
+import duck.exceptions.EventUsageException;
+import duck.exceptions.TodoUsageException;
+import duck.tasks.DateAndTime;
+import duck.tasks.Deadline;
+import duck.tasks.Event;
+import duck.tasks.Task;
+import duck.tasks.Todo;
 
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
-    private static final String TEXT_SEPARATOR = "____________________________________________________________";
-    private static final String TEXT_SEPARATOR_WITH_NEWLINE = TEXT_SEPARATOR + "\n";
 
     // Standard messages
     private static final String GREETING = String.format("Hello! I'm %s\n", CHATBOT_NAME)
@@ -19,12 +19,6 @@ public class Duck {
 
     // List to store user inputs
     private static final TaskList TASKS = new TaskList();
-
-    private static String addSeparators(String text) {
-        return TEXT_SEPARATOR_WITH_NEWLINE
-                + text + "\n"
-                + TEXT_SEPARATOR_WITH_NEWLINE;
-    }
 
     private static String indentText(String text, int indentLevel) {
         StringBuilder indentedText = new StringBuilder();
@@ -39,12 +33,7 @@ public class Duck {
     }
 
     private static String formatAsResponse(String text) {
-        return indentText(addSeparators(indentText(text, 1)), 4);
-    }
-
-    private static void printAsResponse(String text) {
-        System.out.println(formatAsResponse(text));
-        System.out.println("");
+        return indentText(text, 4);
     }
 
     private static String handleNewTask(Task task) {

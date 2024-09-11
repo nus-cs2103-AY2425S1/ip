@@ -1,6 +1,6 @@
-package tasks;
+package duck.tasks;
 
-import exceptions.TodoUsageException;
+import duck.exceptions.TodoUsageException;
 
 public class Todo extends Task {
     public Todo(String description) throws TodoUsageException {

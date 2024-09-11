@@ -1,6 +1,6 @@
-package tasks;
+package duck.tasks;
 
-import exceptions.EventUsageException;
+import duck.exceptions.EventUsageException;
 
 public class Event extends Task {
     private final DateAndTime from;

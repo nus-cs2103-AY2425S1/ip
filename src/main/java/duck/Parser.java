@@ -1,3 +1,5 @@
+package duck;
+
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 

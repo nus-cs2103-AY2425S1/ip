@@ -1,3 +1,5 @@
+package duck;
+
 public enum Command {
     LIST("list"),
     FIND("find"),

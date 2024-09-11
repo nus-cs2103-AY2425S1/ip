@@ -1,6 +1,6 @@
-package tasks;
+package duck.tasks;
 
-import exceptions.DeadlineUsageException;
+import duck.exceptions.DeadlineUsageException;
 
 public class Deadline extends Task {
     private final DateAndTime deadline;

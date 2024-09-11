@@ -1,14 +1,16 @@
+package duck;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.UsageException;
-import tasks.DateAndTime;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import duck.exceptions.UsageException;
+import duck.tasks.DateAndTime;
+import duck.tasks.Deadline;
+import duck.tasks.Event;
+import duck.tasks.Task;
+import duck.tasks.Todo;
 
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();

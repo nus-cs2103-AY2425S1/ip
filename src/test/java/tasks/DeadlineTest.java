@@ -1,8 +1,11 @@
 package tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import duck.tasks.DateAndTime;
+import duck.tasks.Deadline;
 
 public class DeadlineTest {
     @Test

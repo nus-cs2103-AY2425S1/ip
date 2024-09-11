@@ -1,4 +1,4 @@
-package tasks;
+package duck.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

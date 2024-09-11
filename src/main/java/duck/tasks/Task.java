@@ -1,4 +1,4 @@
-package tasks;
+package duck.tasks;
 
 public abstract class Task {
     protected String description;
