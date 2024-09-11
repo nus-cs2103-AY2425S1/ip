@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import exceptions.DeadlineUsageException;
 import exceptions.EventUsageException;
 import exceptions.TodoUsageException;
@@ -49,120 +47,122 @@ public class Duck {
         System.out.println("");
     }
 
-    private static void handleNewTask(Task task) {
+    private static String handleNewTask(Task task) {
         TASKS.addTask(task);
         String response = "Got it. I've added this task:\n"
                 + indentText(task.toString(), 2) + "\n"
                 + "Now you have " + TASKS.getTaskCount() + " tasks in the list.";
-        printAsResponse(response);
+        return formatAsResponse(response);
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duck heard: " + input;
+        Parser lineBuffer = new Parser(input);
+
+        // "bye" and "list" will only work if they are the only word in the line
+        // e.g. "bye bye" would not work
+        if (Command.BYE.equalsName(input)) {
+            return formatAsResponse(GOODBYE);
+        } else if (Command.LIST.equalsName(input)) {
+            String response = "Here are the tasks in your list:\n"
+                    + TASKS.toString();
+            return formatAsResponse(response);
+        } else {
+            String command = lineBuffer.getWord();
+
+            // "mark" / "unmark" commands
+            if (Command.FIND.equalsName(command)) {
+                String pattern = lineBuffer.getRemainingLine();
+                TaskList filteredTasks = TASKS.filterTasksByPattern(pattern);
+                String response = "Here are the tasks in your list:\n"
+                        + filteredTasks.toString();
+                return formatAsResponse(response);
+            } else if (Command.MARK.equalsName(command)) {
+                int taskLabel = lineBuffer.getInt();
+                Task task = TASKS.getItem(taskLabel);
+                task.markAsDone();
+                TASKS.updateFileWithTaskList();
+
+                String response = "Nice! I've marked this task as done:\n"
+                        + indentText(task.toString(), 2);
+                return formatAsResponse(response);
+            } else if (Command.UNMARK.equalsName(command)) {
+                int taskLabel = lineBuffer.getInt();
+                Task task = TASKS.getItem(taskLabel);
+                task.markAsNotDone();
+                TASKS.updateFileWithTaskList();
+
+                String response = "OK, I've marked this task as not done yet:\n"
+                        + indentText(task.toString(), 2);
+                return formatAsResponse(response);
+            } else if (Command.DELETE.equalsName(command)) {
+                // Delete
+                int taskLabel = lineBuffer.getInt();
+                Task task = TASKS.getItem(taskLabel);
+                TASKS.removeItem(taskLabel);
+
+                String response = "Noted. I've removed this task:\n"
+                        + indentText(task.toString(), 2) + "\n"
+                        + String.format("Now you have %s tasks in the list.", TASKS.getTaskCount());
+                return formatAsResponse(response);
+            } else if (Command.TODO.equalsName(command)) {
+                // Tasks
+                // TODO: Reduce duplicate code
+
+                String taskPart = lineBuffer.getRemainingLine();
+                try {
+                    Task task = new Todo(taskPart);
+                    String response = handleNewTask(task);
+                    return response;
+                } catch (TodoUsageException e) {
+                    return formatAsResponse(e.toString());
+                }
+            } else if (Command.DEADLINE.equalsName(command)) {
+                String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
+                String deadlinePart = lineBuffer.getRemainingLine();
+                try {
+                    Task task = new Deadline(taskPart, new DateAndTime(deadlinePart));
+                    String response = handleNewTask(task);
+                    return response;
+                } catch (DeadlineUsageException e) {
+                    return formatAsResponse(e.toString());
+                }
+            } else if (Command.EVENT.equalsName(command)) {
+                String taskPart = lineBuffer.getUntilAndRemovePattern("/from");
+                String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
+                String toPart = lineBuffer.getRemainingLine();
+                try {
+                    Task task = new Event(taskPart, new DateAndTime(fromPart), new DateAndTime(toPart));
+                    String response = handleNewTask(task);
+                    return response;
+                } catch (EventUsageException e) {
+                    return formatAsResponse(e.toString());
+                }
+            } else {
+                return formatAsResponse("Oops, I do not understand you.");
+            }
+        }
     }
 
     public static void main(String[] args) {
         // Get saved tasks
         TASKS.getTaskListFromFile();
 
-        // Start scanner
-        Scanner sc = new Scanner(System.in);
+        // // Start scanner
+        // Scanner sc = new Scanner(System.in);
 
-        // Print greeting
-        printAsResponse(GREETING);
+        // // Print greeting
+        // printAsResponse(GREETING);
 
-        // User input loop
-        while (true) {
-            String line = sc.nextLine();
-            Parser lineBuffer = new Parser(line);
+        // // User input loop
+        // while (true) {
+        // String line = sc.nextLine();
 
-            // "bye" and "list" will only work if they are the only word in the line
-            // e.g. "bye bye" would not work
-            if (Command.BYE.equalsName(line)) {
-                printAsResponse(GOODBYE);
-                break;
-            } else if (Command.LIST.equalsName(line)) {
-                String response = "Here are the tasks in your list:\n"
-                        + TASKS.toString();
-                printAsResponse(response);
-            } else {
-                String command = lineBuffer.getWord();
+        // }
 
-                // "mark" / "unmark" commands
-                if (Command.FIND.equalsName(command)) {
-                    String pattern = lineBuffer.getRemainingLine();
-                    TaskList filteredTasks = TASKS.filterTasksByPattern(pattern);
-                    String response = "Here are the tasks in your list:\n"
-                            + filteredTasks.toString();
-                    printAsResponse(response);
-                } else if (Command.MARK.equalsName(command)) {
-                    int taskLabel = lineBuffer.getInt();
-                    Task task = TASKS.getItem(taskLabel);
-                    task.markAsDone();
-                    TASKS.updateFileWithTaskList();
-
-                    String response = "Nice! I've marked this task as done:\n"
-                            + indentText(task.toString(), 2);
-                    printAsResponse(response);
-                } else if (Command.UNMARK.equalsName(command)) {
-                    int taskLabel = lineBuffer.getInt();
-                    Task task = TASKS.getItem(taskLabel);
-                    task.markAsNotDone();
-                    TASKS.updateFileWithTaskList();
-
-                    String response = "OK, I've marked this task as not done yet:\n"
-                            + indentText(task.toString(), 2);
-                    printAsResponse(response);
-                } else if (Command.DELETE.equalsName(command)) {
-                    // Delete
-                    int taskLabel = lineBuffer.getInt();
-                    Task task = TASKS.getItem(taskLabel);
-                    TASKS.removeItem(taskLabel);
-
-                    String response = "Noted. I've removed this task:\n"
-                            + indentText(task.toString(), 2) + "\n"
-                            + String.format("Now you have %s tasks in the list.", TASKS.getTaskCount());
-                    printAsResponse(response);
-                } else if (Command.TODO.equalsName(command)) {
-                    // Tasks
-                    // TODO: Reduce duplicate code
-
-                    String taskPart = lineBuffer.getRemainingLine();
-                    try {
-                        Task task = new Todo(taskPart);
-                        handleNewTask(task);
-                    } catch (TodoUsageException e) {
-                        printAsResponse(e.toString());
-                    }
-                } else if (Command.DEADLINE.equalsName(command)) {
-                    String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
-                    String deadlinePart = lineBuffer.getRemainingLine();
-                    try {
-                        Task task = new Deadline(taskPart, new DateAndTime(deadlinePart));
-                        handleNewTask(task);
-                    } catch (DeadlineUsageException e) {
-                        printAsResponse(e.toString());
-                    }
-                } else if (Command.EVENT.equalsName(command)) {
-                    String taskPart = lineBuffer.getUntilAndRemovePattern("/from");
-                    String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
-                    String toPart = lineBuffer.getRemainingLine();
-                    try {
-                        Task task = new Event(taskPart, new DateAndTime(fromPart), new DateAndTime(toPart));
-                        handleNewTask(task);
-                    } catch (EventUsageException e) {
-                        printAsResponse(e.toString());
-                    }
-                } else {
-                    printAsResponse("Oops, I do not understand you.");
-                }
-            }
-        }
-
-        // Close Scanner
-        sc.close();
+        // // Close Scanner
+        // sc.close();
     }
 }
