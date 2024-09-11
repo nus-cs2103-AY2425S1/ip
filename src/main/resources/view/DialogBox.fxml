@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<<<<<<< HEAD
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -9,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" prefWidth="506.0" style="-fx-background-color: lightgreen; -fx-background-radius: 12px;" text="Label" wrapText="true">
+        <Label fx:id="dialog" alignment="TOP_LEFT" minHeight="-Infinity" prefWidth="506.0" style="-fx-background-color: lightgreen; -fx-background-radius: 12px;" text="Label" wrapText="true">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
@@ -35,39 +34,6 @@
             <Insets right="5.0" />
          </HBox.margin>
       </Pane>
-=======
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-      <Pane prefHeight="99.0" prefWidth="0.0" style="-fx-background-color: #fff0f0;" HBox.hgrow="ALWAYS">
-         <children>
-              <Label fx:id="dialog" alignment="TOP_LEFT" layoutY="1.0" minHeight="-Infinity" prefHeight="99.0" prefWidth="271.0" text="Label" wrapText="true">
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-            </Label>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow />
-         </effect>
-         <HBox.margin>
-            <Insets left="10.0" right="10.0" />
-         </HBox.margin>
-      </Pane>
-      <Pane style="-fx-border-radius: 50%;">
-         <children>
-              <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </Pane>
->>>>>>> branch-A-Assertions
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

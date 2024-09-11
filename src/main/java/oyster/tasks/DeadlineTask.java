@@ -34,13 +34,9 @@ public class DeadlineTask extends Task {
      * @param input The string to parse into a DeadlineTask.
      * @return DeadlineTask object.
      */
-<<<<<<< HEAD
     public static DeadlineTask createFromInput(String input) {
-=======
-    public static DeadlineTask fromInput(String input) {
         assert input != null;
 
->>>>>>> branch-A-Assertions
         String name = "";
         String deadline = "";
         boolean isDeadlineNext = false;

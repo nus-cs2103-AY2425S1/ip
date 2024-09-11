@@ -39,13 +39,9 @@ public class EventTask extends Task {
      * @param input The string to parse into a EventTask.
      * @return EventTask object.
      */
-<<<<<<< HEAD
     public static EventTask createFromInput(String input) {
-=======
-    public static EventTask fromInput(String input) {
         assert input != null;
 
->>>>>>> branch-A-Assertions
         String name = "";
         String from = "";
         String to = "";

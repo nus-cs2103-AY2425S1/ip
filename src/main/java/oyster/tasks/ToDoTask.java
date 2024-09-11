@@ -23,13 +23,9 @@ public class ToDoTask extends Task {
      * @param input The string to parse into a ToDoTask.
      * @return ToDoTask object.
      */
-<<<<<<< HEAD
     public static ToDoTask createFromInput(String input) {
-=======
-    public static ToDoTask fromInput(String input) {
         assert input != null;
 
->>>>>>> branch-A-Assertions
         input = input.trim();
 
         if (input.isEmpty()) {
