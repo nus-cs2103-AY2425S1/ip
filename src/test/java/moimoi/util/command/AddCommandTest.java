@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import moimoi.util.Storage;
 import moimoi.util.TaskList;
 import moimoi.util.exception.InvalidDateTimeException;
+import moimoi.util.exception.InvalidPeriodException;
 import moimoi.util.exception.MissingArgumentException;
 import moimoi.util.exception.MoiMoiException;
 import moimoi.util.task.Task;
@@ -72,7 +73,7 @@ public class AddCommandTest {
         }
 
         try {
-            AddCommand addCommand = new AddCommand(CommandEnum.DEADLINE, "dummy /by ");
+            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for ");
             addCommand.execute(this.storage, this.tasks);
             fail();
         } catch (MoiMoiException e) {
@@ -147,6 +148,17 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_invalidPeriod_invalidPeriodExceptionThrown() {
+        try {
+            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for lol");
+            addCommand.execute(this.storage, this.tasks);
+            fail();
+        } catch (MoiMoiException e) {
+            assertEquals(new InvalidPeriodException().getMessage(), e.getMessage());
+        }
+    }
+
+    @Test
     public void execute_validInputs_success() {
 
         try {
@@ -159,6 +171,20 @@ public class AddCommandTest {
         try {
             AddCommand addCommand = new AddCommand(CommandEnum.EVENT,
                     "dummy /from 2024-08-22 18:00 /to 2024-08-22 18:30");
+            addCommand.execute(this.storage, this.tasks);
+        } catch (MoiMoiException e) {
+            fail();
+        }
+
+        try {
+            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17");
+            addCommand.execute(this.storage, this.tasks);
+        } catch (MoiMoiException e) {
+            fail();
+        }
+
+        try {
+            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17.5");
             addCommand.execute(this.storage, this.tasks);
         } catch (MoiMoiException e) {
             fail();

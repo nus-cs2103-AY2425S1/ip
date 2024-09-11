@@ -35,6 +35,7 @@ public class Parser {
             case TODO:
             case DEADLINE:
             case EVENT:
+            case PERIOD:
                 return new AddCommand(commandEnum, Parser.extractArgs(commandArgs));
             case DELETE:
                 return new DeleteCommand(Parser.extractArgs(commandArgs));

@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import moimoi.util.exception.InvalidDateTimeRangeException;
+import moimoi.util.exception.InvalidPeriodException;
 import moimoi.util.exception.MoiMoiException;
 import moimoi.util.exception.StorageCorruptedException;
 import moimoi.util.exception.StorageIoException;
 import moimoi.util.task.Deadline;
 import moimoi.util.task.Event;
+import moimoi.util.task.Period;
 import moimoi.util.task.Task;
 import moimoi.util.task.TaskEnum;
 import moimoi.util.task.Todo;
@@ -101,6 +103,10 @@ public class Storage {
                 LocalDateTime end = LocalDateTime.parse(taskInfo[4], formatter);
                 task = new Event(taskInfo[2], start, end);
                 break;
+            case P:
+                double period = Double.parseDouble(taskInfo[3]);
+                task = new Period(taskInfo[2], period);
+                break;
             default:
                 throw new StorageCorruptedException();
             }
@@ -109,7 +115,7 @@ public class Storage {
 
             return task;
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException
-                 | InvalidDateTimeRangeException e) {
+                 | InvalidDateTimeRangeException | InvalidPeriodException e) {
             throw new StorageCorruptedException();
         }
     }

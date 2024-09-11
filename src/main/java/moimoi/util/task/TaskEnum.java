@@ -4,5 +4,5 @@ package moimoi.util.task;
  *  Represents the types of tasks.
  */
 public enum TaskEnum {
-    T, D, E
+    T, D, E, P
 }
