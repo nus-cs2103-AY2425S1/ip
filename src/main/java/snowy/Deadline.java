@@ -18,6 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String date) throws SnowyException {
         super(name);
+        assert !name.isEmpty() : "Deadline name should not be empty";
         try {
             this.date = LocalDate.parse(date);
         } catch (DateTimeException e) {

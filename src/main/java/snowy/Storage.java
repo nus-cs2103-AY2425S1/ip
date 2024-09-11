@@ -31,6 +31,7 @@ public class Storage {
         ArrayList<String> lines = new ArrayList<>();
         try {
             file.createNewFile();
+            assert file.exists() : "Storage file should have been created";
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String nextLine = scanner.nextLine();
