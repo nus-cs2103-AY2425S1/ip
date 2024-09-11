@@ -21,6 +21,9 @@ public class FindCommand implements Command {
      * @param keyword The keyword to search for in tasks.
      */
     public FindCommand(TaskList tasks, String keyword) {
+        assert tasks != null : "TaskList cannot be null";
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
+
         this.tasks = tasks;
         this.keyword = keyword;
     }
@@ -33,15 +36,22 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute() throws ArtsException {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword must be valid before execution";
+
         StringBuilder sb = new StringBuilder();
         int count = 0;
 
-        for (Task task : tasks.getTasks()) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.getTask(i);
             String taskString = task.toString();
+            assert taskString != null : "Task string representation should not be null";
+
             if (taskString.contains(keyword)) {
                 sb.append(++count).append(". ").append(taskString).append("\n");
             }
         }
+
+        assert count >= 0 : "Count of matching tasks should not be negative";
 
         return count == 0 ? NO_MATCHING_TASKS_MESSAGE : MATCHING_TASKS_HEADER + sb.toString();
     }

@@ -26,6 +26,11 @@ public class UnmarkCommand implements Command {
      * @param taskIndex The index of the task to be marked as not done.
      */
     public UnmarkCommand(TaskList tasks, Storage storage, Ui ui, String taskIndex) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert taskIndex != null && !taskIndex.trim().isEmpty() : "Task index cannot be null or empty";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -43,9 +48,14 @@ public class UnmarkCommand implements Command {
     public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
+            assert index >= 0 && index < tasks.size() : "Index must be within the valid range";
+
             Task task = tasks.getTask(index);
+            assert task != null : "Task should not be null";
+
             task.markAsNotDone();
             storage.save(tasks.getTasks());
+
             return String.format("OK, I've marked this task as not done yet:\n %s", task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             // Handle invalid task index or parsing error

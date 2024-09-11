@@ -13,6 +13,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
     }
 
     /**
@@ -22,6 +23,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
+        assert description != null : "Description should not be null when converting to string";
         return "[T]" + super.toString();
     }
 
@@ -33,6 +35,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileFormat() {
+        assert description != null : "Description should not be null when converting to file format";
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

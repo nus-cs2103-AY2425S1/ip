@@ -26,6 +26,11 @@ public class DeleteCommand implements Command {
      * @param taskIndex The index of the task to be deleted.
      */
     public DeleteCommand(TaskList tasks, Storage storage, Ui ui, String taskIndex) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert taskIndex != null && !taskIndex.trim().isEmpty() : "Task index cannot be null or empty";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -43,8 +48,15 @@ public class DeleteCommand implements Command {
     public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
+            assert index >= 0 && index < tasks.size() : "Index must be within the valid range";
+
             Task task = tasks.removeTask(index);
+
+            assert task != null : "Task removal should return a non-null task";
+            assert tasks.size() >= 0 : "Task list size should not be negative";
+
             storage.save(tasks.getTasks());
+
             return String.format("Noted. I've removed this task:\n %s\nNow you have %d %s in the list.",
                     task, tasks.size(), tasks.size() == 1 ? "task" : "tasks");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

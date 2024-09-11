@@ -21,6 +21,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -74,25 +75,31 @@ public abstract class Task {
      * @throws ArtsException If the task type is unknown or data is invalid.
      */
     public static Task fromFileFormat(String data) throws ArtsException {
+        assert data != null && !data.trim().isEmpty() : "Data cannot be null or empty";
+
         String[] parts = data.split(" \\| ");
+        assert parts.length >= 3 : "Data must contain at least three parts";
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
         switch (type) {
-        case "T":
-            return createTask(new Todo(description), isDone);
-        case "D":
-            DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            LocalDateTime by = LocalDateTime.parse(parts[3], deadlineFormatter);
-            return createTask(new Deadline(description, by), isDone);
-        case "E":
-            DateTimeFormatter eventFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            LocalDateTime from = LocalDateTime.parse(parts[3], eventFormatter);
-            LocalDateTime to = LocalDateTime.parse(parts[4], eventFormatter);
-            return createTask(new Event(description, from, to), isDone);
-        default:
-            throw new ArtsException("Unknown task type.");
+            case "T":
+                return createTask(new Todo(description), isDone);
+            case "D":
+                assert parts.length == 4 : "Deadline task data must contain four parts";
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+                return createTask(new Deadline(description, by), isDone);
+            case "E":
+                assert parts.length == 5 : "Event task data must contain five parts";
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+                return createTask(new Event(description, from, to), isDone);
+            default:
+                throw new ArtsException("Unknown task type.");
         }
     }
 
@@ -110,6 +117,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        assert description != null : "Description should not be null when converting to string";
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 }

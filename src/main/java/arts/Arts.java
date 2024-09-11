@@ -44,6 +44,7 @@ public class Arts {
      * @param filePath The path of the file where tasks are stored.
      */
     public Arts(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
@@ -65,6 +66,7 @@ public class Arts {
      * @return A response string.
      */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
         try {
             CommandType command = parser.parseCommand(input);
             String[] parts = parser.parseArguments(input);
@@ -75,18 +77,25 @@ public class Arts {
             case LIST:
                 return listTasks();
             case MARK:
+                assert parts.length > 1 : "MARK command requires additional arguments";
                 return new MarkCommand(tasks, storage, ui, parts[1]).execute();
             case UNMARK:
+                assert parts.length > 1 : "UNMARK command requires additional arguments";
                 return new UnmarkCommand(tasks, storage, ui, parts[1]).execute();
             case DELETE:
+                assert parts.length > 1 : "DELETE command requires additional arguments";
                 return new DeleteCommand(tasks, storage, ui, parts[1]).execute();
             case TODO:
+                assert parts.length > 1 : "TODO command requires additional arguments";
                 return new AddTodoCommand(tasks, storage, ui, parts[1]).execute();
             case DEADLINE:
+                assert parts.length > 1 : "DEADLINE command requires additional arguments";
                 return new AddDeadlineCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
             case EVENT:
+                assert parts.length > 1 : "EVENT command requires additional arguments";
                 return new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
             case FIND:
+                assert parts.length > 1 : "FIND command requires additional arguments";
                 return new FindCommand(tasks, parts[1]).execute();
             default:
                 throw new ArtsException(UNKNOWN_COMMAND_MESSAGE);
@@ -133,6 +142,7 @@ public class Arts {
         while (!isExit) {
             try {
                 String input = ui.readCommand();
+                assert input != null : "Input from UI cannot be null";
                 String response = getResponse(input);
                 ui.showMessage(response);
                 if (input.equalsIgnoreCase("bye")) {

@@ -22,9 +22,15 @@ public class AddTodoCommand implements Command {
      *
      * @param tasks The list of tasks.
      * @param storage The storage used to save tasks.
+     * @param ui The user interface for displaying messages.
      * @param description The description of the todo task to be added.
      */
     public AddTodoCommand(TaskList tasks, Storage storage, Ui ui, String description) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -43,8 +49,13 @@ public class AddTodoCommand implements Command {
         if (description == null || description.trim().isEmpty()) {
             throw new ArtsException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
+
         tasks.addTask(new Todo(description));
+
+        assert tasks.size() > 0 : "Task was not added to the task list";
+
         storage.save(tasks.getTasks());
+
         return String.format("Got it. I've added this task:\n %s\nNow you have %d %s in the list.",
                 tasks.getTask(tasks.size() - 1),
                 tasks.size(),

@@ -37,6 +37,12 @@ public class AddEventCommand implements Command {
      */
     public AddEventCommand(TaskList tasks, Storage storage, Ui ui, String details,
                            DateTimeFormatter... inputFormatters) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert details != null && !details.isEmpty() : "Details cannot be null or empty";
+        assert inputFormatters != null && inputFormatters.length > 0 : "At least one DateTimeFormatter must be provided";
+
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -60,7 +66,12 @@ public class AddEventCommand implements Command {
         LocalDateTime eventFromDate = parseDate(eventParts[1]);
         LocalDateTime eventToDate = parseDate(eventParts[2]);
 
+        assert eventFromDate.isBefore(eventToDate) : "Event start date must be before end date";
+
         tasks.addTask(new Event(eventParts[0], eventFromDate, eventToDate));
+
+        assert tasks.size() > 0 : "Task was not added to the task list";
+
         storage.save(tasks.getTasks());
 
         return String.format("Got it. I've added this task:\n %s\nNow you have %d %s in the list.",
@@ -78,6 +89,8 @@ public class AddEventCommand implements Command {
      * @throws ArtsException If the date string cannot be parsed with any of the provided formatters.
      */
     private LocalDateTime parseDate(String dateString) throws ArtsException {
+        assert dateString != null && !dateString.isEmpty() : "Date string cannot be null or empty";
+
         for (DateTimeFormatter formatter : inputFormatters) {
             try {
                 return LocalDateTime.parse(dateString, formatter);
@@ -85,6 +98,8 @@ public class AddEventCommand implements Command {
                 // Continue to the next formatter
             }
         }
+        
         throw new ArtsException(DATE_FORMAT_ERROR_MESSAGE);
     }
 }
+

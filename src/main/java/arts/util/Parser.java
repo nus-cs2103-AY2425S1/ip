@@ -17,7 +17,9 @@ public class Parser {
      * @throws ArtsException If the command word is not recognized.
      */
     public CommandType parseCommand(String input) throws ArtsException {
+        assert input != null : "Input cannot be null";
         String[] parts = input.trim().split(" ", 2);
+        assert parts.length > 0 : "Input must contain at least one word";
         String commandWord = parts[0].toUpperCase();
 
         try {
@@ -34,6 +36,7 @@ public class Parser {
      * @return An array where the first element is the command and the second is the arguments.
      */
     public String[] parseArguments(String input) {
+        assert input != null : "Input cannot be null";
         return input.trim().split(" ", 2);
     }
 }
