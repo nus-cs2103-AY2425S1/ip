@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
         Task task = tasks.get(index);
+        assert task != null: "task is null";
         tasks.remove(index);
 
         Ui ui = new Ui();

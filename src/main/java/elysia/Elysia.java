@@ -29,6 +29,7 @@ public class Elysia {
         try {
             Parser parser = new Parser();
             Command command = parser.parseCommand(input);
+            assert command != null : "command is null";
             return command.execute(tasks);
         } catch (ElysiaException | IOException e) {
             return e.getMessage();
