@@ -6,12 +6,12 @@
 
 .text-field {
     -fx-background-color: #FFFFFF;
-    -fx-font: 20px "Arial";
+    -fx-font: 20px "Montserrat";
 }
 
 .button {
     -fx-background-color: alfred-color;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: italic bold 16px "Montserrat";
     -fx-text-fill: white;
 }
 

@@ -14,6 +14,9 @@ import alfred.exception.AlfredException;
  * for tasks that have a date range.
  */
 public class Events extends Task {
+    private static final String VALID_EVENT_FORMAT = "^event\\s+(.+?)\\s+/from\\s+"
+            + "(\\d{4}-\\d{2}-\\d{2})\\s+/to\\s+(\\d{4}-\\d{2}-\\d{2})$";
+    private static final DateTimeFormatter EVENT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDate from;
     private LocalDate to;
 
@@ -29,12 +32,8 @@ public class Events extends Task {
      */
     public Events(String description, String from, String to) throws AlfredException {
         super(description);
-        try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new AlfredException("There was an invalid deadline Sir. It should go yyyy-mm-dd.");
-        }
+        this.from = parseDate(from);
+        this.to = parseDate(to);
     }
 
     /**
@@ -50,13 +49,23 @@ public class Events extends Task {
      */
     public Events(String description, String from, String to, boolean isDone) throws AlfredException {
         super(description);
+        this.from = parseDate(from);
+        this.to = parseDate(to);
+        this.isDone = isDone;
+    }
+
+    /**
+     * Validates and parses a date string into a LocalDate object.
+     * @param date The date string in yyyy-mm-dd format.
+     * @return A LocalDate object representing the date.
+     * @throws AlfredException If the date format is invalid.
+     */
+    private static LocalDate parseDate(String date) throws AlfredException {
         try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
+            return LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             throw new AlfredException("There was an invalid deadline Sir. It should go yyyy-mm-dd.");
         }
-        this.isDone = isDone;
     }
 
     /**
@@ -67,8 +76,17 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: " + formatDate(from) + " to: "
+                + formatDate(to) + ")";
+    }
+
+    /**
+     * Formats a LocalDate object into a string with the format MMM d yyyy.
+     * @param date The LocalDate to be formatted.
+     * @return A formatted string representing the date.
+     */
+    private static String formatDate(LocalDate date) {
+        return date.format(EVENT_DATE_FORMAT);
     }
 
     /**
@@ -82,17 +100,27 @@ public class Events extends Task {
      * @throws AlfredException If the input string does not match the expected format.
      */
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^event\\s+(.+?)\\s+/from\\s+"
-                + "(\\d{4}-\\d{2}-\\d{2})\\s+/to\\s+(\\d{4}-\\d{2}-\\d{2})$";
-        Pattern pattern = Pattern.compile(regex);
+        String[] parsedInput = parseInputForEvent(input);
+        String description = parsedInput[0];
+        String from = parsedInput[1];
+        String to = parsedInput[2];
+        return new Events(description, from, to);
+    }
+
+    /**
+     * Parses the input string to extract the task description, from and to dates.
+     * Validates the input format using a regular expression.
+     *
+     * @param input The input string to be parsed.
+     * @return An array where the first element is the description, second from and third to.
+     * @throws AlfredException If the input format is incorrect.
+     */
+    private static String[] parseInputForEvent(String input) throws AlfredException {
+        Pattern pattern = Pattern.compile(VALID_EVENT_FORMAT);
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            String description = matcher.group(1);
-            String from = matcher.group(2);
-            String to = matcher.group(3);
-
-            return new Events(description, from, to);
+            return new String[]{matcher.group(1), matcher.group(2), matcher.group(3)};
         } else {
             throw new AlfredException("That is the wrong events format Sir. It goes event <task> "
                     + "/from yyyy-mm-dd /to yyyy-mm-dd");

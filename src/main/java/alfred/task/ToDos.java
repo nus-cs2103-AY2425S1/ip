@@ -11,7 +11,7 @@ import alfred.exception.AlfredException;
  * or event time.
  */
 public class ToDos extends Task {
-
+    private static final String VALID_TODO_FORMAT = "^todo\\s+(.+)$";
     /**
      * Constructs a new <code>ToDos</code> task with the specified description.
      * The task is initially marked as not done.
@@ -54,13 +54,25 @@ public class ToDos extends Task {
      * @throws AlfredException If the input string does not match the expected format.
      */
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^todo\\s+(.+)$";
-        Pattern pattern = Pattern.compile(regex);
+        String[] parsedInput = parseInputForTodo(input);
+        String description = parsedInput[0];
+        return new ToDos(description);
+    }
+
+    /**
+     * Parses the input string to extract the task description.
+     * Validates the input format using a regular expression.
+     *
+     * @param input The input string to be parsed.
+     * @return An array where the first element is the description.
+     * @throws AlfredException If the input format is incorrect.
+     */
+    private static String[] parseInputForTodo(String input) throws AlfredException {
+        Pattern pattern = Pattern.compile(VALID_TODO_FORMAT);
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            String description = matcher.group(1);
-            return new ToDos(description);
+            return new String[]{matcher.group(1)};
         } else {
             throw new AlfredException("That is the wrong todo format Sir. It goes todo <task>");
         }

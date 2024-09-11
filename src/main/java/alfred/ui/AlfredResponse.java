@@ -67,11 +67,7 @@ public class AlfredResponse {
      * @return The string representation of the task list.
      */
     public static String getTaskList(List<Task> tasks) {
-        StringBuilder response = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-        }
-        return response.toString().trim();
+        return formatTasks(tasks);
     }
 
     /**
@@ -93,10 +89,20 @@ public class AlfredResponse {
         if (foundTasks.isEmpty()) {
             return "No matching tasks found Sir.";
         }
+        String messageHeader = "Of course Sir, here are the matching tasks in your list:\n";
+        return messageHeader + formatTasks(foundTasks);
+    }
+
+    private static String formatTasks(List<Task> foundTasks) {
         StringBuilder response = new StringBuilder();
-        response.append("Of course Sir, here are the matching tasks in your list:\n");
         for (int i = 0; i < foundTasks.size(); i++) {
-            response.append((i + 1)).append(". ").append(foundTasks.get(i)).append("\n");
+            int taskNumber = i + 1;
+            Task task = foundTasks.get(i);
+
+            response.append(taskNumber)
+                    .append(". ")
+                    .append(task)
+                    .append("\n");
         }
         return response.toString().trim();
     }
@@ -187,16 +193,6 @@ public class AlfredResponse {
         return "Terribly sorry Sir, I have misplaced your list of tasks.\n"
                 + "To be more exact, the situation is as follows - " + e.getMessage() + "\n"
                 + "Please create your list again.";
-    }
-
-    /**
-     * Generates an error message when there is an issue deleting tasks from storage.
-     *
-     * @param e The IOException that was thrown during deletion.
-     * @return The deletion error message.
-     */
-    public static String showDeletionError(IOException e) {
-        return "Error deleting tasks: " + e.getMessage();
     }
 
     /**

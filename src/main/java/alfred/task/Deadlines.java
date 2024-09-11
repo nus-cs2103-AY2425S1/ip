@@ -13,6 +13,8 @@ import alfred.exception.AlfredException;
  * A Deadline task has a description and a deadline date.
  */
 public class Deadlines extends Task {
+    private static final String VALID_DEADLINE_FORMAT = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
+    private static final DateTimeFormatter DEADLINE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDate deadline;
 
     /**
@@ -24,11 +26,7 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String deadline) throws AlfredException {
         super(description);
-        try {
-            this.deadline = LocalDate.parse(deadline);
-        } catch (DateTimeParseException e) {
-            throw new AlfredException("That is not a valid deadline Sir. It should go yyyy-mm-dd.");
-        }
+        this.deadline = parseDeadline(deadline);
     }
 
     /**
@@ -42,8 +40,19 @@ public class Deadlines extends Task {
     public Deadlines(String description, String deadline, boolean isDone) throws AlfredException {
         super(description);
         this.isDone = isDone;
+        this.deadline = parseDeadline(deadline);
+    }
+
+    /**
+     * Parses the deadline from a string and validates the date format.
+     *
+     * @param deadline The deadline string in yyyy-MM-dd format.
+     * @return The parsed LocalDate object.
+     * @throws AlfredException If the date format is incorrect.
+     */
+    private LocalDate parseDeadline(String deadline) throws AlfredException {
         try {
-            this.deadline = LocalDate.parse(deadline);
+            return LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
             throw new AlfredException("That is not a valid deadline Sir. It should go yyyy-mm-dd.");
         }
@@ -56,8 +65,16 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: "
-                + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + formatDeadlineForDisplay() + ")";
+    }
+
+    /**
+     * Formats the deadline for display purposes in a user-friendly format.
+     *
+     * @return A formatted string representation of the deadline.
+     */
+    private String formatDeadlineForDisplay() {
+        return deadline.format(DEADLINE_DATE_FORMAT);
     }
 
     /**
@@ -69,15 +86,27 @@ public class Deadlines extends Task {
      * @throws AlfredException If the input string does not match the expected format.
      */
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
-        Pattern pattern = Pattern.compile(regex);
+        String[] parsedInput = parseInputForDeadline(input);
+        String description = parsedInput[0];
+        String deadline = parsedInput[1];
+
+        return new Deadlines(description, deadline);
+    }
+
+    /**
+     * Parses the input string to extract the task description and deadline.
+     * Validates the input format using a regular expression.
+     *
+     * @param input The input string to be parsed.
+     * @return An array where the first element is the description and the second element is the deadline.
+     * @throws AlfredException If the input format is incorrect.
+     */
+    private static String[] parseInputForDeadline(String input) throws AlfredException {
+        Pattern pattern = Pattern.compile(VALID_DEADLINE_FORMAT);
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            String description = matcher.group(1);
-            String deadline = matcher.group(2);
-
-            return new Deadlines(description, deadline);
+            return new String[]{matcher.group(1), matcher.group(2)};
         } else {
             throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> "
                     + "/by yyyy-mm-dd");

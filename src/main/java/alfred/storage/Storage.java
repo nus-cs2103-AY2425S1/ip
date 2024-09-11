@@ -18,7 +18,7 @@ import alfred.task.Task;
  * to store the current state of tasks and retrieve them upon startup.
  */
 public class Storage {
-    private Path filePath;
+    private final Path filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -74,7 +74,7 @@ public class Storage {
      */
     public void clearStorage() {
         try {
-            Files.delete(filePath);
+            Files.deleteIfExists(filePath);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
