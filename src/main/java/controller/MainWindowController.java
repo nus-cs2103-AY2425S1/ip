@@ -15,6 +15,8 @@ import tanjirobot.Tanjiro;
  * Controller for the main GUI.
  */
 public class MainWindowController extends AnchorPane {
+    private static final Image USER_IMAGE = new Image("/images/nezuko.png");
+    private static final Image TANJIRO_IMAGE = new Image("/images/tanjiro.png");
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,11 +26,6 @@ public class MainWindowController extends AnchorPane {
     @FXML
     private Button sendButton;
     private Tanjiro tanjiro;
-
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/nezuko.png"));
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final Image TANJIRO_IMAGE = new Image(this.getClass().getResourceAsStream("/images/tanjiro.png"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

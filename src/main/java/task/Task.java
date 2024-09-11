@@ -17,11 +17,9 @@ import system.Ui;
  * Tasks have a name, status, and a tag.
  */
 public abstract class Task {
-    @SuppressWarnings("checkstyle:VisibilityModifier")
+
     public static Ui ui = new Ui();
-    @SuppressWarnings("checkstyle:VisibilityModifier")
     public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
-    @SuppressWarnings("checkstyle:VisibilityModifier")
     public static Storage storage;
 
     static {
@@ -43,15 +41,6 @@ public abstract class Task {
 
     private Status currentStatus;
     private String tag;
-
-
-//    static {
-//        try {
-//            storage ;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     /**
      * Constructs a new Task with the specified name and tag.

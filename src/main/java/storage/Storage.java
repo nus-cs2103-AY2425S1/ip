@@ -11,9 +11,7 @@ import java.util.Scanner;
  * It provides methods to create, read, write, update, and delete lines in the file.
  */
 public class Storage {
-
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final String PATH = ".\\src\\main\\data\\task_list.txt";
+    private static final String PATH = ".\\src\\main\\data\\task_list.txt";
     private File file;
     private Scanner scanner;
     private FileWriter fileWriterAmend;
