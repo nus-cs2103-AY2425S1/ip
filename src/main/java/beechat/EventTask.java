@@ -1,3 +1,5 @@
+package beechat;
+
 class EventTask extends Task {
     protected String from;
     protected String to;
@@ -6,6 +8,11 @@ class EventTask extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 
     @Override

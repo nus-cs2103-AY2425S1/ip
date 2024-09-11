@@ -1,0 +1,3 @@
+T | 0 | read book
+D | 1 | do homework | Sunday
+E | 0 | lesson | Thurs 3pm | 4pm
