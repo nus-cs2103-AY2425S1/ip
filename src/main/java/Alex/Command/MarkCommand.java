@@ -29,10 +29,10 @@ public class MarkCommand extends CommandBase {
             Task task = tasks.getTask(index);
             if (markAsDone) {
                 task.markAsDone();
-                ui.printTaskStatusChange("Nice! I've marked this task as done:", index);
+                ui.showTaskStatusChange("Nice! I've marked this task as done:", index);
             } else {
                 task.markAsNotDone();
-                ui.printTaskStatusChange("OK, I've marked this task as not done yet:", index);
+                ui.showTaskStatusChange("OK, I've marked this task as not done yet:", index);
             }
             storage.save(tasks.getAllTasks());
         } catch (IndexOutOfBoundsException e) {

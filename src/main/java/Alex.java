@@ -30,27 +30,24 @@ public class Alex {
             tasks = new TaskList();
         }
     }
-
     /**
-     * Runs the Alex chatbot, handling user input and executing commands in a loop.
+     * Processes the user input and returns the response to be shown in the GUI.
+     *
+     * @param input The user's input.
+     * @return The response from Alex.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (AlexException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input); // Parse the user's input into a command
+            command.execute(tasks, ui, storage); // Execute the command (Ui updates will be appended)
+            return ui.getOutput(); // Retrieve the response from Ui
+        } catch (AlexException e) {
+            ui.showError(e.getMessage()); // Append error message to Ui
+            return ui.getOutput(); // Return the error message
         }
     }
+
+
 
     /**
      * Entry point of the application.
@@ -58,7 +55,7 @@ public class Alex {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Alex("data/tasks.txt").run();
+        new Alex("data/tasks.txt");
     }
 }
 

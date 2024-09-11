@@ -22,7 +22,8 @@ public class AddDefaultCommand extends CommandBase {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
-        tasks.addTask(task);
+        String message = tasks.addTask(task); // Get the message from TaskList
+        ui.appendMessage(message); // Append it to the Ui
         storage.save(tasks.getAllTasks());
     }
 

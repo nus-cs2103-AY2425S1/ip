@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Alex.Exceptions.AlexException;
@@ -15,7 +16,7 @@ import Alex.Task.Task;
 import Alex.Task.TaskType;
 import Alex.Task.Todo;
 
-import java.time.format.DateTimeFormatter;
+
 
 /**
  * Manages the loading and saving of tasks from/to a file.
@@ -42,14 +43,16 @@ public class Storage {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         if (!file.exists()) {
-            return tasks;  // No tasks to load if file doesn't exist
+            return tasks; // No tasks to load if file doesn't exist
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
-                if (parts.length < 2) continue;  // Skip invalid lines
+                if (parts.length < 2) {
+                    continue; // Skip invalid lines
+                }
 
                 TaskType type = TaskType.valueOf(parts[0]);
                 boolean isDone = parts[1].equals("1");
@@ -57,21 +60,21 @@ public class Storage {
 
                 Task task = null;
                 switch (type) {
-                    case TODO:
-                        task = new Todo(description);
-                        break;
-                    case DEADLINE:
-                        if (parts.length == 4) {
-                            task = new Deadline(description, parts[3]);
-                        }
-                        break;
-                    case EVENT:
-                        if (parts.length == 5) { // Adjusted length to 5 for Event (with from and to)
-                            task = new Event(description, parts[3], parts[4]);
-                        }
-                        break;
-                    default:
-                        throw new AlexException("Unexpected task type: " + type);
+                case TODO:
+                    task = new Todo(description);
+                    break;
+                case DEADLINE:
+                    if (parts.length == 4) {
+                        task = new Deadline(description, parts[3]);
+                    }
+                    break;
+                case EVENT:
+                    if (parts.length == 5) { // Adjusted length to 5 for Event (with from and to)
+                        task = new Event(description, parts[3], parts[4]);
+                    }
+                    break;
+                default:
+                    throw new AlexException("Unexpected task type: " + type);
                 }
 
                 if (task != null) {
@@ -120,4 +123,3 @@ public class Storage {
         }
     }
 }
-
