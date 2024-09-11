@@ -69,11 +69,11 @@ public class Parser {
                 throw new InvalidInputException("invalid input for event");
             }
             String input = text.substring(6);
-            String[] partA = input.split(" /from ");
-            String description = partA[0];
-            String[] partB = partA[1].split(" /to ");
-            String start = partB[0];
-            String end = partB[1];
+            String[] descriptionAndDates = input.split(" /from ");
+            String description = descriptionAndDates[0];
+            String[] startAndEndDates = descriptionAndDates[1].split(" /to ");
+            String start = startAndEndDates[0];
+            String end = startAndEndDates[1];
             Event newEvent = new Event(description, start, end, false);
             return lst.addTask(newEvent);
         } else {
