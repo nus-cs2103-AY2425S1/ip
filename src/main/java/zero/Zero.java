@@ -12,7 +12,7 @@ import zero.util.Storage;
  */
 public class Zero {
 
-    private final Storage storage;
+    private final Storage STORAGE;
     private TaskList tasks;
     private final Ui ui;
 
@@ -26,10 +26,10 @@ public class Zero {
     public Zero() {
         String filePath = "data/zero.txt";
         ui = new Ui();
-        storage = new Storage(filePath);
+        STORAGE = new Storage(filePath);
 
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(STORAGE.load());
         } catch (ZeroException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
@@ -46,7 +46,7 @@ public class Zero {
     public String getResponse(String input) {
         try {
             String output = Parser.parseCommand(input, tasks, ui);
-            storage.save(tasks);
+            STORAGE.save(tasks);
             return output;
         } catch (ZeroException e) {
             return ui.showError(e.getMessage());

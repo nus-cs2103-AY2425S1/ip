@@ -8,23 +8,23 @@ import java.time.LocalDateTime;
  * and end (to) times.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime fromDate;
+    protected LocalDateTime toYear;
 
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime fromDate, LocalDateTime toYear) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toYear = toYear;
     }
 
     @Override
     public String toFormatted() {
-        return "E," + this.isDone() + "," + this.description + "," + this.from + "," + this.to + "\n";
+        return "E," + this.isDone() + "," + this.description + "," + this.fromDate + "," + this.toYear + "\n";
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.getDayOfMonth() + " " + from.getMonth() + " "
-                + from.getYear() + " to: " + to.getDayOfMonth() + " " + to.getMonth() + " " + to.getYear() + ")";
+        return "[E]" + super.toString() + " (from: " + fromDate.getDayOfMonth() + " " + fromDate.getMonth() + " "
+                + fromDate.getYear() + " to: " + toYear.getDayOfMonth() + " " + toYear.getMonth() + " " + toYear.getYear() + ")";
     }
 }

@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
  * It is a subclass of {@code Task} and adds a {@code LocalDateTime} field to store the deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime byDate;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     public String getStatusIcon() {
@@ -20,12 +20,12 @@ public class Deadline extends Task {
 
     @Override
     public String toFormatted() {
-        return "D," + this.isDone() + "," + this.description + "," + this.by + "\n";
+        return "D," + this.isDone() + "," + this.description + "," + this.byDate + "\n";
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.getDayOfMonth() + " " + by.getMonth() + " " + by.getYear()
+        return "[D]" + super.toString() + " (by: " + byDate.getDayOfMonth() + " " + byDate.getMonth() + " " + byDate.getYear()
                 + ")";
     }
 }

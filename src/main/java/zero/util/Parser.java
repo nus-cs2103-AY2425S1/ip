@@ -31,25 +31,27 @@ public class Parser {
         assert !fullCommand.trim().isEmpty() : "Command should not be empty";
 
         try {
-            if (fullCommand.equals("bye")) {
+            String commandWord = fullCommand.split(" ")[0];
+            switch (commandWord) {
+            case "bye":
                 return ui.showGoodbye();
-            } else if (fullCommand.equals("list")) {
+            case "list":
                 return ui.listTasks(tasks);
-            } else if (fullCommand.startsWith("delete")) {
+            case "delete":
                 return handleDelete(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("mark")) {
+            case "mark":
                 return handleMark(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("unmark")) {
+            case "unmark":
                 return handleUnmark(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("todo")) {
+            case "todo":
                 return handleTodo(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("deadline")) {
+            case "deadline":
                 return handleDeadline(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("event")) {
+            case "event":
                 return handleEvent(tasks, fullCommand, ui);
-            } else if (fullCommand.startsWith("find")) {
+            case "find":
                 return handleFind(tasks, fullCommand, ui);
-            }   else {
+            default:
                 throw new ZeroException("分かりません");
             }
         } catch (ZeroException e) {
