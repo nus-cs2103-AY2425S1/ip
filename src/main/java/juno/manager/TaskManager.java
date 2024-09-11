@@ -42,7 +42,6 @@ public class TaskManager {
      * @return true if a task with the same description exists, else, return false.
      */
     public boolean isDuplicateTask(String taskDescription) {
-        assert this.tasks != null : "Task list cannot be null!";
         for (Task task : this.tasks) {
             if (task.getDescription().equalsIgnoreCase(taskDescription)) {
                 return true;
