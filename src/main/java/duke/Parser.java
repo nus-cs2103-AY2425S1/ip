@@ -31,65 +31,16 @@ public class Parser {
      * @param tasks Stores the user's tasks inside the TaskList object while the program is running.
      * @param ui Handles the interaction between the user and program.
      */
-    public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
-            EmptyCommandException {
-        String instruction = inputString.split(" ", 2)[0];
-        if (instruction.equals("list")) {
+    public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
+            EmptyCommandException, TaskListOutOfBoundsException {
+        String command = inputString.split(" ", 2)[0];
+        if (command.equals("list")) {
             ui.display(tasks);
             return;
         }
-        if (inputString.split(" ", 2).length == 0) {
-            throw new EmptyCommandException();
-        }
-        boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete")
-                .contains(inputString.split(" ", 2)[0]));
-        if (inputString.split(" ", 2).length == 1 && flag1) {
-            throw new InvalidInstructionException();
-        }
-        boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inputString.split(" ", 2)[0]);
-        if (inputString.split(" ", 2).length == 1 && flag2) {
-            throw new EmptyTaskException();
-        }
+        throwInvalidInputExceptions();
         String remainingInput = inputString.split(" ", 2)[1];
-        if (instruction.equals("mark")) {
-            int idx = Integer.parseInt(remainingInput) - 1;
-            tasks.set(idx, true);
-            System.out.println("Nice! I've marked this task as done:\n"
-                    + tasks.get(idx));
-        } else if (instruction.equals("unmark")) {
-            int idx = Integer.parseInt(remainingInput) - 1;
-            tasks.set(idx, false);
-            System.out.println("OK, I've marked this task as not done yet:\n"
-                    + tasks.get(idx));
-        } else if (instruction.equals("todo")) {
-            Todo task = new Todo(remainingInput);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("deadline")) {
-            String name = remainingInput.split(" /by ", 2)[0];
-            LocalDate endDate = LocalDate.parse(remainingInput.split(" /by ", 2)[1]);
-            Deadline task = new Deadline(name, endDate);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("event")) {
-            String name = remainingInput.split(" /from ", 2)[0];
-            remainingInput = remainingInput.split(" /from ", 2)[1];
-            String start = remainingInput.split(" /to ", 2)[0];
-            String end = remainingInput.split(" /to ", 2)[1];
-            Event task = new Event(name, start, end);
-            tasks.add(task);
-            ui.taskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("delete")) {
-            int idx = Integer.parseInt(remainingInput) - 1;
-            Task taskToBeDeleted = tasks.get(idx);
-            tasks.delete(idx);
-            ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
-        } else if (instruction.equals("find")) {
-            TaskList matchingTasks = tasks.findAll(remainingInput);
-            ui.displaySearch(matchingTasks);
-        } else {
-            throw new InvalidInstructionException();
-        }
+        System.out.println(performCommandAndGetParseResponse(tasks, ui, command, remainingInput));
     }
 
     /**
@@ -99,47 +50,62 @@ public class Parser {
      * @param ui The instance holding the current's user's interface for the programme.
      * @return Returns the appropriate response to match the user's instruction.
      * @throws EmptyTaskException
-     * @throws InvalidInstructionException
+     * @throws InvalidCommandException
      * @throws EmptyCommandException
      */
-    public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
-            EmptyCommandException {
-        String instruction = inputString.split(" ", 2)[0];
-        if (instruction.equals("list")) {
+    public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
+            EmptyCommandException, TaskListOutOfBoundsException {
+        String command = inputString.split(" ", 2)[0];
+        if (command.equals("list")) {
             return ui.guiDisplay(tasks);
         }
+        throwInvalidInputExceptions();
+        String remainingInput = inputString.split(" ", 2)[1];
+        return performCommandAndGetParseResponse(tasks, ui, command, remainingInput);
+    }
+
+    private void throwInvalidInputExceptions() throws EmptyCommandException, InvalidCommandException {
         if (inputString.split(" ", 2).length == 0) {
             throw new EmptyCommandException();
         }
         boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete")
                 .contains(inputString.split(" ", 2)[0]));
         if (inputString.split(" ", 2).length == 1 && flag1) {
-            throw new InvalidInstructionException();
+            throw new InvalidCommandException();
         }
         boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inputString.split(" ", 2)[0]);
         if (inputString.split(" ", 2).length == 1 && flag2) {
             throw new EmptyTaskException();
         }
-        String remainingInput = inputString.split(" ", 2)[1];
-        if (instruction.equals("mark")) {
+    }
+
+    private static String performCommandAndGetParseResponse(
+            TaskList tasks, Ui ui, String command, String remainingInput)
+            throws InvalidCommandException {
+        switch (command) {
+        case "mark" -> {
             int idx = Integer.parseInt(remainingInput) - 1;
             tasks.set(idx, true);
             return "Nice! I've marked this task as done:\n" + tasks.get(idx);
-        } else if (instruction.equals("unmark")) {
+        }
+        case "unmark" -> {
             int idx = Integer.parseInt(remainingInput) - 1;
             tasks.set(idx, false);
             return "OK, I've marked this task as not done yet:\n" + tasks.get(idx);
-        } else if (instruction.equals("todo")) {
+        }
+        case "todo" -> {
             Todo task = new Todo(remainingInput);
             tasks.add(task);
             return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("deadline")) {
+        }
+        case "deadline" -> {
             String name = remainingInput.split(" /by ", 2)[0];
             LocalDate endDate = LocalDate.parse(remainingInput.split(" /by ", 2)[1]);
             Deadline task = new Deadline(name, endDate);
             tasks.add(task);
             return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("event")) {
+        }
+        case "event" -> {
             String name = remainingInput.split(" /from ", 2)[0];
             remainingInput = remainingInput.split(" /from ", 2)[1];
             String start = remainingInput.split(" /to ", 2)[0];
@@ -147,16 +113,20 @@ public class Parser {
             Event task = new Event(name, start, end);
             tasks.add(task);
             return ui.guiTaskAddOrDeleteDisplay(task, "add", tasks);
-        } else if (instruction.equals("delete")) {
+        }
+        case "delete" -> {
             int idx = Integer.parseInt(remainingInput) - 1;
             Task taskToBeDeleted = tasks.get(idx);
+            assert (tasks.size() > idx);
             tasks.delete(idx);
             return ui.guiTaskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
-        } else if (instruction.equals("find")) {
+        }
+        case "find" -> {
             TaskList matchingTasks = tasks.findAll(remainingInput);
             return ui.guiDisplaySearch(matchingTasks);
-        } else {
-            throw new InvalidInstructionException();
+
+        }
+        default -> throw new InvalidCommandException();
         }
     }
 }

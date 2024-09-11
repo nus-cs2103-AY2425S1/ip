@@ -3,9 +3,9 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 
 public class ParserTest {
@@ -16,13 +16,13 @@ public class ParserTest {
             Parser p = new Parser("xkcd");
             p.process(new TaskList(new ArrayList<>()), new Ui());
             fail();
-        } catch (EmptyCommandException | InvalidInstructionException ignored) {
+        } catch (EmptyCommandException | InvalidCommandException | TaskListOutOfBoundsException ignored) {
             System.out.println("Error");
         }
     }
 
     @Test
-    public void processTest2() {
+    public void processTest2() throws TaskListOutOfBoundsException {
         try {
             Parser p = new Parser("mark 1");
             TaskList tasks = new TaskList(new ArrayList<>());
@@ -30,7 +30,7 @@ public class ParserTest {
             tasks.add(todo);
             p.process(tasks, new Ui());
             assertEquals("[T][X] borrow book", todo.toString());
-        } catch (EmptyCommandException | InvalidInstructionException ignored) {
+        } catch (EmptyCommandException | InvalidCommandException ignored) {
             System.out.println("Error");
         }
     }
