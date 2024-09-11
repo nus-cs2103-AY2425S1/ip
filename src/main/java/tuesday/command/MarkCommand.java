@@ -44,16 +44,23 @@ public class MarkCommand extends Command {
     public void execute(Task task, Ui ui, Storage storage) {
         assert this.taskIndex > 0 : "The index can never be 0";
         assert Task.getTaskArrayList().size() >= this.taskIndex - 1 : "Task Array should not be empty";
+        this.changeDoneInTask();
+        this.getMarkMessage(ui);
+        this.changeDataFromFile();
+    }
 
+    private void changeDoneInTask() {
         Task.getTaskArrayList().get(this.taskIndex - 1).changeDone(this.isMarked);
+    }
+
+    private void getMarkMessage(Ui ui) {
         this.responseMessage = ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
-        changeDataFromFile();
     }
 
     /**
      * Replaces a specific line in the data file and update the mark
      */
-    public void changeDataFromFile() {
+    private void changeDataFromFile() {
         int i = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/data/tuesday.txt"));

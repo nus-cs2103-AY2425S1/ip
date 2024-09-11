@@ -40,17 +40,16 @@ public class ToDo extends Task {
     public String writeToDatafile(File dataFile) {
         String builder = "";
         try {
-            if (dataFile.exists()) {
-                // boolean if true, then data will be written to the end of the file rather than the beginning.
-                FileWriter fw = new FileWriter(dataFile, true);
+            assert dataFile.exists() : "Data file must be created";
+            // boolean if true, then data will be written to the end of the file rather than the beginning.
+            FileWriter fw = new FileWriter(dataFile, true);
 
-                builder = "T | " + this.getDone1() + " | " + super.writeToDatafile(dataFile) + "\n";
-                fw.write(builder);
+            builder = "T | " + this.getDone1() + " | " + super.writeToDatafile(dataFile) + "\n";
+            fw.write(builder);
 
-                //flushing & closing the writer
-                fw.flush();
-                fw.close();
-            }
+            //flushing & closing the writer
+            fw.flush();
+            fw.close();
         } catch (IOException e) {
             System.out.println("    An error occurred.");
         }

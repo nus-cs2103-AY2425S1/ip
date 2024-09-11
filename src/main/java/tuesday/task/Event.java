@@ -54,18 +54,17 @@ public class Event extends Task {
     @Override
     public String writeToDatafile(File dataFile) {
         try {
-            if (dataFile.exists()) {
-                // boolean if true, then data will be written to the end of the file rather than the beginning.
-                FileWriter fw = new FileWriter(dataFile, true);
+            assert dataFile.exists() : "Data file must be created";
+            // boolean if true, then data will be written to the end of the file rather than the beginning.
+            FileWriter fw = new FileWriter(dataFile, true);
 
-                String builder = "E | " + this.getDone1() + " | " + super.writeToDatafile(dataFile)
-                        + " | " + this.fromMsg + "-" + this.fromMsg + "\n";
-                fw.write(builder);
+            String builder = "E | " + this.getDone1() + " | " + super.writeToDatafile(dataFile)
+                    + " | " + this.fromMsg + "-" + this.fromMsg + "\n";
+            fw.write(builder);
 
-                //flushing & closing the writer
-                fw.flush();
-                fw.close();
-            }
+            //flushing & closing the writer
+            fw.flush();
+            fw.close();
         } catch (IOException e) {
             System.out.println("    An error occurred.");
         }
