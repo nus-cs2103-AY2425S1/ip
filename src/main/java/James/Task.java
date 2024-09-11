@@ -60,22 +60,16 @@ abstract class Task {
     }
 
     /**
-     * Checks if the specified keyword is present in the task description.
+     * Checks if the specified substring is present in the task description.
      *
-     * This method splits the task description into words and checks if any of them
-     * match the provided keyword, ignoring case differences.
+     * This method checks if the provided substring is contained within the task
+     * description, ignoring case differences.
      *
-     * @param keyWord The keyword to search for in the task description.
-     * @return true if the keyword is found in the description; false otherwise.
+     * @param subString The substring to search for in the task description.
+     * @return true if the substring is found in the description; false otherwise.
      */
-    public boolean matchKeyWord(String keyWord) {
-        String[] words = this.description.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equalsIgnoreCase(keyWord)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean matchSubstring(String subString) {
+        return this.description.toLowerCase().contains(subString.toLowerCase());
     }
 
 }
