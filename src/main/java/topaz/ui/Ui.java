@@ -34,7 +34,7 @@ public class Ui {
         return "Invalid index number: " + index + " Please refer to your list.";
     }
     public String showException(Exception e) {
-        return e + "Try agian!";
+        return e + "\nTry again!";
     }
 
     public String goodbye() {

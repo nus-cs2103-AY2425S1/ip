@@ -68,7 +68,9 @@ public class CreateCommand extends Command {
         try {
             String description = this.detail.substring(5);
             Todo todo = new Todo(description);
+            int originalSize = taskList.getSize();
             taskList.addTask(todo);
+            assert taskList.getSize() == originalSize + 1 : "Error in adding new taskList";
             return todo;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException(Topaz.TaskType.T);
@@ -91,6 +93,7 @@ public class CreateCommand extends Command {
             try {
                 Deadline deadline = new Deadline(description, LocalDateTime.parse(by, dateTimeFormatter));
                 taskList.addTask(deadline);
+                assert taskList.find(description).getSize() > 0 : "Fail to add to taskList";
                 return deadline;
             } catch (DateTimeParseException dateTimeParseException) {
                 throw new InvalidTaskException(Topaz.TaskType.D);
