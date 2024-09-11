@@ -78,9 +78,11 @@ public class TaskAdapter extends TypeAdapter<Task> {
                 throw new RuntimeException(e);
             }
             break;
-        default:
+        case "todo":
             task = new Todo(description, taskType);
             break;
+        default:
+            throw new RuntimeException();
         }
 
         if (task != null && isDone) {
@@ -108,6 +110,8 @@ public class TaskAdapter extends TypeAdapter<Task> {
             writer.name("taskType").value("event");
             writer.name("endTimeString").value(((Event) task).getEndTimeString());
             writer.name("startTimeString").value(((Event) task).getStartTimeString());
+        } else {
+            throw new RuntimeException();
         }
         writer.name("description").value(task.getDescription());
         writer.name("isDone").value(task.getIsDone());

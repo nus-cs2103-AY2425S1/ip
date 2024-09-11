@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import juno.command.AddDeadlineCommand;
 import juno.command.AddEventCommand;
 import juno.command.AddTodoCommand;
@@ -30,7 +33,9 @@ public class CommandParserTest {
     public void startTestEnv() {
         this.commandParser = new CommandParser();
         this.junoUi = new JunoUi();
-        this.fileManager = new FileManager();
+        VBox vBox = Mockito.mock(VBox.class);
+        Image image = Mockito.mock(Image.class);
+        this.fileManager = new FileManager(vBox, image);
         this.taskManager = new TaskManager(null);
     }
     @Test
