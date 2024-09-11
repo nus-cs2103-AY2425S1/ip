@@ -4,8 +4,9 @@ import Exceptions.*;
 import Tasks.*;
 
 import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class StoreList {
 
@@ -143,7 +144,6 @@ public class StoreList {
      * Returns a formatted string representing the tasks due on the specified date.
      *
      * @param date The date to check deadlines against (in format yyyy-MM-dd or dd/MM/yyyy).
-     *
      */
     public String dueOnDate(String date) {
         LocalDate inputDate;
@@ -161,48 +161,32 @@ public class StoreList {
         }
 
 
-        found = tasksDue(date, tasksDueOnDate, inputDate, found);
+        return tasksDue(date, tasksDueOnDate, inputDate, found);
 
-        // if no tasks found, return no tasks due
-        if (!found) {
-            tasksDueOnDate.append("No tasks due on ").append(date);
-        }
-        return tasksDueOnDate.toString();
     }
 
     /**
      * Returns true if any tasks were found, false otherwise.
      * Helper method to find and append tasks due on a specific date.
      *
-     * @param date The original date string used in the request.
+     * @param date           The original date string used in the request.
      * @param tasksDueOnDate StringBuilder to append tasks due on the date.
-     * @param inputDate The parsed LocalDate of the input date.
-     * @param found A boolean indicating if any tasks were found due on the date.
-     *
+     * @param inputDate      The parsed LocalDate of the input date.
+     * @param found          A boolean indicating if any tasks were found due on the date.
      */
-    private boolean tasksDue(String date, StringBuilder tasksDueOnDate, LocalDate inputDate, boolean found) {
+    private String tasksDue(String date, StringBuilder tasksDueOnDate, LocalDate inputDate, boolean found) {
+        String tasksDue = items.stream()
+                .filter(task -> task instanceof Deadlines && ((Deadlines) task).getLocalDate().equals(inputDate)
+                        || task instanceof Events && ((Events) task).getLocalDate().equals(inputDate))
+                .map(task -> "    " + (items.indexOf(task) + 1) + "." + task.print() + "\n")
+                .collect(Collectors.joining());
         tasksDueOnDate.append("    Here are the tasks due on ").append(date).append(":\n");
-        for (int i = 0; i < items.size(); i++) {
-            Task task = items.get(i);
-            if (task instanceof Deadlines) {
-                // type cast once sure of type of task
-                LocalDate taskDate = ((Deadlines) task).getLocalDate();
-                if (taskDate != null && taskDate.equals(inputDate)) {
-                    tasksDueOnDate.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
-                    found = true;
-                }
-            }
 
-            if (task instanceof Events) {
-                // type cast once sure of type of task
-                LocalDate taskDate = ((Events) task).getLocalDate();
-                if (taskDate != null && taskDate.equals(inputDate)) {
-                    tasksDueOnDate.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
-                    found = true;
-                }
-            }
+        if (tasksDue.isEmpty()) {
+            return "No tasks due on " + date;
+        } else {
+            return "    Here are the tasks due on " + date + ":\n" + tasksDue;
         }
-        return found;
     }
 
     /**
@@ -233,21 +217,16 @@ public class StoreList {
      * @param substrings the keywords to search against.
      */
     public String displayItemsWithWord(String... substrings) {
-        StringBuilder result = new StringBuilder("    Here are the tasks in your list that match your search:\n");
-        for (int i = 0; i < items.size(); i++) {
-            String taskDesc = items.get(i).getTaskDesc();
-            boolean contains = false;
+        String result = items.stream()
+                .filter(task -> {
+                    String taskDesc = task.getTaskDesc();
+                    return Arrays.stream(substrings)
+                            .anyMatch(taskDesc::contains);
+                })
+                .map(task -> "    " + (items.indexOf(task) + 1) + "." + task.print() + "\n")
+                .collect(Collectors.joining());
 
-            for (String substring : substrings) {
-                if (taskDesc.contains(substring)) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (contains) {
-                result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
-            }
-        }
-        return result.toString();
+        return "    Here are the tasks in your list that match your search:\n" + result;
     }
 }
+
