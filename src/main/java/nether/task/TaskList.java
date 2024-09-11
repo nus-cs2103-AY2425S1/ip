@@ -81,6 +81,10 @@ public class TaskList {
      */
     public String printList() {
         StringBuilder response = new StringBuilder();
+        if (tasks.isEmpty()) { // guard case for 0 length list
+            response.append("There are no tasks in your list");
+            return response.toString();
+        }
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < getSize(); i++) {
             response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
