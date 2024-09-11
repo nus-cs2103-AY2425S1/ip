@@ -121,16 +121,16 @@ public class TaskList {
     }
     @Override
     public boolean equals(Object object) {
-        if (object instanceof TaskList) {
-            TaskList other = (TaskList) object;
-            for (int i = 0; i < other.getSize(); i++) {
-                if (!this.tasks.get(i).equals(other.tasks.get(i))) {
-                    return false;
-                }
-            }
-            return true;
+        if (!(object instanceof TaskList)) {
+            return false;
         }
-        return false;
+        TaskList other = (TaskList) object;
+        for (int i = 0; i < other.getSize(); i++) {
+            if (!this.tasks.get(i).equals(other.tasks.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

@@ -2,6 +2,7 @@ package topaz.command;
 
 import java.io.IOException;
 
+import topaz.exception.InvalidCommandException;
 import topaz.main.Storage;
 import topaz.main.TaskList;
 import topaz.task.Task;
@@ -33,15 +34,19 @@ public class MarkCommand extends Command {
                 Task task = taskList.markAsDone(index);
                 storage.save(taskList);
                 return ui.showDoneTaskStatus(task);
-            } else {
+            } else if (super.keyword.equals("unmark")) {
                 Task task = taskList.markAsUndone(index);
                 storage.save(taskList);
                 return ui.showUndoneTaskStatus(task, taskList.getSize());
+            } else {
+                throw new InvalidCommandException(super.keyword);
             }
         } catch (IndexOutOfBoundsException e) {
             return ui.showMarkIobError(index);
         } catch (IOException e) {
             return ui.showSaveIoeException(e);
+        } catch (InvalidCommandException e) {
+            return ui.showException(e);
         }
     }
 }
