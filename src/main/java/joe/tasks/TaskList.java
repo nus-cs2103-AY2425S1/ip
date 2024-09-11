@@ -51,11 +51,16 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the user's list.
+     * Adds a task to the user's list, it checks for duplicates in the tasklist to ensure no two tasks are the same.
      * @param t the task to be added
      * @return the message to be displayed to the user
      */
     public String addTask(Task t) {
+        for (Task task : tasks) {
+            if (task.equals(t)) {
+                return "This task already exists in the list.";
+            }
+        }
         tasks.add(t);
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");

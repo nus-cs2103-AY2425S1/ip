@@ -64,4 +64,15 @@ public class Event extends Task {
     public LocalDateTime getTime() {
         return start;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event other = (Event) obj;
+            return  super.equals(obj)
+                    && this.start.equals(other.start)
+                    && this.end.equals(other.end);
+        }
+        return false;
+    }
 }

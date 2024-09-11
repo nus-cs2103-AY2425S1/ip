@@ -61,4 +61,13 @@ public class Deadline extends Task {
     public LocalDateTime getTime() {
         return due;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            return super.equals(obj) && this.due.equals(other.due);
+        }
+        return false;
+    }
 }

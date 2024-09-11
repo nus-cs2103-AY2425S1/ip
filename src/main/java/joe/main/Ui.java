@@ -2,11 +2,7 @@ package joe.main;
 
 import java.util.Scanner;
 
-import joe.commands.ByeCommand;
-import joe.commands.Command;
-import joe.commands.HelpCommand;
-import joe.commands.ListCommand;
-import joe.commands.SaveCommand;
+import joe.commands.*;
 import joe.exceptions.InvalidCommandException;
 import joe.exceptions.InvalidIndexException;
 import joe.tasks.TaskList;
@@ -18,14 +14,15 @@ import joe.utils.Parser;
 public class Ui {
     private static final String LINE =
             "____________________________________________________________";
-    private final Scanner reader;
+//    private final Scanner reader;
     private TaskList tasks;
+    private Command previousCommand;
 
     /**
      * Constructor for Ui.
      */
     public Ui() {
-        reader = new Scanner(System.in);
+//        reader = new Scanner(System.in);
         showWelcome();
     }
 
@@ -65,7 +62,7 @@ public class Ui {
                 return e.getMessage();
             }
         }
-
+        previousCommand = c;
         return c.execute();
     }
 
