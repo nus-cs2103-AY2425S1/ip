@@ -6,8 +6,6 @@ import susan.ui.Storage;
 import susan.ui.SusanException;
 import susan.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Represents a command to mark or unmark tasks by user-input index.
  */
@@ -21,7 +19,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException {
         try {
             int taskIndex = Integer.parseInt(commandParts[1]) - 1;
             Task task = tasks.get(taskIndex);

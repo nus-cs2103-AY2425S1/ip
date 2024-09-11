@@ -1,5 +1,8 @@
 package susan.task;
 
+/**
+ * Class representing tasks to be added by user.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

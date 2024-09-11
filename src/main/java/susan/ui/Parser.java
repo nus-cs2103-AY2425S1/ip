@@ -15,9 +15,7 @@ public class Parser {
         case "hello":
             return new HelloCommand();
         case "todo":
-            return new AddCommand(commandParts);
         case "deadline":
-            return new AddCommand(commandParts);
         case "event":
             return new AddCommand(commandParts);
         case "list":

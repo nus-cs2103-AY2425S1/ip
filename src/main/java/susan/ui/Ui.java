@@ -9,19 +9,8 @@ import java.util.Scanner;
  * Deals with interactions with the user.
  */
 public class Ui {
-    private Scanner scanner;
 
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public void showLine() {
-        System.out.println("~~~");
-    }
+    public Ui() {}
 
     /**
      * Greets the user.
@@ -38,6 +27,9 @@ public class Ui {
         return "Good bye, slay the day!\n";
     }
 
+    /**
+     * Prints information about the error encountered by the user.
+     */
     public String showError(String message) {
         return "NOT OK. " + message;
     }
