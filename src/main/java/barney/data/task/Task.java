@@ -88,6 +88,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + (!this.tag.isEmpty() ? " [tag: " + this.tag + "]" : "");
+        return "[" + this.getStatusIcon() + "] " + this.description
+            + (!this.tag.isEmpty() ? " [tag: " + this.tag + "]" : "");
     }
 }
