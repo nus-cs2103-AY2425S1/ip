@@ -1,0 +1,2 @@
+[T][X] read book
+[D][X] read magazine (by: Oct 10 2024, 06 00 00)
