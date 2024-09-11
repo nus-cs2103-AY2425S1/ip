@@ -42,6 +42,12 @@ public class Event extends Task {
         return "E";
     }
 
+    public void setEventStart(LocalDateTime startTime) {
+        this.from = startTime;
+    }
+    public void setEventEnd(LocalDateTime endTime) {
+        this.to = endTime;
+    }
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
