@@ -230,6 +230,30 @@ public class Ui {
     }
 
     /**
+     * Displays the list of tasks sorted by date.
+     *
+     * @param tasks The TaskList containing the tasks to be displayed.
+     * @return The list of tasks sorted by date as a String.
+     */
+    public String showSortedTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
+
+        StringBuilder output = new StringBuilder();
+        if (tasks.isTaskListEmpty()) {
+            output.append("     Your task list is empty.\n");
+        } else {
+            output.append("     Here are your tasks listed in order of ascending dates:\n");
+            for (int i = 0; i < tasks.getSize(); i++) {
+                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+            }
+        }
+
+        printMessage(output.toString());
+
+        return output.toString();
+    }
+
+    /**
      * Displays a goodbye message when the user exits the application.
      *
      * @return The goodbye message as a String.

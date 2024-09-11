@@ -45,6 +45,10 @@ public class Event extends Task {
         return from.toLocalDate();
     }
 
+    public LocalDateTime getFromTime() {
+        return from;
+    }
+
     public LocalDate getTo() {
         return to.toLocalDate();
     }
