@@ -6,22 +6,20 @@ import kitty.command.FindCommand;
 import kitty.command.MarkCommand;
 import kitty.command.UnmarkCommand;
 import kitty.command.DeleteCommand;
-import kitty.kittyexceptions.DeadlineException;
-import kitty.kittyexceptions.EventException;
 import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
 
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
     public static final Pattern INDEX_COMMAND_PATTERN =
-            Pattern.compile("(mark|unmark|delete)\\\\s+(\\\\d+)\\s*$");
+            Pattern.compile("(mark|unmark|delete)\\s+(\\d+)\\s*$");
     public static final Pattern FIND_PATTERN =
             Pattern.compile("^find\\s+(.+)$\\s*");
 
@@ -50,65 +48,17 @@ public class Parser {
     }
 
 
-    public static boolean checkDeadline(String str, Ui ui) {
-        try {
-            // separate time and name of the deadline
-            String[] parts = str.split("/by");
-
-            // check if both valid name and time exist
-            if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                throw new DeadlineException();
-            }
-
-            return checkDateTime(parts[1].trim());
-        } catch (DeadlineException e) {
-            ui.showErrorMessage(e.toString());
-        }
-
-        return false;
-    }
-
-    public static String[] parseDeadline(String str) {
-        return str.split("/by");
-    }
-
-    public static String[] parseEvent(String str) {
-        return str.split("/from|/to");
-    }
-
-    public static boolean checkEvent(String str, Ui ui) {
-        try {
-            String[] parts = str.split("/from|/to");
-            if (parts.length != 3) {
-                throw new EventException();
-            }
-
-            return checkDateTime(parts[1].trim()) && checkDateTime(parts[2].trim());
-        } catch (EventException e) {
-            ui.showErrorMessage(e.toString());
-            return false;
-        }
-    }
-
     private static String parseFind(String str, Ui ui, TaskList tasks) throws FindException {
         assert str.contains("find");
-        String[] aux = str.split(" ");
-        if (aux.length != 2) {
-            throw new FindException();
+
+        Matcher matcher = FIND_PATTERN.matcher(str);
+
+        if (!matcher.matches()) {
+            return new FindException().toString();
         }
 
-        return new FindCommand(ui, tasks, aux[1]).run();
-    }
-
-    private static boolean checkDateTime(String dateTime) {
-        try {
-            LocalDateTime.parse(dateTime, DATE_TIME_FORMAT);
-            return true;
-        } catch (DateTimeParseException e) {
-            System.out.println("dateTimeFormat is wrong");
-        }
-
-        return false;
+        String keyword = matcher.group(1);
+        return new FindCommand(ui, tasks, keyword).run();
     }
 
     public static LocalDateTime parseDateTime(String str) {
@@ -118,22 +68,17 @@ public class Parser {
     private static String parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,
             NumberFormatException, IndexOutOfBoundsException {
         assert str.contains("mark") || str.contains("unmark") || str.contains("delete");
-        String[] aux = str.split(" ");
-        if (aux.length != 2) {
-            throw new MarksException();
+
+        Matcher matcher = INDEX_COMMAND_PATTERN.matcher(str);
+
+        if (!matcher.matches()) {
+            return new MarksException().toString();
         }
 
-        // Replace all non-digit characters with spaces
-        String cleanedInput = aux[1].replaceAll("\\D+", " ");
-        // Split the cleaned string by spaces
-        String[] parts = cleanedInput.trim().split("\\s+");
+        String type = matcher.group(1);
+        int index = Integer.parseInt(matcher.group(2));
 
-        if (parts.length == 0) {
-            throw new MarksException();
-        }
-
-        int index = Integer.parseInt(parts[0]);
-        switch (aux[0].trim()) {
+        switch (type) {
         case "mark" -> {
             return new MarkCommand(ui, tasks, index, storage).run();
         }
