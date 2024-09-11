@@ -54,3 +54,9 @@ run {
 checkstyle {
     toolVersion = '10.2'
 }
+
+shadowJar {
+    archiveFileName = 'makima.jar'
+}
+
+mainClassName = 'makima.gui.Launcher'
