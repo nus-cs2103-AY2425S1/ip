@@ -14,8 +14,11 @@ public class Task {
      * @param type
      */
     public Task(String description, TaskType type) {
+        assert description != null : "Description should not be empty!";
         this.description = description;
         this.status = TaskStatus.NOT_DONE;
+        assert  type.equals(TaskType.TODO) || type.equals(TaskType.DEADLINE) || type.equals(TaskType.EVENT)
+                : "The task type should only be Todo, Deadline or Event!";
         this.type = type;
     }
 

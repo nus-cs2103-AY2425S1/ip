@@ -11,6 +11,7 @@ public class Parser {
      * @throws BuddyBotException
      */
         public static Commands parseCmd(String input) throws BuddyBotException {
+            assert input != null : "Input should not be empty!";
             String command = input.split(" ", 2)[0];
             try {
                 return Commands.valueOf(command.toUpperCase());
@@ -26,6 +27,7 @@ public class Parser {
      * @throws BuddyBotException
      */
         public static String parseArgs(String input) throws BuddyBotException {
+            assert input != null : "Input should not be empty!";
             try {
                 return input.split(" ", 2)[1];
             } catch (ArrayIndexOutOfBoundsException e) {
