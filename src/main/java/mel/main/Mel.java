@@ -77,10 +77,11 @@ public class Mel {
      * handles session's read-response sequence.
      * Only used in GUI.
      * @param input user input.
+     * @return Mel response string
      */
-    public String getResponse(String... input) {
+    public String getResponse(String input) {
         isUsingGui = true;
-        gui.read(input[0]);
+        gui.read(input);
         String s = response;
         response = "";
         return s;
