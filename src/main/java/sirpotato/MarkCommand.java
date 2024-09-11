@@ -11,6 +11,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.mark(itemNumber);
+        assert (tasks.getTask(itemNumber).getCompletion()) : "Item should be marked complete";
         return ui.displayMarkedItem(itemNumber, tasks);
     }
     

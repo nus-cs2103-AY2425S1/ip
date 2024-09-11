@@ -31,6 +31,10 @@ public class Task {
         this.isDone = done;
     }
 
+    public boolean getCompletion() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return (getStatusIcon() + " " + displayDescription());
