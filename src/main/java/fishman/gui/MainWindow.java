@@ -30,7 +30,7 @@ public class MainWindow {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        showWelcomeMessage();
+        displayWelcomeMessage();
 
     }
 
@@ -42,9 +42,9 @@ public class MainWindow {
      */
     public void setFishman(Fishman fishman) {
         this.fishman = fishman;
-        String errorMessage = fishman.loadAndSaveTasks("load");
-        if (errorMessage != null) {
-            showLoadErrors(errorMessage);
+        String loadingErrorMessage = fishman.loadAndSaveTasks("load");
+        if (loadingErrorMessage != null) {
+            displayLoadErrors(loadingErrorMessage);
         }
     }
 
@@ -54,11 +54,11 @@ public class MainWindow {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = fishman.getResponse(input);
+        String userInputText = userInput.getText();
+        String fishmanResponse = fishman.getResponse(userInputText);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFishmanDialog(response, fishmanImage)
+                DialogBox.getUserDialog(userInputText, userImage),
+                DialogBox.getFishmanDialog(fishmanResponse, fishmanImage)
         );
         userInput.clear();
     }
@@ -66,7 +66,7 @@ public class MainWindow {
     /**
      * Displays the welcome message in the DialogBox on launch.
      */
-    private void showWelcomeMessage() {
+    private void displayWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Fishman\nWhat can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getFishmanDialog(welcomeMessage, fishmanImage));
     }
@@ -74,7 +74,7 @@ public class MainWindow {
     /**
      * Displays any error message from loading file data in the DialogBox on launch.
      */
-    private void showLoadErrors(String errorMessage) {
+    private void displayLoadErrors(String errorMessage) {
         dialogContainer.getChildren().add(DialogBox.getFishmanDialog(errorMessage, fishmanImage));
     }
 
