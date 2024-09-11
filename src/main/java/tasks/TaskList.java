@@ -72,13 +72,7 @@ public class TaskList {
     public int size() {
         return this.taskList.size();
     }
-    /**
-     * Checks whether the TaskList is empty.
-     * @return a boolean value to denote whether the TaskList is empty.
-     */
-    public boolean isEmpty() {
-        return this.taskList.isEmpty();
-    }
+
     /**
      * Prints the entire TaskList.
      */
