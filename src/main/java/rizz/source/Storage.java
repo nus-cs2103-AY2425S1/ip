@@ -37,8 +37,6 @@ public class Storage {
         Files.writeString(dataFilePath, builder.toString());
     }
 
-
-
     public ArrayList<Task> loadTasks() throws IOException {
         if (Files.exists(dataFilePath)) {
             List<String> lines = Files.readAllLines(dataFilePath);

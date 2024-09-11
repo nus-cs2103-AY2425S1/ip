@@ -7,13 +7,11 @@ public class Rizz {
     private TaskList tasks;
     private Ui ui;
 
-
     public Rizz(String filePath) throws IOException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.loadTasks());
     }
-
 
     public void run() throws IOException {
         ui.greet();
@@ -29,7 +27,6 @@ public class Rizz {
             storage.saveTasks(tasks);
         }
     }
-
 
     public static void main(String[] args) throws IOException {
         new Rizz("./data/rizz.txt").run();

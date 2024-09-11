@@ -2,13 +2,10 @@ package rizz.command;
 import rizz.source.TaskList;
 import rizz.source.Ui;
 import rizz.source.Storage;
-import java.io.IOException;
+import rizz.task.Event;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
-import rizz.task.Event;
-
-
+import java.io.IOException;
 
 public class AddEventCommand extends Command {
     private final String description;

@@ -1,11 +1,9 @@
 package rizz.source;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import rizz.command.*;
 
 public class Parser {
-
     public static Command parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0];

@@ -4,8 +4,6 @@ import rizz.source.Ui;
 import rizz.source.Storage;
 import java.io.IOException;
 
-
-
 public class DeleteCommand extends Command {
     private final int index;
 
