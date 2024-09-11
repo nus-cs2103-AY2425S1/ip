@@ -11,7 +11,6 @@ import fishman.utils.Ui;
  * that the task has been successfully deleted to the user.
  */
 public class DeleteCommand implements Command {
-    /** The index of the task in the task list to be deleted. */
     private final int index;
 
     /**
@@ -28,14 +27,14 @@ public class DeleteCommand implements Command {
      *      Deletes the task in the task list and returns a confirmation message alongside the
      *      current number of tasks in the list.
      *
-     * @param tasks The Task List in which the task is deleted from.
+     * @param taskList The Task List in which the task is deleted from.
      * @param ui The Ui instance used to generate the confirmation message.
      * @return The confirmation message indicating the command execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
-        Task tempTask = tasks.getTask(index);
-        tasks.delete(index);
-        return ui.getDeletedTaskMessage(tempTask, tasks.size());
+    public String execute(TaskList taskList, Ui ui) {
+        Task taskToDelete = taskList.getTask(index);
+        taskList.deleteTask(index);
+        return ui.getDeletedTaskMessage(taskToDelete, taskList.size());
     }
 }

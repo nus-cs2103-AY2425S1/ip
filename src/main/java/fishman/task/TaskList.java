@@ -9,7 +9,6 @@ import java.util.Iterator;
  * size of the task list.
  */
 public class TaskList implements Iterable<Task> {
-    /** The list of tasks stored as an ArrayList. */
     private ArrayList<Task> tasks;
 
     /** Constructs a new TaskList with an empty list of tasks. */
@@ -20,50 +19,50 @@ public class TaskList implements Iterable<Task> {
     /**
      * Adds a new task to the task list.
      *
-     * @param task The task.Task object to be added to the list.
+     * @param newTask The task.Task object to be added to the list.
      */
-    public void addTask(Task task) {
-        assert task != null : "Task to be added should not be null";
-        tasks.add(task);
+    public void addTask(Task newTask) {
+        assert newTask != null : "Task to be added should not be null";
+        tasks.add(newTask);
     }
 
     /**
      * Retrieves a task object from the task list at the specified index.
      *
-     * @param index The index of the task to retrieve.
+     * @param taskIndex The index of the task to retrieve.
      * @return The Task object found at the specified index.
      */
-    public Task getTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index to be retrieved should be of valid range";
-        return tasks.get(index);
+    public Task getTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index to be retrieved should be of valid range";
+        return tasks.get(taskIndex);
     }
 
     /**
      * Marks a task at the specified index in the task list as done.
-     * @param index The index of the task to retrieve.
+     * @param taskIndex The index of the task to retrieve.
      */
-    public void markAsDone(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index to be marked should be of valid range";
-        tasks.get(index).markAsDone();
+    public void markTaskAsDone(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index to be marked should be of valid range";
+        tasks.get(taskIndex).markAsDone();
     }
 
     /**
      * Marks a task at the specified index in the task list as not done.
-     * @param index The index of the task to retrieve.
+     * @param taskIndex The index of the task to retrieve.
      */
-    public void markAsNotDone(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index to be unmarked should be of valid range";
-        tasks.get(index).markAsNotDone();
+    public void markTaskAsNotDone(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index to be unmarked should be of valid range";
+        tasks.get(taskIndex).markAsNotDone();
     }
 
     /**
      * Deletes a task at the specified index in the task list.
      *
-     * @param index The index of the task to delete.
+     * @param taskIndex The index of the task to delete.
      */
-    public void delete(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index to be deleted should be of valid range";
-        tasks.remove(index);
+    public void deleteTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index to be deleted should be of valid range";
+        tasks.remove(taskIndex);
     }
 
     /**
@@ -75,11 +74,11 @@ public class TaskList implements Iterable<Task> {
         return tasks.size();
     }
 
-    public boolean isEmpty() {
+    public boolean isTaskListEmpty() {
         return tasks.isEmpty();
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getAllTasks() {
         return tasks;
     }
     @Override

@@ -1,6 +1,7 @@
 package fishman;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fishman.command.Command;
 import fishman.exception.FishmanException;
@@ -10,21 +11,14 @@ import fishman.utils.Storage;
 import fishman.utils.Ui;
 import javafx.application.Platform;
 
-
-
-
 /**
  * The main class for the Fishman bot.
  * This class initializes the user interface, task list and parser,
  * and manages the main program.
  */
 public class Fishman {
-
-    /** The task list object to store and manage tasks. */
-    private TaskList tasks = new TaskList();
-    /** The storage object used to handle file operations. */
+    private TaskList taskList = new TaskList();
     private final Storage storage = new Storage("./data/fishman.csv");
-    /** The Ui object used to construct messages. */
     private final Ui ui = new Ui();
 
     /**
@@ -35,13 +29,13 @@ public class Fishman {
      */
     public String getResponse(String input) {
         assert input != null : "Input should not be null";
-        assert tasks != null : "Task list should not be null before processing";
+        assert taskList != null : "Task list should not be null before processing";
         try {
-            Command command = Parser.parse(input, tasks);
+            Command command = Parser.parse(input, taskList);
             if (command.isExit()) {
                 Platform.exit();
             }
-            return command.execute(tasks, ui);
+            return command.execute(taskList, ui);
         } catch (FishmanException e) {
             return e.getMessage();
         }
@@ -62,22 +56,14 @@ public class Fishman {
             Storage.LoadResults output = storage.load();
             assert output != null : "LoadResults should not be null";
             String errorMessage = output.getErrorMessage();
+
             switch (action) {
             case "load":
-                tasks = output.getValidTasks();
-                assert tasks != null : "Valid tasks should not be null after loading";
+                taskList = output.getValidTasks();
+                assert taskList != null : "Valid tasks should not be null after loading";
                 return errorMessage;
-
             case "save":
-                if (errorMessage == null || errorMessage.isEmpty()) {
-                    storage.save(tasks, new ArrayList<>());
-                    return "successfully saved file.";
-                } else {
-                    assert output.getAllTasksLines() != null : "All task lines should not be null when saving with"
-                            + " corrupted lines";
-                    storage.save(tasks, output.getAllTasksLines());
-                    return "successfully saved file with corrupt lines";
-                }
+                return saveTasks(errorMessage, output);
             default:
                 return "Invalid action specified.";
             }
@@ -87,5 +73,28 @@ public class Fishman {
         }
     }
 
+    /**
+     * Saves the current task list to data file, handling corrupt lines if any.
+     * This method checks if there are any error messages, which indicate that there are corrupted lines.
+     * If there are no corrupted lines, the task list is saved as is. However, if there are corrupted lines, they
+     * are appended to the end of the file.
+     *
+     * @param errorMessage A string containing an error message related to corrupted lines.
+     * @param output A storage object containing the results of loading tasks from data file.
+     * @return A string containing the result of the operation.
+     */
+    private String saveTasks(String errorMessage, Storage.LoadResults output) {
+        List<String> corruptedLines = output.getCorruptedLines();
+
+        if (errorMessage == null || errorMessage.isEmpty()) {
+            storage.save(taskList, new ArrayList<>());
+            return "Successfully saved file.";
+        } else {
+            assert corruptedLines != null : "Corrupted lines should not be null";
+
+            storage.save(taskList, corruptedLines);
+            return "Successfully saved file with corrupt lines.";
+        }
+    }
 }
 

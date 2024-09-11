@@ -8,11 +8,11 @@ public class ToDo extends Task {
     /**
      * Constructs a new to-do task.
      *
-     * @param description The description of the task.
+     * @param taskDescription The description of the task.
      */
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
-        assert description != null : "Description should not be null";
+    public ToDo(String taskDescription, boolean isTaskDone) {
+        super(taskDescription, isTaskDone);
+        assert taskDescription != null : "Description should not be null";
     }
 
     @Override
