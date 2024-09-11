@@ -84,6 +84,7 @@ public class TaskList {
      * <p>
      * This method filters the tasks and returns a list of tasks where the
      * description contains the keyword (case-insensitive).
+     * It also utilises a a stream to help search for the word.
      * </p>
      *
      * @param keyword the keyword to search for in task descriptions.

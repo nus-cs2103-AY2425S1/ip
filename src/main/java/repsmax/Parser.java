@@ -3,9 +3,11 @@ package repsmax;
 import java.util.List;
 
 /**
- * Parses user inputs and executes corresponding commands.
- * The <code>Parser</code> class is responsible for interpreting user input, managing tasks,
- * and interacting with the user interface and storage.
+ * Parses user inputs and executes the corresponding commands.
+ * <p>
+ * The {@code Parser} class interprets user commands, interacts with the task list,
+ * user interface, and storage to perform actions based on the user's input.
+ * </p>
  */
 public class Parser {
 
@@ -22,11 +24,16 @@ public class Parser {
 
     /**
      * Parses the user's input and executes the corresponding command.
+     * <p>
+     * This method splits the input string into command and arguments, then
+     * delegates the command to the appropriate handler method.
+     * </p>
      *
      * @param userInput The input string entered by the user.
-     * @param tasks     The list of tasks to be managed.
+     * @param tasks     The task list to be managed.
      * @param ui        The user interface to interact with the user.
      * @param storage   The storage handler for saving and loading tasks.
+     * @return A response message based on the executed command.
      */
     public String parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
         String[] splitInput = userInput.split(" ", 2);
@@ -61,21 +68,22 @@ public class Parser {
                 return handleFindCommand(splitInput, tasks, ui);
 
             default:
-                return ("Unknown command: " + userInput);
+                return "Unknown command: " + userInput;
         }
     }
 
     /**
-     * Handles the "list" command, displaying all tasks.
+     * Handles the "list" command, displaying all tasks in the list.
      *
-     * @param tasks The list of tasks to display.
+     * @param tasks The list of tasks to be displayed.
      * @param ui    The user interface to interact with the user.
+     * @return A response message with the list of tasks.
      */
     private String handleListCommand(TaskList tasks, Ui ui) {
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            response.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
+            response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         return response.toString();
     }
@@ -87,6 +95,7 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is marked as done.
      */
     private String handleMarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -94,12 +103,12 @@ public class Parser {
             if (markIndex >= 0 && markIndex < tasks.size()) {
                 tasks.get(markIndex).setDone();
                 storage.save(tasks);
-                return ("Nice! I've marked this task as done:\n" + tasks.get(markIndex));
+                return "Nice! I've marked this task as done:\n" + tasks.get(markIndex);
             } else {
-                return ("OOPS!!! The task number is out of range.");
+                return "OOPS!!! The task number is out of range.";
             }
         } catch (NumberFormatException e) {
-            return ("OOPS!!! The task number must be an integer.");
+            return "OOPS!!! The task number must be an integer.";
         }
     }
 
@@ -110,6 +119,7 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is marked as not done.
      */
     private String handleUnmarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -117,12 +127,12 @@ public class Parser {
             if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
                 tasks.get(unmarkIndex).setUndone();
                 storage.save(tasks);
-                return ("OK, I've marked this task as not done yet:\n" + tasks.get(unmarkIndex));
+                return "OK, I've marked this task as not done yet:\n" + tasks.get(unmarkIndex);
             } else {
-                return ("OOPS!!! The task number is out of range.");
+                return "OOPS!!! The task number is out of range.";
             }
         } catch (NumberFormatException e) {
-            return ("OOPS!!! The task number must be an integer.");
+            return "OOPS!!! The task number must be an integer.";
         }
     }
 
@@ -133,6 +143,7 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is added.
      */
     private String handleTodoCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         if (splitInput.length > 1) {
@@ -140,11 +151,10 @@ public class Parser {
             Todo newTodo = new Todo(description);
             tasks.add(newTodo);
             storage.save(tasks);
-            System.out.println("Task list after adding: " + tasks);
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.";
         } else {
-            return ("OOPS!!! The description of a todo cannot be empty.");
+            return "OOPS!!! The description of a todo cannot be empty.";
         }
     }
 
@@ -155,6 +165,7 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is added.
      */
     private String handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -164,9 +175,9 @@ public class Parser {
             tasks.add(new Deadline(description, by));
             storage.save(tasks);
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
-            ("\nNow you have " + tasks.size() + " tasks in the list.");
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ("OOPS!!! The deadline command must include '/by <date/time>'.");
+            return "OOPS!!! The deadline command must include '/by <date/time>'.";
         }
     }
 
@@ -177,6 +188,7 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is added.
      */
     private String handleEventCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -187,10 +199,10 @@ public class Parser {
             String to = fromTo[1];
             tasks.add(new Event(description, from, to));
             storage.save(tasks);
-            return ("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1)) +
-            ("\nNow you have " + tasks.size() + " tasks in the list.");
+            return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ("OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.");
+            return "OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.";
         }
     }
 
@@ -201,20 +213,21 @@ public class Parser {
      * @param tasks      The list of tasks to be managed.
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
+     * @return A response message confirming the task is removed.
      */
     private String handleDeleteCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
-            if (deleteIndex >= 0 && deleteIndex < tasks.size()) {  // Check index bounds
-                Task removedTask = tasks.remove(deleteIndex);  // Remove the task
-                storage.save(tasks);  // Save after deletion
-                return ("Noted. I've removed this task:\n" + removedTask) +
+            if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
+                Task removedTask = tasks.remove(deleteIndex);
+                storage.save(tasks);
+                return "Noted. I've removed this task:\n" + removedTask +
                         "\nNow you have " + tasks.size() + " tasks in the list.";
             } else {
-                return ("OOPS!!! The task number is out of range.");
+                return "OOPS!!! The task number is out of range.";
             }
         } catch (NumberFormatException e) {
-            return ("OOPS!!! The task number must be an integer.");
+            return "OOPS!!! The task number must be an integer.";
         }
     }
 
@@ -224,10 +237,11 @@ public class Parser {
      * @param tasks   The list of tasks to be saved.
      * @param ui      The user interface to interact with the user.
      * @param storage The storage handler for saving the tasks.
+     * @return A response message confirming the exit.
      */
     private String handleByeCommand(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks);
-        return ("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -235,27 +249,26 @@ public class Parser {
      *
      * @param splitInput The user's input split into command and arguments.
      * @param tasks      The list of tasks to be searched.
-     * @param ui          The user interface to interact with the user.
+     * @param ui         The user interface to interact with the user.
+     * @return A response message with the search results.
      */
     private String handleFindCommand(String[] splitInput, TaskList tasks, Ui ui) {
         if (splitInput.length > 1) {
             String keyword = splitInput[1];
-            List<Task> results = tasks.find(keyword);
-            ui.showSearchResults(results);
+            List<Task> foundTasks = tasks.find(keyword);
+            if (foundTasks.isEmpty()) {
+                return "There are no matching tasks in your list.";
+            }
+            StringBuilder response = new StringBuilder();
+            response.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                response.append((i + 1)).append(". ").append(foundTasks.get(i)).append("\n");
+            }
+            return response.toString();
         } else {
-            return ("OOPS!!! The find command must include a keyword.");
+            return "OOPS!!! The find command must include a keyword.";
         }
-        String keyword = splitInput[1];
-        List<Task> foundTasks = tasks.find(keyword);
-        if (foundTasks.isEmpty()) {
-            return "There are no matching tasks in your list.";
-        }
-        StringBuilder response = new StringBuilder();
-        response.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < foundTasks.size(); i++) {
-            response.append((i + 1)).append(".").append(foundTasks.get(i)).append("\n");
-        }
-        return response.toString();
     }
 }
+
 

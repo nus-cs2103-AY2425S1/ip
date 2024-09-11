@@ -10,14 +10,14 @@ package repsmax;
  * </p>
  */
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
      * Constructs a {@code Task} with the specified description. The task
      * is initially marked as not done.
      *
-     * @param description the description of the task.
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -30,10 +30,10 @@ public class Task {
      * If the task is done, returns "X". Otherwise, returns a blank space.
      * </p>
      *
-     * @return a string representing the task's completion status.
+     * @return A string representing the task's completion status.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return isDone ? "X" : " "; // mark done task with X
     }
 
     /**
@@ -62,7 +62,7 @@ public class Task {
     /**
      * Returns the description of the task.
      *
-     * @return the task's description.
+     * @return The task's description.
      */
     public String getDescription() {
         return description;
@@ -75,7 +75,7 @@ public class Task {
      * if the task is not done.
      * </p>
      *
-     * @return a string representation of the task.
+     * @return A string representation of the task.
      */
     @Override
     public String toString() {
@@ -89,7 +89,7 @@ public class Task {
      * "1" if the task is done and "0" if it is not.
      * </p>
      *
-     * @return a string representation of the task in file format.
+     * @return A string representation of the task in file format.
      */
     public String toFileFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
@@ -102,14 +102,14 @@ public class Task {
      * splits the input string and creates a task based on the parsed data.
      * </p>
      *
-     * @param fileFormat the string representation of the task in file format.
-     * @return a {@code Task} object created from the file format string.
-     * @throws IllegalArgumentException if the file format string is invalid.
+     * @param fileFormat The string representation of the task in file format.
+     * @return A {@code Task} object created from the file format string.
+     * @throws IllegalArgumentException If the file format string is invalid.
      */
     public static Task fromFileFormat(String fileFormat) {
         String[] parts = fileFormat.split(" \\| ");
         if (parts.length != 3) {
-            throw new IllegalArgumentException("Invalid task format.");
+            throw new IllegalArgumentException("Invalid task format: " + fileFormat);
         }
         String description = parts[2];
         boolean isDone = parts[1].equals("1");
