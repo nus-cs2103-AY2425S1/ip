@@ -18,6 +18,8 @@ public class Reminder {
     private static ArrayList<Task> schedule;
     private static Hashtable<LocalDate, ArrayList<Task>> calendar;
 
+    private static int selected;
+
     /**
      * Constructs a Reminder object with an empty task list and calendar.
      */
@@ -25,6 +27,7 @@ public class Reminder {
     Reminder() {
         this.schedule = new ArrayList<Task>();
         this.calendar = new Hashtable<LocalDate, ArrayList<Task>>();
+        this.selected = 0;
     }
 
     /**
@@ -37,6 +40,7 @@ public class Reminder {
     Reminder(ArrayList<Task> schedule, Hashtable<LocalDate, ArrayList<Task>> calendar) {
         this.schedule = schedule;
         this.calendar = calendar;
+        this.selected = 0;
     }
 
     /**
@@ -52,6 +56,7 @@ public class Reminder {
         this.schedule.forEach(task -> {
             calendar.computeIfAbsent(task.getDate(), k -> new ArrayList<>()).add(task);
         });
+        this.selected = 0;
         /*
         for (Task task : schedule) {
             ArrayList<Task> taskList;
@@ -128,18 +133,40 @@ public class Reminder {
 
     public static Task remove(int i) {
         Task task = schedule.remove(i);
-        if (task.getClass() != Todos.class) {
-            LocalDate date = task.getDate();
-            calendar.computeIfPresent(date, (key, value) -> {
-                value.remove(task);
-                return value.isEmpty() ? null : value;
-            });
-            /*
-            ArrayList<Task> taskList = calendar.get(date);
-            taskList.remove(task);
-            calendar.put(date, taskList);
-             */
-        }
+        LocalDate date = task.getDate();
+        calendar.computeIfPresent(date, (key, value) -> {
+            value.remove(task);
+            return value.isEmpty() ? null : value;
+        });
+        /*
+        ArrayList<Task> taskList = calendar.get(date);
+        taskList.remove(task);
+        calendar.put(date, taskList);
+         */
+        return task;
+    }
+
+    /**
+     * Removes a task from the schedule and calendar.
+     *
+     * @param i The index of the task to replace.
+     * @param newTask The new task to replace the old one.
+     * @return The removed task.
+     */
+
+    public static Task replace(int i, Task newTask) {
+        Task task = schedule.get(i);
+        schedule.set(i, newTask);
+        LocalDate date = task.getDate();
+        calendar.computeIfPresent(date, (key, value) -> {
+            value.set(value.indexOf(task), newTask);
+            return value.isEmpty() ? null : value;
+        });
+        /*
+        ArrayList<Task> taskList = calendar.get(date);
+        taskList.remove(task);
+        calendar.put(date, taskList);
+         */
         return task;
     }
 
@@ -212,6 +239,20 @@ public class Reminder {
 
     public static ArrayList<Task> getSchedule() {
         return schedule;
+    }
+
+    public int getSelected() {
+        return selected;
+    }
+
+    /**
+     * Changes the selected task to edit
+     *
+     * @param i The int of the new selected task to edit
+     */
+
+    public static void changeSelected(int i) {
+        selected = i;
     }
 
     /**
