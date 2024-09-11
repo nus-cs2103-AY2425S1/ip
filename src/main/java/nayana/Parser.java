@@ -106,7 +106,7 @@ public class Parser {
 
     private static Command createMarkCommand(String command) throws NayanaException {
         try {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            int index = Integer.parseInt(command.split(" ")[1]) - 1; // Parses the task index.
             return new MarkCommand(index);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for mark command.");
@@ -115,7 +115,7 @@ public class Parser {
 
     private static Command createUnmarkCommand(String command) throws NayanaException {
         try {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            int index = Integer.parseInt(command.split(" ")[1]) - 1; // Parses the task index.
             return new UnmarkCommand(index);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for unmark command.");
@@ -124,7 +124,7 @@ public class Parser {
 
     private static Command createDeleteCommand(String command) throws NayanaException {
         try {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            int index = Integer.parseInt(command.split(" ")[1]) - 1; // Parses the task index.
             return new DeleteCommand(index);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for delete command.");
@@ -136,15 +136,15 @@ public class Parser {
         if (parts.length != 2) {
             throw new NayanaException("Invalid format for deadline command.");
         }
-        String description = parts[0].substring(8).trim();
-        String deadline = parts[1].trim();
+        String description = parts[0].substring(8).trim(); // Extracts task description.
+        String deadline = parts[1].trim(); // Extracts deadline.
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new NayanaException("Description and deadline cannot be empty.");
         }
         if (!validDateFormat(deadline)) {
             throw new NayanaException("Invalid date format for deadline.");
         }
-        LocalDate date = LocalDate.parse(deadline);
+        LocalDate date = LocalDate.parse(deadline); // Parses deadline date.
         Task deadlineTask = new Deadlines(description, date);
         return new AddCommand(deadlineTask);
     }
@@ -158,17 +158,17 @@ public class Parser {
         if (toParts.length != 2) {
             throw new NayanaException("Invalid format for event command.");
         }
-        String description = fromParts[0].substring(5).trim();
-        String startTime = toParts[0].trim();
-        String endTime = toParts[1].trim();
+        String description = fromParts[0].substring(5).trim(); // Extracts task description.
+        String startTime = toParts[0].trim(); // Extracts start time.
+        String endTime = toParts[1].trim(); // Extracts end time.
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             throw new NayanaException("Description, start time, and end time cannot be empty.");
         }
         if (!validDateFormat(startTime) || !validDateFormat(endTime)) {
             throw new NayanaException("Invalid date format for event.");
         }
-        LocalDate startDate = LocalDate.parse(startTime);
-        LocalDate endDate = LocalDate.parse(endTime);
+        LocalDate startDate = LocalDate.parse(startTime); // Parses start date.
+        LocalDate endDate = LocalDate.parse(endTime); // Parses end date.
         Task eventTask = new Event(description, startDate, endDate);
         return new AddCommand(eventTask);
     }

@@ -36,9 +36,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NayanaException {
-        tasks.addTask(task);
-        storage.writeToFile(tasks.getTasks());
-        ui.printAddTask(task, tasks.getSize());
+        tasks.addTask(task); // Adds the task to the task list.
+        storage.writeToFile(tasks.getTasks()); // Updates storage with the new list of tasks.
+        ui.printAddTask(task, tasks.getSize()); // Displays a confirmation message with the current task list size.
     }
 
     /**

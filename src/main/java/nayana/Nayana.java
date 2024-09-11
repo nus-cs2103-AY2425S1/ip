@@ -9,7 +9,7 @@ public class Nayana {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Ui ui; // Handles user interface operations.
 
     boolean isExit = false;
 
@@ -44,7 +44,7 @@ public class Nayana {
     public void parseCommand(String command){
         try {
             Command c = Parser.parse(command);
-            c.execute(tasks, ui, storage);
+            c.execute(tasks, ui, storage); // Executes the command, modifying tasks and UI as necessary.
             isExit = c.isExit();
         } catch (NayanaException e) {
             ui.showError(e.getMessage());
