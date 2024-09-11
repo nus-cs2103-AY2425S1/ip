@@ -112,6 +112,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert this.byMsg != null : "Use the constructor first";
         return "[D]" + super.toString() + " (by: " + this.byMsg + ")";
     }
 }

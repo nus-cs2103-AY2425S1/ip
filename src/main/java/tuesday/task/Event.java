@@ -26,8 +26,8 @@ public class Event extends Task {
      */
     public Event(String description, String fromMsg, String toMsg) {
         super(description);
-        this.fromMsg = fromMsg;
-        this.toMsg = toMsg;
+        this.fromMsg = this.handleDateTime(fromMsg);
+        this.toMsg = this.handleDateTime(toMsg);
     }
 
     /**
@@ -78,9 +78,12 @@ public class Event extends Task {
      * @param byMsg Postfix after /by
      * @return Formated string of the date and time
      */
-    private String handleByMsg(String byMsg) {
+    private String handleDateTime(String byMsg) {
         //deadline readbook /by 2019-10-23 10:30
         String[] timingMsg = byMsg.split(" ");
+        if (timingMsg.length < 2) {
+            return byMsg;
+        }
 
         timingMsg[0] = timingMsg[0].replaceAll("/", "-");
         String[] dateInParts = timingMsg[0].split("-");
@@ -113,6 +116,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert this.fromMsg != null : "Use the constructor first";
+        assert this.toMsg != null : "Use the constructor first";
+
         return "[E]" + super.toString() + " (from: " + this.fromMsg + " to: " + this.toMsg + ")";
     }
 }
