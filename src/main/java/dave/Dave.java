@@ -19,6 +19,7 @@ public class Dave {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String filePath;
 
     /**
      * Constructs a Dave instance, initializing the user interface, task list, and storage components.
@@ -28,6 +29,7 @@ public class Dave {
     public Dave(String filePath) {
         this.ui = new Ui();
         this.tasks = new TaskList();
+        this.filePath = filePath;
         this.storage = new Storage(filePath, this.tasks);
     }
 

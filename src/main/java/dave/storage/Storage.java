@@ -1,19 +1,21 @@
 package dave.storage;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import dave.exceptions.InvalidDateTimeFormatException;
+import dave.exceptions.InvalidDescriptionException;
+import dave.task.Deadline;
+import dave.task.Event;
 import dave.task.Task;
 import dave.task.TaskList;
-import dave.task.Event;
-import dave.task.Deadline;
 import dave.task.Todo;
-import dave.exceptions.InvalidDescriptionException;
-import dave.exceptions.InvalidDateTimeFormatException;
+
 
 
 /**
@@ -132,7 +134,8 @@ public class Storage {
                     String eventStr = parts[3].trim();
                     String[] eventParts = eventStr.split(" - ");
                     LocalDateTime fromDate = LocalDateTime.parse(eventParts[0], dateFormatter);
-                    Event event = new Event(description + " /from " + fromDate.format(formatter) + " /to " + eventParts[1]);
+                    Event event = new Event(description + " /from "
+                            + fromDate.format(formatter) + " /to " + eventParts[1]);
                     if (isDone) {
                         event.markAsDone();
                     }

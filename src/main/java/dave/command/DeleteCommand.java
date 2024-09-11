@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * @param tasks   The {@code TaskList} containing the tasks.
      * @param storage The {@code Storage} object to handle saving the updated task list.
      * @param ui      The {@code Ui} object to handle user interaction.
-     * @return A {@code String} message confirming that the task has been deleted successfully, or an error message if something went wrong.
+     * @return A {@code String} message confirming that the task has been deleted successfully,
      * @throws IOException If an input or output error occurs while saving the task list.
      */
     @Override

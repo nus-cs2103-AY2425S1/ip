@@ -1,12 +1,13 @@
 package dave.command;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import dave.storage.Storage;
 import dave.task.Task;
 import dave.task.TaskList;
 import dave.ui.Ui;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Represents a command to find tasks with a keyword in the task list.
