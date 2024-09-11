@@ -65,29 +65,37 @@ public class Storage {
      * @param validTasks The list of tasks to be written to the save file.
      * @throws RuntimeException If an error occurs while writing to the file.
      */
-    public void save(TaskList validTasks, List<String> allFileLines) {
+    public void save(TaskList validTasks, List<String> errorLines) {
         assert validTasks != null : "Valid tasks should not be null";
-        assert allFileLines != null : "All file lines should not be null";
         assert filePath != null : "File path should not be null";
 
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-            if (errorMessages.isEmpty()) {
-                for (Task task : validTasks) {
-                    writer.write(toCsv(task));
-                    writer.newLine();
-                }
+            if (errorLines == null || errorLines.isEmpty()) {
+                saveValidTasks(validTasks, writer);
             } else {
-                for (String line : allFileLines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
+                saveAllLinesWithErrors(validTasks, errorLines, writer);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error saving tasks to file: " + e.getMessage(), e);
         }
     }
 
+    private void saveValidTasks(TaskList validTasks, BufferedWriter writer) throws IOException {
+        for (Task task : validTasks) {
+            writer.write(toCsv(task));
+            writer.newLine();
+        }
+    }
 
+    private void saveAllLinesWithErrors(TaskList validTasks,
+                                        List<String> errorLines, BufferedWriter writer) throws IOException {
+
+        saveValidTasks(validTasks, writer);
+        for (String errorLine : errorLines) {
+            writer.write(errorLine);
+            writer.newLine();
+        }
+    }
 
     /**
      * Converts a Task object to a CSV string representation, with "|" as the delimiter.
@@ -100,16 +108,19 @@ public class Storage {
 
         StringBuilder sb = new StringBuilder();
         if (task instanceof ToDo) {
-            sb.append("T").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription());
+            sb.append("T").append(task.getTaskStatus() ? "|true" : "|false").append("|")
+                    .append(task.getTaskDescription());
         } else if (task instanceof Deadline) {
-            sb.append("D").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription())
+            sb.append("D").append(task.getTaskStatus() ? "|true" : "|false").append("|")
+                    .append(task.getTaskDescription())
                             .append("|")
-                            .append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
+                            .append(((Deadline) task).getDeadlineDate().format(DATE_TIME_FORMATTER));
         } else if (task instanceof Event) {
-            sb.append("E").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription())
+            sb.append("E").append(task.getTaskStatus() ? "|true" : "|false").append("|")
+                            .append(task.getTaskDescription())
                             .append("|")
-                            .append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|")
-                            .append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
+                            .append(((Event) task).getEventStart().format(DATE_TIME_FORMATTER)).append("|")
+                            .append(((Event) task).getEventEnd().format(DATE_TIME_FORMATTER));
         }
         return sb.toString();
     }
@@ -125,62 +136,21 @@ public class Storage {
      */
     public LoadResults load() {
         assert filePath != null : "File path should not be null";
-        TaskList tasks = new TaskList();
+        TaskList  validTasks = new TaskList();
+        List<String> corruptedLines = new ArrayList<>();
         errorMessages.clear();
         List<String> allLines;
 
         try {
             List<String> lines = Files.readAllLines(filePath);
-            allLines = lines.stream().toList();
+            allLines = new ArrayList<>(lines);
+
             for (String line : lines) {
                 try {
-                    String[] arguments = line.split("\\|", -1);
-                    if (arguments.length < 3) {
-                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_ARGUMENTS, line);
-                    }
-                    String type = arguments[0].trim();
-                    String isDoneStr = arguments[1].trim();
-                    String description = arguments[2].trim();
-
-                    boolean isDone;
-                    if (isDoneStr.equalsIgnoreCase("true")) {
-                        isDone = true;
-                    } else if (isDoneStr.equalsIgnoreCase("false")) {
-                        isDone = false;
-                    } else {
-                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_IS_DONE, line);
-                    }
-
-                    switch (type) {
-                    case "T":
-                        if (arguments.length != 3 || description.isEmpty()) {
-                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TODO, line);
-                        }
-                        tasks.addTask(new ToDo(description, isDone));
-                        break;
-                    case "D":
-                        if (arguments.length != 4 || description.isEmpty()) {
-                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DEADLINE, line);
-                        }
-                        String deadline = arguments[3].trim();
-                        LocalDateTime deadlineDate = parseDateTime(deadline, line);
-                        tasks.addTask(new Deadline(description, isDone, deadlineDate));
-                        break;
-                    case "E":
-                        if (arguments.length != 5 || description.isEmpty()) {
-                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT, line);
-                        }
-                        String from = arguments[3].trim();
-                        String to = arguments[4].trim();
-                        LocalDateTime fromDate = parseDateTime(from, line);
-                        LocalDateTime toDate = parseDateTime(to, line);
-                        tasks.addTask(new Event(description, isDone, fromDate, toDate));
-                        break;
-                    default:
-                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TASK_TYPE, line);
-                    }
+                    processLine(line, validTasks);
                 } catch (FishmanException e) {
                     errorMessages.add(e.getMessage());
+                    corruptedLines.add(line);
                 }
             }
         } catch (IOException e) {
@@ -191,7 +161,73 @@ public class Storage {
                 : String.join("\n", errorMessages) + "\nInvalid data lines will be skipped. "
                 + "Please check the data file!";
 
-        return new LoadResults(tasks, allLines, combinedErrorMessage);
+        return new LoadResults(validTasks, allLines, combinedErrorMessage, corruptedLines);
+    }
+
+    private void processLine(String line, TaskList validTasks) throws FishmanException {
+        String[] arguments = line.split("\\|", -1);
+
+        if (arguments.length < 3) {
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_ARGUMENTS, line);
+        }
+
+        String type = arguments[0].trim();
+        String isDoneStr = arguments[1].trim();
+        String description = arguments[2].trim();
+
+        boolean isDone = parseIsDone(isDoneStr, line);
+
+        switch (type) {
+        case "T":
+            validateToDoArguments(arguments, description, line);
+            validTasks.addTask(new ToDo(description, isDone));
+            break;
+        case "D":
+            LocalDateTime deadlineDate = parseDeadlineArguments(arguments, description, line);
+            validTasks.addTask(new Deadline(description, isDone, deadlineDate));
+            break;
+        case "E":
+            LocalDateTime[] eventDates = parseEventArguments(arguments, description, line);
+            validTasks.addTask(new Event(description, isDone, eventDates[0], eventDates[1]));
+            break;
+        default:
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TASK_TYPE, line);
+        }
+    }
+
+    private boolean parseIsDone(String isDoneStr, String line) throws FishmanException {
+        if (isDoneStr.equalsIgnoreCase("true")) {
+            return true;
+        } else if (isDoneStr.equalsIgnoreCase("false")) {
+            return false;
+        } else {
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_IS_DONE, line);
+        }
+    }
+
+    private void validateToDoArguments(String[] arguments, String description, String line) throws FishmanException {
+        if (arguments.length != 3 || description.isEmpty()) {
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TODO, line);
+        }
+    }
+
+    private LocalDateTime parseDeadlineArguments(String[] arguments, String description, String line) throws FishmanException {
+        if (arguments.length != 4 || description.isEmpty()) {
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DEADLINE, line);
+        }
+        String deadline = arguments[3].trim();
+        return parseDateTime(deadline, line);
+    }
+
+    private LocalDateTime[] parseEventArguments(String[] arguments, String description, String line) throws FishmanException {
+        if (arguments.length != 5 || description.isEmpty()) {
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT, line);
+        }
+        String from = arguments[3].trim();
+        String to = arguments[4].trim();
+        LocalDateTime fromDate = parseDateTime(from, line);
+        LocalDateTime toDate = parseDateTime(to, line);
+        return new LocalDateTime[]{fromDate, toDate};
     }
 
     /**
@@ -214,7 +250,6 @@ public class Storage {
         }
     }
 
-
     /**
      * Represents the results of loading tasks from the save file.
      */
@@ -222,6 +257,7 @@ public class Storage {
         private final TaskList validTasks;
         private final String errorMessage;
         private final List<String> allFileLines;
+        private final List<String> corruptedLines;
 
         /**
          * Constructs a new LoadResult Object with the specified parameters
@@ -230,10 +266,11 @@ public class Storage {
          * @param allFileLines The list of all lines from the original file.
          * @param errorMessage The combined error messages, containing the error of every corrupted line.
          */
-        public LoadResults(TaskList validTasks, List<String> allFileLines, String errorMessage) {
+        public LoadResults(TaskList validTasks, List<String> allFileLines, String errorMessage, List<String> corruptedLines) {
             this.validTasks = validTasks;
             this.allFileLines = allFileLines;
             this.errorMessage = errorMessage;
+            this.corruptedLines = corruptedLines;
         }
 
         public TaskList getValidTasks() {
@@ -243,6 +280,11 @@ public class Storage {
         public List<String> getAllTasksLines() {
             return allFileLines;
         }
+
+        public List<String> getCorruptedLines() {
+            return corruptedLines;
+        }
+
         public String getErrorMessage() {
             return errorMessage;
         }
