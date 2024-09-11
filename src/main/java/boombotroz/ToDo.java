@@ -16,6 +16,11 @@ public class ToDo extends Task {
 
     }
 
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void hasDate(Ui ui) throws BoomException {}
 
     /**
      * @inheritDoc

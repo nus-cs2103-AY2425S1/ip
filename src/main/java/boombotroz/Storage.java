@@ -54,7 +54,7 @@ public class Storage {
             // Process the line for tasks
             if (line.startsWith("[T]")) {
                 String toDoTask = line.substring(10);
-                int priority = line.charAt(7);
+                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
                 if (line.substring(3).startsWith("[X]")) {
                     taskList.addTask(new ToDo(true, toDoTask, priority));
                 } else if (line.substring(3).startsWith("[ ]")) {
@@ -62,9 +62,9 @@ public class Storage {
                 }
             } else if (line.startsWith("[D]")) {
                 String dlTask = line.substring(10).split(" \\(by: ")[0];
-                int priority = line.charAt(7);
                 String time = line.substring(10).split(" \\(by: ")[1];
                 time = time.substring(0, time.length() - 1);
+                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
 
                 if (line.substring(3).startsWith("[X]")) {
                     taskList.addTask(new Deadline(true, dlTask, time, priority));
@@ -75,7 +75,6 @@ public class Storage {
             } else if (line.startsWith("[E]")) {
                 String eventTask = line.substring(10)
                         .split(" \\(from: ")[0];
-                int priority = line.charAt(7);
                 String timeStart = line.substring(10)
                         .split(" \\(from: ")[1]
                         .split(" to: ")[0];
@@ -83,6 +82,7 @@ public class Storage {
                         .split(" \\(from: ")[1]
                         .split(" to: ")[1];
                 timeEnd = timeEnd.substring(0, timeEnd.length() - 1);
+                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
 
                 if (line.substring(3).startsWith("[X]")) {
                     taskList.addTask(new Event(true, eventTask, timeStart, timeEnd, priority));
