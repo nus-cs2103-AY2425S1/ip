@@ -37,48 +37,12 @@ public class Yoda {
      * actions based on the commands received. Saves the task list to storage after
      * each command execution.
      */
-//    public void run() {
-//        String welcomeMessage = "Hello! For you, what can I do?";
-//
-//        ui.printLine();
-//        System.out.println(welcomeMessage);
-//        ui.printLine();
-//
-//        while (true) {
-//            String input = ui.getNextLine();
-//            try {
-//                Command command = parser.handle(input, tasks);
-//                ui.printLine();
-//                command.run();
-//                ui.printLine();
-//                storage.saveTasks(tasks.getTasks());
-//            } catch (YodaException e) {
-//                ui.printLine();
-//                System.out.println(e.getMessage());
-//                ui.printLine();
-//            }
-//        }
-//    }
-
     public String getResponse(String input) {
         try {
             Command command = parser.handle(input, tasks);
             return command.run();
         } catch (YodaException e) {
-            // If there's an error, return the error message
             return e.getMessage();
         }
     }
-
-
-    /**
-     * Entry point for the Yoda application.
-     * Creates a new Yoda instance with the specified file path and starts the application.
-     *
-//     * @param args Command-line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Yoda("data/tasks.txt").run();
-//    }
-
 }
