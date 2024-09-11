@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import commands.Command;
-import tasks.Task;
 import tasks.DuplicateHandler;
+import tasks.Task;
 
 /**
  * Main class that runs the Applemazer chatbot.

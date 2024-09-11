@@ -5,9 +5,9 @@ import applemazer.TaskList;
 import applemazer.Ui;
 import tasks.Deadline;
 import tasks.DuplicateHandler;
+import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-import tasks.Event;
 
 /**
  * Class that represents either the "mark", "unmark", or "delete" command.

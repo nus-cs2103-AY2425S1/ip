@@ -2,7 +2,18 @@ package applemazer;
 
 import java.util.Scanner;
 
-import commands.*;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeadlineDuplicateCommand;
+import commands.EventCommand;
+import commands.EventDuplicateCommand;
+import commands.FindCommand;
+import commands.IntegerCommand;
+import commands.ListCommand;
+import commands.NonExistentCommand;
+import commands.TodoCommand;
+import commands.TodoDuplicateCommand;
 import tasks.DuplicateHandler;
 
 /**
@@ -12,6 +23,12 @@ public class Parser {
     private final Scanner sc;
     private final DuplicateHandler duplicateHandler;
 
+    /**
+     * Constructor for a {@code Parser} object.
+     * @param sc The {@code Scanner} to read user input from.
+     * @param duplicateHandler The {@code DuplicateHandler} that handles instances
+     *                         of duplicate tasks being added.
+     */
     public Parser(Scanner sc, DuplicateHandler duplicateHandler) {
         this.sc = sc;
         this.duplicateHandler = duplicateHandler;

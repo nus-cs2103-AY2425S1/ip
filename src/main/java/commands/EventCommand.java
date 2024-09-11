@@ -5,7 +5,6 @@ import java.time.DateTimeException;
 import applemazer.Storage;
 import applemazer.TaskList;
 import applemazer.Ui;
-import tasks.Deadline;
 import tasks.DuplicateHandler;
 import tasks.Event;
 import tasks.Task;

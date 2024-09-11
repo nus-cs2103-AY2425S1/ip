@@ -5,6 +5,9 @@ import applemazer.TaskList;
 import applemazer.Ui;
 import tasks.DuplicateHandler;
 
+/**
+ * Class that represents the non-user command passed when a duplicate {@code Event} task is detected.
+ */
 public class EventDuplicateCommand extends Command {
     /**
      * Executes the "event" duplicate handler command which prevents the user from adding
@@ -22,7 +25,8 @@ public class EventDuplicateCommand extends Command {
     }
 
     /**
-     * Returns {@code true} as the chatbot should continue running after executing the "event" duplicate handler command.
+     * Returns {@code true} as the chatbot should continue running after executing the "event" duplicate
+     * handler command.
      * @return {@code true}
      */
     @Override

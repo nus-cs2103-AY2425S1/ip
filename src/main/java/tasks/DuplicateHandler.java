@@ -1,8 +1,8 @@
 package tasks;
 
-import applemazer.TaskList;
-
 import java.util.HashMap;
+
+import applemazer.TaskList;
 
 /**
  * Class that handles instances of duplicate tasks being added to the list.
