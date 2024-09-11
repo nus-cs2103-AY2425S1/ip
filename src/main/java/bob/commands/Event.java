@@ -12,9 +12,9 @@ import bob.ui.Ui;
  * Class representing an event command.
  */
 public class Event extends Command {
-    private String description;
-    private LocalDateTime from;
-    private String to;
+    private final String description;
+    private final LocalDateTime from;
+    private final String to;
 
     /**
      * Creates an event command.
@@ -27,13 +27,6 @@ public class Event extends Command {
         this.description = description;
         this.from = from;
         this.to = to;
-    }
-
-    private static String addTask(TaskList list, Task t) {
-        String response = "Got it. I've added this task:\n" + t
-                    + "Now you have " + list.size() + (list.size() == 1 ? " task in the list."
-                    : " tasks in the list.");
-        return response;
     }
 
     @Override
