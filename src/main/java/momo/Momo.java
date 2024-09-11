@@ -1,6 +1,7 @@
 package momo;
 
 import javafx.scene.image.Image;
+import javafx.scene.shape.Arc;
 import momo.command.*;
 import momo.exception.MomoException;
 import momo.task.TaskList;
@@ -20,6 +21,7 @@ public class Momo {
      * The file path where the task data is stored.
      */
     public static final String FILE_PATH = "data/momo.txt";
+    public static final String ARCHIVE_FILE_PATH = "data/archive.txt";
 
     private Storage storage;
     private TaskList tasks;
@@ -70,6 +72,8 @@ public class Momo {
                     DeadlineCommand.run(input, storage, tasks, ui);
                 } else if (command == CommandType.EVENT) {
                     EventCommand.run(input, storage, tasks, ui);
+                } else if (command == CommandType.ARCHIVE) {
+                    ArchiveCommand.run(input, tasks, storage, ui);
                 }
             }
         } catch (MomoException e) {

@@ -71,6 +71,10 @@ public class Parser {
             return CommandType.EVENT;
         }
 
+        if (input.startsWith("archive")) {
+            return CommandType.ARCHIVE;
+        }
+
         throw new InvalidCommandException();
     }
 
