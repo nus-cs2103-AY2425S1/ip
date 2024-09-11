@@ -31,8 +31,8 @@ public class Parser {
      * @param tasks Stores the user's tasks inside the TaskList object while the program is running.
      * @param ui Handles the interaction between the user and program.
      */
-    public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
-            EmptyCommandException {
+    public void process(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
+            EmptyCommandException, TaskListOutOfBoundsException {
         String instruction = inputString.split(" ", 2)[0];
         if (instruction.equals("list")) {
             ui.display(tasks);
@@ -44,7 +44,7 @@ public class Parser {
         boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete")
                 .contains(inputString.split(" ", 2)[0]));
         if (inputString.split(" ", 2).length == 1 && flag1) {
-            throw new InvalidInstructionException();
+            throw new InvalidCommandException();
         }
         boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inputString.split(" ", 2)[0]);
         if (inputString.split(" ", 2).length == 1 && flag2) {
@@ -82,13 +82,14 @@ public class Parser {
         } else if (instruction.equals("delete")) {
             int idx = Integer.parseInt(remainingInput) - 1;
             Task taskToBeDeleted = tasks.get(idx);
+            assert(tasks.size() > idx);
             tasks.delete(idx);
             ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
         } else if (instruction.equals("find")) {
             TaskList matchingTasks = tasks.findAll(remainingInput);
             ui.displaySearch(matchingTasks);
         } else {
-            throw new InvalidInstructionException();
+            throw new InvalidCommandException();
         }
     }
 
@@ -99,11 +100,11 @@ public class Parser {
      * @param ui The instance holding the current's user's interface for the programme.
      * @return Returns the appropriate response to match the user's instruction.
      * @throws EmptyTaskException
-     * @throws InvalidInstructionException
+     * @throws InvalidCommandException
      * @throws EmptyCommandException
      */
-    public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidInstructionException,
-            EmptyCommandException {
+    public String stringProcess(TaskList tasks, Ui ui) throws EmptyTaskException, InvalidCommandException,
+            EmptyCommandException, TaskListOutOfBoundsException {
         String instruction = inputString.split(" ", 2)[0];
         if (instruction.equals("list")) {
             return ui.guiDisplay(tasks);
@@ -114,7 +115,7 @@ public class Parser {
         boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete")
                 .contains(inputString.split(" ", 2)[0]));
         if (inputString.split(" ", 2).length == 1 && flag1) {
-            throw new InvalidInstructionException();
+            throw new InvalidCommandException();
         }
         boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inputString.split(" ", 2)[0]);
         if (inputString.split(" ", 2).length == 1 && flag2) {
@@ -156,7 +157,7 @@ public class Parser {
             TaskList matchingTasks = tasks.findAll(remainingInput);
             return ui.guiDisplaySearch(matchingTasks);
         } else {
-            throw new InvalidInstructionException();
+            throw new InvalidCommandException();
         }
     }
 }

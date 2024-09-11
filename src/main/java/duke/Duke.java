@@ -54,11 +54,13 @@ public class Duke {
                 System.out.println("The description of the task must contain some substance; it cannot be void.");
             } catch (EmptyCommandException e) {
                 System.out.println("An empty command has been received.");
-            } catch (InvalidInstructionException e) {
+            } catch (InvalidCommandException e) {
                 System.out.println("The instruction provided is deemed invalid.");
             } catch (DateTimeParseException e) {
                 System.out.println("Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".");
+            } catch (TaskListOutOfBoundsException e) {
+                System.out.println("Please select an item number from within the current list for deletion.");
             }
         }
         try {
@@ -89,11 +91,13 @@ public class Duke {
                 return "The description of the task must contain some substance; it cannot be void.";
             } catch (EmptyCommandException e) {
                 return "An empty command has been received.";
-            } catch (InvalidInstructionException e) {
+            } catch (InvalidCommandException e) {
                 return "The instruction provided is deemed invalid.";
             } catch (DateTimeParseException e) {
                 return "Ah, esteemed inquirer, the date format you have provided is not correct."
                         + " It must be expressed as \"yyyy-mm-dd\".";
+            } catch (TaskListOutOfBoundsException e) {
+                System.out.println("Please select an item number from within the current list for deletion.");
             }
         } else {
             try {
@@ -104,6 +108,8 @@ public class Duke {
             }
             return "Farewell! Until we meet again.\n";
         }
+        assert(true);
+        return "";
     }
 
     public static void main(String[] args) {
