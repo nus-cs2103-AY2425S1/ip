@@ -1,6 +1,7 @@
 package jade.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jade.exception.JadeException;
 import jade.storage.Storage;
@@ -50,14 +51,10 @@ public class TaskManager {
      * @return A list of tasks that match the specified keyword.
      */
     public ArrayList<Task> getMatchingTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < getTaskCount(); i++) {
-            Task task = getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+        return new ArrayList<>(matchingTasks);
     }
 
     /**

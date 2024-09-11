@@ -3,7 +3,10 @@ package jade.parser;
 import static jade.ui.Ui.INDENT;
 
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import jade.command.AddCommand;
 import jade.command.Command;
@@ -42,21 +45,21 @@ public class Parser {
         assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
         assert taskManager != null : "TaskManager should not be null";
 
-        String normalisedCommand = command.trim().toLowerCase();
-        if (normalisedCommand.equals("bye")) {
-            return new ExitCommand();
-        } else if (normalisedCommand.equals("list")) {
-            return new ListCommand(taskManager);
-        } else if (normalisedCommand.startsWith("mark")) {
-            return new MarkCommand(taskManager, normalisedCommand, true);
-        } else if (normalisedCommand.startsWith("unmark")) {
-            return new MarkCommand(taskManager, normalisedCommand, false);
-        } else if (isTaskCommand(normalisedCommand)) {
-            return new AddCommand(taskManager, this, normalisedCommand);
-        } else if (normalisedCommand.startsWith("delete")) {
-            return new DeleteCommand(taskManager, normalisedCommand);
-        } else if (normalisedCommand.startsWith("find")) {
-            return new FindCommand(taskManager, normalisedCommand);
+        Map<String, Function<String, Command>> commandMap = new HashMap<>();
+        commandMap.put("bye", cmd -> new ExitCommand());
+        commandMap.put("list", cmd -> new ListCommand(taskManager));
+        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true));
+        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false));
+        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd));
+        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd));
+
+        String commandType = command.split(" ")[0];
+        Function<String, Command> commandFunction = commandMap.get(commandType);
+
+        if (commandFunction != null) {
+            return commandFunction.apply(command);
+        } else if (isTaskCommand(command)) {
+            return new AddCommand(taskManager, this, command);
         } else {
             throw new JadeException(INVALID_TASK_MESSAGE);
         }
@@ -72,21 +75,25 @@ public class Parser {
         assert taskManager != null : "TaskManager should not be null";
 
         System.out.println(new GreetCommand().run());
+
+        Map<String, Function<String, String>> commandMap = new HashMap<>();
+        commandMap.put("list", cmd -> new ListCommand(taskManager).run());
+        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true).run());
+        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false).run());
+        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd).run());
+        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd).run());
+
         String command = sc.nextLine().trim().toLowerCase();
+
         while (!command.equals("bye")) {
             try {
-                if (command.equals("list")) {
-                    System.out.println(new ListCommand(taskManager).run());
-                } else if (command.startsWith("mark")) {
-                    System.out.println(new MarkCommand(taskManager, command, true).run());
-                } else if (command.startsWith("unmark")) {
-                    System.out.println(new MarkCommand(taskManager, command, false).run());
+                String commandType = command.split(" ")[0];
+                Function<String, String> commandFunction = commandMap.get(commandType);
+
+                if (commandFunction != null) {
+                    System.out.println(commandFunction.apply(command));
                 } else if (isTaskCommand(command)) {
                     System.out.println(new AddCommand(taskManager, this, command).run());
-                } else if (command.startsWith("delete")) {
-                    System.out.println(new DeleteCommand(taskManager, command).run());
-                } else if (command.startsWith("find")) {
-                    System.out.println(new FindCommand(taskManager, command).run());
                 } else {
                     throw new JadeException(INVALID_TASK_MESSAGE);
                 }
@@ -95,6 +102,7 @@ public class Parser {
             }
             command = sc.nextLine().trim().toLowerCase();
         }
+
         System.out.println(new ExitCommand().run());
     }
 
