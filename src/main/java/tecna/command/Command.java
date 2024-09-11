@@ -32,6 +32,6 @@ public abstract class Command {
         this.isSuccessful = isSuccessful;
     }
 
-    public abstract Object checkCommand(String message) throws WrongFormatException;
+    public abstract Object checkCommand() throws WrongFormatException;
 
 }
