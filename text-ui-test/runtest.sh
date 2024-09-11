@@ -13,8 +13,9 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../../src/main/java/*.java
 then
+    echo "Script executed from: ${PWD}"
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
