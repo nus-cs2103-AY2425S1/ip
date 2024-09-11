@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     public void setJay(Jay jay) {
         this.jay = jay;
         dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.greet(), jayImage));
+        dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.showHighPriorityTasks(), jayImage));
     }
 
     /**

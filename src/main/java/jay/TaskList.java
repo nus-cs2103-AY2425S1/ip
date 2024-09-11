@@ -197,4 +197,55 @@ public class TaskList {
 
         return new TaskList(new ArrayList<>(foundTasks));
     }
+
+    /**
+     * Sets the priority of a task.
+     *
+     * @param taskNumber The index of the task.
+     * @param priority The priority to be set.
+     * @throws DataIOException If there is an error saving the tasks.
+     * @throws InvalidCommandException If the task number is invalid.
+     */
+    public Task setPriority(int taskNumber, Task.Priority priority) throws DataIOException, InvalidCommandException {
+        assert priority != null : "Priority should not be null";
+
+        if (priority == Task.Priority.Unknown) {
+            throw new InvalidCommandException("OOPS!!! Unknown priority, please"
+                    + " enter the right priority { high, medium, low }.");
+        }
+
+        this.isValidTaskNumberCheck(taskNumber);
+
+        Task task = this.tasks.get(taskNumber - 1);
+        task.setPriority(priority);
+        this.saveTasks();
+
+        return task;
+    }
+
+    /**
+     * Returns the tasks with high priority.
+     *
+     * @return The tasks with high priority.
+     */
+    public TaskList getHighPriorityTasks() {
+        List<Task> highPriorityTasks = this.tasks.stream()
+                .filter(task -> task.getPriority() == Task.Priority.High)
+                .toList();
+
+        return new TaskList(new ArrayList<>(highPriorityTasks));
+    }
+
+    /**
+     * Returns the number of high priority tasks in the list.
+     *
+     * @return The number of high priority tasks in the list.
+     */
+    public String getHighPriorityTasksCount() {
+        long highPriorityTasksCount = this.tasks.stream()
+                .filter(task -> task.getPriority() == Task.Priority.High)
+                .count();
+
+        return "You have " + highPriorityTasksCount + " high priority tasks in the list.";
+    }
 }

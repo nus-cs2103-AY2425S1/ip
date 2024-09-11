@@ -33,7 +33,7 @@ public class Parser {
             case ToDo: {
                 try {
                     String description = command.getDescription();
-                    return new ToDoTask(description, false);
+                    return new ToDoTask(description, false, Task.Priority.Low);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -43,7 +43,7 @@ public class Parser {
                     String description = command.getDescription();
                     String date = command.getDate();
 
-                    return new DeadlineTask(description, false, date);
+                    return new DeadlineTask(description, false, Task.Priority.Low, date);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new InvalidTaskException("OOPS!!! The description or by of a deadline cannot be empty.");
                 }
@@ -55,7 +55,7 @@ public class Parser {
                     String startTime = command.getStartTime();
                     String endTime = command.getEndTime();
 
-                    return new EventTask(description, false, date, startTime, endTime);
+                    return new EventTask(description, false, Task.Priority.Low, date, startTime, endTime);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new InvalidTaskException("OOPS!!! The description, date, start time or "
                             + "end time of an event cannot be empty.");

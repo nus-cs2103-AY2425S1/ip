@@ -8,9 +8,14 @@ public class Task {
      * Represents the type of the task.
      */
     public enum Type { ToDo, Deadline, Event, Unknown };
+    /**
+     * Represents the priority of the task.
+     */
+    public enum Priority { High, Medium, Low, Unknown };
 
     private final String description;
     private boolean isDone;
+    private Priority priority;
 
     /**
      * Constructs a task object.
@@ -18,9 +23,10 @@ public class Task {
      * @param description The description of the Jay.task.
      * @param isDone      The status of the Jay.task.
      */
-    protected Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, Priority priority) {
         this.description = description;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -43,7 +49,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description + " { Priority: " + this.priority + " }";
     }
 
     private String getSimpleStatusIcon() {
@@ -51,20 +57,36 @@ public class Task {
     }
 
     /**
-     * Returns a simple format of the task for Jay.storage.
+     * Returns a simple format of the task for storage.
      *
-     * @return A simple format of the Jay.task.
+     * @return A simple format of the task.
      */
     public String getSimpleFormat() {
-        return this.getSimpleStatusIcon() + " | " + this.description;
+        return this.getSimpleStatusIcon() + " | " + this.description + " | " + this.priority;
     }
 
     /**
-     * Returns the description of the Jay.task.
+     * Returns the description of the task.
      *
-     * @return The description of the Jay.task.
+     * @return The description of the task.
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the priority of the task.
+     *
+     * @return The priority of the task.
+     */
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Set the priority of the task.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

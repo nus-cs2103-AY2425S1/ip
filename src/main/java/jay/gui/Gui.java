@@ -20,7 +20,7 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            URL fxmlResource = Gui.class.getResource("/view/DialogBox.fxml");
+            URL fxmlResource = Gui.class.getResource("/view/MainWindow.fxml");
             assert fxmlResource != null : "FXML resource not found";
 
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlResource);

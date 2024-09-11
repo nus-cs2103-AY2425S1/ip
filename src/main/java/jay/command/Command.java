@@ -10,7 +10,7 @@ public class Command {
      * Represents the type of command.
      */
     public enum CommandType {
-        List, Add, Mark, Unmark, Delete, Find, Exit, Unknown
+        List, Add, Mark, Unmark, Delete, Find, Exit, Set, Unknown
     }
 
     private final String command;
@@ -42,6 +42,8 @@ public class Command {
             return CommandType.Find;
         case "todo", "deadline", "event":
             return CommandType.Add;
+        case "set":
+            return CommandType.Set;
         default:
             return CommandType.Unknown;
         }
@@ -80,7 +82,7 @@ public class Command {
     }
 
     /**
-     * Returns the description from the Jay.command.
+     * Returns the description from the command.
      *
      * @return The description.
      */
@@ -89,7 +91,7 @@ public class Command {
     }
 
     /**
-     * Returns the date from the Jay.command.
+     * Returns the date from the command.
      *
      * @return The date.
      */
@@ -98,7 +100,7 @@ public class Command {
     }
 
     /**
-     * Returns the start time from the Jay.command.
+     * Returns the start time from the command.
      *
      * @return The start time.
      */
@@ -107,7 +109,7 @@ public class Command {
     }
 
     /**
-     * Returns the end time from the Jay.command.
+     * Returns the end time from the command.
      *
      * @return The end time.
      */
@@ -116,12 +118,31 @@ public class Command {
     }
 
     /**
-     * Returns the keyword from the Jay.command.
+     * Returns the keyword from the command.
      *
      * @return The keyword.
      */
     public String getKeyword() {
         return this.command.split(" ", 2)[1];
+    }
+
+    /**
+     * Returns the priority from the command.
+     *
+     * @return The priority.
+     */
+    public Task.Priority getPriority() {
+        String priority = this.command.split(" ", 3)[2];
+        switch (priority.toLowerCase()) {
+        case "high":
+            return Task.Priority.High;
+        case "medium":
+            return Task.Priority.Medium;
+        case "low":
+            return Task.Priority.Low;
+        default:
+            return Task.Priority.Unknown;
+        }
     }
 }
 

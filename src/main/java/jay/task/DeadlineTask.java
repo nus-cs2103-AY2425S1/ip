@@ -18,8 +18,8 @@ public class DeadlineTask extends Task {
      * @param date        The date of the Jay.task.
      * @throws InvalidDateException If the date is invalid.
      */
-    public DeadlineTask(String description, boolean isDone, String date) throws InvalidDateException {
-        super(description, isDone);
+    public DeadlineTask(String description, boolean isDone, Priority priority, String date) throws InvalidDateException {
+        super(description, isDone, priority);
         this.date = Parser.parseDate(date);
     }
 

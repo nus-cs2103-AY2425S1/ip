@@ -29,13 +29,13 @@ public class Jay {
     }
 
     public static void main(String[] args) {
-        new Jay("Jay").start();
+        new Jay("Jay").startCli();
     }
 
     /**
-     * Starts the chatbot.
+     * Starts the chatbot for cli application.
      */
-    public void start() {
+    public void startCli() {
         ui.output(this.greet());
         Scanner scanner = new Scanner(System.in);
 
@@ -47,6 +47,18 @@ public class Jay {
             } else {
                 ui.output(this.processCommand(command));
             }
+        }
+    }
+
+    /**
+     * Starts the chatbot for gui application.
+     */
+    public String showHighPriorityTasks() {
+        TaskList highPriorityTasks = this.tasks.getHighPriorityTasks();
+        if (highPriorityTasks.isEmpty()) {
+            return "You have no high priority tasks in the list.";
+        } else {
+            return highPriorityTasks.getHighPriorityTasksCount() + "\n" + highPriorityTasks;
         }
     }
 
@@ -105,6 +117,12 @@ public class Jay {
                 return this.findTasks(keyword);
             case Exit:
                 return "Bye. Hope to see you again soon!";
+            case Set:
+                taskNumber = command.getTaskNumber();
+                Task.Priority priority = command.getPriority();
+                task = this.tasks.setPriority(taskNumber, priority);
+                return "Got it. I've set the priority of this task to { " + priority + " } :\n"
+                        + task;
             default:
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

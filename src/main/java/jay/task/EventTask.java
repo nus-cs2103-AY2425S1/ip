@@ -26,9 +26,10 @@ public class EventTask extends Task {
      * @throws InvalidDateException If the date is invalid.
      * @throws InvalidTimeException If the time is invalid.
      */
-    public EventTask(String description, boolean isDone, String date, String startTime, String endTime)
+    public EventTask(String description, boolean isDone, Priority priority, String date,
+                     String startTime, String endTime)
             throws InvalidDateException, InvalidTimeException {
-        super(description, isDone);
+        super(description, isDone, priority);
         this.date = Parser.parseDate(date);
         this.startTime = Parser.parseTime(startTime);
         this.endTime = Parser.parseTime(endTime);

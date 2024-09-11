@@ -74,6 +74,8 @@ public class Storage {
             for (String taskStr : tasksStr) {
                 String[] taskDetails = taskStr.split("\\|");
                 Task.Type taskType = null; // preserve the task type
+                Task.Priority taskPriority = null; // preserve the task priority
+
                 switch (taskDetails[0].trim()) {
                 case "T":
                     taskType = Task.Type.ToDo;
@@ -88,25 +90,42 @@ public class Storage {
                     throw new InvalidDataFormatException("OOPS!!! "
                             + "There was an error loading the tasks from the file.");
                 }
+
                 boolean isDone = taskDetails[1].trim().equals("1");
                 String description = taskDetails[2].trim();
+
+                switch (taskDetails[3].trim()) {
+                case "High":
+                    taskPriority = Task.Priority.High;
+                    break;
+                case "Medium":
+                    taskPriority = Task.Priority.Medium;
+                    break;
+                case "Low":
+                    taskPriority = Task.Priority.Low;
+                    break;
+                default:
+                    throw new InvalidDataFormatException("OOPS!!! "
+                            + "There was an error loading the tasks from the file.");
+                }
+
                 // preserve the date for deadline and event tasks
                 String date = "";
 
                 switch (taskType) {
                 case ToDo:
-                    tasks.add(new ToDoTask(description, isDone));
+                    tasks.add(new ToDoTask(description, isDone, taskPriority));
                     break;
                 case Deadline:
-                    date = taskDetails[3].trim();
-                    tasks.add(new DeadlineTask(description, isDone, date));
+                    date = taskDetails[4].trim();
+                    tasks.add(new DeadlineTask(description, isDone, taskPriority, date));
                     break;
                 case Event:
-                    date = taskDetails[3].trim();
-                    String startTime = taskDetails[4].trim();
-                    String endTime = taskDetails[5].trim();
+                    date = taskDetails[4].trim();
+                    String startTime = taskDetails[5].trim();
+                    String endTime = taskDetails[6].trim();
 
-                    tasks.add(new EventTask(description, isDone, date, startTime, endTime));
+                    tasks.add(new EventTask(description, isDone, taskPriority, date, startTime, endTime));
                     break;
                 default:
                     throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
