@@ -13,22 +13,17 @@ import milo.tasks.TaskTypes;
  */
 public class Ui {
     private final Scanner myScanner = new Scanner(System.in);
-    private final String cat0 = """
-                  ╱|、
-                (˚ˎ 。7 \s
-                 |、˜〵         \s
-                 じしˍ,)ノ
-                """;
-    private final String cat1 = """
-                 ∧,,,∧
-                ( ̳• · •̳)
-                /    づ♡
-                """;
 
     /**
      * Milo greets user
      */
     public String greetUser() {
+        String cat0 = """
+                  ╱|、
+                (˚ˎ 。7 \s
+                 |、˜〵         \s
+                 じしˍ,)ノ
+                """;
         return "Hello! I'm Milo.\nWhat can I do for you?\n" + cat0;
     }
 
@@ -43,6 +38,11 @@ public class Ui {
      * Milo says bye to user
      */
     public String byeUser() {
+        String cat1 = """
+                 ∧,,,∧
+                ( ̳• · •̳)
+                /    づ♡
+                """;
         return "Bye. Hope to see you again soon!\n" + cat1;
     }
 
