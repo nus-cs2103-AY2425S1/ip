@@ -36,6 +36,7 @@ public class Stobberi {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input, taskList);
+            assert !c.isExit() : "Exit supposed to return false!";
             return c.execute();
         } catch (StobberiException e) {
             return e.getMessage();

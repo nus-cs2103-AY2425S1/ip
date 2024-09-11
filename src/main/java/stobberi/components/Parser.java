@@ -40,6 +40,7 @@ public class Parser {
         String command = parts[0];
         String restOfCommand = String.join(" ", java.util.Arrays.copyOfRange(parts, 1, parts.length));
 
+        assert command != null : "Command is not a String";
         switch (command) {
         case "bye":
             return new ExitCommand();
