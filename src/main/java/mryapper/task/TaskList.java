@@ -100,6 +100,8 @@ public class TaskList {
      * @return An ArrayList containing task with all the keywords in their description.
      */
     public ArrayList<Task> searchTasks(String str) {
+        assert this.count() <= 100: "Number of tasks should be less than 100";
+
         ArrayList<Task> result = new ArrayList<>(100);
         for (int i = 0; i < this.count(); i++ ) {
             Task task = this.taskList.get(i);
@@ -116,6 +118,7 @@ public class TaskList {
         if (listSize == 0) {
             return "You do not have any tasks!";
         }
+        assert listSize > 0: "Number of tasks should be greater than 0";
 
         String listInString = "";
         for (int i = 0; i < listSize; i += 1) {

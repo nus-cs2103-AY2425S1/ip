@@ -21,6 +21,8 @@ public class CommandList {
      */
     public static Command addTodoTask(String description) {
         return (tasks, ui, storage) -> {
+            assert !description.isEmpty() : "description should not be empty";
+
             Task newTask = new Todo(description);
             tasks.add(newTask);
             String response = String.format("Task added successfully!\n  %s\n"
@@ -40,6 +42,9 @@ public class CommandList {
      */
     public static Command addDeadlineTask(String description, String deadline) {
         return (tasks, ui, storage) -> {
+            assert !description.isEmpty(): "description should not be empty";
+            assert !deadline.isEmpty(): "deadline should not be empty";
+
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
             tasks.add(newTask);
             String response = String.format("Task added successfully!\n  %s\n"
@@ -60,6 +65,10 @@ public class CommandList {
      */
     public static Command addEventTask(String description, String start, String end) {
         return (tasks, ui, storage) -> {
+            assert !description.isEmpty(): "description should not be empty";
+            assert !start.isEmpty(): "start time/date should not be empty";
+            assert !end.isEmpty(): "end time/date should not be empty";
+
             Task newTask = new Event(description,
                     DateTimeParser.parseDateTime(start),
                     DateTimeParser.parseDateTime(end));
@@ -80,6 +89,9 @@ public class CommandList {
      */
     public static Command deleteTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            assert taskNumber > 0: "taskNumber should be greater than 0";
+            assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
+
             String response;
             try {
                 Task deletedTask = tasks.remove(taskNumber);
@@ -113,10 +125,14 @@ public class CommandList {
      */
     public static Command findTask(String searchInput) {
         return (tasks, ui, storage) -> {
+            assert !searchInput.isEmpty(): "searchInput should not be empty";
+
             ArrayList<Task> searchResult = tasks.searchTasks(searchInput);
             if (searchResult.isEmpty()) {
                 return "None of the tasks match your search results!";
             }
+
+            assert searchResult.size() > 0: "There should be at least one task in search results";
 
             String response = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < searchResult.size(); i++ ) {
@@ -135,6 +151,9 @@ public class CommandList {
      */
     public static Command markTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            assert taskNumber > 0: "taskNumber should be greater than 0";
+            assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
+
             String response;
             try {
                 response = "Nice! I have marked this task as done:\n  "
@@ -155,6 +174,9 @@ public class CommandList {
      */
     public static Command unmarkTask(int taskNumber) {
         return (tasks, ui, storage) -> {
+            assert taskNumber > 0: "taskNumber should be greater than 0";
+            assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
+
             String response;
             try {
                 response = "OK, I've marked this task as not done yet:\n  "

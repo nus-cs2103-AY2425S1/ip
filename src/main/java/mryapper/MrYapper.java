@@ -49,7 +49,10 @@ public class MrYapper {
      */
     public String getResponse(String input) {
         try {
+            assert input != null: "User input should not be null";
+
             Command c = Parser.parse(input);
+            assert c != null: "Command should not be null";
             return c.execute(tasks, ui, storageManager);
         } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
             return e.getMessage();
