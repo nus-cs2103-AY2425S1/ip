@@ -27,6 +27,7 @@ public abstract class Task {
      * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      */
     public Task(String taskName, boolean isTaskDone) {
+        assert taskName != null;
         this.taskName = taskName;
         this.isTaskDone = isTaskDone;
     }
@@ -37,6 +38,7 @@ public abstract class Task {
      * @return TaskTypes type of task.
      */
     public TaskTypes getTaskType() {
+        assert  taskType != null;
         return taskType;
     }
 
@@ -89,6 +91,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
+        assert taskName != null;
         return String.format("Name: %s, Completed: %s", this.taskName, this.isTaskDone);
     }
 
@@ -100,6 +103,8 @@ public abstract class Task {
      * @return String of serialized format of the task.
      */
     public String serialize() {
+        assert taskName != null;
+        assert taskType != null;
         return String.format("%s:%s:%s",
                 taskType,
                 taskName.replaceAll(":", "/colon"),
@@ -118,6 +123,7 @@ public abstract class Task {
      *         String arrays.
      */
     public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        assert stringDataSlices != null;
         if (stringDataSlices.length < 3) {
             throw new YappingBotInvalidSaveFileException(
                     INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES

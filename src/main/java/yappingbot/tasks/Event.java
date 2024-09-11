@@ -51,6 +51,9 @@ public class Event extends Task {
     throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
+
+        assert startTime != null;
+        assert endTime != null;
         this.setStartTime(startTime);
         this.setEndTime(endTime);
     }
@@ -61,6 +64,7 @@ public class Event extends Task {
      * @return starting date as String formatted "YYYY-MM-DD".
      */
     public String getStartTime() {
+        assert startTime != null;
         return startTime.toString();
     }
 
@@ -72,6 +76,7 @@ public class Event extends Task {
      * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
      */
     public void setStartTime(String startTime) throws YappingBotIncorrectCommandException {
+        assert startTime != null;
         try {
             this.startTime = LocalDate.parse(startTime);
         } catch (DateTimeParseException e) {
@@ -87,6 +92,7 @@ public class Event extends Task {
      * @return ending date as String formatted "YYYY-MM-DD".
      */
     public String getEndTime() {
+        assert endTime != null;
         return endTime.toString();
     }
 
@@ -98,6 +104,7 @@ public class Event extends Task {
      * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
      */
     public void setEndTime(String endTime) throws YappingBotIncorrectCommandException {
+        assert endTime != null;
         try {
             this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {
@@ -114,6 +121,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert getTaskName() != null;
+        assert startTime != null;
+        assert endTime != null;
         return String.format("%s (from: %s to: %s)",
                 super.getTaskName(),
                 this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
@@ -123,6 +133,8 @@ public class Event extends Task {
 
     @Override
     public String serialize() {
+        assert startTime != null;
+        assert endTime != null;
         return String.format("%s:%s:%s",
                 super.serialize(),
                 this.getStartTime().replaceAll(":", "/colon"),
@@ -132,6 +144,7 @@ public class Event extends Task {
 
     @Override
     public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        assert stringDataSlices != null;
         if (stringDataSlices.length < 5) {
             throw new YappingBotInvalidSaveFileException(
                     ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES
@@ -148,6 +161,7 @@ public class Event extends Task {
 
     @Override
     public boolean isStringFoundInTask(String searchString) {
+        assert searchString != null;
         // abuse the shortcircuiting
         return (super.isStringFoundInTask(searchString)
                 || getStartTime().contains(searchString)

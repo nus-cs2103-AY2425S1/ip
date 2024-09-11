@@ -25,6 +25,7 @@ public class Storage {
      *                     disk with.
      */
     public Storage(String savefilePath) {
+        assert savefilePath != null;
         this.savefilePath = savefilePath;
     }
 
@@ -58,6 +59,7 @@ public class Storage {
      * @throws YappingBotSaveFileIoException Exception if file is not accessible.
      */
     public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIoException {
+        assert userListRaw != null;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
             for (String t : userListRaw) {
                 bw.write(t);

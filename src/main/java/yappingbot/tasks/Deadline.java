@@ -50,6 +50,8 @@ public class Deadline extends Task {
     throws YappingBotIncorrectCommandException {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.DEADLINE);
+
+        assert deadline != null;
         this.setDeadline(deadline);
     }
 
@@ -59,6 +61,7 @@ public class Deadline extends Task {
      * @return String deadline in "YYYY-MM-DD" format
      */
     public String getDeadline() {
+        assert deadline != null;
         return deadline.toString();
     }
 
@@ -70,6 +73,7 @@ public class Deadline extends Task {
      * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
      */
     public void setDeadline(String deadline) throws YappingBotIncorrectCommandException {
+        assert deadline != null;
         try {
             this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
@@ -88,6 +92,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert deadline != null;
         return String.format(
                 "%s (by: %s)",
                 super.getTaskName(),
@@ -96,6 +101,7 @@ public class Deadline extends Task {
 
     @Override
     public String serialize() {
+        assert deadline != null;
         return String.format("%s:%s",
                 super.serialize(),
                 this.getDeadline().replaceAll(":", "/colon"));
@@ -103,6 +109,7 @@ public class Deadline extends Task {
 
     @Override
     public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        assert stringDataSlices != null;
         if (stringDataSlices.length < 4) {
             throw new YappingBotInvalidSaveFileException(
                     INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);

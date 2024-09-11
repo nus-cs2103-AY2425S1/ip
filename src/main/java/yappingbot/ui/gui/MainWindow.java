@@ -1,6 +1,7 @@
 package yappingbot.ui.gui;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
@@ -26,10 +27,12 @@ public class MainWindow extends VBox {
     @FXML
     private ScrollPane scrollPane;
 
-    private final Image userImage = new Image(
-            this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image ypImage = new Image(
-            this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final InputStream userImageStream =
+            this.getClass().getResourceAsStream("/images/DaUser.png");
+    private final InputStream ypImageStream =
+            this.getClass().getResourceAsStream("/images/DaDuke.png");
+    private Image userImage;
+    private Image ypImage;
 
     private volatile UiGui ui;
     private boolean updateOutput = false;
@@ -55,6 +58,11 @@ public class MainWindow extends VBox {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        assert userImageStream != null : "userImage is null!";
+        assert ypImageStream != null : "userImage is null!";
+        userImage = new Image(userImageStream);
+        ypImage = new Image(ypImageStream);
     }
 
     /**
@@ -65,7 +73,10 @@ public class MainWindow extends VBox {
             return;
         }
         try {
+            assert ui.hasOutputLines();
             String response = ui.getNextOutputLine();
+            assert response != null;
+
             DialogBox replyDialogBox = DialogBox.getReplyDialog(response, ypImage);
             dialogContainer.getChildren().add(replyDialogBox);
         } catch (IOException e) {
@@ -77,6 +88,8 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null;
+
         if (input.isEmpty()) {
             return;
         }
