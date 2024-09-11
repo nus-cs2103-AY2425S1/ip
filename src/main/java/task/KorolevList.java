@@ -13,13 +13,13 @@ import java.util.ArrayList;
  * Represents a list of KorolevTask
  */
 public class KorolevList {
-    private static String outOfIndexError = "The index is out of bound!";
-    private static String listNotice = "Here are the tasks in your list:\n";
-    private static String markNotice = "Nice! I've marked this task as done:";
-    private static String unmarkNotice = "OK, I've marked this task as not done yet:";
-    private static String deleteNotice = "Noted. I've removed this task:";
+    private static final String outOfIndexError = "The index is out of bound!";
+    private static final String listNotice = "Here are the tasks in your list:\n";
+    private static final String markNotice = "Nice! I've marked this task as done:";
+    private static final String unmarkNotice = "OK, I've marked this task as not done yet:";
+    private static final String deleteNotice = "Noted. I've removed this task:";
 
-    private static String filteredNotice = "Here are the matching tasks in your list:";
+    private static final String filteredNotice = "Here are the matching tasks in your list:";
     private ArrayList<KorolevTask> events;
 
     private static final KorolevStorage storage = new KorolevStorage();
