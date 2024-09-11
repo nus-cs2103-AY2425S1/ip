@@ -18,6 +18,7 @@ public class ListCommand extends Command {
      */
     public ListCommand(TaskManager taskManager) {
         super(taskManager);
+        assert taskManager != null : "TaskManager should not be null";
     }
 
     @Override

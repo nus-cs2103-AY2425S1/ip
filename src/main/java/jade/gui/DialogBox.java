@@ -32,6 +32,9 @@ public class DialogBox extends HBox {
      * @param img  The image to represent the speaker's face.
      */
     private DialogBox(String text, Image img) {
+        assert text != null && !text.trim().isEmpty() : "Text for dialog box should not be null or empty";
+        assert img != null : "Image for dialog box should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -56,6 +59,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance representing the user's input.
      */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null && !text.trim().isEmpty() : "User dialog text should not be null or empty";
+        assert img != null : "User image should not be null";
+
         var db = new DialogBox(text, img);
         db.setAlignment(Pos.BOTTOM_RIGHT);
         db.dialog.getStyleClass().add("label");
@@ -71,6 +77,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance representing Jade's response.
      */
     public static DialogBox getJadeDialog(String text, Image img) {
+        assert text != null && !text.trim().isEmpty() : "Jade dialog text should not be null or empty";
+        assert img != null : "Jade image should not be null";
+
         var db = new DialogBox(text, img);
         db.flip();
         return db;
@@ -82,6 +91,8 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        assert tmp != null && !tmp.isEmpty() : "Dialog children nodes should not be null or empty";
+
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.BOTTOM_LEFT);
