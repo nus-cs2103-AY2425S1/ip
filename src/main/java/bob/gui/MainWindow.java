@@ -1,6 +1,7 @@
 package bob.gui;
 
 import bob.Bob;
+import bob.data.TaskList;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,8 +37,13 @@ public class MainWindow extends AnchorPane {
     public void setBob(Bob d) {
         bob = d;
 
+        String welcomeMessage = bob.getUi().showWelcome();
+        String reminders = bob.getUi().showReminders(bob.getTaskList());
+        String initialMessage = welcomeMessage + "\n" + reminders;
+
         dialogContainer.getChildren().add(
-                DialogBox.getBobDialog(bob.getUi().showWelcome(), bobImage)
+                // show welcome message + upcoming reminders when user enters the chatbot
+                DialogBox.getBobDialog(initialMessage, bobImage)
         );
     }
 

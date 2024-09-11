@@ -35,6 +35,10 @@ public class Bob {
         return ui;
     }
 
+    public TaskList getTaskList() {
+        return tasks;
+    }
+
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

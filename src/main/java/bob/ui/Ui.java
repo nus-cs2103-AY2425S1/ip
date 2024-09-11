@@ -2,6 +2,10 @@ package bob.ui;
 
 import java.util.Scanner;
 
+import bob.commands.Remind;
+import bob.data.TaskList;
+import bob.storage.Storage;
+
 /**
  * Class to represent interactions with the user.
  */
@@ -24,20 +28,10 @@ public class Ui {
     }
 
     /**
-     * Reads a command from the user.
-     *
-     * @return String The command.
+     * Shows reminders of upcoming tasks to the user.
      */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Shows an error message.
-     *
-     * @param message The error message.
-     */
-    public static void showError(String message) {
-        System.out.println(message);
+    public static String showReminders(TaskList taskList) {
+        Remind remind = new Remind();
+        return remind.getReminders(taskList);
     }
 }
