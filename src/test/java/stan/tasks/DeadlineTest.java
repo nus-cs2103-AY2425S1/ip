@@ -10,7 +10,7 @@ class DeadlineTest {
     @Test
     void createValidDeadline() throws StanInvalidDateTimeFormatException {
         Deadline deadline = new Deadline("Submit report", "2023-08-30 2359");
-        assertEquals("[D][ ] Submit report (by: Aug 30 2023, 11:59pm)", deadline.toString());
+        assertEquals("[D][ ] Submit report (by: Aug 30 2023, 11:59PM)", deadline.toString());
     }
 
     @Test

@@ -51,8 +51,9 @@ public class TaskList {
      * @return The removed task.
      */
     public Task remove(int index) {
-        // Assert that index is within valid range
-        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Index is out of bounds");
+        }
         return tasks.remove(index);
     }
 
