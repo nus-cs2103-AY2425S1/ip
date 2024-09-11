@@ -19,6 +19,7 @@ public class Parser {
      */
     public Command readInput(String userInput, TaskList todoList) {
         String[] arrOfInput = userInput.split(" ", 2);
+        assert arrOfInput.length == 2;
         String action = arrOfInput[0];
         return switch (action) {
             // List command

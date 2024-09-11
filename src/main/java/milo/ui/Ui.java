@@ -52,6 +52,7 @@ public class Ui {
      * @param todoList list of tasks
      */
     public String printList(TaskList todoList) {
+        assert todoList != null;
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < todoList.getNumberOfTasks(); i++) {
@@ -66,6 +67,7 @@ public class Ui {
      * @param curTask object that system marked as done
      */
     public String printMark(Task curTask) {
+        assert curTask != null;
         return "Nice! I've marked this task as done:\n" +
                 "  " + curTask.toString() + "\n";
     }
@@ -76,6 +78,7 @@ public class Ui {
      * @param curTask object that system marked as not done
      */
     public String printUnmark(Task curTask) {
+        assert curTask != null;
         return "Ok, I've marked this as not done yet:\n" +
                 "  " + curTask.toString() + "\n";
     }
@@ -87,6 +90,7 @@ public class Ui {
      * @param numberOfTasks left in the todo list
      */
     public String printDelete(Task curTask, int numberOfTasks) {
+        assert curTask != null;
         StringBuilder response = new StringBuilder();
         response.append("Noted. I've removed this task:\n");
         response.append("  ").append(curTask.toString()).append("\n");
@@ -105,6 +109,7 @@ public class Ui {
      * @param numberOfTasks left in todo list
      */
     public String printTask(Task curTask, int numberOfTasks) {
+        assert curTask != null;
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've added this task:\n");
         response.append("  ").append(curTask.toString()).append("\n");
@@ -123,6 +128,7 @@ public class Ui {
      * @param tasksFound number of matching tasks found
      */
     public String printFoundTask(TaskList todoList, int tasksFound) {
+        assert todoList.getNumberOfTasks() > 0;
         StringBuilder response = new StringBuilder();
         response.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksFound; i++) {
