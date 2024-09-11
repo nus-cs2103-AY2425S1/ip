@@ -90,7 +90,30 @@ public class Bigdog {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Bigdog heard: " + input;
+        String botReply = "I don't know";
+        try {
+            String[] commands = Parser.parse(input);
+            botReply = switch (commands[0]) {
+                case "bye" -> ui.bye();
+                case "list" -> this.tasks.toString();
+                case "mark" -> this.tasks.mark(Integer.parseInt(commands[1]));
+                case "unmark" -> this.tasks.unmark(Integer.parseInt(commands[1]));
+                case "delete" -> this.tasks.delete(Integer.parseInt(commands[1]));
+                case "todo" -> this.tasks.add(Todo.of(commands[1]));
+                case "deadline" -> this.tasks.add(Deadline.of(commands[1]));
+                case "event" -> this.tasks.add(Event.of(commands[1]));
+                case "find" -> this.tasks.find(commands[1]);
+                default -> "Unknown command. Please try again.";
+            };
+        } catch (BigdogException
+                 | DateTimeParseException
+                 | NumberFormatException
+                 | IndexOutOfBoundsException e) {
+            return e.getMessage();
+        } finally {
+            storage.save(this.tasks.get());
+        }
+        return botReply;
     }
 
     /**

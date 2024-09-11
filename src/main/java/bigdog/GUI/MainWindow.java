@@ -44,10 +44,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = bigdog.getResponse(userInput.getText());
+        String bigdogText = bigdog.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getBigdogDialog(dukeText, bigdogImage)
+                DialogBox.getBigdogDialog(bigdogText, bigdogImage)
         );
         userInput.clear();
     }

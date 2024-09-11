@@ -29,9 +29,9 @@ public class Ui {
     /**
      * Prints a farewell message to the user and closes the Scanner when the application exits.
      */
-    public void bye() {
+    public String bye() {
         this.scanner.close();
-        System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
