@@ -1,8 +1,8 @@
-package bob.Ui;
+package bob.ui;
 
 import java.util.ArrayList;
 
-import bob.Tasks.Task;
+import bob.tasks.Task;
 
 /**
  * The Ui class of Bob chatbot is responsible for handling all user interactions.

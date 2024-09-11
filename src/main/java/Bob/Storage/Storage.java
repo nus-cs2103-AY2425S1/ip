@@ -1,4 +1,4 @@
-package bob.Storage;
+package bob.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,11 +10,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import bob.Tasks.Deadline;
-import bob.Tasks.Event;
-import bob.Tasks.Task;
-import bob.Tasks.Todo;
-import bob.Exception.BobException;
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.Todo;
+import bob.exception.BobException;
 
 
 public class Storage {

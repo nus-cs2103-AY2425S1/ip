@@ -1,8 +1,8 @@
-package bob.Parser;
+package bob.parser;
 
-import bob.Command.Command;
-import bob.Command.TodoCommand;
-import bob.Exception.BobException;
+import bob.command.Command;
+import bob.command.TodoCommand;
+import bob.exception.BobException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

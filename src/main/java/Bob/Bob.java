@@ -1,11 +1,11 @@
 package bob;
 
-import bob.Storage.Storage;
-import bob.TaskList.TaskList;
-import bob.Ui.Ui;
-import bob.Parser.Parser;
-import bob.Command.Command;
-import bob.Exception.BobException;
+import bob.storage.Storage;
+import bob.tasklist.TaskList;
+import bob.ui.Ui;
+import bob.parser.Parser;
+import bob.command.Command;
+import bob.exception.BobException;
 
 import java.util.Scanner;
 

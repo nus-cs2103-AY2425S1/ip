@@ -1,9 +1,9 @@
-package bob.Command;
+package bob.command;
 
-import bob.Exception.BobException;
-import bob.Storage.Storage;
-import bob.Ui.Ui;
-import bob.Tasks.Task;
+import bob.exception.BobException;
+import bob.storage.Storage;
+import bob.ui.Ui;
+import bob.tasks.Task;
 import java.util.ArrayList;
 
 public class UnmarkCommand extends Command {
