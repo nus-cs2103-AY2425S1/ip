@@ -1,18 +1,24 @@
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
+    private static final Storage STORAGE = new Storage("data/Bob.txt");
 
     private static String argument = "";
-    private static final List<Task> list = new ArrayList<>();
+    private static List<Task> list;
 
     private enum Command {
         BYE("bye") {
             @Override
             public void run() {
+                try {
+                    STORAGE.save(list);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 exit();
             }
         },
@@ -202,6 +208,11 @@ public class Bob {
         """;
         Scanner scanner = new Scanner(System.in);
 
+        try {
+            list = STORAGE.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(logo);
         greet();
         while (true) {
