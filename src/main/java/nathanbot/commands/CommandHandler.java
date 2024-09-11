@@ -89,9 +89,9 @@ public abstract class CommandHandler {
     public static String handleDeleteCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         try {
-            int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim());
-            Task task = taskList.getTask(index - 1);
-            taskList.deleteTask(index - 1);
+            int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim()) - 1;
+            Task task = taskList.getTask(index);
+            taskList.deleteTask(index);
             return "Noted. I've removed this task:\n" 
                 + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -193,7 +193,7 @@ public abstract class CommandHandler {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         String searchString = input.substring(CommandType.FIND.getCommand().length()).trim();
         TaskList tasksFound = taskList.find(searchString);
-        if (tasksFound.listLength() == 0) {
+        if (tasksFound.isEmpty()) {
             return "No tasks found containing: " + searchString + "\n";
         } else {
             return "Here are the matching tasks in your list:\n" + tasksFound;
