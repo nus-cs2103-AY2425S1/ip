@@ -1,0 +1,14 @@
+T|X|this
+T|X|that
+T|X|this
+T|X|this
+D|X|this|2019-09-09
+T|0|this
+T|0|this
+D|0|test|2019-09-09
+E|0|test 1|2019-09-09|2020-09-09
+T|0|this
+T|0|trhis
+T|X|thi
+D|0|this|2020-09-09
+T|0|this
