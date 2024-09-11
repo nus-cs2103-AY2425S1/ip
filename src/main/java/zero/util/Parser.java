@@ -51,6 +51,8 @@ public class Parser {
                 return handleEvent(tasks, fullCommand, ui);
             case "find":
                 return handleFind(tasks, fullCommand, ui);
+            case "snooze":
+                return handleSnooze(tasks, fullCommand, ui);
             default:
                 throw new ZeroException("分かりません");
             }
@@ -93,7 +95,7 @@ public class Parser {
             tasks.getTask(choice).markAsDone();
             return ui.showTaskMarked(tasks.getTask(choice));
         } catch (NumberFormatException e) {
-            throw new ZeroException("PLease enter a valid task number to mark.");
+            throw new ZeroException("Please enter a valid task number to mark.");
         }
     }
 
@@ -212,5 +214,23 @@ public class Parser {
             throw new ZeroException("Invalid find parameters");
         }
 
+    }
+
+    private static String handleSnooze(TaskList tasks, String input, Ui ui) throws ZeroException {
+        try {
+            String[] strArr = input.split(" ", 2);
+            int choice = Integer.parseInt(strArr[1]) - 1; // convert to zero-based index
+            Task selectedTask = tasks.getTask(choice);
+
+            if (selectedTask instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) selectedTask;
+                deadlineTask.snooze();
+            } else {
+                throw new ZeroException("Selected task to snooze must be a Deadline");
+            }
+            return ui.snoozeTask(tasks.getTask(choice));
+        } catch (NumberFormatException e) {
+            throw new ZeroException("Please enter a valid task number to snooze.");
+        }
     }
 }
