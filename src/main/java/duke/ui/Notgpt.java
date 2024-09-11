@@ -1,16 +1,11 @@
 package duke.ui;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
 /**
  * The {@code Notgpt} class is a simple command-line application that serves as an interface
  * for interacting with the user. It prints a logo and a greeting message, then passes control
  * to a parser that processes user input.
  */
-public class Notgpt{
+public class Notgpt {
     /**
      * Prints a line divider to the console.
      * <p>
