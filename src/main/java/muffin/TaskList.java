@@ -87,6 +87,7 @@ public class TaskList {
     /**
      * Adds a new task to the list.
      *
+     * @param index The index of the task to be added in the list.
      * @param t The task to add to the list.
      */
     public void add(int index, Task t) {
@@ -127,6 +128,16 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Reverts the most recent command performed on the task list. This includes
+     * actions such as adding, deleting, marking, or unmarking tasks. The undo operation
+     * restores the state of the task list to what it was before the last command was executed.
+     *
+     * @return a message indicating that the last command has been undone, along with
+     *         details of the reverted command and task.
+     * @throws MuffinException if the last action in history is not a recognized command
+     *                         or if there are no actions to undo.
+     */
     public String undo() throws MuffinException {
         if (history.isEmpty()) {
             return "There is no action for Muffin to undo!";

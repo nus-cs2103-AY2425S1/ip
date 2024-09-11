@@ -16,7 +16,6 @@ public abstract class Task {
      */
     protected boolean isDone;
 
-
     /**
      * Constructs a new Task with the specified description.
      * By default, the task is marked as not done.

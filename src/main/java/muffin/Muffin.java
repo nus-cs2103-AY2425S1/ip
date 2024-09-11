@@ -29,6 +29,7 @@ public class Muffin {
      *
      * @param userInput The input string from the user, representing a command and its parameters.
      * @return A String that represents the result of executing the command.
+     * @throws MuffinException If the command was of unexpected format.
      */
     public String command(String userInput) throws MuffinException {
         assert userInput != null;
