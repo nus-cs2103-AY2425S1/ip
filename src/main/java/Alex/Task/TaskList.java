@@ -28,15 +28,22 @@ public class TaskList {
     /**
      * Adds a task to the task list and returns a message.
      *
-     * @param task The task to be added.
+     * @param tasks The task to be added.
      * @return A message confirming the task has been added.
      */
-    public String addTask(Task task) {
-        tasks.add(task);
-        return "Got it. I've added task:\n"
-                + task.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+    public String addTask(Task... tasks) {
+        StringBuilder response = new StringBuilder("Got it. I've added the following tasks:\n");
+
+        for (Task task : tasks) {
+            this.tasks.add(task);
+            response.append(task.toString()).append("\n");
+        }
+
+        response.append("Now you have ").append(this.tasks.size()).append(" tasks in the list.");
+
+        return response.toString();
     }
+
 
     /**
      * Deletes a task from the list by index and returns a message.
