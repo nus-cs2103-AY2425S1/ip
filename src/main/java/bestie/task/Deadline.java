@@ -42,7 +42,7 @@ public class Deadline extends Task {
         } else {
             storeCompleted = "0";
         }
-        // store format: " D | 0 | read book | by Sunday
+        // Store format: " D | 0 | read book | by Sunday
         return "D | " + storeCompleted + " | " + this.description + " | " + this.by;
     }
 
