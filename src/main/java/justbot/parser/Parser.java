@@ -3,7 +3,6 @@ package justbot.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 import justbot.command.ByeCommand;
 import justbot.command.Command;
@@ -87,7 +86,6 @@ public class Parser {
             }
             LocalDateTime startDateTime = parseDateTime(timeParts[0].trim());
             LocalDateTime endDateTime = parseDateTime(timeParts[1].trim());
-            assert startDateTime.isBefore(endDateTime) : "invalid start/end date as end date is before start date";
             if (!startDateTime.isBefore(endDateTime)) {
                 throw new JustbotException("Hey man, why is the end date and time before the start date and time?");
             }

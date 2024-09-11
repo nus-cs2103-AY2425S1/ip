@@ -1,13 +1,12 @@
 package justbot.ui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 import justbot.exception.JustbotException;
 import justbot.task.Task;
 import justbot.task.TaskList;
+import justbot.task.TaskMatcher;
 
 /**
  * Represents the user interface of Justbot.
@@ -103,43 +102,19 @@ public class Ui {
      */
     public String findMessage(TaskList taskList, String... keywords) {
         StringBuilder result = new StringBuilder();
-
         result.append("Hey man, here are the matching tasks in your list:\n\n");
 
-        List<String> keywordList = new ArrayList<>();
+        TaskMatcher taskMatcher = new TaskMatcher(taskList, keywords);
+        List<Task> matchingTasks = taskMatcher.findMatchingTasks();
 
-        int numberOfKeywords = keywords.length;;
-
-        for (String keyword : keywords) {
-            keywordList.add(keyword);
-        }
-
-        System.out.println(keywordList);
-
-        int count = 1;
-
-        for (int i = 0; i < taskList.size(); i++) {
-            Task currTask = taskList.get(i);
-
-            for (int j = 0; j < keywordList.size(); j++) {
-                String keyword = keywordList.get(j);
-                System.out.println(keyword);
-
-                if (currTask.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    result.append(count).append(". ").append(currTask).append("\n");
-                    count++;
-                    break;
-                }
-            }
-
-            if (keywordList.isEmpty()) {
-                break;
-            }
-
-        }
-
-        if (count == 1) {
+        if (matchingTasks.isEmpty()) {
             result.append("No matching tasks found.\n");
+        } else {
+            int count = 1;
+            for (Task task : matchingTasks) {
+                result.append(count).append(". ").append(task).append("\n");
+                count++;
+            }
         }
 
         return result.toString();
