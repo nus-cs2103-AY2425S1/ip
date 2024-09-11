@@ -1,4 +1,7 @@
+<<<<<<< branch-A-CodeQuality
+=======
 
+>>>>>>> master
 import java.util.Scanner;
 
 import command.Parser;
