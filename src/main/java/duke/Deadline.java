@@ -5,10 +5,11 @@ import java.time.LocalDate;
  * Represents a Task with a specified deadline.
  */
 public class Deadline extends Task {
-    LocalDate deadl;
+    LocalDate date;
+    private static final String type = "[D]";
     public Deadline(String descr, String dl) {
         super(descr);
-        deadl = LocalDate.parse(dl);
+        date = LocalDate.parse(dl);
     }
 
     /**
@@ -17,7 +18,7 @@ public class Deadline extends Task {
      * @return String date.
      * */
     public String getDates() {
-        return " | " + deadl;
+        return " | " + date;
     }
 
     /**
@@ -26,7 +27,7 @@ public class Deadline extends Task {
      * @return String task description and date.
      * */
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + super.dateConverter(deadl) + ")";
+        return type + super.toString() + "(by: " + super.dateConverter(date) + ")";
     }
 }
 

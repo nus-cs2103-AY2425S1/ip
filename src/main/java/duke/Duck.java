@@ -4,9 +4,9 @@ package duke;
  * Represents a Duck chatbot object.
  */
 public class Duck {
-    private TaskList cmds;
+    private TaskList tasklist;
     Duck() throws DuckException {
-        cmds = new TaskList(Storage.load(), Storage.loadNum());
+        tasklist = new TaskList(Storage.load(), Storage.loadNum());
     }
 
     /**
@@ -17,7 +17,7 @@ public class Duck {
      * @throws DuckException if command given is not valid.
      */
     public String getResponse(String input) throws DuckException {
-        return Parser.parseCommand(cmds, input);
+        return Parser.parseCommand(tasklist, input);
     }
 }
 

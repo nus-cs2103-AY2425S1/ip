@@ -9,6 +9,8 @@ import java.util.Locale;
 public class Task {
     protected String description;
     protected boolean isDone;
+    private static final String STATUS_MARKED = "[X] ";
+    private static final String STATUS_UNMARKED = "[ ] ";
 
     public Task(String description) {
         this.description = description;
@@ -23,7 +25,7 @@ public class Task {
      * @returns String representation of whether the task is done.
      * */
     public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] "); // mark done task with X
+        return (isDone ? STATUS_MARKED : STATUS_UNMARKED);
     }
 
     /**

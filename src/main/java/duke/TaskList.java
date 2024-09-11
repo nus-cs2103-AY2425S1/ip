@@ -7,54 +7,63 @@ import java.util.Arrays;
  */
 public class TaskList {
     private Task[] tasks;
-    private int cmdNum = 0;
-    TaskList(Task[] t, int  n){
-        tasks = t;
-        cmdNum = n;
+    private int numberOfTasks = 0;
+    private static final int TASK_LIST_SIZE = 100;
+    private static final String REPLY_INVALID_TASK_NUMBER = "There is no task with the given task number.";
+    private static final String REPLY_ADDED = "Got it. I've added this task:\n  ";
+    private static final String REPLY_DELETED = "Noted. I've removed this task:\n ";
+    private static final String REPLY_MARKED = "Nice! I've marked this task as done:\n ";
+    private static final String REPLY_UNMARKED = "OK, I've marked this task as not done yet:\n ";
+    private static final String REPLY_LIST = "Here are the tasks in your list:";
+    private static final String REPLY_SUCCESSFUL_FIND = "Here are the matching tasks in your list:";
+    private static final String REPLY_UNSUCCESSFUL_FIND = "No matching tasks in your list.";
+
+    TaskList(Task[] allTasks, int numberTasks){
+        tasks = allTasks;
+        numberOfTasks = numberTasks;
     }
 
     /**
      * Adds new task to list.
      *
-     * @param t Task to be added to the list.
+     * @param task Task to be added to the list.
      * @return String reply confirming updated task list.
      * */
-    public String add(Task t) {
-        tasks[cmdNum] = t;
-        String s = "Got it. I've added this task:\n  " + get(cmdNum);
-        cmdNum++;
-        s+="\nNow you have " + cmdNum + " tasks in the list.";
-        return s;
+    public String add(Task task) {
+        tasks[numberOfTasks] = task;
+        String reply = REPLY_ADDED + get(numberOfTasks);
+        numberOfTasks++;
+        reply += "\nNow you have " + numberOfTasks + " tasks in the list.";
+        return reply;
     }
 
     /**
      * Returns task at the specified position in the list.
      *
-     * @param n Index of the task to be returned.
+     * @param index Index of the task to be returned.
      * @return Task item requested.
      * */
-    public Task get(int n) {
-        return tasks[n];
+    public Task get(int index) {
+        return tasks[index];
     }
 
     /**
      * Deletes task at that index in the list.
      *
-     * @param n Index of the task to be deleted.
+     * @param index Index of the task to be deleted.
      * @throws DuckException if there is no task at the given index in the list.
      * @return String reply confirming item has been deleted.
      * */
-    public String delete(int n) {
-        if (n >= cmdNum + 1) {
-            return "There is no task with the given task number.";
+    public String delete(int index) {
+        if (index >= numberOfTasks + 1) {
+            return REPLY_INVALID_TASK_NUMBER;
         }
-        String s = "Noted. I've removed this task:\n " + get(n - 1);
+        String reply = REPLY_DELETED + get(index - 1);
         ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(tasks));
-        newCmds.remove(n - 1);
-        tasks = newCmds.toArray(new Task[100]);
-        n--;
-        cmdNum--;
-        return s + "\nNow you have " + cmdNum + " tasks in the list.";
+        newCmds.remove(index - 1);
+        tasks = newCmds.toArray(new Task[TASK_LIST_SIZE]);
+        numberOfTasks--;
+        return reply + "\nNow you have " + numberOfTasks + " tasks in the list.";
 
     }
 
@@ -73,11 +82,11 @@ public class TaskList {
      * @return String of all tasks in the list.
      * */
     public String getAllTasks() {
-        StringBuilder s = new StringBuilder("Here are the tasks in your list:");
-        for (int n = 1; n <= cmdNum; n++) {
-            s.append("\n").append(n).append(". ").append(get(n - 1));
+        StringBuilder reply = new StringBuilder(REPLY_LIST);
+        for (int n = 1; n <= numberOfTasks; n++) {
+            reply.append("\n").append(n).append(". ").append(get(n - 1));
         }
-        return s.toString();
+        return reply.toString();
     }
 
     /**
@@ -88,12 +97,11 @@ public class TaskList {
      * @return String confirming task has been marked.
      * */
     public String mark(int num) {
-        if (num < cmdNum + 1) {
-            get(num - 1).mark();
-        } else {
-            return "There is no task with the given task number.";
+        if (num > numberOfTasks) {
+            return REPLY_INVALID_TASK_NUMBER;
         }
-        return "Nice! I've marked this task as done:\n " + get(num - 1);
+        get(num - 1).mark();
+        return REPLY_MARKED + get(num - 1);
     }
 
     /**
@@ -104,12 +112,11 @@ public class TaskList {
      * @return String confirming task has been unmarked.
      * */
     public String unmark(int num) {
-        if (num < cmdNum + 1) {
-            get(num - 1).unmark();
-        } else {
-            return "There is no task with the given task number.";
+        if (num > numberOfTasks) {
+            return REPLY_INVALID_TASK_NUMBER;
         }
-        return "OK, I've marked this task as not done yet:\n "+ get(num - 1);
+        get(num - 1).unmark();
+        return REPLY_UNMARKED + get(num - 1);
     }
 
     /**
@@ -121,7 +128,8 @@ public class TaskList {
     public String find(String keyword) {
         Task[] foundTasks = new Task[100];
         int numOfFoundTasks = 0;
-        for (int i = 0; i < cmdNum; i++) {
+
+        for (int i = 0; i < numberOfTasks; i++) {
             Task t = tasks[i];
             if (t.getDescription().contains(keyword)) {
                 foundTasks[numOfFoundTasks] = t;
@@ -129,14 +137,13 @@ public class TaskList {
             }
         }
         if (numOfFoundTasks == 0) {
-            return "No matching tasks in your list.";
-        } else {
-            StringBuilder s = new StringBuilder("Here are the matching tasks in your list:");
-            for (int n = 1; n < numOfFoundTasks; n++) {
-                s.append("\n").append(n).append(". ").append(foundTasks[n - 1]);
-            }
-            return s.toString();
+            return REPLY_UNSUCCESSFUL_FIND;
         }
+        StringBuilder reply = new StringBuilder(REPLY_SUCCESSFUL_FIND);
+        for (int n = 1; n < numOfFoundTasks; n++) {
+            reply.append("\n").append(n).append(". ").append(foundTasks[n - 1]);
+        }
+        return reply.toString();
     }
 
     /**
@@ -145,9 +152,9 @@ public class TaskList {
      * @throws DuckException if current list is corrupted.
      * */
     public void save() throws DuckException {
-        Storage.save(allTasks(), cmdNum);
+        Storage.save(allTasks(), numberOfTasks);
     }
     public int getCmdNum() {
-        return cmdNum;
+        return numberOfTasks;
     }
 }

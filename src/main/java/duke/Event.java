@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Event extends Task{
     LocalDate fromDate;
     LocalDate toDate;
+    private static final String type = "[E]";
     public Event(String descr, String start, String end) {
         super(descr);
         fromDate = LocalDate.parse(start);
@@ -27,6 +28,6 @@ public class Event extends Task{
      * @return String task description and date.
      * */
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + super.dateConverter(fromDate) + " to: " + super.dateConverter(toDate) + ")";
+        return type + super.toString() + "(from: " + super.dateConverter(fromDate) + " to: " + super.dateConverter(toDate) + ")";
     }
 }
