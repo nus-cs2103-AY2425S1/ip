@@ -1,6 +1,7 @@
 package thebotfather.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -75,6 +76,10 @@ public class Storage {
                     taskList.markAsDone(taskList.numberOfElements() - 1);
                 }
             }
+        } catch (TheBotFatherException e) {
+            throw e;
+        } catch (FileNotFoundException e) {
+            throw new TheBotFatherException("LOL file does not exist");
         } catch (Exception e) {
             throw new TheBotFatherException("The file is corrupted");
         }

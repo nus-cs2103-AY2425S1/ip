@@ -70,6 +70,15 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+
+        return obj.toString().equals(this.toString());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (by: " + this.by.format(Task.DATE_STRING_FORMATTER_PRINT) + ")";
     }

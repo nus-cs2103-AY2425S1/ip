@@ -44,4 +44,13 @@ public class Todo extends Task {
                     + "If you have a todo, type : \"todo <description>\"");
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Todo)) {
+            return false;
+        }
+
+        return obj.toString().equals(this.toString());
+    }
 }
