@@ -68,7 +68,8 @@ public class TaskList {
         try {
             storage.save(tasks);
         } catch (BocchiException e) {
-
+            // Task saving should not fail.
+            // TODO Handle this exception properly, e.g. by showing an error message to the user.
         }
     }
 }
