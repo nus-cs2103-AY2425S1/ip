@@ -23,6 +23,8 @@ public class FileProcessor {
      * @return An ArrayList of tasks read from the file.
      */
     public ArrayList<Task> readFromFile(String filePath) {
+        assert filePath != null;
+
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -86,6 +88,9 @@ public class FileProcessor {
      * @param tasks An ArrayList of tasks to write to the file.
      */
     public void writeToFile(String filePath, ArrayList<Task> tasks) {
+        assert filePath != null;
+        assert tasks != null;
+
         try {
             ArrayList<String> content = new ArrayList<>();
             for (Task task: tasks) {

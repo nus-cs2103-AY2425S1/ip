@@ -44,9 +44,12 @@ public class Muffin {
      * and performs the corresponding action, such as adding a task, marking it as done,
      * or deleting it.
      *
-     * @throws MuffinException if the user input is invalid or an unsupported command is given.
+     * @param userInput The input string from the user, representing a command and its parameters.
+     * @return A String that represents the result of executing the command.
      */
     public String command(String userInput) throws MuffinException {
+        assert userInput != null;
+
         try {
             int len = list.length();
             String[] parts = parser.parseInput(userInput);
@@ -94,8 +97,8 @@ public class Muffin {
             case DELETE:
                 Task r = list.delete(Integer.parseInt(parts[1]) - 1);
                 fp.writeToFile(filePath, list.getList());
-                return String.format("Ok. Task has been removed:\n \t %s \n " +
-                        "Now you have %d tasks in your list.", r, list.length());
+                return String.format("Ok. Task has been removed:\n \t %s \n "
+                        + "Now you have %d tasks in your list.", r, list.length());
 
             case FIND:
                 return String.format("Here are the matching tasks in your list: \n %s", list.find(parts[1]));
@@ -106,8 +109,8 @@ public class Muffin {
                 }
                 list.add(new Todo(parts[1]));
                 fp.writeToFile(filePath, list.getList());
-                return String.format("Ok. Added this task:\n \t %s \n" +
-                        "Now you have %d tasks in your list.", list.get(len), len + 1);
+                return String.format("Ok. Added this task:\n \t %s \n"
+                        + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
             case DEADLINE:
                 if (parts.length < 3) {
@@ -115,8 +118,8 @@ public class Muffin {
                 }
                 list.add(new Deadline(parts[1], parts[2]));
                 fp.writeToFile(filePath, list.getList());
-                return String.format("Ok. Added this task:\n \t %s \n" +
-                        "Now you have %d tasks in your list.", list.get(len), len + 1);
+                return String.format("Ok. Added this task:\n \t %s \n"
+                        + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
             case EVENT:
                 if (parts.length < 4) {
@@ -124,8 +127,8 @@ public class Muffin {
                 }
                 list.add(new Event(parts[1], parts[2], parts[3]));
                 fp.writeToFile(filePath, list.getList());
-                return String.format("Ok. Added this task:\n \t %s \n" +
-                        "Now you have %d tasks in your list.", list.get(len), len + 1);
+                return String.format("Ok. Added this task:\n \t %s \n"
+                        + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
             default:
                 break;
@@ -141,6 +144,8 @@ public class Muffin {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert input != null;
+
         try {
             return command(input);
         } catch (MuffinException e) {

@@ -11,7 +11,7 @@ public class TaskList {
     /**
      * The list of tasks.
      */
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskList with the specified list of tasks.
@@ -19,7 +19,7 @@ public class TaskList {
      * @param list An ArrayList of tasks to initialize the task list with.
      */
     public TaskList(ArrayList<Task> list) {
-        this.list = list;
+        this.tasks = list;
     }
 
     /**
@@ -29,7 +29,7 @@ public class TaskList {
      * @return The task that was marked as done.
      */
     public Task mark(int index) {
-        Task t = list.get(index);
+        Task t = tasks.get(index);
         t.isDone = true;
         return t;
     }
@@ -41,7 +41,7 @@ public class TaskList {
      * @return The task that was unmarked as not done.
      */
     public Task unmark(int index) {
-        Task t = list.get(index);
+        Task t = tasks.get(index);
         t.isDone = false;
         return t;
     }
@@ -53,8 +53,8 @@ public class TaskList {
      */
     public String list() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            result.append(i + 1).append(". ").append(list.get(i)).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         return result.toString();
     }
@@ -67,8 +67,8 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task delete(int index) {
-        Task t = list.get(index);
-        list.remove(index);
+        Task t = tasks.get(index);
+        tasks.remove(index);
         return t;
     }
 
@@ -78,7 +78,7 @@ public class TaskList {
      * @param t The task to add to the list.
      */
     public void add(Task t) {
-        list.add(t);
+        tasks.add(t);
     }
 
     /**
@@ -88,7 +88,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
-        return list.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -100,7 +100,7 @@ public class TaskList {
      */
     public String find(String keyword) {
         ArrayList<Task> newList = new ArrayList<>();
-        for (Task task: list) {
+        for (Task task: tasks) {
             if (task.description.contains(keyword)) {
                 newList.add(task);
             }
@@ -119,7 +119,7 @@ public class TaskList {
      * @return an ArrayList of Task objects representing the current list of tasks.
      */
     public ArrayList<Task> getList() {
-        return this.list;
+        return this.tasks;
     }
 
     /**
@@ -128,6 +128,6 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int length() {
-        return list.size();
+        return tasks.size();
     }
 }
