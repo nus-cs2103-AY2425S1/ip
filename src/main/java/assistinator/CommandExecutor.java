@@ -45,6 +45,7 @@ public class CommandExecutor {
     public String executeCommand(Command command, String fullCommand) throws AssitinatorExceptions {
         switch (command) {
         case BYE:
+            storage.saveTasks(tasks.getTasks());
             return "Bye. Hope to see you again soon!";
         case LIST:
             return tasks.listTasks();
@@ -52,7 +53,6 @@ public class CommandExecutor {
         case UNMARK:
             int index = parser.parseIndex(fullCommand);
             tasks.markTask(index, command == Command.MARK);
-            storage.saveTasks(tasks.getTasks());
             return tasks.listTasks();
         case TODO:
         case DEADLINE:
@@ -63,12 +63,10 @@ public class CommandExecutor {
                 return String.format("Warning: This event clashes with %s.", clashingTask.getDescription());
             }
             tasks.addTask(newTask);
-            storage.saveTasks(tasks.getTasks());
             return "Task added successfully\nNumber of Tasks: " + tasks.size();
         case DELETE:
             int deleteIndex = parser.parseIndex(fullCommand);
             tasks.deleteTask(deleteIndex);
-            storage.saveTasks(tasks.getTasks());
             return "Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
         case FIND:
             return tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
