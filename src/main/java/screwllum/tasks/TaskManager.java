@@ -1,10 +1,10 @@
 package screwllum.tasks;
 
-import screwllum.utils.Ui;
-import screwllum.exception.InvalidIndexException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import screwllum.exception.InvalidIndexException;
+import screwllum.utils.Ui;
 
 public class TaskManager {
     private List<Task> taskList;

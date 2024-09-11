@@ -1,11 +1,5 @@
 package screwllum.utils;
 
-import screwllum.exception.IllegalFileFormatException;
-import screwllum.tasks.Deadline;
-import screwllum.tasks.Event;
-import screwllum.tasks.Task;
-import screwllum.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import screwllum.exception.IllegalFileFormatException;
+import screwllum.tasks.Deadline;
+import screwllum.tasks.Event;
+import screwllum.tasks.Task;
+import screwllum.tasks.ToDo;
 
 public class Storage {
     private String filePath;
