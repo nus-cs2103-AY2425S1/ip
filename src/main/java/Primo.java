@@ -15,11 +15,17 @@ public class Primo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Instantiates UI and storage. If storage path has no file, create a file for storage.
+     *
+     * @param filePathString The path of the storage text file
+     */
     public Primo(String filePathString) {
         this.ui = new Ui();
         this.storage = new Storage(filePathString);
         try {
-            this.tasks = new TaskList(storage.load()); // Throws PrimoException and IOException
+            this.tasks = new TaskList(storage.load()); // throws PrimoException and IOException
         } catch (PrimoException | IOException e) {
             createDataFile();
         }
@@ -44,11 +50,8 @@ public class Primo {
      */
     public String getResponse(String input) {
         ui.showWelcome();
-        String output;
         try {
-            String fullCommand = input; // Reads command from user
-            // ui.showLine(); // Shows a divider line
-            Command c = Parser.parse(fullCommand); // Parses the command, may throw PrimoException
+            Command c = Parser.parse(input); // Parses the command, may throw PrimoException
             return c.execute(tasks, ui, storage); // Executes the command, may throw PrimoException
         } catch (PrimoException e) {
             ui.showError(e.getMessage()); // Displays error message if an exception occurs

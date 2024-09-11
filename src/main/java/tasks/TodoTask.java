@@ -1,9 +1,9 @@
 package tasks;
 
-public class ToDoTask extends Task {
+public class TodoTask extends Task {
     private static final String SYMBOL = "T";
 
-    public ToDoTask(String description) {
+    public TodoTask(String description) {
         super(description);
     }
 
