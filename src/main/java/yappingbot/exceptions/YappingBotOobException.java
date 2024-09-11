@@ -1,7 +1,5 @@
 package yappingbot.exceptions;
 
-import yappingbot.stringconstants.ReplyTextMessages;
-
 /**
  * YappingBotException for indices that are out of bounds.
  */

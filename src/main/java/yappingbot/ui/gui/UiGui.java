@@ -1,7 +1,6 @@
 package yappingbot.ui.gui;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
 
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
@@ -13,9 +12,11 @@ import yappingbot.ui.Ui;
  */
 public class UiGui implements Ui {
 
-    ArrayDeque<String> inputBuffer = new ArrayDeque<>();
-    ArrayDeque<String> outputBuffer = new ArrayDeque<>();
-    private boolean programClose = false;
+    final ArrayDeque<String> inputBuffer = new ArrayDeque<>();
+    final ArrayDeque<String> outputBuffer = new ArrayDeque<>();
+    private boolean streamsClosed = false; // When programme ends, this will be set true.
+
+    // OUTPUT methods
 
     @Override
     public void print(String s) {
@@ -48,30 +49,11 @@ public class UiGui implements Ui {
     }
 
     @Override
-    public boolean hasInputLines() {
-        while (inputBuffer.isEmpty()) {
-            Thread.onSpinWait();
-            if (programClose) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public String getNextInputLine() throws YappingBotIoException {
-        try {
-            return inputBuffer.poll();
-        } catch (Exception e) {
-            throw new YappingBotIoException(e.getMessage());
-        }
-    }
-
-    @Override
     public boolean hasOutputLines() {
+        // busywait until there is output to be shown to the user
         while (outputBuffer.isEmpty()) {
             Thread.onSpinWait();
-            if (programClose) {
+            if (streamsClosed) {
                 return false;
             }
         }
@@ -80,6 +62,7 @@ public class UiGui implements Ui {
 
     @Override
     public String getNextOutputLine() throws YappingBotIoException {
+        // get output to be shown to the user
         try {
             return outputBuffer.poll();
         } catch (Exception e) {
@@ -87,22 +70,49 @@ public class UiGui implements Ui {
         }
     }
 
+    // INPUT methods
+
     /**
      * Pushes String input into the input buffer to be processed by Yappingbot.
      *
      * @param input String to be inputted
      */
+    @Override
     public void pushInputLine(String input) {
+        // get output to be shown to the user
         inputBuffer.add(input);
     }
 
+    @Override
+    public boolean hasInputLines() {
+        // busywait until there is input from user to be processed
+        while (inputBuffer.isEmpty()) {
+            Thread.onSpinWait();
+            if (streamsClosed) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String getNextInputLine() throws YappingBotIoException {
+        // get input from user to be processed
+        try {
+            return inputBuffer.poll();
+        } catch (Exception e) {
+            throw new YappingBotIoException(e.getMessage());
+        }
+    }
+
+    // HELPER methods
 
     /**
      * Signals UiGui to close all inputs and outputs.
      *
-     * @param programClose Boolean of whether the programme has ended
+     * @param streamsClosed Boolean of whether the programme has ended
      */
-    public void setProgramClose(boolean programClose) {
-        this.programClose = programClose;
+    public void setProgramClose(boolean streamsClosed) {
+        this.streamsClosed = streamsClosed;
     }
 }

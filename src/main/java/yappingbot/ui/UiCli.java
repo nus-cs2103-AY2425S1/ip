@@ -18,6 +18,23 @@ public class UiCli implements Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    // OUTPUT methods
+
+    @Override
+    public void print(String msg) {
+        System.out.print(quoteMultilineText(msg) + "\n");
+    }
+
+    @Override
+    public void println(String msg) {
+        System.out.println(quoteSinglelineText(msg));
+    }
+
+    @Override
+    public void printf(String formattedString, Object... o) {
+        print(String.format(formattedString, o));
+    }
+
     @Override
     public void printError(YappingBotException e) {
         printError(e.getErrorMessage());
@@ -35,6 +52,29 @@ public class UiCli implements Ui {
     }
 
     @Override
+    public String getNextOutputLine() {
+        // System.out.print directly interfaces with Java's STDOUT.
+        // We do not need to implement any system to collect and output any STDOUT streams.
+        throw new YappingBotIoException("NOT IMPLEMENTED");
+    }
+
+    @Override
+    public boolean hasOutputLines() {
+        // System.out.print directly interfaces with Java's STDOUT.
+        // We do not need to implement any system to collect and output any STDOUT streams.
+        throw new YappingBotIoException("NOT IMPLEMENTED");
+    }
+
+    // INPUT methods
+
+    @Override
+    public void pushInputLine(String input) {
+        // Scanner with System.in directly interfaces with Java's STDIN
+        // We do not need to implement any system to collect inputs and stream to bot.
+        throw new YappingBotIoException("NOT IMPLEMENTED");
+    }
+
+    @Override
     public boolean hasInputLines() {
         return scanner.hasNext();
     }
@@ -48,30 +88,7 @@ public class UiCli implements Ui {
         }
     }
 
-    @Override
-    public String getNextOutputLine() {
-        throw new YappingBotIoException("NOT IMPLEMENTED");
-    }
-
-    @Override
-    public boolean hasOutputLines() {
-        throw new YappingBotIoException("NOT IMPLEMENTED");
-    }
-
-    @Override
-    public void print(String msg) {
-        System.out.print(quoteMultilineText(msg) + "\n");
-    }
-
-    @Override
-    public void println(String msg) {
-        System.out.println(quoteSinglelineText(msg));
-    }
-
-    @Override
-    public void printf(String formattedString, Object... o) {
-        print(String.format(formattedString, o));
-    }
+    // HELPER methods
 
     /**
      * Decorates the given string, to denote that it is the bot's output.
@@ -103,7 +120,6 @@ public class UiCli implements Ui {
         }
         sb.append("\n");
     }
-
 
     /**
      * Decorates the given string, to denote that it is the bot's output.

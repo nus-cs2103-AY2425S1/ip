@@ -13,7 +13,7 @@ import yappingbot.tasks.Task;
 public class TaskListFilterView extends TaskList {
     final TaskList parentTaskList;
     final ArrayList<Integer> indexInParentTaskList;
-    String filterString;
+    final String filterString;
 
     private TaskListFilterView(TaskList parentTaskList, String filterString) {
         this.parentTaskList = parentTaskList;
