@@ -37,27 +37,16 @@ public class Parser {
         String[] parts = response.split(" ");
         try {
             Commands command = Commands.valueOf(parts[0].toUpperCase());
-            switch (command) {
-            case MARK:
-            case UNMARK:
-                return handleMark(parts);
-            case TODO:
-                return handleTodo(response);
-            case DEADLINE:
-                return handleDeadline(response);
-            case EVENT:
-                return handleEvent(response);
-            case DELETE:
-                return handleDelete(parts);
-            case LIST:
-                return listTasks();
-            case FIND:
-                return handleFind(parts);
-            case BYE:
-                return handleBye();
-            default:
-                throw new LexiException("Unrecognized command: " + parts[0]);
-            }
+            return switch (command) {
+            case MARK, UNMARK -> handleMark(parts);
+            case TODO -> handleTodo(response);
+            case DEADLINE -> handleDeadline(response);
+            case EVENT -> handleEvent(response);
+            case DELETE -> handleDelete(parts);
+            case LIST -> listTasks();
+            case FIND -> handleFind(parts);
+            case BYE -> handleBye();
+            };
         } catch (IllegalArgumentException e) {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
