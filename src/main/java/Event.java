@@ -31,7 +31,7 @@ public class Event extends Task{
         StringBuilder str = new StringBuilder();
         str.append("[E]");
         str.append(super.toString());
-        str.append(String.format("(From:%sTo:%s)", from, to));
+        str.append(String.format("(From: %sTo: %s)", from, to));
         return str.toString();
     }
 

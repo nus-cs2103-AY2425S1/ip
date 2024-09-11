@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.nio.file.Files;
@@ -63,7 +63,7 @@ public class TaskList {
                     case "Todo" -> TaskList.add(new Todo(tokens[1],tokens[2]));
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (NoSuchFileException e) {
             //Checks if the directory exists. If not, creates the directory.
             if (Files.notExists(DIRECTORY_PATH)) {
                 try {
@@ -80,6 +80,7 @@ public class TaskList {
                 try {
                     Files.createFile(FILE_PATH);
                 } catch (IOException e2) {
+                    System.out.println("Potato");
                     System.out.println("Oh no! I can't save your file.\n" +
                             "Check out the error message to see what went wrong\n");
                     e2.printStackTrace();
