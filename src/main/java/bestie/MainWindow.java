@@ -47,6 +47,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bestie.getResponse(input);
+        assert response != null: "Failed to load response from chatbot.";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBestieDialog(response, bestieImage)

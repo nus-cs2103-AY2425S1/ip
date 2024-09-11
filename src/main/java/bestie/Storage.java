@@ -24,6 +24,7 @@ public class Storage {
      * @param filePath path of the bestie.txt file where users' tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty(): "File path cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -33,12 +34,16 @@ public class Storage {
      * @param tasks contains tasks to be saved into the bestie.txt file.
      */
     public void saveTasksToFile(TaskList tasks) {
+
+        // want to save tasks to bestie.txt file
+        assert this.filePath != null && !filePath.isEmpty(): "Filepath has not been initialised";
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f);
 
             for (Task task: tasks.getTasks()) {
                 /** Stores each task in its correct format for saving */
+                assert task != null: "Task in task list is null";
                 fw.write(task.toSaveFormat() + System.lineSeparator());
             }
             // Call close() method of filewriter object for writing operation to be completed
@@ -66,9 +71,13 @@ public class Storage {
             while (sc.hasNextLine()) {
                 // Load the next task in the file in its stored format
                 String nextTask = sc.nextLine();
+                assert nextTask != "" : "Next task is empty";
                 String[] parts = nextTask.split(" \\| ");
                 String taskType = parts[0]; // either T, D, or E, depending on task
-                // Checks whether task had been completed
+                
+              // Checks whether task had been completed
+                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E"):
+                        "Invalid task type";
                 boolean isCompleted = parts[1].equals("1");
                 String description = parts[2]; // description of task
                 Task newTask = null;
