@@ -88,6 +88,19 @@ public class Ui {
                 + "!\n" + tasksHappeningOnDate.toString()));
     }
 
+    /**
+     * Takes in a String search query from user input parsed by Parser sent to a FindCommand,
+     * a Tasklist with the Tasks containing one or more of the keywords in the search query,
+     * then outputs the Tasklist containing the specified keywords.
+     *
+     * @param searchQuery Search query containing keywords to find in Task name specified by user.
+     * @param tasksWithSearchQuery Tasklist containing Tasks with keyword(s) in their names.
+     */
+    public void showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
+        out.println(addDividerLine(MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
+                + tasksWithSearchQuery.toString()));
+    }
+
     public void showUnknownCommand(String command) {
         out.println(addDividerLineError(UNKNOWN_COMMAND_ERROR_INTRO + command + UNKNOWN_COMMAND_ERROR_OUTRO));
     }

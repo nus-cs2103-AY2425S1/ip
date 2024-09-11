@@ -19,7 +19,7 @@ public class Messages {
             • Type 'deadline {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
             to add a DELIGHTFUL deadline task with a due date!
             • Type 'event {Enter name here} /{Enter start time in yyyy-MM-dd HH:mm format here} \
-            /{Enter end time in yyyy-MM-dd HH:mm format here}' 
+            /{Enter end time in yyyy-MM-dd HH:mm format here}'
               to add an EXCITING event with start and end times!
             • Type 'list' to see ALL YOUR SWEET TASKS in ADDED ORDER (earliest to latest)!
             • Type 'mark {Enter task number here}' to mark a task as CONQUERED!
@@ -45,6 +45,7 @@ public class Messages {
     public static final String UNMARKED_TASK_MESSAGE = "AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  ";
     public static final String NUMBER_OF_TASKS_LEFT_INTRO = "!\nYOU'VE NOW GOT ";
     public static final String NUMBER_OF_TASKS_LEFT_OUTRO = " TASKS TO GO!\n";
+    public static final String MESSAGE_FIND_INTRO = "Searching every valley low and every mountain high for ";
     public static final String TASK_NUMBER_TO_MARK_MISSING_ERROR = "try indicating the index of the task you wanna "
             + "mark CONQUERED as a number!\n";
     public static final String TASK_NUMBER_TO_MARK_OUT_OF_BOUNDS_ERROR = "try indicating the index of an existing task "
@@ -86,6 +87,8 @@ public class Messages {
     public static final String DUE_DATE_PASSED_ERROR = "but you can't enter a deadline that's gone with the wind!\n";
     public static final String EVENT_TIME_PASSED_ERROR = "but you can't enter a past event!\n";
     public static final String EVENT_TIMES_NOT_IN_ORDER_ERROR = "but your start time and end time aren't adding up!\n";
+    public static final String ERROR_SEARCH_QUERY_EMPTY = "make sure to enter in some keywords in the name"
+            + "of the tasks you're searching for!\n";
     public static final String UNKNOWN_COMMAND_ERROR_INTRO = "but I don't think we're vibing when you say '";
     public static final String UNKNOWN_COMMAND_ERROR_OUTRO = "'.\nMind if I ask you for anything else, homie?\n";
     public static final String EXIT_MESSAGE = """

@@ -11,14 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static hypebot.common.Messages.DUE_DATE_MISSING_ERROR;
-import static hypebot.common.Messages.EVENT_TIME_MISSING_ERROR;
-import static hypebot.common.Messages.SEARCH_DATE_MISSING_ERROR;
-import static hypebot.common.Messages.SEARCH_DATE_PARSE_ERROR;
-import static hypebot.common.Messages.TASK_NAME_EMPTY_ERROR;
-import static hypebot.common.Messages.TASK_NUMBER_TO_DELETE_MISSING_ERROR;
-import static hypebot.common.Messages.TASK_NUMBER_TO_MARK_MISSING_ERROR;
-import static hypebot.common.Messages.TASK_NUMBER_TO_UNMARK_MISSING_ERROR;
+import static hypebot.common.Messages.*;
 
 public class Parser {
     private static final int INDEX_OFFSET = 1;
@@ -65,6 +58,16 @@ public class Parser {
             }
             Event newEvent = new Event(taskName, splitLineForDates[1], splitLineForDates[2]);
             return new AddCommand(newEvent);
+        case "find":
+            if (taskName.isEmpty()) {
+                throw new ParseException(ERROR_SEARCH_QUERY_EMPTY, 0);
+            }
+            StringBuilder searchBuilder = new StringBuilder();
+            for (int i = 1; i < commandAndTaskName.length; i++) {
+                searchBuilder.append(commandAndTaskName[i]).append("|");
+            }
+            String searchQuery = taskNameBuilder.toString();
+            return new FindCommand(searchQuery);
         case "mark":
             try {
                 int idxToMark = getIndexOffset(taskName);

@@ -5,6 +5,8 @@ import hypebot.task.Task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static hypebot.common.Messages.*;
 
@@ -63,6 +65,21 @@ public class Tasklist {
     public Tasklist getHappeningOn(LocalDate date) {
         List<Task> tasksOnDate = TASKS.stream().filter(task -> task.isHappeningOn(date)).toList();
         return new Tasklist(tasksOnDate);
+    }
+
+    /**
+     * Takes in a search query from user input parsed by Parser sent to a FindCommand,
+     * then returns a Tasklist of Tasks with the keyword in the Task name.
+     *
+     * @param searchQuery Search query from user to search Tasks with the search query in the name.
+     * @return Tasklist of Tasks containing search query in name.
+     */
+    public Tasklist getNameContains(String searchQuery) {
+        List<Task> tasksWithSearchQuery = TASKS.stream().filter(task -> {
+                Pattern pattern = Pattern.compile(searchQuery, Pattern.CASE_INSENSITIVE);
+                return pattern.matcher(task.getName().toLowerCase()).matches();
+        }).toList();
+        return new Tasklist(tasksWithSearchQuery);
     }
 
     @Override
