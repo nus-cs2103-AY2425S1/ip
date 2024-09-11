@@ -22,6 +22,8 @@ public class Buddy {
      * @param filePath The file path to store the tasks.
      */
     public Buddy(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.isBlank() : "File path should not be blank";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         TaskList loadedTasks;
@@ -32,6 +34,7 @@ public class Buddy {
             loadedTasks = new TaskList();
         }
         this.tasks = loadedTasks;
+        assert tasks != null : "Tasks should be initialized";
     }
 
     /**
@@ -42,6 +45,8 @@ public class Buddy {
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
+            assert fullCommand != null : "Full command should not be null";
+            assert !fullCommand.isBlank() : "Full command should not be blank";
             Command command = Parser.parse(fullCommand);
             command.execute(tasks, ui, storage);
             isExit = command.isExit();
@@ -67,6 +72,8 @@ public class Buddy {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
+        assert !input.isBlank() : "Input should not be blank";
         Command command = Parser.parse(input);
         return command.execute(tasks, ui, storage);
     }
