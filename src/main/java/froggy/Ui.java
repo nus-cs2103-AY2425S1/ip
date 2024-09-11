@@ -52,6 +52,4 @@ public class Ui {
     public void close() {
         scanner.close();
     }
-
-
 }

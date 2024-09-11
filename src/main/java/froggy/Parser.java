@@ -5,10 +5,8 @@ package froggy;
  */
 public class Parser {
 
-    private TaskList tasks;
+    public Parser() {
 
-    public Parser(TaskList tasks) {
-        this.tasks = tasks;
     }
 
     public Command parse(String input) {

@@ -68,4 +68,8 @@ public class TaskList {
         return output;
     }
 
+    public boolean isInRange(int index) {
+        return index >= 0 && index < tasks.size();
+    }
+
 }

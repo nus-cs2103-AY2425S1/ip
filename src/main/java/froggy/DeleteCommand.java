@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     System.out.println("Deleted the following task:");
                     taskList.printTask(index);
                     ui.showLine();
@@ -48,7 +48,7 @@ public class DeleteCommand extends Command {
         } else {
             try {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < taskList.getSize()) {
+                if (taskList.isInRange(index)) {
                     String output = taskList.getTask(index).toString();
                     taskList.removeTask(index);
                     storage.saveTasks(taskList);
