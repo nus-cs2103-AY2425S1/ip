@@ -1,5 +1,6 @@
 package sage.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,5 +75,23 @@ public class TaskList {
                 .filter(task -> task.containsKeyword(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
         return new TaskList(filtered);
+    }
+
+    public List<Task> getTaskForDate(LocalDate date) {
+        List<Task> tasksForDate = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getDeadline().toLocalDate().equals(date)) {
+                    tasksForDate.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                if (eventTask.getFrom().toLocalDate().equals(date) || eventTask.getTo().toLocalDate().equals(date)) {
+                    tasksForDate.add(task);
+                }
+            }
+        }
+        return tasksForDate;
     }
 }

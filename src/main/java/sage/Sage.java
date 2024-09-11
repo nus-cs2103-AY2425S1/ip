@@ -6,9 +6,11 @@ import sage.task.*;
 import sage.parser.Parser;
 import sage.exception.SageException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * The main class for the Sage task management application
@@ -64,6 +66,8 @@ public class Sage {
                     return deleteCommand(Parser.parseArgs(CommandType.DELETE, input));
                 case FIND:
                     return findCommand(Parser.parseArgs(CommandType.FIND, input));
+                case SCHEDULE:
+                    return scheduleCommand(Parser.parseArgs(CommandType.SCHEDULE, input));
                 case TODO:
                     return toDoCommand(Parser.parseArgs(CommandType.TODO, input));
                 case DEADLINE:
@@ -133,6 +137,21 @@ public class Sage {
         return this.ui.showSearchedTask(this.tasks.searchTasks(input));
     }
 
+    private String scheduleCommand(String input) throws SageException {
+        if (tasks.size() == 0 ) {
+            throw new SageException(EMPTY_TASK_LIST);
+        }
+        LocalDate date;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            date = LocalDate.parse(input.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new SageException(INVALID_DATE);
+        }
+        List<Task> tasksForDate = tasks.getTaskForDate(date);
+        return this.ui.showScheduledTask(tasksForDate, date);
+    }
+
     private String toDoCommand(String input) throws SageException {
         try {
             Task todo = new ToDo(input);
@@ -192,26 +211,6 @@ public class Sage {
         } catch (DateTimeParseException e) {
             throw new SageException(INVALID_DATE);
         }
-    }
-
-    private Task createEvent(String[] parts, DateTimeFormatter formatter) throws SageException {
-        if (parts.length < 2) {
-            throw new SageException("Please input correctly");
-        }
-        String description = parts[0].trim();
-        String[] timeParts = parts[1].split(" /to ");
-        if (timeParts.length < 2) {
-            throw new SageException("Please input correctly");
-        }
-        LocalDateTime from = LocalDateTime.parse(timeParts[0], formatter);
-        LocalDateTime to = LocalDateTime.parse(timeParts[1], formatter);
-        if (description.isEmpty()) {
-            throw new SageException("What is the date??");
-        }
-        if (to.isBefore(from)) {
-            throw new SageException("Inout the dates correctly please!! -_-");
-        }
-        return new Event(description, from, to);
     }
 
     private Task getTaskByIndex(String input) throws SageException {

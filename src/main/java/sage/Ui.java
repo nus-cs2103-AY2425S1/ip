@@ -4,6 +4,10 @@ import sage.exception.SageException;
 import sage.task.TaskList;
 import sage.task.Task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -88,5 +92,19 @@ public class Ui {
             sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
         return "Here are the matching tasks in your list:\n" + sb;
+    }
+
+    public String showScheduledTask(List<Task> tasks, LocalDate date) {
+        if (tasks.isEmpty()) {
+            return "No tasks scheduled for " +
+                    date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        }
+
+        StringBuilder response = new StringBuilder("Tasks scheduled for " +
+                date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":\n");
+        for (Task task : tasks) {
+            response.append(task.toString()).append("\n");
+        }
+        return response.toString();
     }
 }

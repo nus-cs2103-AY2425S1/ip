@@ -2,6 +2,7 @@ package sage.task;
 
 import sage.exception.SageException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,6 +23,10 @@ public class Deadline extends Task{
     public Deadline(String description, LocalDateTime by) throws SageException {
         super(description);
         this.by = by;
+    }
+
+    public LocalDateTime getDeadline() {
+        return by;
     }
 
     @Override
