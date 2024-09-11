@@ -175,5 +175,23 @@ public class Ui {
                 + getHorizontalLine();
     }
 
+    /**
+     * Returns tasks in the list that match a given tag as a formatted string.
+     *
+     * @param tasks The list of tasks with the given tag.
+     * @param tag   The tag to filter tasks by.
+     * @return The formatted list of tasks with the given tag.
+     */
+    public String showTaggedMessage(ArrayList<Task> tasks, String tag) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("I have now tagged this task as '").append(tag).append("':\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return getHorizontalLine()
+                + sb + "\n"
+                + getHorizontalLine();
+    }
+
     // Removed the readCommand() method as input is now handled via the GUI.
 }

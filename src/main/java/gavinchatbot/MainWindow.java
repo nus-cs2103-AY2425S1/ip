@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 /**
@@ -31,11 +32,16 @@ public class MainWindow {
      */
     @FXML
     public void initialize() {
-        // Add welcome message only if you want a default message.
-        // dialogContainer.getChildren().addAll(
-        //     DialogBox.getDukeDialog("Welcome to GavinChatBot!", new ImageView(dukeImage))
-        // );
+        // Ensure that images are set before usage
+        assert userImage != null : "User image must be initialized";
+        assert dukeImage != null : "Duke image must be initialized";
 
+        // Welcome message from Duke
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Welcome to GavinChatBot!", dukeImage)
+        );
+
+        // Set event handlers for user input
         sendButton.setOnMouseClicked((event) -> handleUserInput());
         userInput.setOnAction((event) -> handleUserInput());
     }

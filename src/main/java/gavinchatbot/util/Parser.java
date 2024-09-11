@@ -12,13 +12,15 @@ import gavinchatbot.command.ExitCommand;
 import gavinchatbot.command.FindCommand;
 import gavinchatbot.command.ListCommand;
 import gavinchatbot.command.MarkCommand;
+import gavinchatbot.command.TagCommand;
 import gavinchatbot.command.UnmarkCommand;
 
 /**
  * Represents a parser that interprets user input and returns the appropriate command.
  */
 public class Parser {
-
+    private final String horizontalLine =
+            "_________________________________________________________________________________\n";
     /**
      * Parses the user input and returns the corresponding command.
      *
@@ -60,8 +62,14 @@ public class Parser {
             return new FindCommand(find);
         } else if (input.equalsIgnoreCase("count")) {
             return new CountCommand();
+        } else if (input.startsWith("tag")) {
+            String[] parts = input.split(" ");
+            int index = Integer.parseInt(parts[1]) - 1;
+            String tag = parts[2];
+            return new TagCommand(index, tag);
         } else {
-            throw new GavinException("Invalid input!!! \n"
+            throw new GavinException(horizontalLine
+                    + "Invalid input!!! \n"
                     + "\n"
                     + "To add a new task, please start with 'todo', 'deadline', or 'event'. \n"
                     + "\n"
@@ -79,7 +87,11 @@ public class Parser {
                     + "\n"
                     + "To get the count of the number of tasks that are marked as done, please type 'count'. \n"
                     + "\n"
-                    + "To exit, please type 'bye'. ");
+                    + "To tag a task with a description, please type 'tag', followed by the index of the task, "
+                    + "followed by the description you want to tag the task with. \n"
+                    + "\n"
+                    + "To exit, please type 'bye'. "
+                    + horizontalLine);
         }
     }
 }

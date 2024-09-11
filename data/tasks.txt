@@ -1,6 +1,6 @@
-T | 1 | cook dinner
+T | 0 | cook dinner
 T | 1 | buy cai
 T | 0 | go zumba
 D | 1 | book flight | 2024-12-12
-E | 0 | lunch w friends |     2pm     |     3pm
+E | 0 | lunch w friends |      2pm      |      3pm
 T | 1 | cook breakfast
