@@ -1,16 +1,25 @@
 package michael;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 import java.util.Scanner;
 
 import java.io.IOException;
 
-public class Michael {
+import gui.MainWindow;
+
+public class Michael extends Application {
     private Ui ui; // Handles user interactions
     private Storage storage; // Handles loading and saving of tasks
     private TaskList tasks; // Handles adding, retrieval and deletion of tasks
     private Parser parser; // Processes user commands
     private final String PATH = "./data/save.txt"; // File path for save file of tasks
 
+    private static Michael michael = new Michael();
     /**
      * Initialises the chatbot.
      *
@@ -29,7 +38,7 @@ public class Michael {
     }
 
     public static void main(String[] args) {
-        new Michael().run();
+        michael.run();
     }
 
     /**
@@ -63,5 +72,27 @@ public class Michael {
             // Exit
             ui.giveFeedback("Bye. Hope to see you again soon!");
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Michael.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setMichael(michael);  // inject the Duke instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Parser getParser() {
+        return this.parser;
+    }
+
+    public Ui getUi() {
+        return this.ui;
     }
 }
