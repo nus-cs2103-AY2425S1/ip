@@ -20,4 +20,12 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
+    public LocalDate getToDate() {
+        return to;
+    }
+
+    public LocalDate getFromDate() {
+        return from;
+    }
+
 }

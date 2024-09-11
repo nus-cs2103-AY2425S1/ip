@@ -88,7 +88,10 @@ public class SirPotato {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates the response for the user's chat message.
+     * 
+     * @param input The user's input to the chatbot
+     * @return The chatbot's response after doing the specified instruction
      */
     public String getResponse(String input) {
         try {
