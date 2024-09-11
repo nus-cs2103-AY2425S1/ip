@@ -20,10 +20,10 @@ import zero.task.Todo;
  * It reads tasks from a specified file during initialisation and writes tasks back to the file when required.
  */
 public class Storage {
-    private final String FILEPATH;
+    private final String filePath;
 
     public Storage(String filePath) {
-        this.FILEPATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -36,7 +36,7 @@ public class Storage {
     public ArrayList<Task> load() throws ZeroException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File fileObj = new File(FILEPATH);
+            File fileObj = new File(filePath);
             if (!fileObj.exists()) {
                 fileObj.getParentFile().mkdirs(); // create directories if they don't exist
                 fileObj.createNewFile(); // create the file if it doesn't exist
@@ -72,7 +72,7 @@ public class Storage {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            throw new ZeroException("File not found: " + FILEPATH);
+            throw new ZeroException("File not found: " + filePath);
         } catch (IOException e) {
             throw new ZeroException("An error occurred while loading tasks.");
         }
@@ -81,7 +81,7 @@ public class Storage {
 
     public void save(TaskList tasks) throws ZeroException {
         try {
-            FileWriter myWriter = new FileWriter(FILEPATH);
+            FileWriter myWriter = new FileWriter(filePath);
             for (int i = 0; i < tasks.getSize(); i++) {
                 myWriter.write(tasks.getTask(i).toFormatted());
             }
