@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
@@ -49,12 +50,8 @@ public class YappingBot {
         userList = new TaskList();
         try {
             ArrayList<String> s = storage.loadListFromFile();
-            YappingBotInvalidSaveFileException e = userList.generateFromRaw(s);
-            // Lord forgive me for returning execptions without throwing them is so
-            // illegal.
-            if (e != null) {
-                ui.printError(e);
-            }
+            YappingBotExceptionList e = userList.generateFromRaw(s);
+            e.checkExceptions();
         } catch (YappingBotSaveFileNotFoundException e) {
             ui.printError(e);
         }

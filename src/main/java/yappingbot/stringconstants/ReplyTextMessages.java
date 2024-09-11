@@ -99,4 +99,5 @@ public final class ReplyTextMessages {
     public static final String FIND_STRING_FOUND_1d_1s = "Found %d tasks with '%s' (Type reset "
                                                          + "to return to default view)";
 
+    public static String MULTIPLE_EXCEPTIONS_1d_1s = "%d warnings were generated!:\n%s";
 }

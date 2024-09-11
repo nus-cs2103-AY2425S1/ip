@@ -8,11 +8,10 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import yappingbot.exceptions.YappingBotException;
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.Task;
-import yappingbot.ui.Ui;
 
 /**
  * TaskList container to hold valid Tasks.
@@ -29,30 +28,26 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Creates a task list populated with values from the given ArrayList of Strings.
+     * Creates a task list populated with values from the given ArrayList of Strings. Exceptions
+     * caught here are returned instead of thrown so that the loop can continue without having
+     * throws that interrupt the process.
      *
      * @param tasksRaw ArrayList of Strings, each a line that denotes a serialized task.
+     * @return YappingBotException for any caught errors.
      */
-    public YappingBotInvalidSaveFileException generateFromRaw(ArrayList<String> tasksRaw) {
-        ArrayList<Exception> errorLists = new ArrayList<>();
+    public YappingBotExceptionList generateFromRaw(ArrayList<String> tasksRaw) {
+        // Lord forgive me for returning execptions without throwing them, very illegal
+
+        YappingBotExceptionList exceptions = new YappingBotExceptionList();
         for (String taskIndividualRaw : tasksRaw) {
             String[] s = taskIndividualRaw.split(":");
             try {
                 this.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
-                errorLists.add(e);
+                exceptions.add(e);
             }
         }
-        if (!errorLists.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (Exception e : errorLists) {
-                // TODO: replace with exception collector class
-                sb.append(e.toString());
-                sb.append('\n');
-            }
-            return new YappingBotInvalidSaveFileException(sb.toString());
-        }
-        return null;
+        return exceptions;
     }
 
     /**
