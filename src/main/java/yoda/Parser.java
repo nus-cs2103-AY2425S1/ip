@@ -25,6 +25,7 @@ public class Parser {
      * @throws YodaException If the input is invalid or cannot be processed.
      */
     public Command handle(String input, TaskList tasks) throws YodaException {
+        assert tasks != null : "Tasks list should not be null";
         String[] splitInput = input.split(" ", 2);
         String commandString = splitInput[0];
         Command command = null;
@@ -62,6 +63,7 @@ public class Parser {
         default:
             throw new YodaException("What is the meaning of this...?");
         }
+        assert command != null : "Command should not be null";
         return command;
     }
 }

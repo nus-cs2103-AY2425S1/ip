@@ -21,6 +21,7 @@ public class Yoda {
      * @param filePath The path to the file where tasks are stored.
      */
     public Yoda(String filePath) {
+        assert filePath != null : "filePath should not be null";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
