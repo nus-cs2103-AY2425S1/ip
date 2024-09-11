@@ -174,7 +174,14 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Creates a UpdateCommand based on the user's input to update a task.
+     *
+     * @param inputs An array of strings containing the user input.
+     * @param tasks The Task list containing all tasks.
+     * @return A UpdateCommand object for the specified task.
+     * @throws FishmanException.InvalidUpdateTypeException If the task type cannot be updated.
+     */
     private static UpdateCommand getUpdateCommand(String[] inputs, TaskList tasks) throws FishmanException {
         validateUpdateInput(inputs);
 
@@ -199,6 +206,13 @@ public class Parser {
         return new UpdateCommand(updateIndex, newDateTimeStart, newDateTimeEnd);
     }
 
+    /**
+     * Parses the input arguments for a deadline task and returns the corresponding LocalDateTime
+     *
+     * @param inputArgs The input containing the deadline information to be updated.
+     * @return A LocalDateTime object representing deadline date.
+     * @throws FishmanException.MissingArgumentException If the input is not of the correct format.
+     */
     private static LocalDateTime parseDeadlineInput(String inputArgs) throws FishmanException {
         if (!inputArgs.matches("^/by\\s+.+$")) {
             throw new FishmanException.MissingArgumentException("updateDeadline");
@@ -208,9 +222,16 @@ public class Parser {
         return parseDateTime(updateDetails[1].trim());
     }
 
+    /**
+     * Parses the input arguments for an event task and returns the corresponding start and end LocalDateTime.
+     *
+     * @param inputArgs The input containing the event information.
+     * @return An array of LocalDateTime object, containing the start and end time.
+     * @throws FishmanException.MissingArgumentException If the input is not of the correct format.
+     */
     private static LocalDateTime[] parseEventInput(String inputArgs) throws FishmanException {
         if (!inputArgs.matches("^/from\\s+.+\\s+/to\\s+.+$")) {
-            throw new FishmanException.MissingArgumentException("Event tasks must have the format: update index /from date /to date.");
+            throw new FishmanException.MissingArgumentException("updateEvent");
         }
 
         String[] updateDetails = inputArgs.split("\\s*/from\\s*|\\s*/to\\s*", 3);
@@ -220,12 +241,25 @@ public class Parser {
         return new LocalDateTime[]{newDateTimeStart, newDateTimeEnd};
     }
 
+    /**
+     * Validates the update command's input to check if the necessary arguments are present.
+     *
+     * @param inputs The input argument to validate.
+     * @throws FishmanException.MissingArgumentException If the input does not contain enough arguments.
+     */
     private static void validateUpdateInput(String[] inputs) throws FishmanException {
         if (inputs.length < 2) {
             throw new FishmanException.MissingArgumentException("update");
         }
     }
 
+    /**
+     * Parses the update index from the input and returns as zero indexed.
+     *
+     * @param input The input containing a number representing the task index.
+     * @return The zero-based index of the task to update.
+     * @throws FishmanException.NumberFormatException If the input is not integer.
+     */
     private static int parseUpdateIndex(String input) throws FishmanException {
         try {
             return Integer.parseInt(input.split(" ")[0].trim()) - 1;

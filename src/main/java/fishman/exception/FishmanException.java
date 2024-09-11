@@ -40,9 +40,9 @@ public class FishmanException extends Exception {
     public static class MissingArgumentException extends FishmanException {
         private static final String MESSAGE_DEADLINE = "Deadline command requires a description or a /by date";
         private static final String MESSAGE_EVENT = "Event command requires a description or /from and /to dates";
-        private static final String MESSAGE_UPDATE_DEADLINE= "Update command for Deadline tasks must "
+        private static final String MESSAGE_UPDATE_DEADLINE = "Update command for Deadline tasks must "
                 + "have the format: update index /by date.";
-        private static final String MESSAGE_UPDATE_EVENT= "Update command for Event Tasks"
+        private static final String MESSAGE_UPDATE_EVENT = "Update command for Event Tasks"
                 + "must have the format: update index /from date /to date.";
 
 
@@ -192,6 +192,9 @@ public class FishmanException extends Exception {
         }
     }
 
+    /**
+     * The exception thrown when the task to be updated is of the wrong type.
+     */
     public static class InvalidUpdateTypeException extends FishmanException {
         private static final String MESSAGE = "Invalid task type to be updated.";
 

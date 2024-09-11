@@ -92,7 +92,12 @@ public class Ui {
         return result.toString();
     }
 
-
+    /**
+     * Constructs a string with the confirmation message after a task is updated.
+     *
+     * @param task The task that has been updated.
+     * @return A string with the confirmation message.
+     */
     public String getUpdatedTaskMessage(Task task) {
         return String.format("Bloop bloop, I have updated the following task:\n%s.", task);
     }
