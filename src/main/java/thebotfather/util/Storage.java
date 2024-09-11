@@ -31,6 +31,7 @@ public class Storage {
      * @param pathName The path of the file to store the task list.
      */
     public Storage(String pathName) {
+        assert pathName != null && !pathName.trim().isEmpty() : "File path cannot be null or empty";
         this.pathName = pathName;
     }
 
@@ -49,6 +50,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            assert file.exists() : "Failed to create the new task file";
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
                 String line = fileReader.nextLine();
@@ -94,6 +96,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            assert file.exists() : "Failed to create the new task file";
             FileWriter fw = new FileWriter(file);
             fw.write(taskList.toFile());
             fw.close();

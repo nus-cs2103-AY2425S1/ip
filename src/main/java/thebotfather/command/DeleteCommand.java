@@ -43,6 +43,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         Task deletedTask = taskList.delete(index);
         storage.toFile(taskList);
         return "You are sure you wanted to do that right? Anyways... too late\n"

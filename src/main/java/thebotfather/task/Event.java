@@ -34,6 +34,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws TheBotFatherException {
         super(description, "E");
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert from != null : "Start time ('from') cannot be null";
+        assert to != null : "End time ('to') cannot be null";
         this.from = from;
         this.to = to;
     }
