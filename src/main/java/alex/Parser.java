@@ -31,6 +31,7 @@ public class Parser {
      * @throws AlexException If the input does not match any valid command.
      */
     public static Command parse(String fullCommand) throws AlexException {
+        assert !fullCommand.isEmpty() : "Empty command";
         Scanner lineScanner = new Scanner(fullCommand);
 
         // Obtain the first word of user input
