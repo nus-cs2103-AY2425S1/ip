@@ -20,7 +20,7 @@ import duke.ui.Notgpt;
  */
 public class Storage {
     private ArrayList<Task> store = new ArrayList<>();
-    private Path filePath = Paths.get(".", "data", "data.txt");
+    private Path filePath = Paths.get(".", "data", "data.txt");  
 
     /**
      * Constructs a {@code Storage} object and initializes it by loading tasks from the specified file.
