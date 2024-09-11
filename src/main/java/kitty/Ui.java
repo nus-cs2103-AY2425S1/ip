@@ -4,8 +4,6 @@ import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
 import kitty.tasks.Task;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -94,7 +92,7 @@ public class Ui {
         return msg;
     }
 
-    public String  showDeleteTaskMessage(String note) {
+    public String showDeleteTaskMessage(String note) {
         showUpperLine();
         System.out.println("I have removed it from the list :)");
         System.out.println(note);

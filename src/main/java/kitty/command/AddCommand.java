@@ -29,12 +29,17 @@ public class AddCommand extends Command {
         boolean isCreated = false;
         switch (parts[0]) {
         case "todo" -> {
+            if (parts.length < 2) {
+                return "Please specify the detail of todo item!!!";
+            }
             task = new Todo(parts[1].trim());
             isCreated = true;
         }
         case "deadline" -> {
             if (Parser.checkDeadline(parts[1].trim(), ui)) {
                 String[] aux = Parser.parseDeadline(parts[1]);
+
+                assert !aux[1].isEmpty();
                 task = new Deadline(aux[0], Parser.parseDateTime(aux[1]));
                 isCreated = true;
             }
@@ -42,6 +47,8 @@ public class AddCommand extends Command {
         case "event" -> {
             if (Parser.checkEvent(parts[1], ui)) {
                 String[] aux = Parser.parseEvent(parts[1]);
+
+                assert !aux[1].isEmpty();
                 task = new Event(aux[0],
                         Parser.parseDateTime(aux[1]),
                         Parser.parseDateTime(aux[2]));
