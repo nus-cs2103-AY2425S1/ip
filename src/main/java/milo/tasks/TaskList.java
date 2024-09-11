@@ -29,13 +29,6 @@ public class TaskList {
     }
 
     /**
-    * A getter method returning the task list array
-     */
-    public ArrayList<Task> getList() {
-        return this.todoList;
-    }
-
-    /**
     * A getter method returning the number of tasks
      */
     public int getNumberOfTasks() {
