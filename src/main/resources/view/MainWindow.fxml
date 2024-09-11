@@ -9,6 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="400.0"
+            style="-fx-background-color: #00008B;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="wolfie.MainWindow">
@@ -36,7 +37,9 @@
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="388.0"
+                      spacing="10.0"
+                      style="-fx-background-color: #90EE90; -fx-padding: 10;" />
             </content>
         </ScrollPane>
     </children>

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import wolfie.control.DialogBox;
 
 /**
- * Controller for the main GUI.
+ * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -27,8 +27,9 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image wolfieImage = new Image(this.getClass().getResourceAsStream("/images/Wolfie.png"));
+
     /**
-     * Initializes the main window.
+     * Initializes the MainWindow.
      */
     @FXML
     public void initialize() {
@@ -36,12 +37,12 @@ public class MainWindow extends AnchorPane {
         showWelcome();
     }
 
-    /** Injects the Wolfie instance */
     public void setWolfie(Wolfie w) {
         wolfie = w;
     }
+
     /**
-     * Displays the welcome message when the application starts.
+     * Displays the welcome message from Wolfie.
      */
     public void showWelcome() {
         String wolfieArt =
@@ -61,10 +62,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getWolfieDialog(welcomeMessage, wolfieImage));
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Wolfie's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -72,14 +69,21 @@ public class MainWindow extends AnchorPane {
         assert !input.trim().isEmpty() : "User input should not be empty.";
 
         System.out.println("User input: " + input); // Debugging statement
-        String response = wolfie.getResponse(input);
+        String response;
+        boolean isError = false;
+        try {
+            response = wolfie.getResponse(input);
+        } catch (Exception e) {
+            response = "Error: " + e.getMessage();
+            isError = true;
+        }
         System.out.println("Wolfie response: " + response); // Debugging statement
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getWolfieDialog(response, wolfieImage)
+                isError ? DialogBox.getErrorDialog(response, wolfieImage)
+                        : DialogBox.getWolfieDialog(response, wolfieImage)
         );
         userInput.clear();
-        // Exit the application if the user input is bye
         if (input.trim().equalsIgnoreCase("bye")) {
             Platform.exit();
         }
