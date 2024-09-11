@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import commands.ByeCommand;
 import commands.Command;
@@ -79,10 +80,14 @@ public class Parser {
 
         switch (type) {
         case BYE:
+            assert words[0].equals("bye");
             return new ByeCommand();
         case LIST:
+            assert words[0].equals("list");
             return new ListCommand();
         case MARK:
+            assert words[0].equals("mark");
+            assert words.length > 1;
             try {
                 Integer.valueOf(words[1]);
             } catch (NumberFormatException e) {
@@ -91,6 +96,8 @@ public class Parser {
             int markIndex = Integer.valueOf(words[1]) - 1;
             return new MarkCommand(markIndex);
         case UNMARK:
+            assert words[0].equals("unmark");
+            assert words.length > 1;
             try {
                 Integer.valueOf(words[1]);
             } catch (NumberFormatException e) {
@@ -99,6 +106,8 @@ public class Parser {
             int unmarkIndex = Integer.valueOf(words[1]) - 1;
             return new UnmarkCommand(unmarkIndex);
         case TODO:
+            assert words[0].equals("todo");
+            assert words.length >= 2;
             int todoFromIndex = fullCommand.indexOf("todo ") + 5;
             String todoDescription = fullCommand.substring(todoFromIndex).trim();
             if (todoDescription.isEmpty()) {
@@ -107,6 +116,8 @@ public class Parser {
             ToDoTask newToDoTask = new ToDoTask(todoDescription);
             return new TodoCommand(newToDoTask);
         case DEADLINE:
+            assert words[0].equals("deadline");
+            assert words.length >= 3;
             if (!fullCommand.contains("/by")) {
                 throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
             }
@@ -132,6 +143,8 @@ public class Parser {
             DeadlineTask newDeadlineTask = new DeadlineTask(deadlineDescription, parsedDate);
             return new DeadlineCommand(newDeadlineTask);
         case EVENT:
+            assert words[0].equals("event");
+            assert words.length >= 4;
             if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
                 throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
             }
@@ -168,6 +181,8 @@ public class Parser {
             EventTask newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
             return new EventCommand(newEventTask);
         case DELETE:
+            assert words[0].equals("delete");
+            assert words.length > 1;
             try {
                 Integer.valueOf(words[1]);
             } catch (NumberFormatException e) {
@@ -176,10 +191,13 @@ public class Parser {
             int deleteIndex = Integer.valueOf(words[1]) - 1;
             return new DeleteCommand(deleteIndex);
         case FIND:
+            assert words[0].equals("find");
+            assert words.length > 1;
             String wordToFind = "";
             if (words.length <= 1) {
                 throw new PrimoException("Poor formatting! Expecting find <string>");
             }
+            wordToFind = words[1];
             return new FindCommand(wordToFind);
         default:
             return null; // should not reach here if exception handling is correct

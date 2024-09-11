@@ -49,6 +49,7 @@ public class Primo {
             String fullCommand = input; // Reads command from user
             // ui.showLine(); // Shows a divider line
             Command c = Parser.parse(fullCommand); // Parses the command, may throw PrimoException
+            assert c != null;
             return c.execute(tasks, ui, storage); // Executes the command, may throw PrimoException
         } catch (PrimoException e) {
             ui.showError(e.getMessage()); // Displays error message if an exception occurs
