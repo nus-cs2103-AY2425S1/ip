@@ -13,6 +13,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
+        assert description != null:"empty description";
         return "[T]" + super.toString();
     }
     /**
@@ -22,6 +23,7 @@ public class Todo extends Task {
      */
     @Override
     public String save() {
+        assert description != null:"empty description";
         return "T | " + super.save();
     }
 }

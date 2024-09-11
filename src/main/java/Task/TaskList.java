@@ -16,6 +16,7 @@ public class TaskList {
      * Displays the list of tasks after user types lists
      */
     public String handleList(){
+        assert array != null : "empty list";
         return Ui.uiList(array);
     }
     /**
@@ -29,6 +30,7 @@ public class TaskList {
      * @throws MissingArg if there are wrong number of arguments in the input string
      */
     public String handleTask(String input) throws WrongKeyword, MissingArg {
+        assert array != null : "empty list";
         if (input.startsWith("todo")) {
             try {
                 Todo x = new Todo(Parse.parseTodo(input));
@@ -66,6 +68,7 @@ public class TaskList {
      */
     public String markDone(String input) {
         int index = input.charAt(input.length() - 1) - '0';
+        assert index >= 0: "wrong indexing";
         array.get(index - 1).markAsDone();
         return Ui.uiMark(array.get(index - 1));
     }
@@ -76,6 +79,7 @@ public class TaskList {
      */
     public String markUnDone(String input) {
         int index = input.charAt(input.length() - 1) - '0';
+        assert index >= 0: "wrong indexing";
         array.get(index - 1).markAsNotDone();
         return Ui.uiUnMark(array.get(index - 1));
     }
@@ -86,6 +90,7 @@ public class TaskList {
      */
     public String delete(String input) {
         int index = input.charAt(input.length() - 1) - '0';
+        assert index >= 0: "wrong indexing";
         Task t = array.get(index - 1);
         array.remove(index - 1);
         return Ui.uiDelete(t, array.size());

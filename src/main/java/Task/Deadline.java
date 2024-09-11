@@ -26,6 +26,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+
+        
+        assert description != null:"empty description";
+        assert by != null:"empty due time";
+
         return "[D]" + super.toString() + " (by: " +
                 by.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";
     }
@@ -36,6 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String save() {
+        assert savedBy != null: "empty save time format";
         return "D | " + super.save() + " | " + savedBy;
     }
 }
