@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import velma.exception.VelmaException;
+import velma.task.After;
 import velma.task.Deadline;
 import velma.task.Event;
 import velma.task.Task;
@@ -62,6 +63,22 @@ public class Velma {
                 tasks.addTask(newTodo);
                 response.append("Got it. I've added this task:\n")
                         .append(newTodo)
+                        .append("\nNow you have ")
+                        .append(tasks.getSize())
+                        .append(" tasks in the list.");
+                storage.save(tasks.getTasks());
+                break;
+
+            case AFTER:
+                String[] afterParts = input.split("after", 2);
+                if (afterParts.length < 2) {
+                    throw new VelmaException("Sorry boss! When does your task needs to complete?");
+                }
+                String afterDescription = afterParts[0];
+                Task newAfter = new After(afterDescription, afterParts[1]);
+                tasks.addTask(newAfter);
+                response.append("Got it. I've added this task:\n")
+                        .append(newAfter)
                         .append("\nNow you have ")
                         .append(tasks.getSize())
                         .append(" tasks in the list.");
@@ -194,6 +211,8 @@ public class Velma {
     public static Command getCommand(String input) {
         if (input.startsWith("todo")) {
             return Command.TODO;
+        } else if (input.contains("after")) {
+            return Command.AFTER;
         } else if (input.startsWith("deadline")) {
             return Command.DEADLINE;
         } else if (input.startsWith("event")) {
