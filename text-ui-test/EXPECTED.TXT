@@ -8,7 +8,7 @@
   \     /    |   |  `-'`-'     /   (_I_)    '. \_/``".'  |  |  \    /
    `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'
 
-Hello! My name is victor!
+Hello! My name is Victor!
 What can I do for you?
 ============================================================
 ============================================================
@@ -17,17 +17,17 @@ What can I do for you?
   ~  You now have 1 task in your list.
 ============================================================
 ============================================================
-  ~  Splendid! I added this victor.tasks.Deadline:
+  ~  Splendid! I added this Deadline:
   ~    {D}{ } return library book (by: 9th August)
   ~  You now have 2 tasks in your list.
 ============================================================
 ============================================================
-  ~  Splendid! I added this victor.tasks.Deadline:
+  ~  Splendid! I added this Deadline:
   ~    {D}{ } call family (by: Sunday)
   ~  You now have 3 tasks in your list.
 ============================================================
 ============================================================
-  ~  Wonderful! I added this victor.tasks.Event:
+  ~  Wonderful! I added this Event:
   ~    {E}{ } business conference (from: 2 PM to: 5PM)
   ~  You now have 4 tasks in your list.
 ============================================================
@@ -68,7 +68,7 @@ What can I do for you?
   ~  You now have 6 tasks in your list.
 ============================================================
 ============================================================
-  ~  Wonderful! I added this victor.tasks.Event:
+  ~  Wonderful! I added this Event:
   ~    {E}{ } business presentation (from: 8 AM to: 12PM)
   ~  You now have 7 tasks in your list.
 ============================================================
