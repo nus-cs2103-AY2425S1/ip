@@ -1,8 +1,14 @@
 package luffy;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+
+
 
 /**
  * Represents a command parser that ensures user commands
@@ -15,7 +21,6 @@ public class LuffyParser {
     public LuffyParser(Scanner scanner) {
         this.scanner = scanner;
     }
-
     /**
      * Returns a Command object that contains the corresponding action
      * to be executed by the chatbot
@@ -38,7 +43,6 @@ public class LuffyParser {
             if (commandDetails.length == 1) {
                 break;
             }
-
             Deadline deadlineTask = null;
             String[] taskAndDeadline = fullCommand.substring(9).split("/", 2);
 
@@ -116,5 +120,36 @@ public class LuffyParser {
         } else if (textList.length != expectedLength && expectedLength == 3) {
             throw new LuffyException("Your event task requires a start time and end time!");
         }
+    }
+
+    /**
+     * GUI Handle
+     */
+    public String handleInputFromGui(String input) {
+        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        PrintStream pStream = new PrintStream(bStream);
+        PrintStream sysStream = System.out;
+        System.setOut(pStream);
+
+        LuffyUI luffyUI = new LuffyUI();
+        Storage storage = new Storage();
+        TaskList taskList = null;
+        try {
+            taskList = storage.loadFromFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        Command userCommand = LuffyParser.parse(input);
+        String mainAction = input.split(" ", 2)[0];
+
+        switch (mainAction) {
+        case "bye":
+            return "Goodbye! See you soon!";
+        default:
+            userCommand.executeCmd(luffyUI, storage, taskList);
+        }
+        System.out.flush();
+        System.setOut(sysStream);
+        return bStream.toString();
     }
 }

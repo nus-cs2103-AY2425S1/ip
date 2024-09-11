@@ -16,12 +16,16 @@ import java.io.IOException;
  */
 public class Storage {
 
+    private static final String DEST_FILE = "./LuffyData/TaskData";
     private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    public Storage() {
+        this.filePath = DEST_FILE;
+    }
     /**
      * This method reads a task list and saves the content of the
      * task list into a text file
