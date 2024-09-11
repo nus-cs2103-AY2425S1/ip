@@ -124,10 +124,11 @@ public class Parser {
             return null;
         }
     }
-    public static Command.CommandType getCommandType(String Command) throws LightException{
+
+    public static Command.CommandType getCommandType(String Command) throws LightException {
         switch (Command) {
         case "bye":
-            return EXIT;
+            return BYE;
         case "mark":
             return MARK;
         case "unmark":
@@ -148,7 +149,8 @@ public class Parser {
             throw new LightException("Invalid command type");
         }
     }
-    public static Command.CommandType getCommandTypeFromStorage(char Command) throws LightException{
+
+    public static Command.CommandType getCommandTypeFromStorage(char Command) throws LightException {
         switch (Command) {
         case 'T':
             return TODO;

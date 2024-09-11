@@ -67,7 +67,7 @@ public class Storage {
                     case DEADLINE:
                         String byDate = data.substring(data.lastIndexOf("(by: ") + 5, data.lastIndexOf(")"));
                         if (data.contains("(by:")) {
-                            list.add(new Deadline(taskDescription, byDate));
+                            list.add(new Deadline(data.substring(10, data.indexOf("(by:")), byDate));
                         } else {
                             System.out.println("Not enough arguments");
                         }
@@ -76,7 +76,7 @@ public class Storage {
                         String betweenBrackets = data.substring(data.lastIndexOf("(") + 1, data.lastIndexOf(")"));
                         String fromDate = betweenBrackets.split("from: ")[1].split(" to: ")[0].strip();
                         String toDate = betweenBrackets.split("to: ")[1];
-                        list.add(new Event(taskDescription, fromDate, toDate));
+                        list.add(new Event(data.substring(10, data.indexOf("(from:")), fromDate, toDate));
                         break;
                     }
                     if (marked) {
