@@ -163,10 +163,10 @@ public class Parser {
             }
         }
         if (fromTokenIndex == -1) {
-            throw new MissingTokenException("Event", "/from");
+            throw new MissingTokenException("event", "/from");
         }
         if (toTokenIndex == -1) {
-            throw new MissingTokenException("Event", "/to");
+            throw new MissingTokenException("event", "/to");
         }
 
         // Form task name from the tokens
