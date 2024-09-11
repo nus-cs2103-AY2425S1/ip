@@ -225,7 +225,7 @@ public class TaskList {
      * Finds and lists all those tasks whose task description contains the specified keyword.
      *
      * @param keyword The search keyword.
-     * @return Response acknowledging completion of task
+     * @return List of all those tasks which match
      * @throws MeejuException If blank string is provided.
      */
     public String findTask(String keyword) throws MeejuException {
@@ -246,5 +246,75 @@ public class TaskList {
             return "Meow! No such tasks can be found.";
         }
         return taskString.toString();
+    }
+
+    /**
+     * Finds and lists all those upcoming deadlines and events that have not been marked.
+     *
+     * @return those upcoming deadlines and events.
+     * @throws MeejuException If blank string is provided.
+     */
+    public String getReminders() throws MeejuException {
+        StringBuilder remindersString = new StringBuilder();
+
+        remindersString.append("Deadlines \n");
+        remindersString.append(getDeadlineReminders());
+        remindersString.append("\n");
+        remindersString.append("Events \n");
+        remindersString.append(getEventReminders());
+
+        return remindersString.toString();
+    }
+
+    private String getDeadlineReminders() {
+        StringBuilder deadlinesString = new StringBuilder();
+        String deadlineTaskIdentifier = "D";
+        int count = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task currentTask = this.taskList.get(i);
+            if (!currentTask.getTaskIdentifier().equals(deadlineTaskIdentifier)) {
+                continue;
+            }
+            if (currentTask.getIsDone()) {
+                continue;
+            }
+
+            // The following type caste is performed after verifying that the current task is
+            // a deadline task. This is done to access the date and time of deadline.
+            Deadline currentDeadlineTask = (Deadline) currentTask;
+
+            if (!currentDeadlineTask.isFutureDeadline()) {
+                continue;
+            }
+            deadlinesString.append((count)).append(". ").append(this.taskList.get(i)).append("\n");
+            count++;
+        }
+        return deadlinesString.toString();
+    }
+
+    private String getEventReminders() {
+        StringBuilder eventsString = new StringBuilder();
+        String eventTaskIdentifier = "E";
+        int count = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task currentTask = this.taskList.get(i);
+            if (!currentTask.getTaskIdentifier().equals(eventTaskIdentifier)) {
+                continue;
+            }
+            if (currentTask.getIsDone()) {
+                continue;
+            }
+
+            // The following type caste is performed after verifying that the current task is
+            // a event task. This is done to access the date and time of the event commencement.
+            Event currentDeadlineTask = (Event) currentTask;
+
+            if (!currentDeadlineTask.isFutureEvent()) {
+                continue;
+            }
+            eventsString.append((count)).append(". ").append(this.taskList.get(i)).append("\n");
+            count++;
+        }
+        return eventsString.toString();
     }
 }
