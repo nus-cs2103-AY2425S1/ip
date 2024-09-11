@@ -109,4 +109,3 @@ public class ChatterBoxGui extends Application {
         userInput.clear();
     }
 }
-

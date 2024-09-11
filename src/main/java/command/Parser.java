@@ -49,6 +49,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Marks task as done based on the user command.
      *
@@ -96,6 +97,7 @@ public class Parser {
             ui.showError("Command must be followed by a specific task number");
         }
     }
+
 
     /**
      * Adds a ToDo task based on the user command.
@@ -167,6 +169,54 @@ public class Parser {
     }
 
     /**
+     * Marks task as done based on the user command.
+     *
+     * @param input The command input specifying the task to mark.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui  The user interface handler for displaying messages.
+     */
+    private void markCommand(String input, TaskList taskList, Storage storage, Ui ui) {
+        try {
+            int indexSpace = input.indexOf(" ");
+            int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
+            if (isValidTask(taskIndex, taskList.size())) {
+                taskList.getTask(taskIndex).markAsDone();
+                storage.saveTasks(taskList.getTasks());
+                ui.showTaskMarkedAsDone(taskList.getTask(taskIndex));
+            } else {
+                ui.showErrorInvalidTaskNumber();
+            }
+        } catch (NumberFormatException e) {
+            ui.showError("Command must be followed by a specific task number");
+        }
+    }
+
+    /**
+     * Marks task as not done based on the user command.
+     *
+     * @param input The command input specifying the task to unmark.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
+    private void unmarkCommand(String input, TaskList taskList, Storage storage, Ui ui) {
+        try {
+            int indexSpace = input.indexOf(" ");
+            int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
+            if (isValidTask(taskIndex, taskList.size())) {
+                taskList.getTask(taskIndex).markAsNotDone();
+                storage.saveTasks(taskList.getTasks());
+                ui.showTaskMarkedAsNotDone(taskList.getTask(taskIndex));
+            } else {
+                ui.showErrorInvalidTaskNumber();
+            }
+        } catch (NumberFormatException e) {
+            ui.showError("Command must be followed by a specific task number");
+        }
+    }
+
+    /**
      * Deletes a task based on user command.
      *
      * @param input The command input specifying the task to delete.
@@ -191,6 +241,20 @@ public class Parser {
         }
     }
 
+     private void findCommand(String input, TaskList taskList, Storage storage, Ui ui) {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            ui.showError("Please provide a description to search for");
+        } else {
+            ArrayList<Task> matchingTasks = taskList.findTasks(description);
+            if (matchingTasks.isEmpty()) {
+                ui.showError("No tasks found matching: " + description);
+            } else {
+                ui.showFindTaskList(matchingTasks);
+            }
+        }
+    }
+    
     /**
      * Displays the list of tasks currently in the task list.
      *
@@ -215,19 +279,48 @@ public class Parser {
         ui.showGoodbye();
     }
 
-    private void findCommand(String input, TaskList taskList, Storage storage, Ui ui) {
-        String description = input.substring(4).trim();
-        if (description.isEmpty()) {
-            ui.showError("Please provide a description to search for");
-        } else {
-            ArrayList<Task> matchingTasks = taskList.findTasks(description);
-            if (matchingTasks.isEmpty()) {
-                ui.showError("No tasks found matching: " + description);
-            } else {
-                ui.showFindTaskList(matchingTasks);
-            }
-        }
+
+    private String getDeadlineDescription(String input) {
+        int index = input.indexOf("/");
+
+        String description = input.substring(9, index);
+        return description;
     }
+
+    private String getDeadlineDate(String input) {
+        int tempIndex = input.indexOf("y");
+        String deadline = input.substring(tempIndex + 2);
+        return deadline;
+    }
+
+    private String getEventDescription(String input) {
+        int index = input.indexOf("/");
+        String description = input.substring(6, index);
+        return description;
+    }
+
+    private String getEventStartDate(String input) {
+        int index = input.indexOf("/");
+        String temp = input.substring(index + 1);
+        int index2 = temp.indexOf("/");
+        int indexM = temp.indexOf("m");
+        String dateStart = temp.substring(indexM + 1, index2);
+        return dateStart;
+    }
+
+    private String getEventEndDate(String input) {
+        int index = input.indexOf("/");
+        String temp = input.substring(index + 1);
+        int index2 = temp.indexOf("/");
+        int indexM = temp.indexOf("m");
+        String dateEnd = temp.substring(index2 + 4);
+        return dateEnd;
+    }
+
+    boolean isValidTask(int index, int size) {
+        return index >= 0 && index < size;
+    }
+
 
     private String getDeadlineDescription(String input) {
         int index = input.indexOf("/");
@@ -270,3 +363,6 @@ public class Parser {
         return index >= 0 && index < size;
     }
 }
+
+}
+
