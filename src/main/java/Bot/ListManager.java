@@ -14,6 +14,16 @@ public class ListManager {
 
     public Task createItem(TaskBuilder builder) {
         Task task = builder.build();
+        System.out.println("Printing out task infomation");
+        for (int i = 0; i < itemList.size(); i++) {
+            Task task2 = itemList.get(i);
+            System.out.println(task2 + "task2 info");
+            System.out.println(task + "current task info");
+            if (task2.isEqual(task)) {
+                System.out.println("This item already exists!");
+                return task;
+            }
+        }
         itemList.add(builder.build());
         return task;
     }

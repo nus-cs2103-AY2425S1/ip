@@ -1,5 +1,7 @@
 package TaskType;
 
+import java.util.Objects;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -23,5 +25,9 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public boolean isEqual(Task task2) {
+        return Objects.equals(this.toString(), task2.toString());
     }
 }
