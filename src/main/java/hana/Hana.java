@@ -32,25 +32,6 @@ public class Hana {
     }
 
     /**
-     * Runs the Hana application, which listens for user input and executes commands.
-     * Not used in GUI
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (HanaException | IOException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
      * Processes a single user command and returns the response as a string.
      *
      * @param input The user's command input.
