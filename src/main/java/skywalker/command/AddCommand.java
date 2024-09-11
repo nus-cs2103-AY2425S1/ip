@@ -29,12 +29,16 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.addTask(task);
-        ui.showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        ui.showLine();
-        storage.save(tasks);
+        if (tasks.isDuplicate(task)) {
+            ui.showDuplicateTaskMessage(task);  // Show message that task is duplicate
+        } else {
+            tasks.addTask(task);
+            ui.showLine();
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            ui.showLine();
+            storage.save(tasks);
+        }
     }
 }

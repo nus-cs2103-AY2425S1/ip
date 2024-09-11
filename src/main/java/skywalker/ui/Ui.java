@@ -2,6 +2,7 @@ package skywalker.ui;
 
 import java.util.Scanner;
 
+import skywalker.task.Task;
 import skywalker.task.TaskList;
 
 /**
@@ -89,4 +90,14 @@ public class Ui {
     public void showMessage(String message) {
         System.out.println(message);
     }
+
+
+    public void showDuplicateTaskMessage(Task task) {
+        System.out.println("Duplicate task: " + task.getDescription() + " already exists!");
+    }
 }
+
+
+
+
+

@@ -86,4 +86,9 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public boolean isDuplicate(Task newTask) {
+        return tasks.stream()
+                .anyMatch(task -> task.getDescription().equals(newTask.getDescription()));
+    }
 }
