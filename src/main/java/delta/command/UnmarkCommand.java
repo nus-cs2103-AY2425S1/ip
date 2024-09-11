@@ -40,6 +40,7 @@ public class UnmarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.unmarkTask(index);
+        assert task.getStatusIcon().equals(" "): "Task not unmarked yet";
         String message = "Nice! I've marked this task as not done yet:\n"
                 + "  " + task;
         ui.showCommand(message);

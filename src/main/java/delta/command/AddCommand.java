@@ -40,6 +40,7 @@ public class AddCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         tasks.addTask(task);
+        assert tasks.getTasks().contains(task) : "Task not added into TaskList";
         String message = "Got it. I've added this task:\n"
                 + "  " + task.toString() + "\n"
                 + "Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.";
