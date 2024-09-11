@@ -27,9 +27,9 @@ public class Lawrence {
     private static final String NAME = "Lawrence";
     private static final Path SAVE_LOCATION = Paths.get(".", "data", "tasks.txt");
 
-    private TaskFileManager manager;
+    private final TaskFileManager manager;
     private TaskList tasks;
-    private UserInterface ui;
+    private final UserInterface ui;
 
     private Command previousCommand;
 
