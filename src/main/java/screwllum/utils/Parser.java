@@ -26,8 +26,10 @@ public class Parser {
         case "toggle":
             handleDeleteOrToggle(tokens, segments);
             break;
+        case "find":
+            // Fallthrough
         case "todo":
-            handleToDo(tokens, segments);
+            handleToDoOrFind(tokens, segments);
             break;
         case "deadline":
             handleDeadline(tokens, segments);
@@ -63,17 +65,17 @@ public class Parser {
             int index = Integer.parseInt(firstSegment[1].trim());
             tokens.add(String.valueOf(index));
         } catch (Exception e) {
-            throw new InvalidCommandException("The correct usage is: toggle <index:int>, "
+            throw new InvalidCommandException("The correct usage is: <command> <index:int>, "
                     + "ensure that you inputted a number");
         }
     }
     
-    private static void handleToDo(List<String> tokens, String[] segments) throws InvalidCommandException {
+    private static void handleToDoOrFind(List<String> tokens, String[] segments) throws InvalidCommandException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
             tokens.add(firstSegment[1].trim());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("The correct usage is: todo <desc:string>, you must have missed out"
+            throw new InvalidCommandException("The correct usage is: <command> <desc:string>, you must have missed out"
                     + " on adding the task description");
         }
     }

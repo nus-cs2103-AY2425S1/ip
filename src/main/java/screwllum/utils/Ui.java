@@ -2,6 +2,7 @@ package screwllum.utils;
 
 import screwllum.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,13 +27,7 @@ public class Ui {
             print("It was my pleasure, good bye");
             System.exit(0);
         case "list":
-            if (taskList.isEmpty()) {
-                print("There are no tasks for you!");
-            } else {
-                for (int i = 0; i < taskList.size(); i++) {
-                    print(String.format("%s. %s", i + 1, taskList.get(i).toString()));
-                }
-            }
+            printTaskList(taskList);
             break;
         case "toggle":
             print("I have toggled the status of this task:");
@@ -51,10 +46,31 @@ public class Ui {
             print(taskList.get(taskList.size() - 1).toString());
             print("Now you have " + taskList.size() + " tasks" );
             break;
+        case "find":
+            List<Task> tempList = new ArrayList<>();
+            String keywords = tokens.get(1);
+            print("find " + keywords);
+            for (int i = 0; i < taskList.size(); i++) {
+                Task currentTask = taskList.get(i);
+                if (currentTask.getDesc().contains(keywords)) {
+                    tempList.add(currentTask);
+                }
+            }
+            printTaskList(tempList);
         }
     }
     
     private void print(String message) {
         System.out.println(message);
-    } 
+    }
+    
+    private void printTaskList(List<Task> taskList) {
+        if (taskList.isEmpty()) {
+            print("There are no tasks for you!");
+        } else {
+            for (int i = 0; i < taskList.size(); i++) {
+                print(String.format("%s. %s", i + 1, taskList.get(i).toString()));
+            }
+        }
+    }
 }

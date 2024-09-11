@@ -44,6 +44,8 @@ public class TaskManager {
         case "event":
             taskList.add(new Event(tokens.get(1), tokens.get(2), tokens.get(3)));
             break;
+        default:
+            // Do nothing
         }
         if (list == null) {
             ui.showMessage(tokens, taskList);
