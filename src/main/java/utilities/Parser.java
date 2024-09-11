@@ -9,6 +9,7 @@ import command.UnmarkCommand;
 import command.DeleteCommand;
 import command.TaskCommand;
 import command.FindCommand;
+import command.SortCommand;
 import exception.FormatException;
 import exception.NoInputException;
 import task.TaskList;
@@ -23,7 +24,7 @@ public class Parser {
     private static final String UNMARK_COMMAND = "unmark";
     private static final String DELETE_COMMAND = "delete";
     private static final String FIND_COMMAND = "find";
-
+    private static final String SORT_COMMAND = "sort";
     /**
      * Static method to add horizontal lines and indentation to the dialog.
      * @param dialog The dialog to be formatted.
@@ -67,6 +68,7 @@ public class Parser {
             case MARK_COMMAND:
             case UNMARK_COMMAND:
             case DELETE_COMMAND:
+            case SORT_COMMAND:
                 return handleIndexCommand(command, parts, taskList);
             case FIND_COMMAND:
                 return handleFindCommand(parts, taskList);
@@ -112,6 +114,9 @@ public class Parser {
     public Command getNextCommand(Scanner sc, TaskList taskList) {
         try {
             String input = sc.nextLine();
+            if (input.trim().equalsIgnoreCase(SORT_COMMAND)) {
+                return new SortCommand(taskList);
+            }
             return parseUserInput(input, taskList);
         } catch (FormatException | NoInputException e) {
             System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());

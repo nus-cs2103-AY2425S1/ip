@@ -78,6 +78,10 @@ public class TaskList implements Iterable<Task> {
         return tasks.size();
     }
 
+    public void sort() {
+        tasks.sort(null);
+    }
+
     public TaskList findTasks(String s) {
         TaskList filteredTasks = new TaskList();
         for (Task task : tasks) {

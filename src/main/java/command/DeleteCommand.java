@@ -34,4 +34,5 @@ public class DeleteCommand extends Command {
                     + deletedTask + " Now you have %d tasks in the list.",
                     taskList.size());
     }
+
 }

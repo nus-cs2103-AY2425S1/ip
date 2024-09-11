@@ -10,9 +10,13 @@ import java.util.regex.Pattern;
 /**
  * Task class is used to represent a task in Duke.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
+    private static final int TODO_PRIORITY = 1;
+    private static final int DEADLINE_PRIORITY = 2;
+    private static final int EVENT_PRIORITY = 3;
+
 
     /**
      * Abstract method toFileString is used to convert the task to string
@@ -20,6 +24,12 @@ public abstract class Task {
      * @return The file string representation of the task.
      */
     public abstract String toFileString();
+
+    @Override
+    public abstract int compareTo(Task other); 
+
+    public abstract int getPriority();
+        
 
     /**
      * Static method fromFileString is used to convert a string from file
@@ -155,6 +165,19 @@ public abstract class Task {
             super(description);
         }
 
+        @Override
+        public int getPriority() {
+            return TODO_PRIORITY;
+        }
+
+        @Override
+        public int compareTo(Task other) {
+            if (this.getPriority() != other.getPriority()) {
+                return this.getPriority() - other.getPriority();
+            }
+            return this.description.compareTo(other.description);
+        }
+
         /**
          * Method toFileString is used to convert the todo task to string
          * for storage in file with Storage class.
@@ -183,6 +206,23 @@ public abstract class Task {
             super(description);
             this.by = by;
         }
+
+        @Override
+        public int getPriority() {
+            return DEADLINE_PRIORITY;
+        }
+
+        @Override
+        public int compareTo(Task other) {
+            if (this.getPriority() != other.getPriority()) {
+                return this.getPriority() - other.getPriority();
+            }
+            if (other instanceof Deadline) {
+                return this.by.compareTo(((Deadline) other).by);
+            }
+            return this.description.compareTo(other.description);
+        }
+
 
         /**
          * Method toFileString is used to convert the deadline task to string
@@ -216,6 +256,21 @@ public abstract class Task {
             this.to = to;
         }
 
+        @Override
+        public int getPriority() {
+            return EVENT_PRIORITY;
+        }
+
+        @Override
+        public int compareTo(Task other) {
+            if (this.getPriority() != other.getPriority()) {
+                return this.getPriority() - other.getPriority();
+            }
+            if (other instanceof Event) {
+                return this.from.compareTo(((Event) other).from);
+            }
+            return this.description.compareTo(other.description);
+        }
         /**
          * Method toFileString is used to convert the event task to string
          * for storage in file with Storage class.
