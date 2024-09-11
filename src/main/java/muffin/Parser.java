@@ -44,6 +44,6 @@ public class Parser {
         return Stream.concat(
                 Stream.of(firstWord),
                 Arrays.stream(parts)
-        ).toArray(String[]::new);
+                ).toArray(String[]::new);
     }
 }

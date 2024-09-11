@@ -1,6 +1,7 @@
 package muffin;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * The TaskList class manages a list of tasks. It provides methods to add, delete, mark as done,
@@ -9,17 +10,23 @@ import java.util.ArrayList;
 public class TaskList {
 
     /**
+     * An instance of FileProcessor to handle reading and writing tasks to a file.
+     */
+    private FileProcessor fp = new FileProcessor();
+
+    /**
      * The list of tasks.
      */
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs a new TaskList with the specified list of tasks.
-     *
-     * @param list An ArrayList of tasks to initialize the task list with.
+     * Stack to store command history for undo function.
      */
-    public TaskList(ArrayList<Task> list) {
-        this.tasks = list;
+    private Stack<History> history;
+
+    public TaskList() {
+        this.tasks = fp.readFromFile();
+        this.history = new Stack<>();
     }
 
     /**
@@ -31,6 +38,8 @@ public class TaskList {
     public Task mark(int index) {
         Task t = tasks.get(index);
         t.isDone = true;
+        history.push(new History("mark", t, index));
+        fp.writeToFile(tasks);
         return t;
     }
 
@@ -43,6 +52,8 @@ public class TaskList {
     public Task unmark(int index) {
         Task t = tasks.get(index);
         t.isDone = false;
+        history.push(new History("unmark", t, index));
+        fp.writeToFile(tasks);
         return t;
     }
 
@@ -59,7 +70,6 @@ public class TaskList {
         return result.toString();
     }
 
-
     /**
      * Deletes the task at the specified index from the list.
      *
@@ -69,16 +79,21 @@ public class TaskList {
     public Task delete(int index) {
         Task t = tasks.get(index);
         tasks.remove(index);
+        history.push(new History("delete", t, index));
+        fp.writeToFile(tasks);
         return t;
     }
 
     /**
      * Adds a new task to the list.
      *
+     * @param index The index of the task to be added in the list.
      * @param t The task to add to the list.
      */
-    public void add(Task t) {
-        tasks.add(t);
+    public void add(int index, Task t) {
+        tasks.add(index, t);
+        history.push(new History("add", t, tasks.size() - 1));
+        fp.writeToFile(tasks);
     }
 
     /**
@@ -114,12 +129,44 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the list of tasks.
+     * Reverts the most recent command performed on the task list. This includes
+     * actions such as adding, deleting, marking, or unmarking tasks. The undo operation
+     * restores the state of the task list to what it was before the last command was executed.
      *
-     * @return an ArrayList of Task objects representing the current list of tasks.
+     * @return a message indicating that the last command has been undone, along with
+     *         details of the reverted command and task.
+     * @throws MuffinException if the last action in history is not a recognized command
+     *                         or if there are no actions to undo.
      */
-    public ArrayList<Task> getList() {
-        return this.tasks;
+    public String undo() throws MuffinException {
+        if (history.isEmpty()) {
+            return "There is no action for Muffin to undo!";
+        }
+
+        History lastAction = history.pop();
+
+        switch (lastAction.getCommand()) {
+        case "add":
+            tasks.remove(lastAction.getIndex());
+            break;
+
+        case "delete":
+            tasks.add(lastAction.getIndex(), lastAction.getTask());
+            break;
+
+        case "mark":
+            unmark(lastAction.getIndex());
+            break;
+
+        case "unmark":
+            mark(lastAction.getIndex());
+            break;
+
+        default:
+            throw new MuffinException("Command does not exist.");
+        }
+
+        return String.format("Muffin has helped you undo %s: \n \t %s.", lastAction.getCommand(), lastAction.getTask());
     }
 
     /**

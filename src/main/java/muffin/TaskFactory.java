@@ -9,7 +9,7 @@ public class TaskFactory {
 
     /**
      * Creates a Task object based on the provided array of parts.
-     * The first element of the array determines the type of task to create:
+     * The first element of the array determines the type of task to create.
      *
      * @param parts An array of Strings representing the task details.
      * @return A Task object.
