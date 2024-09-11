@@ -3,12 +3,12 @@ name: Java CI
 on: [push, pull_request]
 
 jobs:
-build:
+  build:
     strategy:
       matrix:
-        platform: [windows-latest]
-    runs-on: ${{ matrix.platform }}
+        os: [windows-latest]
 
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Set up repository
         uses: actions/checkout@master
