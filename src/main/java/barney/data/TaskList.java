@@ -1,6 +1,7 @@
 package barney.data;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import barney.data.task.Task;
 
@@ -74,11 +75,9 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return "No tasks in the list!";
         }
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
-        }
-        return output.toString();
+        return tasks.stream()
+            .map(task -> (tasks.indexOf(task) + 1) + ". " + task.toString())
+            .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -97,13 +96,9 @@ public class TaskList {
      * @return A TaskList containing tasks that match the given keyword.
      */
     public TaskList find(String keyword) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                foundTasks.add(task);
-            }
-        }
-        return new TaskList(foundTasks);
+        return new TaskList(tasks.stream()
+            .filter(task -> task.getDescription().contains(keyword))
+            .collect(Collectors.toCollection(ArrayList::new)));
     }
 
 }
