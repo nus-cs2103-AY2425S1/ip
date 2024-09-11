@@ -10,6 +10,7 @@ import exceptions.TaskIndexOutOfBound;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
+import task.Task;
 
 /**
  * This class is responsible for creating a ChattyBuddy instance which
@@ -42,15 +43,22 @@ public class ChattyBuddy {
         if (input.equals("bye")) {
             return null;
         }
-
         try {
-            String response = Parser.parseCommand(input, taskList, storage);
-            storage.saveTasks(taskList.getTasks()); // Save tasks to storage after processing
+            String response = Parser.parseUserCommand(input, taskList, storage);
+            saveTasksToStorage(taskList.getTasks());
             return response;
         } catch (InvalidInputException | EmptyTaskException | TaskIndexOutOfBound e) {
             return e.getMessage();
         } catch (IOException e) {
             return "Error: Unable to save tasks to file.";
+        }
+    }
+
+    private void saveTasksToStorage(ArrayList<Task> tasks) throws IOException{
+        try {
+            storage.saveTasks(tasks);
+        } catch (IOException e) {
+            throw new IOException();
         }
     }
 }

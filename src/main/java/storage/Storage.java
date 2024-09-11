@@ -45,7 +45,6 @@ public class Storage {
             }
         }
 
-        // Check if the file is readable and writable
         if (!file.canRead() || !file.canWrite()) {
             System.out.println("Error: File " + filePath + " is not accessible for reading/writing.");
         }
@@ -76,8 +75,8 @@ public class Storage {
      * @throws IOException if there's an error writing to the file.
      */
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
         String separation = " | ";
+        FileWriter fw = new FileWriter(filePath);
         for (Task task : taskList) {
             fw.write(task.toSavedFormat(separation) + "\n");
         }

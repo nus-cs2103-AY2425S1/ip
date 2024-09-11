@@ -31,14 +31,14 @@ public class ParserTest {
 
     @Test
     public void testMarkCommandWithInitialTask() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        String response = Parser.parseCommand("mark 1", taskList, storage);
+        String response = Parser.parseUserCommand("mark 1", taskList, storage);
         assertTrue(taskList.getTask(0).getIsDone(), "The first task should be marked as done");
         assertEquals("OK, I've marked this task as done:\n[T][X] finish homework", response);
     }
 
     @Test
     void testTodoCommandWithStorage() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        String response = Parser.parseCommand("todo read book", taskList, storage);
+        String response = Parser.parseUserCommand("todo read book", taskList, storage);
 
         assertTrue(storage.getIsSaveTasksCalled(), "saveTasks should be called");
         assertEquals(2, storage.getSavedTasks().size(), "There should be two tasks saved");
@@ -47,14 +47,14 @@ public class ParserTest {
 
     @Test
     void testUnmarkCommand() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        String response = Parser.parseCommand("unmark 1", taskList, storage);
+        String response = Parser.parseUserCommand("unmark 1", taskList, storage);
         assertTrue(!taskList.getTask(0).getIsDone(), "The first task should be marked as not done");
         assertEquals("OK, I've marked this task as not done yet:\n[T][ ] finish homework", response);
     }
 
     @Test
     void testDeleteCommand() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        String response = Parser.parseCommand("delete 1", taskList, storage);
+        String response = Parser.parseUserCommand("delete 1", taskList, storage);
 
         assertTrue(storage.getIsSaveTasksCalled(), "saveTasks should be called after delete");
         assertEquals(0, taskList.getTasks().size(), "There should be no tasks left in the list");

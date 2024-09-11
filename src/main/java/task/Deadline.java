@@ -24,10 +24,10 @@ public class Deadline extends Task {
     /**
      * Converts user input into a Deadline task.
      *
-     * @param slicedStr The array of strings representing the user input.
+     * @param slicedStrings The array of strings representing the user input.
      */
-    public void convertStringToTask(String[] slicedStr) {
-        String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
+    public void convertStringToTask(String[] slicedStrings) {
+        String[] task = Arrays.copyOfRange(slicedStrings, 1, slicedStrings.length);
         String deadlineTaskDetail = String.join(" ", task);
         String[] taskParts = deadlineTaskDetail.split(" /by ");
         this.description = taskParts[0];

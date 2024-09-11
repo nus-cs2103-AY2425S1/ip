@@ -25,7 +25,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructs a ui.DialogBox with the specified text and image.
+     * Constructs an ui.DialogBox with the specified text and image.
      * The layout is loaded from an FXML file, and the text and image are displayed.
      * Optionally flips the dialog layout to switch text and image positions.
      *
@@ -66,7 +66,7 @@ public class DialogBox extends HBox {
      *
      * @param text The user's input message.
      * @param img The user's profile image.
-     * @return A ui.DialogBox representing the user's message.
+     * @return An ui.DialogBox representing the user's message.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, false);
@@ -75,9 +75,9 @@ public class DialogBox extends HBox {
     /**
      * Creates a dialog box for the bot with its profile image and response.
      *
-     * @param text The bot's response message.
-     * @param img The bot's profile image.
-     * @return A ui.DialogBox representing the bot's response.
+     * @param text The bots' response message.
+     * @param img The bots' profile image.
+     * @return An ui.DialogBox representing the bots' response.
      */
     public static DialogBox getBotDialog(String text, Image img) {
         return new DialogBox(text, img, true);

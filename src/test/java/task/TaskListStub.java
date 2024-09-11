@@ -5,7 +5,7 @@ import exceptions.TaskIndexOutOfBound;
 import java.util.ArrayList;
 
 public class TaskListStub extends TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskListStub(ArrayList<Task> TaskList) {
         super(TaskList);

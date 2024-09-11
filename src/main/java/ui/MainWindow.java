@@ -13,6 +13,7 @@ import main.ChattyBuddy;
  */
 public class MainWindow extends AnchorPane {
     @FXML
+    private static final int DELAY_IN_MILLISECONDS = 1500;
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
@@ -60,7 +61,7 @@ public class MainWindow extends AnchorPane {
                 public void run() {
                     System.exit(0);
                 }
-            }, 1500);
+            }, DELAY_IN_MILLISECONDS);
         } else {
             addDialog(DialogBox.getBotDialog(response, botImage));
         }
