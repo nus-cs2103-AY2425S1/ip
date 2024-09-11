@@ -24,7 +24,10 @@ public class TaskList {
         userInputs.get(idx).setDone(bool);
     }
 
-    public Task get(int idx) {
+    public Task get(int idx) throws TaskListOutOfBoundsException {
+        if (idx < 0 || idx > userInputs.size() - 1) {
+            throw new TaskListOutOfBoundsException();
+        }
         return userInputs.get(idx);
     }
 

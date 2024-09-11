@@ -14,3 +14,5 @@ T , 0 , borrow book
 D , 0 , finish work , 2012-06-11
 T , 0 , game everyday
 T , 1 , GAME EVERYDAYYY
+D , 0 , Finish CS2103 , 2021-12-23
+E , 0 , Stargazing , Mon 2pm-Tues 4pm
