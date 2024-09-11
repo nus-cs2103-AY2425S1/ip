@@ -1,6 +1,8 @@
 # Hoodini User Guide 🐕:
 
-![HoodiniBot](https://github.com/user-attachments/assets/8ae32f6a-4686-41b2-8840-5a9b41e0e7aa)
+Uodate: I changed the background of the chatbot but everything else is the same 🐕
+
+![Screenshot 2024-09-11 at 10 43 49 AM](https://github.com/user-attachments/assets/b38c673b-9655-4a8d-aa63-42d73ac16fca)
 
 
 Hoodini is a productivity tool that helps you manage your tasks and deadlines. It is a command line application that allows you to add, delete, and mark tasks as done. It also allows you to set deadlines for your tasks.
