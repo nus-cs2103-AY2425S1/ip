@@ -429,6 +429,10 @@
 
     <!-- Checks that every public class, enumeration and interface has a header comment. -->
     <module name="MissingJavadocType"/>
-
+    
+    <!-- Suppression file -->
+    <module name="SuppressionFilter">
+      <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
+    </module>
   </module>
 </module>
