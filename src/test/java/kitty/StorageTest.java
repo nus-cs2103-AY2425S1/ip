@@ -1,15 +1,18 @@
 package kitty;
 
+//import kitty.tasks.Task;
 import kitty.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+//import java.io.FileWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,11 +36,10 @@ class StorageTest {
     void tearDown() {
     }
 
-
     @Test
     void testInitializeTaskList() throws IOException {
         FileWriter writer = new FileWriter(TEST_DATA_PATH);
-        writer.write("T~!!0~!!Test task");
+        writer.write("T ~!! 0 ~!! Test task");
         writer.close();
 
         storage.initializeTaskList(taskList);
@@ -48,6 +50,7 @@ class StorageTest {
         assertEquals("T ~!! 0 ~!! Test task", task.getTaskData().trim(),
                 "The task data should match the input content");
     }
+
 
     @Test
     void testAddContent() throws IOException {

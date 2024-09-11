@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Storage {
 
@@ -41,23 +43,46 @@ public class Storage {
         }
     }
     private Task createTaskFromInput(String str) {
-        String[] aux = str.split("~!!");
         Task tmp;
 
-        switch (aux[0].trim()) {
-        case "T" -> tmp = new Todo(aux[2].trim());
-        case "D" -> tmp = new Deadline(aux[2].trim(),
-                LocalDateTime.parse(aux[3].trim(), Parser.DATE_TIME_FORMAT));
-        case "E" -> tmp = new Event(aux[2].trim(),
-                LocalDateTime.parse(aux[3].trim(), Parser.DATE_TIME_FORMAT),
-                LocalDateTime.parse(aux[4].trim(), Parser.DATE_TIME_FORMAT));
+        Pattern recordPattern =
+                Pattern.compile("^([TDE])\\s*~!!\\s*(\\d+)\\s*~!!\\s(.+?)\\s*"
+                        + "(?:#\\s*(.+))?\\s*"
+                        + "(?:~!!\\s*(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2}))?\\s*"
+                        + "(?:~!!\\s*(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2}))?\\s*$");
+        Matcher matcher = recordPattern.matcher(str);
+
+        if (!matcher.matches()) {
+            return null;
+        }
+
+        String type = matcher.group(1);
+        String status = matcher.group(2);
+        String name = matcher.group(3);
+        String tag = matcher.group(4);
+        String firstDateTime = matcher.group(5);
+        String secondDateTime = matcher.group(6);
+
+        switch (type) {
+        case "T" -> tmp = new Todo(name);
+        case "D" -> tmp = new Deadline(name,
+                LocalDateTime.parse(firstDateTime, Parser.DATE_TIME_FORMAT));
+        case "E" -> tmp = new Event(name,
+                LocalDateTime.parse(firstDateTime, Parser.DATE_TIME_FORMAT),
+                LocalDateTime.parse(secondDateTime, Parser.DATE_TIME_FORMAT));
         default -> {
             return null;
         }
         }
-        if (aux[1].trim().equals("1")) {
+
+        if (status.equals("1")) {
             tmp.mark();
         }
+
+        if (tag != null) {
+            tmp.updateTag(tag);
+        }
+
         return tmp;
     }
 

@@ -6,6 +6,7 @@ package kitty.tasks;
 public class Task {
     private final String name;
     private boolean isDone = false;
+    private String tag;
 
     protected final String deli = "~!!";
 
@@ -15,7 +16,16 @@ public class Task {
      * @param name Name of the task.
      */
     public Task(String name) {
+        this(name, "");
+    }
+
+    public Task(String name, String tag) {
         this.name = name;
+        this.tag = tag;
+    }
+
+    public void updateTag(String tag) {
+        this.tag = tag;
     }
 
     /**
@@ -24,10 +34,17 @@ public class Task {
     public String getTaskData() {
         String str = " " + deli;
         if (isDone) {
-            str += " 1 " + deli + " " + name;
+            str += " 1 ";
         } else {
-            str += " 0 " + deli + " " + name;
+            str += " 0 ";
         }
+
+        str += deli + " " + name;
+
+        if (!tag.isEmpty()) {
+            str += " #" + tag;
+        }
+
         return str;
     }
 
@@ -67,6 +84,10 @@ public class Task {
         }
 
         str += "] " + name;
+
+        if (!tag.isEmpty()) {
+            str += " #" + tag;
+        }
         return str;
     }
 

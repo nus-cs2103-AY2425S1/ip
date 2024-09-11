@@ -1,13 +1,16 @@
 package kitty;
 
-import kitty.command.ListCommand;
+
 import kitty.command.AddCommand;
 import kitty.command.FindCommand;
+import kitty.command.ListCommand;
 import kitty.command.MarkCommand;
-import kitty.command.UnmarkCommand;
 import kitty.command.DeleteCommand;
+import kitty.command.UnmarkCommand;
+import kitty.command.TagCommand;
 import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
+import kitty.kittyexceptions.TagException;
 
 
 import java.time.LocalDateTime;
@@ -20,6 +23,8 @@ public class Parser {
 
     public static final Pattern INDEX_COMMAND_PATTERN =
             Pattern.compile("(mark|unmark|delete)\\s+(\\d+)\\s*$");
+    public static final Pattern TAG_PATTERN =
+            Pattern.compile("^tag\\s+(\\d+)\\s*(.+)\\s*$");
     public static final Pattern FIND_PATTERN =
             Pattern.compile("^find\\s+(.+)$\\s*");
 
@@ -36,6 +41,9 @@ public class Parser {
         }
         case "mark", "delete", "unmark" -> {
             return parseMarks(str, ui, storage, tasks);
+        }
+        case "tag" -> {
+            return parseTag(str, ui, storage, tasks);
         }
         case "todo", "deadline", "event" -> {
             return new AddCommand(ui, tasks, str, storage).run();
@@ -94,4 +102,16 @@ public class Parser {
         }
     }
 
+    private static String parseTag(String str, Ui ui, Storage storage, TaskList tasks) {
+        Matcher matcher = TAG_PATTERN.matcher(str);
+
+        if (!matcher.matches()) {
+            return new TagException().toString();
+        }
+
+        int index = Integer.parseInt(matcher.group(1));
+        String tag = matcher.group(2);
+
+        return new TagCommand(ui, tasks, index, tag, storage).run();
+    }
 }

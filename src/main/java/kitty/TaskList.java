@@ -57,10 +57,17 @@ public class TaskList {
         return tmp;
     }
 
+    public Task editTag(int index, String tag) throws IndexOutOfBoundsException {
+        Task tmp = tasks.get(index - 1);
+        tmp.updateTag(tag);
+
+        return tmp;
+    }
+
     public String findTask(String keyword) {
         StringBuilder str = new StringBuilder();
         tasks.stream().filter(task -> task.containsKeyword(keyword))
-                .forEach(task -> str.append(task.getTaskData()));
+                .forEach(task -> str.append(task.toString()));
         return str.toString();
     }
 

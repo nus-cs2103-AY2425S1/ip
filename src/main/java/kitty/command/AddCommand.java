@@ -21,12 +21,14 @@ public class AddCommand extends Command {
     private final String commandBody;
     private final Storage storage;
     public static final Pattern TODO_PATTERN =
-            Pattern.compile("^todo\\s+(.+)\\s*$");
+            Pattern.compile("^todo\\s+(.+)\\s*" + "(?:#\\s*(.+))?\\s*$");
     public static final Pattern DEADLINE_PATTERN =
-            Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*$");
+            Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*"
+                    + "(?:#\\s*(.+))?\\s*$");
     public static final Pattern EVENT_PATTERN =
             Pattern.compile("^event\\s+(.+)\\s+/from\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s+"
-                    + "/to\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*$");
+                    + "/to\\s+(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2})\\s*"
+                    + "(?:#\\s*(.+))?\\s*$");
 
     public AddCommand(Ui ui, TaskList taskList, String commandBody, Storage storage) {
         super(ui, taskList);
@@ -83,7 +85,11 @@ public class AddCommand extends Command {
         }
 
         String name = matcher.group(1);
+        String tag = matcher.group(2);
         Task tmp = new Todo(name);
+        if (tag != null) {
+            tmp.updateTag(tag);
+        }
 
         return addTaskToList(tmp);
     }
@@ -97,8 +103,13 @@ public class AddCommand extends Command {
 
         String name = matcher.group(1);
         String dateTime = matcher.group(2);
+        String tag = matcher.group(3);
 
         Task tmp = new Deadline(name, Parser.parseDateTime(dateTime));
+        if (tag != null) {
+            tmp.updateTag(tag);
+        }
+
         return addTaskToList(tmp);
     }
 
@@ -112,8 +123,12 @@ public class AddCommand extends Command {
         String name = matcher.group(1);
         String from = matcher.group(2);
         String to = matcher.group(3);
+        String tag = matcher.group(4);
 
         Task tmp = new Event(name, Parser.parseDateTime(from), Parser.parseDateTime(to));
+        if (tag != null) {
+            tmp.updateTag(tag);
+        }
         return addTaskToList(tmp);
     }
 }

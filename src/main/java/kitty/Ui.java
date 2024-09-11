@@ -100,6 +100,14 @@ public class Ui {
         return "I have removed it from the list :)\n" + note;
     }
 
+    public String showTagTaskMessage(String note) {
+        showUpperLine();
+        System.out.println("I have tagged this task:)");
+        System.out.println(note);
+        showLowerLine();
+        return "I have tagged this task:)\n" + note;
+    }
+
     public String showFindTask(String str) {
         showUpperLine();
         String msg = "Meow~ Here you are!\n" + str;
