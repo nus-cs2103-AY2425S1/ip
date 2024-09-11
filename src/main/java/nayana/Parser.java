@@ -45,12 +45,13 @@ public class Parser {
      * @param command The user input command.
      * @return The corresponding Command object.
      * @throws NayanaException If the command format is invalid or if parsing fails.
+     * Code Readability: While code is longer than 30 LoC, it is not practical to shorten as the parse method only has
+     * one function
      */
     public static Command parse(String command) throws NayanaException {
         if (command.isBlank()) {
             throw new NayanaException("Tasks cannot be empty.");
         }
-
         String[] commandParts;
 
         if (command.equals("bye")) {
