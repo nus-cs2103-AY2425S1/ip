@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import kitty.Kitty;
 
 public class Gui extends Application {
-    private Kitty kitty = new Kitty();
+    private final Kitty kitty = new Kitty();
 
     @Override
     public void start(Stage stage) {

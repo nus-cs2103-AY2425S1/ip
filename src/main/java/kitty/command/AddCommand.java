@@ -16,8 +16,8 @@ import kitty.tasks.Todo;
 import java.io.IOException;
 
 public class AddCommand extends Command {
-    private String commandBody;
-    private Storage storage;
+    private final String commandBody;
+    private final Storage storage;
 
     public AddCommand(Ui ui, TaskList taskList, String commandBody, Storage storage) {
         super(ui, taskList);
@@ -30,6 +30,7 @@ public class AddCommand extends Command {
         String[] parts = commandBody.split(" ", 2);
         Task task;
 
+        // create task if input is valid
         try {
             switch (parts[0]) {
             case "todo" -> {
@@ -61,20 +62,26 @@ public class AddCommand extends Command {
             return e.toString();
         }
 
-        int size = tasks.addTask(task);
-        if (size != -1) {
-            String data = task.getTaskData();
-            try {
-                System.out.println(data);
-                storage.addContent(data);
-                return ui.showAddTaskMessage(task, size);
-            } catch (IOException e) {
-                String fileWritingFailMessage = "File writing unsuccessful.\n"
-                        + "This task is not updated to hard disk.";
-                return ui.showErrorMessage(fileWritingFailMessage);
-            }
+        return addTaskToList(task);
+    }
 
+    private String addTaskToList(Task task) {
+        int size = tasks.addTask(task);
+        if (size == -1) {
+            return "task not created";
         }
-        return "task not created";
+
+        // if successfully add task to list, update storage and return data back
+        String data = task.getTaskData();
+        try {
+            System.out.println(data);
+            storage.addContent(data);
+            return ui.showAddTaskMessage(task, size);
+        } catch (IOException e) {
+            String fileWritingFailMessage = "File writing unsuccessful.\n"
+                    + "This task is not updated to hard disk.";
+            return ui.showErrorMessage(fileWritingFailMessage);
+        }
+
     }
 }

@@ -7,8 +7,8 @@ import kitty.Ui;
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
-    private int index;
-    private Storage storage;
+    private final int index;
+    private final Storage storage;
 
     public DeleteCommand(Ui ui, TaskList taskList, int index, Storage storage) {
         super(ui, taskList);

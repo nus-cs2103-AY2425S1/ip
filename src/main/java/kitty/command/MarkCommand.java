@@ -8,8 +8,8 @@ import kitty.tasks.Task;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    private int index;
-    private Storage storage;
+    private final int index;
+    private final Storage storage;
     public MarkCommand(Ui ui, TaskList tasks, int index, Storage storage) {
         super(ui, tasks);
         this.index = index;

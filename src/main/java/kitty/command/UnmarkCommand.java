@@ -8,8 +8,8 @@ import kitty.tasks.Task;
 import java.io.IOException;
 
 public class UnmarkCommand extends Command {
-    private int index;
-    private Storage storage;
+    private final int index;
+    private final Storage storage;
     public UnmarkCommand(Ui ui, TaskList tasks, int index, Storage storage) {
         super(ui, tasks);
         this.index = index;
