@@ -21,7 +21,6 @@ public class Bob {
     public static void main(String[] args) throws CommandNotFoundException,
             MissingParamsException, PositionException {
         System.out.println("Hello!");
-     //    new Bob().run();
     }
 
     /**
@@ -77,7 +76,6 @@ public class Bob {
                 return retStr;
 
             default:
-                
                 throw new CommandNotFoundException();
 
             }
