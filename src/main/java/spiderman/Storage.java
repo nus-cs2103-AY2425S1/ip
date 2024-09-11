@@ -9,13 +9,28 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object that will handle the given file path.
+     *
+     * @param filePath The file path where tasks will be loaded from and saved to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * The tasks are read from the file and converted into their respective
+     * task types (Todo, Deadline, Event).
+     *
+     * @return An ArrayList containing all tasks loaded from the storage file.
+     */
     public ArrayList<Task> loadTasksFromStorage() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -65,6 +80,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param taskList The list of tasks to be saved to the file.
+     */
     public void saveTasksToStorage(ArrayList<Task> taskList) {
         try (FileWriter writer = new FileWriter(this.filePath)) {
             for (Task task : taskList) {
