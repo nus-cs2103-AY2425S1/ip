@@ -1,6 +1,7 @@
 package dipsy.tasklist;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import dipsy.storage.Storage;
 import dipsy.task.Task;
@@ -97,13 +98,9 @@ public class TaskList {
     public ArrayList<Task> getTasksByKeyword(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
 
-        ArrayList<Task> filteredList = new ArrayList<>();
-        for (Task task: tasks) {
-            if (task.hasKeywordInDescription(keyword)) {
-                filteredList.add(task);
-            }
-        }
-        return filteredList;
+        return tasks.stream()
+                .filter(task -> task.hasKeywordInDescription(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
