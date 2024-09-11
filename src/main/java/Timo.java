@@ -487,37 +487,6 @@ class Parser {
     public String parse(String command) throws TimoException {
         String cmd = command.split(" ", 2)[0];
         switch (cmd) {
-<<<<<<< HEAD
-=======
-        case "bye":
-            this.storage.store(this.taskList.showList());
-            return this.ui.bye();
-
-        case "list":
-            return this.ui.printList(this.taskList);
-
-        case "mark":
-            String taskNumber = String.valueOf(command.charAt(command.length() - 1));
-
-
-            //get the Task number to mark
-            int markTarget = Integer.parseInt(taskNumber);
-
-
-            //find the task to mark
-            Task markedTask = this.taskList.mark(markTarget);
-            return this.ui.printMark(markedTask);
-
-        case "unmark":
-
-            //get the Task number to unmark
-            int unmarkTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
-
-            //find the task to unmark
-            Task unmarkedTask = this.taskList.unmark(unmarkTarget);
-            return this.ui.printUnmark(unmarkedTask);
-
->>>>>>> master
         case "todo":
             String[] todoCommands = command.split(" ", 2);
 
