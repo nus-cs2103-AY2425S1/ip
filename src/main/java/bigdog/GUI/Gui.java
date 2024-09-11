@@ -1,5 +1,6 @@
 package bigdog.GUI;
 
+import bigdog.Bigdog;
 import javafx.scene.layout.Region;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -24,6 +26,9 @@ public class Gui extends Application {
 
     private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/po.png")));
     private Image bigdogImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/oog.png")));
+    String storageFile = getClass().getClassLoader().getResource("Bigdog.txt").getPath();
+    private Bigdog bigdog = new Bigdog(storageFile);
+
 
     @Override
     public void start(Stage stage) {
@@ -36,9 +41,6 @@ public class Gui extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
@@ -49,7 +51,7 @@ public class Gui extends Application {
 
         //Formatting the window to look as expected
 
-        stage.setTitle("Duke");
+        stage.setTitle("Bigdog");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -77,8 +79,33 @@ public class Gui extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        //Handling user input
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
     }
 
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = bigdog.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getBigdogDialog(dukeText, bigdogImage)
+        );
+        userInput.clear();
+    }
 
 
 }

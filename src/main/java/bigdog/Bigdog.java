@@ -87,6 +87,13 @@ public class Bigdog {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Bigdog heard: " + input;
+    }
+
+    /**
      * The main method that serves as the entry point for the Bigdog application.
      * It creates an instance of the Bigdog class and calls the run method.
      *
