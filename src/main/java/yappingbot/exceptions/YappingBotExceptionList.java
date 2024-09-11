@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import yappingbot.stringconstants.ReplyTextMessages;
 
+/**
+ * Array container for multiple YappingBotExceptions that are to be collected and thrown together
+ * at the end.
+ */
 public class YappingBotExceptionList extends ArrayList<YappingBotException> {
 
     /**

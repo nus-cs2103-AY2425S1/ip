@@ -12,8 +12,8 @@ import yappingbot.ui.Ui;
  */
 public class UiGui implements Ui {
 
-    ArrayDeque<String> inputBuffer = new ArrayDeque<>();
-    ArrayDeque<String> outputBuffer = new ArrayDeque<>();
+    final ArrayDeque<String> inputBuffer = new ArrayDeque<>();
+    final ArrayDeque<String> outputBuffer = new ArrayDeque<>();
     private boolean streamsClosed = false; // When programme ends, this will be set true.
 
     // OUTPUT methods

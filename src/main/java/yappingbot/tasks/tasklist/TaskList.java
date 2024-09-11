@@ -17,7 +17,7 @@ import yappingbot.tasks.Task;
  * TaskList container to hold valid Tasks.
  */
 public class TaskList implements Iterable<Task> {
-    protected ArrayList<Task> tasks;
+    protected final ArrayList<Task> tasks;
     protected int size;
 
     /**
