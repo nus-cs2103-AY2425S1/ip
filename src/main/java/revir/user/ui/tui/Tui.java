@@ -32,8 +32,7 @@ public class Tui implements Ui {
     public void run(TaskList taskList) {
         Parser parser = new Parser();
 
-        System.out.println("Hello! I'm Revir");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! I'm Revir\nWhat can I do for you?");
         this.showLine();
         boolean exit = false;
         while (!exit) {
