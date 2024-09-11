@@ -19,9 +19,9 @@ public class ToDoCommand extends Command {
     public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
         Task task = new ToDos(this.description);
+        assert task != null: "task is null";
         tasks.add(task);
         try {
-            Storage storage = new Storage(tasks);
             Storage.appendToFile(task);
         } catch (IOException e) {
             return "Something went wrong: " + e.getMessage();
