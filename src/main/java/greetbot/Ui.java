@@ -54,6 +54,12 @@ public class Ui {
                 + "Now you have %d tasks in the list.", task.toString(), total);
     }
 
+    /**
+     * Returns a message to show the task is added.
+     * @param task The added task.
+     * @param total The number of tasks in the current task list.
+     * @return The message string.
+     */
     public String showAdd(Task task, int total) {
         return String.format("Got it. I've added this task:\n"
                 + "%s\n"
