@@ -9,4 +9,5 @@ public abstract class Command {
 
     public abstract String execute() throws RasputinException;
     public abstract boolean isTerminated();
+
 }

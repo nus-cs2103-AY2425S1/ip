@@ -1,5 +1,6 @@
 package rasputin.command;
 
+import rasputin.task.RasputinException;
 import rasputin.task.TaskList;
 
 import rasputin.gui.Ui;
@@ -21,6 +22,7 @@ public class PrintListCommand extends Command {
     public String execute() {
         return Ui.getList(tasks);
     }
+
 
     /**
      * Always returns false.

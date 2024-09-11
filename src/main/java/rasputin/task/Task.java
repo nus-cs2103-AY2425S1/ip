@@ -62,6 +62,9 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
+        if (isDone) {
+            throw new InvalidTaskException("ERROR! This task is already done.");
+        }
         this.isDone = true;
     }
 
@@ -69,6 +72,9 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
+        if (!isDone) {
+            throw new InvalidTaskException("ERROR! This task is already not done.");
+        }
         this.isDone = false;
     }
 

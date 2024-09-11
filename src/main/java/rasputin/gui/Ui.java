@@ -36,6 +36,10 @@ public class Ui {
         return output;
     }
 
+    public static String printUndoCommand() {
+        return "Most recent command has been undone!";
+    }
+
     /**
      * Prints the greeting in between two line breaks when the user starts the chatbot.
      * @return String of Rasputin's greeting.
