@@ -4,6 +4,7 @@ import hypebot.command.AddCommand;
 import hypebot.command.ByeCommand;
 import hypebot.command.Command;
 import hypebot.command.DeleteCommand;
+import hypebot.command.FindCommand;
 import hypebot.command.GreetCommand;
 import hypebot.command.HappeningCommand;
 import hypebot.command.HelpCommand;
@@ -28,6 +29,7 @@ import static hypebot.common.Messages.ERROR_TASK_NAME_EMPTY;
 import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_MISSING;
 import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_MISSING;
 import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_MISSING;
+import static hypebot.common.Messages.ERROR_SEARCH_QUERY_EMPTY;
 
 /**
  * Represents the Parser which makes sense of user input read form the user interface
@@ -91,6 +93,11 @@ public class Parser {
             }
             Event newEvent = new Event(taskName, splitLineForDates[1], splitLineForDates[2]);
             return new AddCommand(newEvent);
+        case "find":
+            if (taskName.isEmpty()) {
+                throw new ParseException(ERROR_SEARCH_QUERY_EMPTY, 0);
+            }
+            return new FindCommand(taskName);
         case "mark":
             try {
                 int idxToMark = getIndexOffset(taskName);

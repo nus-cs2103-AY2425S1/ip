@@ -15,6 +15,7 @@ import static hypebot.common.Messages.MESSAGE_EXIT;
 import static hypebot.common.Messages.MESSAGE_GREET_INTRO;
 import static hypebot.common.Messages.MESSAGE_GREET_OUTRO;
 import static hypebot.common.Messages.MESSAGE_HAPPENING;
+import static hypebot.common.Messages.MESSAGE_FIND_INTRO;
 import static hypebot.common.Messages.MESSAGE_HELP;
 import static hypebot.common.Messages.MESSAGE_LIST;
 import static hypebot.common.Messages.MESSAGE_LOAD_TASKLIST;
@@ -155,6 +156,19 @@ public class Ui {
     public void showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
         out.println(addDividerLine(MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + "!\n" + tasksHappeningOnDate.toString()));
+    }
+
+    /**
+     * Takes in a String search query from user input parsed by Parser sent to a FindCommand,
+     * a Tasklist with the Tasks containing one or more of the keywords in the search query,
+     * then outputs the Tasklist containing the specified keywords.
+     *
+     * @param searchQuery Search query containing keywords to find in Task name specified by user.
+     * @param tasksWithSearchQuery Tasklist containing Tasks with keyword(s) in their names.
+     */
+    public void showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
+        out.println(addDividerLine(MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
+                + tasksWithSearchQuery.toString()));
     }
 
     /**
