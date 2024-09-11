@@ -77,7 +77,7 @@ public class TaskList {
         if (taskNumber > this.tasks.size() || taskNumber <= 0) {
             throw new SentinelException("That task number does not exist!");
         }
-
+        assert(this.tasks.get(taskNumber - 1) != null) : "Task number was not found";
         this.tasks.get(taskNumber - 1).markAsDone();
 
         return this.tasks.get(taskNumber - 1);
@@ -94,7 +94,7 @@ public class TaskList {
         if (taskNumber > this.tasks.size() || taskNumber <= 0) {
             throw new SentinelException("That task number does not exist!");
         }
-
+        assert(this.tasks.get(taskNumber - 1) != null) : "Task number was not found";
         this.tasks.get(taskNumber - 1).markAsUndone();
 
         return this.tasks.get(taskNumber - 1);
@@ -138,7 +138,7 @@ public class TaskList {
         if (taskNumber > this.tasks.size() || taskNumber <= 0) {
             throw new SentinelException("That task number does not exist!");
         }
-
+        assert(this.tasks.get(taskNumber - 1) != null) : "Task number was not found";
         return this.tasks.remove(taskNumber - 1);
     }
 

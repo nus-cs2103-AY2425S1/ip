@@ -37,6 +37,8 @@ public class Storage {
         } else {
             f = new File("src/main/data/data.txt");
         }
+
+        assert(f != null) : "File does not exist";
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         TaskList listOfTasks = new TaskList();
 
