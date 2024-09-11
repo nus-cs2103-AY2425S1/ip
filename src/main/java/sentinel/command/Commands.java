@@ -176,6 +176,79 @@ public enum Commands {
             String searchTerm = parsedArgs[1].trim();
             sentinel.outputMatchingTaskList(searchTerm);
         }
+    },
+    ADD_CUSTOMER {
+        /**
+         * @inheritDoc
+         *
+         *     Command for adding customers.
+         */
+        @Override
+        public void run(Sentinel sentinel, String args) throws SentinelException {
+            String[] parsedArgs = args.split("\\s+", 2);
+
+            if (parsedArgs.length < 2) {
+                throw new SentinelException("You did not add a customer name!");
+            }
+
+            String[] parts = parsedArgs[1].split("/num");
+
+            if (parts.length < 2) {
+                throw new SentinelException("You did not put in a phone number!");
+            }
+            sentinel.addCustomer(parts[0].trim(), parts[1].trim());
+        }
+    },
+    LIST_CUSTOMERS {
+        /**
+         * @inheritDoc
+         *
+         *     Command for listing all customers.
+         */
+        @Override
+        public void run(Sentinel sentinel, String args) {
+            sentinel.outputCustomerList();
+        }
+    },
+    FIND_CUSTOMERS {
+        /**
+         * @inheritDoc
+         *
+         *     Command for finding tasks.
+         */
+        @Override
+        public void run(Sentinel sentinel, String args) throws SentinelException {
+            String[] parsedArgs = args.split("\\s+", 2);
+
+            if (parsedArgs.length < 2) {
+                throw new SentinelException("You didn't put in a search string!");
+            }
+
+            String searchTerm = parsedArgs[1].trim();
+            sentinel.outputMatchingCustomerList(searchTerm);
+        }
+    },
+    DELETE_CUSTOMER {
+        /**
+         * @inheritDoc
+         *
+         *     Command for deleting tasks.
+         */
+        @Override
+        public void run(Sentinel sentinel, String args) throws SentinelException {
+            String[] parsedArgs = args.split("\\s+", 2);
+
+            if (parsedArgs.length < 2) {
+                throw new SentinelException("You didn't put in a valid number!");
+            }
+
+            try {
+                int customerNumber = Integer.parseInt(parsedArgs[1]);
+                sentinel.deleteCustomer(customerNumber);
+            } catch (NumberFormatException e) {
+                throw new SentinelException("Invalid number!");
+            }
+        }
     };
 
     /**
@@ -202,6 +275,10 @@ public enum Commands {
         case "event" -> ADD_EVENT;
         case "delete" -> DELETE_TASK;
         case "find" -> FIND_TASK;
+        case "customer" -> ADD_CUSTOMER;
+        case "listc" -> LIST_CUSTOMERS;
+        case "findc" -> FIND_CUSTOMERS;
+        case "deletec" ->DELETE_CUSTOMER;
         default -> null;
         };
     }

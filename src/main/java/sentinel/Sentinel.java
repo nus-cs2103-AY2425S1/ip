@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import sentinel.command.Commands;
+import sentinel.customer.CustomerList;
 import sentinel.storage.Storage;
 import sentinel.task.TaskList;
 import sentinel.ui.Ui;
@@ -17,6 +18,8 @@ import sentinel.ui.Ui;
 public class Sentinel {
     private TaskList taskList;
     private TaskList searchTaskList;
+    private CustomerList customerList;
+    private CustomerList customerSearchList;
     private final Ui ui;
 
     private boolean isSearch;
@@ -31,6 +34,7 @@ public class Sentinel {
         this.isSearch = false;
 
         loadTaskList();
+        loadCustomerList();
     }
 
     /**
@@ -54,6 +58,30 @@ public class Sentinel {
             Storage.saveTaskList(this.taskList.toString());
         } catch (IOException exception) {
             say("Oops I had trouble saving your tasks...");
+        }
+    }
+
+    /**
+     * Loads task list from Storage into Sentinel's memory.
+     */
+    private void loadCustomerList() {
+        // Load customer file
+        try {
+            this.customerList = Storage.loadCustomerList();
+        } catch (IOException exception) {
+            ui.showError("OOPS NO FILE???");
+            this.customerList = new CustomerList();
+        }
+    }
+
+    /**
+     * Saves task list into Storage.
+     */
+    private void saveCustomerList() {
+        try {
+            Storage.saveCustomerList(this.customerList.toString());
+        } catch (IOException exception) {
+            say("Oops I had trouble saving your customers...");
         }
     }
 
@@ -83,9 +111,33 @@ public class Sentinel {
     }
 
     /**
+     * Makes Sentinel output the list of customers.
+     */
+    public void outputCustomerList() {
+        isSearch = false;
+
+        assert(this.customerList != null) : "Customer list does not exist";
+        say("Here are the list of your customers \n" + this.customerList.toString()
+                + String.format("\n You have %d customers in total.", this.customerList.getTotal()));
+    }
+
+    /**
+     * Makes Sentinel output the list of customers that match the search string.
+     */
+    public void outputMatchingCustomerList(String searchTerm) {
+        customerSearchList = this.customerList.getMatching(searchTerm);
+        isSearch = true;
+
+        assert(customerSearchList != null) : "Search customer list does not exist";
+        say("Here are the list of your matching customers \n" + this.customerSearchList.toString()
+                + String.format("\n You have %d customers matching that name.", this.customerSearchList.getTotal())
+                + "\n\n You are now indexing the search list.\n Type list to back to indexing the original list.");
+    }
+
+    /**
      * Makes Sentinel mark the given task number as done.
      *
-     * @param taskNumber sentinel.task.Task number to be marked.
+     * @param taskNumber Task number to be marked.
      * @throws SentinelException if an error occurs.
      */
     public void markDone(int taskNumber) throws SentinelException {
@@ -102,7 +154,7 @@ public class Sentinel {
     /**
      * Makes Sentinel mark the given task number as undone.
      *
-     * @param taskNumber sentinel.task.Task number to be unmarked.
+     * @param taskNumber Task number to be unmarked.
      * @throws SentinelException if an error occurs.
      */
     public void markUndone(int taskNumber) throws SentinelException {
@@ -114,6 +166,16 @@ public class Sentinel {
 
         assert(selectedTaskList != null) : "Selected task list does not exist";
         say("Unmarked the following task: \n " + selectedTaskList.markAsUndone(taskNumber));
+    }
+
+    /**
+     * Makes Sentinel add the given customer to the task list.
+     *
+     * @param name Name of the customer to be added.
+     * @param phoneNumber Phone number of the customer to be added.
+     */
+    public void addCustomer(String name, String phoneNumber) {
+        say("Added the following customer: \n" + customerList.addCustomer(name, phoneNumber));
     }
 
     /**
@@ -146,11 +208,21 @@ public class Sentinel {
     /**
      * Makes Sentinel delete the given task.
      *
-     * @param taskNumber sentinel.task.Task to be deleted.
+     * @param taskNumber Task to be deleted.
      * @throws SentinelException if task does not exist.
      */
     public void deleteTask(int taskNumber) throws SentinelException {
         say("Deleted the following task: \n" + taskList.deleteTask(taskNumber));
+    }
+
+    /**
+     * Makes Sentinel delete the given customer.
+     *
+     * @param customerNumber Customer to be deleted.
+     * @throws SentinelException if task does not exist.
+     */
+    public void deleteCustomer(int customerNumber) throws SentinelException {
+        say("Deleted the following customer: \n" + customerList.deleteCustomer(customerNumber));
     }
     ////////////// COMMANDS FOR SENTINEL END //////////////
 
@@ -173,6 +245,7 @@ public class Sentinel {
         String goodbyeMessage = "It was a pleasure conversing with you. Goodbye!";
         say(goodbyeMessage);
         saveTaskList();
+        saveCustomerList();
     }
 
     /**
@@ -250,6 +323,7 @@ public class Sentinel {
     public String getResponse(String input) {
         if (input.equals("bye")) {
             goodbye();
+            return ui.getCurrentMessage();
         }
 
         String[] parsedCommands = input.split("\\s+");

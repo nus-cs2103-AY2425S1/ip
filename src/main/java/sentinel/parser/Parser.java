@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import sentinel.SentinelException;
+import sentinel.customer.Customer;
 import sentinel.task.Deadline;
 import sentinel.task.Event;
 import sentinel.task.Task;
@@ -16,8 +17,8 @@ import sentinel.task.Todo;
  * Parser for Sentinel chatbot.
  */
 public class Parser {
-    public static final String DATE_INPUT_PATTERN = "MMM d yyy";
-    public static final String DATE_OUTPUT_PATTERN = "dd/M/yyy";
+    public static final String DATE_OUTPUT_PATTERN = "MMM d yyy";
+    public static final String DATE_INPUT_PATTERN = "dd/M/yyy";
 
     /**
      * Parses a string in a task format into its Task representation.
@@ -135,6 +136,38 @@ public class Parser {
 
         Pattern r = Pattern.compile(regex);
         return r.matcher(string);
+    }
+
+    /**
+     * Matches a given string to the task regex.
+     *
+     * @param string String representation of task to be matched.
+     * @return Matcher.
+     */
+    private static Matcher matchCustomerString(String string) {
+        String regex = "(?<index>\\d+)\\. (?<name>[A-Za-z ]+) #(?<number>\\d+)";
+
+        Pattern r = Pattern.compile(regex);
+        return r.matcher(string);
+    }
+
+    /**
+     * Parses a string in a customer format to its Customer representation.
+     *
+     * @param string String in customer format.
+     * @return Customer represented by the string.
+     */
+    public static Customer parseStringToCustomer(String string) {
+        Matcher m = matchCustomerString(string);
+
+        if (m.find()) {
+            String name = m.group("name"); // sentinel.task.Task type (e.g., "T")
+            String number = m.group("number");
+
+            return new Customer(name, number);
+        }
+
+        return null;
     }
 
     /**

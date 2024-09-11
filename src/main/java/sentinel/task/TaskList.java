@@ -28,7 +28,7 @@ public class TaskList {
      * Adds a todo to the list.
      *
      * @param description Description of the todo.
-     * @return sentinel.task.Todo that was added.
+     * @return Todo that was added.
      */
     public Task addTodo(String description) {
         Task newTodo = new Todo(description);
@@ -43,7 +43,7 @@ public class TaskList {
      * @param description Description of the event.
      * @param startTime Starting time for the event timeframe.
      * @param endTime Ending time for the event timeframe.
-     * @return sentinel.task.Event that was added.
+     * @return Event that was added.
      */
     public Task addEvent(String description, LocalDate startTime, LocalDate endTime) {
         Task newEvent = new Event(description, startTime, endTime);
@@ -57,7 +57,7 @@ public class TaskList {
      *
      * @param description Description of the deadline.
      * @param endTime Time to do the deadline by.
-     * @return sentinel.task.Deadline that was added.
+     * @return Deadline that was added.
      */
     public Task addDeadline(String description, LocalDate endTime) {
         Task newDeadline = new Deadline(description, endTime);
@@ -70,7 +70,7 @@ public class TaskList {
      * Marks the task on the list as done.
      *
      * @param taskNumber Number of the task.
-     * @return sentinel.task.Task that was done.
+     * @return Task that was done.
      * @throws SentinelException if the task does not exist.
      */
     public Task markAsDone(int taskNumber) throws SentinelException {
@@ -87,7 +87,7 @@ public class TaskList {
      * Marks the task on the list as undone.
      *
      * @param taskNumber Number of the task.
-     * @return sentinel.task.Task that was undone.
+     * @return Task that was undone.
      * @throws SentinelException if the task does not exist.
      */
     public Task markAsUndone(int taskNumber) throws SentinelException {
@@ -131,7 +131,7 @@ public class TaskList {
      * Deletes the task on the list.
      *
      * @param taskNumber Number of the task.
-     * @return sentinel.task.Task that was deleted.
+     * @return Task that was deleted.
      * @throws SentinelException if the task does not exist.
      */
     public Task deleteTask(int taskNumber) throws SentinelException {
