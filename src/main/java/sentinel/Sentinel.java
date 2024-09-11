@@ -30,12 +30,30 @@ public class Sentinel {
         this.ui = new Ui();
         this.isSearch = false;
 
+        loadTaskList();
+    }
+
+    /**
+     * Loads task list from Storage into Sentinel's memory.
+     */
+    private void loadTaskList() {
         // Load save file
         try {
-            this.taskList = Storage.load();
+            this.taskList = Storage.loadTaskList();
         } catch (IOException exception) {
             ui.showError("OOPS NO FILE???");
             this.taskList = new TaskList();
+        }
+    }
+
+    /**
+     * Saves task list into Storage.
+     */
+    private void saveTaskList() {
+        try {
+            Storage.saveTaskList(this.taskList.toString());
+        } catch (IOException exception) {
+            say("Oops I had trouble saving your tasks...");
         }
     }
 
@@ -66,6 +84,7 @@ public class Sentinel {
      * Makes Sentinel mark the given task number as done.
      *
      * @param taskNumber sentinel.task.Task number to be marked.
+     * @throws SentinelException if an error occurs.
      */
     public void markDone(int taskNumber) throws SentinelException {
         TaskList selectedTaskList = this.taskList;
@@ -81,6 +100,7 @@ public class Sentinel {
      * Makes Sentinel mark the given task number as undone.
      *
      * @param taskNumber sentinel.task.Task number to be unmarked.
+     * @throws SentinelException if an error occurs.
      */
     public void markUndone(int taskNumber) throws SentinelException {
         TaskList selectedTaskList = this.taskList;
@@ -148,11 +168,7 @@ public class Sentinel {
     public void goodbye() {
         String goodbyeMessage = "It was a pleasure conversing with you. Goodbye!";
         say(goodbyeMessage);
-        try {
-            Storage.save(this.taskList.toString());
-        } catch (IOException exception) {
-            say("Oops I had trouble saving your tasks...");
-        }
+        saveTaskList();
     }
 
     /**
@@ -178,6 +194,25 @@ public class Sentinel {
     }
 
     /**
+     * Makes Sentinel run a command.
+     *
+     * @param parsedCommands Array of parsed command strings.
+     * @param userInput Original input given by the user.
+     */
+    private void runCommand(String[] parsedCommands, String userInput) {
+        // Check if command exists
+        if (Commands.getCommand(parsedCommands[0]) == null) {
+            ui.showError("Invalid command broski");
+            return;
+        }
+        try {
+            Commands.getCommand(parsedCommands[0]).run(this, userInput);
+        } catch (SentinelException exception) {
+            ui.showError(exception.getMessage());
+        }
+    }
+
+    /**
      * Makes Sentinel listen for tasks.
      */
     public void listen() {
@@ -194,17 +229,9 @@ public class Sentinel {
             }
 
             // Check if command exists, if so, run the command
-            if (Commands.getCommand(parsedCommands[0]) == null) {
-                ui.showError("Invalid command broski");
-            } else {
-                try {
-                    Commands.getCommand(parsedCommands[0]).run(this, userInput);
-                } catch (SentinelException exception) {
-                    ui.showError(exception.getMessage());
-                }
-            }
+            runCommand(parsedCommands, userInput);
 
-            // Check if there is a next line (for file inputs)
+            // Check if there is a next line (for file inputs to work correctly)
             if (scanner.hasNextLine()) {
                 userInput = scanner.nextLine();
             } else {
@@ -217,22 +244,12 @@ public class Sentinel {
      * Makes Sentinel respond to an input.
      */
     public String getResponse(String input) {
-        if (!input.equals("bye")) {
-            String[] parsedCommands = input.split("\\s+");
-
-            // Check if command exists, if so, run the command
-            if (Commands.getCommand(parsedCommands[0]) == null) {
-                ui.showError("Invalid command broski");
-            } else {
-                try {
-                    Commands.getCommand(parsedCommands[0]).run(this, input);
-                } catch (SentinelException exception) {
-                    ui.showError(exception.getMessage());
-                }
-            }
-        } else {
+        if (input.equals("bye")) {
             goodbye();
         }
+
+        String[] parsedCommands = input.split("\\s+");
+        runCommand(parsedCommands, input);
 
         return ui.getCurrentMessage();
     }
