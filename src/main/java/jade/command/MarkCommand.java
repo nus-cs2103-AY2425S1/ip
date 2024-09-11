@@ -68,7 +68,7 @@ public class MarkCommand extends Command {
             message.append("  ").append(taskManager.getTask(taskIndex));
 
             return displayMessage(forGui, message.toString());
-        } catch (NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid task number in the format:\n");
             indentIfNotGui(forGui, message);

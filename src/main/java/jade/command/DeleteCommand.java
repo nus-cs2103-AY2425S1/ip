@@ -75,7 +75,7 @@ public class DeleteCommand extends Command {
             }
 
             return displayMessage(forGui, message.toString());
-        } catch (NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid task number in the format:\n");
             indentIfNotGui(forGui, message);
