@@ -1,5 +1,8 @@
 package makima.command;
 
+/**
+ * State for handling commands
+ */
 public class WaitingState extends State {
 
     @Override

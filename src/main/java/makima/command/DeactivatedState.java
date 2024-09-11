@@ -1,5 +1,8 @@
 package makima.command;
 
+/**
+ * State to handle program exit
+ */
 public class DeactivatedState extends State {
 
     @Override

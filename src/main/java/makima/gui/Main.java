@@ -16,6 +16,11 @@ public class Main extends Application {
 
     private Makima makima = new Makima();
 
+    /**
+     * JavaFX graphics function
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -23,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setMakima(makima);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMakima(makima);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
