@@ -1,6 +1,5 @@
 package Naega.Command;
 
-import Naega.Command.Command;
 import Naega.Storage.Storage;
 import Naega.Task.TaskList;
 import Naega.Ui.Ui;

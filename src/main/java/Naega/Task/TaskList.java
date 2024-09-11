@@ -1,7 +1,4 @@
 package Naega.Task;
-
-import Naega.Task.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
