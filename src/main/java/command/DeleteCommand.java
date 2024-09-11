@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
             Task taskToDelete = tasks.getTask(taskIndex);  // Get the task to be deleted
             tasks.removeTask(taskIndex);  // Remove the task from the list
             ui.showTaskRemoved(taskToDelete, tasks.size());  // Show the user that the task was removed
-            storage.save(tasks.getTasks());  // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
@@ -65,7 +65,7 @@ public class DeleteCommand extends Command {
                 throw new InvalidDeleteArgument();
             }
             tasks.removeTask(taskIndex);  // Remove the task from the list
-            storage.save(tasks.getTasks());  // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }

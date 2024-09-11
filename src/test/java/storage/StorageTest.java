@@ -20,12 +20,12 @@ import java.util.List;
 public class StorageTest {
 
     @Test
-    public void save_validData_fileSaved() throws IOException {
+    public void saveTasksToFile_validData_fileSaved() throws IOException {
         Storage storage = new Storage("data/FridayTaskListTest.txt");
         List<Task> tasks = List.of(new ToDo("Task 1", false),
                 new Deadline("Task 2 /by 2024-10-09", false),
                 new Event("Task 3 /from 2024-10-09 /to 2024-10-10", true));
-        storage.save(tasks);
+        storage.saveTasksToFile(tasks);
 
         File file = new File("data/FridayTaskListTest.txt");
         assertTrue(file.exists());
@@ -40,7 +40,7 @@ public class StorageTest {
     }
 
     @Test
-    public void load_existingFile_dataLoaded() throws IOException {
+    public void loadTasksFromFile_existingFile_dataLoaded() throws IOException {
         File file = new File("data/FridayTaskListTest.txt");
         List<String> data = List.of("T 1 Task 1",
                 "D 1 Task 2 /by 2024-10-09",
@@ -48,7 +48,7 @@ public class StorageTest {
         Files.write(Paths.get("data/FridayTaskListTest.txt"), data);
 
         Storage storage = new Storage("data/FridayTaskListTest.txt");
-        List<Task> loadedTasks = storage.load();
+        List<Task> loadedTasks = storage.loadTasksFromFile();
 
         assertEquals(3, loadedTasks.size());
         assertInstanceOf(ToDo.class, loadedTasks.get(0));
@@ -60,18 +60,18 @@ public class StorageTest {
     }
 
     @Test
-    public void handleInput_validInput_correctTask() {
+    public void createTaskFromInput_validInput_correctTask() {
         Storage storage = new Storage("data/FridayTaskListTest.txt");
 
-        Task todo = storage.handleInput("T 0 Task 1");
+        Task todo = storage.createTaskFromInput("T 0 Task 1");
         assertInstanceOf(ToDo.class, todo);
         assertEquals("Task 1", todo.getTaskName());
 
-        Task deadline = storage.handleInput("D 0 Task 2 /by 2024-10-11");
+        Task deadline = storage.createTaskFromInput("D 0 Task 2 /by 2024-10-11");
         assertInstanceOf(Deadline.class, deadline);
         assertEquals("Task 2 ", deadline.getTaskName());
 
-        Task event = storage.handleInput("E 0 Task 3 /from 2024-10-11 /to 2025-10-11");
+        Task event = storage.createTaskFromInput("E 0 Task 3 /from 2024-10-11 /to 2025-10-11");
         assertInstanceOf(Event.class, event);
         assertEquals("Task 3 ", event.getTaskName());
     }

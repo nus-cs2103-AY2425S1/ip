@@ -37,7 +37,7 @@ public class Parser {
      * @return The corresponding command.
      * @throws FridayException If the user input is invalid.
      */
-    public static Command parse(String userInput) throws FridayException {
+    public static Command parseUserInput(String userInput) throws FridayException {
         String[] parts = userInput.split(" ");
         String command = parts[0].toLowerCase();
 

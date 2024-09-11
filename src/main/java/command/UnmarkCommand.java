@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
             Task taskToUnmark = tasks.getTask(taskIndex);  // Get the task to be unmarked
             tasks.unmarkTask(taskIndex);  // Unmark the task as not completed
             ui.showTaskUnmarked(taskToUnmark);  // Show the user that the task was unmarked
-            storage.save(tasks.getTasks());  // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
@@ -67,7 +67,7 @@ public class UnmarkCommand extends Command {
             tasks.unmarkTask(taskIndex);  // Unmark the task as not completed
             gui.showTaskUnmarked(taskToUnmark);
 
-            storage.save(tasks.getTasks());  // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }

@@ -43,7 +43,7 @@ public class MarkCommand extends Command {
             tasks.markTask(taskIndex); // Mark the task as completed
             ui.showTaskMarked(taskToMark); // Show the user that the task was marked
 
-            storage.save(tasks.getTasks()); // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks()); // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
@@ -67,7 +67,7 @@ public class MarkCommand extends Command {
             }
             tasks.markTask(taskIndex); // Mark the task as completed
 
-            storage.save(tasks.getTasks()); // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks()); // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
