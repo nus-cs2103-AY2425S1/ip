@@ -3,13 +3,20 @@ public abstract class Task {
     protected enum Status {
         DONE,NOT_DONE,URGENT
     }
-    private Status status;
+    protected Status status;
 
     /** Private constructor for a Task */
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.status = Status.NOT_DONE;
     }
+
+    protected Task(String description, Status status) {
+        this.description = description;
+        this.status = status;
+    }
+
+
     protected void updateStatus(Task.Status input) {
         StringBuilder changelog = new StringBuilder();
         changelog.append("Status updated successfully: \nOld: ");
@@ -37,5 +44,13 @@ public abstract class Task {
         StringBuilder str = new StringBuilder();
         str.append(String.format("[%c] %s", getStatusIcon(), description));
         return str.toString();
+    }
+
+    protected String toCsv() {
+        StringBuilder csv = new StringBuilder();
+        csv.append(this.description);
+        csv.append(",");
+        csv.append(this.status);
+        return csv.toString();
     }
 }
