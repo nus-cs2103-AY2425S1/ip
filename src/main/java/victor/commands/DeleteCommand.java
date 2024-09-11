@@ -48,6 +48,8 @@ public class DeleteCommand extends Command {
     @Override
     public void write(Path filePath) {
         if (!taskNumber.trim().equals("-1")) {
+            // length of additional input if delete command cannot be 0
+            assert(super.getAdditionalInput().length != 0);
             super.taskList.writeToFile(filePath, true);
         }
     }
