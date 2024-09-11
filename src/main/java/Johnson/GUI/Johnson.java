@@ -1,6 +1,8 @@
 package Johnson.GUI;
 
 import Johnson.command.Command;
+import Johnson.command.ExitCommand;
+import Johnson.exceptions.*;
 import Johnson.parser.Parser;
 import Johnson.storage.UserData;
 import Johnson.task.TaskList;
@@ -39,13 +41,25 @@ public class Johnson {
     }
 
     public String getResponse(String input) {
-        Command command = parser.parseCommand(input);
+        try {
+            Command command = parser.parseCommand(input);
 
-        if (command != null) {
-            data.setTasks(tasks);
-            data.saveTasks();
-            return command.executeCommand();
+            if (command != null) {
+                data.setTasks(tasks);
+                data.saveTasks();
+                return command.executeCommand();
+            }
+            return "Did you say something, Chief?";
+        } catch (MissingDividerException e) {
+            return MissingDividerException.MISSING_DIVIDER_MESSAGE;
+        } catch (MissingDateException e) {
+            return MissingDateException.MISSING_DATE_MESSAGE;
+        } catch (MissingTaskException e) {
+            return MissingTaskException.MISSING_TASK_MESSAGE;
+        } catch (UnknownCommandException e) {
+            return UnknownCommandException.UNKNOWN_COMMAND_MESSAGE;
         }
-        return "Did you say something, Chief?";
+
+
     }
 }
