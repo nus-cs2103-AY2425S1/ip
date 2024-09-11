@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
-import tasks.ToDoTask;
+import tasks.TodoTask;
 import ui.Ui;
 
 /**
  * Represents a command to add a to-do task to the task list.
- * This command adds a specified {@link ToDoTask} to the list of tasks,
+ * This command adds a specified {@link TodoTask} to the list of tasks,
  * prints confirmation messages to the user, and updates the storage.
  */
 public class TodoCommand extends Command {
 
-    private ToDoTask task;
+    private TodoTask task;
 
     /**
      * Constructs a TodoCommand with the specified to-do task.
      *
-     * @param task The {@link ToDoTask} to be added to the task list.
+     * @param task The {@link TodoTask} to be added to the task list.
      */
-    public TodoCommand(ToDoTask task) {
+    public TodoCommand(TodoTask task) {
         this.task = task;
     }
 

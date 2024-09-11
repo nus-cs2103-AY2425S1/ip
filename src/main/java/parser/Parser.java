@@ -17,7 +17,7 @@ import commands.UnmarkCommand;
 import exception.PrimoException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
-import tasks.ToDoTask;
+import tasks.TodoTask;
 
 /**
  * The Parser class is responsible for interpreting user commands and converting
@@ -73,134 +73,163 @@ public class Parser {
      * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
      */
     public static Command parse(String fullCommand) throws PrimoException {
-        // Split the full command into parts
-        String[] words = fullCommand.split(" ");
-        // Determine the command type
-        CommandType type = CommandType.getCommandType(words[0]);
+        String[] wordsOfCommand = fullCommand.split(" ");
+        CommandType type = CommandType.getCommandType(wordsOfCommand[0]);
 
         switch (type) {
         case BYE:
-            assert words[0].equals("bye");
+            assert wordsOfCommand[0].equals("bye");
             return new ByeCommand();
         case LIST:
-            assert words[0].equals("list");
+            assert wordsOfCommand[0].equals("list");
             return new ListCommand();
         case MARK:
-            assert words[0].equals("mark");
-            assert words.length > 1;
-            try {
-                Integer.valueOf(words[1]);
-            } catch (NumberFormatException e) {
-                throw new PrimoException("mark <integer> expected");
-            }
-            int markIndex = Integer.valueOf(words[1]) - 1;
-            return new MarkCommand(markIndex);
+            return processMarkCommand(wordsOfCommand);
         case UNMARK:
-            assert words[0].equals("unmark");
-            assert words.length > 1;
-            try {
-                Integer.valueOf(words[1]);
-            } catch (NumberFormatException e) {
-                throw new PrimoException("unmark <integer> expected");
-            }
-            int unmarkIndex = Integer.valueOf(words[1]) - 1;
-            return new UnmarkCommand(unmarkIndex);
+            return processUnmarkCommand(wordsOfCommand);
         case TODO:
-            assert words[0].equals("todo");
-            assert words.length >= 2;
-            int todoFromIndex = fullCommand.indexOf("todo ") + 5;
-            String todoDescription = fullCommand.substring(todoFromIndex).trim();
-            if (todoDescription.isEmpty()) {
-                throw new PrimoException("Description cannot be empty! Expected: todo <string>");
-            }
-            ToDoTask newToDoTask = new ToDoTask(todoDescription);
-            return new TodoCommand(newToDoTask);
+            return processTodoCommand(fullCommand);
         case DEADLINE:
-            assert words[0].equals("deadline");
-            assert words.length >= 3;
-            if (!fullCommand.contains("/by")) {
-                throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
-            }
-            int deadlineFromIndex = fullCommand.indexOf("deadline ") + 9;
-            int deadlineToIndex = fullCommand.indexOf("/by");
-            String deadlineDescription = fullCommand.substring(deadlineFromIndex, deadlineToIndex).trim();
-            if (deadlineDescription.isEmpty()) {
-                throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
-            }
-
-            String dueTime = fullCommand.substring(deadlineToIndex + 3).trim();
-            LocalDate parsedDate = null;
-            try {
-                parsedDate = LocalDate.parse(dueTime);
-            } catch (DateTimeParseException e) {
-                System.out.println("Deadline not in the form of YYYY-MM-DD or invalid DATE");
-                dueTime = "";
-            }
-            if (dueTime.isEmpty()) {
-                throw new PrimoException("deadline time empty or wrong formatting! Expected deadline <string> "
-                        + "/by YYYY-MM-DD");
-            }
-            DeadlineTask newDeadlineTask = new DeadlineTask(deadlineDescription, parsedDate);
-            return new DeadlineCommand(newDeadlineTask);
+            return processDeadlineCommand(fullCommand);
         case EVENT:
-            assert words[0].equals("event");
-            assert words.length >= 4;
-            if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
-                throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
-            }
-            int eventFromIndex = fullCommand.indexOf("event ") + 6;
-            int eventToIndex = fullCommand.indexOf("/from");
-            int eventFinalIndex = fullCommand.indexOf("/to");
-            String eventDescription = fullCommand.substring(eventFromIndex, eventToIndex).trim();
-            if (eventDescription.isEmpty()) {
-                throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
-            }
-            String from = fullCommand.substring(eventToIndex + 5, eventFinalIndex).trim();
-            LocalDate parsedFromDate = null;
-            LocalDate parsedToDate = null;
-            try {
-                parsedFromDate = LocalDate.parse(from);
-            } catch (DateTimeParseException e) {
-                System.out.println("\"From\" date not in the form of YYYY-MM-DD or invalid DATE");
-                from = "";
-            }
-            if (from.isEmpty()) {
-                throw new PrimoException("'From' parameter empty or wrong formatting! Expected event "
-                        + "/from YYYY-MM-DD /to YYYY-MM-DD");
-            }
-            String to = fullCommand.substring(eventFinalIndex + 3).trim();
-            try {
-                parsedToDate = LocalDate.parse(to);
-            } catch (DateTimeParseException e) {
-                System.out.println("\"To\" date not in the form of YYYY-MM-DD or invalid DATE");
-                to = "";
-            }
-            if (to.isEmpty()) {
-                throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
-            }
-            EventTask newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
-            return new EventCommand(newEventTask);
+            return processEventCommand(fullCommand);
         case DELETE:
-            assert words[0].equals("delete");
-            assert words.length > 1;
-            try {
-                Integer.valueOf(words[1]);
-            } catch (NumberFormatException e) {
-                throw new PrimoException("delete <integer> expected");
-            }
-            int deleteIndex = Integer.valueOf(words[1]) - 1;
-            return new DeleteCommand(deleteIndex);
+            return processDeleteCommand(wordsOfCommand);
         case FIND:
-            assert words[0].equals("find");
-            assert words.length > 1;
-            String wordToFind = "";
-            if (words.length <= 1) {
-                throw new PrimoException("Poor formatting! Expecting find <string>");
-            }
-            wordToFind = words[1];
-            return new FindCommand(wordToFind);
+            return processFindCommand(wordsOfCommand);
         default:
-            return null; // should not reach here if exception handling is correct
+            return null; // should not reach here if command type is valid
         }
+    }
+
+    private static FindCommand processFindCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("find");
+        assert wordsOfCommand.length > 1;
+        if (wordsOfCommand.length <= 1) {
+            throw new PrimoException("Poor formatting! Expecting find <string>");
+        }
+        return new FindCommand(wordsOfCommand[1]);
+    }
+
+    private static DeleteCommand processDeleteCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("delete");
+        assert wordsOfCommand.length > 1;
+        try {
+            Integer.valueOf(wordsOfCommand[1]);
+        } catch (NumberFormatException e) {
+            throw new PrimoException("delete <integer> expected");
+        }
+        int deleteIndex = Integer.valueOf(wordsOfCommand[1]) - 1;
+        return new DeleteCommand(deleteIndex);
+    }
+
+    private static EventCommand processEventCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("event");
+        assert wordsOfCommand.length >= 4;
+        boolean containsFrom = fullCommand.contains("/from");
+        boolean containsTo = fullCommand.contains("/to");
+        if (!containsFrom || !containsTo) {
+            throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
+        }
+        int eventNameIndex = fullCommand.indexOf("event ") + 6;
+        int eventFromIndex = fullCommand.indexOf("/from");
+        int eventToIndex = fullCommand.indexOf("/to");
+        String eventDescription = fullCommand.substring(eventNameIndex, eventFromIndex).trim();
+        if (eventDescription.isEmpty()) {
+            throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
+        }
+        String fromDateString = fullCommand.substring(eventFromIndex + 5, eventToIndex).trim();
+        LocalDate parsedFromDate = null;
+        LocalDate parsedToDate = null;
+        try {
+            parsedFromDate = LocalDate.parse(fromDateString);
+        } catch (DateTimeParseException e) {
+            System.out.println("\"From\" date not in the form of YYYY-MM-DD or invalid DATE");
+            fromDateString = "";
+        }
+        if (fromDateString.isEmpty()) {
+            throw new PrimoException("'From' parameter empty or wrong formatting! Expected event "
+                    + "/from YYYY-MM-DD /to YYYY-MM-DD");
+        }
+        String toDateString = fullCommand.substring(eventToIndex + 3).trim();
+        try {
+            parsedToDate = LocalDate.parse(toDateString);
+        } catch (DateTimeParseException e) {
+            System.out.println("\"To\" date not in the form of YYYY-MM-DD or invalid DATE");
+            toDateString = "";
+        }
+        if (toDateString.isEmpty()) {
+            throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
+        }
+        EventTask newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
+        return new EventCommand(newEventTask);
+    }
+
+    private static DeadlineCommand processDeadlineCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("deadline");
+        assert wordsOfCommand.length >= 3;
+        if (!fullCommand.contains("/by")) {
+            throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
+        }
+        int deadlineNameIndex = fullCommand.indexOf("deadline ") + 9;
+        int deadlineByIndex = fullCommand.indexOf("/by");
+        String deadlineDescription = fullCommand.substring(deadlineNameIndex, deadlineByIndex).trim();
+        if (deadlineDescription.isEmpty()) {
+            throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
+        }
+
+        String deadlineDateString = fullCommand.substring(deadlineByIndex + 3).trim();
+        LocalDate parsedDeadlineDate = null;
+        try {
+            parsedDeadlineDate = LocalDate.parse(deadlineDateString);
+        } catch (DateTimeParseException e) {
+            System.out.println("Deadline not in the form of YYYY-MM-DD or invalid DATE");
+            deadlineDateString = "";
+        }
+        if (deadlineDateString.isEmpty()) {
+            throw new PrimoException("deadline time empty or wrong formatting! Expected deadline <string> "
+                    + "/by YYYY-MM-DD");
+        }
+        DeadlineTask newDeadlineTask = new DeadlineTask(deadlineDescription, parsedDeadlineDate);
+        return new DeadlineCommand(newDeadlineTask);
+    }
+
+    private static TodoCommand processTodoCommand(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("todo");
+        assert wordsOfCommand.length >= 2;
+        int todoNameIndex = fullCommand.indexOf("todo ") + 5;
+        String todoDescription = fullCommand.substring(todoNameIndex).trim();
+        if (todoDescription.isEmpty()) {
+            throw new PrimoException("Description cannot be empty! Expected: todo <string>");
+        }
+        TodoTask newTodoTask = new TodoTask(todoDescription);
+        return new TodoCommand(newTodoTask);
+    }
+
+    private static UnmarkCommand processUnmarkCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("unmark");
+        assert wordsOfCommand.length > 1;
+        try {
+            Integer.valueOf(wordsOfCommand[1]);
+        } catch (NumberFormatException e) {
+            throw new PrimoException("unmark <integer> expected");
+        }
+        int unmarkIndex = Integer.parseInt(wordsOfCommand[1]) - 1;
+        return new UnmarkCommand(unmarkIndex);
+    }
+
+    private static MarkCommand processMarkCommand(String[] wordsOfCommand) throws PrimoException {
+        assert wordsOfCommand[0].equals("mark");
+        assert wordsOfCommand.length > 1;
+        try {
+            Integer.valueOf(wordsOfCommand[1]);
+        } catch (NumberFormatException e) {
+            throw new PrimoException("mark <integer> expected");
+        }
+        int markIndex = Integer.parseInt(wordsOfCommand[1]) - 1;
+        return new MarkCommand(markIndex);
     }
 }
