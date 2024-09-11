@@ -1,4 +1,4 @@
 T | 1 | read book
 D | 0 | return book | 2023-03-21 1800
-E | 0 | project meeting | 2033-04-21 1000 1200
+E | 1 | project meeting | 2033-04-21 1000 1200
 T | 1 | join sports club
