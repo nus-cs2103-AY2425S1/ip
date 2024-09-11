@@ -1,7 +1,7 @@
 package hue.command;
 
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Task;
 import hue.task.TaskList;
@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
+    public String execute(TaskList tasks, ui ui, Storage storage) throws IOException, HueException {
         assert taskIndex >= 0 && taskIndex < tasks.size() : "The task index is out of range";
         Task removedTask = tasks.remove(taskIndex);
         storage.saveTasks(tasks);

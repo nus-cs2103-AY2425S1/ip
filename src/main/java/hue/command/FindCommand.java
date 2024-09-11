@@ -1,12 +1,10 @@
 package hue.command;
-import hue.Hue;
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Task;
 import hue.task.TaskList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 public class FindCommand extends Command {
     private final String input;
@@ -20,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws HueException {
+    public String execute(TaskList tasks, ui ui, Storage storage) throws HueException {
         String keyword = this.input.substring(5).trim();
         assert !keyword.isEmpty() : "Keyword should not be empty";
 

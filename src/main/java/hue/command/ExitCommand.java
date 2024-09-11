@@ -1,6 +1,6 @@
 package hue.command;
 
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.TaskList;
 
@@ -9,7 +9,7 @@ import hue.task.TaskList;
  */
 public class ExitCommand extends Command {
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, ui ui, Storage storage) {
         return ui.showGoodbye();
     }
 

@@ -2,7 +2,7 @@ package hue.command;
 
 
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Task;
 import hue.task.TaskList;
@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException {
+    public String execute(TaskList tasks, ui ui, Storage storage) throws HueException, IOException {
 
         assert taskIndex >= 0 && taskIndex < tasks.size(): "Task index is out of range";
         Task task = tasks.get(taskIndex);

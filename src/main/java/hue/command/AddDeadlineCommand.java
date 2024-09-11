@@ -1,7 +1,7 @@
 package hue.command;
 
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Deadline;
 import hue.task.Task;
@@ -36,7 +36,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, ui ui, Storage storage) throws IOException {
         Task newTask = new Deadline(description, by);
         tasks.add(newTask);
 

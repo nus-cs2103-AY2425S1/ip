@@ -1,7 +1,7 @@
 package hue.command;
 
 import java.io.IOException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.task.*;
 import hue.HueException;
 import hue.storage.Storage;
@@ -11,7 +11,7 @@ import hue.storage.Storage;
  * Represents a command that can be executed.
  * <p>
  * This is an abstract class that defines the structure for all commands.
- * Concrete subclasses should implement the {@link #execute(TaskList, UI, Storage)} method to define specific command behavior.
+ * Concrete subclasses should implement the {@link #execute(TaskList, ui, Storage)} method to define specific command behavior.
  * </p>
  */
 public abstract class Command {
@@ -30,7 +30,7 @@ public abstract class Command {
      * @throws IOException If there is an error during interactions with the storage, such as saving tasks.
      * @throws HueException If there is an error related to the command execution, such as invalid parameters or task issues.
      */
-    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException;
+    public abstract String execute(TaskList tasks, ui ui, Storage storage) throws HueException, IOException;
 
     /**
      * Indicates if this command is an exit command.

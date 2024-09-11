@@ -3,7 +3,7 @@ package hue;
 import hue.command.*;
 import hue.storage.Storage;
 import hue.task.TaskList;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.parser.Parser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class Hue {
 
     private static Storage storage;
     private static TaskList tasks;
-    private final UI ui;
+    private final hue.ui.ui ui;
 
     private String commandType;
     /**
@@ -27,7 +27,7 @@ public class Hue {
      * @param filePath The path to the file where tasks are stored.
      */
     public Hue(String filePath) {
-        this.ui = new UI();
+        this.ui = new ui();
         storage = new Storage(filePath);
 
         try {
@@ -41,7 +41,7 @@ public class Hue {
     }
 
     public Hue() {
-        this.ui = new UI();
+        this.ui = new ui();
     }
     /**
      * Runs the main loop of the application. Reads user commands, parses them, and executes them.

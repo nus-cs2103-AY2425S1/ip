@@ -1,7 +1,7 @@
 package hue.command;
 
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Event;
 import hue.task.Task;
@@ -37,7 +37,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, ui ui, Storage storage) throws IOException {
         Task newTask = new Event(description, from, to);
         tasks.add(newTask);
 

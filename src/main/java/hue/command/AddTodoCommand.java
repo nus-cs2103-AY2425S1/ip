@@ -2,7 +2,7 @@ package hue.command;
 
 
 import hue.HueException;
-import hue.UI.UI;
+import hue.ui.ui;
 import hue.storage.Storage;
 import hue.task.Task;
 import hue.task.TaskList;
@@ -28,7 +28,7 @@ public class AddTodoCommand extends Command {
         this.description = parts[1].trim();
     }
     @Override
-    public String execute (TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute (TaskList tasks, ui ui, Storage storage) throws IOException {
         Task newTask = new Todo(description);
 
         tasks.add(newTask);

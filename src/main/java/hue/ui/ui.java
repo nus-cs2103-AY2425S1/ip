@@ -1,4 +1,4 @@
-package hue.UI;
+package hue.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,7 +8,7 @@ import hue.task.*;
 /**
  * Handles interactions with the user through the command line interface.
  */
-public class UI {
+public class ui {
     private final Scanner scanner = new Scanner(System.in);
     /**
      * Displays a welcoming message to the user
