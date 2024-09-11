@@ -26,6 +26,10 @@ public class Deadline extends Task {
         return true;
     }
 
+    public LocalDateTime getDeadlineDate() {
+        return deadline;
+    }
+
     public String saveString() {
         return String.format("D | %s | %s | %s", description, isDone,
                 deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));

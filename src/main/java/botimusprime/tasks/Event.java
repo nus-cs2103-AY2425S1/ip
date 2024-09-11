@@ -27,6 +27,14 @@ public class Event extends Task {
         return false;
     }
 
+    public LocalDateTime getFromDate() {
+        return from;
+    }
+
+    public LocalDateTime getToDate() {
+        return to;
+    }
+
     public String saveString() {
         return String.format("E | %s | %s | %s | %s", description, isDone,
                 from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
