@@ -4,7 +4,6 @@ import java.time.format.DateTimeParseException;
 
 import command.Command;
 import fridayException.FridayException;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -15,7 +14,6 @@ import javafx.scene.layout.VBox;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 import ui.UiGui;
 
 /**
@@ -99,7 +97,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = "";
         try {
-            Command command = Parser.parse(input);
+            Command command = Parser.parseUserInput(input);
             response = command.executeGui(tasks, gui, storage);
 //            if ("bye".equals(input)) {
 //                cliThread.interrupt();

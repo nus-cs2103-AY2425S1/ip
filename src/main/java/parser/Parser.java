@@ -37,7 +37,7 @@ public class Parser {
      * @return The corresponding command.
      * @throws FridayException If the user input is invalid.
      */
-    public static Command parse(String userInput) throws FridayException {
+    public static Command parseUserInput(String userInput) throws FridayException {
         assert userInput != null : "User input should not be null";
         assert !userInput.trim().isEmpty() : "User input should not be empty";
 

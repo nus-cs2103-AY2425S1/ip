@@ -36,12 +36,11 @@ public class Friday extends Application {
         this.ui = new Ui();
         this.gui = new UiGui();
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.loadTasksFromFile());
         } catch (IOException e) {
             this.ui.showError(e.getMessage());
             this.tasks = new TaskList();
         }
-//        this.run();
     }
 
     /**
@@ -55,7 +54,7 @@ public class Friday extends Application {
         while (!isEndScanner) {
             try {
                 String commandRaw = ui.readCommand();
-                Command command = Parser.parse(commandRaw);
+                Command command = Parser.parseUserInput(commandRaw);
                 command.execute(tasks, ui, storage);
                 isEndScanner = command.isEndScanner();
             } catch (FridayException | DateTimeParseException e ) {

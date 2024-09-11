@@ -45,7 +45,7 @@ public class Storage {
      * @param input The input string to be handled.
      * @return The task corresponding to the input string.
      */
-    public Task handleInput(String input) {
+    public Task createTaskFromInput(String input) {
         assert input != null && !input.isEmpty() : "Input string should not be null or empty";
         String taskType = input.split(" ")[0];
         return switch (taskType) {
@@ -62,7 +62,7 @@ public class Storage {
      * @return The list of tasks loaded from the file.
      * @throws IOException If an error occurs during loading of the tasks.
      */
-    public List<Task> load() throws IOException {
+    public List<Task> loadTasksFromFile() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
@@ -83,7 +83,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = this.handleInput(line);
+                Task task = this.createTaskFromInput(line);
                 if (task != null) {
                     tasks.add(task);
                 }
@@ -99,8 +99,10 @@ public class Storage {
      * @param tasks The list of tasks to be saved to the file.
      * @throws IOException If an error occurs during saving of the tasks.
      */
-    public void save(List<Task> tasks) throws IOException {
+
+    public void saveTasksToFile(List<Task> tasks) throws IOException {
         assert tasks != null : "Tasks list should not be null";
+
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 fw.write(task.writeToFile());

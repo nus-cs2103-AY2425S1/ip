@@ -36,7 +36,7 @@ public class AddCommand extends Command {
         tasks.addTask(task);
         ui.showTaskAdded(task, tasks.size());
         try {
-            storage.save(tasks.getTasks());
+            storage.saveTasksToFile(tasks.getTasks());
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         tasks.addTask(task);
 
         try {
-            storage.save(tasks.getTasks());
+            storage.saveTasksToFile(tasks.getTasks());
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
