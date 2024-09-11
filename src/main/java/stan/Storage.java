@@ -1,5 +1,7 @@
 package stan;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,7 +18,7 @@ import stan.tasks.Event;
 import stan.tasks.Task;
 import stan.tasks.Todo;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 
 
 /**
