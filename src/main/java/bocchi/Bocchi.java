@@ -79,6 +79,7 @@ public class Bocchi {
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.getTask(index);
         task.markAsDone();
 
@@ -98,6 +99,7 @@ public class Bocchi {
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.getTask(index);
         task.markAsUnDone();
 
@@ -117,6 +119,7 @@ public class Bocchi {
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.removeTask(index);
 
         return "I have removed the task!";
