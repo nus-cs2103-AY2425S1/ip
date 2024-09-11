@@ -89,6 +89,18 @@ public class Deadline extends Task {
     public String toString() {
         return "{D}" + super.toString() + " (by: " + getFormattedDate() + ")";
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+        Deadline objDeadline = (Deadline) obj;
+        if (!this.name.equals(objDeadline.name)) {
+            return false;
+        } else {
+            return this.deadlineDate.equals(objDeadline.deadlineDate);
+        }
+    }
 
     /**
      * Returns the deadline date formatted in MMM dd yyyy format.

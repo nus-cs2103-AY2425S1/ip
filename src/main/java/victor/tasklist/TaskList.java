@@ -36,6 +36,12 @@ public class TaskList {
      * @return A string array with output to be shown to the user following adding the task.
      */
     public String[] addTask(Task task) {
+        for (Task existingTask : tasks) {
+            if (task.equals(existingTask)) {
+                return new String[] {"  ~  Looks like this task already exists!",
+                    "  ~  Use the list command to see all existing tasks."};
+            }
+        }
         this.tasks.add(task);
         return new String[] {"  ~  Cool! I added this task:",
             "  ~  " + task,

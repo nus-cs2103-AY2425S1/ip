@@ -110,6 +110,20 @@ public class Event extends Task {
         return "{E}" + super.toString() + " (from: " + getFormattedDate(startTimeDate)
                 + " to: " + getFormattedDate(endTimeDate) + ")";
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event objEvent = (Event) obj;
+        if (!this.name.equals(objEvent.name)) {
+            return false;
+        } else if (!this.startTimeDate.equals(objEvent.startTimeDate)) {
+            return false;
+        } else {
+            return this.endTimeDate.equals(objEvent.endTimeDate);
+        }
+    }
 
     private String getFormattedDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
