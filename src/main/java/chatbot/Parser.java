@@ -9,8 +9,20 @@ import tasks.Event;
 import tasks.TaskList;
 import tasks.Todo;
 
+/**
+ * Parser class used to parse user input for the Chatbot Peridot.
+ */
 public class Parser {
 
+    /**
+     * Parses user input.
+     *
+     * @param response user input.
+     * @param taskList tasklist to save the tasks to.
+     * @return string for bot response.
+     * @throws InvalidCommandException inputted command is invalid.
+     * @throws InvalidNumberException inputted number is invalid or out of bounds.
+     */
     public static String answer(String response, TaskList taskList)
             throws InvalidCommandException, InvalidNumberException {
         String command = response.contains(" ")

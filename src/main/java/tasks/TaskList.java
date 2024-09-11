@@ -22,6 +22,7 @@ public class TaskList {
      * @param saved True if the task to added should be pre-marked as done, otherwise False.
      */
     public String add(Task task, boolean saved) {
+        assert this.list != null : "List is not initialised";
         this.list.add(task);
         String reply = "I've added the task: \n" + task
                 + "\n Now you have " + this.list.size() + " tasks in the list";
@@ -36,6 +37,7 @@ public class TaskList {
      * Lists out all the tasks in the task list.
      */
     public String listOut() {
+        assert this.list != null : "List is not initialised";
         StringBuilder reply = new StringBuilder();
         for (int i = 1; i < this.list.size(); i++) {
             reply.append(i).append(".").append(this.list.get(i - 1)).append("\n");
@@ -50,6 +52,8 @@ public class TaskList {
      * @param index Index of task to be marked as done.
      */
     public String markTask(int index) {
+        assert this.list != null : "List is not initialised";
+        assert this.list.size() > index : "requested task index should be within list size";
         this.list.get(index).mark();
         String reply = "You have marked the following task as done!\n" + this.list.get(index);
         return reply;
@@ -61,6 +65,8 @@ public class TaskList {
      * @param index Index of task to be marked as done.
      */
     public String unmarkTask(int index) {
+        assert this.list != null : "List is not initialised";
+        assert this.list.size() > index : "requested task index should be within list size";
         this.list.get(index).unmark();
         String reply = "You have unmarked the following task!\n" + this.list.get(index);
         return reply;
@@ -72,6 +78,8 @@ public class TaskList {
      * @param index Index of task to be deleted.
      */
     public String delete(int index) {
+        assert this.list != null : "List is not initialised";
+        assert this.list.size() > index : "requested task index should be within list size";
         Task deleted = this.list.get(index);
         this.list.remove(index);
         String reply = "Let's go deleting!\nDeleted task " + deleted;
@@ -84,10 +92,12 @@ public class TaskList {
      * @return List of tasks.
      */
     public List<Task> getTaskList() {
+        assert this.list != null : "List is not initialised";
         return this.list;
     }
 
     public List<Task> filterByWord(String word) {
+        assert this.list != null : "List is not initialised";
         return this.list.stream().filter(task -> task.containsWord(word)).toList();
     }
 }
