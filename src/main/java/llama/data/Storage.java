@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import llama.exceptions.InvalidTagException;
 /**
  * Handles saving of tasks into file
  */
@@ -28,7 +29,7 @@ public class Storage {
      * @return TaskList that has all the tasks loaded from previous saved file
      * @throws IOException if there is an error opening existing saved file
      */
-    public TaskList loadTasks() throws IOException {
+    public TaskList loadTasks(TagList tagList) throws IOException, InvalidTagException {
         taskFile = new File(TASK_FILE_PATH);
         File folder = new File("./data");
         if (!folder.exists()) {
@@ -36,7 +37,7 @@ public class Storage {
         }
 
         taskFile.createNewFile();
-        return loadTasksFromFile(taskFile);
+        return loadTasksFromFile(taskFile, tagList);
     }
 
     /**
@@ -55,7 +56,7 @@ public class Storage {
         return loadTagsFromFile(tagFile);
     }
 
-    private TaskList loadTasksFromFile(File file) throws FileNotFoundException {
+    private TaskList loadTasksFromFile(File file, TagList tagList) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         TaskList taskList = new TaskList();
 
@@ -64,20 +65,31 @@ public class Storage {
             String[] arr = taskString.split("\\|");
 
             Task currentLoadedTask = null;
+            Tag tag = null;
             boolean isDone = arr[1].equals("1");
 
+            try {
+                tag = tagList.getTagByTitle(arr[2]);
+            } catch (InvalidTagException e) {
+                e.getMessage(); // Do something else here please
+            }
+
             if (arr[0].equals("T")) {
-                currentLoadedTask = new Todo(arr[2], isDone);
+                currentLoadedTask = new Todo(arr[3], isDone);
             } else if (arr[0].equals("D")) {
-                LocalDateTime endTime = LocalDateTime.parse((arr[3]), FORMATTER);
-                currentLoadedTask = new Deadline(arr[2], endTime, isDone);
+                LocalDateTime endTime = LocalDateTime.parse((arr[4]), FORMATTER);
+                currentLoadedTask = new Deadline(arr[3], endTime, isDone);
             } else if (arr[0].equals("E")) {
-                LocalDateTime startTime = LocalDateTime.parse(arr[3], FORMATTER);
-                LocalDateTime endTime = LocalDateTime.parse(arr[4], FORMATTER);
-                currentLoadedTask = new Event(arr[2], startTime, endTime, isDone);
+                LocalDateTime startTime = LocalDateTime.parse(arr[4], FORMATTER);
+                LocalDateTime endTime = LocalDateTime.parse(arr[5], FORMATTER);
+                currentLoadedTask = new Event(arr[3], startTime, endTime, isDone);
             }
 
             if (currentLoadedTask != null) {
+                if (tag != null) {
+                    currentLoadedTask.setTag(tag);
+                }
+                System.out.println("Adding task");
                 taskList.loadTask(currentLoadedTask);
             }
         }

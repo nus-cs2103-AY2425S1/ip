@@ -23,4 +23,8 @@ public class Tag {
     public String toString() {
         return "[" + tagTitle + "]";
     }
+
+    public String getSaveTagString() {
+        return tagTitle;
+    }
 }

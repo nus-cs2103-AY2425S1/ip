@@ -43,6 +43,7 @@ public class TagTaskCommand implements Command {
             return response;
         }
 
+        storage.saveTasks(taskList);
         return response;
     }
 }

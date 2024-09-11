@@ -44,11 +44,20 @@ public abstract class Task {
      * @return String in the correct format for file saving
      */
     public String getSaveTaskString() {
+        String result = "";
         if (this.isComplete) {
-            return "|1|" + description;
+            result += "|1|";
+        } else {
+            result += "|0|";
         }
 
-        return "|0|" + description;
+        if (this.tag != null) {
+            result += tag.getSaveTagString() + "|";
+        } else {
+            result += "|";
+        }
+
+        return result + description;
     }
 
     @Override

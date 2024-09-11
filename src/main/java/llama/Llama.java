@@ -7,6 +7,7 @@ import llama.commands.Command;
 import llama.data.Storage;
 import llama.data.TagList;
 import llama.data.TaskList;
+import llama.exceptions.InvalidTagException;
 import llama.exceptions.LlamaException;
 import llama.parser.Parser;
 import llama.ui.Ui;
@@ -29,9 +30,9 @@ public class Llama {
         this.ui = new Ui();
         this.storage = new Storage();
         try {
-            this.taskList = storage.loadTasks();
             this.tagList = storage.loadTags();
-        } catch (IOException e) {
+            this.taskList = storage.loadTasks(this.tagList);
+        } catch (IOException | InvalidTagException e) {
             ui.displayString(e.getMessage());
         }
     }
