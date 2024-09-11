@@ -32,9 +32,10 @@ public class TaskList {
     /**
      * Returns a specific task from the list indicated by index.
      *
-     * @param index Index of task to be returned.
+     * @param index Index of task to be returned (zero-based indexing).
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within bounds of TaskList";
         return tasks.get(index);
     }
 
@@ -57,7 +58,7 @@ public class TaskList {
     /**
      * Marks specific task in list as done.
      *
-     * @param index Index of task to be marked.
+     * @param index Index of task to be marked (one-based indexing).
      * @return Task after it has been marked as done.
      * @throws DeltaException If list is empty, task not found in list or task is already marked as done.
      */
@@ -84,7 +85,7 @@ public class TaskList {
     /**
      * Marks specific task in list as not done yet.
      *
-     * @param index Index of task to be unmarked.
+     * @param index Index of task to be unmarked (one-based indexing).
      * @return Task after it has been unmarked.
      * @throws DeltaException If list is empty, task not found in list or task is already unmarked.
      */
