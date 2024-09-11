@@ -37,7 +37,14 @@ public class EventCommand extends AddCommand {
             String from = desc.split("/from")[1].split("/to")[0].trim();
             String to = desc.split("/to")[1].trim();
 
-            Task event = new Event(task, LocalDate.parse(from), LocalDate.parse(to), false);
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+
+            if (toDate.isBefore(fromDate)) {
+                throw new InvalidCommandException("'to' date cannot be before 'from' date.");
+            }
+
+            Task event = new Event(task, fromDate, toDate, false);
             tasks.addTask(event);
             addToStorage(storage, event);
             printTaskAdded(event, ui);
