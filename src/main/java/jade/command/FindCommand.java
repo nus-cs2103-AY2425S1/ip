@@ -21,6 +21,10 @@ public class FindCommand extends Command {
      */
     public FindCommand(TaskManager taskManager, String command) {
         super(taskManager);
+
+        assert taskManager != null : "TaskManager should not be null";
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         this.command = command;
     }
 

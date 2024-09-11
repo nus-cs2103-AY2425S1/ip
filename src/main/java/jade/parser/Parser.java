@@ -36,6 +36,10 @@ public class Parser {
      * @throws JadeException If the command is unrecognised or improperly formatted.
      */
     public Command parse(String command, TaskManager taskManager, Parser parser) throws JadeException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+        assert taskManager != null : "TaskManager should not be null";
+        assert parser != null : "Parser should not be null";
+
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("list")) {
@@ -94,6 +98,8 @@ public class Parser {
      * @return True if the command is a valid task command, false otherwise.
      */
     private boolean isTaskCommand(String command) {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         try {
             TaskType.valueOf(command.split(" ")[0].toUpperCase());
             return true;
@@ -111,6 +117,8 @@ public class Parser {
      * @throws JadeException If the command format is incorrect or required details are missing.
      */
     public Task parseTaskCommand(String command) throws JadeException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         if (command.startsWith("todo")) {
             if (command.substring(4).trim().isEmpty()) {
                 throw new JadeException("The todo task cannot be empty!");
@@ -138,7 +146,11 @@ public class Parser {
      * @throws JadeException If the command format is incorrect or the date format is invalid.
      */
     private Task parseDeadline(String command) throws JadeException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         String[] parts = command.substring(9).split(" /by ", 2);
+        assert parts.length > 0 : "Command split by '/by' should produce at least one part";
+
         if (parts.length < 2) {
             throw new JadeException("Please provide a deadline in the format:\n"
                     + INDENT + "  deadline <task> /by <time>");
@@ -160,12 +172,18 @@ public class Parser {
      * @throws JadeException If the command format is incorrect or the date format is invalid.
      */
     private Task parseEvent(String command) throws JadeException {
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
+
         String[] parts = command.substring(6).split(" /from ", 2);
+        assert parts.length > 0 : "Command split by '/from' should produce at least one part";
+
         if (parts.length < 2) {
             throw new JadeException("Please provide an event in the format:\n"
                     + INDENT + "  event <task> /from <time>");
         } else {
             String[] timeParts = parts[1].split(" /to ", 2);
+            assert timeParts.length > 0 : "Time parts split by '/to' should produce at least one part";
+
             if (timeParts.length < 2) {
                 throw new JadeException("Please provide an end time in the format:\n"
                         + INDENT + "  event <task> /from <start time> /to <end time>");
