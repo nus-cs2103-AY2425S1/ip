@@ -31,19 +31,15 @@ public class Maxine {
         try {
             ui.greet();
             storage.load();
-
             while (parser.getStatus()) {
                 String answer = ask();
                 parser.parse(answer);
             }
-            
             scanner.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
     }
-    
 
     /**
      * Returns the user's input after converting the response to lower case
@@ -62,5 +58,4 @@ public class Maxine {
     public static void main(String[] args) {
         new Maxine().run();
     }
-    
 }

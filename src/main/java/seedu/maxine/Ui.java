@@ -30,8 +30,8 @@ public class Ui {
      * Prints a farewell message to the console.
      */
     public String goodbye() {
-        return "\nBye! I have been maxed out and am going to sleep. " +
-                "Hope to see you again soon!";
+        return "\nBye! I have been maxed out and am going to sleep. " 
+                + "Hope to see you again soon!";
     }
 
     /**

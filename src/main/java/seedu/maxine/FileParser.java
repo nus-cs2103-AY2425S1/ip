@@ -22,7 +22,6 @@ public class FileParser {
      */
     public Task parse(String string) {
         String[] input = string.split(" / ");
-        
         switch (input[0]) {
         case ("T"):
             return new Todo(input[2]);
@@ -30,8 +29,8 @@ public class FileParser {
             return new Deadline(input[2], input[3]);
         case ("E"):
             return new Event(input[2], input[3], input[4]);
+        default:
+            return null;
         }
-        
-        return null;
     }
 }

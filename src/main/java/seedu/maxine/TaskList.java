@@ -26,6 +26,7 @@ public class TaskList implements MaxineList {
 
     public void addTodo(String input) {
         try {
+            assert input != null : "input should not be null";
             String[] answer = input.split("todo ");
             String regex = "todo";
             Pattern pattern = Pattern.compile(regex);
@@ -45,6 +46,7 @@ public class TaskList implements MaxineList {
     
     public void addDeadline(String input) throws MaxineException {
         try {
+            assert input != null : "input should not be null";
             String[] answer = input.split("deadline | /by ");
             String regex = "deadline.*?/by";
             Pattern pattern = Pattern.compile(regex);
@@ -71,6 +73,7 @@ public class TaskList implements MaxineList {
      */
     public void addEvent(String input) throws MaxineException {
         try {
+            assert input != null : "input should not be null";
             String[] answer = input.split("event | /from | /to ");
             String regex = "event.*?/from.*?/to";
             Pattern pattern = Pattern.compile(regex);
@@ -98,12 +101,7 @@ public class TaskList implements MaxineList {
             Task task = list.get(key);
             list.remove(task);
         } catch (Exception e) {
-            if (e instanceof InvocationTargetException) {
-                Throwable cause = e.getCause();
-                System.out.println("Exception caused by: " + cause);
-            } else {
-                System.out.println(e);
-            }
+            System.out.println(e.getMessage());
         }
     }
 
