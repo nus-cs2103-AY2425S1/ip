@@ -38,7 +38,7 @@ public class FindCommand extends Command {
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        tasks.findTasksByKeyword(keyword, ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+        return tasks.findTasksByKeyword(keyword, ui);
     }
 }

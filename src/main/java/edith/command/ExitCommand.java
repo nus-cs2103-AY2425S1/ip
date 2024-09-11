@@ -24,8 +24,8 @@ public class ExitCommand extends Command {
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        ui.showExitMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+        return ui.showExitMessage();
     }
 
     /**

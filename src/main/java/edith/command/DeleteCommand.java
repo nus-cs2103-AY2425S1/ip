@@ -42,23 +42,25 @@ public class DeleteCommand extends Command {
      * @throws EdithException If the index is invalid or the task to delete does not exist.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         if (index < 0 || index >= tasks.getNumOfTasks()) {
-            throw new EdithException("Edith.task.Task " + index + " does not exist. Please enter a valid Edith.task number.");
+            throw new EdithException("Task " + index + " does not exist. Please enter a valid task number.");
         }
 
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);
 
-        ui.showIndentedMessage("Certainly. I've removed this Edith.task:");
-        ui.showIndentedMessage(taskToDelete.toString());
-        ui.showIndentedMessage("There are now " + tasks.getNumOfTasks() + " tasks in your list.");
-        ui.showLineBreak();
+        StringBuilder response = new StringBuilder();
+        response.append("Certainly. I've removed this task:\n");
+        response.append(taskToDelete.toString()).append("\n");
+        response.append("There are now ").append(tasks.getNumOfTasks()).append(" tasks in your list.");
 
         try {
             storage.save(tasks.getListOfTasks());
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while saving updated Edith.task list.");
+            return "An error occurred while saving updated task list.";
         }
+
+        return response.toString();
     }
 }

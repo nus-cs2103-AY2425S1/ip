@@ -20,7 +20,7 @@ public abstract class Command {
      * @param storage The storage for saving and loading tasks.
      * @throws EdithException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException;
 
     /**
      * Determines whether this command signifies an exit action.
