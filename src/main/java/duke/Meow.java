@@ -29,29 +29,6 @@ public class Meow {
     }
 
     /**
-     * Runs the main application loop.
-     * Reads user input, processes commands, and handles exceptions until program terminates.
-     */
-
-    /*
-    public void run() {
-        ui.showWelcomeMessage();
-        while (true) {
-            String input = ui.readCommand();
-            try {
-                parser.parse(input, taskList, ui, storage);
-                if (input.equals("bye")) {
-                    ui.showGoodbyeMessage();
-                    break;
-                }
-            } catch (IOException | MeowException e) {
-                ui.showMessage("Error: " + e.getMessage());
-            }
-        }
-    }
-    */
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
