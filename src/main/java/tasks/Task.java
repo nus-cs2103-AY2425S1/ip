@@ -1,6 +1,7 @@
 package tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The Task class represents a general task with a description and a completion status.
@@ -79,6 +80,42 @@ public class Task {
 
     public String getAction() {
         return action;
+    }
+
+
+    /**
+     * Changes the description of the task.
+     */
+
+    public void changeAction(String newAction) {
+        this.action = newAction;
+    }
+
+    /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new deadline of the task
+     */
+
+    public void changeDate(LocalDateTime newDate) {
+    }
+
+    /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new start date of the task
+     */
+
+    public void changeStartDate(LocalDateTime newDate) {
+    }
+
+    /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new end date of the task
+     */
+
+    public void changeEndDate(LocalDateTime newDate) {
     }
 
     @Override

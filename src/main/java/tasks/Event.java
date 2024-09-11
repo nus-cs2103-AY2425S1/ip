@@ -44,6 +44,26 @@ public class Event extends Task {
     }
 
     /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new start date of the task
+     */
+
+    public void changeStartDate(LocalDateTime newDate) {
+        this.start = newDate;
+    }
+
+    /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new end date of the task
+     */
+
+    public void changeEndDate(LocalDateTime newDate) {
+        this.end = newDate;
+    }
+
+    /**
      * Returns the date of the event task (the start date).
      *
      * @return The start date of the event as a LocalDate.

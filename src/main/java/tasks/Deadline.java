@@ -39,6 +39,17 @@ public class Deadline extends Task {
     }
 
     /**
+     * Changes the due date of the deadline.
+     *
+     * @param newDate The new deadline of the task
+     */
+
+    @Override
+    public void changeDate(LocalDateTime newDate) {
+        this.date = newDate;
+    }
+
+    /**
      * Returns the date of the deadline task.
      *
      * @return The date of the deadline task as a LocalDate.

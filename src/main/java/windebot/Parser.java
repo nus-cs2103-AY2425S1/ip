@@ -6,6 +6,7 @@ import commands.AddMark;
 import commands.AddTodo;
 import commands.AddUnmark;
 import commands.ByeCommand;
+import commands.ChangeCommand;
 import commands.Command;
 import commands.DateCommand;
 import commands.ErrorCommand;
@@ -66,6 +67,9 @@ public class Parser {
             case BYE:
                 commands = new ByeCommand();
                 break;
+            case CHANGE:
+                commands = new ChangeCommand();
+                break;
             case UNKNOWN:
                 commands = new ErrorCommand();
                 break;
@@ -112,6 +116,16 @@ public class Parser {
             return SubCommandType.DATE;
         } else if (input.startsWith("find")) {
             return SubCommandType.FIND;
+        } else if (input.startsWith("change")) {
+            return SubCommandType.CHANGE;
+        } else if (input.startsWith("cutoff")) {
+            return SubCommandType.CHANGE;
+        } else if (input.startsWith("start")) {
+            return SubCommandType.CHANGE;
+        } else if (input.startsWith("end")) {
+            return SubCommandType.CHANGE;
+        } else if (input.startsWith("action")) {
+            return SubCommandType.CHANGE;
         } else {
             return SubCommandType.UNKNOWN;
         }
@@ -122,6 +136,6 @@ public class Parser {
      */
 
     enum SubCommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, CHANGE, UNKNOWN
     }
 }
