@@ -1,4 +1,4 @@
-package slave;
+package slave.task;
 
 /**
  * Task is an abstract class which contains the name of the task and
@@ -18,13 +18,13 @@ public abstract class Task {
         this.task = task;
     }
 
-    protected Task(boolean completed, String task) {
+    protected Task(String task, boolean completed) {
         this.task = task;
         this.isCompleted = completed;
     }
 
     /**
-     * @return the boolean value stored in the task.
+     * @return whether the task is completed
      */
     public boolean isCompleted() {
         return this.isCompleted;
@@ -57,6 +57,7 @@ public abstract class Task {
         return this;
     }
 
+
     /**
      * Prints the task in the required format.
      *
@@ -66,9 +67,9 @@ public abstract class Task {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (isCompleted()) {
-            sb.append("[X] ");
+            sb.append("[X]");
         } else {
-            sb.append("[] ");
+            sb.append("[]");
         }
         sb.append(getTask());
         return sb.toString();
@@ -77,8 +78,10 @@ public abstract class Task {
     /**
      * Used as a .toString() used only when save() is called in Slave.java
      * Prints the Task's date in the format yyyy-mm-dd.
+     * Formatted as such:
+     * (Task type),(isCompleted),(isRecurring),(Task name),(additional class specific parameters)
      *
      * @return a String representation of the task.
      */
-    abstract String save();
+    public abstract String saveFormat();
 }
