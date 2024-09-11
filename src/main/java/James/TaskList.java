@@ -99,18 +99,18 @@ class TaskList {
      * Builds a formatted string of all tasks that contain the specified keyword in their description.
      *
      * This method iterates through all tasks in the task list and includes those
-     * whose description contains the provided keyword. Each matching task is
+     * whose description contains the provided substring. Each matching task is
      * listed with a sequential number starting from 1.
      *
-     * @param keyWord The keyword to search for within task descriptions.
+     * @param substring The substring to search for within task descriptions.
      * @return A string containing all tasks that match the specified keyword,
      *         each prefixed by a sequential number and followed by a newline character.
      */
-    public String printMatchingTasks(String keyWord) {
+    public String printMatchingTasks(String substring) {
         int count = 1;
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).matchKeyWord(keyWord)) {
+            if (tasks.get(i).matchSubstring(substring)) {
                 stringBuilder.append(count + ". " + tasks.get(i).printTask() + "\n");
                 count++;
             }
