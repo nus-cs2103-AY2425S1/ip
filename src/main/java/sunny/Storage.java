@@ -17,6 +17,18 @@ public class Storage {
     public Storage(String f) {
         filePath = f;
     }
+    /**
+     * Concatenate status of task behind the task description
+     * @param t The task that the status is being added to
+     * @param str the final returned string
+     */
+    private void addStatus(Task t, String str) {
+        if (t.isDone) {
+            str += "|true" + "\n";
+        } else {
+            str += "|false" + "\n";
+        }
+    }
 
     /**
      * Writes to the storage file specified by filePath
@@ -26,25 +38,13 @@ public class Storage {
         for (Task t: ls) {
             if (t instanceof TodoTask) {
                 str += "todo " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                addStatus(t, str);
             } else if (t instanceof DeadlineTask) {
                 str += "deadline " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                addStatus(t, str);
             } else {
                 str += "event " + t.getDescription();
-                if (t.isDone) {
-                    str += "|true" + "\n";
-                } else {
-                    str += "|false" + "\n";
-                }
+                addStatus(t, str);
             }
         }
         try {
