@@ -31,6 +31,7 @@ public class ExitCommand extends Command {
     }
 
     public String getString() {
+        assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;
     }
 

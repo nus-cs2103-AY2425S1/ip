@@ -15,7 +15,7 @@ import tuesday.util.Ui;
  * Represents a command to mark as done or not done based on the index given
  */
 public class MarkCommand extends Command {
-    // variable
+    // variables
     private int taskIndex;
     private boolean isMarked;
     private String responseMessage;
@@ -42,6 +42,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
+        assert this.taskIndex > 0 : "The index can never be 0";
+        assert Task.getTaskArrayList().size() >= this.taskIndex - 1 : "Task Array should not be empty";
+
         Task.getTaskArrayList().get(this.taskIndex - 1).changeDone(this.isMarked);
         this.responseMessage = ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
         changeDataFromFile();
