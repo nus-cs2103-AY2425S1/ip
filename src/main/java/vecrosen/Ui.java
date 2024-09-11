@@ -14,6 +14,7 @@ public class Ui {
 
     /**
      * Initializes the UI
+     *
      * @param inputStream Where the text the user inputs will be received
      * @param outputStream Where the text Vecrosen will respond with is sent
      */
@@ -24,6 +25,7 @@ public class Ui {
 
     /**
      * Outputs a string with an indentation, to differentiate Vecrosen's dialog from the user's.
+     *
      * @param s The string to be printed.
      */
     public void speak(String s) {
@@ -34,15 +36,17 @@ public class Ui {
     /**
      * Outputs an alert informing the user they have formatted their command incorrectly,
      * and elaborates on how they were supposed to use said command.
+     *
      * @param usage The proper usage of the command.
      */
-    public void invalidFormat(String usage) {
+    public void alertInvalidFormat(String usage) {
         speak("Invalid format.");
         speak("Usage: " + usage);
     }
 
     /**
-     * Prints the intro, followed by the tasks in the list
+     * Prints the intro, followed by the tasks in the list.
+     *
      * @param list The list of tasks to print
      * @param intro Sentence to print before the list of tasks
      * @param noTasks Sentence to print if the list is empty
@@ -59,10 +63,11 @@ public class Ui {
     }
 
     /**
-     * Obtains the next line that the user had entered
+     * Obtains the next line that the user had entered.
+     *
      * @return The line the user entered
      */
-    public String readline() {
+    public String readLine() {
         return input.nextLine();
     }
 }

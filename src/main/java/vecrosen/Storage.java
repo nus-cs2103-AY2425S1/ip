@@ -13,10 +13,11 @@ import java.util.Scanner;
  */
 public class Storage {
     /** Task types currently supported by Vecrosen */
-    private enum TaskType { todo, deadline, event };
+    private enum TaskType { TODO, DEADLINE, EVENT };
 
     /**
      * Saves the task list to the specified file.
+     *
      * @param file The file to save to.
      * @param list The list of tasks.
      */
@@ -28,13 +29,13 @@ public class Storage {
                 fw.write(t.getDescription());
                 fw.write("\n" + t.isDone());
                 if (t.getClass() == Task.class) {
-                    fw.write(" " + TaskType.todo.ordinal());
+                    fw.write(" " + TaskType.TODO.ordinal());
                 } else if (t.getClass() == Deadline.class) {
-                    fw.write(" " + TaskType.deadline.ordinal() + '\n');
+                    fw.write(" " + TaskType.DEADLINE.ordinal() + '\n');
                     Deadline d = (Deadline) t;
                     fw.write(d.getBy());
                 } else if (t.getClass() == Event.class) {
-                    fw.write(" " + TaskType.event.ordinal() + '\n');
+                    fw.write(" " + TaskType.EVENT.ordinal() + '\n');
                     Event e = (Event) t;
                     fw.write(e.getBegin() + '\n');
                     fw.write(e.getEnd());
@@ -51,6 +52,7 @@ public class Storage {
 
     /**
      * Loads the data from the file into the list.
+     *
      * @param file The file to read from.
      * @param list The array to hold the list of tasks.
      */
@@ -67,16 +69,16 @@ public class Storage {
                 TaskType tt = TaskType.values()[tth];
                 s.nextLine();
                 switch (tt) {
-                case event:
+                case EVENT:
                     String begin = s.nextLine();
                     String end = s.nextLine();
                     list.add(new Event(description, begin, end));
                     break;
-                case deadline:
+                case DEADLINE:
                     String by = s.nextLine();
                     list.add(new Deadline(description, by));
                     break;
-                case todo:
+                case TODO:
                     list.add(new Task(description));
                     break;
                 default:

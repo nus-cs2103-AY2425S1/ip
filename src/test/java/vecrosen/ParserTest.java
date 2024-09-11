@@ -13,15 +13,15 @@ public class ParserTest {
     @Test
     public void markUnmarkTest() {
         ArrayList<Object> args = new ArrayList<Object>();
-        assertEquals(Parser.ActionType.mark, Parser.parse("mark 6", args));
+        assertEquals(Parser.ActionType.MARK, Parser.parse("mark 6", args));
         assertEquals(6, (Integer) args.get(0));
         args.clear();
-        assertEquals(Parser.ActionType.unmark, Parser.parse("unmark 3", args));
+        assertEquals(Parser.ActionType.UNMARK, Parser.parse("unmark 3", args));
         assertEquals(3, (Integer) args.get(0));
         args.clear();
-        assertEquals(Parser.ActionType.formatting, Parser.parse("unmark ", args));
-        assertEquals(Parser.ActionType.formatting, Parser.parse("mark", args));
-        assertEquals(Parser.ActionType.formatting, Parser.parse("unmark abc", args));
+        assertEquals(Parser.ActionType.FORMATTING, Parser.parse("unmark ", args));
+        assertEquals(Parser.ActionType.FORMATTING, Parser.parse("mark", args));
+        assertEquals(Parser.ActionType.FORMATTING, Parser.parse("unmark abc", args));
         args.clear();
     }
 }

@@ -14,6 +14,7 @@ public class Deadline extends Task {
 
     /**
      * Initializes a Deadline object. Starts marked as incomplete.
+     *
      * @param description The description of the task
      * @param by The due date of the task
      */
@@ -31,6 +32,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the due date/time/etc of the deadline.
+     *
      * @return The due of the deadline
      */
     public String getBy() {
@@ -43,7 +45,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String prev = super.toString();
-        return "[D" + prev.substring(2) + " (by: " + getBy() + ")";
+        String taskDesc = super.toString();
+        return "[D" + taskDesc.substring(2) + " (by: " + getBy() + ")";
     }
 }

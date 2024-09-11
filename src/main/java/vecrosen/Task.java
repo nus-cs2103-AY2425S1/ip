@@ -10,6 +10,7 @@ public class Task {
 
     /**
      * Initializes a Task object. Starts marked as incomplete.
+     *
      * @param description The description the task will have.
      */
     public Task(String description) {
@@ -19,6 +20,7 @@ public class Task {
 
     /**
      * Sets the completion state of the task.
+     *
      * @param nv the value to set isDone to
      */
     public void setDone(boolean nv) {
@@ -27,6 +29,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
+     *
      * @return The description of the task
      */
     public String getDescription() {
@@ -35,6 +38,7 @@ public class Task {
 
     /**
      * Returns whether the task is marked as complete.
+     *
      * @return The completion state of the task.
      */
     public boolean isDone() {

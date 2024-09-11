@@ -19,7 +19,7 @@ public class TaskList {
     /**
      * Initializes the task list with the supplied list of tasks.
      * The same ArrayList will be used to store updates to the list and can be modified directly.
-     * (How did you expect me to test the ArrayList if this thing deepcopied?)
+     *
      * @param list The ArrayList containing the initial list of tasks and to be used for storing the current state.
      */
     public TaskList(ArrayList<Task> list) {
@@ -27,8 +27,9 @@ public class TaskList {
     }
 
     /**
-     * Initializes the
-     * @param file
+     * Initializes the list of tasks using the data from the file.
+     *
+     * @param file The file to load from.
      */
     public TaskList(File file) {
         list = new ArrayList<Task>();
@@ -37,6 +38,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of tasks.
+     *
      * @param t The task to be added
      */
     public void addTask(Task t) {
@@ -45,6 +47,7 @@ public class TaskList {
 
     /**
      * Removes a task from the list of tasks.
+     *
      * @param index The index of the task to be removed, 1-indexed
      * @return The description of the removed task
      */
@@ -57,6 +60,7 @@ public class TaskList {
 
     /**
      * Marks a task as complete or incomplete.
+     *
      * @param index The index of the task to be modified, 1-indexed
      * @param isDone The new state of the task
      * @return The description of the removed task
@@ -70,6 +74,7 @@ public class TaskList {
 
     /**
      * Saves the contents of the list to the specified file
+     *
      * @param file
      */
     public void save(File file) {
@@ -78,6 +83,7 @@ public class TaskList {
 
     /**
      * Prints out the contents of the list to the UI.
+     *
      * @param ui The UI object to print to.
      */
     public void printList(Ui ui) {
@@ -90,6 +96,7 @@ public class TaskList {
 
     /**
      * Finds all tasks that contain the string given in the description. Case-sensitive.
+     *
      * @param s The keyword to search by
      * @param indices Array to hold the indices of the found tasks
      * @return The tasks matching the query
@@ -107,6 +114,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks on the list.
+     *
      * @return Number of tasks on the list.
      */
     public int getListSize() {

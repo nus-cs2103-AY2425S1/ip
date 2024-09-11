@@ -17,6 +17,7 @@ public class Event extends Task {
 
     /**
      * Initializes a new Event object. Starts marked as incomplete.
+     *
      * @param description The description of the event
      * @param begin The start date/time of the event
      * @param end The end date/time of the event
@@ -42,6 +43,7 @@ public class Event extends Task {
 
     /**
      * Returns the start of the event.
+     *
      * @return The start of the event
      */
     public String getBegin() {
@@ -54,6 +56,7 @@ public class Event extends Task {
 
     /**
      * Returns the end of the event.
+     *
      * @return The end of the event
      */
     public String getEnd() {
@@ -66,7 +69,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String prev = super.toString();
-        return "[E" + prev.substring(2) + " (begins: " + getBegin() + ", ends: " + getEnd() + ")";
+        String taskDesc = super.toString();
+        return "[E" + taskDesc.substring(2) + " (begins: " + getBegin() + ", ends: " + getEnd() + ")";
     }
 }

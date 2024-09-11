@@ -19,6 +19,7 @@ public class CustomDateTimeParser {
 
     /**
      * Parses the string into a date, if it is recognizable as one.
+     *
      * @param by The string to be parsed
      * @return The date detected
      * @throws DateTimeParseException Thrown if no matches found
