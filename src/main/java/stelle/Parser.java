@@ -40,17 +40,14 @@ public class Parser {
         EVENT
     }
 
-    private final Ui ui;
     private final String filePath;
     private final TaskList taskList;
 
     /**
      * Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
-     * @param ui The stelle.Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
-    public Parser(Ui ui, String filePath) {
-        this.ui = ui;
+    public Parser(String filePath) {
         this.filePath = filePath;
         this.taskList = new TaskList(this.filePath);
     }
