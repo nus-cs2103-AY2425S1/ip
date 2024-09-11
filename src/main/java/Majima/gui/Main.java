@@ -12,9 +12,14 @@ import java.io.IOException;
 /**
  * A GUI for Duke using FXML.
  */
+
+
+
 public class Main extends Application {
 
-    private Majima majimabot = new Majima("data/Majima.txt");
+    public static final String FILE_PATH = "data/Majima.txt";
+
+    private Majima majimabot = new Majima(FILE_PATH);
 
     @Override
     public void start(Stage stage) {
@@ -35,4 +40,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+
 }
