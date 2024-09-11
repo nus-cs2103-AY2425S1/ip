@@ -40,8 +40,8 @@ public class TaskList {
      */
     public boolean addList(Tasks task) {
         String description = task.getDescription();
-        for(Tasks t : list) {
-            if(t.getDescription().equals(description)) {
+        for (Tasks t : list) {
+            if (t.getDescription().equals(description)) {
                 return false;
             }
         }

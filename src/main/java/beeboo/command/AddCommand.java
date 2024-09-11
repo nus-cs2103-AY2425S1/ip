@@ -42,7 +42,7 @@ public class AddCommand extends Command {
         switch(type) {
         case "e":
             Events event = Events.createEvent(command);
-            if(tasks.addList(event)) {
+            if (tasks.addList(event)) {
                 storage.saveItem(tasks);
                 return ui.addList(event, tasks.getSize());
             } else {
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
             }
         case "t":
             ToDos todo = ToDos.createToDo(command);
-            if(tasks.addList(todo)) {
+            if (tasks.addList(todo)) {
                 storage.saveItem(tasks);
                 return ui.addList(todo, tasks.getSize());
             } else {
@@ -58,7 +58,7 @@ public class AddCommand extends Command {
             }
         case "d":
             Deadlines deadline = Deadlines.createDeadline(command);
-            if(tasks.addList(deadline)) {
+            if (tasks.addList(deadline)) {
                 storage.saveItem(tasks);
                 return ui.addList(deadline, tasks.getSize());
             } else {

@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 
 /**
  * Controller for the main GUI of the BeeBoo application. It manages user interactions,
@@ -21,8 +21,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private final Image userImage = new Image(this.getClass().
-            getResourceAsStream("/images/User.jpg"));
+    private final Image userImage = new Image(this.getClass()
+            .getResourceAsStream("/images/User.jpg"));
 
     private Beeboo beeboo;
 

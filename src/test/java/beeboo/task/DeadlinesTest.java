@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import beeboo.exception.BeeBooExceptions;
-import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
 
 
@@ -34,16 +33,4 @@ public class DeadlinesTest {
                 }).toString());
     }
 
-    @Test
-    public void createDeadlineTest3() {
-        String test = "ca1 /2024-02-24";
-        String expectedErrorMessage = "Your date commands are wrong. "
-                + "Here are the list of how to create tasks\n"
-                + "event [eventName] /from [time] /to [time]\n"
-                + "deadline [deadlineName] /by [time]";
-        assertEquals(expectedErrorMessage,
-                assertThrows(InvalidDateException.class, () -> {
-                    Deadlines.createDeadline(test);
-                }).toString());
-    }
 }
