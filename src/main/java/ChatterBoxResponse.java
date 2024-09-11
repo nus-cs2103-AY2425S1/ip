@@ -27,6 +27,7 @@ public class ChatterBoxResponse {
      * @return A formatted string containing the list.
      */
     public String showTaskList(ArrayList<Task> taskList) {
+        assert taskList != null : "TaskList cannot be null";
         StringBuilder sb = new StringBuilder();
         sb.append("\n\t\tHere's what you've got on your to-do list so far:\n");
         for (int i = 0; i < taskList.size(); i++) {
@@ -43,6 +44,7 @@ public class ChatterBoxResponse {
      * @return A message which indicates task addition
      */
     public static String showTaskAdded(Task task, int taskCount) {
+        assert task != null : "Task cannot be null";
         return "\n\t\t" + task.getDescription() + " is added to your list\n\t\t" + task
                 + "\n\t\tNow you have " + taskCount + " tasks in your list.\n";
     }
@@ -54,6 +56,7 @@ public class ChatterBoxResponse {
      * @return A message indicating the task completion.
      */
     public static String showTaskMarkedAsDone(Task task) {
+        assert task != null : "Task cannot be null";
         return "\n\t\tSuper! Task marked as done:\n\t\t" + task + "\n";
     }
 
@@ -64,6 +67,7 @@ public class ChatterBoxResponse {
      * @return A message indicating the task status change.
      */
     public static String showTaskMarkedAsNotDone(Task task) {
+        assert task != null : "Task cannot be null";
         return "\n\t\tSure, task has been marked as not done:\n\t\t" + task + "\n";
     }
 
@@ -75,6 +79,7 @@ public class ChatterBoxResponse {
      * @return A message indicating the task removal.
      */
     public static String showTaskRemoved(Task task, int taskCount) {
+        assert task != null : "Task cannot be null";
         return "\n\t\tNoted. I've removed this task:\n\t\t" + task
                 + "\n\t\tNow you have " + taskCount + " tasks in the list\n";
     }
@@ -140,6 +145,7 @@ public class ChatterBoxResponse {
      * @return The custom error message.
      */
     public static String showError(String message) {
+        assert message != null : "Messaage cannot be null";
         return "\n\t\t" + message + "\n";
     }
 
@@ -150,6 +156,7 @@ public class ChatterBoxResponse {
      * @return A formatted string containing the search results.
      */
     public static String showFindTaskList(ArrayList<Task> taskList) {
+        assert taskList != null : "TaskList cannot be null";
         StringBuilder sb = new StringBuilder();
         sb.append("\n\t\tHere are the matching tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
