@@ -42,6 +42,8 @@ public class DeleteCommand extends Command {
             return ui.showDeleteTask(task, tasks.getSize());
         } catch (IOException e) {
             return ui.showSaveIoeException(e);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showException(e);
         }
     }
 }
