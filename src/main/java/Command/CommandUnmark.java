@@ -47,6 +47,9 @@ public class CommandUnmark extends Command {
             }
 
             Task task = list.getTask(index);
+
+            assert task != null : "Task to be unmarked must not be null";
+
             task.setDone(false);
             storage.writeAllToFile(list);
 

@@ -47,6 +47,9 @@ public class CommandMark extends Command {
             }
 
             Task task = list.getTask(index);
+
+            assert task != null : "Task to be marked must not be null";
+
             task.setDone(true);
             storage.writeAllToFile(list);
 

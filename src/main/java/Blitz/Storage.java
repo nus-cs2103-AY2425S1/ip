@@ -55,9 +55,11 @@ public class Storage {
         }
 
         if (!list.isEmpty()) {
-            ArrayList<Task> temp = list.getAllTask();
+            ArrayList<Task> taskList = list.getAllTask();
 
-            for (Task task : temp) {
+            assert taskList != null : "Task list from TaskList must not be null";
+
+            for (Task task : taskList) {
                 writeOneToFile(task);
             }
         }
