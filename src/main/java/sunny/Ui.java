@@ -41,6 +41,7 @@ public class Ui {
      * @return String to be printed out in Sunny class
      */
     public String getResponse(String message) {
+        assert message != null : "Message should not be null";
         Parser p = new Parser(message);
         String command = p.getFirstHalf();
 
@@ -67,6 +68,7 @@ public class Ui {
         } else {
             try {
                 Task t = TaskCreator.create(message + "|false");
+                assert t != null : "Task creation failed, task should not be null";
                 ls.add(t);
                 store.write(ls);
                 return LINE + "\n     "
