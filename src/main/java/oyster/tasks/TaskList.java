@@ -99,12 +99,13 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
-            result += String.format("%d. %s", i + 1, tasks.get(i)) + (i < tasks.size() - 1 ? "\n" : "");
+            result.append(String.format("%d. %s", i + 1, tasks.get(i)))
+                .append(i < tasks.size() - 1 ? "\n" : "");
         }
 
-        return result;
+        return result.toString();
     }
 }
