@@ -103,44 +103,38 @@ public class Neko {
     public String handleInput(String input) throws NekoException, IOException {
         String command = Parser.parseCommand(input);
         Task task;
+        Task[] tasksArray;
         String response;
         switch (command) {
         case COMMAND_LIST:
             response = tasks.listTasks();
             break;
         case COMMAND_MARK:
-            task = tasks.markTask(
-                    Integer.parseInt(input.split(" ")[1]) - 1);
-            if (task == null) {
-                response = "The task is already marked as done meow!";
-            }
-            response = "Nice meow! I've marked this task as done:\n " + task;
+            Integer[] markIndices = Parser.parseIndices(input);
+            tasksArray = tasks.markTask(markIndices);
+            storage.rewriteFile(tasks);
+            response = formatTaskArrayResponse(tasksArray, "marked as done");
             break;
         case COMMAND_UNMARK:
-            task = tasks.unmarkTask(
-                    Integer.parseInt(input.split(" ")[1]) - 1);
-            if (task == null) {
-                response = "The task is not marked as done yet meow!";
-            }
-            response = "Ok meow, I've marked this task as not done yet:\n " + task;
+            Integer[] unmarkIndices = Parser.parseIndices(input);
+            tasksArray = tasks.unmarkTask(unmarkIndices);
+            storage.rewriteFile(tasks);
+            response = formatTaskArrayResponse(tasksArray, "marked as not done");
             break;
         case COMMAND_DELETE:
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            task = tasks.getTask(index);
-            tasks.deleteTask(index);
+            Integer[] deleteIndices = Parser.parseIndices(input);
+            tasksArray = tasks.deleteTask(deleteIndices);
             storage.rewriteFile(tasks);
-            response = "Noted meow. I've removed this task\n " + task + "\nNow you have "
-                    + tasks.size() + " tasks in the list.";
+            response = formatTaskArrayResponse(tasksArray, "delete");
             break;
         case COMMAND_ADD:
             task = createTask(input);
             if (task == null) {
-                response = "Meow /ᐠ > ˕ <マ Wrong input format!\n"
-                + "Please make sure that the input is in the following format:/n"
-                + "add [type of task (todo, deadline, event)] [description] [deadline(for deadline) "
-                + "and start date/time(for event)] [end date/time(for event)]";
+                response = ui.getInvalidInputMessage();
+                break;
             }
-            tasks.addTask(task, storage);
+            tasks.addTask(task);
+            storage.writeFile(task);
             response = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
                     + task + "\nNow you have " + tasks.size() + " tasks in your list meow";
             break;
@@ -157,7 +151,7 @@ public class Neko {
             response = getHelpMessage();
             break;
         default:
-            response = "Meow /ᐠ > ˕ <マ Invalid input!";
+            response = ui.getInvalidInputMessage();
         }
         return response;
     }
@@ -213,5 +207,18 @@ public class Neko {
                 + "7. delete [task number] - Deletes the task at the given index\n"
                 + "8. find [keyword] - Finds tasks that match the given keyword\n"
                 + "9. help - Shows this list of commands\n";
+    }
+
+    private String formatTaskArrayResponse(Task[] tasks, String action) {
+        StringBuilder response = new StringBuilder("Nice meow! I've ");
+        response.append(action).append(" the following tasks:\n");
+
+        for (Task task : tasks) {
+            if (task != null) {
+                response.append(task).append("\n");
+            }
+        }
+
+        return response.toString().trim();
     }
 }

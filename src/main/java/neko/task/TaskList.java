@@ -38,9 +38,8 @@ public class TaskList {
      * @param storage The storage to be written to.
      * @throws IOException if an I/O error occurs.
      */
-    public void addTask(Task task, Storage storage) throws IOException {
+    public void addTask(Task task) {
         tasks.add(task);
-        storage.writeFile(task);
     }
 
     /**
@@ -85,34 +84,42 @@ public class TaskList {
      * Marks the task at the given index as done if it's not marked as done yet.
      * Otherwise, simply return null (if the task is already marked as done).
      *
-     * @param index The position where the task is stored.
+     * @param indices The position where the tasks are stored.
      * @return The task after marking as done, else return null.
      * @throws NekoException If the index is invalid.
      */
-    public Task markTask(int index) throws NekoException {
-        checkValidIndex(index);
-        if (tasks.get(index).markAsDone()) {
-            return tasks.get(index);
-        } else {
-            return null;
+    public Task[] markTask(Integer... indices) throws NekoException {
+        Task[] markedTasks = new Task[indices.length];
+        int counter = 0;
+        for (int index : indices) {
+            checkValidIndex(index);
+            if (tasks.get(index).markAsDone()) {
+                markedTasks[counter] = tasks.get(index);
+                counter++;
+            }
         }
+        return markedTasks;
     }
 
     /**
      * Marks the task at the given index as not done if it's marked as done.
      * Otherwise, simply return null (if the task is already marked as not done).
      *
-     * @param index The position where the task is stored.
+     * @param indices The position where the tasks are stored.
      * @return The task after marking as not done, else return null.
      * @throws NekoException If the index is invalid.
      */
-    public Task unmarkTask(int index) throws NekoException {
-        checkValidIndex(index);
-        if (tasks.get(index).markAsNotDone()) {
-            return tasks.get(index);
-        } else {
-            return null;
+    public Task[] unmarkTask(Integer... indices) throws NekoException {
+        Task[] unmarkedTasks = new Task[indices.length];
+        int counter = 0;
+        for (int index : indices) {
+            checkValidIndex(index);
+            if (tasks.get(index).markAsNotDone()) {
+                unmarkedTasks[counter] = tasks.get(index);
+                counter++;
+            }
         }
+        return unmarkedTasks;
     }
 
     /**
@@ -139,12 +146,18 @@ public class TaskList {
      * Deletes the task at the given index if the index is valid.
      * Otherwise, do nothing.
      *
-     * @param index The position where the task is stored.
+     * @param indices The positions where the tasks are stored.
      * @throws NekoException If the index is invalid.
      */
-    public void deleteTask(int index) throws NekoException {
-        checkValidIndex(index);
-        tasks.remove(index);
+    public Task[] deleteTask(Integer... indices) throws NekoException {
+        Task[] deletedTask = new Task[indices.length];
+        int counter = 0;
+        for (int index : indices) {
+            checkValidIndex(index);
+            deletedTask[counter++] = tasks.get(index);
+            tasks.remove(index);
+        }
+        return deletedTask;
     }
 
     /**
