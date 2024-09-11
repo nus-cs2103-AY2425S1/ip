@@ -48,12 +48,14 @@ If you can type fast, Jackson can get it done faster.
 > - Extra arguments will be interpreted as _incorrect formatting_
 
 ## Help with commands: `help`
-This command serves two purposes. Firstly, it displays the list of supported commands:
-    <div style="text-align: center;"><img src="help-1-demo.png" alt="help-1-demo" width="301"/></div>
+This command serves two purposes. Firstly, it displays the list of supported commands: 
+<div style="text-align: center;"><img src="help-1-demo.png" alt="help-1-demo" width="301"/></div>
+
 Format: `help`
 
 Alternatively, suffixing `help` with a command displays more details about the command:
-    <div style="text-align: center;"><img src="help-2-demo.png" alt="help-2-demo" width="301"/></div>
+<div style="text-align: center;"><img src="help-2-demo.png" alt="help-2-demo" width="301"/></div>
+
 Format: `help [COMMAND]`
 
 ## Viewing the task list: `list`
@@ -64,7 +66,8 @@ View the task list in its entirety. The display can be interpreted as follows:
 - Start and end dates (if applicable) in `(HH:MM) DD MMM YYYY` format
 
 For example:
-    <div style="text-align: center;"><img src="list-demo.png" alt="list-demo" width="301"/></div>
+<div style="text-align: center;"><img src="list-demo.png" alt="list-demo" width="301"/></div>
+
 Format: `list`
 
 ## Adding todo tasks: `todo`
@@ -125,8 +128,9 @@ Sorts tasks in ascending or descending order based on task attributes.
 - Null values are always considered "largest", in ascending order they are ranked last.
 
 For example: `sort name /d`, before (left) and after (right)
-    <div style="text-align: center;"><img src="sort-before-demo.png" alt="sort-before-demo" width="301" height="115"/>
-    <img src="sort-after-demo.png" alt="sort-after-demo" width="301" height="115"/></div>
+<div style="text-align: center;"><img src="sort-before-demo.png" alt="sort-before-demo" width="301" height="115"/>
+<img src="sort-after-demo.png" alt="sort-after-demo" width="301" height="115"/></div>
+
 Format: `sort [ATTRIBUTE] (ORDER)`
 
 ## Finding tasks: `find`
