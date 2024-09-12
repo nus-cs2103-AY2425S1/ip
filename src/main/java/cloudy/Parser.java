@@ -48,6 +48,7 @@ public class Parser {
      * @return A command object for marking a task as complete.
      */
     private Command parseMarkCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
 
         if (parts.length < 2) {
@@ -69,6 +70,7 @@ public class Parser {
      * @return A command object for marking a task as complete.
      */
     private Command parseUnmarkCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
 
         if (parts.length != 2) {
@@ -85,6 +87,7 @@ public class Parser {
     }
 
     private Command parseTodoCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         if (userInput.trim().length() <= 4) {
             return new Command("invalidCommand");
         } else {
@@ -94,6 +97,8 @@ public class Parser {
     }
 
     private Command parseDeadlineCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
+      
         if (userInput.length() < 9 || !userInput.contains("/by")) {
             return new Command("invalidDeadline");
         }
@@ -121,10 +126,12 @@ public class Parser {
     }
 
     private Command parseEventCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
+
         if (userInput.length() < 6 || !userInput.contains("/from")) {
             return new Command("invalidEvent");
         }
-
+      
         String[] partsFrom = userInput.split("/from");
         String taskDescription = partsFrom[0].substring(6).trim();
         String startTime = "", endTime = "";
@@ -158,6 +165,7 @@ public class Parser {
     }
 
     private Command parseDeleteCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
 
         if (parts.length != 2) {
@@ -173,7 +181,11 @@ public class Parser {
     }
 
     private Command parseFindCommand(String userInput) {
-        String searchQuery = userInput.substring(5).trim();
+        assert userInput != null : "userInput should not be null";
+        if (userInput.length() <= 4) {
+            return new Command("find", "");
+        }
+        String searchQuery = userInput.substring(4).trim();
         return new Command("find", searchQuery);
     }
 
