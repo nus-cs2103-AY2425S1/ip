@@ -34,6 +34,7 @@ public class CommandDelete extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task deletedTask = taskList.deleteTask(this.index);
+        assert deletedTask != null : "No task is deleted as index is out of range";
         storage.rewriteFile(taskList);
         return ui.deleteTask(deletedTask);
     }

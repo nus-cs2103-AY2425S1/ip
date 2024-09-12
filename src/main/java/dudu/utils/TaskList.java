@@ -53,8 +53,12 @@ public class TaskList {
      * @return The task after marking it
      */
     public Task markTask(int index) {
-        tasks.get(index).markCompleted();
-        return tasks.get(index);
+        try {
+            tasks.get(index).markCompleted();
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
@@ -64,8 +68,12 @@ public class TaskList {
      * @return The task after unmarking it
      */
     public Task unmarkTask(int index) {
-        tasks.get(index).markUncompleted();
-        return tasks.get(index);
+        try {
+            tasks.get(index).markUncompleted();
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
@@ -75,9 +83,13 @@ public class TaskList {
      * @return The deleted task
      */
     public Task deleteTask(int index) {
-        Task removed = tasks.get(index);
-        tasks.remove(index);
-        return removed;
+        try {
+            Task removed = tasks.get(index);
+            tasks.remove(index);
+            return removed;
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
