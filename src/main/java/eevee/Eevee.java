@@ -32,6 +32,9 @@ public class Eevee {
         }
     }
 
+    /**
+     * Constructs an instance of Eevee without an argument.
+     */
     public Eevee() {
         this.ui = new Ui();
         this.storage = new Storage(DEFAULT_FILE_PATH);
@@ -45,6 +48,12 @@ public class Eevee {
         }
     }
 
+    /**
+     * Handles command that the user inputs.
+     *
+     * @param input The String input that should be in the form of a command.
+     * @return The String response to the given command.
+     */
     public String getResponse(String input) {
         try {
             Parser.Command command = parser.parseCommand(input);
