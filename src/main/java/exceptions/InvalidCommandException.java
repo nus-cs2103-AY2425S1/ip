@@ -5,7 +5,6 @@ package exceptions;
  */
 // Solution below inspired by https://www.javatpoint.com/custom-exception
 public class InvalidCommandException extends Exception {
-
     /**
      * Constructor for InvalidCommandException class.
      */
