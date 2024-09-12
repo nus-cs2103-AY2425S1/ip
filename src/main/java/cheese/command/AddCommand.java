@@ -32,6 +32,6 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         storage.addTask(task);
         tasks.add(task);
-        return ui.say(task, tasks, false);
+        return ui.say(task, tasks);
     }
 }

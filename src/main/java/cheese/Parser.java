@@ -16,7 +16,6 @@ import cheese.exception.CheeseException;
 import cheese.exception.InputException;
 import cheese.task.Deadline;
 import cheese.task.Event;
-import cheese.task.Task;
 import cheese.task.ToDo;
 
 /**
@@ -30,6 +29,7 @@ public class Parser {
     private static final String EVENT_FORMAT = "event [name] /from [date] /to [date]";
     private static final String RESCHEDULE_FORMAT = "reschedule [index] [date]";
     private static final String SNOOZE_FORMAT = "snooze [index] [days to delay]";
+    private static final String INVALID_FORMAT = "Invalid format. Command does not exist";
 
     /**
      * Parse user input
@@ -74,7 +74,7 @@ public class Parser {
         case "snooze":
             return createSnooze(inputTokens, size);
         default:
-            return new AddCommand(new Task(input));
+            throw new InputException(INVALID_FORMAT, "");
         }
     }
 
@@ -172,7 +172,7 @@ public class Parser {
     }
 
     private static int convertInt(String[] inputTokens, int target) throws CheeseException {
-        if (inputTokens.length < target) {
+        if (inputTokens.length < target + 1) {
             throw new CheeseException("Insufficient len to find index");
         }
         int idx;

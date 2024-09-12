@@ -49,19 +49,12 @@ public class Ui {
     }
 
     /**
-     * Say a newly added/deleted task
+     * Say a newly added task
      * @param t Cheese.Task
-     * @param tasks tasklist
-     * @param delete note delete/add task
+     * @param tasks TaskList
      */
-    public String say(Task t, TaskList tasks, boolean delete) {
-        String del;
-        if (delete) {
-            del = "Removed cheese :(\n";
-        } else {
-            del = "Added new cheese ;)\n";
-        }
-        String s = del + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
+    public String say(Task t, TaskList tasks) {
+        String s = "Added new cheese ;)\n" + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
         return say(s);
     }
 
@@ -70,8 +63,9 @@ public class Ui {
      * @param t updated task
      * @param tasks task list
      */
-    public String say(Task t, TaskList tasks) {
-        String s = "Updated cheese :)\n" + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
+    public String say(Task t, TaskList tasks, boolean isDelete) {
+        String del = isDelete ? "Removed" : "Updated";
+        String s = del + " cheese :)\n" + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
         return say(s);
     }
 

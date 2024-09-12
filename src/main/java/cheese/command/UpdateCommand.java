@@ -38,6 +38,6 @@ public class UpdateCommand extends Command {
         if (isDelete) {
             t = tasks.remove(idx);
         }
-        return ui.say(t, tasks);
+        return ui.say(t, tasks, isDelete);
     }
 }
