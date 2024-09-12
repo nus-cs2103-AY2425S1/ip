@@ -31,8 +31,4 @@ public class FindCommand extends Command {
         return false;
     }
 
-    @Override
-    public String getString() {
-        return output;
-    }
 }

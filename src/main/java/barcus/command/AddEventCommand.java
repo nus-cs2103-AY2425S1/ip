@@ -46,8 +46,4 @@ public class AddEventCommand extends AddCommand {
         return false;
     }
 
-    @Override
-    public String getString() {
-        return output;
-    }
 }
