@@ -19,6 +19,7 @@ public abstract class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+        assert(this.toString().matches("[X]*"));
     }
 
     /**
@@ -26,6 +27,7 @@ public abstract class Task {
      */
     public void markAsIncomplete() {
         this.isDone = false;
+        assert(this.toString().matches("[ ]*"));
     }
 
     @Override
