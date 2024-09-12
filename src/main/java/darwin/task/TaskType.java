@@ -35,7 +35,9 @@ public enum TaskType {
                 return type;
             }
         }
-        throw new IllegalTaskTypeException(String.format("%s is not a valid task type", name));
+        // Allow to parse from symbol if name is not found
+        return TaskType.fromSymbol(name);
+        //throw new IllegalTaskTypeException(String.format("%s is not a valid task type", name));
     }
 
     /**

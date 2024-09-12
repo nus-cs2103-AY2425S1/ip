@@ -77,7 +77,7 @@ public class TaskManager {
 
     private Task getTask(int taskIdx) throws IllegalTaskNumberException {
         if (taskIdx < 0 || taskIdx >= this.getTaskCount()) {
-            throw new IllegalTaskNumberException(String.format("%d is not a valid task number", taskIdx));
+            throw new IllegalTaskNumberException(String.format("%d is not a valid task number", taskIdx + 1));
         }
         return this.taskList.get(taskIdx);
     }

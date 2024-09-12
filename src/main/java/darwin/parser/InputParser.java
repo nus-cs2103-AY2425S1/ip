@@ -25,7 +25,7 @@ public class InputParser {
      * @throws IllegalTaskArgumentException if task arguments are invalid
      */
     public Command parse(String in) throws IllegalTaskTypeException, IllegalTaskArgumentException {
-        assert in != null : "Input string should not be null";
+//        assert in != null : "Input string should not be null";
         in = in.trim();
         String[] parts = in.split("\\s+", 2);
         String cmd = parts[0];
