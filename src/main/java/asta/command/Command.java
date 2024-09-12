@@ -40,14 +40,24 @@ public enum Command {
      * Command to list all current tasks.
      */
     LIST,
+
     /**
-     * Command to find task by keyword.
+     * Command to find tasks by a given keyword.
      */
     FIND,
+
+    /**
+     * Command to add a new recurring Deadline task.
+     */
+    RECURRING_DEADLINE,
 
     /**
      * Command to exit the application.
      */
     BYE,
+
+    /**
+     * Command to represent an unknown or unrecognized input.
+     */
     UNKNOWN
 }

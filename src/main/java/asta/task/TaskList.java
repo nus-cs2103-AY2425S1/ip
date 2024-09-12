@@ -84,10 +84,19 @@ public class TaskList {
      */
     public void markTask(int taskNumber, boolean markAsDone) throws AstaException {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task task = tasks.get(taskNumber);
             if (markAsDone) {
-                tasks.get(taskNumber).markAsDone();
+                task.markAsDone();
+                if (task instanceof RecurringDeadline recurringTask) {
+                    if (!recurringTask.isNextOccurrenceGenerated()) {
+                        RecurringDeadline nextOccurrence = recurringTask.generateNextOccurrence();
+                        if (nextOccurrence != null) {
+                            tasks.add(nextOccurrence); // Add the next occurrence to the task list
+                        }
+                    }
+                }
             } else {
-                tasks.get(taskNumber).markAsNotDone();
+                task.markAsNotDone();
             }
         } else {
             if (markAsDone) {
@@ -153,6 +162,25 @@ public class TaskList {
     }
 
     /**
+     * Adds a new RecurringDeadline task to the task list.
+     *
+     * @param description The description of the recurring task.
+     * @param byDateStr The deadline date as a string, which will be parsed into a LocalDateTime object.
+     * @param interval The recurrence interval in days (e.g., 7 for weekly recurrence).
+     * @throws AstaException If the description is empty or the date string cannot be parsed.
+     */
+    public void addRecurringDeadlineTask(String description, String byDateStr, int interval)
+            throws AstaException {
+        LocalDateTime by = LocalDateTime.parse(byDateStr.trim(), DATE_TIME_FORMATTER);
+
+        if (description.isEmpty()) {
+            throw new AstaException("Description cannot be empty for recurring deadline.");
+        }
+
+        tasks.add(new RecurringDeadline(description, by, interval));
+    }
+
+    /**
      * Deletes a task from the list.
      *
      * @param index The index of the task to delete.
@@ -189,8 +217,6 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      */
     public List<Task> findTasks(String keyword) {
-        return tasks.stream()
-                .filter(task -> task.getDescription().contains(keyword))
-                .collect(Collectors.toList());
+        return tasks.stream().filter(task -> task.getDescription().contains(keyword)).collect(Collectors.toList());
     }
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import asta.task.Deadline;
 import asta.task.Event;
+import asta.task.RecurringDeadline;
 import asta.task.Task;
 import asta.task.ToDo;
 
@@ -60,19 +61,26 @@ public class Storage {
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
                 Task task;
+                LocalDateTime by;
 
                 switch (type) {
                 case "T":
                     task = new ToDo(description, isDone);
                     break;
                 case "D":
-                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
+                    by = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
                     task = new Deadline(description, by, isDone);
                     break;
                 case "E":
                     LocalDateTime from = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
                     LocalDateTime to = LocalDateTime.parse(parts[4].trim(), DATE_TIME_FORMATTER);
                     task = new Event(description, from, to, isDone);
+                    break;
+                case "RD": // Recurring Deadline
+                    by = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
+                    int interval = Integer.parseInt(parts[4].trim());
+                    boolean nextGenerated = Boolean.parseBoolean(parts[5].trim());
+                    task = new RecurringDeadline(description, by, interval, nextGenerated);
                     break;
                 default:
                     throw new AstaException("Unknown task type: " + type);
