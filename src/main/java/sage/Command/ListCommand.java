@@ -4,6 +4,9 @@ import sage.List.TaskList;
 import sage.Storage;
 import sage.Ui;
 
+/**
+ * Represents a command to list all tasks in the task list.
+ */
 public class ListCommand extends Command {
     /**
      * Executes the list command to display all tasks currently stored in the task list.

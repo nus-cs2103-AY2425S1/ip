@@ -5,6 +5,9 @@ import sage.SageException;
 import sage.Storage;
 import sage.Ui;
 
+/**
+ * Represents an abstract command in the application.
+ */
 public abstract class Command {
     protected boolean isExit;
 

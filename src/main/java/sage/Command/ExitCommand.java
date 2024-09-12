@@ -6,6 +6,9 @@ import sage.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to exit the application.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         super.isExit = true;
