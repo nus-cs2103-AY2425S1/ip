@@ -55,6 +55,7 @@ public class Cook {
             return e.getMessage();
         }
 
+        assert argumentsHashMap != null;
         String command = argumentsHashMap.get("command");
         if (command.equals("bye")) {
             return "bye";
