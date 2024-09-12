@@ -8,7 +8,9 @@ import shrimp.utility.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand implements Command {
-    /** The index of the task to be deleted.*/
+    /**
+     * The index of the task to be deleted.
+     */
     private final int index;
 
     /**
@@ -26,7 +28,7 @@ public class DeleteCommand implements Command {
      * and printing the result to the user interface.
      *
      * @param taskList The list of tasks from which the task will be deleted.
-     * @param ui    The user interface to print the result of the command.
+     * @param ui       The user interface to print the result of the command.
      */
     @Override
     public String run(TaskList taskList, Ui ui) {

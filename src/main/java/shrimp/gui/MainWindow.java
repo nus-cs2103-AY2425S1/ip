@@ -10,8 +10,8 @@ import shrimp.Shrimp;
 
 public class MainWindow {
     private Shrimp shrimp;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/dango.jpeg"));
-    private Image shrimpImage = new Image(this.getClass().getResourceAsStream("/images/shrimp.jpeg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/dango.jpeg"));
+    private final Image shrimpImage = new Image(this.getClass().getResourceAsStream("/images/shrimp.jpeg"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -27,7 +27,9 @@ public class MainWindow {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Shrimp instance */
+    /**
+     * Injects the Shrimp instance
+     */
     public void setShrimp(Shrimp shrimp) {
         this.shrimp = shrimp;
         String error = shrimp.runChatBot();

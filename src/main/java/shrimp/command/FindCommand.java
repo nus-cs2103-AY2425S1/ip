@@ -1,6 +1,7 @@
 package shrimp.command;
 
-import shrimp.task.Task;
+import java.util.stream.StreamSupport;
+
 import shrimp.task.TaskList;
 import shrimp.utility.Ui;
 
@@ -25,17 +26,15 @@ public class FindCommand implements Command {
      * Executes the command to find and display tasks that contain the keyword.
      *
      * @param taskList The list of tasks to search through.
-     * @param ui The user interface to interact with the user.
+     * @param ui       The user interface to interact with the user.
      */
     @Override
     public String run(TaskList taskList, Ui ui) {
         TaskList matchingTasks = new TaskList();
 
-        for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
+        StreamSupport.stream(taskList.spliterator(), false)
+                .filter(task -> task.getDescription().contains(keyword))
+                .forEach(matchingTasks::addTask);
 
         if (matchingTasks.isEmpty()) {
             return ui.printError("Can't find any matching task...");

@@ -90,7 +90,7 @@ public class Ui {
      * Prints a message indicating that a task has been deleted.
      * Also prints the current count of tasks in the {@code TaskList}.
      *
-     * @param task The {@code Task} that was deleted.
+     * @param task     The {@code Task} that was deleted.
      * @param taskList The {@code TaskList} after the task was deleted.
      */
     public String printDelete(Task task, TaskList taskList) {
@@ -104,7 +104,7 @@ public class Ui {
      * Prints a message indicating that a task has been added.
      * Also prints the current count of tasks in the {@code TaskList}.
      *
-     * @param task The {@code Task} that was added.
+     * @param task     The {@code Task} that was added.
      * @param taskList The {@code TaskList} after the task was added.
      */
     public String printAdd(Task task, TaskList taskList) {

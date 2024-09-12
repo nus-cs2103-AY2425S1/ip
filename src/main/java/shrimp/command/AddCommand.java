@@ -9,7 +9,9 @@ import shrimp.utility.Ui;
  */
 public class AddCommand implements Command {
 
-    /** Task to be added to the task list. */
+    /**
+     * Task to be added to the task list.
+     */
     private final Task task;
 
     /**
@@ -27,7 +29,7 @@ public class AddCommand implements Command {
      * printing the result to the user interface.
      *
      * @param taskList The list of tasks to which the task will be added.
-     * @param ui    The user interface to print the result of the command.
+     * @param ui       The user interface to print the result of the command.
      */
     @Override
     public String run(TaskList taskList, Ui ui) {

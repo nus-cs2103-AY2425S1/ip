@@ -8,9 +8,13 @@ import shrimp.utility.Ui;
  * Represents a command to mark or unmark a task in the task list.
  */
 public class MarkCommand implements Command {
-    /** The index of the task list to be marked. */
+    /**
+     * The index of the task list to be marked.
+     */
     private final int index;
-    /** The boolean value to signify to mark or unmark the task. */
+    /**
+     * The boolean value to signify to mark or unmark the task.
+     */
     private final Boolean toMark;
 
     /**
@@ -31,7 +35,7 @@ public class MarkCommand implements Command {
      * and printing the result to the user interface.
      *
      * @param taskList The list of tasks containing the task to be marked or unmarked.
-     * @param ui    The user interface to print the result of the command.
+     * @param ui       The user interface to print the result of the command.
      */
     @Override
     public String run(TaskList taskList, Ui ui) {

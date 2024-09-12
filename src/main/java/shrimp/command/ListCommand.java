@@ -13,7 +13,7 @@ public class ListCommand implements Command {
      * to the user interface.
      *
      * @param taskList The list of tasks to be displayed.
-     * @param ui    The user interface to print the list of tasks.
+     * @param ui       The user interface to print the list of tasks.
      */
     @Override
     public String run(TaskList taskList, Ui ui) {
