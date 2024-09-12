@@ -76,7 +76,10 @@ public class Ui {
      * @return the goodbye message
      */
     public String showGoodbye() {
-        return " Bye Dean's Lister! Hope to see you again soon :-)"; // Print the goodbye message
+        return """
+                GOODBYE MY POOKIE BEAR! I'll be here if you need me.
+                The program will exit in 5 seconds.
+                """; // Print the goodbye message
     }
     /**
      * Prints the tasks that just got added to the list

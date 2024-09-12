@@ -90,7 +90,14 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (input.trim().equalsIgnoreCase("bye")) {
-            Platform.exit();
+            new Thread(() -> {
+                try {
+                    Thread.sleep(5000); // Wait for 5 seconds before exiting
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.exit();
+            }).start();
         }
     }
 }
