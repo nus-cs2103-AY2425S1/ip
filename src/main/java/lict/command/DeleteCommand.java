@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
             } else {
                 Task t = tasks.deleteTask(index);
                 ui.hasDeletedTask(t, tasks.size());
-                storage.save(tasks);
+                storage.saveTasks(tasks);
             }
         } catch (NumberFormatException e) {
             throw new LictException("Please enter a valid integer index. For eg. 'delete 1'");

@@ -32,7 +32,7 @@ public class Storage {
      * @return An {@code ArrayList} of tasks loaded from the file.
      * @throws LictException If an I/O error occurs while loading tasks.
      */
-    public ArrayList<Task> load() throws LictException {
+    public ArrayList<Task> loadTasks() throws LictException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (file.exists()) {
@@ -66,7 +66,7 @@ public class Storage {
      * @param taskList The {@code TaskList} containing tasks to be saved.
      * @throws LictException If an I/O error occurs while writing tasks to the file.
      */
-    public void save(TaskList taskList) throws LictException {
+    public void saveTasks(TaskList taskList) throws LictException {
         try {
             FileWriter writer = new FileWriter(file);
             for (Task task : taskList.getTasks()) {

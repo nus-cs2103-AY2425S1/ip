@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
                 Task t = tasks.get(index);
                 t.isMarked(false);
                 ui.hasUnmarkedTask(t);
-                storage.save(tasks);
+                storage.saveTasks(tasks);
             }
         } catch (NumberFormatException e) {
             throw new LictException("Please enter a valid integer index. For eg. 'unmark 1'");

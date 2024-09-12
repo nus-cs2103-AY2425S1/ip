@@ -42,6 +42,6 @@ public class TodoCommand extends Command {
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
         ui.hasAddedTask(newTask, tasks.size());
-        storage.save(tasks);
+        storage.saveTasks(tasks);
     }
 }

@@ -1,9 +1,11 @@
 package lict.task;
 
-import lict.LictException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import lict.LictException;
 
 /**
  * The {@code EventTest} class provides unit tests for the {@code Event} class.
@@ -52,14 +54,22 @@ public class EventTest {
             new Event("Project meeting", "2024-09-01", "anytime");
             fail("LictException was not thrown");
         } catch (LictException e) {
-            assertEquals("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.", e.getMessage());
+            assertEquals(
+                    """
+                            Invalid format for event start date or event end date. Please ensure that Event date and
+                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    e.getMessage());
         }
 
         try {
             new Event("Project meeting", "09/01/2024 1400", "2024-09-01 1600");
             fail("LictException was not thrown");
         } catch (LictException e) {
-            assertEquals("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.", e.getMessage());
+            assertEquals(
+                    """
+                            Invalid format for event start date or event end date. Please ensure that Event date and
+                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    e.getMessage());
         }
     }
 
@@ -100,7 +110,11 @@ public class EventTest {
             Event.loadTask(invalidDateData);
             fail("LictException was not thrown");
         } catch (LictException e) {
-            assertEquals("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.", e.getMessage());
+            assertEquals(
+                    """
+                            Invalid format for event start date or event end date. Please ensure that Event date and
+                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    e.getMessage());
         }
 
         String missingData = "Faulty | 2019-01-01";
@@ -116,7 +130,11 @@ public class EventTest {
             Event.loadTask(extraData);
             fail("LictException was not thrown");
         } catch (LictException e) {
-            assertEquals("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.", e.getMessage());
+            assertEquals(
+                    """
+                            Invalid format for event start date or event end date. Please ensure that Event date and
+                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    e.getMessage());
         }
     }
 

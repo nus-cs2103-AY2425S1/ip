@@ -22,7 +22,7 @@ public class Lict {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
         } catch (LictException e) {
             ui.showError(e.getMessage());
         }

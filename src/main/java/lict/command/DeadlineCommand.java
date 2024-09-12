@@ -47,6 +47,6 @@ public class DeadlineCommand extends Command {
         Task newTask = new Deadline(description, messageParts[1].trim());
         tasks.addTask(newTask);
         ui.hasAddedTask(newTask, tasks.size());
-        storage.save(tasks);
+        storage.saveTasks(tasks);
     }
 }
