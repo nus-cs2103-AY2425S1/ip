@@ -1,8 +1,8 @@
-package nathanbot;
 /**
  * This code has been refined with the assistance of Copilot to comply with the Java Style Guide.
  * For further information, please refer to the Academic Declarations.
  */
+package nathanbot;
 
 import nathanbot.storage.Storage;
 import nathanbot.tasks.TaskListStore;

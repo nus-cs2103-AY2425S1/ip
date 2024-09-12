@@ -124,7 +124,7 @@ public abstract class CommandHandler {
             int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim()) - 1;
             Task task = taskList.getTask(index);
             taskList.deleteTask(index);
-            return "Noted. I've removed this task:\n" 
+            return "Noted. I've removed this task:\n"
                 + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "Invalid task number. To see the list of tasks, use: list\n";
@@ -155,7 +155,7 @@ public abstract class CommandHandler {
 
     /**
      * Handles the deadline command by adding a deadline task to the task list.
-     * It has to be in this format: deadline <description> /by <date>.
+     * It has to be in this format: deadline &lt;description&gt; /by &lt;date&gt
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
@@ -191,7 +191,7 @@ public abstract class CommandHandler {
 
     /**
      * Handles the event command by adding an event task to the task list.
-     * It has to be in this format: event <description> /from <start time> /to <end time>.
+     * It has to be in this format: event &lt;description&gt; /from &lt;start time&gt; /to &lt;end time&gt;.
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
