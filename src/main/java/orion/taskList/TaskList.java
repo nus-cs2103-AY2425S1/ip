@@ -78,7 +78,9 @@ public class TaskList {
      *                                     file.
      */
     public List<Task> loadTasksFromFile() throws FileInitializationException {
-        return storage.read();
+        List<Task> tasks = storage.read();
+        assert tasks.size() >= 0 : "Task list should never have a negative size";
+        return tasks;
     }
 
     /**
@@ -167,6 +169,7 @@ public class TaskList {
         Task task = new Todo(newTaskId, description);
         tasks.add(task);
         saveTasksToFile(tasks);
+        assert tasks.size() >= 0 : "Task list size should never be negative after adding a task";
         return task;
     }
 
@@ -184,6 +187,7 @@ public class TaskList {
         Task task = new Deadline(newTaskId, temp.getDescription(), temp.getBy());
         tasks.add(task);
         saveTasksToFile(tasks);
+        assert tasks.size() >= 0 : "Task list size should never be negative after adding a task";
         return task;
     }
 
@@ -201,6 +205,7 @@ public class TaskList {
         Task task = new Event(newTaskId, temp.getDescription(), temp.getFrom(), temp.getTo());
         tasks.add(task);
         saveTasksToFile(tasks);
+        assert tasks.size() >= 0 : "Task list size should never be negative after adding an event";
         return task;
     }
 
@@ -229,6 +234,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.setCompleted(true);
+            assert task.isCompleted() : "Task should be marked as completed";
             saveTasksToFile(tasks);
             return task;
         }
@@ -269,6 +275,7 @@ public class TaskList {
         int index = listPosition - 1;
         if (index >= 0 && index < tasks.size()) {
             Task removedTask = tasks.remove(index);
+            assert removedTask != null : "Task being deleted should not be null";
             saveTasksToFile(tasks);
             return removedTask;
         }
