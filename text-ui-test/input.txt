@@ -1,0 +1,9 @@
+todo meet jim
+deadline finish assignment /by 22nd September
+event 2101 meeting /from 4pm /to 6pm
+mark 1
+mark 3
+unmark 1
+bleh
+todo
+bye
