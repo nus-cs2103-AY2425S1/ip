@@ -12,7 +12,8 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         assert ui != null;
-        ui.printExit();
+        ui.printExit(); // Displays a confirmation message with the current task list
+
     }
 
     @Override

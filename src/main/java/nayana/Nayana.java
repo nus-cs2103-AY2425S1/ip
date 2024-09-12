@@ -9,7 +9,7 @@ public class Nayana {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Ui ui; // Handles user interface operations.
 
     boolean isExit = false;
 
@@ -30,37 +30,6 @@ public class Nayana {
     }
 
     /**
-     * Runs the main loop of the application, processing user commands until exit is requested.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (NayanaException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * The main method is the entry point of the application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        String filePath = "data/nayana.txt";
-        new Nayana(filePath).run();
-    }
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
@@ -71,24 +40,15 @@ public class Nayana {
         return this.ui;
     }
 
-    public Storage getStorage() {
-        return this.storage;
-    }
 
-    public TaskList getTaskList() {
-        return this.tasks;
-    }
-
-    public boolean parseCommand(String command){
+    public void parseCommand(String command){
         try {
             Command c = Parser.parse(command);
-            c.execute(tasks, ui, storage);
+            c.execute(tasks, ui, storage); // Executes the command, modifying tasks and UI as necessary.
             isExit = c.isExit();
-            return isExit;
         } catch (NayanaException e) {
             ui.showError(e.getMessage());
         }
-        return isExit;
     }
 
 }

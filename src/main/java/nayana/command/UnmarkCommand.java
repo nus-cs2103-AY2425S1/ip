@@ -34,11 +34,11 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NayanaException {
         assert tasks != null;
-        Task task = tasks.markAsNotDone(index);
+        Task task = tasks.markAsNotDone(index); // Marks task as not done in the task list.
         assert storage != null;
-        storage.writeToFile(tasks.getTasks());
+        storage.writeToFile(tasks.getTasks()); // Updates storage with the new list of tasks.
         assert ui != null;
-        ui.printUnmarkTask(task);
+        ui.printUnmarkTask(task); // Displays a confirmation message with the current task list
     }
 
     @Override

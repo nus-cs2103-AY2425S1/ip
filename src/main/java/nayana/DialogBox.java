@@ -20,22 +20,22 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Label dialog; // The label that displays the dialog text.
     @FXML
-    private ImageView displayPicture;
+    private ImageView displayPicture; // The ImageView that shows the speaker's image.
 
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
-            fxmlLoader.load();
+            fxmlLoader.load(); // Loads the FXML layout for the dialog box.
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handles potential I/O errors during FXML loading.
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        dialog.setText(text); // Sets the text for the dialog label.
+        displayPicture.setImage(img); // Sets the image for the ImageView.
     }
 
     /**
@@ -43,18 +43,18 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        Collections.reverse(tmp); // Reverses the order of the children.
+        getChildren().setAll(tmp); // Updates the HBox with the reversed order.
+        setAlignment(Pos.TOP_LEFT); // Sets the alignment of the dialog box.
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img); // Creates and returns a new user dialog box.
     }
 
     public static DialogBox getNayanaDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var db = new DialogBox(text, img); // Creates a new DialogBox instance.
+        db.flip(); // Flips the dialog box to adjust the layout.
+        return db; // Returns the flipped dialog box.
     }
 }
