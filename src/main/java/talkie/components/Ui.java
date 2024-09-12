@@ -129,6 +129,24 @@ public class Ui {
     }
 
     /**
+     * Displays a list of all tasks in the task list after sorting.
+     *
+     * @param tasks The list of sorted tasks to display.
+     */
+    public String listSortedTasks(TaskList tasks) {
+        String listMessage = "";
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task currTask = tasks.getTask(i);
+            String description = (i) + ". " + currTask + "\n";
+            listMessage += description;
+        }
+
+        String finalMessage = "Your task list after sorting:\n" + listMessage;
+
+        return finalMessage;
+    }
+
+    /**
      * Displays a message confirming that a task has been marked as done.
      *
      * @param task The task that was marked as done.

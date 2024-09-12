@@ -10,6 +10,7 @@ import talkie.command.EventCommand;
 import talkie.command.FindCommand;
 import talkie.command.ListCommand;
 import talkie.command.MarkCommand;
+import talkie.command.SortCommand;
 import talkie.command.ToDoCommand;
 import talkie.command.UnMarkCommand;
 import talkie.exception.TalkieUnknownCommandException;
@@ -56,6 +57,8 @@ public class Parser {
                 return new EventCommand(input);
             case FIND:
                 return new FindCommand(input);
+            case SORT:
+                return new SortCommand(input);
             default:
                 throw new TalkieUnknownCommandException(input);
             }
