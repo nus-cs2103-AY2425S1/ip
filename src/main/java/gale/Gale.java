@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import gale.exception.GaleException;
+import gale.gui.MainWindow;
 import gale.parser.Parser;
 import gale.storage.Storage;
 import gale.task.Task;
@@ -21,6 +22,7 @@ public class Gale {
     private TaskList taskList;
     private Ui ui;
     private boolean isRunning;
+    private MainWindow mainWindow;
 
     /**
      * Creates a new Gale instance with the default file path to store the output.
@@ -32,7 +34,7 @@ public class Gale {
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showLoadingError();
+            mainWindow.displayError(ui.showLoadingError());
             this.taskList = new TaskList();
         }
         this.isRunning = true;
@@ -51,7 +53,7 @@ public class Gale {
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showLoadingError();
+            mainWindow.displayError(ui.showLoadingError());
             this.taskList = new TaskList();
         }
         this.isRunning = true;
@@ -70,11 +72,11 @@ public class Gale {
      * Saves the current list of tasks to storage.
      * <p>This method is called after each operation that modifies a task in the tasklist.</p>
      */
-    public void saveTasks() {
+    public void saveTasks() throws GaleException {
         try {
             storage.saveTasks(taskList.getTaskList());
         } catch (IOException e) {
-            ui.showException("Oops! The wind interfered with saving your tasks. Please try again.");
+            throw new GaleException("Oops! The wind interfered with saving your tasks. Please try again.");
         }
     }
 
@@ -83,8 +85,6 @@ public class Gale {
      * <p>This method reads user input and processes it accordingly until the user inputs 'bye'.</p>
      */
     public void run() {
-        assert ui != null : "Gale not initialized properly";
-        ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
             String input;
@@ -94,14 +94,17 @@ public class Gale {
             if (!isRunning) {
                 break;
             }
-            saveTasks();
+            try {
+                saveTasks();
+            } catch (GaleException e) {
+                mainWindow.displayError(e.getMessage());
+            }
         }
         scanner.close();
     }
 
     public String getResponse(String input) {
         try {
-            assert input != null : "Input should not be null";
             if (input.equalsIgnoreCase("bye")) {
                 this.isRunning = false;
                 return ui.exit();
@@ -115,7 +118,6 @@ public class Gale {
                 return findTasks(input);
             } else {
                 Task task = Parser.parseTask(input);
-                assert task != null : "Task should not be null";
                 taskList.addTask(task);
                 return ui.showAddedTask(task, taskList.size());
             }
@@ -154,17 +156,17 @@ public class Gale {
     public String handleTaskMarking(String input) throws GaleException {
         String[] strA = input.split(" ");
         int index = Integer.parseInt(strA[1]) - 1;
-        if (index < 0 || index >= taskList.size()) {
-            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
-        }
         boolean isDone = strA[0].equals("mark");
-        Task task = taskList.getTask(index);
-        if (task.status() == isDone) {
-            String status = isDone ? "done" : "not done.";
-            throw new GaleException("Oops! This task is already marked as " + status);
+        if (index >= 0 && index < taskList.size()) {
+            Task task = taskList.getTask(index);
+            if (task.status() == isDone) {
+                throw new GaleException("Oops! This task is already marked as " + (isDone ? "done." : "not done."));
+            } else {
+                taskList.markTask(index, isDone);
+                return ui.showMarkedTask(task, isDone);
+            }
         } else {
-            taskList.markTask(index, isDone);
-            return ui.showMarkedTask(task, isDone);
+            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
         }
     }
 
@@ -191,5 +193,13 @@ public class Gale {
      */
     public TaskList getTaskList() {
         return this.taskList;
+    }
+
+    /**
+     * Returns the Ui field of Gale.
+     * @return the Ui field of Gale
+     */
+    public Ui getUi() {
+        return this.ui;
     }
 }
