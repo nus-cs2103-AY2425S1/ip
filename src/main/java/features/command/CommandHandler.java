@@ -7,14 +7,16 @@ import features.task.TodoTask;
 import features.task.Task;
 import utils.Utils;
 import config.Config;
-import java.util.*;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * Handles user commands related to task management.
  */
 public class CommandHandler {
-	private TaskManagement tm;
+	private final TaskManagement tm;
 
 	/**
 	 * Constructs a CommandHandler with the specified TaskManagement instance.
@@ -32,7 +34,7 @@ public class CommandHandler {
 	 */
 	public String handleCommand(Command cmd) {
 		String command = cmd.getName();
-		String res = "";
+		String res;
 		try {
 			if (command.equals(CommandType.LIST.getType())) {
 				res = handleList();
@@ -52,9 +54,10 @@ public class CommandHandler {
 			}
 		} catch (Exception ex) {
 			res = ex.getMessage();
-		} finally {
-			return res;
 		}
+
+		return res;
+
 	}
 
 	/**
@@ -63,7 +66,7 @@ public class CommandHandler {
 	private String handleList() {
 		StringBuilder s = new StringBuilder();
 		s.append("Here are the tasks in your list:");
-		s.append("\n" + tm.getPrintTasks());
+		s.append("\n").append(tm.getPrintTasks());
 		Utils.printItem(s.toString());
 		return s.toString();
 	}
@@ -90,7 +93,7 @@ public class CommandHandler {
 		} else if (action.equals("unmark")) {
 			res.append("OK, I've marked this task as not done yet:");
 		}
-		tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  " + t.toString()));
+		tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  ").append(t));
 		Utils.printItem(res.toString());
 		return res.toString();
 	}
@@ -148,59 +151,64 @@ public class CommandHandler {
 		String[] parts = task.split(" ");
 		String type = parts[0];
 
-		Task t = new Task("");
+		Task t;
 
-		if (type.equals("todo")) {
-			String taskDescription = Arrays.stream(parts)
-					.skip(1)
-					.collect(Collectors.joining(" "));
-			if (taskDescription.equals("")) {
-				throw new Exception("Invalid command. Usage: todo <description>.");
+		switch (type) {
+			case "todo" -> {
+				String taskDescription = Arrays.stream(parts)
+						.skip(1)
+						.collect(Collectors.joining(" "));
+				if (taskDescription.equals("")) {
+					throw new Exception("Invalid command. Usage: todo <description>.");
+				}
+				t = new TodoTask(taskDescription);
+
 			}
-			t = new TodoTask(taskDescription);
+			case "deadline" -> {
+				int index = Arrays.asList(parts).indexOf("/by");
 
-		} else if (type.equals("deadline")) {
-			int index = Arrays.asList(parts).indexOf("/by");
+				String taskDescription = Arrays.stream(parts)
+						.skip(1)
+						.limit(index - 1)
+						.collect(Collectors.joining(" "));
 
-			String taskDescription = Arrays.stream(parts)
-					.skip(1)
-					.limit(index - 1)
-					.collect(Collectors.joining(" "));
+				String deadline = Arrays.stream(parts)
+						.skip(index + 1)
+						.collect(Collectors.joining(" "));
 
-			String deadline = Arrays.stream(parts)
-					.skip(index + 1)
-					.collect(Collectors.joining(" "));
+				if (taskDescription.equals("") || deadline.equals("")) {
+					throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
+				}
 
-			if (taskDescription.equals("") || deadline.equals("")) {
-				throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
+				t = new DeadlineTask(taskDescription, deadline);
 			}
-			t = new DeadlineTask(taskDescription, deadline);
+			case "event" -> {
+				int indexFrom = Arrays.asList(parts).indexOf("/from");
+				int indexTo = Arrays.asList(parts).indexOf("/to");
 
-		} else if (type.equals("event")) {
-			int indexFrom = Arrays.asList(parts).indexOf("/from");
-			int indexTo = Arrays.asList(parts).indexOf("/to");
+				String taskDescription = Arrays.stream(parts)
+						.skip(1)
+						.limit(indexFrom - 1)
+						.collect(Collectors.joining(" "));
 
-			String taskDescription = Arrays.stream(parts)
-					.skip(1)
-					.limit(indexFrom - 1)
-					.collect(Collectors.joining(" "));
+				String from = Arrays.stream(parts)
+						.skip(indexFrom + 1)
+						.limit(indexTo - indexFrom - 1)
+						.collect(Collectors.joining(" "));
 
-			String from = Arrays.stream(parts)
-					.skip(indexFrom + 1)
-					.limit(indexTo - indexFrom - 1)
-					.collect(Collectors.joining(" "));
+				String to = Arrays.stream(parts)
+						.skip(indexTo + 1)
+						.collect(Collectors.joining(" "));
 
-			String to = Arrays.stream(parts)
-					.skip(indexTo + 1)
-					.collect(Collectors.joining(" "));
+				if (taskDescription.equals("") || from.equals("") || to.equals("")) {
+					throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
+				}
 
-			if (taskDescription.equals("") || from.equals("") || to.equals("")) {
-				throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
+				t = new EventTask(taskDescription, from, to);
 			}
-			t = new EventTask(taskDescription, from, to);
-		} else {
-			// not possible to reach here
-			throw new Exception("Invalid task type.");
+			default ->
+				// not possible to reach here
+					throw new Exception("Invalid task type.");
 		}
 
 		tm.add(t);
@@ -216,9 +224,9 @@ public class CommandHandler {
 	private String printAfterEditList(String message, Task t) {
 		StringBuilder res = new StringBuilder();
 		res.append(message);
-		res.append("\n  " + Config.INDENTATION + t.toString());
+		res.append("\n  " + Config.INDENTATION).append(t.toString());
 		String taskString = tm.length == 1 ? "task" : "tasks";
-		res.append("\n" + Config.INDENTATION + "Now you have " + tm.length + " " + taskString + " in the list.");
+		res.append("\n" + Config.INDENTATION + "Now you have ").append(tm.length).append(" ").append(taskString).append(" in the list.");
 
 		Utils.printItem(res.toString());
 
@@ -229,14 +237,12 @@ public class CommandHandler {
 /**
  * Gets the command type as a string.
  *
- * @return the command type
  */
 enum CommandType {
 	TODO("todo"),
 	DEADLINE("deadline"),
 	EVENT("event"),
 	LIST("list"),
-	EXIT("bye"),
 	MARK("mark"),
 	UNMARK("unmark"),
 	DELETE("delete"),
