@@ -1,4 +1,4 @@
-package fred;
+package fred.Tasks;
 
 /**
  * The abstract Task class represents a task with a description and a completion status.

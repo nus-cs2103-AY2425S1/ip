@@ -1,4 +1,4 @@
-package fred;
+package fred.Exceptions;
 
 public class UnknownCommandException extends FredException {
     public UnknownCommandException() {

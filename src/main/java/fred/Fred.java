@@ -1,5 +1,8 @@
 package fred;
 
+import fred.Exceptions.FredException;
+import fred.Tasks.Task;
+
 import java.util.ArrayList;
 
 /**

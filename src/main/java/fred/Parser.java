@@ -1,5 +1,7 @@
 package fred;
 
+import fred.Exceptions.*;
+
 /**
  * The Parser class handles the parsing of user input. It converts raw input strings
  * into structured commands that can be executed by the application. The parser
