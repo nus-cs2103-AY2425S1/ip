@@ -20,14 +20,4 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.setResponse("Goodbye! My man.");
     }
-
-    /**
-     * Indicates that this command is an exit command.
-     *
-     * @return {@code true} since this is an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

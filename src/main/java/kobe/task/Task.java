@@ -51,8 +51,7 @@ public class Task {
      * @return A formatted string representing the task in a file-friendly format.
      */
     public String toFileFormat() {
-        return (this instanceof Todo ? "T" : (this instanceof Deadline ? "D" : "E")) + " | " +
-                (isDone ? "1" : "0") + " | " + name;
+        return (this instanceof Todo ? "T" : (this instanceof Deadline ? "D" : "E")) + " | " + (isDone ? "1" : "0") + " | " + name;
     }
 
     /**

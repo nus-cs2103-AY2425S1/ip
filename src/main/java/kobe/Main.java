@@ -1,5 +1,6 @@
 package kobe;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 
 /**
  * Main class for the Kobe chatbot with a graphical user interface (GUI).
@@ -28,8 +30,6 @@ public class Main extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
-    // Injecting the Kobe instance to decouple it from UI
     private final Kobe kobe = new Kobe("data/kobee.txt");
 
     @Override
@@ -37,56 +37,64 @@ public class Main extends Application {
         initializeUI(stage);
         setUpEventHandlers();
         stage.show();
-
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-
-        // Show welcome message on startup
+        applyStyles();
         showWelcomeMessage();
     }
 
     /**
-     * Initializes the user interface.
-     * @param stage The main stage of the application.
+     * Initializes the user interface components.
      */
     private void initializeUI(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        dialogContainer.setPadding(new Insets(10));
-        dialogContainer.setSpacing(10);
-
-        scrollPane.setContent(dialogContainer);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        userInput = new TextField();
-        userInput.setPromptText("Enter your message...");
-
+        dialogContainer = createDialogContainer();
+        scrollPane = createScrollPane(dialogContainer);
+        userInput = createTextField("Enter your message...");
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        AnchorPane mainLayout = new AnchorPane(scrollPane, userInput, sendButton);
+        configureLayout(mainLayout);
 
-        scene = new Scene(mainLayout);
+        scene = new Scene(mainLayout, WINDOW_WIDTH, WINDOW_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("Kobe Chatbot");
         stage.setResizable(false);
-        stage.setMinHeight(WINDOW_HEIGHT);
-        stage.setMinWidth(WINDOW_WIDTH);
-        mainLayout.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-        setUpLayout();
     }
 
     /**
-     * Sets up the layout constraints for UI elements.
+     * Creates and configures the dialog container (VBox).
      */
-    private void setUpLayout() {
-        scrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setFitToWidth(true);
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    private VBox createDialogContainer() {
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(10));
+        vbox.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        return vbox;
+    }
 
-        userInput.setPrefWidth(325.0);
+    /**
+     * Creates and configures the ScrollPane for displaying dialogs.
+     */
+    private ScrollPane createScrollPane(VBox container) {
+        ScrollPane sp = new ScrollPane(container);
+        sp.setFitToWidth(true);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        return sp;
+    }
+
+    /**
+     * Creates a TextField with a prompt text.
+     */
+    private TextField createTextField(String prompt) {
+        TextField textField = new TextField();
+        textField.setPromptText(prompt);
+        textField.setPrefWidth(325.0);
+        return textField;
+    }
+
+    /**
+     * Configures the layout of the UI elements.
+     */
+    private void configureLayout(AnchorPane layout) {
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
@@ -98,16 +106,23 @@ public class Main extends Application {
     }
 
     /**
-     * Sets up event handlers for button clicks and input actions.
+     * Applies the CSS styles to the scene.
      */
-    private void setUpEventHandlers() {
-        sendButton.setOnMouseClicked((event) -> handleUserInput());
-        userInput.setOnAction((event) -> handleUserInput());
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    private void applyStyles() {
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
     }
 
     /**
-     * Handles user input, processes it, and displays responses.
+     * Sets up the event handlers for user input and button clicks.
+     */
+    private void setUpEventHandlers() {
+        sendButton.setOnMouseClicked(event -> handleUserInput());
+        userInput.setOnAction(event -> handleUserInput());
+        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Handles user input, processes it, and adds dialogs to the container.
      */
     private void handleUserInput() {
         String input = userInput.getText();
@@ -116,28 +131,48 @@ public class Main extends Application {
         String response = kobe.getResponse(input);
         addDialog(input, response);
         userInput.clear();
-    }
 
-    /**
-     * Displays the welcome message at the start of the application.
-     */
-    private void showWelcomeMessage() {
-        String welcomeMessage = kobe.getResponse("welcome");
-        addDialog(null, welcomeMessage);
+        if ("bye".equalsIgnoreCase(input)) {
+            closeApplication();
+        }
     }
 
     /**
      * Adds the user and chatbot dialogs to the container.
-     * @param userInput The user's input message.
-     * @param kobeResponse The chatbot's response.
      */
     private void addDialog(String userInput, String kobeResponse) {
         if (userInput != null) {
-            DialogBox userDialog = DialogBox.getUserDialog(userInput, new ImageView(new Image(this.getClass().getResourceAsStream("/images/patrick.png"))));
-            dialogContainer.getChildren().add(userDialog);
+            dialogContainer.getChildren().add(
+                    DialogBox.getUserDialog(userInput, createImageView("/images/patrick.png"))
+            );
         }
-        DialogBox kobeDialog = DialogBox.getKobeDialog(kobeResponse, new ImageView(new Image(this.getClass().getResourceAsStream("/images/kobe.png"))));
-        dialogContainer.getChildren().add(kobeDialog);
-        scrollPane.setVvalue(1.0);  // Scroll to bottom
+        dialogContainer.getChildren().add(
+                DialogBox.getKobeDialog(kobeResponse, createImageView("/images/kobe.png"))
+        );
+        scrollPane.setVvalue(1.0);
+    }
+
+    /**
+     * Creates an ImageView from the resource path.
+     */
+    private ImageView createImageView(String path) {
+        return new ImageView(new Image(getClass().getResourceAsStream(path)));
+    }
+
+    /**
+     * Closes the application after a short delay.
+     */
+    private void closeApplication() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> ((Stage) sendButton.getScene().getWindow()).close());
+        delay.play();
+    }
+
+    /**
+     * Displays the welcome message when the application starts.
+     */
+    private void showWelcomeMessage() {
+        String welcomeMessage = kobe.getResponse("welcome");
+        addDialog(null, welcomeMessage);
     }
 }

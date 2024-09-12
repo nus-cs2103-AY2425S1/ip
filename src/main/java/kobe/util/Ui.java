@@ -25,15 +25,8 @@ public class Ui {
      * @return The welcome message.
      */
     public String getWelcomeMessage() {
-        String logo =
-                " K   K   OOO   BBBB   EEEE  \n" +
-                        " K  K   O   O  B   B  E     \n" +
-                        " KKK    O   O  BBBB   EEEE  \n" +
-                        " K  K   O   O  B   B  E     \n" +
-                        " K   K   OOO   BBBB   EEEE  \n";
-
         latestResponse = "____________________________________________________________\n"
-                + "Greetings from Kobe Bryant. \n" + logo
+                + "Greetings from Kobe Bryant. \n"
                 + "How can I help you, my man?\n"
                 + "____________________________________________________________";
         return latestResponse;
